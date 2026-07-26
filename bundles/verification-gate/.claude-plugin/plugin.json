@@ -1,0 +1,23 @@
+{
+  "name": "verification-gate",
+  "version": "0.1.0",
+  "description": "Two read-only reviewers that run before an agent may declare a task done: verification-critic (reward-hacking and spec drift) and architecture-reviewer (structural decay).",
+  "author": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "repository": "https://github.com/ConnorBritain/agent-primitives",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "verification",
+    "reward-hacking",
+    "architecture",
+    "subagent",
+    "quality-gate"
+  ],
+  "agents": [
+    "./agents/verification-critic.md",
+    "./agents/architecture-reviewer.md"
+  ]
+}

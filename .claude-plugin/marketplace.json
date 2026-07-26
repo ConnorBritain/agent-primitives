@@ -1,0 +1,18 @@
+{
+  "name": "agent-primitives",
+  "description": "Portable agent patterns — reviewers, gates, and workflows that deploy to Claude Code, Codex, Cursor, and any AGENTS.md harness from one source of truth.",
+  "owner": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "plugins": [
+    {
+      "name": "verification-gate",
+      "description": "Two read-only reviewers that run before an agent may declare a task done: verification-critic (reward-hacking and spec drift) and architecture-reviewer (structural decay). Optional Stop hook refuses to end a turn on red Tier-1 gates.",
+      "source": "./bundles/verification-gate",
+      "version": "0.1.0",
+      "category": "code-quality",
+      "tags": ["code-review", "verification", "reward-hacking", "architecture", "quality-gate"]
+    }
+  ]
+}

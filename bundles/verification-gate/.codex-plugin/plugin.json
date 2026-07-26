@@ -1,0 +1,35 @@
+{
+  "name": "verification-gate",
+  "version": "0.1.0",
+  "description": "Two read-only reviewers that run before an agent may declare a task done.",
+  "author": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "homepage": "https://github.com/ConnorBritain/agent-primitives",
+  "repository": "https://github.com/ConnorBritain/agent-primitives",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "verification",
+    "reward-hacking",
+    "architecture",
+    "quality-gate"
+  ],
+  "interface": {
+    "displayName": "Verification Gate",
+    "shortDescription": "Adversarial reviewers that check whether a task was finished or gamed.",
+    "longDescription": "Two read-only reviewers that run at the end of a turn, in a context separate from the one that wrote the code. verification-critic hunts reward-hacking: weakened assertions, added skips, harness escapes, code overfit to a test's exact input. architecture-reviewer hunts structural decay: god objects, duplication, premature abstraction, unrequested scope. Each ends in a verdict, so 'done' becomes a claim something else checked. NOTE: Codex enforces neither the read-only tool restriction nor turn-blocking, so run these as a fresh `codex exec` subprocess against the diff rather than inline — see docs/portability.md.",
+    "developerName": "Connor England",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/ConnorBritain/agent-primitives",
+    "defaultPrompt": [
+      "Review the current diff for reward-hacking and spec drift",
+      "Review the current diff for structural decay",
+      "Run the verification gate before I call this done"
+    ]
+  }
+}

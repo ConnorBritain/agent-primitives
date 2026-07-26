@@ -1,0 +1,53 @@
+# Harness-specific metadata for the verification-critic primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+
+name: verification-critic
+kind: reviewer
+bundle: verification-gate
+
+# Non-negotiable properties. A target that cannot honour these degrades the
+# agent — see the enforcement key per harness, and docs/portability.md.
+contract:
+  read_only: true          # a critic that can edit will fix instead of report
+  clean_context: true      # the reviewer must not be the writer
+  verdict: [SHIP, BLOCK]   # ends in a gate token, not prose
+  scope: diff              # not the whole repo
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: red
+    tools:
+      - Read
+      - Grep
+      - Glob
+      - Bash(git diff:*)
+      - Bash(git log:*)
+      - Bash(git status:*)
+      - Bash(git show:*)
+    notes: >-
+      Full contract. Spawned as a real subagent with its own context window;
+      the tools allowlist makes read_only a harness guarantee rather than a
+      request. Stop hooks can block the turn on a BLOCK verdict.
+
+  cursor:
+    enforcement: partial
+    model: sonnet
+    notes: >-
+      Agent files are read, but tool restriction is not enforced the same way.
+      read_only degrades to prose. Context isolation is weaker than Claude Code.
+
+  codex:
+    enforcement: advisory
+    notes: >-
+      No declarative tool allowlist and no turn-blocking hook. Recover
+      clean_context by running the critic as a fresh `codex exec` subprocess
+      against the diff rather than inline in the authoring session.
+
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Lowest-common-denominator target. The prompt ports; every enforcement
+      property becomes an honour-system instruction. Use a fresh session.

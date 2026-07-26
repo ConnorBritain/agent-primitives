@@ -1,0 +1,15 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+
+# Node (for the generator, when it lands)
+node_modules/
+*.log
+
+# Local Claude Code state — never the plugin manifests, which are the product
+.claude/settings.local.json

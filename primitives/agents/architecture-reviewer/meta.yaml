@@ -1,0 +1,49 @@
+# Harness-specific metadata for the architecture-reviewer primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+
+name: architecture-reviewer
+kind: reviewer
+bundle: verification-gate
+
+# Non-negotiable properties. A target that cannot honour these degrades the
+# agent — see the enforcement key per harness, and docs/portability.md.
+contract:
+  read_only: true
+  clean_context: true
+  verdict: [SHIP, SHIP WITH FIXES, DO NOT SHIP]
+  scope: diff              # whole-repo structural reviews drown in pre-existing findings
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: yellow
+    tools:
+      - Read
+      - Grep
+      - Glob
+      - Bash(git diff:*)
+      - Bash(git log:*)
+      - Bash(git status:*)
+      - Bash(git show:*)
+    notes: >-
+      Full contract. Grep access matters more here than for the critic — the
+      duplication check is only as good as the search that backs it.
+
+  cursor:
+    enforcement: partial
+    model: sonnet
+    notes: >-
+      Agent file is read; tool restriction degrades to prose.
+
+  codex:
+    enforcement: advisory
+    notes: >-
+      Run as a fresh `codex exec` subprocess against the diff. Inline use in
+      the authoring session tends to rationalise the structure it just wrote.
+
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Prompt ports; enforcement does not. Use a fresh session.
