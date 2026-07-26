@@ -44,6 +44,10 @@ landed first.
 - **`enforcement` must be honest** — `enforced` | `partial` | `advisory`. Overstating it is the
   most damaging error available here; see [`docs/portability.md`](docs/portability.md).
 - **Every primitive has a stated output contract** and a *Known limits* section.
+- **A bundle is the install and toggle unit** — there is no per-agent selector in Claude Code,
+  so a bundle holds exactly the primitives a user would want on or off together. Adding a new
+  domain means a new bundle, not a new agent in an existing one. See
+  [`CONTRIBUTING.md`](CONTRIBUTING.md#sizing-a-bundle).
 - **No secrets, credentials, or user-specific paths.** This repo is public.
 - **Docs explain rationale, not just mechanics.** The checklist is in `agent.md`; the README
   earns its place by saying why those items and not others.

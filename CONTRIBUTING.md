@@ -145,10 +145,51 @@ The reason to prefer this repo over pasting a prompt from a blog post.
 Explain rationale, not mechanics. The checklist is in `agent.md`; the README earns its place by
 saying *why those items and not others*.
 
-## Anatomy of a bundle
+## Sizing a bundle
 
-A bundle is the deployable unit — one or more primitives that ship together because they're
-used together.
+A bundle is the deployable unit. Get its boundary wrong and users can't install or disable
+what they want, so decide this before writing the manifests.
+
+**The mechanism.** In Claude Code, install granularity is the *plugin*, not the agent:
+
+```
+/plugin marketplace add ConnorBritain/agent-primitives   # registers the catalog, installs nothing
+/plugin install verification-gate@agent-primitives       # installs the whole bundle
+```
+
+Enabling is the same granularity — a boolean per plugin in `settings.json`:
+
+```json
+"enabledPlugins": { "verification-gate@agent-primitives": true }
+```
+
+There is no per-agent selector in either. Install one primitive from a bundle and you install
+all of them; disable the bundle and they all go quiet.
+
+**The rule that follows: a bundle is the set of primitives you would turn on and off
+together.** Bundle boundary = install boundary = toggle boundary. Those are the same line,
+so draw it once, deliberately.
+
+**The test.** Would anyone reasonably want one of these without the others?
+
+- *No* → one bundle. `verification-critic` and `architecture-reviewer` run at the same moment,
+  on the same diff, as one gate. A gate with half its checks is a strange thing to want.
+- *Yes* → separate bundles. A prose humanizer and a code reviewer share nothing: different
+  domain, different trigger, different projects. Bundling them forces anyone who wants one to
+  take both.
+
+**Don't pre-split.** Two bundles means two sets of four manifests, two versions to keep in
+lockstep, and two marketplace entries — real cost, paid every release. Split when someone
+actually wants one without the other, not in anticipation.
+
+**Escape hatches** when a user wants finer control than the bundle gives:
+
+- Loose-file install takes individual names: `./install.sh verification-critic`
+- Put `enabledPlugins` in a *project's* `.claude/settings.json` and the bundle is active only
+  in that repo — usually the on/off people actually want, e.g. a delivery gate that's live in
+  application repos and absent in a docs repo.
+
+## Anatomy of a bundle
 
 ```
 bundles/<bundle>/
@@ -223,6 +264,7 @@ stop accepting.
 [ ] tools = narrowest set that does the job
 [ ] README covers all eight sections, including Known limits
 [ ] rendered copy in bundles/<bundle>/agents/<name>.md — body byte-identical to agent.md
+[ ] bundle choice justified: would anyone want this WITHOUT the others in that bundle?
 [ ] bundle AGENTS.md + wiring/ updated
 [ ] all four manifests updated, versions identical, registered in marketplace.json
 [ ] wiring mode chosen deliberately (docs/wiring.md) — CLAUDE.md edits only if protocol-bound

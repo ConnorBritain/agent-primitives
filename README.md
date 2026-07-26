@@ -23,6 +23,11 @@ One bundle today. [`CONTRIBUTING.md`](CONTRIBUTING.md) is the spec for adding an
 domain — the repo is not scoped to code review, and the authoring guidance is organised by
 **kind** rather than by subject matter.
 
+A bundle is the unit you install and toggle, so it holds the primitives you'd want on or off
+*together* — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle). Adding a new domain means
+a new bundle plus one entry in [`marketplace.json`](.claude-plugin/marketplace.json); it does
+not disturb the existing ones.
+
 ## Kinds
 
 Kind determines what a primitive must promise, how it's wired in, and how you test it.
@@ -106,7 +111,7 @@ primitives/agents/<name>/     harness-neutral source of truth
   meta.yaml                   kind, contract, per-harness metadata + enforcement level
   README.md                   the write-up
 
-bundles/<bundle>/             a deployable unit — one or more primitives that ship together
+bundles/<bundle>/             a deployable unit — the primitives you turn on and off together
   agents/*.md                 rendered with Claude Code frontmatter
   hooks/                      enforcement only some harnesses support
   wiring/                     copy-paste CLAUDE.md / AGENTS.md snippets for THIS bundle
