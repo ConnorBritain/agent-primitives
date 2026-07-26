@@ -1,137 +1,169 @@
 # Contributing
 
-The ops of adding a primitive. Follow this and your primitive works in four harnesses and
-survives the generator landing later.
+The ops of adding a primitive, in any domain. Follow this and your primitive works in four
+harnesses and survives the generator landing later.
 
 ## Before you write anything
 
-Answer these three. If you can't, the primitive isn't ready.
+**1. What does it do that nothing else does?**
+Name the job concretely enough to test. "Improves writing" is not a primitive. "Rewrites
+AI-register prose — hedging stacks, uniform sentence length, listicle scaffolding — while
+preserving every claim" is. If an existing primitive already covers it, extend that one; two
+primitives with overlapping scope make each other weaker, because each assumes the other has
+it covered.
 
-**1. What does it catch that nothing else catches?**
-Name the failure mode concretely enough to write a test for. "Reviews code quality" is not a
-primitive. "Catches an assertion that was loosened from exact-match to not-null in this diff"
-is. If an existing primitive already covers it, extend that one — a second reviewer with
-overlapping scope makes both weaker, because each assumes the other has it.
-
-**2. Is it read-only?**
-Almost every primitive should be. A reviewer able to fix what it finds will fix rather than
-report, and you end up with an unreviewed diff that now includes the reviewer's edits. Writing
-primitives exist (a test author, a migration runner), but they need a stated reason.
+**2. What kind is it?**
+This decides the rules, the wiring, and the tests. Pick before writing the prompt.
 
 **3. Where does it stop working?**
-Every primitive has a boundary. Say it out loud in the README under *Known limits*. A
-primitive with no stated limits is one nobody has pushed on yet.
+Every primitive has a boundary. State it in the README under *Known limits*. A primitive with
+no stated limits is one nobody has pushed on yet.
 
-## Anatomy of a primitive
+## Kinds
+
+| Kind | Reads / writes | Output contract | Central risk |
+|---|---|---|---|
+| **reviewer** | read-only | a verdict token | approves its own work |
+| **transformer** | rewrites its input | changed artifact + what was preserved | changes what it should have preserved |
+| **author** | writes new artifacts | artifact + how it was verified | invents conventions the project doesn't use |
+| **investigator** | read-only | a map or answer, with sources | reports inference as observation |
+| **planner** | read-only | a plan + its success criteria | plans work that can't be checked |
+
+### Per-kind requirements
+
+**reviewer** — Read-only, always: an agent able to fix what it finds will fix rather than
+report, leaving an unreviewed diff that now contains its edits too. Must run in a context
+separate from whoever produced the work; this isolation is the mechanism, not a nicety. Frame
+adversarially and say so in the prompt — "please review this" returns praise, "assume the
+author took the easy path and prove it" returns findings. End in a verdict token, and resolve
+uncertainty toward blocking; a reviewer that rounds ambiguity to "probably fine" converges on
+rubber-stamping.
+
+**transformer** — Declare `preserves` in `meta.yaml`: what must survive the rewrite. This is
+the contract, and the whole risk profile lives here. Prefer the smallest edit achieving the
+goal; a transformer that rewrites more than asked is indistinguishable from one that
+misunderstood. Should be **idempotent** — running it twice must not drift further than once.
+Report what changed, not just the result, or the user can't review it. Never silently drop
+content: if something can't be transformed, say so.
+
+**author** — Read the project's existing conventions *first* and match them; introducing a new
+framework, naming scheme, or assertion style is a finding, not a feature. State how the output
+was verified — an author that reports "added tests" without running them has produced
+unverified text.
+
+**investigator** — Read-only. Separate observation from inference explicitly, and cite what
+grounds each claim. Say what you could not determine; an investigator that never says "unknown"
+is one that guesses.
+
+**planner** — Define success criteria *before* decomposing: what proves this is done. A plan
+whose steps can't be checked isn't a plan. Name existing code to reuse before proposing new
+code.
+
+## Anatomy
 
 ```
 primitives/agents/<name>/
 ├── agent.md      prompt body + universal frontmatter (name, description ONLY)
-├── meta.yaml     contract + per-harness metadata and enforcement level
+├── meta.yaml     kind, contract, per-harness metadata and enforcement level
 └── README.md     the write-up
 ```
 
 ### `agent.md`
 
-Frontmatter carries **only** the universally-supported keys — `name` and `description`.
-Everything harness-specific (`tools`, `model`, `color`) belongs in `meta.yaml`; putting it
-here breaks the neutral form and the generator will overwrite it.
+Frontmatter carries **only** `name` and `description`. Everything harness-specific (`tools`,
+`model`, `color`) belongs in `meta.yaml`; putting it here breaks the neutral form and the
+generator will overwrite it.
 
-The body is the prompt, shared verbatim by every target. Structure that works:
+Write `description` for the dispatcher, not for a human — it's what the harness reads to decide
+whether to invoke this agent. Lead with the trigger condition, and name the adjacent primitive
+it shouldn't be confused with. See [`docs/wiring.md`](docs/wiring.md#1-dispatcher-triggered--the-harness-decides).
 
-- **Framing sentence.** Who the agent is, and — for reviewers — that it did *not* write this
-  code and its job is to find what's wrong, not confirm it works. This sentence does more
-  work than the rest of the prompt combined.
-- **Scope.** What it reads. For diff reviewers, name the commands (`git diff`, `git show`).
-- **A numbered list of exactly what to hunt for, in priority order.** Numbered and bounded.
-  An open-ended "look for problems" returns whatever is most salient, which is rarely what
-  matters. Priority order determines what survives a truncated response.
-- **Output contract.** The exact per-finding fields, and a **verdict token** on the last line.
-- **Terseness instruction.** "Terse. No praise, no preamble." Reviewers pad by default.
+The body is shared verbatim by every target. Structure that works across kinds:
 
-Write `description` for the dispatcher, not for a human. It is what the harness reads to
-decide whether to invoke this agent, so lead with the trigger condition, and say what the
-agent is *not* for when a sibling primitive is adjacent. Compare:
-
-> ❌ `Reviews code for architecture issues.`
-> ✅ `Read-only reviewer that inspects a diff for god objects, duplication, premature abstraction, spec drift, dead code, and boundary violations. Use after a code change and before declaring a task done. Never edits. Separate from code-reviewer (correctness/security/style).`
+- **Framing sentence.** Who the agent is and what stance it takes. For reviewers, that it did
+  *not* write this and its job is to find what's wrong. For transformers, what it must preserve.
+  This sentence does more work than the rest of the prompt combined.
+- **Scope.** What it reads and what it may touch. Name commands where relevant.
+- **A numbered list, in priority order.** Bounded and ordered — open-ended instructions return
+  whatever is most salient, and priority order decides what survives a truncated response.
+- **Output contract.** The exact fields, and a final line in a defined shape.
+- **Terseness instruction.** Agents pad by default.
 
 ### `meta.yaml`
 
-Two blocks. `contract` is what the primitive needs to work at all; `harness` is what each
-target can actually deliver.
+`contract` is what the primitive needs to work; `harness` is what each target delivers.
 
 ```yaml
 name: <name>
-kind: reviewer          # reviewer | author | investigator | planner
+kind: reviewer | transformer | author | investigator | planner
 bundle: <bundle-name>
 
 contract:
-  read_only: true
-  clean_context: true          # must not run in the writer's context
-  verdict: [SHIP, BLOCK]
-  scope: diff                  # diff | repo | file
+  read_only: true          # reviewer/investigator/planner: true. transformer/author: false
+  clean_context: true      # must not run in the context that produced the work
+  scope: diff              # diff | file | selection | repo
+  verdict: [SHIP, BLOCK]   # reviewers
+  # transformers add:
+  # preserves: [claims, structure, code blocks]
+  # idempotent: true
 
 harness:
   claude-code:
     enforcement: enforced      # enforced | partial | advisory
     model: sonnet
-    color: red
-    tools: [Read, Grep, Glob, "Bash(git diff:*)", "Bash(git log:*)"]
+    tools: [Read, Grep, Glob, "Bash(git diff:*)"]
     notes: >-
-      What this harness guarantees, in one or two sentences.
-  cursor:
-    enforcement: partial
-    model: sonnet
-  codex:
-    enforcement: advisory
-    notes: How to recover what's lost — usually a fresh subprocess.
-  agents-md:
-    enforcement: advisory
+      What this harness guarantees, in a sentence or two.
+  cursor:  { enforcement: partial }
+  codex:   { enforcement: advisory, notes: How to recover what's lost }
+  agents-md: { enforcement: advisory }
 ```
 
-Be honest about `enforcement`. It is the field that stops a weak port from being described as
-a strong one, and that mislabel is the most damaging thing you can ship here — it buys false
-confidence exactly where the goal was to stop trusting self-reports.
+Contract keys vary by kind — `verdict` is meaningless for a transformer, `preserves` for a
+reviewer. Add what the kind needs; don't pad with keys that don't apply.
 
-Grant the narrowest `tools` set that does the job. A diff reviewer needs `Bash(git diff:*)`,
-not `Bash`.
+Be honest about `enforcement`. Overstating it is the most damaging error available here: it
+buys confidence exactly where the point was to stop trusting self-reports.
+
+Grant the narrowest `tools` set that does the job — `Bash(git diff:*)`, not `Bash`.
 
 ### `README.md`
 
-This is the part people actually read, and the reason to prefer this repo over pasting a
-prompt from a blog post. Required sections:
+The reason to prefer this repo over pasting a prompt from a blog post.
 
 | Section | Contains |
 |---|---|
-| Header | One line each: **Catches**, **Verdict**, **Bundle** |
-| **Why this exists** | The failure mode, concretely. Why it is hard to catch by reading the diff. Why it survives ordinary review. |
-| **Why a separate agent** | Why the obvious cheaper thing (asking the writer to double-check) doesn't work. |
-| **What it looks for** | A table of the numbered items from `agent.md`, with the tell for each. |
-| **When to run it** | Position in the turn, and what must already be true. |
-| **Reading the verdict** | What each token means, and what it does *not* certify. |
+| Header | One line each: what it does, output contract, bundle |
+| **Why this exists** | The failure mode or need, concretely. Why it's hard to handle by hand. |
+| **Why a separate agent** | Why the cheaper obvious thing doesn't work. |
+| **What it does** | A table of the numbered items from `agent.md`, with the tell or rule for each. |
+| **When to run it** | Position in the workflow; what must already be true. |
+| **Reading the output** | What the contract means, and what it does *not* certify. |
 | **Known limits** | Where it stops working. Non-negotiable. |
 | **Install** | The one-liner. |
 
-Explain rationale, not just mechanics. The list of checks is in `agent.md` already; the README
-earns its place by saying *why those checks and not others*.
+Explain rationale, not mechanics. The checklist is in `agent.md`; the README earns its place by
+saying *why those items and not others*.
 
 ## Anatomy of a bundle
 
-A bundle is the deployable unit. One bundle can hold several primitives that belong together —
-`verification-gate` holds two reviewers that run at the same moment on the same diff.
+A bundle is the deployable unit — one or more primitives that ship together because they're
+used together.
 
 ```
 bundles/<bundle>/
-├── agents/<name>.md         rendered: agent.md body + Claude frontmatter from meta.yaml
+├── agents/<name>.md         rendered: agent.md body + frontmatter from meta.yaml
 ├── hooks/                   optional; enforcement only some harnesses support
-├── AGENTS.md                portable variant — full prompts inline, degradation warned
+├── wiring/                  CLAUDE.md / AGENTS.md snippets for THIS bundle
+├── AGENTS.md                portable variant, with the degradation warned
+├── PROTOCOL.md              how these primitives are meant to be run, if non-obvious
 ├── README.md                contents, install per harness, cost, when to skip
-├── .claude-plugin/plugin.json
-├── .cursor-plugin/plugin.json
-├── .codex-plugin/plugin.json
-└── .plugin/plugin.json
+└── .claude-plugin/ .cursor-plugin/ .codex-plugin/ .plugin/
 ```
+
+**Bundle-specific docs live in the bundle.** Repo-level `docs/` is kind-agnostic. A protocol,
+a rationale, or a snippet that's true only of your bundle belongs next to it — otherwise
+`docs/` becomes a monument to whichever bundle landed first.
 
 ### Manifest differences that will bite you
 
@@ -143,64 +175,66 @@ The four schemas are not interchangeable. Copy the shapes from `verification-gat
   `longDescription`, `category`, `capabilities`, `defaultPrompt`) for marketplace display.
 - **`.plugin`** — generic fallback. Identity only, no surface wiring.
 
-Then register the bundle in the root [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json)
-so `/plugin marketplace add` can see it.
-
-Keep `version` identical across all four manifests and the marketplace entry. Four files
-claiming different versions of the same bundle is a support problem you will not enjoy.
+Register the bundle in the root [`.claude-plugin/marketplace.json`](.claude-plugin/marketplace.json),
+and keep `version` identical across all four manifests plus the marketplace entry.
 
 ### Hooks
 
-Hooks are where enforcement lives, so they get held to a higher bar than prompts — a broken
-prompt gives a bad review, a broken hook blocks every turn.
+Hooks are where enforcement lives, so they're held to a higher bar than prompts — a broken
+prompt gives a bad answer, a broken hook blocks every turn.
 
-- **Fail asymmetrically.** A failing *check* should block. A failing *hook* (unparseable
-  config, missing runtime) should warn and exit clean. A guard that bricks the session gets
-  uninstalled, and an uninstalled guard protects nothing.
-- **Opt in per project.** No config file present → no-op.
-- **Respect `stop_hook_active`** on `Stop` hooks, or you will build an infinite loop.
-- **Cross-platform.** Node with no dependencies. This repo targets Windows, macOS, and Linux.
-- **Test every path before committing** — config absent, config malformed, check passing,
-  check failing, timeout, loop guard. See the paths covered by
-  [`gate-runner.mjs`](bundles/verification-gate/hooks/gate-runner.mjs).
+- **Fail asymmetrically.** A failing *check* blocks. A failing *hook* (unparseable config,
+  missing runtime) warns and exits clean. A guard that bricks the session gets uninstalled, and
+  an uninstalled guard protects nothing.
+- **Opt in per project.** No config present → no-op.
+- **Respect `stop_hook_active`** on `Stop` hooks, or you've built an infinite loop.
+- **Cross-platform**, no dependencies. This repo targets Windows, macOS, and Linux.
+- **Test every path** — config absent, malformed, check passing, check failing, timeout, loop
+  guard. See [`gate-runner.mjs`](bundles/verification-gate/hooks/gate-runner.mjs).
+
+## Testing a primitive
+
+There's no unit test for a prompt. Test it the only way that means anything: **on input built
+to break it**, then on input that should leave it quiet.
+
+| Kind | Positive test | Negative test (the one people skip) |
+|---|---|---|
+| **reviewer** | Poison a diff — weaken an assertion, add a `skip`, duplicate an existing helper. It must fire, cite the right line, return the blocking verdict. | A genuinely clean diff. It must say so **without manufacturing nits.** |
+| **transformer** | A representative input. Check the `preserves` list survived, item by item. | Run it twice — output must be stable (idempotent). And run it on *already-good* input: it must make few or no changes. |
+| **author** | A project with established conventions. Output must match them, not the agent's defaults. | A project with *unusual* conventions. It must still match, not "improve". |
+| **investigator** | A question with a verifiable answer. Check every claim is grounded. | A question the data can't answer. It must say "unknown" rather than infer. |
+| **planner** | A real task. The plan must name checkable success criteria. | An underspecified task. It must surface the ambiguity, not guess. |
+
+The negative test is the one that matters. A primitive that fires on everything is noise, and
+noise gets ignored — the same outcome as not having it, after paying for it.
+
+Record both results in the PR. "It looked right" is exactly the self-report this repo exists to
+stop accepting.
 
 ## Checklist
 
 ```
 [ ] primitives/agents/<name>/{agent.md, meta.yaml, README.md}
 [ ] agent.md frontmatter has ONLY name + description
-[ ] body: framing · scope · numbered priority list · output contract · verdict token · terseness
-[ ] meta.yaml: contract block + every harness labelled enforced|partial|advisory
-[ ] README covers all eight required sections, including Known limits
+[ ] description leads with the trigger condition; names the sibling it isn't
+[ ] body: framing · scope · numbered priority list · output contract · terseness
+[ ] meta.yaml: kind + contract keys appropriate to that kind
+[ ] every harness labelled enforced|partial|advisory, honestly
+[ ] tools = narrowest set that does the job
+[ ] README covers all eight sections, including Known limits
 [ ] rendered copy in bundles/<bundle>/agents/<name>.md — body byte-identical to agent.md
-[ ] bundle AGENTS.md updated with the portable prompt + degradation warning
-[ ] all four manifests updated, versions identical
-[ ] registered in .claude-plugin/marketplace.json
+[ ] bundle AGENTS.md + wiring/ updated
+[ ] all four manifests updated, versions identical, registered in marketplace.json
+[ ] wiring mode chosen deliberately (docs/wiring.md) — CLAUDE.md edits only if protocol-bound
+[ ] positive AND negative test run, both recorded
 [ ] hooks tested across every path, if any
-[ ] root README table updated
-[ ] install.sh / install.ps1 pick it up (they glob the bundle; verify)
+[ ] root README catalog + kinds table updated
 ```
-
-## Testing a primitive
-
-There is no unit test for a prompt, so test it the only way that means anything: **on a diff
-you have deliberately poisoned.**
-
-Make a branch. Weaken an assertion. Add an `it.skip`. Hard-code the value a test checks.
-Duplicate a helper that already exists. Then run the primitive and confirm it fires, cites the
-right line, and returns the blocking verdict.
-
-Then run it on a genuinely clean diff and confirm it says so without manufacturing nits. A
-primitive that finds something every time is noise, and noise gets ignored — which is the same
-outcome as not having it.
-
-Record both results in the PR. "It looked right" is precisely the self-report this repo exists
-to stop accepting.
 
 ## Style
 
 - Prompts in en-US imperative. Docs may be en-GB; be consistent within a file.
-- No secrets, credentials, or user-specific paths anywhere. This repo is public.
+- No secrets, credentials, or user-specific paths. This repo is public.
 - No pixel coordinates, no run narration, no "as of today" — write the durable shape.
-- Keep the primitive's judgment harness-neutral. Anything that only makes sense in one harness
-  belongs in `meta.yaml` notes or the bundle README, not in `agent.md`.
+- Keep the primitive's judgment harness-neutral. Anything true of only one harness belongs in
+  `meta.yaml` notes or the bundle README, never in `agent.md`.

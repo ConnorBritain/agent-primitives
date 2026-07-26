@@ -1,10 +1,11 @@
 <#
 .SYNOPSIS
-  Install agent-primitives reviewers into Claude Code.
+  Install agent-primitives agents into Claude Code.
 
 .DESCRIPTION
-  Agents alone do nothing. After installing, add the wiring from
-  docs/snippets/claude-md.md to your CLAUDE.md so something invokes them.
+  Installed is not the same as wired: some primitives are dispatcher-triggered and
+  work as soon as they land, others need a rule in your CLAUDE.md before anything
+  invokes them. See docs/wiring.md.
 
 .EXAMPLE
   .\install.ps1                       # every agent -> $HOME\.claude\agents\

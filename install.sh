@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Install agent-primitives reviewers into Claude Code.
+# Install agent-primitives agents into Claude Code.
 #
 #   ./install.sh                       every agent → ~/.claude/agents/
 #   ./install.sh --project             every agent → ./.claude/agents/
 #   ./install.sh verification-critic   just that one
 #   ./install.sh --list                show what's available
 #
-# Agents alone do nothing. After installing, add the wiring from
-# docs/snippets/claude-md.md to your CLAUDE.md so something invokes them.
+# Installed is not the same as wired: some primitives are dispatcher-triggered,
+# others need a CLAUDE.md rule. See docs/wiring.md.
 
 set -euo pipefail
 
@@ -70,6 +70,7 @@ done
 echo
 echo "${#SELECTED[@]} agent(s) → $DEST  ($SCOPE scope)"
 echo
-echo "Next: add the self-verification gate to your CLAUDE.md, or the agents will"
-echo "never be invoked —"
-echo "  $REPO/docs/snippets/claude-md.md"
+echo "Installed is not the same as wired. Some primitives are picked up automatically;"
+echo "others need a rule in your CLAUDE.md before anything invokes them —"
+echo "  $REPO/docs/wiring.md"
+echo "Per-bundle snippets live in $REPO/bundles/<bundle>/wiring/"

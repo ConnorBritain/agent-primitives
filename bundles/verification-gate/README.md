@@ -9,7 +9,7 @@ that wrote the code, before an agent is allowed to say "done".
 | [`architecture-reviewer`](../../primitives/agents/architecture-reviewer/) | Structural decay | `SHIP` / `SHIP WITH FIXES` / `DO NOT SHIP` |
 
 Full rationale for each is in its primitive README. The protocol that runs them is
-[docs/gate-protocol.md](../../docs/gate-protocol.md).
+[PROTOCOL.md](PROTOCOL.md).
 
 ## Contents
 
@@ -40,7 +40,7 @@ AGENTS.md               portable variant for harnesses with no subagent registry
 ../../install.sh --project    # → ./.claude/agents/
 ```
 
-Either way, add the wiring from [docs/snippets/claude-md.md](../../docs/snippets/claude-md.md)
+Either way, add the wiring from [wiring/claude-md.md](wiring/claude-md.md)
 to your `CLAUDE.md`. **The agents do nothing until something calls them.** Installing without
 the wiring gives you two reviewers that never run.
 

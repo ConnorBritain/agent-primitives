@@ -55,6 +55,6 @@ when you do.
 - **Pass the original task.** Both reviewers check for drift from what was asked. Handing
   them the writer's own summary launders exactly the drift you are looking for.
 - If you use the `gate-runner` Stop hook, step 1 becomes enforced rather than requested —
-  see [../../bundles/verification-gate/README.md](../../bundles/verification-gate/README.md).
+  see [../README.md](../README.md).
 - Naming: if you also keep a `code-reviewer` (correctness/security), keep it distinct. These
   two do not check correctness.

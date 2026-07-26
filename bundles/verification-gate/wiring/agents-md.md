@@ -1,10 +1,10 @@
 # AGENTS.md snippet
 
 Paste into your project `AGENTS.md`. This is the short form — the full reviewer prompts live
-in [`bundles/verification-gate/AGENTS.md`](../../bundles/verification-gate/AGENTS.md), which
+in [`bundles/verification-gate/AGENTS.md`](../AGENTS.md), which
 you can append wholesale instead.
 
-Read [portability.md](../portability.md) first: outside Claude Code none of this is enforced
+Read [portability.md](../../../docs/portability.md) first: outside Claude Code none of this is enforced
 by the harness, and a reviewer running in the writer's own context is a much weaker check.
 
 ---

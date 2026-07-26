@@ -24,13 +24,13 @@ rubber stamp or a linter that blocks on taste.
 Tests, typecheck, lint, build. Red means not done. There is no judgment here and no arguing
 with it. Never weaken, skip, or delete a gate to reach green; if a gate is itself wrong, stop
 and say so rather than editing it quietly. Per-project commands live in `.claude/gates.json`
-and are enforced by the [`gate-runner`](../bundles/verification-gate/hooks/gate-runner.mjs)
+and are enforced by the [`gate-runner`](hooks/gate-runner.mjs)
 Stop hook.
 
 **Tier 2 — critique. Semi-checkable, needs a judge.**
 Reward-hacking, spec fidelity, coupling, boundaries, naming, intent clarity. Not decidable by
-a script, which is why it goes to a reviewer agent — [`verification-critic`](../primitives/agents/verification-critic/)
-and [`architecture-reviewer`](../primitives/agents/architecture-reviewer/). Judged in a
+a script, which is why it goes to a reviewer agent — [`verification-critic`](../../primitives/agents/verification-critic/)
+and [`architecture-reviewer`](../../primitives/agents/architecture-reviewer/). Judged in a
 context separate from the writer's, **never by the writer** and never by a crude metric.
 
 **Tier 3 — taste.**
@@ -79,12 +79,12 @@ meaningless without it. Pass the original request, not a summary the writer prod
 
 ## Wiring it up
 
-**Claude Code** — add the block from [snippets/claude-md.md](snippets/claude-md.md) to your
+**Claude Code** — add the block from [wiring/claude-md.md](wiring/claude-md.md) to your
 `CLAUDE.md`, and optionally install the `gate-runner` Stop hook. Without the CLAUDE.md
 wiring, the agents exist and nothing invokes them.
 
-**AGENTS.md harnesses** — append [snippets/agents-md.md](snippets/agents-md.md), and prefer
-a fresh subprocess per reviewer. See [portability.md](portability.md) for what you lose.
+**AGENTS.md harnesses** — append [wiring/agents-md.md](wiring/agents-md.md), and prefer
+a fresh subprocess per reviewer. See [portability.md](../../docs/portability.md) for what you lose.
 
 ## Verdicts
 

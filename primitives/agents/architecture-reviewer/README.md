@@ -61,7 +61,7 @@ unreviewed edits.
 At the end of any non-trivial turn, alongside `verification-critic`. Run both in parallel —
 they read different things and neither depends on the other's output.
 
-See [docs/gate-protocol.md](../../../docs/gate-protocol.md) for the full sequence.
+See [the bundle protocol](../../../bundles/verification-gate/PROTOCOL.md) for the full sequence.
 
 ## Reading the verdict
 

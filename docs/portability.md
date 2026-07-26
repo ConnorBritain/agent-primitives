@@ -4,62 +4,83 @@ What survives the trip between harnesses, and what doesn't.
 
 ## The substrate
 
-Markdown with YAML frontmatter is the common format. Claude Code, Cursor, Codex, and Kimi
-all read agent definitions in that shape, and `name` + `description` are near-universal keys.
+Markdown with YAML frontmatter is the common format. Claude Code, Cursor, Codex, and Kimi all
+read agent definitions in that shape, and `name` + `description` are near-universal keys.
 **The prompt body ports at essentially 100%.**
 
-That is the good news, and it is why one source of truth is viable at all.
+That's the good news, and it's why one source of truth is viable at all.
 
-## What does not port
+## What doesn't port
 
-Enforcement. And for reviewer primitives specifically, enforcement is most of the value.
+Enforcement.
 
 | Property | Claude Code | Cursor | Codex | AGENTS.md only |
 |---|---|---|---|---|
-| Runs in a **separate context** from the writer | ✅ real subagent | ⚠️ weaker | ⚠️ via `codex exec` | ❌ same context |
-| **Read-only** is enforced (`tools:` allowlist) | ✅ harness-enforced | ⚠️ partial | ❌ prose only | ❌ prose only |
-| Can **block the turn** on a red gate | ✅ Stop hook | ❌ | ❌ | ❌ |
-| **Model pinned** (`model: sonnet`) | ✅ | ⚠️ | ❌ | ❌ |
+| Runs in a **separate context** from the caller | ✅ real subagent | ⚠️ weaker | ⚠️ via `codex exec` | ❌ same context |
+| **Tool restrictions** enforced (`tools:` allowlist) | ✅ harness-enforced | ⚠️ partial | ❌ prose only | ❌ prose only |
+| Can **block the turn** | ✅ Stop hook | ❌ | ❌ | ❌ |
+| **Model pinned** | ✅ | ⚠️ | ❌ | ❌ |
 | Prompt body | ✅ | ✅ | ✅ | ✅ |
 
-Read that table as a ladder, not a set of checkboxes. Each rung you lose makes the reviewer
-weaker in a specific, predictable way:
+Read it as a ladder, not a checklist. Each rung you lose degrades the primitive in a specific,
+predictable way:
 
-**Lose separate context** and the critic has spent the whole session arguing itself into the
-code it is now reviewing. It has the justification pre-loaded. This is the single most
-important property, because it is the entire reason a second agent beats "please double-check
-your work" — and it is the first one to go.
+**Lose separate context** and the agent shares the history of whoever produced the work — with
+all its justifications pre-loaded.
 
-**Lose the read-only allowlist** and the critic can edit. Given the ability to fix what it
-finds, an agent will fix rather than report, and you are back to an unreviewed diff — now
-with the reviewer's changes in it too.
+**Lose the tool allowlist** and "read-only" becomes a request. An agent that *can* act on what
+it finds generally will.
 
-**Lose turn-blocking** and the gate is a suggestion. An agent that wants to declare done will
-declare done. This is the difference between a gate and a note.
+**Lose turn-blocking** and any rule about when the primitive must run becomes a suggestion.
+
+## How much it costs depends on the kind
+
+This is the part worth getting right, because the answer is not uniform.
+
+**reviewer — severe.** Context isolation *is* the mechanism. A critic reviewing work it argued
+itself into will approve it, and the read-only guarantee is what stops it from quietly fixing
+instead of reporting. On an advisory-only harness a reviewer keeps its checklist and loses its
+independence, which is most of its value. Treat an advisory reviewer as a linting aid, not a
+gate.
+
+**transformer — moderate.** The rewrite still happens correctly; the prompt carries the method.
+What degrades is the boundary: `preserves` and `scope: selection` stop being guarantees and
+become intentions, so a transformer told to touch only the prose in a document may reformat the
+code blocks too. Mitigate by narrowing the input rather than trusting the constraint — pass the
+selection, don't pass the file and describe the selection.
+
+**author — moderate.** Output quality holds. What you lose is the assurance that it only wrote
+where it was supposed to. Review the file list.
+
+**investigator — mild.** Read-only is a natural fit for the task rather than a constraint being
+fought, and there's no verdict anyone has an incentive to skip. Ports nearly intact.
+
+**planner — mild.** Same reason. The plan is the artifact; nothing about it needs enforcement.
+
+So the question isn't "does this port?" but "which rung does this kind actually stand on?" A
+reviewer that loses context isolation has lost the argument. An investigator hasn't noticed.
 
 ## Recovering what you can
 
-- **Codex** — run each reviewer as a fresh `codex exec` subprocess against the diff rather
-  than as an inline section of `AGENTS.md`. This recovers context isolation, the rung that
-  matters most. Read-only and blocking are still unavailable; state them in the prompt and
-  accept that they are honour-system.
-- **Any harness** — run the reviewer in a new session with only the diff pasted in. Slower
-  and manual, but honest.
-- **CI** — the durable fallback. A reviewer that runs in CI on the PR gets clean context by
-  construction and can genuinely block the merge. It is later feedback than a Stop hook, but
-  it is real enforcement, and it works everywhere.
+- **Fresh subprocess.** `codex exec` (or equivalent) with the input piped in recovers context
+  isolation, the rung that usually matters most. Tool restriction and blocking remain
+  unavailable; state them in the prompt and accept that they're honour-system.
+- **New session, paste the input.** Manual, works everywhere, honest.
+- **CI.** The durable fallback for anything gate-shaped: clean context by construction, and it
+  can genuinely block a merge. Later feedback than a Stop hook, but real enforcement, and it
+  works regardless of which harness the author was using.
+- **Narrow the input.** For transformers and authors, the most reliable way to enforce scope on
+  a harness that can't is to hand over less.
 
 ## Design consequence
 
-Because the ladder exists, primitives in this repo declare their **contract** — the
-properties they need to work — separately from the per-harness metadata that may or may not
-deliver it. See any `primitives/agents/*/meta.yaml`:
+Primitives declare the **contract** they need separately from the per-harness metadata that may
+or may not deliver it. See any `primitives/agents/*/meta.yaml`:
 
 ```yaml
 contract:
   read_only: true
   clean_context: true
-  verdict: [SHIP, BLOCK]
   scope: diff
 
 harness:
@@ -67,10 +88,9 @@ harness:
   codex:       { enforcement: advisory, ... }
 ```
 
-The `enforcement` key is the honest label: `enforced`, `partial`, or `advisory`. When the
-generator lands, it reads this to emit each target, and the README table above is the thing
-it keeps accurate.
+`enforcement` is the honest label: `enforced`, `partial`, or `advisory`. When the generator
+lands it reads this to emit each target, and keeps the tables above accurate.
 
-Say the degradation out loud in user-facing docs. An `advisory` port that gets described as
-if it were `enforced` is worse than no port, because it buys false confidence in exactly the
-place where the whole point was to stop trusting the agent's self-report.
+Say the degradation out loud in user-facing docs. An `advisory` port described as `enforced` is
+worse than no port, because it buys false confidence in exactly the place where the point was
+to stop trusting the agent's self-report.

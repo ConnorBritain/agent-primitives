@@ -59,7 +59,7 @@ At the end of any non-trivial turn, **after** the Tier-1 gates are green — a r
 already a "not done" and does not need a critic to say so. The critic's job starts once the
 suite is green, because a green suite is exactly when reward hacking is invisible.
 
-See [docs/gate-protocol.md](../../../docs/gate-protocol.md) for the full sequence.
+See [the bundle protocol](../../../bundles/verification-gate/PROTOCOL.md) for the full sequence.
 
 ## Reading the verdict
 
