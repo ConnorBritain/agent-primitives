@@ -449,11 +449,10 @@ there is deliberate: **the fidelity check lands before the pass it guards.**
 Over-editing is the primary failure mode of any rewriter — one that sands off a
 writer's actual voice has made things worse while reporting success.
 
-**`prose-author`, not yet designed, is the gap worth naming.** Everything above
-operates on prose that already exists. Drafting *from* an author's corpus —
-ideas in, a draft in their register out, their edits feeding back into the
-corpus — is a `kind: author` primitive that nothing here covers yet, and it is
-the half most people actually want.
+**`prose-author` is the gap worth naming.** Everything above operates on prose
+that already exists. Drafting *from* an author's corpus — ideas in, a draft in
+their register out, their edits feeding back — is a `kind: author` primitive that
+nothing here covers yet, and it is the half most people actually want.
 
 The substrate is largely built, which is the argument for naming it now rather
 than later. This bundle already has the corpus with provenance rules, the
@@ -463,10 +462,27 @@ a second reader of the same corpus: calibration consumes it as **percentile
 bands**, and a drafter would consume it as **exemplars**. Same directory, same
 attestation requirement, different question asked of it.
 
-Note the ordering constraint. A drafter checked against uncalibrated bands is
-checked against this repo's guesses about a generic register, not against the
-author. Corpus first, then calibration, then generation — otherwise "sounds like
-me" resolves to "sounds like the fallback."
+Two pieces of that are specified in [`PROFILES.md`](PROFILES.md#designed-not-yet-built)
+rather than left to whoever implements it, because the obvious implementation of
+each is the broken one:
+
+- **`corpus/approved/`** — model drafts you kept. Weighted by *measured* edit
+  fraction under an aggregate cap the config cannot raise past parity, excluded
+  from cadence bands entirely, and contributing nothing at all until the human
+  corpus clears its own floor. A count-based cap alone does not work: approved
+  generations are less varied than human samples twice over, so a fifth of the
+  count exerts more than a fifth of the pull, and the bands narrow while the
+  report says the author got more consistent.
+- **Voice locks** — an immutable, named snapshot of a blend worth keeping, which
+  a drafter targets and which drift is measured against. A lock ages at two
+  speeds: its cadence half is pure text statistics and survives catalog updates,
+  its density half does not, and it reports the two separately rather than
+  offering one confidence for both.
+
+Note the ordering constraint that runs through all of it. A drafter checked
+against uncalibrated bands is checked against this repo's guesses about a generic
+register, not against the author. Corpus, then calibration, then generation —
+otherwise "sounds like me" quietly resolves to "sounds like the fallback."
 
 ### Known limits of the split
 

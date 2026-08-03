@@ -131,6 +131,147 @@ scanner goes progressively blind, and **nothing in the output announces it is
 happening** — the numbers still look like numbers. Add corpus material in its own
 deliberate commit.
 
+---
+
+# Designed, not yet built
+
+The two sections below are specification for work that has not landed. They are
+here rather than in an issue because they constrain the schema above, and someone
+implementing `corpus/approved/` without reading them will build the version that
+quietly breaks the scanner.
+
+## `corpus/approved/` — model drafts you kept
+
+A generation can land the voice. Throwing those away wastes the best signal
+available about what "right" looks like. But feeding them back is a loop, and
+loops of this shape have a known failure: a model trained toward its own output
+narrows until it collapses onto its mode.
+
+**The naive cap does not fix it.** Approved generations are *less varied* than
+human samples twice over — the model already regressed to a mode, and you then
+selected for the ones you liked. So a 20% cap on **count** is not a 20% cap on
+**influence**; a tight cluster pulls the distribution's tails in harder than 20%
+of scattered human samples would. Bands narrow, and the output reads as "this
+author is more consistent than we thought" when what happened is the model ate
+the edges.
+
+Five rules, and rules 2 and 3 are the ones that matter.
+
+**1. Separate directory, distinct provenance, computed not asserted.**
+
+```yaml
+---
+source: prose-author draft
+date: 2026-08-03
+human_authored: false                       # never true. This is not a human sample.
+provenance: model-drafted-human-edited
+model: <model id that produced it>
+original: .originals/<sha256>.txt           # the pre-edit generation, kept
+edit_fraction: 0.62                         # COMPUTED by ingest. Never hand-written.
+---
+```
+
+`edit_fraction` is a word-level diff of this file against `original`, measured by
+the tool. It is not a field you fill in. A number the author declares about their
+own contribution is a number that drifts upward, and unlike `--attest` — which is
+a claim nothing can verify — this one *is* verifiable, so verify it.
+
+**2. Weight scales with edit fraction, under an aggregate cap.**
+
+Per sample, `w = edit_fraction`. A generation approved untouched contributes
+approximately nothing; one you rewrote two thirds of contributes about two thirds
+of a human sample. The sample is worth however much of it is actually you, which
+is self-limiting without anyone tuning it.
+
+Then the whole set is capped:
+
+```
+if Σw_approved > cap × (Σw_human + Σw_approved):
+    scale every approved weight down proportionally
+```
+
+`cap` is configurable in `humanizer.json`, defaults to `0.2`, and is **clamped
+below 0.5 in code** — the config cannot express a corpus where the model is the
+majority voice, because that is not a setting anyone means to choose. Report the
+cap, the raw weight, and the applied weight on every calibration run.
+
+**3. Cadence bands are derived from `corpus/human/` only. No exceptions.**
+
+Sentence-length variance, uniform runs, fragment rate, paragraph distribution —
+these never see an approved sample at any weight or any edit fraction.
+
+This is the firewall the rest of the design exists to protect. Low cadence
+variance relative to register is the strongest signal the scanner has and the one
+models most reliably get wrong. Letting model output help define "normal
+variance" is the disease defining health, and it is circular besides: if a
+generation's rhythm was right, it was right *because* it matched the human corpus
+that already set the band. Including it adds confirmation, not information.
+
+What approved samples legitimately inform is the **catalog-density** half — how
+often this author, in this register, actually reaches for `robust` or
+`underscore`. That is the allowlist problem solved properly, with a rate instead
+of a blind spot, and it is the safe half to blend.
+
+**4. They supplement; they never bootstrap.** Below `CORPUS_MINIMUM` (10) usable
+human samples, approved samples contribute **zero**, and calibration says so.
+Otherwise the cold-start path is: fill the folder with model output, calibrate
+against model norms on day one, and never find out.
+
+**5. Calibration reports both sets of bands.** Human-only and blended, side by
+side, every run. If blending narrows the density spread beyond a threshold, that
+is a warning in the output, not a footnote in a log.
+
+## Voice locks — freezing a blend worth keeping
+
+Dialling a voice in is real work, and the thing that erodes it is not a decision,
+it is accumulation. Ten more samples, a recalibration, and the bands have moved
+somewhere you did not choose.
+
+A **lock** is a release of a voice: a named, immutable snapshot of everything
+that defined the style at one moment.
+
+```
+profiles/essay/locks/
+  2026-08-canonical.json
+  ACTIVE -> 2026-08-canonical.json
+```
+
+Contents: the derived bands; a hash of `voice.md`; the exact corpus files by
+sha that produced it; the approved-weight actually applied; corpus counts and
+confidence; and **the catalog version and retrieval date it was calibrated
+under**.
+
+Four properties do the work:
+
+- **Immutable.** Ingesting samples never mutates a lock. Recalibration produces a
+  *candidate*; promoting it is a separate, explicit act. Drift cannot happen
+  silently because nothing rewrites a lock.
+- **It is what a drafter targets.** `prose-author --voice canonical` generates
+  against the frozen blend, not against whatever the corpus has since become.
+  This is the property that stops a dialled-in style eroding underneath you.
+- **Drift is measurable in both directions.** `tell-scan --against-lock <name>`
+  reports how far a *draft* sits from the locked voice. `calibrate --compare-lock
+  <name>` reports how far the *corpus* has moved from it, so erosion is visible
+  before it is load-bearing.
+- **A human-only lock is always derivable**, which answers the question the
+  approved corpus raises: how far has my blend drifted from unassisted me?
+
+### A lock ages at two speeds, and must say which
+
+Cadence bands are pure text statistics. They survive catalog updates untouched,
+and a lock's rhythm half stays valid indefinitely.
+
+Catalog-density bands are only meaningful against the catalog that measured them.
+When entries are added, retuned, or dropped — which is the whole reason
+`prose-tell-scan` versions separately — a lock's density half goes stale, and
+comparing against it silently compares two different rulers.
+
+So a lock reports its two halves with separate confidence, and
+`--compare-lock` refuses to compare density bands across a catalog version change
+rather than producing a number that looks fine. Presenting one confidence for
+both would be the same overclaim this bundle spends its README avoiding, in a new
+place.
+
 ## Open: the directory name
 
 The path is `.claude/humanizer/` for historical reasons — this bundle was called
