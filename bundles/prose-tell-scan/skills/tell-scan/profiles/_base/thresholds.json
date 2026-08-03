@@ -1,0 +1,33 @@
+{
+  "_comment": [
+    "FALLBACK thresholds. These are a guess, not a measurement, and tell-scan",
+    "says so loudly on every run that uses them. They exist so the tool does",
+    "something sensible before a corpus exists — not so you can skip building one.",
+    "",
+    "Replace them by putting known-human writing in this profile's corpus/human/",
+    "and running: node tools/calibrate.mjs <profile> --write",
+    "",
+    "catalog_density is a PER-ENTRY ceiling in hits per 1000 words, by severity.",
+    "A single catalog entry above its ceiling is flagged; below it, the hit is",
+    "still reported but not treated as elevated.",
+    "",
+    "metrics bands use low/high limits. Derived thresholds replace them with",
+    "p10/p50/p90 percentile bands measured from the corpus."
+  ],
+  "derived": false,
+  "catalog_density": {
+    "high": 0.15,
+    "medium": 0.5,
+    "low": 1.0
+  },
+  "aggregate_density": {
+    "high": 0.4,
+    "medium": 1.5,
+    "low": 3.0
+  },
+  "metrics": {
+    "cv_len": { "low": 0.4 },
+    "longest_uniform_run": { "high": 8 },
+    "mean_len": { "low": 8, "high": 28 }
+  }
+}

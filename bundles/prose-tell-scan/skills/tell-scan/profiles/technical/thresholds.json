@@ -1,0 +1,27 @@
+{
+  "_comment": [
+    "FALLBACK overrides for the technical register. Still a guess.",
+    "",
+    "Every band here is deliberately LOOSER than essay, and the looseness is the",
+    "point. Flat rhythm is correct in a reference doc, so cv_len drops to 0.25",
+    "and the uniform-run limit roughly doubles. Instructional prose also repeats",
+    "sentence openers legitimately ('Run the...', 'Set the...'), so this register",
+    "tolerates catalog density that would be elevated in an essay."
+  ],
+  "derived": false,
+  "catalog_density": {
+    "high": 0.25,
+    "medium": 0.9,
+    "low": 2.0
+  },
+  "aggregate_density": {
+    "high": 0.6,
+    "medium": 2.5,
+    "low": 6.0
+  },
+  "metrics": {
+    "cv_len": { "low": 0.25 },
+    "longest_uniform_run": { "high": 14 },
+    "mean_len": { "low": 8, "high": 26 }
+  }
+}

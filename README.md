@@ -18,6 +18,7 @@ every time one appears.
 | Bundle | Domain | Primitives | Kind |
 |---|---|---|---|
 | [`verification-gate`](bundles/verification-gate/) | Software delivery | [`verification-critic`](primitives/agents/verification-critic/) · [`architecture-reviewer`](primitives/agents/architecture-reviewer/) | reviewer |
+| [`prose-tell-scan`](bundles/prose-tell-scan/) | Prose measurement | [`tell-scan`](bundles/prose-tell-scan/skills/tell-scan/) skill · `/prose-tell-scan:tell-scan` | investigator |
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) is the spec for adding another, in any domain — the repo
 is not scoped to code review, and the authoring guidance is organised by **kind** rather than
@@ -28,6 +29,11 @@ pattern: a skill carries its own tooling by relative path, so it survives both a
 and a plain copy into `~/.claude/skills/`. Commands survive too, provided they delegate to their
 skill instead of shelling out through `${CLAUDE_PLUGIN_ROOT}`, which only resolves under a
 plugin.
+
+`prose-tell-scan` is the first bundle to ship a skill, and it is mid-build: v0.1 is the
+deterministic layer. Its critics and revise pass go in a *separate* `prose-review` bundle
+rather than this one — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle), which is honest
+that half the argument for that split is still a projection.
 
 A bundle is the unit you install and toggle, so it holds the primitives you'd want on or off
 *together* — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle). Adding a new domain means
@@ -45,7 +51,7 @@ path. A reviewer can be an agent or a skill; so can an investigator.
 | **reviewer** | read-only | a verdict | `verification-critic` |
 | **transformer** | rewrites its input | changed artifact + what it preserved | a codemod, a prose reviser |
 | **author** | writes new artifacts | the artifact + how it was verified | a test author |
-| **investigator** | read-only | a map or an answer, with sources | a schema explorer |
+| **investigator** | read-only | a map or an answer, with sources | `tell-scan` |
 | **planner** | read-only | a plan with its success criteria | a decomposition agent |
 
 | Surface | Invoked by | Lives in | Reach for it when |

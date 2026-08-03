@@ -1,0 +1,13 @@
+{
+  "name": "essay",
+  "description": "Long-form argumentative prose written to be read: posts, essays, opinion pieces.",
+  "medium": "web",
+  "register": "considered, first-person, takes a position",
+  "notes": [
+    "The register with the least tolerance for flat rhythm. An essay that varies",
+    "little in sentence length reads as generated even when every word is fine,",
+    "so cv_len is tight here and loose in `technical`.",
+    "Surveying without committing is itself a signal in this register — the",
+    "prose-substance-critic looks for it, but the deterministic pass cannot."
+  ]
+}

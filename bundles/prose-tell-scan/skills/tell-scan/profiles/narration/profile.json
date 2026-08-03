@@ -1,0 +1,16 @@
+{
+  "name": "narration",
+  "description": "Scripts written to be spoken: audio essays, video voiceover, podcast segments.",
+  "medium": "audio",
+  "register": "spoken, direct address, built for the ear",
+  "notes": [
+    "`medium: audio` activates `prose-medium-critic` in the prose-review bundle, which checks",
+    "homograph traps (close/live/read/content/refuse), numerals and dates that",
+    "TTS engines mis-verbalise, unglossed foreign terms, and breath length.",
+    "None of that is in the deterministic pass.",
+    "Fragments are a legitimate device here, not a tic — spoken prose uses them",
+    "for emphasis constantly — so fragment_rate is not banded in this register.",
+    "Rhythm should vary MORE than in an essay, because the ear notices a",
+    "metronome that the eye forgives."
+  ]
+}

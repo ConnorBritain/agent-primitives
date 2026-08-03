@@ -1,0 +1,84 @@
+# Metadata for the tell-scan primitive.
+#
+# Skills have no primitives/ entry — see CONTRIBUTING.md "Surfaces". An agent is
+# rendered per harness and needs a neutral source; a skill renders once, because
+# no other harness reads SKILL.md. Its portable form is the bundle's AGENTS.md,
+# which is prose rather than a rendering.
+#
+# This file still exists, because the contract and an honest per-harness
+# enforcement label are not optional for any surface.
+
+name: tell-scan
+kind: investigator
+surface: skill
+bundle: prose-tell-scan
+
+# Why investigator and not a new kind: the fit is exact. "Separate observation
+# from inference explicitly" is the flagged / near-miss / below-threshold split,
+# and the Tier A artifact vs style tier. "Cite what grounds each claim" is the
+# per-entry `source` and `note`, plus a line number and surrounding sentence for
+# every hit. "Say what you could not determine" is the UNCALIBRATED banner, the
+# catalog's `not_deterministic` block, and the stated inability to see absence.
+#
+# The measurement variant of the investigator rule is the one that governs here:
+# never report precision you do not have.
+
+contract:
+  read_only: true          # report-only; it never edits the document
+  clean_context: false     # no adversarial framing to protect — it runs a script
+  scope: file
+  deterministic: true      # same input, same output, on every harness
+  verdict: null            # deliberately none. A score would be read as a verdict
+                           # about authorship, and this must never be usable as one.
+
+  # What the primitive refuses to do, stated as contract because these are the
+  # failure modes that would make it harmful rather than merely wrong.
+  refuses:
+    - Producing an authorship judgement, or any single score that could be quoted as one
+    - Reporting fallback thresholds as if they were measurements
+    - Deriving statistics from a corpus too small to support them
+    - Carrying `formal register` or `perfect grammar` as catalog entries — both sit in
+      the catalog's `rejected` block precisely so nobody re-adds them
+    - Rewriting the document, or handing its catalog to anything that does
+
+  # What it does NOT refuse, stated here because the honest version is less
+  # flattering than the obvious one: the style catalog DOES over-fire on ornate
+  # formal register. That is measured, not suspected — tests/selftest.mjs asserts
+  # it, and the assertion is designed to keep failing. It is mitigated
+  # (calibration, --artifacts-only, disable_categories) and documented in the
+  # README, not refused. A `refuses` list that claimed otherwise would be the
+  # exact overstatement AGENTS.md calls the most damaging error available here.
+
+harness:
+  claude-code:
+    enforcement: enforced
+    notes: >-
+      Full contract. Dispatcher-triggered from the skill description, with
+      `/prose-tell-scan:tell-scan` as an explicit entry point. read_only is
+      structural rather than granted: the scanner has no write path at all.
+
+  cursor:
+    enforcement: enforced
+    notes: >-
+      Unusually for this repo, nothing degrades. The measurement is a
+      dependency-free Node script, so the numbers are identical. Skill dispatch
+      is absent, so invoke it explicitly.
+
+  codex:
+    enforcement: enforced
+    notes: >-
+      Same. Use the instruction block in the bundle's AGENTS.md so the agent runs
+      the script rather than assessing by eye — that substitution is the real
+      failure mode here, not enforcement.
+
+  agents-md:
+    enforcement: enforced
+    notes: >-
+      The script ports intact; only discoverability is lost. The AGENTS.md block
+      exists to stop a model answering from impression instead of running it.
+
+# Deterministic tooling inverts this repo's usual degradation story, and the
+# inversion is worth stating: a reviewer loses context isolation off Claude Code
+# and with it most of its value, while this loses nothing measurable. What it
+# loses is dispatch — nobody is reminded to run it — which is a discoverability
+# problem, not a correctness one, and is what the wiring snippets address.

@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "FALLBACK overrides for the narration register. Still a guess.",
+    "",
+    "Spoken prose runs shorter and varies more than written prose, so mean_len",
+    "is capped low and cv_len expects real variation. fragment_rate is",
+    "deliberately absent: short fragments are a device here, and banding them",
+    "would flag the register's defining feature.",
+    "",
+    "The `low` ceiling is raised to 1.5 rather than allowlisting conversational",
+    "intensifiers. A raised ceiling tolerates the register's ordinary rate while",
+    "still catching a genuine pile-up; an allowlist entry would hide the word at",
+    "any frequency. Same intent, and only one of them can still see."
+  ],
+  "derived": false,
+  "catalog_density": {
+    "high": 0.2,
+    "medium": 0.6,
+    "low": 1.5
+  },
+  "metrics": {
+    "cv_len": { "low": 0.5 },
+    "longest_uniform_run": { "high": 6 },
+    "mean_len": { "low": 7, "high": 22 }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "name": "prose-tell-scan",
+  "version": "0.1.0",
+  "description": "Deterministic prose review: a catalogued scan for AI writing tells plus the cadence metrics a model cannot estimate about its own output. Report-only and register-aware.",
+  "author": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "repository": "https://github.com/ConnorBritain/agent-primitives",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "prose",
+    "editing",
+    "ai-writing-tells",
+    "skill",
+    "readability"
+  ]
+}

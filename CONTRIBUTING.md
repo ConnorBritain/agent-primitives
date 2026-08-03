@@ -244,6 +244,36 @@ so draw it once, deliberately.
 lockstep, and two marketplace entries — real cost, paid every release. Split when someone
 actually wants one without the other, not in anticipation.
 
+**The one exception: when lockstep is itself the defect.** The cost clause above names "two
+versions to keep in lockstep" as the price of splitting. Where the two halves *must not* be in
+lockstep, that price is not being paid — it is being avoided.
+
+The exception is narrow, and it is deliberately hard to claim, because "these will diverge
+later" is the easiest story in the world to tell about code you have not written yet. **The
+evidence must be observed, not projected.** A release history where one half was re-cut N times
+while the other did not change; an upstream source with a retrieval date that has already moved;
+a portability table whose rows already contradict each other. A plan is not evidence. If your
+argument for splitting is a sentence about how the two halves will *probably* evolve, you are
+pre-splitting and this clause does not cover you.
+
+Two things that do count as observed, because they are properties of the artifact today rather
+than predictions:
+
+- **One bundle cannot carry one honest [portability](docs/portability.md) table.** An
+  investigator degrades *mildly* off Claude Code and a reviewer degrades *severely*. A bundle
+  holding both states one row and misleads half its readers, today, in the file as written.
+- **The boundary does safety work.** A capability you want to be hard to reach — one whose
+  own source material warns against making it easy — is worth putting behind a second
+  deliberate install, today, regardless of how either half evolves.
+
+> **The first use of this clause is `prose-tell-scan`, and it is not yet proven.** The split
+> was made on the two observed grounds above plus a *projected* cadence difference between a
+> catalog that carries a retrieval date and craft prompts that do not expire. The projection is
+> untested: at the time of writing `prose-review` does not exist and neither bundle has been
+> released twice. Do not cite this as precedent for the cadence argument until there is a
+> release history to point at. If the cadences turn out to match, the honest outcome is to
+> merge the bundles and delete this paragraph.
+
 **Escape hatches** when a user wants finer control than the bundle gives:
 
 - Loose-file install takes individual names: `./install.sh verification-critic`

@@ -1,0 +1,15 @@
+# technical — register-legitimate terms
+#
+# These are flagged elsewhere and are precise, ordinary vocabulary here. This
+# file is the clearest illustration of why the allowlist is per-register rather
+# than global: every term below would be corporate filler in marketing copy.
+
+robust          # a real claim about behaviour under failure, not a synonym for "good"
+comprehensive   # a factual claim about coverage, and a checkable one
+leverage        # ordinary in performance and systems writing
+underscore      # the character, and identifier naming conventions
+navigate        # UI navigation, tree traversal, routing
+paradigm        # programming paradigms — a term of art
+landscape       # occasionally legitimate; delete this line if you never mean it literally
+precisely       # technical writing is allowed to be precise about being precise
+notably         # release notes and changelogs use this straight
