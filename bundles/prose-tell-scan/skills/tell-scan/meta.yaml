@@ -39,7 +39,10 @@ contract:
     - Deriving statistics from a corpus too small to support them
     - Carrying `formal register` or `perfect grammar` as catalog entries — both sit in
       the catalog's `rejected` block precisely so nobody re-adds them
-    - Rewriting the document, or handing its catalog to anything that does
+    - Rewriting the document it just scored. The catalog is available to a
+      downstream reviser as diagnostic input; what is refused is this primitive
+      editing toward its own metric, because a measure used as a target stops
+      being either.
 
   # What it does NOT refuse, stated here because the honest version is less
   # flattering than the obvious one: the style catalog DOES over-fire on ornate

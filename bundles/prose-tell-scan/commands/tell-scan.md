@@ -17,9 +17,10 @@ rather than improvising a summary — in particular:
   read-through. Say which case this is.
 - **Never characterise the text as AI-written.** These are signals for the author
   about their own draft, never a judgement about who wrote it.
-- Diagnose only. This bundle ships no rewriter and never will — see the
-  no-transformer invariant in its README. Revision is the `prose-review` bundle's
-  job, driven by a consolidated edit plan rather than by this catalog.
+- Diagnose only — this bundle has no rewriter, because the thing that measures
+  should not also edit toward its own metric. If the author wants revision, say
+  so and hand off; do not start rewriting to the findings, which is how prose
+  gets optimized into blandness.
 
 <!--
   This command deliberately delegates rather than invoking the scanner itself.

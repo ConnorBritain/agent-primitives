@@ -55,8 +55,10 @@ Reading the result, in order:
 5. Never characterise the text as AI-written. These are signals for an author
    about their own draft, never a judgement about who wrote it, and never a test
    to run on someone else's work.
-6. Never rewrite. This bundle ships no transformer, deliberately — see the
-   invariant in its README. Revision belongs to `prose-review`.
+6. Diagnose; do not rewrite to these findings. The scanner measures, and text
+   edited to minimise its own score reads like nobody wrote it. If the author
+   asks for revision, that is a separate job with a different target — their
+   voice, not this catalog.
 
 Do not attempt to count tells or estimate sentence-length variance yourself.
 That is the one thing this script exists for: a model asked to audit its own

@@ -53,10 +53,21 @@
     "produces the same surface features this catalog looks for.",
     "",
     "So: signals for an author to weigh about their own draft. Never a verdict,",
-    "and never a test to run on someone else's writing. The source page adds one",
-    "more warning worth keeping in view — do not treat these as the defects to",
-    "be fixed, because sanding them off 'could just make detection harder'",
-    "without making the writing better."
+    "and never a test to run on someone else's writing.",
+    "",
+    "The source page adds a warning that is easy to over-read, so read it",
+    "precisely. It says do not treat these signs as the defects to be fixed,",
+    "because sanding them off 'could just make detection harder' WITHOUT",
+    "MAKING THE WRITING BETTER. That is written for curators triaging",
+    "submissions to a shared encyclopedia, where the harm is a reviewer being",
+    "evaded. It is not an argument against drafting with a model, and it is",
+    "not an argument against a rewriter existing.",
+    "",
+    "The part that generalises is the second clause. A tell list is a symptom",
+    "list, and prose optimised to minimise it is bland rather than human —",
+    "which is why nothing downstream may use this catalog as a target. Give a",
+    "reviser the author's voice and corpus as its objective; give it this",
+    "catalog as one diagnostic among several."
   ],
   "sources": {
     "wp-signs": {

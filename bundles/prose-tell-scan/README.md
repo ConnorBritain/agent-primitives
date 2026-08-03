@@ -6,22 +6,30 @@ metrics a model cannot reliably estimate about its own output.
 **Status: v0.1.** Report-only. Nothing here calls a model and nothing here writes
 to your document.
 
-> ### The invariant: this bundle ships no rewriter, and never will
+> ### The invariant: the thing that measures does not also rewrite
 >
-> Not "not yet" — never. The canonical source this catalog is built from says
-> why: *"Please do not merely treat these signs as the problems to be fixed;
-> that could just make detection harder."* A tool that finds tells and removes
-> them is a camouflage tool. It makes text harder to identify without making it
-> better to read, and a bundle whose identity is de-slopping has no principled
-> way to refuse the feature requests it attracts.
+> This bundle ships no transformer, and the reason is Goodhart's, not ethics:
+> **when a measure becomes a target, it stops being a measure.** A rewriter
+> holding this catalog optimizes against it, and prose optimized against a tell
+> list scores zero and reads like nobody wrote it. That is precisely the failure
+> the thesis below is about — it is the same mistake as swapping *delve* for
+> *explore* and declaring victory, just automated.
 >
-> Revision lives in the separate `prose-review` bundle, where the reviser
-> is driven by a consolidated edit plan from six critics — substance, voice,
-> argument, medium, fidelity — and never by this catalog. You have to install a
-> second thing on purpose, and when you do, the rewrite is answerable to whether
-> the writing is any good, not just to whether it trips a regex.
+> So revision lives in the separate `prose-review` bundle, and the catalog
+> reaches it as **diagnostic input, never as the objective function.** The target
+> there is the author's voice card and corpus; the catalog is one signal
+> alongside substance, argument, medium, and fidelity. *"You leaned on
+> `underscores` four times in this section"* is useful to a reviser. *"Minimize
+> catalog hits"* is not a writing goal, and a reviser given only that produces
+> the blandness this whole bundle exists to detect.
 >
-> The reasoning behind the split — and the honest note that half of it is a
+> **This is not a claim about whether you should draft with a model.** You
+> should, if that is how you work — the corpus, register, and voice machinery
+> here exists to make that output sound like *you* rather than like a model, and
+> that is the more valuable half. It is a claim about one narrow thing: a
+> scanner should not be allowed to edit the text it is scoring.
+>
+> The versioning reason for the split — and the honest note that it is partly a
 > projection rather than something observed — is in
 > [sizing a bundle](../../CONTRIBUTING.md#sizing-a-bundle). It lives there
 > because it is repo policy, not a fact about this bundle, and two copies of a
@@ -440,6 +448,25 @@ critics, the fidelity check, and the single mutating revise pass. Build order
 there is deliberate: **the fidelity check lands before the pass it guards.**
 Over-editing is the primary failure mode of any rewriter — one that sands off a
 writer's actual voice has made things worse while reporting success.
+
+**`prose-author`, not yet designed, is the gap worth naming.** Everything above
+operates on prose that already exists. Drafting *from* an author's corpus —
+ideas in, a draft in their register out, their edits feeding back into the
+corpus — is a `kind: author` primitive that nothing here covers yet, and it is
+the half most people actually want.
+
+The substrate is largely built, which is the argument for naming it now rather
+than later. This bundle already has the corpus with provenance rules, the
+register split, the per-register voice card, and derived bands that say what
+"sounds like this author" measures out to. The one addition generation needs is
+a second reader of the same corpus: calibration consumes it as **percentile
+bands**, and a drafter would consume it as **exemplars**. Same directory, same
+attestation requirement, different question asked of it.
+
+Note the ordering constraint. A drafter checked against uncalibrated bands is
+checked against this repo's guesses about a generic register, not against the
+author. Corpus first, then calibration, then generation — otherwise "sounds like
+me" resolves to "sounds like the fallback."
 
 ### Known limits of the split
 

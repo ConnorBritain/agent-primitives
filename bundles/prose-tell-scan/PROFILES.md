@@ -42,7 +42,7 @@ inherited, so a bundle-side catalog fix reaches every project without a merge.
 | `humanizer.json` | resolves which register governs a file | same resolution, same order |
 | `thresholds*.json` | the bands it flags against | — |
 | `allow.txt` | suppresses matches | — |
-| `catalog.json` (bundle `_base`) | the patterns | `prose-pattern-critic` reads it to know what is *already* covered deterministically, so it does not re-report it |
+| `catalog.json` (bundle `_base`) | the patterns | `prose-pattern-critic` reads it to know what is *already* covered deterministically; the reviser may read it as **diagnostic input, never as a target** |
 | `corpus/human/` | `calibrate.mjs` derives bands | `prose-voice-critic` greps it for how this author actually writes |
 | `voice.md` | **never read** | `prose-voice-critic`'s target |
 | `profile.json` → `medium` | reported, not acted on | `prose-medium-critic` spawns only if this is set |
@@ -51,6 +51,35 @@ inherited, so a bundle-side catalog fix reaches every project without a merge.
 deliberate. It exists so that "make this sound human" cannot collapse into
 "sound like a generic competent human" — which is its own fingerprint. The
 scanner cannot use it and must not pretend to.
+
+**The catalog line is the one to get right.** A reviser is allowed to know that
+a section leaned on the same construction four times; that is a useful fact
+about a draft. What it must not do is treat catalog hits as the quantity to
+minimise. Prose optimised against a tell list scores zero and reads like nobody
+wrote it, which is the failure the catalog exists to *detect*, reproduced by the
+tool meant to fix it. The reviser's target is `voice.md` and the corpus. The
+catalog is a symptom list, not a fitness function.
+
+## The corpus has two readers, and will have three
+
+`corpus/human/` is the asset, and what makes it one is that the same samples
+answer different questions:
+
+| Reader | Consumes it as | Question |
+|---|---|---|
+| `calibrate.mjs` | percentile bands | what does this author's rhythm measure out to? |
+| `prose-voice-critic` | reference text | does this draft sound like them? |
+| a future drafter (`kind: author`) | exemplars | write something that sounds like them |
+
+That third reader does not exist yet and is the point of the whole arrangement
+for most people: drafting *from* a corpus rather than only auditing against it.
+Nothing extra is needed on disk when it arrives — same directory, same
+provenance requirement, same register split.
+
+One ordering constraint follows, and it is worth stating before someone hits it:
+**a drafter checked against uncalibrated bands is checked against this repo's
+guesses**, not against the author. Corpus, then calibration, then generation.
+Otherwise "sounds like me" quietly resolves to "sounds like the fallback".
 
 ## Resolution order
 

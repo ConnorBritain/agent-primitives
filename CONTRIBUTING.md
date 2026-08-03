@@ -262,9 +262,12 @@ than predictions:
 - **One bundle cannot carry one honest [portability](docs/portability.md) table.** An
   investigator degrades *mildly* off Claude Code and a reviewer degrades *severely*. A bundle
   holding both states one row and misleads half its readers, today, in the file as written.
-- **The boundary does safety work.** A capability you want to be hard to reach — one whose
-  own source material warns against making it easy — is worth putting behind a second
-  deliberate install, today, regardless of how either half evolves.
+- **A measure and a target belong in different bundles.** Where one half *scores* an artifact
+  and the other half *changes* it, shipping them together means the changer optimizes against
+  the scorer — and a measure used as a target stops being either. The split is what keeps the
+  scoring half honest. This is an engineering constraint, not a moral one; it says nothing
+  about whether the changing half should exist, only that it should not be holding the
+  scoreboard.
 
 > **The first use of this clause is `prose-tell-scan`, and it is not yet proven.** The split
 > was made on the two observed grounds above plus a *projected* cadence difference between a
