@@ -19,26 +19,45 @@ every time one appears.
 |---|---|---|---|
 | [`verification-gate`](bundles/verification-gate/) | Software delivery | [`verification-critic`](primitives/agents/verification-critic/) · [`architecture-reviewer`](primitives/agents/architecture-reviewer/) | reviewer |
 
-One bundle today. [`CONTRIBUTING.md`](CONTRIBUTING.md) is the spec for adding another, in any
-domain — the repo is not scoped to code review, and the authoring guidance is organised by
-**kind** rather than by subject matter.
+[`CONTRIBUTING.md`](CONTRIBUTING.md) is the spec for adding another, in any domain — the repo
+is not scoped to code review, and the authoring guidance is organised by **kind** rather than
+by subject matter.
+
+A bundle may ship agents, a **skill**, or both, and the difference matters before you copy the
+pattern: a skill carries its own tooling by relative path, so it survives both a plugin install
+and a plain copy into `~/.claude/skills/`. Commands survive too, provided they delegate to their
+skill instead of shelling out through `${CLAUDE_PLUGIN_ROOT}`, which only resolves under a
+plugin.
 
 A bundle is the unit you install and toggle, so it holds the primitives you'd want on or off
 *together* — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle). Adding a new domain means
 a new bundle plus one entry in [`marketplace.json`](.claude-plugin/marketplace.json); it does
 not disturb the existing ones.
 
-## Kinds
+## Kinds and surfaces
 
-Kind determines what a primitive must promise, how it's wired in, and how you test it.
+Two independent axes. **Kind** is what a primitive promises — it determines the design rules
+and how you test it. **Surface** is how it ships — it determines packaging and the install
+path. A reviewer can be an agent or a skill; so can an investigator.
 
 | Kind | Reads / writes | Ends in | Example |
 |---|---|---|---|
 | **reviewer** | read-only | a verdict | `verification-critic` |
-| **transformer** | rewrites its input | changed artifact + what it preserved | a prose humanizer, a codemod |
+| **transformer** | rewrites its input | changed artifact + what it preserved | a codemod, a prose reviser |
 | **author** | writes new artifacts | the artifact + how it was verified | a test author |
 | **investigator** | read-only | a map or an answer, with sources | a schema explorer |
 | **planner** | read-only | a plan with its success criteria | a decomposition agent |
+
+| Surface | Invoked by | Lives in | Reach for it when |
+|---|---|---|---|
+| **agent** | the dispatcher, or a protocol rule | `primitives/agents/` → rendered to `bundles/` | The work needs its own context window |
+| **skill** | the dispatcher, or by name | `bundles/<b>/skills/` | The primitive ships scripts, catalogs, or reference files |
+| **command** | the user types `/name` | `bundles/<b>/commands/` | An explicit entry point worth naming |
+| **hook** | the harness, on an event | `bundles/<b>/hooks/` | Enforcement the model must not route around |
+
+Only agents get a `primitives/` entry, because only agents are rendered per harness. See
+[surfaces](CONTRIBUTING.md#surfaces) — including the path rule that decides whether your
+primitive survives a non-plugin install.
 
 The split matters because the design rules invert. A reviewer must be read-only and must not
 share context with whoever produced the work — that isolation *is* the mechanism. A
@@ -58,16 +77,19 @@ can't do its job; applying transformer rules to a reviewer produces a rubber sta
 ### Claude Code — loose files
 
 ```bash
-./install.sh                     # every agent → ~/.claude/agents/
-./install.sh --project           # every agent → ./.claude/agents/
-./install.sh verification-critic # just one
+./install.sh                     # agents, skills, and commands → ~/.claude/
+./install.sh --project           # → ./.claude/
+./install.sh verification-critic # just one — a skill brings its command along
 ./install.sh --list              # what's available
 ```
 
 ```powershell
-.\install.ps1                    # → $HOME\.claude\agents\
-.\install.ps1 -Project           # → .\.claude\agents\
+.\install.ps1                    # → $HOME\.claude\
+.\install.ps1 -Project           # → .\.claude\
 ```
+
+Agents land in `agents/`, skills as whole directories in `skills/`, commands in
+`commands/`.
 
 ### Codex, Cursor, Copilot, Zed, or any AGENTS.md project
 
@@ -113,6 +135,8 @@ primitives/agents/<name>/     harness-neutral source of truth
 
 bundles/<bundle>/             a deployable unit — the primitives you turn on and off together
   agents/*.md                 rendered with Claude Code frontmatter
+  skills/<name>/              SKILL.md + any tooling it needs, self-contained
+  commands/*.md               slash commands; delegate to a skill to stay portable
   hooks/                      enforcement only some harnesses support
   wiring/                     copy-paste CLAUDE.md / AGENTS.md snippets for THIS bundle
   AGENTS.md                   portable variant

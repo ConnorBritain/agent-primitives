@@ -7,7 +7,9 @@ repo *ships*, see the relevant bundle — e.g. [`bundles/verification-gate/AGENT
 
 A library of agent patterns — reviewers, transformers, authors, investigators, planners —
 authored once in harness-neutral form under `primitives/` and deployed per harness under
-`bundles/`. Content is prompts and docs; the only executable code is hooks.
+`bundles/`. Content is prompts and docs; the only executable code is hooks and the
+deterministic tooling some bundles ship under `bundles/<bundle>/tools/`. Both are held to
+the same bar — cross-platform, no dependencies, every path tested.
 
 The repo is **not scoped to any one domain.** The first bundle is about software delivery;
 nothing in the authoring guidance should assume that. If you're adding to the repo-level docs
@@ -38,9 +40,12 @@ landed first.
 
 - **Frontmatter in `primitives/**/agent.md` carries only `name` and `description`.** Anything
   harness-specific belongs in `meta.yaml`.
-- **Every primitive declares a `kind`**, and the kind determines its rules — a reviewer must be
-  read-only, a transformer obviously isn't. See [`CONTRIBUTING.md`](CONTRIBUTING.md#kinds)
-  before applying a rule from one kind to another.
+- **Every primitive declares a `kind` and a `surface`**, and they are independent. Kind
+  determines the rules — a reviewer must be read-only, a transformer obviously isn't. Surface
+  determines packaging: agents live in `primitives/` and are rendered per harness; skills,
+  commands, and hooks live in the bundle only, because they render once. Do not reach for the
+  `kind` field to record how something ships. See
+  [`CONTRIBUTING.md`](CONTRIBUTING.md#kinds) and [surfaces](CONTRIBUTING.md#surfaces).
 - **`enforcement` must be honest** — `enforced` | `partial` | `advisory`. Overstating it is the
   most damaging error available here; see [`docs/portability.md`](docs/portability.md).
 - **Every primitive has a stated output contract** and a *Known limits* section.
@@ -48,6 +53,19 @@ landed first.
   so a bundle holds exactly the primitives a user would want on or off together. Adding a new
   domain means a new bundle, not a new agent in an existing one. See
   [`CONTRIBUTING.md`](CONTRIBUTING.md#sizing-a-bundle).
+- **Nothing expects a human to type a runtime.** Executable code is invoked by the harness —
+  a hook via `hooks.json`, a skill or command via its markdown — never by a user running
+  `node <path>`. If a README instructs someone to invoke a script directly, the primitive is
+  missing its entry point.
+- **Skills and commands are auto-discovered** from `bundles/<bundle>/{skills,commands}/`; no
+  manifest declaration is needed, and declaring `commands` or `agents` in `plugin.json`
+  *replaces* the default scan rather than adding to it. Prefer a skill: commands are the older
+  surface, and a skill can carry its own tooling.
+- **Put executable logic behind a skill, and keep bundled paths relative.** A skill's own files
+  resolve relative to the skill directory, so it survives a plain copy into `~/.claude/skills/`.
+  `${CLAUDE_PLUGIN_ROOT}` only resolves under a plugin install, so anything depending on it is
+  plugin-only — which is why the commands here delegate to their skill rather than shelling out
+  to a bundled script.
 - **No secrets, credentials, or user-specific paths.** This repo is public.
 - **Docs explain rationale, not just mechanics.** The checklist is in `agent.md`; the README
   earns its place by saying why those items and not others.

@@ -12,8 +12,10 @@ preserving every claim" is. If an existing primitive already covers it, extend t
 primitives with overlapping scope make each other weaker, because each assumes the other has
 it covered.
 
-**2. What kind is it?**
-This decides the rules, the wiring, and the tests. Pick before writing the prompt.
+**2. What kind is it, and what surface does it ship on?**
+Two independent questions. **Kind** is what the primitive promises; **surface** is how it is
+delivered. Pick both before writing the prompt — kind decides the rules and the tests, surface
+decides the packaging and the install path.
 
 **3. Where does it stop working?**
 Every primitive has a boundary. State it in the README under *Known limits*. A primitive with
@@ -54,6 +56,66 @@ unverified text.
 **investigator** — Read-only. Separate observation from inference explicitly, and cite what
 grounds each claim. Say what you could not determine; an investigator that never says "unknown"
 is one that guesses.
+
+  If the investigator *measures* something, the same rule has a sharper form: **never report
+  precision you do not have.** A threshold nobody calibrated is a guess wearing a number's
+  clothes, and a number gets quoted without its caveats. Say on every run which of your
+  outputs are measurements and which are defaults, refuse to compute a statistic from a
+  sample too small to support it, and state the error rate you actually expect rather than
+  implying none. A measurement presented bare is inference reported as observation, just in
+  a costume that makes it harder to argue with.
+
+## Surfaces
+
+Kind and surface are independent axes. A reviewer can ship as an agent or a skill; an
+investigator can ship as either. Getting this wrong does not produce a bad primitive — it
+produces one nobody can install.
+
+| Surface | Invoked by | Source of truth | Use when |
+|---|---|---|---|
+| **agent** | the dispatcher, or a protocol rule | `primitives/agents/<name>/` | The work needs its own context window — anything adversarial, anything that must not share the caller's history |
+| **skill** | the dispatcher, or by name | `bundles/<b>/skills/<name>/` | The primitive needs bundled assets: scripts, catalogs, reference files |
+| **command** | the user types `/name` | `bundles/<b>/commands/` | An explicit entry point someone would otherwise have to describe in prose |
+| **hook** | the harness, on an event | `bundles/<b>/hooks/` | Enforcement the model must not be able to route around |
+
+**Only agents get a `primitives/` entry, and the reason is rendering.** An agent is written
+once and rendered per harness, with `tools`, `model`, and `color` added from `meta.yaml` —
+that variance is what `primitives/` exists to manage. A skill renders once, because no other
+harness reads `SKILL.md`; its portable form is the bundle's `AGENTS.md`, which is prose, not
+a rendering. Duplicating an unrendered file into `primitives/` would create two identical
+copies to keep in sync and buy nothing.
+
+So: **agents live in `primitives/` and are rendered into `bundles/`. Skills, commands, and
+hooks live in the bundle only.** Agents and skills each declare a `meta.yaml` next to their
+body, because the contract and the honest per-harness enforcement label are not optional for
+anything that makes a promise. Commands and hooks do not: a command is an entry point to a
+primitive that already declared one, and duplicating the contract there creates a second copy
+to keep true.
+
+### Choosing between an agent and a skill
+
+- **Needs its own context** → agent. This is the whole mechanism for reviewers, and no skill
+  substitutes for it.
+- **Needs to ship files** → skill. A skill directory carries `scripts/`, data, and references,
+  and its own files resolve by **relative path**, so it survives both a plugin install and a
+  plain copy into `~/.claude/skills/`.
+- **Both** → a skill that spawns the agent, or a bundle containing both. They compose.
+
+Prefer a skill for anything with a deterministic component. Put the deterministic work in a
+script and let the skill orchestrate: scripts do not hallucinate a count, and the split keeps
+model judgement for what actually needs judgement.
+
+### Paths, which is where this bites
+
+`${CLAUDE_PLUGIN_ROOT}` resolves **only under a plugin install**. Anything depending on it is
+plugin-only, and a loose-file copy of it fails at first use. A skill's own bundled files should
+therefore be referenced relatively, and a command should delegate to its skill rather than
+shelling out to a bundled script. Get this wrong and the primitive works perfectly for you and
+is broken for everyone who installed it the other way.
+
+Skills, commands, and agents are **auto-discovered** from their directories; no manifest
+declaration is needed. Declaring `commands` or `agents` in `plugin.json` *replaces* the default
+scan rather than adding to it, which is a footgun, not a feature.
 
 **planner** — Define success criteria *before* decomposing: what proves this is done. A plan
 whose steps can't be checked isn't a plan. Name existing code to reuse before proposing new
@@ -255,7 +317,12 @@ stop accepting.
 ## Checklist
 
 ```
-[ ] primitives/agents/<name>/{agent.md, meta.yaml, README.md}
+[ ] kind AND surface chosen deliberately (they are independent axes)
+[ ] agents: primitives/agents/<name>/{agent.md, meta.yaml, README.md}
+[ ] skills: bundles/<b>/skills/<name>/{SKILL.md, meta.yaml} — no primitives/ entry
+[ ] skill bundled files referenced by RELATIVE path, not ${CLAUDE_PLUGIN_ROOT}
+[ ] commands delegate to a skill rather than shelling out to a bundled script
+[ ] installed both ways — plugin AND loose-file — and actually invoked it
 [ ] agent.md frontmatter has ONLY name + description
 [ ] description leads with the trigger condition; names the sibling it isn't
 [ ] body: framing · scope · numbered priority list · output contract · terseness

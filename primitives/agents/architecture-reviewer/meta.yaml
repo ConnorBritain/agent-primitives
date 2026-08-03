@@ -4,6 +4,7 @@
 
 name: architecture-reviewer
 kind: reviewer
+surface: agent
 bundle: verification-gate
 
 # Non-negotiable properties. A target that cannot honour these degrades the
