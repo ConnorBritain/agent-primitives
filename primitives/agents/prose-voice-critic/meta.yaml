@@ -1,0 +1,72 @@
+# Harness-specific metadata for the prose-voice-critic primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+
+name: prose-voice-critic
+kind: reviewer
+surface: agent
+bundle: prose-review
+
+contract:
+  read_only: true          # a critic that can edit will fix instead of report
+  clean_context: true      # the reviewer must not be the writer
+  verdict: [CLEAN, REVISE]
+  scope: file              # a whole draft, not a diff
+
+  # THE DEPARTURE FROM THIS REPO'S REVIEWER CONVENTION, recorded because it is
+  # deliberate and would otherwise read as a mistake.
+  #
+  # CONTRIBUTING says: "resolve uncertainty toward blocking; a reviewer that
+  # rounds ambiguity to 'probably fine' converges on rubber-stamping." That is
+  # right when blocking is cheap - you look again at a diff.
+  #
+  # Here the costs invert. A missed passage costs one unremarked paragraph. A
+  # wrong "this doesn't sound like you" teaches an author to write more blandly,
+  # which is precisely the damage the whole project exists to prevent, and it is
+  # not recoverable by looking again: the author has already been told their own
+  # voice is wrong.
+  #
+  # So uncertainty resolves toward SILENCE, and CLEAN is the expected verdict on
+  # a draft the author wrote. A critic returning REVISE on most of a person's own
+  # writing is broken, and the acceptance harness measures exactly that.
+  uncertainty_resolves_to: silence
+
+  refuses:
+    - Stating or implying that a passage was machine-generated
+    - Any finding without a corpus citation showing how the author writes instead
+    - Judging quality, clarity, or correctness - other critics own those
+    - Claiming anything about "your voice" when no corpus is present
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: cyan
+    tools:
+      - Read
+      - Grep
+      - Glob
+    notes: >-
+      Full contract. read_only is granted by the tool allowlist rather than
+      structural: the agent has no write tool. Clean context is what makes the
+      comparison honest - a critic that helped draft the text will recognise its
+      own choices as the author's.
+
+  cursor:
+    enforcement: partial
+    notes: >-
+      No tool allowlist, so read-only is a request rather than a guarantee.
+      Context separation is available and is the half that matters most.
+
+  codex:
+    enforcement: advisory
+    notes: >-
+      Neither read-only nor context isolation is enforced. Run it as a fresh
+      `codex exec` against the draft rather than inline; see docs/portability.md.
+
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Prompt only. The corpus-citation requirement is the one rule to keep if
+      you shorten it - a voice finding without evidence of how the author writes
+      instead is a guess, and guesses about someone's voice are the failure mode.

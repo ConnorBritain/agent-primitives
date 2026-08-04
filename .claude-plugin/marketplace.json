@@ -12,7 +12,13 @@
       "source": "./bundles/verification-gate",
       "version": "0.1.0",
       "category": "code-quality",
-      "tags": ["code-review", "verification", "reward-hacking", "architecture", "quality-gate"]
+      "tags": [
+        "code-review",
+        "verification",
+        "reward-hacking",
+        "architecture",
+        "quality-gate"
+      ]
     },
     {
       "name": "prose-tell-scan",
@@ -20,7 +26,27 @@
       "source": "./bundles/prose-tell-scan",
       "version": "0.1.0",
       "category": "writing",
-      "tags": ["writing", "prose", "editing", "ai-writing-tells", "readability"]
+      "tags": [
+        "writing",
+        "prose",
+        "editing",
+        "ai-writing-tells",
+        "readability"
+      ]
+    },
+    {
+      "name": "prose-review",
+      "description": "Read-only critics for prose, run before a draft is called done. v0.1 ships prose-voice-critic: does this sound like the author, judged against their own corpus, with every finding required to cite how they write instead. Never judges quality, never claims anything about who wrote something.",
+      "source": "./bundles/prose-review",
+      "version": "0.1.0",
+      "category": "writing",
+      "tags": [
+        "writing",
+        "prose",
+        "editing",
+        "voice",
+        "review"
+      ]
     }
   ]
 }

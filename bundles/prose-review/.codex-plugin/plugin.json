@@ -1,0 +1,35 @@
+{
+  "name": "prose-review",
+  "version": "0.1.0",
+  "description": "Read-only critics for prose. v0.1: does this draft sound like its author.",
+  "author": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "homepage": "https://github.com/ConnorBritain/agent-primitives",
+  "repository": "https://github.com/ConnorBritain/agent-primitives",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "prose",
+    "editing",
+    "voice",
+    "review"
+  ],
+  "interface": {
+    "displayName": "Prose Review",
+    "shortDescription": "Critics that judge a draft against the author's own writing.",
+    "longDescription": "Read-only critics for prose, each owning one question exclusively. v0.1 ships prose-voice-critic: whether a draft sounds like the person it is supposed to be by, judged against a corpus of their own writing, with every finding required to cite how they write instead. It never judges quality and never states or implies that text was machine-generated. Uncertainty resolves to SILENCE rather than to flagging, which reverses the usual reviewer convention on purpose: wrongly telling an author their own voice is off teaches them to write blandly. NOTE: Codex enforces neither the read-only tool restriction nor context isolation, and context isolation is the mechanism here - a critic that helped write the draft will recognise its own choices as the author's. Run it as a fresh `codex exec` against the draft rather than inline; see docs/portability.md.",
+    "developerName": "Connor England",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/ConnorBritain/agent-primitives",
+    "defaultPrompt": [
+      "Does this draft sound like me?",
+      "Review this against my writing corpus for voice",
+      "Which passages here do not match how I write?"
+    ]
+  }
+}
