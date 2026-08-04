@@ -1,0 +1,67 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Jacques Blois (linguist)
+revid: 1363715466
+date: 2026-07-11
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1363715466
+---
+
+Belgian linguist who developed morphological analysis systems for automated translation
+
+
+
+
+Jacques Blois (27 May 1922 – 11 July 1998) was a Belgian linguist and computational linguistics researcher who developed the morphological analysis system for DICAUTOM (Dictionnaire Automatique), an early automated dictionary system that preceded the Eurodicautom terminology database. His work was cited in the 1966 ALPAC report on machine translation and referenced in academic publications including Science in 1964.
+
+
+Career
+
+
+
+Between 1961 and 1963, Blois worked at the Université libre de Bruxelles as part of the Groupe de Linguistique Automatique, where he developed the morphological analysis system for DICAUTOM, an early Euratom project (contract No. 018615 CETB) aimed at automating dictionary consultation for translators. The system was designed for precise multilingual term retrieval and was tested on IBM 1401 and IBM 7090 computers.
+
+His morphological analysis methodology was detailed in Morphologie du français pour la traduction automatique (1962), which enabled automatic French synthesis. This work contributed to the development of Eurodicautom , launched in 1975 as a multilingual terminology database for the European Commission, which later evolved into IATE .
+
+The 1966 ALPAC report on machine translation cited DICAUTOM as an example of a "machine aid for translators," particularly for its automatic dictionary capabilities. The system was presented at COLING 1967, where a third version optimized for German was discussed.
+
+Blois also authored French grammar textbooks for Belgian secondary education, co-written with Marc Bar. These works, including Notre langue française (1972), were adopted in Belgian schools and are now part of the collections at the National Museum of Education - Réseau Canopé in France.
+
+Legacy
+
+
+
+Blois's morphological analysis system was cited in the National Science Foundation's 1962 report on scientific documentation. His 1963 work Analyse morphologique automatique du français was referenced by Victor H. Yngve in Science in 1964.
+
+Historian Gwénaël Glatre describes DICAUTOM as a precursor to Eurodicautom, which served as the primary terminology tool for European translators from the 1970s until its replacement by IATE in 2007. John Hutchins, in his 1986 book Machine Translation: Past, Present, Future , included DICAUTOM among the contributions of early researchers in computational linguistics.
+
+Selected publications
+
+
+
+Morphologie du français pour la traduction automatique (with E. Morlet, 1962)
+
+Analyse morphologique automatique du français (1963)
+
+Notre langue française: Grammaire pour toutes les classes de l'enseignement secondaire (with Marc Bar, 1972)
+
+"Les néologismes dans l'hebdomadaire L'Express" ( Équivalences , 1979)
+
+"Les banques de données de l'I.S.T.I." ( Équivalences , 1983)
+
+
+References
+
+
+
+
+
+
+
+Category:1922 births
+Category:1998 deaths
+Category:Belgian linguists
+Category:Computational linguists
+Category:People from the City of Brussels
+Category:Université libre de Bruxelles faculty

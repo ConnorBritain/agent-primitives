@@ -166,21 +166,44 @@ export function summarise({ findings, cadenceChecks, thresholds, wordCount }) {
   };
 }
 
+/**
+ * The one sentence most likely to be quoted, so it has to survive being checked
+ * against the table above it.
+ *
+ * It used to say "N independent categories are elevated" where N was catalog
+ * categories PLUS one if any cadence metric was banded. A reader comparing that
+ * sentence to `flagged_categories` found a number that did not match and could
+ * not be reconciled — and it always erred toward more alarming. Cadence is a
+ * different axis from a catalog category, a distinction that is load-bearing
+ * everywhere else here (cadence survives a catalog version change; density does
+ * not), and collapsing the two under one word was the tool overstating its own
+ * agreement with itself.
+ *
+ * Both axes are still counted, because co-occurrence across independent signals
+ * is the whole reading. They are just named separately now.
+ */
 function buildReading(categoryCount, cadenceFlagCount, confidence, wordCount) {
   const uncalibrated = confidence === "none" || confidence === "insufficient";
   const clusters = categoryCount + (cadenceFlagCount > 0 ? 1 : 0);
+
+  const plural = (n, one, many) => `${n} ${n === 1 ? one : many}`;
+  const parts = [];
+  if (categoryCount > 0) parts.push(plural(categoryCount, "catalog category", "catalog categories"));
+  if (cadenceFlagCount > 0) parts.push(plural(cadenceFlagCount, "cadence metric", "cadence metrics"));
+  const named = parts.join(" and ");
 
   let body;
   if (clusters === 0) {
     body = "No category is over threshold. Nothing here to act on.";
   } else if (clusters === 1) {
     body =
-      "One category is elevated. A single elevated category is weak evidence on " +
-      "its own — read the hits and decide whether they are the author's voice.";
+      `${named} is elevated. A single elevated signal is weak evidence on its ` +
+      "own — read the hits and decide whether they are the author's voice.";
   } else {
     body =
-      `${clusters} independent categories are elevated. Tells cluster or they are ` +
-      "noise, so co-occurrence at this level is worth a read-through.";
+      `${named} are elevated, across ${clusters} independent signals. Tells ` +
+      "cluster or they are noise, so co-occurrence at this level is worth a " +
+      "read-through.";
   }
 
   const short = wordCount < SHORT_DOCUMENT_WORDS

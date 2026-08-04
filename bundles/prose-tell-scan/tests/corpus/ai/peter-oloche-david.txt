@@ -1,0 +1,19 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Peter Oloche David
+revid: 1358333695
+date: 2026-06-08
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1358333695
+---
+
+Peter Oloche David (also published as Peter O. David and Peter Oloche O. David ) is a Nigerian researcher, entrepreneur, and company executive. He is recognized for contributions to biomedical and computational research and is profiled in professional and institutional networks.
+
+David's research contributions focus on biomedical data analysis and computational approaches in cancer research. He has co-authored abstracts presented at international conferences, including AACR special sessions on synthetic vulnerabilities and pediatric cancer research. "AACR Special Conference — Expanding and Translating Cancer Synthetic Vulnerabilities (2024)" (PDF) . AACR . Retrieved 27 October 2025 . "AACR Special Conference — Advances in Pediatric Cancer Research (2024)" (PDF) . AACR . Retrieved 27 October 2025 .
+
+He is listed on [Europeana Pro]( https://pro.europeana.eu/person/peter-oloche-david ) as a member and candidate for the 2024 Members Council Elections, representing Eloi Holding, Inc., a multinational holding company engaged in research, technology, and sustainable innovation. "Peter Oloche David — Europeana Pro profile" . Europeana Pro . Retrieved 27 October 2025 . "Meet your candidates for the Members Council Elections 2024" . Europeana Pro . Retrieved 27 October 2025 .
+
+He has authored and contributed to scientific abstracts and posters listed by the American Association for Cancer Research (AACR). "Peter Oloche David — Figshare" . Figshare . Retrieved 27 October 2025 .
+
+References

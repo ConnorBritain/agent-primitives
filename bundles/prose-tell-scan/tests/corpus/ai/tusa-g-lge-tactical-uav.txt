@@ -1,0 +1,82 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/TUSAŞ Gölge tactical UAV
+revid: 1365203919
+date: 2026-07-20
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1365203919
+---
+
+The Gölge (English: Shadow ; Turkish designation: GÖLGE ) is a Turkish tactical unmanned aerial vehicle (UAV) under development by Turkish Aerospace Industries (TUSAŞ/TAI).
+
+
+Development
+
+
+
+Gölge was publicly revealed through trademark and patent applications filed with the Turkish Patent and Trademark Office in April 2026. The platform was showcased at the SAHA Expo 2026 in Istanbul alongside the jet-powered kamikaze UAV AYAZ . [](grok_render_citation_card_json={"cardIds":["3bb883"]})
+
+It forms part of Turkey's efforts to create a multi-layered UAV ecosystem, complementing larger platforms such as the TAI Anka-3 family and TAI Aksungur .
+
+Design
+
+
+
+Gölge is a **piston-engine** tactical UAV optimized for long-endurance missions. The name "Gölge" (Shadow) and associated branding suggest a focus on **low-observability** (low radar cross-section) features. It is designed as a flexible, multi-role platform, primarily for intelligence, surveillance, and reconnaissance (ISR) roles. [](grok_render_citation_card_json={"cardIds":["993eac"]})
+
+Unlike the jet-powered AYAZ (intended for high-speed kamikaze/strike missions), Gölge prioritizes endurance and stealthy observation.
+
+Specifications
+
+
+
+As of May 2026, detailed technical specifications have not been officially released by TUSAŞ. Known or estimated characteristics include:
+
+Powerplant : Single piston engine
+
+Role : Tactical ISR / multi-role
+
+Endurance : Expected to be high due to piston engine efficiency (exact figures pending)
+
+
+Operational History
+
+
+
+As of 2026, the Gölge remains in the development and demonstration phase. No operational deployments have been reported.
+
+See also
+
+
+
+TAI Anka
+
+TAI Aksungur
+
+AYAZ (UAV)
+
+Turkish Aerospace Industries
+
+
+References
+
+
+
+
+
+External links
+
+
+
+[Official TUSAŞ website]( https://www.tusas.com/ ) (Turkish/English)
+
+SAHA Expo 2026 coverage
+
+
+{{TUSAŞ aircraft}}
+{{Turkish UAVs}}
+
+Category:Turkish unmanned aerial vehicles
+Category:2020s unmanned aerial vehicles
+Category:TUSAŞ aircraft

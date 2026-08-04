@@ -30,6 +30,16 @@ finding that is *wrong for everyone* belongs here.
 
 ## How to add an entry
 
+Entries carry a prefix for what kind of miss they record:
+
+- **`FP-`** — the scanner flagged ordinary writing. The original and most common.
+- **`FN-`** — the scanner *failed* to flag something it claims to cover. These
+  surface by auditing the catalog against its source, not by anything firing, and
+  nothing in normal use will ever reveal them.
+- **`TP-`** — the scanner was right and the prose was wrong. Rare, and worth
+  recording anyway: a log holding only scanner-was-wrong entries trains the reader
+  to assume the scanner is the problem.
+
 When the scanner flags something that is ordinary writing:
 
 1. Record it below before fixing it. The write-up is the artifact; the fix is
@@ -149,10 +159,282 @@ This is the dominant false positive in any repository whose documentation
 discusses prose, and it is listed under *Known limits* in the README rather than
 being engineered around.
 
+### FN-2026-08-03-a · `negative-parallelism`, `model-markup-artifact` · under-matching
+
+**The first entries here that are not false positives.** Both were found by
+checking the catalog against its own source page rather than by anything firing.
+
+`negative-parallelism` matched **4 of the 16 examples** the source page marks up
+with `{{highlight}}`. The pattern required a pronoun subject *and* one of
+`just|merely|simply|only`, so `is not X but Y` could never match. Coverage of the
+family is now **11 of 16**: the subject is any negated copula, the intensifier is
+optional, `ain't`/`doesn't`/`don't`/`didn't` count as negators, a second branch
+takes the bare `not just X — they're Y` form with no copula, and a new
+`not-x-but-y` sibling covers the rest. Zero false positives across the repo
+corpus. All sixteen are asserted individually in `selftest.mjs`, gaps included.
+
+`model-markup-artifact` hardcoded `U+0007` as the `citeturn0search1`
+separator. That is how MediaWiki **stores** the marker; a real paste carries a
+Private Use Area codepoint. The entry was matching the wiki *rendering* of the
+tell rather than the tell. This is Tier A — the only dialect-neutral tier, and
+the only thing `--artifacts-only` retains — so it was the most expensive miss in
+the catalog.
+
+**Root cause, shared:** every pattern here was authored *from* the source page and
+never tested *against* it. Both fixes have paired tests built from the page's
+verbatim examples, so the next edit that narrows either one fails loudly.
+
+The `negative-parallelism` fix carries a caveat worth repeating from its `note`:
+relaxing the subject without also requiring **contracted** resumption produced
+five hits on this repo's own prose, all legitimate explanatory contrast
+("is not a decision, it is a migration"). The contracted-resumption requirement is
+fitted to those five observations and is a false-positive guard, not a claim about
+English. If it starts costing real detections, widen the pivot punctuation or
+prune the entry rather than adding epicycles.
+
+### FN-2026-08-03-c · the whole catalog · apostrophe folding — **the worst defect found so far**
+
+Found by an adversarial review of the fix above, not by the fix. Worth reading in
+full, because the mechanism generalises and the first fix hid it.
+
+**Every catalog pattern spelled contractions with an ASCII apostrophe** — `isn't`,
+`you're`, `it's`. macOS, iOS, Word, and every LLM chat UI emit **U+2019** by
+default. Seven entries were affected, and one of them is Tier A:
+
+> **`chatbot-register` did not match `You’re absolutely right` as actually
+> pasted.** The most recognisable chatbot leak there is, in the tier that is meant
+> to be dispositive on a single occurrence and is the only thing
+> `--artifacts-only` retains, missed on the character it is most likely to arrive
+> with.
+
+That quoted phrase is in backticks deliberately, and the reason is a fourth
+finding from the same review pass. Written as plain prose it **tripped Tier A in
+this file** — `chatbot-register` fires on one occurrence and bypasses density
+gating, so a document *describing* the tell gets flagged for *committing* it.
+
+Mention-vs-use is already accepted for style entries; `delve` fires on the README
+for the same reason and is listed under *Known limits* rather than engineered
+around. **Tier A is different, and the difference is the whole basis for the
+tier.** It claims near-zero false positives and dispositive weight on a single
+hit, and an accepted false positive there devalues every Tier A finding, not just
+this one.
+
+So the rule for this repo, now enforced by adding this file to the FP corpus:
+**when documentation quotes a Tier A trigger, mark it as code.** Inline code is
+masked before scanning — the same mechanism that stops the scanner reading your
+API examples as prose. Fighting it with rewording would have been the worse fix;
+the masking layer already existed for exactly this.
+
+**Why the audit that was looking for exactly this missed it.** The paired test for
+`FN-2026-08-03-a` was built by retyping the source page's examples — ASCII
+apostrophes, spaced em dashes. The fix was then measured against that text and
+scored 7 of 9. Against what the page actually says it scored 1 of 9. **The test
+had been fitted to the code, so it certified a fix that did not work on real
+input,** and the reported improvement was an artifact of the fixture.
+
+That is the failure mode this whole log exists to catch, committed by the log's
+own author while writing an entry about rigour.
+
+**Fixed at intake, not per pattern.** `normaliseApostrophes()` folds the
+apostrophe family before matching. Seven entries had the bug; the eighth would
+have arrived with the next contributor. Two properties make it safe:
+
+- **Offset-preserving** — one UTF-16 code unit to one — so line numbers stay valid
+  and findings quote the document *as written*. A tool that echoed normalised
+  punctuation back at an author would be rewriting their prose inside its own
+  report.
+- **Double quotes are deliberately not folded.** `scanFormatting` counts curly
+  versus straight to spot paste-assembled documents; folding would silently zero
+  that measurement out.
+
+`calibrate.mjs` folds identically. Without that, a corpus written with curly
+apostrophes would yield lower densities than the scans it is the baseline for, and
+every affected entry would sit under a ceiling derived from a different rule.
+
+**The lasting change is to method, not to a regex.** Test fixtures for
+source-derived patterns are now copied byte-for-byte from the source, and
+`selftest.mjs` says so where the strings live. Retyping a fixture is how a test
+stops being evidence.
+
+### TP-2026-08-03-b · `actually` · a true positive, in this repo's own docs
+
+**Not a false positive.** Recorded because the log's other entries are all
+scanner-was-wrong, and a log that only holds those teaches the wrong lesson.
+
+Widening the FP corpus to include bundle-level docs immediately flagged
+`PROFILES.md` — four uses of *actually* in 1,796 words, 2.23/1000 against a
+ceiling of 2. The file was drafted by a model in the session that wrote it, and
+the finding was correct: two uses were load-bearing (claimed-vs-real,
+configured-vs-applied) and two were filler. **The prose was fixed, not the
+threshold.**
+
+Two things this demonstrates that no synthetic test could:
+
+- The corpus gap was real. Those files sat outside the FP list entirely, and the
+  first thing that ran against them found something. (An earlier draft of this
+  entry put a number on a thematic-break probe that was never committed —
+  unreproducible, so it is withdrawn. The checkable claim is the one above: a
+  corpus that excludes the prose most likely to trip a structural check is not a
+  corpus, and widening it flagged a real tic on the first pass.)
+- `actually` is the entry that motivated this whole primitive — eight occurrences
+  a model's self-assessment did not notice. It just did it again, to the same
+  author, in a document *about* not doing it. Counting is what scripts are for.
+
+### FN-2026-08-04-a · the whole catalog · first measurement against real AI text
+
+**Until this entry, the test suite had never observed AI-written text.** Both
+fixtures are the same human author's draft and revision, so every "detection"
+assertion measured draft-versus-revision. The tool could have been measuring
+nothing and the suite would still have been green — not hypothetical, since the
+apostrophe defect in `FN-2026-08-03-c` did exactly that.
+
+`tests/corpus/` now holds 45 documents, all CC BY-SA 4.0 and pinned to immutable
+revision ids:
+
+- **33 AI** — `Wikipedia:Signs of AI writing/Examples/*`. Text the community
+  examined and judged AI-written. Not our guess; theirs.
+- **12 human** — article revisions predating 2022-11-30, weighted toward Indian,
+  Nigerian and Kenyan institutions. Human authorship is a fact about the
+  timestamp, not an attestation — and each sample is now verified against its own
+  revision's wikitext, for reasons `FN-2026-08-04-b` explains at length.
+
+#### The numbers
+
+At the tool's own documented operating point — "several co-occurring is worth a
+read-through", meaning two or more flagged categories. Both corpora under the
+same profile, because rates from different threshold sets are not comparable.
+
+| profile | recall (AI flagged) | FPR (human flagged) | Tier A on AI | Tier A on human |
+|---|---|---|---|---|
+| `technical` | 2/33 = **6%** | 0/12 = **0%** | 8/33 | **0** |
+| `essay` | 7/33 = **21%** | 1/12 = 8% | 8/33 | **0** |
+
+95% Wilson interval on the `technical` FPR is 0–24%. Twelve samples cannot
+distinguish 0% from 20%, and the suite prints the interval rather than the point
+estimate for exactly that reason.
+
+**Two findings, and the second is uncomfortable.**
+
+**Tier A carries the tool.** Leaked markup alone identifies 8 of 33 with zero
+false positives, out-performing the entire style catalog (2 of 33 under the
+register-appropriate profile). The artifact/style split was the right call and
+the evidence is stronger than expected.
+
+**Style-catalog recall is low — 6% to 21% depending on register.** That number
+belongs in the README. It is not a defect to be tuned away: the catalog is
+density-gated, deliberately conservative, and built for an author examining their
+own draft rather than a classifier. But anyone reading "catalogued AI writing
+tells" will assume better, and the honest framing is that a clean scan means very
+little while a Tier A hit means a great deal.
+
+#### Per-entry yield, `technical` profile
+
+Rate = fraction of documents containing the entry at all.
+
+| entry | AI | human | lift |
+|---|---|---|---|
+| `enhance` | 33% | 0% | **+33** |
+| `model-markup-artifact` (Tier A) | 21% | 0% | **+21** |
+| `participle-tail` | 18% | 0% | +18 |
+| `current-participles` | 18% | 0% | +18 |
+| … | | | |
+| `deeply-rooted` | 0% | 17% | −17 |
+| `renowned` | 3% | 25% | **−22** |
+
+The mid-2025 participial cohort the source page identifies is the strongest
+lexical signal in the catalog, which vindicates tracking `era`.
+
+**Ten entries appear at least as often on human text as on AI text**:
+`renowned`, `deeply-rooted`, `nestled`, `groundbreaking`, `foster-abstract`,
+`embark-on`, `diverse-array`, `promotional-flattery`, `fundamentally`,
+`tricolon`.
+
+**None are deleted**, and the reason is `FN-2026-08-04-b`. Twelve human
+documents, all about universities, cannot justify pruning ten entries — `nestled`
+and `renowned` firing on institutional articles is plausibly a register effect,
+and appearance rate is the wrong statistic to prune on anyway. They are recorded
+and left in place. The honest fix for an author they hurt is calibration.
+
+### FN-2026-08-04-b · the corpus was corrupt, and a deletion rested on it
+
+The most instructive entry in this log. Two compounding errors, neither caught by
+any test, both found by adversarial review.
+
+**The corpus was not what it said it was.** `prop=extracts&revids=<historical>`
+accepts a revision id, returns HTTP 200, echoes that id back — and serves the
+extract of the **current** page. Every human sample was vendored that way: 2022
+revision metadata in the frontmatter, 2026 article text in the body. The one
+property the human corpus existed to guarantee — *provably predates ChatGPT* —
+was false in every file, while every manifest looked correct.
+
+Fixed with `action=parse&oldid=`, which genuinely renders the pinned revision.
+
+**The verification added alongside it was itself wrong, in the same way.** It
+sampled long words from the prose and required them in the pinned revision's
+wikitext; it was fault-injected against one document, passed, and was described
+as a proof. Measured across all twelve corrupted samples it caught **two**.
+Articles evolve incrementally, so a later version still shares most of its
+vocabulary with an earlier one — 80% overlap is what two versions of the same
+article look like whether or not one is the wrong version.
+
+What discriminates is vocabulary that is **new**: the tokens present in the
+article's *current* wikitext and absent from the pinned revision's. Prose from the
+pinned revision cannot contain them; prose from the current page is made of them.
+
+| | fraction of post-revision vocabulary present |
+|---|---|
+| corrupted samples | 0.111 – 0.720 |
+| correct samples | 0.000 – 0.041 |
+
+Threshold 0.05, and the margin is worth stating rather than rounding: the closest
+correct sample sits at 0.041 and the closest corrupted one at 0.111. Comfortable,
+but not enormous, and a corpus of longer-lived articles would narrow it.
+
+This is defence in depth, not the guarantee. The guarantee is the API call plus
+the revid assertion. The check exists because the last thing assumed about an
+API's behaviour was wrong. The score is recorded per sample in
+`ATTRIBUTION.json` and the acceptance gate asserts every sample carries one.
+
+**`tricolon` was deleted on those numbers, and is restored.** Against the phantom
+corpus it looked like an anti-signal — 84% of AI documents, 92% of human — and a
+standing rule here says to delete on a field false positive. Re-measured against
+the corrected corpus, holding the profile constant so only the entry differs:
+
+| profile | with `tricolon` | without |
+|---|---|---|
+| `technical` | recall 6%, FPR **0%** | recall 3%, FPR 0% |
+| `essay` | recall 21%, FPR 8% | recall 12%, FPR 0% |
+
+At the register-appropriate profile it is **free recall** — it doubles detections
+and costs nothing in precision. At `essay` it trades 9 points of recall for 8 of
+precision, which is a judgement call rather than a defect. Either way it is a
+weak positive signal, not an anti-signal, and deleting it was wrong.
+
+A third error is worth recording because it nearly justified the restoration on
+another bad number: the first re-measurement compared `technical` against `_base`
+and reported a sevenfold recall difference. Those profiles have different
+thresholds. The comparison measured the profile, not the entry.
+
+**What changes as a result.** The standing rule was *"if it produces a field
+false positive, delete it rather than tightening."* That rule is now wrong as
+written, and this is its amendment: **a field false positive is grounds to
+examine an entry, not to delete it. Deletion requires measuring what the deletion
+costs.** Halving recall for no precision gain — which is what deleting `tricolon`
+did at `technical` — is not a good trade for a tool whose output is explicitly
+leads rather than verdicts.
+
+**And the methodological rule, which is the one that generalises.** Three times
+now — the retyped fixture in `FN-2026-08-03-c`, the corpus here, the profile
+mismatch above — a number was produced by a measurement whose *setup* was wrong
+rather than whose arithmetic was. Arithmetic errors announce themselves. Setup
+errors produce plausible numbers that survive review until someone re-derives
+them independently. Before publishing a figure, state what would have to be true
+for it to be meaningless, and check that thing.
+
 ## What the log says so far
 
-**Four of six incidents trace to two root causes**, both structural rather than
-per-pattern:
+**Four of six false positives trace to two root causes**, both structural rather
+than per-pattern:
 
 - `density-instability` (FP-c, FP-d) produced one fix — the min-count floor —
   that resolved both and would have pre-empted others. Handling them
@@ -193,13 +475,24 @@ Things the log is not yet large enough to answer:
   (`--artifacts-only`, and `disable_categories` per profile). See "Dialect and
   register" in the README.
 
-  **Still open, and it is the important half:** no incident here comes from a
-  real person's real writing. A synthetic passage written by the same author as
-  the catalog proves the mechanism exists; it cannot tell you the actual rate,
-  and it may well miss the failure modes that matter most. Every entry in this
-  log so far concerns writing by one author in one variety of English. Until
-  that changes, the honest claim is that the tool has a known bias with known
-  workarounds, not that the bias has been measured.
-- Does the `tricolon` entry earn its place? Still unanswered, still noisy, still
-  zero actionable findings. If it produces a field false positive, delete it
-  rather than tightening — the same standard applied to `transition-overload`.
+  ~~**Still open, and it is the important half:** no incident here comes from a
+  real person's real writing.~~ **CLOSED 2026-08-04 by `FN-2026-08-04-a`.**
+  `tests/corpus/human/` holds twelve documents written by real people, in the
+  ornate formal register this catalog is documented to over-fire on, provably
+  before ChatGPT existed. Measured false-positive rate at the tool's own
+  operating point: **0 of 12**, with zero Tier A hits. The 95% interval is
+  0–24%, so this is not proof the bias is absent — twelve samples cannot show
+  that — but it is a measurement where there was previously only an assertion,
+  and it is the population the tool most needed to be checked against.
+
+  What replaces it as the open question: the corpus is all encyclopedia prose
+  about institutions. Eleven entries still fire at least as often on it as on the
+  AI set (see the yield table), and `renowned`/`nestled` doing so is plausibly a
+  register effect rather than a bias effect. Distinguishing those needs ornate
+  human prose in a *different* genre.
+- ~~Does the `tricolon` entry earn its place?~~ **ANSWERED 2026-08-04: yes, at
+  the register-appropriate profile.** It was deleted and restored the same day —
+  see `FN-2026-08-04-b`. Holding the profile constant, it doubles recall at
+  `technical` for zero false positives, and trades 9 points of recall for 8 of
+  precision at `essay`. A weak positive signal, not the anti-signal the corrupt
+  corpus made it look like.

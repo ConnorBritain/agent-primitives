@@ -22,7 +22,7 @@ import { readFileSync, existsSync, statSync } from "node:fs";
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { maskNonProse, paragraphs, words } from "./lib/text.mjs";
+import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/text.mjs";
 import { scanCatalog, scanFormatting } from "./lib/scan.mjs";
 import { cadenceMetrics } from "./lib/cadence.mjs";
 import {
@@ -127,7 +127,13 @@ function analyse(file, opts, config, searchPath) {
     ? { ...profile.catalog, entries: profile.catalog.entries.filter((e) => e.tier === "A") }
     : profile.catalog;
 
-  const { findings: rawFindings, suppressed } = scanCatalog(text, catalog, profile.allow);
+  // Match against apostrophe-folded text, quote from the text as written. The
+  // fold is offset-preserving, so `display` lines up exactly. Formatting still
+  // sees the original: it counts curly vs straight quotes, and folding first
+  // would zero out that measurement.
+  const { findings: rawFindings, suppressed } = scanCatalog(
+    normaliseApostrophes(text), catalog, profile.allow, { display: text },
+  );
   const cadence = cadenceMetrics(text, paras);
   const formatting = scanFormatting(text, paras, wordCount);
 
@@ -148,6 +154,13 @@ function analyse(file, opts, config, searchPath) {
       dir: profile.dir,
       medium: profile.meta.medium || null,
       thresholds: profile.thresholds,
+      // Emitted because density findings are only comparable WITHIN one catalog
+      // version: adding or retuning an entry silently changes what a per-1k
+      // number means. Anything that stores these bands — a voice lock, a derived
+      // threshold, a baseline comparison — has to record this alongside them, and
+      // it cannot do that if the scanner never says which catalog it used.
+      catalog_version: profile.catalog.version || null,
+      catalog_audited: profile.catalog.audited || null,
       catalog_entries: catalog.entries.length,
       allowlist_terms: profile.allow.size,
       artifacts_only: Boolean(opts.artifactsOnly),

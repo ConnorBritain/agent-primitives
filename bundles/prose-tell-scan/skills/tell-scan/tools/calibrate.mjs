@@ -28,7 +28,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { maskNonProse, paragraphs, words } from "./lib/text.mjs";
+import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/text.mjs";
 import { cadenceMetrics, CALIBRATED_METRICS, percentile } from "./lib/cadence.mjs";
 import { scanCatalog } from "./lib/scan.mjs";
 import {
@@ -117,7 +117,11 @@ function measure(path, profile) {
   if (wordCount < 200) return { path, excluded: `too short (${wordCount} words)` };
 
   const cadence = cadenceMetrics(text, paras);
-  const { findings } = scanCatalog(text, profile.catalog, profile.allow);
+  // Fold apostrophes exactly as tell-scan does. If calibration measured the
+  // unfolded form, a corpus written with curly apostrophes would yield lower
+  // densities than the scans it is meant to be the baseline for, and every
+  // affected entry would sit under a ceiling derived from a different rule.
+  const { findings } = scanCatalog(normaliseApostrophes(text), profile.catalog, profile.allow);
 
   // Two different densities, because the scanner asks two different questions.
   //
@@ -243,6 +247,12 @@ function calibrate(name, searchPath, { write }) {
     // regenerated whenever the corpus changes, and a stale stamp invites reading
     // an old file as current.
     generated: new Date().toISOString().slice(0, 10),
+    // The catalog these bands were measured against. `metrics` (cadence) is pure
+    // text statistics and stays valid across catalog releases; `catalog_density`
+    // does NOT — it counts entries, so adding or retuning one changes what the
+    // band means. Recording the version is what lets a later reader tell which
+    // half of this file it may still trust.
+    catalog_version: profile.catalog?.version || null,
     corpus: usable.map((s) => ({ file: s.path.split("/").pop(), words: s.words, source: s.source, date: s.date })),
     metrics,
     catalog_density,

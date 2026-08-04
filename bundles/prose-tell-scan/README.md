@@ -366,6 +366,32 @@ that register's density ceiling instead. A ceiling still reports the rate; an
 allowlist entry hides it. `profiles/narration/allow.txt` explains the choice
 where it comes up.
 
+## Two clocks
+
+`catalog.json` carries its own `version`, and it is **not** the bundle's. That is
+the split's premise showing up in a file rather than a doc.
+
+The bundle is code: it changes when the scanner changes. The catalog is a dated
+dataset tracking a target that moves adversarially, and it carries two dates
+because they mean different things.
+
+- **`generated`** — when entries were first extracted from the source page.
+- **`audited`** — when they were last checked *back* against it. A rarer act, and
+  the one that found [`FN-2026-08-03-a`](CALIBRATION.md): a pattern can be wrong
+  for months without anything firing, because failing to fire is silent.
+
+**What depends on this.** Cadence metrics are pure text statistics — sentence
+length variance means the same thing forever. Catalog density is a *count of
+entries*, so adding or retuning one silently changes what a per-1000 figure
+means. Two density numbers from different catalog versions are two different
+rulers, and nothing about the numbers themselves will tell you.
+
+So anything that stores a band records the version beside it. `tell-scan --json`
+emits `profile.catalog_version`; `calibrate.mjs` writes `catalog_version` into
+`thresholds.derived.json`. Voice locks, when they land, will do the same and will
+report their cadence half and their density half with separate confidence — see
+[`PROFILES.md`](PROFILES.md#designed-not-yet-built).
+
 ## What it will not do
 
 - **It is not an AI detector, and must never be used as one.** No single pattern
@@ -408,15 +434,73 @@ where it comes up.
 - **Short documents.** Below ~800 words, density per 1000 swings hard on single
   occurrences. The scanner says so, and the min-count floor stops the worst of it.
 
+## What it actually catches — measured
+
+Against 45 documents this repo did not write: 33 that the Wikipedia community
+examined and judged AI-written, and 12 article revisions from **before ChatGPT
+existed**, weighted toward Indian, Nigerian and Kenyan institutions — the ornate
+formal register this catalog is most likely to misjudge.
+
+| | AI corpus (n=33) | human corpus (n=12) |
+|---|---|---|
+| flagged at the documented threshold | **2 (6%)** | **0 (0%)** |
+| any Tier A artifact | **8 (24%)** | **0** |
+
+**Read the first row before trusting this tool.** Style-catalog recall is low —
+6% here, 21% under the `essay` profile. It misses most text a careful human
+reader identifies. That is a consequence of the design rather than a bug to tune
+away: everything is density-gated, contested entries are deliberately weak, and
+the output is built for an author reviewing their own draft, not for a
+classifier. But it means **a clean scan tells you very little.**
+
+**The second row is where the value is.** Leaked markup identifies a quarter of
+the AI corpus with zero false positives, out-performing the entire style catalog.
+The artifact/style split is the most load-bearing decision in the design, and
+this is the evidence for it: a Tier A hit means a great deal, a clean style scan
+means almost nothing.
+
+The 0% false-positive rate is the result worth having, and its honest form is
+**0–24% (95% CI)**. Twelve documents cannot resolve it further. What it does
+establish is that the documented bias against ornate register did not fire on
+twelve real examples of it — a measurement where there was previously only a
+synthetic passage written by the catalog's own author.
+
+Corpus, provenance and licensing: [`tests/corpus/`](tests/corpus/). It is
+CC BY-SA 4.0, not MIT, and pinned to immutable revision ids.
+
+> **The first version of this corpus was silently wrong**, and the way it failed
+> is worth knowing before you trust any number here. `prop=extracts` accepts a
+> historical revision id, returns success, echoes that id back, and serves the
+> **current** article. So every human sample carried 2022 metadata above 2026
+> text, and *"provably predates ChatGPT"* was false in every file while every
+> manifest looked right. A catalog entry was then deleted on measurements taken
+> from it, and restored when the corpus was fixed.
+>
+> Each sample is now proved against its own revision's wikitext, the proof is
+> recorded per sample in `ATTRIBUTION.json`, and the acceptance gate asserts it.
+> Full account: [`CALIBRATION.md`](CALIBRATION.md) `FN-2026-08-04-b`.
+
 ## Verification
 
 ```bash
-node tests/selftest.mjs
+node tests/selftest.mjs              # everything, including the acceptance gate
+node tests/acceptance.mjs --report   # the corpus tables in full
 ```
 
 Covers the regression fixture, threshold refusals, provenance exclusion, profile
-separation, the masking rules, and a paired regression for every false positive
-in [`CALIBRATION.md`](CALIBRATION.md).
+separation, the masking rules, a paired regression for every false positive in
+[`CALIBRATION.md`](CALIBRATION.md), and the acceptance corpus above.
+
+The acceptance gate **fails on regression, not on an absolute rate.** At n=12 one
+false positive is 8.3% with a 95% interval of 1.5–35%; gating on "under 10%"
+would assert a precision the sample cannot support, which is the overclaiming
+this catalog warns about, committed by its own tests. The measured numbers live
+in `tests/corpus/baseline.json` and the suite fails when they get worse. Raising
+a number there to make a run pass is the same act as weakening an assertion.
+
+One absolute gate exists: **zero Tier A hits on provably-human text.** That tier
+claims to be dispositive on a single occurrence, so there is no rate to
+negotiate — it is zero or the claim is false.
 
 **When the scanner flags legitimate writing, log it there before fixing it.** A
 false positive is the only empirical evidence this project gets about where its

@@ -1,0 +1,132 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Biobanks in India
+revid: 1360573121
+date: 2026-06-22
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1360573121
+---
+
+Biological repositories for medical research in India
+
+
+Biobanks in India
+
+
+
+Biobanks in India are biorepositories that collect, process, store, and distribute biological specimens (such as tissues, blood, DNA, and RNA) alongside associated clinical data. These facilities support biomedical research, personalized medicine, and epidemiological studies within the Indian subcontinent. As of 2024, the sector includes roughly 20 major registered facilities, comprising disease-specific repositories, population-based cohorts, and agricultural gene banks managed by government bodies like the Indian Council of Medical Research (ICMR), Department of Biotechnology (DBT), and private entities.
+
+History
+
+
+
+Biobanking in India began informally in specialized research centers before becoming a structured discipline. One of the earliest formal repositories was the NIMHANS Brain Bank, established in 1995 to archive human brain tissues for neuroscience research.
+
+Recent major developments include the launch of the Phenome India project by the Council of Scientific and Industrial Research (CSIR) in 2023, and the establishment of dedicated disease-specific national biobanks for heart failure and diabetes between 2021 and 2024.
+
+Market and Statistics
+
+
+
+The Indian biobanking market was valued at approximately USD 2,101 million in 2024. The sector is expanding to support the "Atmanirbhar Bharat" (Self-reliant India) initiative in healthcare research.
+
+
+Major Academic and Research Biobanks
+
+
+
+Phenome India National Biobank
+
+
+
+Located at CSIR-Institute of Genomics and Integrative Biology (IGIB), New Delhi, this facility focuses on cardio-metabolic diseases. It aims to collect samples from 10,000 individuals to create a longitudinal health database similar to the UK Biobank , tailored to India's ethnic diversity.
+
+Sri Sathya Sai Biobank & Research Hub
+
+
+
+The Sri Sathya Sai Biobank & Research Hub (SSSBRH) is a national level biobanking facility operating under the aegis of the Sri Sathya Sai Institute of Higher Learning (SSSIHL). It focuses on precision medicine, infectious diseases, and multi-omics research.
+
+The hub maintains a collection of over 25,000 biological specimens and focuses on creating indigenous datasets for the Indian population With Sample Capacity of 5M.
+
+AMR Biorepository: Located at the Department of Biosciences, SSSIHL, this facility supports research on Antimicrobial resistance . It houses over 4,000 clinically isolated bacterial pathogens to aid in drug discovery and host-pathogen interaction studies.
+
+Research Focus: The facility supports research into Dengue fever , viral host interactions, and non-communicable diseases.
+
+Infrastructure: The biobank is equipped with -80°C freezers, -150°C dry freezers, and -180°C liquid nitrogen (LN2) systems, managed via a Laboratory Information Management System (LIMS) compliant with the Digital Personal Data Protection Act, 2023 .
+
+
+National Heart Failure Biobank (NHFB)
+
+
+
+Inaugurated in August 2021 at the Sree Chitra Tirunal Institute for Medical Sciences and Technology (SCTIMST) in Thiruvananthapuram, this is India's first biobank dedicated to heart failure. It holds approximately 25,000 biosamples (blood, biopsy, genomic DNA) to study genetic and metabolomic markers of heart failure in Indian patients.
+
+ICMR-MDRF Diabetes Biobank
+
+
+
+Established in December 2024 at the Madras Diabetes Research Foundation (MDRF) in Chennai, this is India's first national diabetes biobank. Supported by the Indian Council of Medical Research (ICMR), it stores samples from the ICMR-INDIAB study to research Type 1, Type 2, and gestational diabetes variations specific to the Indian population.
+
+National Liver Disease Biobank (NLDB)
+
+
+
+Based at the Institute of Liver and Biliary Sciences (ILBS) in New Delhi, the NLDB collects samples related to hepatitis and liver diseases. It was the first biobank in India to receive accreditation under ISO 20387:2018.
+
+National Cancer Tissue Biobank (NCTB)
+
+
+
+Located at IIT Madras , the NCTB is a community-based cancer tissue biobank operating the Bharat Cancer Genome Atlas (BCGA). It collects fresh frozen tissue and genomic DNA for oncology research.
+
+Major Commercial Biobanks
+
+
+
+Sapien Biosciences : A joint venture involving Apollo Hospitals , focusing on companion diagnostics and pharmacogenomics.
+
+Karkinos Healthcare : A technology-led oncology platform with an ISO 20387:2018 accredited biobank located in Ernakulam, Kerala.
+
+
+Agricultural Biobanks
+
+
+
+The Indian Council of Agricultural Research (ICAR) maintains national bureaus that function as biobanks for genetic conservation:
+
+ICAR-National Bureau of Animal Genetic Resources (Haryana)
+
+ICAR-National Bureau of Plant Genetic Resources (New Delhi)
+
+ICAR-National Bureau of Fish Genetic Resources (Lucknow)
+
+ICAR-National Bureau of Agriculturally Important Microorganisms (Uttar Pradesh)
+
+
+Regulation and Ethics
+
+
+
+Biobanking in India is governed by guidelines rather than a single specific parliamentary act.
+
+ICMR Guidelines (2017) : The National Ethical Guidelines for Biomedical and Health Research Involving Human Participants dictate requirements for informed consent, donor privacy, and ethics committee oversight.
+
+ISO 20387: Accreditation to the ISO 20387 standard (General requirements for biobanking) is granted by the Quality and Accreditation Institute (QAI) and NABL.
+
+
+See also
+
+
+
+Genomics
+
+Precision medicine
+
+Indian Council of Medical Research
+
+List of biobanks
+
+
+References

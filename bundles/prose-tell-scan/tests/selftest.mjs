@@ -21,6 +21,8 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
+import { runAcceptance } from "./acceptance.mjs";
+
 const HERE = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(HERE, "..");                // bundles/prose-tell-scan
 const SKILL = join(BUNDLE, "skills", "tell-scan"); // what actually ships
@@ -106,8 +108,22 @@ try {
   {
     // Well-edited human technical writing. A scanner that fires on these is
     // one that gets uninstalled, which protects nothing.
+    //
+    // WIDENED 2026-08-03 to include the bundle-level AGENTS.md and wiring
+    // snippets. They sat outside this list entirely, and the first scan that ran
+    // against them found a real tic (CALIBRATION.md TP-2026-08-03-b). A corpus
+    // that excludes the prose most likely to trip a structural check is not an
+    // FP corpus.
     for (const doc of ["README.md", "CONTRIBUTING.md", "AGENTS.md", "docs/wiring.md",
-                       "docs/portability.md"]) {
+                       "docs/portability.md",
+                       "bundles/prose-tell-scan/AGENTS.md",
+                       "bundles/prose-tell-scan/PROFILES.md",
+                       "bundles/prose-tell-scan/wiring/claude-md.md",
+                       "bundles/prose-tell-scan/wiring/agents-md.md",
+                       "bundles/verification-gate/AGENTS.md",
+                       "bundles/verification-gate/PROTOCOL.md",
+                       "bundles/verification-gate/wiring/claude-md.md",
+                       "bundles/verification-gate/wiring/agents-md.md"]) {
       const path = join(REPO, doc);
       const r = scan([path, "--profile", "technical"]).results[0];
       check(
@@ -229,8 +245,31 @@ try {
     check("derives with a full corpus", Boolean(r.written), r.refused || "");
     check("confidence is calibrated", r.confidence === "calibrated", r.confidence);
 
+    // A derived band outlives the catalog that measured it. Cadence survives that
+    // — sentence-length variance means the same thing forever — but catalog
+    // density is a COUNT OF ENTRIES, so retuning one silently changes what a
+    // per-1000 figure means. Two densities from different catalog versions are
+    // two different rulers and nothing about the numbers says so. Stamping the
+    // version is what makes that detectable later.
+    const derivedFile = JSON.parse(
+      readFileSync(join(profiles, "reg", "thresholds.derived.json"), "utf8"),
+    );
+    const baseCatalogVersion = JSON.parse(
+      readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"),
+    ).version;
+    check(
+      "derived thresholds record the catalog version that produced them",
+      derivedFile.catalog_version === baseCatalogVersion,
+      `derived=${derivedFile.catalog_version} base=${baseCatalogVersion}`,
+    );
+
     const derived = scan([before, "--profile", "reg", "--profiles-dir", profiles]).results[0];
     check("scanner reports thresholds as derived", derived.profile.thresholds.derived === true);
+    check(
+      "the scan reports the catalog version too, so the two are comparable",
+      derived.profile.catalog_version === baseCatalogVersion,
+      `scan=${derived.profile.catalog_version} base=${baseCatalogVersion}`,
+    );
     check(
       "uncalibrated warning is gone",
       !/UNCALIBRATED/.test(derived.summary.reading),
@@ -333,8 +372,19 @@ try {
     );
   }
   {
-    // The paired positive. A tightening with only the negative test is how a
-    // pattern gets narrowed into uselessness without anyone noticing.
+    // FP-2026-07-26-a, resolved by REMOVAL on 2026-08-03 rather than tightening.
+    //
+    // This block previously held the paired positive for `announced-insight`:
+    // it asserted the entry still fired on the three announcing forms. That
+    // assertion is gone because the behaviour it guarded is gone — the entry was
+    // deleted, and the deletion is the point. It is not on the source page at
+    // all, it duplicated a `not_deterministic` declaration, and FP-a's own
+    // conclusion was "an argument for pruning rather than tightening if it
+    // recurs".
+    //
+    // What replaces it guards the DECISION instead of the pattern, because the
+    // way this regresses is somebody re-adding the entry from the same plausible
+    // idea that produced it the first time.
     const doc = join(tmp, "fp-a-pos.txt");
     writeFileSync(
       doc,
@@ -345,9 +395,165 @@ try {
       ].join("\n\n"),
     );
     const r = scan([doc, "--profile", "essay"]).results[0];
-    const hit = r.findings.find((f) => f.id === "announced-insight");
-    check("FP-a: the announcing sense still fires", Boolean(hit));
-    check("FP-a: all three announcing forms match", hit?.count >= 3, `count=${hit?.count}`);
+    check(
+      "FP-a: announced-insight no longer fires on any announcing form",
+      !r.findings.some((f) => f.id === "announced-insight"),
+      r.findings.map((f) => f.id).join(","),
+    );
+    const cat = JSON.parse(
+      readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"),
+    );
+    check(
+      "FP-a: it is recorded in `rejected`, not silently dropped",
+      Boolean(cat.rejected?.["announced-insight"]?.why_rejected),
+    );
+    check(
+      "FP-a: the rejection states it was absent from the source page",
+      /not on the source page/i.test(cat.rejected?.["announced-insight"]?.why_rejected ?? ""),
+    );
+    check(
+      "FP-a: no live entry reintroduces it",
+      !cat.entries.some((e) => e.id === "announced-insight"),
+    );
+  }
+
+  group("Source-page coverage — the examples the catalog is built from");
+  {
+    // WHY THIS GROUP EXISTS, AND WHY IT LOOKS LIKE THIS.
+    //
+    // The first version of this test retyped the source page's examples with
+    // ASCII apostrophes and spaced em dashes. Measured against that, the family
+    // scored 7/9. Measured against what the page actually says — U+2019, unspaced
+    // dashes — it scored 1/9, because every catalog pattern spelled contractions
+    // with an ASCII apostrophe and the page does not. The test had been fitted to
+    // the code, so it certified a fix that did not work on real text.
+    //
+    // The strings below are therefore the page's own {{highlight}} spans with
+    // wiki markup removed (`<u>`, `'''`) and NOTHING ELSE changed — every
+    // character of prose, punctuation, and apostrophe is as the page has it.
+    // Thirteen of sixteen appear byte-identical in the raw wikitext; the other
+    // three differ only by those stripped tags. Verifiable by re-fetching
+    // `?action=raw` and stripping the same two patterns.
+    //
+    // If they are ever retyped or "cleaned up", this test stops measuring
+    // anything — that is precisely how it failed the first time.
+    //
+    // ATTRIBUTION: quoted from "Wikipedia:Signs of AI writing" (§Negative
+    // parallelisms), CC BY-SA 4.0 —
+    // https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
+    // This repository is MIT; these strings are not, and reuse carries CC BY-SA's
+    // share-alike condition.
+    // Every string is one of the page's {{highlight}} spans, unaltered. `hits`
+    // records the measured truth on 2026-08-03: 11 of 16, not "all".
+    const WP_NEGPAR = [
+      ["not only dismissive but also", true],
+      ["doesn’t just undermine the editor’s argument; it questions their very right to participate", false],
+      ["not just dismissive—they’re outright disrespectful.", true],
+      ["not only discourage participation but also", true],
+      ["not only a work of self-representation, but", true],
+      ["isn’t just sourcing—it’s framing", true],
+      ["That’s not just a sourcing issue—it’s a systemic bias", true],
+      ["is not grounded in visual mastery, but in what Amelia Jones terms “the performative enactment of subjectivity”", true],
+      ["is not dissolution. Rather, it constitutes what Deleuze might describe as “becoming”", false],
+      ["is not a mirror but a portal", true],
+      ["not a representation of self, but a mechanism", false],
+      ["This isn’t WP:NBIO — it’s WP:1EVENT in disguise", true],
+      ["Not a career, not a body of work, not sustained relevance — just an algorithmic moment", false],
+      ["is not who feels warm fuzzies from visibility, it’s whether this article meets the threshold for inclusion", true],
+      ["This ain’t bludgeoning — it’s surgical teardown", true],
+      ["rather than", false],
+    ];
+    const FAMILY = ["negative-parallelism", "not-x-but-y", "not-just-but", "not-only-but-also"];
+
+    let matched = 0;
+    for (const [sentence, shouldHit] of WP_NEGPAR) {
+      const one = join(tmp, "wp-one.txt");
+      writeFileSync(one, `${sentence}\n`);
+      const ids = scan([one, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+      const hit = FAMILY.some((id) => ids.includes(id));
+      if (hit) matched += 1;
+      check(
+        `${shouldHit ? "covers" : "known gap:"} ${sentence.slice(0, 52)}`,
+        hit === shouldHit,
+        hit ? `unexpectedly matched: ${ids.join(",")}` : "no longer matches",
+      );
+    }
+    check(
+      "measured source coverage is 11/16, and did not silently drop",
+      matched === 11,
+      `matched=${matched} — update CALIBRATION.md FN-2026-08-03-a rather than editing this number`,
+    );
+  }
+  {
+    // The apostrophe fold, tested at the surface that broke. `chatbot-register` is
+    // TIER A — dispositive on one occurrence — and it missed the single most
+    // recognisable chatbot leak whenever the paste carried a curly apostrophe,
+    // which is the default on macOS, iOS, Word, and every chat UI.
+    const doc = join(tmp, "curly.txt");
+    writeFileSync(doc, "You’re absolutely right, and it’s important to note that this isn’t ideal.\n");
+    const ids = scan([doc, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+    check("Tier A leakage matches with a curly apostrophe", ids.includes("chatbot-register"), ids.join(","));
+
+    const straight = join(tmp, "straight.txt");
+    writeFileSync(straight, "You're absolutely right, and it's important to note that this isn't ideal.\n");
+    const sIds = scan([straight, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+    check(
+      "and the two apostrophe forms are now indistinguishable to the catalog",
+      JSON.stringify(ids.sort()) === JSON.stringify(sIds.sort()),
+      `curly=${ids.join(",")} straight=${sIds.join(",")}`,
+    );
+
+    // But the report must still quote the document as the author wrote it. The
+    // fold is for matching only; echoing normalised punctuation back at someone
+    // is the tool rewriting their prose in its own findings.
+    const ctx = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "chatbot-register")?.contexts?.[0]?.text ?? "";
+    check("the finding quotes the curly form, not the folded one", /’/.test(ctx), ctx.slice(0, 60));
+  }
+  {
+    // The paired negative. These five sentences are this repo's own prose, and
+    // they are the entire evidence base for the contracted-resumption guard —
+    // relaxing the subject without it flagged every one of them. Rationale lives
+    // in the entry's `note`; the incident is CALIBRATION.md FN-2026-08-03-a.
+    const doc = join(tmp, "negpar-fp.txt");
+    writeFileSync(
+      doc,
+      [
+        "Where the two halves must not be in lockstep, that price is not being paid — it is being avoided.",
+        "It is unchanged because renaming is not a decision, it is a migration.",
+        "These are not edge cases to be tuned away; they are the reason the output is leads.",
+        "On a harness with no dispatch the risk is not wrong answers — it is that nobody runs the script.",
+        "The failure mode is not that the tool gives wrong answers — it is that nobody runs it.",
+      ].join("\n\n"),
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "negative-parallelism");
+    check(
+      "uncontracted explanatory contrast does not fire",
+      !hit,
+      `count=${hit?.count} — the contracted-resumption guard has stopped working`,
+    );
+  }
+  {
+    // Tier A is the only dialect-neutral tier and the only thing --artifacts-only
+    // retains, so a miss here is the most expensive miss available. The separator
+    // was hardcoded to U+0007, which is how MediaWiki STORES the marker, not what
+    // a paste contains: the entry matched the rendering of the tell, not the tell.
+    const PUA = String.fromCharCode(0xe200);
+    const doc = join(tmp, "tier-a.txt");
+    writeFileSync(
+      doc,
+      [
+        `A sentence carrying a leaked marker cite${PUA}turn0search1 mid-paragraph.`,
+        "Another one with citeturn3news2 where the separator was stripped on paste.",
+        'And a raw blob: {"attribution":{"attributableIndex":"0-1"}}',
+      ].join("\n\n"),
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "model-markup-artifact");
+    check("Tier A matches the PUA separator, not just the wiki rendering", Boolean(hit));
+    check("all three artifact forms match", hit?.count >= 3, `count=${hit?.count}`);
+    check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
   group("Known false-positive guards — the same patterns MUST still fire");
@@ -486,22 +692,206 @@ try {
   }
 
   /* ------------------------------------------------------------------ */
-  group("Min-count floor");
+  group("The reading must reconcile with the table above it");
   {
-    const doc = join(tmp, "short.md");
-    // One tricolon in a short document reads as a huge density and is not a tic.
+    // It used to say "2 independent categories are elevated" while
+    // flagged_categories listed ONE, because a cadence flag was folded into a
+    // count labelled "categories". A reader checking the sentence against the
+    // JSON found a number they could not explain, and the error always ran
+    // toward more alarming.
+    //
+    // Found on a real document: a pre-ChatGPT Wikipedia revision, provably human,
+    // one catalog category plus one cadence metric.
+    const doc = join(tmp, "reconcile.md");
     writeFileSync(
       doc,
-      `A short note about scope, budget, and timing.\n\n${"Filler sentence for length. ".repeat(20)}`,
+      `${"The committee reviewed the report and approved the budget without objection. ".repeat(14)}\n\n`
+      + `${"Members raised concerns, offered amendments, and requested revisions. ".repeat(12)}\n`,
+    );
+    const r = scan([doc, "--profile", "essay"]).results[0];
+    const cats = r.summary.flagged_categories.length;
+    const cad = r.summary.cadence_flags.length;
+    const reading = r.summary.reading;
+
+    if (cats > 0) {
+      check(
+        "the reading names the catalog-category count that the table reports",
+        reading.includes(`${cats} catalog categor`),
+        `cats=${cats} reading="${reading.split(".")[0]}"`,
+      );
+    }
+    if (cad > 0) {
+      check(
+        "and names the cadence count separately, not folded in",
+        reading.includes(`${cad} cadence metric`),
+        `cadence=${cad} reading="${reading.split(".")[0]}"`,
+      );
+    }
+    check(
+      "the two axes are never collapsed under the word 'categories'",
+      !/\d+ independent categories/.test(reading),
+      reading.split(".")[0],
+    );
+  }
+
+  group("Min-count floor");
+  {
+    // Rewritten 2026-08-04. This used `tricolon`, which has since been deleted
+    // on corpus evidence (it fired on 92% of provably-human documents and 84% of
+    // AI ones — see FN-2026-08-04-a). The floor it demonstrated is unaffected, so
+    // the case is rebuilt on a severity-1 entry that survived.
+    //
+    // One occurrence in a short document reads as an enormous per-1000 density.
+    // The floor exists so that a rate computed from a single event is never
+    // treated as a rate.
+    const doc = join(tmp, "short.md");
+    writeFileSync(
+      doc,
+      `This is genuinely the only concern worth raising here.\n\n${"Filler sentence for length. ".repeat(20)}`,
     );
     const r = scan([doc, "--profile", "technical"]).results[0];
-    const tri = r.findings.find((f) => f.id === "tricolon");
-    check("a single tricolon is not flagged", !tri || tri.flagged === false);
-    check("but it is still reported", Boolean(tri), "suppressing it silently would be dishonest");
+    const one = r.findings.find((f) => f.id === "genuinely");
+    check("a single severity-1 hit is not flagged", one && one.flagged === false,
+      `flagged=${one?.flagged} count=${one?.count}`);
+    check("it is held by the floor, not by density", one?.held_by_floor === true);
+    check("but it is still reported", Boolean(one), "suppressing it silently would be dishonest");
     check("short document is announced", r.summary.short_document === true);
   }
 
   /* ------------------------------------------------------------------ */
+  group("Known exposure — a measurement that was true and nearly meaningless");
+  {
+    // `not-only-but-also` was widened to make `also` optional, and reported as
+    // "0 false positives across the repo corpus". True, and close to worthless:
+    // this repo is technical register and technical register does not reach for
+    // the construction. In ordinary formal prose it is ordinary English.
+    //
+    // This asserts the exposure rather than pretending it away, in the same shape
+    // as the ornate-register bias test: a check designed to keep FAILING is the
+    // only kind that keeps a known limitation visible.
+    const doc = join(tmp, "formal-notonly.txt");
+    writeFileSync(
+      doc,
+      [
+        "She was not only the first to arrive but the last to leave.",
+        "The treaty was not only unpopular but unenforceable.",
+        "He is not only a poet but a translator of some distinction.",
+      ].join("\n\n"),
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "not-only-but-also");
+    check(
+      "the exposure is real: legitimate formal prose matches this entry",
+      hit?.count === 3,
+      `count=${hit?.count} — if this changed, re-measure and update the entry note`,
+    );
+    // And the thing that actually protects the author: density gating, not the
+    // regex. One occurrence must never flag.
+    const single = join(tmp, "formal-one.txt");
+    writeFileSync(single, `${"The treaty was not only unpopular but unenforceable. ".repeat(1)}${"Filler sentence to give the document length. ".repeat(60)}\n`);
+    const one = scan([single, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "not-only-but-also");
+    check(
+      "but one occurrence does not flag — the floor is what holds the line",
+      one && one.flagged === false,
+      `flagged=${one?.flagged} count=${one?.count}`,
+    );
+  }
+
+  group("Mention-vs-use — accepted for style, never for Tier A");
+  {
+    // The two tiers get different rules, and the difference is the basis for
+    // Tier A existing at all.
+    //
+    // STYLE entries are density-gated and mention-vs-use is accepted: a document
+    // discussing `delve` gets flagged for it, that is logged as
+    // FP-2026-07-26-f · ACCEPTED, and it is listed under Known limits rather than
+    // engineered around. Forcing it to zero here would contradict the log.
+    //
+    // TIER A cannot take that deal. It claims near-zero false positives and
+    // fires on a single occurrence, so one accepted false positive devalues every
+    // Tier A finding anywhere. The documents most likely to quote a trigger are
+    // this bundle's own — which is exactly where it happened: an earlier draft of
+    // FN-2026-08-03-c quoted a chatbot phrase as plain prose and tripped it.
+    //
+    // The fix is to mark quoted triggers as inline code, which the masking layer
+    // already removes before scanning. These are the prose files most likely to
+    // discuss tells, so they are the ones worth guarding.
+    for (const doc of ["CALIBRATION.md", "README.md", "PROFILES.md", "AGENTS.md"]) {
+      const r = scan([join(BUNDLE, doc), "--profile", "technical"]).results[0];
+      const tierA = r.findings.filter((f) => f.tier === "A");
+      check(
+        `${doc}: no Tier A artifact fires on a document about artifacts`,
+        tierA.length === 0,
+        tierA.map((f) => `${f.id}@L${f.lines?.[0]}`).join(",") + " — quote the trigger in backticks",
+      );
+    }
+    // And the paired positive: masking is what makes that work, not luck.
+    const probe = join(tmp, "backticked.md");
+    writeFileSync(probe, "Documenting the tell: `You’re absolutely right` is the giveaway.\n");
+    const masked = scan([probe, "--profile", "technical"]).results[0]
+      .findings.filter((f) => f.tier === "A");
+    check("a backticked trigger is masked, not matched", masked.length === 0,
+      masked.map((f) => f.id).join(","));
+
+    const bare = join(tmp, "bare.md");
+    writeFileSync(bare, "Documenting the tell: You’re absolutely right is the giveaway.\n");
+    const unmasked = scan([bare, "--profile", "technical"]).results[0]
+      .findings.filter((f) => f.tier === "A");
+    check("the same phrase unquoted still fires, so the guard is masking not blindness",
+      unmasked.length > 0);
+  }
+
+  group("Provenance hygiene — every citation must resolve");
+  {
+    // This exists because a commit message claimed it existed before it did, and
+    // the same pass that fixed one dangling citation asserted a safeguard that
+    // had not been written. Both are the same failure: a claim nobody could
+    // check.
+    //
+    // A catalog whose whole value is auditability cannot cite incidents that do
+    // not exist, so this walks every FP-/FN-/TP- reference in the bundle and
+    // requires a matching heading in CALIBRATION.md.
+    //
+    // Note for anyone extending this: do not write a literal example incident id
+    // into a comment here. This check cannot tell mention from use — the same
+    // limitation the catalog documents for `delve` — and it will flag your
+    // example. That is the correct trade: the alternative is an exemption
+    // mechanism that a real dangling citation could hide behind.
+    const cal = readFileSync(join(BUNDLE, "CALIBRATION.md"), "utf8");
+    const defined = new Set(
+      [...cal.matchAll(/^###\s+((?:FP|FN|TP)-\d{4}-\d{2}-\d{2}-[a-z])\b/gm)].map((m) => m[1]),
+    );
+    check("CALIBRATION.md defines incidents", defined.size >= 6, `found ${defined.size}`);
+
+    const searched = [
+      join(SKILL, "profiles", "_base", "catalog.json"),
+      join(BUNDLE, "README.md"),
+      join(BUNDLE, "PROFILES.md"),
+      join(BUNDLE, "AGENTS.md"),
+      join(SKILL, "SKILL.md"),
+      join(SKILL, "meta.yaml"),
+      join(BUNDLE, "tests", "selftest.mjs"),
+      // CALIBRATION.md checks ITSELF. Omitting it was the same overclaim in
+      // miniature: the gate said "every reference in the bundle" while the file
+      // most likely to cross-reference incidents was the one file exempt. Its
+      // own `###` headings are the definitions, so they are skipped below.
+      join(BUNDLE, "CALIBRATION.md"),
+    ];
+    const dangling = [];
+    for (const f of searched) {
+      const body = readFileSync(f, "utf8");
+      const lines = body.split("\n");
+      for (const [n, line] of lines.entries()) {
+        if (/^###\s+(?:FP|FN|TP)-/.test(line)) continue; // a definition, not a reference
+        for (const m of line.matchAll(/\b((?:FP|FN|TP)-\d{4}-\d{2}-\d{2}-[a-z])\b/g)) {
+          if (!defined.has(m[1])) dangling.push(`${f.split("/").pop()}:${n + 1} -> ${m[1]}`);
+        }
+      }
+    }
+    check("no citation points at a nonexistent incident", dangling.length === 0, dangling.join("; "));
+  }
+
   group("Robustness");
   {
     const empty = join(tmp, "empty.md");
@@ -525,6 +915,26 @@ try {
     const unknown = scan([join(BUNDLE, "fixtures", "script-v2-after.txt"), "--profile", "nosuch"]);
     check("an unknown profile falls back to _base", unknown.results[0].profile.name === "_base");
     check("and says it fell back", unknown.results[0].profile.fellBack === true);
+  }
+  /* ------------------------------------------------------------------ */
+  // The acceptance corpus: 44 documents nobody here wrote. Everything above
+  // asks "does the code do what it says"; this asks "does what it says mean
+  // anything". They are different questions, and the difference has already
+  // cost this bundle twice — see CALIBRATION.md FN-2026-08-03-c and
+  // FN-2026-08-04-a. Both of those defects passed every test above.
+  group("Acceptance — measured against text this repo did not write");
+  {
+    const { results, summary } = runAcceptance();
+    for (const r of results) check(r.name, r.ok, r.detail);
+    if (summary) {
+      const pct = (x) => `${(100 * x).toFixed(1)}%`;
+      const [lo, hi] = summary.fpr_ci95;
+      process.stdout.write(
+        `       recall ${pct(summary.recall)} (${summary.ai.flagged}/${summary.ai.n})`
+        + `   FPR ${pct(summary.fpr)} (${summary.human.flagged}/${summary.human.n},`
+        + ` 95% CI ${pct(lo)}–${pct(hi)})\n`,
+      );
+    }
   }
 } finally {
   rmSync(tmp, { recursive: true, force: true });

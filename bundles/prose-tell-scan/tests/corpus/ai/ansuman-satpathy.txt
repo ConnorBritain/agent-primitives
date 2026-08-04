@@ -1,0 +1,70 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Ansuman Satpathy
+revid: 1358333560
+date: 2026-06-08
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1358333560
+---
+
+Comment: AI slop. qcne (talk) 15:23, 6 July 2025 (UTC) reply
+
+
+Comment: "[URL of reliable source]" is not a valid source?? -- NotC hariza rd 🗨 04:57, 4 July 2025 (UTC) reply
+
+
+
+
+Ansuman Satpathy (born c. 1983) is an American-Indian physician-scientist, immunologist, bioengineer, and venture capitalist. He is an associate professor of pathology at Stanford University School of Medicine , where he directs the Parker Institute for Cancer Immunotherapy and Center for Immunotherapy Design. Satpathy is known for his work in cancer immunotherapy, and developing genomic technologies to study the immune system. He is a co-founder of several biotechnology companies, including Immunai, Cartography Biosciences, Santa Ana Bio, and Arpelos Biosciences, and a partner at Wing Venture Capital.
+
+
+Early Life and Education
+
+
+
+He was born c. 1983 Satpathy earned a Bachelor of Arts in Philosophy and a Bachelor of Science in Molecular Biology from the University of Illinois at Urbana-Champaign in 2006. He completed an MD-PhD program at Washington University in St. Louis , earning his PhD in immunology in 2014 under Kenneth M. Murphy, studying the genetic programming of dendritic cell biology. Satpathy completed a residency in pathology and postdoctoral training in genetics at Stanford University under Howard Chang , joining the faculty in 2019.
+
+Career
+
+
+
+Academic Research
+
+
+
+Ansuman Satpathy Research Summary Ansuman T. Satpathy is an associate professor of Pathology and Immunology at Stanford University, where he directs the Stanford Center for Immunotherapy Design and serves as co-director of the Parker Institute for Cancer Immunotherapy and the Immunotherapy Program at the Stanford Cancer Institute.<ref name="StanfordProfile">{{cite web |title=Ansuman Satpathy, MD, PhD |url=https://med.stanford.edu/pathology/faculty/ansuman-satpathy.html |website=Stanford Medicine, Department of Pathology |access-date=July 17, 2025}}</ref><ref name="ParkerICI">{{cite web |title=Ansuman Satpathy |url=https://www.parkerici.org/researcher/ansuman-satpathy/ |website=Parker Institute for Cancer Immunotherapy |access-date=July 17, 2025}}</ref> His research focuses on integrating immunology, high-throughput genomics, and computational biology to investigate immune system function, particularly in cancer immunotherapy.<ref name="SatpathyLab">{{cite web |title=Satpathy Lab |url=https://satpathylab.com/ |website=Stanford University |access-date=July 17, 2025}}</ref>Satpathy's laboratory utilizes advanced genomic technologies, including single-cell sequencing and epigenome editing, to study T-cell regulation in cancer.<ref name="SatpathyLab" /> His work explores epigenetic mechanisms of tumor-specific T cells, T-cell exhaustion, and the development of novel immunotherapies.<ref name="NatureReview">{{cite journal |last=Satpathy |first=A. T. |title=Engineering immune cells for enhanced cancer immunotherapy |journal=Nature Reviews Immunology |volume=24 |year=2024 |doi=10.1038/s41577-024-01079-9}}</ref> Notable contributions include identifying gene regulatory mechanisms underlying immunotherapy resistance in cancers such as basal cell carcinoma and advancing chimeric antigen receptor (CAR) T-cell therapies.<ref name="ScienceTM">{{cite journal |last=Satpathy |first=A. T. |title=Enhancing CAR T cell persistence through FOXO1-driven memory programs |journal=Science Translational Medicine |volume=16 |issue=735 |year=2024 |doi=10.1126/scitranslmed.adi8213}}</ref> His team has demonstrated that the transcription factor FOXO1 enhances CAR T-cell persistence and efficacy, and developed logic-gated CAR T-cell designs to improve safety and specificity for solid tumors.<ref name="ScienceTM" /> Additionally, Satpathy's research has elucidated mechanisms of viral reactivation, such as human herpesvirus 6 (HHV-6), in T-cell therapies.<ref name="SatpathyLab" />
+
+Biotechnology and Venture Capital
+
+
+
+Satpathy has co-founded four biotechnology companies, collectively raising over 1 billion dollars in venture capital funding:
+
+Immunai (2018), a US and Israel-based company developing an AI-driven immune system mapping platform.
+
+Cartography Biosciences (2021), focusing on precision oncology immunotherapies based on mapping cancer-specific antigens. The company is developing T cell engager therapies for colorectal and esophageal cancer.
+
+Santa Ana Bio (2023), focusing on the discovery and development of precision therapeutics for autoimmune and inflammatory diseases. Santa Ana's primary therapeutic program targets mast cell depletion for chronic urticarias, prurigo nodularis, eosinophilic esophagitis, and food allergy.
+
+Arpelos Biosciences (2024), a protein engineering company developing multivalent antibodies for immunology.
+
+
+Since 2023, he has been a partner at Wing Venture Capital, investing in biotechnology and health technology companies. He is an advisor to 10x Genomics , and an advisor to Deepsight, alongside Robert Duggan .
+
+References
+
+
+
+
+
+
+External links
+
+
+
+Satpathy Lab Website
+
+Stanford University Profile
+
+LinkedIn Profile

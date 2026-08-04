@@ -1,0 +1,254 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Triple Entry Accounting
+revid: 1358334851
+date: 2026-06-08
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1358334851
+---
+
+---
+
+
+
+Triple Entry Accounting
+
+
+
+Triple Entry Accounting (TEA) is an extension of double-entry bookkeeping that uses cryptographic techniques to address the integrity of accounting source documents. The framework was formalised by financial cryptographer Ian Grigg in a 2005 working paper, and republished in peer-reviewed form in 2024.
+
+In a triple entry system, two parties to a transaction each hold matching records, and both are cryptographically bound to a shared signed receipt stored by a neutral third party. This creates three entries — one in each party's accounting system and one held by the third party — all pointing to the same underlying transaction. The signed receipt, in Grigg's formulation, is treated as the authoritative record: "the receipt is the transaction."
+
+The term "triple entry" has been used independently to describe two unrelated accounting concepts. Grigg's cryptographic framework is distinct from the earlier "momentum accounting" proposal by Yuji Ijiri (1982), which used the same phrase to describe a method of tracking rates of change in financial variables.
+
+
+Background: the source document problem
+
+
+
+Double-entry bookkeeping , systematised by Luca Pacioli in 1494, ensures internal consistency in accounting records: every debit has a corresponding credit, and the books balance. This mechanism is effective at catching arithmetic errors and identifying the origin of fraudulent entries within a ledger — in Grigg's words, "fraud leaves a trail."
+
+However, double-entry provides no mechanism to verify whether the source documents feeding the system — invoices, contracts, receipts — are genuine, complete, or unaltered. The books will balance correctly even if inputs are fabricated or omitted. This limitation has been identified as a structural vulnerability underlying major accounting failures including Enron (2001), WorldCom (2002), Wirecard (2020), and FTX (2022).
+
+External audit and accounting regulation have been the traditional responses. Both face structural limits: audits are periodic, backward-looking, and sample-based; regulation codifies lessons from past failures and is inherently reactive.
+
+Intellectual history
+
+
+
+Digital cash and signed receipts (1990s)
+
+
+
+The direct precursor to TEA was Grigg's work with Gary Howland on the Ricardo system , a digital cash platform developed between 1995 and 1997. Ricardo introduced Ricardian Contracts — documents simultaneously human-readable, machine-readable, and cryptographically signed — and a three-party signed receipt pattern in which an issuer (Ivan) signs and delivers a receipt to both payer (Alice) and payee (Bob). All three parties thereby hold identical records of each transaction.
+
+This led to the principle Grigg attributes to Richard Gendal Brown : "I know that what you see is what I see" — later abbreviated to WYSIWIS . Signed receipts were used in production in Grigg's own digital cash system from 1996, and similar reasoning led DigiCash to replace its original single-entry accounting with a double-entry system after errors emerged in testing.
+
+Boyle's parallel work (1997–2003)
+
+
+
+Independently of Grigg, Todd Boyle arrived at a similar conclusion from the perspective of small business needs. Starting around 1997 with his GL Dialtone project, Boyle developed the concept of a Shared Transaction Repository (STR) — a shared ledger where both parties to a transaction would record the same entry rather than maintaining separate books. Boyle's starting observation was that for every trade record in one firm, there is a matching record in the counterparty firm — and asked why these could not simply be the same record.
+
+Boyle is credited by Grigg with coining the specific term "triple entry accounting." The two streams of work converged in Grigg's 2005 paper, which acknowledges Boyle's contributions alongside those of Graeme Burnett.
+
+REA accounting model
+
+
+
+A related but distinct stream of work is the Resource-Entity-Agent (REA) accounting model, published by William E. McCarthy in 1982. REA proposed a shared-data framework for accounting systems and influenced subsequent work on entity-relationship models and internet-based supply chain accounting. Grigg's 2005 paper references REA in the context of "patterns of transactions" and the broader body of work on commercial transaction standards (ebXML). Your diagram from the TEAconf community shows REA as a distinct stream that converges with TEA and blockchain developments.
+
+Grigg's 2005 paper
+
+
+
+Grigg's 2005 paper, "Triple Entry Accounting," synthesised these threads into a formal framework. The central structure is three entries per transaction:
+
+A record in the payer's accounting system
+
+A record in the payee's accounting system
+
+A cryptographically signed receipt held by a neutral third party
+
+
+All three entries reference the same transaction. The signed receipt is the dominating record — it subsumes the original authorisation and the issuer's response, both under digital signature. Because the receipt is delivered by the issuer (Ivan) to both parties (Alice and Bob), "the user and the issuer hold the same information."
+
+Grigg explicitly noted that the neutral third party need not be a blockchain : a trusted server operated by a single organisation was also a valid architecture, as was timestamping or hash-chain entanglement.
+
+Bitcoin as large-scale implementation (2009)
+
+
+
+The Bitcoin protocol, published by Satoshi Nakamoto in 2008, independently implemented the triple entry pattern at global scale. Every Bitcoin transaction is signed by the sender, verified by the network through a consensus mechanism , and recorded immutably on the blockchain — the neutral third party. Grigg noted the connection in a 2011 post, "Is Bitcoin a Triple Entry System?"
+
+Whether Nakamoto was aware of Grigg's 2005 paper is not established; the Bitcoin whitepaper does not cite it. Grigg's paper also references Corda , the distributed ledger platform whose introductory whitepaper lists Grigg as a co-author, as an example of "evolving state machines (smart contracts)" that satisfy TEA's entry-enlargement requirements.
+
+The signed receipt
+
+
+
+The core mechanism of TEA is the digitally signed receipt . When Alice sends a payment to Bob through an issuer Ivan:
+
+Alice writes and signs a payment instruction (her "cheque")
+
+Ivan processes the transfer and creates a receipt that includes Alice's signed instruction within it (the "Russian Dolls" pattern of inclusion)
+
+Ivan signs the receipt with his own key and delivers it to both Alice and Bob
+
+
+The resulting receipt carries digital signatures from both Alice and Ivan, contains a complete record of the authorisation and its execution, and is held by all three parties. It can be verified by any reviewer — including an auditor — by checking the signatures and confirming the hash of the document matches the stored value.
+
+The Ricardian Contract extends this by replacing the unit of value (e.g., Euro) with a hash of a signed contract of issuance, cryptographically binding the terms, conditions, and identity of the issuer to the receipt.
+
+Technical components
+
+
+
+Triple entry systems draw on several cryptographic primitives:
+
+Hash functions
+
+
+
+A cryptographic hash function maps any input to a fixed-length digest. The SHA-256 algorithm produces a 64-character hexadecimal string. Hash functions are deterministic, one-way, and exhibit the avalanche effect: changing a single character in the input produces a completely different digest. In TEA, transaction records are hashed and the hash is stored, allowing later verification that the document has not been altered.
+
+Digital signatures
+
+
+
+Digital signatures use public-key cryptography to provide authentication (proof of who signed) and integrity (proof the document is unaltered since signing). A signature created with a private key can be verified by anyone with the corresponding public key, providing non-repudiation.
+
+Timestamps
+
+
+
+A trusted timestamp is cryptographic proof that a document existed at a specific point in time, preventing backdating. Grigg's requirements for a TEA system include "entry signing" — digital signing interpreted to include timestamping or entry into a blockchain.
+
+Implementation
+
+
+
+Abendum
+
+
+
+Abendum , a Norwegian company founded by accountant and blockchain technologist Torje Vingen Sunde, developed the first documented enterprise-grade TEA implementation. The system operates as an extension to existing enterprise resource planning (ERP) software, hashing double-entry postings and writing them to a public blockchain in the background, without replacing the existing accounting system.
+
+A key design feature is standalone value : a company using Abendum obtains cryptographic proof of its own records regardless of whether counterparties have adopted TEA. Counterparties receive standard invoices in conventional formats with no requirement to interact with any blockchain. When both parties adopt the system, the blockchain records serve as mutual confirmation — the WYSIWIS condition is met — and historical transactions can be reconciled retroactively.
+
+Sunde's analysis suggests that TEA-based audit evidence could reduce external audit work by up to 50%, by replacing sample-based transaction testing and slow manual confirmation processes with instant cryptographic verification.
+
+Norway regulatory sandbox
+
+
+
+Abendum participated in the regulatory sandbox of Norway's Financial Supervisory Authority ( Finanstilsynet ). The sandbox assessed whether blockchain-based records qualify as "external confirmations" under International Standard on Auditing 505 (ISA 505) .
+
+The authority concluded that ISA 505 is technology-neutral: it requires confirmations to be reliable, verifiable, and from an independent source — criteria that blockchain-based TEA records satisfy. This finding has been cited as significant because ISA 505 is an international standard applied in many jurisdictions.
+
+Internal deployments
+
+
+
+Grigg describes operating TEA-style systems within organisations using "internal money" — a shared ledger where departments agree on transactions in real time, with internal currency used in place of conventional budgets and billing. He reports "dramatic savings in economic coordination" from such deployments, with records reliable enough to resolve questions years after the event, and reduced dependence on conventional paperwork.
+
+Relationship to double-entry accounting
+
+
+
+TEA does not replace double-entry accounting. The accounting equation (Assets = Liabilities + Equity), the debit/credit recording mechanism, and derived financial statements remain unchanged. Grigg describes TEA as recommending "an advance in accounting, rather than a revolution": signed receipts provide evidentiary power, while double-entry fills the processing and analysis gap. The two work better together than apart.
+
+Ibañez et al. characterise TEA as addressing the "efficiency of single truth": eliminating the need for reconciliation between separately maintained ledgers by ensuring both parties record the same cryptographically verified transaction from the outset.
+
+Scope and limitations
+
+
+
+Research has identified both capabilities and boundaries of TEA systems:
+
+What TEA addresses:
+
+Fabricated source documents — signed receipts require agreement by both parties; a forged document would lack valid counterparty signatures
+
+Backdated transactions — timestamps are cryptographically enforced
+
+Post-hoc alteration of records — hash functions make any change immediately detectable
+
+Reconciliation costs between trading partners — WYSIWIS eliminates divergent records
+
+
+What TEA does not address:
+
+Completeness fraud : TEA verifies that recorded transactions are genuine; it does not verify that all transactions have been recorded. Omitted liabilities remain outside TEA's scope and require continued auditor testing.
+
+Accounting judgment : Revenue recognition timing, asset valuation, and provisions involve professional judgment that TEA does not affect.
+
+Collusion : If both parties agree to record a fictitious transaction, TEA records their agreement. Business substance is not verified by cryptographic means.
+
+Privacy : Full transaction transparency creates commercial confidentiality concerns. Deployed systems address this through encrypted hashes on public blockchains, with decryption keys held by authorised parties; or through private and consortium blockchain architectures.
+
+
+Academic reception
+
+
+
+The MDPI Journal of Risk and Financial Management published a special issue on Triple Entry Accounting (2023–2024), featuring peer-reviewed research on topics including:
+
+Enterprise audit tool implementation
+
+Bitcoin-based private TEA protocols
+
+AI training data provenance and audit
+
+System integration across company-wide ERP environments
+
+Application to Hollywood accounting fraud
+
+AI data poisoning mitigation
+
+
+Grigg's original 2005 paper was republished in peer-reviewed form in the same journal in 2024, providing a formal citable version of the foundational text.
+
+See also
+
+
+
+Double-entry bookkeeping
+
+Momentum accounting and triple-entry bookkeeping (Ijiri)
+
+Ricardian contract
+
+Blockchain
+
+Bitcoin
+
+Financial cryptography
+
+Ian Grigg
+
+
+References
+
+
+
+
+
+
+External links
+
+
+
+Grigg, Ian (2024). "Triple Entry Accounting." Journal of Risk and Financial Management . https://doi.org/10.3390/jrfm17020076 (open access)
+
+Grigg, Ian (2005). Original working paper. https://iang.org/papers/triple_entry.html
+
+MDPI JRFM Special Issue: Triple Entry Accounting. https://www.mdpi.com/journal/jrfm/special_issues/S0ZR60SZUX
+
+Abendum AS. https://abendum.com
+
+TEAconf. https://teaconf.org
+
+
+---

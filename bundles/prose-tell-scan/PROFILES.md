@@ -43,7 +43,7 @@ inherited, so a bundle-side catalog fix reaches every project without a merge.
 | `thresholds*.json` | the bands it flags against | — |
 | `allow.txt` | suppresses matches | — |
 | `catalog.json` (bundle `_base`) | the patterns | `prose-pattern-critic` reads it to know what is *already* covered deterministically; the reviser may read it as **diagnostic input, never as a target** |
-| `corpus/human/` | `calibrate.mjs` derives bands | `prose-voice-critic` greps it for how this author actually writes |
+| `corpus/human/` | `calibrate.mjs` derives bands | `prose-voice-critic` greps it for how this author writes |
 | `voice.md` | **never read** | `prose-voice-critic`'s target |
 | `profile.json` → `medium` | reported, not acted on | `prose-medium-critic` spawns only if this is set |
 
@@ -208,7 +208,7 @@ generation's rhythm was right, it was right *because* it matched the human corpu
 that already set the band. Including it adds confirmation, not information.
 
 What approved samples legitimately inform is the **catalog-density** half — how
-often this author, in this register, actually reaches for `robust` or
+often this author, in this register, reaches for `robust` or
 `underscore`. That is the allowlist problem solved properly, with a rate instead
 of a blind spot, and it is the safe half to blend.
 
