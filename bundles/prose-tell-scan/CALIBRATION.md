@@ -723,6 +723,63 @@ pattern: *"no `try/except` or empty `catch` that swallows a failing assertion"*.
 A catch broad enough to hide a typo is broad enough to hide a defect for as long
 as nobody looks.
 
+### FN-2026-08-04-g · §Citations and §Style · what arithmetic can prove, and what the corpus cannot
+
+Two source-page sections needed code rather than catalog entries. They ship on
+opposite terms, and the difference is entirely about what the corpus can witness.
+
+#### Dispositive, and computable offline
+
+| check | AI | human | repo docs |
+|---|---|---|---|
+| `chatbot-sourced-citation` | 1/33 | 0/12 | 0/10 |
+| `invalid-identifier` (ISBN checksum) | 1/33 | 0/12 | 0/10 |
+
+Both are Tier A under the strict test from `FP-2026-08-04-d` — **no human writes
+this in any register.** An ISBN that fails its own check digit was invented. A
+citation URL carrying `utm_source=chatgpt.com` came out of a chat window.
+
+`utm_source` **cannot be a catalog entry at all.** `maskNonProse` blanks URLs and
+link targets before the catalog runs, so the parameter is gone by the time any
+pattern could see it. It needs a pass over raw text, which is why this module
+takes the unmasked document separately.
+
+One narrow claim, because it is easy to overread: a chatbot-tagged citation
+proves the *citation* came from a chatbot, not the prose. Someone can paste a
+link from a chat window into hand-written text.
+
+**Effect, gate-verified:** recall 3/33 → 4/33, Tier A 7/33 → 8/33, false
+positives unchanged at 0/12.
+
+#### Measured, never flagged — and the reason is the evidence, not modesty
+
+The §Style items — heading-level skips, emoji as formatting, thematic breaks
+before headings, inline-header vertical lists — are counted and reported beside
+em-dash and bold density. None of them can flag.
+
+**The acceptance corpus is plain text.** Both halves are Wikipedia articles
+rendered to prose, so every markdown structure was stripped before the files were
+written. Measured against it, all four checks score 0/33 and 0/12 — not because
+they are clean, but because there is no markdown in the corpus to find.
+
+What the corpus *can* show is the false-positive side, from this repo's own
+documents: `thematic_break_before_heading` fires on two of them. So the evidence
+available is one-sided — a measured FP rate and an unmeasurable TP rate.
+
+Shipping a flag on that basis is precisely `FP-2026-08-04-d`, where a Tier A
+entry was validated on a corpus that could not exercise the register where it
+misfired. Doing it again knowingly would be worse than doing it once by accident.
+They become flaggable when a markdown corpus exists to justify a threshold, and
+not before.
+
+#### A shape bug worth recording
+
+The first version emitted one finding per OCCURRENCE rather than one per entry
+with a count, so a document with eight tagged citations produced eight identical
+findings and read as eight separate problems. Every other entry in the catalog
+aggregates. A new check that invents its own output shape is a reporting bug
+waiting to be quoted.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather

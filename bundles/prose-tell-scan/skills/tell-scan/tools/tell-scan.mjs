@@ -27,6 +27,7 @@ import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/tex
 import { scanCatalog, scanFormatting } from "./lib/scan.mjs";
 import { cadenceMetrics } from "./lib/cadence.mjs";
 import { counterEvidence, resolveAge, readingOverride } from "./lib/counter-evidence.mjs";
+import { checkISBNs, checkCitations, measureStructure } from "./lib/artifacts.mjs";
 import {
   loadConfig, loadProfile, profileSearchPath, resolveProfile, listProfiles, BASE_PROFILE,
 } from "./lib/profile.mjs";
@@ -181,9 +182,42 @@ function analyse(file, opts, config, searchPath) {
     normaliseApostrophes(text), catalog, profile.allow, { display: text },
   );
   const cadence = cadenceMetrics(text, paras);
-  const formatting = scanFormatting(text, paras, wordCount);
+  const formatting = { ...scanFormatting(text, paras, wordCount), structure: measureStructure(text) };
 
-  const findings = evaluateFindings(rawFindings, profile.thresholds);
+  // Identifier and citation artifacts. These run on RAW text, not masked: the
+  // masker blanks URLs before the catalog sees them, so `utm_source` would be
+  // gone by then. They are Tier A by the strict test — no human writes a failed
+  // ISBN checksum or a chatbot-tagged citation URL in any register.
+  // One finding per entry with a count, matching every other entry's shape. An
+  // earlier version emitted one finding PER OCCURRENCE, so a document with eight
+  // tagged citations produced eight identical findings and the report read as
+  // eight separate problems.
+  const artifactFindings = [
+    ["invalid-identifier", "identifier that fails its own checksum",
+      checkISBNs(raw).map((h) => ({ example: h.isbn, why: h.reason }))],
+    ["chatbot-sourced-citation", "citation URL tagged by a chat product",
+      checkCitations(raw).map((h) => ({ example: h.marker, why: h.reason }))],
+  ]
+    .filter(([, , hits]) => hits.length > 0)
+    .map(([id, label, hits]) => ({
+      id,
+      label,
+      category: "leakage",
+      tier: "A",
+      severity: 3,
+      confidence: "definitive",
+      always_flag: true,
+      count: hits.length,
+      per_1k: Math.round((1000 * hits.length / (wordCount || 1)) * 100) / 100,
+      flagged: true,
+      held_by_floor: false,
+      note: hits[0].why,
+      examples: [...new Set(hits.map((h) => h.example))].slice(0, 4),
+      contexts: [...new Set(hits.map((h) => h.example))].slice(0, 4)
+        .map((e) => ({ line: null, text: `${e} — ${hits[0].why}` })),
+    }));
+
+  const findings = [...evaluateFindings(rawFindings, profile.thresholds), ...artifactFindings];
   const cadenceChecks = opts.artifactsOnly
     ? []
     : evaluateCadence(cadence, profile.thresholds);
