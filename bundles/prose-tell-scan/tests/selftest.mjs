@@ -556,6 +556,91 @@ try {
     check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
+  group("Artifacts that need arithmetic, not a regex");
+  {
+    // An ISBN that fails its own checksum was invented. Local arithmetic, no
+    // lookup — which is why it belongs in the scanner rather than the critics.
+    const doc = join(tmp, "isbn.txt");
+    writeFileSync(
+      doc,
+      "The standard reference is ISBN 9780470521571, still in print.\n\n"
+      + "A second source, ISBN 979-8-987654321-0, could not be located.\n",
+    );
+    const hit = scan([doc, "--profile", "technical"]).results[0]
+      .findings.find((f) => f.id === "invalid-identifier");
+    check("a hallucinated ISBN is caught by its checksum", Boolean(hit), "");
+    check("and it is Tier A — an invented identifier is an artifact, not a style",
+      hit?.tier === "A" && hit?.flagged === true);
+    check("the VALID ISBN in the same document is not flagged",
+      !JSON.stringify(hit?.examples ?? []).includes("9780470521571"),
+      JSON.stringify(hit?.examples));
+  }
+  {
+    // The paired negative: real bibliographies must stay silent, or nobody can
+    // scan a document that cites books.
+    const doc = join(tmp, "isbn-ok.txt");
+    writeFileSync(
+      doc,
+      "See ISBN 9780470521571 and ISBN 020161622X for the derivations, both of "
+      + "which remain the standard treatments of the subject in question.\n",
+    );
+    const ids = scan([doc, "--profile", "technical"]).results[0].findings.map((f) => f.id);
+    check("valid ISBN-13 and ISBN-10 (X check digit) both stay quiet",
+      !ids.includes("invalid-identifier"), ids.join(","));
+  }
+  {
+    // utm_source cannot be a catalog entry: maskNonProse blanks URLs before the
+    // catalog runs, so the parameter is gone by then. This needs a raw pass.
+    const doc = join(tmp, "utm.md");
+    writeFileSync(doc, "Background reading: [the study](https://example.com/x?utm_source=chatgpt.com).\n");
+    const hit = scan([doc, "--profile", "technical"]).results[0]
+      .findings.find((f) => f.id === "chatbot-sourced-citation");
+    check("a chatbot-tagged citation URL is caught despite URL masking", Boolean(hit));
+    check("it is Tier A", hit?.tier === "A" && hit?.flagged === true);
+
+    const clean = join(tmp, "utm-clean.md");
+    writeFileSync(clean, "Background reading: [the study](https://example.com/x?utm_source=newsletter).\n");
+    const ids = scan([clean, "--profile", "technical"]).results[0].findings.map((f) => f.id);
+    check("an ordinary utm_source is not a chatbot marker",
+      !ids.includes("chatbot-sourced-citation"), ids.join(","));
+  }
+  {
+    // One finding per entry with a count, matching every other entry's shape.
+    // An earlier version emitted one finding per occurrence, so eight tagged
+    // citations read as eight separate problems.
+    const doc = join(tmp, "utm-many.md");
+    writeFileSync(doc, Array.from({ length: 5 },
+      (_, i) => `[source ${i}](https://example.com/${i}?utm_source=chatgpt.com)`).join("\n\n") + "\n");
+    const hits = scan([doc, "--profile", "technical"]).results[0]
+      .findings.filter((f) => f.id === "chatbot-sourced-citation");
+    check("repeated artifacts aggregate into one finding with a count",
+      hits.length === 1 && hits[0].count === 5, `${hits.length} findings, count=${hits[0]?.count}`);
+  }
+  {
+    // Markdown structure is MEASURED, never flagged. The acceptance corpus is
+    // plain text, so it can show these firing on legitimate human writing —
+    // `thematic_break_before_heading` hits two of this repo's own documents —
+    // but it cannot produce a single true positive. A threshold would be fitted
+    // to one side of the evidence only. See FP-2026-08-04-d for the last time
+    // that was done.
+    const doc = join(tmp, "structure.md");
+    writeFileSync(
+      doc,
+      "# Title\n\n### Skipped a level\n\n---\n\n## After a break\n\n"
+      + "- **Label**: a value\n- 🎯 decorated item\n\nSome prose to give it length.\n",
+    );
+    const st = scan([doc, "--profile", "technical"]).results[0].formatting.structure;
+    check("heading-level skips are counted", st.heading_level_skips >= 1, JSON.stringify(st));
+    check("thematic breaks before headings are counted", st.thematic_break_before_heading >= 1);
+    check("inline-header list items are counted", st.inline_header_list_items >= 1);
+    check("emoji in list-marker position are counted", st.emoji_as_formatting >= 1);
+    check("none of it produces a finding",
+      !scan([doc, "--profile", "technical"]).results[0].findings
+        .some((f) => /heading|emoji|thematic|inline_header/.test(f.id)),
+      "structure is reported alongside em-dash and bold density, not flagged");
+    check("and the block says why it is not flagged", /plain text/.test(st._about ?? ""));
+  }
+
   group("Counter-evidence — the half that argues the other way");
   {
     // Everything else here accumulates evidence FOR a tell, which biases the

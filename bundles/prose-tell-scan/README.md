@@ -453,11 +453,11 @@ formal register this catalog is most likely to misjudge.
 
 | | AI corpus (n=33) | human corpus (n=12) |
 |---|---|---|
-| flagged at the documented threshold | **2 (6%)** | **0 (0%)** |
+| flagged at the documented threshold | **4 (12%)** | **0 (0%)** |
 | any Tier A artifact | **8 (24%)** | **0** |
 
 **Read the first row before trusting this tool.** Style-catalog recall is low —
-6% here, 21% under the `essay` profile. It misses most text a careful human
+12% here. It misses most text a careful human
 reader identifies. That is a consequence of the design rather than a bug to tune
 away: everything is density-gated, contested entries are deliberately weak, and
 the output is built for an author reviewing their own draft, not for a
