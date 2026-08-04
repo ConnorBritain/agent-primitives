@@ -434,15 +434,61 @@ report their cadence half and their density half with separate confidence — se
 - **Short documents.** Below ~800 words, density per 1000 swings hard on single
   occurrences. The scanner says so, and the min-count floor stops the worst of it.
 
+## What it actually catches — measured
+
+Against 44 documents this repo did not write: 32 that the Wikipedia community
+examined and judged AI-written, and 12 article revisions from **before ChatGPT
+existed**, weighted toward Indian, Nigerian and Kenyan institutions — the ornate
+formal register this catalog is most likely to misjudge.
+
+| | AI corpus (n=32) | human corpus (n=12) |
+|---|---|---|
+| flagged at the documented threshold | **1 (3%)** | **0 (0%)** |
+| any Tier A artifact | **8 (25%)** | **0** |
+
+**Read the first row before trusting this tool.** Style-catalog recall is low —
+3% here, 22% under the `essay` profile. It misses most text a careful human
+reader identifies. That is a consequence of the design rather than a bug to tune
+away: everything is density-gated, contested entries are deliberately weak, and
+the output is built for an author reviewing their own draft, not for a
+classifier. But it means **a clean scan tells you very little.**
+
+**The second row is where the value is.** Leaked markup identifies a quarter of
+the AI corpus with zero false positives, out-performing the entire style catalog.
+The artifact/style split is the most load-bearing decision in the design, and
+this is the evidence for it: a Tier A hit means a great deal, a clean style scan
+means almost nothing.
+
+The 0% false-positive rate is the result worth having, and its honest form is
+**0–24% (95% CI)**. Twelve documents cannot resolve it further. What it does
+establish is that the documented bias against ornate register did not fire on
+twelve real examples of it — a measurement where there was previously only a
+synthetic passage written by the catalog's own author.
+
+Corpus, provenance and licensing: [`tests/corpus/`](tests/corpus/). It is
+CC BY-SA 4.0, not MIT, and pinned to immutable revision ids.
+
 ## Verification
 
 ```bash
-node tests/selftest.mjs
+node tests/selftest.mjs              # everything, including the acceptance gate
+node tests/acceptance.mjs --report   # the corpus tables in full
 ```
 
 Covers the regression fixture, threshold refusals, provenance exclusion, profile
-separation, the masking rules, and a paired regression for every false positive
-in [`CALIBRATION.md`](CALIBRATION.md).
+separation, the masking rules, a paired regression for every false positive in
+[`CALIBRATION.md`](CALIBRATION.md), and the acceptance corpus above.
+
+The acceptance gate **fails on regression, not on an absolute rate.** At n=12 one
+false positive is 8.3% with a 95% interval of 1.5–35%; gating on "under 10%"
+would assert a precision the sample cannot support, which is the overclaiming
+this catalog warns about, committed by its own tests. The measured numbers live
+in `tests/corpus/baseline.json` and the suite fails when they get worse. Raising
+a number there to make a run pass is the same act as weakening an assertion.
+
+One absolute gate exists: **zero Tier A hits on provably-human text.** That tier
+claims to be dispositive on a single occurrence, so there is no rate to
+negotiate — it is zero or the claim is false.
 
 **When the scanner flags legitimate writing, log it there before fixing it.** A
 false positive is the only empirical evidence this project gets about where its

@@ -1,0 +1,22 @@
+{
+  "_about": [
+    "Measured, not chosen. Regenerate deliberately and review the diff: this file is",
+    "what stops a tightening from silently costing detections, or a widening from",
+    "silently costing precision. Raising a number here to make a run pass is the",
+    "same act as weakening an assertion."
+  ],
+  "profile": "technical",
+  "measured": "2026-08-04",
+  "catalog_version": "0.2.0",
+  "ai": {
+    "n": 32,
+    "flagged": 1,
+    "tierA": 8
+  },
+  "human": {
+    "n": 12,
+    "flagged": 0,
+    "tierA": 0,
+    "flaggedFiles": []
+  }
+}

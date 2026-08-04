@@ -21,6 +21,8 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
+import { runAcceptance } from "./acceptance.mjs";
+
 const HERE = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(HERE, "..");                // bundles/prose-tell-scan
 const SKILL = join(BUNDLE, "skills", "tell-scan"); // what actually ships
@@ -690,18 +692,69 @@ try {
   }
 
   /* ------------------------------------------------------------------ */
-  group("Min-count floor");
+  group("The reading must reconcile with the table above it");
   {
-    const doc = join(tmp, "short.md");
-    // One tricolon in a short document reads as a huge density and is not a tic.
+    // It used to say "2 independent categories are elevated" while
+    // flagged_categories listed ONE, because a cadence flag was folded into a
+    // count labelled "categories". A reader checking the sentence against the
+    // JSON found a number they could not explain, and the error always ran
+    // toward more alarming.
+    //
+    // Found on a real document: a pre-ChatGPT Wikipedia revision, provably human,
+    // one catalog category plus one cadence metric.
+    const doc = join(tmp, "reconcile.md");
     writeFileSync(
       doc,
-      `A short note about scope, budget, and timing.\n\n${"Filler sentence for length. ".repeat(20)}`,
+      `${"The committee reviewed the report and approved the budget without objection. ".repeat(14)}\n\n`
+      + `${"Members raised concerns, offered amendments, and requested revisions. ".repeat(12)}\n`,
+    );
+    const r = scan([doc, "--profile", "essay"]).results[0];
+    const cats = r.summary.flagged_categories.length;
+    const cad = r.summary.cadence_flags.length;
+    const reading = r.summary.reading;
+
+    if (cats > 0) {
+      check(
+        "the reading names the catalog-category count that the table reports",
+        reading.includes(`${cats} catalog categor`),
+        `cats=${cats} reading="${reading.split(".")[0]}"`,
+      );
+    }
+    if (cad > 0) {
+      check(
+        "and names the cadence count separately, not folded in",
+        reading.includes(`${cad} cadence metric`),
+        `cadence=${cad} reading="${reading.split(".")[0]}"`,
+      );
+    }
+    check(
+      "the two axes are never collapsed under the word 'categories'",
+      !/\d+ independent categories/.test(reading),
+      reading.split(".")[0],
+    );
+  }
+
+  group("Min-count floor");
+  {
+    // Rewritten 2026-08-04. This used `tricolon`, which has since been deleted
+    // on corpus evidence (it fired on 92% of provably-human documents and 84% of
+    // AI ones — see FN-2026-08-04-a). The floor it demonstrated is unaffected, so
+    // the case is rebuilt on a severity-1 entry that survived.
+    //
+    // One occurrence in a short document reads as an enormous per-1000 density.
+    // The floor exists so that a rate computed from a single event is never
+    // treated as a rate.
+    const doc = join(tmp, "short.md");
+    writeFileSync(
+      doc,
+      `This is genuinely the only concern worth raising here.\n\n${"Filler sentence for length. ".repeat(20)}`,
     );
     const r = scan([doc, "--profile", "technical"]).results[0];
-    const tri = r.findings.find((f) => f.id === "tricolon");
-    check("a single tricolon is not flagged", !tri || tri.flagged === false);
-    check("but it is still reported", Boolean(tri), "suppressing it silently would be dishonest");
+    const one = r.findings.find((f) => f.id === "genuinely");
+    check("a single severity-1 hit is not flagged", one && one.flagged === false,
+      `flagged=${one?.flagged} count=${one?.count}`);
+    check("it is held by the floor, not by density", one?.held_by_floor === true);
+    check("but it is still reported", Boolean(one), "suppressing it silently would be dishonest");
     check("short document is announced", r.summary.short_document === true);
   }
 
@@ -862,6 +915,26 @@ try {
     const unknown = scan([join(BUNDLE, "fixtures", "script-v2-after.txt"), "--profile", "nosuch"]);
     check("an unknown profile falls back to _base", unknown.results[0].profile.name === "_base");
     check("and says it fell back", unknown.results[0].profile.fellBack === true);
+  }
+  /* ------------------------------------------------------------------ */
+  // The acceptance corpus: 44 documents nobody here wrote. Everything above
+  // asks "does the code do what it says"; this asks "does what it says mean
+  // anything". They are different questions, and the difference has already
+  // cost this bundle twice — see CALIBRATION.md FN-2026-08-03-c and
+  // FN-2026-08-04-a. Both of those defects passed every test above.
+  group("Acceptance — measured against text this repo did not write");
+  {
+    const { results, summary } = runAcceptance();
+    for (const r of results) check(r.name, r.ok, r.detail);
+    if (summary) {
+      const pct = (x) => `${(100 * x).toFixed(1)}%`;
+      const [lo, hi] = summary.fpr_ci95;
+      process.stdout.write(
+        `       recall ${pct(summary.recall)} (${summary.ai.flagged}/${summary.ai.n})`
+        + `   FPR ${pct(summary.fpr)} (${summary.human.flagged}/${summary.human.n},`
+        + ` 95% CI ${pct(lo)}–${pct(hi)})\n`,
+      );
+    }
   }
 } finally {
   rmSync(tmp, { recursive: true, force: true });

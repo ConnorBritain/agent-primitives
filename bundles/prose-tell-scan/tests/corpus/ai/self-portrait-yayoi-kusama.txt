@@ -1,0 +1,66 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Self-portrait (Yayoi Kusama)
+revid: 1366900274
+date: 2026-07-30
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1366900274
+---
+
+Self-Portrait is a 2010 digital photograph by Japanese artist Yayoi Kusama, held at the Uffizi Gallery in Florence. The work depicts the artist's face surrounded by characteristic motifs such as polka dots, net patterns, and vibrant colors. Situated within the Uffizi's historical self-portrait collection, the image introduces contemporary themes of fragmentation, repetition, and psychological subjectivity.
+
+
+== Description and analysis ==
+In this work, Kusama portrays herself with her characteristic red wig and dot-covered clothing, embedded within a vibrantly colored background saturated with polka dots and organic shapes. The image is simultaneously figurative and abstract, merging the human form with motifs drawn from Kusama's signature visual lexicon. Her use of acrylics and digital techniques allows for a seamless integration of bodily image and symbolic patterning.
+The portrait eschews traditional notions of a unified self, instead presenting a dispersed and multiply mediated identity. Scholars have connected Kusama's repetition to Deleuze’s theory of difference and repetition, wherein identity is produced through variation rather than essence (Deleuze, 1994). Art historian Midori Yamamura argues that Kusama's use of infinite polka dots functions as a means of self-obliteration, which paradoxically affirms her identity as an artist: "Kusama's obliteration is a strategy to assert her presence by disappearing into her environment".
+Unlike ironic postmodern appropriation, her serial imagery is seen as a personal expression of psychic and affective states. According to art critic Laura Hoptman, Kusama's visual language is "not parody, but pathology — a repetition compulsion born of trauma". This aligns with Kusama's own statements about her experiences with hallucinations and psychological distress, which she channels into her obsessive repetitions and immersive environments. As Kusama herself notes: "My life is a dot lost among thousands of other dots".
+Self-Portrait presents a close-up of Kusama's face enveloped in a vibrant, chaotic field of dots, net patterns, and intense colors. The artist's facial expression is neutral, almost mask-like, emphasizing its integration into the surrounding decorative matrix. These visual elements derive from Kusama's signature vocabulary developed since the 1950s, which includes obsessive repetitions of circular and reticular forms.
+The polka dots—arguably the artist's most recognizable motif—serve not merely as surface decoration but as metaphors for the dissolution of the ego. In various statements, Kusama has described dots as symbolic of both the self and the universe, asserting that “a polka dot has the form of the sun, the moon, the Earth, and the entire cosmos.” Similarly, her use of net patterns references a hallucinatory vision from childhood, in which the world appeared covered in a web-like structure that extended infinitely.
+The vivid palette—dominated by reds, yellows, and blacks—reinforces the work's psychological intensity and links it to Kusama's installations and fashion collaborations. The formal flatness of the image, lacking conventional shading or perspective, situates the composition within a broader lineage of Japanese graphic aesthetics, such as ukiyo-e and contemporary manga. Scholars have noted the affinities between Kusama's visual syntax and the Superflat aesthetic theorized by Takashi Murakami, where surface dominates content and hierarchy is abolished between high and low visual culture.
+In this context, the artist's face does not function as a locus of identity or self-knowledge but as one node in a field of visual proliferation. Critics have interpreted this strategy as an aesthetic of depersonalization—an intentional effacement of subjectivity in favor of pure pattern. The repetition of forms across the work suggests an endless continuum, evoking the notion of infinity, a recurrent theme in Kusama's titles and installations.
+
+
+== Subjectivity and repetition ==
+In Self-Portrait, the intertwining of repetition and subjectivity illustrates Kusama's rejection of the Cartesian cogito in favor of a dispersed, non-coherent self. Rather than presenting a unified image of the artist, the work operates through visual multiplication, fragmentation, and reflexivity. The viewer is presented with a self-image that is not grounded in visual mastery, but in what Amelia Jones terms “the performative enactment of subjectivity”.
+Yayoi Kusama's approach resonates with post-structuralist critiques of subjecthood. Michel Foucault’s conception of the self as a product of discursive formations finds echo in Kusama’s multiplication of motifs that deny a singular identity. Likewise, Luce Irigaray’s feminist psychoanalytic theory suggests that multiplicity, rather than unity, is the condition of feminine subjectivity. In this context, Kusama’s obsessive visual repetitions become a strategy of embodying an identity that resists closure.
+Art historian Alexandra Munroe has suggested that Kusama’s hallucinatory repetitions function as “psychic prostheses,” visualizing mental states that defy linear narrative or traditional portraiture. Kusama's polka dots—repeated ad infinitum—become signifiers of both personal trauma and universal connectivity. As Kusama herself writes: “With just one polka dot, nothing can be achieved. In the universe, there is the sun, the moon, the earth, and hundreds of millions of stars”.
+This dispersal is not dissolution. Rather, it constitutes what Deleuze might describe as “becoming”—an identity in flux, constituted through iterative difference. Through this lens, Kusama's self-portrait is not a mirror but a portal: not a representation of self, but a mechanism for its constant reinvention.
+
+
+== Feminist and cultural perspectives ==
+Kusama's Self-Portrait has been widely analyzed within the framework of feminist art criticism, particularly for its subversion of traditional Western modes of female representation in art history. Rather than positioning the female subject as an object of the gaze—passive, sexualized, or idealized—Kusama presents herself through a strategy of symbolic abstraction and formal excess. The hyper-saturation of color, the proliferation of polka dots, and the dissolution of bodily boundaries resist any singular, stable interpretation of identity. This destabilization of the self aligns with Griselda Pollock’s argument that feminist interventions in art must work to “rupture the codes of visuality” that have historically structured women's marginalization in representation.
+Amelia Jones has emphasized the performative nature of self-representation in contemporary feminist practice, suggesting that the body is not a fixed site of identity, but rather one constituted through ongoing enactment and mediation. Kusama's self-portrait exemplifies this notion by replacing mimetic realism with repetition, affect, and reflexivity. Her image is not rendered to capture likeness, but to stage a visual process of becoming. In this sense, the portrait operates within what Jones describes as a “corporeal performativity” that undoes the patriarchal logic of the coherent, legible subject.
+Culturally, the work has also been situated in the context of postmodern aesthetics and global contemporary art. Scholars have drawn connections between Kusama's strategy and Jean Baudrillard’s theories of simulation and surface. Baudrillard’s notion that signs have become severed from referents—what he terms the “precession of simulacra”—resonates with Kusama's play of infinite signs that defer meaning and fracture presence. Rather than a transparent window onto the self, the portrait is a proliferation of surfaces that resist symbolic closure. Francesca Fabbri has argued that Kusama's aesthetics borrow from both Zen visual abstraction and Japanese pop culture, blending traditional and mass-mediated idioms to create a hybrid visual field that challenges Eurocentric paradigms of portraiture and selfhood.
+This cultural hybridity positions Kusama's work within a transnational feminist discourse, wherein identity is not only fragmented but also embedded in specific historical and geopolitical contexts. Kusama's negotiation of Japanese artistic traditions, Western modernism, and American counterculture of the 1960s situates her practice within what art historian Ming Tiampo has termed “intersubjective modernisms”—modes of art-making that emerge from cultural translation and mobility rather than unilateral influence. In this light, Self-Portrait functions not only as an assertion of feminist agency, but also as a critical intervention in the global discourse of contemporary identity.
+
+
+== Hallucination and artistic strategy ==
+Kusama frequently references her childhood hallucinations as a basis for her visual vocabulary. These early psychological episodes, which she describes as intense and uncontrollable visual phenomena involving fields of dots, flowers, and nets, have formed the bedrock of her iconography. The recurring motifs in her oeuvre—particularly the polka dots, organic protuberances, and web-like networks—are not mere aesthetic choices but emerge from a psychogenic experience she has termed "self-obliteration."
+The use of dots and nets functions both as an artistic signature and a therapeutic mechanism. Kusama has repeatedly stated that making art is a survival strategy, a way to give form to the otherwise formless and overwhelming sensations of her hallucinations. Art critic Arthur Danto described her work as a transformation of trauma into form, noting that "Kusama’s aesthetic is therapeutic not in spite of its compulsions, but precisely because of them". By aestheticizing her pathology, she gains a measure of control over it, converting psychic disturbance into visual order.
+Art historian Rachel Kent situates Kusama's practice within a lineage of artists for whom trauma and vision are intrinsically linked. Kent argues that Kusama's visual lexicon represents a “system of symbolic compensation,” wherein the overwhelming aspects of psychological trauma are re-externalized through pattern and repetition. In this reading, hallucination is not merely a private affliction but a generative strategy—a way of breaking with conventional modes of perception and inaugurating an alternative ontology of image-making.
+Scholars such as Akira Tatehata have also drawn attention to the spiritual dimensions of Kusama's visions. Influenced by Shinto cosmology and Buddhist notions of interconnectedness, her hallucinations are interpreted as metaphysical revelations rather than pathological symptoms. Tatehata contends that Kusama's artworks channel an existential desire to dissolve the boundaries between self and cosmos. This metaphysical reading of her hallucinations finds visual expression in works like the Self-Portrait, where her image dissolves into a polychromatic constellation of forms.
+Ultimately, Kusama's hallucinatory vision operates as a critical strategy within the history of self-portraiture. Unlike the Cartesian subject premised on rational self-knowledge, Kusama presents a psyche in crisis and transformation. Her portraiture does not aim for empirical likeness or psychological realism but stages an experiential condition marked by flux, instability, and cosmic interconnection. In this sense, hallucination is not a deviation from artistic intentionality, but its very ground.
+
+
+== Institutional context ==
+The inclusion of Kusama's Self-Portrait in the Uffizi's collection reflects institutional efforts to expand the canon of self-portraiture. Gallery director Eike Schmidt has stated that the work challenges conventional definitions of the genre.
+Critics have placed the portrait within debates in museum studies, postcolonial theory, and contemporary art curation.
+The inclusion of Kusama's Self-Portrait in the Uffizi Gallery has been hailed as a landmark moment for the visibility of women artists in major Western institutions. It also marks a shift toward recognizing the contemporary and global dimensions of portraiture. Art historian Cecilia Frosinini commented that "Kusama’s portrait redefines the genre by replacing mimesis with repetition, and essence with environment".
+The work has also been interpreted through the lens of feminist theory. Amelia Jones, in her writings on performative self-portraiture, suggests that Kusama's dispersal of identity resists the patriarchal tradition of the coherent, idealized self-image in Western art. Jones writes: "Kusama’s self-image operates not through mastery or presence, but through fragmentation and affect". In this context, the Self-Portrait becomes both an act of resistance and a declaration of presence, offering a new paradigm for understanding the artistic self in the 21st century.
+
+
+== See also ==
+Yayoi Kusama
+Self-portrait
+Self-portraiture
+Feminist art
+Superflat
+Contemporary art
+
+
+== References ==
+
+
+== External links ==
+Self-Portrait at the Uffizi Gallery

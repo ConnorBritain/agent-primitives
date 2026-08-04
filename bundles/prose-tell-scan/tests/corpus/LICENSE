@@ -1,0 +1,20 @@
+The prose samples in this directory are NOT covered by the repository's MIT
+licence. They are text from English Wikipedia, reproduced under:
+
+    Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+    https://creativecommons.org/licenses/by-sa/4.0/
+
+Every sample is pinned to an immutable revision id. ATTRIBUTION.json lists the
+source page title, revision id, timestamp, and a permalink that resolves to
+exactly the text vendored here.
+
+Share-alike travels with these files. If you redistribute them, or a derivative
+of them, that redistribution is CC BY-SA 4.0 — not MIT.
+
+The scanner, the tests, and everything else in this repository remain MIT.
+Only the contents of tests/corpus/ai/ and tests/corpus/human/ are affected.
+
+Nothing may be added to this directory except text under a compatible free
+licence, with provenance recorded the same way. Not contemporary journalism,
+not books, not blogs, not anyone's private writing, however good a sample it
+would make.

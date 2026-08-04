@@ -115,6 +115,11 @@
       "because a silently removed pattern gets re-added by the next person with",
       "the same plausible idea. Everything here looked reasonable and lost."
     ],
+    "tricolon": {
+      "was": "The rule of three - three-item lists and adjective, adjective, adjective.",
+      "why_rejected": "DELETED 2026-08-04 on corpus evidence, under the standing rule this log had already written for it: 'if it produces a field false positive, delete it rather than tightening - the same standard applied to transition-overload'. It produced two. Measured across 12 provably-human pre-ChatGPT documents it FLAGGED on two of them, including 17 occurrences at 3.09 per 1000 in one - field false positives on text that predates ChatGPT by construction. The appearance rates say why: it turned up in 84% of 32 community-identified AI documents and 92% of the human ones. Matching any three comma-separated words is matching ordinary English. The rule of three is on the source page and is probably real at a level of analysis this catalog cannot reach; the deterministic form here was not it. Cost of deletion, stated because it is not free: AI recall went 2/32 to 1/32, since the entry had pushed one AI document over the two-category threshold. A detection driven by an entry that fires on nearly every document is not a detection. Two earlier open questions in this log asked whether it earned its place; the answer is no. Full yield table in CALIBRATION.md FN-2026-08-04-a.",
+      "source": "wp-signs"
+    },
     "announced-insight": {
       "was": "Announcing an insight in place of delivering one (\"here's the thing\", \"what most people miss\").",
       "why_rejected": "Removed 2026-08-03 after shipping in v0.1. Three reasons, and the first alone is sufficient: it is NOT ON THE SOURCE PAGE. Verified against the full wikitext - the entry's own note conceded this, tracing it to a Forbes contributor piece with no counts and no control corpus, which is exactly the class of source this catalog labels contested and does not build on. Second, it duplicates not_deterministic.announced-then-undelivered, which declares the same phenomenon undecidable by regex; shipping a regex for it contradicted the catalog's own boundary. Third, CALIBRATION.md FP-2026-07-26-a logged it as the first field false positive and concluded it was 'an argument for pruning rather than tightening if it recurs'. It recurred. The standard already applied to false-range applies here.",
@@ -738,17 +743,6 @@
       "pattern": "\\bwhether\\s+you'?re\\s+[^.!?,]{2,45}\\s+or\\s+",
       "note": "Direct-address audience enumeration; marketing-copy scaffolding.",
       "source": "recent"
-    },
-    {
-      "id": "tricolon",
-      "label": "rule of three (X, Y, and Z)",
-      "kind": "structural",
-      "category": "structural-scaffold",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "\\b\\w+,\\s+\\w+,\\s+and\\s+\\w+\\b",
-      "note": "KNOWN NOISY, kept deliberately and gated hard on density. The tricolon is ordinary English — a single hit means nothing. What is informative is the RATE: models reach for three-item lists far more evenly than people do. Read this row as a measurement, never as a list of defects.",
-      "source": "wp-signs"
     },
     {
       "id": "hedge-stack",

@@ -1,0 +1,55 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Functional-Structural Plant Models
+revid: 1360573864
+date: 2026-06-22
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1360573864
+---
+
+Comment: Please do not resubmit unless these points are addressed. Carolina2k22 • (talk) 07:24, 22 January 2026 (UTC)
+ Comment: LLM-written and the latest version did not make any edits compared to the prior version.  I would say "reject" but for the template saying it's being kept for documentation. WeirdNAnnoyed (talk) 12:37, 19 December 2025 (UTC)
+ Comment: Much of the text lacks in-line citations. Ca talk to me! 11:52, 12 June 2025 (UTC)
+
+A functional–structural plant model (FSPM) is a type of computational model that combines an explicit three-dimensional representation of plant architecture—the spatial arrangement of organs such as leaves, stems, and roots—with simulations of physiological processes including photosynthesis, carbon allocation, and water transport. The approach differs from conventional crop simulation models, which typically treat the plant canopy as a homogeneous layer, in that FSPMs resolve the geometry of individual organs and can therefore capture how spatial structure affects processes like light interception within a canopy.
+The term "functional–structural plant model" came into common use in the early 2000s, consolidating work that had previously been described under labels such as "virtual plants" or "3D plant models". Since then the field has been the subject of multiple dedicated special issues in Annals of Botany (2008, 2011, 2014, 2020) and Functional Plant Biology (2008), and of regular international workshops.
+
+
+== Origins ==
+FSPMs draw on a lineage of formal models of plant branching. In 1968 the biologist Aristid Lindenmayer introduced L-systems, a class of string-rewriting grammars that could generate the branching patterns of filamentous organisms and, by extension, higher plants. Przemysław Prusinkiewicz and Lindenmayer's 1990 monograph The Algorithmic Beauty of Plants demonstrated how L-systems could produce realistic computer graphics of plant form and became a reference point for later work.
+Through the 1990s, researchers began coupling these architectural descriptions with physiological process models—for example, attaching radiation-transfer calculations or carbon-balance equations to a 3D branching structure—rather than treating form and function separately. Godin and Sinoquet identified this coupling as the defining characteristic of the FSPM approach in a 2005 editorial for New Phytologist. Improvements in computing power, 3D imaging, and high-throughput plant phenotyping during the 2000s and 2010s made it feasible to parameterise and validate increasingly detailed models.
+
+
+== Model structure ==
+An FSPM typically represents a plant as a graph of connected modules—internodes, leaves, root segments, fruits—each assigned a position, orientation, and geometry in three-dimensional space. One or more sub-models then calculate how those organs interact with the environment: a common configuration pairs a ray-tracing or radiosity light model with a leaf-level photosynthesis model and a set of carbon-allocation rules that feed assimilates back to growing organs. Because the geometry is explicit, architectural features such as leaf angle, phyllotaxis, or the degree of mutual shading between neighbouring plants can directly influence simulated carbon gain.
+A broad distinction is drawn between static and dynamic FSPMs. Static models fix the plant's architecture (often digitised from a real specimen) and compute quantities such as light absorption or transpiration at that single point in time; they are useful for analysing how a given canopy structure performs under particular conditions. Dynamic models, by contrast, simulate development: organs appear, expand, senesce, and shed according to developmental rules, and the changing architecture feeds back into the physiological calculations at each time step.
+Some FSPMs adopt an agent-based formulation in which each organ or meristem is an autonomous entity following local rules; whole-plant behaviour then emerges from the interactions among these agents.
+
+
+== Applications ==
+FSPMs have been applied in greenhouse horticulture to optimise crop spacing and light distribution, in field-crop research to evaluate ideotype designs for cereals, and in intercropping studies where the spatial arrangement of different species determines resource partitioning. In forestry, they have been used to model crown development and competition for light in mixed-species stands. More recently, FSPMs have been coupled with genetic algorithms or evolutionary computation to explore how plant traits may have evolved under particular selective pressures, an approach sometimes called "evolutionary FSPM".
+The field has also intersected with plant phenotyping: because FSPMs generate synthetic 3D canopies, they can serve as training-data generators or as tools for interpreting phenotyping measurements, a connection highlighted in several reviews.
+
+
+== Software platforms ==
+Several open-source and academic platforms have been developed for building FSPMs:
+
+L-studio / vlab – developed at the University of Calgary, one of the earliest FSPM environments, based on L-system formalisms.
+OpenAlea – a Python-based visual-programming platform developed at CIRAD and INRAE in France, designed for component-based assembly of plant models.
+GroIMP – a Java-based platform from the University of Göttingen that extends L-systems with relational growth grammars.
+CPlantBox – a C++/Python framework focused on root–shoot interactions and soil–plant water relations.
+Helios – a C++ framework emphasising scalability and GPU-accelerated radiative transfer.
+OpenSimRoot – a C++ model for simulating root architecture and nutrient uptake; it can function as a stand-alone model or be linked to other platforms.
+Virtual Plant Laboratory (VPL) – a recent Julia-based framework.
+
+
+== See also ==
+Crop simulation model
+L-system
+Plant physiology
+Plant phenotyping
+Agent-based model
+
+
+== References ==

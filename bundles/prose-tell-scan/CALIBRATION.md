@@ -280,6 +280,101 @@ Two things this demonstrates that no synthetic test could:
   a model's self-assessment did not notice. It just did it again, to the same
   author, in a document *about* not doing it. Counting is what scripts are for.
 
+### FN-2026-08-04-a · the whole catalog · first measurement against real AI text
+
+**Until this entry, the test suite had never observed AI-written text.** Both
+fixtures are the same human author's draft and revision, so every "detection"
+assertion measured draft-versus-revision. The tool could have been measuring
+nothing and the suite would still have been green — not hypothetical, since the
+apostrophe defect in `FN-2026-08-03-c` did exactly that.
+
+`tests/corpus/` now holds 44 documents, all CC BY-SA 4.0 and pinned to immutable
+revision ids:
+
+- **32 AI** — `Wikipedia:Signs of AI writing/Examples/*`. Text the community
+  examined and judged AI-written. Not our guess; theirs.
+- **12 human** — article revisions predating 2022-11-30, weighted toward Indian,
+  Nigerian and Kenyan institutions. Human authorship is a fact about the
+  timestamp, not an attestation.
+
+#### The headline numbers, at the tool's own documented operating point
+
+"Several co-occurring is worth a read-through" — two or more flagged categories.
+Both corpora scanned under the same profile, because comparing rates across
+different threshold sets measures nothing.
+
+| profile | recall (AI flagged) | FPR (human flagged) | Tier A on AI | Tier A on human |
+|---|---|---|---|---|
+| `technical` | 2/32 = **6%** | 0/12 = **0%** | 8/32 | **0** |
+| `essay` | 7/32 = **22%** | 1/12 = 8% | 8/32 | **0** |
+
+95% Wilson interval on the `technical` FPR is 0–24%. Twelve samples cannot
+distinguish 0% from 20%, and the suite prints the interval rather than the point
+estimate for exactly that reason.
+
+**Two findings, and the second is uncomfortable.**
+
+**Tier A carries the tool.** Leaked markup alone identifies 8 of 32 with zero
+false positives, out-performing the entire style catalog (2 of 32 under the
+register-appropriate profile). The artifact/style tier split was the right call
+and the evidence is stronger than expected.
+
+**Style-catalog recall is low — 6% to 22% depending on register.** That number
+belongs in the README. It is not a defect to be tuned away: the catalog is
+density-gated, deliberately conservative, and built for an author examining their
+own draft rather than a classifier. But anyone reading "catalogued AI writing
+tells" will assume better, and the honest framing is that a clean scan means very
+little while a Tier A hit means a great deal.
+
+#### Per-entry yield, `technical` profile
+
+Rate = fraction of documents containing the entry at all.
+
+| entry | AI | human | lift |
+|---|---|---|---|
+| `enhance` | 34% | 0% | **+34** |
+| `model-markup-artifact` (Tier A) | 22% | 0% | **+22** |
+| `participle-tail` | 19% | 0% | +19 |
+| `current-participles` | 19% | 0% | +19 |
+| … | | | |
+| `deeply-rooted` | 0% | 17% | −17 |
+| `renowned` | 3% | 25% | **−22** |
+| `tricolon` | 84% | 92% | −7 |
+
+The mid-2025 participial cohort the source page identifies is the strongest
+lexical signal in the catalog, which is a real vindication of tracking `era`.
+
+**Eleven entries fire at least as often on provably-human text as on AI text**:
+`renowned`, `deeply-rooted`, `nestled`, `groundbreaking`, `foster-abstract`,
+`significance-assertion`, `vague-attribution`, `diverse-array`, `fundamentally`,
+`actually`, `tricolon`.
+
+**Only one is deleted.** Twelve human documents, all about universities, cannot
+justify pruning ten entries — `nestled` and `renowned` firing on articles about
+institutions is a register effect, and deleting on n=12 would be overfitting in
+the opposite direction from the mistake in `FN-2026-08-03-c`. They are recorded
+here and left in place, and the honest fix for an author they hurt is
+calibration, not a smaller catalog.
+
+`tricolon` is different, and the log had already written its own rule for it:
+*"if it produces a field false positive, delete it rather than tightening."*
+
+It produced two. Not merely *appeared in* — **flagged on** two of the twelve
+provably-human documents, including 17 occurrences at 3.09/1000 in the Banaras
+Hindu University article. Those are field false positives on text that predates
+ChatGPT by construction, which is the condition the rule names.
+
+The appearance rates say why: 84% of AI documents, 92% of human ones. Matching
+any three comma-separated words is matching ordinary English, and the rule of
+three is real at a level of analysis this catalog cannot reach.
+
+**Deleting it cost one nominal detection** — AI recall went 2/32 → 1/32, because
+the entry had pushed one AI document over the two-category threshold. That trade
+is worth taking and worth stating plainly: a detection driven by an entry that
+fires on nearly every document is not a detection, and keeping it would have
+inflated recall while degrading the co-occurrence signal the whole reading
+depends on. Recorded under `rejected`.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather
@@ -324,13 +419,21 @@ Things the log is not yet large enough to answer:
   (`--artifacts-only`, and `disable_categories` per profile). See "Dialect and
   register" in the README.
 
-  **Still open, and it is the important half:** no incident here comes from a
-  real person's real writing. A synthetic passage written by the same author as
-  the catalog proves the mechanism exists; it cannot tell you the actual rate,
-  and it may well miss the failure modes that matter most. Every entry in this
-  log so far concerns writing by one author in one variety of English. Until
-  that changes, the honest claim is that the tool has a known bias with known
-  workarounds, not that the bias has been measured.
-- Does the `tricolon` entry earn its place? Still unanswered, still noisy, still
-  zero actionable findings. If it produces a field false positive, delete it
-  rather than tightening — the same standard applied to `transition-overload`.
+  ~~**Still open, and it is the important half:** no incident here comes from a
+  real person's real writing.~~ **CLOSED 2026-08-04 by `FN-2026-08-04-a`.**
+  `tests/corpus/human/` holds twelve documents written by real people, in the
+  ornate formal register this catalog is documented to over-fire on, provably
+  before ChatGPT existed. Measured false-positive rate at the tool's own
+  operating point: **0 of 12**, with zero Tier A hits. The 95% interval is
+  0–24%, so this is not proof the bias is absent — twelve samples cannot show
+  that — but it is a measurement where there was previously only an assertion,
+  and it is the population the tool most needed to be checked against.
+
+  What replaces it as the open question: the corpus is all encyclopedia prose
+  about institutions. Eleven entries still fire at least as often on it as on the
+  AI set (see the yield table), and `renowned`/`nestled` doing so is plausibly a
+  register effect rather than a bias effect. Distinguishing those needs ornate
+  human prose in a *different* genre.
+- ~~Does the `tricolon` entry earn its place?~~ **ANSWERED 2026-08-04: no.**
+  84% of AI documents, 92% of human ones. An anti-signal, deleted under the rule
+  this log had already written for it.

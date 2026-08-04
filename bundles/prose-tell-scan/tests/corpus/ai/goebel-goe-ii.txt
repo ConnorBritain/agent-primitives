@@ -1,0 +1,42 @@
+---
+source: Wikipedia:Signs of AI writing/Examples/Goebel Goe II
+revid: 1364360587
+date: 2026-07-16
+human_authored: false
+label: ai
+license: CC BY-SA 4.0
+permalink: https://en.wikipedia.org/w/index.php?oldid=1364360587
+---
+
+Comment: Does not seem to have enough significant coverage from independent, reliable sources, per Wikipedia's general notability guidelines. The specifications section is an estimate, and is also entirely unsourced in the article. Utopes (talk / cont) 00:52, 17 July 2025 (UTC)
+
+
+== Goebel Goe II ==
+The Goebel Goe II was a seven-cylinder rotary aircraft engine produced in the German Empire during World War I by Gandenberger’sche Maschinenfabrik Georg Goebel. It was designed in the tradition of French rotary engines such as the Gnome and Le Rhône, which influenced much of Germany’s early aviation propulsion development.
+
+
+== Design and development ==
+The Goebel Goe II was a seven-cylinder, air-cooled rotary engine producing approximately 110 horsepower (82 kW). The entire engine rotated around a stationary crankshaft, a typical feature of rotary engines of the period. It had a diameter of approximately 980 mm and employed a total-loss lubrication system. These characteristics aligned closely with French Gnome-type designs, particularly the Gnome Delta.
+Although technically sound, the Goe II was produced only in limited numbers. As the war progressed, German engine development shifted toward more efficient inline and radial engines, which offered improved cooling and better fuel economy.
+
+
+== Operational history ==
+The Goe II powered the Alter A.I, a German single-seat biplane fighter prototype evaluated in early 1917. Although the aircraft reached the flight test stage, it was not selected for further production, and no known surviving examples remain.
+In later wartime or postwar service, some Fokker Dr.I triplanes are believed to have been retrofitted with Goebel Goe II engines when converted to training use, though documentation is limited and this remains a secondary reference in some aviation publications.
+
+
+== Applications ==
+Aircraft reported to have used the Goebel Goe II include:
+
+Alter A.I – Experimental single-seat fighter prototype, 1917
+Fokker Dr.I – Possible postwar trainer conversions (limited documentation)
+
+
+== Specifications ==
+
+
+== Legacy ==
+The Goebel Goe II is a little-documented but illustrative example of Germany's experimentation with rotary engine technology during World War I. Though it saw only limited application, it contributes to the broader history of early aviation engineering and reflects the influence of French rotary designs on German manufacturers. No surviving examples are known, and its production appears to have ceased by the end of the war.
+
+
+== References ==
