@@ -30,24 +30,59 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+
+// Reads the acceptance corpus from the SIBLING bundle. That is a maintainer-tool
+// dependency, not a shipped one: nothing under tests/ is referenced by the four
+// manifests or install.sh, and the installed critic reads the user's own profile
+// directory instead. Installing prose-review without prose-tell-scan is fine.
 const CORPUS = join(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
 
+// Each probe is a list of regexes; the counts are summed.
+//
+// FIRST PERSON IS TWO REGEXES, and the reason is a defect a reviewer found in
+// the single-regex version. Matching /\b(?:I|we|our|my)\b/ case-SENSITIVELY
+// misses every sentence-initial "We"/"Our"/"My" — which is where first person
+// most often sits. Matching it case-INSENSITIVELY drags in lowercase roman
+// numeral "i" list markers, present in both corpora.
+//
+// English resolves it: first-person singular "I" is always capitalised, so it
+// wants a case-sensitive probe. "we/our/my" are not, so they want an
+// insensitive one. Splitting the probe fixes the undercount without importing
+// the roman-numeral noise.
 const PROBES = {
-  "argumentative moves": /\b(?:argues?|contends?|claims? that|suggests? that|it follows|therefore|however|nevertheless|by contrast)\b/gi,
-  "first person": /\b(?:I|we|our|my)\b/g,
-  "thesis statements": /\b(?:this (?:essay|piece|article|post) (?:argues|shows|claims)|the case for|why .{0,25} matters|my argument is)\b/gi,
+  "argumentative moves": [
+    /\b(?:argues?|contends?|claims? that|suggests? that|it follows|therefore|however|nevertheless|by contrast)\b/gi,
+  ],
+  "first person": [/\bI\b/g, /\b(?:we|our|my)\b/gi],
+  "thesis statements": [
+    /\b(?:this (?:essay|piece|article|post) (?:argues|shows|claims)|the case for|why .{0,25} matters|my argument is)\b/gi,
+  ],
 };
 
 function measure(dir) {
-  const files = readdirSync(join(CORPUS, dir)).filter((f) => f.endsWith(".txt"));
+  let files;
+  try {
+    files = readdirSync(join(CORPUS, dir)).filter((f) => f.endsWith(".txt"));
+  } catch {
+    // Say what is missing rather than surfacing a bare ENOENT. PROFILES.md asks
+    // every consumer crossing this seam to degrade out loud; this is that.
+    process.stderr.write(
+      `\n  no corpus at ${join(CORPUS, dir)}\n`
+        + "  This script reads prose-tell-scan's acceptance corpus. Check out the\n"
+        + "  sibling bundle, or run it from a full checkout.\n\n",
+    );
+    process.exit(1);
+  }
   const totals = Object.fromEntries(Object.keys(PROBES).map((k) => [k, 0]));
   let words = 0;
   for (const f of files) {
-    // Strip provenance frontmatter: it is metadata, not prose.
+    // Strip provenance frontmatter: it is metadata, not prose. This mirrors
+    // stripFrontmatter() in prose-tell-scan's ingest.mjs — if the frontmatter
+    // format ever changes, it changes in both places.
     const raw = readFileSync(join(CORPUS, dir, f), "utf8").replace(/^---\n[\s\S]*?\n---\n/, "");
     words += raw.split(/\s+/).filter(Boolean).length;
-    for (const [k, re] of Object.entries(PROBES)) {
-      totals[k] += (raw.match(re) ?? []).length;
+    for (const [k, res] of Object.entries(PROBES)) {
+      for (const re of res) totals[k] += (raw.match(re) ?? []).length;
     }
   }
   return { n: files.length, words, totals };

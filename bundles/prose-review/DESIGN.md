@@ -1,6 +1,7 @@
 # prose-review — design
 
-**Status: SPEC ONLY.** No code, no manifests, nothing installable.
+**Status: v0.1 partial.** `prose-voice-critic` ships and has been run against
+its acceptance harness. The other four critics and the reviser are spec only.
 
 `prose-tell-scan` counts what can be counted. This bundle is the other half: the
 judgements no regex reaches. It is also where the one rule this project has been
@@ -30,6 +31,24 @@ the catalog, in `prose-tell-scan`, on that bundle's release clock.
 overlapping scope make each other weaker, because each assumes the other has it
 covered."* Every finding should have exactly one critic whose job it obviously
 was. Where two could plausibly claim it, the spec must say which.
+
+**And where none can, the spec must say that too.** There is exactly one such
+territory: **formatting and markup consistency** — punctuation inside lists, how
+entries are separated, heading style, capitalisation convention, spacing. No
+critic above owns it, and that is deliberate rather than an oversight.
+
+The first harness run is what settled it. `prose-voice-critic` flagged a bio-list
+separator — one document of twelve separates entries with a dash, the rest with a
+comma ([`tests/separator-count.mjs`](tests/separator-count.mjs)) — and was wrong
+anyway: a separator changes with a template or an editor, and neither is how a
+person writes. The exclusion went
+into the prompt. Nothing picked the territory up, because a critic reading for
+voice is the wrong instrument for it — this is a linter's job, it is
+deterministic, and it does not need a language model.
+
+So it is a stated gap, not a covered one. A user who needs formatting enforced
+should reach for a formatter. Recorded here because an unrecorded gap is
+indistinguishable from an assumption that somebody else has it.
 
 ---
 
@@ -74,8 +93,8 @@ encyclopedia prose, and here is what that costs, per 1000 words:
 
 | per 1000 words | argumentative moves | first person | thesis statements |
 |---|---|---|---|
-| human (12) | 0.29 | 0.19 | **0** |
-| AI (33) | 0.71 | 2.79 | 0.03 |
+| human (12) | 0.29 | 0.24 | **0** |
+| AI (33) | 0.71 | 2.95 | 0.03 |
 
 Reproduce with [`tests/genre-check.mjs`](tests/genre-check.mjs).
 
@@ -87,14 +106,17 @@ position, so "this claim is unsupported" has a different meaning in it than in a
 essay.
 
 A trap worth naming, because it is exactly the shape of the errors this project
-has already made: **first person runs 14.7× higher in the AI set**, which looks
+has already made: **first person runs 12.3× higher in the AI set**, which looks
 like a strong signal and almost certainly is not.
 
-(That figure was first published here as 9×, from an ad-hoc count that averaged
-per-file rather than pooling and did not strip provenance frontmatter. The script
-above is the reproducible version and it disagrees. Sixth time in this project a
-number reached a document before a method existed to re-derive it — which is why
-the script is now checked in rather than the number.) The AI corpus includes
+(This figure has now been wrong twice. First published as 9×, from an ad-hoc
+count that averaged per-file rather than pooling and did not strip frontmatter.
+Corrected to 14.7× when the script was checked in — and the script was *also*
+wrong, matching first person case-sensitively, which silently dropped every
+sentence-initial "We" and "Our". A reviewer caught it and predicted 12.3× before
+the fix was made; the fix produced 12.3×. The probe is now split, because "I" is
+always capitalised in English and "we/our/my" are not. Checking in the method did
+not make the first answer right — it made the second answer findable.) The AI corpus includes
 talk-page comments and drafts, which are first-person by genre; the human corpus
 is pure article namespace. That is a corpus artifact wearing the costume of a
 discovery, and it is only visible because the genre difference was checked.

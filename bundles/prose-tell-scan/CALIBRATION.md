@@ -827,6 +827,60 @@ because a negative test failing looks like the code being too strict.
 The rule this reinforces: **when a check fires on something you believe is
 clean, print the data before adjusting the threshold.**
 
+### FN-2026-08-04-i · published figures · checking in the method is not the same as checking the method
+
+**Bundle:** `prose-review`. Logged here because the meta-pattern is this file's,
+not that bundle's.
+
+**What happened.** Two numbers published in the prose-voice-critic harness run
+were wrong, and both were wrong in the way this log has now recorded six times:
+the arithmetic was fine and the *setup* was unstated.
+
+1. **Separator counts.** "kenyatta 37/2, ahmadu-bello 0/77, lagos 0/93" came from
+   a shell command typed once and never saved. A reviewer could not reproduce
+   them, getting anywhere from 20–49 and 0–19 depending on where they drew the
+   section boundary. The real figures, from a checked-in counter with a written
+   definition of what a bio-list entry *is*: **36/7, 0/2, 0/7**. The comma counts
+   were off by an order of magnitude because the original command counted every
+   comma-containing line rather than list entries.
+
+2. **The first-person ratio.** Already corrected once — 9× → 14.7× — by checking
+   in `genre-check.mjs`, with a note in this project's own voice about how a
+   figure nobody can re-derive is a figure nobody can challenge. **The script was
+   also wrong.** It matched `/\b(?:I|we|our|my)\b/` case-sensitively, which
+   silently drops every sentence-initial "We", "Our", "My" — where first person
+   most often sits. Correct figure: **12.3×**.
+
+**What is new here, and why it deserves its own entry.** The previous six
+incidents all had the same remedy: write down the method. This one happened
+*after* that remedy was applied. The script was checked in, reviewed, and cited —
+and it encoded a bug that a case-sensitivity choice made invisible.
+
+So the rule needs sharpening. **Checking in the method makes the answer
+findable; it does not make the answer right.** A checked-in script carries more
+authority than an ad-hoc grep and deserves *more* scrutiny for it, not less,
+because the next reader will trust it rather than re-derive it.
+
+**What actually caught it.** A reviewer read the regex, reasoned about English
+orthography rather than about the output, and predicted 12.3× *before* the fix
+was written. The fix produced 12.3×. That is the check that worked: not
+re-running the script, which would have agreed with itself, but reading what it
+claimed to measure against what it does measure.
+
+**Rules taken.**
+
+- A published figure needs a checked-in method **and** a stated scope — what
+  counts, what does not. `separator-count.mjs` says what a bio-list entry is so a
+  disagreement is about the definition rather than about whose grep won.
+- When a probe is case-sensitive, say why in a comment. Both directions here were
+  defensible and both were wrong for one of the two word classes; English decided
+  it ("I" is always capitalised, "we/our/my" are not), and that reasoning is now
+  in the file.
+- **Re-running a script is not verification of a script.** It reproduces its
+  bugs exactly. Verification is reading the method against the claim.
+- A correction to a published figure is not evidence the figure is now right. It
+  is evidence somebody looked once.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather
@@ -847,6 +901,17 @@ looked.
 **Two of six were found by the test suite; four were found by using the tool.**
 That ratio is the argument for the kickoff's advice to run the scanner in anger
 before building anything on top of it.
+
+**Seven incidents now trace to a wrong measurement setup rather than wrong
+arithmetic**, and that is the single largest class in this log. Arithmetic errors
+announce themselves. Setup errors produce plausible numbers that survive review
+until someone independently re-derives them — which happened here only because a
+reviewer was asked to.
+
+The remedy has evolved twice. First: write the method down. Then (FN-i): the
+written method needs reading too, because a checked-in script is trusted more and
+therefore re-derived less. **Before publishing a figure, state what would have to
+be true for it to be meaningless, and check that thing.**
 
 ## Open calibration questions
 

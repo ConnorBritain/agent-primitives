@@ -65,6 +65,26 @@ looking again, because they have already been told their own voice is wrong.
 So uncertainty resolves to silence, and **`CLEAN` is the expected verdict on a
 draft the author wrote.** Returning it is not a failure to find something.
 
+## The second departure: no adversarial framing
+
+The same convention says to frame reviewers adversarially — *"assume the author
+took the easy path and prove it"* returns findings where *"please review this"*
+returns praise. This prompt does not do that either, and for a reason specific to
+what it examines.
+
+Adversarial framing works when there is a defect to prove. Voice has no such
+ground truth. Instructing a critic to assume a passage does not sound like its
+author is instructing it to manufacture a difference — and against any real
+corpus, ordinary variation between a person's own pieces will always supply one.
+
+What replaces it is the **evidence requirement**: every finding must cite how the
+author writes instead. That does the same work — it stops the critic returning
+praise — without the instruction to find fault. A critic with nothing to cite has
+nothing, and says nothing.
+
+Both departures follow from one fact: here a false positive costs more than a
+miss.
+
 ## When to run it
 
 When a draft is supposed to sound like a specific person **and** you have samples
@@ -100,18 +120,22 @@ the corpus spans a long period it describes a range rather than a voice, and
 findings get correspondingly weaker. `calibrate` reports when a corpus looks like
 more than one voice; heed it before trusting this.
 
-**It has been measured on one genre, on part of one corpus.** The first run
-covered 6 of the 12 provably-human encyclopedia articles and 2 of the 33 the
-community judged AI-written: 0 of 6 false positives after a fix, 2 of 2 caught.
-That is a sample, not the full harness, and it bounds nothing about essays,
-fiction, or correspondence. See
-[`tests/critic-harness.md`](../../../bundles/prose-review/tests/critic-harness.md).
+**It has been measured on a register, not on a person.** The acceptance corpus is
+encyclopedia articles, each written by many Wikipedia editors over years. A
+passing score shows the prompt is not trigger-happy on one tight register. It
+does not show the prompt can recognise an individual, which is the thing it is
+for, and nothing here bounds its behaviour on essays, fiction, or correspondence.
 
-**And what it measured is register, not a person.** The human corpus is
-Wikipedia articles written by many editors over years. Passing shows the prompt
-is not trigger-happy on one tight register; it does not show the prompt can
-recognise an individual, which is the thing it is for. Three of the six runs
-noticed this unprompted.
+Coverage has also been partial at every run so far. Current numbers and their
+caveats live in
+[`tests/critic-harness.md`](../../../bundles/prose-review/tests/critic-harness.md)
+and the run logs beside it — not here, because they change and this does not.
+
+**Formatting is outside its scope, and outside the bundle's.** Punctuation in
+lists, heading style, markup convention: the prompt excludes them, because they
+change with a template or an editor rather than with a person. No sibling critic
+picks them up. If you need formatting consistency enforced, that is a linter's
+job and this bundle does not do it.
 
 **It is not an authorship detector and must never be used as one.** The prompt
 refuses to state or imply machine generation. Pointed at someone else's writing
