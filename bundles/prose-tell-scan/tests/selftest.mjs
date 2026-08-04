@@ -118,6 +118,7 @@ try {
                        "docs/portability.md",
                        "bundles/prose-tell-scan/AGENTS.md",
                        "bundles/prose-tell-scan/PROFILES.md",
+                       "bundles/prose-author/DESIGN.md",
                        "bundles/prose-tell-scan/wiring/claude-md.md",
                        "bundles/prose-tell-scan/wiring/agents-md.md",
                        "bundles/verification-gate/AGENTS.md",
