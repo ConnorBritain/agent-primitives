@@ -9,8 +9,8 @@
   "measured": "2026-08-04",
   "catalog_version": "0.2.0",
   "ai": {
-    "n": 32,
-    "flagged": 1,
+    "n": 33,
+    "flagged": 2,
     "tierA": 8
   },
   "human": {

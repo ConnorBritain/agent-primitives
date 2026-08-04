@@ -54,7 +54,12 @@
  *
  * `catalog.json` carries `retrieved`. Any sample whose source revision POSTDATES
  * that is held out; anything the catalog could have been built from is tuning.
- * The suite enforces the split, so it cannot quietly become self-congratulation.
+ *
+ * acceptance.mjs asserts that at least one AI sample postdates the catalog, so a
+ * corpus made entirely of tuning data fails rather than quietly measuring itself.
+ * That check exists because this comment previously claimed the suite enforced
+ * the split while nothing did — the third time in this bundle that an
+ * unimplemented safeguard was described as implemented.
  */
 
 import { writeFileSync, mkdirSync, existsSync } from "node:fs";
@@ -81,11 +86,73 @@ async function api(params) {
   throw new Error("rate-limited after 4 attempts — wait and retry");
 }
 
-/** Plain text of one revision, by immutable id. */
+/**
+ * Plain text of ONE SPECIFIC REVISION.
+ *
+ * Uses `action=parse&oldid=`, and the reason is a bug that invalidated an entire
+ * corpus. The obvious call — `prop=extracts&revids=<old>` — accepts a historical
+ * revision id, returns HTTP 200, echoes that revid back, and serves the extract
+ * of the CURRENT page. No error, no warning. The first human corpus vendored
+ * here was built that way: every file carried 2022 revision metadata in its
+ * frontmatter and 2026 article text in its body, which made "provably predates
+ * ChatGPT" false for every sample while looking correct in every manifest.
+ *
+ * `action=parse&oldid=` genuinely renders the pinned revision. Verify any change
+ * to this function by fetching a revision from before a known later edit and
+ * confirming the later content is absent — not by trusting the returned revid,
+ * which was correct even when the text was not.
+ */
 async function extractByRevid(revid) {
-  const d = await api({ prop: "extracts", explaintext: "1", revids: String(revid) });
-  const page = Object.values(d.query.pages)[0];
-  return { title: page.title, text: page.extract ?? "" };
+  const url = `${API}?${new URLSearchParams({
+    format: "json", formatversion: "2", action: "parse",
+    oldid: String(revid), prop: "text",
+  })}`;
+  let payload;
+  for (let attempt = 0; attempt < 4; attempt += 1) {
+    const res = await fetch(url, { headers: { "User-Agent": UA } });
+    if (res.status === 429) { await sleep(2000 * (attempt + 1)); continue; }
+    if (!res.ok) throw new Error(`${res.status} parsing oldid=${revid}`);
+    payload = await res.json();
+    break;
+  }
+  if (!payload?.parse) throw new Error(`no parse result for oldid=${revid}`);
+  if (payload.parse.revid !== Number(revid)) {
+    throw new Error(`asked for oldid=${revid}, got ${payload.parse.revid}`);
+  }
+  return { title: payload.parse.title, text: htmlToProse(payload.parse.text) };
+}
+
+/**
+ * Rendered HTML → prose, keeping only what a reader would call the article.
+ *
+ * Reference markup, edit links, navboxes, infoboxes and tables are dropped: they
+ * are not prose, and leaving them in would have the scanner measuring citation
+ * templates. This is the same reasoning as maskNonProse(), applied one layer up.
+ */
+function htmlToProse(html) {
+  let t = html;
+  // Structural furniture first, before tag-stripping flattens it.
+  t = t.replace(/<table[\s\S]*?<\/table>/gi, " ");
+  t = t.replace(/<style[\s\S]*?<\/style>/gi, " ");
+  t = t.replace(/<sup[^>]*class="[^"]*reference[^"]*"[\s\S]*?<\/sup>/gi, " ");
+  t = t.replace(/<span[^>]*class="mw-editsection"[\s\S]*?<\/span>/gi, " ");
+  t = t.replace(/<ol[^>]*class="references"[\s\S]*?<\/ol>/gi, " ");
+  t = t.replace(/<div[^>]*class="[^"]*(?:navbox|reflist|thumbcaption|hatnote)[^"]*"[\s\S]*?<\/div>/gi, " ");
+  // Block boundaries become paragraph breaks so cadence sees real sentences.
+  t = t.replace(/<\/(p|h[1-6]|li|div|blockquote)>/gi, "\n\n");
+  t = t.replace(/<[^>]+>/g, " ");
+  // Entities.
+  t = t.replace(/&(#\d+|#x[0-9a-f]+|[a-z]+);/gi, (m, e) => {
+    const named = { amp: "&", lt: "<", gt: ">", quot: '"', apos: "'", nbsp: " ", ndash: "–", mdash: "—" };
+    if (e.startsWith("#x")) return String.fromCodePoint(parseInt(e.slice(2), 16));
+    if (e.startsWith("#")) return String.fromCodePoint(Number(e.slice(1)));
+    return named[e.toLowerCase()] ?? m;
+  });
+  // Leftover bracketed citation markers and whitespace.
+  t = t.replace(/\[\s*\d+\s*\]/g, " ");
+  t = t.replace(/[ \t ]+/g, " ");
+  t = t.replace(/\n{3,}/g, "\n\n");
+  return t.split("\n").map((l) => l.trim()).join("\n").trim();
 }
 
 /** The newest revision of `title` that predates `beforeISO`. */
@@ -107,6 +174,43 @@ async function currentRevision(title) {
   const rv = page?.revisions?.[0];
   if (!rv) return null;
   return { title: page.title, revid: rv.revid, timestamp: rv.timestamp };
+}
+
+/**
+ * Prove the prose came from the revision it claims.
+ *
+ * The bug this guards against returned HTTP 200, echoed the right revid, and
+ * served the wrong text — so nothing about the response's shape betrayed it.
+ * The only reliable witness is the revision's own wikitext: sample distinctive
+ * words from the rendered prose and require them to appear in it. Text from a
+ * later version will carry names, dates and events the pinned wikitext does not.
+ */
+async function assertProseMatchesRevision(revid, prose) {
+  const d = await api({ prop: "revisions", rvprop: "content", rvslots: "main", revids: String(revid) });
+  const page = Object.values(d.query.pages)[0];
+  const wikitext = page?.revisions?.[0]?.slots?.main?.["*"] ?? "";
+  if (!wikitext) throw new Error(`no wikitext for oldid=${revid}`);
+
+  const candidates = [...new Set(
+    prose.split(/\s+/)
+      .map((w) => w.replace(/[^A-Za-z]/g, ""))
+      .filter((w) => w.length >= 8),
+  )];
+  if (candidates.length < 10) return { checked: 0, matched: 0 };
+
+  // Evenly spaced sample rather than the first N: later additions cluster at the
+  // end of an article, and checking only the opening would miss them.
+  const step = Math.max(1, Math.floor(candidates.length / 25));
+  const sample = candidates.filter((_, i) => i % step === 0).slice(0, 25);
+  const matched = sample.filter((w) => wikitext.includes(w)).length;
+  const ratio = matched / sample.length;
+  if (ratio < 0.8) {
+    throw new Error(
+      `oldid=${revid}: only ${matched}/${sample.length} sampled words appear in that `
+      + "revision's wikitext — the prose is probably from a different version",
+    );
+  }
+  return { checked: sample.length, matched };
 }
 
 async function listExamples() {
@@ -185,14 +289,22 @@ async function main() {
     const words = text.split(/\s+/).filter(Boolean).length;
     if (words < 200) { process.stdout.write(`  skip (${words}w) ${title}\n`); continue; }
 
+    // The human corpus's entire value is that this text predates ChatGPT. Prove
+    // it per sample rather than trusting the API to honour a revision id — the
+    // first version of this corpus trusted exactly that and was wrong in every
+    // file, with correct metadata sitting above the wrong text.
+    await sleep(350);
+    const proof = await assertProseMatchesRevision(rev.revid, text);
+
     const name = slug(rev.title);
     const entry = {
       file: `human/${name}.txt`, title: rev.title, revid: rev.revid,
       timestamp: rev.timestamp, words,
       permalink: `https://en.wikipedia.org/w/index.php?oldid=${rev.revid}`,
+      revision_verified: `${proof.matched}/${proof.checked} sampled words present in that revision's wikitext`,
     };
     attribution.human.push(entry);
-    process.stdout.write(`  ${String(words).padStart(5)}w  ${rev.timestamp.slice(0, 10)}  ${name}\n`);
+    process.stdout.write(`  ${String(words).padStart(5)}w  ${rev.timestamp.slice(0, 10)}  ${name}  [revision-verified ${proof.matched}/${proof.checked}]\n`);
 
     if (WRITE) {
       // human_authored: true is a FACT here, not an attestation. The revision

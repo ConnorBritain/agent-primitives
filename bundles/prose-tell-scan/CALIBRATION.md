@@ -288,25 +288,26 @@ assertion measured draft-versus-revision. The tool could have been measuring
 nothing and the suite would still have been green — not hypothetical, since the
 apostrophe defect in `FN-2026-08-03-c` did exactly that.
 
-`tests/corpus/` now holds 44 documents, all CC BY-SA 4.0 and pinned to immutable
+`tests/corpus/` now holds 45 documents, all CC BY-SA 4.0 and pinned to immutable
 revision ids:
 
-- **32 AI** — `Wikipedia:Signs of AI writing/Examples/*`. Text the community
+- **33 AI** — `Wikipedia:Signs of AI writing/Examples/*`. Text the community
   examined and judged AI-written. Not our guess; theirs.
 - **12 human** — article revisions predating 2022-11-30, weighted toward Indian,
   Nigerian and Kenyan institutions. Human authorship is a fact about the
-  timestamp, not an attestation.
+  timestamp, not an attestation — and each sample is now verified against its own
+  revision's wikitext, for reasons `FN-2026-08-04-b` explains at length.
 
-#### The headline numbers, at the tool's own documented operating point
+#### The numbers
 
-"Several co-occurring is worth a read-through" — two or more flagged categories.
-Both corpora scanned under the same profile, because comparing rates across
-different threshold sets measures nothing.
+At the tool's own documented operating point — "several co-occurring is worth a
+read-through", meaning two or more flagged categories. Both corpora under the
+same profile, because rates from different threshold sets are not comparable.
 
 | profile | recall (AI flagged) | FPR (human flagged) | Tier A on AI | Tier A on human |
 |---|---|---|---|---|
-| `technical` | 2/32 = **6%** | 0/12 = **0%** | 8/32 | **0** |
-| `essay` | 7/32 = **22%** | 1/12 = 8% | 8/32 | **0** |
+| `technical` | 2/33 = **6%** | 0/12 = **0%** | 8/33 | **0** |
+| `essay` | 7/33 = **21%** | 1/12 = 8% | 8/33 | **0** |
 
 95% Wilson interval on the `technical` FPR is 0–24%. Twelve samples cannot
 distinguish 0% from 20%, and the suite prints the interval rather than the point
@@ -314,12 +315,12 @@ estimate for exactly that reason.
 
 **Two findings, and the second is uncomfortable.**
 
-**Tier A carries the tool.** Leaked markup alone identifies 8 of 32 with zero
-false positives, out-performing the entire style catalog (2 of 32 under the
-register-appropriate profile). The artifact/style tier split was the right call
-and the evidence is stronger than expected.
+**Tier A carries the tool.** Leaked markup alone identifies 8 of 33 with zero
+false positives, out-performing the entire style catalog (2 of 33 under the
+register-appropriate profile). The artifact/style split was the right call and
+the evidence is stronger than expected.
 
-**Style-catalog recall is low — 6% to 22% depending on register.** That number
+**Style-catalog recall is low — 6% to 21% depending on register.** That number
 belongs in the README. It is not a defect to be tuned away: the catalog is
 density-gated, deliberately conservative, and built for an author examining their
 own draft rather than a classifier. But anyone reading "catalogued AI writing
@@ -332,48 +333,82 @@ Rate = fraction of documents containing the entry at all.
 
 | entry | AI | human | lift |
 |---|---|---|---|
-| `enhance` | 34% | 0% | **+34** |
-| `model-markup-artifact` (Tier A) | 22% | 0% | **+22** |
-| `participle-tail` | 19% | 0% | +19 |
-| `current-participles` | 19% | 0% | +19 |
+| `enhance` | 33% | 0% | **+33** |
+| `model-markup-artifact` (Tier A) | 21% | 0% | **+21** |
+| `participle-tail` | 18% | 0% | +18 |
+| `current-participles` | 18% | 0% | +18 |
 | … | | | |
 | `deeply-rooted` | 0% | 17% | −17 |
 | `renowned` | 3% | 25% | **−22** |
-| `tricolon` | 84% | 92% | −7 |
 
 The mid-2025 participial cohort the source page identifies is the strongest
-lexical signal in the catalog, which is a real vindication of tracking `era`.
+lexical signal in the catalog, which vindicates tracking `era`.
 
-**Eleven entries fire at least as often on provably-human text as on AI text**:
+**Ten entries appear at least as often on human text as on AI text**:
 `renowned`, `deeply-rooted`, `nestled`, `groundbreaking`, `foster-abstract`,
-`significance-assertion`, `vague-attribution`, `diverse-array`, `fundamentally`,
-`actually`, `tricolon`.
+`embark-on`, `diverse-array`, `promotional-flattery`, `fundamentally`,
+`tricolon`.
 
-**Only one is deleted.** Twelve human documents, all about universities, cannot
-justify pruning ten entries — `nestled` and `renowned` firing on articles about
-institutions is a register effect, and deleting on n=12 would be overfitting in
-the opposite direction from the mistake in `FN-2026-08-03-c`. They are recorded
-here and left in place, and the honest fix for an author they hurt is
-calibration, not a smaller catalog.
+**None are deleted**, and the reason is `FN-2026-08-04-b`. Twelve human
+documents, all about universities, cannot justify pruning ten entries — `nestled`
+and `renowned` firing on institutional articles is plausibly a register effect,
+and appearance rate is the wrong statistic to prune on anyway. They are recorded
+and left in place. The honest fix for an author they hurt is calibration.
 
-`tricolon` is different, and the log had already written its own rule for it:
-*"if it produces a field false positive, delete it rather than tightening."*
+### FN-2026-08-04-b · the corpus was corrupt, and a deletion rested on it
 
-It produced two. Not merely *appeared in* — **flagged on** two of the twelve
-provably-human documents, including 17 occurrences at 3.09/1000 in the Banaras
-Hindu University article. Those are field false positives on text that predates
-ChatGPT by construction, which is the condition the rule names.
+The most instructive entry in this log. Two compounding errors, neither caught by
+any test, both found by adversarial review.
 
-The appearance rates say why: 84% of AI documents, 92% of human ones. Matching
-any three comma-separated words is matching ordinary English, and the rule of
-three is real at a level of analysis this catalog cannot reach.
+**The corpus was not what it said it was.** `prop=extracts&revids=<historical>`
+accepts a revision id, returns HTTP 200, echoes that id back — and serves the
+extract of the **current** page. Every human sample was vendored that way: 2022
+revision metadata in the frontmatter, 2026 article text in the body. The one
+property the human corpus existed to guarantee — *provably predates ChatGPT* —
+was false in every file, while every manifest looked correct.
 
-**Deleting it cost one nominal detection** — AI recall went 2/32 → 1/32, because
-the entry had pushed one AI document over the two-category threshold. That trade
-is worth taking and worth stating plainly: a detection driven by an entry that
-fires on nearly every document is not a detection, and keeping it would have
-inflated recall while degrading the co-occurrence signal the whole reading
-depends on. Recorded under `rejected`.
+Fixed with `action=parse&oldid=`, which genuinely renders the pinned revision.
+And because the failure was invisible in the response's shape, the fetcher now
+proves each sample against its own revision's wikitext: sample distinctive words
+from the rendered prose, require them in that revision's source. Injecting the
+old call makes it fail with *"only 16/25 sampled words appear in that revision's
+wikitext"*. The proof is recorded per sample in `ATTRIBUTION.json` and asserted
+by the acceptance gate.
+
+**`tricolon` was deleted on those numbers, and is restored.** Against the phantom
+corpus it looked like an anti-signal — 84% of AI documents, 92% of human — and a
+standing rule here says to delete on a field false positive. Re-measured against
+the corrected corpus, holding the profile constant so only the entry differs:
+
+| profile | with `tricolon` | without |
+|---|---|---|
+| `technical` | recall 6%, FPR **0%** | recall 3%, FPR 0% |
+| `essay` | recall 21%, FPR 8% | recall 12%, FPR 0% |
+
+At the register-appropriate profile it is **free recall** — it doubles detections
+and costs nothing in precision. At `essay` it trades 9 points of recall for 8 of
+precision, which is a judgement call rather than a defect. Either way it is a
+weak positive signal, not an anti-signal, and deleting it was wrong.
+
+A third error is worth recording because it nearly justified the restoration on
+another bad number: the first re-measurement compared `technical` against `_base`
+and reported a sevenfold recall difference. Those profiles have different
+thresholds. The comparison measured the profile, not the entry.
+
+**What changes as a result.** The standing rule was *"if it produces a field
+false positive, delete it rather than tightening."* That rule is now wrong as
+written, and this is its amendment: **a field false positive is grounds to
+examine an entry, not to delete it. Deletion requires measuring what the deletion
+costs.** Precision bought at seven times its price in recall is not a good trade
+for a tool whose output is explicitly leads rather than verdicts.
+
+**And the methodological rule, which is the one that generalises.** Three times
+now — the retyped fixture in `FN-2026-08-03-c`, the corpus here, the profile
+mismatch above — a number was produced by a measurement whose *setup* was wrong
+rather than whose arithmetic was. Arithmetic errors announce themselves. Setup
+errors produce plausible numbers that survive review until someone re-derives
+them independently. Before publishing a figure, state what would have to be true
+for it to be meaningless, and check that thing.
 
 ## What the log says so far
 
@@ -434,6 +469,9 @@ Things the log is not yet large enough to answer:
   AI set (see the yield table), and `renowned`/`nestled` doing so is plausibly a
   register effect rather than a bias effect. Distinguishing those needs ornate
   human prose in a *different* genre.
-- ~~Does the `tricolon` entry earn its place?~~ **ANSWERED 2026-08-04: no.**
-  84% of AI documents, 92% of human ones. An anti-signal, deleted under the rule
-  this log had already written for it.
+- ~~Does the `tricolon` entry earn its place?~~ **ANSWERED 2026-08-04: yes, at
+  the register-appropriate profile.** It was deleted and restored the same day —
+  see `FN-2026-08-04-b`. Holding the profile constant, it doubles recall at
+  `technical` for zero false positives, and trades 9 points of recall for 8 of
+  precision at `essay`. A weak positive signal, not the anti-signal the corrupt
+  corpus made it look like.

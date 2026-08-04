@@ -9,177 +9,342 @@ license: CC BY-SA 4.0
 permalink: https://en.wikipedia.org/w/index.php?oldid=1124332584
 ---
 
-Jawaharlal Nehru University (JNU; ISO: Javāharalāla Neharū Viśvavidyālaya) is a public research university located in Delhi, India. It was established in 1969 and named after Jawaharlal Nehru, India's first Prime Minister. The university is known for leading faculties and research emphasis on social sciences and applied sciences.
+Public central university in New Delhi, India
 
 
-== History ==
 
-Jawaharlal Nehru University was established in 1969 by an act of parliament. It was named after Jawaharlal Nehru, India's first Prime Minister. G. Parthasarathy was the first vice-chancellor. Prof. Moonis Raza was the Founder Chairman and Rector. The bill for the establishment of Jawaharlal Nehru University was placed in the Rajya Sabha on 1 September 1965 by the then-Minister of Education, M. C. Chagla. During the discussion that followed, Bhushan Gupta, member of parliament, voiced the opinion that this should not be yet another university. New faculties should be created, including scientific socialism, and one thing that this university should ensure was to keep noble ideas in mind and provide accessibility to students from weaker sections of society. The JNU Bill was passed in Lok Sabha on 16 November 1966 and the JNU Act came into force on 22 April 1969.
+
+
+Jawaharlal Nehru University ( JNU ) is a public major research university located in New Delhi , India. It was established in 1969 and named after Jawaharlal Nehru , India's first Prime Minister . The university is known for leading faculties and research emphasis on social sciences and applied sciences.
+
+
+History
+
+edit ]
+
+
+
+
+
+Jawaharlal Nehru University was established in 1969 by an act of parliament . It was named after Jawaharlal Nehru , India's first Prime Minister . G. Parthasarathy was the first vice-chancellor . Prof. Moonis Raza was the Founder Chairman and Rector . The bill for the establishment of Jawaharlal Nehru University was placed in the Rajya Sabha on 1 September 1965 by the then- Minister of Education , M. C. Chagla . During the discussion that followed, Bhushan Gupta, member of parliament, voiced the opinion that this should not be yet another university. New faculties should be created, including scientific socialism , and one thing that this university should ensure was to keep noble ideas in mind and provide accessibility to students from weaker sections of society. The JNU Bill was passed in Lok Sabha on 16 November 1966 and the JNU Act came into force on 22 April 1969.
+
 The Indian School of International Studies was merged with the Jawaharlal Nehru University in June 1970. Following the merger, the prefix "Indian" was dropped from the name of the School and it became the School of International Studies of the Jawaharlal Nehru University.
 
+Organisation and Administration
 
-== Organisation and administration ==
+edit ]
 
+Governance
 
-=== Governance ===
-The President of India is the visitor of the university. The chancellor is the nominal head of the university and the vice-chancellor is the executive head of the university. They are both appointed by the visitor on the recommendations of the Executive Council. The Court, the Executive Council, the Academic Council and the Finance Committee are the administrative authorities of the university.
+edit ]
+
+The president of India is the visitor of the university. The chancellor is the nominal head of the university and the vice-chancellor is the executive head of the university. They are both appointed by the visitor on the recommendations of the Executive Council. The Court, the Executive Council, the Academic Council and the Finance Committee are the administrative authorities of the university.
+
 The University Court is the supreme authority of the university and has the power to review the acts of the Executive Council and the Academic Council. The Executive Council is the highest executive body of the university. The Academic Council is the highest academic body of the university and is responsible for the maintenance of standards of instruction, education and examination within the university. It has the right to advise the Executive Council on all academic matters. The Finance Committee is responsible for recommending financial policies, goals, and budgets.
 
+Schools and Centres
 
-=== Schools and Centres ===
+edit ]
+
 The Jawaharlal Nehru University's academic departments are divided into 20 Schools and Centres.
 
 
-=== Recognised institutes ===
+School of Arts & Aesthetics
+
+School of Biotechnology
+
+School of Computational and Integrative Sciences
+
+School of Computer and Systems Sciences
+
+School of Engineering
+
+School of Environmental Sciences
+
+School of International Studies
+
+School of Language Literature and Culture Studies
+
+School of Life Sciences
+
+Atal Bihari Vajpayee School of Management and Entrepreneurship
+
+School of Physical Sciences
+
+School of Sanskrit and Indic Studies
+
+School of Social Sciences
+
+Centre for the Study of Law and Governance
+
+Special Centre for Disaster Research
+
+Special Centre for E-Learning
+
+Special Centre for Molecular Medicine
+
+Special Centre for Nanoscience
+
+Special Centre for National Security Studies
+
+Special Centre for the Study of North East India
+
+
+
+Recognised institutes
+
+edit ]
+
 JNU has granted recognition and accreditation to the following institutions across the country.
+
 List of Defence Institutions Granted Recognition under JNU
 
-Army Cadet College, Dehradun
-College of Military Engineering, Pune
+Army Cadet College , Dehradun
+
+College of Military Engineering , Pune
+
 Military College of Electronics and Mechanical Engineering, Secunderabad
+
 Military College of Telecommunication Engineering, Mhow
-National Defence Academy, Pune
-Indian Naval Academy, Ezhimala
+
+National Defence Academy , Pune
+
+Indian Naval Academy , Ezhimala
+
+
 Research and Development Institutions
 
-Arun Jaitley National Institute of Financial Management, Haryana
-Central Drug Research Institute, Lucknow
-Centre for Cellular and Molecular Biology, Hyderabad
-Central Institute of Medicinal and Aromatic Plants, Lucknow
-Raman Research Institute, Bengaluru
-National Institute of Immunology, India, New Delhi
-National Institute of Plant Genome Research, New Delhi
-National Institute of Health and Family Welfare, Delhi
-Indian Institute of Geomagnetism, Mumbai
-Inter-University Accelerator Centre (IUAC), South West Delhi
-International Centre for Free and Open Source Software, Trivandrum
-International Centre for Genetic Engineering and Biotechnology (ICGEB), South West Delhi
+Central Drug Research Institute (CDRI), Lucknow
+
+Centre for Cellular and Molecular Biology (CCMB), Hyderabad
+
+Inter-University Accelerator Centre (IUAC), New Delhi
+
+Institute of Microbial Technology (IMT), Chandigarh
+
+Central Institute of Medicinal and Aromatic Plants (CIMAP), Lucknow
+
+Raman Research Institute (RRI), Bangalore
+
+National Institute of Immunology (NII), New Delhi
+
+National Institute of Plant Genome Research (NIPGR), New Delhi
+
+International Centre for Genetic Engineering and Biotechnology (ICGEB), New Delhi
+
 Centre for Development Studies (CDS), Thiruvananthapuram
+
 Inter-University Centre for Astronomy and Astrophysics (IUCAA), Pune
-Lal Bahadur Shastri National Academy of Administration, Mussoorie
-National Academy of Audit and Accounts, Shimla
-National Council of Science Museums, Kolkata
-National Council for Hotel Management & Catering Technology, Noida
-Translational Health Science and Technology Institute, Faridabad
-V. V. Giri National Labour Institute, South West Delhi.
-Indian Institute of Tourism and Travel Management, Gwalior
-Institute for Studies in Industrial Development, New Delhi
-Mahatma Gandhi College of Mass Communication, Kozhikode
-National Institute of Rural Development and Panchayati Raj, Hyderabad
-In addition, the university has exchange programmes and academic collaboration through the signing of MoUs with 71 universities around the world. The university has also sent a proposal to set up a Center in Bihar. The Indian Administrative Service (IAS) trainee officers will be awarded an MA degree in Public Management from Jawaharlal Nehru University (JNU), Delhi.
+
+Translational Health Science and Technology Institute (THSTI), Gurgaon
+
+V. V. Giri National Labour Institute , New Delhi.
 
 
-== Academic profile ==
+In addition, the university has exchange programmes and academic collaboration through the signing of MoUs with 71 universities around the world. The university has also sent a proposal to set up a Center in Bihar . The Indian Administrative Service (IAS) trainee officers will be awarded an MA degree in Public Management from Jawaharlal Nehru University (JNU), Delhi.
+
+Academic profile
+
+edit ]
+
+Awards
+
+edit ]
+
+JNU was awarded the "Visitor's Award" for "Best University" in 2017 by the President of India .
+
+Rankings
+
+edit ]
 
 
-=== Awards ===
-JNU was awarded the "Visitor's Award" for "Best University" in 2017 by the President of India.
-
-
-=== Rankings ===
-Jawaharlal Nehru University (JNU) in New Delhi, India is ranked 580th in the world by the QS World University Rankings 2025. 
 The JNU was ranked at 561-570 by the QS World University Rankings 2022 list.
-JNU was ranked second among all universities in India and tenth in the overall category by the National Institutional Ranking Framework (NIRF) in 2024.
+
+JNU was ranked 2nd among all universities in India and 10th overall by the National Institutional Ranking Framework , Government of India , in 2022. JNU also received the Best University Award from the President of India in 2017. JNU has been ranked among the top 10 Indian Universities under QS World University rankings. THE WEEK & Hansa Research conducted the best university survey 2021 and ranks JNU 1st Position among the top multidisciplinary universities in India.
+
+Student life
+
+edit ]
+
+Students’ Union
+
+edit ]
 
 
-== Student life ==
+Jawaharlal Nehru University Students` Union or JNUSU is the university-wide representative body for students at the university. It is an elected body.
 
+2008-12 Ban on Student Elections
 
-=== Students' Union ===
+edit ]
 
-Jawaharlal Nehru University Students' Union or JNUSU is the university-wide representative body for students at the university. It is an elected body.
+On 24 October 2008 the Supreme Court of India stayed the JNU elections and banned the JNUSU for not complying with the recommendations of the Lyngdoh committee. After a prolonged struggle and multi-party negotiations, the ban was lifted on 8 December 2011. After a gap of more than four years, interim elections were scheduled again on 1 March 2012. Following the election results declared on 3 March 2012, All India Students Association (AISA) candidates won all four central panel seats and Sucheta De , the president of AISA became the president of JNUSU.
 
+International Student's Association
 
-==== 2008–2012 ban on student elections ====
-On 24 October 2008 the Supreme Court of India stayed the JNU elections and banned the JNUSU for not complying with the recommendations of the Lyngdoh committee. After a prolonged struggle and multi-party negotiations, the ban was lifted on 8 December 2011. After a gap of more than four years, interim elections were scheduled again on 1 March 2012. Following the election results declared on 3 March 2012, All India Students Association (AISA) candidates won all four central panel seats and Sucheta De, the president of AISA became the president of JNUSU.
+edit ]
 
+The International Student's Association (ISA) is an official Jawaharlal Nehru University body. It was instituted in 1985 with a view to promoting friendly relations and cultural exchange. The ISA has a constitution and elected executive, cultural, advisory and financial committees. All foreign students of JNU are also members of the FSA. The university has 133 international students .
 
-=== International Student's Association ===
-The International Student's Association (ISA) is an official Jawaharlal Nehru University body. It was instituted in 1985 with a view to promoting friendly relations and cultural exchange. The ISA has a constitution and elected executive, cultural, advisory and financial committees. All foreign students of JNU are also members of the FSA. The university had 133 international students in 2012.
+Activism and controversy
 
+edit ]
 
-=== Activism and controversy ===
-The JNU is infused with an intense political life on campus. Students that leave campus are said to acquire a "permanently changed outlook on life" as a result of student politics. The politicisation of campus life has led to a refusal to brush under the carpet social issues such as feminism, minority rights, and social and economic justice. All such issues are debated fiercely in formal and informal gatherings.
+The JNU is infused with an intense political life on campus. Students that leave campus are said to acquire a "permanently changed outlook on life" as a result of the student politics. The politicisation of campus life has led to a refusal to brush under the carpet social issues such as feminism , minority rights , social and economic justice. All such issues are debated fiercely in formal and informal gatherings.
 
-The JNU student politics is highly left-leaning, though, in recent years, right-wing student groups have also entered the field. Political involvement is "celebratory in spirit." The student union elections are preceded by days of debates and meetings, keeping all students involved. JNU has the reputation of an "unruly bastion of Marxist revolution."  However, the student activists deny the charge, stating that the politics at JNU is issue-based and intellectual.
+A sign near the JNU administrative building after the Delhi High Court ruled that students cannot hold protests within a 100-meter periphery of the university's administrative block.
+The JNU student politics is left-of-centre even though, in recent years, right-wing student groups have also entered the field. Political involvement is "celebratory in spirit." The student union elections are preceded by days of debates and meetings, keeping all students involved. The JNU has the reputation of an "unruly bastion of Marxist revolution." However, the student activists deny the charge, stating that the politics at JNU is issue-based and intellectual.
 
-The university is known for its alumni who now occupy important political and bureaucratic positions (see Notable alumni below). In part, this is because of the prevalence of Centre-left student politics and the existence of a written constitution for the university to which noted Communist Party of India (Marxist) leader Prakash Karat contributed exhaustively during his education at JNU.
+Iconic statue of Pandit Jawaharlal Nehru at administrative block of JNU
+The university is known for its alumni who now occupy important political and bureaucratic positions (see Notable alumni below). In part, this is because of the prevalence of Centre-left student politics and the existence of a written constitution for the university to which noted Communist Party of India leader Prakash Karat contributed exhaustively during his education at JNU.
 
+2010 Operation Green Hunt Controversy
 
-==== 2010 Operation Green Hunt controversy ====
-In 2010 a "JNU Forum Against War on People" was organised "to oppose Operation Green Hunt launched by the government." According to the NSUI national general secretary, Shaikh Shahnawaz, the meeting was organised by the Democratic Students' Union (DSU) and All India Students Association (AISA) to "celebrate the killing of 76 CRPF personnel in Chhattisgarh." Shaikh Shahnawaz also stated that "they were even shouting slogans like 'India murdābāda, Māvavāda ziṃdābāda'." NSUI and ABVP activists undertook a march against this meeting, "which was seen as an attempt to support the Naxalites and celebrate the massacre," after which the various parties clashed. The organisers of the forum said that "the event had nothing to do with the killings in Dantewada".
-2014 Mahishasura Day Controversy
-On 9 October, clashes erupted in JNU over the Mahishasura Martyrdom Day. The spark was the distribution of the October issue of Forward Press, a Christian evangelical Magazine, which depicted Goddess Durga in a derogatory manner. JNU administration gave notice to All India Backward Students' Forum (AIBSF) for defaming Hindu Gods and Goddesses. The Then-HRD Minister Smriti Irani in the light of sedition controversy read out the pamphlet in the parliament in 2016 which was denied by the student organiser. 
+edit ]
 
+In 2010 a "JNU Forum Against War on People" was organised "to oppose Operation Green Hunt launched by the government." According to the NSUI national general secretary, Shaikh Shahnawaz, the meeting was organised by the Democratic Students' Union (DSU) and All India Students Association (AISA) to "celebrate the killing of 76 CRPF personnel in Chhattisgarh." Shaikh Shahnawaz also stated that "they were even shouting slogans like 'India murdabad, Maovad zindabad'." NSUI and ABVP activists undertook a march against this meeting, "which was seen as an attempt to support the Naxalites and celebrate the massacre," after which the various parties clashed. The organisers of the forum said that "the event had nothing to do with the killings in Dantewada"
 
-==== 2015 opposition to saffronisation ====
+2015 Opposition to Saffronisation
+
+edit ]
+
 In 2015, the JNU Students' Union and the All India Students Association objected to efforts to create instruction on Indian culture. Opposition to such courses was on the basis that such instruction was an attempt to saffronise education. Saffronisation refers to right-wing efforts to glorify ancient Hindu culture. The proposed courses were successfully opposed and were, thus, "rolled back." A former student of JNU and a former student union member, Albeena Shakil, claimed that BJP officials in government were responsible for proposing the controversial courses.
 
+2015 Rainbow Walk
 
-==== 2015 Rainbow Walk ====
-On 28 December 2014, the symbolic "Rainbow Tree" which stood for LGBTQ pride was vandalised. To counter the "growing homophobia" on the campus, JNU Students' Union along with other queer groups like Anjuman and Dhanak, led a march on 9 January, called Rainbow Walk. The march started from JNU's Ganga Dhaba and ended at the Rainbow Tree spot. The protestors criticised the 2013 verdict of the Supreme Court nullifying the Delhi High Court order reading down Section 377 of the IPC. The campaign aimed at celebrating individual right to sexual freedom and identity. The march was filled with songs and slogans; the students also painted a zebra crossing in rainbow colours and wrapped trees with rainbow coloured threads.
+edit ]
+
+On 28 December 2014, the symbolic "Rainbow Tree" which stood for LGBTQ pride was vandalised. To counter the "growing homophobia " on the campus, JNU Students' Union along with other queer groups like Anjuman and Dhanak, led a march on 9 January, called Rainbow Walk. The march started from JNU's Ganga Dhaba and ended at the Rainbow Tree spot. The protestors criticised the 2013 verdict of the Supreme Court nullifying the Delhi High Court order reading down Section 377 of the IPC . The campaign aimed at celebrating individual right to sexual freedom and identity. The march was filled with songs and slogans; the students also painted a zebra crossing in rainbow colours and wrapped trees with rainbow coloured threads.
+
+2016 sedition controversy
+
+edit ]
 
 
-==== 2016 sedition controversy ====
+On 9 February, a cultural evening was organised by 10 students, formerly of the Democratic Students' Union (DSU), at the Sabarmati Dhaba, against the execution of 2001 Indian Parliament attack convict Afzal Guru and separatist leader Maqbool Bhat , and for Kashmir's right to self-determination. "Anti-India" slogans like " Pakistan Zindabad " ("Long live Pakistan"), " Kashmir ki azadi tak jung chalegi, Bharat ki barbadi tak jung chalegi " ("War will continue till Kashmir's freedom, war will continue till India's demolition") were reportedly raised at the protest meet." Protests by members of ABVP were held at the University demanding expulsion of the student organisers.
 
-On 9 February, a cultural evening was organised by 10 students, formerly of the Democratic Students' Union (DSU), at the Sabarmati Dhaba, against the execution of 2001 Indian Parliament attack convict Afzal Guru and separatist leader Maqbool Bhat, and for Kashmir's right to self-determination. Slogans like "Pākistāna Zindābāda" ("Long live Pakistan"), "Kaśmīra kī āzādī taka jaṃga calegī, Bhārata kī barbādī taka jaṃga calegī" ("War will continue till Kashmir's freedom, war will continue till India's demolition") were reportedly raised at the protest meet." Protests by members of ABVP were held at the University demanding expulsion of the student organisers.
 JNU administration ordered a "disciplinary" enquiry into the holding of the event despite denial of permission, saying any talk about country's disintegration cannot be "national". The Delhi Police arrested the JNU Students' Union President Kanhaiya Kumar and Umar Khalid on charges of sedition and criminal conspiracy, under section 124 of the Indian Penal Code dating back to 1860.
-The arrest soon snowballed into a major political controversy, with several leaders of opposition parties visiting the JNU campus in solidarity with the students protesting against the police crackdown. More than 500 academics from around the world, including JNU alumni, released a statement in support of the students. In a separate statement, over 130 world-leading scholars including Noam Chomsky, Orhan Pamuk and Akeel Bilgrami called it a "shameful act of the Indian government" to invoke sedition laws formulated during colonial times to silence criticism. The crisis was particularly concerning to some scholars studying nationalism. On 25 March 2016, the Google Maps search for 'anti national' led users to JNU campus.
 
+The arrest soon snowballed into a major political controversy, with several leaders of opposition parties visiting the JNU campus in solidarity with the students protesting against the police crackdown. More than 500 academics from around the world, including JNU alumni, released a statement in support of the students. In a separate statement, over 130 world-leading scholars including Noam Chomsky , Orhan Pamuk and Akeel Bilgrami called it a "shameful act of the Indian government" to invoke sedition laws formulated during colonial times to silence criticism. The crisis was particularly concerning to some scholars studying nationalism . [ citation needed ] On 25 March 2016, the Google Maps search for 'anti national' led users to JNU campus.
 
-==== Swami Vivekananda Statue ====
-The Prime Minister of India, Narendra Modi inaugurated a 151-inch tall statue of Swami Vivekananda on the 151st Jayanti of Jainacharya Shree Vijay Vallabh Surishwer Ji Maharaj and referred to it as the Statue of Peace whereas the students of Jawaharlal Nehru University Students Union protested outside the JNU campus and raised slogans such as ‘Uninvited Modi Go Back’, ‘Punish the perpetrators of January 5th attack’, ‘Save Public Education’ and ‘Unlock JNU’ among others.
+Swami Vivekananda Statue
+
+edit ]
+
+The Prime Minister of India, Narendra Modi inaugurated 151-inch tall statue of Swami Vivekananda on 151st Jayanti of Jainacharya Shree Vijay Vallabh Surishwer Ji Maharaj and referred as the Statue of Peace whereas the students of Jawaharlal Nehru University Students Union protested outside the JNU campus and raised slogans such as ‘Uninvited Modi Go Back’, ‘Punish the perpetrators of January 5th attack’, ‘Save Public Education’ and ‘Unlock JNU’ among others.
+
 In November 2019, the yet-to-be inaugurated statue of Swami Vivekananda in the Jawaharlal Nehru University (JNU) campus was vandalised, with slogans against the BJP painted on the floor around the statue. Students of the university, however, denied their involvement and termed it an act by some miscreants to discredit the JNU Students Union movement against the varsity administration against fee hike and hostel manual. A group of students later wiped off the slogans painted near the statue.
 
+Campus Violence
 
-=== Campus Violence ===
+edit ]
 
+1981 46 days lockdown
 
-==== 1981 46 days lockdown ====
-JNU was shut down for 46 days by Indian government in 1981 after violence by student unions linked to communist parties.
+edit ]
 
+JNU was shutdown for 46 days by Indian government in 1981 after violence by student unions linked to communist parties.
 
-==== 2000 Army Officers Scuffle ====
-In April 2000, two army officers who disturbed an Indo-Pak mushaira at the JNU campus were beaten up by agitated students. The officers were angered by anti-war poems recited by two Pakistani poets and disrupted the muśāirā. They were enraged at the recited lines of a poem by Urdu poet Fahmida Riaz tuma bhī bilkula hama jaise nikale ("It turned out you were just like us") and interpreted the lines as a criticism of India. One of them started to shout anti-Pakistan slogans. When the audience asked for silence. They were overpowered by security and then beaten by students, though not seriously injured. The Indian Army denied the charges and it was reported that the two army officers were admitted in hospitals. A retired judge was appointed to probe the accusation.
+2000 Army Officers Scuffle
 
+edit ]
 
-==== 2019 protest and 2020 attack ====
+In April 2000, two army officers who disturbed an Indo-Pak mushaira at the JNU campus were beaten up by agitated students. The officers were angered by anti-war poems recited by two Pakistani poets and disrupted the mushaira . They were enraged at the recited lines of a poem by Urdu poetess, Fahmida Riaz Tum bhi bilkul hum jaise nikle ("It turned out you were just like us") and interpreted the lines as a criticism of India. One of them started to shout anti-Pakistan slogans. When the audience asked for silence. They were overpowered by security and then beaten by students, though not seriously injured. The Indian Army denied the charges and it was reported that the two army officers were admitted in hospitals. A retired judge was appointed to probe the accusation.
+
+2019 protest and 2020 attack
+
+edit ]
+
 
 On 13 November 2019, the JNU administration raised the fees of the university. Since 28 October 2019, some students of JNU had been protesting against the fee hike. As a part of this protest, students boycotted the final semester examinations. After protests, the university partially rolled back by reducing fees only for students from families with extreme poverty (BPL category) who do not avail any scholarship. The move did not convince the students as there was no rollback in the fee hike for non-BPL category students neither for BPL students availing a scholarship. To press the administration for a complete rollback of the increase in fees, JNUSU had continued the protests. The semester registration with the revised fee was started by 1 January.
-On 5 January 2020, a group of masked vandals entered the campus, destroyed property and beat up several people. This included students and professors. This drew widespread condemnation from the public, with opposition parties, Bollywood celebrities and human rights activists expressing their concerns.
+
+On 5 Jan 2020, a group of masked vandals entered the campus, destroyed property and beat up several people. This included students and professors. This drew widespread condemnation from the public, with opposition parties, Bollywood celebrities and human rights activists expressing their concerns.
+
+2022 Resistance to ban on non-veg food
+
+edit ]
+
+In April 2022, a group of students from ABVP attacked the canteen staff and students on serving non-vegetarian food. A clash between students in resistance to the efforts of ABVP to ban non-veg and several students were injured. Delhi police registered an FIR against unidentified ABVP students. Netizen commented this as deniel of freedom and a continuation of attack against Muslims in India.
+
+Notable alumni and faculty
+
+edit ]
 
 
-=== 2022 Resistance to ban on non-veg food ===
-In April 2022, a group of students from ABVP allegedly attacked the canteen staff and students on serving non-vegetarian food. A clash between students in resistance to the efforts of ABVP to restrict serving of non-veg on the occasion of Ram Navami which led several students from both the sides being injured. Delhi police registered an FIR against unidentified ABVP students. Netizens commented this as denial of freedom of choice. JNU's president, Rohit Kumar, alleged that the students from the left parties stopped them from celebrating Ram Navami and that there was a systematic effort to stop Hindu festivals celebrations since years.
+The university's alumni include 2019 Nobel Laureate for Economics Prof. Abhijit Banerjee , former Prime Minister of Libya Ali Zeidan and former Prime Minister of Nepal Baburam Bhattarai , as well as several politicians, diplomats, artists, academics, and scientists.
 
+37th Prime Minister of Russia Dmitry Medvedev being awarded honorary doctorate degree by JNU, 2012.
+See also
 
-== Notable alumni and faculty ==
+edit ]
 
-The university's alumni include 2019 Nobel Laureate for Economics Prof. Abhijit Banerjee, former Prime Minister of Libya Ali Zeidan and former Prime Minister of Nepal Baburam Bhattarai, as well as several politicians, diplomats, artists, academics, and scientists.
-
-
-== See also ==
 List of universities in India
+
 Universities and colleges in India
+
 Education in India
+
 Education in Delhi
+
+Jawaharlal Nehru Technological University, Hyderabad
+
 Distance Education Council
-List of institutions of higher education in Delhi
 
 
-== Notes ==
+Notes
+
+edit ]
 
 
-== References ==
+
+
+References
+
+edit ]
+
+
+
 
 Sources
 
-Roy Chowdhury, Sharmishtha (2013), "Jawaharlal Nehru University", in Mary Elizabeth Devine; Carol Summerfield (eds.), International Dictionary of University Histories, Routledge, pp. 224–227, ISBN 978-1-134-26210-6
+Roy Chowdhury, Sharmishtha (2013), "Jawaharlal Nehru University" , in Mary Elizabeth Devine; Carol Summerfield (eds.), International Dictionary of University Histories , Routledge, pp. 224– 227, ISBN 978-1-134-26210-6
 
 
-== Further reading ==
-JNU: Retrospect and Prospect, New Delhi: Jawaharlal Nehru University, 1986
-Reddy, G. Ram (1995), Higher Education in India: Conformity, Crisis and Innovation, New Delhi: Sterling Publishers
-K. B. Powar; S. K. Panda, eds. (1995), Higher Education in India: In search of quality, New Delhi: Association of Indian Universities
-Gore, M. S. (1994), Indian Education: Structure and Process, Jaipur: Rawat
-Ghose, Subhash Chandra (1993), Academics and Politics, New Delhi: Northern Book Centre
+Further reading
+
+edit ]
+
+JNU: Retrospect and Prospect , New Delhi: Jawaharlal Nehru University, 1986
+
+Reddy, G. Ram (1995), Higher Education in India: Conformity, Crisis and Innovation , New Delhi: Sterling Publishers
+
+K. B. Powar; S. K. Panda, eds. (1995), Higher Education in India: In search of quality , New Delhi: Association of Indian Universities
+
+Gore, M. S. (1994), Indian Education: Structure and Process , Jaipur: Rawat
+
+Ghose, Subhash Chandra (1993), Academics and Politics , New Delhi: Northern Book Centre
+
+
+
+
+
+
+Wikimedia Commons has media related to Jawaharlal Nehru University .
+
+Colleges
+
+
+
+
+
+
+Delhi portal
+
+
+
+
+
+
+
+
+
+28°32′45″N 77°10′13″E ﻿ / ﻿ 28.5458°N 77.1703°E ﻿ / 28.5458; 77.1703

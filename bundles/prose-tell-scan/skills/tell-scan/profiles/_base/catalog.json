@@ -115,11 +115,6 @@
       "because a silently removed pattern gets re-added by the next person with",
       "the same plausible idea. Everything here looked reasonable and lost."
     ],
-    "tricolon": {
-      "was": "The rule of three - three-item lists and adjective, adjective, adjective.",
-      "why_rejected": "DELETED 2026-08-04 on corpus evidence, under the standing rule this log had already written for it: 'if it produces a field false positive, delete it rather than tightening - the same standard applied to transition-overload'. It produced two. Measured across 12 provably-human pre-ChatGPT documents it FLAGGED on two of them, including 17 occurrences at 3.09 per 1000 in one - field false positives on text that predates ChatGPT by construction. The appearance rates say why: it turned up in 84% of 32 community-identified AI documents and 92% of the human ones. Matching any three comma-separated words is matching ordinary English. The rule of three is on the source page and is probably real at a level of analysis this catalog cannot reach; the deterministic form here was not it. Cost of deletion, stated because it is not free: AI recall went 2/32 to 1/32, since the entry had pushed one AI document over the two-category threshold. A detection driven by an entry that fires on nearly every document is not a detection. Two earlier open questions in this log asked whether it earned its place; the answer is no. Full yield table in CALIBRATION.md FN-2026-08-04-a.",
-      "source": "wp-signs"
-    },
     "announced-insight": {
       "was": "Announcing an insight in place of delivering one (\"here's the thing\", \"what most people miss\").",
       "why_rejected": "Removed 2026-08-03 after shipping in v0.1. Three reasons, and the first alone is sufficient: it is NOT ON THE SOURCE PAGE. Verified against the full wikitext - the entry's own note conceded this, tracing it to a Forbes contributor piece with no counts and no control corpus, which is exactly the class of source this catalog labels contested and does not build on. Second, it duplicates not_deterministic.announced-then-undelivered, which declares the same phenomenon undecidable by regex; shipping a regex for it contradicted the catalog's own boundary. Third, CALIBRATION.md FP-2026-07-26-a logged it as the first field false positive and concluded it was 'an argument for pruning rather than tightening if it recurs'. It recurred. The standard already applied to false-range applies here.",
@@ -179,258 +174,16 @@
   },
   "entries": [
     {
-      "id": "model-markup-artifact",
-      "label": "model markup artifact",
-      "kind": "structural",
-      "category": "leakage",
-      "tier": "A",
-      "severity": 3,
-      "confidence": "definitive",
-      "always_flag": true,
-      "pattern": ":contentReference\\[oaicite:|oai_citation:|cite[\\ue000-\\uf8ff\\u0007]?turn\\d+(?:search|image|news|file|view)\\d*|attributableIndex|(?:[A-Z][A-Za-z ]{1,18}\\+\\d+){2,}|\\[cite:\\s*\\d+|\\]\\(start_span\\)|\\]\\(end_span\\)|<grok-card\\s+data-id=|grok_render_citation_card_json|【\\d+†L\\d+|\\[attached_file:\\s*\\d+\\]|\\[web:\\s*\\d+\\]|ppl-ai-file-upload|:::(?:writing|écriture)\\{",
-      "note": "Literal strings no human types: citation scaffolding from ChatGPT, Gemini, Grok, DeepSeek, and Perplexity that survived a copy-paste. These are ARTIFACTS, not style — dispositive rather than suggestive — so they bypass density gating entirely via always_flag. One occurrence is the finding. FIXED 2026-08-03: the separator was hardcoded to U+0007. That is how MediaWiki STORES these markers, not what a paste from the model contains - the real separator is a Private Use Area codepoint. So the entry matched the wiki RENDERING of the tell rather than the tell itself. It now accepts a PUA codepoint, BEL, or no separator at all, and covers the news/file/view turn types alongside search/image. Also adds attributableIndex, which the source page names in a section heading and this catalog had never matched, and the 'Brand+3Brand+3' citation pileup. Gaps here are the most expensive in the catalog: Tier A is the only dialect-neutral tier and the only thing --artifacts-only retains.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "chatbot-register",
-      "label": "chatbot register leaked into the draft",
-      "kind": "structural",
-      "category": "leakage",
-      "tier": "A",
-      "severity": 3,
-      "confidence": "definitive",
-      "always_flag": true,
-      "pattern": "\\b(?:you'?re\\s+absolutely\\s+right|i\\s+hope\\s+this\\s+helps|is\\s+there\\s+anything\\s+else|would\\s+you\\s+like\\s+me\\s+to|let\\s+me\\s+know\\s+if\\s+you'?d\\s+like|here'?s\\s+a\\s+(?:more\\s+)?detailed\\s+breakdown|as\\s+an\\s+AI\\s+language\\s+model|as\\s+a\\s+large\\s+language\\s+model)\\b",
-      "note": "Assistant-to-user conversational register surviving into a document that has no user to address. Leakage, not style, so it barely false-positives.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "knowledge-cutoff",
-      "label": "knowledge-cutoff or source-gap hedge",
-      "kind": "structural",
-      "category": "leakage",
-      "tier": "A",
-      "severity": 3,
-      "confidence": "definitive",
-      "always_flag": true,
-      "pattern": "\\b(?:as\\s+of\\s+my\\s+last\\s+(?:knowledge\\s+)?(?:update|training)|up\\s+to\\s+my\\s+last\\s+training|my\\s+training\\s+data|while\\s+specific\\s+details\\s+(?:are|remain)\\s+(?:limited|scarce)|(?:are\\s+)?not\\s+extensively\\s+documented\\s+in\\s+readily\\s+available|limited\\s+in\\s+the\\s+provided\\s+search\\s+results)\\b",
-      "note": "A model describing its own epistemic position, or narrating the gaps in its retrieval. Neither belongs in a finished document.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "placeholder-text",
-      "label": "unreplaced placeholder",
-      "kind": "structural",
-      "category": "leakage",
-      "tier": "A",
-      "severity": 3,
-      "confidence": "definitive",
-      "always_flag": true,
-      "pattern": "\\[(?:Your\\s+Name|Insert[^\\]]{0,40}|Specific\\s+Topic|Entertainer'?s\\s+Name|link\\s+to[^\\]]{0,30})\\]|INSERT_[A-Z_]{3,}|PASTE_[A-Z_]{3,}|\\b\\d{4}-XX-XX\\b|\\b\\d{4}-\\d{2}-XX\\b",
-      "note": "Template text the author never filled in. Trivially checkable and embarrassing to ship, which makes it worth catching even though it is rare.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "delve",
-      "label": "delve",
+      "id": "commitment-to",
+      "label": "\"commitment to excellence\"",
       "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
+      "category": "corporate-register",
+      "severity": 2,
       "confidence": "high",
-      "pattern": "delv(?:e|es|ed|ing)",
-      "note": "The signature tell of the 2023-24 generation. Largely trained out, so a hit now is notable.",
+      "pattern": "commitment\\s+to\\s+(?:excellence|quality|sustainability|innovation|diversity|its\\s+\\w+|the\\s+\\w+)",
+      "note": "Press-release phrasing; the source list flags it via quoted executive statements.",
       "source": "wp-signs"
     },
-    {
-      "id": "tapestry",
-      "label": "tapestry (figurative)",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "(?:rich|vibrant|complex|intricate|cultural|diverse|broader)\\s+tapestr(?:y|ies)|tapestry\\s+of\\b",
-      "note": "Figurative use only. Literal weaving is not matched.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "realm-of",
-      "label": "\"in the realm of\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "in\\s+the\\s+realms?\\s+of",
-      "source": "wp-signs"
-    },
-    {
-      "id": "testament-to",
-      "label": "\"a testament to\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "(?:a|is\\s+a|stands?\\s+as\\s+a|true|further)\\s+testament\\s+to",
-      "source": "wp-signs"
-    },
-    {
-      "id": "multifaceted",
-      "label": "multifaceted",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "multi-?faceted",
-      "source": "wp-signs"
-    },
-    {
-      "id": "bustling",
-      "label": "bustling",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "bustling",
-      "note": "Almost always promotional travel-brochure register.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "beacon-of",
-      "label": "\"beacon of\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "beacon\\s+of\\b",
-      "source": "wp-signs"
-    },
-    {
-      "id": "unlock-potential",
-      "label": "\"unlock/unleash the potential\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "(?:unlock|unleash)(?:s|ed|ing)?\\s+(?:the\\s+)?(?:full\\s+|true\\s+)?(?:potential|power|secrets)",
-      "source": "wp-signs"
-    },
-    {
-      "id": "todays-world",
-      "label": "\"in today's ... world\" / \"in an era of\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "in\\s+today'?s\\s+(?:fast-paced|digital|modern|ever-changing|increasingly|complex|interconnected)[\\w\\s-]{0,20}world|in\\s+(?:an|this|our)\\s+era\\s+of\\b|in\\s+the\\s+modern\\s+era",
-      "note": "The canonical throat-clearing opener.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "myriad",
-      "label": "myriad",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "myriad",
-      "source": "wp-signs"
-    },
-    {
-      "id": "intricate",
-      "label": "intricate",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "intricate(?:ly)?",
-      "note": "Legitimate about genuinely intricate mechanisms; filler about ideas.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "pivotal",
-      "label": "pivotal",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "pivotal",
-      "source": "wp-signs"
-    },
-    {
-      "id": "cacophony",
-      "label": "cacophony",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "cacophony",
-      "source": "wp-signs"
-    },
-    {
-      "id": "underscore-figurative",
-      "label": "underscore (figurative)",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "(?<!\\b(?:an|the)\\s)underscor(?:e|es|ed|ing)\\s+(?:the|its|their|how|why|just)\\b",
-      "note": "Verb form with an abstract object only. The typography character and identifier naming are not matched, and `technical` allowlists it anyway.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "navigate-abstract",
-      "label": "\"navigate the complexities\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "navigat(?:e|es|ed|ing)\\s+the\\s+(?:complexit(?:y|ies)|complexities|challenges?|landscapes?|world|realms?|nuances?|intricacies|difficulties|terrain|labyrinth|maze|shifting\\s+\\w+|ever-\\w+)",
-      "note": "Deliberately requires an abstract object. Navigating a menu, a tree, or a ship is not a tell. Note the whole-word alternatives: lexical entries are wrapped in \\b automatically, so a bare prefix like `complex` would fail to match `complexities`.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "evolving-landscape",
-      "label": "\"ever-evolving landscape\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "(?:ever-(?:changing|evolving)|rapidly\\s+(?:changing|evolving)|shifting|evolving|digital|competitive)\\s+landscape",
-      "note": "Requires the modifier. Literal landscapes and 'the landscape of X' in geography are not matched.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "embark-on",
-      "label": "\"embark on a\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "embark(?:s|ed|ing)?\\s+(?:on|upon)\\s+(?:a|an|this|the|our|your)\\b",
-      "source": "wp-signs"
-    },
-    {
-      "id": "foster-abstract",
-      "label": "\"foster a sense of\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "foster(?:s|ed|ing)?\\s+(?:a|an|the)?\\s*(?:sense|culture|environment|climate|understanding|collaboration|innovation|growth|community|dialogue|inclusion|engagement)",
-      "note": "Requires the abstract object. Foster care and fostering animals are not matched.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "dive-into",
-      "label": "\"dive into\" / \"deep dive\"",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "\\bdeep\\s+dive\\b|div(?:e|es|ing)\\s+(?:deep\\s+)?into\\s+(?:the|this|what|how|why)",
-      "note": "The replacement 'delve' was trained into. Same move, newer word.",
-      "source": "recent"
-    },
-
     {
       "id": "comprehensive",
       "label": "comprehensive",
@@ -443,6 +196,26 @@
       "source": "wp-signs"
     },
     {
+      "id": "cutting-edge",
+      "label": "cutting-edge / state-of-the-art",
+      "kind": "lexical",
+      "category": "corporate-register",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "cutting[-\\s]edge|state[-\\s]of[-\\s]the[-\\s]art|best[-\\s]in[-\\s]class",
+      "source": "wp-signs"
+    },
+    {
+      "id": "groundbreaking",
+      "label": "groundbreaking / transformative",
+      "kind": "lexical",
+      "category": "corporate-register",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "groundbreaking|ground-breaking|transformative|revolutioniz(?:e|es|ed|ing)|game-chang(?:er|ing)",
+      "source": "wp-signs"
+    },
+    {
       "id": "holistic",
       "label": "holistic",
       "kind": "lexical",
@@ -450,17 +223,6 @@
       "severity": 2,
       "confidence": "medium",
       "pattern": "holistic(?:ally)?",
-      "source": "wp-signs"
-    },
-    {
-      "id": "robust",
-      "label": "robust",
-      "kind": "lexical",
-      "category": "corporate-register",
-      "severity": 2,
-      "confidence": "contested",
-      "pattern": "robust(?:ness|ly)?",
-      "note": "Precise in statistics and systems engineering, filler in marketing. The clearest argument for per-register allowlists; allowlisted in `technical`.",
       "source": "wp-signs"
     },
     {
@@ -475,16 +237,6 @@
       "source": "wp-signs"
     },
     {
-      "id": "synergy",
-      "label": "synergy",
-      "kind": "lexical",
-      "category": "corporate-register",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "synerg(?:y|ies|istic)",
-      "source": "wp-signs"
-    },
-    {
       "id": "paradigm",
       "label": "paradigm",
       "kind": "lexical",
@@ -496,13 +248,14 @@
       "source": "wp-signs"
     },
     {
-      "id": "groundbreaking",
-      "label": "groundbreaking / transformative",
+      "id": "robust",
+      "label": "robust",
       "kind": "lexical",
       "category": "corporate-register",
       "severity": 2,
-      "confidence": "medium",
-      "pattern": "groundbreaking|ground-breaking|transformative|revolutioniz(?:e|es|ed|ing)|game-chang(?:er|ing)",
+      "confidence": "contested",
+      "pattern": "robust(?:ness|ly)?",
+      "note": "Precise in statistics and systems engineering, filler in marketing. The clearest argument for per-register allowlists; allowlisted in `technical`.",
       "source": "wp-signs"
     },
     {
@@ -516,26 +269,260 @@
       "source": "wp-signs"
     },
     {
-      "id": "cutting-edge",
-      "label": "cutting-edge / state-of-the-art",
+      "id": "synergy",
+      "label": "synergy",
       "kind": "lexical",
       "category": "corporate-register",
       "severity": 2,
       "confidence": "medium",
-      "pattern": "cutting[-\\s]edge|state[-\\s]of[-\\s]the[-\\s]art|best[-\\s]in[-\\s]class",
+      "pattern": "synerg(?:y|ies|istic)",
       "source": "wp-signs"
     },
-
     {
-      "id": "genuinely",
-      "label": "genuinely",
+      "id": "current-participles",
+      "label": "current-era participles (emphasizing / highlighting / showcasing)",
       "kind": "lexical",
-      "category": "intensifier-tic",
+      "category": "current-era",
       "severity": 1,
       "confidence": "contested",
-      "pattern": "genuinely",
-      "note": "Fine once. Six times in four thousand words is a tic, which is why this category is judged on density and never on presence.",
-      "source": "fixture"
+      "pattern": "emphasi[sz]ing|highlighting|showcasing",
+      "note": "The mid-2025-onward cohort, and the reason this catalog is not just a list of words from 2023. Where the older tells were nouns (delve, tapestry), the surviving ones are participles. Bare use is ordinary English, so this is density-gated and weak; the high-severity signal is the same verbs in a significance-asserting tail clause, which `participle-tail` catches separately.",
+      "era": "2025-onward",
+      "source": "wp-signs"
+    },
+    {
+      "id": "enhance",
+      "label": "enhance / align with",
+      "kind": "lexical",
+      "category": "current-era",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "enhanc(?:e|es|ed|ing|ement|ements)|align(?:s|ed|ing)?\\s+with",
+      "note": "Also mid-2025-onward. Ordinary in technical writing; watch the rate, not the presence.",
+      "era": "2025-onward",
+      "source": "wp-signs"
+    },
+    {
+      "id": "beacon-of",
+      "label": "\"beacon of\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "beacon\\s+of\\b",
+      "source": "wp-signs"
+    },
+    {
+      "id": "bustling",
+      "label": "bustling",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "bustling",
+      "note": "Almost always promotional travel-brochure register.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "cacophony",
+      "label": "cacophony",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "cacophony",
+      "source": "wp-signs"
+    },
+    {
+      "id": "delve",
+      "label": "delve",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "delv(?:e|es|ed|ing)",
+      "note": "The signature tell of the 2023-24 generation. Largely trained out, so a hit now is notable.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "dive-into",
+      "label": "\"dive into\" / \"deep dive\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "\\bdeep\\s+dive\\b|div(?:e|es|ing)\\s+(?:deep\\s+)?into\\s+(?:the|this|what|how|why)",
+      "note": "The replacement 'delve' was trained into. Same move, newer word.",
+      "source": "recent"
+    },
+    {
+      "id": "embark-on",
+      "label": "\"embark on a\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "embark(?:s|ed|ing)?\\s+(?:on|upon)\\s+(?:a|an|this|the|our|your)\\b",
+      "source": "wp-signs"
+    },
+    {
+      "id": "evolving-landscape",
+      "label": "\"ever-evolving landscape\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "(?:ever-(?:changing|evolving)|rapidly\\s+(?:changing|evolving)|shifting|evolving|digital|competitive)\\s+landscape",
+      "note": "Requires the modifier. Literal landscapes and 'the landscape of X' in geography are not matched.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "foster-abstract",
+      "label": "\"foster a sense of\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "foster(?:s|ed|ing)?\\s+(?:a|an|the)?\\s*(?:sense|culture|environment|climate|understanding|collaboration|innovation|growth|community|dialogue|inclusion|engagement)",
+      "note": "Requires the abstract object. Foster care and fostering animals are not matched.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "interplay",
+      "label": "interplay / bolstered / garner",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "interplay|bolster(?:s|ed|ing)?|garner(?:s|ed|ing)?",
+      "era": "2023-2024",
+      "source": "wp-signs"
+    },
+    {
+      "id": "intricate",
+      "label": "intricate",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "intricate(?:ly)?",
+      "note": "Legitimate about genuinely intricate mechanisms; filler about ideas.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "meticulous",
+      "label": "meticulous / meticulously",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "meticulous(?:ly)?",
+      "era": "2023-2024",
+      "source": "wp-signs"
+    },
+    {
+      "id": "multifaceted",
+      "label": "multifaceted",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "multi-?faceted",
+      "source": "wp-signs"
+    },
+    {
+      "id": "myriad",
+      "label": "myriad",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "myriad",
+      "source": "wp-signs"
+    },
+    {
+      "id": "navigate-abstract",
+      "label": "\"navigate the complexities\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "navigat(?:e|es|ed|ing)\\s+the\\s+(?:complexit(?:y|ies)|complexities|challenges?|landscapes?|world|realms?|nuances?|intricacies|difficulties|terrain|labyrinth|maze|shifting\\s+\\w+|ever-\\w+)",
+      "note": "Deliberately requires an abstract object. Navigating a menu, a tree, or a ship is not a tell. Note the whole-word alternatives: lexical entries are wrapped in \\b automatically, so a bare prefix like `complex` would fail to match `complexities`.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "pivotal",
+      "label": "pivotal",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "pivotal",
+      "source": "wp-signs"
+    },
+    {
+      "id": "realm-of",
+      "label": "\"in the realm of\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "in\\s+the\\s+realms?\\s+of",
+      "source": "wp-signs"
+    },
+    {
+      "id": "tapestry",
+      "label": "tapestry (figurative)",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "(?:rich|vibrant|complex|intricate|cultural|diverse|broader)\\s+tapestr(?:y|ies)|tapestry\\s+of\\b",
+      "note": "Figurative use only. Literal weaving is not matched.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "testament-to",
+      "label": "\"a testament to\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "(?:a|is\\s+a|stands?\\s+as\\s+a|true|further)\\s+testament\\s+to",
+      "source": "wp-signs"
+    },
+    {
+      "id": "todays-world",
+      "label": "\"in today's ... world\" / \"in an era of\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "in\\s+today'?s\\s+(?:fast-paced|digital|modern|ever-changing|increasingly|complex|interconnected)[\\w\\s-]{0,20}world|in\\s+(?:an|this|our)\\s+era\\s+of\\b|in\\s+the\\s+modern\\s+era",
+      "note": "The canonical throat-clearing opener.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "underscore-figurative",
+      "label": "underscore (figurative)",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "(?<!\\b(?:an|the)\\s)underscor(?:e|es|ed|ing)\\s+(?:the|its|their|how|why|just)\\b",
+      "note": "Verb form with an abstract object only. The typography character and identifier naming are not matched, and `technical` allowlists it anyway.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "unlock-potential",
+      "label": "\"unlock/unleash the potential\"",
+      "kind": "lexical",
+      "category": "figurative-vocabulary",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "(?:unlock|unleash)(?:s|ed|ing)?\\s+(?:the\\s+)?(?:full\\s+|true\\s+)?(?:potential|power|secrets)",
+      "source": "wp-signs"
     },
     {
       "id": "actually",
@@ -546,47 +533,6 @@
       "confidence": "contested",
       "pattern": "actually",
       "note": "Top hit in the session that motivated this primitive: eight occurrences the model's own self-assessment did not notice. Counting is what scripts are for.",
-      "source": "fixture"
-    },
-    {
-      "id": "honestly",
-      "label": "honestly",
-      "kind": "lexical",
-      "category": "intensifier-tic",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "honestly",
-      "source": "fixture"
-    },
-    {
-      "id": "quietly",
-      "label": "quiet / quietly",
-      "kind": "lexical",
-      "category": "intensifier-tic",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "quietly",
-      "note": "Named in recent coverage as a current-generation adverbial tic.",
-      "source": "recent"
-    },
-    {
-      "id": "precisely",
-      "label": "precisely",
-      "kind": "lexical",
-      "category": "intensifier-tic",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "precisely",
-      "source": "fixture"
-    },
-    {
-      "id": "remarkably",
-      "label": "remarkably / notably",
-      "kind": "lexical",
-      "category": "intensifier-tic",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "remarkably|notably",
       "source": "fixture"
     },
     {
@@ -620,61 +566,120 @@
       "pattern": "fundamentally|essentially|ultimately",
       "source": "local"
     },
-
     {
-      "id": "negative-parallelism",
-      "label": "negative parallelism (\"it's not X, it's Y\")",
+      "id": "genuinely",
+      "label": "genuinely",
+      "kind": "lexical",
+      "category": "intensifier-tic",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "genuinely",
+      "note": "Fine once. Six times in four thousand words is a tic, which is why this category is judged on density and never on presence.",
+      "source": "fixture"
+    },
+    {
+      "id": "honestly",
+      "label": "honestly",
+      "kind": "lexical",
+      "category": "intensifier-tic",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "honestly",
+      "source": "fixture"
+    },
+    {
+      "id": "precisely",
+      "label": "precisely",
+      "kind": "lexical",
+      "category": "intensifier-tic",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "precisely",
+      "source": "fixture"
+    },
+    {
+      "id": "quietly",
+      "label": "quiet / quietly",
+      "kind": "lexical",
+      "category": "intensifier-tic",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "quietly",
+      "note": "Named in recent coverage as a current-generation adverbial tic.",
+      "source": "recent"
+    },
+    {
+      "id": "remarkably",
+      "label": "remarkably / notably",
+      "kind": "lexical",
+      "category": "intensifier-tic",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "remarkably|notably",
+      "source": "fixture"
+    },
+    {
+      "id": "chatbot-register",
+      "label": "chatbot register leaked into the draft",
       "kind": "structural",
-      "category": "structural-scaffold",
+      "category": "leakage",
+      "tier": "A",
       "severity": 3,
-      "confidence": "medium",
-      "pattern": "(?:\\b(?:is|are|was|were)\\s+not\\b|\\b\\w+(?:'s|'re)\\s+not\\b|\\b(?:isn|aren|wasn|weren|ain|doesn|don|didn)'t\\b)\\s+(?:just|merely|simply|only|about\\s+)?[^.!?]{2,80}[,;—–]\\s*(?:it|this|that|they)(?:'s|'re)\\b|\\bnot\\s+(?:just|merely|simply|only)\\s+[^.!?]{2,60}[—–]\\s*(?:it|this|that|they)(?:'s|'re)\\b",
-      "note": "Widely treated as the strongest structural tell of the current generation, and reported at roughly 3x human rate - but that figure traces to a single news article with no published corpus study. Confidence is `medium` for that reason, and because the source page itself concedes the construction is 'common among human writers'. FALSE POSITIVES ARE DOCUMENTED AND SERIOUS: autistic writers and anyone with a formal rhetorical education report using deliberate parallel construction for decades, and binary contrast is a structural resource of English itself. THE RULE THAT SURVIVES SCRUTINY IS FREQUENCY AND PURPOSELESSNESS, NOT PRESENCE - one deliberate contrast is rhetoric; five paragraphs ending on the same shape is autopilot. Hence density-gating, like everything else. Pivot may be a comma, semicolon, or dash.  MEASURED COVERAGE, 2026-08-03: against the source page's own {{highlight}} examples quoted UNALTERED, this family covers 11 of 16, up from 4. Zero false positives across the repo corpus. Every one of the sixteen is asserted individually in selftest.mjs, gaps included, so the number cannot drift without a test failing.  Two things were wrong before that, and the second is the instructive one. (1) The pattern demanded a pronoun subject AND one of just/merely/simply/only, so the bare forms could not match. Subject is now any negated copula, the intensifier is optional, ain't/doesn't/don't/didn't are negators, and a second branch takes the bare 'not just X - they're Y' form that carries no copula at all. (2) THE FIRST FIX WAS VALIDATED AGAINST A FIXTURE THAT HAD BEEN RETYPED with ASCII apostrophes and spaced em dashes. The source page uses U+2019 and unspaced dashes. Scored against that laundered text the family looked like 7 of 9; scored against what the page actually says it was 1 of 9, because every contraction in this catalog was spelled with an ASCII apostrophe. Do not cite the 7/9 figure - it measured a fixture fitted to the code. The underlying defect was scanner-wide and is fixed at intake; see normaliseApostrophes().  THE CONTRACTED-RESUMPTION REQUIREMENT IS A FALSE-POSITIVE GUARD, NOT A CLAIM ABOUT ENGLISH. Relaxing the subject without it produced five hits on this repo's own prose, every one a legitimate explanatory contrast ('is not a decision, it is a migration'). Those five resume uncontracted; the source examples resume contracted. That is a split on a few dozen observations and nothing more. If it starts costing real detections, widen the pivot punctuation or prune the entry rather than adding epicycles.  Still missed, each for a stated reason: uncontracted verb resumption ('doesn't just undermine...; it questions'), which the guard above blocks; sentence-boundary contrast ('is not dissolution. Rather, it constitutes'); bare 'not X, but Y' with no copula; anaphoric repetition ('Not a career, not a body of work'), which needs its own entry and its own FP data; and 'X rather than Y', deliberately unshipped - it fires twice on this repo's clean-human fixture and the source marks it Grok-specific. See CALIBRATION.md FN-2026-08-03-a.",
+      "confidence": "definitive",
+      "always_flag": true,
+      "pattern": "\\b(?:you'?re\\s+absolutely\\s+right|i\\s+hope\\s+this\\s+helps|is\\s+there\\s+anything\\s+else|would\\s+you\\s+like\\s+me\\s+to|let\\s+me\\s+know\\s+if\\s+you'?d\\s+like|here'?s\\s+a\\s+(?:more\\s+)?detailed\\s+breakdown|as\\s+an\\s+AI\\s+language\\s+model|as\\s+a\\s+large\\s+language\\s+model)\\b",
+      "note": "Assistant-to-user conversational register surviving into a document that has no user to address. Leakage, not style, so it barely false-positives.",
       "source": "wp-signs"
     },
     {
-      "id": "not-just-but",
-      "label": "\"not just X, but Y\"",
+      "id": "knowledge-cutoff",
+      "label": "knowledge-cutoff or source-gap hedge",
       "kind": "structural",
-      "category": "structural-scaffold",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "\\bnot\\s+(?:just|merely|simply|only)\\s+[^.!?,]{2,45},?\\s+but\\s+(?:also\\s+)?",
-      "note": "The compressed form of negative parallelism. Legitimate occasionally; a signature at volume.",
+      "category": "leakage",
+      "tier": "A",
+      "severity": 3,
+      "confidence": "definitive",
+      "always_flag": true,
+      "pattern": "\\b(?:as\\s+of\\s+my\\s+last\\s+(?:knowledge\\s+)?(?:update|training)|up\\s+to\\s+my\\s+last\\s+training|my\\s+training\\s+data|while\\s+specific\\s+details\\s+(?:are|remain)\\s+(?:limited|scarce)|(?:are\\s+)?not\\s+extensively\\s+documented\\s+in\\s+readily\\s+available|limited\\s+in\\s+the\\s+provided\\s+search\\s+results)\\b",
+      "note": "A model describing its own epistemic position, or narrating the gaps in its retrieval. Neither belongs in a finished document.",
       "source": "wp-signs"
     },
     {
-      "id": "not-x-but-y",
-      "label": "\"is not X but Y\"",
+      "id": "model-markup-artifact",
+      "label": "model markup artifact",
       "kind": "structural",
-      "category": "structural-scaffold",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "(?:\\b(?:is|are|was|were)\\s+not\\b|\\b\\w+(?:'s|'re)\\s+not\\b|\\b(?:isn't|aren't|wasn't|weren't)\\b)\\s+(?!just\\b|merely\\b|simply\\b|only\\b)[^.!?,;]{2,45}[,;—–]?\\s*but\\s+",
-      "note": "The source page gives this its own subsection under Negative parallelisms, and nothing in this catalog matched it before 2026-08-03: negative-parallelism required an intensifier and not-just-but requires one by construction, so the bare 'is not X but Y' form fell through the gap between them. The intensifier forms are deliberately excluded here by lookahead so the two entries cannot double-count the same sentence. Measured 0 false positives across this repo's 13 prose documents including both fixtures. Same caveat as its siblings: binary contrast is a structural resource of English, so this is density-gated and one occurrence means nothing. NOT SHIPPED alongside it: the source's third form, 'X rather than Y', which fires twice on script-v2-after.txt - this repo's canonical clean-human fixture - and which the source itself marks Grok-specific. That is the shape of a future CALIBRATION.md incident, so it stays out until there is a model axis to put it on.",
+      "category": "leakage",
+      "tier": "A",
+      "severity": 3,
+      "confidence": "definitive",
+      "always_flag": true,
+      "pattern": ":contentReference\\[oaicite:|oai_citation:|cite[\\ue000-\\uf8ff\\u0007]?turn\\d+(?:search|image|news|file|view)\\d*|attributableIndex|(?:[A-Z][A-Za-z ]{1,18}\\+\\d+){2,}|\\[cite:\\s*\\d+|\\]\\(start_span\\)|\\]\\(end_span\\)|<grok-card\\s+data-id=|grok_render_citation_card_json|【\\d+†L\\d+|\\[attached_file:\\s*\\d+\\]|\\[web:\\s*\\d+\\]|ppl-ai-file-upload|:::(?:writing|écriture)\\{",
+      "note": "Literal strings no human types: citation scaffolding from ChatGPT, Gemini, Grok, DeepSeek, and Perplexity that survived a copy-paste. These are ARTIFACTS, not style — dispositive rather than suggestive — so they bypass density gating entirely via always_flag. One occurrence is the finding. FIXED 2026-08-03: the separator was hardcoded to U+0007. That is how MediaWiki STORES these markers, not what a paste from the model contains - the real separator is a Private Use Area codepoint. So the entry matched the wiki RENDERING of the tell rather than the tell itself. It now accepts a PUA codepoint, BEL, or no separator at all, and covers the news/file/view turn types alongside search/image. Also adds attributableIndex, which the source page names in a section heading and this catalog had never matched, and the 'Brand+3Brand+3' citation pileup. Gaps here are the most expensive in the catalog: Tier A is the only dialect-neutral tier and the only thing --artifacts-only retains.",
       "source": "wp-signs"
     },
     {
-      "id": "participle-tail",
-      "label": "participle tail clause",
+      "id": "placeholder-text",
+      "label": "unreplaced placeholder",
+      "kind": "structural",
+      "category": "leakage",
+      "tier": "A",
+      "severity": 3,
+      "confidence": "definitive",
+      "always_flag": true,
+      "pattern": "\\[(?:Your\\s+Name|Insert[^\\]]{0,40}|Specific\\s+Topic|Entertainer'?s\\s+Name|link\\s+to[^\\]]{0,30})\\]|INSERT_[A-Z_]{3,}|PASTE_[A-Z_]{3,}|\\b\\d{4}-XX-XX\\b|\\b\\d{4}-\\d{2}-XX\\b",
+      "note": "Template text the author never filled in. Trivially checkable and embarrassing to ship, which makes it worth catching even though it is rare.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "challenge-formula",
+      "label": "the challenges-and-future-prospects formula",
       "kind": "structural",
       "category": "structural-scaffold",
       "severity": 3,
       "confidence": "high",
-      "pattern": ",\\s+(?:highlight|emphasi[sz]|reflect|demonstrat|underscor|showcas|illustrat|cement|solidif|signal|mark|underlin|reinforc|affirm)ing\\s+(?:the|its|their|how|why|just)\\b",
-      "note": "The tail that asserts significance instead of showing it. Restricted to significance-asserting verbs on purpose — generic tails (', allowing you to...') are ordinary English and would swamp this.",
+      "pattern": "\\bDespite\\s+(?:its|the|these|this|their)\\s+[^.!?]{0,70}?\\b(?:faces?|continues?\\s+to\\s+face|still\\s+faces?)\\s+(?:several\\s+|significant\\s+|numerous\\s+|ongoing\\s+)?(?:challenges|criticism|obstacles|difficulties|hurdles)",
+      "note": "A whole-paragraph shape the source list names explicitly: 'Despite its [positive descriptor], [subject] faces challenges...' closing on speculation about future improvement. Distinctive because it is a template, not a phrase.",
       "source": "wp-signs"
-    },
-    {
-      "id": "false-range",
-      "label": "false range (\"from X to Y\")",
-      "kind": "structural",
-      "category": "structural-scaffold",
-      "severity": 2,
-      "confidence": "contested",
-      "pattern": "(?:\\b(?:everything|anything|ranging|spanning|covering)\\s+from|(?:^|(?<=[.!?]\\s))From)\\s+(?!\\d|\\$|the\\s+\\d)(?!(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\\b)[A-Za-z][\\w-]*(?:\\s+[\\w-]+){0,3}\\s+to\\s+(?!\\d|\\$)(?!(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\b)[A-Za-z][\\w-]*",
-      "note": "A vague spectrum gestured at to imply comprehensiveness. TWO WARNINGS. (1) PROVENANCE: this is NOT in Wikipedia:Signs of AI writing — a targeted search of the raw wikitext found no such pattern. It was inherited from the design brief and is retained on this author's judgement alone, which is why severity is 2 and confidence is contested. (2) It over-fires: the prototype's version matched every date and number range ('From 1995 to 2003'). Numerals, currency, months, and weekdays are now excluded on both sides, and the construction must be sentence-initial or introduced by everything/ranging/spanning/covering.",
-      "source": "local"
     },
     {
       "id": "compulsive-summary",
@@ -686,17 +691,6 @@
       "pattern": "\\b(?:in\\s+conclusion|to\\s+summari[sz]e|in\\s+summary|all\\s+in\\s+all|to\\s+sum\\s+up|to\\s+wrap\\s+up)\\b",
       "note": "HISTORICAL. The source files this under indicators from roughly 2023 and treats it as obsolete in newer models — formulaic conclusion sections restating the body. A hit today points at an older draft or a human writing habit more than at a current model.",
       "era": "2023",
-      "source": "wp-signs"
-    },
-    {
-      "id": "soft-summary",
-      "label": "\"overall,\" / \"in short,\"",
-      "kind": "structural",
-      "category": "structural-scaffold",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "(?:^|(?<=[.!?]\\s))(?:Overall|In\\s+short|Ultimately|At\\s+the\\s+end\\s+of\\s+the\\s+day),\\s",
-      "note": "Milder than the explicit summary markers and often legitimate. Separated so the strong form is not diluted by the weak one.",
       "source": "wp-signs"
     },
     {
@@ -723,6 +717,50 @@
       "source": "wp-signs"
     },
     {
+      "id": "false-range",
+      "label": "false range (\"from X to Y\")",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 2,
+      "confidence": "contested",
+      "pattern": "(?:\\b(?:everything|anything|ranging|spanning|covering)\\s+from|(?:^|(?<=[.!?]\\s))From)\\s+(?!\\d|\\$|the\\s+\\d)(?!(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday)\\b)[A-Za-z][\\w-]*(?:\\s+[\\w-]+){0,3}\\s+to\\s+(?!\\d|\\$)(?!(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\\b)[A-Za-z][\\w-]*",
+      "note": "A vague spectrum gestured at to imply comprehensiveness. TWO WARNINGS. (1) PROVENANCE: this is NOT in Wikipedia:Signs of AI writing — a targeted search of the raw wikitext found no such pattern. It was inherited from the design brief and is retained on this author's judgement alone, which is why severity is 2 and confidence is contested. (2) It over-fires: the prototype's version matched every date and number range ('From 1995 to 2003'). Numerals, currency, months, and weekdays are now excluded on both sides, and the construction must be sentence-initial or introduced by everything/ranging/spanning/covering.",
+      "source": "local"
+    },
+    {
+      "id": "hedge-stack",
+      "label": "stacked hedging",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "\\b(?:may|might|could)\\s+(?:potentially|possibly|perhaps)\\b|\\bit\\s+(?:seems|appears)\\s+(?:likely|possible)\\s+that\\b",
+      "note": "Two hedges doing one hedge's work.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "negative-parallelism",
+      "label": "negative parallelism (\"it's not X, it's Y\")",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 3,
+      "confidence": "medium",
+      "pattern": "(?:\\b(?:is|are|was|were)\\s+not\\b|\\b\\w+(?:'s|'re)\\s+not\\b|\\b(?:isn|aren|wasn|weren|ain|doesn|don|didn)'t\\b)\\s+(?:just|merely|simply|only|about\\s+)?[^.!?]{2,80}[,;—–]\\s*(?:it|this|that|they)(?:'s|'re)\\b|\\bnot\\s+(?:just|merely|simply|only)\\s+[^.!?]{2,60}[—–]\\s*(?:it|this|that|they)(?:'s|'re)\\b",
+      "note": "Widely treated as the strongest structural tell of the current generation, and reported at roughly 3x human rate - but that figure traces to a single news article with no published corpus study. Confidence is `medium` for that reason, and because the source page itself concedes the construction is 'common among human writers'. FALSE POSITIVES ARE DOCUMENTED AND SERIOUS: autistic writers and anyone with a formal rhetorical education report using deliberate parallel construction for decades, and binary contrast is a structural resource of English itself. THE RULE THAT SURVIVES SCRUTINY IS FREQUENCY AND PURPOSELESSNESS, NOT PRESENCE - one deliberate contrast is rhetoric; five paragraphs ending on the same shape is autopilot. Hence density-gating, like everything else. Pivot may be a comma, semicolon, or dash.  MEASURED COVERAGE, 2026-08-03: against the source page's own {{highlight}} examples quoted UNALTERED, this family covers 11 of 16, up from 4. Zero false positives across the repo corpus. Every one of the sixteen is asserted individually in selftest.mjs, gaps included, so the number cannot drift without a test failing.  Two things were wrong before that, and the second is the instructive one. (1) The pattern demanded a pronoun subject AND one of just/merely/simply/only, so the bare forms could not match. Subject is now any negated copula, the intensifier is optional, ain't/doesn't/don't/didn't are negators, and a second branch takes the bare 'not just X - they're Y' form that carries no copula at all. (2) THE FIRST FIX WAS VALIDATED AGAINST A FIXTURE THAT HAD BEEN RETYPED with ASCII apostrophes and spaced em dashes. The source page uses U+2019 and unspaced dashes. Scored against that laundered text the family looked like 7 of 9; scored against what the page actually says it was 1 of 9, because every contraction in this catalog was spelled with an ASCII apostrophe. Do not cite the 7/9 figure - it measured a fixture fitted to the code. The underlying defect was scanner-wide and is fixed at intake; see normaliseApostrophes().  THE CONTRACTED-RESUMPTION REQUIREMENT IS A FALSE-POSITIVE GUARD, NOT A CLAIM ABOUT ENGLISH. Relaxing the subject without it produced five hits on this repo's own prose, every one a legitimate explanatory contrast ('is not a decision, it is a migration'). Those five resume uncontracted; the source examples resume contracted. That is a split on a few dozen observations and nothing more. If it starts costing real detections, widen the pivot punctuation or prune the entry rather than adding epicycles.  Still missed, each for a stated reason: uncontracted verb resumption ('doesn't just undermine...; it questions'), which the guard above blocks; sentence-boundary contrast ('is not dissolution. Rather, it constitutes'); bare 'not X, but Y' with no copula; anaphoric repetition ('Not a career, not a body of work'), which needs its own entry and its own FP data; and 'X rather than Y', deliberately unshipped - it fires twice on this repo's clean-human fixture and the source marks it Grok-specific. See CALIBRATION.md FN-2026-08-03-a.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "not-just-but",
+      "label": "\"not just X, but Y\"",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "\\bnot\\s+(?:just|merely|simply|only)\\s+[^.!?,]{2,45},?\\s+but\\s+(?:also\\s+)?",
+      "note": "The compressed form of negative parallelism. Legitimate occasionally; a signature at volume.",
+      "source": "wp-signs"
+    },
+    {
       "id": "not-only-but-also",
       "label": "\"not only ... but also\"",
       "kind": "structural",
@@ -731,6 +769,50 @@
       "confidence": "medium",
       "pattern": "\\bnot\\s+only\\b[^.!?]{0,70}\\bbut\\b",
       "note": "WIDENED 2026-08-03: `also` is now optional. The source page's Yayoi Kusama example reads 'not only a work of self-representation, but' with no `also`, so requiring it missed one of the page's own worked examples.  KNOWN EXPOSURE, and the measurement that found it is worth repeating because the first one was misleading. Widening was reported as '0 false positives across the repo corpus', which was true and nearly meaningless: this repo is technical register and technical register does not reach for this construction. Tested afterwards against ordinary formal prose, SIX OF SIX legitimate sentences match - 'She was not only the first to arrive but the last to leave', 'The treaty was not only unpopular but unenforceable'. The construction is ordinary English in essay and formal registers, and this entry cannot tell it from the AI-register version.  What holds the line is density gating, not the pattern: severity 2 with a min-count floor of 2, so a single occurrence never flags. An essayist who uses the construction habitually will still clear the ceiling, and for that author the honest fix is calibration - bands measured from their own corpus - rather than a narrower regex. Recorded here so nobody reads the repo-corpus zero as evidence it is safe everywhere.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "not-x-but-y",
+      "label": "\"is not X but Y\"",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "(?:\\b(?:is|are|was|were)\\s+not\\b|\\b\\w+(?:'s|'re)\\s+not\\b|\\b(?:isn't|aren't|wasn't|weren't)\\b)\\s+(?!just\\b|merely\\b|simply\\b|only\\b)[^.!?,;]{2,45}[,;—–]?\\s*but\\s+",
+      "note": "The source page gives this its own subsection under Negative parallelisms, and nothing in this catalog matched it before 2026-08-03: negative-parallelism required an intensifier and not-just-but requires one by construction, so the bare 'is not X but Y' form fell through the gap between them. The intensifier forms are deliberately excluded here by lookahead so the two entries cannot double-count the same sentence. Measured 0 false positives across this repo's 13 prose documents including both fixtures. Same caveat as its siblings: binary contrast is a structural resource of English, so this is density-gated and one occurrence means nothing. NOT SHIPPED alongside it: the source's third form, 'X rather than Y', which fires twice on script-v2-after.txt - this repo's canonical clean-human fixture - and which the source itself marks Grok-specific. That is the shape of a future CALIBRATION.md incident, so it stays out until there is a model axis to put it on.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "participle-tail",
+      "label": "participle tail clause",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": ",\\s+(?:highlight|emphasi[sz]|reflect|demonstrat|underscor|showcas|illustrat|cement|solidif|signal|mark|underlin|reinforc|affirm)ing\\s+(?:the|its|their|how|why|just)\\b",
+      "note": "The tail that asserts significance instead of showing it. Restricted to significance-asserting verbs on purpose — generic tails (', allowing you to...') are ordinary English and would swamp this.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "soft-summary",
+      "label": "\"overall,\" / \"in short,\"",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "(?:^|(?<=[.!?]\\s))(?:Overall|In\\s+short|Ultimately|At\\s+the\\s+end\\s+of\\s+the\\s+day),\\s",
+      "note": "Milder than the explicit summary markers and often legitimate. Separated so the strong form is not diluted by the weak one.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "tricolon",
+      "label": "rule of three (X, Y, and Z)",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 1,
+      "confidence": "contested",
+      "pattern": "\\b\\w+,\\s+\\w+,\\s+and\\s+\\w+\\b",
+      "note": "The rule of three: three-item lists, and adjective-adjective-adjective. Named on the source page. Contested and severity 1 because it matches ordinary English - any three comma-separated words - so it is meaningful only at density and never on presence.  RESTORED 2026-08-04, having been deleted earlier the same day. The deletion was wrong and the way it was wrong is worth more than the entry.  It was removed on measurements from a corpus that was silently corrupt: the human samples carried pre-ChatGPT revision metadata above text fetched from the CURRENT article, because prop=extracts accepts a historical revision id and serves the live page anyway. Against that phantom corpus the entry looked like an anti-signal - 84% of AI documents, 92% of human ones - and a standing rule in CALIBRATION.md said to delete on a field false positive.  Re-measured against the corrected corpus it is a weak POSITIVE signal: it flags on 36% of AI documents against 17% of human ones, roughly two to one. And deleting it cost seven times the recall it saved in precision - document-level recall fell from 21% to 3% while the false positive rate fell from 8% to 0%. For a tool whose output is explicitly leads rather than verdicts, trading 18 points of recall for 8 of precision is the wrong direction.  The rule that survives: a field false positive is grounds to EXAMINE an entry, not to delete it. Deletion needs the cost measured too. See CALIBRATION.md FN-2026-08-04-b.",
       "source": "wp-signs"
     },
     {
@@ -745,17 +827,90 @@
       "source": "recent"
     },
     {
-      "id": "hedge-stack",
-      "label": "stacked hedging",
-      "kind": "structural",
-      "category": "structural-scaffold",
+      "id": "boasts",
+      "label": "\"boasts a\"",
+      "kind": "lexical",
+      "category": "tonal-inflation",
       "severity": 2,
-      "confidence": "medium",
-      "pattern": "\\b(?:may|might|could)\\s+(?:potentially|possibly|perhaps)\\b|\\bit\\s+(?:seems|appears)\\s+(?:likely|possible)\\s+that\\b",
-      "note": "Two hedges doing one hedge's work.",
+      "confidence": "high",
+      "pattern": "boasts?\\s+(?:a|an|the|over|more|some|its)\\b",
+      "note": "Press-release verb. A building does not boast.",
+      "era": "2023-2024",
       "source": "wp-signs"
     },
-
+    {
+      "id": "deeply-rooted",
+      "label": "\"deeply rooted\" / \"setting the stage\"",
+      "kind": "lexical",
+      "category": "tonal-inflation",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "deep(?:ly)?[-\\s]rooted|setting\\s+the\\s+stage\\s+for|key\\s+turning\\s+point|focal\\s+point\\s+(?:for|of)",
+      "source": "wp-signs"
+    },
+    {
+      "id": "diverse-array",
+      "label": "\"a diverse array of\"",
+      "kind": "lexical",
+      "category": "tonal-inflation",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "(?:diverse|wide|vast|broad)\\s+(?:array|range)\\s+of",
+      "source": "wp-signs"
+    },
+    {
+      "id": "nestled",
+      "label": "\"nestled in\" / \"in the heart of\"",
+      "kind": "lexical",
+      "category": "tonal-inflation",
+      "severity": 3,
+      "confidence": "high",
+      "pattern": "nestled\\s+(?:in|within|among|amongst|between|amid|beside)|in\\s+the\\s+heart\\s+of\\b",
+      "note": "Travel-brochure register, and one of the most distinctive single tells on the source list.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "promotional-flattery",
+      "label": "promotional flattery",
+      "kind": "lexical",
+      "category": "tonal-inflation",
+      "severity": 1,
+      "confidence": "medium",
+      "pattern": "breathtaking|awe-inspiring|picturesque|majestic|stunning|captivating|mesmeri[sz]ing|unparalleled|iconic",
+      "source": "wp-signs"
+    },
+    {
+      "id": "reflects-broader",
+      "label": "\"reflects a broader\" / \"part of a broader\"",
+      "kind": "structural",
+      "category": "tonal-inflation",
+      "severity": 2,
+      "confidence": "high",
+      "pattern": "(?:reflect(?:s|ing|ed)?|part\\s+of|represent(?:s|ing|ed)?)\\s+(?:a\\s+)?broader\\s+(?:trend|movement|shift|pattern|context|change)",
+      "note": "Zooming out to significance the piece has not earned.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "renowned",
+      "label": "renowned / acclaimed",
+      "kind": "lexical",
+      "category": "tonal-inflation",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "renowned|acclaimed|celebrated\\s+(?:for|as)",
+      "source": "wp-signs"
+    },
+    {
+      "id": "serves-as",
+      "label": "\"stands as\" / \"serves as\"",
+      "kind": "structural",
+      "category": "tonal-inflation",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "\\b(?:stands?|serves?)\\s+as\\s+(?:a|an|the)\\s+(?:testament|reminder|symbol|beacon|example|focal|cornerstone)",
+      "note": "Narrowed to the significance-asserting objects. 'Serves as the entry point' is ordinary technical prose and is not matched.",
+      "source": "wp-signs"
+    },
     {
       "id": "significance-assertion",
       "label": "significance assertion",
@@ -779,16 +934,6 @@
       "source": "wp-signs"
     },
     {
-      "id": "promotional-flattery",
-      "label": "promotional flattery",
-      "kind": "lexical",
-      "category": "tonal-inflation",
-      "severity": 1,
-      "confidence": "medium",
-      "pattern": "breathtaking|awe-inspiring|picturesque|majestic|stunning|captivating|mesmeri[sz]ing|unparalleled|iconic",
-      "source": "wp-signs"
-    },
-    {
       "id": "vibrant",
       "label": "vibrant / rich / compelling",
       "kind": "lexical",
@@ -797,150 +942,6 @@
       "confidence": "contested",
       "pattern": "vibrant|compelling|nuanced",
       "note": "Ordinary adjectives that cluster in generated prose. Weak alone, informative as a rate.",
-      "era": "2023-2024",
-      "source": "wp-signs"
-    },
-
-    {
-      "id": "current-participles",
-      "label": "current-era participles (emphasizing / highlighting / showcasing)",
-      "kind": "lexical",
-      "category": "current-era",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "emphasi[sz]ing|highlighting|showcasing",
-      "note": "The mid-2025-onward cohort, and the reason this catalog is not just a list of words from 2023. Where the older tells were nouns (delve, tapestry), the surviving ones are participles. Bare use is ordinary English, so this is density-gated and weak; the high-severity signal is the same verbs in a significance-asserting tail clause, which `participle-tail` catches separately.",
-      "era": "2025-onward",
-      "source": "wp-signs"
-    },
-    {
-      "id": "enhance",
-      "label": "enhance / align with",
-      "kind": "lexical",
-      "category": "current-era",
-      "severity": 1,
-      "confidence": "contested",
-      "pattern": "enhanc(?:e|es|ed|ing|ement|ements)|align(?:s|ed|ing)?\\s+with",
-      "note": "Also mid-2025-onward. Ordinary in technical writing; watch the rate, not the presence.",
-      "era": "2025-onward",
-      "source": "wp-signs"
-    },
-    {
-      "id": "meticulous",
-      "label": "meticulous / meticulously",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "meticulous(?:ly)?",
-      "era": "2023-2024",
-      "source": "wp-signs"
-    },
-    {
-      "id": "boasts",
-      "label": "\"boasts a\"",
-      "kind": "lexical",
-      "category": "tonal-inflation",
-      "severity": 2,
-      "confidence": "high",
-      "pattern": "boasts?\\s+(?:a|an|the|over|more|some|its)\\b",
-      "note": "Press-release verb. A building does not boast.",
-      "era": "2023-2024",
-      "source": "wp-signs"
-    },
-    {
-      "id": "nestled",
-      "label": "\"nestled in\" / \"in the heart of\"",
-      "kind": "lexical",
-      "category": "tonal-inflation",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "nestled\\s+(?:in|within|among|amongst|between|amid|beside)|in\\s+the\\s+heart\\s+of\\b",
-      "note": "Travel-brochure register, and one of the most distinctive single tells on the source list.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "renowned",
-      "label": "renowned / acclaimed",
-      "kind": "lexical",
-      "category": "tonal-inflation",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "renowned|acclaimed|celebrated\\s+(?:for|as)",
-      "source": "wp-signs"
-    },
-    {
-      "id": "diverse-array",
-      "label": "\"a diverse array of\"",
-      "kind": "lexical",
-      "category": "tonal-inflation",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "(?:diverse|wide|vast|broad)\\s+(?:array|range)\\s+of",
-      "source": "wp-signs"
-    },
-    {
-      "id": "commitment-to",
-      "label": "\"commitment to excellence\"",
-      "kind": "lexical",
-      "category": "corporate-register",
-      "severity": 2,
-      "confidence": "high",
-      "pattern": "commitment\\s+to\\s+(?:excellence|quality|sustainability|innovation|diversity|its\\s+\\w+|the\\s+\\w+)",
-      "note": "Press-release phrasing; the source list flags it via quoted executive statements.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "serves-as",
-      "label": "\"stands as\" / \"serves as\"",
-      "kind": "structural",
-      "category": "tonal-inflation",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "\\b(?:stands?|serves?)\\s+as\\s+(?:a|an|the)\\s+(?:testament|reminder|symbol|beacon|example|focal|cornerstone)",
-      "note": "Narrowed to the significance-asserting objects. 'Serves as the entry point' is ordinary technical prose and is not matched.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "deeply-rooted",
-      "label": "\"deeply rooted\" / \"setting the stage\"",
-      "kind": "lexical",
-      "category": "tonal-inflation",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "deep(?:ly)?[-\\s]rooted|setting\\s+the\\s+stage\\s+for|key\\s+turning\\s+point|focal\\s+point\\s+(?:for|of)",
-      "source": "wp-signs"
-    },
-    {
-      "id": "reflects-broader",
-      "label": "\"reflects a broader\" / \"part of a broader\"",
-      "kind": "structural",
-      "category": "tonal-inflation",
-      "severity": 2,
-      "confidence": "high",
-      "pattern": "(?:reflect(?:s|ing|ed)?|part\\s+of|represent(?:s|ing|ed)?)\\s+(?:a\\s+)?broader\\s+(?:trend|movement|shift|pattern|context|change)",
-      "note": "Zooming out to significance the piece has not earned.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "challenge-formula",
-      "label": "the challenges-and-future-prospects formula",
-      "kind": "structural",
-      "category": "structural-scaffold",
-      "severity": 3,
-      "confidence": "high",
-      "pattern": "\\bDespite\\s+(?:its|the|these|this|their)\\s+[^.!?]{0,70}?\\b(?:faces?|continues?\\s+to\\s+face|still\\s+faces?)\\s+(?:several\\s+|significant\\s+|numerous\\s+|ongoing\\s+)?(?:challenges|criticism|obstacles|difficulties|hurdles)",
-      "note": "A whole-paragraph shape the source list names explicitly: 'Despite its [positive descriptor], [subject] faces challenges...' closing on speculation about future improvement. Distinctive because it is a template, not a phrase.",
-      "source": "wp-signs"
-    },
-    {
-      "id": "interplay",
-      "label": "interplay / bolstered / garner",
-      "kind": "lexical",
-      "category": "figurative-vocabulary",
-      "severity": 2,
-      "confidence": "medium",
-      "pattern": "interplay|bolster(?:s|ed|ing)?|garner(?:s|ed|ing)?",
       "era": "2023-2024",
       "source": "wp-signs"
     }

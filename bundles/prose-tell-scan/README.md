@@ -436,18 +436,18 @@ report their cadence half and their density half with separate confidence — se
 
 ## What it actually catches — measured
 
-Against 44 documents this repo did not write: 32 that the Wikipedia community
+Against 45 documents this repo did not write: 33 that the Wikipedia community
 examined and judged AI-written, and 12 article revisions from **before ChatGPT
 existed**, weighted toward Indian, Nigerian and Kenyan institutions — the ornate
 formal register this catalog is most likely to misjudge.
 
-| | AI corpus (n=32) | human corpus (n=12) |
+| | AI corpus (n=33) | human corpus (n=12) |
 |---|---|---|
-| flagged at the documented threshold | **1 (3%)** | **0 (0%)** |
-| any Tier A artifact | **8 (25%)** | **0** |
+| flagged at the documented threshold | **2 (6%)** | **0 (0%)** |
+| any Tier A artifact | **8 (24%)** | **0** |
 
 **Read the first row before trusting this tool.** Style-catalog recall is low —
-3% here, 22% under the `essay` profile. It misses most text a careful human
+6% here, 21% under the `essay` profile. It misses most text a careful human
 reader identifies. That is a consequence of the design rather than a bug to tune
 away: everything is density-gated, contested entries are deliberately weak, and
 the output is built for an author reviewing their own draft, not for a
@@ -467,6 +467,18 @@ synthetic passage written by the catalog's own author.
 
 Corpus, provenance and licensing: [`tests/corpus/`](tests/corpus/). It is
 CC BY-SA 4.0, not MIT, and pinned to immutable revision ids.
+
+> **The first version of this corpus was silently wrong**, and the way it failed
+> is worth knowing before you trust any number here. `prop=extracts` accepts a
+> historical revision id, returns success, echoes that id back, and serves the
+> **current** article. So every human sample carried 2022 metadata above 2026
+> text, and *"provably predates ChatGPT"* was false in every file while every
+> manifest looked right. A catalog entry was then deleted on measurements taken
+> from it, and restored when the corpus was fixed.
+>
+> Each sample is now proved against its own revision's wikitext, the proof is
+> recorded per sample in `ATTRIBUTION.json`, and the acceptance gate asserts it.
+> Full account: [`CALIBRATION.md`](CALIBRATION.md) `FN-2026-08-04-b`.
 
 ## Verification
 

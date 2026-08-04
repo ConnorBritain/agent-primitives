@@ -112,6 +112,47 @@ export function runAcceptance({ report = false } = {}) {
     fpr_ci95: [lo, hi],
   };
 
+  // ---- Gate 0: the corpus is what it claims to be --------------------------
+  // Two properties, both previously asserted in prose and neither checked.
+  //
+  // The first cost an entire corpus. `prop=extracts&revids=<historical id>`
+  // returns HTTP 200, echoes the requested revid, and serves the CURRENT page —
+  // so the first human corpus here carried 2022 metadata above 2026 text, and
+  // "provably predates ChatGPT" was false in every file. fetch-corpus.mjs now
+  // proves each sample against its own revision's wikitext and records the
+  // result; this asserts the record exists rather than trusting the frontmatter.
+  //
+  // The second is the held-out split, which was described as enforced while
+  // nothing enforced it.
+  const attribPath = join(CORPUS, "ATTRIBUTION.json");
+  if (!existsSync(attribPath)) {
+    add("corpus provenance is recorded", false, "ATTRIBUTION.json missing");
+  } else {
+    const attrib = JSON.parse(readFileSync(attribPath, "utf8"));
+    add(
+      "every human sample was verified against its own revision's wikitext",
+      attrib.human.length > 0 && attrib.human.every((s) => s.revision_verified),
+      attrib.human.filter((s) => !s.revision_verified).map((s) => s.file).join(", ")
+        || "re-run fetch-corpus.mjs --write",
+    );
+    add(
+      "every human sample predates ChatGPT's public launch",
+      attrib.human.every((s) => s.timestamp < "2022-11-30"),
+      attrib.human.filter((s) => s.timestamp >= "2022-11-30").map((s) => s.file).join(", "),
+    );
+    // Held-out: anything the catalog could have been built from is tuning data.
+    // The catalog records when it was extracted; samples postdating that could
+    // not have informed it.
+    const catalog = JSON.parse(readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"));
+    const cutoff = catalog.sources?.["wp-signs"]?.retrieved ?? catalog.generated;
+    const heldOut = attrib.ai.filter((s) => s.timestamp.slice(0, 10) > cutoff);
+    add(
+      `held-out split is real: ${heldOut.length}/${attrib.ai.length} AI samples postdate the catalog (${cutoff})`,
+      heldOut.length > 0,
+      "if every sample predates the catalog, this measures tuning data and nothing else",
+    );
+  }
+
   // ---- Gate 1: Tier A must never fire on provably-human text ---------------
   // The only absolute gate here, and it earns that because the whole basis for
   // Tier A is that it is dispositive on one occurrence. One false positive in
@@ -125,6 +166,12 @@ export function runAcceptance({ report = false } = {}) {
 
   // ---- Gate 2: Tier A must still find artifacts in the AI corpus -----------
   // The paired positive. A tier that never fires is trivially precise.
+  //
+  // `> 0` is the floor; the real check is against the baseline below. Written
+  // as a floor alone this gate was demonstrably useless: blanking
+  // `model-markup-artifact` — the strongest signal in the catalog — dropped Tier
+  // A from 8/32 to 1/32 and this still reported ok. The baseline recorded the 8
+  // and nothing read it back.
   add(
     "Tier A: still finds artifacts in the AI corpus",
     aiTierA > 0,
@@ -145,6 +192,21 @@ export function runAcceptance({ report = false } = {}) {
       `recall has not worsened (${aiFlag}/${ai.length} vs baseline ${base.ai.flagged}/${base.ai.n})`,
       aiFlag >= base.ai.flagged,
       "a fall here means a tightening cost real detections — check it was deliberate",
+    );
+    // Tier A separately, because it is where the tool's actual discriminating
+    // power lives and a drop there is invisible in the category-flag rate: a
+    // document can lose its artifact hit and still flag on style, or never have
+    // flagged at all. Folding the two together is how the strongest signal in
+    // the catalog could break with every gate green.
+    add(
+      `Tier A recall has not worsened (${aiTierA}/${ai.length} vs baseline ${base.ai.tierA}/${base.ai.n})`,
+      aiTierA >= base.ai.tierA,
+      "the artifact tier is the highest-precision half of this tool — a fall is a real loss",
+    );
+    add(
+      `Tier A false positives have not appeared (${humanTierA} vs baseline ${base.human.tierA})`,
+      humanTierA <= base.human.tierA,
+      "any rise breaks the tier's dispositive claim",
     );
     // Per-document regression: which specific human documents flag.
     const wasClean = new Set(base.human.flaggedFiles ?? []);
