@@ -14,8 +14,18 @@ actually notices when prose is not theirs: a paragraph pitched at the wrong
 distance, a transition they would never use, a register that belongs to someone
 else.
 
-That judgement needs a reader. It also needs *evidence*, which is what separates
-this from an opinion: every finding must cite how the author writes instead.
+That judgement needs a reader. It also needs *evidence*: every finding must cite
+how the author writes instead.
+
+**That citation is self-reported, and worth knowing the limits of.** Nothing
+verifies that a cited sample actually contains what the finding claims — the
+scanner next door has an automated check that every incident citation resolves,
+and there is no equivalent here, because checking a claim like *"absent from all
+eleven samples"* means re-reading eleven documents. What the requirement buys is
+narrower than it looks: a critic with nothing to cite has to say nothing, which
+is most of the value. What it does not buy is a guarantee the citation is
+accurate. `PROTOCOL.md` puts the spot-check on the consolidating session, and a
+spot-check is what it is.
 
 ## Why a separate agent
 
@@ -90,10 +100,18 @@ the corpus spans a long period it describes a range rather than a voice, and
 findings get correspondingly weaker. `calibrate` reports when a corpus looks like
 more than one voice; heed it before trusting this.
 
-**It has been measured on one genre.** The acceptance harness runs it against 12
-provably-human encyclopedia articles and 33 the community judged AI-written. That
-bounds its false-positive rate on encyclopedic prose and says nothing about
-essays, fiction, or correspondence.
+**It has been measured on one genre, on part of one corpus.** The first run
+covered 6 of the 12 provably-human encyclopedia articles and 2 of the 33 the
+community judged AI-written: 0 of 6 false positives after a fix, 2 of 2 caught.
+That is a sample, not the full harness, and it bounds nothing about essays,
+fiction, or correspondence. See
+[`tests/critic-harness.md`](../../../bundles/prose-review/tests/critic-harness.md).
+
+**And what it measured is register, not a person.** The human corpus is
+Wikipedia articles written by many editors over years. Passing shows the prompt
+is not trigger-happy on one tight register; it does not show the prompt can
+recognise an individual, which is the thing it is for. Three of the six runs
+noticed this unprompted.
 
 **It is not an authorship detector and must never be used as one.** The prompt
 refuses to state or imply machine generation. Pointed at someone else's writing

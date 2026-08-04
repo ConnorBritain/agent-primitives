@@ -72,10 +72,12 @@ one.
 **Where it does not reach, measured rather than asserted.** The corpus is
 encyclopedia prose, and here is what that costs, per 1000 words:
 
-| | argumentative moves | first person | thesis statements |
+| per 1000 words | argumentative moves | first person | thesis statements |
 |---|---|---|---|
-| human (12) | 0.3 | 0.2 | **0.0** |
-| AI (33) | 0.7 | 1.9 | 0.1 |
+| human (12) | 0.29 | 0.19 | **0** |
+| AI (33) | 0.71 | 2.79 | 0.03 |
+
+Reproduce with [`tests/genre-check.mjs`](tests/genre-check.mjs).
 
 **Zero thesis markers in the entire human corpus.** Asking
 `prose-adversarial-reader` for the strongest objection to the thesis of a
@@ -85,8 +87,14 @@ position, so "this claim is unsupported" has a different meaning in it than in a
 essay.
 
 A trap worth naming, because it is exactly the shape of the errors this project
-has already made four times: **first person runs 9× higher in the AI set**, which
-looks like a strong signal and almost certainly is not. The AI corpus includes
+has already made: **first person runs 14.7× higher in the AI set**, which looks
+like a strong signal and almost certainly is not.
+
+(That figure was first published here as 9×, from an ad-hoc count that averaged
+per-file rather than pooling and did not strip provenance frontmatter. The script
+above is the reproducible version and it disagrees. Sixth time in this project a
+number reached a document before a method existed to re-derive it — which is why
+the script is now checked in rather than the number.) The AI corpus includes
 talk-page comments and drafts, which are first-person by genre; the human corpus
 is pure article namespace. That is a corpus artifact wearing the costume of a
 discovery, and it is only visible because the genre difference was checked.

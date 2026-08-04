@@ -1,5 +1,9 @@
 # The review protocol
 
+**Status: v0.1 ships ONE critic** (`prose-voice-critic`). This document describes
+the protocol the full set is designed for; most of it is not yet operative. See
+[`README.md`](README.md) for what exists.
+
 How the critics are meant to be run. Prose, not code — there is no orchestrator
 here, exactly as in `verification-gate`. The main session executes this.
 
@@ -62,6 +66,13 @@ and hiding it makes the one finding look like a verdict on the whole draft.
 - Present a finding that arrived without its evidence. A voice finding with no
   corpus citation is a guess, and the prompt requires it dropped — if one
   reaches consolidation anyway, drop it here.
+
+  **And spot-check the citations that do arrive.** Nothing verifies them
+  automatically. For each high-confidence finding, open the cited sample and
+  confirm the claim before passing it on: a finding asserting a construction is
+  *"absent from all eleven samples"* is checkable with one grep, and a citation
+  that does not survive that check is worse than no citation, because it arrives
+  wearing evidence's clothes.
 
 ## Failure modes, named
 
