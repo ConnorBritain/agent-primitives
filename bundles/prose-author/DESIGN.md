@@ -203,32 +203,126 @@ the corpus has drifted from it since.
 
 ---
 
-## Open questions
+## Resolved: what the drafter sees from earlier in the piece
 
-Genuinely open, not rhetorical.
+The spec first framed this as continuity *versus* self-amplification. That is a
+false trade. The risk is not seeing prior context — it is seeing **its own
+prose**. Three things were bundled under "previous drafts" and they separate
+cleanly:
 
-1. **How many exemplars, and chosen how?** Register and length are obvious. Topic
-   similarity is tempting and probably wrong — it would teach the model to
-   reproduce old arguments rather than old rhythms.
+| what it sees | gives | costs |
+|---|---|---|
+| its own prior prose | rhythm continuity | direct self-amplification, compounding each round |
+| a factual outline of prior sections | terms, claims and coverage already established | nothing stylistic |
+| **the author's edits to its draft** | the correction signal | nothing — this is pure human data |
 
-2. **Does the drafter ever see its own previous drafts of the same piece?** It
-   would help continuity across a long document and it is also the most direct
-   path to self-amplification.
+**Decided: never its own prose. Always the author's edits. Plus a structured
+outline for content continuity.** Content and style travel on separate channels,
+and the only style input is human.
 
-3. **What happens when the author's corpus is internally inconsistent?** Most
-   people write differently across five years. Bands widen, everything falls
-   "within range", and the report stops saying anything. A `since:` filter may be
-   needed, which is a new schema key and deserves its own argument.
+The third row is the one worth naming. When an author rewrites a generated
+sentence, that diff is the most concentrated evidence about their voice available
+anywhere — better than a corpus sample, because it is a correction *in context*.
+It wrote X, they made it Y, and nothing about that is ambiguous.
 
-4. **Is the drafting step an agent or inline?** It needs no adversarial context
-   isolation — nothing here is checking anyone's work. Inline is simpler. An
-   agent buys a clean context, which matters if the author's material is long.
+## Resolved: a corpus that is not internally consistent
 
-5. **Does a Tier A artifact in a draft mean the draft is discarded or repaired?**
-   Discarding is cleaner and wastes work. Repairing means a rewrite step, and the
-   whole bundle boundary exists to keep rewriting away from the catalog.
+Also reframed. This is not a problem to resolve; it is **a fact to report**.
 
----
+Most people wrote differently five years ago. Averaging two clusters produces
+bands that describe neither — wide enough that everything falls "within range",
+so the tool goes quiet and looks like it is working. Silent uselessness is the
+worst available outcome, because nothing in the output announces it.
+
+**Decided: cluster the corpus on cadence, and when it is multimodal, say so and
+ask.**
+
+> Your `essay` corpus has two distinct clusters — 2019–2021 and 2023–present —
+> differing mainly in sentence length. Which are you writing as?
+
+No schema change, no automatic resolution, no silently discarded samples. The
+author knows which one they meant; the tool only has to notice and ask.
+
+## How it should behave
+
+### Report only the surprises
+
+Default output is **silence plus one line of reassurance**. A tool that prints a
+full comparison every run gets skimmed, then ignored — the same outcome as not
+having it, after paying for it. Findings appear when something sits outside the
+author's measured range; otherwise the report is a single line saying it looked
+and found nothing unusual.
+
+Full tables stay available behind a flag, for when someone wants to audit rather
+than write.
+
+### "Outside your range" is a question, not a verdict
+
+When a draft leaves the author's bands there are three causes and the tool
+**cannot distinguish them**:
+
+1. the draft drifted — the model's voice, not theirs
+2. they are deliberately writing something new
+3. their corpus is stale or too narrow to describe them any more
+
+Every report of this kind must be phrased as the open question it is. A tool that
+says "this doesn't sound like you" when the truth is "you are stretching" teaches
+the author to write blandly, which is the failure this whole project exists to
+avoid.
+
+### The disagreement is the most valuable event in the system
+
+When the tool says *outside your range* and the author says **"no, that's me"** —
+that is a labelled, deliberate extension of their voice, in context, with a
+measurement attached. It is better data than any corpus sample, because it is
+precisely the case the corpus does not yet cover.
+
+So it needs a first-class affordance, not a shrug. Saying "that's me" should
+offer to add the passage to the corpus, and the next calibration should widen the
+band that flagged it. The tool learns where it was wrong about someone, which is
+the only way its picture of them improves.
+
+## Writing modes, and where each belongs
+
+| mode | what helps | where |
+|---|---|---|
+| **"is this me?" on your own draft** | **diagnostics only, no generation** | **`prose-tell-scan`** |
+| long-form drift — chapter 7 against chapter 1 | diagnostics across sections | `prose-tell-scan` |
+| blank page from notes | generation | `prose-author` |
+| continuing mid-document | generation + content outline | `prose-author` |
+| one passage is not working | scoped generation | `prose-author` |
+| cut it by 30% | rewriting | `prose-review` |
+| did an editor change my voice? | fidelity diff | `prose-review` |
+| essay → email | register transposition | unassigned; may not belong to any of them |
+
+## Build order, and an architectural consequence
+
+**Milestone one is "is this me?", and it does not belong in this bundle.**
+
+It requires no generation. It is the author's draft, scanned against the author's
+own derived bands, reported relatively. That is measurement, which is the line the
+bundle split was drawn on — so it belongs in `prose-tell-scan`, and putting it
+here would blur the boundary the split exists to keep sharp.
+
+It is also nearly free, which is the argument for doing it first. `calibrate.mjs`
+already pools every catalog entry's count across the corpus — and then collapses
+it into severity-band ceilings, discarding the per-entry rate. The data behind
+*"you use `underscore` 0.2×/1k; this draft is 1.4×/1k"* is computed today and
+thrown away. Retaining it, plus a relative report mode, is most of the milestone.
+
+Doing it first also makes the corpus valuable **before** any drafting exists,
+which matters given the ordering constraint: the corpus has to be worth building
+for its own sake, or nobody will build it and generation will forever be checked
+against fallbacks.
+
+Then, in this bundle:
+
+| milestone | adds |
+|---|---|
+| v0.1 | scoped generation — one passage, with the original beside it, easiest to judge |
+| v0.2 | blank page from notes; content-outline continuity |
+| v0.3 | edit ingestion with measured `edit_fraction`; the correction channel |
+| v0.4 | voice locks as a drafting target |
 
 ## What would make this a bad primitive
 
