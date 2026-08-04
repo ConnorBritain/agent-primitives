@@ -1,7 +1,7 @@
 {
-  "version": "0.2.0",
+  "version": "0.3.0",
   "generated": "2026-07-26",
-  "audited": "2026-08-03",
+  "audited": "2026-08-04",
   "_version_note": [
     "This catalog versions INDEPENDENTLY of the bundle that ships it. `generated` is when",
     "entries were first extracted from the source page; `audited` is the last time they",
@@ -154,6 +154,16 @@
     "synonym-expansion": {
       "was": "Expanding flagged vocabulary into synonym sets.",
       "why_rejected": "The source is explicit: 'This section is to be taken as literally as possible: a word being overused by AI does not imply that its synonyms are also overused.' Entries here match the attested word, not its neighbourhood.",
+      "source": "wp-signs"
+    },
+    "additionally-initial": {
+      "was": "The word 'Additionally' heading a sentence.",
+      "why_rejected": "TESTED AND REJECTED 2026-08-04 on corpus evidence. This was proposed to correct what looked like an over-generalisation in the `transition-overload` rejection: that entry was dropped for transition DENSITY, while the source page separately lists 'Additionally (especially beginning a sentence)' as its first AI-vocabulary item, with two citations. So a narrow sentence-initial form seemed defensible. It is not. Measured on the acceptance corpus it appears in 1 of 33 AI documents and 1 of 12 provably-human ones — proportionally MORE common in human writing. The original rejection was right for a reason its author did not have: not merely that density is the wrong statistic, but that the word does not discriminate at all in encyclopedic register. Recorded so the same reasonable-looking case is not re-argued a third time.",
+      "source": "wp-signs"
+    },
+    "copulative-avoidance": {
+      "was": "Replacing 'is/are' with functions as, operates as, refers to, holds the distinction of being.",
+      "why_rejected": "TESTED AND REJECTED 2026-08-04. The source page devotes a section to this and it is plainly real as an observation about register. The deterministic form is not usable: measured on the acceptance corpus, the broad version appears in 12% of AI documents and 8% of human ones — encyclopedic prose says 'functions as a' constantly and means it. Narrowing to the distinctive constructions ('holds the distinction of being', 'ventured into') dropped it to 0 of 33 AI documents: precise enough to be useless. The pattern lives between two failure modes with no gap between them. `serves-as` and `boasts` already cover the two variants that do discriminate. What remains needs a parser that can tell a copula-avoidance from a verb doing real work, which is out of scope here and belongs with the critics.",
       "source": "wp-signs"
     }
   },
@@ -619,6 +629,20 @@
       "source": "fixture"
     },
     {
+      "id": "assistant-preamble",
+      "label": "chat preamble leaked into the document",
+      "kind": "structural",
+      "category": "leakage",
+      "tier": "A",
+      "severity": 3,
+      "confidence": "definitive",
+      "always_flag": true,
+      "pattern": "\\b(?:certainly|of\\s+course|absolutely)[!,]\\s+(?:here|i|below|let)|\\bhere(?:'s|\\s+is)\\s+(?:a|the)\\s+(?:more\\s+)?(?:detailed\\s+)?(?:draft|revised|updated|rewritten|complete|breakdown|summary|version)\\b|\\bwould\\s+you\\s+like\\s+(?:me\\s+to|a|an|more)\\b|\\bi\\s+hope\\s+this\\s+helps\\b|\\bis\\s+there\\s+anything\\s+else\\b|\\blet\\s+me\\s+know\\s+if\\s+you'?d?\\s*(?:like|need|want)\\b",
+      "note": "The assistant's half of a conversation, left in the document. Tier A because it is an ARTIFACT rather than a style judgement: nobody drafting an article types 'Would you like me to expand this section?' into it. The source page lists these under Collaborative communication and they are among the most-cited tells on it. Distinct from `chatbot-register`, which catches the assistant's characteristic PHRASES ('You're absolutely right'). This catches its structural moves: offering, opening, signing off. MEASURED on the acceptance corpus: 2 of 33 community-identified AI documents, 0 of 12 provably-human ones, 0 across this repo's own prose. Two hits is a low rate, and for a style entry that would be an argument against shipping. Tier A is judged on whether one occurrence is dispositive, not on frequency — a document containing 'Would you like me to' has one explanation. FALSE-POSITIVE EXPOSURE: fiction and interview transcripts, where a character may say these words. The `narration` profile is the place to disable it if that bites.",
+      "era": "2023-onward",
+      "source": "wp-signs"
+    },
+    {
       "id": "chatbot-register",
       "label": "chatbot register leaked into the draft",
       "kind": "structural",
@@ -789,8 +813,8 @@
       "category": "structural-scaffold",
       "severity": 3,
       "confidence": "high",
-      "pattern": ",\\s+(?:highlight|emphasi[sz]|reflect|demonstrat|underscor|showcas|illustrat|cement|solidif|signal|mark|underlin|reinforc|affirm)ing\\s+(?:the|its|their|how|why|just)\\b",
-      "note": "The tail that asserts significance instead of showing it. Restricted to significance-asserting verbs on purpose — generic tails (', allowing you to...') are ordinary English and would swamp this.",
+      "pattern": ",\\s+(?:highlight|emphasi[sz]|reflect|demonstrat|underscor|showcas|illustrat|cement|solidif|signal|mark|underlin|reinforc|affirm|ensur|encompass|contribut|cultivat|foster|enhanc|resonat|symbolis|symboliz)ing\\s+(?:the|its|their|a|an|to|toward|towards|how|why|just)\\b",
+      "note": "The tail that asserts significance instead of showing it. Restricted to significance-asserting verbs on purpose — generic tails (', allowing you to...') are ordinary English and would swamp this. WIDENED 2026-08-04 with the verbs the source page's own box lists and this pattern did not match: ensuring, encompassing, contributing, cultivating, fostering, enhancing, resonating, symbolising. The object list gains a/an/to/toward, since several of those verbs take them. Measured: +2 of 33 AI documents, +0 of 12 human, +0 on this repo.",
       "source": "wp-signs"
     },
     {
@@ -870,6 +894,18 @@
       "source": "wp-signs"
     },
     {
+      "id": "notability-canning",
+      "label": "canned assertion of notability and coverage",
+      "kind": "structural",
+      "category": "tonal-inflation",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "\\b(?:independent\\s+(?:coverage|sources)|(?:local|regional|national|international)\\s+media\\s+outlets|(?:music|business|tech|trade)\\s+(?:outlets|publications)|profiled\\s+in\\s+(?:multiple|several|numerous|various)|written\\s+by\\s+a\\s+leading\\s+expert|(?:maintains?|has)\\s+an?\\s+active\\s+social\\s+media\\s+presence|significant,?\\s+(?:substantial|sustained)[^.!?]{0,30}coverage|widely[-\\s]read\\s+outlets|other\\s+prominent\\s+media\\s+outlets)\\b",
+      "note": "Asserting that a subject is notable, and that sources exist, instead of demonstrating either. The source page singles this out as MORE COMMON IN TOOLS RELEASED IN 2025 OR LATER, which makes it one of the few entries here aimed at the current cohort rather than a trained-out one; the rest of the `current-era` material is two weak lexical entries. MEASURED on the acceptance corpus: 2 of 33 AI documents, 0 of 12 provably-human ones, 0 across this repo's prose. Weak but clean. Severity 2 and density-gated, so it needs a second occurrence to flag. WHERE THIS WILL MISFIRE: writing ABOUT notability — a Wikipedia policy discussion, a media-studies paper, a press kit. Those legitimately discuss independent coverage and trade publications. Mention-vs-use again, and unfixable for the same reason.",
+      "era": "2025-onward",
+      "source": "wp-signs"
+    },
+    {
       "id": "promotional-flattery",
       "label": "promotional flattery",
       "kind": "lexical",
@@ -929,8 +965,8 @@
       "category": "tonal-inflation",
       "severity": 2,
       "confidence": "high",
-      "pattern": "\\b(?:studies\\s+(?:show|suggest|indicate|have\\s+shown)|research\\s+(?:shows|suggests|indicates)|many\\s+(?:experts|scholars|researchers)|some\\s+(?:experts|argue|say)|it\\s+is\\s+widely\\s+(?:accepted|believed|recognized|regarded)|experts\\s+(?:say|agree|believe)|scientists\\s+(?:say|believe)|it\\s+has\\s+(?:long\\s+)?been\\s+said)\\b",
-      "note": "High confidence because it is checkable: either the citation is there or it is not. The prose-substance-critic in the prose-review bundle inherits every hit.",
+      "pattern": "\\b(?:studies\\s+(?:show|suggest|indicate|have\\s+shown)|research\\s+(?:shows|suggests|indicates)|many\\s+(?:experts|scholars|researchers)|some\\s+(?:experts|argue|say)|it\\s+is\\s+widely\\s+(?:accepted|believed|recognized|regarded)|experts\\s+(?:say|agree|believe)|scientists\\s+(?:say|believe)|it\\s+has\\s+(?:long\\s+)?been\\s+said)|\\bindustry\\s+reports?\\b|\\bobservers?\\s+have\\s+(?:cited|noted)\\b|\\bseveral\\s+(?:sources|publications)\\b|\\bsome\\s+(?:critics|commentators|observers)\\s+(?:argue|say|note|suggest)\\b",
+      "note": "High confidence because it is checkable: either the citation is there or it is not. The prose-substance-critic in the prose-review bundle inherits every hit. WIDENED 2026-08-04 with forms from the source's box that the original missed, notably the noun-interposed 'some critics argue' — the old alternation required the verb to follow 'some' directly. Measured: +1 of 33 AI documents, +0 human, +0 on this repo.",
       "source": "wp-signs"
     },
     {

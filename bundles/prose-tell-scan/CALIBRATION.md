@@ -431,6 +431,68 @@ errors produce plausible numbers that survive review until someone re-derives
 them independently. Before publishing a figure, state what would have to be true
 for it to be meaningless, and check that thing.
 
+### FN-2026-08-04-c · coverage round, with the corpus as the referee
+
+The first catalog change decided by measurement rather than by reading. Six
+candidates drawn from source-page sections the catalog under-covered, each scored
+against 33 AI documents, 12 provably-human ones, and this repo's own prose before
+anything shipped.
+
+**Shipped, two new entries:**
+
+| entry | AI | human | repo |
+|---|---|---|---|
+| `assistant-preamble` (Tier A) | 2/33 | 0/12 | 0 |
+| `notability-canning` | 2/33 | 0/12 | 0 |
+
+Two hits is a low rate. For a style entry that would argue against shipping;
+`assistant-preamble` is Tier A, which is judged on whether one occurrence is
+dispositive rather than on frequency. A document containing a sentence like
+`Would you like me to expand that?` has exactly one explanation.
+
+That example is backticked, and on one line, for a reason worth the aside: written
+as plain prose it tripped `assistant-preamble` in this very file, and the Tier A
+guard from `FN-2026-08-03-c` failed the build. Inline code is masked before
+scanning; a code span broken across a newline is not. `notability-canning` ships at severity
+2 and density-gated because it is the source's named *current*-cohort pattern,
+and the rest of `current-era` is two weak lexical entries.
+
+**Widened, two existing entries.** `participle-tail` gained the verbs the source's
+own box lists and it did not match (ensuring, encompassing, contributing,
+cultivating, fostering, enhancing, resonating, symbolising): +2 AI, +0 human.
+`vague-attribution` gained the noun-interposed forms — the old alternation
+required the verb to follow "some" directly, so "some critics argue" never
+matched: +1 AI, +0 human.
+
+**Rejected, two candidates, and the first is the useful one.**
+
+`additionally-initial` was proposed to correct what looked like an
+over-generalisation: `transition-overload` was dropped for transition *density*,
+while the source page separately lists "Additionally (especially beginning a
+sentence)" as its first AI-vocabulary item with two citations. A narrow
+sentence-initial form seemed clearly defensible.
+
+It appears in **1 of 33 AI documents and 1 of 12 human ones** — proportionally
+commoner in human writing. The original rejection was right for a reason its
+author did not have. Recorded so the same reasonable-looking case is not argued a
+third time.
+
+`copulative-avoidance` is real as an observation and unusable as a regex. Broad,
+it matches 12% of AI documents and 8% of human ones, because encyclopedic prose
+says "functions as a" constantly and means it. Narrowed to the distinctive
+constructions it matches 0 of 33. There is no gap between the two failure modes.
+`serves-as` and `boasts` already cover the variants that discriminate; the rest
+needs a parser and belongs with the critics.
+
+**Net effect, gate-verified rather than asserted:** recall 2/33 → 3/33, Tier A
+9/33, false positives unchanged at 0/12.
+
+**What the round is really evidence for.** Four of six candidates came from
+carefully reading the canonical source, and two of those four would have made the
+tool worse. Reading a source tells you a pattern is real; only a corpus tells you
+whether a *regex for it* discriminates. Every catalog entry added before this
+round was shipped on the first kind of evidence alone.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather

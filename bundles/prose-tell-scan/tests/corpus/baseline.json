@@ -10,8 +10,8 @@
   "catalog_version": "0.2.0",
   "ai": {
     "n": 33,
-    "flagged": 2,
-    "tierA": 8
+    "flagged": 3,
+    "tierA": 9
   },
   "human": {
     "n": 12,

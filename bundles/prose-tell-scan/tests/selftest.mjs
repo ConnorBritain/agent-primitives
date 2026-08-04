@@ -556,6 +556,74 @@ try {
     check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
+  group("Coverage added 2026-08-04 — each measured on the corpus before shipping");
+  {
+    // Tier A. Judged on whether one occurrence is dispositive, not on rate:
+    // nobody drafting an article types the assistant's half of a conversation
+    // into it. 2/33 AI, 0/12 human, 0 on this repo.
+    const doc = join(tmp, "preamble.txt");
+    writeFileSync(
+      doc,
+      "Certainly, here is the revised section you asked for.\n\n"
+      + "The town was founded in 1847.\n\n"
+      + "Would you like me to expand the history further?\n",
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "assistant-preamble");
+    check("assistant-preamble catches leaked chat turns", Boolean(hit), "");
+    check("it flags on one occurrence, as Tier A must", hit?.flagged === true);
+    check("both forms match", hit?.count >= 2, `count=${hit?.count}`);
+  }
+  {
+    // The paired negative, and the one that matters: prose ABOUT an assistant
+    // must stay quiet, because this is Tier A and a false positive there
+    // devalues every artifact finding.
+    const doc = join(tmp, "preamble-neg.txt");
+    writeFileSync(
+      doc,
+      "The interface was polite but unhelpful, and it never explained its reasoning.\n\n"
+      + "Reviewers noted that the tone felt rehearsed rather than considered.\n",
+    );
+    const ids = scan([doc, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+    check("and stays quiet on ordinary prose about assistants", !ids.includes("assistant-preamble"),
+      ids.join(","));
+  }
+  {
+    // The source page's current-cohort pattern — the one it says is commoner in
+    // tools released 2025 or later. 2/33 AI, 0/12 human.
+    const doc = join(tmp, "notability.txt");
+    writeFileSync(
+      doc,
+      "The company has received independent coverage in national media outlets.\n\n"
+      + "Its founder has been profiled in multiple widely-read outlets and maintains an "
+      + "active social media presence.\n",
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "notability-canning");
+    check("notability-canning catches the canned-sourcing cluster", Boolean(hit));
+    check("several forms match", hit?.count >= 3, `count=${hit?.count}`);
+  }
+  {
+    // Two rejections, recorded so the same reasonable-looking case is not
+    // re-argued. `additionally-initial` was proposed to correct what looked like
+    // an over-generalisation in the transition-overload rejection, and the corpus
+    // says the original call was right: 1/33 AI against 1/12 human.
+    const cat = JSON.parse(
+      readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"),
+    );
+    for (const id of ["additionally-initial", "copulative-avoidance"]) {
+      check(`${id}: tested, rejected, and recorded rather than forgotten`,
+        Boolean(cat.rejected?.[id]?.why_rejected)
+        && !cat.entries.some((e) => e.id === id),
+        "");
+    }
+    check(
+      "the rejections cite the measurement that killed them",
+      /corpus/i.test(cat.rejected["additionally-initial"].why_rejected)
+      && /corpus/i.test(cat.rejected["copulative-avoidance"].why_rejected),
+    );
+  }
+
   group("Known false-positive guards — the same patterns MUST still fire");
   {
     const doc = join(tmp, "positives.txt");
