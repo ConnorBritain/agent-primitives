@@ -919,6 +919,48 @@ then not applied to the next number produced, three commits later.
   next reader re-runs it rather than trusting it. See
   `bundles/prose-author/tests/MUTATIONS.md`.
 
+### FN-2026-08-04-k · the contract test that could not fail
+
+**Bundle:** `prose-author`. Logged here because the shape is this file's, and
+because it happened inside the mechanism built to prevent exactly this.
+
+**What happened.** `exemplars.mjs` ports three rules from `calibrate.mjs` rather
+than importing them (a hard cross-bundle import would make the bundle unloadable
+without its sibling). A port drifts, so a contract test was written to pin it,
+and the commit message said it "fails on disagreement."
+
+It did not. The dynamic import sat in a bare `catch`, and *any* failure was
+reported as `contract test skipped — prose-tell-scan not present` — **a passing
+check**. A reviewer renamed `readProvenance` on the other side, with the sibling
+fully present, and the suite went green while claiming the port was pinned.
+
+**Two failures, and the second is bigger.**
+
+1. The catch could not distinguish *absent* from *changed*. Only the first is a
+   skip; the second is precisely the drift the test exists to catch.
+2. The test pinned **one** of the rules it claimed to pin. It compared the
+   attestation predicate and nothing else — not the 200-word floor, not the
+   README exclusion, not group traversal. Those were asserted against this
+   bundle's own constants, which pins nothing, with comments *asserting* what
+   `calibrate.mjs` would do rather than asking it.
+
+**Why it is the same pattern.** Ninth instance, and the purest one: a check that
+cannot tell "did not run" from "ran and passed". The previous eight produced a
+wrong number; this produced a wrong *reassurance*, which is worse, because a
+number invites re-derivation and a green test does not.
+
+**Rules taken.**
+
+- **A skip must be narrower than a failure.** Swallow only the specific error
+  that means "genuinely absent" — `ERR_MODULE_NOT_FOUND`, `ENOENT`. Everything
+  else fails loudly, including a successful import missing an expected export.
+- **A test that reports "skipped" must be able to say why**, and the why must be
+  checked rather than assumed from the fact that something went wrong.
+- If a comment claims the other side behaves a certain way, **call the other
+  side**. `calibrate.mjs` now exports `corpusFiles` and `MIN_SAMPLE_WORDS` for
+  this reason, and the port is compared against them rather than against a
+  sentence about them.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather
@@ -940,7 +982,7 @@ looked.
 That ratio is the argument for the kickoff's advice to run the scanner in anger
 before building anything on top of it.
 
-**Eight incidents now trace to a wrong measurement setup rather than wrong
+**Nine incidents now trace to a wrong measurement setup rather than wrong
 arithmetic**, and that is the single largest class in this log. Arithmetic errors
 announce themselves. Setup errors produce plausible numbers that survive review
 until someone independently re-derives them — which happened here only because a

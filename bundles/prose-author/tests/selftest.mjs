@@ -14,7 +14,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  selectExemplars, renderExemplars, attested, CORPUS_MINIMUM, CAP_CLAMP, DEFAULT_CAP,
+  selectExemplars, renderExemplars, attested, CORPUS_MINIMUM, CAP_CLAMP, DEFAULT_CAP, MIN_SAMPLE_WORDS,
 } from "../skills/prose-draft/tools/exemplars.mjs";
 import {
   verifyDraft, renderVerification, findScanner, firstExisting, scannerCandidates, SCANNER_ENV,
@@ -212,34 +212,92 @@ try {
     // CONTRACT TEST. These rules are a PORT of calibrate.mjs, not an import -
     // importing across the bundle boundary would make prose-author unloadable
     // without prose-tell-scan. A port drifts unless something pins it, so this
-    // runs BOTH implementations over the same fixtures and fails on disagreement.
-    let readProvenance = null;
+    // runs both implementations over the same fixtures and fails on disagreement.
+    //
+    // THE FIRST VERSION OF THIS TEST COULD NOT FAIL THE WAY IT MATTERED. It
+    // wrapped the import in a bare `catch` and reported "skipped - sibling not
+    // present" on ANY error. Rename `readProvenance` on the other side and the
+    // suite went green while claiming the port was pinned: a check that cannot
+    // tell "did not run" from "ran and passed", which is the exact failure this
+    // project has now logged nine times. A reviewer reproduced it.
+    //
+    // So absence and change are distinguished. Only a genuinely missing module
+    // is a skip; anything else - a rename, a moved file, a dropped export - is a
+    // loud failure, because those are the drift this exists to catch.
+    let sibling = null;
+    let importError = null;
     try {
-      ({ readProvenance } = await import("../../prose-tell-scan/skills/tell-scan/tools/calibrate.mjs"));
-    } catch { /* sibling absent: the port is untestable, not wrong */ }
+      sibling = await import("../../prose-tell-scan/skills/tell-scan/tools/calibrate.mjs");
+    } catch (err) {
+      importError = err;
+    }
 
-    if (!readProvenance) {
-      check("contract test skipped — prose-tell-scan not present", true);
+    const genuinelyAbsent = importError
+      && (importError.code === "ERR_MODULE_NOT_FOUND" || importError.code === "ENOENT");
+
+    if (importError && !genuinelyAbsent) {
+      check(`calibrate.mjs is present but failed to import — ${importError.message}`, false);
+    } else if (genuinelyAbsent) {
+      check("contract test skipped — prose-tell-scan genuinely absent", true);
     } else {
-      const cases = [
-        ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: true\n---\nbody", true],
-        ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: false\n---\nbody", false],
-        ["---\nsource: s\ndate: 2021-01-01\n---\nbody", false],
-        ["---\ndate: 2021-01-01\nhuman_authored: true\n---\nbody", false],
-        ["---\nsource: s\nhuman_authored: true\n---\nbody", false],
-        ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: yes\n---\nbody", true],
-        ["no frontmatter at all", false],
-      ];
-      const disagreements = cases.filter(([text, want]) => {
-        const mine = attested(text).ok;
-        const theirs = readProvenance(text).ok;
-        return mine !== theirs || mine !== want;
-      });
+      // Every symbol the port depends on. A missing one is drift, not absence.
+      const required = ["readProvenance", "corpusFiles", "MIN_SAMPLE_WORDS"];
+      const missing = required.filter((k) => sibling[k] === undefined);
       check(
-        "the ported attestation rule agrees with calibrate.mjs on every fixture",
-        disagreements.length === 0,
-        disagreements.length ? `${disagreements.length} disagreement(s)` : "",
+        `calibrate.mjs still exports what the port is pinned to (${required.join(", ")})`,
+        missing.length === 0,
+        missing.length ? `missing: ${missing.join(", ")}` : "",
       );
+
+      if (!missing.length) {
+        // RULE 1 — the attestation predicate.
+        const cases = [
+          ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: true\n---\nbody", true],
+          ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: false\n---\nbody", false],
+          ["---\nsource: s\ndate: 2021-01-01\n---\nbody", false],
+          ["---\ndate: 2021-01-01\nhuman_authored: true\n---\nbody", false],
+          ["---\nsource: s\nhuman_authored: true\n---\nbody", false],
+          ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: yes\n---\nbody", true],
+          ["no frontmatter at all", false],
+        ];
+        const disagreements = cases.filter(([text, want]) => {
+          const mine = attested(text).ok;
+          const theirs = sibling.readProvenance(text).ok;
+          return mine !== theirs || mine !== want;
+        });
+        check(
+          "ported attestation agrees with calibrate.mjs on every fixture",
+          disagreements.length === 0,
+          disagreements.length ? `${disagreements.length} disagreement(s)` : "",
+        );
+
+        // RULE 2 — the word floor. Previously asserted only against this
+        // bundle's own constant, which pins nothing.
+        check(
+          "the ported word floor equals calibrate.mjs's",
+          MIN_SAMPLE_WORDS === sibling.MIN_SAMPLE_WORDS,
+          `ours ${MIN_SAMPLE_WORDS}, theirs ${sibling.MIN_SAMPLE_WORDS}`,
+        );
+
+        // RULE 3 — README exclusion and group traversal, checked against
+        // calibrate.mjs's own file walker over a shared fixture rather than
+        // against a comment asserting what it would do.
+        const shared = join(tmp, "shared-walk", "corpus", "human");
+        mkdirSync(join(shared, "newsletter"), { recursive: true });
+        const body = `---\nsource: s\ndate: 2021-01-01\nhuman_authored: true\n---\n${"word ".repeat(400)}\n`;
+        for (const f of ["README.md", "readme.txt", "real.txt"]) writeFileSync(join(shared, f), body);
+        writeFileSync(join(shared, "newsletter", "grouped.txt"), body);
+
+        const theirs = sibling.corpusFiles(shared).map((e) => e.path.split("/").pop()).sort();
+        const ours = selectExemplars(join(tmp, "shared-walk"), { n: 10 })
+          .exemplars.map((e) => e.file).sort();
+        check(
+          "the ported file walk selects exactly what calibrate.mjs's does",
+          JSON.stringify(theirs) === JSON.stringify(ours),
+          `theirs ${JSON.stringify(theirs)} vs ours ${JSON.stringify(ours)}`,
+        );
+        check("and both reach into named groups", theirs.includes("grouped.txt"));
+      }
     }
   }
 

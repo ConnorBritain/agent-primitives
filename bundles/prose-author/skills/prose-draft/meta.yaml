@@ -12,6 +12,17 @@ contract:
   writes: none              # but it writes NO files. Output goes to the session.
   scope: passage            # v0.1: one passage, with the original beside it
 
+  # Matching tell-scan's meta.yaml, which states both explicitly.
+  #
+  # clean_context is FALSE and that is a real difference from the critics: a
+  # drafter needs the author's material and their edits to earlier drafts. What
+  # it must not carry across turns is its own prose - see denied_inputs.
+  clean_context: false
+  # The tools are deterministic; the drafting step is not, and cannot be. The
+  # split matters because only the deterministic half is enforceable, which is
+  # what the enforcement labels below turn on.
+  deterministic: partial    # tools/ yes, the draft itself no
+
   # WHAT THE DRAFTER IS DENIED, and the denial is the design.
   #
   # Prose optimised against a tell list scores zero and reads like nobody wrote

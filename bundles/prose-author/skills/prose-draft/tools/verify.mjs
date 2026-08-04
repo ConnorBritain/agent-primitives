@@ -74,9 +74,12 @@ export function scannerCandidates(extra = [], env = process.env) {
     // Loose-file: install.sh puts both skills side by side under <dest>/skills/.
     rel("..", "..", "tell-scan", "tools", "tell-scan.mjs"),
     // Plugin install / monorepo: bundles/<bundle>/skills/<skill>/tools/
+    //
+    // Only shapes this repo actually produces are listed. An earlier version
+    // carried a third, speculative candidate for a nesting no install path
+    // creates - added in the same change that was caught missing a REAL shape,
+    // which is the wrong lesson to draw. Anything else uses the env override.
     rel("..", "..", "..", "..", "prose-tell-scan", "skills", "tell-scan", "tools", "tell-scan.mjs"),
-    // One level further out, for a plugins/ root that nests bundles.
-    rel("..", "..", "..", "..", "..", "prose-tell-scan", "skills", "tell-scan", "tools", "tell-scan.mjs"),
   ];
 }
 

@@ -39,6 +39,16 @@ import { CORPUS_MINIMUM, CORPUS_THIN, corpusConfidence } from "./lib/evaluate.mj
 const SKILL_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".mdx"]);
 
+/**
+ * Below this, a sample is too short to say anything about a rhythm.
+ *
+ * Exported because prose-author PORTS this rule rather than importing it (a hard
+ * cross-bundle import would make that bundle unloadable without this one), and a
+ * port needs something to be pinned against. Its contract test asserts parity
+ * with this constant, so changing it here fails there.
+ */
+export const MIN_SAMPLE_WORDS = 200;
+
 const USAGE = `
 calibrate — derive register thresholds from a profile's human corpus
 
@@ -116,7 +126,7 @@ export function readProvenance(text) {
  * One level deep, deliberately. Nested groups invite a taxonomy, and a taxonomy
  * invites maintaining it.
  */
-function corpusFiles(dir, { group = null } = {}) {
+export function corpusFiles(dir, { group = null } = {}) {
   if (!existsSync(dir)) return [];
   const textIn = (d, groupName) => readdirSync(d)
     .filter((f) => TEXT_EXT.has(extname(f).toLowerCase()))
@@ -153,7 +163,7 @@ function measure(path, profile) {
   const { text } = maskNonProse(raw, { markdown });
   const paras = paragraphs(text, { markdown });
   const wordCount = words(text).length;
-  if (wordCount < 200) return { path, excluded: `too short (${wordCount} words)` };
+  if (wordCount < MIN_SAMPLE_WORDS) return { path, excluded: `too short (${wordCount} words)` };
 
   const cadence = cadenceMetrics(text, paras);
   // Fold apostrophes exactly as tell-scan does. If calibration measured the
@@ -530,8 +540,14 @@ function main() {
 
 // Run only when invoked directly, so this module can be imported.
 //
-// The obvious form - comparing import.meta.url to `file://${process.argv[1]}` -
-// silently does nothing when the path contains a symlink, because import.meta.url
-// is resolved and argv[1] is not. On macOS /tmp is a symlink to /private/tmp, so
-// any invocation under a temp dir would exit 0 having printed nothing.
+// This file previously ended in a bare `main();`, so importing it RAN THE CLI -
+// printing usage and exiting inside whatever imported it. That is why nothing
+// could reuse these functions, and why prose-author's contract test could not
+// pin its port against them until this guard existed.
+//
+// realpathSync on both sides, not `import.meta.url === \`file://${argv[1]}\``:
+// import.meta.url is resolved and argv[1] is not, so the naive form silently
+// does nothing when the path contains a symlink. On macOS /tmp is one. (That
+// bug was real in prose-author's two tools, which DID have the naive guard;
+// these four had no guard at all.)
 if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) main();

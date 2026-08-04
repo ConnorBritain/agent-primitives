@@ -14,8 +14,23 @@ mutation applied to the working tree and reverted immediately.
 | drop the attestation requirement | 2 |
 | stop excluding READMEs | **0 → 1** |
 | lose the loose-file scanner candidate | 1 |
+| rename `readProvenance` in calibrate.mjs (sibling present) | **0 → 1** |
 
-## The zero, and what it cost to find
+## The second zero, found by a reviewer
+
+`rename readProvenance in calibrate.mjs` scored **0** in the first version of the
+contract test: the bare `catch` reported "skipped — sibling not present" and
+passed, with the sibling fully present and merely renamed. The test built to
+catch drift could not report drift.
+
+It now scores **1**: the export check fails and short-circuits the parity checks
+behind it, so one failure is the whole signal. I wrote 2 in this table first, on
+the assumption that a parity check would fail too, and the run said otherwise —
+which is the discipline this file exists to enforce, applied to this file.
+
+Logged as `CALIBRATION.md` FN-2026-08-04-k.
+
+## The first zero, and what it cost to find
 
 `stop excluding READMEs` scored **0**. The guard had no test that could fail,
 because an unattested README is already rejected by the attestation check — so

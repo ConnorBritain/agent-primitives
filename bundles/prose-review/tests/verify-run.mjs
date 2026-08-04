@@ -25,6 +25,18 @@ import { join } from "node:path";
 
 const RESULT = /RESULT:\s*(CLEAN|REVISE)\s*\|\s*findings=(\d+)\s*\|\s*uncited=(\d+)\s*\|\s*authorship_claims=(\d+)/;
 
+/**
+ * Each transcript declares its own kind in its heading, and the filename says it
+ * again. Both are checked, and a disagreement is an error.
+ *
+ * An earlier version trusted the `p-` filename prefix alone. A reviewer showed a
+ * positive result in a file without the prefix being counted silently as a
+ * negative - moving a result between the two headline denominators with nothing
+ * in the output to notice. One source of truth for a number this load-bearing is
+ * one too few.
+ */
+const KIND = /^#\s+(Negative|Positive)\b/im;
+
 export function readRun(dir) {
   const files = readdirSync(dir)
     .filter((f) => f.endsWith(".md") && f.toLowerCase() !== "readme.md")
@@ -32,8 +44,10 @@ export function readRun(dir) {
 
   const runs = [];
   const malformed = [];
+  const mismatched = [];
   for (const f of files) {
-    const m = readFileSync(join(dir, f), "utf8").match(RESULT);
+    const text = readFileSync(join(dir, f), "utf8");
+    const m = text.match(RESULT);
     if (!m) {
       // A transcript without a RESULT line cannot be counted, and silently
       // skipping it would understate the denominator - which is the direction
@@ -41,16 +55,29 @@ export function readRun(dir) {
       malformed.push(f);
       continue;
     }
+
+    const declared = text.match(KIND);
+    if (!declared) {
+      malformed.push(`${f} (no "# Negative"/"# Positive" heading)`);
+      continue;
+    }
+    const fromHeading = declared[1].toLowerCase();
+    const fromName = f.startsWith("p-") ? "positive" : "negative";
+    if (fromHeading !== fromName) {
+      mismatched.push(`${f}: heading says ${fromHeading}, filename says ${fromName}`);
+      continue;
+    }
+
     runs.push({
       file: f,
-      kind: f.startsWith("p-") ? "positive" : "negative",
+      kind: fromHeading,
       verdict: m[1],
       findings: Number(m[2]),
       uncited: Number(m[3]),
       authorship: Number(m[4]),
     });
   }
-  return { runs, malformed };
+  return { runs, malformed, mismatched };
 }
 
 export function tally(runs) {
@@ -71,7 +98,7 @@ function main() {
     process.stderr.write("verify-run: usage: node tests/verify-run.mjs <run-dir>\n");
     process.exit(2);
   }
-  const { runs, malformed } = readRun(dir);
+  const { runs, malformed, mismatched } = readRun(dir);
   const t = tally(runs);
 
   process.stdout.write(`\n  ${dir} — ${runs.length} transcripts\n\n`);
@@ -81,6 +108,12 @@ function main() {
   process.stdout.write(`    any claim about machine authorship: ${t.authorship}        <- must be 0\n\n`);
 
   let bad = 0;
+  if (mismatched.length) {
+    process.stdout.write(`    ${mismatched.length} transcript(s) whose heading and filename disagree:\n`);
+    for (const m of mismatched) process.stdout.write(`      ${m}\n`);
+    process.stdout.write("\n");
+    bad += 1;
+  }
   if (malformed.length) {
     process.stdout.write(`    ${malformed.length} transcript(s) with no RESULT line: ${malformed.join(", ")}\n\n`);
     bad += 1;
