@@ -159,12 +159,16 @@
     "additionally-initial": {
       "was": "The word 'Additionally' heading a sentence.",
       "why_rejected": "TESTED AND REJECTED 2026-08-04 on corpus evidence. This was proposed to correct what looked like an over-generalisation in the `transition-overload` rejection: that entry was dropped for transition DENSITY, while the source page separately lists 'Additionally (especially beginning a sentence)' as its first AI-vocabulary item, with two citations. So a narrow sentence-initial form seemed defensible. It is not. Measured on the acceptance corpus it appears in 1 of 33 AI documents and 1 of 12 provably-human ones — proportionally MORE common in human writing. The original rejection was right for a reason its author did not have: not merely that density is the wrong statistic, but that the word does not discriminate at all in encyclopedic register. Recorded so the same reasonable-looking case is not re-argued a third time.",
-      "source": "wp-signs"
+      "source": "wp-signs",
+      "tested_pattern": "(?:^|(?<=[.!?]\\s))Additionally,",
+      "measured": "1/33 AI documents, 1/12 human documents (raw matches)"
     },
     "copulative-avoidance": {
       "was": "Replacing 'is/are' with functions as, operates as, refers to, holds the distinction of being.",
-      "why_rejected": "TESTED AND REJECTED 2026-08-04. The source page devotes a section to this and it is plainly real as an observation about register. The deterministic form is not usable: measured on the acceptance corpus, the broad version appears in 12% of AI documents and 8% of human ones — encyclopedic prose says 'functions as a' constantly and means it. Narrowing to the distinctive constructions ('holds the distinction of being', 'ventured into') dropped it to 0 of 33 AI documents: precise enough to be useless. The pattern lives between two failure modes with no gap between them. `serves-as` and `boasts` already cover the two variants that do discriminate. What remains needs a parser that can tell a copula-avoidance from a verb doing real work, which is out of scope here and belongs with the critics.",
-      "source": "wp-signs"
+      "why_rejected": "TESTED AND REJECTED 2026-08-04. The source page devotes a section to this and it is plainly real as an observation about register. The deterministic form is not usable: measured on the acceptance corpus, the broad version appears in 4 of 33 AI documents (12%) and 1 of 12 human ones (8%) — encyclopedic prose says 'functions as a' constantly and means it. Narrowing to the distinctive constructions ('holds the distinction of being', 'ventured into') dropped it to 0 of 33 AI documents: precise enough to be useless. The pattern lives between two failure modes with no gap between them. `serves-as` and `boasts` already cover the two variants that do discriminate. What remains needs a parser that can tell a copula-avoidance from a verb doing real work, which is out of scope here and belongs with the critics.",
+      "source": "wp-signs",
+      "tested_pattern": "BROAD: \\b(?:functions?|operates?)\\s+as\\s+(?:a|an|the)\\b|\\brefers?\\s+to\\s+(?:a|an|the)\\s+(?:type|kind|form|category|concept)\\b|\\b(?:holds?|retains?)\\s+the\\s+distinction\\s+of\\s+being\\b  ||  NARROW: \\b(?:holds?|retains?)\\s+the\\s+distinction\\s+of\\s+being\\b|\\b(?:stands?|serves?)\\s+as\\s+(?:a|an|the)\\s+(?:prominent|leading|major|key|vital)\\b|\\bventured\\s+into\\b",
+      "measured": "broad: 4/33 AI, 1/12 human (raw matches). narrow: 0/33 AI."
     }
   },
   "not_deterministic": {
@@ -633,12 +637,12 @@
       "label": "chat preamble leaked into the document",
       "kind": "structural",
       "category": "leakage",
-      "tier": "A",
+      "tier": null,
       "severity": 3,
-      "confidence": "definitive",
-      "always_flag": true,
+      "confidence": "high",
+      "always_flag": false,
       "pattern": "\\b(?:certainly|of\\s+course|absolutely)[!,]\\s+(?:here|i|below|let)|\\bhere(?:'s|\\s+is)\\s+(?:a|the)\\s+(?:more\\s+)?(?:detailed\\s+)?(?:draft|revised|updated|rewritten|complete|breakdown|summary|version)\\b|\\bwould\\s+you\\s+like\\s+(?:me\\s+to|a|an|more)\\b|\\bi\\s+hope\\s+this\\s+helps\\b|\\bis\\s+there\\s+anything\\s+else\\b|\\blet\\s+me\\s+know\\s+if\\s+you'?d?\\s*(?:like|need|want)\\b",
-      "note": "The assistant's half of a conversation, left in the document. Tier A because it is an ARTIFACT rather than a style judgement: nobody drafting an article types 'Would you like me to expand this section?' into it. The source page lists these under Collaborative communication and they are among the most-cited tells on it. Distinct from `chatbot-register`, which catches the assistant's characteristic PHRASES ('You're absolutely right'). This catches its structural moves: offering, opening, signing off. MEASURED on the acceptance corpus: 2 of 33 community-identified AI documents, 0 of 12 provably-human ones, 0 across this repo's own prose. Two hits is a low rate, and for a style entry that would be an argument against shipping. Tier A is judged on whether one occurrence is dispositive, not on frequency — a document containing 'Would you like me to' has one explanation. FALSE-POSITIVE EXPOSURE: fiction and interview transcripts, where a character may say these words. The `narration` profile is the place to disable it if that bites.",
+      "note": "The assistant's structural moves — offering, opening, signing off — left in a document. Distinct from `chatbot-register`, which catches its characteristic phrases. SHIPPED AS TIER A AND CORRECTED BEFORE RELEASE. Review found it firing on ordinary human correspondence: a business email closing 'Let me know if you need anything else before Friday' trips it, as does any customer-service reply. That is disqualifying for Tier A, whose contract is that no human writes the pattern in ANY register and whose acceptance gate asserts zero false positives on human text. The evidence for shipping it — 2 of 33 AI documents, 0 of 12 human — came from a corpus that is entirely encyclopedic prose, so it could not have exercised the register where the entry actually misfires. Clean on the corpus you have is not the same as clean. Now severity 3 style, density-gated, and disabled in `correspondence`. In article register it is still a strong signal; in email it is Tuesday. See CALIBRATION.md FP-2026-08-04-d.",
       "era": "2023-onward",
       "source": "wp-signs"
     },
@@ -647,12 +651,12 @@
       "label": "chatbot register leaked into the draft",
       "kind": "structural",
       "category": "leakage",
-      "tier": "A",
+      "tier": null,
       "severity": 3,
-      "confidence": "definitive",
-      "always_flag": true,
-      "pattern": "\\b(?:you'?re\\s+absolutely\\s+right|i\\s+hope\\s+this\\s+helps|is\\s+there\\s+anything\\s+else|would\\s+you\\s+like\\s+me\\s+to|let\\s+me\\s+know\\s+if\\s+you'?d\\s+like|here'?s\\s+a\\s+(?:more\\s+)?detailed\\s+breakdown|as\\s+an\\s+AI\\s+language\\s+model|as\\s+a\\s+large\\s+language\\s+model)\\b",
-      "note": "Assistant-to-user conversational register surviving into a document that has no user to address. Leakage, not style, so it barely false-positives.",
+      "confidence": "high",
+      "always_flag": false,
+      "pattern": "\\b(?:you'?re\\s+absolutely\\s+right|i\\s+hope\\s+this\\s+helps|is\\s+there\\s+anything\\s+else|would\\s+you\\s+like\\s+me\\s+to|let\\s+me\\s+know\\s+if\\s+you'?d\\s+like|here'?s\\s+a\\s+(?:more\\s+)?detailed\\s+breakdown)\\b",
+      "note": "The assistant's conversational register, left in a document that is not a conversation. DEMOTED FROM TIER A on 2026-08-04, and the self-identification half promoted to its own Tier A entry (`model-self-identification`). The reason is a false positive that the acceptance corpus structurally could not surface. These phrases are ordinary business correspondence — 'I hope this helps', 'let me know if you need anything else' — and this bundle ships a `correspondence` profile as a first-class register. As Tier A they carried `always_flag` and bypassed density gating, so a single polite email sign-off tripped the tier whose entire claim is near-zero false positives. A corpus of 45 encyclopedic documents cannot exercise that. They remain a real signal IN ARTICLE REGISTER, which is why this is severity 3 rather than deleted, and why it is disabled in `correspondence` rather than everywhere. The general lesson is recorded in CALIBRATION.md FP-2026-08-04-d: a tell that is dispositive in one register and unremarkable in another is a STYLE entry, not an artifact, however obviously machine-like it looks.",
       "source": "wp-signs"
     },
     {
@@ -679,6 +683,20 @@
       "always_flag": true,
       "pattern": ":contentReference\\[oaicite:|oai_citation:|cite[\\ue000-\\uf8ff\\u0007]?turn\\d+(?:search|image|news|file|view)\\d*|attributableIndex|(?:[A-Z][A-Za-z ]{1,18}\\+\\d+){2,}|\\[cite:\\s*\\d+|\\]\\(start_span\\)|\\]\\(end_span\\)|<grok-card\\s+data-id=|grok_render_citation_card_json|【\\d+†L\\d+|\\[attached_file:\\s*\\d+\\]|\\[web:\\s*\\d+\\]|ppl-ai-file-upload|:::(?:writing|écriture)\\{",
       "note": "Literal strings no human types: citation scaffolding from ChatGPT, Gemini, Grok, DeepSeek, and Perplexity that survived a copy-paste. These are ARTIFACTS, not style — dispositive rather than suggestive — so they bypass density gating entirely via always_flag. One occurrence is the finding. FIXED 2026-08-03: the separator was hardcoded to U+0007. That is how MediaWiki STORES these markers, not what a paste from the model contains - the real separator is a Private Use Area codepoint. So the entry matched the wiki RENDERING of the tell rather than the tell itself. It now accepts a PUA codepoint, BEL, or no separator at all, and covers the news/file/view turn types alongside search/image. Also adds attributableIndex, which the source page names in a section heading and this catalog had never matched, and the 'Brand+3Brand+3' citation pileup. Gaps here are the most expensive in the catalog: Tier A is the only dialect-neutral tier and the only thing --artifacts-only retains.",
+      "source": "wp-signs"
+    },
+    {
+      "id": "model-self-identification",
+      "label": "the text says it is a language model",
+      "kind": "structural",
+      "category": "leakage",
+      "tier": "A",
+      "severity": 3,
+      "confidence": "definitive",
+      "always_flag": true,
+      "pattern": "\\bas\\s+an?\\s+(?:AI|artificial\\s+intelligence)\\s+(?:language\\s+model|model|assistant|chatbot)\\b|\\bas\\s+a\\s+large\\s+language\\s+model\\b|\\bI\\s+am\\s+an?\\s+(?:AI|artificial\\s+intelligence)\\b|\\bI\\s+do\\s+not\\s+have\\s+personal\\s+(?:opinions|beliefs|feelings|experiences)\\b",
+      "note": "Split out of `chatbot-register` on 2026-08-04, and the split is what makes Tier A's promise true rather than approximately true. TIER A MEANS NO HUMAN WRITES THIS IN ANY REGISTER. That is what earns `always_flag`, the bypass of density gating, and the acceptance gate's absolute zero-false-positives rule. Leaked markup qualifies. Unreplaced placeholders qualify. This qualifies: nobody describes themselves as a large language model. Chat pleasantries do not qualify, and that is why they are no longer here. 'I hope this helps' and 'let me know if you need anything else' are ordinary business email — they were sitting in the dispositive tier, in a bundle that ships a `correspondence` register as a first-class profile. Measured: they fire on unremarkable human correspondence, which means Tier A's absolute-zero claim was false for any author writing email. The acceptance corpus could not have caught it, being 45 documents of encyclopedic prose.",
+      "era": "2023-onward",
       "source": "wp-signs"
     },
     {
@@ -965,8 +983,8 @@
       "category": "tonal-inflation",
       "severity": 2,
       "confidence": "high",
-      "pattern": "\\b(?:studies\\s+(?:show|suggest|indicate|have\\s+shown)|research\\s+(?:shows|suggests|indicates)|many\\s+(?:experts|scholars|researchers)|some\\s+(?:experts|argue|say)|it\\s+is\\s+widely\\s+(?:accepted|believed|recognized|regarded)|experts\\s+(?:say|agree|believe)|scientists\\s+(?:say|believe)|it\\s+has\\s+(?:long\\s+)?been\\s+said)|\\bindustry\\s+reports?\\b|\\bobservers?\\s+have\\s+(?:cited|noted)\\b|\\bseveral\\s+(?:sources|publications)\\b|\\bsome\\s+(?:critics|commentators|observers)\\s+(?:argue|say|note|suggest)\\b",
-      "note": "High confidence because it is checkable: either the citation is there or it is not. The prose-substance-critic in the prose-review bundle inherits every hit. WIDENED 2026-08-04 with forms from the source's box that the original missed, notably the noun-interposed 'some critics argue' — the old alternation required the verb to follow 'some' directly. Measured: +1 of 33 AI documents, +0 human, +0 on this repo.",
+      "pattern": "\\b(?:studies\\s+(?:show|suggest|indicate|have\\s+shown)|research\\s+(?:shows|suggests|indicates)|many\\s+(?:experts|scholars|researchers)|some\\s+(?:experts|argue|say)|it\\s+is\\s+widely\\s+(?:accepted|believed|recognized|regarded)|experts\\s+(?:say|agree|believe)|scientists\\s+(?:say|believe)|it\\s+has\\s+(?:long\\s+)?been\\s+said)\\b|\\bindustry\\s+reports?\\b|\\bobservers?\\s+have\\s+(?:cited|noted)\\b|\\bseveral\\s+(?:sources|publications)\\b|\\bsome\\s+(?:critics|commentators|observers)\\s+(?:argue|say|note|suggest)\\b",
+      "note": "High confidence because it is checkable: either the citation is there or it is not. The prose-substance-critic in the prose-review bundle inherits every hit. WIDENED 2026-08-04 with forms from the source's box that the original missed, notably the noun-interposed 'some critics argue' — the old alternation required the verb to follow 'some' directly. Measured: +1 of 33 AI documents, +0 human, +0 on this repo. BOUNDARY REGRESSION, found and fixed 2026-08-04 before release: the widening spliced new alternatives onto the end of the pattern and dropped the trailing word boundary that closed the original alternation. Trigger words then matched as prefixes - 'Many scholarship programs' matched via 'many scholars', 'scientists believed' via 'scientists believe'. The 45-document corpus did not contain such a case, so nothing failed. A paired negative test now covers it. Splicing onto a regex tail is how a boundary gets lost silently; wrap the group instead.",
       "source": "wp-signs"
     },
     {

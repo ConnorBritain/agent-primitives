@@ -7,11 +7,11 @@
   ],
   "profile": "technical",
   "measured": "2026-08-04",
-  "catalog_version": "0.2.0",
+  "catalog_version": "0.3.0",
   "ai": {
     "n": 33,
     "flagged": 3,
-    "tierA": 9
+    "tierA": 7
   },
   "human": {
     "n": 12,

@@ -493,6 +493,80 @@ tool worse. Reading a source tells you a pattern is real; only a corpus tells yo
 whether a *regex for it* discriminates. Every catalog entry added before this
 round was shipped on the first kind of evidence alone.
 
+### FP-2026-08-04-d · Tier A · the tier promised more than it could keep
+
+Found by review, on the round that added `assistant-preamble`. The entry shipped
+in Tier A on evidence of 2/33 AI documents and **0/12 human** — and both numbers
+were true.
+
+It fires on ordinary business email.
+
+> `Let me know if you need anything else before Friday.`
+> `I hope this helps with the planning.`
+
+Both trip it. So does any customer-service reply. And this bundle ships
+**`correspondence` as a first-class register**, with its own profile, thresholds
+and voice card.
+
+**Why the corpus could not have caught it.** The acceptance corpus is 45
+documents of encyclopedic prose. It cannot exercise correspondence at all, so
+"0 of 12 human documents" was measuring a place where the failure cannot occur.
+*Clean on the corpus you have is not the same as clean* — and this is the fourth
+variant of the same lesson in this log, after a retyped fixture, a corpus fetched
+from the wrong revision, and a cross-profile comparison.
+
+**The defect was older than the entry.** `chatbot-register` had shipped in Tier A
+since v0.1 carrying the same pleasantries — `I hope this helps`, `is there
+anything else`, `would you like me to`. The new entry did not introduce the
+problem; it made a pre-existing one large enough to see.
+
+#### What Tier A actually means, now stated
+
+Tier A carries `always_flag`, bypasses density gating entirely, and is the one
+place the acceptance gate asserts an **absolute** zero false positives on human
+text. Only one property earns that:
+
+> **No human writes this in ANY register.**
+
+Leaked citation markup qualifies. Unreplaced `[Your Name]` placeholders qualify.
+Knowledge-cutoff hedges qualify. *Being polite in an email* does not, however
+machine-like it looks in an encyclopedia article.
+
+So the tier was split on that line:
+
+- **`model-self-identification`** — new, Tier A. `As an AI language model`,
+  `I am an AI`, `I do not have personal opinions`. Nobody describes themselves
+  this way. Verified dispositive in all four registers.
+- **`chatbot-register`** — demoted to severity 3 style, disabled in
+  `correspondence`.
+- **`assistant-preamble`** — severity 3 style, disabled in `correspondence`.
+
+Disabled per register rather than deleted, because the signal is real where the
+entries were aimed: an article that offers to expand its own section still has
+one explanation.
+
+#### What it cost, measured
+
+| | before | after |
+|---|---|---|
+| document recall | 3/33 | **3/33** |
+| Tier A documents | 9/33 | **7/33** |
+| human false positives | 0/12 | 0/12 |
+
+**No detection was lost.** The two documents that left Tier A still flag, through
+the same entries at style tier. The Tier A count fell because two entries were
+moved out of a tier they did not qualify for — which is the fix working, not a
+regression, and the baseline is updated to record the new truth rather than to
+make a red gate green.
+
+#### The general rule
+
+**A tell that is dispositive in one register and unremarkable in another is a
+STYLE entry, not an artifact.** Tier A is not "obviously machine-like"; it is
+"impossible in human writing". The distinction was blurred from v0.1 and no test
+could have found it, because every test asked whether the entry fired on the
+registers it was written for.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather

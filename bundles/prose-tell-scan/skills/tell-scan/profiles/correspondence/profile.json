@@ -10,6 +10,9 @@
     "measured.",
     "The register where over-editing does the most damage per word. A humanizer",
     "that sands an email into neutral competence has removed the only thing it",
-    "had going for it."
+    "had going for it.",
+    "",
+    "Two catalog entries are disabled for this register; the reasoning is in",
+    "this profile's catalog.json."
   ]
 }

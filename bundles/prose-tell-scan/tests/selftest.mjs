@@ -15,7 +15,7 @@
  * removes them. Touches nothing in the repo.
  */
 
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readFileSync, cpSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readFileSync, cpSync, readdirSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -556,11 +556,40 @@ try {
     check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
-  group("Coverage added 2026-08-04 — each measured on the corpus before shipping");
+  group("Tier A means no human writes this in ANY register");
   {
-    // Tier A. Judged on whether one occurrence is dispositive, not on rate:
-    // nobody drafting an article types the assistant's half of a conversation
-    // into it. 2/33 AI, 0/12 human, 0 on this repo.
+    // The contract Tier A trades on: always_flag, no density gating, and an
+    // acceptance gate asserting zero false positives on human text. Only
+    // patterns no register produces can honour it.
+    //
+    // `assistant-preamble` and `chatbot-register` shipped in Tier A and did not
+    // qualify. They catch polite conversational moves, which are ordinary
+    // business email — and this bundle ships `correspondence` as a first-class
+    // register. The acceptance corpus is 45 encyclopedic documents, so it could
+    // not exercise the register where they misfire: "0/12 human" was measuring
+    // somewhere the failure cannot occur. See CALIBRATION.md FP-2026-08-04-d.
+    const email = join(tmp, "email.txt");
+    writeFileSync(
+      email,
+      "Thanks for the update on the timeline.\n\n"
+      + "Let me know if you need anything else before Friday.\n\n"
+      + "I hope this helps with the planning.\n",
+    );
+    const corr = scan([email, "--profile", "correspondence"]).results[0];
+    check(
+      "no Tier A entry fires on an ordinary business email",
+      corr.findings.filter((f) => f.tier === "A" && f.flagged).length === 0,
+      corr.findings.filter((f) => f.tier === "A" && f.flagged).map((f) => f.id).join(","),
+    );
+    check(
+      "and the correspondence register disables the two that are email-ordinary",
+      corr.findings.filter((f) => f.flagged).length === 0,
+      corr.findings.filter((f) => f.flagged).map((f) => f.id).join(","),
+    );
+  }
+  {
+    // The paired positive, and the reason this is disabled per-register rather
+    // than deleted: the same words in an ARTICLE are still a real signal.
     const doc = join(tmp, "preamble.txt");
     writeFileSync(
       doc,
@@ -570,24 +599,53 @@ try {
     );
     const hit = scan([doc, "--profile", "essay"]).results[0]
       .findings.find((f) => f.id === "assistant-preamble");
-    check("assistant-preamble catches leaked chat turns", Boolean(hit), "");
-    check("it flags on one occurrence, as Tier A must", hit?.flagged === true);
+    check("assistant-preamble still catches leaked chat turns in article register",
+      Boolean(hit) && hit.flagged === true, `flagged=${hit?.flagged}`);
     check("both forms match", hit?.count >= 2, `count=${hit?.count}`);
   }
   {
-    // The paired negative, and the one that matters: prose ABOUT an assistant
-    // must stay quiet, because this is Tier A and a false positive there
-    // devalues every artifact finding.
-    const doc = join(tmp, "preamble-neg.txt");
+    // Model self-identification IS register-neutral, which is why it kept the
+    // tier when the pleasantries lost it. Nobody describes themselves this way.
+    const doc = join(tmp, "selfid.txt");
+    writeFileSync(doc, "As an AI language model, I do not have personal opinions on this.\n");
+    for (const profile of ["correspondence", "essay", "technical", "narration"]) {
+      const hit = scan([doc, "--profile", profile]).results[0]
+        .findings.find((f) => f.id === "model-self-identification");
+      check(`model-self-identification is dispositive in ${profile} too`,
+        Boolean(hit) && hit.tier === "A" && hit.flagged === true, `${profile}: ${hit?.flagged}`);
+    }
+  }
+  {
+    // The boundary regression the widening introduced: splicing alternatives
+    // onto the tail dropped the `\b` closing the original group, so trigger
+    // words matched as prefixes. The 45-document corpus contained no such case,
+    // so nothing failed — this is the case it lacked.
+    const doc = join(tmp, "boundary.txt");
     writeFileSync(
       doc,
-      "The interface was polite but unhelpful, and it never explained its reasoning.\n\n"
-      + "Reviewers noted that the tone felt rehearsed rather than considered.\n",
+      "Many scholarship programs exist to help students, and scientists believed the "
+      + "original survey data for decades before later work revised it.\n",
     );
-    const ids = scan([doc, "--profile", "essay"]).results[0].findings.map((f) => f.id);
-    check("and stays quiet on ordinary prose about assistants", !ids.includes("assistant-preamble"),
-      ids.join(","));
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "vague-attribution");
+    check(
+      "vague-attribution does not match its triggers as word prefixes",
+      !hit,
+      `matched ${JSON.stringify(hit?.examples)} — the closing word boundary is gone again`,
+    );
+    // Paired positive: the genuine article must still fire.
+    const real = join(tmp, "vague-real.txt");
+    writeFileSync(
+      real,
+      "Studies show the effect is large. Many experts agree. Some critics argue otherwise, "
+      + "and industry reports suggest the same.\n",
+    );
+    const hit2 = scan([real, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "vague-attribution");
+    check("but still fires on genuine vague attribution", hit2?.count >= 3, `count=${hit2?.count}`);
   }
+
+  group("Coverage added 2026-08-04 — each measured on the corpus before shipping");
   {
     // The source page's current-cohort pattern — the one it says is commoner in
     // tools released 2025 or later. 2/33 AI, 0/12 human.
@@ -604,24 +662,42 @@ try {
     check("several forms match", hit?.count >= 3, `count=${hit?.count}`);
   }
   {
-    // Two rejections, recorded so the same reasonable-looking case is not
-    // re-argued. `additionally-initial` was proposed to correct what looked like
-    // an over-generalisation in the transition-overload rejection, and the corpus
-    // says the original call was right: 1/33 AI against 1/12 human.
+    // Two rejections. The first version of these checks asserted that a JSON key
+    // existed and contained the word "corpus" — which would have passed just as
+    // happily if the cited numbers were invented. A rejection is a claim about
+    // measurement, so the test re-derives the measurement.
+    //
+    // This is why `rejected` entries now carry `tested_pattern`: a decision
+    // nobody can re-check is a decision nobody can overturn.
     const cat = JSON.parse(
       readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"),
     );
     for (const id of ["additionally-initial", "copulative-avoidance"]) {
-      check(`${id}: tested, rejected, and recorded rather than forgotten`,
-        Boolean(cat.rejected?.[id]?.why_rejected)
+      const rec = cat.rejected?.[id];
+      check(`${id}: rejection records the pattern that was tested`,
+        Boolean(rec?.why_rejected) && Boolean(rec?.tested_pattern)
         && !cat.entries.some((e) => e.id === id),
-        "");
+        rec ? "" : "missing from `rejected`");
     }
-    check(
-      "the rejections cite the measurement that killed them",
-      /corpus/i.test(cat.rejected["additionally-initial"].why_rejected)
-      && /corpus/i.test(cat.rejected["copulative-avoidance"].why_rejected),
-    );
+
+    // Re-derive the headline number for `additionally-initial` against the real
+    // corpus. The claim that killed it: proportionally commoner in human writing.
+    const corpusDir = join(BUNDLE, "tests", "corpus");
+    if (existsSync(join(corpusDir, "ai"))) {
+      const re = () => /(?:^|(?<=[.!?]\s))Additionally,/g;
+      const count = (dir) => readdirSync(join(corpusDir, dir))
+        .filter((f) => f.endsWith(".txt"))
+        .filter((f) => re().test(readFileSync(join(corpusDir, dir, f), "utf8"))).length;
+      const ai = count("ai");
+      const human = count("human");
+      const aiN = readdirSync(join(corpusDir, "ai")).filter((f) => f.endsWith(".txt")).length;
+      const humanN = readdirSync(join(corpusDir, "human")).filter((f) => f.endsWith(".txt")).length;
+      check(
+        `additionally-initial really is no better than chance (${ai}/${aiN} AI vs ${human}/${humanN} human)`,
+        human / humanN >= ai / aiN,
+        "if this flips, the rejection deserves re-opening — that is the point of recording it",
+      );
+    }
   }
 
   group("Known false-positive guards — the same patterns MUST still fire");
@@ -895,15 +971,20 @@ try {
       );
     }
     // And the paired positive: masking is what makes that work, not luck.
+    //
+    // The probe uses a Tier A trigger deliberately. It used to use a chatbot
+    // pleasantry, which left Tier A on 2026-08-04 — so the test would have
+    // quietly started asserting nothing, passing because it found no Tier A
+    // findings rather than because masking worked.
     const probe = join(tmp, "backticked.md");
-    writeFileSync(probe, "Documenting the tell: `You’re absolutely right` is the giveaway.\n");
+    writeFileSync(probe, "Documenting the tell: `As an AI language model, I cannot` is the giveaway.\n");
     const masked = scan([probe, "--profile", "technical"]).results[0]
       .findings.filter((f) => f.tier === "A");
     check("a backticked trigger is masked, not matched", masked.length === 0,
       masked.map((f) => f.id).join(","));
 
     const bare = join(tmp, "bare.md");
-    writeFileSync(bare, "Documenting the tell: You’re absolutely right is the giveaway.\n");
+    writeFileSync(bare, "Documenting the tell: As an AI language model, I cannot help.\n");
     const unmasked = scan([bare, "--profile", "technical"]).results[0]
       .findings.filter((f) => f.tier === "A");
     check("the same phrase unquoted still fires, so the guard is masking not blindness",
