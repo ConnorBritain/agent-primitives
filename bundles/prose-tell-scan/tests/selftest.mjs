@@ -1402,6 +1402,117 @@ try {
       );
     }
   }
+
+  /* ------------------------------------------------------------------ */
+  group("Relative report — \"is this me?\" against the author's own rates");
+
+  {
+    const rel = await import("../skills/tell-scan/tools/lib/relative.mjs");
+    const { poissonAtLeast, relativeReport, authorRate, renderRelative } = rel;
+    const { MIN_COUNT, THIN_COMPARISON } = rel;
+
+    // A wrong tail makes every surprise wrong in the same direction, and would
+    // look like a threshold needing tuning rather than arithmetic that is broken.
+    check(
+      "Poisson upper tail matches the closed form at k=1",
+      Math.abs(poissonAtLeast(1, 1) - (1 - Math.exp(-1))) < 1e-12,
+    );
+
+    // THE REASON THIS MODULE USES POISSON AT ALL. A per-1k ratio on a short
+    // draft is enormous for a single occurrence, so a ratio-based report flags
+    // every short draft and the author learns to ignore it. If this fails, the
+    // tool has started shouting at people for writing 400 words.
+    const rates = { widget: { per_1k: 0.2, count: 8, in_samples: 5 } };
+    const shortDraft = relativeReport({
+      entryRates: rates,
+      corpusWords: 40000,
+      draftEntries: [{ id: "widget", count: 1, title: "widget" }],
+      draftWords: 400,
+    });
+    check("one occurrence in a short draft is not a finding", shortDraft.surprises.length === 0);
+
+    // The other direction, or the quietness above is indistinguishable from the
+    // module doing nothing at all.
+    const loaded = relativeReport({
+      entryRates: rates,
+      corpusWords: 40000,
+      draftEntries: [{ id: "widget", count: 9, title: "widget" }],
+      draftWords: 900,
+    });
+    check("a genuinely elevated count is reported", loaded.surprises.length === 1);
+    check("a measured rate is labelled measured", loaded.surprises[0].basis === "measured");
+
+    // A construction the corpus never contains is NOT rate zero. Zero asserts
+    // "this author never does this" from silence, which is a claim about a
+    // person the corpus cannot support. The rule-of-three bound needs MORE
+    // evidence to flag, not less.
+    const unseen = authorRate({}, "novel", 40000);
+    check(
+      "an unseen construction uses the rule-of-three bound, not zero",
+      unseen.rate === 3 / 40000 && unseen.observed === false,
+    );
+
+    const unseenReport = relativeReport({
+      entryRates: {},
+      corpusWords: 40000,
+      draftEntries: [{ id: "novel", count: 5, title: "novel" }],
+      draftWords: 600,
+    });
+    check(
+      "an unseen construction is labelled unseen, never measured",
+      unseenReport.surprises[0] && unseenReport.surprises[0].basis === "unseen",
+    );
+
+    // Floor and test fail in opposite directions on purpose: two of anything
+    // stays silent however improbable, because two of anything happens.
+    const twoHits = relativeReport({
+      entryRates: {},
+      corpusWords: 400000,
+      draftEntries: [{ id: "novel", count: MIN_COUNT - 1, title: "novel" }],
+      draftWords: 5000,
+    });
+    check(
+      "below the min-count floor nothing is claimed, however improbable",
+      twoHits.surprises.length === 0,
+    );
+
+    // "Nothing unusual" after ONE comparison reads as "your draft is fine",
+    // which is far larger than one comparison carries. Silence that sounds like
+    // reassurance is the failure this project keeps rediscovering.
+    const thin = renderRelative(
+      { surprises: [], compared: 1, unknown: 0, draftWords: 1300 },
+      { corpusWords: 36096, samples: 12 },
+    );
+    check("a thin comparison does not report 'nothing unusual'", !/Nothing unusual/.test(thin));
+    check("a thin comparison says what it could not check", /not a clean bill of health/.test(thin));
+
+    const fat = renderRelative(
+      { surprises: [], compared: THIN_COMPARISON + 3, unknown: 0, draftWords: 1300 },
+      { corpusWords: 36096, samples: 12 },
+    );
+    check("a real comparison does say nothing unusual", /Nothing unusual/.test(fat));
+
+    // Three causes produce "outside your range" and the tool cannot tell them
+    // apart. Phrased as a verdict it teaches authors to write blandly, which is
+    // the exact damage this project exists to prevent.
+    const spoken = renderRelative(
+      {
+        surprises: [{
+          id: "w", title: "w", draftCount: 9, draftPer1k: 10, authorPer1k: 0.2,
+          expected: 0.18, p: 0.0001, basis: "measured", corpusCount: 8, inSamples: 5,
+        }],
+        compared: 9, unknown: 0, draftWords: 900,
+      },
+      { corpusWords: 36096, samples: 12 },
+    );
+    check("findings are framed as a question", /question, not a verdict/.test(spoken));
+    check("the report names the innocent explanations", /writing something new/.test(spoken));
+    check(
+      "the report never says it does not sound like you",
+      !/sound like you/i.test(spoken),
+    );
+  }
+
 } finally {
   rmSync(tmp, { recursive: true, force: true });
 }

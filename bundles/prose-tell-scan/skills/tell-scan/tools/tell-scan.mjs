@@ -31,6 +31,7 @@ import { checkISBNs, checkCitations, measureStructure } from "./lib/artifacts.mj
 import {
   loadConfig, loadProfile, profileSearchPath, resolveProfile, listProfiles, BASE_PROFILE,
 } from "./lib/profile.mjs";
+import { relativeReport, renderRelative } from "./lib/relative.mjs";
 import { evaluateFindings, evaluateCadence, summarise, profileFit } from "./lib/evaluate.mjs";
 import { renderReport, renderComparison } from "./lib/report.mjs";
 
@@ -56,6 +57,9 @@ Options
   --no-examples         Omit matched-text examples.
   --plain               Treat input as plain text (skip markdown masking).
   --markdown            Force markdown masking.
+  --relative            "Is this me?" Compare against YOUR measured rates
+                        rather than severity ceilings. Needs a calibrated
+                        corpus; refuses without one.
   --artifacts-only      Tier A only: leaked citation markup, chatbot register,
                         knowledge-cutoff hedges, unreplaced placeholders. Skips
                         every style judgement. Use this when the style catalog's
@@ -93,6 +97,7 @@ function parseArgs(argv) {
       case "--markdown": opts.markdown = true; break;
       case "--list-profiles": opts.listProfiles = true; break;
       case "--artifacts-only": opts.artifactsOnly = true; break;
+      case "--relative": opts.relative = true; break;
       case "-h": case "--help": opts.help = true; break;
       default:
         if (a.startsWith("-")) throw new Error(`unknown option: ${a}`);
@@ -242,8 +247,31 @@ function analyse(file, opts, config, searchPath) {
     summary.dispositive_counter_evidence = true;
   }
 
+  // "Is this me?" - the author's own rates, not the severity ceilings.
+  //
+  // Uses rawFindings, BEFORE evaluateFindings applies thresholds. A construction
+  // the author never uses is interesting at any density, and a construction they
+  // lean on is uninteresting at a density that would trip a band. Filtering by
+  // band first would ask the ceiling question again and call the answer personal.
+  //
+  // THE COLD-START REFUSAL. Without a calibrated corpus there is no "you" to
+  // compare against, and the fallback bands describe a severity class rather
+  // than a person. Answering "is this me?" from them would be the tool's worst
+  // available lie: confident, personal-sounding, and about nobody.
+  const relative = opts.relative && !profile.thresholds.derived
+    ? { refused: true, profileName: resolved.name }
+    : opts.relative
+    ? relativeReport({
+      entryRates: profile.thresholds.entry_rates,
+      corpusWords: profile.thresholds.corpus_words,
+      draftEntries: rawFindings.map((f) => ({ id: f.id, count: f.count, title: f.label || f.id })),
+      draftWords: wordCount,
+    })
+    : null;
+
   return {
     file,
+    relative,
     profile: {
       name: resolved.name,
       how: resolved.how,
@@ -344,6 +372,31 @@ function main() {
     };
     process.stdout.write(`${JSON.stringify(payload, null, 2)}\n`);
     return;
+  }
+
+  if (opts.relative) {
+    for (const result of results) {
+      if (result.relative?.refused) {
+        process.stderr.write(
+          `\ntell-scan: cannot answer "is this me?" for ${result.file}\n\n`
+          + `  Profile "${result.relative.profileName}" has no calibrated corpus, so there is\n`
+          + "  no measurement of how YOU write - only fallback bands describing a\n"
+          + "  severity class. Comparing a draft against those and calling the result\n"
+          + "  personal would be a confident answer about nobody.\n\n"
+          + "  Build a corpus first:  node tools/calibrate.mjs --profile <name>\n\n",
+        );
+        failures += 1;
+        continue;
+      }
+      process.stdout.write(
+        `${renderRelative(result.relative, {
+          corpusWords: result.profile.thresholds.corpus_words,
+          samples: result.profile.thresholds.samples,
+          showAll: opts.all,
+        })}\n`,
+      );
+    }
+    process.exit(failures ? 1 : 0);
   }
 
   for (const result of results) {
