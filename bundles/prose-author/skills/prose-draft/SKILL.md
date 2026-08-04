@@ -115,6 +115,10 @@ calibration will widen the band that flagged it.
 - **`corpus/approved/` is read for exemplar selection only**, under the cap in
   [`PROFILES.md`](../../../prose-tell-scan/PROFILES.md), and never feeds
   cadence bands. `tools/exemplars.mjs` enforces the cap; nothing here writes to
-  that directory yet.
-- **Verification needs `prose-tell-scan` installed.** Without it `verify.mjs`
-  says the draft was not scanned. That is the absence of a check, not a pass.
+  that directory yet. Note that slots are `floor(n × cap)`, so at the `--n 3`
+  above no approved sample is selected at all — the cap is a ceiling, not a
+  quota. The tool reports this rather than leaving it implicit.
+- **Verification needs `prose-tell-scan`.** It is resolved from a loose-file
+  install, a plugin install, or `TELL_SCAN_PATH`. If it cannot be found,
+  `verify.mjs` says the draft was **not scanned** and lists where it looked —
+  the absence of a check, never a pass.

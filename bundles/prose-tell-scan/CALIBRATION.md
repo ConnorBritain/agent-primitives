@@ -881,6 +881,44 @@ claimed to measure against what it does measure.
 - A correction to a published figure is not evidence the figure is now right. It
   is evidence somebody looked once.
 
+### FN-2026-08-04-j · mutation testing · a count from a run that crashed
+
+**Bundle:** `prose-author`. Logged here because the pattern is this file's.
+
+**What happened.** A commit message reported three mutation tests with exact
+failure counts: 2, 4, and 3. The first two reproduced. The third did not, under
+any reconstruction a reviewer could build — they got 2, 5, or a hard crash.
+
+The mutation set `tierA = []`, which made `v.artifacts` undefined, and a test
+dereferenced it without a guard. **The run crashed after three failures.** The
+shell that collected the result piped through `grep -E '^  FAIL|passed,'`, which
+printed the three FAIL lines and silently dropped the fact that the
+`N passed, N failed` summary line never arrived. Through that filter a crashed
+run and a completed run are indistinguishable.
+
+Real number, with the dereference guarded: **6**.
+
+**Why it belongs in this log.** Same shape as the previous seven. The arithmetic
+was never wrong. The measurement setup was — a filter that could not represent
+"this run did not finish" — and the number it produced was plausible enough to
+publish and specific enough to look verified.
+
+**What is new.** The previous instances were about a *method* being unstated or
+unread. This one had no method to state: it was a one-off shell pipeline, which
+is precisely what FN-2026-08-04-i said to stop doing. The rule was written and
+then not applied to the next number produced, three commits later.
+
+**Rules taken.**
+
+- **A filtered command cannot report a count.** If the output is piped through
+  anything, the thing being counted must be parsed from a summary the script
+  emits, and the absence of that summary must be an error rather than a zero.
+- A test that dereferences a field the code under test may legitimately omit is
+  a crash waiting for a mutation. Guard the shape, not just the value.
+- Mutation results go in a checked-in table with the mutation written out, so the
+  next reader re-runs it rather than trusting it. See
+  `bundles/prose-author/tests/MUTATIONS.md`.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather
@@ -902,7 +940,7 @@ looked.
 That ratio is the argument for the kickoff's advice to run the scanner in anger
 before building anything on top of it.
 
-**Seven incidents now trace to a wrong measurement setup rather than wrong
+**Eight incidents now trace to a wrong measurement setup rather than wrong
 arithmetic**, and that is the single largest class in this log. Arithmetic errors
 announce themselves. Setup errors produce plausible numbers that survive review
 until someone independently re-derives them — which happened here only because a

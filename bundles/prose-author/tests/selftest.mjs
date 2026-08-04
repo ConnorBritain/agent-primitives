@@ -8,15 +8,17 @@
  * output looks the same either way — so they get tests rather than review.
  */
 
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, cpSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  selectExemplars, renderExemplars, CORPUS_MINIMUM, CAP_CLAMP, DEFAULT_CAP,
+  selectExemplars, renderExemplars, attested, CORPUS_MINIMUM, CAP_CLAMP, DEFAULT_CAP,
 } from "../skills/prose-draft/tools/exemplars.mjs";
-import { verifyDraft, renderVerification, findScanner, firstExisting } from "../skills/prose-draft/tools/verify.mjs";
+import {
+  verifyDraft, renderVerification, findScanner, firstExisting, scannerCandidates, SCANNER_ENV,
+} from "../skills/prose-draft/tools/verify.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = resolve(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
@@ -151,6 +153,97 @@ try {
   }
 
   /* ------------------------------------------------------------------ */
+  group("Exemplars — provenance, and the README that was almost a writing sample");
+
+  {
+    // THE BUG THIS EXISTS TO PREVENT, found by a reviewer against the shipped
+    // tree. Every profile this repo ships has an empty corpus/human/ containing
+    // only a placeholder README explaining how to fill it. Without a README
+    // filter and an attestation check, that README counted as a human sample:
+    // the cold-start refusal never fired, and the drafter would have been handed
+    // the scanner's own instructional boilerplate as "how this person writes".
+    const shipped = resolve(HERE, "..", "..", "prose-tell-scan", "skills", "tell-scan", "profiles", "essay");
+    const r = selectExemplars(shipped);
+    check("a shipped profile with only a README refuses", r.refusal === "no-corpus");
+    check("no exemplar is ever a README", r.exemplars.every((e) => !/^readme/i.test(e.file)));
+
+    // THE README FILTER NEEDS ITS OWN TEST, and the obvious one does not give it
+    // one. An unattested README is already rejected by the attestation check, so
+    // deleting the filter entirely changed no result - a mutation run proved it,
+    // scoring 0 failures where the other five guards scored 1 to 6.
+    //
+    // The filter still earns its place, and this is the case that shows why:
+    // calibrate.mjs excludes READMEs unconditionally, BEFORE looking at
+    // frontmatter. So an attested README is a file calibration would never
+    // measure and drafting would happily imitate - the two sides disagreeing
+    // about what the corpus contains, which is the one thing the port must not
+    // do. Isolating it needs a README that would otherwise pass.
+    const rm = join(tmp, "attested-readme");
+    mkdirSync(join(rm, "corpus", "human"), { recursive: true });
+    const good = `---\nsource: s\ndate: 2021-01-01\nhuman_authored: true\n---\n${"word ".repeat(400)}\n`;
+    writeFileSync(join(rm, "corpus", "human", "README.md"), good);
+    writeFileSync(join(rm, "corpus", "human", "real.txt"), good);
+    const rmr = selectExemplars(rm, { n: 2 });
+    check(
+      "an ATTESTED README is still excluded, as calibrate.mjs excludes it",
+      rmr.exemplars.length === 1 && rmr.exemplars[0].file === "real.txt",
+    );
+
+    // Attestation is the guard against AI-assisted drafts silently becoming the
+    // definition of "human". Unattested files are excluded, not downweighted.
+    const un = join(tmp, "unattested");
+    mkdirSync(join(un, "corpus", "human"), { recursive: true });
+    writeFileSync(join(un, "corpus", "human", "a.txt"), `${"word ".repeat(400)}\n`);
+    writeFileSync(join(un, "corpus", "human", "b.txt"),
+      `---\nsource: s\ndate: 2021-01-01\nhuman_authored: false\n---\n${"word ".repeat(400)}\n`);
+    const ur = selectExemplars(un);
+    check("an unattested sample does not count as human", ur.refusal === "no-corpus");
+    check("and the refusal names what it excluded and why", /human_authored/.test(ur.message));
+
+    // Too short to teach a rhythm.
+    const shortp = join(tmp, "shortp");
+    mkdirSync(join(shortp, "corpus", "human"), { recursive: true });
+    writeFileSync(join(shortp, "corpus", "human", "a.txt"),
+      `---\nsource: s\ndate: 2021-01-01\nhuman_authored: true\n---\n${"word ".repeat(10)}\n`);
+    check("a sample below the word floor is excluded", selectExemplars(shortp).refusal === "no-corpus");
+  }
+
+  {
+    // CONTRACT TEST. These rules are a PORT of calibrate.mjs, not an import -
+    // importing across the bundle boundary would make prose-author unloadable
+    // without prose-tell-scan. A port drifts unless something pins it, so this
+    // runs BOTH implementations over the same fixtures and fails on disagreement.
+    let readProvenance = null;
+    try {
+      ({ readProvenance } = await import("../../prose-tell-scan/skills/tell-scan/tools/calibrate.mjs"));
+    } catch { /* sibling absent: the port is untestable, not wrong */ }
+
+    if (!readProvenance) {
+      check("contract test skipped — prose-tell-scan not present", true);
+    } else {
+      const cases = [
+        ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: true\n---\nbody", true],
+        ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: false\n---\nbody", false],
+        ["---\nsource: s\ndate: 2021-01-01\n---\nbody", false],
+        ["---\ndate: 2021-01-01\nhuman_authored: true\n---\nbody", false],
+        ["---\nsource: s\nhuman_authored: true\n---\nbody", false],
+        ["---\nsource: s\ndate: 2021-01-01\nhuman_authored: yes\n---\nbody", true],
+        ["no frontmatter at all", false],
+      ];
+      const disagreements = cases.filter(([text, want]) => {
+        const mine = attested(text).ok;
+        const theirs = readProvenance(text).ok;
+        return mine !== theirs || mine !== want;
+      });
+      check(
+        "the ported attestation rule agrees with calibrate.mjs on every fixture",
+        disagreements.length === 0,
+        disagreements.length ? `${disagreements.length} disagreement(s)` : "",
+      );
+    }
+  }
+
+  /* ------------------------------------------------------------------ */
   group("Verify — what a draft is allowed to claim about itself");
 
   const scanner = findScanner();
@@ -163,6 +256,31 @@ try {
     // directly rather than asserted against a literal written in this file.
     check("scanner resolution returns null when nothing is there", firstExisting([join(tmp, "nope.mjs")]) === null);
     check("scanner resolution finds a real file", typeof scanner === "string");
+
+    // THE LOOSE-FILE INSTALL, which install.sh actually produces and which the
+    // first version of findScanner could not resolve. The failure was not a
+    // missing dependency - the sibling sat one directory over - so the tool said
+    // NOT VERIFIED while the thing it needed was present. A degradation that
+    // fires when the dependency exists is a worse lie than no check at all.
+    const loose = join(tmp, "loose", "skills");
+    mkdirSync(loose, { recursive: true });
+    cpSync(resolve(HERE, "..", "skills", "prose-draft"), join(loose, "prose-draft"), { recursive: true });
+    cpSync(
+      resolve(HERE, "..", "..", "prose-tell-scan", "skills", "tell-scan"),
+      join(loose, "tell-scan"),
+      { recursive: true },
+    );
+    const looseVerify = await import(`file://${join(loose, "prose-draft", "tools", "verify.mjs")}`);
+    check(
+      "the loose-file install shape resolves its sibling",
+      typeof looseVerify.findScanner() === "string",
+    );
+
+    // An explicit override must beat discovery, for installs nothing can guess.
+    check(
+      "an env override is searched before discovery",
+      scannerCandidates([], { [SCANNER_ENV]: "/x/y.mjs" })[0] === "/x/y.mjs",
+    );
 
     // An unscannable draft must not read as a pass. Pointing at a missing
     // scanner exercises the same branch a missing install produces.
@@ -183,7 +301,7 @@ try {
       check("a rejected draft makes NO claims", v.claims.length === 0);
       check(
         "the artifact note is trimmed, not the catalog's whole history",
-        v.artifacts.every((a) => !a.note || a.note.length <= 141),
+        Array.isArray(v.artifacts) && v.artifacts.every((a) => !a.note || a.note.length <= 141),
       );
       const r = renderVerification(v);
       check("the rendering says returned, not reported", /RETURNED/.test(r));

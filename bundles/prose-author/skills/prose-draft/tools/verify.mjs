@@ -33,7 +33,7 @@
  * silently means "resembles our fallback", which is a sentence about nobody.
  */
 
-import { existsSync, statSync } from "node:fs";
+import { existsSync, statSync, realpathSync } from "node:fs";
 import { execFileSync } from "node:child_process";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -44,9 +44,17 @@ const HERE = dirname(fileURLToPath(import.meta.url));
  * Find the sibling scanner.
  *
  * This bundle ships without prose-tell-scan and has to say so rather than
- * throwing ENOENT at someone who installed one plugin and not the other. The
- * search order goes from a full checkout outward; each candidate is a real
- * install shape, not a guess.
+ * throwing ENOENT at someone who installed one plugin and not the other.
+ *
+ * EVERY CANDIDATE HERE IS A REAL INSTALL SHAPE, and the loose-file one was
+ * missing from the first version. `install.sh` copies `skills/<name>/` flat into
+ * `<dest>/skills/<name>/`, so a user who installed BOTH skills that way had the
+ * scanner sitting one directory over and got "NOT VERIFIED" anyway - the
+ * degradation firing while the dependency was present, which is a worse lie
+ * than no check at all, because it reads as "your sibling is missing".
+ *
+ * Order is most-specific-first: an explicit override beats discovery, and
+ * discovery prefers the shape the caller is most likely actually in.
  */
 export function firstExisting(candidates) {
   for (const c of candidates) {
@@ -55,12 +63,25 @@ export function firstExisting(candidates) {
   return null;
 }
 
-export function findScanner(extra = []) {
-  return firstExisting([
+export const SCANNER_ENV = "TELL_SCAN_PATH";
+
+export function scannerCandidates(extra = [], env = process.env) {
+  const rel = (...p) => join(HERE, ...p);
+  return [
     ...extra,
-    join(HERE, "..", "..", "..", "..", "prose-tell-scan", "skills", "tell-scan", "tools", "tell-scan.mjs"),
-    join(HERE, "..", "..", "..", "..", "..", "prose-tell-scan", "skills", "tell-scan", "tools", "tell-scan.mjs"),
-  ]);
+    // Explicit override, for installs this cannot guess.
+    ...(env[SCANNER_ENV] ? [env[SCANNER_ENV]] : []),
+    // Loose-file: install.sh puts both skills side by side under <dest>/skills/.
+    rel("..", "..", "tell-scan", "tools", "tell-scan.mjs"),
+    // Plugin install / monorepo: bundles/<bundle>/skills/<skill>/tools/
+    rel("..", "..", "..", "..", "prose-tell-scan", "skills", "tell-scan", "tools", "tell-scan.mjs"),
+    // One level further out, for a plugins/ root that nests bundles.
+    rel("..", "..", "..", "..", "..", "prose-tell-scan", "skills", "tell-scan", "tools", "tell-scan.mjs"),
+  ];
+}
+
+export function findScanner(extra = [], env = process.env) {
+  return firstExisting(scannerCandidates(extra, env));
 }
 
 /** First sentence, capped. Enough to say what the artifact is, never a history. */
@@ -77,10 +98,10 @@ export function verifyDraft(draft, { profile, profilesDir, project, scanner } = 
     return {
       status: "unverifiable",
       message:
-        "prose-tell-scan is not installed alongside this bundle, so the draft was "
-        + "NOT scanned. This is not a passing result - it is the absence of a "
-        + "check. Install prose-tell-scan, or state plainly that the draft is "
-        + "unverified.",
+        "prose-tell-scan was not found, so the draft was NOT scanned. This is "
+        + "not a passing result - it is the absence of a check.\n\n  Looked in:\n"
+        + scannerCandidates().map((c) => `    ${c}`).join("\n")
+        + `\n\n  Install prose-tell-scan, or set ${SCANNER_ENV} to its tell-scan.mjs.`,
       claims: [],
     };
   }
@@ -208,6 +229,7 @@ function main() {
     profile: val("--profile"),
     profilesDir: val("--profiles-dir"),
     project: val("--project"),
+    scanner: val("--scanner-path"),
   });
   if (args.includes("--json")) {
     process.stdout.write(`${JSON.stringify(v, null, 2)}\n`);
@@ -217,4 +239,11 @@ function main() {
   process.exit(v.status === "verified" ? 0 : 1);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main();
+// Run only when invoked directly.
+//
+// The obvious form - comparing import.meta.url to `file://${process.argv[1]}` -
+// silently does nothing when the path contains a symlink, because import.meta.url
+// is fully resolved and argv[1] is not. On macOS /tmp is a symlink to /private/tmp,
+// so any install under a temp dir exited 0 having printed nothing, which reads as
+// success. Resolve both sides.
+if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) main();

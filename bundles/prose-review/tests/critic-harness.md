@@ -152,8 +152,19 @@ any claim about machine authorship: N        <- must be 0
 The last two are contract violations rather than quality measures, and either
 being non-zero blocks the primitive regardless of how well it scores.
 
-**Keep the raw output.** Save each critic's verbatim report under
-`runs/<date>/<draft>.md`. The two contract counts are assertions about text
+**Keep the raw output, and let a script do the counting.** Save each critic's
+verbatim report under `runs/<date>/<draft>.md`, then:
+
+```bash
+node tests/verify-run.mjs runs/<date>
+```
+
+It re-derives the four numbers from the transcripts and exits non-zero on either
+contract violation, or on a transcript with no `RESULT` line — because silently
+skipping one understates the denominator, which is the direction that flatters
+the result. **Quote its output; do not retype it.** Checking transcripts in fixes
+who can see the evidence and does nothing about who did the counting: a summary
+can still claim "0 of 12" over a directory that says otherwise. The two contract counts are assertions about text
 nobody else can see, and a summary table is the reporter grading their own
 transcript. This was added after a reviewer pointed out that every *specific*
 number in the first run checked out and the two counts that mattered most still

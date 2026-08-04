@@ -79,6 +79,12 @@ collapses onto its mode.
 - **approved drafts supplement; they never bootstrap** — below ten human samples
   they contribute nothing, or the cold-start path is to fill the folder with
   model output and calibrate against model norms on day one
+- **and at the documented default they contribute nothing anyway** — slots are
+  `floor(n × cap)`, so at `n=3, cap=0.2` that is `floor(0.6) = 0`. Approved
+  drafts earn a slot only on larger exemplar sets. That is the intended
+  direction, since the cap is a ceiling rather than a quota, but it means the
+  feature is *off* at the invocation the docs recommend. The tool now says so in
+  its own output rather than leaving you to do the arithmetic
 - **weight scales with how much of the draft is actually you** — a generation
   approved untouched is worth approximately nothing as evidence about a person
 - **cadence bands never see them at all** — that firewall is in `prose-tell-scan`

@@ -1480,14 +1480,14 @@ try {
     // which is far larger than one comparison carries. Silence that sounds like
     // reassurance is the failure this project keeps rediscovering.
     const thin = renderRelative(
-      { surprises: [], compared: 1, unknown: 0, draftWords: 1300 },
+      { surprises: [], compared: 1, draftWords: 1300 },
       { corpusWords: 36096, samples: 12 },
     );
     check("a thin comparison does not report 'nothing unusual'", !/Nothing unusual/.test(thin));
     check("a thin comparison says what it could not check", /not a clean bill of health/.test(thin));
 
     const fat = renderRelative(
-      { surprises: [], compared: THIN_COMPARISON + 3, unknown: 0, draftWords: 1300 },
+      { surprises: [], compared: THIN_COMPARISON + 3, draftWords: 1300 },
       { corpusWords: 36096, samples: 12 },
     );
     check("a real comparison does say nothing unusual", /Nothing unusual/.test(fat));
@@ -1501,7 +1501,7 @@ try {
           id: "w", title: "w", draftCount: 9, draftPer1k: 10, authorPer1k: 0.2,
           expected: 0.18, p: 0.0001, basis: "measured", corpusCount: 8, inSamples: 5,
         }],
-        compared: 9, unknown: 0, draftWords: 900,
+        compared: 9, draftWords: 900,
       },
       { corpusWords: 36096, samples: 12 },
     );
@@ -1511,6 +1511,49 @@ try {
       "the report never says it does not sound like you",
       !/sound like you/i.test(spoken),
     );
+  }
+
+
+  /* ------------------------------------------------------------------ */
+  group("Relative report — through the CLI, not just the module");
+
+  {
+    // The unit tests exercise relative.mjs directly. Nothing exercised the flag
+    // through tell-scan.mjs itself, so a wiring mistake - a flag never parsed, a
+    // refusal never reached, a renderer never called - would pass every test.
+    const prof = join(tmp, "relcli", "profiles", "encyc", "corpus", "human");
+    mkdirSync(prof, { recursive: true });
+    const humanDir = join(REPO, "bundles", "prose-tell-scan", "tests", "corpus", "human");
+    for (const f of readdirSync(humanDir).filter((x) => x.endsWith(".txt"))) {
+      cpSync(join(humanDir, f), join(prof, f));
+    }
+    const root = join(tmp, "relcli");
+    execFileSync("node", [CAL, "encyc", "--profiles-dir", join(root, "profiles"), "--project", root, "--write"],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+
+    const out = execFileSync("node", [
+      SCAN, join(humanDir, "kenyatta-university.txt"), "--relative",
+      "--profile", "encyc", "--profiles-dir", join(root, "profiles"), "--project", root,
+    ], { encoding: "utf8" });
+    check("--relative renders the 'is this me?' header", /is this me\?/.test(out));
+    check("--relative reports against the corpus, not a severity class", /against your corpus/.test(out));
+    check("--relative never says a draft does not sound like you", !/sound like you/i.test(out));
+
+    // THE COLD-START REFUSAL, through the CLI. Without a corpus there is no
+    // "you" to compare against, and answering from fallback bands would be a
+    // confident, personal-sounding statement about nobody. It must exit non-zero
+    // so a script cannot mistake the refusal for a clean result.
+    let code = 0;
+    let stderr = "";
+    try {
+      execFileSync("node", [SCAN, join(humanDir, "kenyatta-university.txt"), "--relative"],
+        { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+    } catch (err) {
+      code = err.status;
+      stderr = String(err.stderr || "");
+    }
+    check("--relative without a corpus exits non-zero", code !== 0);
+    check("and explains that there is no 'you' to compare against", /no calibrated corpus/.test(stderr));
   }
 
 } finally {

@@ -38,7 +38,8 @@
  * why cadence bands never see these files at all (PROFILES.md rule 3).
  */
 
-import { readFileSync, readdirSync, existsSync, statSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync, statSync, realpathSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 
 /** Matches calibrate.mjs. Below this many human samples, nothing else counts. */
@@ -46,6 +47,49 @@ export const CORPUS_MINIMUM = 10;
 
 /** PROFILES.md default. Configurable up, but never to or past the clamp. */
 export const DEFAULT_CAP = 0.2;
+
+/**
+ * Below this, a sample is too short to teach a rhythm. Matches calibrate.mjs.
+ *
+ * These next three rules are a PORT, not an import, and the distinction is
+ * deliberate: importing across the bundle boundary would make prose-author
+ * unloadable without prose-tell-scan installed, which is a worse failure than
+ * the drift a port risks. The drift is handled instead by a contract test
+ * (tests/selftest.mjs) that runs both implementations over the same fixtures
+ * and fails when they disagree.
+ *
+ * PROFILES.md is the contract both sides implement. Change it and change both.
+ */
+export const MIN_SAMPLE_WORDS = 200;
+
+/**
+ * A sample must ATTEST to being human-written, or it does not count.
+ *
+ * This is the guard against AI-assisted drafts silently becoming the definition
+ * of "human", and it was missing from the first version of this file. The
+ * consequence was not theoretical: every profile this repo ships contains a
+ * placeholder `README.md` explaining how to fill the corpus, and without these
+ * checks that README counted as a writing sample. The cold-start refusal never
+ * fired, and the drafter would have been handed the scanner's own instructional
+ * boilerplate as an example of how this person writes.
+ *
+ * That is the exact failure DESIGN.md names as the worst available outcome:
+ * confident, personal-sounding, and about nobody.
+ */
+export function attested(text) {
+  const m = text.match(/^---\n([\s\S]*?)\n---(?:\n|$)/);
+  if (!m) return { ok: false, reason: "no frontmatter block" };
+  const field = (name) => {
+    const hit = m[1].match(new RegExp(`^\\s*${name}\\s*:\\s*(.+?)\\s*$`, "m"));
+    return hit ? hit[1].replace(/^["']|["']$/g, "") : null;
+  };
+  const human = field("human_authored");
+  if (human === null) return { ok: false, reason: "no human_authored field" };
+  if (!/^(true|yes)$/i.test(human)) return { ok: false, reason: `human_authored is "${human}"` };
+  if (!field("source")) return { ok: false, reason: "no source field" };
+  if (!field("date")) return { ok: false, reason: "no date field" };
+  return { ok: true, body: text.slice(m[0].length) };
+}
 
 /**
  * Hard ceiling on the approved share, enforced in code rather than config.
@@ -56,28 +100,51 @@ export const DEFAULT_CAP = 0.2;
  */
 export const CAP_CLAMP = 0.5;
 
-function readSamples(dir) {
-  if (!existsSync(dir) || !statSync(dir).isDirectory()) return [];
-  const out = [];
+/** README files are scaffolding, never samples. Matches calibrate.mjs. */
+const isReadme = (name) => /^readme\b/i.test(name);
+const isText = (name) => name.endsWith(".txt") || name.endsWith(".md");
+
+function readSamples(dir, { requireAttestation }) {
+  if (!existsSync(dir) || !statSync(dir).isDirectory()) return { usable: [], excluded: [] };
+  const usable = [];
+  const excluded = [];
+
+  const take = (path, group) => {
+    const raw = readFileSync(path, "utf8");
+    const file = path.split("/").pop();
+    if (requireAttestation) {
+      const a = attested(raw);
+      if (!a.ok) {
+        excluded.push({ file, reason: a.reason });
+        return;
+      }
+    }
+    const s = load(path, group, raw);
+    if (s.words < MIN_SAMPLE_WORDS) {
+      excluded.push({ file, reason: `too short (${s.words} words)` });
+      return;
+    }
+    usable.push(s);
+  };
+
   for (const name of readdirSync(dir).sort()) {
+    if (name.startsWith(".")) continue;
     const path = join(dir, name);
-    const st = statSync(path);
-    if (st.isDirectory()) {
+    if (statSync(path).isDirectory()) {
       // A group: a voice the author named inside this register.
       for (const inner of readdirSync(path).sort()) {
-        if (!inner.endsWith(".txt") && !inner.endsWith(".md")) continue;
-        out.push(load(join(path, inner), name));
+        if (!isText(inner) || isReadme(inner)) continue;
+        take(join(path, inner), name);
       }
       continue;
     }
-    if (!name.endsWith(".txt") && !name.endsWith(".md")) continue;
-    out.push(load(path, null));
+    if (!isText(name) || isReadme(name)) continue;
+    take(path, null);
   }
-  return out;
+  return { usable, excluded };
 }
 
-function load(path, group) {
-  const raw = readFileSync(path, "utf8");
+function load(path, group, raw) {
   const body = raw.replace(/^---\n[\s\S]*?\n---\n/, "");
   const fm = raw.startsWith("---\n") ? raw.slice(4, raw.indexOf("\n---\n", 3)) : "";
   const field = (k) => {
@@ -110,21 +177,31 @@ export function selectExemplars(profileDir, { targetWords = 800, n = 3, cap = DE
   const humanDir = join(profileDir, "corpus", "human");
   const approvedDir = join(profileDir, "corpus", "approved");
 
-  const human = readSamples(humanDir);
+  // Human samples must ATTEST. Approved drafts carry `human_authored: false` by
+  // definition, so the same check would exclude all of them; they are gated by
+  // the cap and the corpus minimum instead.
+  const { usable: human, excluded: humanExcluded } = readSamples(humanDir, { requireAttestation: true });
   if (!human.length) {
+    const why = humanExcluded.length
+      ? ` ${humanExcluded.length} file(s) were found and excluded: `
+        + `${humanExcluded.slice(0, 4).map((e) => `${e.file} (${e.reason})`).join(", ")}.`
+      : "";
     return {
       refusal: "no-corpus",
       message:
-        `No human samples in ${humanDir}. Without them there is no measurement of `
-        + "how you write, and exemplars drawn from anywhere else would be someone "
-        + "else's voice wearing your name.",
+        `No usable human samples in ${humanDir}.${why} Without them there is no `
+        + "measurement of how you write, and exemplars drawn from anywhere else "
+        + "would be someone else's voice wearing your name.",
+      excluded: humanExcluded,
       exemplars: [],
     };
   }
 
   const effectiveCap = Math.min(Math.max(cap, 0), CAP_CLAMP - Number.EPSILON);
   const approvedAllowed = human.length >= CORPUS_MINIMUM;
-  const approved = approvedAllowed ? readSamples(approvedDir) : [];
+  const approved = approvedAllowed
+    ? readSamples(approvedDir, { requireAttestation: false }).usable
+    : [];
 
   // Rule 3: approved may fill at most `cap` of the slots, rounded DOWN. At n=3
   // and cap=0.2 that is zero, which is the right answer - it takes a larger
@@ -149,6 +226,7 @@ export function selectExemplars(profileDir, { targetWords = 800, n = 3, cap = DE
   return {
     refusal: null,
     exemplars: chosen,
+    excluded: humanExcluded,
     accounting: {
       human_available: human.length,
       approved_available: approved.length,
@@ -159,6 +237,12 @@ export function selectExemplars(profileDir, { targetWords = 800, n = 3, cap = DE
       cap_clamp: CAP_CLAMP,
       human_slots: humanSlots,
       approved_slots: approvedSlots,
+      // Surfaced because the arithmetic surprises people: floor(n x cap) is 0
+      // for every n below 1/cap. At the documented default (n=3, cap=0.2) that
+      // is floor(0.6) = 0, so approved drafts get NO slot at all until a larger
+      // exemplar set is requested. That is the intended direction - the cap is a
+      // ceiling, not a quota - but it is silent unless the tool says it.
+      approved_zero_by_arithmetic: approvedAllowed && approved.length > 0 && approvedSlots === 0,
     },
   };
 }
@@ -180,6 +264,12 @@ export function renderExemplars(result, profileDir) {
   }
   out.push("");
   out.push(`  human ${a.human_slots} / approved ${a.approved_slots}  ·  cap ${a.cap_applied} (clamped below ${a.cap_clamp})`);
+  if (a.approved_zero_by_arithmetic) {
+    out.push("");
+    out.push(`  corpus/approved/ has ${a.approved_available} sample(s) and contributed 0 slots:`);
+    out.push(`  floor(${a.human_slots + a.approved_slots} x ${a.cap_applied}) = 0. The cap is a ceiling, not a`);
+    out.push("  quota, so approved drafts earn a slot only on larger exemplar sets.");
+  }
   if (a.approved_suppressed) {
     out.push("");
     out.push(`  corpus/approved/ exists and contributed NOTHING: ${a.human_available} human`);
@@ -214,4 +304,11 @@ function main() {
   process.exit(result.refusal ? 1 : 0);
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) main();
+// Run only when invoked directly.
+//
+// The obvious form - comparing import.meta.url to `file://${process.argv[1]}` -
+// silently does nothing when the path contains a symlink, because import.meta.url
+// is fully resolved and argv[1] is not. On macOS /tmp is a symlink to /private/tmp,
+// so any install under a temp dir exited 0 having printed nothing, which reads as
+// success. Resolve both sides.
+if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) main();

@@ -7,6 +7,27 @@ first run for coverage; the earlier log stays for the false positive it found.
 formatting exclusion. The first run mixed two versions, which is why it was
 redone rather than extended.
 
+## The numbers, re-derived from the transcripts
+
+Verbatim critic output for all sixteen runs: [`2026-08-04-b/`](2026-08-04-b/).
+Every figure below is the output of `node tests/verify-run.mjs runs/2026-08-04-b`,
+not a hand count:
+
+```
+  runs/2026-08-04-b — 16 transcripts
+
+    negative (leave-one-out, n=12):   0 REVISE, 12 CLEAN
+    positive (AI drafts, n=4):        1 REVISE, 3 CLEAN
+    findings without corpus citation: 0          <- must be 0
+    any claim about machine authorship: 0        <- must be 0
+```
+
+The first version of this run shipped with no transcripts at all, reporting these
+counts on the authority of the agent that ran the subagents and wrote the
+summary — one commit after adding the rule requiring otherwise. A reviewer caught
+it. The script exists because checking the transcripts in fixes who can see the
+evidence and does nothing about who did the counting.
+
 ## Negative — leave-one-out, n=12 of 12
 
 | draft | verdict | findings |

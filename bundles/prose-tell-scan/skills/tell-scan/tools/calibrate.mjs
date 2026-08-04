@@ -24,7 +24,7 @@
  *      it is happening. An attestation is cheap; going blind is not.
  */
 
-import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, readdirSync, statSync, realpathSync } from "node:fs";
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -528,4 +528,10 @@ function main() {
   process.stdout.write("\n");
 }
 
-main();
+// Run only when invoked directly, so this module can be imported.
+//
+// The obvious form - comparing import.meta.url to `file://${process.argv[1]}` -
+// silently does nothing when the path contains a symlink, because import.meta.url
+// is resolved and argv[1] is not. On macOS /tmp is a symlink to /private/tmp, so
+// any invocation under a temp dir would exit 0 having printed nothing.
+if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) main();

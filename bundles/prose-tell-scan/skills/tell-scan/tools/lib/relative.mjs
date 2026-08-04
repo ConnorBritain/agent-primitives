@@ -107,15 +107,14 @@ export function authorRate(entryRates, id, corpusWords) {
 export function relativeReport({ entryRates, corpusWords, draftEntries, draftWords }) {
   const surprises = [];
   let compared = 0;
-  let unknown = 0;
 
   for (const entry of draftEntries) {
     if (!entry.count) continue;
     const author = authorRate(entryRates, entry.id, corpusWords);
-    if (!author) {
-      unknown += 1;
-      continue;
-    }
+    // Only null when corpusWords is falsy, which the caller has already ruled
+    // out by checking thresholds.derived. Kept as a guard, not a statistic:
+    // an earlier version returned a count of these and nothing ever read it.
+    if (!author) continue;
     compared += 1;
     if (entry.count < MIN_COUNT) continue;
 
@@ -140,7 +139,7 @@ export function relativeReport({ entryRates, corpusWords, draftEntries, draftWor
   }
 
   surprises.sort((a, b) => a.p - b.p);
-  return { surprises, compared, unknown, draftWords };
+  return { surprises, compared, draftWords };
 }
 
 function round(n) {
