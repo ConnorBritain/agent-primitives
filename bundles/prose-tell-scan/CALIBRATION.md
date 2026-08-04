@@ -567,6 +567,27 @@ STYLE entry, not an artifact.** Tier A is not "obviously machine-like"; it is
 could have found it, because every test asked whether the entry fired on the
 registers it was written for.
 
+#### A second thing that review caught, recorded because it is not yet fixed
+
+The coverage round reported `notability-canning` at "2/33 AI documents" and the
+`vague-attribution` widening at "+1 AI", under a heading about what shipped. Those
+count **raw regex matches**, not documents where the entry actually flags.
+
+Both are severity 2, and `MIN_COUNT` requires two occurrences before a severity-2
+entry can flag. Every matching document in the corpus has a count of exactly one.
+So through the real pipeline, **`notability-canning` flags 0 of 33 and the
+`vague-attribution` widening added 0 flagged documents.**
+
+Nothing is wrong with shipping them — a pattern that matches cleanly and never
+yet clears its floor is a reasonable thing to carry, and both are 0/12 on human
+text. What was wrong is presenting the figures beside `assistant-preamble`'s
+genuinely-flagging 2/33 with no distinction drawn, so a reader takes both as
+equivalent evidence of detection. Only one was.
+
+The honest labels: those two are **clean, not yet proven**. The distinction to
+carry forward is that "matched" and "flagged" are different measurements, and the
+one that describes what the tool does is the second.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather
