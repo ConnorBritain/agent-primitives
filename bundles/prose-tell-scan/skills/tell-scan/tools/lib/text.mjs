@@ -40,6 +40,36 @@ function blank(match) {
 }
 
 /**
+ * Fold the apostrophe family to ASCII, for MATCHING ONLY.
+ *
+ * This exists because of a defect that shipped in v0.1 and hid for a full audit
+ * pass. Catalog patterns spell contractions with an ASCII apostrophe — `isn't`,
+ * `you're`, `it's` — while macOS, iOS, Word, and every LLM chat UI emit U+2019 by
+ * default. So `chatbot-register`, a TIER A entry meant to be dispositive on one
+ * occurrence, did not match "You’re absolutely right" as actually pasted. The
+ * most recognisable chatbot leak there is, missed on the character it is most
+ * likely to arrive with.
+ *
+ * Fixing it per-pattern was the wrong shape: seven entries had the bug, and the
+ * eighth would arrive with the next contributor. Fixing it at intake means no
+ * catalog author has to think about it again.
+ *
+ * STRICTLY OFFSET-PRESERVING. Every mapping is one UTF-16 code unit to one, so
+ * line numbers and match offsets computed on the result are valid against the
+ * original. That property is what lets the report quote the document as written
+ * while matching against the folded form; see `display` in scanCatalog.
+ *
+ * Deliberately NOT folded: double quotes. `scanFormatting` counts curly versus
+ * straight to detect paste-assembled documents, and folding them would silently
+ * zero out that measurement.
+ */
+const APOSTROPHES = /[’‘ʼʹ՚＇´`]/g;
+
+export function normaliseApostrophes(text) {
+  return text.replace(APOSTROPHES, "'");
+}
+
+/**
  * Mask everything in a markdown document that is not prose.
  *
  * Order matters: frontmatter and fenced blocks are removed before inline rules

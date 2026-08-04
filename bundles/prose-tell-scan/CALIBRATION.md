@@ -164,12 +164,14 @@ being engineered around.
 **The first entries here that are not false positives.** Both were found by
 checking the catalog against its own source page rather than by anything firing.
 
-`negative-parallelism` matched **one of the nine examples** on
-Wikipedia:Signs of AI writing — including a miss on the caption of the page's own
-lead image. The pattern required a pronoun subject *and* one of
+`negative-parallelism` matched **4 of the 16 examples** the source page marks up
+with `{{highlight}}`. The pattern required a pronoun subject *and* one of
 `just|merely|simply|only`, so `is not X but Y` could never match. Coverage of the
-family is now 7/9 across three entries: the subject is any negated copula, the
-intensifier is optional, and a new `not-x-but-y` sibling covers the bare form.
+family is now **11 of 16**: the subject is any negated copula, the intensifier is
+optional, `ain't`/`doesn't`/`don't`/`didn't` count as negators, a second branch
+takes the bare `not just X — they're Y` form with no copula, and a new
+`not-x-but-y` sibling covers the rest. Zero false positives across the repo
+corpus. All sixteen are asserted individually in `selftest.mjs`, gaps included.
 
 `model-markup-artifact` hardcoded `U+0007` as the `citeturn0search1`
 separator. That is how MediaWiki **stores** the marker; a real paste carries a
@@ -190,6 +192,52 @@ fitted to those five observations and is a false-positive guard, not a claim abo
 English. If it starts costing real detections, widen the pivot punctuation or
 prune the entry rather than adding epicycles.
 
+### FN-2026-08-03-c · the whole catalog · apostrophe folding — **the worst defect found so far**
+
+Found by an adversarial review of the fix above, not by the fix. Worth reading in
+full, because the mechanism generalises and the first fix hid it.
+
+**Every catalog pattern spelled contractions with an ASCII apostrophe** — `isn't`,
+`you're`, `it's`. macOS, iOS, Word, and every LLM chat UI emit **U+2019** by
+default. Seven entries were affected, and one of them is Tier A:
+
+> **`chatbot-register` did not match "You’re absolutely right" as actually
+> pasted.** The most recognisable chatbot leak there is, in the tier that is meant
+> to be dispositive on a single occurrence and is the only thing
+> `--artifacts-only` retains, missed on the character it is most likely to arrive
+> with.
+
+**Why the audit that was looking for exactly this missed it.** The paired test for
+`FN-2026-08-03-a` was built by retyping the source page's examples — ASCII
+apostrophes, spaced em dashes. The fix was then measured against that text and
+scored 7 of 9. Against what the page actually says it scored 1 of 9. **The test
+had been fitted to the code, so it certified a fix that did not work on real
+input,** and the reported improvement was an artifact of the fixture.
+
+That is the failure mode this whole log exists to catch, committed by the log's
+own author while writing an entry about rigour.
+
+**Fixed at intake, not per pattern.** `normaliseApostrophes()` folds the
+apostrophe family before matching. Seven entries had the bug; the eighth would
+have arrived with the next contributor. Two properties make it safe:
+
+- **Offset-preserving** — one UTF-16 code unit to one — so line numbers stay valid
+  and findings quote the document *as written*. A tool that echoed normalised
+  punctuation back at an author would be rewriting their prose inside its own
+  report.
+- **Double quotes are deliberately not folded.** `scanFormatting` counts curly
+  versus straight to spot paste-assembled documents; folding would silently zero
+  that measurement out.
+
+`calibrate.mjs` folds identically. Without that, a corpus written with curly
+apostrophes would yield lower densities than the scans it is the baseline for, and
+every affected entry would sit under a ceiling derived from a different rule.
+
+**The lasting change is to method, not to a regex.** Test fixtures for
+source-derived patterns are now copied byte-for-byte from the source, and
+`selftest.mjs` says so where the strings live. Retyping a fixture is how a test
+stops being evidence.
+
 ### TP-2026-08-03-b · `actually` · a true positive, in this repo's own docs
 
 **Not a false positive.** Recorded because the log's other entries are all
@@ -204,10 +252,12 @@ threshold.**
 
 Two things this demonstrates that no synthetic test could:
 
-- The corpus gap was real. Those files sat outside the FP list, and a
-  thematic-break check measured seven false positives across them while the suite
-  stayed green. A corpus that excludes the prose most likely to trip a structural
-  check is not a corpus.
+- The corpus gap was real. Those files sat outside the FP list entirely, and the
+  first thing that ran against them found something. (An earlier draft of this
+  entry put a number on a thematic-break probe that was never committed —
+  unreproducible, so it is withdrawn. The checkable claim is the one above: a
+  corpus that excludes the prose most likely to trip a structural check is not a
+  corpus, and widening it flagged a real tic on the first pass.)
 - `actually` is the entry that motivated this whole primitive — eight occurrences
   a model's self-assessment did not notice. It just did it again, to the same
   author, in a document *about* not doing it. Counting is what scripts are for.

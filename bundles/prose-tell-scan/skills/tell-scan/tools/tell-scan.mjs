@@ -22,7 +22,7 @@ import { readFileSync, existsSync, statSync } from "node:fs";
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { maskNonProse, paragraphs, words } from "./lib/text.mjs";
+import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/text.mjs";
 import { scanCatalog, scanFormatting } from "./lib/scan.mjs";
 import { cadenceMetrics } from "./lib/cadence.mjs";
 import {
@@ -127,7 +127,13 @@ function analyse(file, opts, config, searchPath) {
     ? { ...profile.catalog, entries: profile.catalog.entries.filter((e) => e.tier === "A") }
     : profile.catalog;
 
-  const { findings: rawFindings, suppressed } = scanCatalog(text, catalog, profile.allow);
+  // Match against apostrophe-folded text, quote from the text as written. The
+  // fold is offset-preserving, so `display` lines up exactly. Formatting still
+  // sees the original: it counts curly vs straight quotes, and folding first
+  // would zero out that measurement.
+  const { findings: rawFindings, suppressed } = scanCatalog(
+    normaliseApostrophes(text), catalog, profile.allow, { display: text },
+  );
   const cadence = cadenceMetrics(text, paras);
   const formatting = scanFormatting(text, paras, wordCount);
 

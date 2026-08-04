@@ -28,7 +28,7 @@ import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from "
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { maskNonProse, paragraphs, words } from "./lib/text.mjs";
+import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/text.mjs";
 import { cadenceMetrics, CALIBRATED_METRICS, percentile } from "./lib/cadence.mjs";
 import { scanCatalog } from "./lib/scan.mjs";
 import {
@@ -117,7 +117,11 @@ function measure(path, profile) {
   if (wordCount < 200) return { path, excluded: `too short (${wordCount} words)` };
 
   const cadence = cadenceMetrics(text, paras);
-  const { findings } = scanCatalog(text, profile.catalog, profile.allow);
+  // Fold apostrophes exactly as tell-scan does. If calibration measured the
+  // unfolded form, a corpus written with curly apostrophes would yield lower
+  // densities than the scans it is meant to be the baseline for, and every
+  // affected entry would sit under a ceiling derived from a different rule.
+  const { findings } = scanCatalog(normaliseApostrophes(text), profile.catalog, profile.allow);
 
   // Two different densities, because the scanner asks two different questions.
   //

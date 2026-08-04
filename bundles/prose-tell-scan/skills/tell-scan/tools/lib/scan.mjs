@@ -68,12 +68,19 @@ function allowed(entry, matchText, allow) {
 /**
  * Run the catalog over prepared (masked) text.
  *
- * @param {string} text    masked document — offsets align with the original
+ * @param {string} text    masked, apostrophe-folded document — offsets align with the original
  * @param {object} catalog merged catalog (base + profile overrides)
  * @param {Set<string>} allow  allowlisted terms for this register
- * @param {object} opts    { maxExamples } how many examples to retain per entry
+ * @param {object} opts    { maxExamples, display }
+ *   maxExamples — how many examples to retain per entry
+ *   display     — text to QUOTE from, when it differs from the text MATCHED against.
+ *                 Both are offset-identical (see normaliseApostrophes), so the
+ *                 report can show "isn’t" as the author typed it while the regex
+ *                 matched "isn't". Without this the tool would quietly rewrite
+ *                 the user's punctuation back at them in its own findings.
  */
-export function scanCatalog(text, catalog, allow, { maxExamples = 4 } = {}) {
+export function scanCatalog(text, catalog, allow, { maxExamples = 4, display } = {}) {
+  const shown = display ?? text;
   const lineOf = lineIndex(text);
   const wordCount = words(text).length;
   const findings = [];
@@ -97,8 +104,8 @@ export function scanCatalog(text, catalog, allow, { maxExamples = 4 } = {}) {
       hits.push({
         line: lineOf(m.index),
         offset: m.index,
-        text: m[0].replace(/\s+/g, " ").trim(),
-        context: context(text, m.index, m[0].length),
+        text: shown.slice(m.index, m.index + m[0].length).replace(/\s+/g, " ").trim(),
+        context: context(shown, m.index, m[0].length),
       });
     }
 

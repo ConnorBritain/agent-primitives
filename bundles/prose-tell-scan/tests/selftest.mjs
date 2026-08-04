@@ -108,10 +108,10 @@ try {
     // one that gets uninstalled, which protects nothing.
     //
     // WIDENED 2026-08-03 to include the bundle-level AGENTS.md and wiring
-    // snippets. They were outside this list, and that gap was not theoretical:
-    // a thematic-break-before-heading check measured 7 false positives across
-    // exactly those files while this suite stayed green. A corpus that excludes
-    // the prose most likely to trip a structural check is not an FP corpus.
+    // snippets. They sat outside this list entirely, and the first scan that ran
+    // against them found a real tic (CALIBRATION.md TP-2026-08-03-b). A corpus
+    // that excludes the prose most likely to trip a structural check is not an
+    // FP corpus.
     for (const doc of ["README.md", "CONTRIBUTING.md", "AGENTS.md", "docs/wiring.md",
                        "docs/portability.md",
                        "bundles/prose-tell-scan/AGENTS.md",
@@ -417,37 +417,90 @@ try {
 
   group("Source-page coverage — the examples the catalog is built from");
   {
-    // Before 2026-08-03 the negative-parallelism family matched ONE of these; the
-    // pattern demanded a pronoun subject and one of just/merely/simply/only, so
-    // the bare forms fell through. A catalog that misses its own source's worked
-    // examples is not measuring what it claims to. See CALIBRATION.md
-    // FN-2026-08-03-a.
+    // WHY THIS GROUP EXISTS, AND WHY IT LOOKS LIKE THIS.
     //
-    // ATTRIBUTION: the seven sentences below are quoted verbatim from
-    // "Wikipedia:Signs of AI writing" (§Negative parallelisms), available under
-    // CC BY-SA 4.0 — https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
-    // They are reproduced here as the test corpus for the catalog derived from
-    // that page. This repository is MIT; these specific strings are not, and any
-    // reuse of them carries CC BY-SA's share-alike condition. Replacing them with
-    // paraphrases would defeat the test, whose entire point is that the catalog
-    // matches its source's own worked examples rather than examples fitted to it.
-    const doc = join(tmp, "wp-negpar.txt");
-    writeFileSync(
-      doc,
-      [
-        "They're not just rude — they're outright disrespectful.",
-        "The issue here isn't just sourcing — it's framing.",
-        "This isn't WP:NBIO — it's WP:1EVENT in disguise.",
-        "The car is not just a meme — it's a celebration of grassroots car culture.",
-        "The appeal is not grounded in visual mastery, but in its refusal to explain itself.",
-        "The work is not a mirror but a portal.",
-        "The system is not only efficient but also remarkably cheap.",
-      ].join("\n\n"),
-    );
-    const ids = scan([doc, "--profile", "essay"]).results[0].findings.map((f) => f.id);
-    for (const id of ["negative-parallelism", "not-x-but-y", "not-only-but-also"]) {
-      check(`${id} fires on the source page's own examples`, ids.includes(id), ids.join(","));
+    // The first version of this test retyped the source page's examples with
+    // ASCII apostrophes and spaced em dashes. Measured against that, the family
+    // scored 7/9. Measured against what the page actually says — U+2019, unspaced
+    // dashes — it scored 1/9, because every catalog pattern spelled contractions
+    // with an ASCII apostrophe and the page does not. The test had been fitted to
+    // the code, so it certified a fix that did not work on real text.
+    //
+    // The strings below are therefore copied EXACTLY from the page's own
+    // {{highlight}} spans, including the curly apostrophes that broke it. If they
+    // are ever retyped or "cleaned up", this test stops measuring anything.
+    //
+    // ATTRIBUTION: quoted from "Wikipedia:Signs of AI writing" (§Negative
+    // parallelisms), CC BY-SA 4.0 —
+    // https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
+    // This repository is MIT; these strings are not, and reuse carries CC BY-SA's
+    // share-alike condition.
+    // Every string is one of the page's {{highlight}} spans, unaltered. `hits`
+    // records the measured truth on 2026-08-03: 11 of 16, not "all".
+    const WP_NEGPAR = [
+      ["not only dismissive but also", true],
+      ["doesn’t just undermine the editor’s argument; it questions their very right to participate", false],
+      ["not just dismissive—they’re outright disrespectful.", true],
+      ["not only discourage participation but also", true],
+      ["not only a work of self-representation, but", true],
+      ["isn’t just sourcing—it’s framing", true],
+      ["That’s not just a sourcing issue—it’s a systemic bias", true],
+      ["is not grounded in visual mastery, but in what Amelia Jones terms “the performative enactment of subjectivity”", true],
+      ["is not dissolution. Rather, it constitutes what Deleuze might describe as “becoming”", false],
+      ["is not a mirror but a portal", true],
+      ["not a representation of self, but a mechanism", false],
+      ["This isn’t WP:NBIO — it’s WP:1EVENT in disguise", true],
+      ["Not a career, not a body of work, not sustained relevance — just an algorithmic moment", false],
+      ["is not who feels warm fuzzies from visibility, it’s whether this article meets the threshold", true],
+      ["This ain’t bludgeoning — it’s surgical teardown", true],
+      ["rather than", false],
+    ];
+    const FAMILY = ["negative-parallelism", "not-x-but-y", "not-just-but", "not-only-but-also"];
+
+    let matched = 0;
+    for (const [sentence, shouldHit] of WP_NEGPAR) {
+      const one = join(tmp, "wp-one.txt");
+      writeFileSync(one, `${sentence}\n`);
+      const ids = scan([one, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+      const hit = FAMILY.some((id) => ids.includes(id));
+      if (hit) matched += 1;
+      check(
+        `${shouldHit ? "covers" : "known gap:"} ${sentence.slice(0, 52)}`,
+        hit === shouldHit,
+        hit ? `unexpectedly matched: ${ids.join(",")}` : "no longer matches",
+      );
     }
+    check(
+      "measured source coverage is 11/16, and did not silently drop",
+      matched === 11,
+      `matched=${matched} — update CALIBRATION.md FN-2026-08-03-a rather than editing this number`,
+    );
+  }
+  {
+    // The apostrophe fold, tested at the surface that broke. `chatbot-register` is
+    // TIER A — dispositive on one occurrence — and it missed the single most
+    // recognisable chatbot leak whenever the paste carried a curly apostrophe,
+    // which is the default on macOS, iOS, Word, and every chat UI.
+    const doc = join(tmp, "curly.txt");
+    writeFileSync(doc, "You’re absolutely right, and it’s important to note that this isn’t ideal.\n");
+    const ids = scan([doc, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+    check("Tier A leakage matches with a curly apostrophe", ids.includes("chatbot-register"), ids.join(","));
+
+    const straight = join(tmp, "straight.txt");
+    writeFileSync(straight, "You're absolutely right, and it's important to note that this isn't ideal.\n");
+    const sIds = scan([straight, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+    check(
+      "and the two apostrophe forms are now indistinguishable to the catalog",
+      JSON.stringify(ids.sort()) === JSON.stringify(sIds.sort()),
+      `curly=${ids.join(",")} straight=${sIds.join(",")}`,
+    );
+
+    // But the report must still quote the document as the author wrote it. The
+    // fold is for matching only; echoing normalised punctuation back at someone
+    // is the tool rewriting their prose in its own findings.
+    const ctx = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "chatbot-register")?.contexts?.[0]?.text ?? "";
+    check("the finding quotes the curly form, not the folded one", /’/.test(ctx), ctx.slice(0, 60));
   }
   {
     // The paired negative. These five sentences are this repo's own prose, and
@@ -647,6 +700,47 @@ try {
   }
 
   /* ------------------------------------------------------------------ */
+  group("Provenance hygiene — every citation must resolve");
+  {
+    // This exists because a commit message claimed it existed before it did, and
+    // the same pass that fixed one dangling citation asserted a safeguard that
+    // had not been written. Both are the same failure: a claim nobody could
+    // check.
+    //
+    // A catalog whose whole value is auditability cannot cite incidents that do
+    // not exist, so this walks every FP-/FN-/TP- reference in the bundle and
+    // requires a matching heading in CALIBRATION.md.
+    //
+    // Note for anyone extending this: do not write a literal example incident id
+    // into a comment here. This check cannot tell mention from use — the same
+    // limitation the catalog documents for `delve` — and it will flag your
+    // example. That is the correct trade: the alternative is an exemption
+    // mechanism that a real dangling citation could hide behind.
+    const cal = readFileSync(join(BUNDLE, "CALIBRATION.md"), "utf8");
+    const defined = new Set(
+      [...cal.matchAll(/^###\s+((?:FP|FN|TP)-\d{4}-\d{2}-\d{2}-[a-z])\b/gm)].map((m) => m[1]),
+    );
+    check("CALIBRATION.md defines incidents", defined.size >= 6, `found ${defined.size}`);
+
+    const searched = [
+      join(SKILL, "profiles", "_base", "catalog.json"),
+      join(BUNDLE, "README.md"),
+      join(BUNDLE, "PROFILES.md"),
+      join(BUNDLE, "AGENTS.md"),
+      join(SKILL, "SKILL.md"),
+      join(SKILL, "meta.yaml"),
+      join(BUNDLE, "tests", "selftest.mjs"),
+    ];
+    const dangling = [];
+    for (const f of searched) {
+      const body = readFileSync(f, "utf8");
+      for (const m of body.matchAll(/\b((?:FP|FN|TP)-\d{4}-\d{2}-\d{2}-[a-z])\b/g)) {
+        if (!defined.has(m[1])) dangling.push(`${f.split("/").pop()} -> ${m[1]}`);
+      }
+    }
+    check("no citation points at a nonexistent incident", dangling.length === 0, dangling.join("; "));
+  }
+
   group("Robustness");
   {
     const empty = join(tmp, "empty.md");
