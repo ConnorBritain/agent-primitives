@@ -126,8 +126,19 @@ passing score shows the prompt is not trigger-happy on one tight register. It
 does not show the prompt can recognise an individual, which is the thing it is
 for, and nothing here bounds its behaviour on essays, fiction, or correspondence.
 
-Coverage has also been partial at every run so far. Current numbers and their
-caveats live in
+**It is quiet on human prose, and quieter than you might want on AI prose.** The
+full leave-one-out sweep returns zero findings on twelve human documents. On
+machine-written drafts chosen so the corpus's known genre confound cannot explain
+a finding, it flags one in four — and the three it passes are machine-written
+*and* unremarkable encyclopedic prose, which a voice critic should pass. Flagging
+them would be authorship detection.
+
+**A zero false-positive rate does not prove the prompt is well tuned.** It is
+equally consistent with a prompt too quiet to be useful. Separating those needs a
+draft with a deviation planted in the author's own register, confirmed not theirs.
+That corpus does not exist yet, so the supported claim is the narrow one above.
+
+Current numbers and their caveats live in
 [`tests/critic-harness.md`](../../../bundles/prose-review/tests/critic-harness.md)
 and the run logs beside it — not here, because they change and this does not.
 

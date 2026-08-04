@@ -116,11 +116,27 @@ the logs carry the narration, because they grow and it should not.
 
 | run | negative | positive | uncited | authorship claims |
 |---|---|---|---|---|
-| [2026-08-04](runs/2026-08-04-prose-voice-critic.md) — prose-voice-critic | 0 REVISE / 6 (after one fix) | 2 REVISE / 2 | 0 | 0 |
+| [2026-08-04](runs/2026-08-04-prose-voice-critic.md) — partial, two prompt versions | 0 REVISE / 6 (after one fix) | 2 REVISE / 2 | 0 | 0 |
+| [2026-08-04b](runs/2026-08-04-b-complete.md) — **full sweep, one prompt version** | **0 REVISE / 12** | 1 REVISE / 4 confound-controlled | 0 | 0 |
 
-Coverage was 6 of 12 negatives and 2 of 33 positives. The run found one false
-positive, on formatting rather than voice, and the prompt was corrected; the log
-has the detail and the reasoning.
+**Read the second row's positive column before quoting the first row's.** The
+first run reported 2 of 2 positives caught. Those two drafts differ from the
+corpus in genre as well as authorship. Choosing positives with **zero
+first-person occurrences** — so a finding cannot come from the dimension
+`genre-check.mjs` flags as 12.3× confounded — drops the rate to **1 of 4**.
+
+That is the honest number, and it is not a failure. Three of those four are
+machine-written *and* ordinary encyclopedic prose. A voice critic should be
+silent on them; flagging them would be authorship detection, which the prompt
+refuses and would be bad at. The one that fired had written an interpretive coda
+the corpus never uses, and named the construction the author uses instead.
+
+**A negative rate of exactly zero does not distinguish a well-tuned prompt from
+an over-quiet one.** Settling that needs a corpus with a planted deviation — a
+passage in the author's own register that they confirm is not theirs. This
+project does not have one. Until it does, the claim this harness supports is
+narrow: *quiet on human prose, speaks when a draft does something the corpus
+never does.*
 
 ## Recording a run
 
