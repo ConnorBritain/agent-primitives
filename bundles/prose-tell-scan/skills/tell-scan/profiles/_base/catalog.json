@@ -1,6 +1,20 @@
 {
-  "version": "0.1.0",
+  "version": "0.2.0",
   "generated": "2026-07-26",
+  "audited": "2026-08-03",
+  "_version_note": [
+    "This catalog versions INDEPENDENTLY of the bundle that ships it, and that is the",
+    "premise of the whole arrangement rather than an oversight. The bundle is code and",
+    "docs; this file is a dated dataset tracking an adversarially-moving target, and the",
+    "two go stale on different clocks. See CONTRIBUTING.md 'Sizing a bundle'.",
+    "",
+    "`generated` is when entries were first extracted from the source page. `audited` is",
+    "the last time the catalog was checked BACK against that page - a different and",
+    "rarer act, and the one that found FN-2026-08-03-a. Anything consuming these bands",
+    "(a voice lock, a calibrated threshold) must record `version` alongside them:",
+    "density measurements are only comparable within one catalog version, because adding",
+    "or retuning an entry silently changes what the number means."
+  ],
   "_about": [
     "The shared pattern catalog. Inherited by every profile; never duplicated per",
     "profile, because two copies of a catalog drift within about two edits.",
@@ -103,6 +117,11 @@
     }
   },
   "rejected": {
+    "announced-insight": {
+      "was": "Announcing an insight in place of delivering one (\"here's the thing\", \"what most people miss\").",
+      "why_rejected": "Removed 2026-08-03 after shipping in v0.1. Three reasons, and the first alone is sufficient: it is NOT ON THE SOURCE PAGE. Verified against the full wikitext - the entry's own note conceded this, tracing it to a Forbes contributor piece with no counts and no control corpus, which is exactly the class of source this catalog labels contested and does not build on. Second, it duplicates not_deterministic.announced-then-undelivered, which declares the same phenomenon undecidable by regex; shipping a regex for it contradicted the catalog's own boundary. Third, CALIBRATION.md FP-2026-07-26-a logged it as the first field false positive and concluded it was 'an argument for pruning rather than tightening if it recurs'. It recurred. The standard already applied to false-range applies here.",
+      "source": "local"
+    },
     "_about": [
       "Patterns deliberately NOT shipped, and why. Recorded rather than deleted",
       "because a silently removed pattern gets re-added by the next person with",
@@ -170,8 +189,8 @@
       "severity": 3,
       "confidence": "definitive",
       "always_flag": true,
-      "pattern": ":contentReference\\[oaicite:|oai_citation:|cite\\u0007turn\\d+search|turn\\d+image\\d+|\\[cite:\\s*\\d+|\\]\\(start_span\\)|\\]\\(end_span\\)|<grok-card\\s+data-id=|grok_render_citation_card_json|【\\d+†L\\d+|\\[attached_file:\\s*\\d+\\]|\\[web:\\s*\\d+\\]|ppl-ai-file-upload|:::(?:writing|écriture)\\{",
-      "note": "Literal strings no human types: citation scaffolding from ChatGPT, Gemini, Grok, DeepSeek, and Perplexity that survived a copy-paste. These are ARTIFACTS, not style — dispositive rather than suggestive — so they bypass density gating entirely via always_flag. One occurrence is the finding.",
+      "pattern": ":contentReference\\[oaicite:|oai_citation:|cite[\\ue000-\\uf8ff\\u0007]?turn\\d+(?:search|image|news|file|view)\\d*|attributableIndex|(?:[A-Z][A-Za-z ]{1,18}\\+\\d+){2,}|\\[cite:\\s*\\d+|\\]\\(start_span\\)|\\]\\(end_span\\)|<grok-card\\s+data-id=|grok_render_citation_card_json|【\\d+†L\\d+|\\[attached_file:\\s*\\d+\\]|\\[web:\\s*\\d+\\]|ppl-ai-file-upload|:::(?:writing|écriture)\\{",
+      "note": "Literal strings no human types: citation scaffolding from ChatGPT, Gemini, Grok, DeepSeek, and Perplexity that survived a copy-paste. These are ARTIFACTS, not style — dispositive rather than suggestive — so they bypass density gating entirely via always_flag. One occurrence is the finding. FIXED 2026-08-03: the separator was hardcoded to U+0007. That is how MediaWiki STORES these markers, not what a paste from the model contains - the real separator is a Private Use Area codepoint. So the entry matched the wiki RENDERING of the tell rather than the tell itself. It now accepts a PUA codepoint, BEL, or no separator at all, and covers the news/file/view turn types alongside search/image. Also adds attributableIndex, which the source page names in a section heading and this catalog had never matched, and the 'Brand+3Brand+3' citation pileup. Gaps here are the most expensive in the catalog: Tier A is the only dialect-neutral tier and the only thing --artifacts-only retains.",
       "source": "wp-signs"
     },
     {
@@ -611,8 +630,8 @@
       "category": "structural-scaffold",
       "severity": 3,
       "confidence": "medium",
-      "pattern": "\\b(?:it|this|that|these|those)(?:'s|'re|\\s+is|\\s+are|\\s+was|\\s+were)?\\s+(?:not|isn't|aren't|wasn't|weren't)\\s+(?:just|merely|simply|only|about)\\b[^.!?]{0,90}[,.;—–]\\s*(?:it|this|that|they)(?:'s|'re|\\s+is|\\s+are)\\b",
-      "note": "Widely treated as the strongest structural tell of the current generation, and reported at roughly 3x human rate — but the measurement behind that figure traces to a single news article, with no published corpus study. Confidence is `medium` rather than `high` for that reason, and because the source page itself concedes the construction is 'common among human writers'. FALSE POSITIVES ARE DOCUMENTED AND SERIOUS: autistic writers and anyone with a formal rhetorical education report using deliberate parallel construction for decades, and binary contrast is a structural resource of English itself. THE RULE THAT SURVIVES SCRUTINY IS FREQUENCY AND PURPOSELESSNESS, NOT PRESENCE — one deliberate contrast is rhetoric; five paragraphs ending on the same shape is autopilot. Which is why this is density-gated like everything else. Pivot may be a comma, semicolon, or em dash.",
+      "pattern": "(?:\\b(?:is|are|was|were)\\s+not\\b|\\b\\w+(?:'s|'re)\\s+not\\b|\\b(?:isn't|aren't|wasn't|weren't)\\b)\\s+(?:just|merely|simply|only|about\\s+)?[^.!?]{2,80}[,;—–]\\s*(?:it|this|that|they)(?:'s|'re)\\b",
+      "note": "Widely treated as the strongest structural tell of the current generation, and reported at roughly 3x human rate — but the measurement behind that figure traces to a single news article, with no published corpus study. Confidence is `medium` rather than `high` for that reason, and because the source page itself concedes the construction is 'common among human writers'. FALSE POSITIVES ARE DOCUMENTED AND SERIOUS: autistic writers and anyone with a formal rhetorical education report using deliberate parallel construction for decades, and binary contrast is a structural resource of English itself. THE RULE THAT SURVIVES SCRUTINY IS FREQUENCY AND PURPOSELESSNESS, NOT PRESENCE — one deliberate contrast is rhetoric; five paragraphs ending on the same shape is autopilot. Which is why this is density-gated like everything else. Pivot may be a comma, semicolon, or em dash. FIXED 2026-08-03: the original pattern demanded a pronoun subject AND one of just/merely/simply/only, and on that basis matched exactly ONE of the nine examples on the source page - missing the caption of its own lead image. The subject is now any negated copula and the intensifier is optional, taking coverage to four of nine; not-x-but-y and not-only-but-also cover two more, and the remaining two are anaphoric repetition (no FP data yet) and the Grok-specific 'X rather than Y' (2 hits in this repo's clean-human fixture, deliberately not shipped). THE CONTRACTED-RESUMPTION REQUIREMENT IS A FALSE-POSITIVE GUARD, NOT A CLAIM ABOUT ENGLISH. Relaxing the subject without it produced five hits on this repo's own prose, every one a legitimate explanatory contrast ('is not a decision, it is a migration'). All five resume uncontracted; all four newly-caught source examples resume contracted. That is a clean split on nine observations and nothing more, so it is fitted to those five. If it starts costing real detections, widen the pivot punctuation or prune the entry rather than adding epicycles. See CALIBRATION.md FP-2026-08-03-g.",
       "source": "wp-signs"
     },
     {
@@ -627,6 +646,17 @@
       "source": "wp-signs"
     },
     {
+      "id": "not-x-but-y",
+      "label": "\"is not X but Y\"",
+      "kind": "structural",
+      "category": "structural-scaffold",
+      "severity": 2,
+      "confidence": "medium",
+      "pattern": "(?:\\b(?:is|are|was|were)\\s+not\\b|\\b\\w+(?:'s|'re)\\s+not\\b|\\b(?:isn't|aren't|wasn't|weren't)\\b)\\s+(?!just\\b|merely\\b|simply\\b|only\\b)[^.!?,;]{2,45}[,;—–]?\\s*but\\s+",
+      "note": "The source page gives this its own subsection under Negative parallelisms, and nothing in this catalog matched it before 2026-08-03: negative-parallelism required an intensifier and not-just-but requires one by construction, so the bare 'is not X but Y' form fell through the gap between them. The intensifier forms are deliberately excluded here by lookahead so the two entries cannot double-count the same sentence. Measured 0 false positives across this repo's 13 prose documents including both fixtures. Same caveat as its siblings: binary contrast is a structural resource of English, so this is density-gated and one occurrence means nothing. NOT SHIPPED alongside it: the source's third form, 'X rather than Y', which fires twice on script-v2-after.txt - this repo's canonical clean-human fixture - and which the source itself marks Grok-specific. That is the shape of a future CALIBRATION.md incident, so it stays out until there is a model axis to put it on.",
+      "source": "wp-signs"
+    },
+    {
       "id": "participle-tail",
       "label": "participle tail clause",
       "kind": "structural",
@@ -636,17 +666,6 @@
       "pattern": ",\\s+(?:highlight|emphasi[sz]|reflect|demonstrat|underscor|showcas|illustrat|cement|solidif|signal|mark|underlin|reinforc|affirm)ing\\s+(?:the|its|their|how|why|just)\\b",
       "note": "The tail that asserts significance instead of showing it. Restricted to significance-asserting verbs on purpose — generic tails (', allowing you to...') are ordinary English and would swamp this.",
       "source": "wp-signs"
-    },
-    {
-      "id": "announced-insight",
-      "label": "announced insight",
-      "kind": "structural",
-      "category": "structural-scaffold",
-      "severity": 2,
-      "confidence": "contested",
-      "pattern": "\\b(?:here'?s\\s+the\\s+(?:thing|kicker|catch|rub|problem|twist|irony|deal)\\b|but\\s+here'?s\\s+(?:the|what|where|why)\\b|here'?s\\s+(?:where\\s+it\\s+gets|what\\s+most\\s+people\\s+miss)\\b|the\\s+(?:best|kicker|interesting|fascinating|surprising)\\s+part\\s*[?:]|what'?s\\s+(?:more|interesting|striking|remarkable)\\s+(?:is|here)\\b)",
-      "note": "Announcing that an insight is coming, in place of delivering one. PROVENANCE: not a named pattern in Wikipedia:Signs of AI writing; it traces to a Forbes contributor piece (Feb 2026) plus one independent observer, neither with counts or a control corpus. Downgraded from severity 3 accordingly. DIAGNOSTIC: if a plain 'But' carries the same content, the buildup was decorative. Also a genuine spoken-register idiom, so read the hit before cutting — narration especially. FP-2026-07-26-a: the 'best part' branch required no punctuation, so it matched the ordinary-English reading ('it was the best part of joining') while never actually requiring the announcing form. Now requires a following '?' or ':'. See CALIBRATION.md.",
-      "source": "recent"
     },
     {
       "id": "false-range",

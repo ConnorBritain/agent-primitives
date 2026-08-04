@@ -106,8 +106,22 @@ try {
   {
     // Well-edited human technical writing. A scanner that fires on these is
     // one that gets uninstalled, which protects nothing.
+    //
+    // WIDENED 2026-08-03 to include the bundle-level AGENTS.md and wiring
+    // snippets. They were outside this list, and that gap was not theoretical:
+    // a thematic-break-before-heading check measured 7 false positives across
+    // exactly those files while this suite stayed green. A corpus that excludes
+    // the prose most likely to trip a structural check is not an FP corpus.
     for (const doc of ["README.md", "CONTRIBUTING.md", "AGENTS.md", "docs/wiring.md",
-                       "docs/portability.md"]) {
+                       "docs/portability.md",
+                       "bundles/prose-tell-scan/AGENTS.md",
+                       "bundles/prose-tell-scan/PROFILES.md",
+                       "bundles/prose-tell-scan/wiring/claude-md.md",
+                       "bundles/prose-tell-scan/wiring/agents-md.md",
+                       "bundles/verification-gate/AGENTS.md",
+                       "bundles/verification-gate/PROTOCOL.md",
+                       "bundles/verification-gate/wiring/claude-md.md",
+                       "bundles/verification-gate/wiring/agents-md.md"]) {
       const path = join(REPO, doc);
       const r = scan([path, "--profile", "technical"]).results[0];
       check(
@@ -333,8 +347,19 @@ try {
     );
   }
   {
-    // The paired positive. A tightening with only the negative test is how a
-    // pattern gets narrowed into uselessness without anyone noticing.
+    // FP-2026-07-26-a, resolved by REMOVAL on 2026-08-03 rather than tightening.
+    //
+    // This block previously held the paired positive for `announced-insight`:
+    // it asserted the entry still fired on the three announcing forms. That
+    // assertion is gone because the behaviour it guarded is gone — the entry was
+    // deleted, and the deletion is the point. It is not on the source page at
+    // all, it duplicated a `not_deterministic` declaration, and FP-a's own
+    // conclusion was "an argument for pruning rather than tightening if it
+    // recurs".
+    //
+    // What replaces it guards the DECISION instead of the pattern, because the
+    // way this regresses is somebody re-adding the entry from the same plausible
+    // idea that produced it the first time.
     const doc = join(tmp, "fp-a-pos.txt");
     writeFileSync(
       doc,
@@ -345,9 +370,97 @@ try {
       ].join("\n\n"),
     );
     const r = scan([doc, "--profile", "essay"]).results[0];
-    const hit = r.findings.find((f) => f.id === "announced-insight");
-    check("FP-a: the announcing sense still fires", Boolean(hit));
-    check("FP-a: all three announcing forms match", hit?.count >= 3, `count=${hit?.count}`);
+    check(
+      "FP-a: announced-insight no longer fires on any announcing form",
+      !r.findings.some((f) => f.id === "announced-insight"),
+      r.findings.map((f) => f.id).join(","),
+    );
+    const cat = JSON.parse(
+      readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"),
+    );
+    check(
+      "FP-a: it is recorded in `rejected`, not silently dropped",
+      Boolean(cat.rejected?.["announced-insight"]?.why_rejected),
+    );
+    check(
+      "FP-a: the rejection states it was absent from the source page",
+      /not on the source page/i.test(cat.rejected?.["announced-insight"]?.why_rejected ?? ""),
+    );
+    check(
+      "FP-a: no live entry reintroduces it",
+      !cat.entries.some((e) => e.id === "announced-insight"),
+    );
+  }
+
+  group("Source-page coverage — the examples the catalog is built from");
+  {
+    // Every string below is quoted from Wikipedia:Signs of AI writing. Before
+    // 2026-08-03 the negative-parallelism family matched ONE of them; the pattern
+    // demanded a pronoun subject and one of just/merely/simply/only, so the bare
+    // forms fell through. A catalog that misses its own source's worked examples
+    // is not measuring what it claims to.
+    const doc = join(tmp, "wp-negpar.txt");
+    writeFileSync(
+      doc,
+      [
+        "They're not just rude — they're outright disrespectful.",
+        "The issue here isn't just sourcing — it's framing.",
+        "This isn't WP:NBIO — it's WP:1EVENT in disguise.",
+        "The car is not just a meme — it's a celebration of grassroots car culture.",
+        "The appeal is not grounded in visual mastery, but in its refusal to explain itself.",
+        "The work is not a mirror but a portal.",
+        "The system is not only efficient but also remarkably cheap.",
+      ].join("\n\n"),
+    );
+    const ids = scan([doc, "--profile", "essay"]).results[0].findings.map((f) => f.id);
+    for (const id of ["negative-parallelism", "not-x-but-y", "not-only-but-also"]) {
+      check(`${id} fires on the source page's own examples`, ids.includes(id), ids.join(","));
+    }
+  }
+  {
+    // The paired negative, and the reason the pattern is shaped the way it is.
+    // Relaxing the subject WITHOUT requiring contracted resumption produced five
+    // hits on this repo's own prose — every one a legitimate explanatory
+    // contrast. These are those five sentences. They must stay quiet.
+    const doc = join(tmp, "negpar-fp.txt");
+    writeFileSync(
+      doc,
+      [
+        "Where the two halves must not be in lockstep, that price is not being paid — it is being avoided.",
+        "It is unchanged because renaming is not a decision, it is a migration.",
+        "These are not edge cases to be tuned away; they are the reason the output is leads.",
+        "On a harness with no dispatch the risk is not wrong answers — it is that nobody runs the script.",
+        "The failure mode is not that the tool gives wrong answers — it is that nobody runs it.",
+      ].join("\n\n"),
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "negative-parallelism");
+    check(
+      "uncontracted explanatory contrast does not fire",
+      !hit,
+      `count=${hit?.count} — the contracted-resumption guard has stopped working`,
+    );
+  }
+  {
+    // Tier A is the only dialect-neutral tier and the only thing --artifacts-only
+    // retains, so a miss here is the most expensive miss available. The separator
+    // was hardcoded to U+0007, which is how MediaWiki STORES the marker, not what
+    // a paste contains: the entry matched the rendering of the tell, not the tell.
+    const PUA = String.fromCharCode(0xe200);
+    const doc = join(tmp, "tier-a.txt");
+    writeFileSync(
+      doc,
+      [
+        `A sentence carrying a leaked marker cite${PUA}turn0search1 mid-paragraph.`,
+        "Another one with citeturn3news2 where the separator was stripped on paste.",
+        'And a raw blob: {"attribution":{"attributableIndex":"0-1"}}',
+      ].join("\n\n"),
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "model-markup-artifact");
+    check("Tier A matches the PUA separator, not just the wiki rendering", Boolean(hit));
+    check("all three artifact forms match", hit?.count >= 3, `count=${hit?.count}`);
+    check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
   group("Known false-positive guards — the same patterns MUST still fire");

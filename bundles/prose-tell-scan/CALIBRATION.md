@@ -30,6 +30,16 @@ finding that is *wrong for everyone* belongs here.
 
 ## How to add an entry
 
+Entries carry a prefix for what kind of miss they record:
+
+- **`FP-`** — the scanner flagged ordinary writing. The original and most common.
+- **`FN-`** — the scanner *failed* to flag something it claims to cover. These
+  surface by auditing the catalog against its source, not by anything firing, and
+  nothing in normal use will ever reveal them.
+- **`TP-`** — the scanner was right and the prose was wrong. Rare, and worth
+  recording anyway: a log holding only scanner-was-wrong entries trains the reader
+  to assume the scanner is the problem.
+
 When the scanner flags something that is ordinary writing:
 
 1. Record it below before fixing it. The write-up is the artifact; the fix is
@@ -149,10 +159,63 @@ This is the dominant false positive in any repository whose documentation
 discusses prose, and it is listed under *Known limits* in the README rather than
 being engineered around.
 
+### FN-2026-08-03-a · `negative-parallelism`, `model-markup-artifact` · under-matching
+
+**The first entries here that are not false positives.** Both were found by
+checking the catalog against its own source page rather than by anything firing.
+
+`negative-parallelism` matched **one of the nine examples** on
+Wikipedia:Signs of AI writing — including a miss on the caption of the page's own
+lead image. The pattern required a pronoun subject *and* one of
+`just|merely|simply|only`, so `is not X but Y` could never match. Coverage of the
+family is now 7/9 across three entries: the subject is any negated copula, the
+intensifier is optional, and a new `not-x-but-y` sibling covers the bare form.
+
+`model-markup-artifact` hardcoded `U+0007` as the `citeturn0search1`
+separator. That is how MediaWiki **stores** the marker; a real paste carries a
+Private Use Area codepoint. The entry was matching the wiki *rendering* of the
+tell rather than the tell. This is Tier A — the only dialect-neutral tier, and
+the only thing `--artifacts-only` retains — so it was the most expensive miss in
+the catalog.
+
+**Root cause, shared:** every pattern here was authored *from* the source page and
+never tested *against* it. Both fixes have paired tests built from the page's
+verbatim examples, so the next edit that narrows either one fails loudly.
+
+The `negative-parallelism` fix carries a caveat worth repeating from its `note`:
+relaxing the subject without also requiring **contracted** resumption produced
+five hits on this repo's own prose, all legitimate explanatory contrast
+("is not a decision, it is a migration"). The contracted-resumption requirement is
+fitted to those five observations and is a false-positive guard, not a claim about
+English. If it starts costing real detections, widen the pivot punctuation or
+prune the entry rather than adding epicycles.
+
+### TP-2026-08-03-b · `actually` · a true positive, in this repo's own docs
+
+**Not a false positive.** Recorded because the log's other entries are all
+scanner-was-wrong, and a log that only holds those teaches the wrong lesson.
+
+Widening the FP corpus to include bundle-level docs immediately flagged
+`PROFILES.md` — four uses of *actually* in 1,796 words, 2.23/1000 against a
+ceiling of 2. The file was drafted by a model in the session that wrote it, and
+the finding was correct: two uses were load-bearing (claimed-vs-real,
+configured-vs-applied) and two were filler. **The prose was fixed, not the
+threshold.**
+
+Two things this demonstrates that no synthetic test could:
+
+- The corpus gap was real. Those files sat outside the FP list, and a
+  thematic-break check measured seven false positives across them while the suite
+  stayed green. A corpus that excludes the prose most likely to trip a structural
+  check is not a corpus.
+- `actually` is the entry that motivated this whole primitive — eight occurrences
+  a model's self-assessment did not notice. It just did it again, to the same
+  author, in a document *about* not doing it. Counting is what scripts are for.
+
 ## What the log says so far
 
-**Four of six incidents trace to two root causes**, both structural rather than
-per-pattern:
+**Four of six false positives trace to two root causes**, both structural rather
+than per-pattern:
 
 - `density-instability` (FP-c, FP-d) produced one fix — the min-count floor —
   that resolved both and would have pre-empted others. Handling them
