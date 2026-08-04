@@ -31,6 +31,65 @@ so out loud rather than guessing.*
     corpus/ai/                  negatives, for acceptance testing
 ```
 
+## Registers and groups
+
+Two axes, chosen by different people for different reasons.
+
+**A register** is chosen by the tool — from `--profile`, frontmatter, or a path
+rule — and it governs thresholds. `essay`, `technical`, `narration`,
+`correspondence`.
+
+**A group** is chosen by the author. It is a subdirectory of `corpus/human/`, and
+it names a voice *inside* a register:
+
+```
+profiles/essay/corpus/human/
+    a-loose-essay.md            ungrouped — belongs to the register at large
+    newsletter/                 a named voice
+    longform/                   another
+    talks/
+```
+
+Groups exist because a register is often several voices wearing one label, and
+only the author knows where the seams are. Date is one way to cut a corpus and
+usually not the interesting one — *"the newsletter voice"* is a distinction a
+timestamp cannot express.
+
+One level deep, deliberately. Nested groups invite a taxonomy, and a taxonomy
+invites maintaining it.
+
+```bash
+node tools/ingest.mjs post.md --profile essay --group newsletter --source "..." --attest
+node tools/calibrate.mjs essay --group newsletter --write   # one voice
+node tools/calibrate.mjs essay --write                      # everything pooled
+```
+
+Only the human corpus is grouped. `corpus/ai/` holds negatives, and dividing
+negatives by voice would be a distinction with no use.
+
+### When the corpus is more than one voice, it says so
+
+Pooling voices produces bands that describe neither — wide enough that every
+draft falls "within range", so the tool goes quiet and *looks like it is
+working*. Silent uselessness is the worst outcome available, because nothing in
+the output announces it.
+
+So calibration clusters the samples and reports when it finds more than one
+voice, along with whether those clusters follow the author's own groups:
+
+> Two clusters, separated by 1.36× the typical sentence length.
+> `newsletter` (n=6, mean 6.5) and `longform` (n=6, mean 34).
+> These match your own groups — calibrate each with `--group`.
+
+Clusters that **cut across** the named groups are the more interesting report:
+it means the folders do not describe how the writing actually divides.
+
+It never resolves the split. The author knows which voice they meant; the tool
+only has to notice and ask.
+
+**The measure is a gap, not a difference of means** — two earlier versions of
+this check were wrong in instructive ways, recorded in `CALIBRATION.md`.
+
 Shipped registers are `essay`, `technical`, `narration`, `correspondence`.
 `_base` is **not** scaffolded into the project — it stays in the bundle and is
 inherited, so a bundle-side catalog fix reaches every project without a merge.
