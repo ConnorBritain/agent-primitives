@@ -1,6 +1,8 @@
 # prose-author — design
 
-**Status: SPEC ONLY. No code, no manifests, nothing installable.** This document
+**Status: v0.1 ships.** Scoped passage rewriting, exemplar selection under the
+approved-corpus cap, and verification with two refusals. Blank-page drafting,
+edit ingestion, and voice locks (v0.2-v0.4 below) remain spec only. This document
 exists to be argued with before anything is built, in the same way the bundle
 split was settled before the split happened.
 

@@ -1,0 +1,35 @@
+{
+  "name": "prose-author",
+  "version": "0.1.0",
+  "description": "Scoped generation in a specific person's voice, drafted against their own corpus and voice card rather than a list of words to avoid. Verifies in the author's own measured terms and refuses to compare against fallbacks when no corpus exists. Never claims the output sounds like the author.",
+  "author": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "repository": "https://github.com/ConnorBritain/agent-primitives",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "prose",
+    "drafting",
+    "voice",
+    "authoring"
+  ],
+  "homepage": "https://github.com/ConnorBritain/agent-primitives",
+  "interface": {
+    "displayName": "Prose Author",
+    "shortDescription": "Drafts one passage in your voice, and says exactly what it checked.",
+    "longDescription": "Rewrites one passage in a specific person's voice. It reads that person's own writing samples and voice card as the target, and deliberately never reads the AI-tell catalog: prose optimised against a tell list scores zero and reads like nobody wrote it, which is the failure the catalog exists to detect. Afterwards it scans the draft and states the three things that are actually checkable - that it was scanned against this author's profile, that cadence was compared to their derived bands, and that no leaked-markup artifact is present. It never claims the result sounds like the author, that it is good, or that it would pass a detector. With no calibrated corpus it refuses to report a gap rather than comparing against generic fallbacks. NOTE: the tools are Node scripts and behave identically everywhere; what Codex does not provide is skill dispatch, so invoke them directly.",
+    "developerName": "Connor England",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/ConnorBritain/agent-primitives",
+    "defaultPrompt": [
+      "This paragraph isn't working - rewrite it the way I write",
+      "Draft this section from my notes, in my voice",
+      "What would this look like written the way I write?"
+    ]
+  }
+}
