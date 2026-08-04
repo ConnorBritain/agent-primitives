@@ -47,6 +47,10 @@ calibrate — derive register thresholds from a profile's human corpus
 
 Options
   --write               Write thresholds.derived.json. Without it, dry run.
+  --group <name>        Calibrate only one named group within the register.
+                        Groups are subdirectories of corpus/human/ - a voice the
+                        author names, such as newsletter or longform. Without
+                        this, every group and every ungrouped sample is pooled.
   --profiles-dir <dir>  Search here first.
   --project <dir>       Project root. Default: cwd.
   --all                 Every discoverable profile except _base.
@@ -95,13 +99,48 @@ export function readProvenance(text) {
   return { ok: true, source, date, body: text.slice(m[0].length) };
 }
 
-function corpusFiles(dir) {
+/**
+ * Corpus files, and the named groups they may sit in.
+ *
+ * A subdirectory of `corpus/human/` is a GROUP: a voice the author names, inside
+ * a register. `newsletter/`, `longform/`, `talks/`. Files sitting directly in
+ * `corpus/human/` are ungrouped and belong to the register as a whole.
+ *
+ * Why groups exist at all: a register is chosen by the tool from a path rule or
+ * frontmatter, and it governs thresholds. A group is chosen by the AUTHOR,
+ * because "essay" is often several voices wearing one label, and only they know
+ * where the seams are. Date is one way to cut a corpus and usually not the
+ * interesting one — "the newsletter voice" is a distinction a timestamp cannot
+ * express.
+ *
+ * One level deep, deliberately. Nested groups invite a taxonomy, and a taxonomy
+ * invites maintaining it.
+ */
+function corpusFiles(dir, { group = null } = {}) {
   if (!existsSync(dir)) return [];
-  return readdirSync(dir)
+  const textIn = (d, groupName) => readdirSync(d)
     .filter((f) => TEXT_EXT.has(extname(f).toLowerCase()))
     .filter((f) => !/^readme\b/i.test(f))
-    .map((f) => join(dir, f))
-    .filter((f) => statSync(f).isFile());
+    .map((f) => ({ path: join(d, f), group: groupName }))
+    .filter((e) => statSync(e.path).isFile());
+
+  if (group) {
+    const sub = join(dir, group);
+    return existsSync(sub) ? textIn(sub, group) : [];
+  }
+  const subdirs = readdirSync(dir)
+    .map((f) => ({ name: f, full: join(dir, f) }))
+    .filter((e) => statSync(e.full).isDirectory() && !e.name.startsWith("."));
+  return [...textIn(dir, null), ...subdirs.flatMap((d) => textIn(d.full, d.name))];
+}
+
+/** Group names present in a register's corpus. */
+export function corpusGroups(dir) {
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
+    .filter((f) => !f.startsWith(".") && statSync(join(dir, f)).isDirectory())
+    .filter((g) => corpusFiles(dir, { group: g }).length > 0)
+    .sort();
 }
 
 /** Measure one corpus sample the same way tell-scan measures a draft. */
@@ -200,18 +239,135 @@ function bandsFrom(samples) {
     aggregate_density[label] = round(percentile(totals, 90));
   }
 
-  return { metrics, catalog_density, aggregate_density, pooled_words: totalWords };
+  // PER-ENTRY RATES, retained rather than discarded.
+  //
+  // `pooled` is computed above and was collapsed into severity-band ceilings,
+  // throwing away the one number an author most wants: how often THEY use a
+  // given construction. Keeping it costs nothing and is what lets a report say
+  // "you use `underscore` 0.2x/1k; this draft is 1.4x/1k" instead of comparing
+  // a draft against a ceiling derived from a severity class.
+  //
+  // Entries the corpus never contains are absent rather than zero. A zero here
+  // would read as "this author never does this", which is a claim about the
+  // author; absence reads as "the corpus does not say", which is the truth.
+  const entry_rates = {};
+  for (const [id, e] of pooled) {
+    entry_rates[id] = {
+      per_1k: round((1000 * e.count) / totalWords),
+      count: e.count,
+      severity: e.severity,
+      in_samples: samples.filter((s) => s.entries.some((x) => x.id === id)).length,
+    };
+  }
+
+  return { metrics, catalog_density, aggregate_density, entry_rates, pooled_words: totalWords };
+}
+
+/**
+ * Is this corpus one voice or several?
+ *
+ * A corpus that mixes two voices produces bands describing neither — wide enough
+ * that every draft falls "within range", so the tool goes quiet and looks like it
+ * is working. Silent uselessness is the worst outcome available here, because
+ * nothing in the output announces it.
+ *
+ * This does not resolve the split. It reports it and asks, because the author
+ * knows which voice they meant and the tool cannot. Where the author has already
+ * named groups, it also says whether the measured clusters AGREE with that
+ * naming — clusters that cut across the author's own folders are the interesting
+ * case, and the one worth a sentence.
+ *
+ * Method: one-dimensional two-means on the metric with the clearest separation.
+ * Deliberately crude. Anything more would invite treating the output as a
+ * finding rather than a prompt.
+ */
+function detectClusters(samples, metricKey = "mean_len") {
+  const pts = samples
+    .map((s) => ({ v: s.cadence[metricKey], group: s.group, file: s.path.split("/").pop() }))
+    .filter((p) => typeof p.v === "number")
+    .sort((a, b) => a.v - b.v);
+  if (pts.length < 6) return null;
+
+  // Best split: the one minimising total within-cluster spread.
+  let best = null;
+  for (let i = 1; i < pts.length; i += 1) {
+    const lo = pts.slice(0, i).map((p) => p.v);
+    const hi = pts.slice(i).map((p) => p.v);
+    if (lo.length < 2 || hi.length < 2) continue;
+    const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length;
+    const ss = (a) => { const m = mean(a); return a.reduce((x, y) => x + (y - m) ** 2, 0); };
+    const total = ss(lo) + ss(hi);
+    if (!best || total < best.total) {
+      best = { total, i, loMean: round(mean(lo)), hiMean: round(mean(hi)), lo: pts.slice(0, i), hi: pts.slice(i) };
+    }
+  }
+  if (!best) return null;
+
+  // SEPARATION IS A GAP, NOT A DIFFERENCE OF MEANS.
+  //
+  // The first version of this compared cluster means against the total spread,
+  // and flagged a single-voice corpus. It had to: split any sorted data near the
+  // middle and the two means sit far apart as a fraction of the range —
+  // uniformly distributed values score 0.5 by construction. It was measuring
+  // "was this split in the middle", not "are there two groups".
+  //
+  // What distinguishes two voices from one wide one is a VOID between them. So:
+  // the distance from the top of the lower cluster to the bottom of the upper,
+  // measured in within-cluster standard deviations. Contiguous data has no gap
+  // however far apart its means are.
+  const loVals = best.lo.map((p) => p.v);
+  const hiVals = best.hi.map((p) => p.v);
+  const gap = Math.min(...hiVals) - Math.max(...loVals);
+  const overallMean = pts.reduce((a, p) => a + p.v, 0) / pts.length || 1;
+  // Distance between the clusters as a fraction of typical value. This is the
+  // measure that answers the question actually being asked — are these two
+  // different voices — rather than a measure of how cleanly they separate.
+  const separation = round(gap / overallMean);
+
+  // Both conditions, and each rules out a different wrong answer.
+  //
+  // A real void (gap > 0) rules out one wide cluster split down the middle. The
+  // first version of this used difference-of-means over total spread, which
+  // flags uniformly distributed values by construction: split any sorted data
+  // near the middle and the two means sit half a range apart.
+  //
+  // And the void has to MATTER. Sentence-length means of 574 and 588 are
+  // perfectly separated and are obviously one voice. Without this second test
+  // the check reports a 2% difference with the same confidence as a 5x one.
+  if (gap <= 0 || separation < 0.15) return null;
+
+  const groupsOf = (side) => [...new Set(side.map((p) => p.group ?? "(ungrouped)"))].sort();
+  const loGroups = groupsOf(best.lo);
+  const hiGroups = groupsOf(best.hi);
+  const aligned = loGroups.length === 1 && hiGroups.length === 1 && loGroups[0] !== hiGroups[0];
+
+  return {
+    metric: metricKey,
+    separation: round(separation),
+    clusters: [
+      { n: best.lo.length, mean: best.loMean, groups: loGroups },
+      { n: best.hi.length, mean: best.hiMean, groups: hiGroups },
+    ],
+    aligned_with_named_groups: aligned,
+    note: aligned
+      ? "The two clusters match the author's own groups. Calibrate each with --group; "
+        + "pooling them produces bands that describe neither."
+      : "The corpus splits into two clusters that do NOT follow the named groups (or none "
+        + "are named). Whichever voice a draft is meant to be in, pooled bands will be too "
+        + "wide to say anything about it. Consider naming groups that match how you actually write.",
+  };
 }
 
 const round = (n) => Math.round(n * 1000) / 1000;
 
-function calibrate(name, searchPath, { write }) {
+function calibrate(name, searchPath, { write, group = null }) {
   const dir = findProfileDir(name, searchPath);
   if (!dir) return { profile: name, error: `profile "${name}" not found` };
 
   const profile = loadProfile(name, searchPath);
-  const files = corpusFiles(join(dir, "corpus", "human"));
-  const measured = files.map((f) => measure(f, profile));
+  const humanDir = join(dir, "corpus", "human");
+  const files = corpusFiles(humanDir, { group });
+  const measured = files.map((f) => ({ ...measure(f.path, profile), group: f.group }));
   const usable = measured.filter((m) => !m.excluded);
   const excluded = measured.filter((m) => m.excluded);
 
@@ -219,7 +375,9 @@ function calibrate(name, searchPath, { write }) {
   const result = {
     profile: name,
     dir,
-    corpus_dir: join(dir, "corpus", "human"),
+    corpus_dir: humanDir,
+    group,
+    groups_available: corpusGroups(humanDir),
     files_found: files.length,
     samples_used: usable.length,
     excluded: excluded.map((e) => ({ file: e.path, reason: e.excluded })),
@@ -236,7 +394,10 @@ function calibrate(name, searchPath, { write }) {
     return result;
   }
 
-  const { metrics, catalog_density, aggregate_density, pooled_words } = bandsFrom(usable);
+  const { metrics, catalog_density, aggregate_density, entry_rates, pooled_words } = bandsFrom(usable);
+  // Only meaningful when pooling. Asking whether ONE named group is internally
+  // multimodal is a different and much weaker question.
+  result.clusters = group ? null : detectClusters(usable);
   const derived = {
     profile: name,
     derived_from: usable.length,
@@ -257,6 +418,7 @@ function calibrate(name, searchPath, { write }) {
     metrics,
     catalog_density,
     aggregate_density,
+    entry_rates,
   };
   result.derived = derived;
 
@@ -339,6 +501,7 @@ function main() {
     else if (a === "--json") opts.json = true;
     else if (a === "--project") opts.project = resolve(argv[++i]);
     else if (a === "--profiles-dir") opts.profilesDir = argv[++i];
+    else if (a === "--group") opts.group = argv[++i];
     else if (a === "-h" || a === "--help") { process.stdout.write(USAGE); return; }
     else if (a.startsWith("-")) { process.stderr.write(`unknown option: ${a}\n`); process.exit(2); }
     else opts.profiles.push(a);
@@ -355,7 +518,7 @@ function main() {
     process.exit(2);
   }
 
-  const results = names.map((n) => calibrate(n, searchPath, { write: opts.write }));
+  const results = names.map((n) => calibrate(n, searchPath, { write: opts.write, group: opts.group }));
 
   if (opts.json) {
     process.stdout.write(`${JSON.stringify({ tool: "calibrate", version: "0.1.0", results }, null, 2)}\n`);

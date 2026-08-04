@@ -35,6 +35,8 @@ ingest — add a sample to a profile's corpus with provenance
   node tools/ingest.mjs <file...> --profile <name> --source <text> [--attest|--ai]
 
 Required
+  --group <name>        File into a named voice inside the register. Creates
+                        the subdirectory if needed. Human corpus only.
   --profile <name>    Which register's corpus to add to.
   --source <text>     Where this came from. Free text; be specific enough that
                       you will understand it in a year.
@@ -70,6 +72,7 @@ function parseArgs(argv) {
     };
     switch (a) {
       case "--profile": o.profile = next(); break;
+      case "--group": o.group = next(); break;
       case "--source": o.source = next(); break;
       case "--date": o.date = next(); break;
       case "--attest": o.attest = true; break;
@@ -139,7 +142,13 @@ function main() {
   const writeRoot = o.profilesDir
     ? resolve(o.profilesDir)
     : join(o.project, ".claude", "humanizer", "profiles");
-  const target = join(writeRoot, o.profile, "corpus", o.ai ? "ai" : "human");
+  // A group is a named voice inside a register — a subdirectory the author
+  // chooses. Registers are picked by the tool from path rules; groups are picked
+  // by the person, because "essay" is often several voices under one label.
+  // Only the human corpus is grouped: the AI corpus is negatives, and dividing
+  // negatives by voice would be a distinction without a use.
+  const groupDir = o.group && !o.ai ? [o.group] : [];
+  const target = join(writeRoot, o.profile, "corpus", o.ai ? "ai" : "human", ...groupDir);
 
   if (!findProfileDir(o.profile, searchPath) && !existsSync(join(writeRoot, o.profile))) {
     const available = [...listProfiles(searchPath).keys()].filter((n) => n !== BASE_PROFILE);

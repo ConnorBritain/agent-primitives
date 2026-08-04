@@ -557,6 +557,94 @@ try {
     check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
+  group("Named corpus groups, and noticing when a corpus is two voices");
+  {
+    // A register is chosen by the tool. A GROUP is chosen by the author, because
+    // "essay" is often several voices wearing one label and only they know where
+    // the seams are. Groups are subdirectories of corpus/human/.
+    const root = join(tmp, "groups");
+    const prof = join(root, "profiles");
+    mkdirSync(join(prof, "essay", "corpus", "human", "newsletter"), { recursive: true });
+    mkdirSync(join(prof, "essay", "corpus", "human", "longform"), { recursive: true });
+    cpSync(join(SKILL, "profiles", "_base"), join(prof, "_base"), { recursive: true });
+    for (const f of ["profile.json", "thresholds.json", "allow.txt"]) {
+      const src = join(SKILL, "profiles", "essay", f);
+      if (existsSync(src)) cpSync(src, join(prof, "essay", f));
+    }
+    const fm = "---\nsource: test\ndate: 2024-01-01\nhuman_authored: true\n---\n\n";
+    const short = Array.from({ length: 50 }, (_, k) => `Short line ${k} here.`).join(" ");
+    const long = Array.from({ length: 25 }, (_, k) =>
+      `Although the matter of ${k} was considered at length by those who came before, the difficulty persists unresolved.`).join(" ");
+    for (let i = 0; i < 6; i += 1) {
+      writeFileSync(join(prof, "essay", "corpus", "human", "newsletter", `n${i}.md`), fm + short);
+      writeFileSync(join(prof, "essay", "corpus", "human", "longform", `l${i}.md`), fm + long);
+    }
+
+    const pooled = calibrate(["essay", "--profiles-dir", prof]);
+    check("groups are discovered from subdirectories",
+      JSON.stringify(pooled.groups_available) === JSON.stringify(["longform", "newsletter"]),
+      JSON.stringify(pooled.groups_available));
+    check("pooling reads every group", pooled.samples_used === 12, `${pooled.samples_used}`);
+
+    // The per-entry rates calibration used to compute and discard. This is what
+    // lets a report say "you use this 0.2x/1k; the draft is 1.4x/1k" rather than
+    // comparing a draft against a severity-class ceiling.
+    check("per-entry author rates are retained, not collapsed into ceilings",
+      pooled.derived && typeof pooled.derived.entry_rates === "object",
+      "entry_rates missing");
+
+    const one = calibrate(["essay", "--group", "newsletter", "--profiles-dir", prof]);
+    check("--group calibrates a single voice", one.samples_used === 6, `${one.samples_used}`);
+    // The claim that matters is not that the medians differ — with two equal
+    // clusters the pooled median lands on the boundary and can coincide with
+    // either. It is that POOLED BANDS ARE WIDER THAN EITHER VOICE'S, which is
+    // exactly why they describe neither: a draft in either voice falls "within
+    // range", and the tool goes quiet rather than wrong.
+    const width = (d) => d.metrics.mean_len.p90 - d.metrics.mean_len.p10;
+    check("pooled bands are wider than a single voice's",
+      width(pooled.derived) > width(one.derived),
+      `pooled ${width(pooled.derived)} vs group ${width(one.derived)}`);
+
+    // The reason groups matter: pooled bands describe neither voice, and the
+    // tool goes quiet rather than wrong — which is worse, because nothing
+    // announces it.
+    check("a two-voice corpus is reported as such", Boolean(pooled.clusters), "no clusters found");
+    check("and the clusters are recognised as matching the author's own groups",
+      pooled.clusters?.aligned_with_named_groups === true,
+      JSON.stringify(pooled.clusters?.clusters));
+    check("clustering is not attempted within a single named group",
+      one.clusters === null, "asking whether one group is multimodal is a weaker question");
+  }
+  {
+    // The negative, and the one that caught two bad statistics before shipping.
+    // A single voice with ordinary variation must produce silence.
+    //
+    // The first version compared cluster MEANS against total spread, which flags
+    // uniformly distributed data by construction. The second required a gap in
+    // within-cluster standard deviations, which explodes when a cluster has zero
+    // variance. Both passed a fixture that was accidentally bimodal.
+    const root = join(tmp, "onevoice");
+    const prof = join(root, "profiles");
+    mkdirSync(join(prof, "essay", "corpus", "human"), { recursive: true });
+    cpSync(join(SKILL, "profiles", "_base"), join(prof, "_base"), { recursive: true });
+    for (const f of ["profile.json", "thresholds.json", "allow.txt"]) {
+      const src = join(SKILL, "profiles", "essay", f);
+      if (existsSync(src)) cpSync(src, join(prof, "essay", f));
+    }
+    const fm = "---\nsource: test\ndate: 2024-01-01\nhuman_authored: true\n---\n\n";
+    for (let i = 0; i < 10; i += 1) {
+      const sents = Array.from({ length: 45 }, (_, k) => {
+        const n = 9 + ((i * 5 + k * 7) % 13);
+        return `${Array.from({ length: n }, (_, w) => `word${w}`).join(" ")}.`;
+      });
+      writeFileSync(join(prof, "essay", "corpus", "human", `s${i}.md`), fm + sents.join(" "));
+    }
+    const r = calibrate(["essay", "--profiles-dir", prof]);
+    check("one voice with ordinary variation reports no clusters",
+      r.clusters === null,
+      `reported separation ${r.clusters?.separation} — the statistic is flagging noise again`);
+  }
+
   group("Artifacts that need arithmetic, not a regex");
   {
     // An ISBN that fails its own checksum was invented. Local arithmetic, no

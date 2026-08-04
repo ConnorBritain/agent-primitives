@@ -780,6 +780,53 @@ findings and read as eight separate problems. Every other entry in the catalog
 aggregates. A new check that invents its own output shape is a reporting bug
 waiting to be quoted.
 
+### FN-2026-08-04-h · calibration · two wrong ways to ask "is this one voice?"
+
+Named corpus groups landed with a check that reports when a corpus contains more
+than one voice. The check took three attempts, and the two failures are worth
+more than the fix.
+
+**Why the check exists.** Pooling two voices produces bands describing neither —
+wide enough that every draft lands "within range", so the tool goes quiet and
+*looks like it is working*. Nothing in the output announces it. That is worse
+than being wrong.
+
+**Attempt one: difference of means over total spread.** Flagged a single-voice
+corpus immediately, and had to: split any sorted data near the middle and the two
+halves' means sit about half a range apart. Uniformly distributed values score
+0.5 by construction. It was measuring *"was this split near the middle"*, which
+is a property of the split, not of the data.
+
+**Attempt two: the gap, in within-cluster standard deviations.** Better idea —
+what distinguishes two voices from one wide one is a *void* between them. It
+still passed the bad case, and produced separations around 10¹⁰. When a cluster
+has near-zero internal variance the denominator collapses, and every gap looks
+infinite.
+
+**Attempt three: the gap as a fraction of the typical value**, plus a requirement
+that the gap be real (nothing between the clusters). Both conditions rule out a
+different wrong answer, and the second one is the interesting half: sentence-length
+means of **574 and 588 are perfectly separated and are obviously one voice**.
+Without a test that the void *matters*, the check reports a 2% difference with
+the same confidence as a 5× one.
+
+#### The fixture was wrong, which is why two bad statistics survived
+
+The "single voice" corpus used to test all this was generated without sentence
+boundaries, so every sample's mean sentence length came out as one of two
+values — `[574 ×5, 588 ×5]`. It was **accidentally bimodal**, so a check that
+flagged it was arguably right, and the failure looked like a threshold problem
+rather than a fixture problem.
+
+Both bad statistics passed review against it. Only printing the actual
+distribution showed why. That is the fourth time in this log a measurement's
+*setup* was the defect rather than its arithmetic, and the first time the setup
+in question was a negative test — which is exactly where it is hardest to notice,
+because a negative test failing looks like the code being too strict.
+
+The rule this reinforces: **when a check fires on something you believe is
+clean, print the data before adjusting the threshold.**
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather
