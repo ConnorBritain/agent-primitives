@@ -563,29 +563,94 @@ try {
     // writing, and the rule that shapes it is absolute: NEVER netted against the
     // findings. The moment exculpatory evidence subtracts from inculpatory, this
     // is a scored detector, which meta.yaml refuses by contract.
-    const dated = join(tmp, "old.md");
-    writeFileSync(dated, "---\ndate: 2019-04-02\n---\n\nDelve into the rich tapestry of "
+    // CHANGED 2026-08-04. These previously asserted that a frontmatter date
+    // ALONE was evidential and dispositive. That was wrong and is why the
+    // assertions moved rather than being deleted: a date the document asserts
+    // about itself was able to switch off the scanner reading it. One line of
+    // YAML in any AI draft silenced a document saturated with findings.
+    //
+    // The trust model now distinguishes a CLAIM from a RECORD. See
+    // CALIBRATION.md FP-2026-08-04-f.
+    const claimed = join(tmp, "claimed.md");
+    writeFileSync(claimed, "---\ndate: 2019-04-02\n---\n\nDelve into the rich tapestry of "
       + "meticulous craftsmanship that stands as a testament to the era.\n");
-    const r = scan([dated, "--profile", "essay"]).results[0];
-    const ce = r.counter_evidence;
+    const rc = scan([claimed, "--profile", "essay"]).results[0];
 
-    check("age resolves from frontmatter and is treated as evidence",
-      ce.age.date === "2019-04-02" && ce.age.evidential === true, JSON.stringify(ce.age));
-    check("text predating ChatGPT is dispositive", ce.age.dispositive === true);
+    check("a self-reported date is still reported",
+      rc.counter_evidence.age.date === "2019-04-02", JSON.stringify(rc.counter_evidence.age));
+    check("but an uncorroborated claim is not evidential",
+      rc.counter_evidence.age.evidential === false);
+    check("and cannot be dispositive", rc.counter_evidence.age.dispositive === false);
+    check("and says what would make it so",
+      /commit the file/i.test(rc.counter_evidence.age.caveat ?? ""),
+      rc.counter_evidence.age.caveat ?? "");
+    check("so the reading is NOT overridden by an unverifiable claim",
+      !/before ChatGPT was public/.test(rc.summary.reading),
+      rc.summary.reading.slice(0, 80));
+
+    // The corroborated path, on a real committed file: git is a record, not a
+    // claim, so this one IS dispositive.
+    const tracked = join(BUNDLE, "tests", "corpus", "human", "kenyatta-university.txt");
+    const r = existsSync(tracked)
+      ? scan([tracked, "--profile", "technical"]).results[0]
+      : null;
+    const ce = r ? r.counter_evidence : rc.counter_evidence;
+    if (r) {
+      check("a frontmatter date corroborated by git IS evidential",
+        ce.age.evidential === true && ce.age.corroborated === true, JSON.stringify(ce.age));
+      check("text predating ChatGPT is dispositive", ce.age.dispositive === true);
+      check(
+        "and the reading says so BEFORE reporting style findings",
+        /before ChatGPT was public/.test(r.summary.reading)
+        && r.summary.reading.indexOf("before ChatGPT") < 120,
+        r.summary.reading.slice(0, 90),
+      );
+      // The point of the override: counter-evidence outranks the reading, it
+      // does not hide the measurements.
+      check("the style findings are still reported, not suppressed",
+        r.findings.length > 0,
+        "counter-evidence outranks the reading; it does not hide the measurements");
+    }
+
+    // The body-date case that defeated the dispositive check with ordinary
+    // prose: frontmatter present but carrying no `date:` key, and a date-shaped
+    // string further down the document.
+    const bodyDate = join(tmp, "bodydate.md");
+    writeFileSync(bodyDate,
+      "---\ntitle: Notes\n---\n\nDelve into the rich tapestry of meticulous craft.\n"
+      + "The filing date: 2015-06-01 was noted in the register.\n");
+    const bd = scan([bodyDate, "--profile", "essay"]).results[0].counter_evidence;
     check(
-      "and the reading says so BEFORE reporting style findings",
-      /before ChatGPT was public/.test(r.summary.reading)
-      && r.summary.reading.indexOf("before ChatGPT") < 120,
-      r.summary.reading.slice(0, 90),
+      "a date-shaped string in the BODY is not read as frontmatter",
+      bd.age.how !== "the document's own frontmatter" && bd.age.dispositive === false,
+      JSON.stringify(bd.age),
     );
-    // The point of the override: this document is stuffed with tells and it
-    // still must not be implied to be machine-written.
-    check("the style findings are still reported, not suppressed",
-      r.findings.some((f) => f.id === "delve" || f.id === "tapestry"),
-      "counter-evidence outranks the reading; it does not hide the measurements");
 
-    // NEVER SUBTRACT. There must be no combined figure anywhere.
+    // `--artifacts-only` promises to skip every style judgement. The syntax
+    // rates are style by this project's own framing; age is provenance, a fact
+    // about the file rather than an opinion about the prose, and stays.
+    const artifacts = scan([claimed, "--profile", "essay", "--artifacts-only"]).results[0];
+    check("--artifacts-only drops the syntax rates, as its contract says",
+      artifacts.counter_evidence.syntax.length === 0,
+      `${artifacts.counter_evidence.syntax.length} rates survived`);
+    check("but keeps provenance, which is not a style judgement",
+      Boolean(artifacts.counter_evidence.age));
+
+    // NEVER SUBTRACT.
+    //
+    // A keyword blocklist was the first version of this check and it was
+    // theatre: it would have passed on `confidence`, `weight`, `overallAUC`, or
+    // a number folded into prose. An allowlist on the SHAPE fails on any new
+    // key, which is the only form that constrains a future contributor.
     const flat = JSON.stringify(ce);
+    const topLevel = Object.keys(ce).sort();
+    check("the counter-evidence block has no key beyond its declared shape",
+      JSON.stringify(topLevel) === JSON.stringify(["_about", "age", "syntax"]),
+      topLevel.join(","));
+    check("and no per-metric key beyond its declared shape",
+      ce.syntax.every((m) => JSON.stringify(Object.keys(m).sort())
+        === JSON.stringify(["auc", "banded", "flagged", "key", "label", "means", "per_1k"])),
+      JSON.stringify(ce.syntax.map((m) => Object.keys(m).sort())));
     check("no netted score exists in the counter-evidence block",
       !/"?(?:score|net|combined|total|likelihood|probability)"?\s*:/i.test(flat),
       "a single number here would be quoted as a verdict within a week");

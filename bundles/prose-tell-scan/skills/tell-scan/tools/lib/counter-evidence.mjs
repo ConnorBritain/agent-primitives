@@ -33,9 +33,9 @@
  *   stiffverb     0.49    coin flip
  *   hedge         0.45    BACKWARDS — commoner in the AI set
  *
- * AUC 0.5 is worthless. Three of the six are at or below 0.56, and `hedge` runs
- * the wrong way, so they are not computed at all: reporting a coin-flip number
- * invites someone to act on it.
+ * AUC 0.5 is worthless. Two of the six sit at or below it, the third barely above
+ * at 0.56, and `hedge` runs the wrong way — so none of the three is computed at
+ * all: reporting a coin-flip number invites someone to act on it.
  *
  * The three that survive are reported and NEVER FLAGGED, for two reasons that
  * both matter. AUC 0.73–0.77 on 12 human documents carries an interval wide
@@ -85,38 +85,81 @@ const RATES = {
 export const CHATGPT_LAUNCH = "2022-11-30";
 
 /**
- * Age, and it is the only dispositive thing in this file.
+ * Age, and it is the only dispositive thing in this file — which is exactly why
+ * the trust model matters more than the lookup.
  *
- * The source page is unusually firm here: if the text predates the tool, AI use
- * "can be safely ruled out". No rate, no threshold, no judgement.
+ * The source page is firm: if the text predates the tool, AI use "can be safely
+ * ruled out". No rate, no threshold. So a `dispositive: true` here overrides the
+ * entire reading, and anything that can set it is a way to switch the tool off.
  *
- * Resolution order, and the report always names which rule fired, because the
- * three sources are not equally trustworthy. Frontmatter is a claim the author
- * makes. Git records when a file entered the repository. An mtime is whatever
- * the last copy operation set it to, which is why it is reported and explicitly
- * labelled as not evidence.
+ * THE THREE SOURCES ARE NOT EQUALLY TRUSTWORTHY, and an earlier version treated
+ * two of them as if they were.
+ *
+ *   git first-add commit   A RECORD. Something outside the document asserts when
+ *                          it appeared. Not forgeable by editing the file.
+ *                          → dispositive
+ *
+ *   frontmatter `date:`    A CLAIM the author writes into the text. Adding one
+ *                          line to any document sets it. It shipped as
+ *                          dispositive, which meant one line of YAML silently
+ *                          turned off a scanner saturated with findings.
+ *                          → reported, never dispositive on its own
+ *
+ *   filesystem mtime       Whatever last touched the file, including the copy
+ *                          that put it there.
+ *                          → reported, explicitly not evidence
+ *
+ * Frontmatter plus git AGREEING is dispositive, because then the record
+ * corroborates the claim. Frontmatter alone stays visible in the output — an
+ * author scanning their own draft knows whether their own date is honest, and
+ * the tool should not pretend the information does not exist. It simply does not
+ * get to silence the findings on the strength of a self-report.
  */
 export function resolveAge({ frontmatterDate, gitFirstSeen, mtime }) {
-  if (frontmatterDate) {
-    return { date: frontmatterDate, how: "the document's own frontmatter", evidential: true };
+  if (gitFirstSeen && frontmatterDate && frontmatterDate <= gitFirstSeen) {
+    return {
+      date: frontmatterDate,
+      how: "the document's frontmatter, corroborated by the commit that added the file",
+      evidential: true,
+      corroborated: true,
+    };
   }
   if (gitFirstSeen) {
-    return { date: gitFirstSeen, how: "first commit that added the file", evidential: true };
+    return {
+      date: gitFirstSeen,
+      how: "first commit that added the file",
+      evidential: true,
+      corroborated: true,
+    };
+  }
+  if (frontmatterDate) {
+    return {
+      date: frontmatterDate,
+      how: "the document's own frontmatter",
+      // Reported, and deliberately not evidential: a date the document asserts
+      // about itself cannot be allowed to switch off the scanner reading it.
+      evidential: false,
+      corroborated: false,
+      caveat:
+        "a self-reported date, unverified — the document is the only thing claiming it. "
+        + "Commit the file, or the scan cannot treat this as dispositive",
+    };
   }
   if (mtime) {
     return {
       date: mtime,
       how: "filesystem mtime",
       evidential: false,
+      corroborated: false,
       caveat: "an mtime is set by whatever last touched the file, including a copy — not evidence of when the text was written",
     };
   }
   return null;
 }
 
-export function counterEvidence(text, wordCount, age) {
+export function counterEvidence(text, wordCount, age, { syntax: withSyntax = true } = {}) {
   const n = wordCount || 1;
-  const syntax = Object.entries(RATES).map(([key, spec]) => ({
+  const syntax = !withSyntax ? [] : Object.entries(RATES).map(([key, spec]) => ({
     key,
     label: spec.label,
     per_1k: Math.round((1000 * ((text.match(spec.re) ?? []).length) / n) * 100) / 100,

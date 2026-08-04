@@ -615,8 +615,8 @@ absent. A coin-flip number in the output invites someone to act on it, and
 `hedge` would actively mislead.
 
 **Three are reported and never flagged**, for two reasons that each suffice. AUC
-0.73–0.77 on twelve human documents carries an interval wide enough to include
-no-signal. And the accuracy column is *fitted*: each threshold was chosen on the
+0.73–0.77 on twelve human documents carries a wide interval — bootstrap lower
+bounds sit around 0.57–0.62, so the signal is real but small. And the accuracy column is *fitted*: each threshold was chosen on the
 same 45 documents it was scored against, so those figures are optimistic by
 construction. Shipping a threshold on that basis is the overfitting this project
 has already committed twice. Every rate prints its AUC beside it so the number
@@ -652,6 +652,76 @@ with a corpus, and the one with the strongest intuitive appeal — hedging langu
 as a human marker — measured backwards. That is the same result as
 `FN-2026-08-04-c`, on different material: reading a source tells you a pattern is
 real; only a corpus tells you whether a measurement of it discriminates.
+
+### FP-2026-08-04-f · counter-evidence · three ways to switch the scanner off
+
+The measurements in `FN-2026-08-04-e` re-derived almost exactly under independent
+review — the first round in this project where they did. The *implementation*
+around them had three defects, all in the one feature that can override
+everything else.
+
+**1. Ordinary prose defeated the dispositive check.** The frontmatter regex
+anchored on the opening `---` and never required the date to appear before the
+closing one. So a document with normal frontmatter lacking a `date:` key, whose
+body happened to contain a date-shaped string —
+
+> The filing date: 2015-06-01 was noted in the register.
+
+— had that read as its frontmatter, and a document saturated with flagged tells
+reported *"AI use can be ruled out"*. Not an attack: ordinary writing.
+
+**2. A self-reported date was treated as evidence.** `resolveAge` checked
+frontmatter *first* and marked it `evidential: true`, identically to git — while
+the code's own comment said frontmatter is "a claim the author makes" and git
+"records". Adding one line of YAML to any document silenced the scanner reading
+it. The caveat existed only in a source comment no user would ever see, which is
+precisely the overstatement `AGENTS.md` calls the most damaging error available.
+
+The trust model is now explicit, and it is about **claims versus records**:
+
+| source | what it is | dispositive? |
+|---|---|---|
+| git first-add commit | a record made outside the document | **yes** |
+| frontmatter + git agreeing | a claim the record corroborates | **yes** |
+| frontmatter alone | a claim the document makes about itself | reported, never |
+| filesystem mtime | whatever last touched the file | reported, not evidence |
+
+Frontmatter alone stays visible — an author scanning their own draft knows
+whether their own date is honest, and the tool should not pretend the information
+is absent. It just does not get to silence findings on a self-report. The output
+says what would change that: commit the file.
+
+**3. `--artifacts-only` violated its own contract.** Its help text — unchanged
+since v0.1 — promises to skip every style judgement. Cadence was correctly gated;
+the new syntax rates were not, and they are style by this log's own framing. Now
+gated. Age still reports, because provenance is a fact about the file rather than
+an opinion about the prose.
+
+#### And the one that is worth more than the other three
+
+The git lookup **never worked**. `execFileSync` was never imported, so every call
+threw `ReferenceError`, and this swallowed it:
+
+```js
+} catch { /* not a repo, or git absent — normal, not an error */ }
+```
+
+The comment is true about the failures it was written for and false about the one
+it caught. For the entire life of the feature the git path threw instantly and
+degraded to the weaker sources — which is *why* frontmatter-alone appeared to
+work well enough to ship.
+
+Two separate mistakes made it invisible. The broad `catch` swallowed a
+programming error alongside the environmental ones it was for. And a second bug
+underneath it — a relative pathspec resolved against a `cwd` set to the file's own
+directory — made git return **empty rather than error**, indistinguishable from
+"file not tracked".
+
+The catch now rethrows anything that is not a recognised environment failure
+(`ENOENT`, or a non-zero exit status). This repo's own rules already name the
+pattern: *"no `try/except` or empty `catch` that swallows a failing assertion"*.
+A catch broad enough to hide a typo is broad enough to hide a defect for as long
+as nobody looks.
 
 ## What the log says so far
 

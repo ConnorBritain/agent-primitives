@@ -21,6 +21,7 @@
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { execFileSync } from "node:child_process";
 
 import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/text.mjs";
 import { scanCatalog, scanFormatting } from "./lib/scan.mjs";
@@ -111,15 +112,35 @@ function parseArgs(argv) {
  * and a scanner that errored on it would be useless outside one.
  */
 function fileAge(file, raw) {
-  const fm = raw.match(/^---\n[\s\S]*?\bdate:\s*(\d{4}-\d{2}-\d{2})/);
+  // Isolate the frontmatter block FIRST, then look inside it. The original
+  // pattern only anchored on the opening `---` and never required the date to
+  // appear before the closing one, so an ordinary body sentence — "the filing
+  // date: 2015-06-01 was noted" — was read as frontmatter and, at the time,
+  // silenced the whole reading. Non-adversarial prose defeating the tool's one
+  // dispositive mechanism.
+  const block = raw.match(/^---\n([\s\S]*?)\n---(?:\n|$)/);
+  const fm = block ? block[1].match(/^\s*date:\s*["']?(\d{4}-\d{2}-\d{2})/m) : null;
   let gitFirstSeen = null;
   try {
     const out = execFileSync(
-      "git", ["log", "--diff-filter=A", "--follow", "--format=%aI", "--", file],
+      // Absolute pathspec. `cwd` is the file's own directory, so a relative one
+      // resolves against it and git silently matches nothing — returning empty
+      // rather than erroring, which is indistinguishable from "not tracked".
+      "git", ["log", "--diff-filter=A", "--follow", "--format=%aI", "--", resolve(file)],
       { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], cwd: dirname(resolve(file)) },
     ).trim().split("\n").filter(Boolean).pop();
     if (out) gitFirstSeen = out.slice(0, 10);
-  } catch { /* not a repo, or git absent — normal, not an error */ }
+  } catch (err) {
+    // Only swallow the failures that are NORMAL: no repository, no git binary,
+    // a file git does not track. A broad `catch {}` here previously hid a
+    // ReferenceError — `execFileSync` was never imported — so the git path threw
+    // on every call for the whole life of the feature and silently degraded to
+    // the weaker sources. The bug was invisible precisely because the catch was
+    // doing its job too well. Anything that is not an expected environment
+    // failure now propagates.
+    const expected = err?.code === "ENOENT" || typeof err?.status === "number";
+    if (!expected) throw err;
+  }
   let mtime = null;
   try { mtime = statSync(file).mtime.toISOString().slice(0, 10); } catch { /* ignore */ }
   return { frontmatterDate: fm?.[1] ?? null, gitFirstSeen, mtime };
@@ -172,7 +193,12 @@ function analyse(file, opts, config, searchPath) {
   // The other half of the source page: signs of HUMAN writing. Never netted
   // against the findings above — see lib/counter-evidence.mjs for why that rule
   // is absolute, and for the measurements that decided which metrics ship.
-  const counter = counterEvidence(text, wordCount, resolveAge(fileAge(file, raw)));
+  // `--artifacts-only` promises in its own help text to skip every style
+  // judgement, and the syntax rates are style. Age is not — it is provenance, a
+  // fact about the file rather than an opinion about the prose — so it stays.
+  const counter = counterEvidence(
+    text, wordCount, resolveAge(fileAge(file, raw)), { syntax: !opts.artifactsOnly },
+  );
   const override = readingOverride(counter);
   if (override) {
     // Provable age outranks every style observation. A 2019 document with

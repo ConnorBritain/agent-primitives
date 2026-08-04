@@ -428,9 +428,9 @@ report their cadence half and their density half with separate confidence — se
   ChatGPT, and when the date is evidential that replaces the reading outright.
   The rest is weak and labelled weak — three syntax rates measured at AUC
   0.73–0.77 against the corpus, printed with that number beside them and never
-  flagged. Three more the source lists are not computed at all: they measured at
-  or below chance, and *hedging language*, the most intuitive human marker on the
-  list, measured **backwards**. See [`CALIBRATION.md`](CALIBRATION.md)
+  flagged. Three more the source lists are not computed at all: two measured at or below
+  chance and the third, *hedging language* — the most intuitive human marker on
+  the list — measured **backwards**. See [`CALIBRATION.md`](CALIBRATION.md)
   `FN-2026-08-04-e`.
 - **Mention versus use.** A document *about* writing that quotes a tell as an
   example gets a hit for it. This is the dominant false positive in a repo whose
