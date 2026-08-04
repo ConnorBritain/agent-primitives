@@ -3,17 +3,10 @@
   "generated": "2026-07-26",
   "audited": "2026-08-03",
   "_version_note": [
-    "This catalog versions INDEPENDENTLY of the bundle that ships it, and that is the",
-    "premise of the whole arrangement rather than an oversight. The bundle is code and",
-    "docs; this file is a dated dataset tracking an adversarially-moving target, and the",
-    "two go stale on different clocks. See CONTRIBUTING.md 'Sizing a bundle'.",
-    "",
-    "`generated` is when entries were first extracted from the source page. `audited` is",
-    "the last time the catalog was checked BACK against that page - a different and",
-    "rarer act, and the one that found FN-2026-08-03-a. Anything consuming these bands",
-    "(a voice lock, a calibrated threshold) must record `version` alongside them:",
-    "density measurements are only comparable within one catalog version, because adding",
-    "or retuning an entry silently changes what the number means."
+    "This catalog versions INDEPENDENTLY of the bundle that ships it. `generated` is when",
+    "entries were first extracted from the source page; `audited` is the last time they",
+    "were checked back against it. Density bands are comparable only within one `version`.",
+    "Why, and what depends on it: see the bundle README, 'Two clocks'."
   ],
   "_about": [
     "The shared pattern catalog. Inherited by every profile; never duplicated per",
@@ -117,16 +110,16 @@
     }
   },
   "rejected": {
-    "announced-insight": {
-      "was": "Announcing an insight in place of delivering one (\"here's the thing\", \"what most people miss\").",
-      "why_rejected": "Removed 2026-08-03 after shipping in v0.1. Three reasons, and the first alone is sufficient: it is NOT ON THE SOURCE PAGE. Verified against the full wikitext - the entry's own note conceded this, tracing it to a Forbes contributor piece with no counts and no control corpus, which is exactly the class of source this catalog labels contested and does not build on. Second, it duplicates not_deterministic.announced-then-undelivered, which declares the same phenomenon undecidable by regex; shipping a regex for it contradicted the catalog's own boundary. Third, CALIBRATION.md FP-2026-07-26-a logged it as the first field false positive and concluded it was 'an argument for pruning rather than tightening if it recurs'. It recurred. The standard already applied to false-range applies here.",
-      "source": "local"
-    },
     "_about": [
       "Patterns deliberately NOT shipped, and why. Recorded rather than deleted",
       "because a silently removed pattern gets re-added by the next person with",
       "the same plausible idea. Everything here looked reasonable and lost."
     ],
+    "announced-insight": {
+      "was": "Announcing an insight in place of delivering one (\"here's the thing\", \"what most people miss\").",
+      "why_rejected": "Removed 2026-08-03 after shipping in v0.1. Three reasons, and the first alone is sufficient: it is NOT ON THE SOURCE PAGE. Verified against the full wikitext - the entry's own note conceded this, tracing it to a Forbes contributor piece with no counts and no control corpus, which is exactly the class of source this catalog labels contested and does not build on. Second, it duplicates not_deterministic.announced-then-undelivered, which declares the same phenomenon undecidable by regex; shipping a regex for it contradicted the catalog's own boundary. Third, CALIBRATION.md FP-2026-07-26-a logged it as the first field false positive and concluded it was 'an argument for pruning rather than tightening if it recurs'. It recurred. The standard already applied to false-range applies here.",
+      "source": "local"
+    },
     "transition-overload": {
       "was": "Density of furthermore / moreover / additionally / it is worth noting.",
       "why_rejected": "Wikipedia's editors shipped this, tested it, and DEMOTED it to their Ineffective indicators section, on the reasoning that conjunction overuse 'is more of a byproduct of essaylike-writing that AI and humans engage in'. Their current page states only a few transition words are known to be overused. This catalog shipped it briefly in v0.1 and it immediately produced a false positive on this repo's own docs/wiring.md. Re-adding it repeats an experiment already run and already reverted.",
@@ -631,7 +624,7 @@
       "severity": 3,
       "confidence": "medium",
       "pattern": "(?:\\b(?:is|are|was|were)\\s+not\\b|\\b\\w+(?:'s|'re)\\s+not\\b|\\b(?:isn't|aren't|wasn't|weren't)\\b)\\s+(?:just|merely|simply|only|about\\s+)?[^.!?]{2,80}[,;—–]\\s*(?:it|this|that|they)(?:'s|'re)\\b",
-      "note": "Widely treated as the strongest structural tell of the current generation, and reported at roughly 3x human rate — but the measurement behind that figure traces to a single news article, with no published corpus study. Confidence is `medium` rather than `high` for that reason, and because the source page itself concedes the construction is 'common among human writers'. FALSE POSITIVES ARE DOCUMENTED AND SERIOUS: autistic writers and anyone with a formal rhetorical education report using deliberate parallel construction for decades, and binary contrast is a structural resource of English itself. THE RULE THAT SURVIVES SCRUTINY IS FREQUENCY AND PURPOSELESSNESS, NOT PRESENCE — one deliberate contrast is rhetoric; five paragraphs ending on the same shape is autopilot. Which is why this is density-gated like everything else. Pivot may be a comma, semicolon, or em dash. FIXED 2026-08-03: the original pattern demanded a pronoun subject AND one of just/merely/simply/only, and on that basis matched exactly ONE of the nine examples on the source page - missing the caption of its own lead image. The subject is now any negated copula and the intensifier is optional, taking coverage to four of nine; not-x-but-y and not-only-but-also cover two more, and the remaining two are anaphoric repetition (no FP data yet) and the Grok-specific 'X rather than Y' (2 hits in this repo's clean-human fixture, deliberately not shipped). THE CONTRACTED-RESUMPTION REQUIREMENT IS A FALSE-POSITIVE GUARD, NOT A CLAIM ABOUT ENGLISH. Relaxing the subject without it produced five hits on this repo's own prose, every one a legitimate explanatory contrast ('is not a decision, it is a migration'). All five resume uncontracted; all four newly-caught source examples resume contracted. That is a clean split on nine observations and nothing more, so it is fitted to those five. If it starts costing real detections, widen the pivot punctuation or prune the entry rather than adding epicycles. See CALIBRATION.md FP-2026-08-03-g.",
+      "note": "Widely treated as the strongest structural tell of the current generation, and reported at roughly 3x human rate — but the measurement behind that figure traces to a single news article, with no published corpus study. Confidence is `medium` rather than `high` for that reason, and because the source page itself concedes the construction is 'common among human writers'. FALSE POSITIVES ARE DOCUMENTED AND SERIOUS: autistic writers and anyone with a formal rhetorical education report using deliberate parallel construction for decades, and binary contrast is a structural resource of English itself. THE RULE THAT SURVIVES SCRUTINY IS FREQUENCY AND PURPOSELESSNESS, NOT PRESENCE — one deliberate contrast is rhetoric; five paragraphs ending on the same shape is autopilot. Which is why this is density-gated like everything else. Pivot may be a comma, semicolon, or em dash. FIXED 2026-08-03: the original pattern demanded a pronoun subject AND one of just/merely/simply/only, and on that basis matched exactly ONE of the nine examples on the source page - missing the caption of its own lead image. The subject is now any negated copula and the intensifier is optional, taking coverage to four of nine; not-x-but-y and not-only-but-also cover two more, and the remaining two are anaphoric repetition (no FP data yet) and the Grok-specific 'X rather than Y' (2 hits in this repo's clean-human fixture, deliberately not shipped). THE CONTRACTED-RESUMPTION REQUIREMENT IS A FALSE-POSITIVE GUARD, NOT A CLAIM ABOUT ENGLISH. Relaxing the subject without it produced five hits on this repo's own prose, every one a legitimate explanatory contrast ('is not a decision, it is a migration'). All five resume uncontracted; all four newly-caught source examples resume contracted. That is a clean split on nine observations and nothing more, so it is fitted to those five. If it starts costing real detections, widen the pivot punctuation or prune the entry rather than adding epicycles. See CALIBRATION.md FN-2026-08-03-a.",
       "source": "wp-signs"
     },
     {

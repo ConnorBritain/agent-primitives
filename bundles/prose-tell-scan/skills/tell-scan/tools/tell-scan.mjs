@@ -148,6 +148,13 @@ function analyse(file, opts, config, searchPath) {
       dir: profile.dir,
       medium: profile.meta.medium || null,
       thresholds: profile.thresholds,
+      // Emitted because density findings are only comparable WITHIN one catalog
+      // version: adding or retuning an entry silently changes what a per-1k
+      // number means. Anything that stores these bands — a voice lock, a derived
+      // threshold, a baseline comparison — has to record this alongside them, and
+      // it cannot do that if the scanner never says which catalog it used.
+      catalog_version: profile.catalog.version || null,
+      catalog_audited: profile.catalog.audited || null,
       catalog_entries: catalog.entries.length,
       allowlist_terms: profile.allow.size,
       artifacts_only: Boolean(opts.artifactsOnly),

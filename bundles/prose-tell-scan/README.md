@@ -366,6 +366,32 @@ that register's density ceiling instead. A ceiling still reports the rate; an
 allowlist entry hides it. `profiles/narration/allow.txt` explains the choice
 where it comes up.
 
+## Two clocks
+
+`catalog.json` carries its own `version`, and it is **not** the bundle's. That is
+the split's premise showing up in a file rather than a doc.
+
+The bundle is code: it changes when the scanner changes. The catalog is a dated
+dataset tracking a target that moves adversarially, and it carries two dates
+because they mean different things.
+
+- **`generated`** — when entries were first extracted from the source page.
+- **`audited`** — when they were last checked *back* against it. A rarer act, and
+  the one that found [`FN-2026-08-03-a`](CALIBRATION.md): a pattern can be wrong
+  for months without anything firing, because failing to fire is silent.
+
+**What depends on this.** Cadence metrics are pure text statistics — sentence
+length variance means the same thing forever. Catalog density is a *count of
+entries*, so adding or retuning one silently changes what a per-1000 figure
+means. Two density numbers from different catalog versions are two different
+rulers, and nothing about the numbers themselves will tell you.
+
+So anything that stores a band records the version beside it. `tell-scan --json`
+emits `profile.catalog_version`; `calibrate.mjs` writes `catalog_version` into
+`thresholds.derived.json`. Voice locks, when they land, will do the same and will
+report their cadence half and their density half with separate confidence — see
+[`PROFILES.md`](PROFILES.md#designed-not-yet-built).
+
 ## What it will not do
 
 - **It is not an AI detector, and must never be used as one.** No single pattern

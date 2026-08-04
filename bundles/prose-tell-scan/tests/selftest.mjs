@@ -243,8 +243,31 @@ try {
     check("derives with a full corpus", Boolean(r.written), r.refused || "");
     check("confidence is calibrated", r.confidence === "calibrated", r.confidence);
 
+    // A derived band outlives the catalog that measured it. Cadence survives that
+    // — sentence-length variance means the same thing forever — but catalog
+    // density is a COUNT OF ENTRIES, so retuning one silently changes what a
+    // per-1000 figure means. Two densities from different catalog versions are
+    // two different rulers and nothing about the numbers says so. Stamping the
+    // version is what makes that detectable later.
+    const derivedFile = JSON.parse(
+      readFileSync(join(profiles, "reg", "thresholds.derived.json"), "utf8"),
+    );
+    const baseCatalogVersion = JSON.parse(
+      readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"),
+    ).version;
+    check(
+      "derived thresholds record the catalog version that produced them",
+      derivedFile.catalog_version === baseCatalogVersion,
+      `derived=${derivedFile.catalog_version} base=${baseCatalogVersion}`,
+    );
+
     const derived = scan([before, "--profile", "reg", "--profiles-dir", profiles]).results[0];
     check("scanner reports thresholds as derived", derived.profile.thresholds.derived === true);
+    check(
+      "the scan reports the catalog version too, so the two are comparable",
+      derived.profile.catalog_version === baseCatalogVersion,
+      `scan=${derived.profile.catalog_version} base=${baseCatalogVersion}`,
+    );
     check(
       "uncalibrated warning is gone",
       !/UNCALIBRATED/.test(derived.summary.reading),
@@ -394,11 +417,20 @@ try {
 
   group("Source-page coverage — the examples the catalog is built from");
   {
-    // Every string below is quoted from Wikipedia:Signs of AI writing. Before
-    // 2026-08-03 the negative-parallelism family matched ONE of them; the pattern
-    // demanded a pronoun subject and one of just/merely/simply/only, so the bare
-    // forms fell through. A catalog that misses its own source's worked examples
-    // is not measuring what it claims to.
+    // Before 2026-08-03 the negative-parallelism family matched ONE of these; the
+    // pattern demanded a pronoun subject and one of just/merely/simply/only, so
+    // the bare forms fell through. A catalog that misses its own source's worked
+    // examples is not measuring what it claims to. See CALIBRATION.md
+    // FN-2026-08-03-a.
+    //
+    // ATTRIBUTION: the seven sentences below are quoted verbatim from
+    // "Wikipedia:Signs of AI writing" (§Negative parallelisms), available under
+    // CC BY-SA 4.0 — https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing
+    // They are reproduced here as the test corpus for the catalog derived from
+    // that page. This repository is MIT; these specific strings are not, and any
+    // reuse of them carries CC BY-SA's share-alike condition. Replacing them with
+    // paraphrases would defeat the test, whose entire point is that the catalog
+    // matches its source's own worked examples rather than examples fitted to it.
     const doc = join(tmp, "wp-negpar.txt");
     writeFileSync(
       doc,
@@ -418,10 +450,10 @@ try {
     }
   }
   {
-    // The paired negative, and the reason the pattern is shaped the way it is.
-    // Relaxing the subject WITHOUT requiring contracted resumption produced five
-    // hits on this repo's own prose — every one a legitimate explanatory
-    // contrast. These are those five sentences. They must stay quiet.
+    // The paired negative. These five sentences are this repo's own prose, and
+    // they are the entire evidence base for the contracted-resumption guard —
+    // relaxing the subject without it flagged every one of them. Rationale lives
+    // in the entry's `note`; the incident is CALIBRATION.md FN-2026-08-03-a.
     const doc = join(tmp, "negpar-fp.txt");
     writeFileSync(
       doc,
