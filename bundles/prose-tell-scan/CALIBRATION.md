@@ -201,11 +201,29 @@ full, because the mechanism generalises and the first fix hid it.
 `you're`, `it's`. macOS, iOS, Word, and every LLM chat UI emit **U+2019** by
 default. Seven entries were affected, and one of them is Tier A:
 
-> **`chatbot-register` did not match "You’re absolutely right" as actually
+> **`chatbot-register` did not match `You’re absolutely right` as actually
 > pasted.** The most recognisable chatbot leak there is, in the tier that is meant
 > to be dispositive on a single occurrence and is the only thing
 > `--artifacts-only` retains, missed on the character it is most likely to arrive
 > with.
+
+That quoted phrase is in backticks deliberately, and the reason is a fourth
+finding from the same review pass. Written as plain prose it **tripped Tier A in
+this file** — `chatbot-register` fires on one occurrence and bypasses density
+gating, so a document *describing* the tell gets flagged for *committing* it.
+
+Mention-vs-use is already accepted for style entries; `delve` fires on the README
+for the same reason and is listed under *Known limits* rather than engineered
+around. **Tier A is different, and the difference is the whole basis for the
+tier.** It claims near-zero false positives and dispositive weight on a single
+hit, and an accepted false positive there devalues every Tier A finding, not just
+this one.
+
+So the rule for this repo, now enforced by adding this file to the FP corpus:
+**when documentation quotes a Tier A trigger, mark it as code.** Inline code is
+masked before scanning — the same mechanism that stops the scanner reading your
+API examples as prose. Fighting it with rewording would have been the worse fix;
+the masking layer already existed for exactly this.
 
 **Why the audit that was looking for exactly this missed it.** The paired test for
 `FN-2026-08-03-a` was built by retyping the source page's examples — ASCII

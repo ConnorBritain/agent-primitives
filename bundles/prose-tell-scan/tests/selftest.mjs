@@ -426,9 +426,15 @@ try {
     // with an ASCII apostrophe and the page does not. The test had been fitted to
     // the code, so it certified a fix that did not work on real text.
     //
-    // The strings below are therefore copied EXACTLY from the page's own
-    // {{highlight}} spans, including the curly apostrophes that broke it. If they
-    // are ever retyped or "cleaned up", this test stops measuring anything.
+    // The strings below are therefore the page's own {{highlight}} spans with
+    // wiki markup removed (`<u>`, `'''`) and NOTHING ELSE changed — every
+    // character of prose, punctuation, and apostrophe is as the page has it.
+    // Thirteen of sixteen appear byte-identical in the raw wikitext; the other
+    // three differ only by those stripped tags. Verifiable by re-fetching
+    // `?action=raw` and stripping the same two patterns.
+    //
+    // If they are ever retyped or "cleaned up", this test stops measuring
+    // anything — that is precisely how it failed the first time.
     //
     // ATTRIBUTION: quoted from "Wikipedia:Signs of AI writing" (§Negative
     // parallelisms), CC BY-SA 4.0 —
@@ -451,7 +457,7 @@ try {
       ["not a representation of self, but a mechanism", false],
       ["This isn’t WP:NBIO — it’s WP:1EVENT in disguise", true],
       ["Not a career, not a body of work, not sustained relevance — just an algorithmic moment", false],
-      ["is not who feels warm fuzzies from visibility, it’s whether this article meets the threshold", true],
+      ["is not who feels warm fuzzies from visibility, it’s whether this article meets the threshold for inclusion", true],
       ["This ain’t bludgeoning — it’s surgical teardown", true],
       ["rather than", false],
     ];
@@ -700,6 +706,89 @@ try {
   }
 
   /* ------------------------------------------------------------------ */
+  group("Known exposure — a measurement that was true and nearly meaningless");
+  {
+    // `not-only-but-also` was widened to make `also` optional, and reported as
+    // "0 false positives across the repo corpus". True, and close to worthless:
+    // this repo is technical register and technical register does not reach for
+    // the construction. In ordinary formal prose it is ordinary English.
+    //
+    // This asserts the exposure rather than pretending it away, in the same shape
+    // as the ornate-register bias test: a check designed to keep FAILING is the
+    // only kind that keeps a known limitation visible.
+    const doc = join(tmp, "formal-notonly.txt");
+    writeFileSync(
+      doc,
+      [
+        "She was not only the first to arrive but the last to leave.",
+        "The treaty was not only unpopular but unenforceable.",
+        "He is not only a poet but a translator of some distinction.",
+      ].join("\n\n"),
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "not-only-but-also");
+    check(
+      "the exposure is real: legitimate formal prose matches this entry",
+      hit?.count === 3,
+      `count=${hit?.count} — if this changed, re-measure and update the entry note`,
+    );
+    // And the thing that actually protects the author: density gating, not the
+    // regex. One occurrence must never flag.
+    const single = join(tmp, "formal-one.txt");
+    writeFileSync(single, `${"The treaty was not only unpopular but unenforceable. ".repeat(1)}${"Filler sentence to give the document length. ".repeat(60)}\n`);
+    const one = scan([single, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "not-only-but-also");
+    check(
+      "but one occurrence does not flag — the floor is what holds the line",
+      one && one.flagged === false,
+      `flagged=${one?.flagged} count=${one?.count}`,
+    );
+  }
+
+  group("Mention-vs-use — accepted for style, never for Tier A");
+  {
+    // The two tiers get different rules, and the difference is the basis for
+    // Tier A existing at all.
+    //
+    // STYLE entries are density-gated and mention-vs-use is accepted: a document
+    // discussing `delve` gets flagged for it, that is logged as
+    // FP-2026-07-26-f · ACCEPTED, and it is listed under Known limits rather than
+    // engineered around. Forcing it to zero here would contradict the log.
+    //
+    // TIER A cannot take that deal. It claims near-zero false positives and
+    // fires on a single occurrence, so one accepted false positive devalues every
+    // Tier A finding anywhere. The documents most likely to quote a trigger are
+    // this bundle's own — which is exactly where it happened: an earlier draft of
+    // FN-2026-08-03-c quoted a chatbot phrase as plain prose and tripped it.
+    //
+    // The fix is to mark quoted triggers as inline code, which the masking layer
+    // already removes before scanning. These are the prose files most likely to
+    // discuss tells, so they are the ones worth guarding.
+    for (const doc of ["CALIBRATION.md", "README.md", "PROFILES.md", "AGENTS.md"]) {
+      const r = scan([join(BUNDLE, doc), "--profile", "technical"]).results[0];
+      const tierA = r.findings.filter((f) => f.tier === "A");
+      check(
+        `${doc}: no Tier A artifact fires on a document about artifacts`,
+        tierA.length === 0,
+        tierA.map((f) => `${f.id}@L${f.lines?.[0]}`).join(",") + " — quote the trigger in backticks",
+      );
+    }
+    // And the paired positive: masking is what makes that work, not luck.
+    const probe = join(tmp, "backticked.md");
+    writeFileSync(probe, "Documenting the tell: `You’re absolutely right` is the giveaway.\n");
+    const masked = scan([probe, "--profile", "technical"]).results[0]
+      .findings.filter((f) => f.tier === "A");
+    check("a backticked trigger is masked, not matched", masked.length === 0,
+      masked.map((f) => f.id).join(","));
+
+    const bare = join(tmp, "bare.md");
+    writeFileSync(bare, "Documenting the tell: You’re absolutely right is the giveaway.\n");
+    const unmasked = scan([bare, "--profile", "technical"]).results[0]
+      .findings.filter((f) => f.tier === "A");
+    check("the same phrase unquoted still fires, so the guard is masking not blindness",
+      unmasked.length > 0);
+  }
+
   group("Provenance hygiene — every citation must resolve");
   {
     // This exists because a commit message claimed it existed before it did, and
@@ -730,12 +819,21 @@ try {
       join(SKILL, "SKILL.md"),
       join(SKILL, "meta.yaml"),
       join(BUNDLE, "tests", "selftest.mjs"),
+      // CALIBRATION.md checks ITSELF. Omitting it was the same overclaim in
+      // miniature: the gate said "every reference in the bundle" while the file
+      // most likely to cross-reference incidents was the one file exempt. Its
+      // own `###` headings are the definitions, so they are skipped below.
+      join(BUNDLE, "CALIBRATION.md"),
     ];
     const dangling = [];
     for (const f of searched) {
       const body = readFileSync(f, "utf8");
-      for (const m of body.matchAll(/\b((?:FP|FN|TP)-\d{4}-\d{2}-\d{2}-[a-z])\b/g)) {
-        if (!defined.has(m[1])) dangling.push(`${f.split("/").pop()} -> ${m[1]}`);
+      const lines = body.split("\n");
+      for (const [n, line] of lines.entries()) {
+        if (/^###\s+(?:FP|FN|TP)-/.test(line)) continue; // a definition, not a reference
+        for (const m of line.matchAll(/\b((?:FP|FN|TP)-\d{4}-\d{2}-\d{2}-[a-z])\b/g)) {
+          if (!defined.has(m[1])) dangling.push(`${f.split("/").pop()}:${n + 1} -> ${m[1]}`);
+        }
       }
     }
     check("no citation points at a nonexistent incident", dangling.length === 0, dangling.join("; "));

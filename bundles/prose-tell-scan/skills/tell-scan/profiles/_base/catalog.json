@@ -725,7 +725,7 @@
       "severity": 2,
       "confidence": "medium",
       "pattern": "\\bnot\\s+only\\b[^.!?]{0,70}\\bbut\\b",
-      "note": "WIDENED 2026-08-03: `also` is now optional. The source page's Yayoi Kusama example reads 'not only a work of self-representation, but' with no `also`, so requiring it missed one of the page's own worked examples while buying nothing - measured 0 false positives across the repo corpus either way.",
+      "note": "WIDENED 2026-08-03: `also` is now optional. The source page's Yayoi Kusama example reads 'not only a work of self-representation, but' with no `also`, so requiring it missed one of the page's own worked examples.  KNOWN EXPOSURE, and the measurement that found it is worth repeating because the first one was misleading. Widening was reported as '0 false positives across the repo corpus', which was true and nearly meaningless: this repo is technical register and technical register does not reach for this construction. Tested afterwards against ordinary formal prose, SIX OF SIX legitimate sentences match - 'She was not only the first to arrive but the last to leave', 'The treaty was not only unpopular but unenforceable'. The construction is ordinary English in essay and formal registers, and this entry cannot tell it from the AI-register version.  What holds the line is density gating, not the pattern: severity 2 with a min-count floor of 2, so a single occurrence never flags. An essayist who uses the construction habitually will still clear the ceiling, and for that author the honest fix is calibration - bands measured from their own corpus - rather than a narrower regex. Recorded here so nobody reads the repo-corpus zero as evidence it is safe everywhere.",
       "source": "wp-signs"
     },
     {
