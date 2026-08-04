@@ -418,10 +418,20 @@ report their cadence half and their density half with separate confidence — se
   `showcasing`, `enhance`. A scanner tuned on the old list over-fires on current
   text. There is also a reflexivity problem no catalog can fix: people stopped
   writing "delve" *because* it reads as AI, which breaks the base rate.
-- **It cannot see absence.** Missing concrete detail, an undefended position, a
-  voice that never shifts — these are the offensive half and they need a reader.
-  Listed in the catalog under `not_deterministic` so the gap is documented
-  rather than quietly dropped.
+- **It sees absence only barely, and says so.** Missing concrete detail, an
+  undefended position, a voice that never shifts — the scanner cannot see any of
+  it, and those stay in the catalog under `not_deterministic`. What it now does
+  have is the source page's *other* half, §Signs of human writing, in a
+  **counter-evidence** block that is never netted against the findings.
+
+  One item there is dispositive: text predating 2022-11-30 cannot have used
+  ChatGPT, and when the date is evidential that replaces the reading outright.
+  The rest is weak and labelled weak — three syntax rates measured at AUC
+  0.73–0.77 against the corpus, printed with that number beside them and never
+  flagged. Three more the source lists are not computed at all: they measured at
+  or below chance, and *hedging language*, the most intuitive human marker on the
+  list, measured **backwards**. See [`CALIBRATION.md`](CALIBRATION.md)
+  `FN-2026-08-04-e`.
 - **Mention versus use.** A document *about* writing that quotes a tell as an
   example gets a hit for it. This is the dominant false positive in a repo whose
   docs discuss prose, and **this file demonstrates it**: scanning this README

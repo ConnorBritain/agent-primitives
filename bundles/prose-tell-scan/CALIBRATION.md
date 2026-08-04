@@ -588,6 +588,71 @@ The honest labels: those two are **clean, not yet proven**. The distinction to
 carry forward is that "matched" and "flagged" are different measurements, and the
 one that describes what the tool does is the second.
 
+### FN-2026-08-04-e · counter-evidence · what the source claims, and what measured
+
+The scanner only ever accumulated evidence FOR a tell, which is a structural bias
+toward flagging: a document could only look worse the longer you scanned it. The
+source page has a **§Signs of human writing** and nothing here read it.
+
+Its §Syntax lists five classes whose *low* rate supposedly marks a machine. All
+five were measured against the acceptance corpus — 33 documents the community
+judged AI-written, 12 provably predating ChatGPT.
+
+| metric | AUC | best single-threshold accuracy | verdict |
+|---|---|---|---|
+| `superlative` | 0.77 | 84% | weak, direction matches |
+| `copula` | 0.73 | 78% | weak, direction matches |
+| `wordy` | 0.73 | 84% | weak, direction matches |
+| `plainverb` | 0.56 | 71% | noise |
+| `stiffverb` | 0.49 | 71% | coin flip |
+| `hedge` | **0.45** | 71% | **backwards** — commoner in the AI set |
+
+Always guessing "AI" scores 73% on this corpus, so two of the six do not beat the
+null and `hedge` runs the wrong way.
+
+**Three are not computed at all.** Not inverted, not reported with a caveat —
+absent. A coin-flip number in the output invites someone to act on it, and
+`hedge` would actively mislead.
+
+**Three are reported and never flagged**, for two reasons that each suffice. AUC
+0.73–0.77 on twelve human documents carries an interval wide enough to include
+no-signal. And the accuracy column is *fitted*: each threshold was chosen on the
+same 45 documents it was scored against, so those figures are optimistic by
+construction. Shipping a threshold on that basis is the overfitting this project
+has already committed twice. Every rate prints its AUC beside it so the number
+cannot be quoted without its weakness.
+
+**One thing is dispositive, and it is not a rate.** The source is unusually firm:
+text predating 2022-11-30 cannot have used ChatGPT. Resolution is frontmatter →
+the commit that *added* the file → mtime, and mtime is reported while being
+explicitly disqualified, since it is set by whatever last touched the file. When
+age is dispositive it **replaces the reading** rather than appending to it: a 2019
+document with elevated `delve` density has an interesting vocabulary, not a
+provenance problem.
+
+#### Two rules that are structural rather than advisory
+
+**Never subtract.** Counter-evidence has its own block, its own render section,
+and is never arithmetic on the findings. A combined number would be read as a
+verdict within a week, which is what `meta.yaml` refuses by contract. A test
+asserts no key matching score/net/combined/likelihood/probability exists anywhere
+in the block.
+
+**The asymmetry.** Plain forms may count as counter-evidence for a human author.
+Stiff forms are *never* evidence of AI. `utilised`, `authored`, `commenced` are
+ordinary professional register in several varieties of English, and a metric
+treating them as suspicious would be the ornate-register bias again under a new
+name. `stiffverb` is absent rather than inverted, and would stay absent even if
+it measured well.
+
+#### What this round is evidence for
+
+Five of six patterns drawn from the canonical source failed to survive contact
+with a corpus, and the one with the strongest intuitive appeal — hedging language
+as a human marker — measured backwards. That is the same result as
+`FN-2026-08-04-c`, on different material: reading a source tells you a pattern is
+real; only a corpus tells you whether a measurement of it discriminates.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather

@@ -25,6 +25,7 @@ import { fileURLToPath } from "node:url";
 import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/text.mjs";
 import { scanCatalog, scanFormatting } from "./lib/scan.mjs";
 import { cadenceMetrics } from "./lib/cadence.mjs";
+import { counterEvidence, resolveAge, readingOverride } from "./lib/counter-evidence.mjs";
 import {
   loadConfig, loadProfile, profileSearchPath, resolveProfile, listProfiles, BASE_PROFILE,
 } from "./lib/profile.mjs";
@@ -100,6 +101,30 @@ function parseArgs(argv) {
 }
 
 /** Phase 0 + Phase 1 for a single document. */
+
+/**
+ * Where a document's date can come from, cheapest first.
+ *
+ * Git is asked for the commit that ADDED the file, not the last one that touched
+ * it: a reformatting commit in 2026 says nothing about when the prose was
+ * written. Failures are silent by design — not being in a repository is normal,
+ * and a scanner that errored on it would be useless outside one.
+ */
+function fileAge(file, raw) {
+  const fm = raw.match(/^---\n[\s\S]*?\bdate:\s*(\d{4}-\d{2}-\d{2})/);
+  let gitFirstSeen = null;
+  try {
+    const out = execFileSync(
+      "git", ["log", "--diff-filter=A", "--follow", "--format=%aI", "--", file],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], cwd: dirname(resolve(file)) },
+    ).trim().split("\n").filter(Boolean).pop();
+    if (out) gitFirstSeen = out.slice(0, 10);
+  } catch { /* not a repo, or git absent — normal, not an error */ }
+  let mtime = null;
+  try { mtime = statSync(file).mtime.toISOString().slice(0, 10); } catch { /* ignore */ }
+  return { frontmatterDate: fm?.[1] ?? null, gitFirstSeen, mtime };
+}
+
 function analyse(file, opts, config, searchPath) {
   const raw = readFileSync(file, "utf8");
 
@@ -144,6 +169,19 @@ function analyse(file, opts, config, searchPath) {
   const fit = profileFit(cadence, profile.thresholds);
   const summary = summarise({ findings, cadenceChecks, thresholds: profile.thresholds, wordCount });
 
+  // The other half of the source page: signs of HUMAN writing. Never netted
+  // against the findings above — see lib/counter-evidence.mjs for why that rule
+  // is absolute, and for the measurements that decided which metrics ship.
+  const counter = counterEvidence(text, wordCount, resolveAge(fileAge(file, raw)));
+  const override = readingOverride(counter);
+  if (override) {
+    // Provable age outranks every style observation. A 2019 document with
+    // elevated `delve` density has an interesting vocabulary, not a provenance
+    // problem, and the reading should not imply otherwise.
+    summary.reading = `${override} ${summary.reading}`;
+    summary.dispositive_counter_evidence = true;
+  }
+
   return {
     file,
     profile: {
@@ -167,6 +205,7 @@ function analyse(file, opts, config, searchPath) {
       disabled_categories: profile.catalog.disabled_categories || [],
     },
     summary, findings, suppressed, cadence, cadenceChecks, formatting, fit, masked,
+    counter_evidence: counter,
     markdown: isMarkdown,
   };
 }

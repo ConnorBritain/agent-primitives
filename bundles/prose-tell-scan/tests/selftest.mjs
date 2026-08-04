@@ -556,6 +556,78 @@ try {
     check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
+  group("Counter-evidence — the half that argues the other way");
+  {
+    // Everything else here accumulates evidence FOR a tell, which biases the
+    // whole tool toward flagging. This is the source page's §Signs of human
+    // writing, and the rule that shapes it is absolute: NEVER netted against the
+    // findings. The moment exculpatory evidence subtracts from inculpatory, this
+    // is a scored detector, which meta.yaml refuses by contract.
+    const dated = join(tmp, "old.md");
+    writeFileSync(dated, "---\ndate: 2019-04-02\n---\n\nDelve into the rich tapestry of "
+      + "meticulous craftsmanship that stands as a testament to the era.\n");
+    const r = scan([dated, "--profile", "essay"]).results[0];
+    const ce = r.counter_evidence;
+
+    check("age resolves from frontmatter and is treated as evidence",
+      ce.age.date === "2019-04-02" && ce.age.evidential === true, JSON.stringify(ce.age));
+    check("text predating ChatGPT is dispositive", ce.age.dispositive === true);
+    check(
+      "and the reading says so BEFORE reporting style findings",
+      /before ChatGPT was public/.test(r.summary.reading)
+      && r.summary.reading.indexOf("before ChatGPT") < 120,
+      r.summary.reading.slice(0, 90),
+    );
+    // The point of the override: this document is stuffed with tells and it
+    // still must not be implied to be machine-written.
+    check("the style findings are still reported, not suppressed",
+      r.findings.some((f) => f.id === "delve" || f.id === "tapestry"),
+      "counter-evidence outranks the reading; it does not hide the measurements");
+
+    // NEVER SUBTRACT. There must be no combined figure anywhere.
+    const flat = JSON.stringify(ce);
+    check("no netted score exists in the counter-evidence block",
+      !/"?(?:score|net|combined|total|likelihood|probability)"?\s*:/i.test(flat),
+      "a single number here would be quoted as a verdict within a week");
+    check("no syntax rate is ever flagged or banded",
+      ce.syntax.every((x) => x.flagged === false && x.banded === false));
+    check("each rate carries the measured AUC that limits it",
+      ce.syntax.every((x) => typeof x.auc === "number" && x.auc > 0.5 && x.auc < 1),
+      JSON.stringify(ce.syntax.map((x) => [x.key, x.auc])));
+  }
+  {
+    // The three metrics that measured at or below chance are absent, not
+    // inverted and not reported. `hedge` ran BACKWARDS (AUC 0.45); reporting a
+    // coin-flip number invites someone to act on it.
+    const doc = join(tmp, "ce-absent.md");
+    writeFileSync(doc, "This is a fairly ordinary sentence that seems to hedge somewhat.\n");
+    const keys = scan([doc, "--profile", "essay"]).results[0]
+      .counter_evidence.syntax.map((x) => x.key).sort();
+    check("only the metrics that beat chance are computed",
+      JSON.stringify(keys) === JSON.stringify(["copula", "superlative", "wordy"]),
+      keys.join(","));
+    check("stiff-verb forms are never computed as evidence of AI",
+      !keys.includes("stiffverb"),
+      "ornate register is professional norm in several varieties of English");
+  }
+  {
+    // mtime is reported and explicitly disqualified. It is set by whatever last
+    // touched the file, including the copy that put it there.
+    const doc = join(tmp, "nodate.txt");
+    writeFileSync(doc, "Ordinary prose carrying no provenance of any kind at all.\n");
+    const ce = scan([doc, "--profile", "essay"]).results[0].counter_evidence;
+    check("mtime is not treated as evidence", ce.age.evidential === false);
+    check("and cannot be dispositive", ce.age.dispositive === false);
+    check("and says why", /copy/.test(ce.age.caveat ?? ""), ce.age.caveat ?? "");
+  }
+  {
+    // A modern document must not acquire counter-evidence by accident.
+    const doc = join(tmp, "modern.md");
+    writeFileSync(doc, "---\ndate: 2026-01-15\n---\n\nOrdinary recent prose about a topic.\n");
+    const ce = scan([doc, "--profile", "essay"]).results[0].counter_evidence;
+    check("a post-launch date is not dispositive", ce.age.dispositive === false);
+  }
+
   group("Tier A means no human writes this in ANY register");
   {
     // The contract Tier A trades on: always_flag, no density gating, and an
