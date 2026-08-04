@@ -1,0 +1,15 @@
+{
+  "name": "technical",
+  "description": "Documentation, specs, API references, runbooks, README files.",
+  "medium": "web",
+  "register": "impersonal, instructional, optimised for scanning not reading",
+  "notes": [
+    "The register that most needs its own thresholds, and the clearest proof the",
+    "profile system is not decorative. A reference doc SHOULD be rhythmically",
+    "uniform: consistent sentence shapes are what make it skimmable. Judging it",
+    "against essay thresholds flags the thing that is working.",
+    "Corporate-register vocabulary is also legitimate here in a way it is not in",
+    "marketing copy — 'robust' is a precise term about failure behaviour, and",
+    "'comprehensive' is a factual claim about coverage. See allow.txt."
+  ]
+}

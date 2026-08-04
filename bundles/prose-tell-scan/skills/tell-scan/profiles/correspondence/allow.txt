@@ -1,0 +1,11 @@
+# correspondence — register-legitimate terms
+#
+# Empty on purpose. Email conventions that read as filler in published prose are
+# handled by this register's raised density ceilings in thresholds.json, not by
+# allowlisting — a ceiling still reports the rate, an allowlist hides it.
+#
+# The corporate-register cluster is exactly what makes business email
+# unreadable, so exempting it wholesale would defeat the point of scanning email
+# at all.
+#
+# Add your own terms as you find real false positives in your own mail.

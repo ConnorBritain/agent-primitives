@@ -1,0 +1,15 @@
+{
+  "name": "correspondence",
+  "description": "Email, messages, short letters — writing addressed to a named person.",
+  "medium": "email",
+  "register": "direct, brief, one reader",
+  "notes": [
+    "Short pieces make density unstable: one flagged word in a 150-word email is",
+    "6.7 per 1000, which would clear any ceiling set for essays. Ceilings here",
+    "are correspondingly loose, and short correspondence is better read than",
+    "measured.",
+    "The register where over-editing does the most damage per word. A humanizer",
+    "that sands an email into neutral competence has removed the only thing it",
+    "had going for it."
+  ]
+}

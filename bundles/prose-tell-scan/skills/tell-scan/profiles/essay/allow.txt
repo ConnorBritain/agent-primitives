@@ -1,0 +1,8 @@
+# essay — register-legitimate terms
+#
+# Add words the scanner flags that YOU legitimately use in essays. Every entry
+# here is a permanent blind spot for this register, so add deliberately and say
+# why in a comment.
+
+# Example, uncomment if it fits your writing:
+# navigate        # if you write about actual wayfinding rather than "navigating complexity"

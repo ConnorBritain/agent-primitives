@@ -1,0 +1,26 @@
+{
+  "_comment": [
+    "FALLBACK overrides for the correspondence register. Still a guess.",
+    "",
+    "Loose on purpose. Density is noisy at email length — a single hit in 150",
+    "words looks like an epidemic per 1000 — so ceilings are raised rather than",
+    "pretending the measurement is stable. Cadence bands are wide for the same",
+    "reason: a four-sentence email has no meaningful rhythm to measure."
+  ],
+  "derived": false,
+  "catalog_density": {
+    "high": 0.5,
+    "medium": 1.5,
+    "low": 3.0
+  },
+  "aggregate_density": {
+    "high": 1.0,
+    "medium": 4.0,
+    "low": 8.0
+  },
+  "metrics": {
+    "cv_len": { "low": 0.3 },
+    "longest_uniform_run": { "high": 10 },
+    "mean_len": { "low": 6, "high": 26 }
+  }
+}

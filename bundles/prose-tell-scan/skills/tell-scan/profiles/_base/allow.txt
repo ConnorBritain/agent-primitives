@@ -1,0 +1,13 @@
+# Base allowlist — terms every register may use without being flagged.
+#
+# One term per line. `#` starts a comment. Matching is case-insensitive and
+# covers short inflections, so "foster" also allows "fosters" and "fostering".
+#
+# Keep this file SMALL. It is inherited by every profile, so anything added here
+# is invisible to the scanner everywhere, forever. Register-specific exemptions
+# belong in that register's own allow.txt — "robust" is filler in marketing copy
+# and a precise technical term in statistics, and only the technical profile
+# should be blind to it.
+
+# Nothing is globally exempt yet. Add here only when a term is legitimate in
+# EVERY register the scanner will ever see, which is a high bar and rarely met.

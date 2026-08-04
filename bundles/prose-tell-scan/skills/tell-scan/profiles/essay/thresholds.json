@@ -1,0 +1,16 @@
+{
+  "_comment": [
+    "FALLBACK overrides for the essay register, layered over _base/thresholds.json.",
+    "Still a guess. Fill corpus/human/ and run calibrate.mjs to replace them.",
+    "",
+    "Rhythm matters most here, so cv_len is the tightest of any register and the",
+    "uniform-run limit is short. An essay is allowed long sentences; it is not",
+    "allowed for all of them to be the same length."
+  ],
+  "derived": false,
+  "metrics": {
+    "cv_len": { "low": 0.45 },
+    "longest_uniform_run": { "high": 6 },
+    "mean_len": { "low": 10, "high": 30 }
+  }
+}

@@ -1,0 +1,15 @@
+# narration — register-legitimate terms
+#
+# Deliberately almost empty, and that is the interesting part.
+#
+# Spoken scripts do lean on discourse markers that read as filler on the page
+# but do real work in the ear. The tempting fix is to allowlist them here. That
+# is the WRONG fix, and this file exists to say so: allowlisting a term makes
+# the scanner blind to it at any density, and the whole point of the
+# deterministic pass is catching the word you used eight times without noticing.
+#
+# The right fix for a register that legitimately uses a word MORE is a higher
+# density ceiling, not a blind spot. See the `low` ceiling in thresholds.json,
+# which is raised for exactly this reason.
+#
+# Add a term here only when its presence is never informative at any frequency.
