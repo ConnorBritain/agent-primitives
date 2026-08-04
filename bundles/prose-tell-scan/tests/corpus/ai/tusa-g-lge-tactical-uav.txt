@@ -13,7 +13,7 @@ The Gölge (English: Shadow ; Turkish designation: GÖLGE ) is a Turkish tactica
 
 Development
 
-edit ]
+
 
 Gölge was publicly revealed through trademark and patent applications filed with the Turkish Patent and Trademark Office in April 2026. The platform was showcased at the SAHA Expo 2026 in Istanbul alongside the jet-powered kamikaze UAV AYAZ . [](grok_render_citation_card_json={"cardIds":["3bb883"]})
 
@@ -21,7 +21,7 @@ It forms part of Turkey's efforts to create a multi-layered UAV ecosystem, compl
 
 Design
 
-edit ]
+
 
 Gölge is a **piston-engine** tactical UAV optimized for long-endurance missions. The name "Gölge" (Shadow) and associated branding suggest a focus on **low-observability** (low radar cross-section) features. It is designed as a flexible, multi-role platform, primarily for intelligence, surveillance, and reconnaissance (ISR) roles. [](grok_render_citation_card_json={"cardIds":["993eac"]})
 
@@ -29,7 +29,7 @@ Unlike the jet-powered AYAZ (intended for high-speed kamikaze/strike missions), 
 
 Specifications
 
-edit ]
+
 
 As of May 2026, detailed technical specifications have not been officially released by TUSAŞ. Known or estimated characteristics include:
 
@@ -42,13 +42,13 @@ Endurance : Expected to be high due to piston engine efficiency (exact figures p
 
 Operational History
 
-edit ]
+
 
 As of 2026, the Gölge remains in the development and demonstration phase. No operational deployments have been reported.
 
 See also
 
-edit ]
+
 
 TAI Anka
 
@@ -61,13 +61,13 @@ Turkish Aerospace Industries
 
 References
 
-edit ]
+
 
 
 
 External links
 
-edit ]
+
 
 [Official TUSAŞ website]( https://www.tusas.com/ ) (Turkish/English)
 

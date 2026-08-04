@@ -15,26 +15,26 @@ JAF-GT300 is a category of race cars in the Super GT series’ GT300 class, buil
 
 History
 
-edit ]
+
 
 The two-class format (GT500 and GT300) was introduced in the All-Japan Grand Touring Car Championship (JGTC) in 1994. Over time, JAF-GT regulations have evolved: by the mid-2000s, European GT cars were allowed under GT3 rules, while JAF devised a separate formula for local or hybrid designs. JAF-GT cars typically share a production model’s body shape but may use heavily modified chassis, engines, or drivetrains. For example, Toyota’s factory team entered a modified Toyota Prius with a mid-mounted V8 (by apr) into GT300【29†L582-L589】【22†L1385-L1394】. JAF-GT entries have included both tuned production cars (e.g. Subaru BRZ, Honda CR-Z) and unique models like the Mooncraft Shiden prototype and Vemac sports cars【29†L582-L589】.
 
 
 Technical Regulations
 
-edit ]
+
 
 JAF-GT regulations are overseen by JAF and the GT Association (GTA). Historically, JAF-GT cars often had more flexibility to depart from road-car standards than FIA GT3 cars. To control costs and parity, rules changed over time (for example, requiring engines in production locations from 2016【29†L642-L649】). In 2014, JAF and GTA introduced the “Mother Chassis” formula: MC cars use a common Dome-built chassis and Nissan VK45DE V8, with only the exterior styled like a production car (e.g. Toyota 86 MC)【29†L598-L606】. The Toyota 86 (MC) built by Dome exemplifies a modern JAF-GT entry: it uses the standard tub and V8 engine, with only the body shape of the road car【35†L1515-L1518】. GT3-spec cars, in contrast, are closer to road-going vehicles with balance-of-performance applied. Overall, all GT300 cars compete under performance-balancing adjustments to keep racing close【29†L648-L656】.
 
 Examples of Vehicles
 
-edit ]
+
 
 Notable JAF-GT300 cars include factory or specialist efforts from Japanese manufacturers and constructors. Examples cited in Wikipedia include: Subaru’s BRZ GT300 (R&D Sport, EJ20 flat-4 engine, 2012–present)【35†L1510-L1518】; Honda’s CR-Z GT (Team Mugen hybrid, 2012–2015)【29†L582-L589】; Toyota’s Prius apr GT (hybrid V8, 2012–2022)【29†L582-L589】; plus domestic models like the Toyota MR-S, Celica, and Corolla (all in earlier JAF-GT configuration)【29†L582-L589】. Exotic one-off designs like the ASL Garaiya and Mooncraft Shiden also ran as JAF-GT cars【29†L582-L589】. Mother Chassis examples include the Toyota 86 MC (champion in 2016【29†L598-L606】【35†L1515-L1518】), Lotus Evora MC, and Toyota Mark X MC, which all share Dome’s common chassis. In contrast, many teams also race imported GT3 cars (e.g. Aston Martin Vantage GT3, Audi R8 LMS), which are linked in GT300 category pages but fall under FIA GT3 rules.
 
 See also
 
-edit ]
+
 
 Super GT
 
@@ -55,7 +55,7 @@ Group GT3 (FIA GT3 class)
 
 References
 
-edit ]
+
 
 
 

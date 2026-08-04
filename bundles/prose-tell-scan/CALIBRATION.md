@@ -368,12 +368,32 @@ property the human corpus existed to guarantee — *provably predates ChatGPT* �
 was false in every file, while every manifest looked correct.
 
 Fixed with `action=parse&oldid=`, which genuinely renders the pinned revision.
-And because the failure was invisible in the response's shape, the fetcher now
-proves each sample against its own revision's wikitext: sample distinctive words
-from the rendered prose, require them in that revision's source. Injecting the
-old call makes it fail with *"only 16/25 sampled words appear in that revision's
-wikitext"*. The proof is recorded per sample in `ATTRIBUTION.json` and asserted
-by the acceptance gate.
+
+**The verification added alongside it was itself wrong, in the same way.** It
+sampled long words from the prose and required them in the pinned revision's
+wikitext; it was fault-injected against one document, passed, and was described
+as a proof. Measured across all twelve corrupted samples it caught **two**.
+Articles evolve incrementally, so a later version still shares most of its
+vocabulary with an earlier one — 80% overlap is what two versions of the same
+article look like whether or not one is the wrong version.
+
+What discriminates is vocabulary that is **new**: the tokens present in the
+article's *current* wikitext and absent from the pinned revision's. Prose from the
+pinned revision cannot contain them; prose from the current page is made of them.
+
+| | fraction of post-revision vocabulary present |
+|---|---|
+| corrupted samples | 0.111 – 0.720 |
+| correct samples | 0.000 – 0.041 |
+
+Threshold 0.05, and the margin is worth stating rather than rounding: the closest
+correct sample sits at 0.041 and the closest corrupted one at 0.111. Comfortable,
+but not enormous, and a corpus of longer-lived articles would narrow it.
+
+This is defence in depth, not the guarantee. The guarantee is the API call plus
+the revid assertion. The check exists because the last thing assumed about an
+API's behaviour was wrong. The score is recorded per sample in
+`ATTRIBUTION.json` and the acceptance gate asserts every sample carries one.
 
 **`tricolon` was deleted on those numbers, and is restored.** Against the phantom
 corpus it looked like an anti-signal — 84% of AI documents, 92% of human — and a
@@ -399,8 +419,9 @@ thresholds. The comparison measured the profile, not the entry.
 false positive, delete it rather than tightening."* That rule is now wrong as
 written, and this is its amendment: **a field false positive is grounds to
 examine an entry, not to delete it. Deletion requires measuring what the deletion
-costs.** Precision bought at seven times its price in recall is not a good trade
-for a tool whose output is explicitly leads rather than verdicts.
+costs.** Halving recall for no precision gain — which is what deleting `tricolon`
+did at `technical` — is not a good trade for a tool whose output is explicitly
+leads rather than verdicts.
 
 **And the methodological rule, which is the one that generalises.** Three times
 now — the retyped fixture in `FN-2026-08-03-c`, the corpus here, the profile

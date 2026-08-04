@@ -18,7 +18,7 @@ Jacques Blois (27 May 1922 – 11 July 1998) was a Belgian linguist and computat
 
 Career
 
-edit ]
+
 
 Between 1961 and 1963, Blois worked at the Université libre de Bruxelles as part of the Groupe de Linguistique Automatique, where he developed the morphological analysis system for DICAUTOM, an early Euratom project (contract No. 018615 CETB) aimed at automating dictionary consultation for translators. The system was designed for precise multilingual term retrieval and was tested on IBM 1401 and IBM 7090 computers.
 
@@ -30,7 +30,7 @@ Blois also authored French grammar textbooks for Belgian secondary education, co
 
 Legacy
 
-edit ]
+
 
 Blois's morphological analysis system was cited in the National Science Foundation's 1962 report on scientific documentation. His 1963 work Analyse morphologique automatique du français was referenced by Victor H. Yngve in Science in 1964.
 
@@ -38,7 +38,7 @@ Historian Gwénaël Glatre describes DICAUTOM as a precursor to Eurodicautom, wh
 
 Selected publications
 
-edit ]
+
 
 Morphologie du français pour la traduction automatique (with E. Morlet, 1962)
 
@@ -53,7 +53,7 @@ Notre langue française: Grammaire pour toutes les classes de l'enseignement sec
 
 References
 
-edit ]
+
 
 
 

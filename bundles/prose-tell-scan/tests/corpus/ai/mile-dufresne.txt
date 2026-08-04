@@ -19,7 +19,7 @@ French inventor and engineer (1861–1942)
 
 Early Life and Education
 
-edit ]
+
 
 Dufresne was born in Lyon, France , in 1861 to a family of industrial laborers. From an early age, he displayed an aptitude for mechanics and chemistry , often conducting small experiments using discarded factory materials from his father’s workplace. Unlike many inventors of his era, Dufresne did not formally attend a university; instead, he pursued independent study at the Bibliothèque Municipale de Lyon , where he developed a fascination with thermodynamics and material sciences .
 
@@ -27,11 +27,11 @@ By the 1880s, he had moved to Paris, where he began work as a machinist and part
 
 Notable Inventions
 
-edit ]
+
 
 Self-Cooling Cup (1889)
 
-edit ]
+
 
 One of Dufresne’s earliest recorded inventions was a self-cooling drinking cup , designed to keep liquids cold without the use of external ice. The device contained a double-walled chamber filled with a mix of water and ammonium nitrate , which, when activated, triggered an endothermic reaction to chill the liquid inside.
 
@@ -39,7 +39,7 @@ While the prototype functioned as intended, concerns about chemical safety and p
 
 Glow-in-the-Dark Newspaper (1911)
 
-edit ]
+
 
 In collaboration with British printing manufacturers, Dufresne experimented with the application of phosphorescent ink for newspaper production, allowing readers to view print in low-light conditions. The concept was tested in Le Petit Parisien under the title "Une invention lumineuse" (A Luminous Invention).
 
@@ -47,7 +47,7 @@ However, the ink left a residue on readers' hands, and production costs remained
 
 Early "Touchscreen" Interface (1923)
 
-edit ]
+
 
 Perhaps his most visionary invention was an early form of a pressure-sensitive interface, which he described as a "conductive interaction panel". The design featured a layer of conductive metal beneath a glass plate, allowing a user to send electrical signals by pressing specific areas. This mechanism closely resembles later resistive touchscreen technology, which would not become commercially viable until the late 20th century.
 
@@ -55,18 +55,16 @@ Dufresne presented his design to the Académie des Sciences in 1924, but it was 
 
 Soundproof Typewriter (1930s)
 
-edit ]
+
 
 In response to the growing noise pollution in office environments, Dufresne developed a typewriter encased in a rubber-lined chamber to reduce keystroke noise. While the prototype functioned effectively, it was ultimately rejected due to its bulkiness and high production costs.
 
 Later Life and Legacy
 
-edit ]
+
 
 By the late 1930s, Dufresne had largely withdrawn from public life, spending his final years in rural Provence , where he continued to document his ideas in private journals. He passed away on September 14, 1942, at the age of 81.
 
 Though he died in relative obscurity, recent analyses of his journals and patent filings have drawn comparisons between his designs and modern technological advancements.
 
 References
-
-edit ]

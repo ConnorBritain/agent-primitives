@@ -135,7 +135,10 @@ function htmlToProse(html) {
   t = t.replace(/<table[\s\S]*?<\/table>/gi, " ");
   t = t.replace(/<style[\s\S]*?<\/style>/gi, " ");
   t = t.replace(/<sup[^>]*class="[^"]*reference[^"]*"[\s\S]*?<\/sup>/gi, " ");
-  t = t.replace(/<span[^>]*class="mw-editsection"[\s\S]*?<\/span>/gi, " ");
+  // Edit-section links nest spans, so a non-greedy strip stops at the FIRST
+  // closing tag and leaks "edit ]" from the rest. Balance it explicitly.
+  t = t.replace(/<span[^>]*class="[^"]*mw-editsection[^"]*"[\s\S]*?<\/span>\s*<\/span>/gi, " ");
+  t = t.replace(/\[\s*edit\s*\]/gi, " ");
   t = t.replace(/<ol[^>]*class="references"[\s\S]*?<\/ol>/gi, " ");
   t = t.replace(/<div[^>]*class="[^"]*(?:navbox|reflist|thumbcaption|hatnote)[^"]*"[\s\S]*?<\/div>/gi, " ");
   // Block boundaries become paragraph breaks so cadence sees real sentences.
@@ -150,6 +153,7 @@ function htmlToProse(html) {
   });
   // Leftover bracketed citation markers and whitespace.
   t = t.replace(/\[\s*\d+\s*\]/g, " ");
+  t = t.replace(/\bedit\s*\]/g, " ");
   t = t.replace(/[ \t ]+/g, " ");
   t = t.replace(/\n{3,}/g, "\n\n");
   return t.split("\n").map((l) => l.trim()).join("\n").trim();
@@ -177,40 +181,73 @@ async function currentRevision(title) {
 }
 
 /**
- * Prove the prose came from the revision it claims.
+ * Prove the prose came from the revision it claims, not from a later one.
  *
  * The bug this guards against returned HTTP 200, echoed the right revid, and
- * served the wrong text — so nothing about the response's shape betrayed it.
- * The only reliable witness is the revision's own wikitext: sample distinctive
- * words from the rendered prose and require them to appear in it. Text from a
- * later version will carry names, dates and events the pinned wikitext does not.
+ * served the CURRENT page — nothing in the response's shape betrayed it.
+ *
+ * The first attempt at this check sampled long words from the prose and required
+ * them in the pinned revision's wikitext. That was tested on one document and
+ * generalised from it, which is the same error it exists to catch: measured
+ * across all twelve corrupted samples it caught TWO. Articles evolve
+ * incrementally, so a later version still shares most of its vocabulary with an
+ * earlier one, and 80% overlap is what two versions of the same article look
+ * like whether or not one is the wrong version.
+ *
+ * What actually discriminates is vocabulary that is NEW. Take the tokens present
+ * in the article's CURRENT wikitext but absent from the pinned revision's — the
+ * words the intervening edits introduced — and ask how many appear in the prose.
+ * Text from the pinned revision cannot contain them; text from the current page
+ * is made of them.
+ *
+ * Measured on the corruption this replaces, across every affected sample:
+ *   corrupted prose  0.111 – 0.720   (fraction of new vocabulary present)
+ *   correct prose    0.000 – 0.016
+ * A threshold at 0.05 sits in a gap seven times wider than the noise, and
+ * separates all of them. The old check separated one.
+ *
+ * This is defence in depth, not the primary guarantee. The guarantee is
+ * `action=parse&oldid=`, which genuinely renders the requested revision, plus the
+ * revid assertion in extractByRevid(). This exists because that guarantee is a
+ * property of an API's behaviour, and the last thing assumed about an API's
+ * behaviour was wrong.
  */
-async function assertProseMatchesRevision(revid, prose) {
-  const d = await api({ prop: "revisions", rvprop: "content", rvslots: "main", revids: String(revid) });
+const NOVELTY_THRESHOLD = 0.05;
+
+async function wikitextOf(params) {
+  const d = await api({ prop: "revisions", rvprop: "content", rvslots: "main", ...params });
   const page = Object.values(d.query.pages)[0];
-  const wikitext = page?.revisions?.[0]?.slots?.main?.["*"] ?? "";
-  if (!wikitext) throw new Error(`no wikitext for oldid=${revid}`);
+  return page?.revisions?.[0]?.slots?.main?.["*"] ?? "";
+}
 
-  const candidates = [...new Set(
-    prose.split(/\s+/)
-      .map((w) => w.replace(/[^A-Za-z]/g, ""))
-      .filter((w) => w.length >= 8),
-  )];
-  if (candidates.length < 10) return { checked: 0, matched: 0 };
+const tokens = (s) => new Set(s.toLowerCase().match(/[a-z]{5,}/g) ?? []);
 
-  // Evenly spaced sample rather than the first N: later additions cluster at the
-  // end of an article, and checking only the opening would miss them.
-  const step = Math.max(1, Math.floor(candidates.length / 25));
-  const sample = candidates.filter((_, i) => i % step === 0).slice(0, 25);
-  const matched = sample.filter((w) => wikitext.includes(w)).length;
-  const ratio = matched / sample.length;
-  if (ratio < 0.8) {
+async function assertProseMatchesRevision(title, revid, prose) {
+  const pinned = await wikitextOf({ revids: String(revid) });
+  if (!pinned) throw new Error(`no wikitext for oldid=${revid}`);
+  await sleep(350);
+  const current = await wikitextOf({ titles: title, redirects: "1" });
+  if (!current) throw new Error(`no current wikitext for ${title}`);
+
+  const pinnedTokens = tokens(pinned);
+  const novel = [...tokens(current)].filter((w) => !pinnedTokens.has(w));
+
+  // Too few later edits to tell the versions apart. Not a failure: if the
+  // article barely changed, there is little for a wrong version to be wrong
+  // about. Reported so it is visible rather than silently counted as a pass.
+  if (novel.length < 20) return { novel: novel.length, score: null, verdict: "indistinguishable" };
+
+  const proseTokens = tokens(prose);
+  const present = novel.filter((w) => proseTokens.has(w)).length;
+  const score = present / novel.length;
+  if (score > NOVELTY_THRESHOLD) {
     throw new Error(
-      `oldid=${revid}: only ${matched}/${sample.length} sampled words appear in that `
-      + "revision's wikitext — the prose is probably from a different version",
+      `oldid=${revid}: ${(100 * score).toFixed(1)}% of the vocabulary added AFTER this `
+      + `revision appears in the fetched prose (${present}/${novel.length}). `
+      + "That is the current article, not this revision.",
     );
   }
-  return { checked: sample.length, matched };
+  return { novel: novel.length, score, verdict: "verified" };
 }
 
 async function listExamples() {
@@ -294,17 +331,19 @@ async function main() {
     // first version of this corpus trusted exactly that and was wrong in every
     // file, with correct metadata sitting above the wrong text.
     await sleep(350);
-    const proof = await assertProseMatchesRevision(rev.revid, text);
+    const proof = await assertProseMatchesRevision(rev.title, rev.revid, text);
 
     const name = slug(rev.title);
     const entry = {
       file: `human/${name}.txt`, title: rev.title, revid: rev.revid,
       timestamp: rev.timestamp, words,
       permalink: `https://en.wikipedia.org/w/index.php?oldid=${rev.revid}`,
-      revision_verified: `${proof.matched}/${proof.checked} sampled words present in that revision's wikitext`,
+      revision_verified: proof.verdict === "verified"
+        ? `${(100 * proof.score).toFixed(1)}% of post-revision vocabulary present (threshold ${100 * NOVELTY_THRESHOLD}%)`
+        : `only ${proof.novel} tokens differ between this revision and the current article — versions not distinguishable`,
     };
     attribution.human.push(entry);
-    process.stdout.write(`  ${String(words).padStart(5)}w  ${rev.timestamp.slice(0, 10)}  ${name}  [revision-verified ${proof.matched}/${proof.checked}]\n`);
+    process.stdout.write(`  ${String(words).padStart(5)}w  ${rev.timestamp.slice(0, 10)}  ${name}  [${proof.verdict} ${proof.score === null ? '' : (100 * proof.score).toFixed(1) + '% novel-vocab'}]\n`);
 
     if (WRITE) {
       // human_authored: true is a FACT here, not an attestation. The revision

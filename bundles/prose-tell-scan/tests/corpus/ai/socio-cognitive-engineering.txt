@@ -19,7 +19,7 @@ Socio-Cognitive Engineering (SCE) is a methodology for developing Artificial Int
 
 Origins and Theoretical Foundations
 
-edit ]
+
 
 The term socio-cognitive reflects the mutual influence between individual cognitive processes and social dynamics, an important aspect of human–computer interaction that most often takes place in a social context (cf., social cognition and situated cognition ). SCE evolved from work in Cognitive Engineering and Cognitive Systems Engineering . These fields emerged in the 1980s to study how people perform cognitive work with computer-based systems and to apply ecologically valid insights to improve performance in complex, high-risk domains such as aviation , nuclear power , and process control .
 
@@ -27,7 +27,7 @@ The first notion of Socio-Cognitive Engineering as a design methodology was pres
 
 Methodological Framework
 
-edit ]
+
 
 There are four established methods with key principles that SCE incorporated: First, Norman's (1986) work on user-centered design and cognitive artifacts emphasizes the importance of design, usability, and end-user evaluation for appropriate adoption of new interactive technology (addressing the psychological aspects, like end-user vs. software-engineer mental models). The foundation phase includes an analysis of op the operational demands (user needs) and the relevant cognitive theories (like Self-Determination Theory for diabetes management, and Workload Theory for ship operator support). Second, Vicente's (1999) ecological interface design added a socio-technical perspective to develop displays that accommodate for expert knowledge to control complex dynamic processes. Correspondingly, the foundation phase (as part of the operational demands) includes focused work domain analyses and representations (like the ship control resource states to display). Third, Carroll's (2000) on scenario -based design approach showed how the construction of problem and design scenarios can facilitate the iterative development process to address task-artefact cycle (i.e., a new artefact brings about new tasks that set new requirements for a new artefact, ...), which is includes in the work domain analyses. Fourth, Friedman et al. work on value sensitive design provide sound value analyses method that can facilitate human-technology value alignment, which is being included in the operational demand analyses in the form of value stories.
 
@@ -35,7 +35,7 @@ Figure X gives an overview of the iterative SCE spiral process, structured in fo
 
 1. Foundation
 
-edit ]
+
 
 The first phase identifies and synthesizes core requirements by analyzing the operational context, cognitive demands, and technological constraints. This process is structured around three main perspectives:
 
@@ -48,19 +48,19 @@ Technological Constraints and Opportunities : The analysis includes examining th
 
 2. Design Specification
 
-edit ]
+
 
 This phase translates the foundational insights into concrete envisioned system behavior and interaction strategies (e.g. on situation awareness displays, task planning & allocation, warnings & advises, feedback & explanations). The core of this specification consists of two components that are being worked in combination. The first component concerns the generation of Use Cases , as common in software engineering but with an emphasize on the human-technology interaction. Detailed narratives or scenarios are developed to describe system functionalities and user interactions. These use cases are grounded in the operational context and aim to cover both routine and edge-case situations . Second, the Claims Analysis is being worked out, i.e., each design choice is linked to specific outcomes through testable claims. These claims articulate assumed or evidenced cause–effect relationships between system features and their anticipated effects on concrete measures, e.g. on performance, workload, learning, trust, situation awareness, safety and well-being.
 
 3. Evaluation
 
-edit ]
+
 
 The evaluation is embedded throughout the development cycle and relies on a combination of qualitative and quantitative methods to test claims, identify value mis-alignments, and inform design iterations. It is integral and recursive, informed by principles of mixed methods research . Also here, two central components are distinguished. First, prototypes are built that may range from simulations, early mock-ups to functional systems (it can also be combinations of "real technology" and simulations). Functions may be partially included in a prototype to test specific claims. In general, prototypes are used in controlled settings or in the field to generate user feedback and empirical data. Second, the evaluation methods concern multiple empirical approaches. Quantitative methods include performance metrics and standardized usability assessments. Qualitative methods such as semi-structured interviews, think-aloud protocols, and field observations help interpret user experience. Evaluation is conducted through iterative cycles that may include laboratory experiments, cognitive walkthroughs, ethnographic studies, and field trials. Overall, the techniques are combined to assess claims and guide refinements. The combination of methods (e.g., controlled experiments, cognitive walkthroughs, ethnographic observation, and field trials) allows for triangulation of results.
 
 4. Abstraction for Coherence and Reuse
 
-edit ]
+
 
 To support generalization and knowledge reuse, this phase focuses on formalizing insights and making them applicable across domains. The knowledge abstraction concerns three models.
 
@@ -75,7 +75,7 @@ Ontologies : Domain-specific ontologies are developed to represent task structur
 
 Applications
 
-edit ]
+
 
 SCE has been applied in several domains where collaboration between humans and intelligent agents is essential ( human–AI collaboration). The methodology has supported system design and evaluation in the following areas.
 
@@ -91,7 +91,7 @@ In Defense and Security applications, SCE has been used to support human–machi
 
 Discussion
 
-edit ]
+
 
 Socio-Cognitive Engineering (SCE) offers a methodology for the design of interactive technology involving human–AI collaboration, particularly for domains characterized by complexity, uncertainty, volatility and high stake. Its main contribution lies in the structured approach to establish an evolving, concise and coherent knowledge base from an operational (domain), human factors and technical perspective. With these three perspectives, adaptive technology can be designed to complement and augment humans situated cognition. Design choices and evaluations are guided by use case–based claim analyses, which explicitly articulate the underlying design rationale. Dependencies specific to each use case are made transparent, helping to identify components that are generalizable and potentially reusable across domains.
 
@@ -101,7 +101,7 @@ Another area for further development involves the scalability of design patterns
 
 See Also
 
-edit ]
+
 
 Cognitive Systems Engineering
 
@@ -121,5 +121,3 @@ Sociocognitive
 
 
 References
-
-edit ]

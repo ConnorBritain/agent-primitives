@@ -20,7 +20,7 @@ The Indian Institute of Science ( IISc ) is a public , deemed , research univers
 
 History
 
-edit ]
+
 
 
 Jamsetji Tata , founder
@@ -43,7 +43,7 @@ In 2022, IISc received a private donation of 425 crore Indian Rupees, the larges
 
 Bangalore Campus
 
-edit ]
+
 
 The IISc campus is located in the north of Bangalore, about 6 kilometers from Bangalore City Railway Station and Kempegowda Bus Station , on the way to Yeshwantpur . The institute is about 35 kilometers from Kempegowda International Airport . A number of other research institutes, Raman Research Institute , Indian Space Research Organisation (ISRO), Wood Research Institute and Central Power Research Institute (CPRI), are close to IISc. Most of these institutes are connected to IISc by a regular shuttle bus service. The campus houses more than 40 departments marked by routes such as the Gulmohar Marga, the Mahogany Marga, the Badami Marga, the Tala Marga, the Ashoka Marga, the Nilgiri Marg, the Silver Oak Marg, the Amra Marga and the Arjuna Marga. The institute is fully residential and is spread over 400 acres of land in the heart of Bangalore city. The campus features six canteens (cafeterias), a gymkhana (gymnasium and sports complex), a football ground and a cricket ground, five dining messes (halls), one multi cuisine restaurant, nine men's and five women's hostels (dormitories), an air strip , a library, two shopping centers and residences of the faculty members and other staff, besides other amenities.
 
@@ -56,7 +56,7 @@ The buildings for the metallurgy and aerospace departments were designed by the 
 One of the oldest building of IISc
 Challakere Campus
 
-edit ]
+
 
 A second campus is in Challakere , on 1,500 acres (6.1 km 2 ) lot of land. Infrastructure developed here includes the Talent Development Centre, Skill Development Centre funded by HAL under CSR Act, Solar Power Research Center and a Climate Observatory. The Centre for Sustainable Technologies has commenced its activities here under the project "C-BELT" i.e., the Centre for Bio-energy and Low-Carbon Technologies.
 
@@ -64,11 +64,11 @@ Janardhana Swamy , then Member of Parliament from the Chitradurga Lok Sabha as w
 
 Organisation and administration
 
-edit ]
+
 
 Academic divisions, departments, and centres
 
-edit ]
+
 
 For academic purposes, departments and centres in the Institute are broadly assigned to either the Science Faculty or the Engineering Faculty. For administrative purposes (such as faculty recruitment, assessment and promotion), departments and centres are classified into six divisions, each headed by a chairperson. Each department or centre is administered by a chairperson.
 
@@ -118,15 +118,15 @@ Society for Innovation and Development
 
 Academics
 
-edit ]
+
 
 Academic programmes
 
-edit ]
+
 
 Post-graduate (PG) Research Programmes
 
-edit ]
+
 
 Research students constitute more than 60% of the students on the campus. PhD degrees offered in 40 different disciplines. Research programs leading to doctoral degrees are the main thrust in many departments. The program has a limited amount of course work, essentially to prepare the student to carry out the research, but the main emphasis is on the thesis work. The annual intake of research students is approximately 575 with several candidates sponsored from educational institutions and industries ( through External Registration Programme) .
 
@@ -134,7 +134,7 @@ The Integrated PhD program is designed to offer opportunities to 3-year BSc grad
 
 Post-graduate (PG) Course Programmes
 
-edit ]
+
 
 The two-year MTech program is available in almost all engineering departments. Most MTech programs have a set of hard core courses specified as an essential requirement whereas students can take rest of the credits from many courses available in their parent or other departments and also do a dissertation work on the topic of their choice.
 
@@ -148,7 +148,7 @@ Institute has recently announced MSc programme in life sciences and chemical sci
 
 Under-graduate (UG) Programme
 
-edit ]
+
 
 An undergraduate programme in science for students after Class XII was conceived during the Centenary Celebrations in 2009. The first batch of students was admitted in 2011. The program offers a four-year Bachelor of Science (Research) and a five-year integrated Master of Science course in six disciplines: Biology, Chemistry, Environmental Science, Material Science, Mathematics, and Physics. The course aims at exposing the students to the inter-disciplinary nature in which scientific research is done in many upcoming fields.
 
@@ -156,7 +156,7 @@ A new undergraduate program BTech in Mathematics and Computing seeks to enter a 
 
 J. R. D. Tata Memorial Library
 
-edit ]
+
 
 Apart from the main library, the institute also has independent departmental libraries. The library moved into the present premises in January 1965, built out of grants provided by University Grants Commission (UGC), in commemoration of the golden jubilee celebrations of the Institute in 1959. In 1995, the library was renamed as " J. R. D. Tata Memorial Library". The National Board for Higher Mathematics (NBHM) has recognised this library as Regional Center for Mathematics for the south region and continued to award a special grant towards subscription of Journals in Mathematics.
 
@@ -164,7 +164,7 @@ The annual budget of the library is over Rs. 100 million (almost US$2,500,000) o
 
 Central computing facility
 
-edit ]
+
 
 The Computer Centre, established in 1970 as a central computing facility, became Supercomputer Education and Research Centre (SERC) in 1990 to provide computing facility to the faculty and students of the institute. SERC was created and fully funded by the Ministry of Human Resource Development (MHRD), Government of India to commemorate the platinum jubilee of the institute. It houses India's first petascale supercomputer Cray XC40 , the erstwhile fastest supercomputer in India.
 
@@ -172,13 +172,13 @@ Apart from functioning as a central computing facility of IISc, the SERC is enga
 
 Academic and industrial collaborations
 
-edit ]
+
 
 The Indian Institute of Science collaborates with various government organisations like the Indian Ordnance Factories , DRDO , the ISRO , Bharat Electronics Limited , Aeronautical Development Agency , National Aerospace Laboratories , CSIR , Department of IT ( Government of India ), Centre for Development of Advanced Computing , etc. IISc also works in collaboration with private industry and research labs. A few organisations have been incubated by the Society for Innovation and Development (SID) on campus, including Morphing Machines and SandI, while Gamma Porite is currently under incubation. IISc actively promotes and supports ventures by the faculty, the students and alumni. Strand Life Sciences and Ittiam are some success stories of this initiative. In March 2016, a science start-up, incubated at the IISc, built the world's first food-grade DNA/RNA stain. This might cut the time taken to diagnose conditions such as HIV to a day, from 45 days at present.
 
 Rankings
 
-edit ]
+
 
 
 IISc had ranked 1st in 2022 in terms of citations per faculty by QS World University Rankings, moreover IISc had ranked 2nd consistently for more than 5 years among all universities around the world in terms of citations per faculty. IISc was ranked 301–350 in the world by the Times Higher Education World University Rankings in 2021, the top institute in India, as well as 36th in the 2020 Asia University Rankings. The 2021 QS World University Rankings ranked IISc 185th in the world, as well as 51 in Asia University Rankings and 10th among BRICS nations. In 2020, it is ranked 530th among the universities around the world by SCImago Institutions Rankings .
@@ -187,11 +187,11 @@ It was ranked top university in India by the National Institutional Ranking Fram
 
 Campus life
 
-edit ]
+
 
 Events
 
-edit ]
+
 
 Pravega is the annual science, technology and cultural festival of Indian Institute of Science, Bangalore. Started in 2013 by the undergraduates of IISc, the fest is usually held on the third weekend of January.
 Vijyoshi , an annual national science camp for secondary school and undergraduate students, is hosted by IISc.
@@ -200,7 +200,7 @@ IISc also has active sports teams, major ones being in cricket, football, badmin
 
 Alumni associations
 
-edit ]
+
 
 IISc has a parent alumni association (AA) in Bangalore and several branches elsewhere including USA (IISCAANA). Of recent parent association is involved in several disputes. One of the reasons appears to be efforts by some to allow Non-IISc degree holders to become a part of the AA. Similar situation is created in IISCAANA
 by allowing several non-IISc members to be active in the team. IIScAANA allows those who did not complete degree to become members by adding a clause
@@ -209,18 +209,18 @@ by allowing several non-IISc members to be active in the team. IIScAANA allows t
 Gulmohar Marg, IISc Campus
 December 2005 terror attack
 
-edit ]
+
 
 
 On 28 December 2005, two terrorists started firing indiscriminately inside the IISc campus. Munish Chander Puri , a professor from IIT Delhi, died in the attack. Four others were injured.
 
 Noted people
 
-edit ]
+
 
 Notable alumni
 
-edit ]
+
 
 
 V. K. Aatre
@@ -362,7 +362,7 @@ Sudha Murthy , Chairman of Infosys Foundation
 R Chidambaram , Principal Scientific Adviser to the Government of India
 Notable faculty
 
-edit ]
+
 
 Two former directors, C. V. Raman and C. N. R. Rao , have been awarded India's highest civilian honour Bharat Ratna . Four former directors, Sir A. G. Bourne , Sir Martin O. Forster , C. V. Raman and J. C. Ghosh , have been knighted. Among the IISc alumni, there are three Rhodes Scholars , several Fellows of the Royal Society , and thousands of members of Indian and foreign Academy of Sciences . Hundreds of IISc faculty members have also received the Shanti Swarup Bhatnagar Prize for Science and Technology awarded to Indians who have made outstanding contributions under 45 years of age. In spite of these achievements, no alumnus or serving faculty member of IISc has won either a Nobel Prize or a Fields Medal , although C. V. Raman did win a Nobel Prize before becoming the institute's first Indian director.
 
@@ -543,7 +543,7 @@ V. M. Ghatage
 
 See also
 
-edit ]
+
 
 Indian Institutes of Technology
 
@@ -566,13 +566,13 @@ Open access in India
 
 References
 
-edit ]
+
 
 
 
 External links
 
-edit ]
+
 
 
 

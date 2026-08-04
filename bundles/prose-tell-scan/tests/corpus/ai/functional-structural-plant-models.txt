@@ -32,7 +32,7 @@ The term "functional–structural plant model" came into common use in the early
 
 Origins
 
-edit ]
+
 
 FSPMs draw on a lineage of formal models of plant branching. In 1968 the biologist Aristid Lindenmayer introduced L-systems , a class of string-rewriting grammars that could generate the branching patterns of filamentous organisms and, by extension, higher plants. Przemysław Prusinkiewicz and Lindenmayer's 1990 monograph The Algorithmic Beauty of Plants demonstrated how L-systems could produce realistic computer graphics of plant form and became a reference point for later work.
 
@@ -40,7 +40,7 @@ Through the 1990s, researchers began coupling these architectural descriptions w
 
 Model structure
 
-edit ]
+
 
 An FSPM typically represents a plant as a graph of connected modules—internodes, leaves, root segments, fruits—each assigned a position, orientation, and geometry in three-dimensional space. One or more sub-models then calculate how those organs interact with the environment: a common configuration pairs a ray-tracing or radiosity light model with a leaf-level photosynthesis model and a set of carbon-allocation rules that feed assimilates back to growing organs. Because the geometry is explicit, architectural features such as leaf angle, phyllotaxis, or the degree of mutual shading between neighbouring plants can directly influence simulated carbon gain.
 
@@ -50,7 +50,7 @@ Some FSPMs adopt an agent-based formulation in which each organ or meristem is a
 
 Applications
 
-edit ]
+
 
 FSPMs have been applied in greenhouse horticulture to optimise crop spacing and light distribution, in field-crop research to evaluate ideotype designs for cereals, and in intercropping studies where the spatial arrangement of different species determines resource partitioning. In forestry , they have been used to model crown development and competition for light in mixed-species stands. More recently, FSPMs have been coupled with genetic algorithms or evolutionary computation to explore how plant traits may have evolved under particular selective pressures, an approach sometimes called "evolutionary FSPM".
 
@@ -58,7 +58,7 @@ The field has also intersected with plant phenotyping : because FSPMs generate s
 
 Software platforms
 
-edit ]
+
 
 Several open-source and academic platforms have been developed for building FSPMs:
 
@@ -79,7 +79,7 @@ Virtual Plant Laboratory (VPL) – a recent Julia -based framework.
 
 See also
 
-edit ]
+
 
 Crop simulation model
 
@@ -93,5 +93,3 @@ Agent-based model
 
 
 References
-
-edit ]

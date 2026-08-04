@@ -10,7 +10,7 @@ permalink: https://en.wikipedia.org/w/index.php?oldid=1359139581
 
 External links modified
 
-edit ]
+
 
 
 
@@ -34,7 +34,7 @@ Cheers.— InternetArchiveBot ( Report bug ) 23:11, 18 October 2016 (UTC) reply
 
 Likely AI-generated edits
 
-edit ]
+
 
 
 
@@ -145,7 +145,7 @@ Even if 1 to 3 aren't enough, that 4th example you "wrote" is a damning evidence
 And AI-assisted drafting is prohibited: WP:NEWLLM states that the use of LLMs to generate or rewrite article content is prohibited except for copyediting and translations. SuperPianoMan9167 ( talk ) 14:24, 26 March 2026 (UTC) reply
 Sockpuppets using LLMs single-targeting this article
 
-edit ]
+
 
 
 
@@ -171,7 +171,7 @@ Regarding the 'promotional' claim: If someone hosts a basketball podcast and int
 Please see Wikipedia:AITALK . STACKofBRIEFS ( talk ) 21:06, 27 March 2026 (UTC) reply
 Request to remove maintenance tags following Start-Class upgrade
 
-edit ]
+
 
 
 
