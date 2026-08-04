@@ -431,6 +431,298 @@ errors produce plausible numbers that survive review until someone re-derives
 them independently. Before publishing a figure, state what would have to be true
 for it to be meaningless, and check that thing.
 
+### FN-2026-08-04-c · coverage round, with the corpus as the referee
+
+The first catalog change decided by measurement rather than by reading. Six
+candidates drawn from source-page sections the catalog under-covered, each scored
+against 33 AI documents, 12 provably-human ones, and this repo's own prose before
+anything shipped.
+
+**Shipped, two new entries:**
+
+| entry | AI | human | repo |
+|---|---|---|---|
+| `assistant-preamble` (Tier A) | 2/33 | 0/12 | 0 |
+| `notability-canning` | 2/33 | 0/12 | 0 |
+
+Two hits is a low rate. For a style entry that would argue against shipping;
+`assistant-preamble` is Tier A, which is judged on whether one occurrence is
+dispositive rather than on frequency. A document containing a sentence like
+`Would you like me to expand that?` has exactly one explanation.
+
+That example is backticked, and on one line, for a reason worth the aside: written
+as plain prose it tripped `assistant-preamble` in this very file, and the Tier A
+guard from `FN-2026-08-03-c` failed the build. Inline code is masked before
+scanning; a code span broken across a newline is not. `notability-canning` ships at severity
+2 and density-gated because it is the source's named *current*-cohort pattern,
+and the rest of `current-era` is two weak lexical entries.
+
+**Widened, two existing entries.** `participle-tail` gained the verbs the source's
+own box lists and it did not match (ensuring, encompassing, contributing,
+cultivating, fostering, enhancing, resonating, symbolising): +2 AI, +0 human.
+`vague-attribution` gained the noun-interposed forms — the old alternation
+required the verb to follow "some" directly, so "some critics argue" never
+matched: +1 AI, +0 human.
+
+**Rejected, two candidates, and the first is the useful one.**
+
+`additionally-initial` was proposed to correct what looked like an
+over-generalisation: `transition-overload` was dropped for transition *density*,
+while the source page separately lists "Additionally (especially beginning a
+sentence)" as its first AI-vocabulary item with two citations. A narrow
+sentence-initial form seemed clearly defensible.
+
+It appears in **1 of 33 AI documents and 1 of 12 human ones** — proportionally
+commoner in human writing. The original rejection was right for a reason its
+author did not have. Recorded so the same reasonable-looking case is not argued a
+third time.
+
+`copulative-avoidance` is real as an observation and unusable as a regex. Broad,
+it matches 12% of AI documents and 8% of human ones, because encyclopedic prose
+says "functions as a" constantly and means it. Narrowed to the distinctive
+constructions it matches 0 of 33. There is no gap between the two failure modes.
+`serves-as` and `boasts` already cover the variants that discriminate; the rest
+needs a parser and belongs with the critics.
+
+**Net effect, gate-verified rather than asserted:** recall 2/33 → 3/33, Tier A
+9/33, false positives unchanged at 0/12.
+
+**What the round is really evidence for.** Four of six candidates came from
+carefully reading the canonical source, and two of those four would have made the
+tool worse. Reading a source tells you a pattern is real; only a corpus tells you
+whether a *regex for it* discriminates. Every catalog entry added before this
+round was shipped on the first kind of evidence alone.
+
+### FP-2026-08-04-d · Tier A · the tier promised more than it could keep
+
+Found by review, on the round that added `assistant-preamble`. The entry shipped
+in Tier A on evidence of 2/33 AI documents and **0/12 human** — and both numbers
+were true.
+
+It fires on ordinary business email.
+
+> `Let me know if you need anything else before Friday.`
+> `I hope this helps with the planning.`
+
+Both trip it. So does any customer-service reply. And this bundle ships
+**`correspondence` as a first-class register**, with its own profile, thresholds
+and voice card.
+
+**Why the corpus could not have caught it.** The acceptance corpus is 45
+documents of encyclopedic prose. It cannot exercise correspondence at all, so
+"0 of 12 human documents" was measuring a place where the failure cannot occur.
+*Clean on the corpus you have is not the same as clean* — and this is the fourth
+variant of the same lesson in this log, after a retyped fixture, a corpus fetched
+from the wrong revision, and a cross-profile comparison.
+
+**The defect was older than the entry.** `chatbot-register` had shipped in Tier A
+since v0.1 carrying the same pleasantries — `I hope this helps`, `is there
+anything else`, `would you like me to`. The new entry did not introduce the
+problem; it made a pre-existing one large enough to see.
+
+#### What Tier A actually means, now stated
+
+Tier A carries `always_flag`, bypasses density gating entirely, and is the one
+place the acceptance gate asserts an **absolute** zero false positives on human
+text. Only one property earns that:
+
+> **No human writes this in ANY register.**
+
+Leaked citation markup qualifies. Unreplaced `[Your Name]` placeholders qualify.
+Knowledge-cutoff hedges qualify. *Being polite in an email* does not, however
+machine-like it looks in an encyclopedia article.
+
+So the tier was split on that line:
+
+- **`model-self-identification`** — new, Tier A. `As an AI language model`,
+  `I am an AI`, `I do not have personal opinions`. Nobody describes themselves
+  this way. Verified dispositive in all four registers.
+- **`chatbot-register`** — demoted to severity 3 style, disabled in
+  `correspondence`.
+- **`assistant-preamble`** — severity 3 style, disabled in `correspondence`.
+
+Disabled per register rather than deleted, because the signal is real where the
+entries were aimed: an article that offers to expand its own section still has
+one explanation.
+
+#### What it cost, measured
+
+| | before | after |
+|---|---|---|
+| document recall | 3/33 | **3/33** |
+| Tier A documents | 9/33 | **7/33** |
+| human false positives | 0/12 | 0/12 |
+
+**No detection was lost.** The two documents that left Tier A still flag, through
+the same entries at style tier. The Tier A count fell because two entries were
+moved out of a tier they did not qualify for — which is the fix working, not a
+regression, and the baseline is updated to record the new truth rather than to
+make a red gate green.
+
+#### The general rule
+
+**A tell that is dispositive in one register and unremarkable in another is a
+STYLE entry, not an artifact.** Tier A is not "obviously machine-like"; it is
+"impossible in human writing". The distinction was blurred from v0.1 and no test
+could have found it, because every test asked whether the entry fired on the
+registers it was written for.
+
+#### A second thing that review caught, recorded because it is not yet fixed
+
+The coverage round reported `notability-canning` at "2/33 AI documents" and the
+`vague-attribution` widening at "+1 AI", under a heading about what shipped. Those
+count **raw regex matches**, not documents where the entry actually flags.
+
+Both are severity 2, and `MIN_COUNT` requires two occurrences before a severity-2
+entry can flag. Every matching document in the corpus has a count of exactly one.
+So through the real pipeline, **`notability-canning` flags 0 of 33 and the
+`vague-attribution` widening added 0 flagged documents.**
+
+Nothing is wrong with shipping them — a pattern that matches cleanly and never
+yet clears its floor is a reasonable thing to carry, and both are 0/12 on human
+text. What was wrong is presenting the figures beside `assistant-preamble`'s
+genuinely-flagging 2/33 with no distinction drawn, so a reader takes both as
+equivalent evidence of detection. Only one was.
+
+The honest labels: those two are **clean, not yet proven**. The distinction to
+carry forward is that "matched" and "flagged" are different measurements, and the
+one that describes what the tool does is the second.
+
+### FN-2026-08-04-e · counter-evidence · what the source claims, and what measured
+
+The scanner only ever accumulated evidence FOR a tell, which is a structural bias
+toward flagging: a document could only look worse the longer you scanned it. The
+source page has a **§Signs of human writing** and nothing here read it.
+
+Its §Syntax lists five classes whose *low* rate supposedly marks a machine. All
+five were measured against the acceptance corpus — 33 documents the community
+judged AI-written, 12 provably predating ChatGPT.
+
+| metric | AUC | best single-threshold accuracy | verdict |
+|---|---|---|---|
+| `superlative` | 0.77 | 84% | weak, direction matches |
+| `copula` | 0.73 | 78% | weak, direction matches |
+| `wordy` | 0.73 | 84% | weak, direction matches |
+| `plainverb` | 0.56 | 71% | noise |
+| `stiffverb` | 0.49 | 71% | coin flip |
+| `hedge` | **0.45** | 71% | **backwards** — commoner in the AI set |
+
+Always guessing "AI" scores 73% on this corpus, so two of the six do not beat the
+null and `hedge` runs the wrong way.
+
+**Three are not computed at all.** Not inverted, not reported with a caveat —
+absent. A coin-flip number in the output invites someone to act on it, and
+`hedge` would actively mislead.
+
+**Three are reported and never flagged**, for two reasons that each suffice. AUC
+0.73–0.77 on twelve human documents carries a wide interval — bootstrap lower
+bounds sit around 0.57–0.62, so the signal is real but small. And the accuracy column is *fitted*: each threshold was chosen on the
+same 45 documents it was scored against, so those figures are optimistic by
+construction. Shipping a threshold on that basis is the overfitting this project
+has already committed twice. Every rate prints its AUC beside it so the number
+cannot be quoted without its weakness.
+
+**One thing is dispositive, and it is not a rate.** The source is unusually firm:
+text predating 2022-11-30 cannot have used ChatGPT. Resolution is frontmatter →
+the commit that *added* the file → mtime, and mtime is reported while being
+explicitly disqualified, since it is set by whatever last touched the file. When
+age is dispositive it **replaces the reading** rather than appending to it: a 2019
+document with elevated `delve` density has an interesting vocabulary, not a
+provenance problem.
+
+#### Two rules that are structural rather than advisory
+
+**Never subtract.** Counter-evidence has its own block, its own render section,
+and is never arithmetic on the findings. A combined number would be read as a
+verdict within a week, which is what `meta.yaml` refuses by contract. A test
+asserts no key matching score/net/combined/likelihood/probability exists anywhere
+in the block.
+
+**The asymmetry.** Plain forms may count as counter-evidence for a human author.
+Stiff forms are *never* evidence of AI. `utilised`, `authored`, `commenced` are
+ordinary professional register in several varieties of English, and a metric
+treating them as suspicious would be the ornate-register bias again under a new
+name. `stiffverb` is absent rather than inverted, and would stay absent even if
+it measured well.
+
+#### What this round is evidence for
+
+Five of six patterns drawn from the canonical source failed to survive contact
+with a corpus, and the one with the strongest intuitive appeal — hedging language
+as a human marker — measured backwards. That is the same result as
+`FN-2026-08-04-c`, on different material: reading a source tells you a pattern is
+real; only a corpus tells you whether a measurement of it discriminates.
+
+### FP-2026-08-04-f · counter-evidence · three ways to switch the scanner off
+
+The measurements in `FN-2026-08-04-e` re-derived almost exactly under independent
+review — the first round in this project where they did. The *implementation*
+around them had three defects, all in the one feature that can override
+everything else.
+
+**1. Ordinary prose defeated the dispositive check.** The frontmatter regex
+anchored on the opening `---` and never required the date to appear before the
+closing one. So a document with normal frontmatter lacking a `date:` key, whose
+body happened to contain a date-shaped string —
+
+> The filing date: 2015-06-01 was noted in the register.
+
+— had that read as its frontmatter, and a document saturated with flagged tells
+reported *"AI use can be ruled out"*. Not an attack: ordinary writing.
+
+**2. A self-reported date was treated as evidence.** `resolveAge` checked
+frontmatter *first* and marked it `evidential: true`, identically to git — while
+the code's own comment said frontmatter is "a claim the author makes" and git
+"records". Adding one line of YAML to any document silenced the scanner reading
+it. The caveat existed only in a source comment no user would ever see, which is
+precisely the overstatement `AGENTS.md` calls the most damaging error available.
+
+The trust model is now explicit, and it is about **claims versus records**:
+
+| source | what it is | dispositive? |
+|---|---|---|
+| git first-add commit | a record made outside the document | **yes** |
+| frontmatter + git agreeing | a claim the record corroborates | **yes** |
+| frontmatter alone | a claim the document makes about itself | reported, never |
+| filesystem mtime | whatever last touched the file | reported, not evidence |
+
+Frontmatter alone stays visible — an author scanning their own draft knows
+whether their own date is honest, and the tool should not pretend the information
+is absent. It just does not get to silence findings on a self-report. The output
+says what would change that: commit the file.
+
+**3. `--artifacts-only` violated its own contract.** Its help text — unchanged
+since v0.1 — promises to skip every style judgement. Cadence was correctly gated;
+the new syntax rates were not, and they are style by this log's own framing. Now
+gated. Age still reports, because provenance is a fact about the file rather than
+an opinion about the prose.
+
+#### And the one that is worth more than the other three
+
+The git lookup **never worked**. `execFileSync` was never imported, so every call
+threw `ReferenceError`, and this swallowed it:
+
+```js
+} catch { /* not a repo, or git absent — normal, not an error */ }
+```
+
+The comment is true about the failures it was written for and false about the one
+it caught. For the entire life of the feature the git path threw instantly and
+degraded to the weaker sources — which is *why* frontmatter-alone appeared to
+work well enough to ship.
+
+Two separate mistakes made it invisible. The broad `catch` swallowed a
+programming error alongside the environmental ones it was for. And a second bug
+underneath it — a relative pathspec resolved against a `cwd` set to the file's own
+directory — made git return **empty rather than error**, indistinguishable from
+"file not tracked".
+
+The catch now rethrows anything that is not a recognised environment failure
+(`ENOENT`, or a non-zero exit status). This repo's own rules already name the
+pattern: *"no `try/except` or empty `catch` that swallows a failing assertion"*.
+A catch broad enough to hide a typo is broad enough to hide a defect for as long
+as nobody looks.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather

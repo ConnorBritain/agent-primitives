@@ -209,6 +209,37 @@ export function renderReport(result, { showExamples = true, showClean = false } 
     out.push(dim(`  excluded from scan: ${parts}`));
   }
 
+  // Counter-evidence gets its own section, above the reading and visually
+  // separate from the findings. That separation is the point: these numbers are
+  // never netted against anything above them, and a layout that interleaved them
+  // would invite exactly that arithmetic.
+  const ce = result.counter_evidence;
+  if (ce) {
+    out.push("");
+    out.push(bold("  COUNTER-EVIDENCE"));
+    if (ce.age.dispositive) {
+      out.push(`    ${bold("dated " + ce.age.date)} — before ChatGPT was public, per ${ce.age.how}.`);
+      for (const line of wrap(
+        "The source list treats this as dispositive: AI use can be ruled out for text "
+        + "older than the tool. Everything above is an observation about the writing.", 70,
+      )) out.push(`    ${line}`);
+    } else if (ce.age.date) {
+      out.push(dim(`    dated ${ce.age.date} (${ce.age.how})`
+        + (ce.age.evidential ? "" : " — not evidence of when the text was written")));
+    }
+    if (ce.syntax.length) {
+      out.push("");
+      for (const m of ce.syntax) {
+        out.push(dim(`    ${String(m.per_1k).padStart(6)}/1k  ${m.label.padEnd(34)} AUC ${m.auc}`));
+      }
+      for (const line of wrap(
+        "Reported, never flagged. Measured AUC 0.73-0.77 on a 45-document corpus is weak, "
+        + "and at 12 human documents the interval includes no-signal. Three further metrics "
+        + "the source lists are not computed: they measured at or below chance.", 70,
+      )) out.push(dim(`    ${line}`));
+    }
+  }
+
   out.push("");
   out.push(bold("  READING"));
   for (const line of wrap(summary.reading, 70)) out.push(`    ${line}`);

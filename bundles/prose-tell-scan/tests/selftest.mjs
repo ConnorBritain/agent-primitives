@@ -15,7 +15,7 @@
  * removes them. Touches nothing in the repo.
  */
 
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readFileSync, cpSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, readFileSync, cpSync, readdirSync, existsSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -556,6 +556,287 @@ try {
     check("and it flags on one occurrence, bypassing density", hit?.flagged === true);
   }
 
+  group("Counter-evidence — the half that argues the other way");
+  {
+    // Everything else here accumulates evidence FOR a tell, which biases the
+    // whole tool toward flagging. This is the source page's §Signs of human
+    // writing, and the rule that shapes it is absolute: NEVER netted against the
+    // findings. The moment exculpatory evidence subtracts from inculpatory, this
+    // is a scored detector, which meta.yaml refuses by contract.
+    // CHANGED 2026-08-04. These previously asserted that a frontmatter date
+    // ALONE was evidential and dispositive. That was wrong and is why the
+    // assertions moved rather than being deleted: a date the document asserts
+    // about itself was able to switch off the scanner reading it. One line of
+    // YAML in any AI draft silenced a document saturated with findings.
+    //
+    // The trust model now distinguishes a CLAIM from a RECORD. See
+    // CALIBRATION.md FP-2026-08-04-f.
+    const claimed = join(tmp, "claimed.md");
+    writeFileSync(claimed, "---\ndate: 2019-04-02\n---\n\nDelve into the rich tapestry of "
+      + "meticulous craftsmanship that stands as a testament to the era.\n");
+    const rc = scan([claimed, "--profile", "essay"]).results[0];
+
+    check("a self-reported date is still reported",
+      rc.counter_evidence.age.date === "2019-04-02", JSON.stringify(rc.counter_evidence.age));
+    check("but an uncorroborated claim is not evidential",
+      rc.counter_evidence.age.evidential === false);
+    check("and cannot be dispositive", rc.counter_evidence.age.dispositive === false);
+    check("and says what would make it so",
+      /commit the file/i.test(rc.counter_evidence.age.caveat ?? ""),
+      rc.counter_evidence.age.caveat ?? "");
+    check("so the reading is NOT overridden by an unverifiable claim",
+      !/before ChatGPT was public/.test(rc.summary.reading),
+      rc.summary.reading.slice(0, 80));
+
+    // The corroborated path, on a real committed file: git is a record, not a
+    // claim, so this one IS dispositive.
+    const tracked = join(BUNDLE, "tests", "corpus", "human", "kenyatta-university.txt");
+    const r = existsSync(tracked)
+      ? scan([tracked, "--profile", "technical"]).results[0]
+      : null;
+    const ce = r ? r.counter_evidence : rc.counter_evidence;
+    if (r) {
+      check("a frontmatter date corroborated by git IS evidential",
+        ce.age.evidential === true && ce.age.corroborated === true, JSON.stringify(ce.age));
+      check("text predating ChatGPT is dispositive", ce.age.dispositive === true);
+      check(
+        "and the reading says so BEFORE reporting style findings",
+        /before ChatGPT was public/.test(r.summary.reading)
+        && r.summary.reading.indexOf("before ChatGPT") < 120,
+        r.summary.reading.slice(0, 90),
+      );
+      // The point of the override: counter-evidence outranks the reading, it
+      // does not hide the measurements.
+      check("the style findings are still reported, not suppressed",
+        r.findings.length > 0,
+        "counter-evidence outranks the reading; it does not hide the measurements");
+    }
+
+    // The body-date case that defeated the dispositive check with ordinary
+    // prose: frontmatter present but carrying no `date:` key, and a date-shaped
+    // string further down the document.
+    const bodyDate = join(tmp, "bodydate.md");
+    writeFileSync(bodyDate,
+      "---\ntitle: Notes\n---\n\nDelve into the rich tapestry of meticulous craft.\n"
+      + "The filing date: 2015-06-01 was noted in the register.\n");
+    const bd = scan([bodyDate, "--profile", "essay"]).results[0].counter_evidence;
+    check(
+      "a date-shaped string in the BODY is not read as frontmatter",
+      bd.age.how !== "the document's own frontmatter" && bd.age.dispositive === false,
+      JSON.stringify(bd.age),
+    );
+
+    // `--artifacts-only` promises to skip every style judgement. The syntax
+    // rates are style by this project's own framing; age is provenance, a fact
+    // about the file rather than an opinion about the prose, and stays.
+    const artifacts = scan([claimed, "--profile", "essay", "--artifacts-only"]).results[0];
+    check("--artifacts-only drops the syntax rates, as its contract says",
+      artifacts.counter_evidence.syntax.length === 0,
+      `${artifacts.counter_evidence.syntax.length} rates survived`);
+    check("but keeps provenance, which is not a style judgement",
+      Boolean(artifacts.counter_evidence.age));
+
+    // NEVER SUBTRACT.
+    //
+    // A keyword blocklist was the first version of this check and it was
+    // theatre: it would have passed on `confidence`, `weight`, `overallAUC`, or
+    // a number folded into prose. An allowlist on the SHAPE fails on any new
+    // key, which is the only form that constrains a future contributor.
+    const flat = JSON.stringify(ce);
+    const topLevel = Object.keys(ce).sort();
+    check("the counter-evidence block has no key beyond its declared shape",
+      JSON.stringify(topLevel) === JSON.stringify(["_about", "age", "syntax"]),
+      topLevel.join(","));
+    check("and no per-metric key beyond its declared shape",
+      ce.syntax.every((m) => JSON.stringify(Object.keys(m).sort())
+        === JSON.stringify(["auc", "banded", "flagged", "key", "label", "means", "per_1k"])),
+      JSON.stringify(ce.syntax.map((m) => Object.keys(m).sort())));
+    check("no netted score exists in the counter-evidence block",
+      !/"?(?:score|net|combined|total|likelihood|probability)"?\s*:/i.test(flat),
+      "a single number here would be quoted as a verdict within a week");
+    check("no syntax rate is ever flagged or banded",
+      ce.syntax.every((x) => x.flagged === false && x.banded === false));
+    check("each rate carries the measured AUC that limits it",
+      ce.syntax.every((x) => typeof x.auc === "number" && x.auc > 0.5 && x.auc < 1),
+      JSON.stringify(ce.syntax.map((x) => [x.key, x.auc])));
+  }
+  {
+    // The three metrics that measured at or below chance are absent, not
+    // inverted and not reported. `hedge` ran BACKWARDS (AUC 0.45); reporting a
+    // coin-flip number invites someone to act on it.
+    const doc = join(tmp, "ce-absent.md");
+    writeFileSync(doc, "This is a fairly ordinary sentence that seems to hedge somewhat.\n");
+    const keys = scan([doc, "--profile", "essay"]).results[0]
+      .counter_evidence.syntax.map((x) => x.key).sort();
+    check("only the metrics that beat chance are computed",
+      JSON.stringify(keys) === JSON.stringify(["copula", "superlative", "wordy"]),
+      keys.join(","));
+    check("stiff-verb forms are never computed as evidence of AI",
+      !keys.includes("stiffverb"),
+      "ornate register is professional norm in several varieties of English");
+  }
+  {
+    // mtime is reported and explicitly disqualified. It is set by whatever last
+    // touched the file, including the copy that put it there.
+    const doc = join(tmp, "nodate.txt");
+    writeFileSync(doc, "Ordinary prose carrying no provenance of any kind at all.\n");
+    const ce = scan([doc, "--profile", "essay"]).results[0].counter_evidence;
+    check("mtime is not treated as evidence", ce.age.evidential === false);
+    check("and cannot be dispositive", ce.age.dispositive === false);
+    check("and says why", /copy/.test(ce.age.caveat ?? ""), ce.age.caveat ?? "");
+  }
+  {
+    // A modern document must not acquire counter-evidence by accident.
+    const doc = join(tmp, "modern.md");
+    writeFileSync(doc, "---\ndate: 2026-01-15\n---\n\nOrdinary recent prose about a topic.\n");
+    const ce = scan([doc, "--profile", "essay"]).results[0].counter_evidence;
+    check("a post-launch date is not dispositive", ce.age.dispositive === false);
+  }
+
+  group("Tier A means no human writes this in ANY register");
+  {
+    // The contract Tier A trades on: always_flag, no density gating, and an
+    // acceptance gate asserting zero false positives on human text. Only
+    // patterns no register produces can honour it.
+    //
+    // `assistant-preamble` and `chatbot-register` shipped in Tier A and did not
+    // qualify. They catch polite conversational moves, which are ordinary
+    // business email — and this bundle ships `correspondence` as a first-class
+    // register. The acceptance corpus is 45 encyclopedic documents, so it could
+    // not exercise the register where they misfire: "0/12 human" was measuring
+    // somewhere the failure cannot occur. See CALIBRATION.md FP-2026-08-04-d.
+    const email = join(tmp, "email.txt");
+    writeFileSync(
+      email,
+      "Thanks for the update on the timeline.\n\n"
+      + "Let me know if you need anything else before Friday.\n\n"
+      + "I hope this helps with the planning.\n",
+    );
+    const corr = scan([email, "--profile", "correspondence"]).results[0];
+    check(
+      "no Tier A entry fires on an ordinary business email",
+      corr.findings.filter((f) => f.tier === "A" && f.flagged).length === 0,
+      corr.findings.filter((f) => f.tier === "A" && f.flagged).map((f) => f.id).join(","),
+    );
+    check(
+      "and the correspondence register disables the two that are email-ordinary",
+      corr.findings.filter((f) => f.flagged).length === 0,
+      corr.findings.filter((f) => f.flagged).map((f) => f.id).join(","),
+    );
+  }
+  {
+    // The paired positive, and the reason this is disabled per-register rather
+    // than deleted: the same words in an ARTICLE are still a real signal.
+    const doc = join(tmp, "preamble.txt");
+    writeFileSync(
+      doc,
+      "Certainly, here is the revised section you asked for.\n\n"
+      + "The town was founded in 1847.\n\n"
+      + "Would you like me to expand the history further?\n",
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "assistant-preamble");
+    check("assistant-preamble still catches leaked chat turns in article register",
+      Boolean(hit) && hit.flagged === true, `flagged=${hit?.flagged}`);
+    check("both forms match", hit?.count >= 2, `count=${hit?.count}`);
+  }
+  {
+    // Model self-identification IS register-neutral, which is why it kept the
+    // tier when the pleasantries lost it. Nobody describes themselves this way.
+    const doc = join(tmp, "selfid.txt");
+    writeFileSync(doc, "As an AI language model, I do not have personal opinions on this.\n");
+    for (const profile of ["correspondence", "essay", "technical", "narration"]) {
+      const hit = scan([doc, "--profile", profile]).results[0]
+        .findings.find((f) => f.id === "model-self-identification");
+      check(`model-self-identification is dispositive in ${profile} too`,
+        Boolean(hit) && hit.tier === "A" && hit.flagged === true, `${profile}: ${hit?.flagged}`);
+    }
+  }
+  {
+    // The boundary regression the widening introduced: splicing alternatives
+    // onto the tail dropped the `\b` closing the original group, so trigger
+    // words matched as prefixes. The 45-document corpus contained no such case,
+    // so nothing failed — this is the case it lacked.
+    const doc = join(tmp, "boundary.txt");
+    writeFileSync(
+      doc,
+      "Many scholarship programs exist to help students, and scientists believed the "
+      + "original survey data for decades before later work revised it.\n",
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "vague-attribution");
+    check(
+      "vague-attribution does not match its triggers as word prefixes",
+      !hit,
+      `matched ${JSON.stringify(hit?.examples)} — the closing word boundary is gone again`,
+    );
+    // Paired positive: the genuine article must still fire.
+    const real = join(tmp, "vague-real.txt");
+    writeFileSync(
+      real,
+      "Studies show the effect is large. Many experts agree. Some critics argue otherwise, "
+      + "and industry reports suggest the same.\n",
+    );
+    const hit2 = scan([real, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "vague-attribution");
+    check("but still fires on genuine vague attribution", hit2?.count >= 3, `count=${hit2?.count}`);
+  }
+
+  group("Coverage added 2026-08-04 — each measured on the corpus before shipping");
+  {
+    // The source page's current-cohort pattern — the one it says is commoner in
+    // tools released 2025 or later. 2/33 AI, 0/12 human.
+    const doc = join(tmp, "notability.txt");
+    writeFileSync(
+      doc,
+      "The company has received independent coverage in national media outlets.\n\n"
+      + "Its founder has been profiled in multiple widely-read outlets and maintains an "
+      + "active social media presence.\n",
+    );
+    const hit = scan([doc, "--profile", "essay"]).results[0]
+      .findings.find((f) => f.id === "notability-canning");
+    check("notability-canning catches the canned-sourcing cluster", Boolean(hit));
+    check("several forms match", hit?.count >= 3, `count=${hit?.count}`);
+  }
+  {
+    // Two rejections. The first version of these checks asserted that a JSON key
+    // existed and contained the word "corpus" — which would have passed just as
+    // happily if the cited numbers were invented. A rejection is a claim about
+    // measurement, so the test re-derives the measurement.
+    //
+    // This is why `rejected` entries now carry `tested_pattern`: a decision
+    // nobody can re-check is a decision nobody can overturn.
+    const cat = JSON.parse(
+      readFileSync(join(SKILL, "profiles", "_base", "catalog.json"), "utf8"),
+    );
+    for (const id of ["additionally-initial", "copulative-avoidance"]) {
+      const rec = cat.rejected?.[id];
+      check(`${id}: rejection records the pattern that was tested`,
+        Boolean(rec?.why_rejected) && Boolean(rec?.tested_pattern)
+        && !cat.entries.some((e) => e.id === id),
+        rec ? "" : "missing from `rejected`");
+    }
+
+    // Re-derive the headline number for `additionally-initial` against the real
+    // corpus. The claim that killed it: proportionally commoner in human writing.
+    const corpusDir = join(BUNDLE, "tests", "corpus");
+    if (existsSync(join(corpusDir, "ai"))) {
+      const re = () => /(?:^|(?<=[.!?]\s))Additionally,/g;
+      const count = (dir) => readdirSync(join(corpusDir, dir))
+        .filter((f) => f.endsWith(".txt"))
+        .filter((f) => re().test(readFileSync(join(corpusDir, dir, f), "utf8"))).length;
+      const ai = count("ai");
+      const human = count("human");
+      const aiN = readdirSync(join(corpusDir, "ai")).filter((f) => f.endsWith(".txt")).length;
+      const humanN = readdirSync(join(corpusDir, "human")).filter((f) => f.endsWith(".txt")).length;
+      check(
+        `additionally-initial really is no better than chance (${ai}/${aiN} AI vs ${human}/${humanN} human)`,
+        human / humanN >= ai / aiN,
+        "if this flips, the rejection deserves re-opening — that is the point of recording it",
+      );
+    }
+  }
+
   group("Known false-positive guards — the same patterns MUST still fire");
   {
     const doc = join(tmp, "positives.txt");
@@ -827,15 +1108,20 @@ try {
       );
     }
     // And the paired positive: masking is what makes that work, not luck.
+    //
+    // The probe uses a Tier A trigger deliberately. It used to use a chatbot
+    // pleasantry, which left Tier A on 2026-08-04 — so the test would have
+    // quietly started asserting nothing, passing because it found no Tier A
+    // findings rather than because masking worked.
     const probe = join(tmp, "backticked.md");
-    writeFileSync(probe, "Documenting the tell: `You’re absolutely right` is the giveaway.\n");
+    writeFileSync(probe, "Documenting the tell: `As an AI language model, I cannot` is the giveaway.\n");
     const masked = scan([probe, "--profile", "technical"]).results[0]
       .findings.filter((f) => f.tier === "A");
     check("a backticked trigger is masked, not matched", masked.length === 0,
       masked.map((f) => f.id).join(","));
 
     const bare = join(tmp, "bare.md");
-    writeFileSync(bare, "Documenting the tell: You’re absolutely right is the giveaway.\n");
+    writeFileSync(bare, "Documenting the tell: As an AI language model, I cannot help.\n");
     const unmasked = scan([bare, "--profile", "technical"]).results[0]
       .findings.filter((f) => f.tier === "A");
     check("the same phrase unquoted still fires, so the guard is masking not blindness",

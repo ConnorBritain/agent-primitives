@@ -21,10 +21,12 @@
 import { readFileSync, existsSync, statSync } from "node:fs";
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
+import { execFileSync } from "node:child_process";
 
 import { maskNonProse, normaliseApostrophes, paragraphs, words } from "./lib/text.mjs";
 import { scanCatalog, scanFormatting } from "./lib/scan.mjs";
 import { cadenceMetrics } from "./lib/cadence.mjs";
+import { counterEvidence, resolveAge, readingOverride } from "./lib/counter-evidence.mjs";
 import {
   loadConfig, loadProfile, profileSearchPath, resolveProfile, listProfiles, BASE_PROFILE,
 } from "./lib/profile.mjs";
@@ -100,6 +102,50 @@ function parseArgs(argv) {
 }
 
 /** Phase 0 + Phase 1 for a single document. */
+
+/**
+ * Where a document's date can come from, cheapest first.
+ *
+ * Git is asked for the commit that ADDED the file, not the last one that touched
+ * it: a reformatting commit in 2026 says nothing about when the prose was
+ * written. Failures are silent by design — not being in a repository is normal,
+ * and a scanner that errored on it would be useless outside one.
+ */
+function fileAge(file, raw) {
+  // Isolate the frontmatter block FIRST, then look inside it. The original
+  // pattern only anchored on the opening `---` and never required the date to
+  // appear before the closing one, so an ordinary body sentence — "the filing
+  // date: 2015-06-01 was noted" — was read as frontmatter and, at the time,
+  // silenced the whole reading. Non-adversarial prose defeating the tool's one
+  // dispositive mechanism.
+  const block = raw.match(/^---\n([\s\S]*?)\n---(?:\n|$)/);
+  const fm = block ? block[1].match(/^\s*date:\s*["']?(\d{4}-\d{2}-\d{2})/m) : null;
+  let gitFirstSeen = null;
+  try {
+    const out = execFileSync(
+      // Absolute pathspec. `cwd` is the file's own directory, so a relative one
+      // resolves against it and git silently matches nothing — returning empty
+      // rather than erroring, which is indistinguishable from "not tracked".
+      "git", ["log", "--diff-filter=A", "--follow", "--format=%aI", "--", resolve(file)],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "ignore"], cwd: dirname(resolve(file)) },
+    ).trim().split("\n").filter(Boolean).pop();
+    if (out) gitFirstSeen = out.slice(0, 10);
+  } catch (err) {
+    // Only swallow the failures that are NORMAL: no repository, no git binary,
+    // a file git does not track. A broad `catch {}` here previously hid a
+    // ReferenceError — `execFileSync` was never imported — so the git path threw
+    // on every call for the whole life of the feature and silently degraded to
+    // the weaker sources. The bug was invisible precisely because the catch was
+    // doing its job too well. Anything that is not an expected environment
+    // failure now propagates.
+    const expected = err?.code === "ENOENT" || typeof err?.status === "number";
+    if (!expected) throw err;
+  }
+  let mtime = null;
+  try { mtime = statSync(file).mtime.toISOString().slice(0, 10); } catch { /* ignore */ }
+  return { frontmatterDate: fm?.[1] ?? null, gitFirstSeen, mtime };
+}
+
 function analyse(file, opts, config, searchPath) {
   const raw = readFileSync(file, "utf8");
 
@@ -144,6 +190,24 @@ function analyse(file, opts, config, searchPath) {
   const fit = profileFit(cadence, profile.thresholds);
   const summary = summarise({ findings, cadenceChecks, thresholds: profile.thresholds, wordCount });
 
+  // The other half of the source page: signs of HUMAN writing. Never netted
+  // against the findings above — see lib/counter-evidence.mjs for why that rule
+  // is absolute, and for the measurements that decided which metrics ship.
+  // `--artifacts-only` promises in its own help text to skip every style
+  // judgement, and the syntax rates are style. Age is not — it is provenance, a
+  // fact about the file rather than an opinion about the prose — so it stays.
+  const counter = counterEvidence(
+    text, wordCount, resolveAge(fileAge(file, raw)), { syntax: !opts.artifactsOnly },
+  );
+  const override = readingOverride(counter);
+  if (override) {
+    // Provable age outranks every style observation. A 2019 document with
+    // elevated `delve` density has an interesting vocabulary, not a provenance
+    // problem, and the reading should not imply otherwise.
+    summary.reading = `${override} ${summary.reading}`;
+    summary.dispositive_counter_evidence = true;
+  }
+
   return {
     file,
     profile: {
@@ -167,6 +231,7 @@ function analyse(file, opts, config, searchPath) {
       disabled_categories: profile.catalog.disabled_categories || [],
     },
     summary, findings, suppressed, cadence, cadenceChecks, formatting, fit, masked,
+    counter_evidence: counter,
     markdown: isMarkdown,
   };
 }
