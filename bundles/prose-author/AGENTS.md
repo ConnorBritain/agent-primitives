@@ -48,9 +48,12 @@ read it.
 
 ## Before you call a change here done
 
-- `node tests/selftest.mjs` — and run the **negative** test: break the guard you
-  changed, confirm a test fails, restore. A guard with no failing mutation is
-  decoration. Put both results in the PR.
+- `node tests/selftest.mjs`, then **`node tests/mutations.mjs`** — which applies
+  every documented mutation, measures, restores, and fails if
+  [`tests/MUTATIONS.md`](tests/MUTATIONS.md) disagrees with the run. If you added
+  a guard, add its mutation; a guard with no failing mutation is decoration, and
+  a mutation scoring 0 is reported as a missing test rather than a passing row.
+  Do not hand-edit the table — `--update` regenerates it. Put the output in the PR.
 - If you touched anything under `skills/`, exercise every refusal path by hand:
   no corpus, uncalibrated profile, Tier A artifact, missing sibling scanner. Show
   the output.

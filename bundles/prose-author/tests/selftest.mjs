@@ -14,7 +14,7 @@ import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import {
-  selectExemplars, renderExemplars, attested, CORPUS_MINIMUM, CAP_CLAMP, DEFAULT_CAP, MIN_SAMPLE_WORDS,
+  selectExemplars, renderExemplars, attested, CORPUS_MINIMUM, CAP_CLAMP, DEFAULT_CAP, MIN_SAMPLE_WORDS, TEXT_EXT,
 } from "../skills/prose-draft/tools/exemplars.mjs";
 import {
   verifyDraft, renderVerification, findScanner, firstExisting, scannerCandidates, SCANNER_ENV,
@@ -241,7 +241,7 @@ try {
       check("contract test skipped — prose-tell-scan genuinely absent", true);
     } else {
       // Every symbol the port depends on. A missing one is drift, not absence.
-      const required = ["readProvenance", "corpusFiles", "MIN_SAMPLE_WORDS"];
+      const required = ["readProvenance", "corpusFiles", "MIN_SAMPLE_WORDS", "TEXT_EXT"];
       const missing = required.filter((k) => sibling[k] === undefined);
       check(
         `calibrate.mjs still exports what the port is pinned to (${required.join(", ")})`,
@@ -285,7 +285,11 @@ try {
         const shared = join(tmp, "shared-walk", "corpus", "human");
         mkdirSync(join(shared, "newsletter"), { recursive: true });
         const body = `---\nsource: s\ndate: 2021-01-01\nhuman_authored: true\n---\n${"word ".repeat(400)}\n`;
-        for (const f of ["README.md", "readme.txt", "real.txt"]) writeFileSync(join(shared, f), body);
+        // Every extension both sides claim to accept, so a set that drifts on
+        // one side shows up as a file the other never sees.
+        for (const f of ["README.md", "readme.txt", "real.txt", "essay.markdown", "notes.mdx"]) {
+          writeFileSync(join(shared, f), body);
+        }
         writeFileSync(join(shared, "newsletter", "grouped.txt"), body);
 
         const theirs = sibling.corpusFiles(shared).map((e) => e.path.split("/").pop()).sort();
@@ -297,6 +301,11 @@ try {
           `theirs ${JSON.stringify(theirs)} vs ours ${JSON.stringify(ours)}`,
         );
         check("and both reach into named groups", theirs.includes("grouped.txt"));
+        check(
+          "the ported extension set equals calibrate.mjs's",
+          JSON.stringify([...TEXT_EXT].sort()) === JSON.stringify([...sibling.TEXT_EXT].sort()),
+          `ours ${[...TEXT_EXT].sort()} vs theirs ${[...sibling.TEXT_EXT].sort()}`,
+        );
       }
     }
   }

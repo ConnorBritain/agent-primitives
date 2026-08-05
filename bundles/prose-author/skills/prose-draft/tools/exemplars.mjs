@@ -102,7 +102,17 @@ export const CAP_CLAMP = 0.5;
 
 /** README files are scaffolding, never samples. Matches calibrate.mjs. */
 const isReadme = (name) => /^readme\b/i.test(name);
-const isText = (name) => name.endsWith(".txt") || name.endsWith(".md");
+
+/**
+ * Ported from calibrate.mjs's TEXT_EXT and pinned against it by the contract
+ * test. An earlier version listed only .txt and .md, so a .markdown or .mdx
+ * sample was measured by calibration and invisible to drafting - the two sides
+ * silently disagreeing about what the corpus contains, which is the one failure
+ * a port must not have. Latent rather than live, since no shipped profile used
+ * those extensions, and found by a reviewer rather than by the test.
+ */
+export const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".mdx"]);
+const isText = (name) => TEXT_EXT.has(name.slice(name.lastIndexOf(".")).toLowerCase());
 
 function readSamples(dir, { requireAttestation }) {
   if (!existsSync(dir) || !statSync(dir).isDirectory()) return { usable: [], excluded: [] };

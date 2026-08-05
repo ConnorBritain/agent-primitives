@@ -37,7 +37,13 @@ import {
 import { CORPUS_MINIMUM, CORPUS_THIN, corpusConfidence } from "./lib/evaluate.mjs";
 
 const SKILL_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".mdx"]);
+/**
+ * Exported for the same reason as MIN_SAMPLE_WORDS: prose-author ports the file
+ * walk and needs something to be pinned against. A corpus sample this set
+ * accepts and the port does not is a file calibration measures and drafting
+ * never sees - the two disagreeing about what the corpus contains.
+ */
+export const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".mdx"]);
 
 /**
  * Below this, a sample is too short to say anything about a rhythm.
