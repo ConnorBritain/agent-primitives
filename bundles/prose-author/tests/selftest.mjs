@@ -245,7 +245,7 @@ try {
       check("contract test skipped — prose-tell-scan genuinely absent", true);
     } else {
       // Every symbol the port depends on. A missing one is drift, not absence.
-      const required = ["readProvenance", "corpusFiles", "MIN_SAMPLE_WORDS", "TEXT_EXT"];
+      const required = ["readProvenance", "corpusFiles", "MIN_SAMPLE_WORDS", "TEXT_EXT", "DEFAULT_CAP", "CAP_CLAMP"];
       const missing = required.filter((k) => sibling[k] === undefined);
       check(
         `calibrate.mjs still exports what the port is pinned to (${required.join(", ")})`,
@@ -310,6 +310,19 @@ try {
           JSON.stringify([...TEXT_EXT].sort()) === JSON.stringify([...sibling.TEXT_EXT].sort()),
           `ours ${[...TEXT_EXT].sort()} vs theirs ${[...sibling.TEXT_EXT].sort()}`,
         );
+
+        // The cap rule now lives in TWO places - here (for exemplar selection)
+        // and in calibrate.mjs (for blended-band computation). Both READ the
+        // same corpus/approved/ files and must agree on how many they let in
+        // and how they scale the ones they do. A drift here would mean:
+        // exemplar selection accepts a sample that calibration ignores, or
+        // vice versa. Pin both defaults against calibrate.mjs.
+        check("the ported cap default equals calibrate.mjs's",
+          DEFAULT_CAP === sibling.DEFAULT_CAP,
+          `ours ${DEFAULT_CAP}, theirs ${sibling.DEFAULT_CAP}`);
+        check("the ported cap clamp equals calibrate.mjs's",
+          CAP_CLAMP === sibling.CAP_CLAMP,
+          `ours ${CAP_CLAMP}, theirs ${sibling.CAP_CLAMP}`);
       }
     }
   }

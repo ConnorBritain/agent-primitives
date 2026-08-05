@@ -158,10 +158,10 @@ calibration will widen the band that flagged it.
   cadence bands from here. Slots are `floor(n × cap)`, so at `--n 3` no
   approved sample is selected at all — the cap is a ceiling, not a quota. The
   tool reports this rather than leaving it implicit.
-- **`calibrate.mjs` does not yet blend `corpus/approved/` into bands.** The
-  read side (exemplar selection) works; the sibling bundle's blend + report
-  work is still to do. Ingest is safe today because nothing you record can
-  silently move a threshold — but nothing you record tightens one yet either.
+- **`calibrate.mjs` blends `corpus/approved/` into catalog bands** under the
+  cap. Human-only and blended ceilings both ship in `thresholds.derived.json`;
+  cadence bands stay human-only, always. A narrowed blended ceiling raises a
+  warning at calibration time.
 - **Verification needs `prose-tell-scan`.** It is resolved from a loose-file
   install, a plugin install, or `TELL_SCAN_PATH`. If it cannot be found,
   `verify.mjs` says the draft was **not scanned** and lists where it looked —

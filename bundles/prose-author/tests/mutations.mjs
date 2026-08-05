@@ -37,6 +37,7 @@ const BUNDLE = resolve(HERE, "..");
 const SIBLING = resolve(BUNDLE, "..", "prose-tell-scan", "skills", "tell-scan", "tools");
 const TOOLS = join(BUNDLE, "skills", "prose-draft", "tools");
 const TABLE = join(HERE, "MUTATIONS.md");
+const SIBLING_SUITE = join(SIBLING, "..", "..", "..", "tests", "selftest.mjs");
 
 const EXEMPLARS = join(TOOLS, "exemplars.mjs");
 const VERIFY = join(TOOLS, "verify.mjs");
@@ -141,6 +142,22 @@ export const MUTATIONS = [
     guards: "the frontmatter never claims an unknown model that would pollute filtering",
   },
   {
+    name: "let calibrate skip the aggregate cap on approved samples",
+    file: CALIBRATE,
+    find: "  const scale = Math.min(1, maxScale);",
+    with: "  const scale = 1;",
+        suite: "sibling",
+    guards: "approved samples cannot dominate the blended pool past the cap",
+  },
+  {
+    name: "let calibrate blend approved samples below the human floor",
+    file: CALIBRATE,
+    find: "  if (humanCount < CORPUS_MINIMUM) {",
+    with: "  if (false) {",
+        suite: "sibling",
+    guards: "cold-start cannot calibrate against model norms on day one",
+  },
+  {
     name: "trust edit_fraction as a signed number rather than computing it",
     file: INGEST,
     find: "  const lcs = lcsLength(a, b);\n  return round((b.length - lcs) / b.length, 4);",
@@ -149,9 +166,9 @@ export const MUTATIONS = [
   },
 ];
 
-function runSuite() {
+function runSuite(suitePath = join(HERE, "selftest.mjs")) {
   try {
-    const out = execFileSync("node", [join(HERE, "selftest.mjs")], {
+    const out = execFileSync("node", [suitePath], {
       encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
     });
     return parse(out);
@@ -181,21 +198,31 @@ function apply(mut) {
 }
 
 export function runAll() {
-  const baseline = runSuite();
-  if (baseline.crashed) throw new Error("baseline suite did not finish");
-  if (baseline.failed !== 0) throw new Error(`baseline is not green: ${baseline.failed} failed`);
+  // Both suites must start green so a mutation's failure count is meaningful.
+  for (const suite of [join(HERE, "selftest.mjs"), SIBLING_SUITE]) {
+    const b = runSuite(suite);
+    if (b.crashed) throw new Error(`baseline suite did not finish: ${suite}`);
+    if (b.failed !== 0) throw new Error(`baseline is not green in ${suite}: ${b.failed} failed`);
+  }
 
   const results = [];
   for (const mut of MUTATIONS) {
+    // Each mutation names which suite covers it. A mutation in calibrate.mjs
+    // affects prose-tell-scan\'s suite, not this one - running the wrong suite
+    // would silently score 0, which is exactly the "no failing mutation" trap
+    // this file exists to prevent.
+    const suite = mut.suite === "sibling" ? SIBLING_SUITE : join(HERE, "selftest.mjs");
     const restore = apply(mut);
     try {
-      results.push({ ...mut, ...runSuite() });
+      results.push({ ...mut, ...runSuite(suite) });
     } finally {
       restore();
     }
   }
-  const after = runSuite();
-  if (after.failed !== 0) throw new Error("suite not restored after mutations");
+  for (const suite of [join(HERE, "selftest.mjs"), SIBLING_SUITE]) {
+    const after = runSuite(suite);
+    if (after.failed !== 0) throw new Error(`suite not restored: ${suite}`);
+  }
   return results;
 }
 

@@ -111,12 +111,13 @@ check, not a pass.
   locks are v0.2 / v0.4. Edit ingestion (v0.3) ships now, out of order, because
   it needs nothing this bundle does not already have and is what makes a corpus
   grow usefully rather than stay static. See [`DESIGN.md`](DESIGN.md).
-- **`calibrate.mjs` does not yet read `corpus/approved/`.** Ingested samples
-  feed exemplar selection (via `exemplars.mjs`), but do not yet influence
-  cadence or density bands. `PROFILES.md` rules 2 and 5 describe the intended
-  weighting; that half is next work in the sibling bundle, not this one. So
-  ingesting is safe today — nothing you record can silently move a threshold
-  — but it also does not tighten any threshold yet either.
+- **`calibrate.mjs` now blends `corpus/approved/` into catalog bands** under
+  the same cap `exemplars.mjs` uses. Both human-only and blended ceilings ship
+  side by side in `thresholds.derived.json` (`PROFILES.md` rules 2 and 5), and
+  a narrowing of any ceiling beyond 20% raises a warning. **Cadence bands
+  never see approved samples** — that firewall is absolute (rule 3), because a
+  generation whose rhythm was right was right *because* it matched the human
+  corpus that set the band. Verified in prose-tell-scan's test suite.
 - **`corpus/approved/` is written by `tools/ingest-edit.mjs`.** Given an
   edited draft and the original the drafter produced, it computes
   `edit_fraction` from a word-level LCS diff and writes the pair — the edit

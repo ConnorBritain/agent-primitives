@@ -1556,6 +1556,152 @@ try {
     check("and explains that there is no 'you' to compare against", /no calibrated corpus/.test(stderr));
   }
 
+
+  /* ------------------------------------------------------------------ */
+  group("Blend — approved samples influence catalog bands under the cap");
+
+  {
+    const root = join(tmp, "blend-real");
+    const profile = join(root, "profiles", "essay");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), JSON.stringify({
+      version: "test", entries: [
+        { id: "lake", label: "lake", kind: "lexical", category: "test",
+          severity: 2, confidence: "high", pattern: "\\blake\\b" },
+      ],
+    }));
+    for (let i = 1; i <= 12; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${(i % 9) + 1}\nhuman_authored: true\n---\n`
+        + `${"The lake was calm this morning and the birds sat still. ".repeat(20)}\n`,
+      );
+    }
+    const origPath = join(root, "orig.txt");
+    const editPath = join(root, "edit.txt");
+    writeFileSync(origPath, "The lake was calm this morning. Fog sat on the water and did not move. ".repeat(30));
+    writeFileSync(editPath, "The lake was still at dawn. Mist held above the water without stirring, and the far shore did not exist. ".repeat(20));
+    execFileSync("node", [
+      resolve(REPO, "bundles", "prose-author", "skills", "prose-draft", "tools", "ingest-edit.mjs"),
+      editPath, "--original", origPath, "--profile", "essay",
+      "--profiles-dir", join(root, "profiles"), "--project", root,
+    ], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+
+    const human = calibrate(["essay", "--profiles-dir", join(root, "profiles"), "--project", root]).derived;
+    // A hard cap much smaller than what the sample would occupy naturally.
+    const capped = calibrate(["essay", "--profiles-dir", join(root, "profiles"),
+      "--project", root, "--cap", "0.02"]).derived;
+
+    // Rule 2: cap constrains the SHARE of the blended pool. If the raw sample
+    // would occupy more than the cap, it must be scaled DOWN. Silent
+    // acceptance here would let approved dominate the pool despite the config.
+    check("an approved sample participates when there is enough human corpus",
+      human.approved.samples_used === 1);
+    check("share tracks the cap when it binds",
+      Math.abs(capped.approved.share_of_blended_pool - 0.02) < 1e-3);
+    check("the scale is <1 when the cap binds", capped.approved.scale < 1);
+    check("and =1 when it does not", human.approved.capped === false);
+
+    // Rule 5: BOTH bands ship, every run. A consumer reads both with eyes open;
+    // drift between them is visible. If either goes null when the other exists
+    // and the corpus is calibrated, the whole side-by-side promise is broken.
+    check("human catalog_density is present", human.catalog_density.medium !== undefined);
+    check("blended catalog_density is present when approved contributes",
+      human.catalog_density_blended && human.catalog_density_blended.medium !== undefined);
+
+    // Rule 3, THE FIREWALL: cadence is untouched by blending. Verified by
+    // measuring the exact same metric before adding approved (via --cap 0 gives
+    // a scale of 0, effectively) and comparing.
+    const capZero = calibrate(["essay", "--profiles-dir", join(root, "profiles"),
+      "--project", root, "--cap", "0"]).derived;
+    // A cap of 0 means share = 0 by construction. Cadence bands must not
+    // differ between cap=0 and cap=0.2 EVER - they read only human samples.
+    check("cadence bands are identical across cap values (cadence firewall)",
+      JSON.stringify(capZero.metrics) === JSON.stringify(human.metrics));
+
+    // Absurd cap gets clamped BELOW 0.5. The clamp lives in code, not config.
+    const clamped = calibrate(["essay", "--profiles-dir", join(root, "profiles"),
+      "--project", root, "--cap", "0.99"]).derived;
+    check("a config cap above CAP_CLAMP is clamped, not honoured",
+      clamped.approved.cap_applied < 0.5);
+
+    // The reproducibility promise: from the checked-in samples + the reported
+    // scale, ANY reader can reproduce the applied_weighted_words. If this drifts
+    // the "auditable" claim in the docs is a lie.
+    const expected = human.approved.samples.reduce(
+      (a, s) => a + s.edit_fraction * human.approved.scale
+        * (human.approved.raw_weighted_words / human.approved.samples.reduce(
+          (a2, s2) => a2 + s2.edit_fraction * s2.words, 0) === 0
+          ? 0 : s.words * (human.approved.raw_weighted_words / human.approved.samples.reduce(
+            (a2, s2) => a2 + s2.edit_fraction * s2.words, 0))),
+      0,
+    );
+    void expected;  // The direct check below is cleaner.
+    const recomputedApplied = human.approved.samples
+      .reduce((a, s) => a + s.applied_weight * s.words, 0);
+    check("applied weight is reproducible from the recorded fields",
+      Math.abs(recomputedApplied - human.approved.applied_weighted_words) < 1);
+  }
+
+  {
+    // Cold start (RULE 4): below CORPUS_MINIMUM, approved contributes zero and
+    // says so. Otherwise the cold-start path is: fill approved/ with model
+    // output, calibrate against model norms on day one, never find out.
+    const root = join(tmp, "blend-cold");
+    const profile = join(root, "profiles", "essay");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    mkdirSync(join(profile, "corpus", "approved"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), '{"version":"t","entries":[]}\n');
+    for (let i = 1; i <= 5; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${i}\nhuman_authored: true\n---\n${"word ".repeat(400)}\n`,
+      );
+    }
+    writeFileSync(
+      join(profile, "corpus", "approved", "a1.txt"),
+      `---\nsource: d\ndate: 2026-01-01\nhuman_authored: false\nedit_fraction: 0.8\n---\n${"word ".repeat(400)}\n`,
+    );
+    const r = calibrate(["essay", "--profiles-dir", join(root, "profiles"), "--project", root]).derived;
+    check("below the human floor, approved samples DO NOT count",
+      r.approved.samples_used === 0 && r.approved.suppressed === true);
+    check("and the suppression reason names the floor",
+      /before approved.* counts/.test(r.approved.suppression_reason || ""));
+  }
+
+  {
+    // Malformed approved samples are excluded, not defaulted. Rule 1: ef is
+    // computed by ingest, so a missing/bad value means something bypassed
+    // ingest - that file is not evidence and does not get a placeholder weight.
+    const root = join(tmp, "blend-malformed");
+    const profile = join(root, "profiles", "essay");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    mkdirSync(join(profile, "corpus", "approved"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), '{"version":"t","entries":[]}\n');
+    for (let i = 1; i <= 12; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${(i % 9) + 1}\nhuman_authored: true\n---\n${"word ".repeat(400)}\n`,
+      );
+    }
+    // No edit_fraction at all
+    writeFileSync(
+      join(profile, "corpus", "approved", "no-ef.txt"),
+      `---\nsource: d\ndate: 2026-01-01\nhuman_authored: false\n---\n${"word ".repeat(400)}\n`,
+    );
+    // Out-of-range edit_fraction
+    writeFileSync(
+      join(profile, "corpus", "approved", "out-of-range.txt"),
+      `---\nsource: d\ndate: 2026-01-01\nhuman_authored: false\nedit_fraction: 1.5\n---\n${"word ".repeat(400)}\n`,
+    );
+    const r = calibrate(["essay", "--profiles-dir", join(root, "profiles"), "--project", root]).derived;
+    check("malformed approved samples are excluded", r.approved.samples_used === 0);
+    check("and the exclusion lists what and why", r.approved.excluded.length === 2);
+  }
+
 } finally {
   rmSync(tmp, { recursive: true, force: true });
 }

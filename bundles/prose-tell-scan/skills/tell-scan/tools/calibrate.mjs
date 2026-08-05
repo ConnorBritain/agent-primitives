@@ -55,6 +55,19 @@ export const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".mdx"]);
  */
 export const MIN_SAMPLE_WORDS = 200;
 
+/**
+ * Approved-corpus cap defaults, exported for the same reason as MIN_SAMPLE_WORDS
+ * and enforced identically in both bundles.
+ *
+ * `DEFAULT_CAP` is the fraction of the blended pool that approved samples may
+ * occupy before their weights get scaled down. `CAP_CLAMP` is the hard ceiling
+ * on any requested cap - a corpus where the model is the majority voice is not
+ * a setting anyone means to choose, so it cannot be expressed. Config file
+ * cannot argue with a number in the source.
+ */
+export const DEFAULT_CAP = 0.2;
+export const CAP_CLAMP = 0.5;
+
 const USAGE = `
 calibrate — derive register thresholds from a profile's human corpus
 
@@ -159,11 +172,44 @@ export function corpusGroups(dir) {
     .sort();
 }
 
-/** Measure one corpus sample the same way tell-scan measures a draft. */
-function measure(path, profile) {
+/**
+ * Read `edit_fraction` from a frontmatter block. Returns null for anything the
+ * value cannot honestly be trusted to describe: no block, no field, unparseable
+ * number, out of [0,1]. Called by measureApproved BEFORE any counting so a
+ * malformed sample never enters the pool with weight 1 by default.
+ *
+ * The strict reading is deliberate. PROFILES.md rule 1 says the number is
+ * COMPUTED by ingest, never written by hand - so a missing or malformed value is
+ * evidence something bypassed ingest, and that sample is not evidence about a
+ * person. Exclude rather than salvage.
+ */
+export function readEditFraction(text) {
+  const m = text.match(/^---\n([\s\S]*?)\n---(?:\n|$)/);
+  if (!m) return null;
+  const hit = m[1].match(/^\s*edit_fraction\s*:\s*([0-9.]+)\s*$/m);
+  if (!hit) return null;
+  const n = Number.parseFloat(hit[1]);
+  if (!Number.isFinite(n) || n < 0 || n > 1) return null;
+  return n;
+}
+
+/**
+ * Measure one corpus sample the same way tell-scan measures a draft.
+ *
+ * `checkProvenance` defaults true because the human corpus MUST attest -
+ * missing the check is how AI-assisted drafts silently become the definition of
+ * "human". Approved samples require a DIFFERENT frontmatter (human_authored:
+ * false + edit_fraction), so the caller checks that separately and passes false
+ * here to skip the human-attestation gate.
+ */
+function measure(path, profile, { checkProvenance = true } = {}) {
   const raw = readFileSync(path, "utf8");
-  const prov = readProvenance(raw);
-  if (!prov.ok) return { path, excluded: prov.reason };
+  let prov = { source: null, date: null };
+  if (checkProvenance) {
+    const p = readProvenance(raw);
+    if (!p.ok) return { path, excluded: p.reason };
+    prov = p;
+  }
 
   const markdown = extname(path).toLowerCase() !== ".txt";
   const { text } = maskNonProse(raw, { markdown });
@@ -198,6 +244,89 @@ function measure(path, profile) {
       id: f.id, severity: f.severity, per_1k: f.per_1k, count: f.count,
     })),
     aggregate,
+  };
+}
+
+/**
+ * Read the approved corpus if there is one, and if the human corpus is large
+ * enough to bootstrap it.
+ *
+ * RULE 4 (PROFILES.md, absolute): below CORPUS_MINIMUM human samples, approved
+ * contributes ZERO no matter how many there are. The cold-start path this
+ * blocks is: fill approved/ with model output, calibrate against model norms on
+ * day one, never notice.
+ *
+ * SAMPLES WITHOUT `edit_fraction` ARE EXCLUDED, not defaulted. A missing number
+ * where the schema demands a computed one is evidence something bypassed
+ * ingest; giving that sample weight 1 or weight 0.5 would be inventing data.
+ *
+ * Return shape mirrors human samples so bandsFrom can process both uniformly,
+ * plus `edit_fraction` on each entry for weighting.
+ */
+function readApproved(dir, profile, humanCount) {
+  const out = { samples: [], excluded: [], suppressed: false };
+  const approvedDir = join(dir, "corpus", "approved");
+  if (!existsSync(approvedDir)) return out;
+
+  if (humanCount < CORPUS_MINIMUM) {
+    // The suppression itself is loud: the caller reports it. Silence here would
+    // let a user fill approved/ during cold start and never see why nothing
+    // changed.
+    out.suppressed = true;
+    out.reason = `human corpus has ${humanCount} samples; ${CORPUS_MINIMUM} needed before approved/ counts`;
+    return out;
+  }
+
+  for (const entry of corpusFiles(approvedDir)) {
+    const raw = readFileSync(entry.path, "utf8");
+    const ef = readEditFraction(raw);
+    if (ef === null) {
+      out.excluded.push({ path: entry.path, reason: "missing or malformed edit_fraction" });
+      continue;
+    }
+    // Provenance was checked above (edit_fraction present + in range). Skip the
+    // human-attestation gate: approved samples are human_authored: false by
+    // definition, and the strict check would exclude every one of them.
+    const m = measure(entry.path, profile, { checkProvenance: false });
+    if (m.excluded) { out.excluded.push({ path: entry.path, reason: m.excluded }); continue; }
+    out.samples.push({ ...m, group: entry.group, edit_fraction: ef });
+  }
+  return out;
+}
+
+/**
+ * Apply the aggregate cap and return per-sample applied weights.
+ *
+ * Raw weight per sample is edit_fraction (rule 2, PROFILES.md). We measure
+ * INFLUENCE as weighted word share of the blended pool, and the cap constrains
+ * that share:
+ *
+ *   Σ(w × words) / (human_words + Σ(w × words))  ≤  cap
+ *
+ * If the raw weights already satisfy that, they pass through unchanged. If not,
+ * every approved weight scales down by a single common factor:
+ *
+ *   scale = cap × human_words / ( (1 - cap) × Σ(ef × words) )
+ *
+ * derived by setting the inequality to equality and solving. A single common
+ * factor rather than per-sample tuning: rule 2 asks for proportional scaling,
+ * not for redistributing influence among approved samples.
+ */
+function capApproved({ samples, humanWords, cap }) {
+  const capped = Math.min(Math.max(cap, 0), CAP_CLAMP - Number.EPSILON);
+  const raw = samples.reduce((a, s) => a + s.edit_fraction * s.words, 0);
+  if (raw === 0 || humanWords === 0) {
+    return { scale: 1, cap_applied: capped, capped: false, share: 0 };
+  }
+  // Solve inequality raw × scale / (H + raw × scale) ≤ cap. Threshold scale.
+  const maxScale = (capped * humanWords) / ((1 - capped) * raw);
+  const scale = Math.min(1, maxScale);
+  const applied = raw * scale;
+  return {
+    scale,
+    cap_applied: capped,
+    capped: scale < 1,
+    share: applied / (humanWords + applied),
   };
 }
 
@@ -277,6 +406,80 @@ function bandsFrom(samples) {
   }
 
   return { metrics, catalog_density, aggregate_density, entry_rates, pooled_words: totalWords };
+}
+
+/**
+ * Catalog density on the BLENDED pool (rule 3: cadence bands are human-only, no
+ * exception).
+ *
+ * Each approved sample contributes `applied_weight × count` to entry counts and
+ * `applied_weight × words` to total words. That is linear scaling of both sides
+ * of the per-1k rate, giving each sample less influence on the pooled ceiling
+ * than a human sample of the same length - which is what "one you rewrote two
+ * thirds of contributes about two thirds of a human sample" means.
+ *
+ * WHY THE CADENCE FIREWALL. A generation's rhythm was right when it matched the
+ * human corpus that set the band. Including it lets a good generation confirm
+ * the ceiling that judged it good, tightening the band around a self-referential
+ * fixed point. The catalog side does not have this problem in the same shape -
+ * a construction is either present or absent, and blending changes rates not
+ * variance.
+ */
+function blendedDensity(humanSamples, approved, weights) {
+  const humanWords = humanSamples.reduce((a, s) => a + s.words, 0);
+  const approvedWords = approved.reduce((a, s) => a + s.edit_fraction * weights.scale * s.words, 0);
+  const totalWords = humanWords + approvedWords || 1;
+
+  const pooled = new Map();
+  for (const s of humanSamples) {
+    for (const e of s.entries) {
+      const prev = pooled.get(e.id) || { severity: e.severity, count: 0 };
+      prev.count += e.count;
+      pooled.set(e.id, prev);
+    }
+  }
+  for (const s of approved) {
+    const w = s.edit_fraction * weights.scale;
+    for (const e of s.entries) {
+      const prev = pooled.get(e.id) || { severity: e.severity, count: 0 };
+      prev.count += w * e.count;
+      pooled.set(e.id, prev);
+    }
+  }
+
+  const density = {};
+  for (const [sev, label] of [[3, "high"], [2, "medium"], [1, "low"]]) {
+    const rates = [...pooled.values()]
+      .filter((e) => e.severity === sev)
+      .map((e) => round((e.count * 1000) / totalWords))
+      .sort((a, b) => a - b);
+    if (rates.length) density[label] = round(percentile(rates, 90));
+  }
+  return { density, blended_words: totalWords };
+}
+
+/**
+ * A blended ceiling that narrows the human one meaningfully is a warning, not
+ * a footnote (PROFILES.md rule 5). "Meaningfully" is 20% - loose enough to
+ * ignore rounding, tight enough that a real narrowing shows up before the
+ * bands start passing prose the human corpus would have caught.
+ *
+ * The direction that matters is narrowing, not widening: widening bands are
+ * more permissive and cannot mask a real problem. Narrowing bands can.
+ */
+function narrowingWarning(human, blended) {
+  const changes = [];
+  for (const label of ["high", "medium", "low"]) {
+    const h = human[label];
+    const b = blended[label];
+    if (typeof h !== "number" || typeof b !== "number" || h === 0) continue;
+    if (b < 0.8 * h) {
+      changes.push(`${label} ${h} -> ${b} (${Math.round(100 * (1 - b / h))}% tighter)`);
+    }
+  }
+  if (!changes.length) return null;
+  return `blending approved/ narrowed catalog-density ceilings: ${changes.join("; ")}. `
+    + "This is the shape of voice collapse. Check whether the approved samples are near-verbatim generations rather than genuinely edited ones - if they are, they belong out of the pool, not weighted down.";
 }
 
 /**
@@ -376,7 +579,7 @@ function detectClusters(samples, metricKey = "mean_len") {
 
 const round = (n) => Math.round(n * 1000) / 1000;
 
-function calibrate(name, searchPath, { write, group = null }) {
+function calibrate(name, searchPath, { write, group = null, cap = DEFAULT_CAP }) {
   const dir = findProfileDir(name, searchPath);
   if (!dir) return { profile: name, error: `profile "${name}" not found` };
 
@@ -414,6 +617,16 @@ function calibrate(name, searchPath, { write, group = null }) {
   // Only meaningful when pooling. Asking whether ONE named group is internally
   // multimodal is a different and much weaker question.
   result.clusters = group ? null : detectClusters(usable);
+
+  // BLENDED PASS. Approved samples participate only when there is enough human
+  // corpus to bootstrap them, only in catalog density (never cadence), and only
+  // under the aggregate cap. Both bands ship - user reads both, always.
+  const approved = group ? { samples: [], excluded: [], suppressed: false } : readApproved(dir, profile, usable.length);
+  const weights = capApproved({ samples: approved.samples, humanWords: pooled_words, cap });
+  const blend = approved.samples.length > 0
+    ? blendedDensity(usable, approved.samples, weights)
+    : null;
+  const blendedWarning = blend ? narrowingWarning(catalog_density, blend.density) : null;
   const derived = {
     profile: name,
     derived_from: usable.length,
@@ -433,8 +646,37 @@ function calibrate(name, searchPath, { write, group = null }) {
     corpus: usable.map((s) => ({ file: s.path.split("/").pop(), words: s.words, source: s.source, date: s.date })),
     metrics,
     catalog_density,
+    // Human-only and blended reported SIDE BY SIDE. A consumer picks which one
+    // to use with eyes open, and drift between them is visible.
+    catalog_density_blended: blend ? blend.density : null,
     aggregate_density,
     entry_rates,
+    // The approved half, recorded for auditability. `raw_weighted_words` is
+    // Σ(ef × words) before capping; `applied_weighted_words` after. Their ratio
+    // is the scale. Reader can reproduce every number in `catalog_density_blended`
+    // from these plus the samples list.
+    approved: {
+      samples_used: approved.samples.length,
+      suppressed: approved.suppressed,
+      suppression_reason: approved.reason || null,
+      excluded: approved.excluded.map((e) => ({ file: e.path.split("/").pop(), reason: e.reason })),
+      cap_requested: cap,
+      cap_applied: weights.cap_applied,
+      cap_clamp: CAP_CLAMP,
+      capped: weights.capped,
+      scale: round(weights.scale),
+      share_of_blended_pool: round(weights.share),
+      raw_weighted_words: round(approved.samples.reduce((a, s) => a + s.edit_fraction * s.words, 0)),
+      applied_weighted_words: round(approved.samples.reduce((a, s) => a + s.edit_fraction * weights.scale * s.words, 0)),
+      blended_words: blend ? blend.blended_words : null,
+      samples: approved.samples.map((s) => ({
+        file: s.path.split("/").pop(),
+        words: s.words,
+        edit_fraction: s.edit_fraction,
+        applied_weight: round(s.edit_fraction * weights.scale),
+      })),
+    },
+    blended_warning: blendedWarning,
   };
   result.derived = derived;
 
@@ -485,9 +727,34 @@ function render(r) {
     if (b) out.push(`    ${label.padEnd(28)} p10 ${b.p10}  p50 ${b.p50}  p90 ${b.p90}`);
   }
   out.push("  catalog density ceilings (per 1k words):");
+  const blended = r.derived.catalog_density_blended;
+  const approvedInfo = r.derived.approved || {};
   for (const [k, v] of Object.entries(r.derived.catalog_density)) {
-    out.push(`    ${k.padEnd(28)} ${v}`);
+    // Human column always shown; blended shown when there is one, so the reader
+    // sees both without a flag (PROFILES.md rule 5).
+    if (blended && k in blended) {
+      out.push(`    ${k.padEnd(28)} human ${String(v).padEnd(6)} blended ${blended[k]}`);
+    } else {
+      out.push(`    ${k.padEnd(28)} ${v}`);
+    }
   }
+
+  if (approvedInfo.suppressed) {
+    out.push("");
+    out.push(`  approved/ present but suppressed: ${approvedInfo.suppression_reason}`);
+  } else if (approvedInfo.samples_used > 0) {
+    out.push("");
+    const capNote = approvedInfo.capped
+      ? `applied ${(approvedInfo.share_of_blended_pool * 100).toFixed(1)}% of blended pool (cap ${approvedInfo.cap_applied}, scaled x${approvedInfo.scale})`
+      : `${(approvedInfo.share_of_blended_pool * 100).toFixed(1)}% of blended pool, under cap ${approvedInfo.cap_applied}`;
+    out.push(`  approved: ${approvedInfo.samples_used} sample(s), ${capNote}`);
+  }
+
+  if (r.derived.blended_warning) {
+    out.push("");
+    out.push(`  ⚠  ${wrapText(r.derived.blended_warning, 72, "     ")}`);
+  }
+
   out.push("");
   out.push(r.written ? `  wrote ${r.written}` : "  dry run — pass --write to save");
   return out.join("\n");
@@ -518,6 +785,7 @@ function main() {
     else if (a === "--project") opts.project = resolve(argv[++i]);
     else if (a === "--profiles-dir") opts.profilesDir = argv[++i];
     else if (a === "--group") opts.group = argv[++i];
+    else if (a === "--cap") opts.cap = Number.parseFloat(argv[++i]);
     else if (a === "-h" || a === "--help") { process.stdout.write(USAGE); return; }
     else if (a.startsWith("-")) { process.stderr.write(`unknown option: ${a}\n`); process.exit(2); }
     else opts.profiles.push(a);
@@ -534,7 +802,9 @@ function main() {
     process.exit(2);
   }
 
-  const results = names.map((n) => calibrate(n, searchPath, { write: opts.write, group: opts.group }));
+  const results = names.map((n) => calibrate(n, searchPath, {
+    write: opts.write, group: opts.group, cap: opts.cap ?? DEFAULT_CAP,
+  }));
 
   if (opts.json) {
     process.stdout.write(`${JSON.stringify({ tool: "calibrate", version: "0.1.0", results }, null, 2)}\n`);

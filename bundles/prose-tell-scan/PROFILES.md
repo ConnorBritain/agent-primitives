@@ -104,7 +104,7 @@ inherited, so a bundle-side catalog fix reaches every project without a merge.
 | `catalog.json` (bundle `_base`) | the patterns | `prose-pattern-critic` reads it to know what is *already* covered deterministically; the reviser may read it as **diagnostic input, never as a target** |
 | `corpus/human/` | `calibrate.mjs` derives bands | `prose-voice-critic` greps it for how this author writes |
 | `corpus/human/` | — | `prose-author`'s `exemplars.mjs` selects whole samples as drafting exemplars |
-| `corpus/approved/` | weight + cap at calibration (not built) | `prose-author`'s `ingest-edit.mjs` writes it; `exemplars.mjs` reads it under the cap; `calibrate.mjs` does not yet blend it into bands |
+| `corpus/approved/` | weight + cap in `calibrate.mjs`: reports human-only and blended catalog bands side by side; cadence stays human-only | `prose-author`'s `ingest-edit.mjs` writes it; `exemplars.mjs` reads it for drafting under the same cap |
 | `voice.md` | **never read** | `prose-voice-critic`'s target |
 | `profile.json` → `medium` | reported, not acted on | `prose-medium-critic` spawns only if this is set |
 

@@ -25,6 +25,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let a sub-minimum sample into approved/ | 1 | approved/ never advertises files calibration would exclude |
 | let --verify skip the recompute and trust the stored ef | 1 | --verify actually re-derives ef rather than restating what the file says |
 | reintroduce the model: unknown sentinel | 1 | the frontmatter never claims an unknown model that would pollute filtering |
+| let calibrate skip the aggregate cap on approved samples | 2 | approved samples cannot dominate the blended pool past the cap |
+| let calibrate blend approved samples below the human floor | 2 | cold-start cannot calibrate against model norms on day one |
 | trust edit_fraction as a signed number rather than computing it | 3 | edit_fraction is computed from a diff, never asserted |
 
 Baseline is 0 failed. Every mutation is applied to the real source, measured, and
