@@ -1,8 +1,19 @@
 The prose samples in this directory are NOT covered by the repository's MIT
-licence. They are essays from Project Gutenberg, reproduced under:
+licence. They come from two source families, one per subdirectory:
 
-    Public domain (works out of copyright)
-    https://www.gutenberg.org/policy/permission.html
+    gutenberg/     Public domain (works out of copyright)
+                   https://www.gutenberg.org/policy/permission.html
+                   Attribution recorded in ATTRIBUTION.json.
+
+    pluralistic/   Creative Commons Attribution 4.0 International (CC-BY 4.0)
+                   https://creativecommons.org/licenses/by/4.0/
+                   Cory Doctorow's stated license on every post at pluralistic.net.
+                   Attribution recorded in ATTRIBUTION.modern.json.
+
+Each subdirectory has its own attribution file. Redistribution must carry the
+per-file license the file was published under: CC-BY for pluralistic content
+(cite pluralistic.net + Cory Doctorow), public-domain terms for gutenberg
+content.
 
 Project Gutenberg's own Trademark License applies to any redistribution that
 carries the "Project Gutenberg" name. To stay clear of it, each essay here has

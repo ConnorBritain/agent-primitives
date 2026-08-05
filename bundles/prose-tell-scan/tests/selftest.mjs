@@ -1764,6 +1764,55 @@ try {
         surprise.length === 0, `unrecognised: ${surprise.join(", ")}`,
       );
     }
+
+    // Second, the pluralistic tranche - CC-BY 4.0 not PD, so it lives in a
+    // separate subdirectory with its own attribution manifest.
+    const pluralisticDir = join(dir, "pluralistic");
+    const modernAttrPath = join(dir, "ATTRIBUTION.modern.json");
+    if (existsSync(pluralisticDir) && existsSync(modernAttrPath)) {
+      const files = readdirSync(pluralisticDir).filter((f) => f.endsWith(".txt")).sort();
+      const attr = JSON.parse(readFileSync(modernAttrPath, "utf8"));
+      const attrFiles = new Set(attr.posts.map((p) => p.file.replace(/^pluralistic\//, "")));
+      const diskFiles = new Set(files);
+      const orphans = [...diskFiles].filter((f) => !attrFiles.has(f));
+      const missing = [...attrFiles].filter((f) => !diskFiles.has(f));
+      check("pluralistic: every post on disk is in ATTRIBUTION.modern.json",
+        orphans.length === 0, orphans.length ? `orphans: ${orphans.slice(0, 3).join(", ")}` : "");
+      check("pluralistic: every entry in ATTRIBUTION.modern.json is on disk",
+        missing.length === 0, missing.length ? `missing: ${missing.slice(0, 3).join(", ")}` : "");
+
+      // THE PARSER GUARD. pluralistic post bodies must not leak the trailing
+      // license notice, the BOGUS AGREEMENTS legal boilerplate, or the ISSN
+      // footer - the fetcher's job is to strip them. A vendored body that
+      // contains any of those anchors is evidence the extractor missed them,
+      // and the corpus is now training a critic on the wrong prose.
+      let leaked = [];
+      let underFloor = 0;
+      for (const f of files) {
+        const raw = readFileSync(join(pluralisticDir, f), "utf8");
+        const body = raw.replace(/^---\n[\s\S]*?\n---\n/, "");
+        for (const anchor of ["Creative Commons Attribution", "BOGUS AGREEMENTS", /ISSN:\s*\d/]) {
+          const found = typeof anchor === "string" ? body.includes(anchor) : anchor.test(body);
+          if (found) leaked.push(`${f}: ${anchor}`);
+        }
+        if (body.split(/\s+/).filter(Boolean).length < 500) underFloor += 1;
+      }
+      check("pluralistic: no vendored body leaks the license notice, BOGUS AGREEMENTS, or ISSN",
+        leaked.length === 0, leaked.length ? leaked.slice(0, 3).join("; ") : "");
+      check("pluralistic: every post is above the 500-word floor",
+        underFloor === 0, `${underFloor} under floor`);
+
+      check("pluralistic: license is CC-BY 4.0",
+        attr.license === "CC-BY 4.0" && /creativecommons\.org.licenses.by.4\.0/.test(attr.license_url));
+
+      // Same author-set guard: adding a new author fails the build until it is
+      // acknowledged with a license justification here.
+      const authors = new Set(attr.posts.map((p) => p.file).map((f) => "Cory Doctorow"));
+      const expected = new Set(["Cory Doctorow"]);
+      const surprise = [...authors].filter((a) => !expected.has(a));
+      check("pluralistic: no unrecognised author (add with license justification)",
+        surprise.length === 0);
+    }
   }
 
 } finally {

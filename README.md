@@ -37,13 +37,19 @@ deterministic layer. Its critics and revise pass go in a *separate* `prose-revie
 rather than this one — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle), which is honest
 that half the argument for that split is still a projection.
 
-Its test corpus has grown too: `bundles/prose-tell-scan/tests/corpus/human-essays/` holds
-97 public-domain essays by Francis Bacon and G. K. Chesterton, alongside the 12 Wikipedia
-articles in `corpus/human/`. Two distinct voices in argumentative register, vendored from
-Project Gutenberg by
-[`fetch-essays.mjs`](bundles/prose-tell-scan/tests/corpus/fetch-essays.mjs). This unblocks
-harnesses for the critics still to build (substance, adversarial-reader, fidelity), which
-need real prose with a real author to be tested against.
+Its test corpus has grown too: `bundles/prose-tell-scan/tests/corpus/human-essays/` now
+holds 117 samples spanning three voices in argumentative register:
+
+- 58 Bacon essays (1625) and 39 Chesterton essays (1909) from Project Gutenberg
+  (public domain), vendored by
+  [`fetch-essays.mjs`](bundles/prose-tell-scan/tests/corpus/fetch-essays.mjs)
+- 20 recent posts from pluralistic.net (Cory Doctorow, CC-BY 4.0), vendored by
+  [`fetch-modern.mjs`](bundles/prose-tell-scan/tests/corpus/fetch-modern.mjs)
+
+Three centuries of first-person argumentative prose, all with clean provenance,
+alongside the 12 Wikipedia articles in `corpus/human/`. This unblocks harnesses
+for the critics still to build (substance, adversarial-reader, fidelity), which
+need real prose by a real author to be tested against.
 
 A bundle is the unit you install and toggle, so it holds the primitives you'd want on or off
 *together* — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle). Adding a new domain means
