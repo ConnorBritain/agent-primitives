@@ -23,6 +23,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | change the word floor on one side only | 1 | the ported floor equals the sibling's |
 | let a trivial edit through ingest | 2 | voice does not collapse by accepting the model's near-verbatim output |
 | let a sub-minimum sample into approved/ | 1 | approved/ never advertises files calibration would exclude |
+| let --verify skip the recompute and trust the stored ef | 1 | --verify actually re-derives ef rather than restating what the file says |
+| reintroduce the model: unknown sentinel | 1 | the frontmatter never claims an unknown model that would pollute filtering |
 | trust edit_fraction as a signed number rather than computing it | 3 | edit_fraction is computed from a diff, never asserted |
 
 Baseline is 0 failed. Every mutation is applied to the real source, measured, and

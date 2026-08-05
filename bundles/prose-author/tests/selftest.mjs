@@ -8,7 +8,7 @@
  * output looks the same either way — so they get tests rather than review.
  */
 
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync, cpSync } from "node:fs";
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync, cpSync, readFileSync, readdirSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -20,7 +20,7 @@ import {
   verifyDraft, renderVerification, findScanner, firstExisting, scannerCandidates, SCANNER_ENV,
 } from "../skills/prose-draft/tools/verify.mjs";
 import {
-  editFraction, lcsLength, planIngest, INGEST_FLOOR,
+  editFraction, lcsLength, planIngest, verifyApproved, INGEST_FLOOR,
 } from "../skills/prose-draft/tools/ingest-edit.mjs";
 import { existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 
@@ -429,9 +429,9 @@ try {
     // The three anchor cases the whole metric is designed to hit correctly. A
     // number that gets any of these wrong flatters the direction the design
     // exists to prevent.
-    check("editFraction on identical text is 0", editFraction("word ".repeat(100), "word ".repeat(100)) === 0);
+    check("an untouched generation registers as no evidence about the author", editFraction("word ".repeat(100), "word ".repeat(100)) === 0);
     check(
-      "editFraction on wholly new text is 1",
+      "a totally rewritten sample counts as fully authored",
       editFraction("aaa ".repeat(100), "bbb ".repeat(100)) === 1,
     );
 
@@ -458,16 +458,24 @@ try {
     check("a real edit is not refused", plan.refusal === null);
     check("edit_fraction is between the floor and 1", plan.editFraction > INGEST_FLOOR && plan.editFraction <= 1);
     plan.write();
-    check("the sample file was written", fsExists(plan.samplePath));
-    check("the original was stored under .originals", fsExists(plan.originalPath));
+    check("the sample is durable after ingest — nothing is only in memory", fsExists(plan.samplePath));
+    check("the pre-edit generation is retained so ef can be re-derived later", fsExists(plan.originalPath));
 
     // The sample MUST attest human_authored: false and carry the computed
     // edit_fraction. Otherwise calibration will happily read it as human, and
     // the whole point of the frontmatter discipline is lost.
     const body = fsRead(plan.samplePath, "utf8");
     check("stored sample declares human_authored: false", /human_authored: false/.test(body));
-    check("stored sample carries the computed edit_fraction",
-      new RegExp(`edit_fraction: ${plan.editFraction}\\b`).test(body));
+    // Not just "some ef appears in the file" - re-parse it and confirm it
+    // equals what a fresh recomputation from the two files gives. A weaker
+    // regex-match test could pass under a mutation that wrote a plausible-but-
+    // wrong number, or under an edge case where the input happens to hit 1.0
+    // regardless of the diff. Anchor the assertion to a recomputation
+    // independent of `plan` itself.
+    const storedEf = Number.parseFloat(body.match(/^edit_fraction:\s*(\S+)/m)?.[1]);
+    const fromFiles = editFraction(original, edited);
+    check("the stored ef equals a recomputation from the two files",
+      Number.isFinite(storedEf) && Math.abs(storedEf - fromFiles) < 1e-9);
     check("stored sample points at the .originals hash",
       body.includes(`original: .originals/`));
   }
@@ -513,6 +521,82 @@ try {
     // ...unless --force is passed, so the escape hatch works but requires intent.
     const forced = planIngest({ original, edited, profileDir: profile, force: true });
     check("--force overrides the double-ingest refusal", forced.refusal === null);
+  }
+
+
+  /* ------------------------------------------------------------------ */
+  group("Verify — every stored ef must be reproducible from its files");
+
+  {
+    // THE PROMISE THIS FUNCTION EXISTS TO KEEP. Ingest cannot prove --original
+    // was really the drafter's output: pass an unrelated file, get a fabricated
+    // edit_fraction. --verify makes that number auditable AFTER THE FACT -
+    // anyone can rerun this over an approved corpus and get every drift, so a
+    // lying ingest lands but cannot survive review. If this ever passes on a
+    // doctored corpus, "computed not asserted" was a promise the tool broke.
+
+    const profile = makeProfile("verify", { human: 12 });
+    const orig = `The lake was calm this morning. ${"more calm prose ".repeat(120)}`;
+    const edit = `The lake was still at dawn, and the mist held. ${"different prose about mist ".repeat(120)}`;
+    planIngest({ original: orig, edited: edit, profileDir: profile }).write();
+
+    const clean = verifyApproved(profile);
+    check("a freshly ingested sample verifies clean",
+      clean.summary.ok === 1 && clean.summary.drift === 0);
+
+    // DRIFT 1: someone changes the stored ef by hand. Silent acceptance here
+    // would let a threshold input be edited without recompute, which is the
+    // whole failure this exists to catch.
+    const sampleFile = clean.samples[0].file;
+    const samplePath = join(profile, "corpus", "approved", sampleFile);
+    const before = readFileSync(samplePath, "utf8");
+    writeFileSync(samplePath, before.replace(/edit_fraction: [0-9.]+/, "edit_fraction: 0.05"));
+    const drifted = verifyApproved(profile);
+    check("a hand-edited edit_fraction is caught as drift",
+      drifted.summary.drift === 1 && drifted.samples[0].status === "drift");
+    writeFileSync(samplePath, before);
+
+    // DRIFT 2: the stored original is edited in place. Its content no longer
+    // hashes to its filename, so the pair no longer describes the same edit
+    // even though the numbers in frontmatter still look self-consistent.
+    const originalHash = before.match(/original: \.originals\/([0-9a-f]{64})\.txt/)[1];
+    const originalPath = join(profile, "corpus", "approved", ".originals", `${originalHash}.txt`);
+    const originalBefore = readFileSync(originalPath, "utf8");
+    writeFileSync(originalPath, `${originalBefore} tampered`);
+    const tampered = verifyApproved(profile);
+    check("a tampered stored original is caught as drift",
+      tampered.summary.drift === 1
+      && /no longer hashes/.test(tampered.samples[0].reason || ""));
+    writeFileSync(originalPath, originalBefore);
+
+    // DRIFT 3: the stored original goes missing. Must be loud, not silent -
+    // otherwise a corpus can shed its evidence and read clean.
+    rmSync(originalPath);
+    const missing = verifyApproved(profile);
+    check("a missing stored original is reported, not treated as ok",
+      missing.summary.missing === 1);
+    writeFileSync(originalPath, originalBefore);
+
+    // Recovery matters: a check that stays red after the drift is undone would
+    // train users to ignore it, which is the same outcome as no check.
+    const recovered = verifyApproved(profile);
+    check("verify returns to clean after each drift is undone",
+      recovered.summary.ok === 1 && recovered.summary.drift === 0);
+  }
+
+  {
+    // model: unknown was a sentinel that would pollute future filtering. The
+    // absence of --model now reads as absence, not as a claim about an unknown
+    // model. Anchored so a regression that restored the sentinel would fail.
+    const profile = makeProfile("no-model", { human: 12 });
+    const orig = `The lake was calm this morning. ${"more calm prose ".repeat(120)}`;
+    const edit = `The lake was still at dawn. ${"different prose about mist ".repeat(120)}`;
+    planIngest({ original: orig, edited: edit, profileDir: profile }).write();
+    const approvedDir = join(profile, "corpus", "approved");
+    const sample = readdirSync(approvedDir).find((f) => f.endsWith(".txt"));
+    const stored = readFileSync(join(approvedDir, sample), "utf8");
+    check("no --model means no model: line, not a sentinel",
+      !/^model:\s*unknown/m.test(stored) && !/^model:/m.test(stored));
   }
 
 } finally {

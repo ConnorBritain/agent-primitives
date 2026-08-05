@@ -31,10 +31,20 @@
  *    anyway, so recording it as "approved" would be misleading storage - a file
  *    that looks like evidence and never counts as any.
  *
- * C. The original does not match. If sha256(<original file>) does not equal the
- *    hash inside the edited file's frontmatter's `original: .originals/<sha>.txt`
- *    field, someone has been rearranging files by hand and the pair no longer
- *    describes a real edit. Refuse rather than record a fiction.
+ * C. The same edit already exists. Silent double-ingest changes only the `date`
+ *    while claiming the same edit - exactly the drift the whole design is built
+ *    to notice. --force passes for the case where that IS what you meant.
+ *
+ * WHAT REFUSAL C DOES NOT CATCH, and how --verify does. Ingest has no way to
+ * prove the file you passed as --original was actually what the drafter wrote:
+ * pass an unrelated file and you get a fabricated edit_fraction. The check the
+ * design promised is post-hoc rather than at-time: `--verify` walks every
+ * approved sample, reads the stored .originals/<hash>.txt, recomputes ef via
+ * LCS, and reports any sample whose declared ef does not match its recomputable
+ * one. So the number nobody can check at ingest becomes a number anyone can
+ * check afterwards, which is the property that matters for a threshold input.
+ * See CALIBRATION.md FN-2026-08-04-l: a measurement in a file is a cache; it is
+ * only trustworthy if something re-runnable disagrees when it drifts.
  *
  * WHERE THINGS LAND. Under the target profile:
  *
@@ -46,7 +56,7 @@
  * next time's ingest can re-verify the diff.
  */
 
-import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, readFileSync, statSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -137,13 +147,18 @@ function today(now = new Date()) {
 }
 
 function frontmatterBlock({ date, provenance, model, originalRel, editFraction: ef }) {
+  // `model:` is OMITTED when no --model flag was passed rather than filled with
+  // a sentinel. PROFILES.md defines the field as a model id with no documented
+  // fallback, and writing `model: unknown` would pollute any tooling that
+  // filters on the field later. Absence reads correctly as "not recorded";
+  // "unknown" reads as a claim.
   return [
     "---",
     "source: prose-author draft",
     `date: ${date}`,
     "human_authored: false",
     `provenance: ${provenance}`,
-    `model: ${model || "unknown"}`,
+    ...(model ? [`model: ${model}`] : []),
     `original: ${originalRel}`,
     `edit_fraction: ${ef}`,
     "---",
@@ -151,7 +166,129 @@ function frontmatterBlock({ date, provenance, model, originalRel, editFraction: 
   ].join("\n");
 }
 
-/** Determine the profile directory the way exemplars.mjs and scan.mjs do. */
+/**
+ * Post-hoc audit: does every approved sample still describe a real edit?
+ *
+ * Walks corpus/approved/*.txt, reads each sample's frontmatter, opens the
+ * .originals/<hash>.txt it points at, and recomputes edit_fraction from the
+ * pair. A sample whose stored ef does not match the recomputed one has drifted
+ * - either the sample was hand-edited after ingest (changing content without
+ * updating the number), the original was replaced (breaking the reference), or
+ * the ingest that produced it lied about what --original was.
+ *
+ * This is the check ingest cannot do at write time: at ingest the tool has no
+ * way to know whether --original was really what the drafter wrote. --verify
+ * makes the property auditable rather than trusted. Same discipline as
+ * CALIBRATION.md FN-2026-08-04-l: a measurement in a file is a cache, useful
+ * only if something re-runnable disagrees when it drifts.
+ */
+export function verifyApproved(profileDir, { tolerance = 1e-4 } = {}) {
+  const approvedDir = join(profileDir, "corpus", "approved");
+  const originalsDir = join(approvedDir, ".originals");
+  const results = [];
+
+  if (!existsSync(approvedDir)) {
+    return { profileDir, samples: [], summary: { ok: 0, drift: 0, malformed: 0, missing: 0 } };
+  }
+
+  for (const name of readdirSync(approvedDir).sort()) {
+    if (name.startsWith(".")) continue;
+    if (name.endsWith(".md") || name.endsWith(".txt")) {
+      results.push(auditOne(join(approvedDir, name), originalsDir, tolerance));
+    }
+  }
+
+  const summary = { ok: 0, drift: 0, malformed: 0, missing: 0 };
+  for (const r of results) summary[r.status] += 1;
+  return { profileDir, samples: results, summary };
+}
+
+function auditOne(samplePath, originalsDir, tolerance) {
+  const raw = readFileSync(samplePath, "utf8");
+  const file = samplePath.split("/").pop();
+  const fmMatch = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!fmMatch) {
+    return { file, status: "malformed", reason: "no frontmatter block" };
+  }
+  const fm = fmMatch[1];
+  const body = fmMatch[2];
+  const field = (k) => {
+    const m = fm.match(new RegExp(`^\\s*${k}\\s*:\\s*(.+?)\\s*$`, "m"));
+    return m ? m[1].replace(/^["']|["']$/g, "") : null;
+  };
+
+  const declared = Number.parseFloat(field("edit_fraction"));
+  const originalRel = field("original");
+  if (!Number.isFinite(declared) || !originalRel) {
+    return { file, status: "malformed", reason: "missing edit_fraction or original field" };
+  }
+
+  const originalHashMatch = originalRel.match(/\.originals\/([0-9a-f]{64})\.txt$/);
+  if (!originalHashMatch) {
+    return { file, status: "malformed", reason: `original field is not .originals/<sha256>.txt: ${originalRel}` };
+  }
+  const declaredHash = originalHashMatch[1];
+  const originalPath = join(originalsDir, `${declaredHash}.txt`);
+  if (!existsSync(originalPath)) {
+    return { file, status: "missing", reason: `stored original absent: ${originalRel}` };
+  }
+
+  const originalRaw = readFileSync(originalPath, "utf8");
+  // If the stored original's content no longer hashes to its filename, the file
+  // has been edited in place - the ef would recompute against text that is no
+  // longer what the sample declares its original was. Content-addressing is
+  // load-bearing here, so report the mismatch rather than trust the filename.
+  const actualHash = sha256(originalRaw);
+  if (actualHash !== declaredHash) {
+    return {
+      file,
+      status: "drift",
+      reason: `stored original at ${originalRel} no longer hashes to its filename (actual sha256: ${actualHash})`,
+    };
+  }
+
+  // `body` is already frontmatter-stripped by the outer regex, and editFraction
+  // tokenises what it receives. Rewrapping the body with the fm block before
+  // passing it in would let a stray `---` line inside the frontmatter trip the
+  // lazy strip regex and leak metadata tokens into the count. Pass the body
+  // directly.
+  const recomputed = editFraction(originalRaw, body);
+  if (Math.abs(recomputed - declared) > tolerance) {
+    return {
+      file, status: "drift", declared, recomputed,
+      reason: `declared edit_fraction ${declared}, recomputed ${recomputed}`,
+    };
+  }
+  return { file, status: "ok", declared, recomputed };
+}
+
+export function renderVerify(result) {
+  const out = [""];
+  out.push(`  ${result.profileDir}/corpus/approved/ — ${result.samples.length} samples`, "");
+  for (const s of result.samples) {
+    const tag = s.status === "ok" ? "ok" : s.status.toUpperCase();
+    out.push(`    ${tag.padEnd(9)} ${s.file}${s.reason ? `   ${s.reason}` : ""}`);
+  }
+  const { ok, drift, malformed, missing } = result.summary;
+  out.push("");
+  out.push(`  ${ok} ok · ${drift} drift · ${malformed} malformed · ${missing} missing`);
+  if (drift + malformed + missing > 0) {
+    out.push("");
+    out.push("  Any non-ok status means an approved sample no longer describes a real edit.");
+    out.push("  A stored edit_fraction that does not recompute is a threshold input nobody");
+    out.push("  can trust, so calibration should not blend these files until the drift is");
+    out.push("  explained - the sample re-ingested from a real pair, or removed.");
+  }
+  out.push("");
+  return out.join("\n");
+}
+
+/**
+ * Determine the profile directory the way tell-scan.mjs does (profileSearchPath
+ * + findProfileDir), minus the bundleRoot fallback which does not apply to user
+ * profiles. `exemplars.mjs` takes a raw path instead, so it is not the mirror
+ * to point at.
+ */
 export function resolveProfileDir({ profile, profilesDir, project }) {
   const roots = [
     profilesDir ? resolve(profilesDir) : null,
@@ -254,19 +391,48 @@ export function renderPlan(plan, { profileDir } = {}) {
 
 function main() {
   const args = process.argv.slice(2);
-  const edited = args.find((a) => !a.startsWith("--"));
   const val = (flag) => {
     const i = args.indexOf(flag);
     return i === -1 ? undefined : args[i + 1];
   };
   const profile = val("--profile");
+
+  // --verify mode. Post-hoc audit rather than an ingest.
+  if (args.includes("--verify")) {
+    if (!profile) {
+      process.stderr.write("ingest-edit --verify: --profile <name> is required\n");
+      process.exit(2);
+    }
+    const profileDir = resolveProfileDir({
+      profile, profilesDir: val("--profiles-dir"), project: val("--project"),
+    });
+    if (!profileDir) {
+      process.stderr.write(`ingest-edit --verify: profile not found: ${profile}\n`);
+      process.exit(2);
+    }
+    const result = verifyApproved(profileDir);
+    if (args.includes("--json")) {
+      process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+    } else {
+      process.stdout.write(`${renderVerify(result)}\n`);
+    }
+    const { drift, malformed, missing } = result.summary;
+    process.exit(drift + malformed + missing > 0 ? 1 : 0);
+  }
+
+  const edited = args.find((a) => !a.startsWith("--") && a !== profile
+    && a !== val("--original") && a !== val("--profiles-dir")
+    && a !== val("--project") && a !== val("--model"));
   const originalPath = val("--original");
 
   if (!edited || !profile || !originalPath) {
     process.stderr.write(
-      "ingest-edit: usage: node ingest-edit.mjs <edited> --original <path> --profile <name>\n"
-      + "                                      [--profiles-dir <dir>] [--project <dir>]\n"
-      + "                                      [--model <id>] [--force] [--json]\n",
+      "ingest-edit: usage:\n"
+      + "  node ingest-edit.mjs <edited> --original <path> --profile <name>\n"
+      + "                       [--profiles-dir <dir>] [--project <dir>]\n"
+      + "                       [--model <id>] [--force] [--json]\n"
+      + "  node ingest-edit.mjs --verify --profile <name>\n"
+      + "                       [--profiles-dir <dir>] [--project <dir>] [--json]\n",
     );
     process.exit(2);
   }

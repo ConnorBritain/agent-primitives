@@ -127,6 +127,20 @@ export const MUTATIONS = [
     guards: "approved/ never advertises files calibration would exclude",
   },
   {
+    name: "let --verify skip the recompute and trust the stored ef",
+    file: INGEST,
+    find: "  const recomputed = editFraction(originalRaw, body);",
+    with: "  const recomputed = declared;",
+    guards: "--verify actually re-derives ef rather than restating what the file says",
+  },
+  {
+    name: "reintroduce the model: unknown sentinel",
+    file: INGEST,
+    find: "    ...(model ? [`model: ${model}`] : []),",
+    with: "    `model: ${model || \"unknown\"}`,",
+    guards: "the frontmatter never claims an unknown model that would pollute filtering",
+  },
+  {
     name: "trust edit_fraction as a signed number rather than computing it",
     file: INGEST,
     find: "  const lcs = lcsLength(a, b);\n  return round((b.length - lcs) / b.length, 4);",

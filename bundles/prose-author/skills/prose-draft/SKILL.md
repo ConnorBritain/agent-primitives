@@ -123,6 +123,22 @@ Three refusals worth knowing:
 - **repeat ingest** — passes with `--force`; otherwise the second copy would
   claim a fresh date for an identical edit, which is drift
 
+### Auditing the approved corpus
+
+```bash
+node tools/ingest-edit.mjs --verify --profile <name>
+```
+
+Walks every approved sample, reads the `.originals/<sha256>.txt` it points at,
+re-derives `edit_fraction` from the pair, and reports drift on any sample whose
+stored number no longer recomputes — or whose stored original no longer hashes
+to its filename, or is missing entirely. **Exits non-zero on any drift.**
+
+Ingest cannot prove `--original` was really the drafter's output; `--verify`
+makes the number auditable afterwards, which is the property that matters for a
+threshold input. Run it before trusting a blended calibration, and after any
+manual reorganisation of `corpus/approved/`.
+
 ## When the author disagrees
 
 If they say "no, that's me" about something flagged — that is the most valuable
@@ -133,14 +149,19 @@ calibration will widen the band that flagged it.
 
 ## Known limits
 
-- **One passage.** Blank-page drafting, continuation, and edit ingestion are
-  v0.2–v0.4 and are not here.
-- **`corpus/approved/` is read for exemplar selection only**, under the cap in
-  [`PROFILES.md`](../../../prose-tell-scan/PROFILES.md), and never feeds
-  cadence bands. `tools/exemplars.mjs` enforces the cap; nothing here writes to
-  that directory yet. Note that slots are `floor(n × cap)`, so at the `--n 3`
-  above no approved sample is selected at all — the cap is a ceiling, not a
-  quota. The tool reports this rather than leaving it implicit.
+- **One passage.** Blank-page drafting and continuation are v0.2 / v0.4 and
+  are not here. Edit ingestion (v0.3) does ship — see *Recording a kept edit*
+  above.
+- **`corpus/approved/` is written by `ingest-edit.mjs` and read by
+  `exemplars.mjs`, under the cap in
+  [`PROFILES.md`](../../../prose-tell-scan/PROFILES.md).** It never feeds
+  cadence bands from here. Slots are `floor(n × cap)`, so at `--n 3` no
+  approved sample is selected at all — the cap is a ceiling, not a quota. The
+  tool reports this rather than leaving it implicit.
+- **`calibrate.mjs` does not yet blend `corpus/approved/` into bands.** The
+  read side (exemplar selection) works; the sibling bundle's blend + report
+  work is still to do. Ingest is safe today because nothing you record can
+  silently move a threshold — but nothing you record tightens one yet either.
 - **Verification needs `prose-tell-scan`.** It is resolved from a loose-file
   install, a plugin install, or `TELL_SCAN_PATH`. If it cannot be found,
   `verify.mjs` says the draft was **not scanned** and lists where it looked —
