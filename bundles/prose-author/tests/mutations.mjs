@@ -41,6 +41,7 @@ const TABLE = join(HERE, "MUTATIONS.md");
 const EXEMPLARS = join(TOOLS, "exemplars.mjs");
 const VERIFY = join(TOOLS, "verify.mjs");
 const CALIBRATE = join(SIBLING, "calibrate.mjs");
+const INGEST = join(TOOLS, "ingest-edit.mjs");
 
 /**
  * Every mutation is a one-line edit that removes a real guarantee. `find` must
@@ -110,6 +111,27 @@ export const MUTATIONS = [
     find: "export const MIN_SAMPLE_WORDS = 200;",
     with: "export const MIN_SAMPLE_WORDS = 150;",
     guards: "the ported floor equals the sibling's",
+  },
+  {
+    name: "let a trivial edit through ingest",
+    file: INGEST,
+    find: "  if (ef < INGEST_FLOOR) {",
+    with: "  if (false) {",
+    guards: "voice does not collapse by accepting the model's near-verbatim output",
+  },
+  {
+    name: "let a sub-minimum sample into approved/",
+    file: INGEST,
+    find: "  if (editedWords < MIN_SAMPLE_WORDS) {",
+    with: "  if (false) {",
+    guards: "approved/ never advertises files calibration would exclude",
+  },
+  {
+    name: "trust edit_fraction as a signed number rather than computing it",
+    file: INGEST,
+    find: "  const lcs = lcsLength(a, b);\n  return round((b.length - lcs) / b.length, 4);",
+    with: "  return 1;",
+    guards: "edit_fraction is computed from a diff, never asserted",
   },
 ];
 

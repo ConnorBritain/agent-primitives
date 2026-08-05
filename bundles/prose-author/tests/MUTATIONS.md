@@ -21,6 +21,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | rename readProvenance in calibrate.mjs (sibling present) | 1 | the port is pinned against a sibling that CHANGED, not just absent |
 | drop .markdown/.mdx from the ported extension set | 2 | calibration and drafting agree on what counts as a sample |
 | change the word floor on one side only | 1 | the ported floor equals the sibling's |
+| let a trivial edit through ingest | 2 | voice does not collapse by accepting the model's near-verbatim output |
+| let a sub-minimum sample into approved/ | 1 | approved/ never advertises files calibration would exclude |
+| trust edit_fraction as a signed number rather than computing it | 3 | edit_fraction is computed from a diff, never asserted |
 
 Baseline is 0 failed. Every mutation is applied to the real source, measured, and
 reverted; the runner refuses to report anything if the baseline is not green or

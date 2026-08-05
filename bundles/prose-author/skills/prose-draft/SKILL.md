@@ -100,6 +100,29 @@ three things it might mean: the draft drifted, they are writing something new, o
 their corpus is too narrow to describe them any more. **You cannot tell these
 apart.** Phrase it as the open question it is.
 
+## Recording a kept edit
+
+When an edit lands the voice, record it — the pair (original, edit) is the most
+concentrated evidence about the author's voice available anywhere.
+
+```bash
+node tools/ingest-edit.mjs <edited> --original <path/to/generation> --profile <name>
+```
+
+`edit_fraction` is computed here, from a word-level LCS diff. It is never a flag
+and never trusted from frontmatter — a number an author states about their own
+contribution drifts upward, and unlike `--attest` (which nothing can verify)
+this one can be, so it is.
+
+Three refusals worth knowing:
+
+- **below 10% edited** — this teaches the drafter to reproduce its own output;
+  if it was already right it was luck, not evidence about you
+- **below the word floor** — approved/ never advertises files calibration would
+  exclude anyway
+- **repeat ingest** — passes with `--force`; otherwise the second copy would
+  claim a fresh date for an identical edit, which is drift
+
 ## When the author disagrees
 
 If they say "no, that's me" about something flagged — that is the most valuable

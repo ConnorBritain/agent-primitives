@@ -19,6 +19,10 @@ import {
 import {
   verifyDraft, renderVerification, findScanner, firstExisting, scannerCandidates, SCANNER_ENV,
 } from "../skills/prose-draft/tools/verify.mjs";
+import {
+  editFraction, lcsLength, planIngest, INGEST_FLOOR,
+} from "../skills/prose-draft/tools/ingest-edit.mjs";
+import { existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = resolve(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
@@ -410,6 +414,107 @@ try {
       check("does not call the draft good", !/\bis good\b(?![^.]*Not claimed)/.test(r.split("Not claimed")[0]));
     }
   }
+
+  /* ------------------------------------------------------------------ */
+  group("Ingest — the correction channel");
+
+  {
+    // LCS is the whole measurement's honesty, so it earns direct anchors rather
+    // than an assertion about the metric it feeds.
+    check("LCS on identical sequences is the length", lcsLength(["a","b","c"], ["a","b","c"]) === 3);
+    check("LCS on disjoint sequences is zero", lcsLength(["a","b","c"], ["x","y","z"]) === 0);
+    check("LCS respects order, not just membership",
+      lcsLength(["a","b","c","d"], ["d","c","b","a"]) === 1);
+
+    // The three anchor cases the whole metric is designed to hit correctly. A
+    // number that gets any of these wrong flatters the direction the design
+    // exists to prevent.
+    check("editFraction on identical text is 0", editFraction("word ".repeat(100), "word ".repeat(100)) === 0);
+    check(
+      "editFraction on wholly new text is 1",
+      editFraction("aaa ".repeat(100), "bbb ".repeat(100)) === 1,
+    );
+
+    // A rewrite that keeps every word but reorders them must NOT read as
+    // untouched. If it does, order-blindness has crept in and the metric flatters
+    // "you rewrote a lot".
+    const scrambled = ["a","b","c","d","e","f","g","h","i","j"];
+    const reversed = [...scrambled].reverse();
+    const efScramble = editFraction(scrambled.join(" "), reversed.join(" "));
+    check("editFraction on a reordered sample is not zero", efScramble > 0);
+  }
+
+  {
+    const profile = makeProfile("ingest-basic", { human: 12 });
+    const original = "The lake was calm this morning. Fog sat on the water and did not move.";
+    const edited =
+      "The lake was still at dawn. Mist held above the water without stirring, "
+      + "and the far shore did not exist until the sun cleared the treeline. "
+      + `${"more prose ".repeat(120)}`;
+
+    // A real edit lands, edit_fraction is computed, files land where the plan
+    // says they will.
+    const plan = planIngest({ original, edited, profileDir: profile, model: "test-model" });
+    check("a real edit is not refused", plan.refusal === null);
+    check("edit_fraction is between the floor and 1", plan.editFraction > INGEST_FLOOR && plan.editFraction <= 1);
+    plan.write();
+    check("the sample file was written", fsExists(plan.samplePath));
+    check("the original was stored under .originals", fsExists(plan.originalPath));
+
+    // The sample MUST attest human_authored: false and carry the computed
+    // edit_fraction. Otherwise calibration will happily read it as human, and
+    // the whole point of the frontmatter discipline is lost.
+    const body = fsRead(plan.samplePath, "utf8");
+    check("stored sample declares human_authored: false", /human_authored: false/.test(body));
+    check("stored sample carries the computed edit_fraction",
+      new RegExp(`edit_fraction: ${plan.editFraction}\\b`).test(body));
+    check("stored sample points at the .originals hash",
+      body.includes(`original: .originals/`));
+  }
+
+  {
+    // REFUSAL A: not enough of it is yours. The whole floor exists to stop
+    // voice collapse from many rounds of accepting the model's output verbatim.
+    const profile = makeProfile("ingest-trivial", { human: 12 });
+    const original = `${"the same words ".repeat(200)}`;
+    const edited = original.replace("the same words the same words", "the same word the same words");
+    const plan = planIngest({ original, edited, profileDir: profile });
+    check("a trivial edit is refused", plan.refusal === "trivial-edit");
+    check("and the refusal names the floor by number",
+      new RegExp(String(INGEST_FLOOR)).test(plan.reason || ""));
+    check("no file is written when refused", !plan.samplePath || !fsExists(plan.samplePath));
+  }
+
+  {
+    // REFUSAL B: too short. Even a heavily rewritten fragment does not become a
+    // corpus sample below the calibration floor - storing it there would be
+    // misleading advertising.
+    const profile = makeProfile("ingest-short", { human: 12 });
+    const original = "one two three four five";
+    const edited = "six seven eight nine ten";
+    const plan = planIngest({ original, edited, profileDir: profile });
+    check("a too-short edit is refused for length, not edit fraction",
+      plan.refusal === "too-short");
+  }
+
+  {
+    // REFUSAL C: silent double-ingest. The same edited draft ingested twice
+    // would produce two files with identical content but different `date`
+    // values - exactly the "silently rerecords itself" failure that flatters
+    // the corpus over time.
+    const profile = makeProfile("ingest-dup", { human: 12 });
+    const original = `The lake was calm. ${"more calm prose ".repeat(120)}`;
+    const edited = `The lake was silent at dawn. ${"different prose about mist ".repeat(120)}`;
+    const first = planIngest({ original, edited, profileDir: profile });
+    check("first ingest of a novel edit is accepted", first.refusal === null);
+    first.write();
+    const second = planIngest({ original, edited, profileDir: profile });
+    check("second ingest of the same edit is refused", second.refusal === "already-exists");
+    // ...unless --force is passed, so the escape hatch works but requires intent.
+    const forced = planIngest({ original, edited, profileDir: profile, force: true });
+    check("--force overrides the double-ingest refusal", forced.refusal === null);
+  }
+
 } finally {
   rmSync(tmp, { recursive: true, force: true });
 }

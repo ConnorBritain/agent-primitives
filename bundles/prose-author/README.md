@@ -107,11 +107,18 @@ check, not a pass.
 
 ## Known limits
 
-- **One passage.** Blank page from notes, mid-document continuation, edit
-  ingestion, and voice locks are v0.2–v0.4. See [`DESIGN.md`](DESIGN.md).
-- **Nothing writes to `corpus/approved/` yet.** The cap is enforced on the read
-  side; the ingest side that would *populate* that directory, and compute
-  `edit_fraction` from a real diff, is v0.3.
+- **One passage.** Blank page from notes, mid-document continuation, and voice
+  locks are v0.2 / v0.4. Edit ingestion (v0.3) ships now, out of order, because
+  it needs nothing this bundle does not already have and is what makes a corpus
+  grow usefully rather than stay static. See [`DESIGN.md`](DESIGN.md).
+- **`corpus/approved/` is written by `tools/ingest-edit.mjs`.** Given an
+  edited draft and the original the drafter produced, it computes
+  `edit_fraction` from a word-level LCS diff and writes the pair — the edit
+  under `corpus/approved/<yyyy-mm-dd>-<hash>.txt`, the original under
+  `.originals/<sha256>.txt`. Three refusals guard it: below 10% edited it
+  refuses (an untouched generation is not evidence about you); below the word
+  floor it refuses (approved/ never advertises files calibration would exclude);
+  a repeat ingest refuses without `--force`.
 - **It has no acceptance corpus of its own.** The tools are tested; the *drafting
   prompt* is not, because measuring "did this come out in their voice" needs a
   single author's corpus with provenance discipline, and this repo does not have
