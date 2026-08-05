@@ -105,6 +105,33 @@ const SOURCES = [
     stop_at: null,
     keep: () => true,
   },
+  {
+    // Chekhov's Letters. The CORRESPONDENCE register - addressee-focused,
+    // direct, informal - which is genuinely different from the essays above
+    // and the encyclopedia articles in the sibling corpus. Distinct voice too:
+    // an author writing TO someone in particular reads different from the
+    // same author writing for an audience.
+    id: "6408",
+    author: "Anton Chekhov",
+    author_slug: "chekhov",
+    title: "Letters of Anton Chekhov to his Family and Friends",
+    date: "1920",  // Garnett translation release; the letters span 1876-1904.
+    // Each letter starts "TO <recipient>." on its own line. Captures the full
+    // "TO ..." so the frontmatter reads "To N. A. Leikin" instead of the
+    // fragment "N. A. Leikin". `number` becomes sequential (recipients
+    // repeat); `title` captures the To-line, which slugifies to
+    // "to-n-a-leikin" for the filename.
+    heading: /^(TO [^\n]+?)\.$/gm,
+    expected_essays: 154,
+    // No stop marker - the whole file after the intro is letters.
+    stop_at: null,
+    // Letters below the calibration floor (200 words) are the bulk of the
+    // material near the end. Keep only substantive ones so calibration would
+    // actually include them.
+    min_body_words: 200,
+    numbered_filename: true,
+    keep: () => true,
+  },
 ];
 
 async function fetchText(id) {
@@ -146,8 +173,21 @@ function splitEssays(text, source) {
   const matches = [];
   let m;
   const rx = new RegExp(source.heading.source, source.heading.flags);
+  let seq = 0;
   while ((m = rx.exec(stripped)) !== null) {
-    matches.push({ index: m.index, end: m.index + m[0].length, number: m[1], title: m[2].trim() });
+    seq += 1;
+    // Sources with a single capture group (Chekhov: "TO <recipient>.") get a
+    // sequential number and the capture becomes the title. Sources with two
+    // (Bacon/Chesterton: "I.—OF TRUTH.") use the first as number and second
+    // as title. The distinction lives here rather than in every source, so
+    // adding a one-capture source only needs a regex and an expected count.
+    const single = m[2] === undefined;
+    matches.push({
+      index: m.index,
+      end: m.index + m[0].length,
+      number: single ? String(seq) : m[1],
+      title: single ? m[1].trim() : m[2].trim(),
+    });
   }
 
   if (matches.length === 0) {
@@ -166,10 +206,16 @@ function splitEssays(text, source) {
     const next = i + 1 < matches.length ? matches[i + 1].index : stripped.length;
     const body = stripped.slice(start, next).trim();
     if (!source.keep(matches[i].title)) continue;
+    const clean = cleanBody(body);
+    // `min_body_words` (per source) filters out samples too short to teach a
+    // rhythm. Chekhov's letters run from telegram to essay length, and the
+    // very short ones would flood the corpus with noise while carrying almost
+    // no voice signal.
+    if (source.min_body_words && clean.split(/\s+/).filter(Boolean).length < source.min_body_words) continue;
     essays.push({
       number: matches[i].number,
       title: titleCase(matches[i].title),
-      body: cleanBody(body),
+      body: clean,
     });
   }
   return essays;
@@ -238,7 +284,14 @@ async function main() {
     const essays = splitEssays(stripped, source);
     process.stdout.write(`    ${essays.length} essays\n`);
     for (const essay of essays) {
-      const file = `${source.author_slug}-${slugify(essay.title)}.txt`;
+      // Chekhov's letters share recipients (many to Suvorin), so slug-alone
+      // collides. `numbered_filename: true` on a source prepends the zero-
+      // padded sequence number to keep filenames unique and sortable-by-order.
+      // Bacon/Chesterton skip this since each title is unique.
+      const slug = slugify(essay.title) || "untitled";
+      const file = source.numbered_filename
+        ? `${source.author_slug}-${essay.number.padStart(3, "0")}-${slug}.txt`
+        : `${source.author_slug}-${slug}.txt`;
       plan.push({
         source,
         essay,

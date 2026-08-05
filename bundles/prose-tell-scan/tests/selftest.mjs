@@ -1757,7 +1757,12 @@ try {
       // silent addition of a source without permissive licensing gets caught.
       // If a new source is added, this test fails until it lands in the list.
       const authors = new Set(attr.essays.map((e) => e.author));
-      const expected = new Set(["Francis Bacon", "G. K. Chesterton"]);
+      // Public-domain authors approved for this corpus. Adding a name here
+      // requires the added author to be genuinely public-domain (author died
+      // >70 years ago in most jurisdictions, or the work was published pre-
+      // 1930). Chekhov died 1904; the Constance Garnett translation appeared
+      // in 1920. Both PD.
+      const expected = new Set(["Francis Bacon", "G. K. Chesterton", "Anton Chekhov"]);
       const surprise = [...authors].filter((a) => !expected.has(a));
       check(
         "no unrecognised author entered the corpus (add to the expected set with license justification)",
