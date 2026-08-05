@@ -1,7 +1,9 @@
 # prose-review — design
 
-**Status: v0.1 partial.** `prose-voice-critic` ships and has been run against
-its acceptance harness. The other four critics and the reviser are spec only.
+**Status: v0.1 + fidelity-scan.** `prose-voice-critic` ships with its
+acceptance harness. `fidelity-scan` (the deterministic sidecar the fidelity
+critic reads) ships too - see `tools/fidelity-scan.mjs`. The other three
+critics, the reviser, and the fidelity critic prompt are spec only.
 
 `prose-tell-scan` counts what can be counted. This bundle is the other half: the
 judgements no regex reaches. It is also where the one rule this project has been

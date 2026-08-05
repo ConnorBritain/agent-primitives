@@ -38,6 +38,8 @@ const SIBLING = resolve(BUNDLE, "..", "prose-tell-scan", "skills", "tell-scan", 
 const TOOLS = join(BUNDLE, "skills", "prose-draft", "tools");
 const TABLE = join(HERE, "MUTATIONS.md");
 const SIBLING_SUITE = join(SIBLING, "..", "..", "..", "tests", "selftest.mjs");
+const REVIEW_SUITE = join(SIBLING, "..", "..", "..", "..", "prose-review", "tests", "selftest.mjs");
+const FIDELITY = join(SIBLING, "..", "..", "..", "..", "prose-review", "tools", "fidelity-scan.mjs");
 
 const EXEMPLARS = join(TOOLS, "exemplars.mjs");
 const VERIFY = join(TOOLS, "verify.mjs");
@@ -158,6 +160,30 @@ export const MUTATIONS = [
     guards: "cold-start cannot calibrate against model norms on day one",
   },
   {
+    name: "let fidelity-scan pass a MATERIAL-LOSS as FAITHFUL",
+    file: FIDELITY,
+    suite: "review",
+    find: '  return material.length === 0 ? "FAITHFUL" : "MATERIAL-LOSS";',
+    with: '  return "FAITHFUL";',
+    guards: "the verdict actually distinguishes fidelity states",
+  },
+  {
+    name: "let fidelity-scan cross line breaks with proper-noun runs",
+    file: FIDELITY,
+    suite: "review",
+    find: 'const PROPER_NOUN_RUN = /\\b[A-Z][a-z]+(?:[ \\t]+(?:of|the|de|van|von|and|for)[ \\t]+|[ \\t]+)[A-Z][a-z]+(?:[ \\t]+[A-Z][a-z]+)*\\b/g;',
+    with: 'const PROPER_NOUN_RUN = /\\b[A-Z][a-z]+(?:\\s+(?:of|the|de|van|von|and|for)\\s+|\\s+)[A-Z][a-z]+(?:\\s+[A-Z][a-z]+)*\\b/g;',
+    guards: "proper-noun runs stay within a line - a headings-plus-sentence false positive fires on every structured document",
+  },
+  {
+    name: "let fidelity-scan skip thousands-separator normalisation",
+    file: FIDELITY,
+    suite: "review",
+    find: 'function normaliseNumber(n) {\n  return n.replace(/,/g, "");\n}',
+    with: 'function normaliseNumber(n) {\n  return n;\n}',
+    guards: "1,234 and 1234 read as the same information, so users are not trained to game the formatter",
+  },
+    {
     name: "trust edit_fraction as a signed number rather than computing it",
     file: INGEST,
     find: "  const lcs = lcsLength(a, b);\n  return round((b.length - lcs) / b.length, 4);",
@@ -199,7 +225,7 @@ function apply(mut) {
 
 export function runAll() {
   // Both suites must start green so a mutation's failure count is meaningful.
-  for (const suite of [join(HERE, "selftest.mjs"), SIBLING_SUITE]) {
+  for (const suite of [join(HERE, "selftest.mjs"), SIBLING_SUITE, REVIEW_SUITE]) {
     const b = runSuite(suite);
     if (b.crashed) throw new Error(`baseline suite did not finish: ${suite}`);
     if (b.failed !== 0) throw new Error(`baseline is not green in ${suite}: ${b.failed} failed`);
@@ -211,7 +237,9 @@ export function runAll() {
     // affects prose-tell-scan\'s suite, not this one - running the wrong suite
     // would silently score 0, which is exactly the "no failing mutation" trap
     // this file exists to prevent.
-    const suite = mut.suite === "sibling" ? SIBLING_SUITE : join(HERE, "selftest.mjs");
+    const suite = mut.suite === "sibling" ? SIBLING_SUITE
+      : mut.suite === "review" ? REVIEW_SUITE
+      : join(HERE, "selftest.mjs");
     const restore = apply(mut);
     try {
       results.push({ ...mut, ...runSuite(suite) });
@@ -219,7 +247,7 @@ export function runAll() {
       restore();
     }
   }
-  for (const suite of [join(HERE, "selftest.mjs"), SIBLING_SUITE]) {
+  for (const suite of [join(HERE, "selftest.mjs"), SIBLING_SUITE, REVIEW_SUITE]) {
     const after = runSuite(suite);
     if (after.failed !== 0) throw new Error(`suite not restored: ${suite}`);
   }
