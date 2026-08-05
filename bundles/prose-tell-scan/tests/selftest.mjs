@@ -1702,6 +1702,70 @@ try {
     check("and the exclusion lists what and why", r.approved.excluded.length === 2);
   }
 
+
+  /* ------------------------------------------------------------------ */
+  group("human-essays — the vendored PD essay corpus");
+
+  {
+    // THE INTEGRITY CHECK. Files in tests/corpus/human-essays/ are vendored
+    // from Project Gutenberg by fetch-essays.mjs. They are committed, which
+    // means they can drift silently (someone edits a file by hand and the
+    // ATTRIBUTION count no longer matches, or the frontmatter breaks and
+    // calibrate.mjs would exclude the file without saying so). Every check
+    // here answers "does the committed corpus still match what its manifest
+    // says". It does NOT re-fetch; that is fetch-essays.mjs's job.
+
+    const dir = resolve(REPO, "bundles", "prose-tell-scan", "tests", "corpus", "human-essays");
+    const gutenbergDir = join(dir, "gutenberg");
+
+    if (!existsSync(gutenbergDir)) {
+      check("human-essays/gutenberg/ is present", false, "run fetch-essays.mjs --write");
+    } else {
+      const files = readdirSync(gutenbergDir).filter((f) => f.endsWith(".txt")).sort();
+      const attrPath = join(dir, "ATTRIBUTION.json");
+      const attr = JSON.parse(readFileSync(attrPath, "utf8"));
+      const attrFiles = new Set(attr.essays.map((e) => e.file.replace(/^gutenberg\//, "")));
+      const diskFiles = new Set(files);
+
+      const orphans = [...diskFiles].filter((f) => !attrFiles.has(f));
+      const missing = [...attrFiles].filter((f) => !diskFiles.has(f));
+      check("every essay on disk is in ATTRIBUTION.json",
+        orphans.length === 0, orphans.length ? `orphans: ${orphans.slice(0, 3).join(", ")}` : "");
+      check("every entry in ATTRIBUTION.json is on disk",
+        missing.length === 0, missing.length ? `missing: ${missing.slice(0, 3).join(", ")}` : "");
+
+      // Provenance discipline: each file must attest human_authored and carry
+      // the source/date the calibrator needs. A file that fails this is one
+      // calibrate.mjs would silently exclude, so it would look present in the
+      // manifest and absent to the tool.
+      let badFrontmatter = 0;
+      let underFloor = 0;
+      for (const f of files) {
+        const raw = readFileSync(join(gutenbergDir, f), "utf8");
+        if (!/^---\n[\s\S]*?human_authored:\s*true[\s\S]*?\n---\n/.test(raw)) badFrontmatter += 1;
+        if (!/\nsource:\s+/.test(raw)) badFrontmatter += 1;
+        if (!/\ndate:\s+/.test(raw)) badFrontmatter += 1;
+        const body = raw.replace(/^---\n[\s\S]*?\n---\n/, "");
+        if (body.split(/\s+/).filter(Boolean).length < 200) underFloor += 1;
+      }
+      check("every essay attests human_authored: true with source + date",
+        badFrontmatter === 0, `${badFrontmatter} field(s) missing`);
+      check("no essay is below the 200-word calibration floor",
+        underFloor === 0, `${underFloor} under floor`);
+
+      // Provenance recorded once (in fetch-essays.mjs) and quoted here so a
+      // silent addition of a source without permissive licensing gets caught.
+      // If a new source is added, this test fails until it lands in the list.
+      const authors = new Set(attr.essays.map((e) => e.author));
+      const expected = new Set(["Francis Bacon", "G. K. Chesterton"]);
+      const surprise = [...authors].filter((a) => !expected.has(a));
+      check(
+        "no unrecognised author entered the corpus (add to the expected set with license justification)",
+        surprise.length === 0, `unrecognised: ${surprise.join(", ")}`,
+      );
+    }
+  }
+
 } finally {
   rmSync(tmp, { recursive: true, force: true });
 }

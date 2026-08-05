@@ -37,6 +37,14 @@ deterministic layer. Its critics and revise pass go in a *separate* `prose-revie
 rather than this one — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle), which is honest
 that half the argument for that split is still a projection.
 
+Its test corpus has grown too: `bundles/prose-tell-scan/tests/corpus/human-essays/` holds
+97 public-domain essays by Francis Bacon and G. K. Chesterton, alongside the 12 Wikipedia
+articles in `corpus/human/`. Two distinct voices in argumentative register, vendored from
+Project Gutenberg by
+[`fetch-essays.mjs`](bundles/prose-tell-scan/tests/corpus/fetch-essays.mjs). This unblocks
+harnesses for the critics still to build (substance, adversarial-reader, fidelity), which
+need real prose with a real author to be tested against.
+
 A bundle is the unit you install and toggle, so it holds the primitives you'd want on or off
 *together* — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle). Adding a new domain means
 a new bundle plus one entry in [`marketplace.json`](.claude-plugin/marketplace.json); it does

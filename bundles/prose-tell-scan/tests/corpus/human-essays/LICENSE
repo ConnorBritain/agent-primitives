@@ -1,0 +1,27 @@
+The prose samples in this directory are NOT covered by the repository's MIT
+licence. They are essays from Project Gutenberg, reproduced under:
+
+    Public domain (works out of copyright)
+    https://www.gutenberg.org/policy/permission.html
+
+Project Gutenberg's own Trademark License applies to any redistribution that
+carries the "Project Gutenberg" name. To stay clear of it, each essay here has
+its frontmatter naming Project Gutenberg as the SOURCE only, and the text body
+itself carries no PG boilerplate - the ***START/END*** markers, the header and
+license notice, and the footer are stripped by fetch-essays.mjs.
+
+ATTRIBUTION.json lists every essay's author, source volume, Gutenberg eBook id,
+and original publication date. The eBook id resolves to
+https://www.gutenberg.org/ebooks/<id> for anyone re-deriving the corpus.
+
+Sibling directories (`human/`, `ai/`) are CC BY-SA 4.0 Wikipedia text with
+their own LICENSE. Nothing has changed there. This directory sits alongside
+them for the same reason they exist: to give the critics real prose to be
+tested against, with provenance a reader can check.
+
+Nothing may be added to this directory except text that is public domain or
+under a licence at least as permissive - CC0, CC-BY, or an OSI-approved
+equivalent - with provenance recorded the same way. Not contemporary
+journalism (except CC-BY-published), not contemporary books, not private
+writing, however good a sample it would make. The tests do not need it; the
+public repo cannot host it.
