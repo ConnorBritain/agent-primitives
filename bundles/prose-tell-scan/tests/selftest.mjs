@@ -23,7 +23,7 @@ import { execFileSync } from "node:child_process";
 
 import { runAcceptance } from "./acceptance.mjs";
 import { renderFixture } from "./fixtures/pattern/build.mjs";
-import { scanState } from "./pattern-harness.mjs";
+import { scanState, NAMES_AUTHORSHIP, catalogIdGuard } from "./pattern-harness.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(HERE, "..");                // bundles/prose-tell-scan
@@ -2423,6 +2423,52 @@ group("prose-pattern-critic — fixtures");
     check(`${f.name}: names an expect_pattern the critic owns`,
       manifest.patterns_owned.includes(f.expect_pattern), f.expect_pattern);
   }
+}
+
+
+/* ------------------------------------------------------------------ */
+group("pattern-harness staging leaks (FN-2026-08-06-o)");
+
+{
+  // WHAT BREAKS IF THIS REGRESSES: a critic is handed the answer by an artifact it is
+  // REQUIRED to read, and then blocked for repeating it. That is not hypothetical - it
+  // happened. Four of eleven staged cases carried one of tell-scan's own entry ids, and
+  // the single case carrying `chatbot-register` produced both of the authorship claims
+  // that held prose-pattern-critic back from shipping. The harness accused the critic of
+  // a contract violation it had induced.
+  //
+  // Both guards below are DENYLISTS acting as backstops. The real fix is upstream: the
+  // staged scan report is now built from an allowlist of fields and carries no ids at all.
+  // These exist to catch what gets through anyway, before any dispatch is spent.
+  const IDS = catalogIdGuard();
+
+  // Leak 1. The exact phrasing that got through, from a vendored talk-page comment.
+  check("staging guard catches 'chatbot-generated'",
+    NAMES_AUTHORSHIP.test("Vast swathes of this are unsourced, and the tone is clearly chatbot-generated."));
+  check("and still catches the phrasings it always caught",
+    NAMES_AUTHORSHIP.test("Complete AI slop") && NAMES_AUTHORSHIP.test("Clearly AI-generated")
+    && NAMES_AUTHORSHIP.test("LLM-written"));
+  // The paired negative. A guard that matches everything excludes the whole corpus and
+  // the run silently measures nothing - which is how over-correction hides.
+  check("but does NOT fire on ordinary prose that merely discusses chatbots",
+    !NAMES_AUTHORSHIP.test("The chatbot answered, and users compared chat bots for weeks."));
+
+  // Leak 2. The catalog's own id space, which no verdict-word denylist could ever see.
+  check("staging guard catches a leaked catalog entry id",
+    IDS.test('{"id":"chatbot-register","count":1}'));
+  check("and catches its siblings, because the guard is derived from the catalog",
+    IDS.test("assistant-preamble") && IDS.test("model-markup-artifact"));
+  check("but does NOT fire on ordinary prose resembling an id",
+    !IDS.test("a register of chat bots and an assistant preamble to the meeting"));
+
+  // The guard is derived, not typed. A hand-listed set is correct the day it is written
+  // and silently wrong the first time someone adds a catalog entry - the same shape as the
+  // defect it exists to catch.
+  const catalogIds = Object.keys(JSON.parse(readFileSync(
+    new URL("../skills/tell-scan/profiles/_base/catalog.json", import.meta.url), "utf8"),
+  ).not_deterministic).filter((k) => k !== "_about");
+  check("the id guard covers every not_deterministic key without being told them",
+    catalogIds.every((id) => IDS.test(id)), catalogIds.filter((id) => !IDS.test(id)).join(","));
 }
 
 process.stdout.write(`\n${"─".repeat(60)}\n`);
