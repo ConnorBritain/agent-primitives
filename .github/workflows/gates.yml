@@ -15,8 +15,21 @@ name: gates
 
 on:
   push:
+    branches: [main]
   pull_request:
   workflow_dispatch:
+
+# `push` on every branch plus `pull_request` fired this twice for the same commit on
+# a PR branch, and the loser was CANCELLED - which surfaces as a red check next to a
+# green one. A gate that shows red for a reason unrelated to the code is how people
+# learn to merge past it.
+#
+# So: push builds only main, PRs build themselves, and this group cancels superseded
+# runs on the same ref. Pushing three times to a PR in a minute should cost one run,
+# not three.
+concurrency:
+  group: gates-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   gates:
