@@ -23,7 +23,7 @@ import { execFileSync } from "node:child_process";
 
 import { runAcceptance } from "./acceptance.mjs";
 import { renderFixture } from "./fixtures/pattern/build.mjs";
-import { scanState, NAMES_AUTHORSHIP, catalogIdGuard } from "./pattern-harness.mjs";
+import { scanState, NAMES_AUTHORSHIP, catalogIdGuard, OWNED } from "./pattern-harness.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(HERE, "..");                // bundles/prose-tell-scan
@@ -2467,6 +2467,22 @@ group("pattern-harness staging leaks (FN-2026-08-06-o)");
   const catalogIds = Object.keys(JSON.parse(readFileSync(
     new URL("../skills/tell-scan/profiles/_base/catalog.json", import.meta.url), "utf8"),
   ).not_deterministic).filter((k) => k !== "_about");
+  // THE HARNESS AND THE PROMPT MUST AGREE ON SCOPE. They did not: the prompt template
+  // dumped every not_deterministic key except no-voice-shift and called them "the five
+  // patterns you own", so after `absence-of-concrete-detail` was measured out of scope the
+  // critic received contradictory instructions in a single dispatch - agent.md saying four,
+  // the harness saying five, the harness speaking last. Nothing caught it because nothing
+  // compared the two. What breaks if this regresses: the critic is measured against a scope
+  // nobody agreed to, and the run looks valid.
+  const ownsInMeta = (readFileSync(new URL("../../../primitives/agents/prose-pattern-critic/meta.yaml", import.meta.url), "utf8")
+    .match(/^\s{2}owns:\n([\s\S]*?)(?=^\s{2}\S|^\S)/m) || [, ""])[1]
+    .match(/^\s+- ([a-z][a-z-]+)/gm)?.map((l) => l.trim().replace(/^- /, "")) || [];
+  check("the harness injects exactly the patterns meta.yaml says are owned",
+    JSON.stringify([...OWNED].sort()) === JSON.stringify([...ownsInMeta].sort()),
+    `harness=${OWNED.join(",")} meta=${ownsInMeta.join(",")}`);
+  check("and a pattern recorded unowned is NOT injected",
+    !OWNED.includes("absence-of-concrete-detail") && !OWNED.includes("no-voice-shift"));
+
   check("the id guard covers every not_deterministic key without being told them",
     catalogIds.every((id) => IDS.test(id)), catalogIds.filter((id) => !IDS.test(id)).join(","));
 }

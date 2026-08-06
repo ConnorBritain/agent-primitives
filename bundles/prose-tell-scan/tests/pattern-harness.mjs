@@ -182,7 +182,12 @@ function scanReport(file) {
     thresholds_derived: r.summary.thresholds_derived,
     // Numbers only. Deliberately no id, no category, no matched example.
     deterministic_hits: flagged.length,
-    deterministic_hit_densities: flagged.map((f) => f.per_1000).sort((a, b) => b - a),
+    // Count only. An earlier version also emitted `deterministic_hit_densities`, reading a
+    // `per_1000` field the findings do not carry - they carry `per_1k` - so it was an array
+    // of nulls for its whole life. Removed rather than repaired: the count already tells the
+    // critic that ground was covered, and the densities of hits it is structurally unable to
+    // own tell it nothing it can act on. A field that has never once carried a value is not a
+    // field, and repairing it would have added real information for no stated reason.
     _note: "Hit identities are withheld from this report on purpose. The patterns you own "
       + "are the ones no regex can decide, so nothing the deterministic pass flagged can "
       + "be one of yours. You are told the count so you know ground was covered and can "
@@ -244,6 +249,25 @@ function inputsForCorpus(n) {
   return out;
 }
 
+/**
+ * The patterns this critic owns, read from its own meta.yaml `owns:` block.
+ *
+ * DERIVED, because the alternative was already wrong. This template used to dump every
+ * `not_deterministic` key except `no-voice-shift` and announce them as "the five patterns
+ * you own" - so after `absence-of-concrete-detail` was measured out of the critic's scope,
+ * the harness kept handing it to the critic as owned while the agent prompt said it was
+ * not. Contradictory instructions, in one dispatch, with the harness speaking last.
+ *
+ * meta.yaml is where the scope decision is recorded, so meta.yaml is what the prompt reads.
+ */
+function ownedPatterns() {
+  const meta = readFileSync(join(REPO, "primitives", "agents", "prose-pattern-critic", "meta.yaml"), "utf8");
+  const block = (meta.match(/^\s{2}owns:\n([\s\S]*?)(?=^\s{2}\S|^\S)/m) || [, ""])[1];
+  return (block.match(/^\s+- ([a-z][a-z-]+)/gm) || []).map((l) => l.trim().replace(/^- /, ""));
+}
+
+export const OWNED = ownedPatterns();
+
 const CATALOG_IDS = catalogIdGuard();
 
 function prepare(set, runId, draws, n) {
@@ -294,11 +318,9 @@ function prepare(set, runId, draws, n) {
       `The \`tell-scan\` report for it is \`staged/${id}-scan.json\`. Read that too, and remember`,
       "that everything in it is the scanner's finding and none of it is yours.",
       "",
-      "The five patterns you own, verbatim from the catalog:",
+      `The ${OWNED.length} patterns you own, verbatim from the catalog:`,
       "",
-      ...Object.entries(notDeterministic)
-        .filter(([k]) => k !== "_about" && k !== "no-voice-shift")
-        .map(([k, v]) => `- \`${k}\` — ${v}`),
+      ...OWNED.map((k) => `- \`${k}\` \u2014 ${notDeterministic[k]}`),
       "",
       "Line numbers refer to the staged draft as given. Follow your output contract exactly,",
       "and end with the one-line verdict on its own line.",

@@ -1,0 +1,13 @@
+**Findings:** None.
+
+**Patterns checked and found clean:**
+- `llm-safe-truths` — clean. The draft is near-entirely composed of specific, falsifiable factual/statistical claims (dates, areas, seat counts, tenant names, footfall figures). No sentence found that fails the falsifiability gate; e.g. line 21 ("the mall had by this point transitioned from a conventional shopping centre to a retail destination combining shopping, leisure and community engagement...") sounds like boilerplate but is falsifiable — a world where the mall added no leisure/entertainment tenants and remained purely retail would falsify it — so it stops at gate one.
+- `announced-then-undelivered` — clean. No sentence promises an insight, analysis, or explanation that the draft then withholds; the piece is a flat inventory of facts by section, not an argument that defers a payoff.
+- `surveying-without-committing` — clean. Not applicable — the draft never poses a question it declines to answer; it has no argumentative framing at all, only enumerated facts under headers.
+- `invented-specifics` (narrow reading) — clean. No two specifics in the draft contradict each other (the PVR Cinemas figures — 6 screens, 1,088 seats, 49,000 sq. ft. — are repeated identically at lines 59 and 85; the layout-area figures at line 35 don't strictly reconcile but describe different measures — built-up vs. GLA vs. carpet vs. common area — which is a routine, non-contradictory breakdown, not a checkable conflict). No specific is attributed to an unnamed source in a way this critic can safely call out — see Out of scope below.
+
+**Out of scope:**
+- The draft has an empty References section (lines 129–134) alongside a populated External links section — the shape of a Wikipedia article whose inline citations were stripped when converted to plain text. Under that reading, several concrete specifics with no source given are candidates for a stripped hyperlink rather than a fabrication, and belong to a fact-checker rather than to a finding here: the characterization at line 21 ("According to trade publications, the mall had by this point transitioned...") names only a vague, unnamed source class; "marking the retailer's first location in Delhi and in North India" (line 53); the precise area/capacity/staffing figures at lines 35, 42, 53, 59, 75, 85, 98, 110. The footfall figures at line 104 are attributed to a named source (Shopping Centres Association of India) and so don't fall under this note.
+- Missing concrete detail is not flagged anywhere per this critic's scope (not applicable regardless — the draft is unusually dense with concrete detail throughout).
+
+CLEAN

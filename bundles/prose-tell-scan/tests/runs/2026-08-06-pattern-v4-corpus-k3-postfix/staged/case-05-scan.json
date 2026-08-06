@@ -1,0 +1,8 @@
+{
+  "words": 750,
+  "cadence_flags": [],
+  "thresholds_derived": false,
+  "deterministic_hits": 0,
+  "deterministic_hit_densities": [],
+  "_note": "Hit identities are withheld from this report on purpose. The patterns you own are the ones no regex can decide, so nothing the deterministic pass flagged can be one of yours. You are told the count so you know ground was covered and can avoid restating it, and nothing more."
+}
