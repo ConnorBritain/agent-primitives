@@ -308,6 +308,7 @@ function prepare(criticName, runId, opts) {
   const spec = CRITICS[criticName];
   if (!spec) die(`unknown critic ${JSON.stringify(criticName)} — known: ${Object.keys(CRITICS).join(", ")}`);
 
+  const draws = opts.draws ?? 3;
   const runDir = runId.includes("/") ? runId : join(TESTS, "runs", runId);
   let fixtures = spec.fixtures(opts);
   if (opts.only) fixtures = fixtures.filter((f) => opts.only.includes(f.name));
@@ -341,13 +342,21 @@ function prepare(criticName, runId, opts) {
       writeFileSync(join(caseDir, input.as), text);
       files.push({ as: input.as, from: relative(REPO, input.from), sha256: sha(text) });
     }
+    // ONE prompt per (case, draw). The prompt content is identical across draws by
+    // design — the whole point of k>1 is asking the SAME question K times to see
+    // whether the answer is stable. Duplicating the file gives dispatch a natural
+    // one-file-per-dispatch loop and matches pattern-harness's convention. Draws index
+    // from 1 so a k=1 run's file is `case-NN-d1.md`, which stays legible even when the
+    // draws count is not the point of the run.
     const prompt = buildPrompt({
       caseId,
       agentPath: relative(REPO, join(runDir, "prompts", "agent-prompt.md")),
       inputs: f.inputs.map((i) => relative(REPO, join(caseDir, i.as))),
       task: spec.task(staged),
     });
-    writeFileSync(join(runDir, "prompts", `${caseId}.md`), `${prompt}\n`);
+    for (let d = 1; d <= draws; d += 1) {
+      writeFileSync(join(runDir, "prompts", `${caseId}-d${d}.md`), `${prompt}\n`);
+    }
     entries.push({ case: caseId, fixture: f.name, kind: f.kind, inputs: files });
   });
 
@@ -364,6 +373,10 @@ function prepare(criticName, runId, opts) {
     critic: criticName,
     run_id: basename(runDir),
     prepared: new Date().toISOString().slice(0, 10),
+    // Recorded in the run itself, not just on the command line, so that verify-run
+    // can label a k=1 run "single draw" without the operator having to say so — and
+    // so that a run whose k was chosen for a reason has that reason attached to it.
+    draws,
     agent_prompt: spec.agent,
     agent_sha256: sha(agentBody),
     cases: entries,
@@ -371,25 +384,40 @@ function prepare(criticName, runId, opts) {
   writeFileSync(join(runDir, "MANIFEST.json"), `${JSON.stringify(manifest, null, 2)}\n`);
   writeFileSync(join(runDir, "prompts", "DISPATCH.md"), dispatchDoc(manifest, runDir));
 
-  process.stdout.write(`\n  ${relative(REPO, runDir)} — ${entries.length} case(s) prepared\n\n`);
+  const total = entries.length * draws;
+  process.stdout.write(`\n  ${relative(REPO, runDir)} — ${entries.length} case(s) × ${draws} draw(s) = ${total} prompt(s)\n\n`);
   process.stdout.write(`    critic prompt: ${spec.agent} (sha256 ${manifest.agent_sha256.slice(0, 12)})\n`);
-  process.stdout.write(`    prompts:       ${relative(REPO, join(runDir, "prompts"))}/case-NN.md\n`);
-  process.stdout.write(`    inputs staged: frontmatter stripped, ${entries.length} case dir(s), no fixture names\n\n`);
-  process.stdout.write(`  Next: dispatch one clean-context critic per prompt — see ${relative(REPO, join(runDir, "prompts", "DISPATCH.md"))}\n\n`);
+  process.stdout.write(`    prompts:       ${relative(REPO, join(runDir, "prompts"))}/case-NN-d{1..${draws}}.md\n`);
+  process.stdout.write(`    inputs staged: frontmatter stripped, ${entries.length} case dir(s), no fixture names\n`);
+  if (draws === 1) {
+    process.stdout.write(`\n    NOTE: --draws 1 — this is a single-draw run. verify-run will label it\n`);
+    process.stdout.write(`    "single draw (unreliable on borderlines)" so nobody quotes it as a measurement.\n`);
+  }
+  process.stdout.write(`\n  Next: dispatch one clean-context critic per prompt — see ${relative(REPO, join(runDir, "prompts", "DISPATCH.md"))}\n\n`);
 }
 
 function dispatchDoc(manifest, runDir) {
+  const draws = manifest.draws ?? 1;
+  const total = manifest.cases.length * draws;
+  // One row per (case, draw). Draws share a prompt but must each get a fresh critic
+  // context — the whole point of asking the same question K times is measuring whether
+  // the answer is stable, and it is not stable if the second dispatch inherits the
+  // first's context. A single agent doing all three draws of one case is not k=3.
+  const rows = manifest.cases.flatMap((c) =>
+    Array.from({ length: draws }, (_, i) =>
+      `| \`prompts/${c.case}-d${i + 1}.md\` | \`raw/${c.fixture}-d${i + 1}.md\` |`));
   return [
     `# Dispatching run ${manifest.run_id}`,
     "",
-    `${manifest.cases.length} cases, one clean-context \`${manifest.critic}\` critic each. Every prompt is`,
-    "self-contained and identically shaped; nothing below should be edited per case.",
+    `${manifest.cases.length} cases × ${draws} draw(s) = ${total} clean-context \`${manifest.critic}\` dispatches.`,
+    "Every prompt is self-contained and identically shaped; nothing below should be edited per case.",
     "",
     "## The rule that makes the run worth anything",
     "",
-    "Each critic gets a FRESH context and sees only its own prompt and the files that",
+    "Each dispatch gets a FRESH context and sees only its own prompt and the files that",
     "prompt lists. One agent doing two cases has seen a second case's staged copies; one",
-    "agent doing them all has seen the whole set and can infer the design.",
+    "agent doing all three draws of one case has seen its own earlier verdicts and is not",
+    "measuring anything anymore.",
     "",
     "## Automatic",
     "",
@@ -402,12 +430,12 @@ function dispatchDoc(manifest, runDir) {
     "",
     "## By hand, or from an agent session",
     "",
-    "For each `prompts/case-NN.md`: spawn a subagent, give it `agent-prompt.md` as its",
-    "system prompt and the case prompt as its task, and save its reply VERBATIM to:",
+    "For each row below: spawn a fresh subagent, give it `agent-prompt.md` as its system",
+    "prompt and the case prompt as its task, and save its reply VERBATIM to the raw path.",
     "",
     "| case | save the reply to |",
     "|---|---|",
-    ...manifest.cases.map((c) => `| \`prompts/${c.case}.md\` | \`raw/${c.fixture}.md\` |`),
+    ...rows,
     "",
     "The mapping is here and not in the prompt on purpose — the fixture name encodes the",
     "expected class in its `n-`/`p-` prefix, so the critic must not be told it.",
@@ -450,27 +478,31 @@ function dispatch(runDir, opts) {
   if (opts.only) cases = cases.filter((c) => opts.only.includes(c.fixture) || opts.only.includes(c.case));
   if (!cases.length) die("dispatch: no cases selected");
 
-  for (const c of cases) {
-    const promptFile = join(runDir, "prompts", `${c.case}.md`);
-    const inputsDir = join(runDir, "inputs", c.case);
-    const system = join(runDir, "prompts", "agent-prompt.md");
-    const prompt = readFileSync(promptFile, "utf8");
-    const cmd = custom
-      ? ["sh", ["-c", custom.replaceAll("{SYSTEM}", system).replaceAll("{INPUTS}", inputsDir).replaceAll("{PROMPT}", promptFile)]]
-      : ["claude", ["-p", "--system-prompt-file", system, "--add-dir", inputsDir,
-          "--allowedTools", `Read(${inputsDir}/**)`, `Read(${system})`,
-          "--disallowedTools", "Bash", "Grep", "Glob", "Task", "Edit", "Write", "WebFetch", "WebSearch"]];
+  const draws = manifest.draws ?? 1;
 
-    process.stdout.write(`    ${c.case} → raw/${c.fixture}.md ... `);
-    const started = Date.now();
-    const r = spawnSync(cmd[0], cmd[1], { input: prompt, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
-    if (r.status !== 0 || !r.stdout?.trim()) {
-      process.stdout.write("FAILED\n");
-      process.stderr.write(`\n${(r.stderr || "").slice(0, 2000)}\n`);
-      process.exit(1);
+  for (const c of cases) {
+    for (let d = 1; d <= draws; d += 1) {
+      const promptFile = join(runDir, "prompts", `${c.case}-d${d}.md`);
+      const inputsDir = join(runDir, "inputs", c.case);
+      const system = join(runDir, "prompts", "agent-prompt.md");
+      const prompt = readFileSync(promptFile, "utf8");
+      const cmd = custom
+        ? ["sh", ["-c", custom.replaceAll("{SYSTEM}", system).replaceAll("{INPUTS}", inputsDir).replaceAll("{PROMPT}", promptFile)]]
+        : ["claude", ["-p", "--system-prompt-file", system, "--add-dir", inputsDir,
+            "--allowedTools", `Read(${inputsDir}/**)`, `Read(${system})`,
+            "--disallowedTools", "Bash", "Grep", "Glob", "Task", "Edit", "Write", "WebFetch", "WebSearch"]];
+
+      process.stdout.write(`    ${c.case}-d${d} → raw/${c.fixture}-d${d}.md ... `);
+      const started = Date.now();
+      const r = spawnSync(cmd[0], cmd[1], { input: prompt, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });
+      if (r.status !== 0 || !r.stdout?.trim()) {
+        process.stdout.write("FAILED\n");
+        process.stderr.write(`\n${(r.stderr || "").slice(0, 2000)}\n`);
+        process.exit(1);
+      }
+      writeFileSync(join(rawDir, `${c.fixture}-d${d}.md`), `${r.stdout.trim()}\n`);
+      process.stdout.write(`${((Date.now() - started) / 1000).toFixed(0)}s\n`);
     }
-    writeFileSync(join(rawDir, `${c.fixture}.md`), `${r.stdout.trim()}\n`);
-    process.stdout.write(`${((Date.now() - started) / 1000).toFixed(0)}s\n`);
   }
   process.stdout.write(`\n  Next: node tests/run-harness.mjs collect ${relative(BUNDLE, runDir)}\n\n`);
 }
@@ -584,18 +616,24 @@ function collect(runDir) {
   const parsed = [];
   for (const f of files) {
     const name = f.replace(/\.md$/, "");
+    // `<fixture>-dK` for k>=1 runs; bare `<fixture>` for legacy k=1 runs that predate
+    // the suffix. Both parse to (fixture, draw) — legacy is treated as draw 1 of a
+    // 1-draw run, which is what those runs actually were.
+    const drawMatch = name.match(/^(.+)-d(\d+)$/);
+    const fixture = drawMatch ? drawMatch[1] : name;
+    const draw = drawMatch ? Number(drawMatch[2]) : 1;
     const body = readFileSync(join(rawDir, f), "utf8").replace(/\s+$/, "");
     const critic = manifest?.critic ?? guessCritic(body);
     if (!critic) die(`collect: ${f} ends in no verdict this harness knows`);
     const spec = CRITICS[critic];
     const verdict = deriveVerdict(body, spec.vocabulary);
     if (!verdict) die(`collect: ${f} has no closing verdict line — the critic did not finish its contract`);
-    const kindFromName = name.startsWith("p-") ? "positive" : "negative";
-    const declared = manifest?.cases.find((c) => c.fixture === name)?.kind;
+    const kindFromName = fixture.startsWith("p-") ? "positive" : "negative";
+    const declared = manifest?.cases.find((c) => c.fixture === fixture)?.kind;
     if (declared && declared !== kindFromName) {
       die(`collect: ${f} is a ${declared} fixture but its filename says ${kindFromName}`);
     }
-    parsed.push({ name, critic, spec, verdict, body, kind: kindFromName, findings: deriveFindings(body, spec) });
+    parsed.push({ name, fixture, draw, critic, spec, verdict, body, kind: kindFromName, findings: deriveFindings(body, spec) });
   }
 
   const reviewPath = join(runDir, "review.json");
@@ -738,6 +776,7 @@ function die(msg) {
 
 const USAGE = `run-harness: usage:
   node tests/run-harness.mjs prepare  <voice|fidelity> <run-id> [--only a,b] [--positives a,b]
+                                      [--draws N]              default 3; --draws 1 is labelled "single draw" downstream
                                       [--fixtures-dir <dir>]   fidelity only; for testing the leak abort
   node tests/run-harness.mjs dispatch <run-dir> [--only a,b]
   node tests/run-harness.mjs collect  <run-dir>
@@ -752,10 +791,17 @@ function main(argv) {
     const [k, inline] = argv[i].slice(2).split("=");
     flags[k] = inline ?? argv[++i];
   }
+  // k=3 by default — see .planning/SAMPLING-POLICY.md. A dev iteration can still
+  // ask for --draws 1, and verify-run labels those runs "single draw" in the header
+  // so they cannot be mistaken for a measurement.
+  const drawsRaw = flags.draws ?? "3";
+  const draws = Number.parseInt(drawsRaw, 10);
+  if (!Number.isInteger(draws) || draws < 1) die(`--draws must be a positive integer, got ${JSON.stringify(drawsRaw)}`);
   const opts = {
     only: flags.only?.split(","),
     positives: flags.positives?.split(","),
     fixturesDir: flags["fixtures-dir"] ? resolve(flags["fixtures-dir"]) : undefined,
+    draws,
   };
   const [cmd, a, b] = positional;
   const dir = (d) => {

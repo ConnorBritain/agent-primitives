@@ -276,13 +276,20 @@ hand-wrapping costs and what having a format buys.
 Each execution is logged under [`runs/`](runs/). This file stays the protocol;
 the logs carry the narration, because they grow and it should not.
 
-| run | negative | positive | uncited | authorship claims |
-|---|---|---|---|---|
-| [2026-08-04](runs/2026-08-04-prose-voice-critic.md) — partial, two prompt versions | 0 REVISE / 6 (after one fix) | 2 REVISE / 2 | 0 | 0 |
-| [2026-08-04b](runs/2026-08-04-b-complete.md) — **full sweep, one prompt version** | **0 REVISE / 12** | 1 REVISE / 4 confound-controlled | 0 | 0 |
-| [2026-08-05](runs/2026-08-05-fidelity-complete.md) — `prose-fidelity-critic`, full sweep | **1 MATERIAL-LOSS / 6** | **7 MATERIAL-LOSS / 7** | 0 | 0 |
-| [2026-08-05b](runs/2026-08-05-voice-cross-author-complete.md) — `prose-voice-critic`, **cross-author substitution**, k=3 on every headline cell | **0 REVISE / 18** (6 authors × 3 draws) | **12 REVISE / 12** register-matched · 26 REVISE / 26 across-register, single draws | 0 | 0 |
-| [2026-08-05-s4](runs/2026-08-05-fidelity-s4-complete.md) — `prose-fidelity-critic`, full sweep **after** the P3 scanner fix | **4 MATERIAL-LOSS / 6** | **7 MATERIAL-LOSS / 7** | 0 | 0 |
+**Every figure in the table below is a single-draw number unless the `draws` column
+says otherwise.** A single draw cannot distinguish a stable verdict from an unstable
+one, and every published number in this repo through 2026-08-05 was measured that
+way. The reason it now matters: the reviser gates on a fidelity verdict, so a wobbly
+verdict throws away good revisions at random. Runs from 2026-08-06 onward default to
+k=3 with a majority + split report. See [`.planning/SAMPLING-POLICY.md`](../../../.planning/SAMPLING-POLICY.md).
+
+| run | draws | negative | positive | uncited | authorship claims |
+|---|---|---|---|---|---|
+| [2026-08-04](runs/2026-08-04-prose-voice-critic.md) — partial, two prompt versions | 1 | 0 REVISE / 6 (after one fix) | 2 REVISE / 2 | 0 | 0 |
+| [2026-08-04b](runs/2026-08-04-b-complete.md) — **full sweep, one prompt version** | 1 | **0 REVISE / 12** | 1 REVISE / 4 confound-controlled | 0 | 0 |
+| [2026-08-05](runs/2026-08-05-fidelity-complete.md) — `prose-fidelity-critic`, full sweep | 1 | **1 MATERIAL-LOSS / 6** | **7 MATERIAL-LOSS / 7** | 0 | 0 |
+| [2026-08-05b](runs/2026-08-05-voice-cross-author-complete.md) — `prose-voice-critic`, **cross-author substitution** | mixed (3 on headline, 1 elsewhere) | **0 REVISE / 18** (6 authors × 3 draws) | **12 REVISE / 12** register-matched · 26 REVISE / 26 across-register, single draws | 0 | 0 |
+| [2026-08-05-s4](runs/2026-08-05-fidelity-s4-complete.md) — `prose-fidelity-critic`, full sweep **after** the P3 scanner fix | 1 | **4 MATERIAL-LOSS / 6** | **7 MATERIAL-LOSS / 7** | 0 | 0 |
 
 **The fidelity critic's negative rate got WORSE when the scanner got better, and
 that is published rather than tuned away.** A controlled experiment — the four
