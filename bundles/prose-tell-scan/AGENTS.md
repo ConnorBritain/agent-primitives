@@ -4,12 +4,17 @@ Portable form of the [`prose-tell-scan`](README.md) bundle, for harnesses with
 no skill registry (Codex, Gemini CLI, Copilot, Zed, or any plain `AGENTS.md`
 setup).
 
-> **Read this first — and it is better news than usual.** Most primitives in this
-> repo lose their teeth outside Claude Code, because enforcement is what fails to
-> port. This one is different. The measurement is a Node script with no
-> dependencies, so **the numbers are byte-identical on every harness**. What you
-> lose is dispatch: nothing will invoke it on its own, and nobody will remind you
-> to run it. That is a discoverability problem, not a correctness one.
+> **Read this first — and it is better news than usual, for one half of the
+> bundle.** Most primitives in this repo lose their teeth outside Claude Code,
+> because enforcement is what fails to port. The measurement is different: it is
+> a Node script with no dependencies, so **the numbers are byte-identical on
+> every harness**. What you lose is dispatch — nothing will invoke it on its own.
+> That is a discoverability problem, not a correctness one.
+>
+> **`prose-pattern-critic` does not get that reprieve.** It is a prompt, and its
+> two load-bearing guarantees are read-only and a clean context. Elsewhere both
+> are requests. Run it as a fresh process over the draft, and run the scan
+> yourself first so it cannot skip the half that is deterministic.
 >
 > See [../../docs/portability.md](../../docs/portability.md).
 
@@ -89,6 +94,15 @@ instead.
 | Register profiles, calibration, corpus | ✅ | ✅ identical |
 | Invoked automatically on the right request | ✅ skill dispatch | ❌ you ask, or the AGENTS.md rule reminds |
 | `/prose-tell-scan:tell-scan` shortcut | ✅ plugin only | ❌ |
+| `prose-pattern-critic` read-only | ✅ tool allowlist | ❌ a request, not a restriction |
+| `prose-pattern-critic` clean context | ✅ subagent | ⚠️ only if you run it as a fresh process |
+
+`prose-pattern-critic` is a prompt in
+[`agents/prose-pattern-critic.md`](agents/prose-pattern-critic.md). Paste the body
+into whatever your harness calls a reviewer. **The two rules to keep if you
+shorten it:** uncertainty resolves to silence, and nothing the scanner counts is
+available to the critic. Drop the first and it flags every abstract sentence in
+the language; drop the second and it is a model paraphrasing a regex.
 
 The one thing worth engineering around is the third row. A scanner nobody
 remembers to run protects nothing, which is what the instruction block is for.

@@ -56,8 +56,57 @@ export const MIN_COUNT = { 3: 1, 2: 2, 1: 3 };
  * same scale — subject to the floor above. An entry under its ceiling is still
  * reported, because it is evidence a human may want, but it is not flagged.
  */
-export function evaluateFindings(findings, thresholds) {
-  const ceilings = thresholds.catalog_density || {};
+/**
+ * Which catalog-density ceilings does this scan judge against — the human-only
+ * bands, or the ones blended with the author's approved edits?
+ *
+ * THIS FUNCTION IS THE POINT OF THE WHOLE approved/ MECHANISM, and until now it
+ * did not exist. `calibrate.mjs` has been writing `catalog_density_blended` and
+ * nothing read it: the loop where an author's kept edits feed back into how
+ * their next draft is judged was built on the write side and dead-ended here.
+ * So an ingested edit changed no output anywhere, which made the flywheel this
+ * project exists for unobservable.
+ *
+ * BLENDED IS THE DEFAULT WHEN IT EXISTS, and that is deliberate rather than
+ * convenient. Every guard that makes blending safe already ships and is tested:
+ * approved samples contribute nothing below CORPUS_MINIMUM human samples, their
+ * share is capped (0.2 default) and hard-clamped below 0.5 in code, and cadence
+ * bands are excluded entirely. A default of human-only would leave all of that
+ * machinery switched off and decorative.
+ *
+ * WHAT THE CALLER MUST DO WITH `source`. Report it. A ceiling derived partly
+ * from model-assisted text is a different claim from one derived only from prose
+ * the author wrote unaided, and a reader who cannot tell which they are looking
+ * at has been handed a measurement wearing the wrong label - which is the exact
+ * failure this bundle exists to prevent.
+ */
+export function resolveCeilings(thresholds, { blended: prefer = true } = {}) {
+  const human = thresholds.catalog_density || {};
+  const blended = thresholds.catalog_density_blended;
+  // calibrate writes `null` when there are no approved samples, or when the
+  // human corpus is too thin to bootstrap them. An empty object counts as absent
+  // too: a blend with no bands is not a blend.
+  const usable = blended && typeof blended === "object" && Object.keys(blended).length > 0;
+  const use = prefer && usable;
+  return {
+    ceilings: use ? blended : human,
+    source: use ? "blended" : "human-only",
+    available: Boolean(usable),
+    human,
+    blended: usable ? blended : null,
+  };
+}
+
+/**
+ * `bands` is the already-resolved output of resolveCeilings. Passing it in rather
+ * than resolving again means the ceilings a finding is JUDGED by and the ones the
+ * report NAMES are the same object, not two computations that happen to agree
+ * today. They agreed; the risk is the future edit that threads different
+ * thresholds into one call site and not the other, which would be invisible
+ * because the report would describe bands the findings were not measured against.
+ */
+export function evaluateFindings(findings, thresholds, bands = null) {
+  const ceilings = (bands ?? resolveCeilings(thresholds)).ceilings;
   const floors = { ...MIN_COUNT, ...(thresholds.min_count || {}) };
   const bySeverity = { 3: ceilings.high, 2: ceilings.medium, 1: ceilings.low };
 

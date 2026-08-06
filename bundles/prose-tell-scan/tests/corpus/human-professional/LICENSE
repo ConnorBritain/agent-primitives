@@ -1,0 +1,59 @@
+The prose samples in this directory are NOT covered by the repository's MIT
+licence. They are EFF Deeplinks posts, redistributed under:
+
+    Creative Commons Attribution 4.0 International (CC-BY 4.0)
+    https://creativecommons.org/licenses/by/4.0/
+
+The grant, quoted from https://www.eff.org/copyright ("Creative Commons"):
+
+    "Any and all original material on the EFF website may be freely
+     distributed at will under the Creative Commons Attribution 4.0
+     International License (CC-BY), unless otherwise noted. All material
+     that is not original to EFF may require permission from the copyright
+     holder to redistribute."
+
+Deeplinks posts are original EFF material. Redistribution must carry the
+attribution: Electronic Frontier Foundation, eff.org, plus the named author
+and permalink recorded per file in ATTRIBUTION.json and in each file's
+frontmatter. Nothing here has been modified beyond markup removal.
+
+The two caveats in EFF's grant are handled, not waved past.
+`fetch-professional.mjs` refuses any post whose body carries a competing
+copyright or licence line, because "unless otherwise noted" means such a note
+overrides the site-wide grant; and no post is vendored that consists mainly of
+reprinted third-party text, because "not original to EFF" is not EFF's to
+license.
+
+-------------------------------------------------------------------------
+THIS DIRECTORY IS MULTI-AUTHOR. IT IS NOT A VOICE CORPUS.
+-------------------------------------------------------------------------
+
+Deeplinks is a staff blog: roughly 27 named authors across 50 posts, and no
+author has enough samples here to characterise an individual's cadence. What
+you get by averaging them is a house style.
+
+    human-essays/         SINGLE identifiable authors, >=15 samples each.
+                          This is what voice calibration and the voice
+                          critic's cross-author test may use.
+
+    human-professional/   THIS directory. Many authors, one register.
+                          Register coverage only. Never a voice corpus.
+
+    human/                Wikipedia, many editors per article. Same kind of
+                          thing as this directory, different register.
+
+The distinction is load-bearing. Anything that reasons about voice assumes
+"these samples were written by the same person"; that assumption is false
+here, and a tool that took it on faith would report a confident measurement of
+a person who does not exist.
+
+One overlap to know about: Cory Doctorow writes for Deeplinks and also has his
+own single-author tranche in `human-essays/pluralistic/`. Cross-author work
+must draw from one bucket, not both, or it will score an author against
+himself and call the result a match.
+
+Nothing may be added to this directory except text that is public domain or
+under a licence at least as permissive - CC0, CC-BY, or CC-BY-SA - with the
+grant quotable and the provenance recorded per file. Not contemporary
+journalism outside such a licence, not private writing, however good a sample
+it would make.

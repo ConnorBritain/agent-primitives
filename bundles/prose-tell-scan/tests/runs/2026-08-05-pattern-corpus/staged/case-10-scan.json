@@ -1,0 +1,27 @@
+{
+  "words": 2543,
+  "flagged_categories": [
+    "current-era",
+    "leakage",
+    "structural-scaffold"
+  ],
+  "cadence_flags": [],
+  "flagged_entries": [
+    {
+      "id": "model-markup-artifact",
+      "category": "leakage",
+      "count": 3
+    },
+    {
+      "id": "tricolon",
+      "category": "structural-scaffold",
+      "count": 4
+    },
+    {
+      "id": "enhance",
+      "category": "current-era",
+      "count": 3
+    }
+  ],
+  "thresholds_derived": false
+}

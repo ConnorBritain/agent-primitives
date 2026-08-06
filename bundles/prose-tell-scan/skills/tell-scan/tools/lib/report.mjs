@@ -27,6 +27,64 @@ function rule(char = "─", width = 74) {
  * quietly reporting low-confidence findings, because a number presented without
  * its provenance gets quoted without it too.
  */
+/**
+ * Which catalog-density bands this scan judged against, and the narrowing
+ * warning if there is one.
+ *
+ * WHY THIS PRINTS EVEN WHEN NOTHING IS WRONG. A ceiling derived partly from
+ * model-assisted text is a different claim from one derived only from prose the
+ * author wrote unaided. Both are legitimate; presenting either without saying
+ * which is the failure the whole bundle is organised against. So the line is
+ * unconditional whenever a blend exists, not an exception report.
+ *
+ * The warning is the load-bearing half. `calibrate.mjs` has computed it since
+ * the blend shipped and written it to thresholds.derived.json, where nothing
+ * ever read it - a warning delivered to a file nobody opens. A blended ceiling
+ * meaningfully TIGHTER than the human one means the approved pool has lower tell
+ * density than the author's own writing, so the author's natural prose starts
+ * tripping its own bands and they learn to write blander to satisfy it. That is
+ * voice collapse, and it is the outcome this project exists to prevent.
+ */
+export function bandsBanner(bands, { showBands = false } = {}) {
+  if (!bands) return [];
+  const lines = [];
+
+  if (bands.blend_available) {
+    const n = bands.approved_samples;
+    const share = bands.share_of_blended_pool;
+    lines.push(bands.used === "blended"
+      ? dim(`  bands: catalog density judged against HUMAN + ${n} approved edit(s)`
+        + `${typeof share === "number" ? `, ${Math.round(share * 100)}% of the pool` : ""}`
+        + ` · cadence stays human-only · --human-only to compare without them`)
+      : dim(`  bands: catalog density judged against HUMAN-ONLY by request;`
+        + ` a blend of ${n} approved edit(s) exists and was not used`));
+  }
+
+  if (bands.warning) {
+    lines.push("");
+    lines.push(yellow(bold("  ⚠  BLENDED BANDS NARROWED THE HUMAN ONES")));
+    for (const chunk of String(bands.warning).split(". ").filter(Boolean)) {
+      lines.push(`     ${chunk.trim()}${chunk.trim().endsWith(".") ? "" : "."}`);
+    }
+  }
+
+  if (showBands && bands.blend_available) {
+    lines.push("");
+    lines.push(dim("  ceilings, per 1000 words:"));
+    lines.push(dim("     severity      human-only     blended"));
+    for (const label of ["high", "medium", "low"]) {
+      const h = bands.human?.[label];
+      const b = bands.blended?.[label];
+      if (typeof h !== "number" && typeof b !== "number") continue;
+      lines.push(dim(`     ${label.padEnd(12)}  ${String(h ?? "—").padEnd(13)}  ${b ?? "—"}`));
+    }
+  } else if (showBands) {
+    lines.push(dim("  --show-bands: no blended bands exist for this profile yet."));
+  }
+
+  return lines;
+}
+
 export function calibrationBanner(thresholds, summary) {
   const lines = [];
   if (!thresholds.derived) {
@@ -94,7 +152,8 @@ function renderFinding(f, { showExamples }) {
   return out;
 }
 
-export function renderReport(result, { showExamples = true, showClean = false } = {}) {
+export function renderReport(result, opts = {}) {
+  const { showExamples = true, showClean = false } = opts;
   const { file, profile, summary, findings, cadence, cadenceChecks, formatting, fit, masked } =
     result;
   const out = [];
@@ -112,6 +171,14 @@ export function renderReport(result, { showExamples = true, showClean = false } 
   if (banner.length) {
     out.push("");
     out.push(...banner);
+  }
+
+  // Immediately after the calibration banner and before any finding, because it
+  // qualifies every ceiling the findings below are measured against.
+  const bands = bandsBanner(profile.bands, { showBands: opts.showBands });
+  if (bands.length) {
+    out.push("");
+    out.push(...bands);
   }
 
   if (profile.fellBack && profile.requested) {

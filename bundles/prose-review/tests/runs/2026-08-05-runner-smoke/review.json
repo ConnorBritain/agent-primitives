@@ -1,0 +1,35 @@
+{
+  "n-tihonov-reordered": {
+    "note": "Class A. Dispatched by `run-harness.mjs`, not by hand. One finding-free report; the\ncritic re-checked every atom itself rather than resting on the scan's count.",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-rossolimo-hedges-removed": {
+    "note": "Class D — the scan says FAITHFUL and every atom survives as a string. Nine hedge and\nscope losses caught, which is the disagreement direction the fixture set exists for.",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: claim-drift / **ORIGINAL** (L34–36): \"I have always tried where it was possible to be consistent with the facts of science, and where it was impossible I have preferred not to write at all.\" / **REVISION** (L30–31): \"I have always been consistent with the facts of science.\" / **WHAT THE READER LOSES**: An effort-and-abstention policy (\"tried where possible\", \"preferred not to write at a",
+      "**CLASS**: claim-drift / **ORIGINAL** (L14–15): \"chose the Faculty of Medicine I don’t remember on what grounds\" / **REVISION** (L13): \"chose the Faculty of Medicine on good grounds\" / **WHAT THE READER LOSES**: An admission of forgotten, arbitrary motive is reversed into a claim of deliberate good reason — the opposite proposition.",
+      "**CLASS**: claim-drift / **ORIGINAL** (L13): \"I had at the time only a slight idea of the Faculties in general\" / **REVISION** (L12): \"I had an idea of the Faculties in general\" / **WHAT THE READER LOSES**: The stated ignorance (\"only a slight\", \"at the time\") is neutralised; the reader can no longer see that the choice of medicine was made without understanding of the alternatives.",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (L36–38): \"I may observe in passing that the conditions of artistic creation do not always admit of complete harmony with the facts of science.\" / **REVISION** (L31–32): \"The conditions of artistic creation do not admit of complete harmony with the facts of science.\" / **WHAT THE READER LOSES**: \"not always\" is dropped, converting an occasional excep",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (L20–23): \"Not counting reviews, feuilletons, paragraphs, and all that I have written from day to day for the newspapers, which it would be difficult now to seek out and collect,\" / **REVISION**: absent / **WHAT THE READER LOSES**: The exclusion that scopes the output figure, plus the existence of an uncollected body of journalism; the reader now rea",
+      "**CLASS**: claim-drift / **ORIGINAL** (L23): \"published more than three hundred signatures of print\" / **REVISION** (L19): \"published three hundred signatures of print\" / **WHAT THE READER LOSES**: A lower bound becomes an exact figure; the reader can no longer tell the true total exceeds three hundred.",
+      "**CLASS**: claim-drift / **ORIGINAL** (L30–31): \"it is probably due to my close association with medicine that I have succeeded in avoiding many mistakes\" / **REVISION** (L26): \"it is due to my close association with medicine that I have succeeded in avoiding many mistakes\" / **WHAT THE READER LOSES**: The hedge \"probably\" — a tentative causal attribution is stated as established cause.",
+      "**CLASS**: claim-drift / **ORIGINAL** (L26): \"I have no doubt that the study of medicine has had an important influence on my literary work\" / **REVISION** (L22): \"The study of medicine has had an important influence on my literary work\" / **WHAT THE READER LOSES**: The first-person attribution; a personal conviction is restated as impersonal fact, and the reader can no longer see it as the writer",
+      "**CLASS**: dropped-fact / **ORIGINAL** (L7–8): \"On a separate sheet I send a few facts, very bald, but I can do no more....\" / **REVISION** (L7): \"On a separate sheet I send the facts.\" / **WHAT THE READER LOSES**: That the enclosure is a few bald facts and the limit of what the writer will supply; \"the facts\" reads as a full account, removing the reluctance the paragraph exists to state."
+    ]
+  },
+  "_how": [
+    "One entry per transcript. `note` and `annotation` are the operator's; both may stay empty.",
+    "The nulls are the two contract counts, and they are counts of what the findings quoted",
+    "under `_findings_to_review` DO — not of what the critic says it did. Read the transcript.",
+    "Nothing here is derived for you, because a critic grading its own compliance is the",
+    "failure verify-run.mjs was written to close. collect refuses to run until they are numbers."
+  ]
+}

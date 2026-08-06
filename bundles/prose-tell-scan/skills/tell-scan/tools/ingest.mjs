@@ -18,7 +18,7 @@
  * quietly relax toward AI norms and nothing in the output says so.
  */
 
-import { existsSync, mkdirSync, writeFileSync, readFileSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, writeFileSync, readFileSync, statSync, realpathSync } from "node:fs";
 import { basename, dirname, extname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
@@ -232,4 +232,16 @@ function main() {
   process.exit(refused.length && !added.length ? 1 : 0);
 }
 
-main();
+// Run only when invoked directly, so this module can be imported.
+//
+// This file previously ended in a bare `main();`, so importing it RAN THE CLI -
+// printing usage and exiting inside whatever imported it. That is why nothing
+// could reuse these functions, and why prose-author's contract test could not
+// pin its port against them until this guard existed.
+//
+// realpathSync on both sides, not `import.meta.url === \`file://${argv[1]}\``:
+// import.meta.url is resolved and argv[1] is not, so the naive form silently
+// does nothing when the path contains a symlink. On macOS /tmp is one. (That
+// bug was real in prose-author's two tools, which DID have the naive guard;
+// these four had no guard at all.)
+if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) main();

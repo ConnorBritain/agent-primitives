@@ -1,0 +1,175 @@
+{
+  "_comment": [
+    "Acceptance fixtures for prose-pattern-critic. Each fixture is ONE draft.",
+    "",
+    "`draft.md` is built from the corpus file named in `source` by applying `edits` in order,",
+    "and `build.mjs` is the only thing allowed to write it. The selftest re-applies the edits",
+    "and fails if the result is not byte-identical to what is on disk. So the whole of every",
+    "draft is either corpus bytes or a declared edit, and there is no room to quietly tune a",
+    "passage until a fixture produces the verdict its author wanted. A negative fixture has",
+    "`edits: []` and is therefore byte-identical to human prose someone published.",
+    "",
+    "`scan_state` is what tell-scan says about the draft - `loud` if it flags at least one",
+    "catalog category, `quiet` otherwise - and the selftest re-derives it rather than trusting",
+    "this field.",
+    "",
+    "THE CLASSES ARE NOT prose-review's, AND THE DIFFERENCE IS THE POINT. See",
+    "../../critic-harness.md. That harness classifies a fidelity fixture by whether the critic",
+    "must AGREE or DISAGREE with the scanner, because the scanner answers the same question.",
+    "Here it does not: `not_deterministic` is the catalog's record of what it declines to",
+    "decide, so the tool is silent on all five patterns this critic owns, on every draft, by",
+    "construction. There is nothing to over-flag and nothing to echo. What varies instead is",
+    "whether the scanner is NOISY ELSEWHERE on the same draft, which is the real wrapper risk:",
+    "a critic that launders the scanner's deterministic hits into a verdict it does not own.",
+    "",
+    "  A  scan quiet, critic CLEAN   - it does not manufacture nits",
+    "  B  scan LOUD,  critic CLEAN   - it does not convict a draft for hits that are not its",
+    "                                  business. The anti-echo class.",
+    "  C  scan LOUD,  critic REVISE  - it names a not_deterministic pattern rather than",
+    "                                  restating a category the scan already reported",
+    "  D  scan quiet, critic REVISE  - it catches what no regex reaches. The whole argument.",
+    "",
+    "B and D remain the argument for the critic existing, exactly as in prose-review. What",
+    "does NOT carry over is the echo baseline: an echo of the scan has no verdict to copy",
+    "here, so there is no rate to beat and the honest report says so."
+  ],
+  "corpus_root": "../../corpus",
+  "patterns_owned": [
+    "llm-safe-truths",
+    "announced-then-undelivered",
+    "surveying-without-committing",
+    "absence-of-concrete-detail",
+    "invented-specifics"
+  ],
+  "fixtures": [
+    {
+      "name": "n-eu-gatekeepers",
+      "kind": "negative",
+      "class": "A",
+      "source": "human-professional/2026-07-09-european-commission-chooses-keep-eu-users-locked-behind-big-techs-gates.txt",
+      "scan_state": "quiet",
+      "expect": "CLEAN",
+      "draft_is": "Unmodified EFF advocacy post. The scan flags nothing. Nothing on the critic's list is present either.",
+      "edits": [],
+      "source_strips_links": true
+    },
+    {
+      "name": "n-awakening-v",
+      "kind": "negative",
+      "class": "A",
+      "source": "human-essays/gutenberg/chopin-005-the-awakening-chapter-v.txt",
+      "scan_state": "quiet",
+      "expect": "CLEAN",
+      "draft_is": "Unmodified narrative fiction, 1899. Present because a critic tuned on argumentative prose tends to read narration as evasion - a scene that states no thesis is not surveying-without-committing.",
+      "edits": []
+    },
+    {
+      "name": "n-wilhoitian",
+      "kind": "negative",
+      "class": "B",
+      "source": "human-essays/pluralistic/2026-07-09-wilhoitian.txt",
+      "scan_state": "loud",
+      "expect": "CLEAN",
+      "draft_is": "Unmodified Doctorow post. The scan flags THREE categories - corporate-register, figurative-vocabulary, structural-scaffold - plus mean sentence length. The critic must return CLEAN anyway: every one of those is the scanner's finding, already reported, and none is on this critic's list.",
+      "edits": [],
+      "source_strips_links": true
+    },
+    {
+      "name": "n-attestation",
+      "kind": "negative",
+      "class": "B",
+      "source": "human-professional/2026-07-09-googles-new-remote-attestation-scheme-every-bit-terrible-its-old-remote.txt",
+      "scan_state": "loud",
+      "expect": "CLEAN",
+      "draft_is": "Unmodified EFF post; the scan flags structural-scaffold. Densely specific throughout, so a critic reaching for absence-of-concrete-detail here has nowhere to put it.",
+      "edits": [],
+      "source_strips_links": true
+    },
+    {
+      "name": "p-supplemental-safe-truths",
+      "kind": "positive",
+      "class": "C",
+      "source": "human-essays/pluralistic/2026-07-24-supplemental-income.txt",
+      "scan_state": "loud",
+      "expect": "REVISE",
+      "expect_pattern": "llm-safe-truths",
+      "draft_is": "Three consecutive unfalsifiable sentences inserted into an argument that is otherwise all figures and links. Each names no state of the world in which it would be false.",
+      "edits": [
+        {
+          "find": "None of these stories are plausible, which raises an urgent question: why have the world's wealthiest investors been so eager to hand over trillions to finance this bubble?",
+          "replace": "It is worth stepping back here. Technology has always changed the way we work, and every generation has had to find its own balance between the promise of a new tool and the disruption it brings. The relationship between capital and innovation is complex, and reasonable people continue to weigh it in different ways.\n\nNone of these stories are plausible, which raises an urgent question: why have the world's wealthiest investors been so eager to hand over trillions to finance this bubble?"
+        }
+      ],
+      "source_strips_links": true
+    },
+    {
+      "name": "p-moderation-announced",
+      "kind": "positive",
+      "class": "C",
+      "source": "human-professional/2026-07-07-part-1-automated-moderation-here-stay.txt",
+      "scan_state": "loud",
+      "expect": "REVISE",
+      "expect_pattern": "announced-then-undelivered",
+      "draft_is": "An in-piece promise - a third dynamic, named as the one that matters most, said to be set out below - that the rest of the draft never returns to. Not to be confused with the post's own opening line deferring RECOMMENDATIONS to part 2, which is a legitimate signposted deferral and is left untouched.",
+      "edits": [
+        {
+          "find": "These failures are not incidental. They are a predictable consequence of deploying automated systems to make complex judgments about language, culture, context, and identity at scale.",
+          "replace": "These failures are not incidental. They are a predictable consequence of deploying automated systems to make complex judgments about language, culture, context, and identity at scale.\n\nThere is a third dynamic at work beneath both the costs and the benefits, and it matters more than either of them. It explains why the same failures keep recurring across companies that share no code and no staff, and it is the reason the usual remedies have not worked. I set it out below."
+        }
+      ],
+      "source_strips_links": true
+    },
+    {
+      "name": "p-drop-tool-announced",
+      "kind": "positive",
+      "class": "D",
+      "source": "human-professional/2026-07-20-what-you-need-know-about-californias-drop-tool.txt",
+      "scan_state": "quiet",
+      "expect": "REVISE",
+      "expect_pattern": "announced-then-undelivered",
+      "draft_is": "A forward reference - which brokers ignore requests, and what to do about it - inserted into a how-to that has no such section. The scan flags nothing at all here, so the finding cannot be borrowed from it.",
+      "edits": [
+        {
+          "find": "Here are some things to know about DROP. ",
+          "replace": "Here are some things to know about DROP, including which of the registered brokers are most likely to ignore a request and exactly what to do when one of them does. "
+        }
+      ],
+      "source_strips_links": true
+    },
+    {
+      "name": "p-watch-dogs-no-detail",
+      "kind": "positive",
+      "class": "D",
+      "source": "human-professional/2026-07-17-how-watch-dogs-video-game-series-mirrored-and-predicted-real-world-digital-rights.txt",
+      "scan_state": "quiet",
+      "expect": "REVISE",
+      "expect_pattern": "absence-of-concrete-detail",
+      "draft_is": "The one paragraph in the post that announces an event has its every specific removed - the convention, the organiser, five named panellists, the date, the time and the room number all become 'a major convention' and 'closer to the time'. The surrounding paragraphs still name Dragon Con 2018 and link a full schedule, so the absence is local and the draft's own move is what demands the specifics. A DELETION, not an insertion, because absence is the one pattern on the list you cannot construct by adding text.",
+      "edits": [
+        {
+          "find": "To commemorate Watch Dog 2's 10th anniversary, I'll be speaking on a panel at San Diego Comic-Con reflecting on how the game predicted tech issues we're facing today. Organized by Mia Ginae of The Mighty Hostess and Black in Gaming, we've got voice actors Ruffin Prentiss lll and Shawn Baichoo, cinematic producer Timmy Fisher, and music producer Hudson Mohawke, who did the soundtrack, with Mia Ginae moderating. That's at 3:15 PM on Friday, July 24 in room 6BCF.",
+          "replace": "To commemorate the game's anniversary, I'll be speaking on a panel at a major convention this summer, reflecting on how the game predicted tech issues we're facing today. It's been put together by people from the games community, and the lineup brings together several of the creative voices behind the original release, with a moderator drawing the conversation together. Details will be available closer to the time."
+        }
+      ],
+      "source_strips_links": true
+    }
+  ],
+  "known_confounds": {
+    "_about": [
+      "Properties of the vendored material that bias a critic, recorded because a fixture that",
+      "carries one silently makes the critic look wrong for noticing a gap the author did not leave."
+    ],
+    "links_stripped": {
+      "affects": [
+        "human-professional/",
+        "human-essays/pluralistic/"
+      ],
+      "what": "The corpus fetchers keep anchor TEXT and drop the href. EFF Deeplinks posts hyperlink their claims inline, so a published sentence that cited its source arrives here looking unsourced. grep -c for a URL in one of these bodies returns 1 - the frontmatter permalink - against 52 in a Doctorow post that writes its URLs out as text.",
+      "inflates": [
+        "absence-of-concrete-detail",
+        "invented-specifics (the unnamed-source half)"
+      ],
+      "handled": "The prompt now sends an apparently-missing citation to Out of scope rather than a finding, and selftest requires every fixture drawn from an affected directory to declare source_strips_links. Fixing it at the source means re-fetching the corpus and regenerating every acceptance baseline; that is a corpus-pipeline change, not a fixture change."
+    }
+  }
+}

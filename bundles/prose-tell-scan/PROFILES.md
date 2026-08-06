@@ -103,6 +103,8 @@ inherited, so a bundle-side catalog fix reaches every project without a merge.
 | `allow.txt` | suppresses matches | — |
 | `catalog.json` (bundle `_base`) | the patterns | `prose-pattern-critic` reads it to know what is *already* covered deterministically; the reviser may read it as **diagnostic input, never as a target** |
 | `corpus/human/` | `calibrate.mjs` derives bands | `prose-voice-critic` greps it for how this author writes |
+| `corpus/human/` | — | `prose-author`'s `exemplars.mjs` selects whole samples as drafting exemplars |
+| `corpus/approved/` | weight + cap in `calibrate.mjs`: reports human-only and blended catalog bands side by side; cadence stays human-only | `prose-author`'s `ingest-edit.mjs` writes it; `exemplars.mjs` reads it for drafting under the same cap |
 | `voice.md` | **never read** | `prose-voice-critic`'s target |
 | `profile.json` → `medium` | reported, not acted on | `prose-medium-critic` spawns only if this is set |
 
@@ -119,7 +121,7 @@ wrote it, which is the failure the catalog exists to *detect*, reproduced by the
 tool meant to fix it. The reviser's target is `voice.md` and the corpus. The
 catalog is a symptom list, not a fitness function.
 
-## The corpus has two readers, and will have three
+## The corpus has three readers
 
 `corpus/human/` is the asset, and what makes it one is that the same samples
 answer different questions:
@@ -128,12 +130,26 @@ answer different questions:
 |---|---|---|
 | `calibrate.mjs` | percentile bands | what does this author's rhythm measure out to? |
 | `prose-voice-critic` | reference text | does this draft sound like them? |
-| a future drafter (`kind: author`) | exemplars | write something that sounds like them |
+| `prose-author` (`kind: author`) | exemplars | write something that sounds like them |
 
-That third reader does not exist yet and is the point of the whole arrangement
-for most people: drafting *from* a corpus rather than only auditing against it.
-Nothing extra is needed on disk when it arrives — same directory, same
-provenance requirement, same register split.
+The third reader is the point of the whole arrangement for most people: drafting
+*from* a corpus rather than only auditing against it. It arrived needing nothing
+extra on disk — same directory, same provenance requirement, same register split,
+exactly as this section predicted.
+
+**It reimplements the provenance rule rather than importing it**, because a
+static import across the bundle boundary would make `prose-author` unloadable
+without `prose-tell-scan` installed — a worse failure than the drift a port
+risks. The drift is handled by a contract test in `prose-author/tests/` that
+runs both implementations over the same fixtures and fails when they disagree.
+
+**This file is the contract, and it has no owner.** Change a rule here and change
+both sides in the same commit. The first version of the port silently dropped the
+README exclusion and the attestation check, and every profile this repo ships has
+an empty `corpus/human/` containing exactly one file: a README explaining how to
+fill it. So the drafter's cold-start refusal never fired, and it would have been
+handed the scanner's own instructional boilerplate as an example of how the user
+writes.
 
 One ordering constraint follows, and it is worth stating before someone hits it:
 **a drafter checked against uncalibrated bands is checked against this repo's
@@ -279,6 +295,41 @@ against model norms on day one, and never find out.
 **5. Calibration reports both sets of bands.** Human-only and blended, side by
 side, every run. If blending narrows the density spread beyond a threshold, that
 is a warning in the output, not a footnote in a log.
+
+**6. The scanner uses the blend, and says so.** `tell-scan` judges catalog
+density against the blended bands whenever calibration has produced them, falls
+back to human-only otherwise, and names which on every run — in the report and in
+`--json` under `profile.bands`. `--human-only` forces the unblended comparison;
+`--show-bands` prints both.
+
+This rule exists because for a while it was false. `calibrate.mjs` wrote
+`catalog_density_blended`, and nothing read it: the scanner still compared against
+`catalog_density`. Every part passed its own tests, both bands shipped in the JSON
+exactly as rule 5 promises — and an ingested edit changed no reported verdict
+anywhere, so the loop this directory exists for could not be observed at all. A
+producer without a consumer is not a feature; it is a file.
+
+### What the closed loop does and does not demonstrate
+
+**Does.** An approved edit measurably moves a catalog-density ceiling, and a draft
+whose density sits between the human-only and blended ceilings genuinely flips
+verdict on the strength of that edit. That is asserted end to end — corpus →
+ingest → calibrate → scan — in `tests/selftest.mjs` under *"The loop closes"*, and
+`mutations.mjs` carries a mutation that reopens the gap to prove the test can fail.
+
+**Does not.** It does not show the bands move *toward the author's voice*. It shows
+they move toward **the pooled corpus including kept edits**, which is the same
+thing only if the kept edits are genuinely the author's. That premise is enforced
+socially and arithmetically — `edit_fraction` is computed from a real diff and
+weights the sample — not semantically. A user who accepts generations wholesale is
+pulling their own bands toward the model, slowly, under a cap, with a narrowing
+warning if it gets bad. It is bounded, not prevented.
+
+Nor does it say anything about **cadence**, which is untouched by design (rule 3)
+and tested to be byte-identical under both band sets.
+
+And the loop has only been exercised on **synthetic corpora**. Nobody's real
+writing has been through it.
 
 ## Voice locks — freezing a blend worth keeping
 

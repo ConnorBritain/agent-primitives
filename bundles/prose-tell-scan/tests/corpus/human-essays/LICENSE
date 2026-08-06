@@ -1,0 +1,65 @@
+The prose samples in this directory are NOT covered by the repository's MIT
+licence. They come from two source families, one per subdirectory:
+
+    gutenberg/     Public domain (works out of copyright)
+                   https://www.gutenberg.org/policy/permission.html
+                   Attribution recorded in ATTRIBUTION.json.
+
+    pluralistic/   Creative Commons Attribution 4.0 International (CC-BY 4.0)
+                   https://creativecommons.org/licenses/by/4.0/
+                   Cory Doctorow's stated license on every post at pluralistic.net.
+                   Attribution recorded in ATTRIBUTION.modern.json.
+
+Each subdirectory has its own attribution file. Redistribution must carry the
+per-file license the file was published under: CC-BY for pluralistic content
+(cite pluralistic.net + Cory Doctorow), public-domain terms for gutenberg
+content.
+
+Project Gutenberg's own Trademark License applies to any redistribution that
+carries the "Project Gutenberg" name. To stay clear of it, each essay here has
+its frontmatter naming Project Gutenberg as the SOURCE only, and the text body
+itself carries no PG boilerplate - the ***START/END*** markers, the header and
+license notice, and the footer are stripped by fetch-essays.mjs.
+
+ATTRIBUTION.json lists every essay's author, source volume, Gutenberg eBook id,
+and original publication date. The eBook id resolves to
+https://www.gutenberg.org/ebooks/<id> for anyone re-deriving the corpus.
+
+Why each gutenberg/ author is public domain, one line each. Two independent
+grounds are given because the corpus is redistributed worldwide: publication
+before the 1930 US cutoff, and author death more than 70 years ago.
+
+    Francis Bacon        Essays 1625.                 d. 1626.
+    G. K. Chesterton     Tremendous Trifles 1909.     d. 1936.
+    Anton Chekhov        Garnett translation 1920.    d. 1904; Garnett d. 1946.
+    Kate Chopin          The Awakening 1899.          d. 1904.
+    O. Henry             The Four Million 1906.       d. 1910 (W. S. Porter).
+
+Chekhov is the only one where the translation carries its own copyright term;
+Constance Garnett died in 1946, so the 1920 translation is out of copyright on
+both grounds as well.
+
+-------------------------------------------------------------------------
+THIS DIRECTORY IS SINGLE-AUTHOR. THAT IS THE POINT OF IT.
+-------------------------------------------------------------------------
+
+Every subdirectory here holds work by ONE identifiable writer, with enough
+samples (>=15) to characterise that writer's cadence. Voice calibration and
+the voice critic's cross-author test depend on it: both assume "these samples
+were written by the same person", and both produce a confident measurement of
+nobody if that is false.
+
+Multi-author collections do NOT belong here even when the licence is fine.
+They live in sibling directories - `human/` (Wikipedia, CC BY-SA 4.0) and
+`human-professional/` (EFF Deeplinks, CC-BY 4.0) - each with its own LICENSE.
+Those exist for the same reason this one does: to give the critics real prose
+to be tested against, with provenance a reader can check. They just answer a
+different question, and mixing them silently would turn an authorship test
+into a register test without anyone noticing.
+
+Nothing may be added to this directory except text that is public domain or
+under a licence at least as permissive - CC0, CC-BY, or an OSI-approved
+equivalent - with provenance recorded the same way. Not contemporary
+journalism (except CC-BY-published), not contemporary books, not private
+writing, however good a sample it would make. The tests do not need it; the
+public repo cannot host it.

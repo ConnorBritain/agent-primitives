@@ -1,0 +1,32 @@
+{
+  "words": 1111,
+  "flagged_categories": [
+    "figurative-vocabulary",
+    "leakage",
+    "structural-scaffold"
+  ],
+  "cadence_flags": [],
+  "flagged_entries": [
+    {
+      "id": "assistant-preamble",
+      "category": "leakage",
+      "count": 1
+    },
+    {
+      "id": "chatbot-register",
+      "category": "leakage",
+      "count": 1
+    },
+    {
+      "id": "delve",
+      "category": "figurative-vocabulary",
+      "count": 1
+    },
+    {
+      "id": "tricolon",
+      "category": "structural-scaffold",
+      "count": 5
+    }
+  ],
+  "thresholds_derived": false
+}

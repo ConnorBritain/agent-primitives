@@ -1,0 +1,89 @@
+# Harness-specific metadata for the prose-fidelity-critic primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+
+name: prose-fidelity-critic
+kind: reviewer
+surface: agent
+bundle: prose-review
+
+contract:
+  read_only: true          # a critic that can edit will restore instead of report
+  clean_context: true      # above all, it must not be the reviser it is checking
+  verdict: [FAITHFUL, MATERIAL-LOSS]
+  scope: file              # an original/revision pair, not a diff
+
+  # THIS CRITIC FOLLOWS THE REPO CONVENTION, AND ITS SIBLING DOES NOT.
+  #
+  # prose-voice-critic records two departures: uncertainty resolves to SILENCE,
+  # and no adversarial framing. Both are right there and both are WRONG here, so
+  # the reasons are written down rather than left for someone to infer from the
+  # absence of a note.
+  #
+  # Voice has no ground truth: instructing a critic to prove a passage does not
+  # sound like its author makes it manufacture a difference, and ordinary
+  # variation always supplies one. Fidelity has ground truth sitting right there
+  # in the original. "Assume the revision lost something and find it" is a
+  # question with an answer, and the answer is checkable by anyone.
+  #
+  # The costs also invert. A wrong voice finding teaches an author to write
+  # blandly and is not recoverable. A wrong fidelity finding costs ten seconds
+  # and a glance at two quoted lines. A MISSED fidelity loss ships, and by the
+  # time anyone looks the original may be gone - which is the whole reason
+  # DESIGN.md lands this critic before the reviser it guards.
+  uncertainty_resolves_to: material-loss
+  adversarial_framing: true
+
+  # The deterministic half runs first and is authoritative on presence. The
+  # split is not decoration: the tool docstring names the exact failure it
+  # prevents, which is a model "seeing" a number in the revision because the
+  # sentence around it sounds right.
+  reads_tool: tools/fidelity-scan.mjs
+
+  refuses:
+    - Claiming a scan-flagged atom is present. Disputes go to Scanner defects, as a
+      bug report about the tool, and may not be folded into a fidelity finding.
+    - Any finding that does not quote both the original span and what replaced it
+    - Judging whether the revision reads better, or sounds like the author -
+      prose-voice-critic owns voice and runs on the revision separately
+    - Proposing fixes. It reports what is missing; the author decides whether they meant it.
+    - Passing judgement at all when no original is supplied
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: orange
+    tools:
+      - Read
+      - Grep
+      - Glob
+      - Bash(node *fidelity-scan.mjs*:*)
+      - Bash(git show:*)
+    notes: >-
+      Full contract. read_only is granted by the tool allowlist: the agent has no
+      write tool, and the only Bash it may run are the scan and the `git show`
+      that recovers the pre-revision copy. Clean context matters more here than
+      anywhere else in the bundle - a critic that performed the revision will
+      remember what it meant to preserve rather than checking what it did.
+
+  cursor:
+    enforcement: partial
+    notes: >-
+      No tool allowlist, so read-only is a request. The deterministic scan still
+      runs and is still authoritative, which is the half that survives best.
+
+  codex:
+    enforcement: advisory
+    notes: >-
+      Neither read-only nor context isolation is enforced. Run it as a fresh
+      `codex exec` over the pair rather than inline, and run fidelity-scan
+      yourself first so the critic cannot skip it; see docs/portability.md.
+
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Prompt only. The rule to keep if you shorten it is that the scan is
+      authoritative on presence - a model asked to check whether a number
+      survived will answer from the sentence's plausibility, and that is the one
+      error the deterministic half exists to make impossible.

@@ -1,0 +1,21 @@
+{
+  "words": 3188,
+  "flagged_categories": [
+    "leakage",
+    "structural-scaffold"
+  ],
+  "cadence_flags": [],
+  "flagged_entries": [
+    {
+      "id": "assistant-preamble",
+      "category": "leakage",
+      "count": 1
+    },
+    {
+      "id": "not-x-but-y",
+      "category": "structural-scaffold",
+      "count": 3
+    }
+  ],
+  "thresholds_derived": false
+}

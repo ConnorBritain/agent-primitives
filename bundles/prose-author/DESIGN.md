@@ -1,6 +1,10 @@
 # prose-author — design
 
-**Status: SPEC ONLY. No code, no manifests, nothing installable.** This document
+**Status: v0.1 + v0.3.** Scoped passage rewriting ships, exemplar selection
+under the approved-corpus cap ships, verification with two refusals ships, and
+edit ingestion (`tools/ingest-edit.mjs`) ships — the correction channel that
+turns a kept edit into a corpus sample with computed `edit_fraction`. Blank-page
+drafting (v0.2) and voice locks (v0.4) remain spec only. This document
 exists to be argued with before anything is built, in the same way the bundle
 split was settled before the split happened.
 

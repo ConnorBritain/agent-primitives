@@ -3,8 +3,9 @@
 Deterministic measurement of prose: catalogued AI writing tells, and the rhythm
 metrics a model cannot reliably estimate about its own output.
 
-**Status: v0.1.** Report-only. Nothing here calls a model and nothing here writes
-to your document.
+**Status: v0.2.** The scanner is report-only and calls no model. It now ships one
+primitive that does — `prose-pattern-critic`, scoped to exactly the patterns the
+catalog records as undecidable by regex. It reads; it still does not write.
 
 > ### The invariant: the thing that measures does not also rewrite
 >
@@ -43,7 +44,9 @@ to your document.
 | [`.../tools/init.mjs`](skills/tell-scan/tools/init.mjs) | script | Scaffolds a writing project: profiles, corpus dirs, path rules |
 | [`.../tools/ingest.mjs`](skills/tell-scan/tools/ingest.mjs) | script | Adds a corpus sample with provenance attached |
 | [`.../tools/calibrate.mjs`](skills/tell-scan/tools/calibrate.mjs) | script | Derives a register's thresholds from its human corpus |
-| [`tests/selftest.mjs`](tests/selftest.mjs) | script | 71 checks, including the bias and false-positive regressions |
+| [`agents/prose-pattern-critic.md`](agents/prose-pattern-critic.md) | agent | Read-only critic for the five `not_deterministic` patterns. Runs on a draft, after the scan |
+| [`tests/selftest.mjs`](tests/selftest.mjs) | script | 303 checks, including the bias and false-positive regressions and the critic's fixture integrity |
+| [`tests/critic-harness.md`](tests/critic-harness.md) | doc | How the critic is measured, and the two things prose-review's harness could not lend it |
 | [`.../profiles/`](skills/tell-scan/profiles/) | data | `_base` catalog + `essay`, `technical`, `narration`, `correspondence` |
 
 **The scripts are an implementation detail.** Nothing here expects a human to
@@ -76,7 +79,9 @@ The second thesis is the one that decides the architecture:
 Frequency is a counting problem, and counting is what scripts are for. So
 **anything decidable deterministically is decided here**, and the model passes
 downstream are reserved for judgement no regex can make. The catalog names the
-patterns it deliberately does *not* try to match, under `not_deterministic`.
+patterns it deliberately does *not* try to match, under `not_deterministic` — and
+since v0.2 those have an owner. See
+[prose-pattern-critic](../../primitives/agents/prose-pattern-critic/README.md).
 
 ## Install
 
@@ -531,11 +536,17 @@ answer, which makes it a free regression test.
 
 | Version | Adds |
 |---|---|
-| **v0.1** (here) | Phase 0 intake, Phase 1 deterministic scan, profile system, skill + command packaging |
-| v0.2 | Catalog audit against the current upstream: Tier A markup gaps, negative-parallelism, the notability cluster, ISBN validation, markdown-structural checks |
-| v0.3 | Counter-evidence — the "signs of human writing" half, reported separately and never netted against findings |
-| v0.4 | `prose-pattern-critic`, the one reviewer coupled to this catalog: it owns what `not_deterministic` declares undecidable by regex |
+| **v0.1** | Phase 0 intake, Phase 1 deterministic scan, profile system, skill + command packaging |
+| **v0.2** (here) | `prose-pattern-critic` — the one reviewer coupled to this catalog, owning what `not_deterministic` declares undecidable by regex, with its fixture harness |
+| v0.3 | Catalog audit against the current upstream: Tier A markup gaps, negative-parallelism, the notability cluster, ISBN validation, markdown-structural checks |
+| v0.4 | Counter-evidence — the "signs of human writing" half, reported separately and never netted against findings |
 | v1.0 | Real AI/human acceptance corpus, FP-rate reporting with intervals, session-end hook |
+
+**The critic arrived two slots early**, ahead of the catalog audit it was planned
+behind. It cost far less than the estimate because it inherited a harness rather
+than inventing one — and what it could *not* inherit is written down in
+[`tests/critic-harness.md`](tests/critic-harness.md), which is the more useful
+half of the result.
 
 **The `prose-review` bundle**, separately versioned, ships the five craft
 critics, the fidelity check, and the single mutating revise pass. Build order

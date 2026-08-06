@@ -1,7 +1,20 @@
 # Calibration log
 
 Every false positive this scanner has produced on real writing, what caused it,
-and what was done about it.
+and what was done about it — **and, from `FN-2026-08-04-i` onward, the same
+treatment for defects in how this project MEASURES anything at all.**
+
+That second half was not planned; the log grew into it. Entries i through m are
+not scanner false positives — they are a published figure derived by a wrong
+method, a count read off a crashed run, a contract test that could not fail, a
+table that went stale in the commit that invalidated it, and a test fixture whose
+expected answer was wrong. Some of them happened in sibling bundles.
+
+They are kept together because the pattern only became visible once they were in
+one place, which is the argument the log makes about itself. **The cost is that
+this file now outgrows its bundle**, and a cross-bundle measurement log arguably
+does not belong under `prose-tell-scan/`. Recorded rather than fixed: moving it is
+a larger change than any entry in it.
 
 This file exists because **a false positive is data, not a nuisance.** The
 temptation with each one is to quietly tighten a regex and move on, which loses
@@ -827,6 +840,309 @@ because a negative test failing looks like the code being too strict.
 The rule this reinforces: **when a check fires on something you believe is
 clean, print the data before adjusting the threshold.**
 
+### FN-2026-08-04-i · published figures · checking in the method is not the same as checking the method
+
+**Bundle:** `prose-review`. Logged here because the meta-pattern is this file's,
+not that bundle's.
+
+**What happened.** Two numbers published in the prose-voice-critic harness run
+were wrong, and both were wrong in the way this log has now recorded six times:
+the arithmetic was fine and the *setup* was unstated.
+
+1. **Separator counts.** "kenyatta 37/2, ahmadu-bello 0/77, lagos 0/93" came from
+   a shell command typed once and never saved. A reviewer could not reproduce
+   them, getting anywhere from 20–49 and 0–19 depending on where they drew the
+   section boundary. The real figures, from a checked-in counter with a written
+   definition of what a bio-list entry *is*: **36/7, 0/2, 0/7**. The comma counts
+   were off by an order of magnitude because the original command counted every
+   comma-containing line rather than list entries.
+
+2. **The first-person ratio.** Already corrected once — 9× → 14.7× — by checking
+   in `genre-check.mjs`, with a note in this project's own voice about how a
+   figure nobody can re-derive is a figure nobody can challenge. **The script was
+   also wrong.** It matched `/\b(?:I|we|our|my)\b/` case-sensitively, which
+   silently drops every sentence-initial "We", "Our", "My" — where first person
+   most often sits. Correct figure: **12.3×**.
+
+**What is new here, and why it deserves its own entry.** The previous six
+incidents all had the same remedy: write down the method. This one happened
+*after* that remedy was applied. The script was checked in, reviewed, and cited —
+and it encoded a bug that a case-sensitivity choice made invisible.
+
+So the rule needs sharpening. **Checking in the method makes the answer
+findable; it does not make the answer right.** A checked-in script carries more
+authority than an ad-hoc grep and deserves *more* scrutiny for it, not less,
+because the next reader will trust it rather than re-derive it.
+
+**What actually caught it.** A reviewer read the regex, reasoned about English
+orthography rather than about the output, and predicted 12.3× *before* the fix
+was written. The fix produced 12.3×. That is the check that worked: not
+re-running the script, which would have agreed with itself, but reading what it
+claimed to measure against what it does measure.
+
+**Rules taken.**
+
+- A published figure needs a checked-in method **and** a stated scope — what
+  counts, what does not. `separator-count.mjs` says what a bio-list entry is so a
+  disagreement is about the definition rather than about whose grep won.
+- When a probe is case-sensitive, say why in a comment. Both directions here were
+  defensible and both were wrong for one of the two word classes; English decided
+  it ("I" is always capitalised, "we/our/my" are not), and that reasoning is now
+  in the file.
+- **Re-running a script is not verification of a script.** It reproduces its
+  bugs exactly. Verification is reading the method against the claim.
+- A correction to a published figure is not evidence the figure is now right. It
+  is evidence somebody looked once.
+
+### FN-2026-08-04-j · mutation testing · a count from a run that crashed
+
+**Bundle:** `prose-author`. Logged here because the pattern is this file's.
+
+**What happened.** A commit message reported three mutation tests with exact
+failure counts: 2, 4, and 3. The first two reproduced. The third did not, under
+any reconstruction a reviewer could build — they got 2, 5, or a hard crash.
+
+The mutation set `tierA = []`, which made `v.artifacts` undefined, and a test
+dereferenced it without a guard. **The run crashed after three failures.** The
+shell that collected the result piped through `grep -E '^  FAIL|passed,'`, which
+printed the three FAIL lines and silently dropped the fact that the
+`N passed, N failed` summary line never arrived. Through that filter a crashed
+run and a completed run are indistinguishable.
+
+Real number, with the dereference guarded: **6**.
+
+**Why it belongs in this log.** Same shape as the previous seven. The arithmetic
+was never wrong. The measurement setup was — a filter that could not represent
+"this run did not finish" — and the number it produced was plausible enough to
+publish and specific enough to look verified.
+
+**What is new.** The previous instances were about a *method* being unstated or
+unread. This one had no method to state: it was a one-off shell pipeline, which
+is precisely what FN-2026-08-04-i said to stop doing. The rule was written and
+then not applied to the next number produced, three commits later.
+
+**Rules taken.**
+
+- **A filtered command cannot report a count.** If the output is piped through
+  anything, the thing being counted must be parsed from a summary the script
+  emits, and the absence of that summary must be an error rather than a zero.
+- A test that dereferences a field the code under test may legitimately omit is
+  a crash waiting for a mutation. Guard the shape, not just the value.
+- Mutation results go in a checked-in table with the mutation written out, so the
+  next reader re-runs it rather than trusting it. See
+  `bundles/prose-author/tests/MUTATIONS.md`.
+
+### FN-2026-08-04-k · the contract test that could not fail
+
+**Bundle:** `prose-author`. Logged here because the shape is this file's, and
+because it happened inside the mechanism built to prevent exactly this.
+
+**What happened.** `exemplars.mjs` ports three rules from `calibrate.mjs` rather
+than importing them (a hard cross-bundle import would make the bundle unloadable
+without its sibling). A port drifts, so a contract test was written to pin it,
+and the commit message said it "fails on disagreement."
+
+It did not. The dynamic import sat in a bare `catch`, and *any* failure was
+reported as `contract test skipped — prose-tell-scan not present` — **a passing
+check**. A reviewer renamed `readProvenance` on the other side, with the sibling
+fully present, and the suite went green while claiming the port was pinned.
+
+**Two failures, and the second is bigger.**
+
+1. The catch could not distinguish *absent* from *changed*. Only the first is a
+   skip; the second is precisely the drift the test exists to catch.
+2. The test pinned **one** of the rules it claimed to pin. It compared the
+   attestation predicate and nothing else — not the 200-word floor, not the
+   README exclusion, not group traversal. Those were asserted against this
+   bundle's own constants, which pins nothing, with comments *asserting* what
+   `calibrate.mjs` would do rather than asking it.
+
+**Why it is the same pattern.** Ninth instance, and the purest one: a check that
+cannot tell "did not run" from "ran and passed". The previous eight produced a
+wrong number; this produced a wrong *reassurance*, which is worse, because a
+number invites re-derivation and a green test does not.
+
+**Rules taken.**
+
+- **A skip must be narrower than a failure.** Swallow only the specific error
+  that means "genuinely absent" — `ERR_MODULE_NOT_FOUND`, `ENOENT`. Everything
+  else fails loudly, including a successful import missing an expected export.
+- **A test that reports "skipped" must be able to say why**, and the why must be
+  checked rather than assumed from the fact that something went wrong.
+- If a comment claims the other side behaves a certain way, **call the other
+  side**. `calibrate.mjs` now exports `corpusFiles` and `MIN_SAMPLE_WORDS` for
+  this reason, and the port is compared against them rather than against a
+  sentence about them.
+
+### FN-2026-08-04-l · the table of measurements went stale in the commit that invalidated it
+
+**Bundle:** `prose-author`.
+
+**What happened.** `MUTATIONS.md` recorded what each mutation costs, verified by
+running each one. One commit later, a new cross-implementation check was added
+which *also* fires when the README filter is removed — so a row that correctly
+said `1` became `2`, silently.
+
+The commit re-ran the row it was **adding** and none of the rows it was
+**invalidating**. Both numbers were measured; the second-order effect of the new
+check on the existing table was not.
+
+**Why this one ends the sequence rather than extending it.** Ten instances, and
+the remedy has now been tried three ways:
+
+1. *Write the method down* (FN-i) — the method was written and then contained a
+   bug nobody read.
+2. *Do not use one-off pipelines* (FN-j) — written, then violated three commits
+   later by a `grep` that hid a crash.
+3. *Make the check distinguish "did not run" from "passed"* (FN-k) — correct, and
+   it did not help here, because nothing was wrong with the check. The table was
+   simply a hand-copy of an output.
+
+The pattern in all ten is one thing: **a number living somewhere that does not
+recompute.** Care does not fix that, and neither does a rule about care.
+
+**Rule taken, and it replaces the earlier ones rather than joining them.**
+
+> A measurement in a document is a cache. Either it is generated by something
+> re-runnable that fails when it disagrees, or it is already wrong and nobody has
+> noticed yet.
+
+`tests/mutations.mjs` applies every mutation, measures, restores, and refuses to
+pass when the checked-in table disagrees. The table is now output. The same
+treatment was applied to the harness counts (`prose-review/tests/verify-run.mjs`)
+and to the corpus figures (`genre-check.mjs`, `separator-count.mjs`).
+
+What remains hand-maintained, and is therefore where the eleventh will come from:
+the prose claims *around* those numbers.
+
+### FN-2026-08-05-m · the eleventh came from the fixtures, not from the prose
+
+**Bundle:** `prose-review`.
+
+FN-l predicted where the eleventh instance would come from: *"the prose claims
+around those numbers."* It came from somewhere else, twice, in one afternoon, and
+both are a class the log did not have — **the ground truth itself was wrong, and
+the test input contained the answer.**
+
+Both incidents are narrated in full, with the transcripts, in
+[`prose-review/tests/runs/2026-08-05-fidelity-complete.md`](../prose-review/tests/runs/2026-08-05-fidelity-complete.md)
+and `docs/PROSE-SYSTEM.md` §5. Summarised here only far enough to place them in
+the sequence, because the same story told twice drifts apart.
+
+**Incident 1: the answer was in the input.** Every `revision.md` in the fidelity
+critic's fixture set carried `expect: FAITHFUL` in its frontmatter — in a file the
+critic is required to read. Six transcripts were thrown away. The harness prompt
+forbade reading `fixtures.json`, where the answer was *supposed* to live; nobody
+considered that it was also somewhere else. A subagent noticed and said so
+unprompted, mid-verdict. Nothing in the repo would have.
+
+**Incident 2: the fixture's expected verdict was wrong.** A fixture asserted that
+shortening *Septimus Severus* to *Severus* was immaterial. It is not — several
+emperors are called Severus — and the critic said so. The correction is
+legitimate, being externally checkable rather than a matter of taste, but it
+yields a score computed partly against an answer the run itself supplied.
+
+**Why this is a new class.** Every earlier incident was a number that stopped
+being true. These two are numbers that were **never** true, because the thing
+they were measured against was wrong. Re-running does not help: the harness
+reproduces the same wrong answer perfectly and reports it with confidence.
+
+**Rules taken.**
+
+> The answer may not appear in anything the subject reads. Enforced:
+> `selftest.mjs` fails if any fixture's frontmatter names a verdict.
+
+> A ground truth that can be edited by the person being graded is not a ground
+> truth. Enforced: fixture originals must be byte-identical to their corpus
+> source, checked on every run.
+
+> A corrected expectation is recorded, not absorbed. Fixtures carry
+> `corrected_after_run`, and `verify-run.mjs` prints the caveat beside the score
+> — because per FN-l, a caveat that lives only in prose is the next entry here.
+
+**And one that cannot be enforced.** The leak was found by an agent doing the
+task, not by a check. Both incidents were found by *reading what came back*
+rather than by reading the summary — which is the same lesson as FN-i through
+FN-l arriving from a new direction, and the argument for verbatim transcripts
+being checked in at all.
+
+### FN-2026-08-05-n · `FN-k` recurred in a different bundle, and the fix for it was written in a third
+
+**Bundle:** `prose-tell-scan`, corpus integrity.
+
+`FN-2026-08-04-k` was "the contract test that could not fail." Here it is again,
+found while adding two authors to the corpus:
+
+```js
+const authors = new Set(attr.posts.map((p) => p.file).map((f) => "Cory Doctorow"));
+```
+
+It maps every manifest entry to the literal string it then asserts the set contains.
+**No corpus can fail this check.** It was the guard against an unrecognised author
+entering `pluralistic/` — the guard against silent licence drift — and it had been
+green since the day it was written, for the same reason a stopped clock is.
+
+A second one was found in the same pass and is subtler: a byline guard matching
+`\nauthor:\s+\S`, where `\s` matches the newline, so an **empty** `author:` value
+satisfied it by reading the next line. The same hole existed in the pre-existing
+`source:` and `date:` frontmatter checks.
+
+**What is different about this instance.** FN-k's remedy was "make the check
+distinguish did-not-run from passed." That is correct and did not help, because
+nothing here failed to run — the assertions executed perfectly against a value
+computed to satisfy them.
+
+> **The rule that actually catches this class: every guard needs a negative test
+> that is confirmed to fail.** Not "does the check pass on good input" but "does it
+> fail on bad input, and only on that." All nine new corpus guards were
+> negative-tested this way, in a sandbox copy, and two of them were wrong.
+
+This is the same discipline `mutations.mjs` enforces for code guards, arriving in
+the corpus layer six weeks later. The gap was never a missing rule; it was a rule
+applied to one kind of guard and not the other.
+
+### FN-2026-08-06-o · "the answer was in the input", third instance, this time via the tool's own vocabulary
+
+**Bundle:** `prose-tell-scan`, critic harness.
+
+Three times in two days, a critic was told the answer by an artifact it was required
+to read:
+
+1. `FN-2026-08-05-m` — `expect: FAITHFUL` in fixture frontmatter. Six transcripts
+   discarded.
+2. Case ids leaked the verdict through the `p-`/`n-` filename prefix. Fixed by
+   dispatching cases as `case-07`.
+3. **This one.** `pattern-harness.mjs` stages tell-scan's JSON output for the critic,
+   and that JSON carries the scanner's own entry ids: `chatbot-register`,
+   `assistant-preamble`, `model-markup-artifact`. 4 of 11 cases carried one. The
+   harness's `LEAKS` guard scans staged bytes for verdict words and **never inspects
+   entry ids**, because the ids are not verdicts — they are category names that
+   happen to assert authorship.
+
+The second leak in the same file: `NAMES_AUTHORSHIP` misses `chatbot-generated`,
+which appears verbatim in a vendored talk-page comment inside a staged draft.
+
+**The consequence is not a near miss.** The single case whose scan report leaked
+`chatbot-register` is the same case that produced both of the run's authorship
+claims — the contract violation that blocked the primitive. The harness told the
+critic the answer and then recorded the critic for repeating it.
+
+**Why the existing remedies did not catch it.** Every prior fix targeted *the thing
+that carries the answer*: strip frontmatter, opaque case ids, scan staged text for
+verdict words. All three assume the leak arrives in prose the harness controls. Here
+it arrived in a **required input the harness generates from a different tool**, in
+that tool's own vocabulary, where a category name is doing the work of a verdict.
+
+> **Rule taken: enumerate what the subject is allowed to see, not what it is
+> forbidden to see.** A denylist of verdict words is unbounded — every new catalog
+> entry, every vendored quotation, every sibling tool's id space is a new hole. The
+> staged input set is small and knowable; the set of strings that could give the game
+> away is not.
+
+Also unresolved and worth stating: the 2-of-11 that cleared the pre-registered
+threshold was measured through this leak. It is not being treated as a passing score.
+See `primitives/agents/prose-pattern-critic/meta.yaml`.
+
 ## What the log says so far
 
 **Four of six false positives trace to two root causes**, both structural rather
@@ -847,6 +1163,17 @@ looked.
 **Two of six were found by the test suite; four were found by using the tool.**
 That ratio is the argument for the kickoff's advice to run the scanner in anger
 before building anything on top of it.
+
+**Ten incidents now trace to a wrong measurement setup rather than wrong
+arithmetic**, and that is the single largest class in this log. Arithmetic errors
+announce themselves. Setup errors produce plausible numbers that survive review
+until someone independently re-derives them — which happened here only because a
+reviewer was asked to.
+
+The remedy has evolved twice. First: write the method down. Then (FN-i): the
+written method needs reading too, because a checked-in script is trusted more and
+therefore re-derived less. **Before publishing a figure, state what would have to
+be true for it to be meaningless, and check that thing.**
 
 ## Open calibration questions
 

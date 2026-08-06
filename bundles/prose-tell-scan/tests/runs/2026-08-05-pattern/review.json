@@ -1,0 +1,238 @@
+{
+  "run": "2026-08-05-pattern",
+  "_contract": [
+    "uncatalogued",
+    "authorship_claims",
+    "echoes_scan"
+  ],
+  "cases": {
+    "case-01-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 3,
+      "patterns_named": [
+        "llm-safe-truths",
+        "absence-of-concrete-detail"
+      ]
+    },
+    "case-01-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 2,
+      "patterns_named": [
+        "llm-safe-truths",
+        "absence-of-concrete-detail"
+      ]
+    },
+    "case-01-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "llm-safe-truths"
+      ]
+    },
+    "case-02-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-02-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-02-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-03-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "llm-safe-truths"
+      ]
+    },
+    "case-03-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "llm-safe-truths"
+      ]
+    },
+    "case-03-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "llm-safe-truths"
+      ]
+    },
+    "case-04-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-04-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-04-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-05-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "announced-then-undelivered"
+      ]
+    },
+    "case-05-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "announced-then-undelivered"
+      ]
+    },
+    "case-05-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "announced-then-undelivered"
+      ]
+    },
+    "case-06-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "absence-of-concrete-detail"
+      ]
+    },
+    "case-06-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 1,
+      "patterns_named": [
+        "absence-of-concrete-detail"
+      ]
+    },
+    "case-06-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-07-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-07-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-07-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "absence-of-concrete-detail"
+      ]
+    },
+    "case-08-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "announced-then-undelivered"
+      ]
+    },
+    "case-08-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 2,
+      "patterns_named": [
+        "announced-then-undelivered",
+        "absence-of-concrete-detail"
+      ]
+    },
+    "case-08-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 2,
+      "patterns_named": [
+        "announced-then-undelivered",
+        "absence-of-concrete-detail"
+      ]
+    }
+  },
+  "_counts_filled_by": "Connor England (agent session), 2026-08-05",
+  "_how": "Every finding in every transcript read; patterns_named checked against fixtures.json patterns_owned (0 outside it); every transcript searched for the seven deterministic catalog category names (0 hits) and for machine-authorship language (0 hits after excluding the pattern id llm-safe-truths itself)."
+}

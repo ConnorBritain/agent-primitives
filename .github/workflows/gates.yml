@@ -1,0 +1,132 @@
+# Tier-1 gates. Red means not done.
+#
+# These are the six commands docs/PROSE-SYSTEM.md §10 requires before declaring any
+# non-trivial task done. Until now they ran only when a human or an agent remembered
+# to run them, which makes "all suites green" a claim about someone's diligence.
+#
+# fetch-depth: 0 is load-bearing, not a default. Part of the prose-tell-scan suite
+# asserts that git CORROBORATES a frontmatter date - it is testing counter-evidence
+# that outranks a style reading. Under a shallow clone git cannot vouch for the
+# corpus file, the precondition is absent, and the suite reports SKIP rather than
+# passing. A green run that silently skipped its git checks is the kind of number
+# CALIBRATION.md is a list of.
+
+name: gates
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# `push` on every branch plus `pull_request` fired this twice for the same commit on
+# a PR branch, and the loser was CANCELLED - which surfaces as a red check next to a
+# green one. A gate that shows red for a reason unrelated to the code is how people
+# learn to merge past it.
+#
+# So: push builds only main, PRs build themselves, and this group cancels superseded
+# runs on the same ref. Pushing three times to a PR in a minute should cost one run,
+# not three.
+concurrency:
+  group: gates-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  gates:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Ordered cheapest-first so an obvious break fails fast, except mutations,
+      # which is last because it is the slowest and depends on every suite being
+      # green to mean anything at all.
+      - name: prose-tell-scan selftest
+        run: node bundles/prose-tell-scan/tests/selftest.mjs
+
+      - name: prose-tell-scan acceptance
+        run: node bundles/prose-tell-scan/tests/acceptance.mjs
+
+      - name: prose-author selftest
+        run: node bundles/prose-author/tests/selftest.mjs
+
+      - name: prose-review selftest
+        run: node bundles/prose-review/tests/selftest.mjs
+
+      # The harness runner's own suite. It is the ONLY thing guarding the integrity
+      # mechanisms that stop a run from being invalidated before it starts:
+      # frontmatter stripping, opaque case ids that do not leak the p-/n- answer,
+      # and the pre-dispatch leak scan. Those cost six discarded transcripts the
+      # first time they were absent, and they were absent because they were prompt
+      # rules rather than code.
+      - name: harness runner integrity
+        run: node bundles/prose-review/tests/run-harness-test.mjs
+
+      # Every checked-in transcript must be reproducible from its own body by the
+      # runner. This is what stops hand-wrapped and tool-wrapped runs from drifting
+      # into two conventions, which they already had.
+      # Enumerated rather than globbed, deliberately: a new run directory should
+      # have to be added here consciously. A glob would silently pick up a
+      # half-collected run and report it as evidence.
+      - name: checked-in runs are canonically wrapped
+        run: |
+          for d in 2026-08-04-b 2026-08-05-fidelity 2026-08-05-fidelity-s4 2026-08-05-voice-cross-author; do
+            node bundles/prose-review/tests/run-harness.mjs check "bundles/prose-review/tests/runs/$d"
+          done
+
+      # Re-derives the published harness numbers from the checked-in transcripts.
+      # Exits non-zero on a contract violation regardless of score.
+      - name: verify every harness run
+        run: |
+          for d in 2026-08-04-b 2026-08-05-fidelity 2026-08-05-fidelity-s4 2026-08-05-voice-cross-author; do
+            node bundles/prose-review/tests/verify-run.mjs "bundles/prose-review/tests/runs/$d"
+          done
+
+      # Asserts the property that makes parallel verification safe: no mutation
+      # writes to the working tree. Runs before the mutation table so a breach is
+      # reported as itself rather than as a table mismatch.
+      - name: mutations never touch the working tree
+        run: node bundles/prose-author/tests/concurrency.mjs
+
+      # Regenerates nothing; fails if MUTATIONS.md disagrees with what the
+      # mutations actually cost. Runs in a temp copy, so it is safe alongside
+      # anything else on the runner.
+      - name: mutation table is current
+        run: node bundles/prose-author/tests/mutations.mjs
+
+      # A suite that skipped a precondition is not the same as a suite that passed.
+      # Surface it in the log so a green tick never hides one.
+      - name: report any skipped preconditions
+        if: always()
+        run: |
+          node bundles/prose-tell-scan/tests/selftest.mjs 2>&1 | grep -A20 "^Skipped" || echo "no preconditions skipped"
+
+  # The working tree must survive a mutation run untouched. This is the property that
+  # makes parallel verification safe, and the repo's own gate mandates parallel
+  # reviewers - so it gets its own job rather than living inside a suite nobody reads.
+  concurrency-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: run mutations and a suite concurrently, then assert the tree is clean
+        run: |
+          node bundles/prose-author/tests/mutations.mjs & MUT=$!
+          sleep 3
+          for i in 1 2 3 4 5; do
+            node bundles/prose-review/tests/selftest.mjs > /tmp/concurrent-$i.log 2>&1 \
+              || { echo "::error::a suite failed while mutations.mjs was running"; cat /tmp/concurrent-$i.log; exit 1; }
+          done
+          wait $MUT
+          git diff --exit-code -- bundles primitives \
+            || { echo "::error::mutations.mjs modified the working tree"; exit 1; }

@@ -24,6 +24,11 @@ so when they are. Signals for me to weigh, not a verdict, and never a claim
 about who wrote something.
 
 Skip for short or throwaway writing — say so when you do.
+
+When the scan is done and the piece is an argument rather than a note, also
+dispatch `prose-pattern-critic` on the same draft. It owns only the five
+patterns the catalog marks undecidable by regex, and it is expected to return
+CLEAN most of the time.
 ```
 
 ---
@@ -36,6 +41,10 @@ Skip for short or throwaway writing — say so when you do.
 - **Write the exemption in.** A rule with no stated skip gets routed around
   silently the first time it is inconvenient, and a silently-ignored rule reads
   as covered.
+- **Bind the critic only where drafts are arguments.** On a codebase whose
+  writing is release notes and issue comments it will be quiet and you will have
+  paid for a subagent per draft to hear so. The exemption above is the whole
+  reason the second paragraph is a separate sentence rather than an `and`.
 - **Do not bind the revise pass this way** when it lands in the `prose-review`
   bundle. A transformer that runs on its own judgement will eventually rewrite
   something you did not want rewritten. Explicit invocation only.

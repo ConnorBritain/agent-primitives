@@ -1,0 +1,40 @@
+Comment: Also, note to the submitter, a section on which media orgs have covered him isn't good - instead, try to work that coverage into the greater biography about him EatingCarBatteries ( contributions , talk ) 06:09, 7 December 2025 (UTC) reply
+
+
+Comment: Article features random bolded words, **{text}** instead of '''{text}''' for bolding, and sources in which the links are placeholders. EatingCarBatteries ( contributions , talk ) 06:08, 7 December 2025 (UTC) reply
+
+
+
+
+Mojtaba Yadegari (born 31 March 1991) is an Iranian marathon runner whose long-distance campaigns have been repeatedly covered by independent national media, including IRNA , ISNA , Fars News , Varzesh3 , and Borna News . He has also been featured by the International Federation of Red Cross and Red Crescent Societies (IFRC) for his humanitarian running projects.
+
+Yadegari has completed multiple multi-day endurance runs across Iran since 2012, organized to promote public awareness and social causes. His achievements and distance records have been registered by the international records organization IMARO .
+
+Media coverage
+
+
+
+**IRNA** – Coverage of his inter-city marathon events.
+
+**ISNA** – Report on an 80 km provincial peace run.
+
+**IFRC** – Feature on his humanitarian campaigns.
+
+**Fars News** – Interview on his national running projects.
+
+**Varzesh3** – Report on a 17-day endurance run.
+
+**Borna News** – Profile on his athletic background.
+
+
+References
+
+
+
+
+
+Category:Iranian marathon runners
+Category:Sportspeople from Arak
+Category:Peace activists
+Category:1991 births
+Category:Living people

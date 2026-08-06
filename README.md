@@ -19,6 +19,8 @@ every time one appears.
 |---|---|---|---|
 | [`verification-gate`](bundles/verification-gate/) | Software delivery | [`verification-critic`](primitives/agents/verification-critic/) · [`architecture-reviewer`](primitives/agents/architecture-reviewer/) | reviewer |
 | [`prose-tell-scan`](bundles/prose-tell-scan/) | Prose measurement | [`tell-scan`](bundles/prose-tell-scan/skills/tell-scan/) skill · `/prose-tell-scan:tell-scan` | investigator |
+| [`prose-review`](bundles/prose-review/) | Prose judgement | [`prose-voice-critic`](primitives/agents/prose-voice-critic/) · [`prose-fidelity-critic`](primitives/agents/prose-fidelity-critic/) | reviewer |
+| [`prose-author`](bundles/prose-author/) | Prose generation | [`prose-draft`](bundles/prose-author/skills/prose-draft/) skill | author |
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) is the spec for adding another, in any domain — the repo
 is not scoped to code review, and the authoring guidance is organised by **kind** rather than
@@ -34,6 +36,33 @@ plugin.
 deterministic layer. Its critics and revise pass go in a *separate* `prose-review` bundle
 rather than this one — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle), which is honest
 that half the argument for that split is still a projection.
+
+Its test corpus has grown too. `corpus/human-essays/` holds **six single authors
+across four centuries and four registers** — argumentative essay (Bacon 1625,
+Chesterton 1909), correspondence (Chekhov 1920), narration (Chopin 1899, O. Henry
+1906), modern long-form (Doctorow) — all public domain or CC-BY, vendored by
+reproducible fetchers. Alongside them: `corpus/human-professional/` (EFF Deeplinks,
+CC-BY 4.0, deliberately multi-author for register coverage) and the 12 Wikipedia
+articles in `corpus/human/`.
+
+**Counts are not printed here on purpose.** Run
+[`stats.mjs`](bundles/prose-tell-scan/tests/corpus/stats.mjs) — the figures that used
+to sit in this paragraph went stale in the same commit that grew the corpus.
+
+The single-author/multi-author split is load-bearing rather than incidental: voice
+work needs one identifiable writer per corpus, and the multi-author buckets are
+capped and guarded so no byline can ever be mistaken for one. Six single authors is
+30 ordered cross-author pairs, which is what a voice critic needs to be measured on
+a *person* rather than on a register.
+
+It has already paid for itself once. `prose-fidelity-critic` is built on it:
+each acceptance fixture pairs a byte-identical copy of a Bacon essay or a Chekhov
+letter with a revision written to lose something specific. Because fidelity has
+ground truth — the original — that critic is the first here to ship with a
+measured **true-positive** rate rather than a false-positive bound. The others
+cannot, and [`prose-review/DESIGN.md`](bundles/prose-review/DESIGN.md) says why:
+the useful question is not "where do I find labelled data" but "does this
+question have an answer that does not depend on who is asked".
 
 A bundle is the unit you install and toggle, so it holds the primitives you'd want on or off
 *together* — see [sizing a bundle](CONTRIBUTING.md#sizing-a-bundle). Adding a new domain means

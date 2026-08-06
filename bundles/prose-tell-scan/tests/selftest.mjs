@@ -22,6 +22,8 @@ import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
 
 import { runAcceptance } from "./acceptance.mjs";
+import { renderFixture } from "./fixtures/pattern/build.mjs";
+import { scanState } from "./pattern-harness.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(HERE, "..");                // bundles/prose-tell-scan
@@ -47,6 +49,45 @@ function check(name, condition, detail = "") {
 
 function group(title) {
   process.stdout.write(`\n${title}\n`);
+}
+
+/**
+ * A check whose PRECONDITION is absent, announced rather than quietly dropped.
+ *
+ * FN-2026-08-04-k is the reason this is loud: a contract test with a bare `catch`
+ * reported "skipped" on a rename while its subject was fully present, and nobody
+ * saw it because a skip that prints nothing is indistinguishable from a pass. So
+ * a skip prints, says WHY, and is counted in the summary line.
+ */
+let skipped = 0;
+const skips = [];
+function skip(name, why) {
+  skipped += 1;
+  skips.push(`${name} — ${why}`);
+  process.stdout.write(`  SKIP ${name} — ${why}\n`);
+}
+
+/**
+ * Is `file` tracked by git, here, right now?
+ *
+ * THE BUG THIS REPLACES. The git-corroboration tests guarded on `existsSync`,
+ * but their real precondition is that git can vouch for the file's age. Those
+ * are not the same question, and they come apart in exactly the situation that
+ * matters: a COPY of the repo. Copy the tree without `.git` - which is what
+ * `mutations.mjs` now does, and what any CI checkout artifact or `cp -R` does -
+ * and the file still exists while git knows nothing about it. The assertions
+ * then ran with their premise false and reported three failures that had nothing
+ * to do with the code under test.
+ */
+function gitTracked(file) {
+  try {
+    execFileSync("git", ["ls-files", "--error-unmatch", file], {
+      cwd: dirname(file), stdio: ["ignore", "ignore", "ignore"],
+    });
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function scan(args) {
@@ -119,6 +160,12 @@ try {
                        "bundles/prose-tell-scan/AGENTS.md",
                        "bundles/prose-tell-scan/PROFILES.md",
                        "bundles/prose-author/DESIGN.md",
+                       "bundles/prose-review/DESIGN.md",
+                       "bundles/prose-review/README.md",
+                       "bundles/prose-review/PROTOCOL.md",
+                       "bundles/prose-review/AGENTS.md",
+                       "bundles/prose-review/tests/critic-harness.md",
+                       "primitives/agents/prose-voice-critic/README.md",
                        "bundles/prose-tell-scan/wiring/claude-md.md",
                        "bundles/prose-tell-scan/wiring/agents-md.md",
                        "bundles/verification-gate/AGENTS.md",
@@ -764,11 +811,23 @@ try {
 
     // The corroborated path, on a real committed file: git is a record, not a
     // claim, so this one IS dispositive.
+    // GUARD ON GIT, NOT ON THE FILESYSTEM. These four checks assert that git
+    // CORROBORATES a frontmatter date, so their precondition is that git is
+    // vouching for this file - not merely that the file is on disk. The two come
+    // apart in any copy of the repo made without `.git`, where the file is
+    // present and git knows nothing about it.
     const tracked = join(BUNDLE, "tests", "corpus", "human", "kenyatta-university.txt");
-    const r = existsSync(tracked)
+    const canCorroborate = existsSync(tracked) && gitTracked(tracked);
+    const r = canCorroborate
       ? scan([tracked, "--profile", "technical"]).results[0]
       : null;
     const ce = r ? r.counter_evidence : rc.counter_evidence;
+    if (!r) {
+      skip("git corroborates a frontmatter date",
+        existsSync(tracked)
+          ? "corpus file is not git-tracked here (a copy of the tree, or not yet committed)"
+          : "corpus file absent");
+    }
     if (r) {
       check("a frontmatter date corroborated by git IS evidential",
         ce.age.evidential === true && ce.age.corroborated === true, JSON.stringify(ce.age));
@@ -1396,12 +1455,984 @@ try {
       );
     }
   }
+
+  /* ------------------------------------------------------------------ */
+  group("Relative report — \"is this me?\" against the author's own rates");
+
+  {
+    const rel = await import("../skills/tell-scan/tools/lib/relative.mjs");
+    const { poissonAtLeast, relativeReport, authorRate, renderRelative } = rel;
+    const { MIN_COUNT, THIN_COMPARISON } = rel;
+
+    // A wrong tail makes every surprise wrong in the same direction, and would
+    // look like a threshold needing tuning rather than arithmetic that is broken.
+    check(
+      "Poisson upper tail matches the closed form at k=1",
+      Math.abs(poissonAtLeast(1, 1) - (1 - Math.exp(-1))) < 1e-12,
+    );
+
+    // THE REASON THIS MODULE USES POISSON AT ALL. A per-1k ratio on a short
+    // draft is enormous for a single occurrence, so a ratio-based report flags
+    // every short draft and the author learns to ignore it. If this fails, the
+    // tool has started shouting at people for writing 400 words.
+    const rates = { widget: { per_1k: 0.2, count: 8, in_samples: 5 } };
+    const shortDraft = relativeReport({
+      entryRates: rates,
+      corpusWords: 40000,
+      draftEntries: [{ id: "widget", count: 1, title: "widget" }],
+      draftWords: 400,
+    });
+    check("one occurrence in a short draft is not a finding", shortDraft.surprises.length === 0);
+
+    // The other direction, or the quietness above is indistinguishable from the
+    // module doing nothing at all.
+    const loaded = relativeReport({
+      entryRates: rates,
+      corpusWords: 40000,
+      draftEntries: [{ id: "widget", count: 9, title: "widget" }],
+      draftWords: 900,
+    });
+    check("a genuinely elevated count is reported", loaded.surprises.length === 1);
+    check("a measured rate is labelled measured", loaded.surprises[0].basis === "measured");
+
+    // A construction the corpus never contains is NOT rate zero. Zero asserts
+    // "this author never does this" from silence, which is a claim about a
+    // person the corpus cannot support. The rule-of-three bound needs MORE
+    // evidence to flag, not less.
+    const unseen = authorRate({}, "novel", 40000);
+    check(
+      "an unseen construction uses the rule-of-three bound, not zero",
+      unseen.rate === 3 / 40000 && unseen.observed === false,
+    );
+
+    const unseenReport = relativeReport({
+      entryRates: {},
+      corpusWords: 40000,
+      draftEntries: [{ id: "novel", count: 5, title: "novel" }],
+      draftWords: 600,
+    });
+    check(
+      "an unseen construction is labelled unseen, never measured",
+      unseenReport.surprises[0] && unseenReport.surprises[0].basis === "unseen",
+    );
+
+    // Floor and test fail in opposite directions on purpose: two of anything
+    // stays silent however improbable, because two of anything happens.
+    const twoHits = relativeReport({
+      entryRates: {},
+      corpusWords: 400000,
+      draftEntries: [{ id: "novel", count: MIN_COUNT - 1, title: "novel" }],
+      draftWords: 5000,
+    });
+    check(
+      "below the min-count floor nothing is claimed, however improbable",
+      twoHits.surprises.length === 0,
+    );
+
+    // "Nothing unusual" after ONE comparison reads as "your draft is fine",
+    // which is far larger than one comparison carries. Silence that sounds like
+    // reassurance is the failure this project keeps rediscovering.
+    const thin = renderRelative(
+      { surprises: [], compared: 1, draftWords: 1300 },
+      { corpusWords: 36096, samples: 12 },
+    );
+    check("a thin comparison does not report 'nothing unusual'", !/Nothing unusual/.test(thin));
+    check("a thin comparison says what it could not check", /not a clean bill of health/.test(thin));
+
+    const fat = renderRelative(
+      { surprises: [], compared: THIN_COMPARISON + 3, draftWords: 1300 },
+      { corpusWords: 36096, samples: 12 },
+    );
+    check("a real comparison does say nothing unusual", /Nothing unusual/.test(fat));
+
+    // Three causes produce "outside your range" and the tool cannot tell them
+    // apart. Phrased as a verdict it teaches authors to write blandly, which is
+    // the exact damage this project exists to prevent.
+    const spoken = renderRelative(
+      {
+        surprises: [{
+          id: "w", title: "w", draftCount: 9, draftPer1k: 10, authorPer1k: 0.2,
+          expected: 0.18, p: 0.0001, basis: "measured", corpusCount: 8, inSamples: 5,
+        }],
+        compared: 9, draftWords: 900,
+      },
+      { corpusWords: 36096, samples: 12 },
+    );
+    check("findings are framed as a question", /question, not a verdict/.test(spoken));
+    check("the report names the innocent explanations", /writing something new/.test(spoken));
+    check(
+      "the report never says it does not sound like you",
+      !/sound like you/i.test(spoken),
+    );
+  }
+
+
+  /* ------------------------------------------------------------------ */
+  group("Relative report — through the CLI, not just the module");
+
+  {
+    // The unit tests exercise relative.mjs directly. Nothing exercised the flag
+    // through tell-scan.mjs itself, so a wiring mistake - a flag never parsed, a
+    // refusal never reached, a renderer never called - would pass every test.
+    const prof = join(tmp, "relcli", "profiles", "encyc", "corpus", "human");
+    mkdirSync(prof, { recursive: true });
+    const humanDir = join(REPO, "bundles", "prose-tell-scan", "tests", "corpus", "human");
+    for (const f of readdirSync(humanDir).filter((x) => x.endsWith(".txt"))) {
+      cpSync(join(humanDir, f), join(prof, f));
+    }
+    const root = join(tmp, "relcli");
+    execFileSync("node", [CAL, "encyc", "--profiles-dir", join(root, "profiles"), "--project", root, "--write"],
+      { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+
+    const out = execFileSync("node", [
+      SCAN, join(humanDir, "kenyatta-university.txt"), "--relative",
+      "--profile", "encyc", "--profiles-dir", join(root, "profiles"), "--project", root,
+    ], { encoding: "utf8" });
+    check("--relative renders the 'is this me?' header", /is this me\?/.test(out));
+    check("--relative reports against the corpus, not a severity class", /against your corpus/.test(out));
+    check("--relative never says a draft does not sound like you", !/sound like you/i.test(out));
+
+    // THE COLD-START REFUSAL, through the CLI. Without a corpus there is no
+    // "you" to compare against, and answering from fallback bands would be a
+    // confident, personal-sounding statement about nobody. It must exit non-zero
+    // so a script cannot mistake the refusal for a clean result.
+    let code = 0;
+    let stderr = "";
+    try {
+      execFileSync("node", [SCAN, join(humanDir, "kenyatta-university.txt"), "--relative"],
+        { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+    } catch (err) {
+      code = err.status;
+      stderr = String(err.stderr || "");
+    }
+    check("--relative without a corpus exits non-zero", code !== 0);
+    check("and explains that there is no 'you' to compare against", /no calibrated corpus/.test(stderr));
+  }
+
+
+  /* ------------------------------------------------------------------ */
+  group("Blend — approved samples influence catalog bands under the cap");
+
+  {
+    const root = join(tmp, "blend-real");
+    const profile = join(root, "profiles", "essay");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), JSON.stringify({
+      version: "test", entries: [
+        { id: "lake", label: "lake", kind: "lexical", category: "test",
+          severity: 2, confidence: "high", pattern: "\\blake\\b" },
+      ],
+    }));
+    for (let i = 1; i <= 12; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${(i % 9) + 1}\nhuman_authored: true\n---\n`
+        + `${"The lake was calm this morning and the birds sat still. ".repeat(20)}\n`,
+      );
+    }
+    const origPath = join(root, "orig.txt");
+    const editPath = join(root, "edit.txt");
+    writeFileSync(origPath, "The lake was calm this morning. Fog sat on the water and did not move. ".repeat(30));
+    writeFileSync(editPath, "The lake was still at dawn. Mist held above the water without stirring, and the far shore did not exist. ".repeat(20));
+    execFileSync("node", [
+      resolve(REPO, "bundles", "prose-author", "skills", "prose-draft", "tools", "ingest-edit.mjs"),
+      editPath, "--original", origPath, "--profile", "essay",
+      "--profiles-dir", join(root, "profiles"), "--project", root,
+    ], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+
+    const human = calibrate(["essay", "--profiles-dir", join(root, "profiles"), "--project", root]).derived;
+    // A hard cap much smaller than what the sample would occupy naturally.
+    const capped = calibrate(["essay", "--profiles-dir", join(root, "profiles"),
+      "--project", root, "--cap", "0.02"]).derived;
+
+    // Rule 2: cap constrains the SHARE of the blended pool. If the raw sample
+    // would occupy more than the cap, it must be scaled DOWN. Silent
+    // acceptance here would let approved dominate the pool despite the config.
+    check("an approved sample participates when there is enough human corpus",
+      human.approved.samples_used === 1);
+    check("share tracks the cap when it binds",
+      Math.abs(capped.approved.share_of_blended_pool - 0.02) < 1e-3);
+    check("the scale is <1 when the cap binds", capped.approved.scale < 1);
+    check("and =1 when it does not", human.approved.capped === false);
+
+    // Rule 5: BOTH bands ship, every run. A consumer reads both with eyes open;
+    // drift between them is visible. If either goes null when the other exists
+    // and the corpus is calibrated, the whole side-by-side promise is broken.
+    check("human catalog_density is present", human.catalog_density.medium !== undefined);
+    check("blended catalog_density is present when approved contributes",
+      human.catalog_density_blended && human.catalog_density_blended.medium !== undefined);
+
+    // Rule 3, THE FIREWALL: cadence is untouched by blending. Verified by
+    // measuring the exact same metric before adding approved (via --cap 0 gives
+    // a scale of 0, effectively) and comparing.
+    const capZero = calibrate(["essay", "--profiles-dir", join(root, "profiles"),
+      "--project", root, "--cap", "0"]).derived;
+    // A cap of 0 means share = 0 by construction. Cadence bands must not
+    // differ between cap=0 and cap=0.2 EVER - they read only human samples.
+    check("cadence bands are identical across cap values (cadence firewall)",
+      JSON.stringify(capZero.metrics) === JSON.stringify(human.metrics));
+
+    // Absurd cap gets clamped BELOW 0.5. The clamp lives in code, not config.
+    const clamped = calibrate(["essay", "--profiles-dir", join(root, "profiles"),
+      "--project", root, "--cap", "0.99"]).derived;
+    check("a config cap above CAP_CLAMP is clamped, not honoured",
+      clamped.approved.cap_applied < 0.5);
+
+    // The reproducibility promise: from the checked-in samples + the reported
+    // scale, ANY reader can reproduce the applied_weighted_words. If this drifts
+    // the "auditable" claim in the docs is a lie.
+    const expected = human.approved.samples.reduce(
+      (a, s) => a + s.edit_fraction * human.approved.scale
+        * (human.approved.raw_weighted_words / human.approved.samples.reduce(
+          (a2, s2) => a2 + s2.edit_fraction * s2.words, 0) === 0
+          ? 0 : s.words * (human.approved.raw_weighted_words / human.approved.samples.reduce(
+            (a2, s2) => a2 + s2.edit_fraction * s2.words, 0))),
+      0,
+    );
+    void expected;  // The direct check below is cleaner.
+    const recomputedApplied = human.approved.samples
+      .reduce((a, s) => a + s.applied_weight * s.words, 0);
+    check("applied weight is reproducible from the recorded fields",
+      Math.abs(recomputedApplied - human.approved.applied_weighted_words) < 1);
+  }
+
+  /* ------------------------------------------------------------------ */
+  group("The loop closes — an approved edit changes what the scanner reports");
+
+  {
+    // THE TEST THIS WHOLE MECHANISM EXISTS FOR, and until now nothing asserted
+    // it end to end.
+    //
+    // calibrate.mjs has written `catalog_density_blended` since the blend
+    // shipped, and tell-scan.mjs read `catalog_density` (human-only). So the
+    // path was: ingest an edit, compute its edit_fraction, blend it under the
+    // cap, write both band sets - and change no output anywhere. The user's
+    // stated goal is that their kept edits tune the engine toward their voice.
+    // With the consumer missing, that was unobservable.
+    //
+    // WHAT BREAKS IF THIS REGRESSES: the flywheel silently reopens. Every part
+    // keeps passing its own unit test, the JSON still carries both bands, and
+    // an author's accumulated corpus stops affecting a single reported verdict.
+    // That is the failure mode nothing else here can see, because every
+    // component is individually correct.
+    const root = join(tmp, "loop-closes");
+    const profile = join(root, "profiles", "essay");
+    const profilesDir = join(root, "profiles");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), JSON.stringify({
+      version: "test", entries: [
+        { id: "lake", label: "lake", kind: "lexical", category: "test",
+          severity: 2, confidence: "high", pattern: "\\blake\\b" },
+      ],
+    }));
+
+    // Human corpus: dense in the catalogued word - one "lake" per ~11 words.
+    for (let i = 1; i <= 12; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${(i % 9) + 1}\nhuman_authored: true\n---\n`
+        + `${"The lake was calm this morning and the birds sat still. ".repeat(20)}\n`,
+      );
+    }
+
+    // --write, because a dry run reports bands without persisting them and the
+    // scanner reads the persisted file. Omitting it made the whole loop test
+    // silently measure the shipped FALLBACK ceilings instead of either derived
+    // band set - two identical numbers, no flip, and a green "cadence unchanged"
+    // that was unchanged because nothing was calibrated at all.
+    const humanOnly = calibrate(["essay", "--profiles-dir", profilesDir, "--project", root, "--write"]).derived;
+
+    // Now the author edits a draft and keeps it. The kept text uses the
+    // catalogued word at roughly HALF the density of their unaided corpus, so
+    // blending it must pull the ceiling DOWN.
+    const origPath = join(root, "orig.txt");
+    const editPath = join(root, "edit.txt");
+    writeFileSync(origPath, "The lake was calm this morning. Fog sat on the water and did not move. ".repeat(30));
+    writeFileSync(editPath, "The lake was still at dawn. Mist held above the water without stirring, and the far shore did not exist. ".repeat(20));
+    execFileSync("node", [
+      resolve(REPO, "bundles", "prose-author", "skills", "prose-draft", "tools", "ingest-edit.mjs"),
+      editPath, "--original", origPath, "--profile", "essay",
+      "--profiles-dir", profilesDir, "--project", root,
+    ], { encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] });
+
+    const blended = calibrate(["essay", "--profiles-dir", profilesDir, "--project", root, "--write"]).derived;
+
+    // Step 1: calibrate produced a genuinely different ceiling. Without this the
+    // rest of the test proves nothing - two identical numbers cannot show a flip.
+    check("ingesting an edit changes the blended catalog ceiling",
+      typeof blended.catalog_density_blended?.medium === "number"
+      && blended.catalog_density_blended.medium !== humanOnly.catalog_density.medium,
+      `human ${humanOnly.catalog_density.medium} vs blended ${blended.catalog_density_blended?.medium}`);
+
+    // Step 2: THE FLIP. A draft whose density sits between the two ceilings is
+    // judged differently depending on which band set is used. This is the loop
+    // being closed, expressed as a verdict a user would actually see.
+    const hi = humanOnly.catalog_density.medium;
+    const lo = blended.catalog_density_blended.medium;
+    const [tight, loose] = lo < hi ? [lo, hi] : [hi, lo];
+
+    // Build the draft to an EXACT density between the two ceilings.
+    //
+    // The obvious construction - repeat a sentence with one "lake" every N words
+    // - cannot hit this window. Density moves in steps of 1000/N, so at ~11 words
+    // per occurrence the available rates jump 90.9 -> 83.3 and step clean over a
+    // gap of 3. A long document with an exact count is the only way to land
+    // inside a narrow band, and the band is narrow precisely because one approved
+    // sample against twelve human ones is a small nudge - which is the mechanism
+    // working as designed, not a fixture inconvenience.
+    const totalWords = 4000;
+    const target = (tight + loose) / 2;
+    const lakes = Math.round((target * totalWords) / 1000);
+    const density = (1000 * lakes) / totalWords;
+
+    // Assert the fixture before asserting the behaviour. If a future band change
+    // makes the window unreachable, this fails saying so, rather than the verdict
+    // check failing for a reason that looks like a regression in the scanner.
+    check("the draft's density sits strictly between the two ceilings",
+      density > tight && density < loose,
+      `density ${density} not inside (${tight}, ${loose})`);
+
+    const filler = "and the quiet water held morning light without moving much at all".split(" ");
+    const tokens = [];
+    for (let i = 0; i < totalWords; i += 1) tokens.push(filler[i % filler.length]);
+    // Spread the occurrences evenly rather than clustering them, so paragraph
+    // masking or a sentence-level heuristic cannot change the count.
+    for (let i = 0; i < lakes; i += 1) tokens[Math.floor((i * totalWords) / lakes)] = "lake";
+    const draftPath = join(root, "draft.txt");
+    writeFileSync(draftPath, `${tokens.join(" ")}\n`);
+
+    const args = [draftPath, "--profile", "essay", "--profiles-dir", profilesDir, "--project", root];
+    const withBlend = scan(args).results[0];
+    const withHuman = scan([...args, "--human-only"]).results[0];
+
+    const lakeIn = (r) => r.findings.find((f) => f.id === "lake");
+    check("the scan reports which band set it judged against",
+      withBlend.profile.bands.used === "blended" && withHuman.profile.bands.used === "human-only");
+    check("the ceiling applied to a finding differs between them",
+      lakeIn(withBlend).ceiling !== lakeIn(withHuman).ceiling,
+      `${lakeIn(withBlend).ceiling} vs ${lakeIn(withHuman).ceiling}`);
+    check("and the same draft flips verdict on the strength of a kept edit",
+      lakeIn(withBlend).flagged !== lakeIn(withHuman).flagged,
+      `blended flagged=${lakeIn(withBlend).flagged}, human flagged=${lakeIn(withHuman).flagged}, `
+      + `density=${lakeIn(withBlend).per_1k} between ${tight} and ${loose}`);
+
+    // Step 3: RULE 3, the firewall. Blending touches catalog density and NEVER
+    // cadence. A generation whose rhythm was right was right BECAUSE it matched
+    // the human corpus that set the band; blending there lets the ceiling
+    // confirm itself. Same draft, same cadence verdicts, either way.
+    check("cadence checks are identical under both band sets",
+      JSON.stringify(withBlend.cadenceChecks) === JSON.stringify(withHuman.cadenceChecks));
+
+    // Step 4: the blend is disclosed, not silent. A ceiling derived partly from
+    // model-assisted text is a different claim from one derived from unaided
+    // prose, and a reader who cannot tell which has been handed a measurement
+    // wearing the wrong label.
+    check("the blend is disclosed with its sample count",
+      withBlend.profile.bands.blend_available === true
+      && withBlend.profile.bands.approved_samples === 1);
+    check("both band sets are carried in the result, not just the chosen one",
+      typeof withBlend.profile.bands.human.medium === "number"
+      && typeof withBlend.profile.bands.blended.medium === "number");
+  }
+
+  {
+    // THE NARROWING WARNING MUST REACH A HUMAN.
+    //
+    // calibrate computes it, writes it to thresholds.derived.json, and for a
+    // while nothing read the file - so the safety signal against voice collapse
+    // existed only as a string in JSON nobody opened. Wiring the scanner to the
+    // blend fixed that, except the first version read
+    // `thresholds.approved.blended_warning` when calibrate writes
+    // `blended_warning` at the TOP level of the derived object. Permanently
+    // undefined. The exact bug the wiring sprint existed to fix, reintroduced
+    // one field name deep inside the fix, and invisible because null renders as
+    // "no warning" rather than as an error.
+    //
+    // WHAT BREAKS IF THIS REGRESSES: an author whose approved pool is quietly
+    // dragging their bands tighter than their own writing gets no signal, keeps
+    // feeding it, and the tool teaches them to write blander while reporting
+    // that everything is fine. That is the outcome this project exists to
+    // prevent, and the warning is the only thing watching for it.
+    const root = join(tmp, "blend-narrowing");
+    const profile = join(root, "profiles", "essay");
+    const profilesDir = join(root, "profiles");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    mkdirSync(join(profile, "corpus", "approved"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), JSON.stringify({
+      version: "test", entries: [
+        { id: "lake", label: "lake", kind: "lexical", category: "test",
+          severity: 2, confidence: "high", pattern: "\\blake\\b" },
+      ],
+    }));
+    for (let i = 1; i <= 12; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${(i % 9) + 1}\nhuman_authored: true\n---\n`
+        + `${"The lake was calm this morning and the birds sat still. ".repeat(20)}\n`,
+      );
+    }
+    // An approved sample containing NONE of the catalogued word. Pooled counts
+    // stay put while pooled words grow, so the rate - and the ceiling derived
+    // from it - falls. This is the arithmetic of voice collapse: the author's
+    // own natural density starts sitting above their own band.
+    writeFileSync(
+      join(profile, "corpus", "approved", "a1.txt"),
+      "---\nsource: draft\ndate: 2026-01-01\nhuman_authored: false\nedit_fraction: 1\n---\n"
+      + `${"Mist held above the water without stirring and the far shore was gone. ".repeat(160)}\n`,
+    );
+
+    // --cap 0.35 rather than the 0.2 default, and the reason is worth recording:
+    // at share s the rate scales by (1 - s), and the warning fires below 0.8, so
+    // the DEFAULT CAP CANNOT TRIGGER IT - 0.2 lands exactly on the boundary. The
+    // warning is only reachable for a user who has raised the cap, which is also
+    // the user most likely to need it.
+    const derived = calibrate(["essay", "--profiles-dir", profilesDir, "--project", root,
+      "--cap", "0.35", "--write"]).derived;
+
+    check("a blend that narrows the human ceiling produces a warning",
+      typeof derived.blended_warning === "string" && derived.blended_warning.length > 0,
+      `blended_warning=${JSON.stringify(derived.blended_warning)}`);
+
+    const draftPath = join(root, "draft.txt");
+    writeFileSync(draftPath, `${"The lake was calm this morning and the birds sat still. ".repeat(20)}\n`);
+    const args = [draftPath, "--profile", "essay", "--profiles-dir", profilesDir, "--project", root];
+    const r = scan(args).results[0];
+
+    check("and the scan result carries it, at the field name calibrate writes",
+      typeof r.profile.bands.warning === "string" && r.profile.bands.warning.length > 0,
+      `bands.warning=${JSON.stringify(r.profile.bands.warning)}`);
+
+    // The whole point is that a person sees it. JSON is not a person.
+    const rendered = execFileSync("node", [SCAN, ...args], { encoding: "utf8" });
+    check("and a human reading the report sees it, not just --json",
+      /BLENDED BANDS NARROWED/.test(rendered) && /voice collapse/.test(rendered),
+      rendered.split("\n").filter((l) => /NARROW|collapse/.test(l)).join(" | "));
+  }
+
+  {
+    // Cold start (RULE 4): below CORPUS_MINIMUM, approved contributes zero and
+    // says so. Otherwise the cold-start path is: fill approved/ with model
+    // output, calibrate against model norms on day one, never find out.
+    const root = join(tmp, "blend-cold");
+    const profile = join(root, "profiles", "essay");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    mkdirSync(join(profile, "corpus", "approved"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), '{"version":"t","entries":[]}\n');
+    for (let i = 1; i <= 5; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${i}\nhuman_authored: true\n---\n${"word ".repeat(400)}\n`,
+      );
+    }
+    writeFileSync(
+      join(profile, "corpus", "approved", "a1.txt"),
+      `---\nsource: d\ndate: 2026-01-01\nhuman_authored: false\nedit_fraction: 0.8\n---\n${"word ".repeat(400)}\n`,
+    );
+    const r = calibrate(["essay", "--profiles-dir", join(root, "profiles"), "--project", root]).derived;
+    check("below the human floor, approved samples DO NOT count",
+      r.approved.samples_used === 0 && r.approved.suppressed === true);
+    check("and the suppression reason names the floor",
+      /before approved.* counts/.test(r.approved.suppression_reason || ""));
+  }
+
+  {
+    // Malformed approved samples are excluded, not defaulted. Rule 1: ef is
+    // computed by ingest, so a missing/bad value means something bypassed
+    // ingest - that file is not evidence and does not get a placeholder weight.
+    const root = join(tmp, "blend-malformed");
+    const profile = join(root, "profiles", "essay");
+    mkdirSync(join(profile, "corpus", "human"), { recursive: true });
+    mkdirSync(join(profile, "corpus", "approved"), { recursive: true });
+    writeFileSync(join(profile, "profile.json"), '{"purpose": "test"}\n');
+    writeFileSync(join(profile, "catalog.json"), '{"version":"t","entries":[]}\n');
+    for (let i = 1; i <= 12; i += 1) {
+      writeFileSync(
+        join(profile, "corpus", "human", `h${i}.txt`),
+        `---\nsource: n\ndate: 2021-01-0${(i % 9) + 1}\nhuman_authored: true\n---\n${"word ".repeat(400)}\n`,
+      );
+    }
+    // No edit_fraction at all
+    writeFileSync(
+      join(profile, "corpus", "approved", "no-ef.txt"),
+      `---\nsource: d\ndate: 2026-01-01\nhuman_authored: false\n---\n${"word ".repeat(400)}\n`,
+    );
+    // Out-of-range edit_fraction
+    writeFileSync(
+      join(profile, "corpus", "approved", "out-of-range.txt"),
+      `---\nsource: d\ndate: 2026-01-01\nhuman_authored: false\nedit_fraction: 1.5\n---\n${"word ".repeat(400)}\n`,
+    );
+    const r = calibrate(["essay", "--profiles-dir", join(root, "profiles"), "--project", root]).derived;
+    check("malformed approved samples are excluded", r.approved.samples_used === 0);
+    check("and the exclusion lists what and why", r.approved.excluded.length === 2);
+  }
+
+
+  /* ------------------------------------------------------------------ */
+
+  /**
+   * Disk-vs-manifest-vs-frontmatter integrity for one vendored corpus
+   * directory.
+   *
+   * WHY IT IS A FUNCTION AND NOT A THIRD COPY. The same three questions get
+   * asked of every bucket - is every file accounted for in both directions,
+   * does every file carry the provenance calibrate.mjs reads, is every file
+   * long enough to teach a cadence. Hand-retyping them is where they drift,
+   * and this one already had a hole worth not reproducing: `\nsource:\s+`
+   * accepts an EMPTY value, because `\s` matches the line break and the `\S`
+   * lands on the next field's name. A negative test caught it on a blank
+   * `author:` field. Anchored per line here, it is fixed in one place.
+   *
+   * Bucket-SPECIFIC rules stay at the call site - which authors are licensed,
+   * whether the bucket is single- or multi-author, what boilerplate its
+   * parser must not leak. Those are the facts that distinguish the buckets,
+   * so sharing them would defeat the point of having separate buckets.
+   */
+  function corpusIntegrity({ label, dir, manifestFiles, manifestName, floor }) {
+    const files = readdirSync(dir).filter((f) => f.endsWith(".txt")).sort();
+    const diskFiles = new Set(files);
+    const attrFiles = new Set(manifestFiles);
+    const orphans = [...diskFiles].filter((f) => !attrFiles.has(f));
+    const missing = [...attrFiles].filter((f) => !diskFiles.has(f));
+    check(`${label}every sample on disk is in ${manifestName}`,
+      orphans.length === 0, orphans.length ? `orphans: ${orphans.slice(0, 3).join(", ")}` : "");
+    check(`${label}every entry in ${manifestName} is on disk`,
+      missing.length === 0, missing.length ? `missing: ${missing.slice(0, 3).join(", ")}` : "");
+
+    // Provenance discipline: each file must attest human_authored and carry
+    // the source/date the calibrator needs. A file that fails this is one
+    // calibrate.mjs would silently exclude, so it would look present in the
+    // manifest and absent to the tool.
+    let badFrontmatter = 0;
+    let underFloor = 0;
+    for (const f of files) {
+      const raw = readFileSync(join(dir, f), "utf8");
+      if (!/^---\n[\s\S]*?human_authored:\s*true[\s\S]*?\n---\n/.test(raw)) badFrontmatter += 1;
+      if (!/^source:[ \t]+\S/m.test(raw)) badFrontmatter += 1;
+      if (!/^date:[ \t]+\S/m.test(raw)) badFrontmatter += 1;
+      const body = raw.replace(/^---\n[\s\S]*?\n---\n/, "");
+      if (body.split(/\s+/).filter(Boolean).length < floor) underFloor += 1;
+    }
+    check(`${label}every sample attests human_authored: true with source + date`,
+      badFrontmatter === 0, `${badFrontmatter} field(s) missing`);
+    check(`${label}no sample is below the ${floor}-word calibration floor`,
+      underFloor === 0, `${underFloor} under floor`);
+    return files;
+  }
+
+  group("human-essays — the vendored PD essay corpus");
+
+  {
+    // THE INTEGRITY CHECK. Files in tests/corpus/human-essays/ are vendored
+    // from Project Gutenberg by fetch-essays.mjs. They are committed, which
+    // means they can drift silently (someone edits a file by hand and the
+    // ATTRIBUTION count no longer matches, or the frontmatter breaks and
+    // calibrate.mjs would exclude the file without saying so). Every check
+    // here answers "does the committed corpus still match what its manifest
+    // says". It does NOT re-fetch; that is fetch-essays.mjs's job.
+
+    const dir = resolve(REPO, "bundles", "prose-tell-scan", "tests", "corpus", "human-essays");
+    const gutenbergDir = join(dir, "gutenberg");
+
+    if (!existsSync(gutenbergDir)) {
+      check("human-essays/gutenberg/ is present", false, "run fetch-essays.mjs --write");
+    } else {
+      const attrPath = join(dir, "ATTRIBUTION.json");
+      const attr = JSON.parse(readFileSync(attrPath, "utf8"));
+      corpusIntegrity({
+        label: "gutenberg: ",
+        dir: gutenbergDir,
+        manifestFiles: attr.essays.map((e) => e.file.replace(/^gutenberg\//, "")),
+        manifestName: "ATTRIBUTION.json",
+        floor: 200,
+      });
+
+      // Provenance recorded once (in fetch-essays.mjs) and quoted here so a
+      // silent addition of a source without permissive licensing gets caught.
+      // If a new source is added, this test fails until it lands in the list.
+      const authors = new Set(attr.essays.map((e) => e.author));
+      // Public-domain authors approved for this corpus. Adding a name here
+      // requires the added author to be genuinely public-domain (author died
+      // >70 years ago in most jurisdictions, or the work was published pre-
+      // 1930). Chekhov died 1904; the Constance Garnett translation appeared
+      // in 1920. Both PD. Chopin died 1904 and The Awakening is 1899; O.
+      // Henry (William Sydney Porter) died 1910 and The Four Million is 1906
+      // - each clears both grounds. Full table in human-essays/LICENSE.
+      const expected = new Set([
+        "Francis Bacon", "G. K. Chesterton", "Anton Chekhov",
+        "Kate Chopin", "O. Henry",
+      ]);
+      const surprise = [...authors].filter((a) => !expected.has(a));
+      check(
+        "no unrecognised author entered the corpus (add to the expected set with license justification)",
+        surprise.length === 0, `unrecognised: ${surprise.join(", ")}`,
+      );
+
+      // WHAT MAKES A DIRECTORY A VOICE CORPUS. human-essays/ is the
+      // single-author set, and everything that reasons about voice - band
+      // calibration, the cross-author authorship test - assumes each author
+      // here has enough samples to characterise a cadence rather than a mood.
+      // An author who lands with three essays satisfies every other check on
+      // this page and quietly breaks that assumption, so the floor is checked
+      // rather than trusted to whoever adds the next fetcher.
+      const perAuthor = new Map();
+      for (const e of attr.essays) perAuthor.set(e.author, (perAuthor.get(e.author) ?? 0) + 1);
+      const thin = [...perAuthor].filter(([, n]) => n < 15);
+      check(
+        "every gutenberg author clears the 15-sample single-author floor",
+        thin.length === 0,
+        thin.map(([a, n]) => `${a}: ${n}`).join(", "),
+      );
+    }
+
+    // Second, the pluralistic tranche - CC-BY 4.0 not PD, so it lives in a
+    // separate subdirectory with its own attribution manifest.
+    const pluralisticDir = join(dir, "pluralistic");
+    const modernAttrPath = join(dir, "ATTRIBUTION.modern.json");
+    if (existsSync(pluralisticDir) && existsSync(modernAttrPath)) {
+      const attr = JSON.parse(readFileSync(modernAttrPath, "utf8"));
+      const files = corpusIntegrity({
+        label: "pluralistic: ",
+        dir: pluralisticDir,
+        manifestFiles: attr.posts.map((p) => p.file.replace(/^pluralistic\//, "")),
+        manifestName: "ATTRIBUTION.modern.json",
+        floor: 500,
+      });
+
+      // THE PARSER GUARD. pluralistic post bodies must not leak the trailing
+      // license notice, the BOGUS AGREEMENTS legal boilerplate, or the ISSN
+      // footer - the fetcher's job is to strip them. A vendored body that
+      // contains any of those anchors is evidence the extractor missed them,
+      // and the corpus is now training a critic on the wrong prose.
+      let leaked = [];
+      for (const f of files) {
+        const raw = readFileSync(join(pluralisticDir, f), "utf8");
+        const body = raw.replace(/^---\n[\s\S]*?\n---\n/, "");
+        for (const anchor of ["Creative Commons Attribution", "BOGUS AGREEMENTS", /ISSN:\s*\d/]) {
+          const found = typeof anchor === "string" ? body.includes(anchor) : anchor.test(body);
+          if (found) leaked.push(`${f}: ${anchor}`);
+        }
+      }
+      check("pluralistic: no vendored body leaks the license notice, BOGUS AGREEMENTS, or ISSN",
+        leaked.length === 0, leaked.length ? leaked.slice(0, 3).join("; ") : "");
+
+      check("pluralistic: license is CC-BY 4.0",
+        attr.license === "CC-BY 4.0" && /creativecommons\.org.licenses.by.4\.0/.test(attr.license_url));
+
+      // Same author-set guard: adding a new author fails the build until it is
+      // acknowledged with a license justification here.
+      //
+      // THIS GUARD COULD NOT FAIL AND NOW CAN. It previously read
+      // `attr.posts.map((p) => p.file).map(() => "Cory Doctorow")` - it mapped
+      // every entry to the constant it then asserted, so it passed on any
+      // corpus, including an empty one or one full of somebody else. The CC-BY
+      // grant here is Doctorow's personal licence on his own posts, not a
+      // site-wide grant, so "who wrote this" IS the licence-bearing fact and
+      // the check has to read it from the files. The manifest has no author
+      // field, so the frontmatter is the source of truth.
+      const bylines = new Set(files.map((f) => {
+        const m = readFileSync(join(pluralisticDir, f), "utf8").match(/^author:[ \t]+(.+)$/m);
+        return m ? m[1].trim() : "(unbylined)";
+      }));
+      const expected = new Set(["Cory Doctorow"]);
+      const surprise = [...bylines].filter((a) => !expected.has(a));
+      check("pluralistic: no unrecognised author (add with license justification)",
+        surprise.length === 0 && bylines.size === 1, `found: ${[...bylines].join(", ")}`);
+    }
+  }
+
+
+  /* ------------------------------------------------------------------ */
+  group("human-professional — the CC-BY multi-author register corpus");
+
+  {
+    // EFF Deeplinks, vendored by fetch-professional.mjs. Same integrity
+    // discipline as human-essays/, with one guard inverted, and the inversion
+    // is the point of the directory.
+    //
+    // human-essays/ guards that no UNRECOGNISED AUTHOR appears, because there
+    // the author is the licence-bearing fact. Here the licence attaches to the
+    // SITE - EFF grants CC-BY over all original material on eff.org - and the
+    // bylines are staff who rotate. So the drift guard follows the licence:
+    // every sample must come from eff.org. An author-name allowlist would fail
+    // on the next new hire while passing a post silently pulled from
+    // somewhere else, which is precisely backwards.
+
+    const dir = resolve(REPO, "bundles", "prose-tell-scan", "tests", "corpus", "human-professional");
+    const attrPath = join(dir, "ATTRIBUTION.json");
+
+    if (!existsSync(dir) || !existsSync(attrPath)) {
+      check("human-professional/ is present", false, "run fetch-professional.mjs --write");
+    } else {
+      const attr = JSON.parse(readFileSync(attrPath, "utf8"));
+      const files = corpusIntegrity({
+        label: "eff: ",
+        dir,
+        manifestFiles: attr.posts.map((p) => p.file),
+        manifestName: "ATTRIBUTION.json",
+        floor: 200,
+      });
+
+      check("license is CC-BY 4.0 with the grant quoted, not summarised",
+        attr.license === "CC-BY 4.0"
+        && /creativecommons\.org.licenses.by.4\.0/.test(attr.license_url)
+        && /eff\.org\/copyright/.test(attr.license_evidence ?? ""));
+
+      // THE SOURCE GUARD - this directory's equivalent of the author guard.
+      const offSite = attr.posts.filter((p) => !/^https:\/\/www\.eff\.org\//.test(p.permalink));
+      check("every post's permalink is on eff.org (the site the CC-BY grant covers)",
+        offSite.length === 0, offSite.slice(0, 3).map((p) => p.permalink).join(", "));
+
+      // The byline is checked separately from the shared frontmatter pass
+      // because here it is a LICENSING requirement, not a metadata one: CC-BY
+      // is an attribution licence, and a sample with no named author cannot
+      // be redistributed in compliance with it. Folding it into a generic
+      // "fields missing" count would bury that.
+      //
+      // `[ \t]+` and not `\s+`: \s matches newlines, so `author:` with an
+      // EMPTY value satisfies `\nauthor:\s+\S` by running past the line break
+      // and matching the first character of the next field. The negative test
+      // for this guard caught it doing exactly that - an empty byline passed.
+      let unbylined = 0;
+      for (const f of files) {
+        const raw = readFileSync(join(dir, f), "utf8");
+        if (!/^author:[ \t]+\S/m.test(raw)) unbylined += 1;
+      }
+      check("every post names its author (CC-BY compliance, not just tidiness)",
+        unbylined === 0, `${unbylined} unbylined`);
+
+      // THE MISFILING GUARD. The danger with this directory is not that it
+      // rots - it is that someone reads 50 samples of consistent house style
+      // and points a voice test at it. That test would report a confident
+      // measurement of an author who does not exist, and nothing else in this
+      // suite would object. Two facts have to stay true for the directory to
+      // mean what its LICENSE says: the manifest declares itself multi-author,
+      // and no single byline reaches the 15-sample floor that would make it a
+      // voice corpus in fact whatever the manifest says.
+      check("the manifest declares itself multi-author",
+        attr.multi_author === true);
+
+      const perAuthor = new Map();
+      for (const p of attr.posts) perAuthor.set(p.author, (perAuthor.get(p.author) ?? 0) + 1);
+      const wouldBeVoice = [...perAuthor].filter(([, n]) => n >= 15);
+      check(
+        "no single byline reaches the 15-sample floor (this is register coverage, not a voice corpus)",
+        wouldBeVoice.length === 0,
+        wouldBeVoice.map(([a, n]) => `${a}: ${n} — decide deliberately where this belongs`).join(", "),
+      );
+      check("and it really is many hands, not one author under a site name",
+        perAuthor.size >= 5, `${perAuthor.size} distinct authors`);
+    }
+  }
+
 } finally {
   rmSync(tmp, { recursive: true, force: true });
 }
 
+/* ================================================================== */
+/* prose-pattern-critic — the one primitive here that is not a script */
+/* ================================================================== */
+
+group("prose-pattern-critic — primitive/bundle parity");
+
+{
+  // AGENTS.md rule 1: the rendered agent's body must be byte-identical to the
+  // primitive's, and there is no generator, so this is maintained by hand. A drifted
+  // pair silently ships two different agents under one name - the class of failure
+  // nobody notices by reading. Copied deliberately from prose-review's selftest:
+  // a bundle that cannot be installed alone is not a bundle, so the check lives here
+  // rather than being imported from over there.
+  const body = (url) => readFileSync(url, "utf8").split(/^---$/m).slice(2).join("---");
+
+  /**
+   * Mapping keys under `unowned_by_decision:` — patterns measured OUT of the
+   * critic's scope, each recorded with a reason and an overturn condition.
+   *
+   * Stops at the first line indented less than the entries, so an adjacent block
+   * cannot leak in. An earlier version ran past the comment into
+   * `boundary_with_spec_only:` and silently asserted things about
+   * `prose-substance-critic`, which is not a catalog pattern at all - a guard
+   * reading the wrong keys passes for the wrong reason, which is worse than failing.
+   */
+  const unownedByDecision = (meta) => {
+    const block = (meta.match(/^\s{2}unowned_by_decision:\n([\s\S]*?)(?=^\s{0,2}\S|$)/m) || [, ""])[1];
+    return (block.match(/^\s{4}([a-z][a-z-]+):/gm) || []).map((l) => l.trim().replace(/:$/, ""));
+  };
+
+  const name = "prose-pattern-critic";
+  const primitive = new URL(`../../../primitives/agents/${name}/agent.md`, import.meta.url);
+  const rendered = new URL(`../agents/${name}.md`, import.meta.url);
+  const meta = readFileSync(new URL(`../../../primitives/agents/${name}/meta.yaml`, import.meta.url), "utf8");
+
+  // A HELD primitive: authored in primitives/, deliberately absent from bundles/.
+  // The gap between the two IS the hold, so the parity checks below cannot run and
+  // must not silently pass either.
+  //
+  // The declaration is required. Without it, "no rendered copy" is indistinguishable
+  // from "somebody forgot to render it" - and a primitive that silently stops
+  // shipping is exactly as bad as one that silently ships. So: absent + declared is
+  // a hold, absent + undeclared is a failure, and present + `ships: false` is also a
+  // failure, because a held primitive that is sitting in the deployment directory is
+  // being installed by everyone who installs the bundle.
+  const held = /^ships:\s*false\b/m.test(meta);
+  const renderedExists = existsSync(rendered);
+
+  check(`${name}: a primitive with no rendered copy declares ships: false with a reason`,
+    renderedExists || (held && /^held_reason:\s*\S/m.test(meta)));
+  check(`${name}: a held primitive is absent from the bundle's agents/ directory`,
+    !held || !renderedExists);
+
+  if (!renderedExists) {
+    skip(`${name}: primitive/bundle parity`, "held — no rendered copy by design");
+  } else {
+
+  check(`${name}: rendered body is byte-identical to the primitive`,
+    body(primitive) === body(rendered));
+
+  const fm = (url) => Object.fromEntries(readFileSync(url, "utf8").split(/^---$/m)[1]
+    .split("\n").filter((l) => l.includes(":"))
+    .map((l) => [l.slice(0, l.indexOf(":")).trim(), l.slice(l.indexOf(":") + 1).trim()]));
+  const [pf, rf] = [fm(primitive), fm(rendered)];
+  check(`${name}: primitive frontmatter carries only name + description`,
+    JSON.stringify(Object.keys(pf).sort()) === JSON.stringify(["description", "name"]),
+    Object.keys(pf).join(","));
+  check(`${name}: rendered name and description match the primitive`,
+    pf.name === rf.name && pf.description === rf.description);
+  check(`${name}: rendered frontmatter adds only tools/model/color`,
+    Object.keys(rf).every((k) => ["name", "description", "tools", "model", "color"].includes(k)),
+    Object.keys(rf).join(","));
+
+  }
+
+  // SCOPE CHECKS RUN WHETHER OR NOT IT SHIPS. The prompt's scope IS a data file: if a
+  // `not_deterministic` key is added to the catalog and the prompt is not updated,
+  // the critic silently stops covering it - the exact failure the catalog's own
+  // `_about` block warns about. A held primitive is still being edited, and a hold
+  // that switched off its own correctness checks would rot in the dark and come back
+  // wrong.
+  const catalogKeys = Object.keys(JSON.parse(readFileSync(
+    new URL("../skills/tell-scan/profiles/_base/catalog.json", import.meta.url), "utf8"),
+  ).not_deterministic).filter((k) => k !== "_about");
+  const declared = [
+    ...(meta.match(/^\s+- ([a-z-]+)\s*(?:#.*)?$/gm) || []).map((l) => l.trim().replace(/^- /, "").replace(/\s+#.*/, "")),
+    // THIRD BUCKET: `unowned_by_decision`, whose entries are mapping keys rather
+    // than list items because each carries a reason and an overturn condition.
+    // A pattern measured out of the critic's scope is still *accounted for* - that
+    // is the whole point of recording it - so it satisfies this check. What it must
+    // not do is disappear: a key in no bucket at all still fails, which is the case
+    // this guard exists for.
+    ...unownedByDecision(meta),
+  ];
+  const unaccounted = catalogKeys.filter((k) => !declared.includes(k));
+  check(`${name}: every not_deterministic key is owned, disowned, or recorded unowned`,
+    unaccounted.length === 0, unaccounted.join(","));
+
+  // The scope drop has to be visible in the PROMPT, not only in metadata. A critic
+  // whose meta.yaml disclaims a pattern while its instructions still list it will
+  // keep flagging that pattern, and the metadata becomes documentation of a fiction.
+  const promptBody = readFileSync(
+    new URL(`../../../primitives/agents/${name}/agent.md`, import.meta.url), "utf8");
+  for (const k of unownedByDecision(meta)) {
+    check(`${name}: prompt states ${k} is NOT a finding`,
+      new RegExp(`##\\s*What is NOT a finding[\\s\\S]*${k}`).test(promptBody));
+  }
+  check(`${name}: meta.yaml disowns no-voice-shift (prose-voice-critic item 5 owns it)`,
+    /does_not_own:[\s\S]*no-voice-shift/.test(meta));
+}
+
+group("prose-pattern-critic — fixtures");
+
+{
+  const dir = new URL("fixtures/pattern/", import.meta.url);
+  const manifest = JSON.parse(readFileSync(new URL("fixtures.json", dir), "utf8"));
+
+  const onDisk = readdirSync(new URL(".", dir), { withFileTypes: true })
+    .filter((e) => e.isDirectory()).map((e) => e.name).sort();
+  const declared = manifest.fixtures.map((f) => f.name).sort();
+  // A fixture on disk but not in the manifest is one whose expected verdict nobody
+  // wrote down, and it would be silently absent from the harness denominator - the
+  // direction that flatters a result.
+  check("every pattern fixture directory is declared in fixtures.json",
+    JSON.stringify(onDisk) === JSON.stringify(declared),
+    `disk=${onDisk.length} manifest=${declared.length}`);
+
+  // THE ANTI-TUNING CHECK, and it is the whole reason the drafts are built rather
+  // than written. Re-apply the declared edits to the corpus source: if the result is
+  // not byte-identical to draft.md, some byte of that draft is neither corpus nor
+  // declared, and a fixture I can quietly nudge is a fixture that measures nothing.
+  for (const f of manifest.fixtures) {
+    let want;
+    try {
+      want = renderFixture(f, resolve(HERE, "corpus"));
+    } catch (err) {
+      check(`${f.name}: edits apply cleanly to ${f.source}`, false, err.message);
+      continue;
+    }
+    check(`${f.name}: draft.md is exactly its corpus source plus the declared edits`,
+      readFileSync(new URL(`${f.name}/draft.md`, dir), "utf8") === want);
+
+    // `scan_state` decides the fixture's class, so it is re-derived rather than trusted.
+    // A catalog change that quietens a `loud` fixture silently empties class B.
+    check(`${f.name}: scan_state is really ${f.scan_state}`,
+      scanState(join(HERE, "fixtures", "pattern", f.name, "draft.md")) === f.scan_state);
+
+    // The verdict may not sit anywhere the critic can read. The first fidelity sweep in
+    // this repo was discarded because `expect:` was in a file the critic had to open.
+    const text = readFileSync(new URL(`${f.name}/draft.md`, dir), "utf8");
+    check(`${f.name}/draft.md does not leak a verdict word`,
+      !/\b(CLEAN|REVISE)\b/.test(text));
+  }
+
+  // A CONFOUND THAT IS NOT VISIBLE IN THE FIXTURE. The corpus fetchers keep anchor text
+  // and drop the href, so an EFF post that cited its source inline arrives here reading
+  // as unsourced - which inflates `absence-of-concrete-detail` and the unnamed-source
+  // half of `invented-specifics`, and makes the critic look wrong for noticing a gap the
+  // author did not leave. Nothing in a fixture file shows this; it is a property of how
+  // the material was vendored. So it is declared per fixture and the declaration is
+  // required, because the next EFF fixture is the one that gets caught by it.
+  const STRIPS_LINKS = ["human-professional/", "human-essays/pluralistic/"];
+  for (const f of manifest.fixtures) {
+    const affected = STRIPS_LINKS.some((d) => f.source.startsWith(d));
+    check(`${f.name}: declares source_strips_links iff its source directory strips them`,
+      affected === (f.source_strips_links === true),
+      `source=${f.source} declared=${f.source_strips_links === true}`);
+  }
+  check("the links_stripped confound is documented in fixtures.json",
+    Boolean(manifest.known_confounds?.links_stripped?.what));
+
+  const byClass = (c) => manifest.fixtures.filter((f) => f.class === c).length;
+  for (const c of ["A", "B", "C", "D"]) {
+    check(`class ${c} has at least 2 fixtures`, byClass(c) >= 2, `has ${byClass(c)}`);
+  }
+
+  // WHY ALL FOUR AND NOT JUST THE DISAGREEMENT PAIR. prose-review fails if class B or D
+  // empties, because there the classes are agreement geometry against a tool answering
+  // the same question. Here they are not: the scanner is silent on all five patterns
+  // this critic owns, so `loud` and `quiet` are properties of the DRAFT. Every class is
+  // therefore constructible, and none of them may empty out.
+  check("class B (scan loud, critic CLEAN) is the anti-echo class and is populated",
+    byClass("B") >= 2);
+
+  // Every positive must state which pattern it plants, and it must be one the critic
+  // owns. A positive whose expected pattern is `no-voice-shift` would be testing the
+  // critic against a scope it was told to leave alone.
+  for (const f of manifest.fixtures.filter((x) => x.kind === "positive")) {
+    check(`${f.name}: names an expect_pattern the critic owns`,
+      manifest.patterns_owned.includes(f.expect_pattern), f.expect_pattern);
+  }
+}
+
 process.stdout.write(`\n${"─".repeat(60)}\n`);
-process.stdout.write(`${passed} passed, ${failed} failed\n`);
+process.stdout.write(`${passed} passed, ${failed} failed${skipped ? `, ${skipped} skipped` : ""}\n`);
+if (skipped) {
+  // Printed after the summary so a skip is never mistaken for a pass, and so the
+  // reason travels with the count. A skipped precondition is information about
+  // the environment, and it belongs where the numbers are read.
+  process.stdout.write(`\nSkipped (precondition absent):\n${skips.map((s) => `  - ${s}`).join("\n")}\n`);
+}
 if (failed) {
   process.stdout.write(`\nFailures:\n${failures.map((f) => `  - ${f}`).join("\n")}\n`);
 }

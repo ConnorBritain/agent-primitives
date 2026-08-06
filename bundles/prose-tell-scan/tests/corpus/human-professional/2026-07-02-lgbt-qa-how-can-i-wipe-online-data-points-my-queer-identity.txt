@@ -1,0 +1,45 @@
+---
+source: EFF Deeplinks (eff.org)
+title: LGBT Q&A: How Can I Wipe Online Data That Points To My Queer Identity?
+author: Paige Collings
+date: 2026-07-02
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/deeplinks/2026/07/lgbt-qa-how-can-i-wipe-online-data-points-my-queer-identity
+---
+This Pride, we’re answering all your digital rights questions in season two of our initiative, LGBT Q&A. 
+
+You Asked: Is there a way for me to wipe data about me online that could point to my queer identity?
+
+EFF’s Answer: You cannot protect everything all the time, but there are ways to wipe information about yourself online. 
+
+Most information available about you online will typically be found in two places:
+
+The site where you voluntarily posted the data, such as your pictures and videos on social media, comments in user reviews and forums, and even classified postings for items you’ve sold.
+
+A data broker. These companies collect personal information, repackage it, and sell it to the highest bidders. This information often includes your address, phone number, details about your family members, and more. 
+
+So you might not want this information out there, especially if it points to your queer identity. 
+
+The best time to take steps to protect yourself is before anything bad happens, because once this information is in the hands of bad actors you have fewer options.
+
+To see what information people might find about you online, you can look for it for yourself. This is as simple as opening up a search engine and entering your name, nickname, handle, avatar and seeing what comes up. It can also be worth searching for your address, phone number, and email addresses to check what's out there.
+
+Do this in a private browsing window or a separate browser than the one you normally use to ensure you’re not logged into any accounts that might skew the results, like a Google account. 
+
+It’s also best to try to make a lot of your information hard to find in the first place—and we’ve got you covered on how to do this. 
+
+Establish a strong security baseline: use unique passwords (a password manager helps simplify this) and set up two-factor authentication for your online accounts to add an extra layer of protection when logging into your accounts.
+
+Add our install-and-forget tracker blocking tool, Privacy Badger, which lets you browse in peace and stops the sorts of web trackers that compile information about your habits for advertising purposes and for data brokers.
+
+Remove your advertising ID on your phone to help prevent some tracking there, too (directions for Android or iPhone). This way less information about you is available for purchase, making it harder for corporations to profit from your online activities.
+
+Ask data brokers to delete your personal data. You might spend the time doing it yourself. If you’re in California, you can use the Privacy Protection Agency’s tool for this. You also might use professional services like EasyOptOuts and Optery to help minimize the information available about you online from data brokers and similar sources.
+
+You can remove yourself from Google results by heading to the “Results about you” page, then entering your information. Once set up, you’ll get notifications if some new types of information about you appear in Google Search. Just remember that this will not remove the information from the internet, it just won’t show up in Google’s search.
+
+You also should consider auditing your digital footprint on public-facing social media and forums. Different people have different tolerance for risk when it comes to announcing who we are and what we are doing in these online spaces. You can make a list of every social media or forum account you’ve had over the years, and review the public-facing content about you, including your name, contact information like email addresses or phone numbers, and pictures that might show your home or workplace. You can also review the account settings to ensure you’re comfortable with the privacy options and that you’ve got strong login credentials.
+
+For more in depth advice check out our Surveillance Self Defense guide on managing your digital footprint.

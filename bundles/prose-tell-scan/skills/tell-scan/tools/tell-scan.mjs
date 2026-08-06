@@ -18,7 +18,7 @@
  * Report-only by construction. This tool never writes to the document.
  */
 
-import { readFileSync, existsSync, statSync } from "node:fs";
+import { readFileSync, existsSync, statSync, realpathSync } from "node:fs";
 import { dirname, join, resolve, extname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { execFileSync } from "node:child_process";
@@ -31,7 +31,8 @@ import { checkISBNs, checkCitations, measureStructure } from "./lib/artifacts.mj
 import {
   loadConfig, loadProfile, profileSearchPath, resolveProfile, listProfiles, BASE_PROFILE,
 } from "./lib/profile.mjs";
-import { evaluateFindings, evaluateCadence, summarise, profileFit } from "./lib/evaluate.mjs";
+import { relativeReport, renderRelative } from "./lib/relative.mjs";
+import { evaluateFindings, evaluateCadence, summarise, profileFit, resolveCeilings } from "./lib/evaluate.mjs";
 import { renderReport, renderComparison } from "./lib/report.mjs";
 
 const SKILL_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -56,6 +57,16 @@ Options
   --no-examples         Omit matched-text examples.
   --plain               Treat input as plain text (skip markdown masking).
   --markdown            Force markdown masking.
+  --relative            "Is this me?" Compare against YOUR measured rates
+                        rather than severity ceilings. Needs a calibrated
+                        corpus; refuses without one.
+  --human-only          Judge catalog density against bands derived ONLY from
+                        prose you wrote unaided, ignoring approved edits. The
+                        default is to use the blended bands when calibrate has
+                        produced them. Cadence bands are human-only either way,
+                        always, and no flag changes that.
+  --show-bands          Print human-only and blended ceilings side by side, so
+                        the drift between them is visible rather than inferred.
   --artifacts-only      Tier A only: leaked citation markup, chatbot register,
                         knowledge-cutoff hedges, unreplaced placeholders. Skips
                         every style judgement. Use this when the style catalog's
@@ -92,7 +103,12 @@ function parseArgs(argv) {
       case "--plain": opts.markdown = false; break;
       case "--markdown": opts.markdown = true; break;
       case "--list-profiles": opts.listProfiles = true; break;
+      // Default true: the blend is used when it exists. See resolveCeilings for
+      // why that is the honest default rather than the convenient one.
+      case "--human-only": opts.blended = false; break;
+      case "--show-bands": opts.showBands = true; break;
       case "--artifacts-only": opts.artifactsOnly = true; break;
+      case "--relative": opts.relative = true; break;
       case "-h": case "--help": opts.help = true; break;
       default:
         if (a.startsWith("-")) throw new Error(`unknown option: ${a}`);
@@ -217,7 +233,16 @@ function analyse(file, opts, config, searchPath) {
         .map((e) => ({ line: null, text: `${e} — ${hits[0].why}` })),
     }));
 
-  const findings = [...evaluateFindings(rawFindings, profile.thresholds), ...artifactFindings];
+  // Resolved ONCE, here, and carried into the result so every consumer - the
+  // human report, --json, and anything downstream - names the same band set. An
+  // earlier design resolved it inside evaluateFindings, which meant the report
+  // could describe one set of ceilings while the findings were judged by another.
+  const bands = resolveCeilings(profile.thresholds, { blended: opts.blended });
+
+  const findings = [
+    ...evaluateFindings(rawFindings, profile.thresholds, bands),
+    ...artifactFindings,
+  ];
   const cadenceChecks = opts.artifactsOnly
     ? []
     : evaluateCadence(cadence, profile.thresholds);
@@ -242,8 +267,31 @@ function analyse(file, opts, config, searchPath) {
     summary.dispositive_counter_evidence = true;
   }
 
+  // "Is this me?" - the author's own rates, not the severity ceilings.
+  //
+  // Uses rawFindings, BEFORE evaluateFindings applies thresholds. A construction
+  // the author never uses is interesting at any density, and a construction they
+  // lean on is uninteresting at a density that would trip a band. Filtering by
+  // band first would ask the ceiling question again and call the answer personal.
+  //
+  // THE COLD-START REFUSAL. Without a calibrated corpus there is no "you" to
+  // compare against, and the fallback bands describe a severity class rather
+  // than a person. Answering "is this me?" from them would be the tool's worst
+  // available lie: confident, personal-sounding, and about nobody.
+  const relative = opts.relative && !profile.thresholds.derived
+    ? { refused: true, profileName: resolved.name }
+    : opts.relative
+    ? relativeReport({
+      entryRates: profile.thresholds.entry_rates,
+      corpusWords: profile.thresholds.corpus_words,
+      draftEntries: rawFindings.map((f) => ({ id: f.id, count: f.count, title: f.label || f.id })),
+      draftWords: wordCount,
+    })
+    : null;
+
   return {
     file,
+    relative,
     profile: {
       name: resolved.name,
       how: resolved.how,
@@ -252,6 +300,36 @@ function analyse(file, opts, config, searchPath) {
       dir: profile.dir,
       medium: profile.meta.medium || null,
       thresholds: profile.thresholds,
+      // WHICH CEILINGS THIS SCAN ACTUALLY JUDGED AGAINST. A band derived partly
+      // from model-assisted text is a different claim from one derived only from
+      // prose the author wrote unaided. Emitted on every result, including
+      // --json, so no consumer has to infer it from the presence of a key.
+      //
+      // `warning` is calibrate's narrowing check, which has been computed and
+      // written to thresholds.derived.json since the blend shipped and shown to
+      // nobody, because nothing read the file. A blended ceiling that comes in
+      // meaningfully TIGHTER than the human one is the shape of voice collapse -
+      // it means the approved pool has lower tell density than the author's own
+      // writing, so the author's natural prose starts failing its own bands.
+      // That is the one direction PROFILES.md rule 5 calls a warning rather than
+      // a footnote, and it now reaches the person it is about.
+      bands: {
+        used: bands.source,
+        blend_available: bands.available,
+        human: bands.human,
+        blended: bands.blended,
+        approved_samples: profile.thresholds.approved?.samples_used ?? 0,
+        share_of_blended_pool: profile.thresholds.approved?.share_of_blended_pool ?? null,
+        // TOP LEVEL, not under `approved`. calibrate.mjs closes the `approved`
+        // object and then writes `blended_warning` beside it, and loadThresholds
+        // spreads the derived file straight onto `thresholds`. The first version
+        // of this line read `thresholds.approved.blended_warning`, which is
+        // permanently undefined - so the warning was computed, written, and
+        // dropped one field name from being shown, which is the exact bug this
+        // sprint existed to fix, reintroduced inside the fix. A reviewer caught
+        // it; the selftest below now would.
+        warning: profile.thresholds.blended_warning || null,
+      },
       // Emitted because density findings are only comparable WITHIN one catalog
       // version: adding or retuning an entry silently changes what a per-1k
       // number means. Anything that stores these bands — a voice lock, a derived
@@ -346,9 +424,34 @@ function main() {
     return;
   }
 
+  if (opts.relative) {
+    for (const result of results) {
+      if (result.relative?.refused) {
+        process.stderr.write(
+          `\ntell-scan: cannot answer "is this me?" for ${result.file}\n\n`
+          + `  Profile "${result.relative.profileName}" has no calibrated corpus, so there is\n`
+          + "  no measurement of how YOU write - only fallback bands describing a\n"
+          + "  severity class. Comparing a draft against those and calling the result\n"
+          + "  personal would be a confident answer about nobody.\n\n"
+          + "  Build a corpus first:  node tools/calibrate.mjs --profile <name>\n\n",
+        );
+        failures += 1;
+        continue;
+      }
+      process.stdout.write(
+        `${renderRelative(result.relative, {
+          corpusWords: result.profile.thresholds.corpus_words,
+          samples: result.profile.thresholds.samples,
+          showAll: opts.all,
+        })}\n`,
+      );
+    }
+    process.exit(failures ? 1 : 0);
+  }
+
   for (const result of results) {
     process.stdout.write(
-      `${renderReport(result, { showExamples: opts.examples, showClean: opts.all })}\n`,
+      `${renderReport(result, { showExamples: opts.examples, showClean: opts.all, showBands: opts.showBands })}\n`,
     );
   }
   if (baseline) {
@@ -358,4 +461,16 @@ function main() {
   process.exit(failures ? 1 : 0);
 }
 
-main();
+// Run only when invoked directly, so this module can be imported.
+//
+// This file previously ended in a bare `main();`, so importing it RAN THE CLI -
+// printing usage and exiting inside whatever imported it. That is why nothing
+// could reuse these functions, and why prose-author's contract test could not
+// pin its port against them until this guard existed.
+//
+// realpathSync on both sides, not `import.meta.url === \`file://${argv[1]}\``:
+// import.meta.url is resolved and argv[1] is not, so the naive form silently
+// does nothing when the path contains a symlink. On macOS /tmp is one. (That
+// bug was real in prose-author's two tools, which DID have the naive guard;
+// these four had no guard at all.)
+if (process.argv[1] && realpathSync(process.argv[1]) === fileURLToPath(import.meta.url)) main();

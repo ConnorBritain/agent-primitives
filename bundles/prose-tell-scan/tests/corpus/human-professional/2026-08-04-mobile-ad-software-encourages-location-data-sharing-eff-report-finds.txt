@@ -1,0 +1,53 @@
+---
+source: EFF Deeplinks (eff.org)
+title: Mobile Ad Software Encourages Location Data Sharing, EFF Report Finds
+author: Josh Richman
+date: 2026-08-04
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/press/releases/mobile-ad-software-encourages-location-data-sharing-eff-report-finds
+---
+Developers Must Beware of Ad Libraries that Betray Users’ Privacy
+
+SAN FRANCISCO – Some software development kits (SDKs) provided by advertising companies to help developers monetize their apps are automatically feeding users’ location data into systems that location data brokers use to track people, an Electronic Frontier Foundation (EFF) report found. 
+
+EFF began investigating the location-sharing practices of various advertising SDKs to better understand the pipeline from mobile apps to location data brokers. The probe revealed how such SDKs can facilitate and encourage location data sharing – without users’ knowledge or meaningful consent – through privacy-invasive defaults, financial incentives, and unclear documentation.    
+
+“Defaults matter, not just for users, but for app developers as well. If app developers don’t pay close attention to the location-sharing settings of their advertising tools, they could inadvertently expose users’ location information,” EFF Staff Technologist Lena Cohen said. “Users can take extra steps to defend their location privacy, but they shouldn’t have to. Developers, regulators, and legislators must act to stop apps from leaking users’ location to advertising companies and data brokers.” 
+
+Cohen and EFF Senior Staff Technologist Bill Budington reviewed the public developer documentation of dozens of widely used advertising SDKs to identify how they handle and communicate with developers about location data.  
+
+In their analysis, they highlighted four advertising SDKs that collect and share a user's location by default for ad targeting whenever the user has given the app location permissions: InMobi, BidMachine, Verve’s HyBid, and Huawei’s Petal Ads. But EFF’s focus on these four does not mean that other SDKs adequately protect location data or that developers never choose to share location data when it’s not the default. In fact, advertising SDKs not discussed in this investigation have been criticized and sued for collecting location data without valid user consent.  
+
+“When developers let advertising SDKs collect location data, they’re putting users at risk of more than just creepy ads,” Budington said. “Location information sourced from the advertising industry has been used for ICE investigations, global spy tools, outing a gay priest, tracking union organizers, and tracking US military personnel. Developers have a responsibility to protect their users’ from these harms, regardless of advertising SDKs’ default settings.” 
+
+For the EFF report: https://www.eff.org/deeplinks/2026/07/developers-beware-ad-libraries-betray-your-users-location-privacy
+
+For more on location data brokers: https://www.eff.org/issues/location-data-brokers 
+
+For more on SDKs: https://www.eff.org/deeplinks/2022/06/how-federal-government-buys-our-cell-phone-location-data   
+
+Contact:
+
+
+
+William
+
+Budington
+
+Senior Staff Technologist
+
+bill@eff.org
+
+
+
+
+
+Lena
+
+Cohen
+
+Staff Technologist
+
+lcohen@eff.org

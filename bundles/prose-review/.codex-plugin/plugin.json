@@ -1,0 +1,37 @@
+{
+  "name": "prose-review",
+  "version": "0.2.0",
+  "description": "Read-only critics for prose: does this draft sound like its author, and did a revision keep what it had to.",
+  "author": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "homepage": "https://github.com/ConnorBritain/agent-primitives",
+  "repository": "https://github.com/ConnorBritain/agent-primitives",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "prose",
+    "editing",
+    "voice",
+    "review"
+  ],
+  "interface": {
+    "displayName": "Prose Review",
+    "shortDescription": "Critics that judge a draft against the author's own writing, and a revision against its original.",
+    "longDescription": "Read-only critics for prose, each owning one question exclusively. prose-voice-critic: whether a draft sounds like the person it is supposed to be by, judged against a corpus of their own writing, with every finding required to cite how they write instead. prose-fidelity-critic: whether a revision kept the facts, quotes, named entities, qualifications and claim strength of the original, judged against a deterministic scan that is authoritative on presence so the critic argues only about consequence. Neither judges quality, and neither states or implies that text was machine-generated. The two resolve uncertainty in OPPOSITE directions on purpose - the voice critic toward silence, because wrongly telling authors their voice is off teaches them to write blandly; the fidelity critic toward MATERIAL-LOSS, because a loss waved through ships and the original may be gone by the time anyone looks. NOTE: Codex enforces neither the read-only tool restriction nor context isolation, and context isolation is the mechanism here - a critic that helped write the draft, or performed the revision, will recognise its own choices as the author's. Run each as a fresh `codex exec` rather than inline, and run fidelity-scan yourself first so the critic cannot skip it; see docs/portability.md.",
+    "developerName": "Connor England",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Interactive"
+    ],
+    "websiteURL": "https://github.com/ConnorBritain/agent-primitives",
+    "defaultPrompt": [
+      "Does this draft sound like me?",
+      "Review this against my writing corpus for voice",
+      "Which passages here do not match how I write?",
+      "Did this rewrite drop anything from the original?",
+      "Check this revision for lost facts and qualifications"
+    ]
+  }
+}

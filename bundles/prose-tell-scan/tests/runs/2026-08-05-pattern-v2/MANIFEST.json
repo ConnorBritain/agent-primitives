@@ -1,0 +1,64 @@
+{
+  "run": "2026-08-05-pattern-v2",
+  "set": "fixtures",
+  "draws": 3,
+  "prompt_sha": "05111e99566abb35",
+  "cases": [
+    {
+      "id": "case-01",
+      "fixture": "n-eu-gatekeepers",
+      "draws": 3,
+      "draft_sha": "2a15518511d70deb",
+      "scan_sha": "9b645c36db030394"
+    },
+    {
+      "id": "case-04",
+      "fixture": "n-awakening-v",
+      "draws": 3,
+      "draft_sha": "3ed7f52110ed4e57",
+      "scan_sha": "cc596a0172155e0f"
+    },
+    {
+      "id": "case-02",
+      "fixture": "n-wilhoitian",
+      "draws": 3,
+      "draft_sha": "de1ca4e1873b11d3",
+      "scan_sha": "aec05d8e4b18b40e"
+    },
+    {
+      "id": "case-06",
+      "fixture": "n-attestation",
+      "draws": 3,
+      "draft_sha": "c1dd15e9e2a847a6",
+      "scan_sha": "c2716563ce54a88d"
+    },
+    {
+      "id": "case-03",
+      "fixture": "p-supplemental-safe-truths",
+      "draws": 3,
+      "draft_sha": "a502a9071be78ee0",
+      "scan_sha": "e327f5320c62c8c4"
+    },
+    {
+      "id": "case-08",
+      "fixture": "p-moderation-announced",
+      "draws": 3,
+      "draft_sha": "1aadc7c3dd35e55c",
+      "scan_sha": "0004bd2198dc84c3"
+    },
+    {
+      "id": "case-05",
+      "fixture": "p-drop-tool-announced",
+      "draws": 3,
+      "draft_sha": "010c9dc157a6cc0e",
+      "scan_sha": "98f508e845350c45"
+    },
+    {
+      "id": "case-07",
+      "fixture": "p-watch-dogs-no-detail",
+      "draws": 3,
+      "draft_sha": "ae996c2c41ad3c17",
+      "scan_sha": "95d1e5ca11debebc"
+    }
+  ]
+}

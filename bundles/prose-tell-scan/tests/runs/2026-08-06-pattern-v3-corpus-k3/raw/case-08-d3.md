@@ -1,0 +1,13 @@
+No findings.
+
+Checked and clean:
+- `llm-safe-truths` — clean. The two candidates that read closest to filler are the closing sentences: "Berry Hill today stands as a symbol of community resilience, ecological renewal, and historical continuity." (line 56) and "Its transformation from a coal-mining hub to a thriving green space reflects the evolving identity of Stoke-on-Trent." (line 56). Both fail gate 1: a state of the world in which each is false is statable (a Berry Hill left as derelict wasteland, with no campaign and no nature reserve, would not stand as such a symbol; a transformation with no bearing on the city's self-image would not "reflect" its identity). Falsifiable, however broad — not mine, per the gate.
+- `announced-then-undelivered` — clean. The one candidate promise, "The district has a rich history that spans from prehistoric human activity to a long legacy of coal mining, culminating in its transformation into a community-led nature reserve in the late 20th century." (line 10), is delivered in full: prehistoric flint tools and Roman pottery (line 17), the medieval manor (line 19), the coal-mining era through 1974 (lines 21–25), and the campaign and Millennium Project that produced the nature reserve (lines 29–31).
+- `surveying-without-committing` — clean. Nothing in the draft raises a question and declines to answer it; it is a linear historical/geographic account, not a survey of positions.
+- `invented-specifics` (narrow reading) — clean. No specific is attributed to a source the draft names as a source without naming it (e.g. "researchers say," "sources indicate") — the facts here are stated flat, not source-attributed. I checked the numeric specifics for internal contradiction (1841 founding / 900 workers by 1902; 1872 explosion, six deaths; 1889 Mossfield disaster, 64 deaths; late-1980s proposal plus six-year campaign to 1994; 1998 Friends group founding, repeated consistently at line 31 and line 54) and found none.
+
+Out of scope:
+- The draft is a Wikipedia draft-namespace page (note the AfC-style comment at line 1 and the categories/navbox boilerplate at the end) with an empty References section (line 58) and no inline citations anywhere. Given that, any apparently source-less specific is plausibly a stripped citation/hyperlink rather than an invented one, per the instructions on plain-text copies of linked originals — this is fact-checker work, not a finding, and I have not treated any of it as `invented-specifics`.
+- `absence-of-concrete-detail` is not adjudicated by any critic and I have not flagged it, though a fact-checker would find plenty to check given the missing citations.
+
+CLEAN

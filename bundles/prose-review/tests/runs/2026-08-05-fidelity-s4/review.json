@@ -1,0 +1,174 @@
+{
+  "n-beauty-modernised": {
+    "note": "Contract counts read by hand from the transcript. The single finding is a claim-drift on \"virtue is best\" -> \"virtue shows best\"; it quotes both sides and disputes no flagged atom. This fixture expects FAITHFUL and is therefore a false positive on all three draws.",
+    "annotation": " (draw 1 of 3; draws 2 and 3 also MATERIAL-LOSS)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: claim-drift / **ORIGINAL** (line 1): \"and surely virtue is best in a body that is comely\" / **REVISION** (line 1): \"and surely virtue shows best in a body that is comely\" / **WHAT THE READER LOSES**: The original asserts that virtue itself is at its greatest in a comely body; the revision asserts only that virtue is most *visible* there, so the reader can no longer tell whether Bacon is"
+    ]
+  },
+  "n-rossolimo-island-dropped": {
+    "note": "The known carried false positive. Unanimous across three draws here AND across three control draws on the pre-S4 scanner output, so it is not a variance artifact and not an effect of the scanner fix.",
+    "annotation": " (draw 1 of 3; draws 2 and 3 also MATERIAL-LOSS)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 19): \"In 1890 I / travelled to the Island of Sahalin, to write afterwards a book upon our / penal colony and prisons there.\" / **REVISION** (line 19): \"In 1890 I / travelled to Sahalin, to write afterwards a book upon our / penal colony and prisons there.\" / **WHAT THE READER LOSES**: That Sahalin is an island — the one fact in the sentence that tells a"
+    ]
+  },
+  "n-rossolimo-tightened": {
+    "note": "Split 2-1 across three draws. The pre-S4 control returned FAITHFUL on all three. Read the run log before treating either number as the critic's behaviour on this pair.",
+    "annotation": " (draw 1 of 3; draw 2 FAITHFUL, draw 3 MATERIAL-LOSS)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: claim-drift / - **ORIGINAL** (lines 16–18): \"these literary pursuits had, early in the eighties, acquired a permanent professional character\" / - **REVISION** (lines 16–18): \"by early in the eighties these literary pursuits had acquired a permanent professional character\" / - **WHAT THE READER LOSES**: the original locates the transition to professional writing *within* the early eigh"
+    ]
+  },
+  "n-sister-condensed": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "n-tihonov-moscow-university": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "n-tihonov-reordered": {
+    "note": "Split 1-2 across three draws, and the minority verdict is the one published here. The pre-S4 control returned FAITHFUL on all three. This is the fixture P12 was filed about and it is still splitting.",
+    "annotation": " (draw 1 of 3; draws 2 and 3 FAITHFUL)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: claim-drift / **ORIGINAL** (l.22–23): \"though I have indeed long ago been translated by the Germans\" / **REVISION** (l.22): \"though the Germans got to me long ago\" / **WHAT THE READER LOSES**: The original asserts a specific publication fact — German translations of his work exist and are old; \"got to me\" states only that Germans encountered him, and sitting immediately before \"The Czec"
+    ]
+  },
+  "p-beauty-qualifications-dropped": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: claim-drift / **ORIGINAL** (lines 3–5): \"neither is it always most seen, that very beautiful persons are otherwise of great virtue\" / **REVISION** (line 3): \"Very beautiful persons are otherwise of great virtue\" / **WHAT THE READER LOSES**: The polarity is reversed — the original denies that great beauty usually accompanies great virtue; the revision asserts that it does, and then keeps",
+      "**CLASS**: claim-drift / **ORIGINAL** (lines 15–16): \"A man cannot tell whether Apelles, or Albert Durer, were the more trifler\" / **REVISION** (line 15): \"Apelles was the greater trifler, and Albert Durer the lesser\" / **WHAT THE READER LOSES**: An explicit refusal to rank the two becomes a ranking; the reader is told a comparative judgement the original states cannot be made, and can no longer s",
+      "**CLASS**: claim-drift / **ORIGINAL** (lines 24–25): \"If it be true that the principal part of beauty is in decent motion, certainly it is no marvel\" / **REVISION** (lines 24–25): \"The principal part of beauty is in decent motion, and it is no marvel\" / **WHAT THE READER LOSES**: A conditional premise is converted to an assertion; the reader can no longer tell that the conclusion about older perso",
+      "**CLASS**: claim-drift / **ORIGINAL** (lines 19–20): \"Such personages, I think, would please nobody but the painter that made them: not but I think a painter may make a better face than ever was; but he must do it by a kind of felicity\" / **REVISION** (lines 18–19): \"Such personages would please nobody but the painter that made them. A painter may make a better face than ever was, and he must do i",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (lines 7–8): \"But this holds not always; for Augustus Cæsar, Titus Vespasianus...\" / **REVISION** (line 6): \"Augustus Cæsar, Titus Vespasianus...\" / **WHAT THE READER LOSES**: The list is no longer marked as a set of exceptions to the preceding rule; the reader cannot tell whether these six men illustrate the general claim or contradict it.",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (lines 2–3): \"in a body that is comely, though not of delicate features, and that hath rather dignity of presence\" / **REVISION** (lines 1–2): \"in a body that is comely, and that hath rather dignity of presence\" / **WHAT THE READER LOSES**: The kind of comeliness meant is no longer bounded — the original excludes delicacy of feature, which is what ma",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (line 29): \"and, for the most part, it makes a dissolute youth\" / **REVISION** (line 29): \"and it makes a dissolute youth\" / **WHAT THE READER LOSES**: A general tendency becomes an unqualified rule; the reader can no longer tell that the author allowed for beauty not producing dissoluteness, which the following \"but yet certainly again, if it light ",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (line 25): \"though persons in years seem many times more amiable\" / **REVISION** (line 25): \"that persons in years seem more amiable\" / **WHAT THE READER LOSES**: \"Many times\" limits the observation to frequent-but-not-invariable; without it the claim covers persons in years generally."
+    ]
+  },
+  "p-death-quotes-paraphrased": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 31): Augustus Cæsar `died in a compliment: “Livia, conjugii nostri memor, vive et vale.”` / **REVISION** (line 30–31): `\"Augustus Cæsar died in a compliment to his wife\"` / **WHAT THE READER LOSES**: The words themselves — \"Livia, mindful of our marriage, live and farewell\" — and Livia's name; the reader is told a compliment occurred but can no longer k",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 32–33): `Tiberius in dissimulation, as Tacitus saith of him, “Jam Tiberium vires et corpus, non dissimulatio, deserebant:”` / **REVISION** (line 31): `\"Tiberius in dissimulation, as Tacitus saith of him;\"` / **WHAT THE READER LOSES**: Tacitus's actual observation — that Tiberius's strength and body were failing him but his dissimulation was not — which",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 34): `Vespasian in a jest, sitting upon the stool, “Ut puto Deus fio;”` / **REVISION** (lines 31–32): `\"Vespasian in a jest, sitting upon the stool;\"` / **WHAT THE READER LOSES**: The jest — \"I think I am becoming a god\" — so the reader cannot recover what was funny, and the retained detail of the stool is left without the deification pun it depends on.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 34–36): `Galba with a sentence, “Feri, si ex re sit populi Romani,” holding forth his neck` / **REVISION** (lines 32–33): `\"Galba with a sentence, holding forth his neck\"` / **WHAT THE READER LOSES**: The sentence — \"Strike, if it be for the good of the Roman people\" — leaving \"a sentence\" with no content; the reader cannot tell that Galba's composure ",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 45): `the sweetest canticle is “Nunc dimittis,”` / **REVISION** (lines 42–43): `\"the sweetest canticle is the old song of departure\"` / **WHAT THE READER LOSES**: The identification of the canticle as the Nunc dimittis (Simeon's, Luke 2:29), a specific liturgical text the reader could look up; \"the old song of departure\" names no source. Not flagged by "
+    ]
+  },
+  "p-death-severus-unnamed": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 36): \"Septimus Severus in dispatch, “Adeste, si quid mihi restat / agendum,”\" / **REVISION** (line 36): \"Severus in dispatch, “Adeste, si quid mihi restat / agendum,”\" / **WHAT THE READER LOSES**: Which Severus said it — the bare cognomen fits Septimius Severus, Alexander Severus, Severus II and Libius Severus alike, and nothing else in the surrounding "
+    ]
+  },
+  "p-rossolimo-hedges-removed": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: claim-drift / - **ORIGINAL**: L34–35 — \"I have always tried where it was possible to be consistent with the facts of science, and where it was impossible I have preferred not to write at all.\" / - **REVISION**: L30–31 — \"I have always been consistent with the facts of science.\" / - **WHAT THE READER LOSES**: The conditional structure and Chekhov's stated practice of abstaining — the r",
+      "- **CLASS**: claim-drift / - **ORIGINAL**: L14–15 — \"chose the Faculty of Medicine I don’t remember on what grounds\" / - **REVISION**: L13 — \"chose the Faculty of Medicine on good grounds\" / - **WHAT THE READER LOSES**: An admitted blank in memory is replaced by a positive claim of sound reasoning; the reader now believes Chekhov had and endorsed reasons he explicitly said he could not recall.",
+      "- **CLASS**: dropped-qualification / - **ORIGINAL**: L36–38 — \"I may observe in passing that the conditions of artistic creation do not always admit of complete harmony with the facts of science.\" / - **REVISION**: L31–32 — \"The conditions of artistic creation do not admit of complete harmony with the facts of science.\" / - **WHAT THE READER LOSES**: \"not always\" becomes \"not\" — an occasional inco",
+      "- **CLASS**: dropped-qualification / - **ORIGINAL**: L20–23 — \"Not counting reviews, feuilletons, paragraphs, and all that I have written from day to day for the newspapers, which it would be difficult now to seek out and collect, I have, during my twenty years of literary work, published more than three hundred signatures\" / - **REVISION**: L18–19 — \"I have, during my twenty years of literary wor",
+      "- **CLASS**: dropped-qualification / - **ORIGINAL**: L23 — \"published more than three hundred signatures\" / - **REVISION**: L19 — \"published three hundred signatures\" / - **WHAT THE READER LOSES**: A floor becomes an exact count; the reader can no longer tell that 300 is a minimum Chekhov declined to sharpen.",
+      "- **CLASS**: claim-drift / - **ORIGINAL**: L13 — \"I had at the time only a slight idea of the Faculties in general\" / - **REVISION**: L12 — \"I had an idea of the Faculties in general\" / - **WHAT THE READER LOSES**: Both the diminisher (\"only a slight\") and the time-index (\"at the time\") go, so a confessed nineteen-year-old's ignorance reads as ordinary competence, and the reader cannot see that th",
+      "- **CLASS**: dropped-qualification / - **ORIGINAL**: L30–31 — \"it is probably due to my close association with medicine that I have succeeded in avoiding many mistakes\" / - **REVISION**: L26 — \"it is due to my close association with medicine that I have succeeded in avoiding many mistakes\" / - **WHAT THE READER LOSES**: \"probably\" removed — a guess at causation is stated as established causation, ",
+      "- **CLASS**: dropped-qualification / - **ORIGINAL**: L7–8 — \"I send a few facts, very bald, but I can do no more....\" / - **REVISION**: L7 — \"I send the facts.\" / - **WHAT THE READER LOSES**: The enclosure is presented as complete rather than as a deliberately meagre minimum offered under protest; the reader loses the fact that Chekhov marked the sheet as all he was willing to supply.",
+      "- **CLASS**: claim-drift / - **ORIGINAL**: L26 — \"I have no doubt that the study of medicine has had an important influence on my literary work\" / - **REVISION**: L22 — \"The study of medicine has had an important influence on my literary work\" / - **WHAT THE READER LOSES**: The first-person assertion becomes an impersonal statement of fact; the reader can no longer see the claim marked as Chekhov'"
+    ]
+  },
+  "p-sister-fourmis-cut": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 47): \"the Minister for Internal Affairs was called to account\" / **REVISION** (line 46): \"a minister was called to account\" / **WHAT THE READER LOSES**: Which ministry was answerable for the suppression — interior, not war or justice — so the reader can no longer tell that the police/administrative arm was being held to account.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 49): \"the riots in Fourmis (there were many killed and wounded)\" / **REVISION** (lines 47–48): \"some riots in the north\" / **WHAT THE READER LOSES**: The named town of Fourmis and the fact that the suppression produced dead and wounded; the reader can no longer identify the incident or know it was lethal.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 42): \"to do a bust of Suvorin\" / **REVISION** (line 41): \"to do a bust of a friend\" / **WHAT THE READER LOSES**: The sitter's identity, and with it that the writer's travelling companion was Suvorin — the reader can no longer work out who \"us\" refers to two words later.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 29–30): \"I went to the Salon and couldn't see half the pictures\" / **REVISION** (lines 29–30): \"I went to an exhibition of pictures and couldn't see half of them\" / **WHAT THE READER LOSES**: That the exhibition was the Paris Salon — a datable, locatable annual event — not an unspecified picture show.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 31–32): \"In comparison with the landscape painters I saw here yesterday Levitan is a king....\" / **REVISION**: absent / **WHAT THE READER LOSES**: The specific comparison to Levitan and to landscape painters seen the previous day — the named benchmark on which the generalisation about Russian artists rests.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 24): \"I heard the midnight service in the Church of the Embassy\" / **REVISION** (line 24): \"I heard the midnight service at church\" / **WHAT THE READER LOSES**: That the Easter service was at the Russian Embassy church in Paris — the reader can no longer tell it was a Russian Orthodox service among expatriates rather than a local French one.",
+      "**CLASS**: claim-drift / **ORIGINAL** (lines 48–49): \"the irregularities which the government had ventured upon in putting down the riots in Fourmis\" / **REVISION** (lines 46–47): \"the irregularities which the government had ventured upon in putting down some riots in the north\" / **WHAT THE READER LOSES**: A definite, single referenced event becomes an indefinite plural (\"some riots\"), so the rea"
+    ]
+  },
+  "p-sister-scope-dropped": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 8–10): \"The other exhibition buildings I saw only from the outside, as they were occupied by cavalry brought there in anticipation of disorders.\" / **REVISION** (lines 8–9): \"I saw the other exhibition buildings from the outside.\" / **WHAT THE READER LOSES**: That cavalry had been moved into the exhibition buildings ahead of expected trouble — the reas",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 49): \"in putting down the riots in Fourmis (there were many killed and wounded)\" / **REVISION** (line 47): \"in putting down the riots in Fourmis.\" / **WHAT THE READER LOSES**: That the Fourmies suppression produced many dead and wounded — the reader can no longer tell why the Minister was called to account or why the sitting was stormy.",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (lines 31–32): \"In comparison with the landscape painters I saw here yesterday Levitan is a king....\" / **REVISION** (line 30): \"Levitan is a king....\" / **WHAT THE READER LOSES**: The comparison the judgement rests on — a specific set of landscape painters seen in Paris the previous day — turning a bounded remark about one day's viewing into an unbo",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 29–30): \"couldn't see half the pictures, thanks to my short sight\" / **REVISION** (lines 28–29): \"couldn't see half the pictures.\" / **WHAT THE READER LOSES**: The cause — his short sight — which is what connects the Salon complaint to the request that Misha get the pince-nez mended; without it the two sentences are merely adjacent.",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (lines 12–13): \"To disperse a big crowd a dozen policemen are sufficient here.\" / **REVISION** (lines 11–12): \"To disperse a big crowd a dozen policemen are sufficient.\" / **WHAT THE READER LOSES**: The restriction of the observation to Paris; the revision states it as a general fact about crowds and police rather than as something noted of this city"
+    ]
+  },
+  "p-tihonov-summarised": {
+    "note": "",
+    "annotation": " (one draw)",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 12): \"I was born in Taganrog in 1860.\" / **REVISION** (lines 12–13): \"I was born in Taganrog around the middle of the century\" / **WHAT THE READER LOSES**: The birth year. \"Around the middle of the century\" admits anything from roughly 1845 to 1860, so the reader can no longer compute the writer's age at any event in the letter, including the 1892 datel",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 13): \"I finished the course at Taganrog high school in 1879.\" / **REVISION** (line 13): \"finished at the Taganrog high school\" / **WHAT THE READER LOSES**: The year schooling ended, and with it the anchor for \"some years later took my degree\" — the reader cannot place the medical degree on any absolute timeline.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 13–14): \"In 1884 I took my degree in medicine at the University of Moscow.\" / **REVISION** (lines 13–14): \"some years later took my degree in medicine at the University of Moscow\" / **WHAT THE READER LOSES**: The qualification year. \"Some years\" is unbounded, and since the preceding date is also gone the reader cannot recover it by arithmetic.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 14–15): \"In 1888 I gained the Pushkin prize.\" / **REVISION** (lines 14–15): \"I won a literary prize not long after\" / **WHAT THE READER LOSES**: Both the year and the identity of the award — the Pushkin prize is a specific, checkable honour of the Russian Academy; \"a literary prize\" is unverifiable and unsearchable.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 15–16): \"In 1890 I made a journey to Sahalin across Siberia and back by sea.\" / **REVISION** (line 15): \"travelled to Sahalin across Siberia and back by sea\" / **WHAT THE READER LOSES**: The date of the Sahalin journey, the single most datable event in the biography, and the anchor that the next clause (\"the following year\") depends on.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 16): \"In 1891 I made a tour in Europe\" / **REVISION** (line 16): \"the following year made a tour in Europe\" / **WHAT THE READER LOSES**: The absolute year. The relative substitute points at a year the revision no longer states, so the European tour floats free of the calendar entirely.",
+      "**CLASS**: claim-drift / **ORIGINAL** (line 17): \"In 1892 I took part in an orgy in the company of V. A. Tihonov at a name-day party.\" / **REVISION** (line 17): \"Last year I took part in an orgy in the company of V. A. Tihonov at a name-day party.\" / **WHAT THE READER LOSES**: The letter is dated February 22, 1892, so \"last year\" asserts 1891 — the revision moves the event a year earlier than the ",
+      "**CLASS**: claim-drift / **ORIGINAL** (line 18): \"I began writing in 1879.\" / **REVISION** (lines 18–19): \"I began writing while still at school.\" / **WHAT THE READER LOSES**: The year, and worse, the revision asserts something the original does not: the original dates the start of writing to the same year the high-school course *ended*, while \"while still at school\" places it before that.",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 18–20): \"The published collections of my works are: “Motley Tales,” “In the Twilight,” “Stories,” “Surly People,” and a novel, “The Duel.”\" / **REVISION** (lines 19–20): \"Several collections of my stories have been published, along with a novel.\" / **WHAT THE READER LOSES**: Every title, and the count. The reader can no longer identify a single book, l",
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 24–25): \"The mysteries of love I fathomed at the age of thirteen.\" / **REVISION** (line 24): \"The mysteries of love I fathomed young.\" / **WHAT THE READER LOSES**: The specific age. Not scanner-visible (word-form number). \"Young\" is compatible with any age up to the twenties; thirteen is the whole point of the boast.",
+      "**CLASS**: dropped-qualification / **ORIGINAL** (line 28): \"though I have not done so for two or three years\" / **REVISION** (line 28): \"though I have not done so for some time\" / **WHAT THE READER LOSES**: The bounded interval. Not scanner-visible (word-form number). \"Some time\" permits months or a decade; the original pins the lapse to a two-to-three-year window."
+    ]
+  },
+  "_how": [
+    "One entry per transcript. `note` and `annotation` are the operator's; both may stay empty.",
+    "The nulls are the two contract counts, and they are counts of what the findings quoted",
+    "under `_findings_to_review` DO — not of what the critic says it did. Read the transcript.",
+    "Nothing here is derived for you, because a critic grading its own compliance is the",
+    "failure verify-run.mjs was written to close. collect refuses to run until they are numbers."
+  ]
+}

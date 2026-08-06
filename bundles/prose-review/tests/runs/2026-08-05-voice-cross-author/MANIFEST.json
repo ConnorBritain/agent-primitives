@@ -1,0 +1,2724 @@
+{
+  "critic": "voice",
+  "run_id": "2026-08-05-voice-cross-author",
+  "prepared": "2026-08-05",
+  "design": "cross-author substitution; see prepare-cross-author.mjs header",
+  "agent_prompt": "primitives/agents/prose-voice-critic/agent.md",
+  "agent_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+  "corpus_samples_per_author": 10,
+  "probe_target_words": 1200,
+  "k_headline": 3,
+  "authors": [
+    {
+      "id": "bacon",
+      "register": "essay",
+      "era": "1625",
+      "cohesion": "independent",
+      "samples_available": 58,
+      "corpus_files": [
+        "bacon-of-adversity.txt",
+        "bacon-of-building.txt",
+        "bacon-of-deformity.txt",
+        "bacon-of-faction.txt",
+        "bacon-of-honor-and-reputation.txt",
+        "bacon-of-nature-in-men.txt",
+        "bacon-of-prophecies.txt",
+        "bacon-of-studies508.txt",
+        "bacon-of-truth.txt",
+        "bacon-of-youth-and-age.txt"
+      ],
+      "corpus_words": 6819,
+      "probe_file": "bacon-of-great-place129.txt",
+      "probe_words": 1145
+    },
+    {
+      "id": "chesterton",
+      "register": "essay",
+      "era": "1909",
+      "cohesion": "independent",
+      "samples_available": 39,
+      "corpus_files": [
+        "chesterton-a-cab-ride-across-country.txt",
+        "chesterton-a-somewhat-improbable-story.txt",
+        "chesterton-humanity-an-interlude.txt",
+        "chesterton-some-policemen-and-a-moral.txt",
+        "chesterton-the-dickensian.txt",
+        "chesterton-the-lion.txt",
+        "chesterton-the-perfect-game.txt",
+        "chesterton-the-secret-of-a-train.txt",
+        "chesterton-the-twelve-men.txt",
+        "chesterton-what-i-found-in-my-pocket.txt"
+      ],
+      "corpus_words": 14470,
+      "probe_file": "chesterton-the-tower.txt",
+      "probe_words": 1198
+    },
+    {
+      "id": "chopin",
+      "register": "narration",
+      "era": "1899",
+      "cohesion": "one-novel",
+      "samples_available": 38,
+      "corpus_files": [
+        "chopin-001-the-awakening-chapter-i.txt",
+        "chopin-006-the-awakening-chapter-vi.txt",
+        "chopin-010-the-awakening-chapter-x.txt",
+        "chopin-014-the-awakening-chapter-xiv.txt",
+        "chopin-018-the-awakening-chapter-xviii.txt",
+        "chopin-022-the-awakening-chapter-xxii.txt",
+        "chopin-026-the-awakening-chapter-xxvi.txt",
+        "chopin-031-the-awakening-chapter-xxxi.txt",
+        "chopin-035-the-awakening-chapter-xxxv.txt",
+        "chopin-039-the-awakening-chapter-xxxix.txt"
+      ],
+      "corpus_words": 11276,
+      "probe_file": "chopin-005-the-awakening-chapter-v.txt",
+      "probe_words": 1186
+    },
+    {
+      "id": "ohenry",
+      "register": "narration",
+      "era": "1906",
+      "cohesion": "independent",
+      "samples_available": 25,
+      "corpus_files": [
+        "ohenry-a-cosmopolite-in-a-cafe.txt",
+        "ohenry-an-unfinished-story.txt",
+        "ohenry-by-courier.txt",
+        "ohenry-mammon-and-the-archer.txt",
+        "ohenry-memoirs-of-a-yellow-dog.txt",
+        "ohenry-the-brief-debut-of-tildy.txt",
+        "ohenry-the-coming-out-of-maggie.txt",
+        "ohenry-the-gift-of-the-magi.txt",
+        "ohenry-the-love-philtre-of-ikey-schoenstein.txt",
+        "ohenry-tobins-palm.txt"
+      ],
+      "corpus_words": 21096,
+      "probe_file": "ohenry-after-twenty-years.txt",
+      "probe_words": 1261
+    },
+    {
+      "id": "chekhov",
+      "register": "correspondence",
+      "era": "1890s",
+      "cohesion": "independent",
+      "samples_available": 113,
+      "corpus_files": [
+        "chekhov-001-to-his-brother-mihail.txt",
+        "chekhov-017-to-a-n-pleshtcheyev.txt",
+        "chekhov-031-to-his-sister.txt",
+        "chekhov-043-to-a-s-suvorin.txt",
+        "chekhov-056-to-his-sister.txt",
+        "chekhov-073-to-e-m-s.txt",
+        "chekhov-087-to-madame-avilov.txt",
+        "chekhov-115-to-i-i-orlov.txt",
+        "chekhov-132-to-o-l-knipper.txt",
+        "chekhov-154-to-his-sister.txt"
+      ],
+      "corpus_words": 7583,
+      "probe_file": "chekhov-102-to-a-s-suvorin.txt",
+      "probe_words": 1214
+    },
+    {
+      "id": "doctorow",
+      "register": "blog",
+      "era": "2026",
+      "cohesion": "independent",
+      "samples_available": 20,
+      "corpus_files": [
+        "2026-07-09-wilhoitian.txt",
+        "2026-07-11-your-risk.txt",
+        "2026-07-14-designated-survivor.txt",
+        "2026-07-21-dickovers.txt",
+        "2026-07-23-drop-a-dime.txt",
+        "2026-07-25-cruel-cruelty-oh-cruelty.txt",
+        "2026-07-28-hitl-ers.txt",
+        "2026-07-31-just-do-it.txt",
+        "2026-08-03-andor.txt",
+        "2026-08-05-absentee-landlord.txt"
+      ],
+      "corpus_words": 28122,
+      "probe_file": "2026-07-29-la-la-la-la-la.txt",
+      "probe_words": 1446
+    }
+  ],
+  "total_dispatches": 56,
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "p-ohenry-x-bacon",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "ohenry",
+      "draft_author": "bacon",
+      "draws": 1,
+      "transcripts": [
+        "p-ohenry-x-bacon-r1"
+      ],
+      "corpus_words": 21096,
+      "draft_words": 1145,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-a-cosmopolite-in-a-cafe.txt",
+          "sha256": "a93d48ca9c5a49b013952223a0a055a45b20bde0c40d7e7e91b3fa1a52c13509"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-an-unfinished-story.txt",
+          "sha256": "4fabc64332248be1bf419d06767fcffe4be1c29dd133482d3537f96e67f8b04f"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-by-courier.txt",
+          "sha256": "677e6c3cb6f10c0923449a015b5dd979e2ef4563899ccef2dfc44657d9b45aa0"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-mammon-and-the-archer.txt",
+          "sha256": "4ff0407165bdef0e881c94731ce9cc85308d48cfe7ce88711d3f95b707cca802"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-memoirs-of-a-yellow-dog.txt",
+          "sha256": "c4fe45753b3e9674ee248dc0eed3aed1508ecca8571fab233cc9a1c4b02fe28d"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-brief-debut-of-tildy.txt",
+          "sha256": "979b07cb8431a8be96518cd9c2410f45f2dd78ed9cb6fabec8b8aa2582b4fb42"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-coming-out-of-maggie.txt",
+          "sha256": "a512b1828da91d427a61c4cb8dac498c21263d37fd5b1c5448e8fff651aef108"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-gift-of-the-magi.txt",
+          "sha256": "461b69d54e24c0d5e9aa1bbcc764395b9268a4dc4d0eccbe1eaca8224c4164b0"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-love-philtre-of-ikey-schoenstein.txt",
+          "sha256": "81f859145886a10e4b62dd95a02c5978d338329b80acf5741507e5c95241a2a7"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-tobins-palm.txt",
+          "sha256": "c0c2ce844ef21872bc0278dd0a720a2493f2db495c1f0ee09cf361fd378dd8d5"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-great-place129.txt",
+          "sha256": "171b1b25add7afe65438c00f157ffb878d969d617e45b87f152f25ecbcbe6705"
+        }
+      ]
+    },
+    {
+      "case": "case-02",
+      "fixture": "p-chesterton-x-chopin",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chesterton",
+      "draft_author": "chopin",
+      "draws": 1,
+      "transcripts": [
+        "p-chesterton-x-chopin-r1"
+      ],
+      "corpus_words": 14470,
+      "draft_words": 1186,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-cab-ride-across-country.txt",
+          "sha256": "c284d9d53a231ed098c85fa63a82faf6b06cd931660ac532d782a869f324abf8"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-somewhat-improbable-story.txt",
+          "sha256": "856d8adbc13608533a63a45cb9822f936f6d1618a972cb6abd8bb59b8e270825"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-humanity-an-interlude.txt",
+          "sha256": "b2ba2fa47cf0ef25684b6249abb23bdabb3cf7702d21240b6067859bef69e4a3"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-some-policemen-and-a-moral.txt",
+          "sha256": "333723e0ebc664bae9a4fb1bdeec3e8b6c716f2591ee240741da5747d596e898"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-dickensian.txt",
+          "sha256": "4fa8bb90510c21a0c69825e27136e69631ab72252f8830e37724c8be7d465223"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-lion.txt",
+          "sha256": "ede0d28152c25727b75259b5d8c6bbed6a8e7ebda432e946610795ccac8e66ad"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-perfect-game.txt",
+          "sha256": "12f2de2c739ecaa3b6c496247d6a82694cfe533f874a9d93aeeb214ac88820b4"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-secret-of-a-train.txt",
+          "sha256": "b8d429fdf516222ed273128a853364eb93f90ece6323ee2abc2311806bb01d67"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-twelve-men.txt",
+          "sha256": "fd5efa653a7f97d76060dee3b87e3b3a282d6b07d59f1669161c0f32cdaa2228"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-what-i-found-in-my-pocket.txt",
+          "sha256": "ead982864264dd7c1ef551c99af34344483cfca7af408480012ed79c366f471c"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-005-the-awakening-chapter-v.txt",
+          "sha256": "3ed7f52110ed4e57efdf4bd2fd44f2b8ae3e0738a77750a204091067bcf7e8f8"
+        }
+      ]
+    },
+    {
+      "case": "case-03",
+      "fixture": "n-chesterton",
+      "kind": "negative",
+      "tier": "N",
+      "corpus_author": "chesterton",
+      "draft_author": "chesterton",
+      "draws": 3,
+      "transcripts": [
+        "n-chesterton-r1",
+        "n-chesterton-r2",
+        "n-chesterton-r3"
+      ],
+      "corpus_words": 14470,
+      "draft_words": 1198,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-cab-ride-across-country.txt",
+          "sha256": "c284d9d53a231ed098c85fa63a82faf6b06cd931660ac532d782a869f324abf8"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-somewhat-improbable-story.txt",
+          "sha256": "856d8adbc13608533a63a45cb9822f936f6d1618a972cb6abd8bb59b8e270825"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-humanity-an-interlude.txt",
+          "sha256": "b2ba2fa47cf0ef25684b6249abb23bdabb3cf7702d21240b6067859bef69e4a3"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-some-policemen-and-a-moral.txt",
+          "sha256": "333723e0ebc664bae9a4fb1bdeec3e8b6c716f2591ee240741da5747d596e898"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-dickensian.txt",
+          "sha256": "4fa8bb90510c21a0c69825e27136e69631ab72252f8830e37724c8be7d465223"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-lion.txt",
+          "sha256": "ede0d28152c25727b75259b5d8c6bbed6a8e7ebda432e946610795ccac8e66ad"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-perfect-game.txt",
+          "sha256": "12f2de2c739ecaa3b6c496247d6a82694cfe533f874a9d93aeeb214ac88820b4"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-secret-of-a-train.txt",
+          "sha256": "b8d429fdf516222ed273128a853364eb93f90ece6323ee2abc2311806bb01d67"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-twelve-men.txt",
+          "sha256": "fd5efa653a7f97d76060dee3b87e3b3a282d6b07d59f1669161c0f32cdaa2228"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-what-i-found-in-my-pocket.txt",
+          "sha256": "ead982864264dd7c1ef551c99af34344483cfca7af408480012ed79c366f471c"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-tower.txt",
+          "sha256": "0f5bf8aed8620e2a9cae866aa2159ed6ed04c81d54500e71ea9b6a7066e29a9e"
+        }
+      ]
+    },
+    {
+      "case": "case-04",
+      "fixture": "p-bacon-x-chopin",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "bacon",
+      "draft_author": "chopin",
+      "draws": 1,
+      "transcripts": [
+        "p-bacon-x-chopin-r1"
+      ],
+      "corpus_words": 6819,
+      "draft_words": 1186,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-adversity.txt",
+          "sha256": "81ab02824dc805bff4b98dcb2497f14878df765936fde5f9547c5e993bc97f67"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-building.txt",
+          "sha256": "a22aacc8800e9117b7a6b3bd124f2c3aef58b10051e8dfb574a8a5dee49c1ced"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-deformity.txt",
+          "sha256": "adf158385afd2613b8aa0278f75e4a8984bb67d4e275e987a80c3f5a54a8357e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-faction.txt",
+          "sha256": "3a8a992d6efd0eb6307bbf45137f669eeb18c036e844b1958122239d8a936392"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-honor-and-reputation.txt",
+          "sha256": "521612565295c56147b2c2fc57379d365847910855e36eb06efab0121271e773"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-nature-in-men.txt",
+          "sha256": "be9f25b4a5d1ff8083e5c1a6f24ad1bb42ddb3562c239464383f7409e731a75a"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-prophecies.txt",
+          "sha256": "c9382e8cb9481a1a5ea3c3d047008fc29b38865b53e11341ca297af1ab96d1d0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-studies508.txt",
+          "sha256": "664dbded05d6d9f8f8a36965dbe51f473862c155f9dae778c16eb6b7af995cb2"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-truth.txt",
+          "sha256": "bebff290b60534f824f86d8eae608903520d777fb803737e54f2398344f7caf1"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-youth-and-age.txt",
+          "sha256": "a2a94613d9523cae61ef80103499b4dcf487f5c2ff0f249220b56c026c06a469"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-005-the-awakening-chapter-v.txt",
+          "sha256": "3ed7f52110ed4e57efdf4bd2fd44f2b8ae3e0738a77750a204091067bcf7e8f8"
+        }
+      ]
+    },
+    {
+      "case": "case-05",
+      "fixture": "p-ohenry-x-chopin",
+      "kind": "positive",
+      "tier": "A1",
+      "corpus_author": "ohenry",
+      "draft_author": "chopin",
+      "draws": 3,
+      "transcripts": [
+        "p-ohenry-x-chopin-r1",
+        "p-ohenry-x-chopin-r2",
+        "p-ohenry-x-chopin-r3"
+      ],
+      "corpus_words": 21096,
+      "draft_words": 1186,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-a-cosmopolite-in-a-cafe.txt",
+          "sha256": "a93d48ca9c5a49b013952223a0a055a45b20bde0c40d7e7e91b3fa1a52c13509"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-an-unfinished-story.txt",
+          "sha256": "4fabc64332248be1bf419d06767fcffe4be1c29dd133482d3537f96e67f8b04f"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-by-courier.txt",
+          "sha256": "677e6c3cb6f10c0923449a015b5dd979e2ef4563899ccef2dfc44657d9b45aa0"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-mammon-and-the-archer.txt",
+          "sha256": "4ff0407165bdef0e881c94731ce9cc85308d48cfe7ce88711d3f95b707cca802"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-memoirs-of-a-yellow-dog.txt",
+          "sha256": "c4fe45753b3e9674ee248dc0eed3aed1508ecca8571fab233cc9a1c4b02fe28d"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-brief-debut-of-tildy.txt",
+          "sha256": "979b07cb8431a8be96518cd9c2410f45f2dd78ed9cb6fabec8b8aa2582b4fb42"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-coming-out-of-maggie.txt",
+          "sha256": "a512b1828da91d427a61c4cb8dac498c21263d37fd5b1c5448e8fff651aef108"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-gift-of-the-magi.txt",
+          "sha256": "461b69d54e24c0d5e9aa1bbcc764395b9268a4dc4d0eccbe1eaca8224c4164b0"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-love-philtre-of-ikey-schoenstein.txt",
+          "sha256": "81f859145886a10e4b62dd95a02c5978d338329b80acf5741507e5c95241a2a7"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-tobins-palm.txt",
+          "sha256": "c0c2ce844ef21872bc0278dd0a720a2493f2db495c1f0ee09cf361fd378dd8d5"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-005-the-awakening-chapter-v.txt",
+          "sha256": "3ed7f52110ed4e57efdf4bd2fd44f2b8ae3e0738a77750a204091067bcf7e8f8"
+        }
+      ]
+    },
+    {
+      "case": "case-06",
+      "fixture": "p-bacon-x-doctorow",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "bacon",
+      "draft_author": "doctorow",
+      "draws": 1,
+      "transcripts": [
+        "p-bacon-x-doctorow-r1"
+      ],
+      "corpus_words": 6819,
+      "draft_words": 1446,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-adversity.txt",
+          "sha256": "81ab02824dc805bff4b98dcb2497f14878df765936fde5f9547c5e993bc97f67"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-building.txt",
+          "sha256": "a22aacc8800e9117b7a6b3bd124f2c3aef58b10051e8dfb574a8a5dee49c1ced"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-deformity.txt",
+          "sha256": "adf158385afd2613b8aa0278f75e4a8984bb67d4e275e987a80c3f5a54a8357e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-faction.txt",
+          "sha256": "3a8a992d6efd0eb6307bbf45137f669eeb18c036e844b1958122239d8a936392"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-honor-and-reputation.txt",
+          "sha256": "521612565295c56147b2c2fc57379d365847910855e36eb06efab0121271e773"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-nature-in-men.txt",
+          "sha256": "be9f25b4a5d1ff8083e5c1a6f24ad1bb42ddb3562c239464383f7409e731a75a"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-prophecies.txt",
+          "sha256": "c9382e8cb9481a1a5ea3c3d047008fc29b38865b53e11341ca297af1ab96d1d0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-studies508.txt",
+          "sha256": "664dbded05d6d9f8f8a36965dbe51f473862c155f9dae778c16eb6b7af995cb2"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-truth.txt",
+          "sha256": "bebff290b60534f824f86d8eae608903520d777fb803737e54f2398344f7caf1"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-youth-and-age.txt",
+          "sha256": "a2a94613d9523cae61ef80103499b4dcf487f5c2ff0f249220b56c026c06a469"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-29-la-la-la-la-la.txt",
+          "sha256": "4a961af16d0d9427d1ed68eae3cbe2a630ab625b2fba11dde7334111a616b179"
+        }
+      ]
+    },
+    {
+      "case": "case-07",
+      "fixture": "n-ohenry",
+      "kind": "negative",
+      "tier": "N",
+      "corpus_author": "ohenry",
+      "draft_author": "ohenry",
+      "draws": 3,
+      "transcripts": [
+        "n-ohenry-r1",
+        "n-ohenry-r2",
+        "n-ohenry-r3"
+      ],
+      "corpus_words": 21096,
+      "draft_words": 1261,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-a-cosmopolite-in-a-cafe.txt",
+          "sha256": "a93d48ca9c5a49b013952223a0a055a45b20bde0c40d7e7e91b3fa1a52c13509"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-an-unfinished-story.txt",
+          "sha256": "4fabc64332248be1bf419d06767fcffe4be1c29dd133482d3537f96e67f8b04f"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-by-courier.txt",
+          "sha256": "677e6c3cb6f10c0923449a015b5dd979e2ef4563899ccef2dfc44657d9b45aa0"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-mammon-and-the-archer.txt",
+          "sha256": "4ff0407165bdef0e881c94731ce9cc85308d48cfe7ce88711d3f95b707cca802"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-memoirs-of-a-yellow-dog.txt",
+          "sha256": "c4fe45753b3e9674ee248dc0eed3aed1508ecca8571fab233cc9a1c4b02fe28d"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-brief-debut-of-tildy.txt",
+          "sha256": "979b07cb8431a8be96518cd9c2410f45f2dd78ed9cb6fabec8b8aa2582b4fb42"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-coming-out-of-maggie.txt",
+          "sha256": "a512b1828da91d427a61c4cb8dac498c21263d37fd5b1c5448e8fff651aef108"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-gift-of-the-magi.txt",
+          "sha256": "461b69d54e24c0d5e9aa1bbcc764395b9268a4dc4d0eccbe1eaca8224c4164b0"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-love-philtre-of-ikey-schoenstein.txt",
+          "sha256": "81f859145886a10e4b62dd95a02c5978d338329b80acf5741507e5c95241a2a7"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-tobins-palm.txt",
+          "sha256": "c0c2ce844ef21872bc0278dd0a720a2493f2db495c1f0ee09cf361fd378dd8d5"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-after-twenty-years.txt",
+          "sha256": "ce36bb6f87de255103c3ed88e132e5c275699085bf14435e3159dd84f4e3c40b"
+        }
+      ]
+    },
+    {
+      "case": "case-08",
+      "fixture": "p-doctorow-x-ohenry",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "doctorow",
+      "draft_author": "ohenry",
+      "draws": 1,
+      "transcripts": [
+        "p-doctorow-x-ohenry-r1"
+      ],
+      "corpus_words": 28122,
+      "draft_words": 1261,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-09-wilhoitian.txt",
+          "sha256": "de1ca4e1873b11d370db3b7b63870afba9574aaff3f4c56972f99722b2f34247"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-11-your-risk.txt",
+          "sha256": "117628265e50798d4a6753a859129a58a96e1224bfe60faf4498653848faed48"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-14-designated-survivor.txt",
+          "sha256": "55ee931633d0be3352622405ca929aed3819083205b4c157934b37a26c86bd9e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-21-dickovers.txt",
+          "sha256": "88f52a8ac3ee1cdda9530045d445a775ba457fd5a8f8419d5e375338d4bc764f"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-23-drop-a-dime.txt",
+          "sha256": "e5ad0bbe0d56b36b38c32891fc22c865be8a4fa446294e6eb59e97533021ad60"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-25-cruel-cruelty-oh-cruelty.txt",
+          "sha256": "e427ea50f17eecf48300e8dfa251c61bda4acc2624a31c0bdf662ddbe23aa2ef"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-28-hitl-ers.txt",
+          "sha256": "d478ecd8c6cb6a19f09ce2b703c6a9a48e2a01d41c89caf44fafdbed0ccab4ff"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-31-just-do-it.txt",
+          "sha256": "88e37c3e106864d0e187cb3f0d33bfd1714165de807ac0396b56961eb570075f"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-03-andor.txt",
+          "sha256": "ec51b9482a6056b777314be3c08c41461affa723972ed012df10b5655a481227"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-05-absentee-landlord.txt",
+          "sha256": "dc8b6aa83ecd505e576aa5849d6f2f1d0c0d6fd9a824812eae25541dc0beeeb2"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-after-twenty-years.txt",
+          "sha256": "ce36bb6f87de255103c3ed88e132e5c275699085bf14435e3159dd84f4e3c40b"
+        }
+      ]
+    },
+    {
+      "case": "case-09",
+      "fixture": "p-chesterton-x-bacon",
+      "kind": "positive",
+      "tier": "A2",
+      "corpus_author": "chesterton",
+      "draft_author": "bacon",
+      "draws": 3,
+      "transcripts": [
+        "p-chesterton-x-bacon-r1",
+        "p-chesterton-x-bacon-r2",
+        "p-chesterton-x-bacon-r3"
+      ],
+      "corpus_words": 14470,
+      "draft_words": 1145,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-cab-ride-across-country.txt",
+          "sha256": "c284d9d53a231ed098c85fa63a82faf6b06cd931660ac532d782a869f324abf8"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-somewhat-improbable-story.txt",
+          "sha256": "856d8adbc13608533a63a45cb9822f936f6d1618a972cb6abd8bb59b8e270825"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-humanity-an-interlude.txt",
+          "sha256": "b2ba2fa47cf0ef25684b6249abb23bdabb3cf7702d21240b6067859bef69e4a3"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-some-policemen-and-a-moral.txt",
+          "sha256": "333723e0ebc664bae9a4fb1bdeec3e8b6c716f2591ee240741da5747d596e898"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-dickensian.txt",
+          "sha256": "4fa8bb90510c21a0c69825e27136e69631ab72252f8830e37724c8be7d465223"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-lion.txt",
+          "sha256": "ede0d28152c25727b75259b5d8c6bbed6a8e7ebda432e946610795ccac8e66ad"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-perfect-game.txt",
+          "sha256": "12f2de2c739ecaa3b6c496247d6a82694cfe533f874a9d93aeeb214ac88820b4"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-secret-of-a-train.txt",
+          "sha256": "b8d429fdf516222ed273128a853364eb93f90ece6323ee2abc2311806bb01d67"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-twelve-men.txt",
+          "sha256": "fd5efa653a7f97d76060dee3b87e3b3a282d6b07d59f1669161c0f32cdaa2228"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-what-i-found-in-my-pocket.txt",
+          "sha256": "ead982864264dd7c1ef551c99af34344483cfca7af408480012ed79c366f471c"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-great-place129.txt",
+          "sha256": "171b1b25add7afe65438c00f157ffb878d969d617e45b87f152f25ecbcbe6705"
+        }
+      ]
+    },
+    {
+      "case": "case-10",
+      "fixture": "p-doctorow-x-chesterton",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "doctorow",
+      "draft_author": "chesterton",
+      "draws": 1,
+      "transcripts": [
+        "p-doctorow-x-chesterton-r1"
+      ],
+      "corpus_words": 28122,
+      "draft_words": 1198,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-09-wilhoitian.txt",
+          "sha256": "de1ca4e1873b11d370db3b7b63870afba9574aaff3f4c56972f99722b2f34247"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-11-your-risk.txt",
+          "sha256": "117628265e50798d4a6753a859129a58a96e1224bfe60faf4498653848faed48"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-14-designated-survivor.txt",
+          "sha256": "55ee931633d0be3352622405ca929aed3819083205b4c157934b37a26c86bd9e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-21-dickovers.txt",
+          "sha256": "88f52a8ac3ee1cdda9530045d445a775ba457fd5a8f8419d5e375338d4bc764f"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-23-drop-a-dime.txt",
+          "sha256": "e5ad0bbe0d56b36b38c32891fc22c865be8a4fa446294e6eb59e97533021ad60"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-25-cruel-cruelty-oh-cruelty.txt",
+          "sha256": "e427ea50f17eecf48300e8dfa251c61bda4acc2624a31c0bdf662ddbe23aa2ef"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-28-hitl-ers.txt",
+          "sha256": "d478ecd8c6cb6a19f09ce2b703c6a9a48e2a01d41c89caf44fafdbed0ccab4ff"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-31-just-do-it.txt",
+          "sha256": "88e37c3e106864d0e187cb3f0d33bfd1714165de807ac0396b56961eb570075f"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-03-andor.txt",
+          "sha256": "ec51b9482a6056b777314be3c08c41461affa723972ed012df10b5655a481227"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-05-absentee-landlord.txt",
+          "sha256": "dc8b6aa83ecd505e576aa5849d6f2f1d0c0d6fd9a824812eae25541dc0beeeb2"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-tower.txt",
+          "sha256": "0f5bf8aed8620e2a9cae866aa2159ed6ed04c81d54500e71ea9b6a7066e29a9e"
+        }
+      ]
+    },
+    {
+      "case": "case-11",
+      "fixture": "p-ohenry-x-chekhov",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "ohenry",
+      "draft_author": "chekhov",
+      "draws": 1,
+      "transcripts": [
+        "p-ohenry-x-chekhov-r1"
+      ],
+      "corpus_words": 21096,
+      "draft_words": 1214,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-a-cosmopolite-in-a-cafe.txt",
+          "sha256": "a93d48ca9c5a49b013952223a0a055a45b20bde0c40d7e7e91b3fa1a52c13509"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-an-unfinished-story.txt",
+          "sha256": "4fabc64332248be1bf419d06767fcffe4be1c29dd133482d3537f96e67f8b04f"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-by-courier.txt",
+          "sha256": "677e6c3cb6f10c0923449a015b5dd979e2ef4563899ccef2dfc44657d9b45aa0"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-mammon-and-the-archer.txt",
+          "sha256": "4ff0407165bdef0e881c94731ce9cc85308d48cfe7ce88711d3f95b707cca802"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-memoirs-of-a-yellow-dog.txt",
+          "sha256": "c4fe45753b3e9674ee248dc0eed3aed1508ecca8571fab233cc9a1c4b02fe28d"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-brief-debut-of-tildy.txt",
+          "sha256": "979b07cb8431a8be96518cd9c2410f45f2dd78ed9cb6fabec8b8aa2582b4fb42"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-coming-out-of-maggie.txt",
+          "sha256": "a512b1828da91d427a61c4cb8dac498c21263d37fd5b1c5448e8fff651aef108"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-gift-of-the-magi.txt",
+          "sha256": "461b69d54e24c0d5e9aa1bbcc764395b9268a4dc4d0eccbe1eaca8224c4164b0"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-love-philtre-of-ikey-schoenstein.txt",
+          "sha256": "81f859145886a10e4b62dd95a02c5978d338329b80acf5741507e5c95241a2a7"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-tobins-palm.txt",
+          "sha256": "c0c2ce844ef21872bc0278dd0a720a2493f2db495c1f0ee09cf361fd378dd8d5"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-102-to-a-s-suvorin.txt",
+          "sha256": "b8f967eba7edd076ce72e7fb1f08ac419f3103fafa225f2744a4bf094c2814c6"
+        }
+      ]
+    },
+    {
+      "case": "case-12",
+      "fixture": "p-doctorow-x-chekhov",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "doctorow",
+      "draft_author": "chekhov",
+      "draws": 1,
+      "transcripts": [
+        "p-doctorow-x-chekhov-r1"
+      ],
+      "corpus_words": 28122,
+      "draft_words": 1214,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-09-wilhoitian.txt",
+          "sha256": "de1ca4e1873b11d370db3b7b63870afba9574aaff3f4c56972f99722b2f34247"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-11-your-risk.txt",
+          "sha256": "117628265e50798d4a6753a859129a58a96e1224bfe60faf4498653848faed48"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-14-designated-survivor.txt",
+          "sha256": "55ee931633d0be3352622405ca929aed3819083205b4c157934b37a26c86bd9e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-21-dickovers.txt",
+          "sha256": "88f52a8ac3ee1cdda9530045d445a775ba457fd5a8f8419d5e375338d4bc764f"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-23-drop-a-dime.txt",
+          "sha256": "e5ad0bbe0d56b36b38c32891fc22c865be8a4fa446294e6eb59e97533021ad60"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-25-cruel-cruelty-oh-cruelty.txt",
+          "sha256": "e427ea50f17eecf48300e8dfa251c61bda4acc2624a31c0bdf662ddbe23aa2ef"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-28-hitl-ers.txt",
+          "sha256": "d478ecd8c6cb6a19f09ce2b703c6a9a48e2a01d41c89caf44fafdbed0ccab4ff"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-31-just-do-it.txt",
+          "sha256": "88e37c3e106864d0e187cb3f0d33bfd1714165de807ac0396b56961eb570075f"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-03-andor.txt",
+          "sha256": "ec51b9482a6056b777314be3c08c41461affa723972ed012df10b5655a481227"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-05-absentee-landlord.txt",
+          "sha256": "dc8b6aa83ecd505e576aa5849d6f2f1d0c0d6fd9a824812eae25541dc0beeeb2"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-102-to-a-s-suvorin.txt",
+          "sha256": "b8f967eba7edd076ce72e7fb1f08ac419f3103fafa225f2744a4bf094c2814c6"
+        }
+      ]
+    },
+    {
+      "case": "case-13",
+      "fixture": "p-chekhov-x-bacon",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chekhov",
+      "draft_author": "bacon",
+      "draws": 1,
+      "transcripts": [
+        "p-chekhov-x-bacon-r1"
+      ],
+      "corpus_words": 7583,
+      "draft_words": 1145,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-001-to-his-brother-mihail.txt",
+          "sha256": "91a681daa456f5259a137790559da19d322ac92a708a8456a36bc522bb401b1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-017-to-a-n-pleshtcheyev.txt",
+          "sha256": "08a3e50e0095a8632845e609e6e7716c08e7389bcaf3be9634e4c1e4cb655999"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-031-to-his-sister.txt",
+          "sha256": "5ba5428d7fcbf25008164ad763b4bc0f1cfce952940e697c4526dafc53eab088"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-043-to-a-s-suvorin.txt",
+          "sha256": "5a15652dee29d6c9710853ca3a86a8a08f56d1f833f9a9dbdf720861bdf97784"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-056-to-his-sister.txt",
+          "sha256": "ed9ebce2329788d4a36554cc296c7bf7c0c4428d631373f02f8078d68ea57846"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-073-to-e-m-s.txt",
+          "sha256": "145e4979b6c8f73b5dd0add45ea6b5e93817fad4cac9b38801dc352c2d8d7981"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-087-to-madame-avilov.txt",
+          "sha256": "8e50fc0bfbf645aa602a4562da8c5853ad133e21b0fcc57115b0d002f0dc9397"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-115-to-i-i-orlov.txt",
+          "sha256": "6c8657b04c0992009c9c808d60f49025cc07bc2fc0b03f07018d411b12a1d775"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-132-to-o-l-knipper.txt",
+          "sha256": "c404c8cdf28b350d4b10a68966079f9e429e3091f1a147ea9e793f1276faed7f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-154-to-his-sister.txt",
+          "sha256": "55ff45804e15c3467f00957816c6530cd254226b3b60fec5f7c7149abfec2587"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-great-place129.txt",
+          "sha256": "171b1b25add7afe65438c00f157ffb878d969d617e45b87f152f25ecbcbe6705"
+        }
+      ]
+    },
+    {
+      "case": "case-14",
+      "fixture": "p-ohenry-x-doctorow",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "ohenry",
+      "draft_author": "doctorow",
+      "draws": 1,
+      "transcripts": [
+        "p-ohenry-x-doctorow-r1"
+      ],
+      "corpus_words": 21096,
+      "draft_words": 1446,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-a-cosmopolite-in-a-cafe.txt",
+          "sha256": "a93d48ca9c5a49b013952223a0a055a45b20bde0c40d7e7e91b3fa1a52c13509"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-an-unfinished-story.txt",
+          "sha256": "4fabc64332248be1bf419d06767fcffe4be1c29dd133482d3537f96e67f8b04f"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-by-courier.txt",
+          "sha256": "677e6c3cb6f10c0923449a015b5dd979e2ef4563899ccef2dfc44657d9b45aa0"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-mammon-and-the-archer.txt",
+          "sha256": "4ff0407165bdef0e881c94731ce9cc85308d48cfe7ce88711d3f95b707cca802"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-memoirs-of-a-yellow-dog.txt",
+          "sha256": "c4fe45753b3e9674ee248dc0eed3aed1508ecca8571fab233cc9a1c4b02fe28d"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-brief-debut-of-tildy.txt",
+          "sha256": "979b07cb8431a8be96518cd9c2410f45f2dd78ed9cb6fabec8b8aa2582b4fb42"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-coming-out-of-maggie.txt",
+          "sha256": "a512b1828da91d427a61c4cb8dac498c21263d37fd5b1c5448e8fff651aef108"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-gift-of-the-magi.txt",
+          "sha256": "461b69d54e24c0d5e9aa1bbcc764395b9268a4dc4d0eccbe1eaca8224c4164b0"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-love-philtre-of-ikey-schoenstein.txt",
+          "sha256": "81f859145886a10e4b62dd95a02c5978d338329b80acf5741507e5c95241a2a7"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-tobins-palm.txt",
+          "sha256": "c0c2ce844ef21872bc0278dd0a720a2493f2db495c1f0ee09cf361fd378dd8d5"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-29-la-la-la-la-la.txt",
+          "sha256": "4a961af16d0d9427d1ed68eae3cbe2a630ab625b2fba11dde7334111a616b179"
+        }
+      ]
+    },
+    {
+      "case": "case-15",
+      "fixture": "n-chekhov",
+      "kind": "negative",
+      "tier": "N",
+      "corpus_author": "chekhov",
+      "draft_author": "chekhov",
+      "draws": 3,
+      "transcripts": [
+        "n-chekhov-r1",
+        "n-chekhov-r2",
+        "n-chekhov-r3"
+      ],
+      "corpus_words": 7583,
+      "draft_words": 1214,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-001-to-his-brother-mihail.txt",
+          "sha256": "91a681daa456f5259a137790559da19d322ac92a708a8456a36bc522bb401b1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-017-to-a-n-pleshtcheyev.txt",
+          "sha256": "08a3e50e0095a8632845e609e6e7716c08e7389bcaf3be9634e4c1e4cb655999"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-031-to-his-sister.txt",
+          "sha256": "5ba5428d7fcbf25008164ad763b4bc0f1cfce952940e697c4526dafc53eab088"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-043-to-a-s-suvorin.txt",
+          "sha256": "5a15652dee29d6c9710853ca3a86a8a08f56d1f833f9a9dbdf720861bdf97784"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-056-to-his-sister.txt",
+          "sha256": "ed9ebce2329788d4a36554cc296c7bf7c0c4428d631373f02f8078d68ea57846"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-073-to-e-m-s.txt",
+          "sha256": "145e4979b6c8f73b5dd0add45ea6b5e93817fad4cac9b38801dc352c2d8d7981"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-087-to-madame-avilov.txt",
+          "sha256": "8e50fc0bfbf645aa602a4562da8c5853ad133e21b0fcc57115b0d002f0dc9397"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-115-to-i-i-orlov.txt",
+          "sha256": "6c8657b04c0992009c9c808d60f49025cc07bc2fc0b03f07018d411b12a1d775"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-132-to-o-l-knipper.txt",
+          "sha256": "c404c8cdf28b350d4b10a68966079f9e429e3091f1a147ea9e793f1276faed7f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-154-to-his-sister.txt",
+          "sha256": "55ff45804e15c3467f00957816c6530cd254226b3b60fec5f7c7149abfec2587"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-102-to-a-s-suvorin.txt",
+          "sha256": "b8f967eba7edd076ce72e7fb1f08ac419f3103fafa225f2744a4bf094c2814c6"
+        }
+      ]
+    },
+    {
+      "case": "case-16",
+      "fixture": "p-chekhov-x-ohenry",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chekhov",
+      "draft_author": "ohenry",
+      "draws": 1,
+      "transcripts": [
+        "p-chekhov-x-ohenry-r1"
+      ],
+      "corpus_words": 7583,
+      "draft_words": 1261,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-001-to-his-brother-mihail.txt",
+          "sha256": "91a681daa456f5259a137790559da19d322ac92a708a8456a36bc522bb401b1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-017-to-a-n-pleshtcheyev.txt",
+          "sha256": "08a3e50e0095a8632845e609e6e7716c08e7389bcaf3be9634e4c1e4cb655999"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-031-to-his-sister.txt",
+          "sha256": "5ba5428d7fcbf25008164ad763b4bc0f1cfce952940e697c4526dafc53eab088"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-043-to-a-s-suvorin.txt",
+          "sha256": "5a15652dee29d6c9710853ca3a86a8a08f56d1f833f9a9dbdf720861bdf97784"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-056-to-his-sister.txt",
+          "sha256": "ed9ebce2329788d4a36554cc296c7bf7c0c4428d631373f02f8078d68ea57846"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-073-to-e-m-s.txt",
+          "sha256": "145e4979b6c8f73b5dd0add45ea6b5e93817fad4cac9b38801dc352c2d8d7981"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-087-to-madame-avilov.txt",
+          "sha256": "8e50fc0bfbf645aa602a4562da8c5853ad133e21b0fcc57115b0d002f0dc9397"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-115-to-i-i-orlov.txt",
+          "sha256": "6c8657b04c0992009c9c808d60f49025cc07bc2fc0b03f07018d411b12a1d775"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-132-to-o-l-knipper.txt",
+          "sha256": "c404c8cdf28b350d4b10a68966079f9e429e3091f1a147ea9e793f1276faed7f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-154-to-his-sister.txt",
+          "sha256": "55ff45804e15c3467f00957816c6530cd254226b3b60fec5f7c7149abfec2587"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-after-twenty-years.txt",
+          "sha256": "ce36bb6f87de255103c3ed88e132e5c275699085bf14435e3159dd84f4e3c40b"
+        }
+      ]
+    },
+    {
+      "case": "case-17",
+      "fixture": "p-bacon-x-chekhov",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "bacon",
+      "draft_author": "chekhov",
+      "draws": 1,
+      "transcripts": [
+        "p-bacon-x-chekhov-r1"
+      ],
+      "corpus_words": 6819,
+      "draft_words": 1214,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-adversity.txt",
+          "sha256": "81ab02824dc805bff4b98dcb2497f14878df765936fde5f9547c5e993bc97f67"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-building.txt",
+          "sha256": "a22aacc8800e9117b7a6b3bd124f2c3aef58b10051e8dfb574a8a5dee49c1ced"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-deformity.txt",
+          "sha256": "adf158385afd2613b8aa0278f75e4a8984bb67d4e275e987a80c3f5a54a8357e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-faction.txt",
+          "sha256": "3a8a992d6efd0eb6307bbf45137f669eeb18c036e844b1958122239d8a936392"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-honor-and-reputation.txt",
+          "sha256": "521612565295c56147b2c2fc57379d365847910855e36eb06efab0121271e773"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-nature-in-men.txt",
+          "sha256": "be9f25b4a5d1ff8083e5c1a6f24ad1bb42ddb3562c239464383f7409e731a75a"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-prophecies.txt",
+          "sha256": "c9382e8cb9481a1a5ea3c3d047008fc29b38865b53e11341ca297af1ab96d1d0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-studies508.txt",
+          "sha256": "664dbded05d6d9f8f8a36965dbe51f473862c155f9dae778c16eb6b7af995cb2"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-truth.txt",
+          "sha256": "bebff290b60534f824f86d8eae608903520d777fb803737e54f2398344f7caf1"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-youth-and-age.txt",
+          "sha256": "a2a94613d9523cae61ef80103499b4dcf487f5c2ff0f249220b56c026c06a469"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-102-to-a-s-suvorin.txt",
+          "sha256": "b8f967eba7edd076ce72e7fb1f08ac419f3103fafa225f2744a4bf094c2814c6"
+        }
+      ]
+    },
+    {
+      "case": "case-18",
+      "fixture": "p-chopin-x-chekhov",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chopin",
+      "draft_author": "chekhov",
+      "draws": 1,
+      "transcripts": [
+        "p-chopin-x-chekhov-r1"
+      ],
+      "corpus_words": 11276,
+      "draft_words": 1214,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-001-the-awakening-chapter-i.txt",
+          "sha256": "a4d59a4006b695698068c45d3616ed69b9fd0de037c4f0f83351853ba435be1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-006-the-awakening-chapter-vi.txt",
+          "sha256": "a12233f9de915768559ab2b55733e4e3cc4ea91a7f814f31dca9ad357bab04ba"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-010-the-awakening-chapter-x.txt",
+          "sha256": "0d60c6f29a04153013d20ed55c16651ad31e1bf0649f864d813c3751da22059d"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-014-the-awakening-chapter-xiv.txt",
+          "sha256": "9b000597d631fd07fb33a14905385f823f0e4b65594ce047d2644041a63d2997"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-018-the-awakening-chapter-xviii.txt",
+          "sha256": "1b068bc941b0b12e26a3693e581f949070314dde4b19845f007735d22a9770c2"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-022-the-awakening-chapter-xxii.txt",
+          "sha256": "e74f65fa195d8f91ebbd34fc0fcbf26a5f67d7ca4af65d470c498dbdb828fa59"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-026-the-awakening-chapter-xxvi.txt",
+          "sha256": "5fc4ec66ec3b1674509249105e59d299de8ff30e396e37f3408847e25d7803f0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-031-the-awakening-chapter-xxxi.txt",
+          "sha256": "f795ce7a08a160abc13d7d78d3efc89177780d506bf8851a0e39207da4f97996"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-035-the-awakening-chapter-xxxv.txt",
+          "sha256": "6f7baf72404969f9a14655479977e0f303e5e00060aa4fd60cce5085cb86223f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-039-the-awakening-chapter-xxxix.txt",
+          "sha256": "f97613db3aa75202965b954ec9166380577f12bc763083401e2d90283e7ea076"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-102-to-a-s-suvorin.txt",
+          "sha256": "b8f967eba7edd076ce72e7fb1f08ac419f3103fafa225f2744a4bf094c2814c6"
+        }
+      ]
+    },
+    {
+      "case": "case-19",
+      "fixture": "p-chesterton-x-ohenry",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chesterton",
+      "draft_author": "ohenry",
+      "draws": 1,
+      "transcripts": [
+        "p-chesterton-x-ohenry-r1"
+      ],
+      "corpus_words": 14470,
+      "draft_words": 1261,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-cab-ride-across-country.txt",
+          "sha256": "c284d9d53a231ed098c85fa63a82faf6b06cd931660ac532d782a869f324abf8"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-somewhat-improbable-story.txt",
+          "sha256": "856d8adbc13608533a63a45cb9822f936f6d1618a972cb6abd8bb59b8e270825"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-humanity-an-interlude.txt",
+          "sha256": "b2ba2fa47cf0ef25684b6249abb23bdabb3cf7702d21240b6067859bef69e4a3"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-some-policemen-and-a-moral.txt",
+          "sha256": "333723e0ebc664bae9a4fb1bdeec3e8b6c716f2591ee240741da5747d596e898"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-dickensian.txt",
+          "sha256": "4fa8bb90510c21a0c69825e27136e69631ab72252f8830e37724c8be7d465223"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-lion.txt",
+          "sha256": "ede0d28152c25727b75259b5d8c6bbed6a8e7ebda432e946610795ccac8e66ad"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-perfect-game.txt",
+          "sha256": "12f2de2c739ecaa3b6c496247d6a82694cfe533f874a9d93aeeb214ac88820b4"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-secret-of-a-train.txt",
+          "sha256": "b8d429fdf516222ed273128a853364eb93f90ece6323ee2abc2311806bb01d67"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-twelve-men.txt",
+          "sha256": "fd5efa653a7f97d76060dee3b87e3b3a282d6b07d59f1669161c0f32cdaa2228"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-what-i-found-in-my-pocket.txt",
+          "sha256": "ead982864264dd7c1ef551c99af34344483cfca7af408480012ed79c366f471c"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-after-twenty-years.txt",
+          "sha256": "ce36bb6f87de255103c3ed88e132e5c275699085bf14435e3159dd84f4e3c40b"
+        }
+      ]
+    },
+    {
+      "case": "case-20",
+      "fixture": "p-chesterton-x-doctorow",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chesterton",
+      "draft_author": "doctorow",
+      "draws": 1,
+      "transcripts": [
+        "p-chesterton-x-doctorow-r1"
+      ],
+      "corpus_words": 14470,
+      "draft_words": 1446,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-cab-ride-across-country.txt",
+          "sha256": "c284d9d53a231ed098c85fa63a82faf6b06cd931660ac532d782a869f324abf8"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-somewhat-improbable-story.txt",
+          "sha256": "856d8adbc13608533a63a45cb9822f936f6d1618a972cb6abd8bb59b8e270825"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-humanity-an-interlude.txt",
+          "sha256": "b2ba2fa47cf0ef25684b6249abb23bdabb3cf7702d21240b6067859bef69e4a3"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-some-policemen-and-a-moral.txt",
+          "sha256": "333723e0ebc664bae9a4fb1bdeec3e8b6c716f2591ee240741da5747d596e898"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-dickensian.txt",
+          "sha256": "4fa8bb90510c21a0c69825e27136e69631ab72252f8830e37724c8be7d465223"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-lion.txt",
+          "sha256": "ede0d28152c25727b75259b5d8c6bbed6a8e7ebda432e946610795ccac8e66ad"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-perfect-game.txt",
+          "sha256": "12f2de2c739ecaa3b6c496247d6a82694cfe533f874a9d93aeeb214ac88820b4"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-secret-of-a-train.txt",
+          "sha256": "b8d429fdf516222ed273128a853364eb93f90ece6323ee2abc2311806bb01d67"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-twelve-men.txt",
+          "sha256": "fd5efa653a7f97d76060dee3b87e3b3a282d6b07d59f1669161c0f32cdaa2228"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-what-i-found-in-my-pocket.txt",
+          "sha256": "ead982864264dd7c1ef551c99af34344483cfca7af408480012ed79c366f471c"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-29-la-la-la-la-la.txt",
+          "sha256": "4a961af16d0d9427d1ed68eae3cbe2a630ab625b2fba11dde7334111a616b179"
+        }
+      ]
+    },
+    {
+      "case": "case-21",
+      "fixture": "n-chopin",
+      "kind": "negative",
+      "tier": "N",
+      "corpus_author": "chopin",
+      "draft_author": "chopin",
+      "draws": 3,
+      "transcripts": [
+        "n-chopin-r1",
+        "n-chopin-r2",
+        "n-chopin-r3"
+      ],
+      "corpus_words": 11276,
+      "draft_words": 1186,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-001-the-awakening-chapter-i.txt",
+          "sha256": "a4d59a4006b695698068c45d3616ed69b9fd0de037c4f0f83351853ba435be1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-006-the-awakening-chapter-vi.txt",
+          "sha256": "a12233f9de915768559ab2b55733e4e3cc4ea91a7f814f31dca9ad357bab04ba"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-010-the-awakening-chapter-x.txt",
+          "sha256": "0d60c6f29a04153013d20ed55c16651ad31e1bf0649f864d813c3751da22059d"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-014-the-awakening-chapter-xiv.txt",
+          "sha256": "9b000597d631fd07fb33a14905385f823f0e4b65594ce047d2644041a63d2997"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-018-the-awakening-chapter-xviii.txt",
+          "sha256": "1b068bc941b0b12e26a3693e581f949070314dde4b19845f007735d22a9770c2"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-022-the-awakening-chapter-xxii.txt",
+          "sha256": "e74f65fa195d8f91ebbd34fc0fcbf26a5f67d7ca4af65d470c498dbdb828fa59"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-026-the-awakening-chapter-xxvi.txt",
+          "sha256": "5fc4ec66ec3b1674509249105e59d299de8ff30e396e37f3408847e25d7803f0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-031-the-awakening-chapter-xxxi.txt",
+          "sha256": "f795ce7a08a160abc13d7d78d3efc89177780d506bf8851a0e39207da4f97996"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-035-the-awakening-chapter-xxxv.txt",
+          "sha256": "6f7baf72404969f9a14655479977e0f303e5e00060aa4fd60cce5085cb86223f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-039-the-awakening-chapter-xxxix.txt",
+          "sha256": "f97613db3aa75202965b954ec9166380577f12bc763083401e2d90283e7ea076"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-005-the-awakening-chapter-v.txt",
+          "sha256": "3ed7f52110ed4e57efdf4bd2fd44f2b8ae3e0738a77750a204091067bcf7e8f8"
+        }
+      ]
+    },
+    {
+      "case": "case-22",
+      "fixture": "p-chekhov-x-chesterton",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chekhov",
+      "draft_author": "chesterton",
+      "draws": 1,
+      "transcripts": [
+        "p-chekhov-x-chesterton-r1"
+      ],
+      "corpus_words": 7583,
+      "draft_words": 1198,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-001-to-his-brother-mihail.txt",
+          "sha256": "91a681daa456f5259a137790559da19d322ac92a708a8456a36bc522bb401b1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-017-to-a-n-pleshtcheyev.txt",
+          "sha256": "08a3e50e0095a8632845e609e6e7716c08e7389bcaf3be9634e4c1e4cb655999"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-031-to-his-sister.txt",
+          "sha256": "5ba5428d7fcbf25008164ad763b4bc0f1cfce952940e697c4526dafc53eab088"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-043-to-a-s-suvorin.txt",
+          "sha256": "5a15652dee29d6c9710853ca3a86a8a08f56d1f833f9a9dbdf720861bdf97784"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-056-to-his-sister.txt",
+          "sha256": "ed9ebce2329788d4a36554cc296c7bf7c0c4428d631373f02f8078d68ea57846"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-073-to-e-m-s.txt",
+          "sha256": "145e4979b6c8f73b5dd0add45ea6b5e93817fad4cac9b38801dc352c2d8d7981"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-087-to-madame-avilov.txt",
+          "sha256": "8e50fc0bfbf645aa602a4562da8c5853ad133e21b0fcc57115b0d002f0dc9397"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-115-to-i-i-orlov.txt",
+          "sha256": "6c8657b04c0992009c9c808d60f49025cc07bc2fc0b03f07018d411b12a1d775"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-132-to-o-l-knipper.txt",
+          "sha256": "c404c8cdf28b350d4b10a68966079f9e429e3091f1a147ea9e793f1276faed7f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-154-to-his-sister.txt",
+          "sha256": "55ff45804e15c3467f00957816c6530cd254226b3b60fec5f7c7149abfec2587"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-tower.txt",
+          "sha256": "0f5bf8aed8620e2a9cae866aa2159ed6ed04c81d54500e71ea9b6a7066e29a9e"
+        }
+      ]
+    },
+    {
+      "case": "case-23",
+      "fixture": "p-chopin-x-bacon",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chopin",
+      "draft_author": "bacon",
+      "draws": 1,
+      "transcripts": [
+        "p-chopin-x-bacon-r1"
+      ],
+      "corpus_words": 11276,
+      "draft_words": 1145,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-001-the-awakening-chapter-i.txt",
+          "sha256": "a4d59a4006b695698068c45d3616ed69b9fd0de037c4f0f83351853ba435be1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-006-the-awakening-chapter-vi.txt",
+          "sha256": "a12233f9de915768559ab2b55733e4e3cc4ea91a7f814f31dca9ad357bab04ba"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-010-the-awakening-chapter-x.txt",
+          "sha256": "0d60c6f29a04153013d20ed55c16651ad31e1bf0649f864d813c3751da22059d"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-014-the-awakening-chapter-xiv.txt",
+          "sha256": "9b000597d631fd07fb33a14905385f823f0e4b65594ce047d2644041a63d2997"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-018-the-awakening-chapter-xviii.txt",
+          "sha256": "1b068bc941b0b12e26a3693e581f949070314dde4b19845f007735d22a9770c2"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-022-the-awakening-chapter-xxii.txt",
+          "sha256": "e74f65fa195d8f91ebbd34fc0fcbf26a5f67d7ca4af65d470c498dbdb828fa59"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-026-the-awakening-chapter-xxvi.txt",
+          "sha256": "5fc4ec66ec3b1674509249105e59d299de8ff30e396e37f3408847e25d7803f0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-031-the-awakening-chapter-xxxi.txt",
+          "sha256": "f795ce7a08a160abc13d7d78d3efc89177780d506bf8851a0e39207da4f97996"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-035-the-awakening-chapter-xxxv.txt",
+          "sha256": "6f7baf72404969f9a14655479977e0f303e5e00060aa4fd60cce5085cb86223f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-039-the-awakening-chapter-xxxix.txt",
+          "sha256": "f97613db3aa75202965b954ec9166380577f12bc763083401e2d90283e7ea076"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-great-place129.txt",
+          "sha256": "171b1b25add7afe65438c00f157ffb878d969d617e45b87f152f25ecbcbe6705"
+        }
+      ]
+    },
+    {
+      "case": "case-24",
+      "fixture": "p-chopin-x-chesterton",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chopin",
+      "draft_author": "chesterton",
+      "draws": 1,
+      "transcripts": [
+        "p-chopin-x-chesterton-r1"
+      ],
+      "corpus_words": 11276,
+      "draft_words": 1198,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-001-the-awakening-chapter-i.txt",
+          "sha256": "a4d59a4006b695698068c45d3616ed69b9fd0de037c4f0f83351853ba435be1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-006-the-awakening-chapter-vi.txt",
+          "sha256": "a12233f9de915768559ab2b55733e4e3cc4ea91a7f814f31dca9ad357bab04ba"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-010-the-awakening-chapter-x.txt",
+          "sha256": "0d60c6f29a04153013d20ed55c16651ad31e1bf0649f864d813c3751da22059d"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-014-the-awakening-chapter-xiv.txt",
+          "sha256": "9b000597d631fd07fb33a14905385f823f0e4b65594ce047d2644041a63d2997"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-018-the-awakening-chapter-xviii.txt",
+          "sha256": "1b068bc941b0b12e26a3693e581f949070314dde4b19845f007735d22a9770c2"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-022-the-awakening-chapter-xxii.txt",
+          "sha256": "e74f65fa195d8f91ebbd34fc0fcbf26a5f67d7ca4af65d470c498dbdb828fa59"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-026-the-awakening-chapter-xxvi.txt",
+          "sha256": "5fc4ec66ec3b1674509249105e59d299de8ff30e396e37f3408847e25d7803f0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-031-the-awakening-chapter-xxxi.txt",
+          "sha256": "f795ce7a08a160abc13d7d78d3efc89177780d506bf8851a0e39207da4f97996"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-035-the-awakening-chapter-xxxv.txt",
+          "sha256": "6f7baf72404969f9a14655479977e0f303e5e00060aa4fd60cce5085cb86223f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-039-the-awakening-chapter-xxxix.txt",
+          "sha256": "f97613db3aa75202965b954ec9166380577f12bc763083401e2d90283e7ea076"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-tower.txt",
+          "sha256": "0f5bf8aed8620e2a9cae866aa2159ed6ed04c81d54500e71ea9b6a7066e29a9e"
+        }
+      ]
+    },
+    {
+      "case": "case-25",
+      "fixture": "p-chesterton-x-chekhov",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chesterton",
+      "draft_author": "chekhov",
+      "draws": 1,
+      "transcripts": [
+        "p-chesterton-x-chekhov-r1"
+      ],
+      "corpus_words": 14470,
+      "draft_words": 1214,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-cab-ride-across-country.txt",
+          "sha256": "c284d9d53a231ed098c85fa63a82faf6b06cd931660ac532d782a869f324abf8"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-a-somewhat-improbable-story.txt",
+          "sha256": "856d8adbc13608533a63a45cb9822f936f6d1618a972cb6abd8bb59b8e270825"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-humanity-an-interlude.txt",
+          "sha256": "b2ba2fa47cf0ef25684b6249abb23bdabb3cf7702d21240b6067859bef69e4a3"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-some-policemen-and-a-moral.txt",
+          "sha256": "333723e0ebc664bae9a4fb1bdeec3e8b6c716f2591ee240741da5747d596e898"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-dickensian.txt",
+          "sha256": "4fa8bb90510c21a0c69825e27136e69631ab72252f8830e37724c8be7d465223"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-lion.txt",
+          "sha256": "ede0d28152c25727b75259b5d8c6bbed6a8e7ebda432e946610795ccac8e66ad"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-perfect-game.txt",
+          "sha256": "12f2de2c739ecaa3b6c496247d6a82694cfe533f874a9d93aeeb214ac88820b4"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-secret-of-a-train.txt",
+          "sha256": "b8d429fdf516222ed273128a853364eb93f90ece6323ee2abc2311806bb01d67"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-twelve-men.txt",
+          "sha256": "fd5efa653a7f97d76060dee3b87e3b3a282d6b07d59f1669161c0f32cdaa2228"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-what-i-found-in-my-pocket.txt",
+          "sha256": "ead982864264dd7c1ef551c99af34344483cfca7af408480012ed79c366f471c"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-102-to-a-s-suvorin.txt",
+          "sha256": "b8f967eba7edd076ce72e7fb1f08ac419f3103fafa225f2744a4bf094c2814c6"
+        }
+      ]
+    },
+    {
+      "case": "case-26",
+      "fixture": "p-chekhov-x-doctorow",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chekhov",
+      "draft_author": "doctorow",
+      "draws": 1,
+      "transcripts": [
+        "p-chekhov-x-doctorow-r1"
+      ],
+      "corpus_words": 7583,
+      "draft_words": 1446,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-001-to-his-brother-mihail.txt",
+          "sha256": "91a681daa456f5259a137790559da19d322ac92a708a8456a36bc522bb401b1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-017-to-a-n-pleshtcheyev.txt",
+          "sha256": "08a3e50e0095a8632845e609e6e7716c08e7389bcaf3be9634e4c1e4cb655999"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-031-to-his-sister.txt",
+          "sha256": "5ba5428d7fcbf25008164ad763b4bc0f1cfce952940e697c4526dafc53eab088"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-043-to-a-s-suvorin.txt",
+          "sha256": "5a15652dee29d6c9710853ca3a86a8a08f56d1f833f9a9dbdf720861bdf97784"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-056-to-his-sister.txt",
+          "sha256": "ed9ebce2329788d4a36554cc296c7bf7c0c4428d631373f02f8078d68ea57846"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-073-to-e-m-s.txt",
+          "sha256": "145e4979b6c8f73b5dd0add45ea6b5e93817fad4cac9b38801dc352c2d8d7981"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-087-to-madame-avilov.txt",
+          "sha256": "8e50fc0bfbf645aa602a4562da8c5853ad133e21b0fcc57115b0d002f0dc9397"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-115-to-i-i-orlov.txt",
+          "sha256": "6c8657b04c0992009c9c808d60f49025cc07bc2fc0b03f07018d411b12a1d775"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-132-to-o-l-knipper.txt",
+          "sha256": "c404c8cdf28b350d4b10a68966079f9e429e3091f1a147ea9e793f1276faed7f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-154-to-his-sister.txt",
+          "sha256": "55ff45804e15c3467f00957816c6530cd254226b3b60fec5f7c7149abfec2587"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-29-la-la-la-la-la.txt",
+          "sha256": "4a961af16d0d9427d1ed68eae3cbe2a630ab625b2fba11dde7334111a616b179"
+        }
+      ]
+    },
+    {
+      "case": "case-27",
+      "fixture": "p-chopin-x-ohenry",
+      "kind": "positive",
+      "tier": "A1",
+      "corpus_author": "chopin",
+      "draft_author": "ohenry",
+      "draws": 3,
+      "transcripts": [
+        "p-chopin-x-ohenry-r1",
+        "p-chopin-x-ohenry-r2",
+        "p-chopin-x-ohenry-r3"
+      ],
+      "corpus_words": 11276,
+      "draft_words": 1261,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-001-the-awakening-chapter-i.txt",
+          "sha256": "a4d59a4006b695698068c45d3616ed69b9fd0de037c4f0f83351853ba435be1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-006-the-awakening-chapter-vi.txt",
+          "sha256": "a12233f9de915768559ab2b55733e4e3cc4ea91a7f814f31dca9ad357bab04ba"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-010-the-awakening-chapter-x.txt",
+          "sha256": "0d60c6f29a04153013d20ed55c16651ad31e1bf0649f864d813c3751da22059d"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-014-the-awakening-chapter-xiv.txt",
+          "sha256": "9b000597d631fd07fb33a14905385f823f0e4b65594ce047d2644041a63d2997"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-018-the-awakening-chapter-xviii.txt",
+          "sha256": "1b068bc941b0b12e26a3693e581f949070314dde4b19845f007735d22a9770c2"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-022-the-awakening-chapter-xxii.txt",
+          "sha256": "e74f65fa195d8f91ebbd34fc0fcbf26a5f67d7ca4af65d470c498dbdb828fa59"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-026-the-awakening-chapter-xxvi.txt",
+          "sha256": "5fc4ec66ec3b1674509249105e59d299de8ff30e396e37f3408847e25d7803f0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-031-the-awakening-chapter-xxxi.txt",
+          "sha256": "f795ce7a08a160abc13d7d78d3efc89177780d506bf8851a0e39207da4f97996"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-035-the-awakening-chapter-xxxv.txt",
+          "sha256": "6f7baf72404969f9a14655479977e0f303e5e00060aa4fd60cce5085cb86223f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-039-the-awakening-chapter-xxxix.txt",
+          "sha256": "f97613db3aa75202965b954ec9166380577f12bc763083401e2d90283e7ea076"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-after-twenty-years.txt",
+          "sha256": "ce36bb6f87de255103c3ed88e132e5c275699085bf14435e3159dd84f4e3c40b"
+        }
+      ]
+    },
+    {
+      "case": "case-28",
+      "fixture": "n-bacon",
+      "kind": "negative",
+      "tier": "N",
+      "corpus_author": "bacon",
+      "draft_author": "bacon",
+      "draws": 3,
+      "transcripts": [
+        "n-bacon-r1",
+        "n-bacon-r2",
+        "n-bacon-r3"
+      ],
+      "corpus_words": 6819,
+      "draft_words": 1145,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-adversity.txt",
+          "sha256": "81ab02824dc805bff4b98dcb2497f14878df765936fde5f9547c5e993bc97f67"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-building.txt",
+          "sha256": "a22aacc8800e9117b7a6b3bd124f2c3aef58b10051e8dfb574a8a5dee49c1ced"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-deformity.txt",
+          "sha256": "adf158385afd2613b8aa0278f75e4a8984bb67d4e275e987a80c3f5a54a8357e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-faction.txt",
+          "sha256": "3a8a992d6efd0eb6307bbf45137f669eeb18c036e844b1958122239d8a936392"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-honor-and-reputation.txt",
+          "sha256": "521612565295c56147b2c2fc57379d365847910855e36eb06efab0121271e773"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-nature-in-men.txt",
+          "sha256": "be9f25b4a5d1ff8083e5c1a6f24ad1bb42ddb3562c239464383f7409e731a75a"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-prophecies.txt",
+          "sha256": "c9382e8cb9481a1a5ea3c3d047008fc29b38865b53e11341ca297af1ab96d1d0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-studies508.txt",
+          "sha256": "664dbded05d6d9f8f8a36965dbe51f473862c155f9dae778c16eb6b7af995cb2"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-truth.txt",
+          "sha256": "bebff290b60534f824f86d8eae608903520d777fb803737e54f2398344f7caf1"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-youth-and-age.txt",
+          "sha256": "a2a94613d9523cae61ef80103499b4dcf487f5c2ff0f249220b56c026c06a469"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-great-place129.txt",
+          "sha256": "171b1b25add7afe65438c00f157ffb878d969d617e45b87f152f25ecbcbe6705"
+        }
+      ]
+    },
+    {
+      "case": "case-29",
+      "fixture": "p-chopin-x-doctorow",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chopin",
+      "draft_author": "doctorow",
+      "draws": 1,
+      "transcripts": [
+        "p-chopin-x-doctorow-r1"
+      ],
+      "corpus_words": 11276,
+      "draft_words": 1446,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-001-the-awakening-chapter-i.txt",
+          "sha256": "a4d59a4006b695698068c45d3616ed69b9fd0de037c4f0f83351853ba435be1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-006-the-awakening-chapter-vi.txt",
+          "sha256": "a12233f9de915768559ab2b55733e4e3cc4ea91a7f814f31dca9ad357bab04ba"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-010-the-awakening-chapter-x.txt",
+          "sha256": "0d60c6f29a04153013d20ed55c16651ad31e1bf0649f864d813c3751da22059d"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-014-the-awakening-chapter-xiv.txt",
+          "sha256": "9b000597d631fd07fb33a14905385f823f0e4b65594ce047d2644041a63d2997"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-018-the-awakening-chapter-xviii.txt",
+          "sha256": "1b068bc941b0b12e26a3693e581f949070314dde4b19845f007735d22a9770c2"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-022-the-awakening-chapter-xxii.txt",
+          "sha256": "e74f65fa195d8f91ebbd34fc0fcbf26a5f67d7ca4af65d470c498dbdb828fa59"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-026-the-awakening-chapter-xxvi.txt",
+          "sha256": "5fc4ec66ec3b1674509249105e59d299de8ff30e396e37f3408847e25d7803f0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-031-the-awakening-chapter-xxxi.txt",
+          "sha256": "f795ce7a08a160abc13d7d78d3efc89177780d506bf8851a0e39207da4f97996"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-035-the-awakening-chapter-xxxv.txt",
+          "sha256": "6f7baf72404969f9a14655479977e0f303e5e00060aa4fd60cce5085cb86223f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-039-the-awakening-chapter-xxxix.txt",
+          "sha256": "f97613db3aa75202965b954ec9166380577f12bc763083401e2d90283e7ea076"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-29-la-la-la-la-la.txt",
+          "sha256": "4a961af16d0d9427d1ed68eae3cbe2a630ab625b2fba11dde7334111a616b179"
+        }
+      ]
+    },
+    {
+      "case": "case-30",
+      "fixture": "p-chekhov-x-chopin",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "chekhov",
+      "draft_author": "chopin",
+      "draws": 1,
+      "transcripts": [
+        "p-chekhov-x-chopin-r1"
+      ],
+      "corpus_words": 7583,
+      "draft_words": 1186,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-001-to-his-brother-mihail.txt",
+          "sha256": "91a681daa456f5259a137790559da19d322ac92a708a8456a36bc522bb401b1a"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-017-to-a-n-pleshtcheyev.txt",
+          "sha256": "08a3e50e0095a8632845e609e6e7716c08e7389bcaf3be9634e4c1e4cb655999"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-031-to-his-sister.txt",
+          "sha256": "5ba5428d7fcbf25008164ad763b4bc0f1cfce952940e697c4526dafc53eab088"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-043-to-a-s-suvorin.txt",
+          "sha256": "5a15652dee29d6c9710853ca3a86a8a08f56d1f833f9a9dbdf720861bdf97784"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-056-to-his-sister.txt",
+          "sha256": "ed9ebce2329788d4a36554cc296c7bf7c0c4428d631373f02f8078d68ea57846"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-073-to-e-m-s.txt",
+          "sha256": "145e4979b6c8f73b5dd0add45ea6b5e93817fad4cac9b38801dc352c2d8d7981"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-087-to-madame-avilov.txt",
+          "sha256": "8e50fc0bfbf645aa602a4562da8c5853ad133e21b0fcc57115b0d002f0dc9397"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-115-to-i-i-orlov.txt",
+          "sha256": "6c8657b04c0992009c9c808d60f49025cc07bc2fc0b03f07018d411b12a1d775"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-132-to-o-l-knipper.txt",
+          "sha256": "c404c8cdf28b350d4b10a68966079f9e429e3091f1a147ea9e793f1276faed7f"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chekhov-154-to-his-sister.txt",
+          "sha256": "55ff45804e15c3467f00957816c6530cd254226b3b60fec5f7c7149abfec2587"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-005-the-awakening-chapter-v.txt",
+          "sha256": "3ed7f52110ed4e57efdf4bd2fd44f2b8ae3e0738a77750a204091067bcf7e8f8"
+        }
+      ]
+    },
+    {
+      "case": "case-31",
+      "fixture": "p-ohenry-x-chesterton",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "ohenry",
+      "draft_author": "chesterton",
+      "draws": 1,
+      "transcripts": [
+        "p-ohenry-x-chesterton-r1"
+      ],
+      "corpus_words": 21096,
+      "draft_words": 1198,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-a-cosmopolite-in-a-cafe.txt",
+          "sha256": "a93d48ca9c5a49b013952223a0a055a45b20bde0c40d7e7e91b3fa1a52c13509"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-an-unfinished-story.txt",
+          "sha256": "4fabc64332248be1bf419d06767fcffe4be1c29dd133482d3537f96e67f8b04f"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-by-courier.txt",
+          "sha256": "677e6c3cb6f10c0923449a015b5dd979e2ef4563899ccef2dfc44657d9b45aa0"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-mammon-and-the-archer.txt",
+          "sha256": "4ff0407165bdef0e881c94731ce9cc85308d48cfe7ce88711d3f95b707cca802"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-memoirs-of-a-yellow-dog.txt",
+          "sha256": "c4fe45753b3e9674ee248dc0eed3aed1508ecca8571fab233cc9a1c4b02fe28d"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-brief-debut-of-tildy.txt",
+          "sha256": "979b07cb8431a8be96518cd9c2410f45f2dd78ed9cb6fabec8b8aa2582b4fb42"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-coming-out-of-maggie.txt",
+          "sha256": "a512b1828da91d427a61c4cb8dac498c21263d37fd5b1c5448e8fff651aef108"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-gift-of-the-magi.txt",
+          "sha256": "461b69d54e24c0d5e9aa1bbcc764395b9268a4dc4d0eccbe1eaca8224c4164b0"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-the-love-philtre-of-ikey-schoenstein.txt",
+          "sha256": "81f859145886a10e4b62dd95a02c5978d338329b80acf5741507e5c95241a2a7"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-tobins-palm.txt",
+          "sha256": "c0c2ce844ef21872bc0278dd0a720a2493f2db495c1f0ee09cf361fd378dd8d5"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-tower.txt",
+          "sha256": "0f5bf8aed8620e2a9cae866aa2159ed6ed04c81d54500e71ea9b6a7066e29a9e"
+        }
+      ]
+    },
+    {
+      "case": "case-32",
+      "fixture": "n-doctorow",
+      "kind": "negative",
+      "tier": "N",
+      "corpus_author": "doctorow",
+      "draft_author": "doctorow",
+      "draws": 3,
+      "transcripts": [
+        "n-doctorow-r1",
+        "n-doctorow-r2",
+        "n-doctorow-r3"
+      ],
+      "corpus_words": 28122,
+      "draft_words": 1446,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-09-wilhoitian.txt",
+          "sha256": "de1ca4e1873b11d370db3b7b63870afba9574aaff3f4c56972f99722b2f34247"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-11-your-risk.txt",
+          "sha256": "117628265e50798d4a6753a859129a58a96e1224bfe60faf4498653848faed48"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-14-designated-survivor.txt",
+          "sha256": "55ee931633d0be3352622405ca929aed3819083205b4c157934b37a26c86bd9e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-21-dickovers.txt",
+          "sha256": "88f52a8ac3ee1cdda9530045d445a775ba457fd5a8f8419d5e375338d4bc764f"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-23-drop-a-dime.txt",
+          "sha256": "e5ad0bbe0d56b36b38c32891fc22c865be8a4fa446294e6eb59e97533021ad60"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-25-cruel-cruelty-oh-cruelty.txt",
+          "sha256": "e427ea50f17eecf48300e8dfa251c61bda4acc2624a31c0bdf662ddbe23aa2ef"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-28-hitl-ers.txt",
+          "sha256": "d478ecd8c6cb6a19f09ce2b703c6a9a48e2a01d41c89caf44fafdbed0ccab4ff"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-31-just-do-it.txt",
+          "sha256": "88e37c3e106864d0e187cb3f0d33bfd1714165de807ac0396b56961eb570075f"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-03-andor.txt",
+          "sha256": "ec51b9482a6056b777314be3c08c41461affa723972ed012df10b5655a481227"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-05-absentee-landlord.txt",
+          "sha256": "dc8b6aa83ecd505e576aa5849d6f2f1d0c0d6fd9a824812eae25541dc0beeeb2"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-29-la-la-la-la-la.txt",
+          "sha256": "4a961af16d0d9427d1ed68eae3cbe2a630ab625b2fba11dde7334111a616b179"
+        }
+      ]
+    },
+    {
+      "case": "case-33",
+      "fixture": "p-bacon-x-chesterton",
+      "kind": "positive",
+      "tier": "A2",
+      "corpus_author": "bacon",
+      "draft_author": "chesterton",
+      "draws": 3,
+      "transcripts": [
+        "p-bacon-x-chesterton-r1",
+        "p-bacon-x-chesterton-r2",
+        "p-bacon-x-chesterton-r3"
+      ],
+      "corpus_words": 6819,
+      "draft_words": 1198,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-adversity.txt",
+          "sha256": "81ab02824dc805bff4b98dcb2497f14878df765936fde5f9547c5e993bc97f67"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-building.txt",
+          "sha256": "a22aacc8800e9117b7a6b3bd124f2c3aef58b10051e8dfb574a8a5dee49c1ced"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-deformity.txt",
+          "sha256": "adf158385afd2613b8aa0278f75e4a8984bb67d4e275e987a80c3f5a54a8357e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-faction.txt",
+          "sha256": "3a8a992d6efd0eb6307bbf45137f669eeb18c036e844b1958122239d8a936392"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-honor-and-reputation.txt",
+          "sha256": "521612565295c56147b2c2fc57379d365847910855e36eb06efab0121271e773"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-nature-in-men.txt",
+          "sha256": "be9f25b4a5d1ff8083e5c1a6f24ad1bb42ddb3562c239464383f7409e731a75a"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-prophecies.txt",
+          "sha256": "c9382e8cb9481a1a5ea3c3d047008fc29b38865b53e11341ca297af1ab96d1d0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-studies508.txt",
+          "sha256": "664dbded05d6d9f8f8a36965dbe51f473862c155f9dae778c16eb6b7af995cb2"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-truth.txt",
+          "sha256": "bebff290b60534f824f86d8eae608903520d777fb803737e54f2398344f7caf1"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-youth-and-age.txt",
+          "sha256": "a2a94613d9523cae61ef80103499b4dcf487f5c2ff0f249220b56c026c06a469"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chesterton-the-tower.txt",
+          "sha256": "0f5bf8aed8620e2a9cae866aa2159ed6ed04c81d54500e71ea9b6a7066e29a9e"
+        }
+      ]
+    },
+    {
+      "case": "case-34",
+      "fixture": "p-bacon-x-ohenry",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "bacon",
+      "draft_author": "ohenry",
+      "draws": 1,
+      "transcripts": [
+        "p-bacon-x-ohenry-r1"
+      ],
+      "corpus_words": 6819,
+      "draft_words": 1261,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-adversity.txt",
+          "sha256": "81ab02824dc805bff4b98dcb2497f14878df765936fde5f9547c5e993bc97f67"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-building.txt",
+          "sha256": "a22aacc8800e9117b7a6b3bd124f2c3aef58b10051e8dfb574a8a5dee49c1ced"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-deformity.txt",
+          "sha256": "adf158385afd2613b8aa0278f75e4a8984bb67d4e275e987a80c3f5a54a8357e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-faction.txt",
+          "sha256": "3a8a992d6efd0eb6307bbf45137f669eeb18c036e844b1958122239d8a936392"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-honor-and-reputation.txt",
+          "sha256": "521612565295c56147b2c2fc57379d365847910855e36eb06efab0121271e773"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-nature-in-men.txt",
+          "sha256": "be9f25b4a5d1ff8083e5c1a6f24ad1bb42ddb3562c239464383f7409e731a75a"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-prophecies.txt",
+          "sha256": "c9382e8cb9481a1a5ea3c3d047008fc29b38865b53e11341ca297af1ab96d1d0"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-studies508.txt",
+          "sha256": "664dbded05d6d9f8f8a36965dbe51f473862c155f9dae778c16eb6b7af995cb2"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-truth.txt",
+          "sha256": "bebff290b60534f824f86d8eae608903520d777fb803737e54f2398344f7caf1"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-youth-and-age.txt",
+          "sha256": "a2a94613d9523cae61ef80103499b4dcf487f5c2ff0f249220b56c026c06a469"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/ohenry-after-twenty-years.txt",
+          "sha256": "ce36bb6f87de255103c3ed88e132e5c275699085bf14435e3159dd84f4e3c40b"
+        }
+      ]
+    },
+    {
+      "case": "case-35",
+      "fixture": "p-doctorow-x-chopin",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "doctorow",
+      "draft_author": "chopin",
+      "draws": 1,
+      "transcripts": [
+        "p-doctorow-x-chopin-r1"
+      ],
+      "corpus_words": 28122,
+      "draft_words": 1186,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-09-wilhoitian.txt",
+          "sha256": "de1ca4e1873b11d370db3b7b63870afba9574aaff3f4c56972f99722b2f34247"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-11-your-risk.txt",
+          "sha256": "117628265e50798d4a6753a859129a58a96e1224bfe60faf4498653848faed48"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-14-designated-survivor.txt",
+          "sha256": "55ee931633d0be3352622405ca929aed3819083205b4c157934b37a26c86bd9e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-21-dickovers.txt",
+          "sha256": "88f52a8ac3ee1cdda9530045d445a775ba457fd5a8f8419d5e375338d4bc764f"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-23-drop-a-dime.txt",
+          "sha256": "e5ad0bbe0d56b36b38c32891fc22c865be8a4fa446294e6eb59e97533021ad60"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-25-cruel-cruelty-oh-cruelty.txt",
+          "sha256": "e427ea50f17eecf48300e8dfa251c61bda4acc2624a31c0bdf662ddbe23aa2ef"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-28-hitl-ers.txt",
+          "sha256": "d478ecd8c6cb6a19f09ce2b703c6a9a48e2a01d41c89caf44fafdbed0ccab4ff"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-31-just-do-it.txt",
+          "sha256": "88e37c3e106864d0e187cb3f0d33bfd1714165de807ac0396b56961eb570075f"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-03-andor.txt",
+          "sha256": "ec51b9482a6056b777314be3c08c41461affa723972ed012df10b5655a481227"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-05-absentee-landlord.txt",
+          "sha256": "dc8b6aa83ecd505e576aa5849d6f2f1d0c0d6fd9a824812eae25541dc0beeeb2"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/chopin-005-the-awakening-chapter-v.txt",
+          "sha256": "3ed7f52110ed4e57efdf4bd2fd44f2b8ae3e0738a77750a204091067bcf7e8f8"
+        }
+      ]
+    },
+    {
+      "case": "case-36",
+      "fixture": "p-doctorow-x-bacon",
+      "kind": "positive",
+      "tier": "B",
+      "corpus_author": "doctorow",
+      "draft_author": "bacon",
+      "draws": 1,
+      "transcripts": [
+        "p-doctorow-x-bacon-r1"
+      ],
+      "corpus_words": 28122,
+      "draft_words": 1145,
+      "inputs": [
+        {
+          "as": "corpus/sample-01.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-09-wilhoitian.txt",
+          "sha256": "de1ca4e1873b11d370db3b7b63870afba9574aaff3f4c56972f99722b2f34247"
+        },
+        {
+          "as": "corpus/sample-02.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-11-your-risk.txt",
+          "sha256": "117628265e50798d4a6753a859129a58a96e1224bfe60faf4498653848faed48"
+        },
+        {
+          "as": "corpus/sample-03.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-14-designated-survivor.txt",
+          "sha256": "55ee931633d0be3352622405ca929aed3819083205b4c157934b37a26c86bd9e"
+        },
+        {
+          "as": "corpus/sample-04.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-21-dickovers.txt",
+          "sha256": "88f52a8ac3ee1cdda9530045d445a775ba457fd5a8f8419d5e375338d4bc764f"
+        },
+        {
+          "as": "corpus/sample-05.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-23-drop-a-dime.txt",
+          "sha256": "e5ad0bbe0d56b36b38c32891fc22c865be8a4fa446294e6eb59e97533021ad60"
+        },
+        {
+          "as": "corpus/sample-06.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-25-cruel-cruelty-oh-cruelty.txt",
+          "sha256": "e427ea50f17eecf48300e8dfa251c61bda4acc2624a31c0bdf662ddbe23aa2ef"
+        },
+        {
+          "as": "corpus/sample-07.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-28-hitl-ers.txt",
+          "sha256": "d478ecd8c6cb6a19f09ce2b703c6a9a48e2a01d41c89caf44fafdbed0ccab4ff"
+        },
+        {
+          "as": "corpus/sample-08.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-31-just-do-it.txt",
+          "sha256": "88e37c3e106864d0e187cb3f0d33bfd1714165de807ac0396b56961eb570075f"
+        },
+        {
+          "as": "corpus/sample-09.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-03-andor.txt",
+          "sha256": "ec51b9482a6056b777314be3c08c41461affa723972ed012df10b5655a481227"
+        },
+        {
+          "as": "corpus/sample-10.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-08-05-absentee-landlord.txt",
+          "sha256": "dc8b6aa83ecd505e576aa5849d6f2f1d0c0d6fd9a824812eae25541dc0beeeb2"
+        },
+        {
+          "as": "draft.txt",
+          "from": "bundles/prose-tell-scan/tests/corpus/human-essays/gutenberg/bacon-of-great-place129.txt",
+          "sha256": "171b1b25add7afe65438c00f157ffb878d969d617e45b87f152f25ecbcbe6705"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "prose-author",
+  "version": "0.1.0",
+  "description": "Scoped generation in a specific person's voice, drafted against their own corpus and voice card rather than a list of words to avoid. Verifies in the author's own measured terms and refuses to compare against fallbacks when no corpus exists. Never claims the output sounds like the author.",
+  "author": {
+    "name": "Connor England",
+    "url": "https://github.com/ConnorBritain"
+  },
+  "repository": "https://github.com/ConnorBritain/agent-primitives",
+  "license": "MIT",
+  "keywords": [
+    "writing",
+    "prose",
+    "drafting",
+    "voice",
+    "authoring",
+    "skill"
+  ]
+}

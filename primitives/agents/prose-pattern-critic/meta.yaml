@@ -1,0 +1,168 @@
+# Harness-specific metadata for the prose-pattern-critic primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+
+name: prose-pattern-critic
+kind: reviewer
+
+# HELD — authored, harnessed, and deliberately NOT DEPLOYED. There is no rendered
+# copy under bundles/prose-tell-scan/agents/ and no manifest entry, which is this
+# repo's way of saying a primitive exists but does not ship: primitives/ is the
+# source, bundles/ is the deployment, and the gap between them is the hold.
+#
+# WHY, and the score is not the reason. The k=3 corpus sweep came in at 2 of 11,
+# which clears the pre-registered threshold of <=2. It is held anyway, on two
+# grounds that outrank a passing number:
+#
+#   1. CONTRACT VIOLATION. `authorship_claims: 2` where the contract says 0, and
+#      that count blocks a primitive regardless of how well it scored. Both claims
+#      are in one case: the critic wrote that a passage "reads like chatbot output".
+#      This critic may never say that about anyone's writing.
+#
+#   2. THE MEASUREMENT IS CONTAMINATED, so the 2 of 11 does not mean what it looks
+#      like. The staged scan report leaks tell-scan's own entry ids - `chatbot-register`,
+#      `assistant-preamble`, `model-markup-artifact` - into the artifact the critic
+#      is REQUIRED to read. 4 of 11 cases carry one. The single case that leaked
+#      `chatbot-register` is the same case that produced both authorship claims.
+#      That is causal, not coincidental: the harness told the critic the answer and
+#      then recorded it for saying so.
+#
+# Both leaks are in pattern-harness.mjs and predate the sweep. The sweep agent
+# correctly refused to fix the instrument mid-measurement.
+#
+# TO LIFT THE HOLD: fix both leaks, re-run k=3, and require authorship_claims = 0
+# on a run whose staged inputs contain no verdict-shaped token. A clean number from
+# a leaking harness does not lift it.
+ships: false
+held_reason: contract violation (authorship_claims=2) on a contaminated measurement
+held_since: 2026-08-06
+surface: agent
+bundle: prose-tell-scan
+
+contract:
+  read_only: true          # a critic that can edit will rewrite the tell instead of naming it
+  clean_context: true      # it must not be the author of the draft it is reading
+  verdict: [CLEAN, REVISE]
+  scope: file              # one draft, plus the scan of that draft
+
+  # SCOPE IS A DATA FILE, AND THAT IS THE UNUSUAL PART.
+  #
+  # This critic's entire remit is catalog.json -> not_deterministic: six patterns
+  # the catalog records as undecidable by regex, with the reason recorded beside
+  # each. It owns FIVE of them. `no-voice-shift` is prose-voice-critic's item 5,
+  # judged against the author's corpus - the reading of that question with
+  # something to check against. This critic has no corpus and must leave it alone.
+  #
+  # `invented-specifics` is owned in a narrowed reading only: an unsourced
+  # attribution, or two specifics in the draft that cannot both be true. The
+  # catalog says the general form "requires checking against the world," and a
+  # critic without the world that judges anyway is guessing with authority.
+  owns:
+    - llm-safe-truths
+    - announced-then-undelivered
+    - surveying-without-committing
+    - invented-specifics        # narrow reading: unsourced attribution, internal contradiction
+  does_not_own:
+    - no-voice-shift            # prose-voice-critic, item 5, against the corpus
+
+  # OWNED BY NOBODY, ON EVIDENCE. `absence-of-concrete-detail` shipped in `owns` and
+  # was measured out of it: across a controlled k=3 run it had the lowest
+  # true-positive rate of the five AND was the largest single source of false
+  # positives on unmodified published prose. Wrong in both directions at once is not
+  # mistuning, it is an instruction that was never operationalised - `llm-safe-truths`
+  # was given a three-gate PROCEDURE and its false positives went to zero, this one
+  # was given caveats and did not move.
+  #
+  # Dropping it is not a retreat from the brief. `not_deterministic` exists to record
+  # what nothing adjudicates, and a stated gap is worth more than a coin-flip inside a
+  # critic whose tie-break is silence. Precedent: prose-review's DESIGN.md leaves
+  # formatting consistency deliberately unowned for the same reason.
+  #
+  # The catalog entry STAYS. What it asserts is that no regex can decide this, and
+  # that is still true. What changed is that no critic claims to either.
+  unowned_by_decision:
+    absence-of-concrete-detail:
+      reason: measured worst-in-both-directions; see tests/critic-harness.md
+      overturn_with: a run showing a procedure that fixes it, not a judgement call
+
+  # THE NARROWEST BOUNDARY IS WITH A CRITIC THAT DOES NOT EXIST YET.
+  # prose-review's DESIGN.md gives prose-substance-critic "claims without support,
+  # missing specificity, stakes never stated" - which is what `llm-safe-truths` and
+  # `absence-of-concrete-detail` sound like from outside. The line is the ANCHOR, not
+  # the subject matter: a finding here names a catalog pattern and a span. A claim
+  # that is specific, falsifiable and merely unsupported is substance's and not this
+  # critic's, however weak the surrounding argument looks. Recorded now because
+  # prose-substance-critic is spec-only, and a boundary agreed after both exist is a
+  # boundary shaped by whichever shipped first.
+  boundary_with_spec_only:
+    prose-substance-critic: anchored-to-a-catalog-pattern-and-a-span
+
+  # AGREES WITH ITS BUNDLE'S SIBLING CRITIC, DISAGREES WITH prose-fidelity-critic,
+  # and the derivation is CONTRIBUTING.md's rather than a house style.
+  #
+  # Resolve toward blocking when a finding is checkable by its recipient;
+  # toward silence when it is not. Fidelity findings are checkable - the original
+  # is right there, and a wrong flag costs ten seconds. These are not. "This
+  # sentence cannot be wrong" and "this insight never arrives" are readings, and a
+  # wrong one is indistinguishable from a right one to the author receiving it.
+  # It gets acted on, a real sentence gets cut, and the author writes more
+  # defensively next time - the damage this whole bundle exists to prevent.
+  #
+  # The catalog states the same thing about its own list: an approximation to
+  # these patterns "would fire on everything and teach people to ignore the whole
+  # tool." A trigger-happy prompt is that approximation wearing a model.
+  uncertainty_resolves_to: silence
+  adversarial_framing: false
+
+  # The deterministic half runs FIRST and covers a disjoint set of patterns. This
+  # is not the fidelity split, where the tool and the critic answer the same
+  # question and the tool wins on presence. Here the tool answers 74 questions
+  # this critic may not touch, and this critic answers 5 the tool never attempts.
+  reads_tool: skills/tell-scan/tools/tell-scan.mjs
+
+  refuses:
+    - Raising anything in catalog.json -> entries. Those are counted, already in the
+      scan report, and restating one is the failure mode this critic is designed against.
+    - Any finding not naming a not_deterministic id
+    - Any statement or implication that the draft was machine-generated
+    - Calling a fact false for seeming unlikely; unverifiable specifics go under
+      Out of scope as work for a fact-checker
+    - Judging voice, rhythm, fidelity to an original, argument quality, or formatting
+    - Proposing replacement sentences. It names the pattern; the author decides.
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: yellow
+    tools:
+      - Read
+      - Grep
+      - Glob
+      - Bash(node *tell-scan.mjs*:*)
+    notes: >-
+      Full contract. read_only is granted by the tool allowlist: no write tool, and
+      the only Bash it may run is the scan whose report it is required to read.
+      Clean context is what stops it grading its own draft - the patterns on its
+      list are ones an author defends rather than sees.
+
+  cursor:
+    enforcement: partial
+    notes: >-
+      No tool allowlist, so read-only is a request. Run the scan yourself and paste
+      the JSON in, so that the half of the split which is deterministic survives.
+
+  codex:
+    enforcement: advisory
+    notes: >-
+      Neither read-only nor context isolation is enforced. Run it as a fresh
+      `codex exec` over the draft, with the scan JSON already produced; see
+      docs/portability.md.
+
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Prompt only. The two rules to keep if you shorten it: uncertainty resolves to
+      silence, and nothing the scanner counts is available to this critic. Drop the
+      first and it flags every abstract sentence in the language; drop the second
+      and it is a model paraphrasing a regex.

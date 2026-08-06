@@ -12,15 +12,57 @@
       "source": "./bundles/verification-gate",
       "version": "0.1.0",
       "category": "code-quality",
-      "tags": ["code-review", "verification", "reward-hacking", "architecture", "quality-gate"]
+      "tags": [
+        "code-review",
+        "verification",
+        "reward-hacking",
+        "architecture",
+        "quality-gate"
+      ]
     },
     {
       "name": "prose-tell-scan",
       "description": "Deterministic prose measurement: a catalogued scan for AI writing tells plus the cadence metrics a model cannot estimate about its own output. Register-aware, calibrated against your own corpus, and report-only — signals for an author about their own draft, never a verdict about who wrote something. Ships no rewriter, by design.",
       "source": "./bundles/prose-tell-scan",
+      "version": "0.1.1",
+      "category": "writing",
+      "tags": [
+        "writing",
+        "prose",
+        "editing",
+        "ai-writing-tells",
+        "readability",
+        "review",
+        "subagent"
+      ]
+    },
+    {
+      "name": "prose-review",
+      "description": "Read-only critics for prose, run before a draft is called done. prose-voice-critic: does this sound like the author, judged against their own corpus, with every finding required to cite how they write instead. prose-fidelity-critic: did a revision keep the facts, quotes, qualifications and claim strength of the original, judged against a deterministic scan that is authoritative on presence. Never judges quality, never claims anything about who wrote something.",
+      "source": "./bundles/prose-review",
+      "version": "0.2.0",
+      "category": "writing",
+      "tags": [
+        "writing",
+        "prose",
+        "editing",
+        "voice",
+        "review"
+      ]
+    },
+    {
+      "name": "prose-author",
+      "description": "Scoped generation in a specific person's voice, drafted against their own corpus and voice card rather than a list of words to avoid. Verifies in the author's own measured terms and refuses to compare against fallbacks when no corpus exists. Never claims the output sounds like the author.",
+      "source": "./bundles/prose-author",
       "version": "0.1.0",
       "category": "writing",
-      "tags": ["writing", "prose", "editing", "ai-writing-tells", "readability"]
+      "tags": [
+        "writing",
+        "prose",
+        "drafting",
+        "voice",
+        "authoring"
+      ]
     }
   ]
 }

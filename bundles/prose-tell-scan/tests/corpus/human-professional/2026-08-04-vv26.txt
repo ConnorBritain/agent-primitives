@@ -1,0 +1,29 @@
+---
+source: EFF Deeplinks (eff.org)
+title: Technology's Power in the Hands of the People
+author: Aaron Jue
+date: 2026-08-04
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/deeplinks/2026/07/vv26
+---
+In the scorching heat of every Las Vegas summer, EFF joins thousands of hackers, makers, policy analysts, and activists for the world's largest computer security gathering. If you're there during this summer security week, be sure to say hello to us at BSides Las Vegas, Black Hat Briefings, and DEF CON 34. While tech companies align with governments to target the people, our community is harnessing technology to fight back. Will you lend your support this year?
+
+EFF’s relentless work in the legal system makes a meaningful difference for privacy and free expression everywhere. But we also know that your rights won't wait while the wheels of justice turn.
+
+Sometimes hacking the system means creating tools and resources to protect your rights today. That includes EFF’s Privacy Badger, Certbot, Surveillance Self-Defense guide, and the countless security trainings that our team conducts for vulnerable populations—all thanks to EFF member support.
+
+Technology is inseparable from our workplaces, schools, healthcare, the justice system, and our democratic process. If you think tech should benefit everyone and not just accumulate wealth and control for the powerful, then congratulations: We'd like to welcome you to the team.
+
+Hayley and Joe take a break from EFF’s Activism Team to show off EFF’s DEF CON member t-shirt.
+
+For a limited time only: Get EFF’s “Many Hands Make Light Work” t-shirt designed for the DEF CON 34 hacker conference by EFF artist Hannah Diaz. Don’t miss the link to the online puzzle incorporated into the design! With the strength of community and the spirit of curiosity, we can hack anything.
+
+Many thanks to our puzzlemasters Aaron Steimle (AKA Elegin) and Kevin Hulin (AKA CryptoK). Elegin is our longtime collaborator on the EFF shirt puzzle, and previously a multiyear winner of this very contest. CryptoK is a crypto puzzle enthusiast and also develops challenges for the DEF CON Crypto and Privacy Village's Gold Bug Contest.
+
+Members can also choose from EFF’s puffy stickers, the internet tracker-obsessed Privacy Badger embroidered sweatshirt, and our ALPR-focused “Claw Back” t-shirt.
+
+EFF member t-shirt designs: Claw Back and Many Hands Make Light Work
+
+EFF fights to protect fundamental rights for everyone, and your privacy and free expression have never been more important. Support the cause today! Together we can make sure that technology supports freedom, justice, and innovation for all people.

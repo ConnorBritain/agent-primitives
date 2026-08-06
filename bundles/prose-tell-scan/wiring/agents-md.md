@@ -3,10 +3,16 @@
 Short form. The full instruction block, with the reasoning, is in
 [`../AGENTS.md`](../AGENTS.md) — append that wholesale instead if you prefer.
 
-Unlike the reviewers in `verification-gate`, almost nothing is lost porting this
-one: the measurement is a dependency-free Node script, so the numbers are
-identical everywhere. What you lose is dispatch — nothing invokes it on its own —
-which is exactly what this snippet replaces.
+Unlike the reviewers in `verification-gate`, almost nothing is lost porting the
+*measurement*: it is a dependency-free Node script, so the numbers are identical
+everywhere. What you lose is dispatch — nothing invokes it on its own — which is
+exactly what this snippet replaces.
+
+`prose-pattern-critic` is the exception, and it is the ordinary kind of
+exception: it is a prompt, so read-only and clean context are requests here
+rather than restrictions. The snippet below binds the scanner only. Add the
+critic by pasting the body of `../agents/prose-pattern-critic.md` into whatever
+your harness calls a reviewer, and run it as a fresh process rather than inline.
 
 ---
 
@@ -27,7 +33,9 @@ something "reads like AI", run the scanner instead of assessing by eye:
 - Diagnose; never rewrite. This bundle ships no transformer.
 
 Do not count tells or estimate sentence-length variance yourself — that is what
-the script is for.
+the script is for. The judgements the script does not attempt are listed in the
+catalog under `not_deterministic`; if you go after those, go after those five
+only, name the one you mean, and stay silent when you are unsure.
 ```
 
 ---

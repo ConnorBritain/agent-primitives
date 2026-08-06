@@ -1,0 +1,37 @@
+# GitGuardian configuration.
+#
+# THE DEFAULT IS TO FIX, NOT TO IGNORE. An entry here is a claim that a specific
+# flagged string is not a credential, and it carries the evidence for that claim.
+# A scanner people learn to override is worth less than no scanner, which is the
+# same argument this repo makes about critics that fire on everything.
+#
+# WHY MATCHES AND NOT PATHS. The obvious move is to exempt
+# `bundles/*/tests/corpus/**` wholesale: it is third-party prose vendored verbatim
+# under permissive licences, it contains no code and no configuration, and a
+# credential-shaped string there is quotation rather than something anything could
+# authenticate with. That is a good argument and it is still declined - a path
+# exemption over a directory that grows on every corpus commit means the next real
+# leak into it is invisible. One entry per match keeps each occurrence a decision.
+#
+# Revisit if this list gets long. A recurring class of false positive is evidence
+# about the rule, not about the strings.
+
+version: 2
+
+secret:
+  ignored-matches:
+    - name: >-
+        MySpace blog URL query param in a vendored Doctorow post (2010, dead, archived)
+      # bundles/prose-tell-scan/tests/corpus/human-essays/pluralistic/2026-07-27-eucd-6.txt
+      #
+      # Appears inside a web.archive.org link to a 2010 MySpace blog post, in a
+      # pluralistic.net article vendored under CC-BY-4.0 with full provenance in
+      # ATTRIBUTION.modern.json. MySpace blogs no longer exist; the snapshot is
+      # sixteen years old; the string was published by the author and archived by
+      # the Internet Archive.
+      #
+      # The corpus file is byte-identical to its source and the integrity tests in
+      # prose-tell-scan/tests/selftest.mjs enforce that. Editing a vendored sample
+      # to satisfy a scanner would break that guarantee and quietly alter evidence
+      # a published measurement rests on, which is a worse outcome than the finding.
+      match: 626131d4-c695-42ba-867b-754b9e2bfeaa
