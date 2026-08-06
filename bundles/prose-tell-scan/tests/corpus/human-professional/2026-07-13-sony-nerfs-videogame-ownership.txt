@@ -6,6 +6,7 @@ date: 2026-07-13
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/sony-nerfs-videogame-ownership
 ---
 Legal intern Suzanne Castillo co-authored of this post.

@@ -6,6 +6,7 @@ date: 2026-07-22
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/new-eu-court-justice-ruling-platform-liability-could-cause-collateral-damage
 ---
 Intermediary liability laws around the world recognize that social media platforms, search engines, and other online service providers have become an integral part of our lives: they shape how we access information, communicate with others and participate in public debate, and foster innovation online. These laws generally shield platforms, to varying degrees, from legal liability for user content: the responsibility for unlawful speech should rest primarily with the speaker, not with those who merely host it.  

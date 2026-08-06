@@ -28,7 +28,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let calibrate skip the aggregate cap on approved samples | 2 | approved samples cannot dominate the blended pool past the cap |
 | let calibrate blend approved samples below the human floor | 2 | cold-start cannot calibrate against model norms on day one |
 | let fidelity-scan pass a MATERIAL-LOSS as FAITHFUL | 11 | the verdict actually distinguishes fidelity states |
-| let fidelity-scan cross line breaks with proper-noun runs | 3 | proper-noun runs stay within a line - a headings-plus-sentence false positive fires on every structured document |
+| let fidelity-scan cross line breaks with proper-noun runs | 4 | proper-noun runs stay within a line - a headings-plus-sentence false positive fires on every structured document |
 | let fidelity-scan skip thousands-separator normalisation | 1 | 1,234 and 1234 read as the same information, so users are not trained to game the formatter |
 | read the narrowing warning from the wrong field path | 2 | the voice-collapse warning reaches the person it is about |
 | let tell-scan ignore the blended bands | 3 | an approved edit actually changes what the scanner reports |

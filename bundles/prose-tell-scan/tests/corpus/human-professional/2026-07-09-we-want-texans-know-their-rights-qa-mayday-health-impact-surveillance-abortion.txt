@@ -6,6 +6,7 @@ date: 2026-07-09
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/we-want-texans-know-their-rights-qa-mayday-health-impact-surveillance-abortion
 ---
 Last May, EFF reported that a sheriff’s office in Texas searched data from more than 83,000 automated license plate reader (ALPR) cameras to track down a woman suspected of self-managing an abortion. ALPRs are promoted as tools for keeping communities safe by finding missing persons and locating stolen vehicles, but this case showed how ALPRS can be weaponized to investigate people’s private healthcare decisions. And these aren’t the only tools in the surveillance arsenal: others include location tracking tools like Locate X, which can show a person’s visit to an abortion clinic, or search histories which might be used as evidence of a person’s interest in obtaining abortion pills. Taken together, these tools create a dangerous surveillance pipeline that threatens everyone’s health privacy. 

@@ -6,6 +6,7 @@ date: 2026-07-07
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/help-eff-cut-ai-hype
 ---
 In the global race to build and dominate the AI industry, it can sure seem like the interests of ordinary people sit last on the agenda. It's just the opposite for EFF. While companies furiously jam AI tools into their veins and your eyeballs, EFF’s technologists, activists, and attorneys have been meticulously cutting through the hype to ensure AI can serve your privacy and free expression. Technology has leaned into a new era, and this summer you can help EFF fight for the people.

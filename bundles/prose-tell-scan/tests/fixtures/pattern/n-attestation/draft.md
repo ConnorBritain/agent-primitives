@@ -6,6 +6,7 @@ date: 2026-07-09
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/googles-new-remote-attestation-scheme-every-bit-terrible-its-old-remote
 ---
 Google owes its existence to the open web, but today, its technological “innovations” have much to do with locking users into a “walled garden.” The latest of these is “reCAPTCHA Mobile Verification,” an experimental initiative that will let companies block users if they are running independent, "de-googled" versions of Android. These “indie Android” versions are favored by people who want to protect their privacy and their attention by blocking trackers and ads. Worse, this is just the latest in a line of similarly user-hostile measures. 

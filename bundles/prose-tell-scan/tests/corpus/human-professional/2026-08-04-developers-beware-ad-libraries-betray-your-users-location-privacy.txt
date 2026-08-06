@@ -6,6 +6,7 @@ date: 2026-08-04
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/developers-beware-ad-libraries-betray-your-users-location-privacy
 ---
 Across mobile platforms, advertising companies provide developers with software development kits (SDKs) that make it easy to monetize their apps. But those same SDKs can automatically feed users’ location data into ad systems that location data brokers use to track people. Many developers may not even be aware of this privacy violation, let alone the users who are directly affected.

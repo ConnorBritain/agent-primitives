@@ -6,6 +6,7 @@ date: 2026-07-02
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/06/eff-and-allies-xs-ftc-petition-waive-privacy-violation-order-should-be-rejected
 ---
 X Corp. should not be able to escape privacy compliance because it changed its name. 

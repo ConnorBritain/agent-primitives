@@ -6,6 +6,7 @@ date: 2026-07-15
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/dont-let-congress-age-gate-internet-effector-3813
 ---
 The effort to age gate the internet is back in Washington—and now it has a new name. Recently passed by the House of Representatives, the KIDS Act is a sprawling package of proposals to control what we can see and say online. Supporters claim the KIDS Act is needed to protect minors online. But if lawmakers really want to make the internet safer, why are they encouraging more surveillance instead of protecting our privacy? We dive into this question with our EFFector newsletter.

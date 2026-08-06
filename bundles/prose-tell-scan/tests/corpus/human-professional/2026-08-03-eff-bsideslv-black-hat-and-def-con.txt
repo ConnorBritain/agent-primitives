@@ -6,6 +6,7 @@ date: 2026-08-03
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/eff-bsideslv-black-hat-and-def-con
 ---
 It's time. Time for tinkerers, security researchers, hackers, and fellow nerds to gather together in signature black hoodies and utilikilts to beat the heat in Las Vegas for the summer security conferences: BSidesLV, Black Hat USA, and DEF CON.

@@ -6,6 +6,7 @@ date: 2026-07-17
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/how-watch-dogs-video-game-series-mirrored-and-predicted-real-world-digital-rights
 ---
 When Ubisoft's Watch Dogs 2 was released in 2016, it was a headtrip for those of us working on digital-rights issues in the Bay Area. During the day, I'd fight tech-authoritarianism from EFF's San Francisco offices and then, at night, I'd fight tech-authoritarianism in an uncanny simulation of San Francisco from my home gaming console.  

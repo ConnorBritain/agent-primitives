@@ -138,6 +138,40 @@ comparison.** Both runs are complete, at the same k, over the same cases.
 takes every Nth, so "which samples did you use" cannot be answered with "the ones that
 worked". Eleven samples are excluded by a second stated rule, below.
 
+### The sweep was five human documents, and that was the bottleneck
+
+The runs above drew `ceil(n/2)` Gutenberg + 1 Wikipedia + 1 EFF — **five human documents at
+the default**. One arguable finding moves a false-positive figure over five documents by
+twenty points, so a real regression and a single defensible call look identical. The corpus
+held hundreds of human documents the entire time; the limit was the rule, not the material.
+
+Changed 2026-08-06. The rule is still sort-and-step and is still evaluated rather than
+typed, but it now runs **inside strata**:
+
+- **Human and AI counts are set separately** (`--human`, `--ai`), because they measure
+  different things — the human half bounds false positives, the AI half checks the critic
+  is not decorative. `--n` sized both at once and is now refused rather than aliased, since
+  a stale command line that keeps working while measuring something else is the failure the
+  split exists to end.
+- **The single-author share is split evenly across authors**, then stepped within each. A
+  merged every-Nth over `human-essays/` is mostly a measurement of Chekhov, who is 113 of
+  293 samples. An author added to the corpus enters the sweep with no edit here.
+- **Half the human pool is single-author essays, a quarter Wikipedia, the rest EFF** — one
+  identifiable writer, an encyclopedia written by committee, and edited contemporary
+  advocacy. Three kinds of evidence, not three sources of the same kind.
+- **Over-requesting comes back short.** A thin stratum is never refilled from a fat one;
+  that would restore the imbalance invisibly.
+
+Recommended sweep, and the counts come from the harness's own report line, not from here:
+
+```bash
+node tests/pattern-harness.mjs prepare corpus <run-id> --draws 1 --human 24 --ai 12
+```
+
+`selftest.mjs` holds the guards: at least 20 human documents drawn, every single-author
+corpus author present, all three human buckets represented, `--ai` unable to move the human
+draw, and an over-large request neither padded nor repeated.
+
 ### The AI corpus tells the critic the answer, in seven samples
 
 They are Wikipedia pages vendored together with the talk-page comment that got them listed
@@ -152,6 +186,21 @@ that acquires such a line later stops the run instead of contaminating it.
 The rule is blunt on purpose and over-excludes in the safe direction: it also drops four
 EFF posts that merely *discuss* LLMs. Losing four negatives costs a little false-positive
 bound; keeping one labelled positive would cost the entire positive column.
+
+**7 of 33 was the count at the runs above.** `NAMES_AUTHORSHIP` was widened afterwards to
+catch `chatbot-generated`, which changes the denominator — a selection change, recorded as
+one. Do not retype the figure from here: `prepare corpus` prints the current exclusions per
+bucket on every run, and that line is the one to quote.
+
+**EFF posts arrive with their citations removed, and that is our doing.** Deeplinks cites by
+hyperlinking; the extractor kept the anchor text and dropped the href, so a vendored post
+reads as unsourced where the published article is sourced — and a critic that says so has
+found our extractor. `fetch-professional.mjs` now writes markdown links, but **every
+committed EFF sample predates that change** and says so in its own frontmatter
+(`link_targets: stripped`). They are not re-fetched automatically because the source is a
+50-item RSS feed rather than an archive: a re-fetch swaps the sample set instead of
+repairing it. Until that is done deliberately, treat an absence-of-support finding on an EFF
+sample as unresolved rather than as a hit.
 
 ---
 

@@ -6,6 +6,7 @@ date: 2026-07-14
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/european-court-apple-can-not-shirk-its-interoperability-requirements
 ---
 One of the best bulwarks against monopoly is interoperability—that is making a new product or service work with an existing product or service. Interoperability allows users, and not the manufacturers of their devices or largest player in a market, to decide what application best serves them. Unsurprisingly, companies like Apple have worked hard to resist interoperability requirements. 

@@ -6,6 +6,7 @@ date: 2026-06-26
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/06/grindr-put-queer-safety-and-privacy-over-profits
 ---
 This Pride month, we’re calling on the dating app Grindr to prioritize LGBTQ+ user safety by making privacy the default across its platform. That means no more sharing personal data with advertisers or training AI on private information without users’ opt-in consent.

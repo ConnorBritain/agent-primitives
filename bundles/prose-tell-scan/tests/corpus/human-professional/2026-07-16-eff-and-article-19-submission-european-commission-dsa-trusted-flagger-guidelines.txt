@@ -6,6 +6,7 @@ date: 2026-07-16
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/eff-and-article-19-submission-european-commission-dsa-trusted-flagger-guidelines
 ---
 EFF and ARTICLE 19 have submitted joint comments to the European Commission on draft guidelines for the Digital Services Act’s trusted flagger mechanism. Having long advocated for a DSA that protects freedom of expression while preserving intermediary liability protections and the prohibition on general monitoring, we welcome the Commission's effort to provide practical guidance on how the trusted flagger system should operate. 

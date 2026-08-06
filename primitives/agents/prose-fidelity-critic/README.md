@@ -101,10 +101,9 @@ read to the end, and it is where a hurried critic's corners show.
 ## Known limits
 
 **It inherits every blind spot of the scan, and the scan still has several.**
-These are the tool's limits rather than the critic's, but they bound what a
-`FAITHFUL` means. Four of the five the first acceptance run surfaced were closed
-in S4; the scan now prints its own coverage on every pair, so a critic can no
-longer read "none material-missing" as "nothing was lost".
+These are the tool's limits rather than the critic's, but they bound what a clean
+scan means. The scan now prints its own coverage on every pair, so a critic can
+no longer read "none material-missing" as "nothing was lost".
 
 Still open, and the first is a deliberate decision rather than a bug:
 
@@ -118,27 +117,47 @@ Still open, and the first is a deliberate decision rather than a bug:
   `contradicts_scan`, the count that blocks the primitive. The measurement is an
   executable assertion rather than a sentence anywhere, including this one:
   `tests/single-word-survey.mjs` enumerates and `tests/selftest.mjs` asserts.
-- **Multi-word entities with two function words inside them are not extracted
-  either** — *Church of the Embassy* matches nothing, because the run pattern
-  allows only one *of*/*the* between capitalised words. Found by a critic on the
-  S4 run; not disclosed by the coverage note, which names only the single-word
-  gap.
 - **Word-form numbers are invisible.** *thirteen* → *young* and *two or three
   years* → *some time* are numeric losses the scan does not look for. Disclosed.
-- **The headline still reads `fidelity: FAITHFUL`** over a check that only
-  compared atoms. Two critics on the S4 run said independently that a
-  presence-check result is printed as a fidelity verdict, and the coverage note
-  beneath it cannot undo the word at the top.
+- **A name held together by more than two linking words is still outside the
+  run pattern** — *the Battle of the Somme and of the Marne* extracts as the
+  first battle only. This is the residue of a bound rather than an oversight:
+  linking words chain, and an unbounded rule walks a run across a whole clause,
+  after which a revision that touched any word inside it reads as having lost
+  the entire thing. Disclosed, along with the fact that the recognised linking
+  words are a fixed list.
 
-Closed in S4: line-wrap-sensitive presence checks, quotes containing a newline,
-non-ASCII letters in names (*Augustus Cæsar* was never extracted at all), and a
+Closed: line-wrap-sensitive presence checks, quotes containing a newline,
+non-ASCII letters in names (*Augustus Cæsar* was never extracted at all), a
 report that pronounced heading changes informational on documents with no
-headings.
+headings, and three more the S4 run's critics found and the instrument was left
+alone to carry, because changing it mid-measurement would have invalidated the
+run:
+
+- **`X of the Y` now extracts.** *Church of the Embassy* used to match nothing
+  at all — not a truncated atom, since a lone capitalised word is not a run — so
+  a revision could delete it outright and the report would list every atom as
+  present. The run pattern accepts up to two linking words, and the coverage
+  note names the remaining bound instead of implying there is none.
+- **The headline is no longer a verdict.** It read `fidelity: FAITHFUL`, in the
+  exact vocabulary the critic must end its own review with, over a check that
+  only compared strings. Two critics said independently that a presence-check
+  result was printed as a fidelity verdict and that the coverage note beneath
+  could not undo the word at the top. The report now names the check it ran,
+  states the result in that check's terms, and says in the same breath what a
+  clean result does not mean. `FAITHFUL` / `MATERIAL-LOSS` remain the exit-code
+  and manifest vocabulary, where a caller asks for them knowing what they are.
+- **A quotation's interior is no longer scanned as prose.** *Jam Tiberium* was
+  pulled out of a Latin quotation as a named entity, so paraphrasing that line
+  away lost one thing and the report itemised two, under two headings — in the
+  list whose whole job is to show the critic the shape of what went. It cost the
+  other direction too: the critic must account for every flagged atom, so it
+  spent a line clearing a name the document never independently contained.
 
 The critic caught losses in every one of these categories by reading, which is
 the argument for it existing. It is also why *Scanner defects* is a required
-section: the run is the tool's bug report, and it is where all four of the still-
-open items above came from.
+section: the run is the tool's bug report, and it is where the three items just
+closed came from.
 
 **Its flag rate on faithful revisions rose when the scan started disclosing its
 own coverage.** Measured, not inferred: three negatives were run three times

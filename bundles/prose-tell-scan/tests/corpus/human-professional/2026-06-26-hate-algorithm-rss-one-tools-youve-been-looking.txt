@@ -6,6 +6,7 @@ date: 2026-06-26
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/06/hate-algorithm-rss-one-tools-youve-been-looking
 ---
 Poke your head into just about any online social network—or any general conversations about internet culture—and you’ll likely find a boogieman: the algorithm. Since at least the moment Facebook introduced (and apologized for) its News Feed, “the algorithm” has been shorthand for the ways the tech giants control what we see and when we see it. In the age of enshittification, there is a push to reclaim our feeds and networks. Good news: there’s a tool that’s been around for decades that can help wrangle many of your feeds into something manageable: Really Simple Syndication, more commonly known as RSS.

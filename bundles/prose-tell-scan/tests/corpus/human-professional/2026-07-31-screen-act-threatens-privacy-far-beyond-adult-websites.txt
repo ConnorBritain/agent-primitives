@@ -6,6 +6,7 @@ date: 2026-07-31
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/screen-act-threatens-privacy-far-beyond-adult-websites
 ---
 The Senate Commerce Committee is set to consider S. 737, the SCREEN Act, a sweeping age-verification bill that would require online services to verify users’ ages before they can access any sexually explicit content. If this bill passes, it will force millions of adult internet users to give up their anonymity, privacy, and security before they access lawful speech.  

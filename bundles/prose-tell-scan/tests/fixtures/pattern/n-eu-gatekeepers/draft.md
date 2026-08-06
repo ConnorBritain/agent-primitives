@@ -6,6 +6,7 @@ date: 2026-07-09
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/european-commission-chooses-keep-eu-users-locked-behind-big-techs-gates
 ---
 Users are always seeking more control over their social networking experience to make it better, whether to improve privacy or enhance flexibility. Interoperability between social networking platforms like Facebook and TikTok has so many benefits that solve those issues.  

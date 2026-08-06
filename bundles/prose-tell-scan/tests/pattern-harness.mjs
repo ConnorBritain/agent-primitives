@@ -3,7 +3,8 @@
  * pattern-harness — prepare, collect and verify a prose-pattern-critic acceptance run.
  *
  *   node tests/pattern-harness.mjs prepare fixtures 2026-08-05-pattern --draws 3
- *   node tests/pattern-harness.mjs prepare corpus   2026-08-05-pattern-corpus --draws 1
+ *   node tests/pattern-harness.mjs prepare corpus   2026-08-05-pattern-corpus \
+ *       --draws 1 --human 24 --ai 12
  *   node tests/pattern-harness.mjs collect runs/2026-08-05-pattern
  *   node tests/pattern-harness.mjs verify  runs/2026-08-05-pattern
  *
@@ -218,35 +219,161 @@ function inputsForFixtures() {
 }
 
 /**
- * The corpus sweep. Selection is a WRITTEN RULE evaluated here, not a list someone typed:
- * sorted filenames, take every Nth, so nobody can be asked which samples were chosen and
- * answer "the ones that worked". `--n` fixes the count; the rule fixes which.
+ * The corpus sweep.
+ *
+ * SELECTION IS A WRITTEN RULE EVALUATED HERE, NOT A LIST SOMEONE TYPED. That property is
+ * the reason this function exists at all: nobody can be asked which samples were used and
+ * answer "the ones that worked". The rule below is longer than the one it replaced and is
+ * exactly as mechanical - sort, step, take - applied inside strata instead of across one
+ * merged list.
+ *
+ * WHAT WAS WRONG WITH THE OLD RULE. Two things, and neither was the corpus.
+ *
+ *   1. FIVE HUMAN DOCUMENTS. `ceil(n/2)` Gutenberg + 1 Wikipedia + 1 EFF drew 5 human
+ *      samples at the default. One arguable finding moved the false-positive figure by 20
+ *      points, so a real regression and a single defensible call were indistinguishable.
+ *      The corpus held ~355 human documents the whole time.
+ *
+ *   2. ONE `--n` FOR BOTH COLUMNS. The human half bounds FALSE POSITIVES and the AI half
+ *      checks the critic is not DECORATIVE. They are different measurements with different
+ *      appetites for samples, and a shared knob silently ties them together - which is how
+ *      a threshold got set against a human pool sized by what the AI pool needed. `--human`
+ *      and `--ai` are separate and there is deliberately no flag that sets both.
+ *
+ * WHY STRATIFY BY AUTHOR. Every-Nth over a merged Gutenberg listing is every-Nth over
+ * whoever has the most files: Chekhov alone is 113 of 293, so a naive sweep is largely a
+ * measurement of one translator's letters. The single-author share is therefore split
+ * EVENLY ACROSS AUTHORS first, and the every-Nth rule runs inside each author. An author
+ * added to the corpus tomorrow enters the sample without anyone editing this file.
+ *
+ * THE BUCKET SPLIT, and why it is a constant rather than a flag. Half the human pool comes
+ * from the single-author essay corpus (seven registers, one identifiable writer each), a
+ * quarter from Wikipedia (multi-author, encyclopedic), and the remainder from EFF
+ * (multi-author, contemporary professional). A flag here would be one more thing to set
+ * differently between two runs that then get compared.
+ *
+ * Requests larger than a stratum holds are NOT padded from elsewhere. The pool comes back
+ * short and the printed line says so, because quietly refilling from Chekhov would restore
+ * the exact imbalance the stratification exists to remove.
  */
-function inputsForCorpus(n) {
-  let dropped = 0;
-  const pick = (dir, want, prefix) => {
-    const files = readdirSync(dir).filter((f) => f.endsWith(".txt")).sort()
-      .filter((f) => {
-        // Tested on the STAGED form: the human corpus attests provenance as
-        // "predates ChatGPT public launch" in frontmatter, which staging strips.
-        const ok = !NAMES_AUTHORSHIP.test(stripFrontmatter(readFileSync(join(dir, f), "utf8")));
-        if (!ok) dropped += 1;
-        return ok;
-      });
-    const step = Math.max(1, Math.floor(files.length / want));
-    return files.filter((_, i) => i % step === 0).slice(0, want)
-      .map((f) => ({ name: `${prefix}-${basename(f, ".txt")}`, file: join(dir, f) }));
-  };
+export function inputsForCorpus({ human, ai }) {
   const C = join(TESTS, "corpus");
-  const out = [
-    ...pick(join(C, "human-essays", "gutenberg"), Math.ceil(n / 2), "h"),
-    ...pick(join(C, "human"), 1, "h"),
-    ...pick(join(C, "human-professional"), 1, "h"),
-    ...pick(join(C, "ai"), n, "x"),
+  /** Exclusions are counted PER BUCKET, not totalled. The count is a statement about a
+   *  denominator, and "15 dropped" across five directories does not tell a reader whether
+   *  the AI column lost a quarter of itself or nothing at all. */
+  const dropped = new Map();
+
+  /**
+   * Tested on the STAGED form: provenance attestations live in frontmatter, which staging
+   * strips. Excluded samples are counted, never silently skipped.
+   *
+   * THE EXCLUSION APPLIES TO THE AI POOL ONLY, and that is a correction.
+   *
+   * The guard exists so a sample cannot tell the critic the answer. That happens when an
+   * AI-labelled Wikipedia page carries the talk-page comment that got it listed - "Complete
+   * AI slop" - inside the prose being judged. For those, the phrase IS the label.
+   *
+   * Human samples are different in kind. Doctorow arguing about LLMs, or an EFF post about
+   * chatbot regulation, mentions AI without revealing anything about who wrote it: a human
+   * document saying "AI slop" does not thereby look human. Excluding those removed 7 human
+   * documents (4 EFF, 3 Doctorow) - and they are the HARDEST human documents in the corpus,
+   * the ones where a critic hunting AI-writing patterns is most likely to be fooled by
+   * surface vocabulary. Dropping them hid the exact false positive most worth finding.
+   *
+   * The old comment said "losing four negatives costs nothing". That was true when the human
+   * pool was 5 and the worry was the positive column. The human pool is now the measurement,
+   * so it is no longer true, and the rule that outlived its reasoning has been narrowed to
+   * the case that reasoning actually covered.
+   */
+  const admissible = (dir, { applyGuard }) => readdirSync(dir).filter((f) => f.endsWith(".txt")).sort()
+    .filter((f) => {
+      if (!applyGuard) return true;
+      const ok = !NAMES_AUTHORSHIP.test(stripFrontmatter(readFileSync(join(dir, f), "utf8")));
+      if (!ok) dropped.set(basename(dir), (dropped.get(basename(dir)) ?? 0) + 1);
+      return ok;
+    });
+
+  /** Sorted, every Nth, take `want`. The whole rule, unchanged from the version this
+   *  replaced - it just runs inside a stratum now instead of over everything. */
+  const everyNth = (files, want) => {
+    if (want <= 0) return [];
+    const step = Math.max(1, Math.floor(files.length / want));
+    return files.filter((_, i) => i % step === 0).slice(0, want);
+  };
+
+  const label = (dir, prefix) => (f) =>
+    ({ name: `${prefix}-${basename(f, ".txt")}`, file: join(dir, f) });
+
+  /** The byline, read from frontmatter. Unattributed files form their own stratum rather
+   *  than being dropped: a sample with no author is a provenance defect, and folding it
+   *  into someone else's share is how the defect stops being visible. */
+  const byline = (dir, f) => {
+    const m = readFileSync(join(dir, f), "utf8").match(/^author:[ \t]*(.+)$/m);
+    return m ? m[1].trim() : "(unattributed)";
+  };
+
+  /**
+   * Split `want` across the authors present, evenly, with the remainder going to the
+   * earliest authors in NAME order. Name order, not sample count: giving the remainder to
+   * whoever has the most files is how Chekhov gets back the weight this removes.
+   */
+  const perAuthor = (dirs, want) => {
+    const authors = new Map();
+    for (const dir of dirs) {
+      for (const f of admissible(dir, { applyGuard: false })) {
+        const a = byline(dir, f);
+        if (!authors.has(a)) authors.set(a, []);
+        authors.get(a).push({ dir, f });
+      }
+    }
+    const names = [...authors.keys()].sort();
+    const base = Math.floor(want / names.length);
+    const extra = want % names.length;
+    const out = [];
+    names.forEach((a, i) => {
+      const share = base + (i < extra ? 1 : 0);
+      const files = authors.get(a).sort((x, y) => x.f.localeCompare(y.f));
+      for (const { dir, f } of everyNth(files, share)) out.push(label(dir, "h")(f));
+    });
+    return out;
+  };
+
+  const singleAuthorDirs = [
+    join(C, "human-essays", "gutenberg"),
+    join(C, "human-essays", "pluralistic"),
   ];
-  process.stdout.write(`corpus selection: ${out.length} samples; ${dropped} excluded because ` +
-    "their own body text names AI authorship\n");
-  return out;
+  const wikiDir = join(C, "human");
+  const effDir = join(C, "human-professional");
+
+  const wantSingle = Math.ceil(human / 2);
+  const wantWiki = Math.floor(human / 4);
+  const wantEff = Math.max(0, human - wantSingle - wantWiki);
+
+  const single = perAuthor(singleAuthorDirs, wantSingle);
+  const wiki = everyNth(admissible(wikiDir, { applyGuard: false }), wantWiki).map(label(wikiDir, "h"));
+  const eff = everyNth(admissible(effDir, { applyGuard: false }), wantEff).map(label(effDir, "h"));
+  const aiPicked = everyNth(admissible(join(C, "ai"), { applyGuard: true }), ai).map(label(join(C, "ai"), "x"));
+
+  const humanPicked = [...single, ...wiki, ...eff];
+  const authorsDrawn = new Set(single.map((s) => byline(dirname(s.file), basename(s.file))));
+
+  // The report is RETURNED rather than printed, so the rule can be tested without a test
+  // suite that prints a sweep log, and so the one place that prints it is the one place
+  // that runs a sweep.
+  return {
+    samples: [...humanPicked, ...aiPicked],
+    human: humanPicked,
+    ai: aiPicked,
+    authors: [...authorsDrawn].sort(),
+    report:
+      `corpus selection: ${humanPicked.length} human (asked ${human}), `
+      + `${aiPicked.length} AI (asked ${ai})\n`
+      + `  single-author essays: ${single.length} across ${authorsDrawn.size} authors `
+      + `(${[...authorsDrawn].sort().join(", ")})\n`
+      + `  Wikipedia (multi-author): ${wiki.length}   EFF (multi-author): ${eff.length}\n`
+      + "  excluded because their own body text names AI authorship: "
+      + `${[...dropped].sort().map(([d, k]) => `${d} ${k}`).join(", ") || "none"}\n`,
+  };
 }
 
 /**
@@ -270,8 +397,10 @@ export const OWNED = ownedPatterns();
 
 const CATALOG_IDS = catalogIdGuard();
 
-function prepare(set, runId, draws, n) {
-  const inputs = set === "corpus" ? inputsForCorpus(n) : inputsForFixtures();
+function prepare(set, runId, draws, counts) {
+  const picked = set === "corpus" ? inputsForCorpus(counts) : null;
+  if (picked) process.stdout.write(picked.report);
+  const inputs = picked ? picked.samples : inputsForFixtures();
   const runDir = join(TESTS, "runs", runId);
   const stageDir = join(runDir, "staged");
   const promptDir = join(runDir, "prompts");
@@ -470,9 +599,20 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     const i = rest.indexOf(`--${name}`);
     return i === -1 ? dflt : Number(rest[i + 1]);
   };
-  if (cmd === "prepare") prepare(rest[0], rest[1], flag("draws", 1), flag("n", 6));
-  else if (cmd === "collect") collect(rest[0]);
+  // `--n` is refused rather than aliased. It used to size both columns at once, and a
+  // stale command line that still carries it would otherwise keep working while measuring
+  // something different from what its author expects - which is the failure this split
+  // exists to end. Refusing costs one edit and names the replacement.
+  if (rest.includes("--n")) {
+    die("--n is gone: it sized the human and AI columns together, which is how a "
+      + "false-positive threshold got set against a pool sized for the other column.\n"
+      + "Use --human <k> --ai <k>. They measure different things and are set separately.");
+  }
+  if (cmd === "prepare") {
+    prepare(rest[0], rest[1], flag("draws", 1), { human: flag("human", 20), ai: flag("ai", 12) });
+  } else if (cmd === "collect") collect(rest[0]);
   else if (cmd === "verify") verify(rest[0]);
-  else die("usage: pattern-harness.mjs prepare <fixtures|corpus> <run-id> [--draws k] [--n k]\n" +
+  else die("usage: pattern-harness.mjs prepare <fixtures|corpus> <run-id> [--draws k]\n" +
+           "                                  [--human k] [--ai k]   (corpus only)\n" +
            "       pattern-harness.mjs collect|verify <run-dir>");
 }

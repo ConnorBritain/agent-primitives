@@ -6,6 +6,7 @@ date: 2026-07-29
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/fitness-tracker-privacy-fails-effector-3814
 ---
 Watches, bands, and rings—if you want to digitally monitor your fitness, more companies than ever are selling devices to do it. And more Americans than ever now own at least one wearable health device. But what are the companies that make fitness trackers doing to protect our sensitive data from prying eyes? A lot less than they could be, it turns out. We're explaining what companies can do to protect your health data, and more, with our EFFector newsletter. 

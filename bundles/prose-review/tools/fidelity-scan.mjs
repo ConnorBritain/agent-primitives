@@ -23,25 +23,29 @@
  *   quote       text inside double quotes with three or more words, or a curly-
  *               quote span of the same length. A dropped quote is a load-bearing
  *               loss, and paraphrase-in-place is a subtle one worth flagging.
+ *               A quotation's INTERIOR is not scanned for other atoms - it is
+ *               already tracked, as a quotation.
  *
- *   proper-noun  a run of two or more capitalised words (mid-sentence, so the
- *               sentence-initial capital does not falsely trigger). Named
- *               entities lost in a rewrite are the class of loss reviewers
- *               reliably notice AFTER the reviser has run, when the pre-edit
- *               copy is gone.
+ *   proper-noun  a run of two or more capitalised words, optionally joined by up
+ *               to two linking words (Church of the Embassy). Named entities lost
+ *               in a rewrite are the class of loss reviewers reliably notice
+ *               AFTER the reviser has run, when the pre-edit copy is gone.
  *
  * WHAT IS NOT THIS TOOL'S JOB. Register, voice, argument, prose quality, ethical
  * questions about the revision - all outside scope. The tool reports what is
  * present in ORIGINAL and absent in REVISION. The critic decides what to do.
  *
  * WHAT IT CANNOT SEE, which is a different statement and the more dangerous one.
- * Single-word named entities, word-form numbers ("thirteen", "a dozen"), and
- * every fact carried by phrasing rather than by a token - hedges, scope limits,
- * polarity - are outside extraction entirely. A FAITHFUL verdict is therefore a
- * statement about the atoms listed, never about the revision. `coverageNote`
- * prints this on every pair for exactly that reason: the report used to close
- * by pronouncing heading changes informational on documents that contain no
- * headings, which is a clean bill of health for a check that never ran.
+ * Single-word named entities, entities strung together by more linking words than
+ * the run pattern allows, word-form numbers ("thirteen", "a dozen"), and every
+ * fact carried by phrasing rather than by a token - hedges, scope limits,
+ * polarity - are outside extraction entirely. A clean result is therefore a
+ * statement about the atoms listed, never about the revision, and the report says
+ * so in its own headline rather than printing a fidelity verdict it did not earn.
+ * `coverageNote` prints the categories on every pair for the same reason: the
+ * report used to close by pronouncing heading changes informational on documents
+ * that contain no headings, which is a clean bill of health for a check that
+ * never ran.
  *
  * WHY DETERMINISTIC. This is exactly the kind of check a language model gets
  * wrong under time pressure: it "sees" the number in the revision because the
@@ -113,8 +117,36 @@ const CAP_WORD = String.raw`\p{Lu}\p{Ll}+`;
  */
 const EDGE_L = String.raw`(?<![\p{L}\p{N}_])`;
 const EDGE_R = String.raw`(?![\p{L}\p{N}_])`;
+/**
+ * LINKING WORDS, AND HOW MANY MAY STAND TOGETHER. An earlier form allowed at
+ * most ONE linking word, and only between the first two capitalised words:
+ * `Edward the Fourth` matched, `Church of the Embassy` matched nothing at all -
+ * not truncated to `Church`, since a lone capitalised word is not a run, but
+ * absent. A revision could delete the church outright and the scan would report
+ * every atom present, while the coverage note named only the single-word gap.
+ * A critic reading that note takes the entity list as complete, which is the
+ * worse half of the defect: an undisclosed hole reads as a clean check.
+ *
+ * The chain is BOUNDED AT TWO because the bound is what keeps an atom the size
+ * of a name. Unbounded, a sentence like "...the Institute for the study of the
+ * Danube..." chains function words until the run spans a clause, and a revision
+ * that touched any word inside it would be reported as losing the whole thing -
+ * a missing-atom list that misrepresents the shape of the loss is the same
+ * defect as one that omits it. Two covers `X of the Y`, which is the shape
+ * English names actually take.
+ *
+ * THE PRECISION THIS COSTS IS REAL AND IS NOT HIDDEN. "One of the Russian
+ * sculptors" now matches, because `One` and `Russian` are capitalised and the
+ * rule has no lexicon. That direction is survivable - a false atom that the
+ * revision keeps is silent, and one the revision drops reaches a critic whose
+ * job is to clear it. The opposite direction, a named entity the scan never
+ * looked at, reaches nobody.
+ */
+const LINK_WORD = String.raw`(?:of|the|de|van|von|and|for)`;
+const MAX_LINK_WORDS = 2;
+const NOUN_GAP = String.raw`[ \t]+(?:${LINK_WORD}[ \t]+){0,${MAX_LINK_WORDS}}`;
 const PROPER_NOUN_RUN = new RegExp(
-  `${EDGE_L}${CAP_WORD}(?:[ \\t]+(?:of|the|de|van|von|and|for)[ \\t]+|[ \\t]+)${CAP_WORD}(?:[ \\t]+${CAP_WORD})*${EDGE_R}`,
+  `${EDGE_L}${CAP_WORD}(?:${NOUN_GAP}${CAP_WORD})+${EDGE_R}`,
   "gu",
 );
 
@@ -168,16 +200,19 @@ export function extractAtoms(text) {
   const body = stripFrontmatter(text);
   const atoms = [];
 
-  for (const m of body.matchAll(NUMBER)) {
+  // Quotes first, because what they cover is then off-limits to the prose rules.
+  const prose = maskSpans(body, collectQuotes(body, atoms));
+
+  for (const m of prose.matchAll(NUMBER)) {
     // Strip trailing punctuation the regex may pick up on some engines.
     atoms.push({ kind: "number", source: m[0] });
   }
-  for (const m of body.matchAll(STRAIGHT_QUOTE)) pushQuote(atoms, m[1]);
-  // Two alternations (curly-double, curly-single) means one group is undefined.
-  for (const m of body.matchAll(CURLY_QUOTE)) pushQuote(atoms, m[1] ?? m[2]);
-  for (const m of body.matchAll(PROPER_NOUN_RUN)) {
+  for (const m of prose.matchAll(PROPER_NOUN_RUN)) {
     atoms.push({ kind: "proper-noun", source: m[0] });
   }
+  // Headings read the unmasked body: a heading is a whole line of structure, and
+  // blanking a quotation out of one would store a heading the document does not
+  // have. A heading is informational anyway and never triggers MATERIAL-LOSS.
   for (const m of body.matchAll(HEADING)) {
     atoms.push({ kind: "heading", source: m[1].trim() });
   }
@@ -190,10 +225,57 @@ export function extractAtoms(text) {
  * quotation and the same quotation re-wrapped are the same quotation. Storing
  * the raw span would make the atom's identity - and so the dedupe key, and so
  * the count the report prints - a function of the original's line width.
+ *
+ * Returns the [start, end) span of every match that BECAME an atom. A span that
+ * did not - a two-word quoted emphasis - is not tracked as a quotation, so
+ * blanking it out would delete coverage rather than de-duplicate it.
  */
-function pushQuote(atoms, inner) {
-  const source = normaliseQuote(inner ?? "");
-  if (source.split(/\s+/).length >= 3) atoms.push({ kind: "quote", source });
+function collectQuotes(body, atoms) {
+  const spans = [];
+  const record = (m, inner) => {
+    const source = normaliseQuote(inner ?? "");
+    if (source.split(/\s+/).length < 3) return;
+    atoms.push({ kind: "quote", source });
+    spans.push([m.index, m.index + m[0].length]);
+  };
+  for (const m of body.matchAll(STRAIGHT_QUOTE)) record(m, m[1]);
+  // Two alternations (curly-double, curly-single) means one group is undefined.
+  for (const m of body.matchAll(CURLY_QUOTE)) record(m, m[1] ?? m[2]);
+  return spans;
+}
+
+/**
+ * THE INSIDE OF A QUOTATION IS NOT PROSE, and extracting it as if it were makes
+ * one loss look like several. "Jam Tiberium vires et corpus, non dissimulationem,
+ * deserebant" is a quote atom; the old code ALSO pulled `Jam Tiberium` out of it
+ * as a named entity, so a revision that paraphrased the line away lost one thing
+ * and the report listed two - under two different headings, in a list whose whole
+ * job is to show the critic the shape of what went. It cuts the other way too:
+ * a critic accounting for every flagged atom spends a line clearing a name that
+ * was never independently in the document.
+ *
+ * The span is replaced by a single U+FFFC rather than by spaces, because spaces
+ * would let the words on either side of a quotation close up: `Ahmadu "..." Bello`
+ * would read as one proper-noun run that the document never contained. A
+ * non-letter, non-space placeholder cannot be crossed by any rule here.
+ *
+ * Only the ORIGINAL is masked. The revision side stays whole, so an atom that
+ * survives inside a quotation there still counts as present - the presence check
+ * errs toward "kept", by design.
+ */
+const QUOTE_MASK = "￼"; // U+FFFC OBJECT REPLACEMENT CHARACTER
+function maskSpans(body, spans) {
+  if (!spans.length) return body;
+  let out = "";
+  let cursor = 0;
+  for (const [start, end] of [...spans].sort((a, b) => a[0] - b[0])) {
+    // A straight quote nested inside a curly one is already covered; skip it
+    // rather than emitting the outer span's tail twice.
+    if (start < cursor) continue;
+    out += body.slice(cursor, start) + QUOTE_MASK;
+    cursor = end;
+  }
+  return out + body.slice(cursor);
 }
 
 /** Same source + same kind counts once. A number that recurs is still one atom. */
@@ -261,16 +343,41 @@ export function scanFidelity(original, revision) {
  * classify the revision as MATERIAL-LOSS; headings alone do not trigger it
  * (a rewrite may legitimately restructure). The critic gets the full list
  * either way and can reason about which losses were intentional.
+ *
+ * THIS IS THE PROGRAMMATIC RESULT, NOT THE HEADLINE. The two words are the
+ * exit-code vocabulary and the key `fixtures.json` records; the rendered report
+ * deliberately does not print them - see `renderReport`.
  */
 export function verdict({ missing }) {
   const material = missing.filter((a) => a.kind !== "heading");
   return material.length === 0 ? "FAITHFUL" : "MATERIAL-LOSS";
 }
 
+/**
+ * THE HEADLINE MAY NOT BE A VERDICT ON THE REVISION, and it used to be one.
+ * The report opened `fidelity: FAITHFUL`, in the exact vocabulary the critic
+ * downstream must end its own review with - so the first line of the critic's
+ * input was an answer to the question it was convened to decide, phrased as
+ * though the tool had decided it. Two critics on the S4 run said independently
+ * that a presence-check result was being printed as a fidelity verdict, and
+ * that the coverage note at the bottom cannot undo the word at the top.
+ *
+ * What the tool actually did is compare strings. Claim drift, a dropped
+ * qualification and a reversed polarity leave every word on the page and are
+ * invisible to it, and those are the losses a competent rewrite produces. So
+ * the headline now names the check, states its result in the check's own terms,
+ * and says in the same breath what a clean result does not mean. `FAITHFUL` and
+ * `MATERIAL-LOSS` stay in `verdict()`, where a caller asks for them knowing
+ * what they are, and stay out of the text a language model reads.
+ */
 export function renderReport(scan) {
   const out = [""];
   const v = verdict(scan);
-  out.push(`  fidelity: ${v}`);
+  out.push(`  presence check: ${v === "FAITHFUL" ? "no material atom missing" : "material atoms missing"}`);
+  out.push("  Not a fidelity verdict. This tool compared strings between the two texts. A claim");
+  out.push("  that drifted, a qualification that was dropped and a polarity that reversed all");
+  out.push("  leave every word on the page, so none of them can appear above whichever way this");
+  out.push("  line reads. Deciding whether the revision was faithful is the reader's job.");
   out.push("");
   const groups = { number: [], quote: [], "proper-noun": [], heading: [] };
   for (const m of scan.missing) groups[m.kind].push(m);
@@ -292,10 +399,11 @@ export function renderReport(scan) {
   }
   if (v === "FAITHFUL") {
     out.push(`  ${scan.atoms.length} atoms checked, none material-missing.`);
+    out.push("  That is a statement about those atoms. It is not a statement about the revision.");
   } else {
-    out.push("  MATERIAL-LOSS means the revision dropped a checkable fact from the original.");
-    out.push("  Some of these are intentional (a rewrite may consolidate). The critic that");
-    out.push("  reads this deciding which - not the scanner.");
+    out.push("  Each atom above appeared in the original and does not appear in the revision.");
+    out.push("  Some of those losses are intentional (a rewrite may consolidate). The critic that");
+    out.push("  reads this decides which - not the scanner.");
   }
   out.push("");
   out.push(...coverageNote(scan));
@@ -321,13 +429,15 @@ export function renderReport(scan) {
 function coverageNote(scan) {
   const headings = scan.atoms.filter((a) => a.kind === "heading").length;
   return [
-    "  coverage, and the verdict above means nothing without it:",
+    "  coverage, and the result above means nothing without it:",
     headings
-      ? `    headings: ${headings} checked. A heading change is informational and never MATERIAL-LOSS.`
+      ? `    headings: ${headings} checked. A heading change is informational and never counts as a missing material atom.`
       : "    headings: the original has none, so none were checked and nothing is claimed about them.",
     "    NOT extracted, on any pair: single-word named entities (a lone surname or",
-    "    place name), word-form numbers (a dozen, half again), and any fact carried",
-    "    by phrasing rather than by a token - a hedge, a scope limit, a polarity.",
+    "    place name), named entities strung together by more than two linking words or",
+    "    by a linking word outside of/the/de/van/von/and/for, word-form numbers (a dozen,",
+    "    half again), and any fact carried by phrasing rather than by a token - a hedge,",
+    "    a scope limit, a polarity.",
     "    These are CATEGORIES, not observations about this pair. Their absence from",
     "    this report is not evidence.",
   ];

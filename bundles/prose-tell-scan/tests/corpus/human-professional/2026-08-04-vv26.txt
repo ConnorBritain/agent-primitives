@@ -6,6 +6,7 @@ date: 2026-08-04
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/vv26
 ---
 In the scorching heat of every Las Vegas summer, EFF joins thousands of hackers, makers, policy analysts, and activists for the world's largest computer security gathering. If you're there during this summer security week, be sure to say hello to us at BSides Las Vegas, Black Hat Briefings, and DEF CON 34. While tech companies align with governments to target the people, our community is harnessing technology to fight back. Will you lend your support this year?

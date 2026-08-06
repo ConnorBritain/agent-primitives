@@ -23,7 +23,7 @@ import { execFileSync } from "node:child_process";
 
 import { runAcceptance } from "./acceptance.mjs";
 import { renderFixture } from "./fixtures/pattern/build.mjs";
-import { scanState, NAMES_AUTHORSHIP, catalogIdGuard, OWNED } from "./pattern-harness.mjs";
+import { scanState, NAMES_AUTHORSHIP, catalogIdGuard, OWNED, inputsForCorpus } from "./pattern-harness.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(HERE, "..");                // bundles/prose-tell-scan
@@ -2061,9 +2061,19 @@ try {
       // in 1920. Both PD. Chopin died 1904 and The Awakening is 1899; O.
       // Henry (William Sydney Porter) died 1910 and The Four Million is 1906
       // - each clears both grounds. Full table in human-essays/LICENSE.
+      //
+      // ADDED 2026-08-06, with the licence justification that entry to this
+      // set requires rather than a widened check:
+      //   Thomas H. Huxley - died 1895 (life+70 expired 1965); Science &
+      //     Education published 1893, before the 1930 US cutoff. PG 7150.
+      //   Charles Darwin - died 1882 (life+70 expired 1952); The Voyage of
+      //     the Beagle published 1839, before the 1930 US cutoff. PG 944.
+      // Both clear both grounds independently. They were added for the
+      // EXPLANATORY register, which no other author here covers; the reasoning
+      // is in fetch-essays.mjs's header and the per-source LICENCE notes.
       const expected = new Set([
         "Francis Bacon", "G. K. Chesterton", "Anton Chekhov",
-        "Kate Chopin", "O. Henry",
+        "Kate Chopin", "O. Henry", "Thomas H. Huxley", "Charles Darwin",
       ]);
       const surprise = [...authors].filter((a) => !expected.has(a));
       check(
@@ -2225,6 +2235,47 @@ try {
       );
       check("and it really is many hands, not one author under a site name",
         perAuthor.size >= 5, `${perAuthor.size} distinct authors`);
+
+      // THE LINK-TREATMENT DISCLOSURE. Deeplinks cites by hyperlinking, and the
+      // extractor used to keep the anchor text and drop the href - so a
+      // vendored post reads as unsourced where the published article is
+      // sourced, and a critic that flags the missing support has found our
+      // extractor rather than the author. What breaks if this regresses: that
+      // confound goes back to being invisible at the point of use. It was
+      // previously declared only against the FIXTURES that happen to draw from
+      // here (STRIPS_LINKS, below), which leaves every direct read of the
+      // corpus - a sweep, a calibration - with no way to know.
+      //
+      // The value is checked, not merely present: "preserved" and "stripped"
+      // are the two treatments, a file must say which it got, and the manifest
+      // must agree with the file. A field that may hold anything discloses
+      // nothing.
+      const TREATMENTS = new Set(["preserved", "stripped"]);
+      const byFile = new Map(attr.posts.map((p) => [p.file, p.link_targets]));
+      const undeclared = [];
+      const disagreeing = [];
+      for (const f of files) {
+        const got = (readFileSync(join(dir, f), "utf8").match(/^link_targets:[ \t]+(\S+)$/m) || [])[1];
+        if (!TREATMENTS.has(got)) undeclared.push(`${f}=${got ?? "(absent)"}`);
+        else if (byFile.get(f) !== got) disagreeing.push(`${f}: file=${got} manifest=${byFile.get(f)}`);
+      }
+      check("every post declares whether its link targets were kept or stripped",
+        undeclared.length === 0, undeclared.slice(0, 3).join(", "));
+      check("and the manifest declares the same treatment as the file",
+        disagreeing.length === 0, disagreeing.slice(0, 3).join(", "));
+
+      // The paired check on the other direction: a file claiming its targets
+      // were PRESERVED must actually carry some, or the disclosure is a label
+      // rather than a fact. Vacuously true today - the whole vendored set is
+      // `stripped` - and that is exactly why it is written now, before a
+      // re-fetch makes it load-bearing with nobody watching.
+      const lying = files.filter((f) => {
+        const raw = readFileSync(join(dir, f), "utf8");
+        return /^link_targets:[ \t]+preserved$/m.test(raw)
+          && !/\]\(https?:\/\//.test(raw.replace(/^---\n[\s\S]*?\n---\n/, ""));
+      });
+      check("a post claiming preserved link targets actually carries one",
+        lying.length === 0, lying.slice(0, 3).join(", "));
     }
   }
 
@@ -2427,6 +2478,36 @@ group("prose-pattern-critic — fixtures");
 
 
 /* ------------------------------------------------------------------ */
+group("pattern-harness: the AI-mention guard applies to the AI pool only");
+
+{
+  // WHAT BREAKS IF THIS REGRESSES: the human false-positive test quietly loses its
+  // hardest cases and reports a better number for it.
+  //
+  // The guard exists so a sample cannot hand the critic the answer. That happens on
+  // AI-labelled Wikipedia pages carrying the talk-page comment that got them listed
+  // ("Complete AI slop") inside the prose being judged - there, the phrase IS the label.
+  //
+  // A human document that merely discusses AI reveals nothing about its own authorship.
+  // Excluding those dropped 7 human documents - 4 EFF, 3 Doctorow - and they are precisely
+  // the ones where a critic hunting AI-writing patterns is most likely to be fooled by
+  // surface vocabulary. Removing them hid the false positive most worth finding.
+  const { samples, human } = inputsForCorpus({ human: 24, ai: 12 });
+  const names = samples.map((s) => s.name);
+
+  check("human documents that discuss AI are NOT excluded",
+    human.length === 24, `asked 24 human, got ${human.length}`);
+  // The paired positive: the guard must still bite where the label really does leak.
+  const aiNames = names.filter((n) => n.startsWith("x-"));
+  const aiDir = new URL("../tests/corpus/ai/", import.meta.url);
+  const leaky = readdirSync(aiDir).filter((f) => f.endsWith(".txt"))
+    .filter((f) => NAMES_AUTHORSHIP.test(readFileSync(new URL(f, aiDir), "utf8")));
+  check("but AI samples naming their own authorship still are",
+    leaky.length > 0 && !aiNames.some((n) => leaky.some((f) => n.includes(f.replace(/\.txt$/, "")))),
+    `${leaky.length} leaky AI samples; none may appear in the draw`);
+}
+
+/* ------------------------------------------------------------------ */
 group("pattern-harness staging leaks (FN-2026-08-06-o)");
 
 {
@@ -2485,6 +2566,90 @@ group("pattern-harness staging leaks (FN-2026-08-06-o)");
 
   check("the id guard covers every not_deterministic key without being told them",
     catalogIds.every((id) => IDS.test(id)), catalogIds.filter((id) => !IDS.test(id)).join(","));
+}
+
+
+/* ------------------------------------------------------------------ */
+group("pattern-harness corpus selection");
+
+{
+  // WHAT BREAKS IF THIS REGRESSES: the sweep goes back to measuring five human documents,
+  // where one arguable finding moves the false-positive figure by twenty points and a real
+  // regression is indistinguishable from a judgement call. That is not hypothetical - it is
+  // the state this rule replaced, with ~355 human documents sitting unused in the corpus.
+  const SWEEP = { human: 24, ai: 12 };
+  const picked = inputsForCorpus(SWEEP);
+
+  check("the sweep can draw at least 20 human documents",
+    picked.human.length >= 20, `drew ${picked.human.length}`);
+
+  // The single-author half must SPREAD. Chekhov is 113 of 293 essay samples, so an
+  // every-Nth rule over a merged listing is mostly a measurement of one correspondent -
+  // which looks identical, in the run log, to a sweep that covers seven registers.
+  const gutenbergAuthors = new Set(
+    readdirSync(join(HERE, "corpus", "human-essays", "gutenberg"))
+      .filter((f) => f.endsWith(".txt"))
+      .map((f) => readFileSync(join(HERE, "corpus", "human-essays", "gutenberg", f), "utf8")
+        .match(/^author:[ \t]*(.+)$/m)[1].trim()),
+  );
+  const missed = [...gutenbergAuthors].filter((a) => !picked.authors.includes(a));
+  check("every single-author corpus author appears in the draw",
+    missed.length === 0, `missing: ${missed.join(", ")}`);
+
+  // All three human buckets, because they are different KINDS of evidence: one
+  // identifiable writer, an encyclopedia written by committee, and edited contemporary
+  // advocacy. A pool drawn entirely from the first measures a century-old register.
+  const from = (leaf) => picked.human.filter((s) => dirname(s.file).endsWith(leaf)).length;
+  const essays = from("gutenberg") + from("pluralistic");
+  check("the human pool spans all three human buckets",
+    essays > 0 && from("human") > 0 && from("human-professional") > 0,
+    `essays=${essays} wikipedia=${from("human")} eff=${from("human-professional")}`);
+
+  // INDEPENDENCE. The human half bounds false positives; the AI half checks the critic is
+  // not decorative. A shared knob is how a threshold got set against a pool sized for the
+  // other column, so changing one count must not move the other's draw.
+  const moreAi = inputsForCorpus({ human: SWEEP.human, ai: SWEEP.ai * 2 });
+  check("changing --ai does not change which human documents are drawn",
+    JSON.stringify(moreAi.human) === JSON.stringify(picked.human));
+  check("and --ai actually moves the AI column",
+    moreAi.ai.length > picked.ai.length, `${picked.ai.length} -> ${moreAi.ai.length}`);
+
+  // The rule must be a rule: same request, same samples, every time. A selection that
+  // varied between runs could not be audited by re-running it.
+  check("the same request draws the same samples",
+    JSON.stringify(inputsForCorpus(SWEEP).samples) === JSON.stringify(picked.samples));
+
+  // THE NEGATIVE. Over-requesting must come back SHORT, not padded. Refilling a thin
+  // stratum from a fat one restores exactly the imbalance the stratification removes, and
+  // it would do it invisibly - the count asked for would be the count returned.
+  const greedy = inputsForCorpus({ human: 4000, ai: 4000 });
+  check("an over-large request is not padded and repeats no sample",
+    greedy.samples.length < 4000 + 4000
+    && new Set(greedy.samples.map((s) => s.file)).size === greedy.samples.length,
+    `${greedy.samples.length} samples, ${new Set(greedy.samples.map((s) => s.file)).size} unique`);
+
+  // The exclusion guard still runs and is still reported. It changes the denominator, so a
+  // sweep that stopped counting exclusions would be quoting a rate over an unstated base.
+  check("the selection report states the exclusions by bucket",
+    /excluded because their own body text names AI authorship: \w/.test(picked.report),
+    picked.report);
+  // NARROWED 2026-08-06, from "no drawn sample" to "no drawn AI sample", and the change is
+  // deliberate rather than a weakening to make a run pass.
+  //
+  // The original asserted a property of the old exclusion rule, which dropped ANY sample
+  // whose body mentions AI. That rule was over-broad: it removed 7 HUMAN documents - 4 EFF,
+  // 3 Doctorow - for discussing LLMs. A human document saying "AI slop" reveals nothing
+  // about who wrote it, and those are the hardest human cases in the corpus, the ones where
+  // a critic hunting AI-writing patterns is most likely to be fooled by vocabulary. Keeping
+  // them is the point of the change; this assertion had to follow it.
+  //
+  // The invariant that actually mattered is untouched and still tested: an AI-labelled
+  // sample must never carry the talk-page comment that got it listed, because for those the
+  // phrase IS the label.
+  const named = picked.samples.filter((s) => s.name.startsWith("x-")
+    && NAMES_AUTHORSHIP.test(readFileSync(s.file, "utf8").replace(/^---\n[\s\S]*?\n---\n/, "")));
+  check("no drawn AI sample names AI authorship in its own body",
+    named.length === 0, named.map((s) => s.name).join(", "));
 }
 
 process.stdout.write(`\n${"─".repeat(60)}\n`);

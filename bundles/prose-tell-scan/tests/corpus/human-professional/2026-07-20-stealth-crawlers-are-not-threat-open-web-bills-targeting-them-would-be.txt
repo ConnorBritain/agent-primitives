@@ -6,6 +6,7 @@ date: 2026-07-20
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/stealth-crawlers-are-not-threat-open-web-bills-targeting-them-would-be
 ---
 There’s a new boogeyman in the battles over AI: so-called “stealth crawlers.” We’ll admit it—the term “stealth crawlers” sounds quite nefarious. In reality, they’re anything but.

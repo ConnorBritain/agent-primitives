@@ -1,0 +1,541 @@
+---
+source: Project Gutenberg 7150
+title: The State and the Medical Profession
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+At intervals during the last quarter of a century committees of the
+Houses of the Legislature and specially appointed commissions have
+occupied themselves with the affairs of the medical profession. Much
+evidence has been taken, much wrangling has gone on over the reports of
+these bodies; and sometimes much trouble has been taken to get measures
+based upon all this work through Parliament, but very little has been
+achieved.
+
+The Bill introduced last session was not more fortunate than several
+predecessors. I suppose that it is not right to rejoice in the
+misfortunes of anything, even a Bill; but I confess that this event
+afforded me lively satisfaction, for I was a member of the Royal
+Commission on the report of which the Bill was founded, and I did my
+best to oppose and nullify that report.
+
+That the question must be taken up again and finally dealt with by the
+Legislature before long cannot be doubted; but in the meanwhile there
+is time for reflection, and I think that the non-medical public would
+be wise if they paid a little attention to a subject which is really of
+considerable importance to them.
+
+The first question which a plain man is disposed to ask himself is, Why
+should the State interfere with the profession of medicine any more
+than it does, say, with the profession of engineering? Anybody who
+pleases may call himself an engineer, and may practice as such. The
+State confers no title upon engineers, and does not profess to tell the
+public that one man is a qualified engineer and that another is not so.
+
+The answers which are given to the question are various, and most of
+them, I think, are bad. A large number of persons seem to be of opinion
+that the State is bound no less to take care of the general public,
+than to see that it is protected against incompetent persons, against
+quacks and medical impostors in general. I do not take that view of the
+case. I think it is very much wholesomer for the public to take care of
+itself in this as in all other matters; and although I am not such a
+fanatic for the liberty of the subject as to plead that interfering
+with the way in which a man may choose to be killed is a violation of
+that liberty, yet I do think that it is far better to let everybody do
+as he likes. Whether that be so or not, I am perfectly certain that, as
+a matter of practice, it is absolutely impossible to prohibit the
+practice of medicine by people who have no special qualification for
+it. Consider the terrible consequences of attempting to prohibit
+practice by a very large class of persons who are certainly not
+technically qualified--I am far from saying a word as to whether
+they are otherwise qualified or not. The number of Ladies
+Bountiful--grandmothers, aunts, and mothers-in-law--whose chief delight
+lies in the administration of their cherished provision of domestic
+medicine, is past computation, and one shudders to think of what might
+happen if their energies were turned from this innocuous, if not
+beneficent channel, by the strong arm of the law. But the thing is
+impracticable.
+
+Another reason for intervention is propounded, I am sorry to say, by
+some, though not many, members of the medical profession, and is simply
+an expression of that trades unionism which tends to infest professions
+no less than trades.
+
+The general practitioner trying to make both ends meet on a poor
+practice, whose medical training has cost him a good deal of time and
+money, finds that many potential patients, whose small fees would be
+welcome as the little that helps, prefer to go and get their shilling's
+worth of "doctor's stuff" and advice from the chemist and druggist
+round the corner, who has not paid sixpence for his medical training,
+because he has never had any.
+
+The general practitioner thinks this is very hard upon him and ought to
+be stopped. It is perhaps natural that he should think so, though it
+would be very difficult for him to justify his opinion on any ground of
+public policy. But the question is really not worth discussion, as it
+is obvious that it would be utterly impracticable to stop the practice
+"over the counter" even it it were desirable.
+
+Is a man who has a sudden attack of pain in tooth or stomach not to be
+permitted to go to the nearest druggist's shop and ask for something
+that will relieve him? The notion is preposterous. But if this is to be
+legal, the whole principle of the permissibility of counter practice is
+granted.
+
+In my judgment the intervention of the State in the affairs of the
+medical profession can be justified not upon any pretence of protecting
+the public, and still less upon that of protecting the medical
+profession, but simply and solely upon the fact that the State employs
+medical men for certain purposes, and, as employer, has a right to
+define the conditions on which it will accept service. It is for the
+interest of the community that no person shall die without there being
+some official recognition of the cause of his death. It is a matter of
+the highest importance to the community that, in civil and criminal
+cases, the law shall be able to have recourse to persons whose evidence
+may be taken as that of experts; and it will not be doubted that the
+State has a right to dictate the conditions under which it will appoint
+persons to the vast number of naval, military, and civil medical
+offices held directly or indirectly under the Government. Here, and
+here only, it appears to me, lies the justification for the
+intervention of the State in medical affairs. It says, or, in my
+judgment, should say, to the public, "Practice medicine if you like--go
+to be practised upon by anybody;" and to the medical practitioner,
+"Have a qualification, or do not have a qualification if people don't
+mind it; but if the State is to receive your certificate of death, if
+the State is to take your evidence as that of an expert, if the State
+is to give you any kind of civil, or military, or naval appointment,
+then we can call upon you to comply with our conditions, and to produce
+evidence that you are, in our sense of the word, qualified. Without
+that we will not place you in that position." As a matter of fact, that
+is the relation of the State to the medical profession in this country.
+For my part, I think it an extremely healthy relation; and it is one
+that I should be very sorry to see altered, except in so far that it
+would certainly be better if greater facilities were given for the
+swift and sharp punishment of those who profess to have the State
+qualification when, in point of fact, they do not possess it. They are
+simply cheats and swindlers, like other people who profess to be what
+they are not, and should be punished as such.
+
+But supposing we are agreed about the justification of State
+intervention in medical affairs, new questions arise as to the manner
+in which that intervention should take place and the extent to which it
+should go, on which the divergence of opinion is even greater than it
+is on the general question of intervention.
+
+It is now, I am sorry to say, something over forty years since I began
+my medical studies; and, at that time, the state of affairs was
+extremely singular. I should think it hardly possible that it could
+have obtained anywhere but in such a country as England, which
+cherishes a fine old crusted abuse as much as it does its port wine. At
+that time there were twenty-one licensing bodies--that is to say,
+bodies whose certificate was received by the State as evidence that the
+persons who possessed that certificate were medical experts. How these
+bodies came to possess these powers is a very curious chapter in
+history, in which it would be out of place to enlarge. They were partly
+universities, partly medical guilds and corporations, partly the
+Archbishop of Canterbury. Those were the three sources from which the
+licence to practice came in that day. There was no central authority,
+there was nothing to prevent any one of those licensing authorities
+from granting a licence to any one upon any conditions it thought fit.
+The examination might be a sham, the curriculum might be a sham, the
+certificate might be bought and sold like anything in a shop; or, on
+the other hand, the examination might be fairly good and the diploma
+correspondingly valuable; but there was not the smallest guarantee,
+except the personal character of the people who composed the
+administration of each of these licensing bodies, as to what might
+happen. It was possible for a young man to come to London and to spend
+two years and six months of the time of his compulsory three years
+"walking the hospitals" in idleness or worse; he could then, by putting
+himself in the hands of a judicious "grinder" for the remaining six
+months, pass triumphantly through the ordeal of one hour's _vivâ voce_
+examination, which was all that was absolutely necessary, to
+enable him to be turned loose upon the public, like death on the pale
+horse, "conquering and to conquer," with the full sanction of the law,
+as a "qualified practitioner."
+
+It is difficult to imagine, at present, such a state of things, still
+more difficult to depict the consequences of it, because they would
+appear like a gross and malignant caricature; but it may be said that
+there was never a system, or want of system, which was better
+calculated to ruin the students who came under it, or to degrade the
+profession as a whole. My memory goes back to a time when models from
+whom the Bob Sawyer of the _Pickwick Papers_ might have been drawn
+were anything but rare.
+
+Shortly before my student days, however, the dawn of a better state of
+things in England began to be visible, in consequence of the
+establishment of the University of London, and the comparatively very
+high standard which it placed before its medical graduates.
+
+I say comparatively high standard, for the requirements of the
+University in those days, and even during the twelve years at a later
+period, when I was one of the examiners of the medical faculty, were
+such as would not now be thought more than respectable, and indeed were
+in many respects very imperfect. But, relatively to the means of
+learning, the standard was high, and none but the more able and
+ambitious of the students dreamed of passing the University.
+Nevertheless, the fact that many men of this stamp did succeed in
+obtaining their degrees, led others to follow in their steps, and
+slowly but surely reacted upon the standard of teaching in the better
+medical schools. Then came the Medical Act of 1858. That Act introduced
+two immense improvements: one of them was the institution of what is
+called the Medical Register, upon which the names of all persons
+recognised by the State as medical practitioners are entered: and the
+other was the establishment of the Medical Council, which is a kind of
+Medical Parliament, composed of representatives of the licensing bodies
+and of leading men in the medical profession nominated by the Crown.
+The powers given by the Legislature to the Medical Council were found
+practically to be very limited, but I think that no fair observer of
+the work will doubt that this much attacked body has excited no small
+influence in bringing about the great change for the better, which has
+been effected in the training of men for the medical profession within
+my recollection.
+
+Another source of improvement must be recognised in the Scottish
+Universities, and especially in the medical faculty of the University
+of Edinburgh. The medical education and examinations of this body were
+for many years the best of their kind in these islands, and I doubt if,
+at the present moment, the three kingdoms can show a better school of
+medicine than that of Edinburgh. The vast number of medical students at
+that University is sufficient evidence of the opinion of those most
+interested in this subject.
+
+Owing to all those influences, and to the revolution which has taken
+place in the course of the last twenty years in our conceptions of the
+proper method of teaching physical science, the training of the medical
+student in a good school, and the examination test applied by the great
+majority of the present licensing bodies, reduced now to nineteen, in
+consequence of the retirement of the Archbishop and the fusion of two
+of the other licensing bodies, are totally different from what they
+were even twenty years ago.
+
+I was perfectly astonished, upon one of my sons commencing his medical
+career the other day, when I contrasted the carefully-watched courses
+of theoretical and practical instruction, which he is expected to
+follow with regularity and industry, and the number and nature of the
+examinations which he will have to pass before he can receive his
+licence, not only with the monstrous laxity of my own student days, but
+even with the state of things which obtained when my term of office as
+examiner in the University of London expired some sixteen years ago.
+
+I have no hesitation in expressing the opinion, which is fully borne
+out by the evidence taken before the late Royal Commission, that a
+large proportion of the existing licensing bodies grant their licence
+on conditions which ensure quite as high a standard as it is
+practicable or advisable to exact under present circumstances, and that
+they show every desire to keep pace with the improvements of the times.
+And I think there can be no doubt that the great majority have so much
+improved their ways, that their standard is far above that of the
+ordinary qualification thirty years ago, and I cannot see what excuse
+there would be for meddling with them if it were not for two other
+defects which have to be remedied.
+
+Unfortunately there remain two or three black sheep--licensing bodies
+which simply trade upon their privilege, and sell the cheapest wares
+they can for shame's sake supply to the bidder. Another defect in the
+existing system, even where the examination has been so greatly
+improved as to be good of its kind, is that there are certain licensing
+bodies which give a qualification for an acquaintance with either
+medicine or surgery alone, and which more or less ignore obstetrics.
+This is a revival of the archaic condition of the profession when
+surgical operations were mostly left to the barbers and obstetrics to
+the mid-wives, and when the physicians thought themselves, and were
+considered by the world, the "superior persons" of the profession. I
+remember a story was current in my young days of a great court
+physician who was travelling with a friend, like himself, bound on a
+visit to a country house. The friend fell down in an apoplectic fit,
+and the physician refused to bleed him because it was contrary to
+professional etiquette for a physician to perform that operation.
+Whether the friend died or whether he got better because he was not
+bled I do not remember, but the moral of the story is the same. On the
+other hand, a famous surgeon was asked whether he meant to bring up his
+son to his own calling, "No," he said, "he is such a fool, I mean to
+make a physician of him."
+
+Nowadays, it is happily recognised that medicine is one and
+indivisible, and that no one can properly practice one branch who is
+not familiar with at any rate the principles of all. Thus the two great
+things that are wanted now are, in the first place, some means of
+enforcing such a degree of uniformity upon all the examining bodies
+that none should present a disgracefully low minimum or pass
+examination; and the second point is that some body or other shall have
+the power of enforcing upon every candidate for the licence to practice
+the study of the three branches, what is called the tripartite
+qualification. All the members of the late commission were agreed that
+these were the main points to be attended to in any proposals for the
+further improvement of medical training and qualification.
+
+But such being the ends in view, our notions as to the best way of
+attaining them were singularly divergent; so that it came about that
+eleven commissioners made seven reports. There was one main majority
+report and six minor reports, which differed more or less from it,
+chiefly as to the best method of attaining these two objects.
+
+The majority report recommended the adoption of what is known as the
+conjoint scheme. According to this plan the power of granting a licence
+to practise is to be taken away from all the existing bodies, whether
+they have done well or ill, and to be placed in the hands of a body of
+delegates (divisional boards), one for each of the three kingdoms. The
+licence to practise is to be conferred by passing the delegate
+examination. The licensee may afterwards, if he pleases, go before any
+of the existing bodies and indulge in the luxury of another examination
+and the payment of another fee in order to obtain a title, which does
+not legally place him in any better position than that which he would
+occupy without it.
+
+Under these circumstances, of course, the only motive for obtaining the
+degree of a University or the licence of a medical corporation would be
+the prestige of these bodies. Hence the "black sheep" would certainly
+be deserted, while those bodies which have acquired a reputation by
+doing their duty would suffer less.
+
+But, as the majority report proposes that the existing bodies should be
+compensated for any loss they might suffer out of the fees of the
+examiners for the State licence, the curious result would be brought
+about that the profession of the future would be taxed, for all time,
+for the purpose of handing over to wholly irresponsible bodies a sum,
+the amount of which would be large for those who had failed in their
+duty and small for those who had done it.
+
+The scheme in fact involved a perpetual endowment of the "black
+sheep," calculated on the maximum of their ill-gained profits.  I
+confess that I found myself unable to assent to a plan which, in
+addition to the rewarding the evil doers, proposed to take away the
+privileges of a number of examining bodies which confessedly were doing
+their duty well, for the sake of getting rid of a few who had failed.
+It was too much like the Chinaman's device of burning down his house to
+obtain a poor dish of roast pig--uncertain whether in the end he might
+not find a mere mass of cinders. What we do know is that the great
+majority of the existing licensing bodies have marvellously improved in
+the course of the last twenty years, and are improving. What we do not
+know is that the complicated scheme of the divisional boards will ever
+be got to work at all.
+
+My own belief is that every necessary reform may be effected, without
+any interference with vested interests, without any unjust interference
+with the prestige of institutions which have been, and still are,
+extremely valuable, without any question of compensation arising, and
+by an extremely simple operation. It is only necessary in fact to add a
+couple of clauses to the Medical Act to this effect: (1) That from and
+after such a date no person shall be placed upon the Medical Register
+unless he possesses the threefold qualification. (2) That from and
+after this date no examination shall be accepted as satisfactory
+from any licensing body except such as has been carried on in part
+by examiners appointed by the licensing body, and in part by
+coadjutor-examiners of equal authority appointed by the Medical Council
+or other central authority, and acting under their instructions.
+
+In laying down a rule of this kind the State confiscates nothing, and
+meddles with nobody, but simply acts within its undoubted right of
+laying down the conditions under which it will confer certain
+privileges upon medical practitioners. No one can say that the State
+has not the right to do this; no one can say that the State interferes
+with any private enterprise or corporate interest unjustly, in laying
+down its own conditions for its own service. The plan would have the
+further advantage that all those corporate bodies which have obtained
+(as many of them have) a great and just prestige by the admirable way
+in which they have done their work, would reap their just reward in the
+thronging of students, thenceforward as formerly, to obtain their
+qualifications; while those who have neglected their duties, who have
+in some one or two cases, I am sorry to say, absolutely disgraced
+themselves, would sink into oblivion, and come to a happy and natural
+euthanasia, in which their misdeeds and themselves would be entirely
+forgotten.
+
+Two of my colleagues, Professor Turner and Mr. Bryce, M.P., whose
+practical familiarity with examinations gave their opinions a high
+value, expressed their substantial approval of this scheme, and I am
+unable to see the weight of the objections urged against it. It is
+urged that the difficulty and expense of adequately inspecting so many
+examinations and of guaranteeing their efficiency would be great, and
+the difficulty in the way of a fair adjustment of the representation of
+existing interests and of the representation of new interests upon the
+general Medical Council would be almost insuperable.
+
+The latter objection is unintelligible to me. I am not aware that any
+attempt at such adjustment has been fairly discussed, and until that
+has been done it may be well not to talk about insuperable
+difficulties. As to the notion that there is any difficulty in getting
+the coadjutor-examiners, or that the expense will be overwhelming, we
+have the experience of Scotland, in which every University does, at the
+present time, appoint its coadjutor-examiners, who do their work just
+in the way proposed.
+
+Whether in the way I have proposed, or by the Conjoint Scheme, however,
+this is perfectly certain: the two things I refer to have to be done:
+you must have the threefold qualification; you must have the limitation
+of the minimum qualification also; and any scheme for the improvement
+of the relations of the State to medicine which does not profess to do
+these two things thoroughly and well, has no chance of finality.
+
+But when these reforms are witnessed, when there is a Medical Council
+armed with a more real authority than it at present possesses; when a
+license to practice cannot be obtained without the threefold
+qualification; and when an even minimum of qualification is exacted for
+every licence, is there anything else that remains that any one
+seriously interested in the welfare of the medical profession, as I may
+most conscientiously declare myself to be, would like to see done? I
+think there are three things.
+
+In the first place, even now, when a four years' curriculum is
+required, the time allotted for medical education is too brief. A young
+man of eighteen beginning to study medicine is probably absolutely
+ignorant of the existence of such a thing as anatomy, or physiology, or
+indeed of any branch of physical science. He comes into an entirely new
+world; he addresses himself to a kind of work of which he has not the
+smallest experience. Up to that time his work has been with books; he
+rushes suddenly into work with things, which is as different from work
+with books as anything can well be. I am quite sure that a very
+considerable number of young men spend a very large portion of their
+first session in simply learning how to learn subjects which are
+entirely new to them. And yet recollect that in this period of four
+years they have to acquire a knowledge of all the branches of a great
+and responsible practical calling of medicine, surgery, obstetrics,
+general pathology, medical jurisprudence, and so forth. Anybody who
+knows what these things are, and who knows what is the kind of work
+which is necessary to give a man the confidence which will enable him
+to stand at the bedside and say to the satisfaction of his own
+conscience what shall be done, and what shall not be done, must be
+aware that if a man has only four years to do all that in he will not
+have much time to spare. But that is not all. As I have said, the young
+man comes up, probably ignorant of the existence of science; he has
+never heard a word of chemistry, he has never heard a word of physics,
+he has not the smallest conception of the outlines of biological
+science; and all these things have to be learned as well and crammed
+into the time which in itself is barely sufficient to acquire a fair
+amount of that knowledge which is requisite for the satisfactory
+discharge of his professional duties.
+
+Therefore it is quite clear to me that, somehow or other, the
+curriculum must be lightened. It is not that any of the subjects which
+I have mentioned need not to be studied, and may be eliminated. The
+only alternative therefore is to lengthen the time given to study.
+Everybody will agree with me that the practical necessities of life in
+this country are such that, for the average medical practitioner at any
+rate, it is hopeless to think of extending the period of professional
+study beyond the age of twenty-two. So that as the period of study
+cannot be extended forwards, the only thing to be done is to extend it
+backwards.
+
+The question is how this can be done. My own belief is that if the
+Medical Council, instead of insisting upon that examination in general
+education which I am sorry to say I believe to be entirely futile, were
+to insist upon a knowledge of elementary physics, and chemistry, and
+biology, they would be taking one of the greatest steps which at
+present can be made for the improvement of medical education. And the
+improvement would be this. The great majority of the young men who are
+going into the profession have practically completed their general
+education--or they might very well have done so--by the age of sixteen
+or seventeen. If the interval between this age and that at which they
+commence their purely medical studies were employed in obtaining a
+practical acquaintance with elementary physics, chemistry, and biology,
+in my judgment it would be as good as two years added to the course of
+medical study. And for two reasons: in the first place, because the
+subject-matter of that which they would learn is germane to their
+future studies, and is so much gained; in the second place, because you
+might clear out of the course of their professional study a great deal
+which at present occupies time and attention; and last, but not
+least--probably most--they would then come to their medical studies
+prepared for that learning from Nature which is what they have to do in
+the course of becoming skilful medical men, and for which at present
+they are not in the slightest degree prepared by their previous
+education.
+
+The second wish I have to express concerns London especially, and I may
+speak of it briefly as a more economical use of the teaching power in
+the medical schools. At this present time every great hospital in
+London--and there are ten or eleven of them--has its complete medical
+school, in which not only are the branches of practical medicine
+taught, but also those studies in general science, such as chemistry,
+elementary physics, general anatomy, and a variety of other topics
+which are what used to be called (and the term was an extremely useful
+one) the institutes of medicine. That was all very well half a century
+ago; it is all very ill now, simply because those general branches of
+science, such as anatomy, physiology, chemistry, physiological
+chemistry, physiological physics, and so forth, have now become so
+large, and the mode of teaching them is so completely altered, that it
+is absolutely impossible for any man to be a thoroughly competent
+teacher of them, or for any student to be effectually taught without
+the devotion of the whole time of the person who is engaged in
+teaching. I undertake to say that it is hopelessly impossible for any
+man at the present time to keep abreast with the progress of physiology
+unless he gives his whole mind to it; and the bigger the mind is, the
+more scope he will find for its employment. Again, teaching has become,
+and must become still more, practical, and that also involves a large
+expenditure of time. But if a man is to give his whole time to my
+business he must live by it, and the resources of the schools do not
+permit them to maintain ten or eleven physiological specialists.
+
+If the students in their first one or two years were taught the
+institutes of medicine, in two or three central institutions, it would
+be perfectly easy to have those subjects taught thoroughly and
+effectually by persons who gave their whole mind and attention to the
+subject; while at the same time the medical schools at the hospitals
+would remain what they ought to be--great institutions in which the
+largest possible opportunities are laid open for acquiring practical
+acquaintance with the phenomena of disease. So that the preliminary or
+earlier half of medical education would take place in the central
+institutions, and the final half would be devoted altogether to
+practical studies in the hospitals.
+
+I happen to know that this conception has been entertained, not only by
+myself, but by a great many of those persons who are most interested in
+the improvement of medical study for a considerable number of years. I
+do not know whether anything will come of it this half-century or not;
+but the thing has to be done. It is not a speculative notion; it lies
+patent to everybody who is accustomed to teaching, and knows what the
+necessities of teaching are; and I should very much like to see the
+first step taken--people making up their minds that it has to be done
+somehow or other.
+
+The last point to which I may advert is one which concerns the action
+of the profession itself more than anything else. We have arrangements
+for teaching, we have arrangements for the testing of qualifications,
+we have marvellous aids and appliances for the treatment of disease in
+all sorts of ways; but I do not find in London at the present time, in
+this little place of four or five million inhabitants which supports so
+many things, any organisation or any arrangement for advancing the
+science of medicine, considered as a pure science. I am quite aware
+that there are medical societies of various kinds; I am not ignorant of
+the lectureships at the College of Physicians and the College of
+Surgeons; there is the Brown Institute; and there is the Society for
+the Advancement of Medicine by Research, but there is no means, so far
+as I know, by which any person who has the inborn gifts of the
+investigator and discoverer of new truth, and who desires to apply that
+to the improvement of medical science, can carry out his intention. In
+Paris there is the University of Paris, which gives degrees; but there
+are also the Sorbonne and the Collége de France, places in which
+professoriates are established for the express purpose of enabling men
+who have the power of investigation, the power of advancing knowledge
+and thereby reacting on practice, to do that which it is their special
+mission to do. I do not know of anything of the kind in London; and if
+it should so happen that a Claude Bernard or a Ludwig should turn up in
+London, I really have not the slightest notion of what we could do with
+him. We could not turn him to account, and I think we should have to
+export him to Germany or France. I doubt whether that is a good or a
+wise condition of things. I do not think it is a condition of things
+which can exist for any great length of time, now that people are every
+day becoming more and more awake to the importance of scientific
+investigation and to the astounding and unexpected manner in which it
+everywhere reacts upon practical pursuits. I should look upon the
+establishment of some institution of that kind as a recognition on the
+part of the medical profession in general, that if their great and
+beneficent work is to be carried on, they must, like other people who
+have great and beneficent work to do, contribute to the advancement of
+knowledge in the only way in which experience shows that it can be
+advanced.
+
+       *       *       *       *       *
+
+Footnotes:
+
+The fees to be paid by candidates for admission to the examinations
+of the Divisional Board should be of such an amount as will be
+sufficient to cover the cost of the examinations and the other expenses
+of the Divisional Board, _and also to provide the sum required to
+compensate the medical authorities, or such of them as may be entitled
+to compensation, for any pecuniary losses they may hereafter sustain by
+reason of the abolition of their privilege of conferring a licence to
+practise. Report_ 50, p. xii.

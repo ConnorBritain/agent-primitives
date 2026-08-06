@@ -43,6 +43,31 @@
  *     a deliberately different narrator - vernacular, ironic, first-person or
  *     mock-omniscient, short-sentenced, punchline-shaped.
  *
+ *   T. H. Huxley (1893): Science & Education. 17 public lectures and
+ *     addresses. The EXPLANATORY register - see below.
+ *
+ *   Charles Darwin (1839): The Voyage of the Beagle. 21 chapters of
+ *     observational science writing. Explanatory again, and deliberately at
+ *     the other end of it from Huxley: particular where Huxley is general.
+ *
+ * WHY THE EXPLANATORY REGISTER IS NOT OPTIONAL HERE. Everything above argues,
+ * addresses, or narrates. None of it EXPLAINS - takes a thing the reader does
+ * not know and builds it up from general statements about how the world works.
+ * That gap matters for the false-positive half of the pattern critic's sweep in
+ * particular, because explanatory prose is abstract and general BY NATURE: it
+ * states what is true of a class rather than of an instance, it hedges where
+ * the evidence hedges, and it summarises before it particularises. Those are
+ * the surface features `absence-of-concrete-detail` and
+ * `surveying-without-committing` are shaped like. A critic that fires on
+ * Huxley explaining what a lecture is for has found a register, not a tell,
+ * and until this corpus held the register nothing could show that.
+ *
+ * Huxley and Darwin sit far apart inside it on purpose, for the same reason
+ * Chopin and O. Henry do inside narration. Huxley's addresses are general and
+ * argumentative about method; Darwin's chapters are dense with specific
+ * observation - dates, places, species, measurements. A tool that treats
+ * "explanatory" as one cadence will disagree with one of them.
+ *
  * WHY TWO NARRATORS AND NOT MORE OF ONE. calibrate.mjs derives its bands from
  * BETWEEN-SAMPLE variation, so twenty more Chekhov letters narrow a band that
  * is already narrow, while a new author in an uncovered register widens what
@@ -54,7 +79,8 @@
  * The Awakening from The Four Million is not reading voice, it is reading
  * genre.
  *
- * All five are public domain. See LICENSE for the rules on adding more.
+ * All seven are public domain. See LICENSE for the rules on adding more, and
+ * the per-source LICENCE notes in SOURCES below for the evidence on each.
  *
  * ============================================================================
  * LICENSING - read before adding a source
@@ -214,6 +240,66 @@ const SOURCES = [
     expected_essays: 25,
     stop_at: null,
     min_body_words: 200,
+    keep: () => true,
+  },
+  {
+    // T. H. Huxley, Science & Education (Collected Essays vol. III, 1893).
+    // Seventeen lectures and addresses on what science is and how it should
+    // be taught. This is the EXPLANATORY register in its general form: the
+    // subject is a method rather than an event, so the prose states what is
+    // true of a class and only then reaches for an instance.
+    //
+    // LICENCE. Public domain. Huxley died in 1895 (life+70 expired 1965) and
+    // the volume was published in 1893, before the 1930 US cutoff - it clears
+    // both grounds independently. PG 7150.
+    //
+    // The table of contents lists each essay on ONE line ("I  JOSEPH PRIESTLEY
+    // [1874]"); the body sets the numeral and the title on separate lines. The
+    // two-line form is therefore what distinguishes body from ToC, which is
+    // why the regex spans the blank line instead of anchoring a start marker.
+    // 17 matches over the whole book; verify that count before any re-fetch.
+    id: "7150",
+    author: "Thomas H. Huxley",
+    author_slug: "huxley",
+    title: "Science & Education: Essays",
+    date: "1893",
+    heading: /^([IVXLC]+)\r?\n\r?\n([\p{Lu}][^\n]{2,90})\r?$/gmu,
+    expected_essays: 17,
+    stop_at: null,
+    // Essay IX's heading carries a footnote reference - "ADDRESS ON UNIVERSITY
+    // EDUCATION [1]". cleanBody strips those from the body; the title needs the
+    // same treatment or the frontmatter and the filename both carry a marker
+    // that refers to a note the sample does not contain.
+    title_from: (title) => titleCase(title.replace(/\s*\[\d+\]/g, "").trim()),
+    min_body_words: 200,
+    keep: () => true,
+  },
+  {
+    // Charles Darwin, The Voyage of the Beagle (1839). Explanatory again and
+    // deliberately unlike Huxley: 21 chapters of observation, thick with
+    // places, dates, species and measurements. Huxley explains a method in
+    // general terms; Darwin explains a world by piling up particulars. Holding
+    // both means "explanatory" cannot be collapsed into one cadence.
+    //
+    // LICENCE. Public domain. Darwin died in 1882 (life+70 expired 1952) and
+    // the Journal was published in 1839, before the 1930 US cutoff. PG 944.
+    //
+    // Chapter headings are "CHAPTER I" at column 0 and the edition carries no
+    // table of contents in that form, so 21 headings match 21 chapters with no
+    // start marker needed. Each chapter ends in a numbered footnote block,
+    // which cleanBody trims.
+    id: "944",
+    author: "Charles Darwin",
+    author_slug: "darwin",
+    title: "The Voyage of the Beagle",
+    date: "1839",
+    heading: /^CHAPTER ([IVXLC]+)\r?$/gm,
+    expected_essays: 21,
+    stop_at: null,
+    // The heading is a numeral, not a title - same problem Chopin has, same fix.
+    title_from: (title) => `The Voyage of the Beagle, Chapter ${title}`,
+    min_body_words: 200,
+    numbered_filename: true,
     keep: () => true,
   },
 ];

@@ -13,7 +13,8 @@
       "author": "India McKinney",
       "permalink": "https://www.eff.org/deeplinks/2026/08/senate-vote-tomorrow-four-internet-bills-one-wrong-direction",
       "pubDate": "Wed, 05 Aug 2026 00:15:11 +0000",
-      "words": 240
+      "words": 240,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-04-appeals-court-agrees-eff-building-web-browser-doesnt-violate-cfaa.txt",
@@ -21,7 +22,8 @@
       "author": "Andrew Crocker",
       "permalink": "https://www.eff.org/deeplinks/2026/08/appeals-court-agrees-eff-building-web-browser-doesnt-violate-cfaa",
       "pubDate": "Tue, 04 Aug 2026 22:32:39 +0000",
-      "words": 394
+      "words": 394,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-04-mobile-ad-software-encourages-location-data-sharing-eff-report-finds.txt",
@@ -29,7 +31,8 @@
       "author": "Josh Richman",
       "permalink": "https://www.eff.org/press/releases/mobile-ad-software-encourages-location-data-sharing-eff-report-finds",
       "pubDate": "Tue, 04 Aug 2026 19:30:41 +0000",
-      "words": 392
+      "words": 392,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-04-developers-beware-ad-libraries-betray-your-users-location-privacy.txt",
@@ -37,7 +40,8 @@
       "author": "Lena Cohen",
       "permalink": "https://www.eff.org/deeplinks/2026/07/developers-beware-ad-libraries-betray-your-users-location-privacy",
       "pubDate": "Tue, 04 Aug 2026 19:30:21 +0000",
-      "words": 3144
+      "words": 3144,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-04-vv26.txt",
@@ -45,7 +49,8 @@
       "author": "Aaron Jue",
       "permalink": "https://www.eff.org/deeplinks/2026/07/vv26",
       "pubDate": "Tue, 04 Aug 2026 14:12:50 +0000",
-      "words": 386
+      "words": 386,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-03-senate-should-reject-kosas-privacy-risks.txt",
@@ -53,7 +58,8 @@
       "author": "Joe Mullin",
       "permalink": "https://www.eff.org/deeplinks/2026/08/senate-should-reject-kosas-privacy-risks",
       "pubDate": "Mon, 03 Aug 2026 23:47:38 +0000",
-      "words": 625
+      "words": 625,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-03-eff-joins-18-civil-rights-organizations-calling-governor-hochul-reject-stealth.txt",
@@ -61,7 +67,8 @@
       "author": "Rindala Alajaji",
       "permalink": "https://www.eff.org/deeplinks/2026/08/eff-joins-18-civil-rights-organizations-calling-governor-hochul-reject-stealth",
       "pubDate": "Mon, 03 Aug 2026 23:25:40 +0000",
-      "words": 415
+      "words": 415,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-03-eff-joins-comments-calling-ftc-drop-its-ai-policy-proposal.txt",
@@ -69,7 +76,8 @@
       "author": "Tori Noble",
       "permalink": "https://www.eff.org/deeplinks/2026/08/eff-joins-comments-calling-ftc-drop-its-ai-policy-proposal",
       "pubDate": "Mon, 03 Aug 2026 22:17:56 +0000",
-      "words": 589
+      "words": 589,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-03-youth-ai-privacy-acts-privacy-paradox.txt",
@@ -77,7 +85,8 @@
       "author": "Maddie Daly",
       "permalink": "https://www.eff.org/deeplinks/2026/08/youth-ai-privacy-acts-privacy-paradox",
       "pubDate": "Mon, 03 Aug 2026 21:08:45 +0000",
-      "words": 493
+      "words": 493,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-08-03-eff-bsideslv-black-hat-and-def-con.txt",
@@ -85,7 +94,8 @@
       "author": "Christian Romero",
       "permalink": "https://www.eff.org/deeplinks/2026/07/eff-bsideslv-black-hat-and-def-con",
       "pubDate": "Mon, 03 Aug 2026 14:45:00 +0000",
-      "words": 1301
+      "words": 1301,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-31-amending-ab-1709-doesnt-fix-it-californias-social-media-ban-still-threatens-free.txt",
@@ -93,7 +103,8 @@
       "author": "Rindala Alajaji",
       "permalink": "https://www.eff.org/deeplinks/2026/07/amending-ab-1709-doesnt-fix-it-californias-social-media-ban-still-threatens-free",
       "pubDate": "Fri, 31 Jul 2026 19:47:34 +0000",
-      "words": 597
+      "words": 597,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-31-screen-act-threatens-privacy-far-beyond-adult-websites.txt",
@@ -101,7 +112,8 @@
       "author": "India McKinney",
       "permalink": "https://www.eff.org/deeplinks/2026/07/screen-act-threatens-privacy-far-beyond-adult-websites",
       "pubDate": "Fri, 31 Jul 2026 19:41:55 +0000",
-      "words": 672
+      "words": 672,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-31-chatbot-act-forces-one-parenting-model-every-family.txt",
@@ -109,7 +121,8 @@
       "author": "Joe Mullin",
       "permalink": "https://www.eff.org/deeplinks/2026/07/chatbot-act-forces-one-parenting-model-every-family",
       "pubDate": "Fri, 31 Jul 2026 19:06:43 +0000",
-      "words": 1370
+      "words": 1370,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-31-eff-guide-recording-law-enforcement.txt",
@@ -117,7 +130,8 @@
       "author": "Sophia Cope",
       "permalink": "https://www.eff.org/deeplinks/2026/07/eff-guide-recording-law-enforcement",
       "pubDate": "Fri, 31 Jul 2026 14:11:24 +0000",
-      "words": 781
+      "words": 781,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-29-fitness-tracker-privacy-fails-effector-3814.txt",
@@ -125,7 +139,8 @@
       "author": "Christian Romero",
       "permalink": "https://www.eff.org/deeplinks/2026/07/fitness-tracker-privacy-fails-effector-3814",
       "pubDate": "Wed, 29 Jul 2026 16:52:58 +0000",
-      "words": 243
+      "words": 243,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-28-san-francisco-dont-fall-industry-defense-surveillance-pricing.txt",
@@ -133,7 +148,8 @@
       "author": "Matthew Guariglia",
       "permalink": "https://www.eff.org/deeplinks/2026/07/san-francisco-dont-fall-industry-defense-surveillance-pricing",
       "pubDate": "Tue, 28 Jul 2026 21:55:43 +0000",
-      "words": 882
+      "words": 882,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-28-why-are-gay-bars-building-databases-their-patrons.txt",
@@ -141,7 +157,8 @@
       "author": "Joe Mullin",
       "permalink": "https://www.eff.org/deeplinks/2026/07/why-are-gay-bars-building-databases-their-patrons",
       "pubDate": "Tue, 28 Jul 2026 16:19:13 +0000",
-      "words": 954
+      "words": 954,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-27-miss-last-weeks-livestream-adam-savage-and-ifixit-listen-here.txt",
@@ -149,7 +166,8 @@
       "author": "Christian Romero",
       "permalink": "https://www.eff.org/deeplinks/2026/07/miss-last-weeks-livestream-adam-savage-and-ifixit-listen-here",
       "pubDate": "Mon, 27 Jul 2026 19:25:18 +0000",
-      "words": 208
+      "words": 208,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-24-farmers-are-getting-control-their-equipment-back.txt",
@@ -157,7 +175,8 @@
       "author": "Chao Liu",
       "permalink": "https://www.eff.org/deeplinks/2026/07/farmers-are-getting-control-their-equipment-back",
       "pubDate": "Fri, 24 Jul 2026 18:18:28 +0000",
-      "words": 585
+      "words": 585,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-23-hundreds-drone-first-responder-programs-could-soon-be-launched-across-country.txt",
@@ -165,7 +184,8 @@
       "author": "Beryl Lipton",
       "permalink": "https://www.eff.org/deeplinks/2026/07/hundreds-drone-first-responder-programs-could-soon-be-launched-across-country",
       "pubDate": "Thu, 23 Jul 2026 22:00:00 +0000",
-      "words": 958
+      "words": 958,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-22-fourth-circuit-says-border-agents-can-search-your-phone-hand-no-suspicion-required.txt",
@@ -173,7 +193,8 @@
       "author": "Sophia Cope",
       "permalink": "https://www.eff.org/deeplinks/2026/07/fourth-circuit-says-border-agents-can-search-your-phone-hand-no-suspicion-required",
       "pubDate": "Wed, 22 Jul 2026 22:30:31 +0000",
-      "words": 1140
+      "words": 1140,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-22-new-eu-court-justice-ruling-platform-liability-could-cause-collateral-damage.txt",
@@ -181,7 +202,8 @@
       "author": "Christoph Schmon",
       "permalink": "https://www.eff.org/deeplinks/2026/07/new-eu-court-justice-ruling-platform-liability-could-cause-collateral-damage",
       "pubDate": "Wed, 22 Jul 2026 08:34:12 +0000",
-      "words": 1131
+      "words": 1131,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-20-what-you-need-know-about-californias-drop-tool.txt",
@@ -189,7 +211,8 @@
       "author": "Hayley Tsukayama",
       "permalink": "https://www.eff.org/deeplinks/2026/07/what-you-need-know-about-californias-drop-tool",
       "pubDate": "Mon, 20 Jul 2026 21:55:28 +0000",
-      "words": 1179
+      "words": 1179,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-20-explosion-surveillance-towers-coming-us-borders-costing-over-1-billion.txt",
@@ -197,7 +220,8 @@
       "author": "Karen Gullo",
       "permalink": "https://www.eff.org/deeplinks/2026/07/explosion-surveillance-towers-coming-us-borders-costing-over-1-billion",
       "pubDate": "Mon, 20 Jul 2026 19:25:44 +0000",
-      "words": 497
+      "words": 497,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-20-stealth-crawlers-are-not-threat-open-web-bills-targeting-them-would-be.txt",
@@ -205,7 +229,8 @@
       "author": "Tori Noble",
       "permalink": "https://www.eff.org/deeplinks/2026/07/stealth-crawlers-are-not-threat-open-web-bills-targeting-them-would-be",
       "pubDate": "Mon, 20 Jul 2026 18:46:50 +0000",
-      "words": 809
+      "words": 809,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-17-victory-flock-ends-rollout-audio-distress-detection-human-voices.txt",
@@ -213,7 +238,8 @@
       "author": "Matthew Guariglia",
       "permalink": "https://www.eff.org/deeplinks/2026/07/victory-flock-ends-rollout-audio-distress-detection-human-voices",
       "pubDate": "Fri, 17 Jul 2026 17:05:57 +0000",
-      "words": 659
+      "words": 659,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-17-your-vision-your-legacy-your-future.txt",
@@ -221,7 +247,8 @@
       "author": "Jocelyn Wicker",
       "permalink": "https://www.eff.org/deeplinks/2026/07/your-vision-your-legacy-your-future",
       "pubDate": "Fri, 17 Jul 2026 16:44:40 +0000",
-      "words": 280
+      "words": 280,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-17-how-watch-dogs-video-game-series-mirrored-and-predicted-real-world-digital-rights.txt",
@@ -229,7 +256,8 @@
       "author": "Dave Maass",
       "permalink": "https://www.eff.org/deeplinks/2026/07/how-watch-dogs-video-game-series-mirrored-and-predicted-real-world-digital-rights",
       "pubDate": "Fri, 17 Jul 2026 15:01:22 +0000",
-      "words": 1256
+      "words": 1256,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-16-eff-and-article-19-submission-european-commission-dsa-trusted-flagger-guidelines.txt",
@@ -237,7 +265,8 @@
       "author": "Jillian C. York",
       "permalink": "https://www.eff.org/deeplinks/2026/07/eff-and-article-19-submission-european-commission-dsa-trusted-flagger-guidelines",
       "pubDate": "Thu, 16 Jul 2026 09:22:17 +0000",
-      "words": 418
+      "words": 418,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-15-california-steps-back-dangerous-expansion-its-age-gating-law.txt",
@@ -245,7 +274,8 @@
       "author": "Rindala Alajaji",
       "permalink": "https://www.eff.org/deeplinks/2026/07/california-steps-back-dangerous-expansion-its-age-gating-law",
       "pubDate": "Wed, 15 Jul 2026 20:50:48 +0000",
-      "words": 465
+      "words": 465,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-15-most-smart-watches-rings-and-bands-lack-basic-transparency-reports-and-key-privacy.txt",
@@ -253,7 +283,8 @@
       "author": "Thorin Klosowski",
       "permalink": "https://www.eff.org/deeplinks/2026/07/most-smart-watches-rings-and-bands-lack-basic-transparency-reports-and-key-privacy",
       "pubDate": "Wed, 15 Jul 2026 19:56:18 +0000",
-      "words": 1620
+      "words": 1620,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-15-dont-let-congress-age-gate-internet-effector-3813.txt",
@@ -261,7 +292,8 @@
       "author": "Christian Romero",
       "permalink": "https://www.eff.org/deeplinks/2026/07/dont-let-congress-age-gate-internet-effector-3813",
       "pubDate": "Wed, 15 Jul 2026 17:02:02 +0000",
-      "words": 245
+      "words": 245,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-14-european-court-apple-can-not-shirk-its-interoperability-requirements.txt",
@@ -269,7 +301,8 @@
       "author": "Bill Budington",
       "permalink": "https://www.eff.org/deeplinks/2026/07/european-court-apple-can-not-shirk-its-interoperability-requirements",
       "pubDate": "Tue, 14 Jul 2026 21:14:31 +0000",
-      "words": 816
+      "words": 816,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-14-dont-repeat-nys-3d-printing-blunder.txt",
@@ -277,7 +310,8 @@
       "author": "Rory Mir",
       "permalink": "https://www.eff.org/deeplinks/2026/07/dont-repeat-nys-3d-printing-blunder",
       "pubDate": "Tue, 14 Jul 2026 19:52:39 +0000",
-      "words": 824
+      "words": 824,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-13-sony-nerfs-videogame-ownership.txt",
@@ -285,7 +319,8 @@
       "author": "Rory Mir",
       "permalink": "https://www.eff.org/deeplinks/2026/07/sony-nerfs-videogame-ownership",
       "pubDate": "Mon, 13 Jul 2026 17:30:45 +0000",
-      "words": 843
+      "words": 843,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-10-building-our-future-together.txt",
@@ -293,7 +328,8 @@
       "author": "Nicole Ozer",
       "permalink": "https://www.eff.org/deeplinks/2026/07/building-our-future-together",
       "pubDate": "Fri, 10 Jul 2026 15:00:03 +0000",
-      "words": 1286
+      "words": 1286,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-10-part-2-automated-moderation-here-stay-accountability-must-keep-pace.txt",
@@ -301,7 +337,8 @@
       "author": "Jillian C. York",
       "permalink": "https://www.eff.org/deeplinks/2026/07/part-2-automated-moderation-here-stay-accountability-must-keep-pace",
       "pubDate": "Fri, 10 Jul 2026 13:19:46 +0000",
-      "words": 802
+      "words": 802,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-09-we-want-texans-know-their-rights-qa-mayday-health-impact-surveillance-abortion.txt",
@@ -309,7 +346,8 @@
       "author": "Kenyatta Thomas",
       "permalink": "https://www.eff.org/deeplinks/2026/07/we-want-texans-know-their-rights-qa-mayday-health-impact-surveillance-abortion",
       "pubDate": "Thu, 09 Jul 2026 21:12:57 +0000",
-      "words": 776
+      "words": 776,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-09-house-passed-kids-act-senate-should-reject-it.txt",
@@ -317,7 +355,8 @@
       "author": "India McKinney",
       "permalink": "https://www.eff.org/deeplinks/2026/07/house-passed-kids-act-senate-should-reject-it",
       "pubDate": "Thu, 09 Jul 2026 20:58:33 +0000",
-      "words": 501
+      "words": 501,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-09-european-commission-chooses-keep-eu-users-locked-behind-big-techs-gates.txt",
@@ -325,7 +364,8 @@
       "author": "Karen Gullo",
       "permalink": "https://www.eff.org/deeplinks/2026/07/european-commission-chooses-keep-eu-users-locked-behind-big-techs-gates",
       "pubDate": "Thu, 09 Jul 2026 18:30:12 +0000",
-      "words": 779
+      "words": 779,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-09-googles-new-remote-attestation-scheme-every-bit-terrible-its-old-remote.txt",
@@ -333,7 +373,8 @@
       "author": "Cory Doctorow",
       "permalink": "https://www.eff.org/deeplinks/2026/07/googles-new-remote-attestation-scheme-every-bit-terrible-its-old-remote",
       "pubDate": "Thu, 09 Jul 2026 09:15:49 +0000",
-      "words": 1679
+      "words": 1679,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-07-part-1-automated-moderation-here-stay.txt",
@@ -341,7 +382,8 @@
       "author": "Jillian C. York",
       "permalink": "https://www.eff.org/deeplinks/2026/07/part-1-automated-moderation-here-stay",
       "pubDate": "Tue, 07 Jul 2026 16:21:36 +0000",
-      "words": 980
+      "words": 980,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-07-help-eff-cut-ai-hype.txt",
@@ -349,7 +391,8 @@
       "author": "Aaron Jue",
       "permalink": "https://www.eff.org/deeplinks/2026/07/help-eff-cut-ai-hype",
       "pubDate": "Tue, 07 Jul 2026 16:17:38 +0000",
-      "words": 362
+      "words": 362,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-02-lgbt-qa-how-can-i-wipe-online-data-points-my-queer-identity.txt",
@@ -357,7 +400,8 @@
       "author": "Paige Collings",
       "permalink": "https://www.eff.org/deeplinks/2026/07/lgbt-qa-how-can-i-wipe-online-data-points-my-queer-identity",
       "pubDate": "Thu, 02 Jul 2026 15:52:20 +0000",
-      "words": 641
+      "words": 641,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-07-02-eff-and-allies-xs-ftc-petition-waive-privacy-violation-order-should-be-rejected.txt",
@@ -365,7 +409,8 @@
       "author": "Bill Budington",
       "permalink": "https://www.eff.org/deeplinks/2026/06/eff-and-allies-xs-ftc-petition-waive-privacy-violation-order-should-be-rejected",
       "pubDate": "Thu, 02 Jul 2026 15:04:54 +0000",
-      "words": 616
+      "words": 616,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-06-30-lgbt-qa-what-data-are-companies-uk-collecting-when-verifying-my-age.txt",
@@ -373,7 +418,8 @@
       "author": "Paige Collings",
       "permalink": "https://www.eff.org/deeplinks/2026/06/lgbt-qa-what-data-are-companies-uk-collecting-when-verifying-my-age",
       "pubDate": "Tue, 30 Jun 2026 08:08:47 +0000",
-      "words": 1203
+      "words": 1203,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-06-29-eff-gov-pritzker-veto-illinois-hb-5511.txt",
@@ -381,7 +427,8 @@
       "author": "Hayley Tsukayama",
       "permalink": "https://www.eff.org/deeplinks/2026/06/eff-gov-pritzker-veto-illinois-hb-5511",
       "pubDate": "Mon, 29 Jun 2026 18:23:38 +0000",
-      "words": 301
+      "words": 301,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-06-29-victory-supreme-court-says-constitution-protects-peoples-location-data.txt",
@@ -389,7 +436,8 @@
       "author": "Andrew Crocker",
       "permalink": "https://www.eff.org/deeplinks/2026/06/victory-supreme-court-says-constitution-protects-peoples-location-data",
       "pubDate": "Mon, 29 Jun 2026 17:25:22 +0000",
-      "words": 937
+      "words": 937,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-06-26-grindr-put-queer-safety-and-privacy-over-profits.txt",
@@ -397,7 +445,8 @@
       "author": "Lena Cohen",
       "permalink": "https://www.eff.org/deeplinks/2026/06/grindr-put-queer-safety-and-privacy-over-profits",
       "pubDate": "Fri, 26 Jun 2026 16:18:00 +0000",
-      "words": 1126
+      "words": 1126,
+      "link_targets": "stripped"
     },
     {
       "file": "2026-06-26-hate-algorithm-rss-one-tools-youve-been-looking.txt",
@@ -405,7 +454,10 @@
       "author": "Thorin Klosowski",
       "permalink": "https://www.eff.org/deeplinks/2026/06/hate-algorithm-rss-one-tools-youve-been-looking",
       "pubDate": "Fri, 26 Jun 2026 16:06:49 +0000",
-      "words": 1432
+      "words": 1432,
+      "link_targets": "stripped"
     }
-  ]
+  ],
+  "link_targets": "stripped",
+  "link_targets_note": "Every post here was vendored before 2026-08-06, when the extractor kept anchor text and discarded the href. Deeplinks cites by hyperlinking, so these bodies read as unsourced where the published article is sourced. fetch-professional.mjs now writes markdown links and stamps `link_targets: preserved`; these files are stamped `stripped`. They are not re-fetched automatically: the source is a 50-item RSS feed, not an archive, so a re-fetch replaces the sample set rather than repairing it."
 }

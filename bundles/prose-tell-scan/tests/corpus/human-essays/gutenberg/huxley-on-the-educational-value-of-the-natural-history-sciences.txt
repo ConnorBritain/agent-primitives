@@ -1,0 +1,736 @@
+---
+source: Project Gutenberg 7150
+title: On the Educational Value of the Natural History Sciences
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+The subject to which I have to beg your attention during the ensuing
+hour is "The Relation of Physiological Science to other branches of
+Knowledge."
+
+Had circumstances permitted of the delivery, in their strict logical
+order, of that series of discourses of which the present lecture is a
+member, I should have preceded my friend and colleague Mr. Henfrey, who
+addressed you on Monday last; but while, for the sake of that order, I
+must beg you to suppose that this discussion of the Educational
+bearings of Biology in general _does_ precede that of Special
+Zoology and Botany, I am rejoiced to be able to take advantage
+of the light thus already thrown upon the tendency and methods of
+Physiological Science.
+
+Regarding Physiological Science, then, in its widest sense--as the
+equivalent of _Biology_--the Science of Individual Life--we have to
+consider in succession:
+
+1. Its position and scope as a branch of knowledge.
+
+2. Its value as a means of mental discipline.
+
+3. Its worth as practical information.
+
+And lastly,
+
+4. At what period it may best be made a branch of Education.
+
+Our conclusions on the first of these heads must depend, of course,
+upon the nature of the subject-matter of Biology; and I think a few
+preliminary considerations will place before you in a clear light the
+vast difference which exists between the living bodies with which
+Physiological science is concerned, and the remainder of the
+universe;--between the phaenomena of Number and Space, of Physical and
+of Chemical force, on the one hand, and those of Life on the other.
+
+The mathematician, the physicist, and the chemist contemplate things in
+a condition of rest; they look upon a state of equilibrium as that to
+which all bodies normally tend.
+
+The mathematician does not suppose that a quantity will alter, or that
+a given point in space will change its direction with regard to another
+point, spontaneously. And it is the same with the physicist. When
+Newton saw the apple fall, he concluded at once that the act of falling
+was not the result of any power inherent in the apple, but that it was
+the result of the action of something else on the apple. In a similar
+manner, all physical force is regarded as the disturbance of an
+equilibrium to which things tended before its exertion,--to which they
+will tend again after its cessation.
+
+The chemist equally regards chemical change in a body as the effect of
+the action of something external to the body changed. A chemical
+compound once formed would persist for ever, if no alteration took
+place in surrounding conditions.
+
+But to the student of Life the aspect of Nature is reversed. Here,
+incessant, and, so far as we know, spontaneous change is the rule, rest
+the exception--the anomaly to be accounted for. Living things have no
+inertia, and tend to no equilibrium.
+
+Permit me, however, to give more force and clearness to these somewhat
+abstract considerations by an illustration or two.
+
+Imagine a vessel full of water, at the ordinary temperature, in an
+atmosphere saturated with vapour. The _quantity_ and the _figure_ of that
+water will not change, so far as we know, for ever.
+
+Suppose a lump of gold be thrown into the vessel--motion and
+disturbance of figure exactly proportional to the momentum of the gold
+will take place. But after a time the effects of this disturbance will
+subside--equilibrium will be restored, and the water will return to its
+passive state.
+
+Expose the water to cold--it will solidify--and in so doing its
+particles will arrange themselves in definite crystalline shapes. But
+once formed, these crystals change no further.
+
+Again, substitute for the lump of gold some substance capable of
+entering into chemical relations with the water:--say, a mass of that
+substance which is called "protein"--the substance of flesh:--a very
+considerable disturbance of equilibrium will take place--all sorts of
+chemical compositions and decompositions will occur; but in the end, as
+before, the result will be the resumption of a condition of rest.
+
+Instead of such a mass of _dead_ protein, however, take a particle of
+_living_ protein--one of those minute microscopic living things which
+throng our pools, and are known as Infusoria--such a creature, for
+instance, as an Euglena, and place it in our vessel of water. It is
+a round mass provided with a long filament, and except in this
+peculiarity of shape, presents no appreciable physical or chemical
+difference whereby it might be distinguished from the particle of dead
+protein.
+
+But the difference in the phaenomena to which it will give rise is
+immense: in the first place it will develop a vast quantity of physical
+force--cleaving the water in all directions with considerable rapidity
+by means of the vibrations of the long filament or cilium.
+
+Nor is the amount of chemical energy which the little creature
+possesses less striking. It is a perfect laboratory in itself, and it
+will act and react upon the water and the matters contained therein;
+converting them into new compounds resembling its own substance, and at
+the same time giving up portions of its own substance which have become
+effete.
+
+Furthermore, the Euglena will increase in size; but this increase is by
+no means unlimited, as the increase of a crystal might be. After it has
+grown to a certain extent it divides, and each portion assumes the form
+of the original, and proceeds to repeat the process of growth and
+division.
+
+Nor is this all. For after a series of such divisions and subdivisions,
+these minute points assume a totally new form, lose their long
+tails--round themselves, and secrete a sort of envelope or box, in
+which they remain shut up for a time, eventually to resume, directly or
+indirectly, their primitive mode of existence.
+
+Now, so far as we know, there is no natural limit to the existence of
+the Euglena, or of any other living germ. A living species once
+launched into existence tends to live for ever.
+
+Consider how widely different this living particle is from the dead
+atoms with which the physicist and chemist have to do!
+
+The particle of gold falls to the bottom and rests--the particle of
+dead protein decomposes and disappears--it also rests: but the
+_living_ protein mass neither tends to exhaustion of its forces nor
+to any permanency of form, but is essentially distinguished as a
+disturber of equilibrium so far as force is concerned,--as undergoing
+continual metamorphosis and change, in point of form.
+
+Tendency to equilibrium of force and to permanency of form, then, are
+the characters of that portion of the universe which does not live--the
+domain of the chemist and physicist.
+
+Tendency to disturb existing equilibrium--to take on forms which
+succeed one another in definite cycles--is the character of the living
+world.
+
+What is the cause of this wonderful difference between the dead
+particle and the living particle of matter appearing in other respects
+identical? that difference to which we give the name of Life?
+
+I, for one, cannot tell you. It may be that, by and by, philosophers
+will discover some higher laws of which the facts of life are
+particular cases--very possibly they will find out some bond between
+physico-chemical phaenomena on the one hand, and vital phaenomena on
+the other. At present, however, we assuredly know of none; and I think
+we shall exercise a wise humility in confessing that, for us at least,
+this successive assumption of different states--(external conditions
+remaining the same)--this _spontaneity of action_--if I may use a term
+which implies more than I would be answerable for--which constitutes
+so vast and plain a practical distinction between living bodies and
+those which do not live, is an ultimate fact; indicating as such, the
+existence of a broad line of demarcation between the subject-matter
+of Biological and that of all other sciences.
+
+For I would have it understood that this simple Euglena is the type of
+_all_ living things, so far as the distinction between these and
+inert matter is concerned. That cycle of changes, which is constituted
+by perhaps not more than two or three steps in the Euglena, is as
+clearly manifested in the multitudinous stages through which the germ
+of an oak or of a man passes. Whatever forms the Living Being may take
+on, whether simple or complex, _production, growth, reproduction,_ are
+the phaenomena which distinguish it from that which does not live.
+
+If this be true, it is clear that the student, in passing from the
+physico-chemical to the physiological sciences, enters upon a totally
+new order of facts; and it will next be for us to consider how far
+these new facts involve _new_ methods, or require a modification of
+those with which he is already acquainted. Now a great deal is said
+about the peculiarity of the scientific method in general, and of the
+different methods which are pursued in the different sciences. The
+Mathematics are said to have one special method; Physics another,
+Biology a third, and so forth. For my own part, I must confess that I
+do not understand this phraseology.
+
+So far as I can arrive at any clear comprehension of the matter,
+Science is not, as many would seem to suppose, a modification of the
+black art, suited to the tastes of the nineteenth century, and
+flourishing mainly in consequence of the decay of the Inquisition.
+
+Science is, I believe, nothing but _trained and organised common
+sense_, differing from the latter only as a veteran may differ from
+a raw recruit: and its methods differ from those of common sense only
+so far as the guardsman's cut and thrust differ from the manner in
+which a savage wields his club. The primary power is the same in each
+case, and perhaps the untutored savage has the more brawny arm of
+the two. The _real_ advantage lies in the point and polish of the
+swordsman's weapon; in the trained eye quick to spy out the weakness of
+the adversary; in the ready hand prompt to follow it on the instant.
+But, after all, the sword exercise is only the hewing and poking of the
+clubman developed and perfected.
+
+So, the vast results obtained by Science are won by no mystical
+faculties, by no mental processes, other than those which are practised
+by every one of us, in the humblest and meanest affairs of life. A
+detective policeman discovers a burglar from the marks made by his
+shoe, by a mental process identical with that by which Cuvier restored
+the extinct animals of Montmartre from fragments of their bones. Nor
+does that process of induction and deduction by which a lady, finding a
+stain of a peculiar kind upon her dress, concludes that somebody has
+upset the inkstand thereon, differ in any way, in kind, from that by
+which Adams and Leverrier discovered a new planet.
+
+The man of science, in fact, simply uses with scrupulous exactness the
+methods which we all, habitually and at every moment, use carelessly;
+and the man of business must as much avail himself of the scientific
+method--must be as truly a man of science--as the veriest bookworm of
+us all; though I have no doubt that the man of business will find
+himself out to be a philosopher with as much surprise as M. Jourdain
+exhibited vhen he discovered that he had been all his life talking
+prose. If, however, there be no real difference between the methods of
+science and those of common life, it would seem, on the face of the
+matter, highly improbable that there should be any difference between
+the methods of the different sciences; nevertheless, it is constantly
+taken for granted that there is a very wide difference between the
+Physiological and other sciences in point of method.
+
+In the first place it is said--and I take this point first, because the
+imputation is too frequently admitted by Physiologists themselves--that
+Biology differs from the Physico-chemical and Mathematical sciences in
+being "inexact."
+
+Now, this phrase "inexact" must refer either to the _methods_ or to
+the _results_ of Physiological science.
+
+It cannot be correct to apply it to the methods; for, as I hope to show
+you by and by, these are identical in all sciences, and whatever is
+true of Physiological method is true of Physical and Mathematical
+method.
+
+Is it then the _results_ of Biological science which are "inexact"?
+I think not. If I say that respiration is performed by the
+lungs; that digestion is effected in the stomach; that the eye is the
+organ of sight; that the jaws of a vertebrated animal never open
+sideways, but always up and down; while those of an annulose animal
+always open sideways, and never up and down--I am enumerating
+propositions which are as exact as anything in Euclid. How then has
+this notion of the inexactness of Biological science come about? I
+believe from two causes: first, because in consequence of the great
+complexity of the science and the multitude of interfering conditions,
+we are very often only enabled to predict approximately what will occur
+under given circumstances; and secondly, because, on account of the
+comparative youth of the Physiological sciences, a great many of their
+laws are still imperfectly worked out. But, in an educational point of
+view, it is most important to distinguish between the essence of a
+science and the accidents which surround it; and essentially, the
+methods and results of Physiology are as exact as those of Physics or
+Mathematics.
+
+It is said that the Physiological method is especially _comparative_;
+ and this dictum also finds favour in the eyes of many.
+I should be sorry to suggest that the speculators on scientific
+classification have been misled by the accident of the name of one
+leading branch of Biology--_Comparative Anatomy_; but I would ask
+whether _comparison_, and that classification which is the result of
+comparison, are not the essence of every science whatsoever? How is it
+possible to discover a relation of cause and effect of _any_ kind
+without comparing a series of cases together in which the supposed
+cause and effect occur singly, or combined? So far from comparison
+being in any way peculiar to Biological science, it is, I think, the
+essence of every science.
+
+A speculative philosopher again tells us that the Biological
+sciences are distinguished by being sciences of observation and not
+of experiment!  Of all the strange assertions into which speculation
+without practical acquaintance with a subject may lead even an able
+man, I think this is the very strangest. Physiology not an experimental
+science? Why, there is not a function of a single organ in the body
+which has not been determined wholly and solely by experiment? How did
+Harvey determine the nature of the circulation, except by experiment?
+How did Sir Charles Bell determine the functions of the roots of the
+spinal nerves, save by experiment? How do we know the use of a nerve at
+all, except by experiment? Nay, how do you know even that your eye is
+your seeing apparatus, unless you make the experiment of shutting it;
+or that your ear is your hearing apparatus, unless you close it up and
+thereby discover that you become deaf?
+
+It would really be much more true to say that Physiology is _the_
+experimental science _par excellence_ of all sciences; that in which
+there is least to be learnt by mere observation, and that which
+affords the greatest field for the exercise of those faculties which
+characterise the experimental philosopher. I confess, if any one were
+to ask me for a model application of the logic of experiment, I should
+know no better work to put into his hands than Bernard's late
+Researches on the Functions of the Liver. 
+
+Not to give this lecture a too controversial tone, however, I must
+only advert to one more doctrine, held by a thinker of our own age
+and country, whose opinions are worthy of all respect. It is, that
+the Biological sciences differ from all others, inasmuch as in _them_
+classification takes place by type and not by definition. 
+
+It is said, in short, that a natural-history class is not capable of
+being defined--that the class Rosaceae, for instance, or the class of
+Fishes, is not accurately and absolutely definable, inasmuch as its
+members will present exceptions to every possible definition; and that
+the members of the class are united together only by the circumstance
+that they are all more like some imaginary average rose or average
+fish, than they resemble anything else.
+
+But here, as before, I think the distinction has arisen entirely from
+confusing a transitory imperfection with an essential character. So
+long as our information concerning them is imperfect, we class all
+objects together according to resemblances which we _feel_, but
+cannot _define_; we group them round _types_, in short. Thus
+if you ask an ordinary person what kinds of animals there are, he will
+probably say, beasts, birds, reptiles, fishes, insects, &c. Ask him to
+define a beast from a reptile, and he cannot do it; but he says, things
+like a cow or a horse are beasts, and things like a frog or a lizard
+are reptiles. You see _he does_ class by type, and not by definition.
+But how does this classification differ from that of the
+scientific Zoologist? How does the meaning of the scientific class-name
+of "Mammalia" differ from the unscientific of "Beasts"?
+
+Why, exactly because the former depends on a definition, the latter on
+a type. The class Mammalia is scientifically defined as "all animals
+which have a vertebrated skeleton and suckle their young." Here is no
+reference to type, but a definition rigorous enough for a geometrician.
+And such is the character which every scientific naturalist recognises
+as that to which his classes must aspire--knowing, as he does, that
+classification by type is simply an acknowledgment of ignorance and a
+temporary device.
+
+So much in the way of negative argument as against the reputed
+differences between Biological and other methods. No such differences,
+I believe, really exist. The subject-matter of Biological science is
+different from that of other sciences, but the methods of all are
+identical; and these methods are--
+
+1. _Observation_ of facts--including under this head that _artificial
+observation_ which is called _experiment_.
+
+2. That process of tying up similar facts into bundles, ticketed and
+ready for use, which is called _Comparison_ and _Classification_,--the
+results of the process, the ticketed bundles, being named _General
+propositions_.
+
+3. _Deduction_, which takes us from the general proposition to facts
+again--teaches us, if I may so say, to anticipate from the ticket
+what is inside the bundle. And finally--
+
+4. _Verification_, which is the process of ascertaining whether, in
+point of fact, our anticipation is a correct one.
+
+Such are the methods of all science whatsoever; but perhaps you will
+permit me to give you an illustration of their employment in the
+science of Life; and I will take as a special case the establishment of
+the doctrine of the _Circulation of the Blood_.
+
+In this case, _simple observation_ yields us a knowledge of the
+existence of the blood from some accidental haemorrhage, we will say;
+we may even grant that it informs us of the localisation of this blood
+in particular vessels, the heart, &c., from some accidental cut or the
+like. It teaches also the existence of a pulse in various parts of the
+body, and acquaints us with the structure of the heart and vessels.
+
+Here, however, _simple observation_ stops, and we must have recourse
+to _experiment_.
+
+You tie a vein, and you find that the blood accumulates on the side of
+the ligature opposite the heart. You tie an artery, and you find that
+the blood accumulates on the side near the heart. Open the chest, and
+you see the heart contracting with great force. Make openings into its
+principal cavities, and you will find that all the blood flows out, and
+no more pressure is exerted on either side of the arterial or venous
+ligature.
+
+Now all these facts, taken together, constitute the evidence that the
+blood is propelled by the heart through the arteries, and returns by
+the veins--that, in short, the blood circulates.
+
+Suppose our experiments and observations have been made on horses, then
+we group and ticket them into a general proposition, thus:--_all
+horses have a circulation of their blood_.
+
+Henceforward a horse is a sort of indication or label, telling us where
+we shall find a peculiar series of phaenomena called the circulation of
+the blood.
+
+Here is our _general proposition_, then.
+
+How, and when, are we justified in making our next step--a _deduction_
+from it?
+
+Suppose our physiologist, whose experience is limited to horses, meets
+with a zebra for the first time,--will he suppose that this
+generalisation holds good for zebras also?
+
+That depends very much on his turn of mind. But we will suppose him to
+be a bold man. He will say, "The zebra is certainly not a horse, but it
+is very like one,--so like, that it must be the 'ticket' or mark of a
+blood-circulation also; and, I conclude that the zebra has a
+circulation."
+
+That is a deduction, a very fair deduction, but by no means to be
+considered scientifically secure. This last quality in fact can only be
+given by _verification_--that is, by making a zebra the subject of
+all the experiments performed on the horse. Of course, in the present
+case, the _deduction_ would be _confirmed_ by this process of
+verification, and the result would be, not merely a positive widening
+of knowledge, but a fair increase of confidence in the truth of one's
+generalisations in other cases.
+
+Thus, having settled the point in the zebra and horse, our philosopher
+would have great confidence in the existence of a circulation in the
+ass. Nay, I fancy most persons would excuse him, if in this case he did
+not take the trouble to go through the process of verification at all;
+and it would not be without a parallel in the history of the human
+mind, if our imaginary physiologist now maintained that he was
+acquainted with asinine circulation _à priori_.
+
+However, if I might impress any caution upon your minds, it is, the
+utterly conditional nature of all our knowledge,--the danger of
+neglecting the process of verification under any circumstances; and the
+film upon which we rest, the moment our deductions carry us beyond the
+reach of this great process of verification. There is no better
+instance of this than is afforded by the history of our knowledge of
+the circulation of the blood in the animal kingdom until the year 1824.
+In every animal possessing a circulation at all, which had been
+observed up to that time, the current of the blood was known to take
+one definite and invariable direction. Now, there is a class of animals
+called _Ascidians_, which possess a heart and a circulation, and
+up to the period of which I speak, no one would have dreamt of
+questioning the propriety of the deduction, that these creatures have a
+circulation in one direction; nor would any one have thought it worth
+while to verify the point. But, in that year, M. von Hasselt, happening
+to examine a transparent animal of this class, found, to his infinite
+surprise, that after the heart had beat a certain number of times, it
+stopped, and then began beating the opposite way--so as to reverse the
+course of the current, which returned by and by to its original
+direction.
+
+I have myself timed the heart of these little animals. I found it as
+regular as possible in its periods of reversal: and I know no spectacle
+in the animal kingdom more wonderful than that which it presents--all
+the more wonderful that to this day it remains an unique fact, peculiar
+to this class among the whole animated world. At the same time I know
+of no more striking case of the necessity of the _verification_ of
+even those deductions which seem founded on the widest and safest
+inductions.
+
+Such are the methods of Biology--methods which are obviously identical
+with those of all other sciences, and therefore wholly incompetent to
+form the ground of any distinction between it and them. 
+
+But I shall be asked at once, Do you mean to say that there is no
+difference between the habit of mind of a mathematician and that of a
+naturalist? Do you imagine that Laplace might have been put into the
+Jardin des Plantes, and Cuvier into the Observatory, with equal
+advantage to the progress of the sciences they professed?
+
+To which I would reply, that nothing could be further from my thoughts.
+But different habits and various special tendencies of two sciences do
+not imply different methods. The mountaineer and the man of the plains
+have very different habits of progression, and each would be at a loss
+in the other's place; but the method of progression, by putting one leg
+before the other, is the same in each case. Every step of each is a
+combination of a lift and a push; but the mountaineer lifts more and
+the lowlander pushes more. And I think the case of two sciences
+resembles this.
+
+I do not question for a moment, that while the Mathematician is busy
+with deductions _from_ general propositions, the Biologist is more
+especially occupied with observation, comparison, and those processes
+which lead _to_ general propositions. All I wish to insist upon
+is, that this difference depends not on any fundamental distinction in
+the sciences themselves, but on the accidents of their subject-matter,
+of their relative complexity, and consequent relative perfection.
+
+The Mathematician deals with two properties of objects only, number and
+extension, and all the inductions he wants have been formed and
+finished ages ago. He is occupied now with nothing but deduction and
+verification.
+
+The Biologist deals with a vast number of properties of objects, and
+his inductions will not be completed, I fear, for ages to come; but
+when they are, his science will be as deductive and as exact as the
+Mathematics themselves.
+
+Such is the relation of Biology to those sciences which deal with
+objects having fewer properties than itself. But as the student, in
+reaching Biology, looks back upon sciences of a less complex and
+therefore more perfect nature; so, on the other hand, does he look
+forward to other more complex and less perfect branches of knowledge.
+Biology deals only with living beings as isolated things--treats only
+of the life of the individual: but there is a higher division of
+science still, which considers living beings as aggregates--which deals
+with the relation of living beings one to another--the science which
+_observes_ men--whose _experiments_ are made by nations one
+upon another, in battlefields--whose _general propositions_ are
+embodied in history, morality, and religion--whose _deductions_
+lead to our happiness or our misery--and whose _verifications_ so
+often come too late, and serve only
+
+  "To point a moral, or adorn a tale"--
+
+I mean the science of Society or _Sociology_.
+
+I think it is one of the grandest features of Biology, that it occupies
+this central position in human knowledge. There is no side of the human
+mind which physiological study leaves uncultivated. Connected by
+innumerable ties with abstract science, Physiology is yet in the most
+intimate relation with humanity; and by teaching us that law and order,
+and a definite scheme of development, regulate even the strangest and
+wildest manifestations of individual life, she prepares the student to
+look for a goal even amidst the erratic wanderings of mankind, and to
+believe that history offers something more than an entertaining
+chaos--a journal of a toilsome, tragi-comic march no-whither.
+
+The preceding considerations have, I hope, served to indicate the
+replies which befit the first two of the questions which I set before
+you at starting, viz. What is the range and position of Physiological
+Science as a branch of knowledge, and what is its value as a means of
+mental discipline?
+
+Its _subject-matter_ is a large moiety of the universe--its
+_position_ is midway between the physico-chemical and the social
+sciences. Its _value_ as a branch of discipline is partly that
+which it has in common with all sciences--the training and
+strengthening of common sense; partly that which is more peculiar to
+itself--the great exercise which it affords to the faculties of
+observation and comparison; and, I may add, the _exactness_ of
+knowledge which it requires on the part of those among its votaries who
+desire to extend its boundaries.
+
+If what has been said as to the position and scope of Biology be
+correct, our third question--What is the practical value of
+physiological instruction?--might, one would think, be left to answer
+itself.
+
+On other grounds even, were mankind deserving of the title "rational,"
+which they arrogate to themselves, there can be no question that they
+would consider, as the most necessary of all branches of instruction
+for themselves and for their children, that which professes to acquaint
+them with the conditions of the existence they prize so highly--which
+teaches them how to avoid disease and to cherish health, in themselves
+and those who are dear to them.
+
+I am addressing, I imagine, an audience of educated persons; and yet I
+dare venture to assert that, with the exception of those of my hearers
+who may chance to have received a medical education, there is not one
+who could tell me what is the meaning and use of an act which he
+performs a score of times every minute, and whose suspension would
+involve his immediate death;--I mean the act of breathing--or who could
+state in precise terms why it is that a confined atmosphere is
+injurious to health.
+
+The _practical value_ of Physiological knowledge! Why is it that
+educated men can be found to maintain that a slaughter-house in the
+midst of a great city is rather a good thing than otherwise?--that
+mothers persist in exposing the largest possible amount of surface of
+their children to the cold, by the absurd style of dress they adopt,
+and then marvel at the peculiar dispensation of Providence, which
+removes their infants by bronchitis and gastric fever? Why is it that
+quackery rides rampant over the land; and that not long ago, one of the
+largest public rooms in this great city could be filled by an audience
+gravely listening to the reverend expositor of the doctrine--that the
+simple physiological phaenomena known as spirit-rapping, table-turning,
+phreno-magnetism, and I know not what other absurd and inappropriate
+names, are due to the direct and personal agency of Satan?
+
+Why is all this, except from the utter ignorance as to the simplest
+laws of their own animal life, which prevails among even the most
+highly educated persons in this country?
+
+But there are other branches of Biological Science, besides Physiology
+proper, whose practical influence, though less obvious, is not, as I
+believe, less certain. I have heard educated men speak with an
+ill-disguised contempt of the studies of the naturalist, and ask, not
+without a shrug, "What is the use of knowing all about these miserable
+animals--what bearing has it on human life?"
+
+I will endeavour to answer that question. I take it that all will admit
+there is definite Government of this universe--that its pleasures and
+pains are not scattered at random, but are distributed in accordance
+with orderly and fixed laws, and that it is only in accordance with all
+we know of the rest of the world, that there should be an agreement
+between one portion of the sensitive creation and another in these
+matters.
+
+Surely then it interests us to know the lot of other animal
+creatures--however far below us, they are still the sole created things
+which share with us the capability of pleasure and the susceptibility
+to pain.
+
+I cannot but think that he who finds a certain proportion of pain and
+evil inseparably woven up in the life of the very worms, will bear his
+own share with more courage and submission; and will, at any rate, view
+with suspicion those weakly amiable theories of the Divine government,
+which would have us believe pain to be an oversight and a mistake,--to
+be corrected by and by. On the other hand, the predominance of
+happiness among living things--their lavish beauty--the secret and
+wonderful harmony which pervades them all, from the highest to the
+lowest, are equally striking refutations of that modern Manichean
+doctrine, which exhibits the world as a slave-mill, worked with many
+tears, for mere utilitarian ends.
+
+There is yet another way in which natural history may, I am convinced,
+take a profound hold upon practical life,--and that is, by its
+influence over our finer feelings, as the greatest of all sources of
+that pleasure which is derivable from beauty. I do not pretend that
+natural-history knowledge, as such, can increase our sense of the
+beautiful in natural objects. I do not suppose that the dead soul of
+Peter Bell, of whom the great poet of nature says,--
+
+  A primrose by the river's brim,
+  A yellow primrose was to him,--
+  And it was nothing more,--
+
+would have been a whit roused from its apathy by the information that
+the primrose is a Dicotyledonous Exogen, with a monopetalous corolla
+and central placentation. But I advocate natural-history knowledge from
+this point of view, because it would lead us to _seek_ the
+beauties of natural objects, instead of trusting to chance to force
+them on our attention. To a person uninstructed in natural history, his
+country or sea-side stroll is a walk through a gallery filled with
+wonderful works of art, nine-tenths of which have their faces turned to
+the wall. Teach him something of natural history, and you place in his
+hands a catalogue of those which are worth turning round. Surely our
+innocent pleasures are not so abundant in this life, that we can afford
+to despise this or any other source of them. We should fear being
+banished for our neglect to that limbo, where the great Florentine
+tells us are those who, during this life, "wept when they might be
+joyful."
+
+But I shall be trespassing unwarrantably on your kindness, if I do not
+proceed at once to my last point--the time at which Physiological
+Science should first form a part of the Curriculum of Education.
+
+The distinction between the teaching of the facts of a science as
+instruction, and the teaching it systematically as knowledge, has
+already been placed before you in a previous lecture: and it appears to
+me that, as with other sciences, the _common facts_ of Biology--the
+uses of parts of the body--the names and habits of the living
+creatures which surround us--may be taught with advantage to the
+youngest child. Indeed, the avidity of children for this kind of
+knowledge, and the comparative ease with which they retain it, is
+something quite marvellous. I doubt whether any toy would be so
+acceptable to young children as a vivarium of the same kind as, but of
+course on a smaller scale than, those admirable devices in the
+Zoological Gardens.
+
+On the other hand, systematic teaching in Biology cannot be attempted
+with success until the student has attained to a certain knowledge of
+physics and chemistry: for though the phaenomena of life are dependent
+neither on physical nor on chemical, but on vital forces, yet they
+result in all sorts of physical and chemical changes, which can only be
+judged by their own laws.
+
+And now to sum up in a few words the conclusions to which I hope you
+see reason to follow me.
+
+Biology needs no apologist when she demands a place--and a prominent
+place--in any scheme of education worthy of the name. Leave out the
+Physiological sciences from your curriculum, and you launch the student
+into the world, undisciplined in that science whose subject-matter
+would best develop his powers of observation; ignorant of facts of the
+deepest importance for his own and others' welfare; blind to the
+richest sources of beauty in God's creation; and unprovided with that
+belief in a living law, and an order manifesting itself in and through
+endless change and variety, which might serve to check and moderate
+that phase of despair through which, if he take an earnest interest in
+social problems, he will assuredly sooner or later pass.
+
+Finally, one word for myself. I have not hesitated to speak strongly
+where I have felt strongly; and I am but too conscious that the
+indicative and imperative moods have too often taken the place of the
+more becoming subjunctive and conditional. I feel, therefore, how
+necessary it is to beg you to forget the personality of him who has
+thus ventured to address you, and to consider only the truth or error
+in what has been said.
+
+       *       *       *       *       *
+
+Footnotes:
+
+ "In the third place, we have to review the method of Comparison,
+which is so specially adapted to the study of living bodies, and by
+which, above all others, that study must be advanced. In Astronomy,
+this method is necessarily inapplicable; and it is not till we arrive
+at Chemistry that this third means of investigation can be used, and
+then only in subordination to the two others. It is in the study, both
+statical and dynamical, of living bodies that it first acquires its
+full development; and its use elsewhere can be only through its
+application here."--COMTE'S _Positive Philosophy_, translated by
+Miss Martineau. Vol. i. p. 372.
+
+By what method does M. Comte suppose that the equality or inequality
+of forces and quantities and the dissimilarity or similarity of
+forms--points of some slight importance not only in Astronomy and
+Physics, but even in Mathematics--are ascertained, if not by
+Comparison?
+
+ "Proceeding to the second class of means,--Experiment cannot but be
+less and less decisive, in proportion to the complexity of the
+phaenomena to be explored; and therefore we saw this resource to be
+less effectual in chemistry than in physics: and we now find that it is
+eminently useful in chemistry in comparison with physiology. _In
+fact, the nature of the phenomena seems to offer almost insurmountable
+impediments to any extensive and prolific application of such a
+procedure in biology._"--COMTE, vol. i. p. 367.
+
+M. Comte, as his manner is, contradicts himself two pages further on,
+but that will hardly relieve him from the responsibility of such a
+paragraph as the above.
+
+ _Nouvelle Fonction du Foie considéré comme organe producteur de
+matière sucrée chez l'Homme et les Animaux, par_ M. Claude Bernard.
+
+ "_Natural Groups given by Type, not by Definition_.... The
+class is steadily fixed, though not precisely limited; it is given,
+though not circumscribed; it is determined, not by a boundary-line
+without, but by a central point within; not by what it strictly
+excludes, but what it eminently includes; by an example, not by a
+precept; in short, instead of Definition we have a _Type_ for our
+director. A type is an example of any class, for instance, a species of
+a genus, which is considered as eminently possessing the characters of
+the class. All the species which have a greater affinity with this
+type-species than with any others, form the genus, and are ranged about
+about it, deviating from it in various directions and different
+degrees."--WHEWELL, _The Philosophy of the Inductive Sciences_,
+vol. i. pp. 476, 477.
+
+ Save for the pleasure of doing so, I need hardly point put my
+obligations to Mr. J. S. Mill's _System of Logic_, in this view of
+scientific method.

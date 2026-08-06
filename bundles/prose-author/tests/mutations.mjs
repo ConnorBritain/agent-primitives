@@ -235,7 +235,18 @@ export const MUTATIONS = [
     name: "let fidelity-scan cross line breaks with proper-noun runs",
     file: FIDELITY,
     suite: "review",
-    // ANCHOR REPAIRED 2026-08-05 (S4). The pattern was a regex literal restricted
+    // ANCHOR REPAIRED TWICE. 2026-08-05: the ASCII regex literal was rebuilt from
+    // `\p{Lu}`/`\p{Ll}` with explicit word-edge lookarounds. 2026-08-06: fixing the
+    // `X of the Y` extraction gap moved the inter-word gap into a named `NOUN_GAP`
+    // constant, deleting that anchor too.
+    //
+    // NOTE THE BACKSLASH COUNT DROPPED from four to two. `NOUN_GAP` is a `String.raw`
+    // literal, so the FILE holds one literal backslash before `t`, where the previous
+    // plain template literal held two - and an anchor is matched against source text, so
+    // its escaping tracks how that source is written rather than what the regex means.
+    // Getting this wrong produces a dead anchor, not a wrong mutation.
+    //
+    // Superseded reasoning, kept because it explains the shape: the pattern was restricted
     // to ASCII; closing P3(d) rebuilt it from `\p{Lu}`/`\p{Ll}` components with
     // explicit word-edge lookarounds, because `\b` is ASCII even under /u and would
     // have found no boundary before "É" - the fix would have been dead on arrival,
@@ -251,8 +262,8 @@ export const MUTATIONS = [
     // so the file contains two literal backslashes before `t`, and a JS string
     // wanting two literal backslashes needs four. The obvious two-backslash
     // version matches nothing.
-    find: '`${EDGE_L}${CAP_WORD}(?:[ \\\\t]+(?:of|the|de|van|von|and|for)[ \\\\t]+|[ \\\\t]+)${CAP_WORD}(?:[ \\\\t]+${CAP_WORD})*${EDGE_R}`',
-    with: '`${EDGE_L}${CAP_WORD}(?:\\\\s+(?:of|the|de|van|von|and|for)\\\\s+|\\\\s+)${CAP_WORD}(?:\\\\s+${CAP_WORD})*${EDGE_R}`',
+    find: 'const NOUN_GAP = String.raw`[ \\t]+(?:${LINK_WORD}[ \\t]+){0,${MAX_LINK_WORDS}}`;',
+    with: 'const NOUN_GAP = String.raw`\\s+(?:${LINK_WORD}\\s+){0,${MAX_LINK_WORDS}}`;',
     guards: "proper-noun runs stay within a line - a headings-plus-sentence false positive fires on every structured document",
   },
   {

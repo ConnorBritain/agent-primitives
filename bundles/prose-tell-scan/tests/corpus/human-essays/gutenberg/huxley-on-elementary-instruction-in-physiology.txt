@@ -1,0 +1,199 @@
+---
+source: Project Gutenberg 7150
+title: On Elementary Instruction in Physiology
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+The chief ground upon which I venture to recommend that the teaching of
+elementary physiology should form an essential part of any organised
+course of instruction in matters pertaining to domestic economy, is,
+that a knowledge of even the elements of this subject supplies those
+conceptions of the constitution and mode of action of the living body,
+and of the nature of health and disease, which prepare the mind to
+receive instruction from sanitary science.
+
+It is, I think, eminently desirable that the hygienist and the
+physician should find something in the public mind to which they can
+appeal; some little stock of universally acknowledged truths, which may
+serve as a foundation for their warnings, and predispose towards an
+intelligent obedience to their recommendations.
+
+Listening to ordinary talk about health, disease, and death, one is
+often led to entertain a doubt whether the speakers believe that the
+course of natural causation runs as smoothly in the human body as
+elsewhere. Indications are too often obvious of a strong, though
+perhaps an unavowed and half unconscious, under-current of opinion that
+the phenomena of life are not only widely different, in their
+superficial characters and in their practical importance, from other
+natural events, but that they do not follow in that definite order
+which characterises the succession of all other occurrences, and the
+statement of which we call a law of nature.
+
+Hence, I think, arises the want of heartiness of belief in the value of
+knowledge respecting the laws of health and disease, and of the
+foresight and care to which knowledge is the essential preliminary,
+which is so often noticeable; and a corresponding laxity and
+carelessness in practice, the results of which are too frequently
+lamentable.
+
+It is said that among the many religious sects of Russia, there is one
+which holds that all disease is brought about by the direct and special
+interference of the Deity, and which, therefore, looks with repugnance
+upon both preventive and curative measures as alike blasphemous
+interferences with the will of God. Among ourselves, the "Peculiar
+People" are, I believe, the only persons who hold the like doctrine in
+its integrity, and carry it out with logical rigour. But many of us are
+old enough to recollect that the administration of chloroform in
+assuagement of the pangs of child-birth was, at its introduction,
+strenuously resisted upon similar grounds.
+
+I am not sure that the feeling, of which the doctrine to which I have
+referred is the full expression, does not lie at the bottom of the
+minds of a great many people who yet would vigorously object to give a
+verbal assent to the doctrine itself. However this may be, the main
+point is that sufficient knowledge has now been acquired of vital
+phenomena, to justify the assertion, that the notion, that there is
+anything exceptional about these phenomena, receives not a particle of
+support from any known fact. On the contrary, there is a vast and an
+increasing mass of evidence that birth and death, health and disease,
+are as much parts of the ordinary stream of events as the rising and
+setting of the sun, or the changes of the moon; and that the living
+body is a mechanism, the proper working of which we term health; its
+disturbance, disease; its stoppage, death. The activity of this
+mechanism is dependent upon many and complicated conditions, some of
+which are hopelessly beyond our control, while others are readily
+accessible, and are capable of being indefinitely modified by our own
+actions. The business of the hygienist and of the physician is to know
+the range of these modifiable conditions, and how to influence them
+towards the maintenance of health and the prolongation of life; the
+business of the general public is to give an intelligent assent, and a
+ready obedience based upon that assent, to the rules laid down for
+their guidance by such experts. But an intelligent assent is an assent
+based upon knowledge, and the knowledge which is here in question means
+an acquaintance with the elements of physiology.
+
+It is not difficult to acquire such knowledge. What is true, to
+a certain extent, of all the physical sciences, is eminently
+characteristic of physiology--the difficulty of the subject begins
+beyond the stage of elementary knowledge, and increases with every
+stage of progress. While the most highly trained and the best furnished
+intellect may find all its resources insufficient, when it strives to
+reach the heights and penetrate into the depths of the problems of
+physiology, the elementary and fundamental truths can be made clear to
+a child.
+
+No one can have any difficulty in comprehending the mechanism of
+circulation or respiration; or the general mode of operation of the
+organ of vision; though the unravelling of all the minutiae of these
+processes, may, for the present, baffle the conjoined attacks of the
+most accomplished physicists, chemists, and mathematicians. To know the
+anatomy of the human body, with even an approximation to thoroughness,
+is the work of a life; but as much as is needed for a sound
+comprehension of elementary physiological truths, may be learned in a
+week.
+
+A knowledge of the elements of physiology is not only easy of
+acquirement, but it may be made a real and practical acquaintance with
+the facts, as far as it goes. The subject of study is always at hand,
+in one's self. The principal constituents of the skeleton, and the
+changes of form of contracting muscles, may be felt through one's own
+skin. The beating of one's heart, and its connection with the pulse,
+may be noted; the influence of the valves of one's own veins may be
+shown; the movements of respiration may be observed; while the
+wonderful phenomena of sensation afford an endless field for curious
+and interesting self-study. The prick of a needle will yield, in a drop
+of one's own blood, material for microscopic observation of phenomena
+which lie at the foundation of all biological conceptions; and a cold,
+with its concomitant coughing and sneezing, may prove the sweet uses of
+adversity by helping one to a clear conception of what is meant by
+"reflex action."
+
+Of course there is a limit to this physiological self-examination. But
+there is so close a solidarity between ourselves and our poor relations
+of the animal world, that our inaccessible inward parts may be
+supplemented by theirs. A comparative anatomist knows that a sheep's
+heart and lungs, or eye, must not be confounded with those of a man;
+but, so far as the comprehension of the elementary facts of the
+physiology of circulation, of respiration, and of vision goes, the one
+furnishes the needful anatomical data as well as the other.
+
+Thus, it is quite possible to give instruction in elementary physiology
+in such a manner as, not only to confer knowledge, which, for the
+reason I have mentioned, is useful in itself; but to serve the purposes
+of a training in accurate observation, and in the methods of reasoning
+of physical science. But that is an advantage which I mention only
+incidentally, as the present Conference does not deal with education in
+the ordinary sense of the word.
+
+It will not be suspected that I wish to make physiologists of all the
+world. It would be as reasonable to accuse an advocate of the "three
+R's" of a desire to make an orator, an author, and a mathematician of
+everybody. A stumbling reader, a pot-hook writer, and an arithmetician
+who has not got beyond the rule of three, is not a person of brilliant
+acquirements; but the difference between such a member of society and
+one who can neither read, write, nor cipher is almost inexpressible;
+and no one nowadays doubts the value of instruction, even if it goes no
+farther.
+
+The saying that a little knowledge is a dangerous thing is, to my mind,
+a very dangerous adage. If knowledge is real and genuine, I do not
+believe that it is other than a very valuable possession, however
+infinitesimal its quantity may be. Indeed, if a little knowledge is
+dangerous, where is the man who has so much as to be out of danger?
+
+If William Harvey's life-long labours had revealed to him a tenth part
+of that which may be made sound and real knowledge to our boys and
+girls, he would not only have been what he was, the greatest
+physiologist of his age, but he would have loomed upon the seventeenth
+century as a sort of intellectual portent. Our "little knowledge" would
+have been to him a great, astounding, unlooked-for vision of scientific
+truth.
+
+I really see no harm which can come of giving our children a little
+knowledge of physiology. But then, as I have said, the instruction must
+be real, based upon observation, eked out by good explanatory diagrams
+and models, and conveyed by a teacher whose own knowledge has been
+acquired by a study of the facts; and not the mere catechismal
+parrot-work which too often usurps the place of elementary teaching.
+
+It is, I hope, unnecessary for me to give a formal contradiction to the
+silly fiction, which is assiduously circulated by fanatics who not only
+ought to know, but do know, that their assertions are untrue, that I
+have advocated the introduction of that experimental discipline which
+is absolutely indispensable to the professed physiologist, into
+elementary teaching.
+
+But while I should object to any experimentation which can justly be
+called painful, for the purpose of elementary instruction; and, while,
+as a member of a late Royal Commission, I gladly did my best to prevent
+the infliction of needless pain, for any purpose; I think it is my duty
+to take this opportunity of expressing my regret at a condition of the
+law which permits a boy to troll for pike, or set lines with live frog
+bait, for idle amusement; and, at the same time, lays the teacher of
+that boy open to the penalty of fine and imprisonment, if he uses the
+same animal for the purpose of exhibiting one of the most beautiful and
+instructive of physiological spectacles, the circulation in the web of
+the foot. No one could undertake to affirm that a frog is not
+inconvenienced by being wrapped up in a wet rag, and having his toes
+tied out; and it cannot be denied that inconvenience is a sort of pain.
+But you must not inflict the least pain on a vertebrated animal for
+scientific purposes (though you may do a good deal in that way for gain
+or for sport) without due licence of the Secretary of State for the
+Home Department, granted under the authority of the Vivisection Act.
+
+So it comes about, that, in this present year of grace 1877, two
+persons may be charged with cruelty to animals. One has impaled a frog,
+and suffered the creature to writhe about in that condition for hours;
+the other has pained the animal no more than one of us would be pained
+by tying strings round his fingers, and keeping him in the position of
+a hydropathic patient. The first offender says "I did it because I find
+fishing very amusing," and the magistrate bids him depart in peace;
+nay, probably wishes him good sport. The second pleads, "I wanted to
+impress a scientific truth, with a distinctness attainable in no other
+way, on the minds of my scholars," and the magistrate fines him five
+pounds.
+
+I cannot but think that this is an anomalous and not wholly creditable
+state of things.

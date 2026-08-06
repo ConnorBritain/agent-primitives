@@ -6,6 +6,7 @@ date: 2026-07-28
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/why-are-gay-bars-building-databases-their-patrons
 ---
 Recent reports have raised alarm about the use of PatronScan, an ID-checking and face-scanning system, at multiple LGBTQ+ bars in San Francisco’s Castro neighborhood. Much of the attention has focused on reports that the system photographs patrons as they enter venues and questions about whether those images are used for facial recognition.
