@@ -38,11 +38,50 @@ When asked whether a draft sounds like its author, and a writing corpus exists:
 Do not judge quality, clarity, or correctness. This is one question only.
 ```
 
-## The one thing worth getting right
+```markdown
+## Prose fidelity review
 
-Rule 4. A voice finding without evidence of how the author writes instead is an
-opinion wearing a citation's clothes, and opinions about someone's voice are the
-failure mode that costs the most.
+When a revision must be checked against the text it replaced:
+
+1. If there is no original, stop. Fidelity is a comparison; judging the revision
+   on its own terms is a different question.
+2. Run the deterministic scan FIRST and read its output:
+   `node tools/fidelity-scan.mjs <original> <revision>`
+3. The scan is authoritative on PRESENCE. Never claim a flagged atom is present.
+   If you think the scan is wrong, say so under "Scanner defects" as a bug report
+   about the tool, and do not fold it into a fidelity finding.
+4. Look for, in order: flagged atoms genuinely gone; claim drift the scan cannot
+   see (polarity reversed, hedge removed, attribution dropped); dropped
+   qualifications and scope limits; edits outside the plan; a heading rename that
+   took its section with it.
+5. Account for EVERY flagged atom. Anything you did not raise goes under
+   "Immaterial losses" with a reason, one line each.
+6. Every finding quotes both the original span and what stands in its place. One
+   that does not is a guess — drop it.
+7. When you cannot tell whether a loss matters, it matters. A loss waved through
+   ships; a wrong finding costs a glance at two lines.
+8. End with FAITHFUL or MATERIAL-LOSS. MATERIAL-LOSS says information was lost,
+   not that the revision is bad.
+
+Do not judge whether it reads better, and do not judge voice — that is the voice
+critic's question. Do not propose fixes.
+```
+
+## The one thing worth getting right, per critic
+
+**Voice: rule 4.** A voice finding without evidence of how the author writes
+instead is an opinion wearing a citation's clothes, and opinions about someone's
+voice are the failure mode that costs the most.
+
+**Fidelity: rule 3.** A model asked whether a number survived a rewrite will
+answer from how plausible the sentence sounds, and it will be confident. The
+deterministic scan is there to make that error impossible, and a critic allowed
+to overrule it has given the property back.
+
+Note that rules 7 in one block and 5 in the other point in **opposite
+directions**. That is deliberate, and it is the part most likely to be
+"corrected" by someone tidying the two blocks into one voice. Voice resolves to
+silence; fidelity resolves to MATERIAL-LOSS. Do not harmonise them.
 
 ## What degrades
 
@@ -50,8 +89,10 @@ failure mode that costs the most.
 |---|---|---|
 | Read-only | ✅ tool allowlist | ❌ a request |
 | Clean context | ✅ | ❌ unless you run a fresh subprocess |
-| Corpus-citation requirement | prompt | prompt — survives intact |
-| The inverted error preference | prompt | prompt — survives intact |
+| Corpus-citation requirement (voice) | prompt | prompt — survives intact |
+| The error preference, both directions | prompt | prompt — survives intact |
+| Scan-is-authoritative (fidelity) | prompt + tool | prompt + tool — **survives**, if you run the scan |
 
-The two that survive are the two that matter most, which is the only good news
-in this table.
+The ones that survive are the ones that matter most, which is the only good news
+in this table. The fidelity row is the best case in the bundle: its load-bearing
+half is a script, and a script ports.

@@ -1,0 +1,159 @@
+{
+  "_comment": [
+    "Acceptance fixtures for prose-fidelity-critic. Each fixture is an original/revision pair.",
+    "",
+    "`original.md` is a BYTE-IDENTICAL copy of the corpus file named in `source`, and the",
+    "selftest enforces that. This is the point: an original I was free to edit is an original",
+    "I could have quietly tuned until a fixture passed. Only `revision.md` is synthesised.",
+    "",
+    "`scan_verdict` records what fidelity-scan returns on the pair, and the selftest re-derives",
+    "it. It is here so the harness can report how often the critic DISAGREES with the scanner,",
+    "in both directions. A critic that never disagrees is an expensive echo of a regex.",
+    "",
+    "`class` is the disagreement geometry, not a severity:",
+    "  A  scan FAITHFUL, critic FAITHFUL        - agree; tests it does not manufacture nits",
+    "  B  scan MATERIAL-LOSS, critic FAITHFUL   - the scanner over-flagged; critic clears it",
+    "  C  scan MATERIAL-LOSS, critic MATERIAL-LOSS - agree; tests it names WHICH loss matters",
+    "  D  scan FAITHFUL, critic MATERIAL-LOSS   - the scanner is blind; critic must catch it",
+    "",
+    "B and D are the whole argument for the critic existing. An echo of the scanner scores",
+    "8 of 13 here, and that is the number any result has to beat to mean anything.",
+    "",
+    "THE ECHO BASELINE MOVES WHEN THE SCANNER IS FIXED, and it moved on 2026-08-05 (S4).",
+    "n-beauty-modernised was class B only because the presence check was line-wrap",
+    "sensitive; with that defect fixed the scanner no longer over-flags it and the fixture",
+    "is class A. Nothing about the revision changed. A fixture's class is a property of the",
+    "PAIR AND THE SCANNER, not of the revision alone - so a class is not evidence that",
+    "survives a tool change, and the harness numbers must be re-derived after one."
+  ],
+  "corpus_root": "../../../../prose-tell-scan/tests/corpus/human-essays/gutenberg",
+  "fixtures": [
+    {
+      "name": "n-tihonov-reordered",
+      "kind": "negative",
+      "class": "A",
+      "source": "chekhov-081-to-v-a-tihonov.txt",
+      "scan_verdict": "FAITHFUL",
+      "expect": "FAITHFUL",
+      "revision_does": "Merges and reorders sentences. Every date, book title and name preserved."
+    },
+    {
+      "name": "n-rossolimo-tightened",
+      "kind": "negative",
+      "class": "A",
+      "source": "chekhov-119-to-g-i-rossolimo.txt",
+      "scan_verdict": "FAITHFUL",
+      "expect": "FAITHFUL",
+      "revision_does": "Tightens wording throughout. Every hedge, scope limit and figure preserved."
+    },
+    {
+      "name": "n-sister-condensed",
+      "kind": "negative",
+      "class": "A",
+      "source": "chekhov-058-to-his-sister.txt",
+      "scan_verdict": "FAITHFUL",
+      "expect": "FAITHFUL",
+      "revision_does": "Condenses clauses and joins sentences. All names, dates and the casualty parenthetical kept.",
+      "judgement_note": "BORDERLINE, recorded rather than buried. Merging 'a dozen policemen are sufficient here. The police make a combined attack' into '...sufficient here: they make a combined attack' re-scopes the tactic from the Paris police generally to that dozen. The critic identified this unprompted, called it the only change touching a claim's shape, and cleared it because no fact or limit becomes unrecoverable. That is defensible and it is arguable, and it is the one borderline in the set resolved toward FAITHFUL - which is the direction the fixture author already expected. Noted so the asymmetry is visible: the borderline that disagreed with its expectation (p-death-severus-unnamed) was re-examined, and this one was not."
+    },
+    {
+      "name": "n-rossolimo-island-dropped",
+      "kind": "negative",
+      "class": "B",
+      "source": "chekhov-119-to-g-i-rossolimo.txt",
+      "scan_verdict": "MATERIAL-LOSS",
+      "expect": "FAITHFUL",
+      "revision_does": "Drops a generic descriptor from a named place: 'travelled to the Island of Sahalin' becomes 'travelled to Sahalin'. Nothing else changes. The scanner flags the run; Sahalin is still named, it is an island either way, and Chekhov's own Tihonov letter in this same fixture set writes 'a journey to Sahalin'. Added after the first run, to restore class B to three after p-death-severus-unnamed was reclassified out of it - a load-bearing class should not be carried by two cases. S4 UPDATE: class B is back to two anyway, because n-beauty-modernised's over-flag was a scanner defect and the defect is fixed. The next over-flag that turns out to be a tool bug empties the class.",
+      "outcome_note": "THE CRITIC FAILS THIS ONE, and the expected verdict is deliberately NOT being changed to match it. It returned MATERIAL-LOSS, arguing that a reader who does not know the geography loses the fact that the penal colony was offshore. That is arguable, and so is the expectation - which is exactly why the expectation stands. One fixture in this set (p-death-severus-unnamed) was already corrected after the critic disagreed, on an externally checkable point of Roman nomenclature. Correcting a SECOND one on a pure judgement call, in the same direction, would make 'the fixture was wrong' unfalsifiable and turn the harness into a record of whatever the critic happens to say. So this is carried as a false positive and the headline negative rate pays for it. What it tells the next reader is real, and could not have been learned from a clean sweep: the critic is strict about descriptors attached to named entities, and on any borderline its stated tie-break rule - 'when you cannot tell whether a loss matters, it matters' - resolves toward MATERIAL-LOSS by design. A class-B fixture must therefore be an UNARGUABLE over-flag. This one is not, and authoring it is how that constraint was found."
+    },
+    {
+      "name": "n-tihonov-moscow-university",
+      "kind": "negative",
+      "class": "B",
+      "source": "chekhov-081-to-v-a-tihonov.txt",
+      "scan_verdict": "MATERIAL-LOSS",
+      "expect": "FAITHFUL",
+      "revision_does": "Renames 'the University of Moscow' to 'Moscow University' - the form Chekhov himself uses in the Rossolimo letter. The scanner flags the run; the institution is still named."
+    },
+    {
+      "name": "p-death-severus-unnamed",
+      "kind": "positive",
+      "class": "C",
+      "source": "bacon-of-death53.txt",
+      "scan_verdict": "MATERIAL-LOSS",
+      "expect": "MATERIAL-LOSS",
+      "revision_does": "Drops honorifics: 'Augustus Caesar' to 'Augustus', 'Septimus Severus' to 'Severus'. The first is immaterial; the second is not, because 'Severus' does not distinguish Septimius Severus from Severus Alexander or Libius Severus.",
+      "corrected_after_run": "2026-08-05-fidelity",
+      "previous_expect": "FAITHFUL",
+      "previously_named": "n-death-honorifics",
+      "correction_note": "Authored as n-death-honorifics, class B, expect FAITHFUL, on the assumption that both honorific drops were immaterial. The critic returned MATERIAL-LOSS and gave the reason: 'Severus' alone names a family, not a man, in a passage whose whole point is attributing specific dying words to specific emperors. That is checkable and correct - there are at least four emperors called Severus - so the fixture was wrong and the critic was right. The expected verdict was corrected and the fixture renamed. The transcript is unedited; read it and judge the correction."
+    },
+    {
+      "name": "n-beauty-modernised",
+      "kind": "negative",
+      "class": "A",
+      "source": "bacon-of-beauty.txt",
+      "scan_verdict": "FAITHFUL",
+      "expect": "FAITHFUL",
+      "revision_does": "Modernises syntax, preserving every name, qualification and the Latin tag.",
+      "reclassified_after_run": "2026-08-05-fidelity",
+      "previous_class": "B",
+      "previous_scan_verdict": "MATERIAL-LOSS",
+      "reclassification_note": "Authored as class B on a flagged atom that was a SCANNER ARTIFACT: 'Edward the Fourth' is present in the revision but line-wrapped after 'Edward the', and the presence check was literal. That was P3(a), fixed in S4, so the scanner now returns FAITHFUL and the pair is class A. THE REVISION WAS NOT TOUCHED - only the tool was - and the fixture is kept as the worked example of what that means: it was scored for a run as evidence that the critic can clear an over-flag, and the over-flag no longer exists. A class-B fixture whose over-flag is a tool bug is a fixture with an expiry date, and this one reached it."
+    },
+    {
+      "name": "p-tihonov-summarised",
+      "kind": "positive",
+      "class": "C",
+      "source": "chekhov-081-to-v-a-tihonov.txt",
+      "scan_verdict": "MATERIAL-LOSS",
+      "expect": "MATERIAL-LOSS",
+      "revision_does": "Summarises the biography: six dates become vague periods, four book titles become 'several collections'."
+    },
+    {
+      "name": "p-death-quotes-paraphrased",
+      "kind": "positive",
+      "class": "C",
+      "source": "bacon-of-death53.txt",
+      "scan_verdict": "MATERIAL-LOSS",
+      "expect": "MATERIAL-LOSS",
+      "revision_does": "Renders every Latin quotation into English paraphrase. The essay's evidence was the quotations."
+    },
+    {
+      "name": "p-sister-fourmis-cut",
+      "kind": "positive",
+      "class": "C",
+      "source": "chekhov-058-to-his-sister.txt",
+      "scan_verdict": "MATERIAL-LOSS",
+      "expect": "MATERIAL-LOSS",
+      "revision_does": "Drops Fourmis, the casualties, Levitan, Suvorin, the Salon and the Church of the Embassy. The scanner sees ONE of these, because single-word names and 'X of the Y' runs are outside its extraction. Tests whether the critic reads past the flagged list."
+    },
+    {
+      "name": "p-rossolimo-hedges-removed",
+      "kind": "positive",
+      "class": "D",
+      "source": "chekhov-119-to-g-i-rossolimo.txt",
+      "scan_verdict": "FAITHFUL",
+      "expect": "MATERIAL-LOSS",
+      "revision_does": "Keeps every number and name; removes 'probably', 'more than', 'where it was possible', 'do not always', and the clause bounding what the three-hundred figure counts."
+    },
+    {
+      "name": "p-sister-scope-dropped",
+      "kind": "positive",
+      "class": "D",
+      "source": "chekhov-058-to-his-sister.txt",
+      "scan_verdict": "FAITHFUL",
+      "expect": "MATERIAL-LOSS",
+      "revision_does": "Keeps every name and date; drops '(there were many killed and wounded)', the comparison bounding 'Levitan is a king', the cause of the unseen pictures, and 'here' from the claim about policemen."
+    },
+    {
+      "name": "p-beauty-qualifications-dropped",
+      "kind": "positive",
+      "class": "D",
+      "source": "bacon-of-beauty.txt",
+      "scan_verdict": "FAITHFUL",
+      "expect": "MATERIAL-LOSS",
+      "revision_does": "Keeps every name and the Latin tag; reverses 'neither is it always most seen that very beautiful persons are otherwise of great virtue' into a flat assertion, turns 'a man cannot tell whether Apelles or Albert Durer were the more trifler' into a ruling, and drops 'But this holds not always', 'for the most part' and 'if it be true'."
+    }
+  ]
+}

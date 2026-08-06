@@ -1,7 +1,7 @@
 {
   "name": "prose-tell-scan",
-  "version": "0.1.0",
-  "description": "Deterministic prose review: a catalogued scan for AI writing tells plus the cadence metrics a model cannot estimate about its own output. Report-only and register-aware.",
+  "version": "0.1.1",
+  "description": "Deterministic prose measurement: a catalogued scan for AI writing tells plus the cadence metrics a model cannot estimate about its own output. Register-aware, calibrated against your own corpus, and report-only — signals for an author about their own draft, never a verdict about who wrote something. Ships no rewriter, by design.",
   "author": {
     "name": "Connor England"
   },
@@ -13,7 +13,8 @@
     "prose",
     "editing",
     "ai-writing-tells",
-    "readability"
+    "readability",
+    "review"
   ],
   "skills": "skills"
 }

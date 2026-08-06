@@ -1,0 +1,15 @@
+{
+  "words": 1439,
+  "flagged_categories": [
+    "structural-scaffold"
+  ],
+  "cadence_flags": [],
+  "flagged_entries": [
+    {
+      "id": "tricolon",
+      "category": "structural-scaffold",
+      "count": 6
+    }
+  ],
+  "thresholds_derived": false
+}

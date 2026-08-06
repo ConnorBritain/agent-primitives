@@ -120,12 +120,6 @@ the corpus spans a long period it describes a range rather than a voice, and
 findings get correspondingly weaker. `calibrate` reports when a corpus looks like
 more than one voice; heed it before trusting this.
 
-**It has been measured on a register, not on a person.** The acceptance corpus is
-encyclopedia articles, each written by many Wikipedia editors over years. A
-passing score shows the prompt is not trigger-happy on one tight register. It
-does not show the prompt can recognise an individual, which is the thing it is
-for, and nothing here bounds its behaviour on essays, fiction, or correspondence.
-
 **It is quiet on human prose, and quieter than you might want on AI prose.** The
 full leave-one-out sweep returns zero findings on twelve human documents. On
 machine-written drafts chosen so the corpus's known genre confound cannot explain
@@ -133,10 +127,44 @@ a finding, it flags one in four — and the three it passes are machine-written
 *and* unremarkable encyclopedic prose, which a voice critic should pass. Flagging
 them would be authorship detection.
 
-**A zero false-positive rate does not prove the prompt is well tuned.** It is
-equally consistent with a prompt too quiet to be useful. Separating those needs a
-draft with a deviation planted in the author's own register, confirmed not theirs.
-That corpus does not exist yet, so the supported claim is the narrow one above.
+**It has now been measured on individuals, and the honest claim is narrower than
+the score.** Cross-author substitution gives this critic ground truth for the
+first time: a corpus of one author plus a held-out sample of theirs must come back
+`CLEAN`, and the same corpus with an intruder's sample must come back `REVISE`.
+Over a full six-author matrix it landed on every cell. But most of those pairs
+differ in register, or in century, as well as in person, and a critic separating
+1625 from 1909 has separated a register wearing a different hat.
+
+Read against the pairs where register and era are held constant, **the
+person-level result rests on one author pair and six draws.** It is a real result
+— the findings there name narratorial habit, not period marker or subject matter,
+and the two directions are mirror images of each other — and it is small. Treat
+"this critic can recognise a person" as supported for prose like that pair's and
+untested elsewhere.
+
+**Its ceiling is now set by how famous the corpus author is.** Every author it has
+been tested against is canonical and out of copyright, and a model that has read
+them can reach a verdict without reading the samples in front of it. One transcript
+named the corpus author unprompted, from staged files that never say who wrote
+them. That is not the prompt misbehaving — naming a human author is not the
+machine-authorship claim the prompt forbids — but it means an unknown share of the
+score may come from recall rather than from comparison. **On your own corpus, which
+no model has memorised, expect it to be worse than the published numbers, not
+better.**
+
+**Nothing has tested it near its decision boundary.** Every cross-author case so
+far is a different person writing a different thing; every same-author case is a
+straightforward held-out sample. A pastiche, a draft from a different decade of the
+author's life, or a passage a collaborator wrote in the author's style — the cases
+that actually decide whether this tool earns its place — remain unmeasured, and
+critic verdicts are known to be non-deterministic exactly there.
+
+**Neither verdict is strong evidence on its own yet, and the reason is sample
+size.** Both error rates were measured at zero, and zero errors over a handful of
+cells bounds a rate loosely: the miss rate and the false-alarm rate both come back
+with 95% bounds in the tens of percent. Anyone tempted to read one as tighter than
+the other should note the difference between them is the number of cells each was
+measured on — four against six — and not a measured difference in behaviour.
 
 Current numbers and their caveats live in
 [`tests/critic-harness.md`](../../../bundles/prose-review/tests/critic-harness.md)

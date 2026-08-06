@@ -32,7 +32,7 @@ import {
   loadConfig, loadProfile, profileSearchPath, resolveProfile, listProfiles, BASE_PROFILE,
 } from "./lib/profile.mjs";
 import { relativeReport, renderRelative } from "./lib/relative.mjs";
-import { evaluateFindings, evaluateCadence, summarise, profileFit } from "./lib/evaluate.mjs";
+import { evaluateFindings, evaluateCadence, summarise, profileFit, resolveCeilings } from "./lib/evaluate.mjs";
 import { renderReport, renderComparison } from "./lib/report.mjs";
 
 const SKILL_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
@@ -60,6 +60,13 @@ Options
   --relative            "Is this me?" Compare against YOUR measured rates
                         rather than severity ceilings. Needs a calibrated
                         corpus; refuses without one.
+  --human-only          Judge catalog density against bands derived ONLY from
+                        prose you wrote unaided, ignoring approved edits. The
+                        default is to use the blended bands when calibrate has
+                        produced them. Cadence bands are human-only either way,
+                        always, and no flag changes that.
+  --show-bands          Print human-only and blended ceilings side by side, so
+                        the drift between them is visible rather than inferred.
   --artifacts-only      Tier A only: leaked citation markup, chatbot register,
                         knowledge-cutoff hedges, unreplaced placeholders. Skips
                         every style judgement. Use this when the style catalog's
@@ -96,6 +103,10 @@ function parseArgs(argv) {
       case "--plain": opts.markdown = false; break;
       case "--markdown": opts.markdown = true; break;
       case "--list-profiles": opts.listProfiles = true; break;
+      // Default true: the blend is used when it exists. See resolveCeilings for
+      // why that is the honest default rather than the convenient one.
+      case "--human-only": opts.blended = false; break;
+      case "--show-bands": opts.showBands = true; break;
       case "--artifacts-only": opts.artifactsOnly = true; break;
       case "--relative": opts.relative = true; break;
       case "-h": case "--help": opts.help = true; break;
@@ -222,7 +233,16 @@ function analyse(file, opts, config, searchPath) {
         .map((e) => ({ line: null, text: `${e} — ${hits[0].why}` })),
     }));
 
-  const findings = [...evaluateFindings(rawFindings, profile.thresholds), ...artifactFindings];
+  // Resolved ONCE, here, and carried into the result so every consumer - the
+  // human report, --json, and anything downstream - names the same band set. An
+  // earlier design resolved it inside evaluateFindings, which meant the report
+  // could describe one set of ceilings while the findings were judged by another.
+  const bands = resolveCeilings(profile.thresholds, { blended: opts.blended });
+
+  const findings = [
+    ...evaluateFindings(rawFindings, profile.thresholds, bands),
+    ...artifactFindings,
+  ];
   const cadenceChecks = opts.artifactsOnly
     ? []
     : evaluateCadence(cadence, profile.thresholds);
@@ -280,6 +300,36 @@ function analyse(file, opts, config, searchPath) {
       dir: profile.dir,
       medium: profile.meta.medium || null,
       thresholds: profile.thresholds,
+      // WHICH CEILINGS THIS SCAN ACTUALLY JUDGED AGAINST. A band derived partly
+      // from model-assisted text is a different claim from one derived only from
+      // prose the author wrote unaided. Emitted on every result, including
+      // --json, so no consumer has to infer it from the presence of a key.
+      //
+      // `warning` is calibrate's narrowing check, which has been computed and
+      // written to thresholds.derived.json since the blend shipped and shown to
+      // nobody, because nothing read the file. A blended ceiling that comes in
+      // meaningfully TIGHTER than the human one is the shape of voice collapse -
+      // it means the approved pool has lower tell density than the author's own
+      // writing, so the author's natural prose starts failing its own bands.
+      // That is the one direction PROFILES.md rule 5 calls a warning rather than
+      // a footnote, and it now reaches the person it is about.
+      bands: {
+        used: bands.source,
+        blend_available: bands.available,
+        human: bands.human,
+        blended: bands.blended,
+        approved_samples: profile.thresholds.approved?.samples_used ?? 0,
+        share_of_blended_pool: profile.thresholds.approved?.share_of_blended_pool ?? null,
+        // TOP LEVEL, not under `approved`. calibrate.mjs closes the `approved`
+        // object and then writes `blended_warning` beside it, and loadThresholds
+        // spreads the derived file straight onto `thresholds`. The first version
+        // of this line read `thresholds.approved.blended_warning`, which is
+        // permanently undefined - so the warning was computed, written, and
+        // dropped one field name from being shown, which is the exact bug this
+        // sprint existed to fix, reintroduced inside the fix. A reviewer caught
+        // it; the selftest below now would.
+        warning: profile.thresholds.blended_warning || null,
+      },
       // Emitted because density findings are only comparable WITHIN one catalog
       // version: adding or retuning an entry silently changes what a per-1k
       // number means. Anything that stores these bands — a voice lock, a derived
@@ -401,7 +451,7 @@ function main() {
 
   for (const result of results) {
     process.stdout.write(
-      `${renderReport(result, { showExamples: opts.examples, showClean: opts.all })}\n`,
+      `${renderReport(result, { showExamples: opts.examples, showClean: opts.all, showBands: opts.showBands })}\n`,
     );
   }
   if (baseline) {

@@ -1,0 +1,15 @@
+No findings.
+
+`llm-safe-truths` — checked, clean. This is a dense, factual encyclopedia-style article (dates, headcounts, hectares, currency amounts). I found no sentence that reads as unfalsifiable filler; the sweeping-sounding lines ("ABU has served students from every state of the Nigerian federation," line 122; "ABU can claim to be the largest and the most extensive of universities in Sub-Saharan Africa," line 136) are checkable, specific claims, not platitudes with no truth-value.
+
+`announced-then-undelivered` — checked, clean. The draft has no essay-style setup-and-payoff structure; it is organized as reference sections (Faculties, Library, History, Administration, Notable alumni, Alumni Association) that describe rather than promise. No section opens with a claim it then fails to substantiate.
+
+`surveying-without-committing` — checked, clean. Nothing in the draft poses a question or frames a debate it then declines to resolve. The one place with visible tension — line 133's observation that ABU's "national character" "might be the reason" for its instability — states a single hedge, not a laid-out set of undefended positions, and the piece isn't framed as asking a question it owes an answer to.
+
+`invented-specifics` (narrow reading) — checked, clean, with one item routed to Out of scope below rather than flagged. I looked for (a) a specific attributed to a source the draft never names, and (b) two specifics inside the draft that cannot both be true. On (a): nearly every specific in this draft (costs, headcounts, dates) is unsourced, but the draft carries a `[ citation needed ]` tag (line 132), "References" and "External links" sections, and general Wikipedia-mirror structure — the plain signal that this is a copy of a linked, citation-supported article with the links stripped, not a case of an author inventing an uncheckable source. That is the case the pattern explicitly carves out as not mine. On (b): I checked the library's book counts (1.2 million, line 81, vs. capacity of 70,000, line 84) and decided against flagging it — see Out of scope.
+
+Out of scope:
+- Line 81 says the library's collection is "over 1.2 millions books"; line 84 says "The library has a capacity of 70,000 books." Read in isolation these look incompatible, but line 84's number sits inside the paragraph describing the library as built in 1963 for $39,000, while line 81's figure is introduced with "Currently" — so the two numbers plausibly describe different points across six decades (a 1963 building's original capacity vs. today's holdings after expansion), not a same-time contradiction. I can't resolve which reading is right from the text alone. Worth a fact-checker's or the author's attention, not a finding.
+- The draft's unsourced specifics generally (the $39,000 library cost, 66,000 periodicals, 7,000 hectares, 35,000 enrollment, the Abacha sole-administrator note at line 148) are candidates for a fact-checker if anyone wants to verify them against the world, but I'm treating them as stripped citations from a Wikipedia-style source per the note above, not as invented specifics.
+
+CLEAN

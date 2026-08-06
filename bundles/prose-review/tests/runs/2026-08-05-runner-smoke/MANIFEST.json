@@ -1,0 +1,43 @@
+{
+  "critic": "fidelity",
+  "run_id": "2026-08-05-runner-smoke",
+  "prepared": "2026-08-05",
+  "agent_prompt": "primitives/agents/prose-fidelity-critic/agent.md",
+  "agent_sha256": "6b1257a8aac9bb09bf2ccd6a6dffe9127f30cd6bbb3bc43981c614afbd2c9921",
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "n-tihonov-reordered",
+      "kind": "negative",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/fixtures/fidelity/n-tihonov-reordered/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/fixtures/fidelity/n-tihonov-reordered/revision.md",
+          "sha256": "00fd80d578a1e600a401e75dbd3cb134ee5b05142711f345d19d46e8c5ecd32b"
+        }
+      ]
+    },
+    {
+      "case": "case-02",
+      "fixture": "p-rossolimo-hedges-removed",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/fixtures/fidelity/p-rossolimo-hedges-removed/original.md",
+          "sha256": "1ce09103ae60b97d34cbef4be000ef80c0b0313ec43dfc0acd2c92c41734007e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/fixtures/fidelity/p-rossolimo-hedges-removed/revision.md",
+          "sha256": "fdd9358ea0551a6cea39281cd9803f9b9e0ff7277120d99fe251609ca7eb962d"
+        }
+      ]
+    }
+  ]
+}

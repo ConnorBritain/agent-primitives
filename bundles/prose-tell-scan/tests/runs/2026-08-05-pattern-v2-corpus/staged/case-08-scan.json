@@ -1,0 +1,17 @@
+{
+  "words": 793,
+  "flagged_categories": [
+    "structural-scaffold"
+  ],
+  "cadence_flags": [
+    "cv_len"
+  ],
+  "flagged_entries": [
+    {
+      "id": "participle-tail",
+      "category": "structural-scaffold",
+      "count": 1
+    }
+  ],
+  "thresholds_derived": false
+}

@@ -13,3 +13,6 @@ node_modules/
 
 # Local Claude Code state — never the plugin manifests, which are the product
 .claude/settings.local.json
+
+# Planning / working notes — local only, never shipped
+.planning/

@@ -25,10 +25,37 @@ ATTRIBUTION.json lists every essay's author, source volume, Gutenberg eBook id,
 and original publication date. The eBook id resolves to
 https://www.gutenberg.org/ebooks/<id> for anyone re-deriving the corpus.
 
-Sibling directories (`human/`, `ai/`) are CC BY-SA 4.0 Wikipedia text with
-their own LICENSE. Nothing has changed there. This directory sits alongside
-them for the same reason they exist: to give the critics real prose to be
-tested against, with provenance a reader can check.
+Why each gutenberg/ author is public domain, one line each. Two independent
+grounds are given because the corpus is redistributed worldwide: publication
+before the 1930 US cutoff, and author death more than 70 years ago.
+
+    Francis Bacon        Essays 1625.                 d. 1626.
+    G. K. Chesterton     Tremendous Trifles 1909.     d. 1936.
+    Anton Chekhov        Garnett translation 1920.    d. 1904; Garnett d. 1946.
+    Kate Chopin          The Awakening 1899.          d. 1904.
+    O. Henry             The Four Million 1906.       d. 1910 (W. S. Porter).
+
+Chekhov is the only one where the translation carries its own copyright term;
+Constance Garnett died in 1946, so the 1920 translation is out of copyright on
+both grounds as well.
+
+-------------------------------------------------------------------------
+THIS DIRECTORY IS SINGLE-AUTHOR. THAT IS THE POINT OF IT.
+-------------------------------------------------------------------------
+
+Every subdirectory here holds work by ONE identifiable writer, with enough
+samples (>=15) to characterise that writer's cadence. Voice calibration and
+the voice critic's cross-author test depend on it: both assume "these samples
+were written by the same person", and both produce a confident measurement of
+nobody if that is false.
+
+Multi-author collections do NOT belong here even when the licence is fine.
+They live in sibling directories - `human/` (Wikipedia, CC BY-SA 4.0) and
+`human-professional/` (EFF Deeplinks, CC-BY 4.0) - each with its own LICENSE.
+Those exist for the same reason this one does: to give the critics real prose
+to be tested against, with provenance a reader can check. They just answer a
+different question, and mixing them silently would turn an authorship test
+into a register test without anyone noticing.
 
 Nothing may be added to this directory except text that is public domain or
 under a licence at least as permissive - CC0, CC-BY, or an OSI-approved

@@ -4,8 +4,8 @@
 the next, meant to be read by a fresh-context agent before writing any code.
 When something in it goes stale, edit it in the same commit as the change.
 
-**Branch:** `prose-review-design` (10 commits ahead of `main`; PR #10 open).
-**Suites (all green):** prose-tell-scan 240, prose-author 76, prose-review 20.
+**Branch:** `prose-review-design` (PR #10 open).
+**Suites (all green):** prose-tell-scan 240, prose-author 76, prose-review 103.
 
 ---
 
@@ -55,8 +55,10 @@ Key exports (pinned by prose-author's contract test):
 Test corpus lives at `bundles/prose-tell-scan/tests/corpus/`:
 - `human/` — 12 pre-ChatGPT Wikipedia articles (CC-BY-SA)
 - `ai/` — 33 Wikipedia:Signs-of-AI-writing/Examples (CC-BY-SA)
-- `human-essays/gutenberg/` — 210 essays and letters by Bacon, Chesterton,
-  Chekhov (public domain)
+- `human-essays/gutenberg/` — essays, letters and narration by Bacon,
+  Chesterton, Chekhov, Chopin, O. Henry (public domain). Counts from
+  `tests/corpus/stats.mjs`, never hand-copied
+- `human-professional/` — EFF Deeplinks (CC-BY 4.0), multi-author by design
 - `human-essays/pluralistic/` — 20 recent Cory Doctorow posts (CC-BY 4.0)
 
 ### prose-author (v0.1 + v0.3)
@@ -77,19 +79,32 @@ The drafter. Skill `prose-draft` with:
 verification prompt refuses three claims: sounds-like-you, is-good, would-pass-
 a-detector. Prints those refusals so absence is reliably communicated.
 
-### prose-review (shipped: 1 critic, 1 sidecar, harness infrastructure)
+### prose-review (shipped: 2 critics, 1 sidecar, harness infrastructure) — v0.2
 
-- `prose-voice-critic` agent (primitive + bundle) — the shipped critic. Passes
-  0/12 of 12 human Wikipedia articles (leave-one-out), catches 1/4 confound-
-  controlled AI drafts, never claims machine authorship in 18 opportunities.
-  Cited findings only.
-- `tools/fidelity-scan.mjs` — deterministic sidecar for the fidelity critic.
-  Extracts material atoms (numbers, quotes, proper-noun runs, headings) from
-  original; reports which are absent from revision. Verdict FAITHFUL / MATERIAL-
-  LOSS. The critic PROMPT that reads this output does not exist yet.
+- `prose-voice-critic` agent (primitive + bundle). Passes 0/12 of 12 human
+  Wikipedia articles (leave-one-out), catches 1/4 confound-controlled AI drafts,
+  never claims machine authorship in 18 opportunities. Cited findings only.
+- `prose-fidelity-critic` agent (primitive + bundle) — **shipped 2026-08-05.**
+  Reads `fidelity-scan` output and adjudicates consequence. 1 false positive in 6
+  faithful revisions, 7/7 on lossy ones, and it disagrees with the scanner in
+  both directions (2 over-flags cleared, 3 blind spots caught) against an echo
+  baseline of 8/13. **The first critic here with a true-positive rate rather than
+  a false-positive bound**, because fidelity has ground truth and voice does not.
+  Read the run log before quoting any of that: one fixture was corrected after
+  the critic disagreed, and the *next* disagreement was deliberately carried as a
+  false positive rather than corrected — see §3 item 14.
+- `tools/fidelity-scan.mjs` — deterministic sidecar. Extracts material atoms
+  (numbers, quotes, proper-noun runs, headings) from original; reports which are
+  absent from revision. **Authoritative on presence; the critic may not overrule
+  it.** Four real defects found by the acceptance run — see §6 item 10.
+- `tests/fixtures/fidelity/` — 12 original/revision pairs. Originals are
+  byte-identical corpus copies (selftest-enforced, so nobody can tune an
+  "original" until a case passes); only revisions are synthesised.
 - `tests/critic-harness.md` + `tests/verify-run.mjs` — how a critic prompt gets
   its acceptance harness run and how the counts are re-derived from checked-in
-  transcripts (not restated from summary tables).
+  transcripts (not restated from summary tables). `verify-run.mjs` is now
+  critic-aware: verdict vocabularies and contract counts are per-critic, and the
+  voice run's output is byte-identical to before the change.
 - `tests/genre-check.mjs`, `tests/separator-count.mjs` — reproducible metrics
   cited elsewhere in docs; do not hand-copy their output into prose.
 
@@ -145,6 +160,38 @@ or by explicit refusals in code.
     test.** A score of 0 is reported as a missing test, not a passing row.
     `bundles/prose-author/tests/mutations.mjs` enforces this and regenerates
     `MUTATIONS.md` — do not hand-edit that table.
+11. **The two critics resolve uncertainty in OPPOSITE directions, and neither
+    may be "harmonised" into the other.** Voice → silence, because a wrong
+    "this doesn't sound like you" teaches an author to write blandly and cannot
+    be taken back. Fidelity → `MATERIAL-LOSS`, because a loss waved through
+    ships and the original is often gone by the time anyone looks. Recorded in
+    both `meta.yaml` files and flagged in the bundle's `AGENTS.md`, because two
+    adjacent prompt blocks that contradict each other are exactly what a tidying
+    pass destroys.
+12. **`fidelity-scan` is authoritative on presence; the critic only on
+    consequence.** The critic may not claim a flagged atom is present — disputes
+    go under *Scanner defects* as a tool bug report. This is the failure the
+    tool's docstring names: a model "sees" the number because the sentence
+    sounds right. `contradicts_scan` is a contract count and must be 0.
+13. **A critic that reads a deterministic artifact must be shown disagreeing
+    with it in both directions.** Otherwise it is an expensive wrapper. The
+    fidelity harness reports the echo baseline — the score a parrot gets — next
+    to the real one, and `selftest.mjs` fails if either disagreement class drops
+    below two fixtures. Applies to `prose-pattern-critic` next.
+14. **Exactly one fixture expectation may be corrected because the critic
+    disagreed, and only on an externally checkable fact.** `p-death-severus-unnamed`
+    was corrected on a point of Roman nomenclature anyone can verify. The very
+    next disagreement (`n-rossolimo-island-dropped`, a descriptor drop) was a
+    judgement call, and correcting it too would have made "the fixture was wrong"
+    unfalsifiable — so it is **carried as a false positive** and the published
+    negative rate pays for it. The rule that came out of it: a fixture expecting
+    the critic to stay quiet must be an *unarguable* case, because the prompt's
+    tie-break rule resolves every borderline the other way by design.
+
+    The subtler bug this guards against is **only re-examining the cases you
+    failed.** If a passing fixture is never questioned and a failing one always
+    is, the expectations converge on whatever the critic says, one commit at a
+    time, with every individual step looking justified.
 
 ---
 
@@ -158,16 +205,25 @@ runs leave-one-out on `human/`, the acceptance test on `ai/`. Register is flat
 encyclopedic prose written by many editors; the voice-critic run log noticed
 unprompted that this measures REGISTER, not authorship.
 
-**`bundles/prose-tell-scan/tests/corpus/human-essays/`** — 230 samples across
-four writers. This is the CRITIC-TESTING corpus that unblocks work that needs
-multi-author, multi-register prose:
+**`bundles/prose-tell-scan/tests/corpus/human-essays/`** — the SINGLE-AUTHOR
+corpus, and the one that matters for voice work. Six authors now clear the
+15-sample floor, which is 30 ordered cross-author pairs.
 
-```
-Bacon         58 samples    51,515 words   argumentative essay    1625     PD
-Chesterton    39 samples    55,336 words   argumentative essay    1909     PD
-Chekhov      113 samples    98,832 words   correspondence         1920     PD
-Doctorow      20 samples   ~40,000 words   modern long-form       2026     CC-BY 4.0
-```
+**Do not hand-copy the counts.** Run `node tests/corpus/stats.mjs`, which prints
+per-author samples, words and dates, and the single-author/multi-author split per
+bucket. It exists because the figures below went stale the first time the corpus
+grew, in the same commit that grew it.
+
+Registers covered: argumentative essay (Bacon, Chesterton), correspondence
+(Chekhov), narration (Chopin, O. Henry), modern long-form (Doctorow).
+
+**`bundles/prose-tell-scan/tests/corpus/human-professional/`** — EFF Deeplinks,
+CC-BY 4.0, and **deliberately MULTI-author**: dozens of bylines, capped so none can
+reach the single-author floor. It is register coverage, not voice material, and the
+manifest plus two guards enforce that it can never be mistaken for the latter.
+
+Note Doctorow appears in both `pluralistic/` and, potentially, EFF — cross-author
+work must draw from one bucket.
 
 Both directories carry their own `LICENSE` and `ATTRIBUTION.json`. The
 integrity tests in `bundles/prose-tell-scan/tests/selftest.mjs` fail the build
@@ -216,10 +272,24 @@ of scripts and cannot be hand-edited:
   run logs ← `tests/verify-run.mjs`
 - Corpus figures ← `tests/genre-check.mjs`, `tests/separator-count.mjs`
 
-What is STILL hand-maintained and therefore where the eleventh instance will
-come from: the prose *around* the numbers. Any assertion about a specific run
-in a README should either quote a script's output or be phrased in ranges,
-never in specific numbers.
+What is STILL hand-maintained: the prose *around* the numbers. Any assertion
+about a specific run in a README should either quote a script's output or be
+phrased in ranges, never in specific numbers.
+
+**The eleventh arrived on 2026-08-05 and did not come from there** — see
+`FN-2026-08-05-m`. It is a class the log did not have: not a number that stopped
+being true, but a number that was never true, because **the ground truth it was
+measured against was wrong.** Two instances in one afternoon, both in the fidelity
+critic's fixtures: the expected verdict leaked into a file the critic must read,
+and one fixture's expected verdict was simply incorrect. Re-running does not
+catch either — the harness reproduces the wrong answer perfectly.
+
+The remedies are now enforced (no verdict in fixture frontmatter; originals
+byte-identical to their corpus source; corrections recorded in the manifest and
+printed by `verify-run.mjs`). The part that cannot be enforced is what actually
+found it: **reading what came back.** A subagent flagged the leak unprompted
+while returning its verdict. That is the argument for checking verbatim
+transcripts in, and it is worth knowing before building the next critic.
 
 ---
 
@@ -237,15 +307,18 @@ Each critic below has its verdict set and scope defined in
 README.md, acceptance harness with corpus citations required for every
 finding.
 
-**1. `prose-fidelity-critic`** (~1 day)
-- Reads `fidelity-scan.mjs` JSON output and adjudicates INTENT: which
-  MATERIAL-LOSS findings are legitimate consolidations vs silent drops.
-- Verdict: `FAITHFUL` / `MATERIAL-LOSS`.
-- Test fixtures: Chesterton original + heavily summarised Chesterton (should
-  MATERIAL-LOSS on numbers/names), Bacon original + wording variant (should
-  FAITHFUL). Both are synthesisable from the existing corpus.
-- **Do not ship without a harness run.** The BLOCK on prose-voice-critic's
-  first commit was for exactly this.
+**1. ~~`prose-fidelity-critic`~~ — DONE 2026-08-05.** See §2. Three things it
+established that the next critic should copy:
+
+- **Classify fixtures by their relationship to the deterministic half**, not by
+  severity. A critic that reads a script's output must be shown disagreeing with
+  it in both directions or it is a wrapper around a regex. The harness reports
+  the *echo baseline* — the score a parrot gets — next to the real score.
+- **Byte-identical originals.** A fixture author who can edit the "original" can
+  tune it until the case passes. The selftest enforces the copy.
+- **The answer must not be in the input.** The first sweep was discarded: every
+  `revision.md` carried `expect: FAITHFUL` in frontmatter, in a file the critic
+  must read. A subagent caught it; nothing in the repo would have. Now guarded.
 
 **2. `prose-pattern-critic`** (~1 day)
 - Lives in `prose-tell-scan`, not `prose-review` (per DESIGN.md line 27). It
@@ -281,9 +354,13 @@ finding.
 **6. `prose-reviser`** (~2 days)
 - The single mutating pass. Ships **AFTER** fidelity-critic, per DESIGN.md
   §Fidelity: "It ships before the reviser it guards. Over-editing is the
-  primary failure mode of any rewriter."
+  primary failure mode of any rewriter." **That precondition is now met.**
 - Verdict/output: change log keyed to plan entries; MATERIAL-LOSS from
   fidelity-critic fails the run and restores the original.
+- Note for whoever builds it: the fidelity critic's priority item 4, *edits
+  outside the plan*, has never fired — no fixture supplied an edit plan, and
+  every transcript correctly says the item is not assessable. The reviser is what
+  produces plans, so building it is also what finally tests that item.
 
 ### Medium leverage — corpus expansion for register variation
 
@@ -304,14 +381,60 @@ Uses `description` not `content:encoded` in RSS; small variant of
 
 ### Lower leverage — infrastructure improvements
 
-**10. Blended-band consumer.** `calibrate.mjs` writes
-`catalog_density_blended` today. Nothing READS it yet — `tell-scan.mjs` still
-compares against `catalog_density` (human-only). Wire the scanner to use
-blended when present, with a flag to show both.
+**10. ~~Blended-band consumer.~~ DONE 2026-08-05 — and it was the highest-leverage
+item in this file, not a low-leverage one.**
+
+`tell-scan.mjs` now judges catalog density against `catalog_density_blended` when
+calibration has produced it, names the band set it used in the report and in
+`--json` under `profile.bands`, and surfaces calibrate's narrowing warning —
+which had been computed and written to `thresholds.derived.json` since the blend
+shipped, where nothing ever read it. New flags: `--human-only`, `--show-bands`.
+
+**Why this outranked its old placement.** Everything else in §6 adds capability.
+This was the one wire that made the system a system: until it landed, an author
+could ingest an edit, watch `edit_fraction` get computed, see both band sets
+written — and no output anywhere changed. The flywheel the project exists for was
+unobservable, and every component passed its own tests the whole time. A producer
+with no consumer is not a feature, it is a file.
+
+Asserted end to end in `prose-tell-scan/tests/selftest.mjs` under *"The loop
+closes"*: corpus → ingest → calibrate → scan, with a draft whose density sits
+strictly between the two ceilings so the verdict genuinely flips. `mutations.mjs`
+carries `let tell-scan ignore the blended bands` (cost: 3 tests) so the gap
+cannot silently reopen.
+
+**Read `PROFILES.md` rule 6 for what this does NOT demonstrate** — chiefly that
+bands move toward *the pooled corpus including kept edits*, which equals "toward
+the author's voice" only if the kept edits really are theirs. And it has only run
+on synthetic corpora.
 
 **11. `prose-author` v0.2** (blank page from notes) and **v0.4** (voice
 locks). Both specced in `bundles/prose-author/DESIGN.md`. v0.2 is a small
 prompt addition to the drafter; v0.4 is more design.
+
+**10b. Fix the four `fidelity-scan` defects the acceptance run found.** All are
+in `bundles/prose-review/tools/fidelity-scan.mjs`, all are real, and none was
+fixed in the shipping commit because changing the scanner would have moved the
+baseline the critic was measured against.
+
+- **Presence check is line-wrap sensitive while extraction is not.** Extraction
+  correctly refuses to span newlines (there is a selftest for it); the presence
+  check is `revBody.includes(source)`. So a multi-word entity that wraps is
+  reported absent when it is plainly there, and the false-positive rate becomes a
+  function of line width. Cheapest real fix in the file.
+- **Quotations containing a newline are never extracted.** `[^”’\n]`
+  excludes newlines. On hard-wrapped prose this is the common case: of ten quoted
+  spans in `bacon-of-death53.txt`, the scan sees four.
+- **Single-word named entities are invisible.** `PROPER_NOUN_RUN` requires two
+  capitalised words, so *Suvorin*, *Levitan*, *Fourmis*, *Salon* are never atoms.
+  The docstring says this is deliberate — the alternative tags every "The" — so
+  the fix is not obvious and may be "document it", not "change it".
+- **`Cæsar` breaks the run regex.** `[A-Z][a-z]+` does not match `æ`, so
+  "Augustus Cæsar" is not extracted at all. Non-ASCII letters generally.
+
+Any fix changes fixture scan verdicts, so re-run the fidelity harness and update
+`fixtures.json`'s `scan_verdict` fields in the same commit — the selftest will
+fail until you do, which is the intended behaviour.
 
 **12. Wire prose-pattern-critic's `not_deterministic` list into
 `fetch-modern.mjs`'s parser-leak detection.** If new anchors appear in the
@@ -343,16 +466,20 @@ pluralistic RSS format, catch them via the same integrity discipline.
 
 Recommended sequence:
 
-1. **prose-fidelity-critic** — the sidecar (`fidelity-scan.mjs`) is already
-   shipped and tested. The critic's whole design is: read that output, decide
-   which losses are intentional. Cheapest concrete win.
+1. ~~**prose-fidelity-critic**~~ — done 2026-08-05.
 2. **prose-pattern-critic** — mechanically similar to voice-critic. Reads a
    fixed list (`catalog.json.not_deterministic`), judges each. Testable
-   against the multi-voice corpus.
+   against the multi-voice corpus. **Read the fidelity critic's harness first**
+   (`tests/critic-harness.md`, "A second protocol"): pattern-critic also reads a
+   deterministic artifact, so it has the same failure mode — becoming an echo of
+   the catalog — and the same fix, which is to classify fixtures by whether the
+   critic must agree or disagree with what it was handed.
 3. Add narration register (Chopin OR O. Henry) — 30-60 minutes, extends
    proven fetcher.
 4. **prose-substance-critic** — now that argumentative-corpus exists
    (Doctorow's essays, Chekhov's longer letters).
+5. **prose-reviser** — its stated precondition (a fidelity check that lands
+   first) is now satisfied. §6 item 6.
 
 Do not batch these into one commit. Each critic must go through the
 verification-critic + architecture-reviewer gate in parallel before shipping.
@@ -369,7 +496,11 @@ In this order:
    last three entries (FN-i, FN-j, FN-k, FN-l) and "What the log says so far".
 3. **`primitives/agents/prose-voice-critic/agent.md`** — the shape a critic
    prompt should have. `meta.yaml` beside it records the two departures from
-   convention.
+   convention. Then
+   **`primitives/agents/prose-fidelity-critic/agent.md`** beside it, whose
+   `meta.yaml` records why it takes the *opposite* position on both. Reading the
+   pair is the fastest way to see that the error preference is a property of the
+   question, not a house style.
 4. **`bundles/prose-review/tests/critic-harness.md`** — how a critic gets its
    harness run.
 5. **`bundles/prose-review/tests/verify-run.mjs`** — the script that derives
@@ -394,8 +525,19 @@ Before declaring any non-trivial task done:
    node bundles/prose-author/tests/selftest.mjs
    node bundles/prose-author/tests/mutations.mjs
    node bundles/prose-review/tests/selftest.mjs
+   node bundles/prose-author/tests/concurrency.mjs
    node bundles/prose-review/tests/verify-run.mjs bundles/prose-review/tests/runs/2026-08-04-b
+   node bundles/prose-review/tests/verify-run.mjs bundles/prose-review/tests/runs/2026-08-05-fidelity
    ```
+
+   These now also run in CI on every push (`.github/workflows/gates.yml`), so
+   "all suites green" stops being a claim about whoever remembered to run them.
+
+   **`mutations.mjs` is safe to run alongside anything.** It used to break real
+   source files in the working tree and restore them, which made the repo unsafe
+   for any concurrent suite run — including the parallel reviewers step 2 below
+   *requires*. It now works in a temp copy; `concurrency.mjs` is the test that
+   says so, and it fails against the old behaviour on all 19 mutations.
 2. Invoke **verification-critic** and **architecture-reviewer** subagents IN
    PARALLEL, passing them the original task statement (not a summary you
    wrote). `BLOCK` or `DO NOT SHIP` means not done. This process has caught

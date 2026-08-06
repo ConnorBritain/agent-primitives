@@ -21,6 +21,12 @@ decides the packaging and the install path.
 Every primitive has a boundary. State it in the README under *Known limits*. A primitive with
 no stated limits is one nobody has pushed on yet.
 
+**4. Does its question have an answer that doesn't depend on who is asked?**
+This decides what you will be able to *claim* — whether you can say the primitive finds things,
+or only that it stays quiet. Answer it before writing the prompt, not after the first run, because
+it also decides which way the prompt should resolve uncertainty. See
+[Ground truth](#ground-truth-and-what-you-may-claim-without-it).
+
 ## Kinds
 
 | Kind | Reads / writes | Output contract | Central risk |
@@ -39,7 +45,10 @@ separate from whoever produced the work; this isolation is the mechanism, not a 
 adversarially and say so in the prompt — "please review this" returns praise, "assume the
 author took the easy path and prove it" returns findings. End in a verdict token, and resolve
 uncertainty toward blocking; a reviewer that rounds ambiguity to "probably fine" converges on
-rubber-stamping.
+rubber-stamping. **The one exception is a reviewer whose findings the recipient cannot check
+against anything** — there, blocking on ambiguity has a cost that can't be recovered from, and
+the tie-break inverts. That is a derivation, not a style preference; see
+[Ground truth](#ground-truth-and-what-you-may-claim-without-it).
 
 **transformer** — Declare `preserves` in `meta.yaml`: what must survive the rewrite. This is
 the contract, and the whole risk profile lives here. Prefer the smallest edit achieving the
@@ -328,10 +337,73 @@ prompt gives a bad answer, a broken hook blocks every turn.
 - **Test every path** — config absent, malformed, check passing, check failing, timeout, loop
   guard. See [`gate-runner.mjs`](bundles/verification-gate/hooks/gate-runner.mjs).
 
+## Ground truth, and what you may claim without it
+
+Ask one question about the job you named in *Before you write anything*:
+
+> **Does this question have an answer that does not depend on who is asked?**
+
+It predicts more about how the primitive can be validated than its kind does. Two reviewers can
+sit on opposite sides of it, and they will need different test material, support different
+claims, and resolve uncertainty in opposite directions.
+
+**Ground truth available.** *Did this rewrite drop a claim the original made? Does this change
+still satisfy the assertion that was there before? Does this plan name a criterion someone else
+could check?* The referent is present, so a finding can be adjudicated by anyone, without
+trusting the primitive that produced it.
+
+The consequence is the useful part: **test material can be constructed rather than found.** Take
+a real artifact, introduce one known defect, and the correct verdict is known by construction —
+no annotator, no consensus, no argument about where the material came from. The reflex when
+validating a judgement primitive is to hunt for labelled data; where there is ground truth,
+building the case is faster, sharper, and yields a true-positive rate you can defend. Mutation
+testing is this move applied to test suites; it works the same way on prompts.
+
+**No ground truth.** *Is this the right abstraction? Does this read like the author wrote it? Is
+this the strongest objection to the argument?* Competent people disagree, and no amount of
+material settles it, because it is not a sample-size problem.
+
+What you can do is bound the **false-positive rate**: run the primitive over material that is
+known-good and count how often it speaks. What you cannot do is claim it finds things. A
+primitive on this side may ship on *"it stays quiet on good input"* — that is a real and
+sufficient result — and its README must not imply more.
+
+**Restate the question before concluding it has no answer.** One English phrase routinely names
+two different questions, one checkable and one not, and the distinction is easy to miss because
+the words are the same. *"Is this idiomatic here"* has no ground truth; *"does this match the
+convention recorded in that file"* has one. *"Does this sound like the author"* has none; *"was
+this written by the author"* has one wherever provenance is recorded. Pick the reading
+deliberately — it decides which material is even relevant. To test a checkable reading you need
+material that **varies on the dimension you claim to detect**; material that holds that dimension
+constant can only ever bound false positives, however much of it you collect.
+
+**Doubly blocked.** No ground truth *and* no known-good material to bound false positives against
+means the primitive cannot be validated at all yet. Say that in *Known limits*, and name the
+material that would unblock it, rather than shipping a number derived from whatever was to hand.
+
+### Why the uncertainty tie-break follows from this
+
+The reviewer rule under *Per-kind requirements* says resolve uncertainty toward blocking. That
+rule quietly assumes the recipient can check the finding: a false positive costs them a glance at
+the quoted evidence, and it is over.
+
+Where the finding cannot be checked against anything, a false positive is indistinguishable from
+a true one *to everyone, including the person receiving it*. It gets acted on, it changes the
+work, and it accrues authority it did not earn. So the tie-break inverts: **resolve toward
+blocking when your findings are checkable, toward silence when they are not** — and say in the
+prompt which one you did, so the next reader sees a derivation rather than a house style. Both
+halves are the same rule: put the cost on the side that can be recovered from.
+
+This is also why two primitives in one bundle can hold opposite uncertainty rules without
+contradicting each other. Record the choice, and the reason, in each one's `meta.yaml`.
+
 ## Testing a primitive
 
 There's no unit test for a prompt. Test it the only way that means anything: **on input built
-to break it**, then on input that should leave it quiet.
+to break it**, then on input that should leave it quiet. Where the question has ground truth,
+that input can be built to order and the result is a real number; where it doesn't, only the
+negative-test column below is available to you, because building a positive case *is*
+constructing ground truth.
 
 | Kind | Positive test | Negative test (the one people skip) |
 |---|---|---|
@@ -346,6 +418,47 @@ noise gets ignored — the same outcome as not having it, after paying for it.
 
 Record both results in the PR. "It looked right" is exactly the self-report this repo exists to
 stop accepting.
+
+### When the primitive adjudicates a tool's output
+
+A primitive that reads a deterministic artifact — a linter report, a type-checker's output, a
+list of failing tests, a coverage delta, a scanner's findings — has a failure mode the table
+above doesn't catch: it becomes an expensive wrapper around the tool. Agreeing is free, agreement
+is most of what a correct run looks like, and a transcript full of it reads as competence.
+
+So classify the material by the primitive's verdict **relative to the tool's**, not in isolation:
+
+| tool says | primitive must say | what that case tests |
+|---|---|---|
+| clean | clean | it doesn't manufacture findings the tool had no reason to raise |
+| flagged | clean | it clears an over-flag, **and says why** |
+| flagged | flagged | it names *which* of the flagged items actually matters |
+| clean | flagged | it catches what the tool is structurally blind to |
+
+**The two disagreement rows are the argument for the primitive existing.** Cover both, or you
+have not shown it adds anything to the tool it wraps.
+
+And report the **echo baseline** alongside the score: the result the primitive would get by
+parroting the tool. That is the number a real score has to beat, and computing it turns "is this
+worth its tokens" from an opinion into an arithmetic question. Derive it from the material, in a
+script, not by hand.
+
+Three things to settle before copying this wholesale:
+
+- **A sound tool has no over-flags to clear.** Where the tool is built never to report a false
+  positive, the *flagged → clean* row may be legitimately empty and the primitive's whole case
+  rests on the blind-spot row. Establish which kind of tool you have before treating an empty row
+  as a failure — that judgement is per-bundle, and only a bundle's own harness should enforce a
+  minimum.
+- **An over-flag case must be unarguable.** If the prompt's own tie-break resolves borderlines in
+  one direction, a borderline authored as an over-flag is testing the spec rather than the
+  primitive, and it will fail for the right reason.
+- **An echo rate needs comparable units.** It only exists where the tool and the primitive emit
+  the same shape of verdict over the same unit. Where the tool emits measurements and the
+  primitive emits a judgement, there is no echo rate to compute, and the disagreement rows carry
+  the argument alone.
+
+Worked example: [`bundles/prose-review/tests/critic-harness.md`](bundles/prose-review/tests/critic-harness.md).
 
 ## Checklist
 
@@ -368,6 +481,9 @@ stop accepting.
 [ ] bundle AGENTS.md + wiring/ updated
 [ ] all four manifests updated, versions identical, registered in marketplace.json
 [ ] wiring mode chosen deliberately (docs/wiring.md) — CLAUDE.md edits only if protocol-bound
+[ ] ground-truth question answered; the README claims no more than the answer allows
+[ ] uncertainty tie-break stated in the prompt, and consistent with that answer
+[ ] if it adjudicates a tool: both disagreement directions covered, echo baseline reported
 [ ] positive AND negative test run, both recorded
 [ ] hooks tested across every path, if any
 [ ] root README catalog + kinds table updated

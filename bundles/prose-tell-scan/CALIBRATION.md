@@ -1,7 +1,20 @@
 # Calibration log
 
 Every false positive this scanner has produced on real writing, what caused it,
-and what was done about it.
+and what was done about it — **and, from `FN-2026-08-04-i` onward, the same
+treatment for defects in how this project MEASURES anything at all.**
+
+That second half was not planned; the log grew into it. Entries i through m are
+not scanner false positives — they are a published figure derived by a wrong
+method, a count read off a crashed run, a contract test that could not fail, a
+table that went stale in the commit that invalidated it, and a test fixture whose
+expected answer was wrong. Some of them happened in sibling bundles.
+
+They are kept together because the pattern only became visible once they were in
+one place, which is the argument the log makes about itself. **The cost is that
+this file now outgrows its bundle**, and a cross-bundle measurement log arguably
+does not belong under `prose-tell-scan/`. Recorded rather than fixed: moving it is
+a larger change than any entry in it.
 
 This file exists because **a false positive is data, not a nuisance.** The
 temptation with each one is to quietly tighten a regex and move on, which loses
@@ -1001,6 +1014,134 @@ and to the corpus figures (`genre-check.mjs`, `separator-count.mjs`).
 
 What remains hand-maintained, and is therefore where the eleventh will come from:
 the prose claims *around* those numbers.
+
+### FN-2026-08-05-m · the eleventh came from the fixtures, not from the prose
+
+**Bundle:** `prose-review`.
+
+FN-l predicted where the eleventh instance would come from: *"the prose claims
+around those numbers."* It came from somewhere else, twice, in one afternoon, and
+both are a class the log did not have — **the ground truth itself was wrong, and
+the test input contained the answer.**
+
+Both incidents are narrated in full, with the transcripts, in
+[`prose-review/tests/runs/2026-08-05-fidelity-complete.md`](../prose-review/tests/runs/2026-08-05-fidelity-complete.md)
+and `docs/PROSE-SYSTEM.md` §5. Summarised here only far enough to place them in
+the sequence, because the same story told twice drifts apart.
+
+**Incident 1: the answer was in the input.** Every `revision.md` in the fidelity
+critic's fixture set carried `expect: FAITHFUL` in its frontmatter — in a file the
+critic is required to read. Six transcripts were thrown away. The harness prompt
+forbade reading `fixtures.json`, where the answer was *supposed* to live; nobody
+considered that it was also somewhere else. A subagent noticed and said so
+unprompted, mid-verdict. Nothing in the repo would have.
+
+**Incident 2: the fixture's expected verdict was wrong.** A fixture asserted that
+shortening *Septimus Severus* to *Severus* was immaterial. It is not — several
+emperors are called Severus — and the critic said so. The correction is
+legitimate, being externally checkable rather than a matter of taste, but it
+yields a score computed partly against an answer the run itself supplied.
+
+**Why this is a new class.** Every earlier incident was a number that stopped
+being true. These two are numbers that were **never** true, because the thing
+they were measured against was wrong. Re-running does not help: the harness
+reproduces the same wrong answer perfectly and reports it with confidence.
+
+**Rules taken.**
+
+> The answer may not appear in anything the subject reads. Enforced:
+> `selftest.mjs` fails if any fixture's frontmatter names a verdict.
+
+> A ground truth that can be edited by the person being graded is not a ground
+> truth. Enforced: fixture originals must be byte-identical to their corpus
+> source, checked on every run.
+
+> A corrected expectation is recorded, not absorbed. Fixtures carry
+> `corrected_after_run`, and `verify-run.mjs` prints the caveat beside the score
+> — because per FN-l, a caveat that lives only in prose is the next entry here.
+
+**And one that cannot be enforced.** The leak was found by an agent doing the
+task, not by a check. Both incidents were found by *reading what came back*
+rather than by reading the summary — which is the same lesson as FN-i through
+FN-l arriving from a new direction, and the argument for verbatim transcripts
+being checked in at all.
+
+### FN-2026-08-05-n · `FN-k` recurred in a different bundle, and the fix for it was written in a third
+
+**Bundle:** `prose-tell-scan`, corpus integrity.
+
+`FN-2026-08-04-k` was "the contract test that could not fail." Here it is again,
+found while adding two authors to the corpus:
+
+```js
+const authors = new Set(attr.posts.map((p) => p.file).map((f) => "Cory Doctorow"));
+```
+
+It maps every manifest entry to the literal string it then asserts the set contains.
+**No corpus can fail this check.** It was the guard against an unrecognised author
+entering `pluralistic/` — the guard against silent licence drift — and it had been
+green since the day it was written, for the same reason a stopped clock is.
+
+A second one was found in the same pass and is subtler: a byline guard matching
+`\nauthor:\s+\S`, where `\s` matches the newline, so an **empty** `author:` value
+satisfied it by reading the next line. The same hole existed in the pre-existing
+`source:` and `date:` frontmatter checks.
+
+**What is different about this instance.** FN-k's remedy was "make the check
+distinguish did-not-run from passed." That is correct and did not help, because
+nothing here failed to run — the assertions executed perfectly against a value
+computed to satisfy them.
+
+> **The rule that actually catches this class: every guard needs a negative test
+> that is confirmed to fail.** Not "does the check pass on good input" but "does it
+> fail on bad input, and only on that." All nine new corpus guards were
+> negative-tested this way, in a sandbox copy, and two of them were wrong.
+
+This is the same discipline `mutations.mjs` enforces for code guards, arriving in
+the corpus layer six weeks later. The gap was never a missing rule; it was a rule
+applied to one kind of guard and not the other.
+
+### FN-2026-08-06-o · "the answer was in the input", third instance, this time via the tool's own vocabulary
+
+**Bundle:** `prose-tell-scan`, critic harness.
+
+Three times in two days, a critic was told the answer by an artifact it was required
+to read:
+
+1. `FN-2026-08-05-m` — `expect: FAITHFUL` in fixture frontmatter. Six transcripts
+   discarded.
+2. Case ids leaked the verdict through the `p-`/`n-` filename prefix. Fixed by
+   dispatching cases as `case-07`.
+3. **This one.** `pattern-harness.mjs` stages tell-scan's JSON output for the critic,
+   and that JSON carries the scanner's own entry ids: `chatbot-register`,
+   `assistant-preamble`, `model-markup-artifact`. 4 of 11 cases carried one. The
+   harness's `LEAKS` guard scans staged bytes for verdict words and **never inspects
+   entry ids**, because the ids are not verdicts — they are category names that
+   happen to assert authorship.
+
+The second leak in the same file: `NAMES_AUTHORSHIP` misses `chatbot-generated`,
+which appears verbatim in a vendored talk-page comment inside a staged draft.
+
+**The consequence is not a near miss.** The single case whose scan report leaked
+`chatbot-register` is the same case that produced both of the run's authorship
+claims — the contract violation that blocked the primitive. The harness told the
+critic the answer and then recorded the critic for repeating it.
+
+**Why the existing remedies did not catch it.** Every prior fix targeted *the thing
+that carries the answer*: strip frontmatter, opaque case ids, scan staged text for
+verdict words. All three assume the leak arrives in prose the harness controls. Here
+it arrived in a **required input the harness generates from a different tool**, in
+that tool's own vocabulary, where a category name is doing the work of a verdict.
+
+> **Rule taken: enumerate what the subject is allowed to see, not what it is
+> forbidden to see.** A denylist of verdict words is unbounded — every new catalog
+> entry, every vendored quotation, every sibling tool's id space is a new hole. The
+> staged input set is small and knowable; the set of strings that could give the game
+> away is not.
+
+Also unresolved and worth stating: the 2-of-11 that cleared the pre-registered
+threshold was measured through this leak. It is not being treated as a passing score.
+See `primitives/agents/prose-pattern-critic/meta.yaml`.
 
 ## What the log says so far
 

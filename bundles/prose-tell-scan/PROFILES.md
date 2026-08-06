@@ -296,6 +296,41 @@ against model norms on day one, and never find out.
 side, every run. If blending narrows the density spread beyond a threshold, that
 is a warning in the output, not a footnote in a log.
 
+**6. The scanner uses the blend, and says so.** `tell-scan` judges catalog
+density against the blended bands whenever calibration has produced them, falls
+back to human-only otherwise, and names which on every run — in the report and in
+`--json` under `profile.bands`. `--human-only` forces the unblended comparison;
+`--show-bands` prints both.
+
+This rule exists because for a while it was false. `calibrate.mjs` wrote
+`catalog_density_blended`, and nothing read it: the scanner still compared against
+`catalog_density`. Every part passed its own tests, both bands shipped in the JSON
+exactly as rule 5 promises — and an ingested edit changed no reported verdict
+anywhere, so the loop this directory exists for could not be observed at all. A
+producer without a consumer is not a feature; it is a file.
+
+### What the closed loop does and does not demonstrate
+
+**Does.** An approved edit measurably moves a catalog-density ceiling, and a draft
+whose density sits between the human-only and blended ceilings genuinely flips
+verdict on the strength of that edit. That is asserted end to end — corpus →
+ingest → calibrate → scan — in `tests/selftest.mjs` under *"The loop closes"*, and
+`mutations.mjs` carries a mutation that reopens the gap to prove the test can fail.
+
+**Does not.** It does not show the bands move *toward the author's voice*. It shows
+they move toward **the pooled corpus including kept edits**, which is the same
+thing only if the kept edits are genuinely the author's. That premise is enforced
+socially and arithmetically — `edit_fraction` is computed from a real diff and
+weights the sample — not semantically. A user who accepts generations wholesale is
+pulling their own bands toward the model, slowly, under a cap, with a narrowing
+warning if it gets bad. It is bounded, not prevented.
+
+Nor does it say anything about **cadence**, which is untouched by design (rule 3)
+and tested to be byte-identical under both band sets.
+
+And the loop has only been exercised on **synthetic corpora**. Nobody's real
+writing has been through it.
+
 ## Voice locks — freezing a blend worth keeping
 
 Dialling a voice in is real work, and the thing that erodes it is not a decision,

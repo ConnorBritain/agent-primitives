@@ -1,0 +1,65 @@
+---
+source: EFF Deeplinks (eff.org)
+title: The CHATBOT Act Forces One Parenting Model On Every Family
+author: Joe Mullin
+date: 2026-07-31
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/deeplinks/2026/07/chatbot-act-forces-one-parenting-model-every-family
+---
+Artificial intelligence is rapidly changing education, and the way people search for information. Parents, teenagers, teachers, and schools are struggling with tough questions about when AI should, and should not, be used. It makes sense for Congress to hold hearings and examine how AI should be used by minors. But the recently introduced CHATBOT Act answers those questions with a one-size-fits-all mandate governing how teenagers access AI through federally prescribed parental monitoring systems. 
+
+The Bill Requires AI Companies To Build Family Monitoring Systems 
+
+Parents are approaching AI in different ways. Some closely supervise how their children use chatbots, while others might set more general rules about technology. Many families are still figuring out what role AI should play in schoolwork and everyday life. 
+
+The CHATBOT Act would take that decision away from families and AI providers. Instead of letting families and AI providers decide what parental controls should look like, Congress would require every covered AI chatbot to build the same federally prescribed “family account” system. 
+
+As part of the required parental-consent process for teens, AI companies must offer parents a "family account" that provides access to a "full record of the conversations and activity" of teen users and tools to "monitor, analyze, and understand, at scale" those conversations. They must also send alerts if a teen attempts to bypass or disable parental controls. 
+
+This isn’t simply an optional parental-control feature. The bill requires every covered AI provider to build this monitoring infrastructure, and present it as part of the parental consent process. Congress is prescribing a single, highly invasive model of how families should supervise teenagers’ use of AI. 
+
+The CHATBOT Act Creates New Privacy Risks For Families 
+
+Parents and families have different ideas about how much independence teenagers should have. Understandably, they also have very different expectations for 8-year olds, 13-year-olds, and 17-year-olds. The CHATBOT Act effectively requires AI providers to build the same monitoring architecture for users of very different ages. 
+
+And this mandated data collection will create new privacy and security risks. Once Congress requires AI companies to create a permanent, centralized record of teen AI conversations for parental review, that will be a valuable vault of extremely personal information. That raises serious questions about what would happen in cases where someone else gains access to it through account compromise, family disputes, or other security failures. 
+
+The vast archives of conversations created by the government-mandated family accounts won't be interesting only to parents. They will become valuable targets for hackers, identity thieves, civil litigants, and anyone else seeking access to the deeply personal information of others. The CHATBOT Act requires the records to exist, but addresses none of those risks. 
+
+Families are still figuring out what role AI should play in schoolwork and everyday life. Congress shouldn’t freeze one answer into federal law by requiring every AI company to build the same prescribed monitoring system. 
+
+The CHATBOT Act Applies A Children’s Law To Teenagers 
+
+The CHATBOT Act takes the basic structure of COPPA, a nearly 30-year-old law that applies to children aged 12 and under, and applies the same “verifiable parental consent” to older teenagers. 
+
+That’s a dramatic expansion of the law. Congress enacted COPPA to prevent kids from handing over detailed personal information to online services without making sure parents approved. For nearly three decades, Congress has required parental consent before websites collect personal information from any user under 13. COPPA is not simple to comply with, which is why so many internet companies, large and small, simply bar kids under 13 from having accounts. That includes major social media sites and AI. Facebook, Instagram, TikTok, X, YouTube, Snapchat, Discord, Spotify, and blogging platforms like WordPress all keep out users under 13. Children under 13 are also not allowed to use Microsoft Co-Pilot, Google Gemini, or ChatGPT. Anthropic does not allow users under 18 to use its AI model, Claude. In cases where younger kids maintain social media accounts despite the rules, studies show the vast majority of them are creating those accounts with parental consent.  
+
+In short, COPPA’s protections against collecting personal information from minors without parental consent already apply to the AI services CHATBOT Act seeks to regulate. Worse, the CHATBOT Act takes COPPA’s privacy protections and inverts them—it will result in AI services likely collecting more information about young users. 
+
+But the CHATBOT Act extends that model to high school students using AI assistants that are rapidly becoming tools for learning, research, writing, coding, and creative work. It then mandates specific, invasive surveillance tools that go well beyond anything COPPA requires. 
+
+The bill requires providers to offer these “family accounts,” with these specific features, as a default for teenagers. By doing so, CHATBOT effectively treats a high school senior the same way it treats an elementary school student. 
+
+Supporters may argue that parents of teens don’t have to create a family account. But every family with a teenager will still have to go through the bill’s parental-consent process before a teenager can use a covered AI system. Providers will need practical ways to verify that an adult is, in fact, the teenager’s parent. And parents of kids under 13 have no option to consent to their kids’ use of an AI system—the bill’s only option is to create a family account.
+
+Congress should not extend the COPPA parental-permission model to millions of older teenagers, and it would be harmful to do so. The government does not require COPPA-style parental permission before a 17-year-old checks out a library book, uses Wikipedia, types search terms into Google, or reads a newspaper online. It shouldn’t require parental permission simply because the same question gets asked of an AI assistant. 
+
+The CHATBOT Act Will Pressure AI Companies To Check Users’ Ages 
+
+The bill says it doesn’t require age verification. But like many recent “kids online safety” bills, it imposes obligations that depend on a company knowing whether a user is under 18. 
+
+Specifically, the bill requires AI systems to either disable access to young kids, get parental consent, or the creation of a family account if a service has reason to believe a user is a minor. The standard means that services don’t need to have actual knowledge of a user’s age to be later held liable for improperly letting them use their AI tools. That creates a practical problem. Given the potential liability of getting something wrong, AI companies will likely require stricter forms of age verification to figure out who is under 13, a teenager, and who is a parent. Some providers might ask for government-issued identification.  Other companies may rely on age estimation systems that use facial scans or other signals to guess a user’s age. Neither of these approaches is good for users’ privacy or security. One collects more information than is necessary, and the other inevitably makes mistakes. 
+
+Congress shouldn’t force companies into that choice, or families into this position. In the name of protecting children, the CHATBOT Act will result in online services collecting even more information from kids and families, creating privacy and security risks. Parents who want family accounts like those described in the bill should be free to choose AI services that offer them. But Congress shouldn’t pressure every provider to collect more information about everyone’s age simply to comply with the law. 
+
+A Better Way Forward
+
+Congress doesn't have to choose between doing nothing and creating a sweeping new federal parental-monitoring mandate. Existing law allows regulators to police deceptive AI products, protect children's privacy under COPPA, and hold companies accountable when they market unsafe or misleading products to families. 
+
+Lawmakers have urged the FTC to crack down on AI-enabled toys that make unsubstantiated educational claims or illegally collect children's data. Those are regulatory actions that can be taken right now. 
+
+Finally, the FTC is currently investigating how AI companies test their products, protect children and teens, comply with COPPA, and enforce age restrictions. The results of that inquiry could be useful guidance to Congress, and to the public debate around these issues. 
+
+Cracking down on bad actors, while learning more about how families are already making decisions about AI use, is a much better path forward than building one, federally-prescribed model of parenting or product design.

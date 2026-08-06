@@ -1,0 +1,45 @@
+---
+source: EFF Deeplinks (eff.org)
+title: New EU Court of Justice Ruling on Platform Liability Could Cause Collateral Damage to Freedom of Expression
+author: Christoph Schmon
+date: 2026-07-22
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/deeplinks/2026/07/new-eu-court-justice-ruling-platform-liability-could-cause-collateral-damage
+---
+Intermediary liability laws around the world recognize that social media platforms, search engines, and other online service providers have become an integral part of our lives: they shape how we access information, communicate with others and participate in public debate, and foster innovation online. These laws generally shield platforms, to varying degrees, from legal liability for user content: the responsibility for unlawful speech should rest primarily with the speaker, not with those who merely host it.  
+
+These liability protections are not a gift for platforms. They exist so that platforms are not encouraged to proactively monitor and filter what we say online, or to remove even lawful speech simply to avoid legal risk. 
+
+This is why a recent judgment by the EU Court of Justice, Coyote System (Joined Cases C-188/24 and C-190/24), is concerning: it could deprive online platforms of liability protection because of how they organize and disseminate user content. The consequences for freedom of expression could be significant. 
+
+Liability Protections in the EU 
+
+The European Union has long embraced a system of limited liability for online service providers. Under the e-Commerce Directive and now the Digital Services Act (DSA), platforms benefit from liability exemptions for user content. To discourage censorship, they also cannot be required to generally monitor user content or actively search for illegal activity. But that liability protection comes with qualifications: Platforms lose this benefit if they play an "active role" such that they have knowledge of, or control over, user-provided information (Recital 42 ECD, Recital 18 DSA, and case law, for example para. 113 in L’Oréal v eBay). For hosting services, providers must remove or disable content they know to be illegal. The DSA has introduced extensive due diligence obligations for platforms but left these foundational immunities intact. The message is clear: platforms bear responsibility for proper systems and processes, but generally not for users' speech. 
+
+Coyote System, however, could undermine this balance. Confronted with a case about restrictions on navigation systems that transmit information to drivers about roadside checks, the Court formulated a general test for when an intermediary ceases to be a "neutral" host and therefore loses the hosting liability exemption. In essence, the Court held that where an intermediary's algorithm goes beyond merely categorizing and indexing user information to determine, "under what conditions, how and in which order of priority" (para. 122) information is disseminated, the intermediary "controls" that information and is deprived of protection under the e-Commerce Directive. 
+
+Let's be clear: the case is not about a service that ranked or recommended user-generated content in the way social media platforms do. It is about the collection and real-time relay of user alerts about roadside checks. However, the Court's reasoning is not confined to navigation services. Recommendation algorithms determine how and in what order user content is disseminated across virtually every major online platform. Should such platforms now cease to qualify as neutral intermediaries and lose the protection of the hosting liability exemption? The answer should be no. 
+
+The Meaning of Control 
+
+Control has never been understood this broadly. Nor should it be. Every hosting service provider, think of Facebook, Amazon or Bluesky, will have some control over users’ content. If that ability alone ruled the analysis, the liability exemption would become largely meaningless. Instead, the disqualifying “active role” must relate to the actual content itself, not merely the technical means by which that content is organised or disseminated. 
+
+The Court’s own case law reinforces this conclusion: In YouTube and Cyando, it examined a platform that categorises, ranks and recommends user content through algorithms, yet still proceeded on the basis that it could generally benefit from the hosting liability exemption. To be sure, the Court was mainly addressing specific knowledge of illegal content rather than the separate category of control. Even so, the underlying premise is clear: those features do not, by themselves, place a platform outside of protection. Advocate General therefore explained that what matters is the provider's "intellectual control of that content" (para 152). The relevant question is who controls the information itself, makes it their own, not who determines how it appears. 
+
+That is precisely where Coyote System breaks new ground and offers a dangerous change of emphasis. By equating algorithmic organisation with content control, the ruling risks excluding social networks and other platforms from the liability exemption and encouraging proactive monitoring of what users say online and removal of lawful content. 
+
+That outcome would have terrible consequences for freedom of expression in the EU. It’s also difficult to reconcile with the structure of the DSA, which certainly does not treat recommendation algorithms as incompatible with intermediary immunity. On the contrary, it accepts them as a defining feature of modern platforms, regulates them extensively through dedicated due diligence obligations, and still leaves the hosting liability regime untouched (it even integrated the YouTube ruling in its preamble!).  
+
+This was no accident: During the DSA negotiations, proposals to deprive platforms of the hosting liability exemption if they optimize, classify, organize or otherwise promote online content were rejected, following successful advocacy by EFF and allies. Would the Court have decided this case differently under the DSA? Probably not. It’s more plausible that the EU judges were influenced by the specific nature of the service, which could explain why the judgment says remarkably, and sadly, little about why intermediary liability exists in the first place and the fundamental rights it serves. Coyote System did not merely transmit user reports but aggregated them into what the Advocate General described as a new "information layer," a distinction omitted by the Court. 
+
+Chipping Away at Intermediary Liability Protections 
+
+The danger is that the Court's broad language on algorithmic curation reaches well beyond that narrow category and, unintentionally or not, chips away at one of the most important safeguards for freedom of expression online.  
+
+Unfortunately, Coyote System does not stand alone. It is the latest in a line of judgments that have gradually narrowed intermediary liability protections. Recently, in Russmedia, the Court privileged preventive content control in the name of data protection, paying little regard to the possibility of reconciling both regimes and the privacy costs of increased monitoring of user content. And in AGCOM, concerning Google's liability for YouTube videos uploaded by creators participating in its Partner Programme, the Court appears to leap from eligibility reviews to specific knowledge of illegal content. 
+
+There is a political risk too. While the top court’s reasoning will be applied by national courts and further refined over time, the European Commission has shown little hesitation in incorporating landmark rulings into legislation. Just recently, in its digital omnibus proposal, it selectively restated part of a recent Court of Justice judgment to justify narrowing privacy rights of users. 
+
+If these trends continue, freedom of expression online will become collateral damage in the EU.

@@ -1,0 +1,21 @@
+---
+source: EFF Deeplinks (eff.org)
+title: California Steps Back From Dangerous Expansion of its Age-Gating Law
+author: Rindala Alajaji
+date: 2026-07-15
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/deeplinks/2026/07/california-steps-back-dangerous-expansion-its-age-gating-law
+---
+The California legislature has stepped back from a plan that would have expanded its age-gating law, removing language that could have compounded serious threats to users’ speech, privacy and security just to browse the internet. A.B. 1856, authored by Assemblymember Buffy Wicks, will now move forward through the legislature without its most problematic pieces.
+
+EFF still believes the underlying law that A.B. 1856 amends, A.B. 1043, is unconstitutional. Signed into law in 2025 (and effective January of 2027), A.B. 1043 requires all operating systems and app stores to collect users’ ages, place them in various age brackets and then block young people from lawful speech and services depending on their age. We also believe that even though A.B. 1043 does not require age verification, the liability it creates for operating systems and app stores—including fining operating systems up to $7,500 per affected child for violating the law—will push those services to verify users’ ages. In practice, that could lead to more ID checks, more biometric scanning, more invasive data collection and risk of breach, and more barriers to adults’ and young people’s lawful speech.
+
+However, we appreciate that the Legislature has abandoned its plan to expand this problematic age-gating  framework to browsers and websites. This would have significantly expanded this dangerous law before it even took effect. We thank the author and committee staff for recognizing these harms and not moving forward with this language. 
+
+On top of that, EFF is pleased that an earlier amendment to A.B 1856 reduced the threat to the open-source community by exempting open-source operating systems. Given these changes, EFF has removed its opposition to A.B. 1856. We appreciate the author for listening to concerns from advocates, developers and others about the effect it would have on open-source development and also around expanding this problematic framework.
+
+To be clear, we still believe the law passed last year threatens online anonymity, privacy, and security. A.B. 1043 is one of a troubling wave of proposals that encourage—or, in some cases, outright require—age verification. Our position on this is clear: no one should have to provide or verify their age to access the internet. Once users’ personal data is collected, it can easily be leaked, hacked, or misused. No matter the method, every age verification system demands that people hand over their sensitive and immutable personal information to link their offline identity to their online activity. That’s a bad deal for us all.
+
+Age-gating mandates are reshaping the internet in ways that are invasive, dangerous, and deeply unnecessary. But users are not powerless! We can challenge these laws, protect our digital rights, and build a safer digital world for all internet users, no matter their ages. This resource hub can help—so explore, share, and join us in the fight for a better internet.

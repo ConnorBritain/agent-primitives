@@ -1,6 +1,6 @@
 {
   "name": "agent-primitives",
-  "description": "Portable agent patterns \u2014 reviewers, gates, and workflows that deploy to Claude Code, Codex, Cursor, and any AGENTS.md harness from one source of truth.",
+  "description": "Portable agent patterns — reviewers, gates, and workflows that deploy to Claude Code, Codex, Cursor, and any AGENTS.md harness from one source of truth.",
   "owner": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -22,23 +22,25 @@
     },
     {
       "name": "prose-tell-scan",
-      "description": "Deterministic prose measurement: a catalogued scan for AI writing tells plus the cadence metrics a model cannot estimate about its own output. Register-aware, calibrated against your own corpus, and report-only \u2014 signals for an author about their own draft, never a verdict about who wrote something. Ships no rewriter, by design.",
+      "description": "Deterministic prose measurement: a catalogued scan for AI writing tells plus the cadence metrics a model cannot estimate about its own output. Register-aware, calibrated against your own corpus, and report-only — signals for an author about their own draft, never a verdict about who wrote something. Ships no rewriter, by design.",
       "source": "./bundles/prose-tell-scan",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "category": "writing",
       "tags": [
         "writing",
         "prose",
         "editing",
         "ai-writing-tells",
-        "readability"
+        "readability",
+        "review",
+        "subagent"
       ]
     },
     {
       "name": "prose-review",
-      "description": "Read-only critics for prose, run before a draft is called done. v0.1 ships prose-voice-critic: does this sound like the author, judged against their own corpus, with every finding required to cite how they write instead. Never judges quality, never claims anything about who wrote something.",
+      "description": "Read-only critics for prose, run before a draft is called done. prose-voice-critic: does this sound like the author, judged against their own corpus, with every finding required to cite how they write instead. prose-fidelity-critic: did a revision keep the facts, quotes, qualifications and claim strength of the original, judged against a deterministic scan that is authoritative on presence. Never judges quality, never claims anything about who wrote something.",
       "source": "./bundles/prose-review",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "writing",
       "tags": [
         "writing",

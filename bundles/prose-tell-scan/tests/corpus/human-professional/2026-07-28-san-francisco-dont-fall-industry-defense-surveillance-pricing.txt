@@ -1,0 +1,41 @@
+---
+source: EFF Deeplinks (eff.org)
+title: San Francisco: Don’t Fall for Industry Defense of Surveillance Pricing
+author: Matthew Guariglia
+date: 2026-07-28
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/deeplinks/2026/07/san-francisco-dont-fall-industry-defense-surveillance-pricing
+---
+The concept of “surveillance pricing” is just one part of a much larger problem and business model: corporations maximizing their profits by invading our privacy. The all-too-common business model is to systematically harvest, collate, and store as much of our personal data as possible, and then monetize it through use and sale. When it comes to surveillance pricing, that looks like corporations offering the same product to two different people at two different prices, based on harvested personal information. That's why EFF supports A.B. 2654, authored by Assemblymember Chris Ward, which bans this harmful practice. 
+
+As an organization based in San Francisco, EFF was proud to learn that the San Francisco Board of Supervisors had also introduced a resolution to similarly support the legislation. However,  we were disappointed to learn the San Francisco Board of Supervisors has since stalled a vote on the resolution stating their own support for A.B. 2654 after receiving an email from the San Francisco Chamber of Commerce criticizing the bill using well-worn and debunked concerns. We’ve sent the Supervisors a letter asking them to reconsider.
+
+Banning surveillance pricing would be good for consumers. The FTC has found that companies will set higher prices based on personal information. “For instance,” the FTC found last year, “if a consumer is profiled as a new parent, the consumer may intentionally be shown higher-priced baby thermometers on the first page of their in-app search results, based on their residential zip code and time of purchase.” Let's say that again: the U.S. government has found that companies may seek to use surveillance pricing to charge parents searching for a thermometer in the middle of the night more money in a time of need.
+
+Privacy is a human right, not something that people should understand as a currency to give away or protect based on how it will impact the price of groceries. EFF has long opposed pay-for-privacy schemes, in which a company charges a higher price to a customer who refuses to submit to processing of their personal data. Surveillance pricing is another version of that practice. You should never have to worry that your privacy rights depend on how much you make.
+
+At a time when prices for everyday goods continue to climb, some surveillance pricing defenders note that using personal information could lead to lower prices for some consumers. Yet some recent studies indicate there will be losers and winners  based on factors such as whether a consumer is willing or able to switch products. Who loses or wins also will turn on the accuracy of the underlying data – yet surveillance pricing is often based on false information.
+
+That said, even if surveillance pricing has the capability to lead to lower prices (which it often doesn't) we oppose it as just another way that corporations try to make customers pay for their privacy.
+
+The San Francisco Chamber of Commerce’s concerns are fully addressed in the text of A.B. 2654. The Chamber raises questions about how businesses will comply with the law. But the bill is quite clear: “a retailer shall not engage in surveillance pricing.” It also has a clear definition of what “surveillance pricing” is. The banned practice is defined as: “[i] a customized price for a good for a specific consumer or group of consumers, [ii] based, in whole or in part, on personally identifiable information collected through electronic surveillance,” including if that information is “acquired from a third party.” In other words, “surveillance pricing” is a customized price based on personal information.
+
+The SF  Chamber’s letter also asks about the bill's “treatment of discounts and loyalty programs.” In this way, too, A.B. 2654 is quite clear. The bill includes three broad carveouts that ensure it doesn't disrupt loyalty programs and discounts:
+
+First, for price differences “based solely on costs associated with providing the good to different consumers.”
+
+Second, for a discount offered to a consumer who is taking steps to terminate a service.
+
+Third, for a discount, conspicuously posted on a retailer’s website, that is uniformly available based on (1) criteria anyone can meet, such as signing up for a mailing list, (2) membership in a broadly defined group, such as seniors, or (3) participation in a loyalty program.
+
+An opt-in senior discount to the movies is not the problem. The systematic collection of all of our personal information to determine whether someone is a senior and if so whether they should pay more or less for that matinee is. 
+
+As we said in our blog post outlining our support for this bill:
+
+Surveillance pricing is very similar to online behavioral advertising, a business practice that EFF urges governments to ban. Both practices incentivize all businesses to collect as much of our personal data as possible, in order to later monetize it. Both practices lead some businesses to collate and store our data into dossiers about us for later use. Both practices use these surveillance-based dossiers to manipulate and limit our economic choices, by altering the advertisements and prices we see online.
+
+We urge the San Francisco Board of Supervisors to join the coalition of groups that support A.B. 2564, and stand against companies mining our personal information to charge us different prices for the same thing. 
+
+You can read our letter to the Supervisors here.

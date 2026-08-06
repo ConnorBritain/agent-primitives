@@ -1,9 +1,8 @@
 # prose-review — design
 
-**Status: v0.1 + fidelity-scan.** `prose-voice-critic` ships with its
-acceptance harness. `fidelity-scan` (the deterministic sidecar the fidelity
-critic reads) ships too - see `tools/fidelity-scan.mjs`. The other three
-critics, the reviser, and the fidelity critic prompt are spec only.
+**Status: v0.2.** `prose-voice-critic` and `prose-fidelity-critic` both ship,
+each with its acceptance harness, alongside the deterministic sidecar
+`tools/fidelity-scan.mjs`. The other three critics and the reviser are spec only.
 
 `prose-tell-scan` counts what can be counted. This bundle is the other half: the
 judgements no regex reaches. It is also where the one rule this project has been
@@ -130,6 +129,15 @@ claims here the same way. A critic may ship on "does not fire on human prose"
 alone; it may not ship claiming it *finds* things until there is material where
 the finding is known to exist.
 
+**`prose-fidelity-critic` is the exception, and the reason is instructive.** It
+is not judged against this corpus at all. Its question has ground truth — the
+original — so material where the finding is known to exist can simply be *built*:
+take a public-domain essay, remove a specific qualification, and the answer is
+known by construction rather than by consensus. That is why it could ship with a
+true-positive rate when its siblings cannot, and it is the shape to look for when
+a critic seems untestable: not "where do I find labelled data", but "does this
+question have an answer that does not depend on who is asked".
+
 **Which implies a corpus this bundle does not have.** Argumentative human prose —
 essays, criticism, opinion — with the same provenance discipline. Pre-2022
 Wikipedia will not supply it. That is a prerequisite for `prose-substance-critic`
@@ -209,9 +217,39 @@ may run repeatedly while editing.
 
 ## Fidelity, and the rule that the check lands first
 
-`prose-fidelity-critic` compares before and after: claim drift, dropped
-qualifications, voice loss, edits outside the plan. `MATERIAL-LOSS` **fails the
-run and restores the original.**
+`prose-fidelity-critic` compares before and after: dropped facts, claim drift,
+dropped qualifications, edits outside the plan. `MATERIAL-LOSS` **fails the run
+and restores the original.**
+
+**It does not own voice loss, and an earlier draft of this section said it did.**
+That was a straight contradiction of the scope table above, which gives voice to
+`prose-voice-critic` exclusively — and of the exclusivity rule this bundle is
+built on, which requires the spec to say *which* critic owns a contested
+territory rather than letting two claim it. Resolved in favour of the table: a
+revision that preserves every fact and still does not sound like the author is a
+voice finding, and the orchestrator gets it by running `prose-voice-critic` on
+the revision. The fidelity critic's prompt refuses voice judgements explicitly,
+for the ordinary reason that a critic covering two questions does neither
+reliably.
+
+**The two critics also resolve uncertainty in opposite directions**, which is
+worth stating here because it looks like an inconsistency and is not. Voice
+resolves to silence: a wrong "this doesn't sound like you" teaches an author to
+write blandly and cannot be taken back. Fidelity resolves to `MATERIAL-LOSS`: a
+loss waved through ships, the original may be gone by the time anyone looks, and
+a wrong finding costs a glance at two quoted lines. The asymmetry is a property
+of the question, not a house style, so it is recorded per primitive in
+`meta.yaml`.
+
+**The split with the deterministic half is load-bearing.** `fidelity-scan` is
+authoritative on *presence*; the critic is authoritative only on *consequence*,
+and is forbidden to claim a flagged atom is present. This is the failure the
+tool's docstring names — a model "sees" a number in the revision because the
+sentence around it sounds right. The critic's harness measures whether it earns
+its place beside the scan at all: it must disagree in **both** directions,
+clearing over-flags and catching what the scan is structurally blind to. A critic
+that only echoes the scanner scores the echo baseline, and the harness reports
+that baseline next to its score for exactly that reason.
 
 It ships **before** the reviser it guards. Over-editing is the primary failure
 mode of any rewriter — one that sands off an author's voice has made things worse

@@ -1,0 +1,39 @@
+---
+source: EFF Deeplinks (eff.org)
+title: Hundreds of Drone-as-First-Responder Programs Could Soon Be Launched Across the Country
+author: Beryl Lipton
+date: 2026-07-23
+human_authored: true
+license: CC-BY-4.0
+multi_author_collection: true
+permalink: https://www.eff.org/deeplinks/2026/07/hundreds-drone-first-responder-programs-could-soon-be-launched-across-country
+---
+Police departments across the country are lining up to launch drone-as-first-responder (DFR) programs, and hundreds have cleared a necessary hurdle toward making deployment a reality, expanding aerial surveillance and data collection even in areas patrol officers typically can't reach.
+
+As of February 2026, over 1,000 public safety agencies—including police, fire, and other emergency management agencies—had received Federal Aviation Administration (FAA) waivers needed to automate drone operations and launch a DFR program, according to a recent Freedom of Information Act (FOIA) release listing agencies that have obtained Part 91 waivers since the FAA streamlined and sped up the process in April 2025.
+
+The changes led to a massive increase in the number of waivers issued. Only 976 DFR waivers had been granted since the first DFR program launched in 2018 through April 2025, according to an FAA representative. The agency issued more waivers between April 2025 and February 2026 than it had in the previous seven years combined.
+
+A map illustrating the locations of police departments and other public safety agencies that have received Part 91 waivers, making it possible for them to launch drone-as-first-responder programs. (This map image links to Google Maps, which is governed by Google's privacy policy)
+
+The new FAA process for waivers and the rush of police departments to obtain them signifies a shift in law enforcement's use of drones: from human-operated aerial surveillance to AI-based autonomous drone use. 
+
+Typically, a drone operator is only permitted to fly in areas that can still be seen by the pilot, and that drone pilot needs to be certified under FAA Part 107. To fly drones “Beyond Visual Line of Sight” (BVLOS) requires additional approval from the FAA, as do flights above 200 feet, due to the risk of colliding with planes and other aircrafts. Without such approval, an officer could not pilot a drone from a desk inside a building and fly it to a call across the city because they could not possibly have line of sight on the drone. 
+
+FAA rules for police drones also required a human operator to manually fly the device to a scene, but DFR technology has become a more common and more automated police technology. DFR programs increasingly rely on artificial intelligence to automate drone flights from launchpads placed around the city, often atop municipal buildings, and make it possible for one drone operator to “fly” multiple devices at once. Though not every police department that has received BVLOS has launched a DFR program yet, by going through this process, every department on this list has signified it has strong enough interest to clear the necessary regulatory hurdles.
+
+Police departments and the companies that sell DFR equipment claim that these drones make it easier for officers to establish “situational awareness” of a scene before they arrive. Early drone adoption centered on similar claims, particularly related to high-risk situations like vehicular accidents or incidents involving an armed suspect. However, these kinds of situations may make up only a small portion of deployments, which often occur in response to low-risk calls for service related to unhoused people, mental health concerns, and loud music, as a Government Technology analysis of the system in Chula Vista, California, found. 
+
+DFR programs have become important sources of revenue for companies like Flock Safety and Axon, the latter of which reported that its DFR platform has become one of the company’s fastest growing sectors. Axon is also known for products like the TASER and the Fusus camera system that lets police integrate viewing of public and private cameras. 
+
+Footage from drone flights is streamed back to a police office, and it can be stored, shared, and analyzed like other video. Turning drone footage into fodder for automated license plate reader (ALPR) networks, for example, requires very little additional software, and Flock Safety was quietly able to turn its drones into “flying ALPRs” last year. 
+
+The normalization of police DFR programs jeopardizes privacy in communities across the country. As flying cameras, drones can capture footage from areas typically inaccessible to a casual patrol officer—backyards, roofs, through windows—at distances that leave subjects of surveillance completely unaware of the spy in the sky. A recent leak of drone footage from the San Francisco Police Department illustrated the ease with which surreptitious drone flights could observe innocent individuals for minutes without them realizing it. EFF's Atlas of Surveillance contains a list of police departments with drones, including those with DFR programs.
+
+While daytime DFR use grows, police departments are exploring other ways to expand overhead surveillance. In October 2024, the Campbell Police Department in California announced it had received the first FAA approval for BVLOS operations at night, claiming it was the “first to incorporate radar technology with electro-optical sensors to enhance airspace monitoring, enabling a single remote pilot to safely deploy drones both day and night.”  
+
+As communities consider drone use, it’s crucial that they have a say in whether the program is acquired at all, not just how it's run once purchased. Throughout the process, police should be transparent with the community and comply with local regulations about its adoption.
+
+Many cities provide portals that log the flight paths and reasons for each drone flight, often in real time, an important transparency practice. In California, under AB 481, police departments are required to provide advance notice of intent to acquire drones, establish policies before they’re procured, and provide annual updates on their uses—giving communities and city councils the opportunity, before any contract is signed, to weigh in or object to the acquisition itself. 
+
+For police departments and communities considering drone use, clear policies on appropriate use, transparency around deployment, and regular re-evaluation—including the choice to discontinue a program that isn't working—are all vital for protecting people’s privacy and security.

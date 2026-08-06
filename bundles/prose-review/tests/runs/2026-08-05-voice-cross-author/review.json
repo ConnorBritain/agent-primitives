@@ -1,0 +1,704 @@
+{
+  "n-bacon-r1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-bacon-r2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-bacon-r3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chekhov-r1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chekhov-r2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chekhov-r3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chesterton-r1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chesterton-r2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chesterton-r3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chopin-r1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chopin-r2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-chopin-r3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-doctorow-r1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-doctorow-r2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-doctorow-r3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-ohenry-r1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-ohenry-r2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "n-ohenry-r3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "CLEAN",
+    "_findings_to_review": []
+  },
+  "p-bacon-x-chekhov-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: lines 8–16, \"From early morning I go from hut to hut, and knock my head in the / low doorways which I can't get used to, and as ill-luck will have it my head aches hellishly; / I have migraine and influenza. In one hut a little girl of nine years old ... They were all / highly delighted, and began thanking me.\"",
+      "**LOCATION**: lines 19–21, \"Be so good as to do us a service--have the enclosed advertisement / printed on your front page and charge it to my account.\" / **WHAT**: Direct address to a single named correspondent making a practical request — a / transaction between two people, with an enclosure.",
+      "**LOCATION**: line 100, \"What a pity!\"; line 133, \"it was simply awful\"; line 39, \"I was / pretty sick of the business\"; lines 48–49, \"colourless beyond words, and it was annoying / beyond words\". / **WHAT**: Exclamatory and intensifier-driven complaint, and the flat colloquial intensifiers",
+      "**LOCATION**: line 10, \"my head aches hellishly\"; lines 22–23, \"It's a great benefit, you know, / to cut off people's legs.\"; lines 46–47, \"draws the long bow _a la_ Hlestakov\"; line 131, / \"I ought to get married.\" / **WHAT**: Vocabulary and idiom drawn from spoken, familiar register — including the buttonholing",
+      "**LOCATION**: lines 121–124, \"You write that my ideal is laziness. No, it is not laziness. I / despise laziness as I despise weakness and lack of mental and moral energy. I was not talking / of laziness but of leisure\". / **WHAT**: Short rebuttal sentences answering a prior remark from the reader — a turn in an",
+      "**LOCATION**: whole document — most visibly the close, lines 131–134, \"I ought to get married. / Perhaps a cross wife would cut down the number of my visitors by at least a half.\" / **WHAT**: Each section trails off into incident and ends without a governing statement. / **CORPUS EVIDENCE**: Every sample closes on a compressed general proposition: \"let him"
+    ]
+  },
+  "p-bacon-x-chesterton-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft line 1 — \"I have been standing where everybody has stood, opposite the great Belfry Tower of Bruges, and thinking, as every one has thought (though not, perhaps, said), that it is built in defiance of all decencies of architecture.\" / **WHAT**: The draft opens as first-person present-tense scene — a narrator with a body, standing in a named place and reporting what he sees — wh",
+      "**LOCATION**: draft lines 62-68 — 'And if any one asks, \"Why did the people of these flat countries instinctively raise these riotous and towering monuments?\" the only answer one can give is, \"Because they were the people of these flat countries.\" If any one asks, \"Why the men of Bruges sacrificed architecture and everything to the sense of dizzy and divine heights?\" we can only answer, \"Because N",
+      "**LOCATION**: draft lines 25-27 — \"All the beasts of the field are respectable; it is only man who has broken loose. All animals are domestic animals; only man is ever undomestic. All animals are tame animals; it is only we who are wild.\" / **WHAT**: Three consecutive free-standing sentences on one anaphoric template, each restating the previous with substituted terms — repetition as intensificati",
+      "**LOCATION**: draft line 32 — \"As a matter of historic fact, it didn't; it arose in the most equably civilised period the world has ever seen.\" / **WHAT**: A contraction, and with it a spoken-register informality; the corpus has none, and its verb morphology is systematically archaic where the draft's is uniformly modern.",
+      "**LOCATION**: draft lines 87-88 and 108-110 — \"It is all very nice in its way. Only unfortunately I am quite certain that I could make up quite as long a list exactly contrary in its argument point-blank against the influence of their geographical environment\"; \"I would give them the greater attention if I were not pretty well convinced that the theories will have disappeared a long time before th",
+      "**LOCATION**: whole draft — no Latin or foreign tag anywhere in 112 lines. / **WHAT**: The corpus's most consistent surface habit, a quoted Latin phrase carrying the weight of the argument, is entirely absent."
+    ]
+  },
+  "p-bacon-x-chesterton-r2": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt, throughout — e.g. lines 1–2, \"I have been standing where everybody / has stood, opposite the great Belfry Tower of Bruges\"; line 6, \"It is a church on stilts.\"; / line 9, \"Here Nature is tame; it is civilisation that is untamable.\"",
+      "**LOCATION**: draft.txt, whole document — no Latin or Greek tag appears at any point. / **WHAT**: The draft's authorities are unquoted and modern; the corpus anchors nearly every / argument on a quoted Latin tag, usually followed by an English gloss.",
+      "**LOCATION**: draft.txt, lines 31–33, \"As a matter of historic fact, it didn’t; it arose in / the most equably civilised period the world has ever seen.\" / **WHAT**: A contracted negative (\"didn’t\") standing in for a repeated verb phrase — a spoken",
+      "**LOCATION**: draft.txt, lines 62–68, \"And if any one asks, “Why did the people of these flat / countries instinctively raise these riotous and towering monuments?” the only answer one can / give is, “Because they were the people of these flat countries.” If any one asks, “Why the men / of Bruges sacrificed architecture and everything to the sense of dizzy and divine heights?” we",
+      "**LOCATION**: draft.txt, lines 24–27, \"All the beasts of the field are respectable; it is only / man who has broken loose. All animals are domestic animals; only man is ever undomestic. All / animals are tame animals; it is only we who are wild.\"",
+      "**LOCATION**: draft.txt, lines 74–82 and 104–107, \"quite sure of how children will turn out if / you give them what they call “the right environment.” It is a troublesome thing, environment, / for it sometimes works positively and sometimes negatively… I cannot comfort myself with the / thought that the modern discussions about environment are of much practical value.\"",
+      "**LOCATION**: draft.txt, lines 1–2 and 72–73, \"I have been standing where everybody has / stood… As I stare at the Belfry, I think with a sort of smile of some of my friends in / London\"."
+    ]
+  },
+  "p-bacon-x-chesterton-r3": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1-2, and sustained through line 111 — \"I have been standing where everybody has stood, opposite the great Belfry Tower of Bruges, and thinking, as every one has thought (though not, perhaps, said), that it is built in defiance of all decencies of architecture.\" / **WHAT**: The draft is framed throughout as a first-person scene the writer is standing inside and reporti",
+      "**LOCATION**: draft.txt line 72 and lines 104-111 — \"As I stare at the Belfry, I think with a sort of smile of some of my friends in London who are quite sure of how children will turn out...\"; \"But I think I will not write any more about these modern theories, but go on looking at the Belfry of Bruges.\" / **WHAT**: A confiding, self-deprecating register — the writer reporting his own smile, his f",
+      "**LOCATION**: draft.txt lines 1-111, throughout — e.g. line 6 \"It is made in deliberate disproportion\"; line 48 \"For in a town like this, which seems to have grown Gothic\"; line 52 \"Rock itself is racked and twisted\". / **WHAT**: The draft carries no archaic third-person verb inflection anywhere; the corpus uses it as its default and it is audible in every sample when read aloud. / **CORPUS EVIDEN",
+      "**LOCATION**: draft.txt lines 31-33 — \"As a matter of historic fact, it didn't; it arose in the most equably civilised period the world has ever seen.\" / **WHAT**: Contracted negation, and the do-support negative generally, appear nowhere in the corpus, which negates by post-posed *not* on the lexical verb. / **CORPUS EVIDENCE**: \"I speak not of many more\" (sample-02 line 13); \"I mean not to speak",
+      "**LOCATION**: draft.txt lines 62-68 — \"And if any one asks, 'Why did the people of these flat countries instinctively raise these riotous and towering monuments?' the only answer one can give is, 'Because they were the people of these flat countries.' If any one asks, 'Why the men of Bruges sacrificed architecture...?' we can only answer, 'Because Nature gave them no encouragement to do so.'\" / **",
+      "**LOCATION**: draft.txt lines 25-27 — \"All the beasts of the field are respectable; it is only man who has broken loose. All animals are domestic animals; only man is ever undomestic. All animals are tame animals; it is only we who are wild.\" / **WHAT**: A hammered anaphoric triad spread across three separate sentences, each restating the same antithesis; the corpus builds its triads inside a sing",
+      "**LOCATION**: draft.txt lines 11-14 — \"the streets and roofs are as uproarious as a forest in a great wind. The waters of wood and meadow slide as smoothly and meekly as if they were in the London water-pipes. But the parish pump is carved with all the creatures out of the wilderness.\"; and lines 84-91 — \"The Spaniards (it was said) are passionate because their country is hot... their geographical",
+      "**LOCATION**: draft.txt lines 1-111, whole document. / **WHAT**: The draft carries no Latin quotation at any point, and renders its one Scriptural quotation in plain modern English (\"If these were silent the very stones would cry out\", lines 45-46); the corpus reaches for a Latin tag as a matter of habit whenever it wants to fix a point. / **CORPUS EVIDENCE**: Nine of the ten samples carry at leas",
+      "**LOCATION**: draft.txt lines 1-111, whole document. / **WHAT**: The draft holds one tone — genial, paradox-driven, personal — from the first line to the last, while the corpus visibly changes register with its subject. / **CORPUS EVIDENCE**: The corpus shifts hard between kinds: a flat prescriptive building specification, sustained for pages of measured clauses (\"I would have it two stories, of e"
+    ]
+  },
+  "p-bacon-x-chopin-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: line 1 — \"They formed a congenial group sitting there that summer afternoon—Madame Ratignolle sewing away, often stopping to relate a story or incident with much expressive gesture of her perfect hands\" / **WHAT**: The draft opens by placing named characters in a scene at a particular hour, a mode of opening absent from all ten samples. / **CORPUS EVIDENCE**: Every sample opens on a ",
+      "**LOCATION**: lines 25–36 — \"'Could any one fathom the cruelty beneath that fair exterior?' murmured Robert… '_Par exemple!_ I never had to ask. You were always there under my feet, like a troublesome cat.' / 'You mean like an adoring dog.'\" / **WHAT**: Dramatized dialogue — speakers alternating, with speech tags, carrying the passage — a construction absent from all ten samples. / **CORPUS EVIDEN",
+      "**LOCATION**: lines 44–48, 70–76, 108–112 — \"While the lady at the needle kept up a little running, contemptuous comment\"; \"Robert crossed over and seated himself upon the step below Mrs. Pontellier, that he might watch her work\"; \"Madame Ratignolle folded her sewing, placing thimble, scissors, and thread all neatly together in the roll, which she pinned securely.\" / **WHAT**: Sustained past-tense",
+      "**LOCATION**: lines 24–25 (sentence structure throughout), e.g. line 61 \"She liked the dabbling.\"; line 85 \"He offered no apology.\"; lines 8–9 \"He had lived in her shadow during the past month. No one thought anything of it.\" / **WHAT**: Short free-standing declaratives; the draft contains no instance of the balanced antithesis or the semicolon-chained parallel series that structures every corpus ",
+      "**LOCATION**: line 1 \"formed\"; line 2 \"stopping\"; line 10 \"thought\"; line 47 \"kept up\" — and the draft's verbs generally / **WHAT**: The draft carries none of the archaic third-person inflection that appears in every corpus sample. / **CORPUS EVIDENCE**: \"maketh… doth alter and subdue\" (sample-06, lines 1–3), \"seemeth… saileth… carrieth… hath labored\" (sample-01, lines 12, 17, 21, 24–25), \"committ",
+      "**LOCATION**: lines 103–104 \"the breeze soft and languorous that came up from the south, charged with the seductive odor of the sea\"; line 67 \"seated there like some sensuous Madonna, with the gleam of the fading day enriching her splendid color\"; line 105 \"Children freshly befurbelowed\" / **WHAT**: Sensory and affective vocabulary offered for its own atmosphere, at a register the corpus does not ",
+      "**LOCATION**: lines 31, 35–36, 50, 78 — \"_Par exemple!_\"; \"_Passez! Adieu! Allez vous-en!_\"; \"_Blagueur—farceur—gros bête, va!_\"; \"_Mais ce n'est pas mal! Elle s'y connait, elle a de la force, oui._\" / **WHAT**: Foreign-language matter used as characters' speech rather than as cited authority — a different function from the corpus's only use of it. / **CORPUS EVIDENCE**: Foreign matter in the corp",
+      "**LOCATION**: whole document / **WHAT**: The draft holds one narrative tone throughout, where the corpus visibly changes with subject matter. / **CORPUS EVIDENCE**: The corpus shifts substantially between samples — the flat technical specification of sample-02 (\"of eighteen foot high apiece above the two wings; and a goodly leads upon the top, railed, with statues interposed\", lines 57–58) against"
+    ]
+  },
+  "p-bacon-x-doctorow-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt line 25 — \"I also turned 55 – and my radiologist told me I'm now cancer-free, so it's been a good summer all around.\" / **WHAT**: Autobiographical self-report — personal health, age, personal good fortune — offered as its own subject, at a confiding distance the corpus never uses. / **CORPUS EVIDENCE**: The corpus first person is impersonal and evidentiary: it appears to in",
+      "**LOCATION**: draft.txt lines 21, 25, 31, 33, 35, 37, 41, 141, 143 — \"It's safe to say\", \"I've won\", \"I'm now cancer-free\", \"which I'm about to reproduce below\", \"isn't on the list\", \"that is to say\", \"here's the master list\", \"don't worry, I'll be back\", \"I'll be back with more essays\" / **WHAT**: Contracted verb forms, used as the default throughout the draft. / **CORPUS EVIDENCE**: Absent from ",
+      "**LOCATION**: draft.txt lines 31, 141 — \"Good news! Both Reverse Centaur and Enshittification have many foreign editions...\"; \"I hope some of you found this useful! If not (or if so!), don't worry...\" / **WHAT**: Exclamatory address to a plural audience, plus reassurance of that audience — a stance toward the reader absent from the corpus. / **CORPUS EVIDENCE**: The corpus addresses the reader, bu",
+      "**LOCATION**: draft.txt lines 21, 27, 33, 35, 37 — \"good ones for me publishing-wise\"; \"my readers are disproportionately Internet People\"; \"Translation deals are primarily 'pull,' not 'push'\"; \"The upshot here is that I am not really in a position to...\"; \"less online, less English-conversant friends\" / **WHAT**: Commercial-operational and colloquial vocabulary — a suffixed coinage (\"publishing-w",
+      "**LOCATION**: draft.txt lines 21–43 (the whole prose body of the first section) / **WHAT**: Register break at the largest scale: the passage is expository-personal correspondence with its readership about the availability of goods, where every corpus sample is a general argument advanced by aphorism and exemplum. There is no generalising proposition anywhere in the draft. / **CORPUS EVIDENCE**: Ev",
+      "**LOCATION**: draft.txt lines 3–17, 145–268 / **WHAT**: Section-index and catalogue material (link lists, appearance listings, book listings) with no argued prose. Noted for scope only: much of this is structural rather than authored sentences, and I do not treat the listing format itself as a voice finding. / **CORPUS EVIDENCE**: The corpus does enumerate at length — sample-05 lines 22–50 rank th"
+    ]
+  },
+  "p-bacon-x-ohenry-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: draft.txt lines 1-4 — \"The policeman on the beat moved up the avenue / impressively. The impressiveness was habitual and not for show, for spectators were few. / The time was barely 10 o'clock at night...\" / - **WHAT**: The draft is past-tense scene narration with named characters and a plot; the",
+      "- **LOCATION**: draft.txt lines 20-24, 45-47, 94-114 — \"'It sounds pretty interesting,' said / the policeman. 'Rather a long time between meets, though, it seems to me.'\" / - **WHAT**: Sustained quoted dialogue with speech tags, exchanged between characters to / advance events — a construction absent from all ten samples.",
+      "- **LOCATION**: draft.txt lines 65-68 — \"'You bet! I hope Jimmy has done half as well... I've / had to compete with some of the sharpest wits going to get my pile... It takes the West to / put a razor-edge on him.'\"; also line 105 \"Bully; it has given me everything I asked it / for.\"",
+      "- **LOCATION**: draft.txt whole document — no instance of the corpus's inflected verb forms / or its Latin tags; e.g. line 82 \"There was now a fine, cold drizzle falling\", line 116 \"The / two men started up the street, arm in arm.\" / - **WHAT**: The draft lacks two constructions that recur in every corpus sample: the -eth",
+      "- **LOCATION**: draft.txt lines 10 (\"The vicinity was one that kept early hours.\"), 139 (\"The / note was rather short.\"), 125 (\"The man from the West stopped suddenly and released his / arm.\") / - **WHAT**: Short free-standing declaratives dropped in without an argumentative connective;"
+    ]
+  },
+  "p-chekhov-x-bacon-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1-23, opening through \"they have no time to tend their health either of body or mind.\" Representative span: \"Men in great place are thrice servants—servants of the sovereign or state, servants of fame, and servants of business; so as they have no freedom, neither in their persons, nor in their actions, nor in their times.\" / **WHAT**: The draft opens at an impersonal,",
+      "**LOCATION**: draft.txt lines 41-81, the whole instructional block: \"In the discharge of thy place, set before thee the best examples ... Reduce things to the first institution ... Seek to make thy course regular ... Preserve the right of thy place, but stir not questions of jurisdiction\". / **WHAT**: Sustained second-person-singular precept in *thou/thee/thy* with imperative verbs — a constructio",
+      "**LOCATION**: draft.txt lines 61-62, \"The vices of authority are chiefly four: delays, corruption, roughness, and facility.\" Also lines 1-2 (\"thrice servants\"), and line 29 (\"In place, there is license to do good and evil, whereof the latter is a curse; for in evil, the best condition is not to will, the second not to can\"). / **WHAT**: Enumerated-taxonomy construction — announcing a fixed count o",
+      "**LOCATION**: draft.txt lines 10-14, \"Nay, retire men cannot when they would, neither will they when it were reason; but are impatient of privateness even in age and sickness, which require the shadow\"; and line 53, \"but be not too positive and peremptory, and express thyself well when thou digressest from thy rule.\" / **WHAT**: Vocabulary and syntax from a markedly older and more formal register ",
+      "**LOCATION**: whole document, draft.txt lines 1-101. / **WHAT**: Voice that never shifts — the draft holds one elevated aphoristic tone from first line to last, where the corpus visibly changes register with subject and correspondent."
+    ]
+  },
+  "p-chekhov-x-chesterton-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION** — draft.txt, whole document; representative span lines 24-27: / \"All the beasts of the field are respectable; it is only man who has broken loose. All / animals are domestic animals; only man is ever undomestic. All animals are tame animals; / it is only we who are wild.\"",
+      "**LOCATION** — draft.txt, lines 62-68: \"And if any one asks, 'Why did the people of these / flat countries instinctively raise these riotous and towering monuments?' the only answer / one can give is, 'Because they were the people of these flat countries.' If any one asks, / 'Why the men of Bruges sacrificed architecture and everything to the sense of dizzy and",
+      "**LOCATION** — draft.txt, lines 24-27 (quoted above) and lines 6-13: \"But this sort of / sublime deformity is characteristic of the whole fancy and energy of these Flemish cities. / Flanders has the flattest and most prosaic landscapes, but the most violent and extravagant / of buildings. Here Nature is tame; it is civilisation that is untamable.\"",
+      "**LOCATION** — draft.txt, line 24: \"This savagery even in stone is the expression of the / special spirit in humanity\"; line 30-33: \"it arose in the most equably civilised period the / world has ever seen\"; line 35-36: \"something in it that breaks the outline of perfect and / conventional beauty.\"",
+      "**LOCATION** — draft.txt, lines 84-96: \"The Spaniards (it was said) are passionate because / their country is hot... Thus Spaniards have discovered more continents than Scandinavians / because their hot climate discouraged them from exertion. Thus Dutchmen have fought for / their freedom quite as bravely as Switzers because the Dutch have no mountains.\"",
+      "**LOCATION** — draft.txt, whole document. / **WHAT** — Category 5: the tone holds at one setting — assured, expository, elevated — / from the first line to the last, where the corpus visibly changes with subject and"
+    ]
+  },
+  "p-chekhov-x-chopin-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1–6, \"They formed a congenial group sitting there that summer afternoon—Madame Ratignolle sewing away, often stopping to relate a story or incident with much expressive gesture of her perfect hands; Robert and Mrs. Pontellier sitting idle...\" / **WHAT**: The draft is third-person narration about named characters, sustained across every paragraph; the corpus is first-p",
+      "**LOCATION**: draft.txt line 53, \"She never knew precisely what to make of it; at that moment it was impossible for her to guess how much of it was jest and what proportion was earnest\"; also line 82, \"She could not but believe it to be thoughtlessness on his part\"; line 114, \"Mrs. Pontellier could not help wondering if there were not a little imagination responsible for its origin.\" / **WHAT**: I",
+      "**LOCATION**: draft.txt line 20, \"whatever crumbs of sympathy and comfort she might be pleased to vouchsafe\"; line 38, \"with excessive naïveté\"; line 52, \"this seriocomic tone\"; line 74, \"little ejaculatory expressions of appreciation\"; line 104, \"the breeze soft and languorous\"; line 105, \"Children freshly befurbelowed.\" / **WHAT**: An ornamental Latinate literary register — \"vouchsafe,\" \"befurbe",
+      "**LOCATION**: draft.txt, whole document. / **WHAT**: One narrative tone held from line 1 to line 139; the corpus visibly changes pitch with correspondent and subject. / **CORPUS EVIDENCE**: sample-01 lines 10–17 is elder-brother instruction (\"But one thing I don't like: why do you style yourself...\"); sample-06 lines 7–18 is stiff formal apology to a near-stranger (\"HONOURED ELENA MIHAILOVNA... fo"
+    ]
+  },
+  "p-chekhov-x-doctorow-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt line 25 — \"Over the past two months, I've won the Locus Award (Enshittification), had a NYT bestseller (Reverse Centaur), gotten a word in the OED (\"enshittification\"), and had the number one bestselling nonfiction paperback in Canada for more than a month running (Reverse Centaur).\" / **WHAT**: Register break in self-presentation — the author's own reception is enumerated ",
+      "**LOCATION**: draft.txt lines 33-35 — \"Translation deals are primarily \"pull,\" not \"push\" – that is to say, a foreign publisher contacts my publisher and asks for the rights\"; \"The upshot here is that I am not really in a position to do more than has already been done to get an edition published in your preferred language or territory.\" / **WHAT**: Register break — a paragraph of hedged procedural",
+      "**LOCATION**: draft.txt line 29 — \"This post is primarily for those readers, who often write to me to let me know how much they enjoyed the books\"; line 41, \"With that all said, here's the master list of editions\"; line 37, \"I also need to note here that these deals are generally with established publishers\". / **WHAT**: Construction absent from the corpus — sentences that announce the document's ",
+      "**LOCATION**: draft.txt line 141 — \"I hope some of you found this useful! If not (or if so!), don't worry, I'll be back with more essays in the days to come.\" / **WHAT**: Construction absent from the corpus — address to an indefinite plural readership (\"some of you\") whom the writer cannot name. / **CORPUS EVIDENCE**: Every sample addresses a known party, by name or nickname, however plural: \"DEAR",
+      "**LOCATION**: draft.txt line 21 — \"publishing-wise\"; line 27, \"they deal with technopolitics, which means that my readers are disproportionately Internet People\"; line 29, \"their less online, less English-conversant friends\"; line 31, \"The foreign rights team at Farrar, Straus and Giroux were good enough to prepare a list\"; line 35, \"secure a license.\" / **WHAT**: Vocabulary from a different regis",
+      "**LOCATION**: draft.txt line 13 — \"You keep readin' em, I'll keep writin' 'em.\"; line 5, \"Hey look at this: Delights to delectate.\" / **WHAT**: Construction absent from the corpus — clipped colloquial g-dropping and a chanted rhyming tag; these are heard when read aloud, so they are not a formatting artefact of the list they sit in. / **CORPUS EVIDENCE**: The author's playfulness runs to simile an",
+      "**LOCATION**: whole document, e.g. line 25 — \"I also turned 55 – and my radiologist told me I'm now cancer-free, so it's been a good summer all around\" — set beside line 143, \"I realize that I have violated my 'one emoji per edition' rule with the flags above.\" / **WHAT**: Voice that never shifts — a single genial, briskly upbeat tone carries commercial news, procedural apology, and grave personal"
+    ]
+  },
+  "p-chekhov-x-ohenry-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft lines 1-2, and the whole document — \"The policeman on the beat moved up the avenue impressively. The impressiveness was habitual and not for show, for spectators were few.\" / **WHAT**: The draft is sustained third-person narration with an omniscient narrator who reports characters' interior states; no sample contains a single sentence of it.",
+      "**LOCATION**: draft lines 7-10 — \"Trying doors as he went, twirling his club with many intricate and artful movements, turning now and then to cast his watchful eye adown the pacific thoroughfare, the officer, with his stalwart form and slight swagger, made a fine picture of a guardian of the peace.\" / **WHAT**: A stacked participial preamble that suspends the subject across three clauses before t",
+      "**LOCATION**: draft lines 20, 45, 94, 98, 127 — \"he said, reassuringly\"; \"asked the policeman\"; \"he asked, doubtfully\"; \"exclaimed the new arrival\"; \"he snapped\" / **WHAT**: Staged dialogue carried by inverted speech tags and manner adverbs; the exchange runs for some seventy lines with attribution as its only connective tissue. No sample stages a conversation this way.",
+      "**LOCATION**: draft lines 3-4, 8, 9-10, 53 — \"had well nigh de-peopled the streets\"; \"adown the pacific thoroughfare\"; \"made a fine picture of a guardian of the peace\"; \"the truest, stanchest old chap in the world\" / **WHAT**: Archaic-poetic and genteel-periphrastic vocabulary (\"adown\", \"well nigh\", \"pacific\" for quiet, \"de-peopled\", \"stanchest\", \"guardian of the peace\" for policeman) at a registe",
+      "**LOCATION**: draft lines 116-119 — \"The man from the West, his egotism enlarged by success, was beginning to outline the history of his career. The other, submerged in his overcoat, listened with interest.\" / **WHAT**: Irony delivered by withholding — the narrator plants information the reader will only cash in later, and the sentence is built to be re-read.",
+      "**LOCATION**: whole document / **WHAT**: One narrating tone — cool, amused, evenly distant — held from line 1 to line 147, where the corpus changes tone with subject and correspondent."
+    ]
+  },
+  "p-chesterton-x-bacon-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: line 1, \"Men in great place are thrice servants—servants of the sovereign or / state, servants of fame, and servants of business\" — and the whole draft, lines 1–101. / **WHAT**: The draft is impersonal aphoristic counsel with no narrator, no incident, and no",
+      "**LOCATION**: lines 41–48, \"In the discharge of thy place, set before thee the best examples / ... examine thyself strictly whether thou didst not best at first ... but yet set it down to / thyself, as well to create good precedents as to follow them.\"",
+      "**LOCATION**: lines 9–10, \"'Cum non sis qui fueris, non esse cur velis vivere.'\"; lines / 25–27, the Latin verse block; lines 37–39, \"'Et conversus Deus, ut aspiceret opera...'\"; / lines 84–87, \"'Omnium consensu capax imperii, nisi imperasset,' saith Tacitus of Galba\".",
+      "**LOCATION**: line 75–76, \"severity breedeth fear, but roughness breedeth hate\"; line 66–67, / \"for integrity used doth the one, but integrity professed ... doth the other\"; line 69, / \"changeth manifestly without manifest cause, giveth suspicion of corruption\".",
+      "**LOCATION**: line 10, \"impatient of privateness\"; line 53, \"be not too positive and / peremptory\"; line 56, \"assume thy right in silence, and _de facto_\"; line 61, \"The vices of / authority are chiefly four: delays, corruption, roughness, and facility\"; line 87, / \"the one was meant of sufficiency\".",
+      "**LOCATION**: lines 1–23 as a unit; the paragraph runs on periodic, semicolon-jointed clauses / end to end. / **WHAT**: Uniform long periodic sentence length; the corpus's characteristic short closing",
+      "**LOCATION**: whole document, lines 1–101. / **WHAT**: The tone does not move — the draft holds one grave advisory register from first / line to last — where the corpus visibly changes with subject matter."
+    ]
+  },
+  "p-chesterton-x-bacon-r2": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1–4 — \"Men in great place are thrice servants—servants of the sovereign or state, servants of fame, and servants of business; so as they have no freedom, neither in their persons, nor in their actions, nor in their times.\" / **WHAT**: The draft has no first-person narrator and no narrated occasion anywhere in its 101 lines; it opens on an impersonal maxim and stays th",
+      "**LOCATION**: draft.txt lines 41–44 — \"In the discharge of thy place, set before thee the best examples; for imitation is a globe of precepts, and after a time set before thee thine own example; and examine thyself strictly whether thou didst not best at first.\" Also lines 54–56, 70–72, 95–96 (\"Use the memory of thy predecessor fairly and tenderly\"). / **WHAT**: Sustained second-person imperative ",
+      "**LOCATION**: draft.txt lines 66–68 (\"for integrity used doth the one, but integrity professed, and with a manifest detestation of bribery, doth the other\"); lines 68–70 (\"Whosoever is found variable, and changeth manifestly without manifest cause, giveth suspicion of corruption\"); lines 75–76 (\"severity breedeth fear, but roughness breedeth hate\"); lines 79, 85–86 (\"as Solomon saith\", \"saith Taci",
+      "**LOCATION**: draft.txt lines 9–10 (\"Cum non sis qui fueris, non esse cur velis vivere\"), 25–27 (the three-line Latin epigraph), 37–39 (\"Et conversus Deus, ut aspiceret opera...\"), 84–87 (\"Omnium consensu capax imperii, nisi imperasset,\" saith Tacitus of Galba; but of Vespasian he saith, \"Solus imperantium, Vespasianus mutatus in melius\"). / **WHAT**: Untranslated Latin tags and named classical au",
+      "**LOCATION**: whole document — draft.txt lines 1–101. / **WHAT**: The draft holds one didactic, impersonal, aphoristic tone from first line to last; the corpus visibly changes register with subject and within a single piece.",
+      "**LOCATION**: draft.txt lines 61–81 (the \"vices of authority\" period), lines 14–23, lines 41–61. / **WHAT**: Sentence length is long and uniformly so, chained by semicolons into balanced antithetical periods; the corpus varies long periods against very short landing sentences and this draft has none."
+    ]
+  },
+  "p-chesterton-x-bacon-r3": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.\n\nCONTRACT DRIFT, and the RESULT line below understates it. This transcript contains SIX findings, written as `**1. LOCATION**` ... `**6. LOCATION**` instead of the contract's bare `**LOCATION**`. `run-harness.mjs` derives the findings count from /\\*\\*LOCATION\\*\\*/g, which matches none of them, so `findings=0` is the tool's count and it is wrong. Left uncorrected: editing the transcript to make the count come out is exactly what the harness exists to prevent. Counted as 6 in tally.mjs, which is stated there.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": []
+  },
+  "p-chesterton-x-chekhov-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 19-21 — \"Be so good as to do us a service--have the enclosed / advertisement printed on your front page and charge it to my account.\" / **WHAT**: The draft addresses a particular correspondent who can be asked to transact business, / where the corpus \"you\" is always a general reader or a person inside the narrated scene.",
+      "**LOCATION**: draft.txt lines 83-84 and 104-106 — \"The doctors have diagnosed tuberculosis in / the upper part of the lungs, and have ordered me to change my manner of life.\"; \"There is very / little haemorrhage. ... at four o'clock in the morning I had violent haemorrhage again.\" / **WHAT**: A register break — clinical, flat report of the writer's own body, at a distance and",
+      "**LOCATION**: draft.txt line 8 (\"It is a disgrace.\"), line 23 (\"It's a great benefit, you know, / to cut off people's legs.\"), line 100 (\"What a pity!\"), lines 131-132 (\"I ought to get married. / Perhaps a cross wife would cut down the number of my visitors by at least a half.\") / **WHAT**: A construction absent from the corpus — the flat terminal verdict or deadpan joke that",
+      "**LOCATION**: draft.txt lines 39-49 (the census/Zemsky Natchalniks paragraph) and lines 51-59 / (the school paragraph) / **WHAT**: Register break at whole-paragraph scale — narrated incident that terminates in / accounting and arrangements, with no generalising turn; either paragraph could be lifted into a",
+      "**LOCATION**: draft.txt lines 46-49 — \"a man who drinks and draws the long bow _a la_ Hlestakov / ... but was all the same a character, if only from the point of view of comedy, while the others / were colourless beyond words, and it was annoying beyond words to have anything to do with / them.\""
+    ]
+  },
+  "p-chesterton-x-chopin-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: draft.txt lines 1–139, whole document. Opening span: \"They formed a congenial group sitting there that summer afternoon—Madame Ratignolle sewing away, often stopping to relate a story or incident with much expressive gesture of her perfect hands\". / - **WHAT**: The draft is sustained third-person narration with no first-person narrator anywhere in 139 lines, at a distance and a con",
+      "- **LOCATION**: draft.txt lines 52–58, \"He never assumed this seriocomic tone when alone with Mrs. Pontellier. She never knew precisely what to make of it; at that moment it was impossible for her to guess how much of it was jest and what proportion was earnest.\" Also lines 82–85, \"She could not but believe it to be thoughtlessness on his part; yet that was no reason she should submit to it.\" / - ",
+      "- **LOCATION**: draft.txt lines 103–106, \"The sun was low in the west, and the breeze soft and languorous that came up from the south, charged with the seductive odor of the sea. Children freshly befurbelowed, were gathering for their games under the oaks.\" Also line 67, \"seated there like some sensuous Madonna, with the gleam of the fading day enriching her splendid color\"; line 74, \"giving forth",
+      "- **LOCATION**: draft.txt lines 1–139, whole document; the scene runs from the group on the gallery to the walk to the beach without an interruption for argument. / - **WHAT**: The draft narrates continuously and never breaks off into generalisation; the corpus cannot narrate for a page without stopping to argue a proposition. / - **CORPUS EVIDENCE**: Every sample contains an essayistic turn out o",
+      "- **LOCATION**: draft.txt line 31, \"_Par exemple!_ I never had to ask\"; line 50, \"_Blagueur—farceur—gros bête, va!_\"; line 78, \"_Mais ce n'est pas mal! Elle s'y connait, elle a de la force, oui._\" / - **WHAT**: French speech is quoted untranslated and left to stand as atmosphere. / - **CORPUS EVIDENCE**: The author renders French speech as deadpan literal English calque and then makes the calque t",
+      "- **LOCATION**: draft.txt lines 1–139, whole document. / - **WHAT**: The draft holds one tone — even, mild, elegiac — from first line to last, where the corpus visibly changes register with subject and within a single piece. / - **CORPUS EVIDENCE**: The corpus shifts hard and often. Comic to lyrical inside one sample: \"I bought a varied selection of pork-pies at a little shop that was open (why wa"
+    ]
+  },
+  "p-chesterton-x-doctorow-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt line 21 — \"It's safe to say that the past couple of years have been good ones for me publishing-wise, thanks to a string of international bestsellers, both novels (Picks and Shovels) and nonfiction (Enshittification, Reverse Centaur), as well as plenty of awards and accolades:\"; and line 25 — \"I also turned 55 – and my radiologist told me I'm now cancer-free, so it's been a",
+      "**LOCATION**: draft.txt lines 29-37 — \"This post is primarily for those readers, who often write to me to let me know how much they enjoyed the books...\"; \"Good news!\"; \"If your preferred language isn't on the list, I apologize.\"; \"The upshot here is that I am not really in a position to do more than has already been done...\" / **WHAT**: A servicing register — announcement, apology, and administra",
+      "**LOCATION**: draft.txt lines 21, 25, 33, 141, 143 — \"It's safe to say\"; \"I'm now cancer-free\"; \"it's been a good summer\"; \"that is to say\"; \"isn't the translation\"; \"don't worry, I'll be back with more essays\"; \"this will not be a regular thing\" / **WHAT**: Contracted forms in the author's own narrating voice — a construction absent from narration in all ten samples, where contractions occur only",
+      "**LOCATION**: draft.txt lines 21, 33, 35, 37 — \"publishing-wise\"; \"Translation deals are primarily 'pull,' not 'push'\"; \"The upshot here is that\"; \"The hard part of publishing isn't the translation, the typesetting, the book design\" / **WHAT**: Vocabulary from a trade-operational register — suffixed adverb, quoted industry shorthand, \"the upshot\" as a paragraph pivot — outside the corpus's range, ",
+      "**LOCATION**: whole document, draft.txt lines 21-143 / **WHAT**: The voice holds one flat announcing tone from the first paragraph to the last, where the corpus visibly changes pitch with its subject. / **CORPUS EVIDENCE**: The corpus shifts hard and often within a single piece: comic bluster in the speech to the constable, \"Produce, from some portion of your persons, my mouldy straw and my grated"
+    ]
+  },
+  "p-chesterton-x-ohenry-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1–13, and sustained to the end. \"The policeman on the beat moved / up the avenue impressively. The impressiveness was habitual and not for show, for spectators / were few.\" … \"the majority of the doors belonged to business places that had long since been / closed.\"",
+      "**LOCATION**: draft.txt lines 65–68. \"'You bet!' … 'He was a kind of plodder, though, good / fellow as he was. I've had to compete with some of the sharpest wits going to get my pile. A / man gets in a groove in New York. It takes the West to put a razor-edge on him.'\" Also line / 105, \"Bully; it has given me everything I asked it for.\"",
+      "**LOCATION**: draft.txt line 22, \"Sounds a little funny to you, doesn't it?\"; line 63, \"Did / pretty well out West, didn't you?\"; line 133, \"Going quietly, are you?\" / **WHAT**: Subject-dropped colloquial questions closed by a tag — a sentence shape you hear / plainly when the line is read aloud.",
+      "**LOCATION**: draft.txt line 4 \"de-peopled\"; line 31 \"scarfpin\"; line 34 \"chum\"; line 121 \"a / drug store, brilliant with electric lights\"; line 145 \"a plain clothes man\". / **WHAT**: Lexis from a different national variety than the corpus, in the narration as well as / the dialogue.",
+      "**LOCATION**: whole document, draft.txt lines 1–148. / **WHAT**: One even reportorial pitch is held from the first line to the last; the corpus / visibly changes register with the subject and inside a single piece. / **CORPUS EVIDENCE**: Sample-01 moves from comic grievance about Sunday trains (lines 17–30) to"
+    ]
+  },
+  "p-chopin-x-bacon-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 41–43 — \"In the discharge of thy place, set before thee the best / examples; for imitation is a globe of precepts, and after a time set before thee thine own / example; and examine thyself strictly whether thou didst not best at first.\"",
+      "**LOCATION**: draft.txt lines 14–23 — \"Certainly, great persons had need to borrow other men's / opinions to think themselves happy; for if they judge by their own feeling, they cannot find / it; but if they think with themselves what other men think of them, and that other men would / fain be as they are, then they are happy as it were by report, when, perhaps, they find the",
+      "**LOCATION**: draft.txt lines 9–10, 25–27, 37–39, 83–87 — e.g. \"Omnium consensu capax imperii, / nisi imperasset,\" saith Tacitus of Galba\" / **WHAT**: Untranslated Latin quoted from named authorities as evidence for a claim, four times,",
+      "**LOCATION**: draft.txt lines 61–79 — \"The vices of authority are chiefly four: delays, / corruption, roughness, and facility... As for facility, it is worse than bribery\" / **WHAT**: Vocabulary of juridical and administrative abstraction — *privateness* (line 12),",
+      "**LOCATION**: whole document, draft.txt lines 1–101 / **WHAT**: One tone is held from first line to last — measured, magisterial, evenly confident — / where the corpus visibly changes with what it is doing."
+    ]
+  },
+  "p-chopin-x-chekhov-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: draft.txt lines 5–16, e.g. \"From early morning I go from hut to hut, and knock / my head in the low doorways which I can't get used to, and as ill-luck will have it my head / aches hellishly; I have migraine and influenza.\" / - **WHAT**: The draft is narrated in the first person by a speaker reporting his own days and",
+      "- **LOCATION**: draft.txt lines 22–23, \"It's a great benefit, you know, to cut off people's / legs.\"; also line 100, \"What a pity!\"; lines 15–16, \"That's what's called making friends / with the Mammon of Unrighteousness.\" / - **WHAT**: Deadpan one-line jokes set off as their own closing sentence, with the irony",
+      "- **LOCATION**: draft.txt lines 19–21, \"Be so good as to do us a service--have the enclosed / advertisement printed on your front page and charge it to my account.\"; line 29, \"you can / imagine how pleasant it is for a man initiated into the secrets of Aesculapius\"; line 121, / \"You write that my ideal is laziness.\"",
+      "- **LOCATION**: draft.txt line 10, \"my head aches hellishly\"; line 89, \"to escape from worries / and anxieties in the country is as difficult as to escape burns in hell\"; line 133, \"it was / simply awful\"; lines 48–49, \"colourless beyond words, and it was annoying beyond words\". / - **WHAT**: Colloquial and profane intensifiers used by the narrating voice to register",
+      "- **LOCATION**: whole document. / - **WHAT**: The draft holds a single wry, complaining register from the first line to the last, / across subjects as different as a census, a cancer treatment, a police raid and a / tuberculosis diagnosis; the corpus visibly changes register with its subject."
+    ]
+  },
+  "p-chopin-x-chesterton-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt line 1, and throughout — \"I have been standing where everybody has / stood, opposite the great Belfry Tower of Bruges, and thinking, as every one has thought / (though not, perhaps, said), that it is built in defiance of all decencies of architecture.\" / Recurs at lines 39 (\"I remember a debate in which I had praised militant music in ritual\"),",
+      "**LOCATION**: draft.txt lines 25-27 — \"All the beasts of the field are respectable; it is only / man who has broken loose. All animals are domestic animals; only man is ever undomestic. All / animals are tame animals; it is only we who are wild.\" Same shape at lines 57-60 (\"All Gothic / buildings are full of extravagant things in detail; but this is an extravagant thing in",
+      "**LOCATION**: draft.txt lines 62-68 — \"And if any one asks, \"Why did the people of these flat / countries instinctively raise these riotous and towering monuments?\" the only answer one can / give is, \"Because they were the people of these flat countries.\" If any one asks, \"Why the men / of Bruges sacrificed architecture and everything to the sense of dizzy and divine heights?\" we",
+      "**LOCATION**: draft.txt lines 90-95 — \"Thus Spaniards have discovered more continents than / Scandinavians because their hot climate discouraged them from exertion. Thus Dutchmen have / fought for their freedom quite as bravely as Switzers because the Dutch have no mountains. / Thus Pagan Greece and Rome and many Mediterranean peoples have specially hated the sea because",
+      "**LOCATION**: draft.txt lines 2-3 \"(though not, perhaps, said)\", line 84 \"(it was said)\", lines / 80-81 \"(which was recently fashionable, and is still conventional)\", line 87 \"It is all very / nice in its way.\"",
+      "**LOCATION**: draft.txt line 6 \"sublime deformity\"; lines 35-36 \"the outline of perfect and / conventional beauty\"; lines 80-82 \"In the scientific style of history (which was recently / fashionable, and is still conventional) we always had a list of countries that had owed their / characteristics to their physical conditions\"; lines 88-90 \"exactly contrary in its argument",
+      "**LOCATION**: whole document. / **WHAT**: Category 5 — the draft holds one tone (argumentative, ironic, expository) / uninterrupted from line 1 to line 111, where the corpus visibly changes register with subject"
+    ]
+  },
+  "p-chopin-x-doctorow-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: line 21 — \"It's safe to say that the past couple of years have been good ones / for me publishing-wise, thanks to a string of international bestsellers\"; and line 25 — \"I also / turned 55 – and my radiologist told me I'm now cancer-free, so it's been a good summer all / around.\"",
+      "**LOCATION**: lines 13 and 141 — \"You keep readin' em, I'll keep writin' 'em\"; \"I hope some of you / found this useful! If not (or if so!), don't worry, I'll be back with more essays in the days to / come.\"",
+      "**LOCATION**: lines 27–35 — \"they deal with technopolitics, which means that my readers are / disproportionately Internet People\"; \"less online, less English-conversant friends\"; \"Translation / deals are primarily 'pull,' not 'push' – that is to say, a foreign publisher contacts my publisher / and asks for the rights\"; \"The upshot here is that I am not really in a position to do more than",
+      "**LOCATION**: whole document / **WHAT**: The draft holds one tone — promotional, conversational, evenly cheerful — from line 21 / to line 143; the corpus visibly changes tone with subject."
+    ]
+  },
+  "p-chopin-x-ohenry-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.\n\nVALIDITY NOTE, not a contract violation. Two findings name the corpus author (\"Chopin's openings...\"). The staged files never say who wrote them; the critic recognised the prose. Five of this run's six authors are canonical and out of copyright, so the run cannot exclude world knowledge as a partial source of its verdicts. This is the only draw of 56 in which the recognition surfaced in writing.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 137–139 — \"The man from the West unfolded the little piece of / paper handed him. His hand was steady when he began to read, but it trembled a little by the / time he had finished.\"",
+      "**LOCATION**: draft.txt line 10 — \"Now and then you might see the lights of a cigar store or of / an all-night lunch counter\" / **WHAT**: The narrator addresses the reader directly with a generalized \"you,\" placing a",
+      "**LOCATION**: draft.txt lines 1–2 — \"The policeman on the beat moved up the avenue / impressively. The impressiveness was habitual and not for show, for spectators were few.\" / **WHAT**: A sentence shape that lifts the previous sentence's adverb into an abstract noun as",
+      "**LOCATION**: draft.txt lines 65–68 — \"You bet! ... I've had to compete with some of the / sharpest wits going to get my pile. A man gets in a groove in New York. It takes the West to / put a razor-edge on him.\" Also line 105, \"Bully; it has given me everything I asked it for.\"",
+      "**LOCATION**: draft.txt line 4 — \"chilly gusts of wind with a taste of rain in them had well / nigh de-peopled the streets\"; line 8 — \"turning now and then to cast his watchful eye adown the / pacific thoroughfare\"",
+      "**LOCATION**: whole document, draft.txt lines 1–147 / **WHAT**: The draft holds one wry, ironic narrating tone from the first line to the last; the / corpus visibly changes register with subject matter."
+    ]
+  },
+  "p-chopin-x-ohenry-r2": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt line 10 — \"Now and then you might see the lights of a cigar store or / of an all-night lunch counter; but the majority of the doors belonged to business places that / had long since been closed.\" / **WHAT**: The narrator addresses the reader directly as \"you,\" placing a second person inside",
+      "**LOCATION**: draft.txt lines 116–119 — \"The man from the West, his egotism enlarged by / success, was beginning to outline the history of his career. The other, submerged in his / overcoat, listened with interest.\" (and throughout: the draft reports no character's thought / at any point)",
+      "**LOCATION**: draft.txt lines 1–9 — \"The policeman on the beat moved up the avenue / impressively. The impressiveness was habitual and not for show, for spectators were few. … / chilly gusts of wind with a taste of rain in them had well nigh de-peopled the streets. … / turning now and then to cast his watchful eye adown the pacific thoroughfare, the officer,",
+      "**LOCATION**: draft.txt lines 50–53, 65–68, 105 — \"the West is a pretty big proposition, and I / kept hustling around over it pretty lively\"; \"I've had to compete with some of the sharpest / wits going to get my pile. A man gets in a groove in New York. It takes the West to put a / razor-edge on him.\"; \"Bully; it has given me everything I asked it for.\"",
+      "**LOCATION**: whole document / **WHAT**: The draft holds one wry, level reportorial tone from first line to last; the corpus / changes tone with its subject. / **CORPUS EVIDENCE**: The corpus visibly shifts. Incantatory in sample-02 (\"The voice of the sea"
+    ]
+  },
+  "p-chopin-x-ohenry-r3": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: draft.txt, sustained throughout; sharpest at lines 116–119, \"The man from the / West, his egotism enlarged by success, was beginning to outline the history of his career. / The other, submerged in his overcoat, listened with interest.\" / - **WHAT**: The draft narrates entirely from outside its characters — inner states are withheld",
+      "- **LOCATION**: draft.txt lines 10–11, \"Now and then you might see the lights of a cigar store / or of an all-night lunch counter\" / - **WHAT**: The narrator addresses the reader as \"you\" and places him on the scene as an / observer — a construction that appears in none of the ten samples.",
+      "- **LOCATION**: draft.txt line 8, \"to cast his watchful eye adown the pacific thoroughfare\"; / and lines 3–4, \"chilly gusts of wind with a taste of rain in them had well nigh de-peopled / the streets\" / - **WHAT**: \"adown\", \"well nigh\", \"de-peopled\" and \"pacific thoroughfare\" pitch narration at a",
+      "- **LOCATION**: draft.txt lines 65–68, \"You bet! I hope Jimmy has done half as well. He was a / kind of plodder, though... I've had to compete with some of the sharpest wits going to get my / pile... It takes the West to put a razor-edge on him.\"; also line 105, \"Bully; it has given me / everything I asked it for.\"",
+      "- **LOCATION**: draft.txt, lines 1–148 entire / - **WHAT**: The draft holds one clipped, ironic, reportorial tone from the opening street scene / through the arrest and the closing note; the corpus visibly changes register with subject / matter.",
+      "- **LOCATION**: draft.txt lines 142–147, the note beginning \"Bob: I was at the appointed place / on time\" / - **WHAT**: A written document is reproduced in full and carries the ending; the corpus / possesses letters but reports their content in summary and never gives one the last word."
+    ]
+  },
+  "p-doctorow-x-bacon-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: draft.txt lines 1–4, \"Men in great place are thrice servants—servants of the sovereign or state, servants of fame, and servants of business; so as they have no freedom, neither in their persons, nor in their actions, nor in their times.\" / - **WHAT**: The draft opens, and stays, in an aphoristic Early Modern English essay register — sententious, impersonal, addressed to a generalis",
+      "- **LOCATION**: draft.txt lines 42–44, \"examine thyself strictly whether thou didst not best at first\"; also line 53, \"express thyself well when thou digressest from thy rule\"; line 70–71, \"always when thou changest thine opinion or course\". / - **WHAT**: Archaic second-person pronouns and verb inflections (thou/thee/thy/thine, -st and -eth endings) as the draft's default mode of address. / - **CO",
+      "- **LOCATION**: draft.txt lines 10–11, \"Nay, retire men cannot when they would, neither will they when it were reason\"; also lines 83–84, \"It is most true that was anciently spoken\". / - **WHAT**: Subject–verb inversion and fronted-negative periodic construction (\"Nay, X men cannot…, neither will they…\"), and headless relative clauses (\"that was anciently spoken\"), used as ordinary sentence shapes",
+      "- **LOCATION**: draft.txt lines 9–10, \"'Cum non sis qui fueris, non esse cur velis vivere.'\"; lines 25–27, the untranslated Seneca block; lines 84–87, \"'Omnium consensu capax imperii, nisi imperasset,' saith Tacitus of Galba\". / - **WHAT**: Untranslated Latin quotation used as authority, unglossed, three times. / - **CORPUS EVIDENCE**: The author quotes Latin exactly once across the ten samples, a",
+      "- **LOCATION**: draft.txt lines 75–77, \"severity breedeth fear, but roughness breedeth hate\"; line 77, \"As for facility, it is worse than bribery\"; line 46, \"Reform, therefore, without bravery or scandal of former times\"; line 11, \"impatient of privateness\". / - **WHAT**: Vocabulary from a different register — archaic-abstract nouns used in obsolete senses (\"facility\" for pliancy, \"bravery\" for os",
+      "- **LOCATION**: whole document, draft.txt lines 1–101. / - **WHAT**: The draft holds one impersonal counsel-giving tone from first line to last; the corpus visibly shifts tone with subject matter. / - **CORPUS EVIDENCE**: sample-03 lines 41–47 turns personal and elegiac (\"I'm 55… my doctor just informed me that I am cancer free\"), sample-03 line 71 grieving (\"He was only 44. I still miss him, ever"
+    ]
+  },
+  "p-doctorow-x-chekhov-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1–3, 35–36, 79–80, 117–118 — \"MELIHOVO, / January 11, 1897.\" ... \"MOSCOW, / February 8, 1897.\" ... \"MOSCOW, / April 1, 1897.\" ... \"MOSCOW, / April 7, 1897.\" / **WHAT**: The draft is private correspondence to a single known recipient, dated and placed, where the corpus is public address to an unknown mass readership. / **CORPUS EVIDENCE**: All ten samples open on the s",
+      "**LOCATION**: draft.txt lines 121–124 — \"... You write that my ideal is laziness. No, it is not laziness. I despise / laziness as I despise weakness and lack of mental and moral energy. I was / not talking of laziness but of leisure ...\" / **WHAT**: A rebuttal addressed to a specific prior letter from the reader, with no context supplied because the reader already has it — a move the corpus never ",
+      "**LOCATION**: draft.txt lines 18–23 — \"The 'Journal of Surgery' has been sanctioned by the Censor... Be so good as to do us a service--have the / enclosed advertisement printed on your front page and charge it to my / account.\" / **WHAT**: A formal epistolary request formula (\"Be so good as to do us a service\") transacting private business with the reader; the construction and the transaction are ",
+      "**LOCATION**: draft.txt lines 15–16, 29–30, 46 — \"That's what's called making friends with the Mammon / of Unrighteousness\"; \"a man initiated into the secrets of / Aesculapius\"; \"draws the long bow _a la_ Hlestakov\". / **WHAT**: Scriptural and classical allusion used straight, as shared learned furniture, at a level of formality outside the author's range. / **CORPUS EVIDENCE**: This author allusi",
+      "**LOCATION**: draft.txt lines 98–100 — \"Except my lungs, all my organs were found to be healthy. Hitherto I fancied / I drank just so much as not to do harm; now it turns out on investigation / that I was drinking less than I was entitled to. What a pity!\"; also line 44 \"They did / nothing, understood little, and at the most difficult moments used to / report themselves sick.\" / **WHAT**: Periodic",
+      "**LOCATION**: whole draft / **WHAT**: The argumentative engine of the corpus — an assertion followed by a bare URL on its own line, load-bearing, once every two or three paragraphs — is absent; the draft asserts and moves on. / **CORPUS EVIDENCE**: Every sample is built on it, at high density: sample-01 lines 25–35, 41–51, 57–61; sample-06 lines 39–41, 55–57, 61–67; sample-10 lines 69–71, 81–83, 9",
+      "**LOCATION**: draft.txt lines 5–16, 39–49, 83–96, 131–134 / **WHAT**: Voice holds one register — wry, resigned, domestic — across census bureaucracy, political persecution, a tuberculosis diagnosis and a joke about marriage, with no change of gear. / **CORPUS EVIDENCE**: The corpus visibly shifts with subject. Sample-03 moves from polemic to plain elegy inside one post: line 71 \"one of my dearest "
+    ]
+  },
+  "p-doctorow-x-chesterton-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: lines 1–5, \"I have been standing where everybody has stood, opposite the great / Belfry Tower of Bruges, and thinking, as every one has thought (though / not, perhaps, said), that it is built in defiance of all decencies of / architecture.\" Same register holds to line 111. / - **WHAT**: The draft is a contemplative first-person travel essay in a genteel literary register — suspende",
+      "- **LOCATION**: lines 62–68, \"And if any one asks, 'Why did the people of these flat / countries instinctively raise these riotous and towering monuments?' the / only answer one can give is, 'Because they were the people of these / flat countries.'\" Repeated immediately at lines 65–68. / - **WHAT**: A rhetorical question is put into the mouth of an imagined generic questioner and answered with a d",
+      "- **LOCATION**: line 64, \"the only answer one can give\"; line 96, \"I could extend the list for ever. But however long it was\"; lines 104–107, \"As it is therefore quite doubtful whether a person will go specially with his environment or specially against his environment, I cannot comfort myself with the thought that…\"; lines 2–4, \"as every one has thought (though not, perhaps, said)\". / - **WHAT**:",
+      "- **LOCATION**: line 6, \"sublime deformity\"; line 18, \"like monsters from the primal mire\"; lines 32–33, \"the most equably civilised period the world has ever seen\"; line 55, \"this furious fancy\"; line 63, \"these riotous and towering monuments\"; line 102, \"desired to exalt their towers till they struck the stars.\" / - **WHAT**: A sustained diction of abstract aesthetic elevation — \"sublime,\" \"prim",
+      "- **LOCATION**: line 39, \"there is in it a touch of the n—— hymn\" (draft prints the slur in full). / - **WHAT**: A racial slur used unremarked, as ordinary descriptive vocabulary. / - **CORPUS EVIDENCE**: Absent from all ten samples, and contrary to the author's consistent handling of race, which names racism as racism and stands against it: \"the racist practice of 'redlining' (denying government-",
+      "- **LOCATION**: whole draft, lines 1–111. / - **WHAT**: The draft holds a single meditative tone from the first line to the last, including across its two section breaks (lines 22, 70), where the subject moves from architecture to child-rearing to national character without any change in pitch. / - **CORPUS EVIDENCE**: The corpus visibly shifts with subject matter. Sample-03 moves from political s"
+    ]
+  },
+  "p-doctorow-x-chopin-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt L1–6 — \"They formed a congenial group sitting there that summer / afternoon—Madame Ratignolle sewing away, often stopping to relate a story or incident with / much expressive gesture of her perfect hands; Robert and Mrs. Pontellier sitting idle, / exchanging occasional words, glances or smiles which indicated a certain advanced stage of",
+      "**LOCATION**: draft.txt L65–66 — \"Never had that lady seemed a more tempting subject than at / that moment\"; L81 — \"As gently she repulsed him\"; L82–84 — \"She could not but believe it to / be thoughtlessness on his part; yet that was no reason she should submit to it.\" / **WHAT**: Subject–verb inversion after a fronted negative or adverb, and the",
+      "**LOCATION**: draft.txt L19–20 — \"for whatever crumbs of sympathy and comfort she might be / pleased to vouchsafe\"; L74–75 — \"giving forth little ejaculatory expressions of appreciation / in French\"; L38 — \"she interjoined, with excessive naïveté\"; L52 — \"He never assumed this / seriocomic tone\"; L103–105 — \"the breeze soft and languorous that came up from the south,",
+      "**LOCATION**: draft.txt L1–139, whole document. / **WHAT**: The draft holds one tone — detached, decorous narration — from first line to last, / including at moments of emotional weight (L90–92, the sketch destroyed; L108–116, Madame / Ratignolle's faintness), where the corpus would visibly change gear."
+    ]
+  },
+  "p-doctorow-x-ohenry-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1–9, \"The policeman on the beat moved up the avenue / impressively. The impressiveness was habitual and not for show, for spectators were few. … / Trying doors as he went, twirling his club with many intricate and artful movements, / turning now and then to cast his watchful eye adown the pacific thoroughfare, the officer,",
+      "**LOCATION**: draft.txt lines 20–26, \"'It's all right, officer,' he said, reassuringly. / … 'Until five years ago,' said the policeman.\"; and lines 45–79 passim (\"said the other\", / \"asked the policeman\", \"cried the man in the door\", \"exclaimed the new arrival\"). / **WHAT**: Quoted dialogue with post-posed speech tags — inverted attribution plus an",
+      "**LOCATION**: draft.txt lines 3–9, \"chilly gusts of wind with a taste of rain in them had / well nigh de-peopled the streets\" and \"cast his watchful eye adown the pacific / thoroughfare\"; line 33, \"Twenty years ago to-night\"; line 53, \"the truest, stanchest old / chap in the world\"; line 98, \"Bless my heart!\""
+    ]
+  },
+  "p-ohenry-x-bacon-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: draft.txt lines 1–23, opening paragraph: \"Men in great place are thrice / servants—servants of the sovereign or state, servants of fame, and servants of business; so as / they have no freedom, neither in their persons, nor in their actions, nor in their times.\" / - **WHAT**: The draft is impersonal, sententious moral instruction with no narrator, no scene, no",
+      "- **LOCATION**: line 41, \"In the discharge of thy place, set before thee the best examples\"; lines / 43–44, \"examine thyself strictly whether thou didst not best at first\"; line 54, \"Preserve the / right of thy place, but stir not questions of jurisdiction\". / - **WHAT**: Sustained archaic second-person imperative address (thou / thee / thy / thyself, \"stir",
+      "- **LOCATION**: lines 9–10, \"which is a melancholy thing: 'Cum non sis qui fueris, non esse cur / velis vivere.'\"; lines 25–27, the untranslated Latin verse block; lines 37–39; lines 84–87, / \"'Omnium consensu capax imperii, nisi imperasset,' saith Tacitus of Galba\". / - **WHAT**: Untranslated Latin quoted as an authority to clinch a proposition, four times, with",
+      "- **LOCATION**: line 11, \"impatient of privateness\"; line 47, \"Reform, therefore, without bravery / or scandal of former times\"; line 77, \"As for facility, it is worse than bribery\"; line 88, / \"though the one was meant of sufficiency\". / - **WHAT**: Abstract moral-philosophical nouns, several in archaic senses (bravery = ostentation,",
+      "- **LOCATION**: whole document, lines 1–102. / - **WHAT**: One tone held from first line to last — no dialogue, no dialect, no change of pitch / with subject. / - **CORPUS EVIDENCE**: The corpus shifts visibly and often within a single piece. Sample-03 puts"
+    ]
+  },
+  "p-ohenry-x-chekhov-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: draft.txt lines 1-2, and the same shape at 35-36, 79-80, 117-118: `MELIHOVO,` / `January 11, 1897.` / - **WHAT**: The draft is private dated correspondence — five entries, each headed with a place and a date, addressed to one known recipient — where the corpus is throughout narrative prose composed for a reading public. / - **CORPUS EVIDENCE**: No sample carries a dateline or an ep",
+      "- **LOCATION**: draft.txt lines 19-21: \"Be so good as to do us a service--have the enclosed advertisement printed on your front page and charge it to my account.\" / - **WHAT**: \"You\" here is one specific correspondent being asked to do a favour; in the corpus \"you\" is always a generalised reader being addressed rhetorically, and is never asked for anything transactable. / - **CORPUS EVIDENCE**: \"W",
+      "- **LOCATION**: draft.txt lines 121-124: \"I despise laziness as I despise weakness and lack of mental and moral energy. I was not talking of laziness but of leisure, and I did not say leisure was an ideal but only one of the essential conditions of personal happiness.\" / - **WHAT**: A first-person moral abstraction stated flat and defended on its own terms — the narrator asserting a position about",
+      "- **LOCATION**: draft.txt lines 66-67: Goremykin \"said: 'Your son must make the choice--either the Baltic Province where Prince Hilkov is already living in exile, or a foreign country.'\" / - **WHAT**: The one stretch of quoted speech in the draft is pitched at exactly the register of the surrounding narration; the draft has no voiced speaker distinct from the narrator. / - **CORPUS EVIDENCE**: Eve",
+      "- **LOCATION**: draft.txt, lines 5-135 entire / - **WHAT**: The draft holds one measured, level tone across census work, a police raid, a cancer remedy and a tuberculosis diagnosis; the corpus visibly changes register with subject and speaker, often inside a single paragraph. / - **CORPUS EVIDENCE**: The corpus shifts audibly and repeatedly — mock-heroic against street idiom in the same scene (\"Th"
+    ]
+  },
+  "p-ohenry-x-chesterton-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: lines 24–27 — \"This savagery even in stone is the expression of the special / spirit in humanity. All the beasts of the field are respectable; it is only man who has / broken loose. All animals are domestic animals; only man is ever undomestic. All animals / are tame animals; it is only we who are wild.\"",
+      "**LOCATION**: lines 62–68 — \"And if any one asks, 'Why did the people of these flat / countries instinctively raise these riotous and towering monuments?' the only answer one / can give is, 'Because they were the people of these flat countries.' If any one asks, 'Why / the men of Bruges sacrificed architecture and everything to the sense of dizzy and divine",
+      "**LOCATION**: lines 90–95 — \"Thus Spaniards have discovered more continents than / Scandinavians because their hot climate discouraged them from exertion. Thus Dutchmen have / fought for their freedom quite as bravely as Switzers because the Dutch have no mountains. / Thus Pagan Greece and Rome and many Mediterranean peoples have specially hated the sea...\"",
+      "**LOCATION**: line 6, \"this sort of sublime deformity\"; lines 31–33, \"it arose in the most / equably civilised period the world has ever seen\"; lines 35–36, \"something in it that / breaks the outline of perfect and conventional beauty\"; lines 101–102, \"have, by an inner / energy, desired to exalt their towers till they struck the stars.\"",
+      "**LOCATION**: whole document. / **WHAT**: One narrating voice sustained from line 1 to line 111, with no rendered speech / and no shift of diction; the corpus shifts audibly within every sample."
+    ]
+  },
+  "p-ohenry-x-chopin-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: whole draft; representative span, lines 8–9: \"He had lived in her shadow / during the past month. No one thought anything of it. Many had predicted that Robert would / devote himself to Mrs. Pontellier when he arrived.\" / - **WHAT**: The narrator never breaks frame — no aside to the reader, no confession of",
+      "- **LOCATION**: lines 25–37, and lines 126–134 (\"Oh, come!\" he insisted. \"You mustn't miss / your bath. Come on. The water must be delicious; it will not hurt you. Come.\") / - **WHAT**: Every speaker in the draft talks in the same educated, unmarked register; no / character speaks dialect, slang, or trade patter.",
+      "- **LOCATION**: lines 103–104, \"The sun was low in the west, and the breeze soft and / languorous that came up from the south, charged with the seductive odor of the sea\"; lines / 130–131, \"her glance wandered from his face away toward the Gulf, whose sonorous murmur / reached her like a loving but imperative entreaty.\"",
+      "- **LOCATION**: lines 137–139, \"They descended the steps, and walked away together toward the / beach. The sun was low in the west and the breeze was soft and warm.\" / - **WHAT**: The draft closes on a restated atmospheric image; the corpus closes on a reversal / or a joke landed in the final line.",
+      "- **LOCATION**: whole draft (category 5). Illustrative: lines 66–68, \"seated there like some / sensuous Madonna, with the gleam of the fading day enriching her splendid color,\" and lines / 118–119, \"with the grace and majesty which queens are sometimes supposed to possess.\" / - **WHAT**: The draft holds one tone from first line to last; the corpus visibly shifts tone"
+    ]
+  },
+  "p-ohenry-x-chopin-r2": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: draft.txt lines 1–6 — \"They formed a congenial group sitting there that / summer afternoon—Madame Ratignolle sewing away, often stopping to relate a story or / incident with much expressive gesture of her perfect hands\"",
+      "**LOCATION**: draft.txt lines 44–48 — \"Meanwhile Robert, addressing Mrs Pontellier, / continued to tell of his one time hopeless passion for Madame Ratignolle; of sleepless / nights, of consuming flames till the very sea sizzled when he took his daily plunge.\"",
+      "**LOCATION**: draft.txt lines 25–29 — \"'Robert, come; go; stand up; sit down; do this; / do that; see if the baby sleeps; my thimble, please, that I left God knows where.'\" — / and every other line of quoted speech in the draft (lines 31–37, 50, 78, 126–134).",
+      "**LOCATION**: draft.txt lines 66–68 — \"seated there like some sensuous Madonna, with the / gleam of the fading day enriching her splendid color\"; and lines 118–119 — \"with the / grace and majesty which queens are sometimes supposed to possess\"; and lines 130–131 — / \"whose sonorous murmur reached her like a loving but imperative entreaty\".",
+      "**LOCATION**: draft.txt, whole document — from line 1 to line 139, one sustained tone. / **WHAT**: The draft holds a single elegiac, psychologically observant register / throughout; the corpus visibly shifts register inside a single piece, often between",
+      "**LOCATION**: draft.txt lines 52–58 — \"She never knew precisely what to make of it; at / that moment it was impossible for her to guess how much of it was jest and what / proportion was earnest… It would have been unacceptable and annoying.\""
+    ]
+  },
+  "p-ohenry-x-chopin-r3": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.\n\nFinding 5 omits the `**CORPUS EVIDENCE**` label the output contract requires. The evidence itself is present and cited (five sample-NN quotations inside the WHAT block), so `uncited=0` is a judgement about substance, not a pass on the format. Recorded because a label quietly going missing is how a contract stops meaning anything.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "**LOCATION**: lines 52–58 — / \"He never assumed this seriocomic tone when alone with Mrs. Pontellier. She never knew / precisely what to make of it; at that moment it was impossible for her to guess how much of / it was jest and what proportion was earnest. It was understood that he had often spoken words",
+      "**LOCATION**: absent throughout, lines 1–139. Nearest occasions where the corpus would use it: / line 8 \"He had lived in her shadow during the past month. No one thought anything of it\"; / lines 94–96 \"The youngsters came tumbling up the steps... Mrs. Pontellier made them carry her / paints and things into the house.\"",
+      "**LOCATION**: lines 25–29, 31–36, 126–134 — all spoken lines in the draft, e.g. \"Oh, come!\" / he insisted. \"You mustn't miss your bath. Come on. The water must be delicious; it will not / hurt you. Come.\"",
+      "**LOCATION**: lines 35–36 \"'_Passez! Adieu! Allez vous-en!_'\"; line 50 / \"'_Blagueur—farceur—gros bête, va!_'\"; line 78 \"'_Mais ce n'est pas mal! Elle s'y connait, / elle a de la force, oui._'\"; line 31 \"_Par exemple!_\"",
+      "**LOCATION**: line 6 \"_camaraderie_\"; line 20 \"vouchsafe\"; line 38 \"interjoined\"; line 52 / \"seriocomic\"; line 74 \"ejaculatory expressions of appreciation\"; line 104 \"languorous\"; line / 105 \"befurbelowed\"; line 131 \"whose sonorous murmur reached her like a loving but imperative / entreaty.\"",
+      "**LOCATION**: whole document, lines 1–139. / **WHAT**: The draft holds one tone — measured, distant, unbroken — from the opening tableau to / the closing walk to the beach. The corpus visibly shifts, and shifts *within* a single piece,"
+    ]
+  },
+  "p-ohenry-x-doctorow-r1": {
+    "note": "HEADING WORDING IS THE TOOL'S, NOT THIS RUN'S. `run-harness.mjs` and `verify-run.mjs` hardcode the voice profile's positive phrase as \"AI-labelled draft\". This draft is a HUMAN sample by a different author than the corpus, staged as a cross-author substitution. Nothing here is AI-labelled. The wording could not be corrected from the track that produced this run.",
+    "annotation": "",
+    "uncited": 0,
+    "authorship_claims": 0,
+    "_verdict": "REVISE",
+    "_findings_to_review": [
+      "- **LOCATION**: line 21 — \"It's safe to say that the past couple of years have been good ones for me publishing-wise, thanks to a string of international bestsellers\" / - **WHAT**: Opens on a hedged assertion (\"It's safe to say that\") plus the suffix-adverb \"publishing-wise,\" neither of which occurs in any sample. / - **CORPUS EVIDENCE**: The author opens declaratively or with a direct challenge t",
+      "- **LOCATION**: line 33 — \"Translation deals are primarily \"pull,\" not \"push\" – that is to say, a foreign publisher contacts my publisher and asks for the rights\" / - **WHAT**: Register break — a mechanism is explained in flat advisory prose, with the essayistic connective \"that is to say\" doing the work. / - **CORPUS EVIDENCE**: When this author explains a mechanism to the reader he explains it i",
+      "- **LOCATION**: line 35 — \"The upshot here is that I am not really in a position to do more than has already been done to get an edition published in your preferred language or territory.\" / - **WHAT**: Administrative periphrasis — \"the upshot here is,\" \"not really in a position to,\" \"than has already been done\" — a construction shape absent from every sample. / - **CORPUS EVIDENCE**: The author d",
+      "- **LOCATION**: line 37 — \"these deals are generally with established publishers who have relationships with national booksellers and distributors\" / - **WHAT**: Vocabulary from a trade-operations register (deals, rights, license, distributors, \"the foreign rights team,\" \"master list\") handled without figure — a different level of abstraction from the author's range. / - **CORPUS EVIDENCE**: Comme",
+      "- **LOCATION**: lines 21-143, whole document — from \"It's safe to say\" through \"Rest assured this will not be a regular thing.\" / - **WHAT**: One uninflected explanatory tone held throughout, where the corpus visibly changes register within a single piece. / - **CORPUS EVIDENCE**: The corpus shifts hard and often: ornate narration against Bowery dialect in the same scene (\"dat gent on de oder benc"
+    ]
+  },
+  "_how": [
+    "One entry per transcript. `note` and `annotation` are the operator's; both may stay empty.",
+    "The nulls are the two contract counts, and they are counts of what the findings quoted",
+    "under `_findings_to_review` DO — not of what the critic says it did. Read the transcript.",
+    "Nothing here is derived for you, because a critic grading its own compliance is the",
+    "failure verify-run.mjs was written to close. collect refuses to run until they are numbers."
+  ]
+}

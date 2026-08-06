@@ -182,7 +182,7 @@
     "llm-safe-truths": "Unfalsifiable filler sentences that pad without adding information. Detecting them requires knowing what the sentence claims and whether the claim could be wrong.",
     "announced-then-undelivered": "An insight announced and never actually delivered. Needs the surrounding argument.",
     "surveying-without-committing": "Presenting positions without defending one. A whole-document property.",
-    "absence-of-concrete-detail": "No name, number, date, place, or quoted phrase where one belongs. Absence is not matchable.",
+    "absence-of-concrete-detail": "No name, number, date, place, or quoted phrase where one belongs. Absence is not matchable. ADJUDICATED BY NOBODY: prose-pattern-critic shipped owning this and was measured out of it - worst true-positive rate of its five patterns and its largest source of false positives on published human prose, at the same time. A stated gap, not an oversight; see that primitive's meta.yaml.",
     "no-voice-shift": "Register that never moves with subject matter. Requires comparison across sections.",
     "invented-specifics": "Concrete-sounding detail that is fabricated. Requires checking against the world."
   },

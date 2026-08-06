@@ -1,8 +1,14 @@
 # The review protocol
 
-**Status: v0.1 ships ONE critic** (`prose-voice-critic`). This document describes
-the protocol the full set is designed for; most of it is not yet operative. See
-[`README.md`](README.md) for what exists.
+**Status: v0.2 ships TWO critics** (`prose-voice-critic`,
+`prose-fidelity-critic`). This document describes the protocol the full set is
+designed for; much of it is not yet operative. See [`README.md`](README.md) for
+what exists.
+
+The two run at **different moments**, and only one of them is part of the
+parallel critic fan-out below. The voice critic reviews a draft. The fidelity
+critic reviews a *revision against its original*, so it has nothing to read until
+something has rewritten something — which is step 5, not step 2.
 
 How the critics are meant to be run. Prose, not code — there is no orchestrator
 here, exactly as in `verification-gate`. The main session executes this.
@@ -16,7 +22,38 @@ here, exactly as in `verification-gate`. The main session executes this.
   4  the author edits
 ```
 
-v0.1 stops at 3. The revise pass is not built, deliberately.
+v0.2 stops at 3. The revise pass is not built, deliberately — but the check that
+guards it now exists, and can be run by hand on any before/after pair:
+
+```
+  5  revise        NOT BUILT
+  6  fidelity      prose-fidelity-critic, on (original, revision)
+```
+
+## Running the fidelity critic outside the pipeline
+
+It does not need `prose-reviser` to be useful. Any rewrite has a before and an
+after, including one a person did.
+
+```bash
+git show HEAD:draft.md > /tmp/original.md          # or keep a copy first
+node tools/fidelity-scan.mjs /tmp/original.md draft.md
+```
+
+**Run the scan first and hand the critic its output.** The split is the point: the
+scan is authoritative on presence, the critic only on consequence. A critic asked
+to check whether a number survived will answer from the sentence's plausibility,
+which is the one error the deterministic half exists to make impossible.
+
+Give it the edit plan if one exists. Without it, item 4 — edits outside the plan —
+is not assessable, and the critic will say so rather than clear the revision on
+that ground.
+
+**`MATERIAL-LOSS` is not a rejection.** It says information was lost. A revision
+that dropped one date earns it, correctly, and the author decides whether they
+meant it. Inside the eventual reviser pipeline the verdict is load-bearing —
+`DESIGN.md` has it fail the run and restore the original — but run by hand it is
+a report.
 
 ## Step 1 — scan first, and give critics the result
 

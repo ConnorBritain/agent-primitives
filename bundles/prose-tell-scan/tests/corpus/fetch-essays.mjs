@@ -33,7 +33,28 @@
  *   G.K. Chesterton (1909): Tremendous Trifles. 39 medium essays, opinionated
  *     first-person voice, discursive.
  *
- * Both are public domain. See LICENSE for the rules on adding more.
+ *   Anton Chekhov (1920 tr.): Letters. The CORRESPONDENCE register.
+ *
+ *   Kate Chopin (1899): The Awakening. 39 chapters of NARRATION - close third
+ *     person, sensory, long periodic sentences. See below on why narration is
+ *     a register the essay/correspondence corpus could not reach.
+ *
+ *   O. Henry (1906): The Four Million. 25 short stories. Narration again, but
+ *     a deliberately different narrator - vernacular, ironic, first-person or
+ *     mock-omniscient, short-sentenced, punchline-shaped.
+ *
+ * WHY TWO NARRATORS AND NOT MORE OF ONE. calibrate.mjs derives its bands from
+ * BETWEEN-SAMPLE variation, so twenty more Chekhov letters narrow a band that
+ * is already narrow, while a new author in an uncovered register widens what
+ * the bands can be checked against. The same arithmetic governs the voice
+ * critic's cross-author test: authorship is the one part of voice with ground
+ * truth, and the number of cross-author pairs it can be measured on grows as
+ * n(n-1), not with samples per author. Chopin and O. Henry are chosen to sit
+ * far apart WITHIN narration for the same reason - a critic that cannot tell
+ * The Awakening from The Four Million is not reading voice, it is reading
+ * genre.
+ *
+ * All five are public domain. See LICENSE for the rules on adding more.
  *
  * ============================================================================
  * LICENSING - read before adding a source
@@ -132,6 +153,69 @@ const SOURCES = [
     numbered_filename: true,
     keep: () => true,
   },
+  {
+    // Kate Chopin, The Awakening (1899). The NARRATION register: no corpus
+    // sample before this one tells a story. Essays argue, letters address,
+    // encyclopedia articles report - narration does none of those, and the
+    // cadence differs accordingly (dialogue, scene breaks, free indirect
+    // style). A voice tool calibrated only on argument has never seen it.
+    //
+    // LICENCE. Public domain. Chopin died in 1904 (life+70 expired 1974) and
+    // The Awakening was published in 1899, before the 1930 US cutoff. PG 160.
+    //
+    // Chapters are bare roman numerals at column 0. The volume's table of
+    // contents repeats them, but INDENTED by one space, so anchoring at
+    // column 0 excludes the ToC without needing a start marker. `stop_at`
+    // cuts before the selected short stories that follow the novel: two of
+    // them are internally subdivided with the same numerals, which would
+    // otherwise inflate the match count against `expected_essays`.
+    id: "160",
+    author: "Kate Chopin",
+    author_slug: "chopin",
+    title: "The Awakening, and Selected Short Stories",
+    date: "1899",
+    heading: /^([IVXLC]+)\r?$/gm,
+    expected_essays: 39,
+    stop_at: /^BEYOND THE BAYOU\r?$/m,
+    // A chapter numeral is not a title. Without this the frontmatter would
+    // read `title: I` thirty-nine times and the filenames would carry no
+    // information at all.
+    title_from: (title) => `The Awakening, Chapter ${title}`,
+    // Chapter XXVIII runs 169 words - below the calibration floor, so it
+    // would be vendored and then silently ignored by calibrate.mjs. Drop it
+    // at the fetcher instead, where the exclusion is visible in the dry run.
+    // 39 headings match, 38 files are written; that gap is this chapter and
+    // nothing else, which is what a re-fetch should be checked against.
+    min_body_words: 200,
+    numbered_filename: true,
+    keep: () => true,
+  },
+  {
+    // O. Henry, The Four Million (1906). Narration again, chosen to contrast
+    // with Chopin rather than reinforce her: New York vernacular, comic
+    // timing, short sentences, a narrator who interrupts himself. Two authors
+    // inside one register is what lets a cross-author test distinguish "the
+    // critic reads voice" from "the critic reads genre".
+    //
+    // LICENCE. Public domain. William Sydney Porter died in 1910 (life+70
+    // expired 1980) and the collection was published in 1906, before the 1930
+    // US cutoff. PG 2776.
+    //
+    // Story titles are ALL CAPS at column 0; the ToC repeats them indented by
+    // one space, so column-0 anchoring excludes it as with Chopin. The class
+    // uses \p{Lu} rather than A-Z because three titles carry accented capitals
+    // (CAFÉ, À LA CARTE, DÉBUT) - the ASCII version silently matched 22 of 25.
+    id: "2776",
+    author: "O. Henry",
+    author_slug: "ohenry",
+    title: "The Four Million",
+    date: "1906",
+    heading: /^([\p{Lu}][\p{Lu}\p{N} ’',.\-]{2,60})\r?$/gmu,
+    expected_essays: 25,
+    stop_at: null,
+    min_body_words: 200,
+    keep: () => true,
+  },
 ];
 
 async function fetchText(id) {
@@ -214,7 +298,14 @@ function splitEssays(text, source) {
     if (source.min_body_words && clean.split(/\s+/).filter(Boolean).length < source.min_body_words) continue;
     essays.push({
       number: matches[i].number,
-      title: titleCase(matches[i].title),
+      // `title_from` is for sources whose heading is not a title - Chopin's
+      // headings are bare chapter numerals, and "I" is not something a reader
+      // of the frontmatter or the filename can use. It receives the raw
+      // heading rather than the title-cased one, because a source that needs
+      // it is a source whose heading was never a title to normalise.
+      title: source.title_from
+        ? source.title_from(matches[i].title)
+        : titleCase(matches[i].title),
       body: clean,
     });
   }
@@ -247,8 +338,22 @@ function cleanBody(body) {
   return trimmed.replace(/\[\d+\]/g, "").trim();
 }
 
+/**
+ * Filenames are folded to ASCII. The TITLE in the frontmatter keeps its
+ * accents - "A Cosmopolite in a Café" is what O. Henry wrote - but the
+ * filename becomes `ohenry-a-cosmopolite-in-a-cafe.txt`.
+ *
+ * WHY. macOS stores filenames decomposed (NFD) and Linux composed (NFC), so a
+ * committed `café.txt` is a standing chance of a phantom rename or a
+ * file-not-found on a checkout that did not create it - in a repo whose CI is
+ * Linux and whose authoring is macOS. The corpus is committed and read by
+ * path; this is not worth the risk for three files. Every other filename here
+ * is already ASCII, so the fold is a no-op on the existing corpus.
+ */
 function slugify(s) {
   return s.toLowerCase()
+    .normalize("NFD")
+    .replace(/\p{M}/gu, "")
     .replace(/[^\p{L}\p{N}\s-]/gu, "")
     .replace(/\s+/g, "-")
     .replace(/-+/g, "-")

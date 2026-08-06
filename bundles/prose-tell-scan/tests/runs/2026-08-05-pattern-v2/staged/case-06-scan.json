@@ -1,0 +1,15 @@
+{
+  "words": 1690,
+  "flagged_categories": [
+    "structural-scaffold"
+  ],
+  "cadence_flags": [],
+  "flagged_entries": [
+    {
+      "id": "negative-parallelism",
+      "category": "structural-scaffold",
+      "count": 2
+    }
+  ],
+  "thresholds_derived": false
+}

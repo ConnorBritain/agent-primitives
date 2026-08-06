@@ -1,0 +1,29 @@
+{
+  "words": 2017,
+  "flagged_categories": [
+    "corporate-register",
+    "figurative-vocabulary",
+    "structural-scaffold"
+  ],
+  "cadence_flags": [
+    "mean_len"
+  ],
+  "flagged_entries": [
+    {
+      "id": "negative-parallelism",
+      "category": "structural-scaffold",
+      "count": 2
+    },
+    {
+      "id": "todays-world",
+      "category": "figurative-vocabulary",
+      "count": 1
+    },
+    {
+      "id": "paradigm",
+      "category": "corporate-register",
+      "count": 3
+    }
+  ],
+  "thresholds_derived": false
+}

@@ -1,0 +1,17 @@
+{
+  "words": 387,
+  "flagged_categories": [
+    "leakage"
+  ],
+  "cadence_flags": [
+    "mean_len"
+  ],
+  "flagged_entries": [
+    {
+      "id": "assistant-preamble",
+      "category": "leakage",
+      "count": 1
+    }
+  ],
+  "thresholds_derived": false
+}

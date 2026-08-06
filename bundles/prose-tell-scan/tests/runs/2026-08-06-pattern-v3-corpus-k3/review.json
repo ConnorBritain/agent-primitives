@@ -1,0 +1,290 @@
+{
+  "run": "2026-08-06-pattern-v3-corpus-k3",
+  "_contract": [
+    "uncatalogued",
+    "authorship_claims",
+    "echoes_scan"
+  ],
+  "cases": {
+    "case-01-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-01-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-01-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-02-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-02-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-02-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-03-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-03-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-03-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-04-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-04-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-04-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-05-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "announced-then-undelivered"
+      ]
+    },
+    "case-05-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-05-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-06-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-06-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-06-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-07-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 2,
+      "patterns_named": [
+        "invented-specifics"
+      ]
+    },
+    "case-07-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-07-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-08-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "llm-safe-truths"
+      ]
+    },
+    "case-08-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "llm-safe-truths"
+      ]
+    },
+    "case-08-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-09-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 1,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-09-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-09-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 1,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "invented-specifics"
+      ]
+    },
+    "case-10-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "invented-specifics"
+      ]
+    },
+    "case-10-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "invented-specifics"
+      ]
+    },
+    "case-10-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "REVISE",
+      "findings": 1,
+      "patterns_named": [
+        "llm-safe-truths"
+      ]
+    },
+    "case-11-d1": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-11-d2": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    },
+    "case-11-d3": {
+      "uncatalogued": 0,
+      "authorship_claims": 0,
+      "echoes_scan": 0,
+      "verdict": "CLEAN",
+      "findings": 0,
+      "patterns_named": []
+    }
+  }
+}

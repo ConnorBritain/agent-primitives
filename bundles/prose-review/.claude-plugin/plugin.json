@@ -1,6 +1,6 @@
 {
   "name": "prose-review",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -15,8 +15,9 @@
     "review",
     "subagent"
   ],
-  "description": "Read-only critics for prose, run before a draft is called done. v0.1 ships prose-voice-critic: does this sound like the author, judged against their own corpus. The revise pass is deliberately later - critics have to be shown quiet on human writing before anything acts on what they say.",
+  "description": "Read-only critics for prose, run before a draft is called done. prose-voice-critic: does this sound like the author, judged against their own corpus. prose-fidelity-critic: did a revision keep what it had to, judged against the original and a deterministic scan. The revise pass is deliberately later - and the check that guards it ships first.",
   "agents": [
-    "./agents/prose-voice-critic.md"
+    "./agents/prose-voice-critic.md",
+    "./agents/prose-fidelity-critic.md"
   ]
 }

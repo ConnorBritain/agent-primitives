@@ -60,6 +60,22 @@ fought, and there's no verdict anyone has an incentive to skip. Ports nearly int
 So the question isn't "does this port?" but "which rung does this kind actually stand on?" A
 reviewer that loses context isolation has lost the argument. An investigator hasn't noticed.
 
+### A second axis, inside a kind: can the recipient check the finding?
+
+The rows above are per kind, but two primitives of the same kind can degrade differently, and the
+thing that separates them is whether their output can be adjudicated by the person reading it —
+the [ground-truth question](../CONTRIBUTING.md#ground-truth-and-what-you-may-claim-without-it).
+
+Where findings are checkable, an advisory port degrades to a checklist the user audits item by
+item; the harness guaranteed nothing, but nothing was being taken on trust either. Where they are
+not, the same port degrades to an opinion with a verdict token attached — and the token is the
+part that travels. Losing enforcement costs more than the kind's row suggests, because enforcement
+was the only thing standing behind a claim nobody can independently test.
+
+The mitigation is portable, which is why it's worth naming here: **require every finding to quote
+the evidence it rests on.** That rule lives in the prompt, so it survives every rung of the
+ladder, and it converts an unverifiable verdict into something the reader can at least argue with.
+
 ## Recovering what you can
 
 - **Fresh subprocess.** `codex exec` (or equivalent) with the input piped in recovers context

@@ -1,7 +1,7 @@
 {
   "name": "prose-tell-scan",
-  "version": "0.1.0",
-  "description": "Deterministic prose review: catalogued AI writing tells plus cadence metrics, report-only.",
+  "version": "0.1.1",
+  "description": "Deterministic prose measurement: catalogued AI writing tells and cadence metrics, calibrated against your own corpus.",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -14,12 +14,13 @@
     "prose",
     "editing",
     "ai-writing-tells",
-    "readability"
+    "readability",
+    "review"
   ],
   "interface": {
     "displayName": "Prose Tell Scan",
-    "shortDescription": "Counts the writing tics a model cannot count about itself.",
-    "longDescription": "A deterministic scanner for prose. It reports catalogued AI writing tells as a density per 1000 words, with a line number and the surrounding sentence for every hit, alongside a rhythm fingerprint: sentence-length variance, repeated openers, paragraph distribution, uniform-length runs. Thresholds are register-dependent and derived from your own corpus rather than hand-set, because a flat rhythm is correct in a reference doc and a symptom in an essay. Report-only: it never edits, and it produces signals for an author to weigh about their own draft, never a verdict about who wrote something. NOTE: the scanner itself ports perfectly to Codex — it is a Node script, so the numbers are identical everywhere. What Codex does not provide is skill dispatch, so invoke it directly rather than expecting it to trigger on its own.",
+    "shortDescription": "Counts the AI writing tells a regex can catch, against your own calibrated corpus.",
+    "longDescription": "Deterministic prose measurement: a catalogued scan for AI writing tells plus the cadence metrics a model cannot estimate about its own output. Register-aware, calibrated against your own corpus, and report-only — signals for an author about their own draft, never a verdict about who wrote something. Ships no rewriter, by design. It reports signals for the author to weigh and never states or implies who wrote a document. The judgement half of this bundle — a critic for the patterns a regex cannot decide — is authored but deliberately not shipped; see primitives/agents/prose-pattern-critic/meta.yaml for why.",
     "developerName": "Connor England",
     "category": "Developer Tools",
     "capabilities": [
@@ -29,7 +30,8 @@
     "defaultPrompt": [
       "Scan this draft for AI writing tells",
       "Check whether my revision actually removed the tells",
-      "Calibrate a writing profile against my own corpus"
+      "Calibrate a writing profile against my own corpus",
+      "Which sentences here could not be wrong?"
     ]
   }
 }

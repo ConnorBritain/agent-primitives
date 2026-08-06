@@ -1,0 +1,85 @@
+{
+  "run": "2026-08-05-pattern-v2-corpus",
+  "set": "corpus",
+  "draws": 1,
+  "prompt_sha": "05111e99566abb35",
+  "cases": [
+    {
+      "id": "case-02",
+      "fixture": "h-bacon-of-adversity",
+      "draws": 1,
+      "draft_sha": "81ab02824dc805bf",
+      "scan_sha": "edbc574b18a13759"
+    },
+    {
+      "id": "case-03",
+      "fixture": "h-chekhov-039-to-his-sister",
+      "draws": 1,
+      "draft_sha": "7f8f78bfbc1d0cfb",
+      "scan_sha": "bd1c1766ceaae284"
+    },
+    {
+      "id": "case-11",
+      "fixture": "h-chesterton-on-lying-in-bed",
+      "draws": 1,
+      "draft_sha": "82ec47c5640be09e",
+      "scan_sha": "de53d75dd657f69d"
+    },
+    {
+      "id": "case-07",
+      "fixture": "h-ahmadu-bello-university",
+      "draws": 1,
+      "draft_sha": "f2c517075edfe615",
+      "scan_sha": "75737d4648bdcb49"
+    },
+    {
+      "id": "case-05",
+      "fixture": "h-2026-06-26-hate-algorithm-rss-one-tools-youve-been-looking",
+      "draws": 1,
+      "draft_sha": "bcf6c998d73db88e",
+      "scan_sha": "30291a3555fcb9bc"
+    },
+    {
+      "id": "case-08",
+      "fixture": "x-berry-hill-stoke-on-trent",
+      "draws": 1,
+      "draft_sha": "1319adf9671bc14d",
+      "scan_sha": "792a9156600768e7"
+    },
+    {
+      "id": "case-10",
+      "fixture": "x-gillingham-high-street",
+      "draws": 1,
+      "draft_sha": "2f262dfb6648cc60",
+      "scan_sha": "e625e2b3e8e3d330"
+    },
+    {
+      "id": "case-01",
+      "fixture": "x-jacques-blois-linguist",
+      "draws": 1,
+      "draft_sha": "d3787c8b396cbfb5",
+      "scan_sha": "2c3e639d24914ba7"
+    },
+    {
+      "id": "case-09",
+      "fixture": "x-knowledge-cutoff-example-1",
+      "draws": 1,
+      "draft_sha": "3fe7ae88aa50c790",
+      "scan_sha": "3a948001a49cb8e7"
+    },
+    {
+      "id": "case-06",
+      "fixture": "x-mojtaba-yadegari-ai",
+      "draws": 1,
+      "draft_sha": "a1ed917c9d023540",
+      "scan_sha": "d69e7000af996cc1"
+    },
+    {
+      "id": "case-04",
+      "fixture": "x-peter-oloche-david",
+      "draws": 1,
+      "draft_sha": "40c43ed444b56507",
+      "scan_sha": "26be1988c278d10b"
+    }
+  ]
+}
