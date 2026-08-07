@@ -1,0 +1,14 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {"line": 27, "quote": "Noise, hubbub."},
+      "change": "delete this fragment (and the trailing space before 'The pavements')",
+      "reason": "voice-critic: a two-word fragment that restates the preceding sentence's 'swarming and surging'; nothing new"
+    }
+  ]
+}

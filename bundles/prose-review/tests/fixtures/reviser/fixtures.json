@@ -1,0 +1,99 @@
+{
+  "_comment": [
+    "Acceptance fixtures for prose-reviser. Each fixture is (original, plan) plus a set",
+    "of expected properties recorded here.",
+    "",
+    "`original.md` is a BYTE-IDENTICAL copy of the corpus file named in `source`, and the",
+    "selftest enforces that — same rule as the fidelity fixtures. A plan I can tune against",
+    "an original I can also tune is not a plan, it is decorative.",
+    "",
+    "`plan.json` is hand-authored. Every quote in every plan entry MUST appear verbatim in",
+    "the fixture's original body (after frontmatter strip), and the selftest verifies that",
+    "too. A plan with a bogus quote produces a REFUSED entry, not a bad edit — the reviser",
+    "is meant to be that strict — so the deliberately-drift fixture (f06) is the only one",
+    "whose quote must NOT match.",
+    "",
+    "`expected` records what a good reviser + gate run should produce. Two orthogonal axes:",
+    "",
+    "  gate:    FAITHFUL   the reviser applied the plan and the fidelity gate cleared it",
+    "           MATERIAL-LOSS  the plan authorised something the gate blocks (e.g. dropping",
+    "                          a date). Both outcomes are legitimate; the gate's job is to",
+    "                          catch what the reviser had no basis to refuse.",
+    "           SPLIT       edge case the gate cannot resolve",
+    "",
+    "  reviser: applied      the plan was applied cleanly; the change log's edits[] carries",
+    "                        one entry per plan entry",
+    "           refused      the reviser refused at least one entry (quote drift, ambiguity)",
+    "                        and logged it; refusal is first-class, not a failure",
+    "",
+    "The whole set is designed against a PRE-REGISTERED ship bar, written down before any",
+    "acceptance run:",
+    "",
+    "  - 6 of the 8 fixtures are supposed to come back majority FAITHFUL",
+    "  - 0 fixtures may come back majority MATERIAL-LOSS EXCEPT f08, whose whole purpose is",
+    "    exercising the safety net",
+    "  - 0 out-of-plan edits (any diff whose span is not in a plan entry blocks the ship)",
+    "  - contract counts on the fidelity critic all 0",
+    "",
+    "SPLIT does not fail the ship, per SAMPLING-POLICY.md — it is surfaced, not resolved."
+  ],
+  "corpus_root": "../../../../prose-tell-scan/tests/corpus/human-essays/gutenberg",
+  "fixtures": [
+    {
+      "name": "f01-word-swap-tihonov",
+      "source": "chekhov-081-to-v-a-tihonov.txt",
+      "kind": "faithful-local-edit",
+      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "what_it_tests": "the simplest safe edit: replace one construction with an equivalent one, no fact touched. If this returns MATERIAL-LOSS, the whole primitive is broken."
+    },
+    {
+      "name": "f02-cut-marker-sister",
+      "source": "chekhov-058-to-his-sister.txt",
+      "kind": "faithful-cut",
+      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "what_it_tests": "cutting a self-referential discourse sentence that names entities (Paris, home) which appear elsewhere in the same document. The fidelity scan sees the entities are still present; the critic agrees no meaning was lost."
+    },
+    {
+      "name": "f03-hedge-rephrase-rossolimo",
+      "source": "chekhov-119-to-g-i-rossolimo.txt",
+      "kind": "faithful-reorder",
+      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "what_it_tests": "reordering a sentence with a date and a named prize while preserving both — 'In 1888 I took the Pushkin prize' → 'The Pushkin prize came in 1888'. Same claim, same year. Scan flags nothing missing; critic clears."
+    },
+    {
+      "name": "f04-multi-entry-tihonov",
+      "source": "chekhov-081-to-v-a-tihonov.txt",
+      "kind": "faithful-multi-entry",
+      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "what_it_tests": "three small edits in one plan, applied in order. Verifies the change log has one edit per plan entry and no out-of-plan edits. Tests the multi-edit path."
+    },
+    {
+      "name": "f05-cut-restatement-sister",
+      "source": "chekhov-058-to-his-sister.txt",
+      "kind": "faithful-cut",
+      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "what_it_tests": "cutting a two-word fragment sentence ('Noise, hubbub.') that restates the sentence before it. No fact loss, no register shift."
+    },
+    {
+      "name": "f06-refuse-quote-drift",
+      "source": "chekhov-081-to-v-a-tihonov.txt",
+      "kind": "refuse-quote-drift",
+      "expected": {"gate": "FAITHFUL", "reviser": "refused"},
+      "what_it_tests": "the plan quotes text that does not appear in the draft. The reviser must refuse the entry, log the reason, and emit the draft unchanged. Fidelity gate is trivially FAITHFUL (no diff). Tests the refuse-cleanly path."
+    },
+    {
+      "name": "f07-refuse-ambiguous",
+      "source": "chekhov-058-to-his-sister.txt",
+      "kind": "refuse-ambiguous",
+      "expected": {"gate": "FAITHFUL", "reviser": "refused"},
+      "what_it_tests": "the plan says 'improve the flow' — no specific edit. Two reasonable reviser edits would both satisfy this, which means neither is authorised. Refuse and log."
+    },
+    {
+      "name": "f08-aggressive-drop-date",
+      "source": "chekhov-081-to-v-a-tihonov.txt",
+      "kind": "gate-catches-loss",
+      "expected": {"gate": "MATERIAL-LOSS", "reviser": "applied"},
+      "what_it_tests": "the plan explicitly authorises cutting a sentence whose text contains a date (1884) and a named entity (University of Moscow). The reviser applies the plan as written; the fidelity gate is what catches the loss. This is the safety net exercised. Note: an equally valid reviser outcome is to REFUSE, and the fidelity gate then trivially returns FAITHFUL — both are recorded as passing this fixture's intent, which is 'the pipeline caught it somewhere'."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {"line": 26, "quote": "In 1888 I took the Pushkin prize."},
+      "change": "reorder to 'The Pushkin prize came in 1888.' — same claim, same year",
+      "reason": "voice-critic: the letter's other biographical sentences vary structure; this one is the only 'In YEAR I did X' repeated exactly"
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 23,
+        "quote": "There is no describing Paris, though; I will put off\r\nthe description of it till I get home."
+      },
+      "change": "delete this whole sentence",
+      "reason": "voice-critic: a self-referential aside; Paris and 'home' appear elsewhere in the letter, so cutting this loses no fact"
+    }
+  ]
+}

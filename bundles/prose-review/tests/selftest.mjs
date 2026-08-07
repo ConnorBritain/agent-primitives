@@ -9,7 +9,7 @@
  * adversarial critics are corpus-blocked and will land here when they land.
  */
 
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { extractAtoms, scanFidelity, verdict, renderReport } from "../tools/fidelity-scan.mjs";
 import { singleWordEntityCandidates } from "./single-word-survey.mjs";
 
@@ -587,6 +587,92 @@ group("primitive/bundle parity");
       Object.keys(r).every((k) => ["name", "description", "tools", "model", "color"].includes(k)),
       Object.keys(r).join(","));
   }
+}
+
+/* ------------------------------------------------------------------ */
+group("reviser fixtures — integrity");
+
+{
+  const dir = new URL("fixtures/reviser/", import.meta.url);
+  const manifest = JSON.parse(readFileSync(new URL("fixtures.json", dir), "utf8"));
+  const corpus = new URL(`${manifest.corpus_root}/`, dir);
+  const onDisk = readdirSync(dir, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name).sort();
+  const declared = manifest.fixtures.map((f) => f.name).sort();
+
+  // Same anti-tuning rule as the fidelity fixtures: a fixture I can invent by hand is a
+  // fixture I can tune until the acceptance run passes. A fixture whose original is a
+  // corpus file I did not write cannot be tuned that way. The plan is authored, and its
+  // quotes are checked against the (immutable) original — a bogus quote produces a REFUSE
+  // rather than a bad edit, which is intended for exactly one fixture and would be a real
+  // authoring defect on any other.
+  check("every reviser fixture directory is declared in fixtures.json",
+    JSON.stringify(onDisk) === JSON.stringify(declared), `disk=${onDisk.length} manifest=${declared.length}`);
+
+  const STRIP = (t) => { const m = t.match(/^---\n[\s\S]*?\n---\n/); return m ? t.slice(m[0].length) : t; };
+  for (const f of manifest.fixtures) {
+    const orig = readFileSync(new URL(`${f.name}/original.md`, dir), "utf8");
+    const source = readFileSync(new URL(f.source, corpus), "utf8");
+    check(`${f.name}: original is byte-identical to ${f.source}`, orig === source);
+
+    const plan = JSON.parse(readFileSync(new URL(`${f.name}/plan.json`, dir), "utf8"));
+    check(`${f.name}: plan declares mode plan-only (default)`, plan.mode === "plan-only",
+      `mode=${JSON.stringify(plan.mode)}`);
+    check(`${f.name}: plan has at least one entry`, Array.isArray(plan.entries) && plan.entries.length >= 1);
+
+    // Every plan entry's quote MUST appear verbatim in the original body, EXCEPT for
+    // fixtures whose whole point is refusing on a drifted quote. That exception is stated
+    // per-fixture rather than inferred from the name.
+    const body = STRIP(orig);
+    const mustDrift = f.kind === "refuse-quote-drift";
+    for (const e of plan.entries) {
+      const found = body.includes(e.location.quote);
+      check(`${f.name}/${e.id}: quote ${mustDrift ? "must NOT match (refuse test)" : "matches original verbatim"}`,
+        mustDrift ? !found : found);
+    }
+
+    // The leak guard: same discipline as the fidelity fixtures. A plan entry that
+    // mentions the expected verdict is a plan that tells the reviser what to do AND what
+    // it will be judged as, which contaminates the measurement. The plan reasons live
+    // inside `reason` fields; those may name a critic, but they may not name a verdict.
+    const planText = JSON.stringify(plan);
+    check(`${f.name}: plan does not leak a fidelity verdict (FAITHFUL/MATERIAL-LOSS)`,
+      !/(FAITHFUL|MATERIAL-LOSS)/i.test(planText.replace(/"[a-z_]+":"/g, "")));
+
+    // The manifest's `expected` block is metadata for the harness runner and the
+    // acceptance run, not something the reviser sees. Explicitly asserted here so a
+    // future harness change that started passing `expected` to the primitive would fail.
+    check(`${f.name}: manifest declares expected gate + reviser outcome`,
+      typeof f.expected?.gate === "string" && typeof f.expected?.reviser === "string");
+  }
+
+  // Class-coverage guard. If someone deletes the refuse-tests, the ship bar becomes
+  // "the reviser was well-behaved on the easy cases", which is not what the ship bar
+  // measures. Same shape as the fidelity fixtures' class B / D requirement.
+  const kinds = new Set(manifest.fixtures.map((f) => f.kind));
+  for (const required of ["faithful-local-edit", "refuse-quote-drift", "refuse-ambiguous", "gate-catches-loss"]) {
+    check(`reviser fixtures cover the '${required}' kind`, kinds.has(required));
+  }
+}
+
+/* ------------------------------------------------------------------ */
+group("prose-reviser primitive — parity guard");
+
+// The reviser is HELD (meta.yaml says ships: false), so the same absent-copy discipline
+// as prose-pattern-critic applies. The rendered file must be missing, and the hold must
+// be declared with a reason. A held primitive silently rendered into a bundle is one
+// nobody meant to install.
+{
+  const primitiveDir = new URL("../../../primitives/agents/prose-reviser/", import.meta.url);
+  const meta = readFileSync(new URL("meta.yaml", primitiveDir), "utf8");
+  const held = /^ships:\s*false\b/m.test(meta);
+  const renderedExists = existsSync(new URL("../agents/prose-reviser.md", import.meta.url));
+
+  check("prose-reviser: a primitive with no rendered copy declares ships: false with a reason",
+    renderedExists || (held && /^held_reason:\s*\S/m.test(meta)));
+  check("prose-reviser: a held primitive is absent from the bundle's agents/ directory",
+    !held || !renderedExists);
 }
 
 process.stdout.write(`\n${"─".repeat(60)}\n`);

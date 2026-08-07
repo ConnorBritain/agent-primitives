@@ -1,0 +1,14 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {"line": 42, "quote": "the utilised approach was rolled out"},
+      "change": "replace with 'the approach we used was rolled out'",
+      "reason": "voice-critic: 'utilised' is register drift"
+    }
+  ]
+}

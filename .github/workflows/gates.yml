@@ -67,6 +67,14 @@ jobs:
       - name: harness runner integrity
         run: node bundles/prose-review/tests/run-harness-test.mjs
 
+      # The reviser pipeline (revise-harness) is the same shape of concern as the
+      # critic runner: prompts that leak the answer, parsers that swallow malformed
+      # output, gates that pass on unknown plan_ids. The primitive is held; the
+      # pipeline that would judge it must still be green so lifting the hold is a
+      # measurement rather than a bringup.
+      - name: reviser harness integrity
+        run: node bundles/prose-review/tests/revise-harness-test.mjs
+
       # Every checked-in transcript must be reproducible from its own body by the
       # runner. This is what stops hand-wrapped and tool-wrapped runs from drifting
       # into two conventions, which they already had.
