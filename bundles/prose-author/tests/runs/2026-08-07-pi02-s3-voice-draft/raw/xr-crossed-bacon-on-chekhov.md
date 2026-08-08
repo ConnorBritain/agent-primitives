@@ -1,0 +1,18 @@
+```markdown
+Dear Marston,
+
+Three weeks in a town I did not pick, and the chief instruction of it is this: a man learns more of a place he was set down in than of one he chose, for the chosen place is half made of his own expectation, and the imposed one is all itself. I would not have come here. I am glad enough to have been sent.
+
+It has rained every day but two, and on those two it threatened. Rain that falls without ceasing is a poor teacher of patience; rain that stops and starts is a good one, for the first only wears a man down, but the second obliges him to keep judging when to go out, and judgement is exercised by being asked. So I have gone out wrongly a dozen times and come back wet, and count it cheap schooling.
+
+Money is short. I say not that this is nothing; I have known men make a virtue of a thin purse who had a thick one at home to return to, and I do not intend to be one. But shortness has one property worth setting down: it makes every small purchase a considered thing, and a man who considers his sixpences discovers what he actually wants, which is not at all what he says he wants when the sixpences are many. Certainly there is no instrument that reads a man's true appetites so exactly as an empty pocket.
+
+The one thing here worth your hearing of is the harbour wall. It is old, and half of it has been taken by the sea, and the town has repaired it not once but in five or six distinct campaigns, each in a different stone and a different manner of laying. You may see the whole history of the place standing up in one line: a stretch of good grey blocks squared and fitted, then a stretch of rubble packed anyhow by men who plainly had no money and less time, then a modern course of concrete, flat and confident, already cracked. And the sea has not taken the courses in the order you would expect. The cheap rubble stands; the confident concrete is going. I asked an old man at the end of it why that should be, and he said the rubble was laid by men who had watched the water and the concrete by men who had measured it. Whether that is true I cannot say, but it is the best sentence I have heard in three weeks.
+
+I have thought since that a repaired thing tells you more than a whole one, as a mended coat tells you what the wearer could not afford to replace and what he could not bear to lose; therefore, when you would know a town, look not at what it built but at what it has troubled to keep standing.
+
+I shall be here another fortnight, perhaps longer, as the business that brought me is slower than the man who described it to me allowed. Write if you have the hour. Tell me whether the elm by your gate survived the winter — you said in February you thought it would not, and I have found myself wondering about it at odd times, which is what a wet town does to a man.
+
+Yours,
+Edward
+```

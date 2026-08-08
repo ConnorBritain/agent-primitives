@@ -66,10 +66,10 @@
     "excluded": [],
     "voice_card_sha256": "c6e26edc80d4443f9824198f5293875ad65fb905f87d8484862554463ae3df4c",
     "profile_json_sha256": "2e9856d2a9573470c7cb9f6f9dcb0d631538dd1539a4ac82a038357a658ad7c9",
-    "agent": "voice-profile-render",
-    "agent_sha256": "22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d",
+    "agent": "voice-draft",
+    "agent_sha256": "66d3be9a14f98591305d0e26fe7a12558529f7527a4e0683b33bfdfc95360840",
     "sample_count": 10,
-    "aggregate_sha256": "dc0fbe000bd25e31a17fa8ef0d6cbf2d68f33c8c73f1a2acfc5451d2b1616a06"
+    "aggregate_sha256": "c3bea31c57a39da653081c5bce60ff5f086ba3e7c657cb343798720f23c43942"
   },
   "bacon-essay": {
     "schema": "voice-profile-lock/1",
@@ -138,51 +138,9 @@
     "excluded": [],
     "voice_card_sha256": "ebf54e0c8034613da950c4c44d6ca4729e427ba7378720980b1dcd8392508eaf",
     "profile_json_sha256": "322ad7304d2b69aa6cacd66d5126a5236c1ce42291f8248e9ce1448a010943db",
-    "agent": "voice-profile-render",
-    "agent_sha256": "22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d",
+    "agent": "voice-draft",
+    "agent_sha256": "66d3be9a14f98591305d0e26fe7a12558529f7527a4e0683b33bfdfc95360840",
     "sample_count": 10,
-    "aggregate_sha256": "0fb8bff8764735ff6cd5be17f6dfcd727705457d25b8560f678d5ab1fa472835"
-  },
-  "mixed-thin": {
-    "schema": "voice-profile-lock/1",
-    "files": [
-      {
-        "file": "sample-a.txt",
-        "group": null,
-        "words": 512,
-        "sha256": "fd4d4288a565aa8ab7b0d7efdd9445b148a60dce44d5fc819b93064adbebf7cf"
-      },
-      {
-        "file": "sample-b.txt",
-        "group": null,
-        "words": 838,
-        "sha256": "2c0ee1dda6b507351d73a6dd2f8c6ad1f984d4fe4073d7611f2ac60014818896"
-      },
-      {
-        "file": "sample-c.txt",
-        "group": null,
-        "words": 1326,
-        "sha256": "cd3935278649fc2483ce6e3bd219e6b48fcb5e28dcaf5cc3ca78c4ee68a649e3"
-      },
-      {
-        "file": "sample-d.txt",
-        "group": null,
-        "words": 1004,
-        "sha256": "778eadf825c96fb71a4e7afaff2afcac99e27c0dd0ec490f1d97db7bd6e16abc"
-      },
-      {
-        "file": "sample-e.txt",
-        "group": null,
-        "words": 1973,
-        "sha256": "487550b7534a75968dfa68871da973aa86bf4d28c3458ca2e04ab786d26a45c4"
-      }
-    ],
-    "excluded": [],
-    "voice_card_sha256": "a607391d19014eaa13097d4b7114b70dafeae3c0a36d618131711fadc7c12270",
-    "profile_json_sha256": "caec9131726fe5f358b33d8f581ebd4180026c91b6730dc14fdd6610d9ff47ca",
-    "agent": "voice-profile-render",
-    "agent_sha256": "22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d",
-    "sample_count": 5,
-    "aggregate_sha256": "0822f995385872427610843af87fff8dfe36c7b835eb350148bf48ea9c3ea383"
+    "aggregate_sha256": "70d0824aed548f7b691cb8abec9601c470eee093ef7916777831dc0f8df1dc4d"
   }
 }

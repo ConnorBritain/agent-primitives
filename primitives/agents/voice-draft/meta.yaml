@@ -1,0 +1,112 @@
+# Harness-specific metadata for the voice-draft primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+#
+# HELD — authored, harnessed, and deliberately NOT DEPLOYED. There is no rendered
+# copy under bundles/prose-author/agents/ and no manifest entry, which is this
+# repo's way of saying a primitive exists but does not ship. Same shape as
+# voice-profile-render, prose-pattern-critic, and prose-reviser during its hold.
+#
+# The hold is why this is an AGENT and not an extension of the shipped prose-draft
+# skill. Skills live in the bundle only (CONTRIBUTING, "Surfaces"), are auto-
+# discovered, and this bundle's plugin.json points at the whole skills/ directory
+# — so a skill added here ships on merge, and there is no ships: false for it.
+# PI-02 requires that nothing generate under a bar that does not exist until S5.
+# An agent can be held; a skill cannot. See .planning/PI-02-S3-design.md D1.
+#
+# TO LIFT THE HOLD: S5 pre-registers a ship bar and S6 clears it. Then render into
+# bundles/prose-author/agents/, add to all four manifests and the marketplace
+# entry, bump the bundle version, flip ships: true, and give the shipped
+# prose-draft skill a blank-page path that spawns this agent (CONTRIBUTING's
+# "a skill that spawns the agent"). The parity guard in the bundle selftest
+# already carries the shipped branch.
+
+name: voice-draft
+kind: author
+ships: false
+held_reason: no ship bar exists yet; PI-02 S5 pre-registers one before any acceptance run
+held_since: 2026-08-07
+surface: agent
+bundle: prose-author
+
+contract:
+  # Writes a new artifact from a prompt. Not a transformer: there is no input
+  # prose to preserve. Its central risk is the author kind's risk verbatim -
+  # inventing conventions the material does not support - which here means
+  # inventing a habit the voice profile never recorded.
+  read_only: false
+  clean_context: true
+
+  # Prompt plus profile, both supplied inline. Not a file, not a directory.
+  scope: prompt
+
+  # Not a reviewer. The draft is the artifact; the critics render verdicts on it
+  # afterwards. A verdict token here would invite a caller to read "draft
+  # produced" as "draft approved".
+  verdict: none
+
+  # THE firewall, and the reason this primitive exists as a separate context.
+  # The whole point of rendering a profile is that the drafter works from the
+  # summary rather than the corpus; a drafter that also has the corpus makes the
+  # profile decoration. Enforced by the tool allowlist below being EMPTY - it
+  # cannot read the corpus because it cannot read anything.
+  reads_corpus: false
+  reads_exemplars: false
+  reads_catalog: false
+
+  # Inputs arrive in the dispatch, the same way prose-reviser receives its plan.
+  # This is what makes the firewall structural rather than promised.
+  inputs_inline: true
+
+  refuses:
+    - a prompt that names no reader, occasion or purpose, leaving the profile's
+      register range unchoosable - picking one silently asserts a decision the
+      author never made
+    - a length or form far outside what the profile's evidence covers, where the
+      draft would be mostly invention
+    - a request the profile cannot constrain at all - verse, code, tables,
+      translation
+    - any catalog, tell list, or scanner threshold placed in its input
+    - reproducing a habit the profile attributes to a translator, compositor or
+      selecting editor rather than to the author
+
+  never_claims:
+    - that the draft sounds like the author
+    - that the draft is good
+    - that the draft would pass any detector
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: green
+    tools: []
+    notes: >-
+      The empty tool allowlist is the primitive's main structural guarantee, not an
+      oversight: with no Read and no Glob it cannot reach corpus/human/, the
+      exemplars, or a catalog, so the profile really is the only thing it knows.
+      The orchestrator inlines the prompt and the profile in the dispatch. Runs in
+      its own context so the caller's history - which may well contain the corpus,
+      if the same session rendered the profile - does not leak in.
+  cursor:
+    enforcement: partial
+    notes: >-
+      Tool restriction is not reliably enforced and context isolation is not
+      guaranteed. Run as its own request against a clean thread. Sharing a thread
+      with the session that rendered the profile silently defeats the firewall,
+      and the output looks identical either way.
+  codex:
+    enforcement: advisory
+    notes: >-
+      Neither the tool restriction nor context isolation is enforced. Run as a
+      fresh `codex exec` with the profile pasted in. The recoverable half is the
+      output contract - one fenced draft or one fenced refusal - which a harness
+      can check without trusting the model.
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      If you shorten this to two rules, keep: the support counts are frequencies
+      across samples and not a template to perform every paragraph, and anything
+      section 8 attributes to an editor or translator is not this voice. The first
+      prevents caricature; the second prevents imitating a typesetter. Both are
+      failures a reader notices immediately and the drafter cannot see.

@@ -78,3 +78,36 @@ nothing at all.
 Per `.planning/SAMPLING-POLICY.md`, any verdict-carrying dispatch runs k=3 and splits
 are surfaced rather than resolved. That applies to the critic half of criterion 2. The
 draft generations themselves are not verdict-carrying and may run k=1, labelled.
+
+---
+
+# EXECUTED 2026-08-07 — criterion 2 met, criterion 1 outstanding
+
+Run: `../../runs/2026-08-07-pi02-s3-voice-draft/`. Criteria above were fixed before any
+draft existed and are not restated here in a friendlier form.
+
+| corpus | cell | findings (k=3) | verdicts |
+|---|---|---|---|
+| chekhov | **matched** | 1, 2, 0 → 1.0 | R / R / CLEAN |
+| chekhov | crossed | 6, 6, 7 → 6.3 | R / R / R |
+| bacon | **matched** | 3, 3, 3 → 3.0 | R / R / R |
+| bacon | crossed | 4, 6, 5 → 5.0 | R / R / R |
+
+**The control has not fired.** Firing is defined above as criterion 1 **and** criterion 2.
+
+**Criterion 2 (objective) is met for both pairs, and the distributions are disjoint** —
+the worst matched draw beats the best crossed draw in both directions. The critic ran
+blind against `inputs/blinded/` under a key fixed in advance.
+
+**Criterion 1 (a human sorting the four unlabelled drafts better than chance) has not been
+run**, and is the author's. Until it is, the honest statement is "half the control passed",
+not "the control fired" — and the conjunction above is not to be relaxed to match what
+happens to be available.
+
+**Not inconclusive:** the failure mode this reading guarded against — crossed drafts bad
+for reasons unrelated to voice, or refusals — did not occur. All four cells produced
+on-topic prose of comparable length (534–583 words), and no cell refused.
+
+**What it does not show**, restated because it stayed true: that either profile is
+*correct*. Two wrong profiles would also differ from each other. This rules out the
+failure where the profile changes nothing.

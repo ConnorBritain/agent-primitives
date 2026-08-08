@@ -20,6 +20,7 @@ import { createHash } from "node:crypto";
 import { readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
+import { parseFences } from "./fences.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 
 export const SCHEMA_ID = "voice-profile/1";
@@ -214,6 +215,18 @@ export function scanCorpus(profileDir) {
 export function corpusLock(profileDir, { agentPath = null } = {}) {
   const { usable, excluded } = scanCorpus(profileDir);
 
+  // Which primitive produced this lock. agent_sha256 alone cannot answer "is this
+  // stale?" - a consumer holding the hash has nothing to compare it against unless it
+  // also knows WHICH agent.md to hash, and this bundle now has two primitives writing
+  // locks in the same format. Recording the name makes the lock self-describing rather
+  // than interpretable only by whoever happened to create it. Derived from the path so
+  // it cannot disagree with the hash beside it.
+  //
+  // (A reviewer read this as a test-only field. It is not: the alternative - encoding
+  // the owner in a directory name - breaks silently on a rename, and leaves a lock
+  // shipped next to a user's profile unable to say what produced it.)
+  const agentName = agentPath ? agentPath.replace(/\/agent\.md$/, "").split("/").pop() : null;
+
   const sha = (p) => (existsSync(p) ? createHash("sha256").update(readFileSync(p)).digest("hex") : null);
   const voiceCard = sha(join(profileDir, "voice.md"));
   // profile.json is the third thing the renderer reads - it supplies the register,
@@ -236,20 +249,21 @@ export function corpusLock(profileDir, { agentPath = null } = {}) {
     excluded,
     voice_card_sha256: voiceCard,
     profile_json_sha256: profileMeta,
+    agent: agentName,
     agent_sha256: agent,
     sample_count: usable.length,
     aggregate_sha256: aggregate.digest("hex"),
   };
 }
 
-/** Split a two-fence render into its markdown and json halves. */
+/** A two-fence render, named in this primitive's own terms. */
 export function parseRender(text) {
-  const md = /```markdown\n([\s\S]*?)\n```/.exec(text);
-  const js = /```json\n([\s\S]*?)\n```/.exec(text);
-  let json = null;
-  let jsonError = null;
-  if (js) {
-    try { json = JSON.parse(js[1]); } catch (e) { jsonError = e.message; }
-  }
-  return { markdown: md ? md[1] : "", json, jsonError, hadMarkdownFence: Boolean(md), hadJsonFence: Boolean(js) };
+  const f = parseFences(text);
+  return {
+    markdown: f.markdown ?? "",
+    json: f.json,
+    jsonError: f.jsonError,
+    hadMarkdownFence: f.hadMarkdown,
+    hadJsonFence: f.hadJson,
+  };
 }

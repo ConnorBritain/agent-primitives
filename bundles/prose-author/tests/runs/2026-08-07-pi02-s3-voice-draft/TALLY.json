@@ -1,0 +1,23 @@
+{
+  "_comment": "Cross-render control, k=3 per cell per SAMPLING-POLICY.md. Critic dispatched BLIND against inputs/blinded/; the mapping was fixed in BLIND-KEY.json before any draw. Findings counted as the critic's own enumerated findings; 'high' counts those it marked high confidence.",
+  "baseline_author_own_writing": {
+    "source": "runs/2026-08-05-voice-cross-author-complete.md",
+    "draws": 18, "findings": 0, "verdicts": "unanimous CLEAN"
+  },
+  "pairs": [
+    {
+      "corpus": "chekhov", "prompt": "letter-to-a-friend",
+      "matched": { "case": "case-b", "cell": "matched-chekhov",
+        "findings": [1, 2, 0], "high": [1, 1, 0], "verdicts": ["REVISE", "REVISE", "CLEAN"] },
+      "crossed": { "case": "case-a", "cell": "crossed-bacon-on-chekhov",
+        "findings": [6, 6, 7], "high": [3, 5, 6], "verdicts": ["REVISE", "REVISE", "REVISE"] }
+    },
+    {
+      "corpus": "bacon", "prompt": "short-moral-essay",
+      "matched": { "case": "case-c", "cell": "matched-bacon",
+        "findings": [3, 3, 3], "high": [2, 2, 2], "verdicts": ["REVISE", "REVISE", "REVISE"] },
+      "crossed": { "case": "case-d", "cell": "crossed-chekhov-on-bacon",
+        "findings": [4, 6, 5], "high": [4, 6, 5], "verdicts": ["REVISE", "REVISE", "REVISE"] }
+    }
+  ]
+}
