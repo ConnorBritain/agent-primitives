@@ -1,0 +1,18 @@
+{
+  "_comment": "FU-13. Third fixture, contemporary and untranslated, to test whether the period-marked corpora were putting a floor under the critic's finding rate. k=3 per SAMPLING-POLICY.md. Bacon and Chekhov rows are reused verbatim from the S3 run, not re-measured.",
+  "cells": [
+    { "cell": "bacon matched",    "findings": [3,3,3], "mean": 3.00, "verdicts": ["REVISE","REVISE","REVISE"], "majority": "REVISE", "period_driven": "0.67-1.67", "source": "runs/2026-08-07-pi02-s3-voice-draft" },
+    { "cell": "chekhov matched",  "findings": [1,2,0], "mean": 1.00, "verdicts": ["REVISE","REVISE","CLEAN"],  "majority": "REVISE", "period_driven": "0.00",      "source": "runs/2026-08-07-pi02-s3-voice-draft" },
+    { "cell": "doctorow matched", "findings": [2,0,0], "mean": 0.67, "verdicts": ["REVISE","CLEAN","CLEAN"],   "majority": "CLEAN",  "period_driven": "0.00",      "source": "this run" }
+  ],
+  "doctorow_findings_detail": [
+    { "draw": 1, "what": "no first-person singular where the corpus uses I", "confidence": "high", "period_driven": false,
+      "note": "draws 2 and 3 both independently rejected this, citing posthuman-as-in-no-humans and lucky-orifices which have no authorial first person in their essay bodies either" },
+    { "draw": 1, "what": "every paragraph ends on an engineered clincher (7 of 7); corpus does it once or twice per essay", "confidence": "high", "period_driven": false,
+      "note": "the caricature failure mode voice-draft's prompt warns against; filed as FU-14" }
+  ],
+  "human_baseline": { "draws": 18, "findings": 0, "verdicts": "unanimous CLEAN", "source": "runs/2026-08-05-voice-cross-author-complete.md" },
+  "firewall": { "corpus_6grams_bypassing_profile": 0 },
+  "reading": "CONFIRMED — zero period-driven findings and a rate (0.67) below Chekhov's (1.00), both pre-registered conditions.",
+  "unplanned_finding": "PI-02's bar is 'baseline + 20%' and the baseline is 0. A multiplicative margin on zero is degenerate: the bar silently means unanimous CLEAN on every draw. S5 must use an absolute allowance."
+}
