@@ -81,7 +81,7 @@ draft generations themselves are not verdict-carrying and may run k=1, labelled.
 
 ---
 
-# EXECUTED 2026-08-07 — criterion 2 met, criterion 1 outstanding
+# EXECUTED 2026-08-07 — the control fired, both criteria
 
 Run: `../../runs/2026-08-07-pi02-s3-voice-draft/`. Criteria above were fixed before any
 draft existed and are not restated here in a friendlier form.
@@ -93,16 +93,24 @@ draft existed and are not restated here in a friendlier form.
 | bacon | **matched** | 3, 3, 3 → 3.0 | R / R / R |
 | bacon | crossed | 4, 6, 5 → 5.0 | R / R / R |
 
-**The control has not fired.** Firing is defined above as criterion 1 **and** criterion 2.
+**The control has fired.** Firing is defined above as criterion 1 **and** criterion 2,
+and both are now met.
 
 **Criterion 2 (objective) is met for both pairs, and the distributions are disjoint** —
 the worst matched draw beats the best crossed draw in both directions. The critic ran
 blind against `inputs/blinded/` under a key fixed in advance.
 
-**Criterion 1 (a human sorting the four unlabelled drafts better than chance) has not been
-run**, and is the author's. Until it is, the honest statement is "half the control passed",
-not "the control fired" — and the conjunction above is not to be relaxed to match what
-happens to be available.
+**Criterion 1 (a human sorting the four unlabelled drafts better than chance): 4/4**,
+against a 1-in-4 baseline for all four. Full record and reasoning in
+`../../runs/2026-08-07-pi02-s3-voice-draft/CRITERION-1.md`.
+
+**Labelled "weakened — reader had prior exposure."** The reader had followed the session
+in which these drafts were saved under names that state the answer. What partly offsets
+it: the reasoning given was one generalising rule per profile — *punctuation* for Bacon,
+*running comma'ed lists* for Chekhov — which are the two profiles' headline cadence
+observations, and which correctly caught both *crossed* cells. A memorised mapping
+produces four recollections, not a rule. A clean reader would settle it; worth doing
+before S5 cites this.
 
 **Not inconclusive:** the failure mode this reading guarded against — crossed drafts bad
 for reasons unrelated to voice, or refusals — did not occur. All four cells produced

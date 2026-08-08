@@ -3,13 +3,20 @@
 **Result: the drafter works, refuses correctly, and the profile is load-bearing.
 Primitive stays HELD (`ships: false`).**
 
-**The cross-render control has NOT fired.** Its pre-registration defines firing as a
-conjunction — criterion 1 (a human sorting the four unlabelled drafts better than chance)
-**and** criterion 2 (the critic finding more on crossed than matched). **Criterion 2 is
-met, decisively, on both pairs with disjoint distributions. Criterion 1 has not been
-run.** An earlier draft of this document said the control "FIRES" on the objective
-criterion; that silently narrowed a conjunction to its convenient half and has been
-corrected.
+**The cross-render control has FIRED — both halves of its pre-registered conjunction.**
+
+- **Criterion 2** (critic finds more on crossed than matched): met on both pairs, with
+  **disjoint distributions** — the worst matched draw beats the best crossed draw in
+  both directions.
+- **Criterion 1** (a human sorting the four unlabelled drafts better than chance):
+  **4/4**, against a 1-in-4 chance baseline. Recorded in `CRITERION-1.md`, and
+  **labelled "weakened — reader had prior exposure"** because the reader followed the
+  authoring session. The label stands despite the perfect score.
+
+An earlier draft of this document declared the control "FIRES" while criterion 1 was
+still unrun — narrowing a conjunction to its convenient half. It happens to have fired
+since. That does not make the earlier claim retroactively correct, and the sequence is
+left visible here on purpose.
 
 **None of this is ship-bar evidence, and must not be cited as such.** The bar is S5's to
 pre-register, and it measures a different thing — whether generated prose reaches parity
