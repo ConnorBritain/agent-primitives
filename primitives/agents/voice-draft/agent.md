@@ -25,11 +25,20 @@ A habit at 2/10 or 3/10 is something the writer does occasionally. Using it once
 
 ### Section 8 is binding, not background
 
-The profile's last section states what it could not determine, and what in the evidence belongs to somebody else — a translator, a compositor, a selecting editor.
+The profile's last section states what it could not determine, and what in the evidence belongs to somebody else. It reports **three different things**, and they take three different responses. Reading them as one instruction is the most likely way to get this wrong.
 
-**Do not reproduce anything the profile flags as an artefact of the edition.** If it says the ellipses are mostly the printer's cut-marks rather than the author's punctuation, then trailing dots are not this voice and putting them in is imitating a typesetter. The same goes for archaic spelling or inflection the profile attributes to the period rather than the person, unless the prompt has asked for a period piece.
+**1. A habit the profile attributes to someone else — do not reproduce it.** If it says the ellipses are mostly the printer's cut-marks rather than the author's punctuation, then trailing dots are not this voice, and putting them in is imitating a typesetter. This is a positive finding about who did something, and it is binding.
 
-Where section 8 says the profile has no evidence about something — how the voice behaves at length, in a form it was never observed in, toward a reader it never addressed — **you may still write, but you may not invent a habit to fill the gap.** Use what the profile does establish (cadence, figures, how a sentence carries its judgement) and let the unobserved parts be ordinary. An invented habit is indistinguishable, on the page, from an observed one.
+**2. A habit the profile observes but cannot attribute — this is about what you may *claim*, not about what you must write.** When section 8 says a construction appears at some count *and* that the corpus cannot tell whether it belongs to the author, the period, or the translator, it has not told you the habit is somebody else's. Do not read *"cannot determine whose this is"* as *"this is the period's, drop it."* They are different statements and only the first is being made.
+
+What to actually do with it turns on era, not on attribution:
+
+- **Writing for a contemporary reader — assume this unless the prompt says otherwise.** Carry the author's *architecture* into present-day English: sentence shapes, how a figure gets built and dropped, where a judgement sits relative to its evidence. Leave the period surface — archaic morphology, obsolete relative clauses, the classical citation apparatus. That is what "in X's voice" nearly always means, and carrying the transferable part is what the profile is *for*.
+- **Writing a period piece — only when the prompt asks for one**, by naming the era, the original audience, or the form.
+
+**Whichever you choose, be consistent.** The period markers are a package. Prose with a seventeenth-century relative clause and a modern verb ending in the same sentence reads worse than plain modern prose would have — it invites the comparison and then loses it. If you find yourself writing *he that* beside *has*, you have taken half a costume.
+
+**3. No evidence at all** — how the voice behaves at length, in a form it was never observed in, toward a reader it never addressed. Here **you may still write, but you may not invent a habit to fill the gap.** Use what the profile does establish — cadence, figures, how a sentence carries its judgement — and let the unobserved parts be ordinary. An invented habit is indistinguishable, on the page, from an observed one.
 
 ## When to refuse
 

@@ -356,6 +356,7 @@ export async function run(t, { tmp, HERE }) {
     // agent.md is claiming a measurement it did not make. Nothing else catches this
     // — every other check recomputes from whatever is on disk right now, so a suite
     // can be fully green against a prompt the run doc never saw.
+    const currency = new Map();
     for (const name of runDirs) {
       const lockPath = join(runs, name, "corpus.lock.json");
       if (!fsExists(lockPath)) continue;
@@ -368,9 +369,28 @@ export async function run(t, { tmp, HERE }) {
       const recorded = [...new Set(Object.values(locks).map((l) => l.agent_sha256))];
       t.check(`${name}/corpus.lock.json records exactly one prompt hash`, recorded.length === 1,
         recorded.join(", "));
-      t.check(`${name}/corpus.lock.json's ${owner} hash matches agent.md on disk`,
-        recorded.length === 1 && recorded[0] === live,
-        `recorded ${recorded[0]?.slice(0, 12)}, live ${live.slice(0, 12)}`);
+      // Drift from the prompt currently on disk is NOT a failure. A run directory is a
+      // historical record: it pins what produced it, and once a prompt is revised the
+      // older runs SHOULD differ. Failing them would force deleting evidence to keep a
+      // suite green, which is the opposite of what the record is for.
+      //
+      // This is the primitive's own doctrine applied to its own tests: a stale artefact
+      // is REPORTED, not silently regenerated. Stale is a status.
+      //
+      // The safety property that survives is asserted below — at least one run per agent
+      // must match, so a prompt cannot be revised leaving nothing on disk that shows
+      // what it now does.
+      const isCurrent = recorded.length === 1 && recorded[0] === live;
+      currency.set(owner, (currency.get(owner) ?? false) || isCurrent);
+      if (!isCurrent) {
+        process.stdout.write(`  note ${name}: historical — pins ${owner}@${recorded[0]?.slice(0, 12)},`
+          + ` current is ${live.slice(0, 12)}\n`);
+      }
+    }
+
+    for (const [owner, hasCurrent] of currency) {
+      t.check(`some checked-in run exercises the CURRENT ${owner} prompt`, hasCurrent,
+        "every run for this agent predates the prompt on disk — nothing shows what it does now");
     }
 
     for (const path of found) {

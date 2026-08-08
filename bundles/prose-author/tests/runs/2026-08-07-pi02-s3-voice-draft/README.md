@@ -28,6 +28,13 @@ That gap is what S5's ship bar will measure, and it is not closed.
 
 These are authoring tests, not acceptance. Design: `.planning/PI-02-S3-design.md`.
 
+**This run is historical.** It pins `voice-draft@66d3be9a`, and the prompt has since been
+revised by FU-11 (`runs/2026-08-07-fu11-cannot-determine/`). The artefacts here are what
+that prompt version produced and are not regenerated — the selftest reports the drift as a
+status rather than failing on it, which is the same rule the primitives apply to a stale
+profile. The `xr-matched-bacon` cell specifically was re-drafted under FU-11; the version
+here is the one every number in this document was measured on.
+
 ## What ran
 
 `agent.md` at `sha256:` — see `corpus.lock.json`. Nine drafting dispatches, then twelve

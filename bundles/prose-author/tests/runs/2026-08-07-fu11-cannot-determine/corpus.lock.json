@@ -1,0 +1,74 @@
+{
+  "bacon-essay": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "bacon-of-adversity.txt",
+        "group": null,
+        "words": 387,
+        "sha256": "3ba5888db2727c9f7e402a1c667896bfa4b44372ceadda47df7af8e89a371f97"
+      },
+      {
+        "file": "bacon-of-building.txt",
+        "group": null,
+        "words": 1520,
+        "sha256": "8c07c974dbb31bd6c2e3b0eae9c01771ed6eb89cc901679c50a458534072d542"
+      },
+      {
+        "file": "bacon-of-deformity.txt",
+        "group": null,
+        "words": 395,
+        "sha256": "916df2f7d8815b707f77d089ea90bbd9f315a83d8b3b3fb5604b9628712d29e6"
+      },
+      {
+        "file": "bacon-of-faction.txt",
+        "group": null,
+        "words": 563,
+        "sha256": "a05438197d20909316a97b9611c1c191c1785dd9fb656b0e82523d7481616152"
+      },
+      {
+        "file": "bacon-of-honor-and-reputation.txt",
+        "group": null,
+        "words": 561,
+        "sha256": "cbd850d88323ea43b6981790523617e76164be89149d5207a4c018eca38a94ac"
+      },
+      {
+        "file": "bacon-of-nature-in-men.txt",
+        "group": null,
+        "words": 521,
+        "sha256": "abf3debf1080bfc7c8817b08c30fd438dbf57b4caaf1566119dfbb7f33958559"
+      },
+      {
+        "file": "bacon-of-prophecies.txt",
+        "group": null,
+        "words": 900,
+        "sha256": "c6f48fa0cd7b5579412d44214d2d9ff422d3eb62048a1a2048b666452c49197a"
+      },
+      {
+        "file": "bacon-of-studies508.txt",
+        "group": null,
+        "words": 503,
+        "sha256": "f64b19ed9017714d46262177b72309fa75007a57f5723670022395d32d6df3a0"
+      },
+      {
+        "file": "bacon-of-truth.txt",
+        "group": null,
+        "words": 838,
+        "sha256": "0572888d8444dc0c02682e58a1c2c257b80b0103d09fcc90bf4189560904e8ed"
+      },
+      {
+        "file": "bacon-of-youth-and-age.txt",
+        "group": null,
+        "words": 631,
+        "sha256": "b5e1e4d45b6cedc2e9d336f7f9b5a5a5528c89f21ef10f173f7a224d8fe48d7c"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "ebf54e0c8034613da950c4c44d6ca4729e427ba7378720980b1dcd8392508eaf",
+    "profile_json_sha256": "322ad7304d2b69aa6cacd66d5126a5236c1ce42291f8248e9ce1448a010943db",
+    "agent": "voice-draft",
+    "agent_sha256": "c0fbcf186ab0f20dbda5a540e323f5b79fd9c849800799d893edc14c7476e08d",
+    "sample_count": 10,
+    "aggregate_sha256": "12c8ff1d7b7e72490985b58a685ea12fe7c062bff2c404bac76762c9a1b6115e"
+  }
+}
