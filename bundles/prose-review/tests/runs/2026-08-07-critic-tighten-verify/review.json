@@ -1,0 +1,89 @@
+{
+  "p-f01-word-swap-tihonov-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: claim-drift / - **ORIGINAL**: line 9–10, \"Vvedensky and I for some reason roared / with laughter as we listened to you.\" / - **REVISION**: \"Vvedensky and I for some reason burst out / with laughter as we listened to you.\" / - **WHAT THE READER LOSES**: \"Roared\" tells the reader the laughter was loud and sustained; \"burst out\" tells the reader only that it started suddenly, saying noth"
+    ]
+  },
+  "p-f01-word-swap-tihonov-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": []
+  },
+  "p-f01-word-swap-tihonov-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: claim-drift / **ORIGINAL**: line 9, \"I only remember that Vvedensky and I for some reason roared\" / **REVISION**: \"I only remember that Vvedensky and I for some reason burst out\" / **WHAT THE READER LOSES**: The original tells the reader the laughter was loud and sustained (\"roared\"); the revision only says it started suddenly, so the reader can no longer tell the laughter was loud — a "
+    ]
+  },
+  "p-f02b-surgical-cut-marker-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": []
+  },
+  "p-f02b-surgical-cut-marker-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL**: line 21, \"A magnificent people. There is no describing Paris, though; I will put off\" / **REVISION**: \"A magnificent people. I will put off\" — the clause \"There is no describing Paris, though;\" is absent / **WHAT THE READER LOSES**: The writer's explicit judgment that Paris defies description. What remains is only the deferral (\"I will put off the descriptio"
+    ]
+  },
+  "p-f02b-surgical-cut-marker-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: dropped-fact / - **ORIGINAL**: line 21, \"There is no describing Paris, though; I will put off\" / - **REVISION**: absent — \"A magnificent people. I will put off the description of it till I get home.\" / - **WHAT THE READER LOSES**: The reader loses Chekhov's stated reason for deferring the description — that he judges Paris indescribable in words. What remains reads as an arbitrary cho"
+    ]
+  },
+  "p-f03b-surgical-rephrase-rossolimo-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f03b-surgical-rephrase-rossolimo-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f03b-surgical-rephrase-rossolimo-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "_how": [
+    "One entry per transcript. `note` and `annotation` are the operator's; both may stay empty.",
+    "The nulls are the two contract counts, and they are counts of what the findings quoted",
+    "under `_findings_to_review` DO — not of what the critic says it did. Read the transcript.",
+    "Nothing here is derived for you, because a critic grading its own compliance is the",
+    "failure verify-run.mjs was written to close. collect refuses to run until they are numbers."
+  ]
+}
