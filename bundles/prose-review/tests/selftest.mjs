@@ -12,6 +12,7 @@
 import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { extractAtoms, scanFidelity, verdict, renderReport } from "../tools/fidelity-scan.mjs";
 import { singleWordEntityCandidates } from "./single-word-survey.mjs";
+import { classifyLetter, measure, FIXTURE_LETTERS } from "./ellipsis-provenance.mjs";
 
 let passed = 0;
 let failed = 0;
@@ -693,6 +694,54 @@ group("prose-reviser primitive — parity guard");
         src === dst);
     }
   }
+}
+
+group("ellipsis provenance — the classifier FU-6's finding rests on");
+{
+  // FU-6 withdrew one of S1's four Chekhov findings on the strength of this
+  // classifier: 47.4% of the corpus's ellipses sit at a paragraph or letter
+  // boundary and therefore cannot be an authorial pause. If the position logic is
+  // wrong, a published correction is wrong, and nothing else in the repo would
+  // notice — the script prints plausible percentages either way.
+  const one = (text) => classifyLetter(text).hits.map((h) => h.cls);
+
+  check("an ellipsis opening the first paragraph is a cut before the letter starts",
+    one("... and so I left.\n\nA second paragraph.")[0] === "opens-letter");
+
+  check("an ellipsis opening a later paragraph is a cut, not a pause",
+    one("First paragraph here.\n\n... resuming mid-flow now.")[0] === "opens-paragraph");
+
+  check("an ellipsis closing the last paragraph is a cut after the letter ends",
+    one("First paragraph here.\n\nThe sentence trails off....")[0] === "closes-letter");
+
+  check("an ellipsis closing a middle paragraph is a truncation",
+    one("Truncated here....\n\nA later paragraph.")[0] === "closes-paragraph");
+
+  // The one class that cannot be an excision: there is no removable unit between
+  // two lowercase words. This is the "Rain, cold, mud ... brrr!" case, and it is
+  // the entire surviving authorial habit.
+  check("lowercase either side is scored as the author, not the editor",
+    one("I had to wait. Rain, cold, mud ... brrr! The line is good.")[0] === "mid-sentence");
+
+  // The honest bucket. Scoring these as authorial would have inflated the
+  // surviving rate more than tenfold and reversed the finding.
+  check("a capital after the ellipsis is undecidable, not credited to the author",
+    one("There is nothing.... There is a General, though.")[0] === "between-sentences");
+
+  check("both three- and four-dot forms are counted",
+    classifyLetter("Mid ... pause and mid .... pause here.").hits.length === 2);
+
+  check("frontmatter is stripped before positions are read",
+    one("---\nsource: x\n---\n... opening cut.\n\nSecond.")[0] === "opens-letter");
+
+  // The published numbers must be reproducible from the corpus on demand, not
+  // trusted from a doc someone typed.
+  const m = measure(FIXTURE_LETTERS);
+  check("the 10 S2 fixture letters still measure as FU-6 published them",
+    m.total === 46 && m.boundary === 22 && m.authorial === 4 && m.indeterminate === 20,
+    `total ${m.total}, boundary ${m.boundary}, authorial ${m.authorial}, undecidable ${m.indeterminate}`);
+  check("the defensible authorial rate is still far below the naive reading",
+    (m.authorial * 1000) / m.words < 1 && (m.total * 1000) / m.words > 5);
 }
 
 process.stdout.write(`\n${"─".repeat(60)}\n`);

@@ -87,3 +87,55 @@ The full S1 (6 × 3 × 3 = 54) would run ~$5 and 45-60 min wall clock.
 - Case prompt: `runs/2026-08-07-pi02-s1-mvp/prompts/case-01.md`
 - Voice-critic transcripts: `runs/2026-08-07-pi02-s1-mvp/raw/case-01-d{1,2,3}.md`
 - Pre-registered kickoff: `.planning/PI-02-S1-kickoff.md`
+
+---
+
+# CORRECTION — appended 2026-08-07, after PI-02 S2 and FU-6
+
+**Nothing above is edited.** This note records what later work found wrong with it, in
+the place a reader of the original will see it.
+
+**The verdict stands. Two of the four findings do not.**
+
+The DISCRIMINATING reading is unaffected: voice-critic does distinguish AI pastiche from
+this author's corpus, it cites specifically, and the findings converged across draws.
+That was S1's question and the answer has held up.
+
+What has not held up is the *recommendation* list — the four constraints this doc handed
+to S2 as "concrete things to steer against."
+
+| S1 recommendation | status |
+|---|---|
+| Include direct-address questions (dialogic register) | **holds.** Re-derived independently in every uncontaminated S2 render, 6/10 and 9/10. |
+| Anchor similes to observed things | **holds.** Re-derived, 6/10 and 8/10. |
+| Vary sentence opening architecture | **holds.** Re-derived as "three shapes, not one", with matching counts across draws. |
+| Include ellipses | **withdrawn — largely an artefact of the edition.** See FU-6. |
+| Do not gloss metaphors with "which/that is to say" | **withdrawn — an artefact of the S2 prompt, and contradicted by the corpus.** |
+
+**On ellipses** (`runs/2026-08-07-fu6-chekhov-ellipsis.md`): the corpus is Garnett's
+abridged 1920 selection — her Translator's Note says she chose "passages from letters" —
+and the edition marks its cuts with dots without ever stating the convention. Positional
+analysis of all 641 ellipses across 113 letters: 47.4% sit at a paragraph or letter
+boundary and cannot be authorial; only 4.5% are mid-sentence between lowercase words and
+certainly are; 48% are undecidable from this edition. The authorial rate is between
+0.29/1k and 3.41/1k against the 6.49/1k the raw text shows. A drafter told to reproduce
+the ellipses of this corpus would be reproducing a typesetter.
+
+A real, narrower habit survives — a mid-sentence pause before an interjection, as in
+*"Rain, cold, mud ... brrr!"* — and that is what should have been recommended.
+
+**On metaphor-gloss** (`bundles/prose-author/tests/runs/2026-08-07-pi02-s2-voice-profile/`):
+this finding was quoted into the S2 prompt's worked examples and then reported as
+re-derived. With the leak removed it did not reappear, and both clean renders found the
+opposite — a dash-plus-*that is* gloss is a live habit at 3–4/10. The original phrasing
+("nothing reaches for *which is to say*") was true and useless: the phrase is modern
+English and would not appear in a Garnett translation whatever Chekhov's habits were.
+
+**Standing caveat this doc should have carried.** Every Chekhov number this repo has
+published — this diagnostic, the 2026-08-05 cross-author run, and the S2 profile — rests
+on a single abridged translation. No independent edition of these letters was obtainable.
+Punctuation-level findings from this corpus are findings about Garnett's edition until
+shown otherwise; grammatical and structural findings are not affected.
+
+**For S5:** calibrate on the two surviving findings. Do not build a bar on ellipsis
+density.
