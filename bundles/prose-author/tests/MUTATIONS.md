@@ -12,6 +12,12 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 
 | mutation | tests failed | what it guards |
 |---|---|---|
+| block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
+| stop noticing a fallen verdict | 1 | a revision that drops the verdict is refused |
+| treat a split CLEAN as converged | 2 | a split is surfaced, not read as the half that suits the loop |
+| resolve a verdict tie to the better verdict | 1 | a coin-flip tie is not evidence of clean |
+| drop the attributable-length floor | 1 | a two-letter edit cannot be blamed for an unrelated finding |
+| blame edits for text that was already there | 1 | only text an edit INTRODUCED can have caused a finding |
 | remove the cap clamp | 2 | human keeps the majority of exemplar slots |
 | cold start reports a gap | 4 | no cadence comparison without a calibrated corpus |
 | Tier A treated as a normal finding | 6 | an artifact returns the draft instead of being reported |

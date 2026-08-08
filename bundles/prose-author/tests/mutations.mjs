@@ -84,6 +84,7 @@ const CALIBRATE = `${SIBLING}/calibrate.mjs`;
 const EVALUATE = `${SIBLING}/lib/evaluate.mjs`;
 const SCANNER = `${SIBLING}/tell-scan.mjs`;
 const FIDELITY = "bundles/prose-review/tools/fidelity-scan.mjs";
+const LOOP = "bundles/prose-author/tests/loop.mjs";
 
 /**
  * A throwaway copy of the whole repo, minus the things that must not be copied.
@@ -116,6 +117,51 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  // --- the generate -> critique -> revise loop (PI-02 S4) ---
+  // Every guard below decides whether a revision is kept. All of them fail silently:
+  // the loop keeps running and the transcript still looks orderly.
+  {
+    name: "block degradation on any mean rise",
+    file: LOOP,
+    find: "  const allWorse = a.findings.min > b.findings.max;",
+    with: "  const allWorse = a.findings.mean > b.findings.mean;",
+    guards: "a k=3 noise tick-up does not refuse a good revision",
+  },
+  {
+    name: "stop noticing a fallen verdict",
+    file: LOOP,
+    find: '  const verdictWorse = b.majority === "CLEAN" && a.majority === "REVISE";',
+    with: "  const verdictWorse = false;",
+    guards: "a revision that drops the verdict is refused",
+  },
+  {
+    name: "treat a split CLEAN as converged",
+    file: LOOP,
+    find: '  if (last.majority === "CLEAN" && last.unanimous) {',
+    with: '  if (last.majority === "CLEAN") {',
+    guards: "a split is surfaced, not read as the half that suits the loop",
+  },
+  {
+    name: "resolve a verdict tie to the better verdict",
+    file: LOOP,
+    find: '  for (const v of ["REVISE", "CLEAN"]) {',
+    with: '  for (const v of ["CLEAN", "REVISE"]) {',
+    guards: "a coin-flip tie is not evidence of clean",
+  },
+  {
+    name: "drop the attributable-length floor",
+    file: LOOP,
+    find: "    .filter((i) => i.needle.length >= MIN_ATTRIBUTABLE_CHARS);",
+    with: "    .filter(() => true);",
+    guards: "a two-letter edit cannot be blamed for an unrelated finding",
+  },
+  {
+    name: "blame edits for text that was already there",
+    file: LOOP,
+    find: "    .filter((e) => e.after && e.after !== e.before && !before.includes(squash(e.after)))",
+    with: "    .filter((e) => e.after)",
+    guards: "only text an edit INTRODUCED can have caused a finding",
+  },
   {
     name: "remove the cap clamp",
     file: EXEMPLARS,
