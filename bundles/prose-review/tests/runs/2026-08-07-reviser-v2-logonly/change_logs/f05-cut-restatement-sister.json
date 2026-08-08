@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "Noise, hubbub. ",
+      "after": "",
+      "reason": "voice-critic: a two-word fragment that restates the preceding sentence's 'swarming and surging'; nothing new"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+  "revision_sha256": "573516c01123b960bdc252d585824c41b74fd5aac9c0ec6f42866cfef280d2a0",
+  "plan_sha256": "53f15da5973494609ef99b4e2dc61e8009f0a8304bac36a26b07e789e817d5a5"
+}

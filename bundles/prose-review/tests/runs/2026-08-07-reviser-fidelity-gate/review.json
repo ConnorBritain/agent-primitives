@@ -1,0 +1,113 @@
+{
+  "p-f01-word-swap-tihonov-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f01-word-swap-tihonov-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f01-word-swap-tihonov-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f04-multi-entry-tihonov-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f04-multi-entry-tihonov-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: claim-drift / **ORIGINAL** (line 22): \"though I have indeed long ago been translated by the Germans\" / **REVISION** (line 22): \"though I have long ago been translated by the Germans\" / **WHAT THE READER LOSES**: the emphatic \"indeed\" signalled the writer conceding a real exception to his mock-boast about being untranslated; without it the concession reads as flat report, and the self-"
+    ]
+  },
+  "p-f04-multi-entry-tihonov-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f06-refuse-quote-drift-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f06-refuse-quote-drift-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f06-refuse-quote-drift-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f08-aggressive-drop-date-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: dropped-fact / - **ORIGINAL**: lines 13–14, \"In 1884 I took my degree in medicine at the University of Moscow.\" / - **REVISION**: absent / - **WHAT THE READER LOSES**: the year (1884) the author took his medical degree and the institution (University of Moscow) that granted it; the revision preserves that he practices medicine but the reader can no longer work out when or where he was"
+    ]
+  },
+  "p-f08-aggressive-drop-date-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: dropped-fact / - **ORIGINAL**: line 13–14, \"In 1884 I took my degree in medicine at the University of Moscow.\" / - **REVISION**: absent / - **WHAT THE READER LOSES**: the year the author qualified as a doctor (1884) and the institution that conferred the degree (University of Moscow); the reader can no longer work out when or where his medical training concluded, and the profession he"
+    ]
+  },
+  "p-f08-aggressive-drop-date-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": 0,
+    "contradicts_scan": 0,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: dropped-fact / - **ORIGINAL**: line 13–14, \"In 1884 I took my degree in medicine at the University of Moscow.\" / - **REVISION**: absent / - **WHAT THE READER LOSES**: The year Chekhov took his medical degree (1884) and the institution that granted it (University of Moscow). Both are load-bearing biographical facts in a self-styled biography that otherwise proceeds year by year; the re"
+    ]
+  },
+  "_how": [
+    "One entry per transcript. `note` and `annotation` are the operator's; both may stay empty.",
+    "The nulls are the two contract counts, and they are counts of what the findings quoted",
+    "under `_findings_to_review` DO — not of what the critic says it did. Read the transcript.",
+    "Nothing here is derived for you, because a critic grading its own compliance is the",
+    "failure verify-run.mjs was written to close. collect refuses to run until they are numbers."
+  ]
+}

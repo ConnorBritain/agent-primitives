@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "Noise, hubbub.",
+      "after": "Hubbub.",
+      "reason": "voice-critic: 'Noise' and 'hubbub' are near-synonyms; cutting one removes the doublet while preserving the auditory dimension that neither the visual ('swarming and surging') nor spatial ('pavements filled with little tables') sentences carry"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+  "revision_sha256": "73b3a7c0fcc7207190be3f404c2b0849ef8ed5cd219619b90a0425bd06dba0b4",
+  "plan_sha256": "51cca17e13c3f87bf70b7498f3bcbcd5cca666d87d1ac8ff66ec6aee0ad3756d"
+}

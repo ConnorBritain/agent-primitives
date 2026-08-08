@@ -1,0 +1,78 @@
+{
+  "critic": "fidelity",
+  "run_id": "2026-08-07-reviser-fidelity-gate",
+  "prepared": "2026-08-07",
+  "draws": 3,
+  "agent_prompt": "primitives/agents/prose-fidelity-critic/agent.md",
+  "agent_sha256": "6b1257a8aac9bb09bf2ccd6a6dffe9127f30cd6bbb3bc43981c614afbd2c9921",
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "p-f04-multi-entry-tihonov",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f04-multi-entry-tihonov/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f04-multi-entry-tihonov/revision.md",
+          "sha256": "29b9d2fff6cc20fdd5a4a0c9b1379e683259939a7a79cd90a146c99501633055"
+        }
+      ]
+    },
+    {
+      "case": "case-02",
+      "fixture": "p-f06-refuse-quote-drift",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f06-refuse-quote-drift/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f06-refuse-quote-drift/revision.md",
+          "sha256": "a5b1dc3ebd0fcba36e0c8ecb3d0f95659b45039569b5d797c557f6dbb5032261"
+        }
+      ]
+    },
+    {
+      "case": "case-03",
+      "fixture": "p-f01-word-swap-tihonov",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f01-word-swap-tihonov/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f01-word-swap-tihonov/revision.md",
+          "sha256": "ba97fcfa469f0184de63a8e2e318c239c3a57186a4cb6e76cb0c61e654e5453b"
+        }
+      ]
+    },
+    {
+      "case": "case-04",
+      "fixture": "p-f08-aggressive-drop-date",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f08-aggressive-drop-date/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-06-reviser-v1/fidelity-fixtures/p-f08-aggressive-drop-date/revision.md",
+          "sha256": "06796aec2b15d14267dfc833e17fafd635fcffd6102ab4343948cec733ab4be8"
+        }
+      ]
+    }
+  ]
+}

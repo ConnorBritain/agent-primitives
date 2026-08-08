@@ -1,0 +1,27 @@
+{
+  "critic": "fidelity",
+  "run_id": "2026-08-07-critic-stability-f01",
+  "prepared": "2026-08-07",
+  "draws": 21,
+  "agent_prompt": "primitives/agents/prose-fidelity-critic/agent.md",
+  "agent_sha256": "6b1257a8aac9bb09bf2ccd6a6dffe9127f30cd6bbb3bc43981c614afbd2c9921",
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "p-f01-word-swap-tihonov",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f01-word-swap-tihonov/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f01-word-swap-tihonov/revision.md",
+          "sha256": "1e89e4ee92713d194dffa10c72ee0782280ed1505706a1e1123a870a4d8c96d6"
+        }
+      ]
+    }
+  ]
+}

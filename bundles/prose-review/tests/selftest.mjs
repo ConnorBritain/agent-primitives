@@ -659,20 +659,40 @@ group("reviser fixtures — integrity");
 /* ------------------------------------------------------------------ */
 group("prose-reviser primitive — parity guard");
 
-// The reviser is HELD (meta.yaml says ships: false), so the same absent-copy discipline
-// as prose-pattern-critic applies. The rendered file must be missing, and the hold must
-// be declared with a reason. A held primitive silently rendered into a bundle is one
-// nobody meant to install.
+// AGENTS.md rule 1: primitives/ is the source, bundles/ is the deployment.
+// A held primitive (ships: false) must NOT be rendered — no absent-copy drift.
+// A shipped primitive (ships: true) MUST be rendered with a body byte-identical
+// to the primitive's agent.md (frontmatter may differ to add tools/model/color).
 {
   const primitiveDir = new URL("../../../primitives/agents/prose-reviser/", import.meta.url);
   const meta = readFileSync(new URL("meta.yaml", primitiveDir), "utf8");
   const held = /^ships:\s*false\b/m.test(meta);
-  const renderedExists = existsSync(new URL("../agents/prose-reviser.md", import.meta.url));
+  const shipped = /^ships:\s*true\b/m.test(meta);
+  const renderedURL = new URL("../agents/prose-reviser.md", import.meta.url);
+  const renderedExists = existsSync(renderedURL);
 
-  check("prose-reviser: a primitive with no rendered copy declares ships: false with a reason",
-    renderedExists || (held && /^held_reason:\s*\S/m.test(meta)));
+  // Exactly one of held/shipped must be true.
+  check("prose-reviser: meta.yaml declares ships as exactly one of true or false",
+    held !== shipped);
+
+  // Held → absent from bundle, and a reason is on record.
   check("prose-reviser: a held primitive is absent from the bundle's agents/ directory",
     !held || !renderedExists);
+  check("prose-reviser: a held primitive declares a held_reason",
+    !held || /^held_reason:\s*\S/m.test(meta));
+
+  // Shipped → rendered under bundle, body byte-identical to the primitive's agent.md.
+  if (shipped) {
+    check("prose-reviser: a shipped primitive is rendered into the bundle's agents/",
+      renderedExists);
+    if (renderedExists) {
+      const stripFrontmatter = (s) => s.replace(/^---\n[\s\S]*?\n---\n/, "");
+      const src = stripFrontmatter(readFileSync(new URL("agent.md", primitiveDir), "utf8"));
+      const dst = stripFrontmatter(readFileSync(renderedURL, "utf8"));
+      check("prose-reviser: rendered body is byte-identical to primitives/ source (AGENTS.md rule 1)",
+        src === dst);
+    }
+  }
 }
 
 process.stdout.write(`\n${"─".repeat(60)}\n`);

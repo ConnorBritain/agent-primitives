@@ -1,6 +1,6 @@
 {
   "name": "prose-review",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -13,7 +13,8 @@
     "editing",
     "voice",
     "review",
+    "revision",
     "subagent"
   ],
-  "description": "Read-only critics for prose, run before a draft is called done. prose-voice-critic: does this sound like the author, judged against their own corpus. prose-fidelity-critic: did a revision keep what it had to, judged against the original and a deterministic scan. The revise pass is deliberately later - and the check that guards it ships first."
+  "description": "Two read-only critics and one revising transformer for prose. prose-voice-critic: does this sound like the author, judged against their own corpus. prose-fidelity-critic: did a revision keep what it had to, judged against the original and a deterministic scan. prose-reviser: applies a plan of edits and emits a change log the fidelity critic then judges. Every rewrite goes through the gate."
 }

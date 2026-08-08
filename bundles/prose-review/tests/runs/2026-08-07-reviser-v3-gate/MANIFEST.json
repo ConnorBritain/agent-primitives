@@ -1,0 +1,197 @@
+{
+  "critic": "fidelity",
+  "run_id": "2026-08-07-reviser-v3-gate",
+  "prepared": "2026-08-07",
+  "draws": 3,
+  "agent_prompt": "primitives/agents/prose-fidelity-critic/agent.md",
+  "agent_sha256": "6b1257a8aac9bb09bf2ccd6a6dffe9127f30cd6bbb3bc43981c614afbd2c9921",
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "p-f04-multi-entry-tihonov",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f04-multi-entry-tihonov/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f04-multi-entry-tihonov/revision.md",
+          "sha256": "95e1795492524251e8c9728a271aca207178daa8311a0b54d3bde0adb52660b6"
+        }
+      ]
+    },
+    {
+      "case": "case-02",
+      "fixture": "p-f02a-overreach-cut-marker",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f02a-overreach-cut-marker/original.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f02a-overreach-cut-marker/revision.md",
+          "sha256": "4c21693138b1c8ba9232efd4a9e09e421ef2d38e89366bb8543b14756defaa73"
+        }
+      ]
+    },
+    {
+      "case": "case-03",
+      "fixture": "p-f03b-surgical-rephrase-rossolimo",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f03b-surgical-rephrase-rossolimo/original.md",
+          "sha256": "1ce09103ae60b97d34cbef4be000ef80c0b0313ec43dfc0acd2c92c41734007e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f03b-surgical-rephrase-rossolimo/revision.md",
+          "sha256": "e4b0af1971e77e62da860d5be34a42f1dee0bbbd2ae735a1a67629fbef718f04"
+        }
+      ]
+    },
+    {
+      "case": "case-04",
+      "fixture": "p-f07-refuse-ambiguous",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f07-refuse-ambiguous/original.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f07-refuse-ambiguous/revision.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        }
+      ]
+    },
+    {
+      "case": "case-05",
+      "fixture": "p-f05b-surgical-cut-restatement-sister",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f05b-surgical-cut-restatement-sister/original.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f05b-surgical-cut-restatement-sister/revision.md",
+          "sha256": "73b3a7c0fcc7207190be3f404c2b0849ef8ed5cd219619b90a0425bd06dba0b4"
+        }
+      ]
+    },
+    {
+      "case": "case-06",
+      "fixture": "p-f03a-overreach-rephrase-rossolimo",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f03a-overreach-rephrase-rossolimo/original.md",
+          "sha256": "1ce09103ae60b97d34cbef4be000ef80c0b0313ec43dfc0acd2c92c41734007e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f03a-overreach-rephrase-rossolimo/revision.md",
+          "sha256": "015194c03a9af9044314cd090cb55185682603d001738843502f01c73eb8323d"
+        }
+      ]
+    },
+    {
+      "case": "case-07",
+      "fixture": "p-f02b-surgical-cut-marker",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f02b-surgical-cut-marker/original.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f02b-surgical-cut-marker/revision.md",
+          "sha256": "6c20e1d9b4a4190714786897cf505b678d0b8ac88874d94918283e5a8a3ca49c"
+        }
+      ]
+    },
+    {
+      "case": "case-08",
+      "fixture": "p-f06-refuse-quote-drift",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f06-refuse-quote-drift/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f06-refuse-quote-drift/revision.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        }
+      ]
+    },
+    {
+      "case": "case-09",
+      "fixture": "p-f05a-overreach-cut-restatement-sister",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f05a-overreach-cut-restatement-sister/original.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f05a-overreach-cut-restatement-sister/revision.md",
+          "sha256": "573516c01123b960bdc252d585824c41b74fd5aac9c0ec6f42866cfef280d2a0"
+        }
+      ]
+    },
+    {
+      "case": "case-10",
+      "fixture": "p-f01-word-swap-tihonov",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f01-word-swap-tihonov/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f01-word-swap-tihonov/revision.md",
+          "sha256": "1e89e4ee92713d194dffa10c72ee0782280ed1505706a1e1123a870a4d8c96d6"
+        }
+      ]
+    },
+    {
+      "case": "case-11",
+      "fixture": "p-f08-aggressive-drop-date",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f08-aggressive-drop-date/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f08-aggressive-drop-date/revision.md",
+          "sha256": "88757ae4fdea0a352c4155c9dfbd9ccb750d30af248300749d176a5cc50eea1f"
+        }
+      ]
+    }
+  ]
+}

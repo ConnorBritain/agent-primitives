@@ -14,13 +14,18 @@ now, which is why this primitive exists at all.
 
 ## Status
 
-**Held.** `meta.yaml` says `ships: false`. It is authored, its harness is
-scaffolded, and it does not appear in the bundle or in any manifest — the same
-pattern `prose-pattern-critic` uses.
+**Ships.** v0.3.0, 2026-08-07. Rendered under
+[`bundles/prose-review/agents/prose-reviser.md`](../../../bundles/prose-review/agents/prose-reviser.md);
+listed in all four bundle manifests and the marketplace entry.
 
-It lifts when the k=3 acceptance run clears its pre-registered ship bar
-(see `meta.yaml` for the exact conditions). Until then this file describes what
-would ship, not what does.
+Held from 2026-08-06 to 2026-08-07 while the log-only contract was designed
+(see "Why the diff instead of the whole revision" below), the surgical /
+overreach fixture pairs were authored, and the sampling-policy-aligned Path A
+ship bar was pre-registered and cleared. Completion doc:
+[`bundles/prose-review/tests/runs/2026-08-07-reviser-v3-final-complete.md`](../../../bundles/prose-review/tests/runs/2026-08-07-reviser-v3-final-complete.md).
+
+For the operator's how-to see
+[`bundles/prose-review/REVISER-USAGE.md`](../../../bundles/prose-review/REVISER-USAGE.md).
 
 ## Why this exists
 
@@ -52,14 +57,42 @@ and an original draft. For each plan entry, in order:
 
 1. Locates the exact quote in the draft. Verbatim match.
 2. Reads the change. If ambiguous, refuses the entry.
-3. Makes the smallest edit that satisfies the change.
+3. Decides the smallest edit that satisfies the change.
 4. Preserves every fact, name, date, quotation and qualifier the entry does
    not tell it to change.
 5. Preserves register — no consistency-tidying beyond what the plan authorised.
 
+**It emits a change log — a list of before/after pairs — and nothing else.** No
+revised draft. The harness applies the log to the original to reconstruct the
+revision; the fidelity critic reads that reconstruction. The reviser's output
+channel is the diff, not the result.
+
 If an entry cannot be applied cleanly, it is refused and logged. Refusal is
 first-class: a revision with 5 of 6 entries applied and one refused is a
 better outcome than 6 of 6 where the sixth is a plausible guess.
+
+### Why the diff instead of the whole revision
+
+A reviser that emits the whole revised draft has to reproduce hundreds of words
+of source it did not write. On any text touching charged material — state
+violence, medical detail, self-harm language — the model's post-processing
+output filter reliably blocks that reproduction, deterministically, across
+models.
+
+Diagnosed 2026-08-07 on this fixture set: four Chekhov letters passed, four
+(Paris riots, Yalta autobiography) blocked. Bisecting the failing letter
+passed on both halves. Log-only output passed on the full letter. Opus failed
+identically to sonnet. The trigger is bulk reproduction of a threshold volume
+of charged content, not the reviser's reasoning.
+
+This design sidesteps the filter entirely — the reviser never reproduces the
+source — and buys a genuinely stronger safety property in the same move:
+**a reviser that emits only diffs cannot make an out-of-plan edit by
+construction.** Its only output channel is a list of before/after pairs
+referring to plan ids. If it wanted to slip in a stylistic improvement the
+plan did not authorise, there is nowhere to put it. The old contract relied
+on a fidelity critic catching out-of-plan text after the fact; the new one
+forbids it at the source.
 
 ## Two modes
 
@@ -95,23 +128,32 @@ job. Overlap with critics is zero: critics are read-only by contract.
 
 ## The change log
 
-Every reviser run emits a JSON change log alongside the revised text. Every
-`edits[]` entry carries the `plan_id` that authorised it, plus the exact
-`before` and `after` strings the fidelity critic will see when it diffs the
-two documents.
+Every reviser run emits a JSON change log — its sole output. Every `edits[]`
+entry carries the `plan_id` that authorised it, plus the exact `before` and
+`after` strings the harness will substitute into the original to produce the
+revision.
+
+The apply step is strict, and both properties are enforced by the harness
+before any revision reaches the fidelity critic:
+
+- **`before` must appear verbatim** in the original at apply time. A drift here
+  refuses the whole log, because a "close enough" substitution would either hit
+  the wrong span or hit nothing.
+- **`before` must fall inside the authorising plan entry's `location.quote`**.
+  An edit whose text is genuine text in the original but is NOT inside the
+  authorising quote is out-of-plan by construction, and the harness rejects it.
 
 This is what makes *"edits outside the plan"* — the fidelity critic's
-priority-4 rule, which has never fired in any run because no fixture
-supplied a plan — checkable. Any diff whose span is not covered by an entry's
-`location.quote`, or whose change log carries no matching `plan_id`, counts
-as out-of-plan **even when the change is good**.
+priority-4 rule — impossible rather than merely detectable. The old contract
+relied on a critic catching after the fact; the current one closes the channel.
 
 ## Reading the output
 
-The revision is a markdown fence. The change log is a JSON fence. That is
-the whole output.
+The output is a single JSON fence with the change log. The harness applies it
+to the original to reconstruct the revision, and writes both to disk. That
+reconstructed revision is what the fidelity critic reads.
 
-The `edits[]` list is what the reviser did. The `refused[]` list is what it
+The `edits[]` list is what the reviser applied. The `refused[]` list is what it
 declined to do and why — a plan entry the reviser could not execute cleanly.
 The `noticed_but_not_edited[]` list is what it saw but chose not to touch,
 because the plan did not authorise it. All three are audit trails, not
@@ -155,13 +197,27 @@ and it is the one thing the author is best placed to judge.
 
 ## Install
 
-Not installable yet. See *Status* above.
-
-Once it lifts:
-
 ```bash
-./install.sh prose-reviser        # → ~/.claude/agents/
-./install.sh --project prose-reviser
+./install.sh prose-reviser              # → ~/.claude/agents/
+./install.sh --project prose-reviser    # → ./.claude/agents/
 ```
 
-Or install the whole bundle: `/plugin install prose-review@agent-primitives`.
+Or install the whole bundle:
+
+```
+/plugin marketplace add ConnorBritain/agent-primitives
+/plugin install prose-review@agent-primitives
+```
+
+The reviser has no corpus requirement. What it needs is:
+
+- an **original draft** file (readable path)
+- a **plan** (see [`bundles/prose-review/PLAN-FORMAT.md`](../../../bundles/prose-review/PLAN-FORMAT.md))
+- a downstream **fidelity gate** to judge the reconstructed revision (see
+  [`bundles/prose-review/REVISER-USAGE.md`](../../../bundles/prose-review/REVISER-USAGE.md))
+
+The reviser's tool allowlist is deliberately read-only (`Read`, `Grep`,
+`Glob`) even though the primitive mutates prose — the revision is emitted in
+the response, not written to disk. Writing to disk is the orchestrator's job.
+This keeps the fidelity gate the only path by which a revision reaches a file
+the author might see.

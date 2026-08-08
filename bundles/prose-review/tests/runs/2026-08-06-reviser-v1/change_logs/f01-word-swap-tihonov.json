@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "for some reason roared",
+      "after": "for some reason burst out",
+      "reason": "voice-critic: 'roared with laughter' is a construction the corpus samples do not use"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+  "revision_sha256": "ba97fcfa469f0184de63a8e2e318c239c3a57186a4cb6e76cb0c61e654e5453b",
+  "plan_sha256": "bb3523f34069455ff7e7e29eda576cfd17a11e9570c5c64a979d3452e86dfd31"
+}

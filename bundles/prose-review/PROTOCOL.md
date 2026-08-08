@@ -1,34 +1,36 @@
 # The review protocol
 
-**Status: v0.2 ships TWO critics** (`prose-voice-critic`,
-`prose-fidelity-critic`). This document describes the protocol the full set is
-designed for; much of it is not yet operative. See [`README.md`](README.md) for
-what exists.
+**Status: v0.3 ships two critics and one reviser** (`prose-voice-critic`,
+`prose-fidelity-critic`, `prose-reviser`). Every step below is operative.
+See [`README.md`](README.md) for the bundle contents and
+[`REVISER-USAGE.md`](REVISER-USAGE.md) for the operator's how-to on the
+revise → fidelity half.
 
-The two run at **different moments**, and only one of them is part of the
-parallel critic fan-out below. The voice critic reviews a draft. The fidelity
-critic reviews a *revision against its original*, so it has nothing to read until
-something has rewritten something — which is step 5, not step 2.
+The critics run at **different moments**, and only the voice critic is part of
+the parallel critic fan-out at step 2. The fidelity critic reviews a *revision
+against its original*, so it has nothing to read until something has rewritten
+something — which is step 6, after the reviser.
 
-How the critics are meant to be run. Prose, not code — there is no orchestrator
+How the pipeline is meant to be run. Prose, not code — there is no orchestrator
 here, exactly as in `verification-gate`. The main session executes this.
 
 ## Order
 
 ```
-  1  scan          tell-scan, deterministic, no model      (prose-tell-scan)
-  2  critics       spawned IN PARALLEL, clean context each
-  3  consolidate   this session, not an agent
-  4  the author edits
+  1  scan           tell-scan, deterministic, no model      (prose-tell-scan)
+  2  critics        spawned IN PARALLEL, clean context each  (voice, others)
+  3  consolidate    this session, not an agent — plan.json emerges here
+  4  the author edits, OR proceeds to 5
+  ─────────────────────────────────────────────────────────
+  5  revise         prose-reviser (log-only), harness applies (prose-reviser)
+  6  fidelity       prose-fidelity-critic at k=7             (prose-fidelity-critic)
+  7  the author accepts, rejects, or adjusts
 ```
 
-v0.2 stops at 3. The revise pass is not built, deliberately — but the check that
-guards it now exists, and can be run by hand on any before/after pair:
-
-```
-  5  revise        NOT BUILT
-  6  fidelity      prose-fidelity-critic, on (original, revision)
-```
+Steps 5-7 are the reviser pipeline. It is optional — findings plus an author's
+own hand-edits (step 4) is a complete outcome. But when the author wants a
+draft revised programmatically, steps 5-7 are the required path: the reviser
+never emits a revision the fidelity critic has not read.
 
 ## Running the fidelity critic outside the pipeline
 

@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "In 1884 I took my\r\ndegree in medicine at the University of Moscow.",
+      "after": "",
+      "reason": "author asked to shorten the biographical paragraph"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+  "revision_sha256": "88757ae4fdea0a352c4155c9dfbd9ccb750d30af248300749d176a5cc50eea1f",
+  "plan_sha256": "c2fdb1d191084b82b92874a220bad1680829d837d103aafe4f25a32ba2977910"
+}

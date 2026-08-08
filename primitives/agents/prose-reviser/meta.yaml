@@ -7,31 +7,26 @@ kind: transformer
 surface: agent
 bundle: prose-review
 
-# HELD — authored, harnessed pending, deliberately NOT DEPLOYED. There is no
-# rendered copy under bundles/prose-review/agents/ and no manifest entry, which
-# is this repo's way of saying a primitive exists but does not ship yet:
-# primitives/ is the source, bundles/ is the deployment, and the gap between
-# them is the hold.
+# SHIPS. Rendered under bundles/prose-review/agents/prose-reviser.md; listed
+# in all four bundle manifests and in the marketplace entry.
 #
-# WHY, stated so it can be overturned with evidence rather than by assertion.
-# This is the only primitive that changes prose. DESIGN.md's own tripwire list
-# names two failures for it: "the reviser gets the catalog as a target, in any
-# form, however hinted" and "the reviser ships before the fidelity check". The
-# fidelity check ships. The catalog rule is baked into the prompt. What is not
-# yet true: the acceptance run has not been done at k=3 through the sampling
-# policy the reviser depends on. Until that run clears its pre-registered bar,
-# the primitive stays in primitives/ and the bundle does not install it.
+# Held from 2026-08-06 to 2026-08-07 while the log-only contract was designed,
+# the surgical/overreach fixture pairs were authored, and the sampling-policy-
+# aligned Path A ship bar was pre-registered and cleared.
 #
-# TO LIFT THE HOLD:
-#   - k=3 fidelity gate run on all 6+ acceptance fixtures
-#   - >=5 of 6 fixtures return majority FAITHFUL
-#   - 0 fixtures return majority MATERIAL-LOSS
-#   - contract counts on the fidelity critic all 0 (uncited, contradicts_scan)
-#   - out-of-plan edits: 0 across all fixtures (this critic's priority-4 rule,
-#     never fired before, has real stakes here)
-ships: false
-held_reason: awaiting first k=3 acceptance run against pre-registered ship bar
-held_since: 2026-08-06
+# Ship record (v0.3.0, 2026-08-07):
+#   - Log-only contract adopted 2026-08-07 (see README's "Why the diff instead
+#     of the whole revision" section for the diagnosis that motivated it)
+#   - k=7 fidelity gate on 11 acceptance fixtures under Path A rule
+#     (SAMPLING-POLICY.md aligned: >= 1 F counts as pass on the faithful side,
+#     >= 1 ML counts as pass on the safety-net side)
+#   - Faithful side 6 of 6, safety-net side 5 of 5
+#   - Structural gates: 11/11 reviser transcripts clean, 11/11 apply-time
+#     out-of-plan-clean
+#   - See bundles/prose-review/tests/runs/2026-08-07-reviser-v3-final-complete.md
+#     for the completion doc, and .planning/2026-08-07-reviser-ship-bar-v3.md
+#     for the pre-registered bar
+ships: true
 
 contract:
   # This is the one transformer in the bundle (and one of two in the whole repo,

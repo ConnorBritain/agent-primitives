@@ -1,0 +1,15 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [],
+  "refused": [
+    {
+      "plan_id": "e01",
+      "reason": "quote 'the utilised approach was rolled out' does not appear in the draft verbatim"
+    }
+  ],
+  "noticed_but_not_edited": [],
+  "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+  "revision_sha256": "a5b1dc3ebd0fcba36e0c8ecb3d0f95659b45039569b5d797c557f6dbb5032261",
+  "plan_sha256": "830b11ffa352662cb4c4b0ee4040f98b8036cb6f3a39e8a2ebbeb75bbd9a6bce"
+}

@@ -42,7 +42,7 @@ const sha = (s) => createHash("sha256").update(s).digest("hex");
 /** Frontmatter is where every provenance label in this repo's corpora lives. It is
  *  stripped from staged inputs the same way run-harness strips it, so a reviser scan
  *  over staged copies matches the fidelity-critic's expectations downstream. */
-function stripFrontmatter(text) {
+export function stripFrontmatter(text) {
   if (!text.startsWith("---\n")) return text;
   const end = text.indexOf("\n---\n", 3);
   return end === -1 ? text : text.slice(end + 5);
@@ -82,8 +82,9 @@ function buildReviserPrompt({ agentBody, original, plan, planPath }) {
     original.trimEnd(),
     "```",
     "",
-    "Emit the revised draft in a ```markdown fence, then the change log in a ```json fence.",
-    "Nothing else.",
+    "Emit ONLY the change log in a ```json fence — one entry per plan entry you applied,",
+    "plus refusals for anything you could not apply cleanly. Do NOT emit the revised draft:",
+    "the harness applies your log to the original to reconstruct it. Nothing else.",
   ].join("\n");
 }
 
@@ -202,30 +203,112 @@ function dispatch(runDir) {
 // ---------------------------------------------------------------------------
 
 /**
- * The reviser's output contract: a ```markdown fence containing the revision, then a
- * ```json fence containing the change log. This parser is deliberately strict —
- * a transcript missing either fence is a failed dispatch, not something to salvage.
+ * The reviser's output contract: a single ```json fence containing the change log.
+ *
+ * WHY LOG-ONLY, since 2026-08-07. The earlier contract asked the reviser to emit the
+ * revised draft in a markdown fence AND the change log in a json fence. The revision
+ * fence reproduced hundreds of words of source verbatim, and on drafts touching charged
+ * content (state violence, medical detail) the model's post-processing output filter
+ * reliably blocked that reproduction — deterministically, across models. Diagnosed by
+ * bisection: half-length passed, log-only passed, opus failed identically. The trigger
+ * is bulk source reproduction, not the reviser's reasoning.
+ *
+ * The log-only contract sidesteps the filter entirely — the reviser never reproduces
+ * the source — and buys a stronger safety property in the same move: a reviser that
+ * emits only diffs cannot make an out-of-plan edit by construction. See `applyChangeLog`
+ * for the substitution rules the harness enforces before the revision reaches the
+ * fidelity critic.
+ *
+ * `refused[]` may be empty but must exist, so a reader cannot mistake absence-of-field
+ * for zero-refusals. Content hashes are computed by the harness in `collect`.
  */
 export function parseReviserOutput(text, name) {
-  const mdMatch = text.match(/```(?:markdown|md)\n([\s\S]*?)\n```/);
   const jsMatch = text.match(/```json\n([\s\S]*?)\n```/);
-  if (!mdMatch) return { error: `${name}: no markdown fence with the revision` };
   if (!jsMatch) return { error: `${name}: no json fence with the change log` };
+  // A leftover markdown fence is not fatal (a well-meaning reviser may still emit one
+  // out of habit), but we ignore it — the log is the source of truth for the revision.
 
   let log;
   try { log = JSON.parse(jsMatch[1]); }
   catch (err) { return { error: `${name}: change log is not valid JSON — ${err.message}` }; }
 
-  // Required keys on every log. `refused` and `noticed_but_not_edited` may be [] but
-  // must exist so a reader cannot mistake absence-of-field for zero-refusals.
-  const required = ["plan", "original_sha256", "revision_sha256", "mode", "edits", "refused"];
+  const required = ["plan", "mode", "edits", "refused"];
   const missing = required.filter((k) => !(k in log));
   if (missing.length) return { error: `${name}: change log missing keys: ${missing.join(", ")}` };
   if (!Array.isArray(log.edits) || !Array.isArray(log.refused)) {
     return { error: `${name}: edits and refused must be arrays` };
   }
+  for (const e of log.edits) {
+    if (typeof e.plan_id !== "string" || typeof e.before !== "string" || typeof e.after !== "string") {
+      return { error: `${name}: each edit needs plan_id/before/after strings, got ${JSON.stringify(e)}` };
+    }
+  }
 
-  return { revision: mdMatch[1], log };
+  return { log };
+}
+
+/**
+ * Apply a parsed change log to an original draft to produce the revised draft.
+ *
+ * Two strict checks before any substitution runs, and either failing refuses the whole
+ * log rather than half-applying it:
+ *
+ *  1. `plan_id` must exist in the plan. An edit citing an unknown id has no
+ *     authorisation and is out-of-plan by definition.
+ *  2. `before` must appear verbatim in the CURRENT state of the text (i.e. after any
+ *     earlier edits in the log have been applied), AND must fall inside — or equal —
+ *     the authorising plan entry's `location.quote`. The second half is what makes the
+ *     plan-id → span mapping load-bearing: a `before` that exists in the original but
+ *     is outside its plan entry's quote is a reviser applying e01's authorisation to a
+ *     span e01 did not name.
+ *
+ * On any refusal the applier returns an error and NO revision. Half-applied revisions
+ * are a category error — the fidelity critic downstream would grade the partial result
+ * against the original and produce a score for something no one meant to keep.
+ *
+ * Line endings: the corpus files carry CRLF, JSON literals get emitted with LF. `before`
+ * is normalised to the ORIGINAL's line-ending style before matching, so a reviser that
+ * quoted CRLF text back as LF (as they routinely do) still resolves against the right
+ * span. `after` is inserted verbatim, honouring whatever the reviser wrote.
+ */
+export function applyChangeLog(original, log, plan) {
+  const planById = new Map(plan.entries.map((e) => [e.id, e]));
+  const originalUsesCRLF = /\r\n/.test(original);
+  const norm = (s) => (originalUsesCRLF ? s.replace(/(?<!\r)\n/g, "\r\n") : s.replace(/\r\n/g, "\n"));
+
+  let revised = original;
+  const applied = [];
+  for (const edit of log.edits) {
+    const entry = planById.get(edit.plan_id);
+    if (!entry) {
+      return { error: `unknown plan_id ${JSON.stringify(edit.plan_id)}`, applied };
+    }
+    const before = norm(edit.before);
+    const quote = norm(entry.location.quote);
+    // The span check. If the reviser normalised line endings differently than we did,
+    // fall back to a comparison with both sides LF-stripped, so a legitimate mapping
+    // is not rejected on invisible whitespace.
+    const stripEol = (s) => s.replace(/\r?\n/g, "\n");
+    const beforeIsInQuote =
+      quote.includes(before) || before.includes(quote)
+      || stripEol(quote).includes(stripEol(before))
+      || stripEol(before).includes(stripEol(quote));
+    if (!beforeIsInQuote) {
+      return { error: `edit ${edit.plan_id}: before-text is not inside plan entry's location.quote`, applied };
+    }
+    // The substring check on the current revised state — not the original — because
+    // sequential edits can move each other. An edit that would have matched the
+    // pristine original but has been shifted or eaten by an earlier edit refuses here.
+    if (!revised.includes(before)) {
+      return { error: `edit ${edit.plan_id}: before-text not present in current draft (may have been consumed by an earlier edit)`, applied };
+    }
+    // Replace the FIRST occurrence only. Substituting all occurrences would be a
+    // consistency-tidy the reviser was told not to do, applied by the wrong layer.
+    const idx = revised.indexOf(before);
+    revised = revised.slice(0, idx) + edit.after + revised.slice(idx + before.length);
+    applied.push(edit.plan_id);
+  }
+  return { revision: revised, applied };
 }
 
 function collect(runDir) {
@@ -244,9 +327,36 @@ function collect(runDir) {
     if (!existsSync(rawPath)) { errors.push(`${c.case}: no raw transcript`); continue; }
     const parsed = parseReviserOutput(readFileSync(rawPath, "utf8"), c.case);
     if (parsed.error) { errors.push(parsed.error); continue; }
-    writeFileSync(join(revisionsDir, `${c.fixture}.md`), parsed.revision);
+
+    // Reconstruct the revision by applying the log to the original. The reviser never
+    // emitted a revision; the harness produces it here. If the log is inconsistent —
+    // an unknown plan_id, a before-text that no longer matches after earlier edits, a
+    // span outside the authorising plan entry — the applier refuses and we record the
+    // error rather than write a half-applied revision.
+    const planPath = join(REVISER_FIXTURES, c.fixture, "plan.json");
+    const planText = readFileSync(planPath, "utf8");
+    const plan = JSON.parse(planText);
+    const original = readFileSync(join(REVISER_FIXTURES, c.fixture, "original.md"), "utf8");
+    // The plan sees the frontmatter-stripped body, same as the reviser prompt does.
+    const originalBody = stripFrontmatter(original);
+    const applied = applyChangeLog(originalBody, parsed.log, plan);
+    if (applied.error) {
+      errors.push(`${c.case}: ${applied.error} (applied so far: ${applied.applied.join(",") || "none"})`);
+      continue;
+    }
+
+    // Content hashes are injected HERE, where the bytes actually live. `original_sha256`
+    // comes from the manifest (recorded at prepare, when we know it matched the corpus
+    // file); `revision_sha256` is over the reconstructed revision; `plan_sha256` is over
+    // the canonical JSON of the plan the harness gave the reviser.
+    const planCanonical = JSON.stringify(JSON.parse(planText));
+    parsed.log.original_sha256 = c.original_sha256;
+    parsed.log.revision_sha256 = sha(applied.revision);
+    parsed.log.plan_sha256 = sha(planCanonical);
+
+    writeFileSync(join(revisionsDir, `${c.fixture}.md`), applied.revision);
     writeFileSync(join(logsDir, `${c.fixture}.json`), `${JSON.stringify(parsed.log, null, 2)}\n`);
-    summary.push(`    ${c.case} (${c.fixture}): ${parsed.log.edits.length} edit(s), ${parsed.log.refused.length} refused`);
+    summary.push(`    ${c.case} (${c.fixture}): ${parsed.log.edits.length} edit(s) applied, ${parsed.log.refused.length} refused`);
   }
 
   process.stdout.write(`\n  ${manifest.cases.length - errors.length} of ${manifest.cases.length} transcripts collected\n\n`);
@@ -333,7 +443,14 @@ function outOfPlanCheck(runDir) {
   for (const c of manifest.cases) {
     const logPath = join(runDir, "change_logs", `${c.fixture}.json`);
     const planPath = join(REVISER_FIXTURES, c.fixture, "plan.json");
-    if (!existsSync(logPath)) { results.push({ fixture: c.fixture, ok: false, reason: "no change log" }); continue; }
+    if (!existsSync(logPath)) {
+      // No revision at all — the reviser did not run for this case (dispatch failure,
+      // content-filter block, etc). Record with the same shape a run-checked fixture
+      // uses, so downstream code that reads `results` never hits an undefined array.
+      results.push({ fixture: c.fixture, ok: false, reason: "no change log",
+        out_of_plan_ids: [], span_mismatches: [], edits: 0, refused: 0 });
+      continue;
+    }
     const log = JSON.parse(readFileSync(logPath, "utf8"));
     const plan = JSON.parse(readFileSync(planPath, "utf8"));
     const planIds = new Set(plan.entries.map((e) => e.id));
@@ -342,13 +459,34 @@ function outOfPlanCheck(runDir) {
     // machine-checkable half of "out of plan" — an edit whose text is inside a
     // plan-quoted span but whose id is bogus is still out of plan by definition.
     const outOfPlan = log.edits.filter((e) => !planIds.has(e.plan_id));
-    // And every edit's `before` string must appear inside SOME plan entry's quote.
-    // A reviser that reports plan_id=e01 for an edit whose before-text has nothing
-    // to do with e01's quote is lying about the mapping.
+
+    // Span check. The invariant: the region of the draft that changed must be
+    // authorized by a plan entry. Two normalisations are needed before an honest
+    // comparison, and both were caught the hard way on the first real run:
+    //
+    // 1. Line endings. The corpus files carry CRLF, the plan quotes CRLF verbatim,
+    //    but JSON.stringify emits `\n` in string literals — so an edit reported by
+    //    the reviser via JSON has LF where its source had CRLF. Normalise before
+    //    comparing.
+    //
+    // 2. Context. A well-behaved reviser reports its edit with surrounding context
+    //    so a reader can locate it unambiguously. `before` may therefore CONTAIN
+    //    the plan quote (with more on either side) rather than equal it. The plan
+    //    quote must be inside `before`, and its removal must characterise the
+    //    difference between `before` and `after`.
+    //
+    // NOT a substitute for the fidelity critic. This is the mechanical half — a
+    // literal span check. The critic still has to judge whether an authorised edit
+    // did the semantically right thing.
+    const norm = (s) => s.replace(/\r\n/g, "\n");
     const spanMismatch = log.edits.filter((e) => {
       const entry = plan.entries.find((pe) => pe.id === e.plan_id);
       if (!entry) return false; // caught above
-      return !entry.location.quote.includes(e.before) && !e.before.includes(entry.location.quote);
+      const before = norm(e.before);
+      const quote = norm(entry.location.quote);
+      // Reject only if the plan quote is neither contained in nor equal to any
+      // reasonable interpretation of the edit's before-text.
+      return !before.includes(quote) && !quote.includes(before);
     });
 
     results.push({

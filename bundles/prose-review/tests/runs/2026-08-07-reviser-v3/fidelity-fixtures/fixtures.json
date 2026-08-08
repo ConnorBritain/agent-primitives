@@ -1,0 +1,99 @@
+{
+  "_comment": [
+    "Synthesised by revise-harness. Do not hand-edit.",
+    "The classification here (all class C, expect MATERIAL-LOSS) is the shape",
+    "run-harness's fidelityFixtures reader requires; the SHIP BAR is enforced by",
+    "revise-harness against the reviser's manifest, not this file."
+  ],
+  "corpus_root": "../../../../prose-tell-scan/tests/corpus/human-essays/gutenberg",
+  "fixtures": [
+    {
+      "name": "p-f01-word-swap-tihonov",
+      "kind": "positive",
+      "source": "f01-word-swap-tihonov",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f02a-overreach-cut-marker",
+      "kind": "positive",
+      "source": "f02a-overreach-cut-marker",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f02b-surgical-cut-marker",
+      "kind": "positive",
+      "source": "f02b-surgical-cut-marker",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f03a-overreach-rephrase-rossolimo",
+      "kind": "positive",
+      "source": "f03a-overreach-rephrase-rossolimo",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f03b-surgical-rephrase-rossolimo",
+      "kind": "positive",
+      "source": "f03b-surgical-rephrase-rossolimo",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f04-multi-entry-tihonov",
+      "kind": "positive",
+      "source": "f04-multi-entry-tihonov",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f05a-overreach-cut-restatement-sister",
+      "kind": "positive",
+      "source": "f05a-overreach-cut-restatement-sister",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f05b-surgical-cut-restatement-sister",
+      "kind": "positive",
+      "source": "f05b-surgical-cut-restatement-sister",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f06-refuse-quote-drift",
+      "kind": "positive",
+      "source": "f06-refuse-quote-drift",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f07-refuse-ambiguous",
+      "kind": "positive",
+      "source": "f07-refuse-ambiguous",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    },
+    {
+      "name": "p-f08-aggressive-drop-date",
+      "kind": "positive",
+      "source": "f08-aggressive-drop-date",
+      "expect": "MATERIAL-LOSS",
+      "scan_verdict": "MATERIAL-LOSS",
+      "class": "C"
+    }
+  ]
+}
