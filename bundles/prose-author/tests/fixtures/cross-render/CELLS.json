@@ -1,0 +1,10 @@
+{
+  "_comment": "Cross-render control cells. Set up PI-02 S2, executed S3. Reading criteria are in README.md and are pre-registered - do not renegotiate them against output.",
+  "profiles_dir": "../profiles",
+  "cells": [
+    { "id": "matched-chekhov",            "profile": "chekhov-correspondence", "prompt": "prompts/letter-to-a-friend.md",  "expect": "best-available" },
+    { "id": "matched-bacon",              "profile": "bacon-essay",            "prompt": "prompts/short-moral-essay.md",   "expect": "best-available" },
+    { "id": "crossed-chekhov-on-bacon",   "profile": "chekhov-correspondence", "prompt": "prompts/short-moral-essay.md",   "expect": "degraded" },
+    { "id": "crossed-bacon-on-chekhov",   "profile": "bacon-essay",            "prompt": "prompts/letter-to-a-friend.md",  "expect": "degraded" }
+  ]
+}

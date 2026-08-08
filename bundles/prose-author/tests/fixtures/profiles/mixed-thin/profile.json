@@ -1,0 +1,19 @@
+{
+  "name": "mixed-thin",
+  "description": "NEGATIVE-TEST FIXTURE. Five samples presented as one author's register. They are five different authors.",
+  "medium": "prose",
+  "register": "reflective prose",
+  "notes": [
+    "This fixture exists to fail. It is the negative test for voice-profile-render:",
+    "a corpus thin enough to sit in the 5-9 'thin' band AND drawn from five different",
+    "writers, presented with a profile.json that asserts a single register.",
+    "",
+    "A correct render either refuses, or renders with confidence: thin AND reports",
+    "that the corpus is more than one voice. An incorrect render invents a unifying",
+    "voice that describes nobody - which is the author-kind failure mode, and it",
+    "reads perfectly fluently, which is why it gets a test instead of a review.",
+    "",
+    "The description and register above are deliberately plausible. The fixture does",
+    "not tip its hand in its own metadata."
+  ]
+}

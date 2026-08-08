@@ -114,7 +114,14 @@ const isReadme = (name) => /^readme\b/i.test(name);
 export const TEXT_EXT = new Set([".md", ".markdown", ".txt", ".mdx"]);
 const isText = (name) => TEXT_EXT.has(name.slice(name.lastIndexOf(".")).toLowerCase());
 
-function readSamples(dir, { requireAttestation }) {
+// Exported so `voice-profile-render`'s corpus lock measures the corpus the same
+// way drafting does. The first version of that lock reimplemented this scan and
+// immediately drifted three ways: no word floor, no extension filter, and a crash
+// on the group subdirectories PROFILES.md documents. Two consumers disagreeing
+// about how many samples a corpus has is the failure PROFILES.md's contract-test
+// rule exists to prevent - and within one bundle there is no load-independence
+// reason to pay that cost, so this is shared rather than ported.
+export function readSamples(dir, { requireAttestation }) {
   if (!existsSync(dir) || !statSync(dir).isDirectory()) return { usable: [], excluded: [] };
   const usable = [];
   const excluded = [];

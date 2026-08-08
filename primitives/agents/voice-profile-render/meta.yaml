@@ -1,0 +1,111 @@
+# Harness-specific metadata for the voice-profile-render primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+#
+# HELD — authored, harnessed, and deliberately NOT DEPLOYED. There is no rendered
+# copy under bundles/prose-author/agents/ and no manifest entry, which is this
+# repo's way of saying a primitive exists but does not ship: primitives/ is the
+# source, bundles/ is the deployment, and the gap between them is the hold. Same
+# shape as prose-pattern-critic and as prose-reviser during its own hold.
+#
+# TO LIFT THE HOLD: PI-02 S5 must first pre-register a ship bar — none exists yet,
+# and S2 deliberately did not write one. Then render into bundles/prose-author/agents/,
+# add to all four manifests and the marketplace entry, bump the bundle version, and
+# flip ships: true. The parity guard in bundles/prose-author/tests/selftest.mjs
+# already carries the shipped branch, so a bad lift fails the gate rather than
+# needing the check written after the fact.
+
+name: voice-profile-render
+kind: author
+ships: false
+held_reason: no ship bar exists yet; PI-02 S5 pre-registers one before any acceptance run
+held_since: 2026-08-07
+surface: agent
+bundle: prose-author
+
+contract:
+  # Writes a new artifact rather than judging or rewriting one. Per CONTRIBUTING's
+  # taxonomy the author kind's obligation is "artifact + how it was verified", and
+  # every key below exists to make that verification real rather than asserted.
+  #
+  # PI-02.md calls this a transformer. That is the wrong row: the renderer does not
+  # rewrite the corpus, and its central risk is the author kind's risk verbatim -
+  # inventing conventions the material does not support. Reasoning recorded in
+  # .planning/PI-02-S2-design.md (D2).
+  read_only: false
+  clean_context: true
+
+  # None of CONTRIBUTING's four illustrative scopes (diff|file|selection|repo) fit a
+  # profile directory read whole. "file" is plainly wrong for ten samples plus a
+  # voice card; "repo" means the project. Naming the real unit rather than picking
+  # the least-wrong wrong one.
+  scope: corpus
+
+  # Not a reviewer. The output is a description of a voice; there is nothing here
+  # for a gate to read a verdict token off, and inventing one would invite a caller
+  # to treat "profile rendered" as "voice approved".
+  verdict: none
+
+  # THE contract. Every observation in the rendered profile carries a support count
+  # and at least one quoted span from a named sample; observations that cannot be
+  # cited are dropped and the drop count is reported. This is what makes the profile
+  # checkable rather than merely fluent, and it is asserted EXTERNALLY - the schema
+  # check in the bundle selftest reads the emitted json, the primitive does not
+  # self-attest.
+  every_claim_cited: true
+  uncertainty_resolves_to: omission
+
+  # The firewall. The drafter reads the rendered profile, so anything catalog-shaped
+  # that reaches the profile reaches the drafter transitively - which is the exact
+  # failure prose-author/README.md and prose-tell-scan/PROFILES.md are organised
+  # against. Not "may read, must not emit": may not read. Enforced by the tools
+  # allowlist below carrying no catalog path and no Bash.
+  reads_catalog: false
+
+  # Hashes are the harness's job (same rule as prose-reviser). A model cannot compute
+  # sha256 reliably, and a fabricated hash inside a provenance block is worse than an
+  # absent field. corpus.lock.json is produced deterministically alongside the render.
+  computes_hashes: false
+
+  refuses:
+    - fewer than 5 usable samples in corpus/human (the floor calibrate.mjs refuses at)
+    - more than 50 samples, where a whole read becomes an unseen sampling decision
+    - a corpus that is visibly more than one voice, rather than averaging them into a
+      description that fits neither
+    - any catalog, tell list, threshold file or list of words to avoid placed in its input
+    - naming a construction absent from the corpus unless paired with the positive
+      habit that occupies its place
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: green
+    tools: [Read, Grep, Glob]
+    notes: >-
+      Runs as a subagent in its own context, which is the point - the corpus is read
+      whole and must not land in the caller's history, or the drafter downstream
+      inherits the exemplars the profile exists to summarise. The tool allowlist is
+      read-only even though this primitive authors an artifact: both files are emitted
+      in the response and written by the orchestrator. No Bash, so it cannot compute
+      the hashes it is forbidden to compute, and no path that would reach a catalog.
+  cursor:
+    enforcement: partial
+    notes: >-
+      Context isolation is not guaranteed. Run it as its own request against a clean
+      thread; sharing a thread with a drafting session defeats the corpus firewall
+      silently, because the output looks identical either way.
+  codex:
+    enforcement: advisory
+    notes: >-
+      Neither the read-only tool restriction nor context isolation is enforced. Run as
+      a fresh `codex exec`. The citation contract is the recoverable half - validate
+      the emitted json against the schema check in the bundle's selftest rather than
+      trusting the prose, since an uncited observation reads exactly like a cited one.
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      If you shorten this to one rule, keep: every observation carries a sample
+      citation and a support count, and anything that cannot be cited is dropped and
+      counted. Without it the primitive degrades into fluent invention, which is its
+      one failure mode and the one nobody catches by reading the output.
