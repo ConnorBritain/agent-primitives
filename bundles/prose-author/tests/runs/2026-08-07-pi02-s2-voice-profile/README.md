@@ -3,9 +3,17 @@
 **Result: the primitive renders, refuses correctly, and holds its citation contract.
 Primitive stays HELD (`ships: false`).**
 
-**S2's exit is not met yet.** The machine half passes. The other half — *"a rendered
-profile a human reader can look at and say yes, that's how Chekhov writes"* — is the
-author's judgement on `raw/t1-chekhov.md`, and it is outstanding.
+**S2's exit is MET, 2026-08-07.** Both halves.
+
+- *Machine-verified* — schema validates, counts in the prose match the json, corpus
+  hashes match, firewall clean. 156/0 in the bundle selftest.
+- *Author-verified* — the author read `raw/t1-chekhov.md` and confirmed it reads as
+  Chekhov. That judgement is the exit criterion PI-02 wrote for this sprint, and it is
+  the one thing in this run that no test could stand in for.
+
+**This is not a ship.** The primitive stays `ships: false`. S2's exit asks whether the
+renderer produces a profile worth reading; the ship bar asks whether it does so reliably
+enough to gate a generator on, and that bar does not exist until S5.
 
 These are **authoring tests**, not acceptance. Nothing here was measured against a
 pre-registered bar; PI-02 sequences that into S5, and S2 deliberately did not write one.

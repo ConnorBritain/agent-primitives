@@ -10,7 +10,9 @@ to the drafter every time.
 rendered copy under `bundles/prose-author/agents/`, no manifest entry, and no
 marketplace entry. The gap between `primitives/` and `bundles/` is the hold.
 
-The hold is not a quality judgement. **No ship bar exists yet.** PI-02 sequences the
+The hold is not a quality judgement. **S2's exit was met on 2026-08-07** — the rendered
+Chekhov profile was read by the author and confirmed to read as Chekhov, alongside the
+machine checks. **What does not exist is a ship bar.** PI-02 sequences the
 bar into S5, pre-registered before any acceptance run, and S2 deliberately did not
 write one — a bar authored by the same person in the same sitting as the primitive is
 a bar shaped to be cleared. The authoring tests (positive, negative, stability,
@@ -101,9 +103,13 @@ An absence is worth recording and a list of absences is a tell list. The rule th
 resolves it is a phrasing rule: **an absence is recordable only paired with the
 positive habit that occupies its place.**
 
-Not *"never glosses a metaphor."* Instead: *"images are left to stand — a comparison
-is introduced and then dropped without explanation, 7/10 samples, and nothing in the
-corpus reaches for* which is to say *or an equivalent unpacking."*
+Not *"never uses a heading."* Instead: *"structure is carried inside the prose — a shift
+of subject starts a new paragraph naming the new subject, 7/10 samples — and nothing in
+the corpus breaks a piece up with a heading or a bulleted list."*
+
+(The worked example used to be about metaphor-glossing. It was replaced: that finding
+came from the prompt rather than the corpus, and both clean renders found the corpus
+does the opposite. The story is in the S2 run's `superseded/v2-fixture-leak/`.)
 
 Same information. The second one a drafter can follow; the first they can only avoid
 violating, and writing by avoiding violations is how prose gets produced that reads
@@ -140,8 +146,8 @@ by name.
 ### Re-rendering
 
 `corpus.lock.json` keys the profile to the corpus that produced it: per-file sha256,
-plus an aggregate over the sorted file list, the voice card, and the prompt's own
-hash. The prompt is in the key because a profile rendered by an older version of this
+plus an aggregate over the sorted file list, the voice card, `profile.json`, and the
+prompt's own hash — every input the renderer reads. The prompt is in the key because a profile rendered by an older version of this
 primitive is not interchangeable with one rendered by the current version — the
 cross-author run's `MANIFEST.json` already records `agent_sha256` for the same reason.
 
