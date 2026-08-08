@@ -216,11 +216,18 @@ export function corpusLock(profileDir, { agentPath = null } = {}) {
 
   const sha = (p) => (existsSync(p) ? createHash("sha256").update(readFileSync(p)).digest("hex") : null);
   const voiceCard = sha(join(profileDir, "voice.md"));
+  // profile.json is the third thing the renderer reads - it supplies the register,
+  // the medium, and the notes. It was missing from this key until a fixture's notes
+  // were rewritten and nothing reported the profile as stale. An input the renderer
+  // reads and the cache does not cover is an input that can change under a profile
+  // silently, which is the whole failure the lock exists to make impossible.
+  const profileMeta = sha(join(profileDir, "profile.json"));
   const agent = agentPath ? sha(agentPath) : null;
 
   const aggregate = createHash("sha256");
   for (const f of usable) aggregate.update(`${f.file}\0${f.sha256}\n`);
   aggregate.update(`voice.md\0${voiceCard ?? "absent"}\n`);
+  aggregate.update(`profile.json\0${profileMeta ?? "absent"}\n`);
   aggregate.update(`agent.md\0${agent ?? "absent"}\n`);
 
   return {
@@ -228,6 +235,7 @@ export function corpusLock(profileDir, { agentPath = null } = {}) {
     files: usable,
     excluded,
     voice_card_sha256: voiceCard,
+    profile_json_sha256: profileMeta,
     agent_sha256: agent,
     sample_count: usable.length,
     aggregate_sha256: aggregate.digest("hex"),

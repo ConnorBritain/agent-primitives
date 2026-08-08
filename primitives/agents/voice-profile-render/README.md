@@ -157,6 +157,14 @@ Read the profile first, as the drafter would. The question to ask is not "is thi
 accurate" — it is **"could I write from this?"** An observation you cannot act on is
 an impression that survived the citation rule by being attached to a real quote.
 
+**Check one thing no test can check for you: does any claim outrun its own count?** A
+sentence that says *never* or *every* about the corpus beside a count that is not `m/m`
+is a universal on partial evidence, and a drafter reads the word rather than the number.
+The prompt forbids it; the schema cannot see it. A regex was built for this and thrown
+away — it produced five false positives per true one, because the distinguishing feature
+is whether the universal ranges over the corpus or over something inside it, and no
+pattern match sees scope. The reasoning is in `.planning/PI-02-S2-design.md` D8.
+
 Then read the JSON, and read three fields before the rest:
 
 - **`observations_dropped`** — if this is `0`, be suspicious. It means nothing was

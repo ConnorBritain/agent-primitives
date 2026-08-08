@@ -65,9 +65,10 @@
     ],
     "excluded": [],
     "voice_card_sha256": "c6e26edc80d4443f9824198f5293875ad65fb905f87d8484862554463ae3df4c",
-    "agent_sha256": "855785226236fb07193499ed23c05ea0b9f8b933ee789e7dc073307e9ee16d14",
+    "profile_json_sha256": "2e9856d2a9573470c7cb9f6f9dcb0d631538dd1539a4ac82a038357a658ad7c9",
+    "agent_sha256": "22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d",
     "sample_count": 10,
-    "aggregate_sha256": "90e88b4516f6737a82df37bdd906490edc910a5cc26b5ae21fddcd1584c9ff28"
+    "aggregate_sha256": "dc0fbe000bd25e31a17fa8ef0d6cbf2d68f33c8c73f1a2acfc5451d2b1616a06"
   },
   "bacon-essay": {
     "schema": "voice-profile-lock/1",
@@ -135,9 +136,10 @@
     ],
     "excluded": [],
     "voice_card_sha256": "ebf54e0c8034613da950c4c44d6ca4729e427ba7378720980b1dcd8392508eaf",
-    "agent_sha256": "855785226236fb07193499ed23c05ea0b9f8b933ee789e7dc073307e9ee16d14",
+    "profile_json_sha256": "322ad7304d2b69aa6cacd66d5126a5236c1ce42291f8248e9ce1448a010943db",
+    "agent_sha256": "22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d",
     "sample_count": 10,
-    "aggregate_sha256": "30baba53a0e196badc67aaaa0e491348a52c57e9f6a89fccd0adefd1664b5669"
+    "aggregate_sha256": "0fb8bff8764735ff6cd5be17f6dfcd727705457d25b8560f678d5ab1fa472835"
   },
   "mixed-thin": {
     "schema": "voice-profile-lock/1",
@@ -174,9 +176,10 @@
       }
     ],
     "excluded": [],
-    "voice_card_sha256": "99c61017ed4c8a3603836a390a9c1d3e77be8108e91cbaf844f97363e869a4a0",
-    "agent_sha256": "855785226236fb07193499ed23c05ea0b9f8b933ee789e7dc073307e9ee16d14",
+    "voice_card_sha256": "a607391d19014eaa13097d4b7114b70dafeae3c0a36d618131711fadc7c12270",
+    "profile_json_sha256": "caec9131726fe5f358b33d8f581ebd4180026c91b6730dc14fdd6610d9ff47ca",
+    "agent_sha256": "22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d",
     "sample_count": 5,
-    "aggregate_sha256": "8c1258797919f1466091aa7520c23071154fc8cd932e045172cfc70ed4ede836"
+    "aggregate_sha256": "0822f995385872427610843af87fff8dfe36c7b835eb350148bf48ea9c3ea383"
   }
 }

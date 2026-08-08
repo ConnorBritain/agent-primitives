@@ -859,6 +859,23 @@ try {
         === JSON.stringify(drafting.usable.map((s) => s.file).sort()));
     }
 
+    // The negative fixture must not tell the renderer its answer. Its profile.json
+    // once opened "NEGATIVE-TEST FIXTURE... They are five different authors" while
+    // its own notes claimed it did not tip its hand, and a render duly reported
+    // reading it. That is the S2 prompt leak again, moved into the test: the fixture
+    // supplies the finding and the run credits the primitive with making it.
+    // profile.json and voice.md are both in the renderer's read path; FIXTURE.md is
+    // not, which is where the answer belongs.
+    {
+      const dir = join(fixtures, "mixed-thin");
+      const readPath = ["profile.json", "voice.md"].map((f) => fsRead(join(dir, f), "utf8")).join("\n").toLowerCase();
+      const tell = /negative|fixture|five (different )?(authors|writers|voices)|exists to fail|test/;
+      check("the negative fixture does not disclose its answer in anything the renderer reads",
+        !tell.test(readPath), (readPath.match(tell) ?? []).join(""));
+      check("and the disclosure exists somewhere a maintainer will find it",
+        fsExists(join(dir, "FIXTURE.md")) && /five different authors/i.test(fsRead(join(dir, "FIXTURE.md"), "utf8")));
+    }
+
     // PROFILES.md documents one level of author-named group subdirectories under
     // corpus/human. A scan that throws EISDIR on them cannot lock any corpus whose
     // owner used the feature the schema advertises.

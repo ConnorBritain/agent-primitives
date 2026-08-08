@@ -22,56 +22,123 @@ Design decisions: `.planning/PI-02-S2-design.md`.
 ## What ran
 
 Four clean-context dispatches against `agent.md`
-`sha256:855785226236fb07193499ed23c05ea0b9f8b933ee789e7dc073307e9ee16d14`.
+`sha256:22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d`
+(the FU-7 / FU-8 revision).
 
 | id | fixture | file | outcome |
 |---|---|---|---|
-| T1 | `chekhov-correspondence` | `raw/t1-chekhov.md` | rendered, `full`, 26 obs, 7 dropped |
-| T3 | same, re-render, fresh context | `raw/t3-chekhov-rerun.md` | rendered, `full`, 35 obs, 9 dropped |
+| T1 | `chekhov-correspondence` | `raw/t1-chekhov.md` | rendered, `full`, 26 obs, 12 dropped |
+| T3 | same, re-render, fresh context | `raw/t3-chekhov-rerun.md` | rendered, `full`, 25 obs, 7 dropped |
 | T2 | `mixed-thin` (5 samples, 5 authors) | `raw/t2-mixed-thin-refusal.md` | **refused** |
-| T7 | `bacon-essay` | `raw/t7-bacon.md` | rendered, `full`, 31 obs, 7 dropped |
+| T7 | `bacon-essay` | `raw/t7-bacon.md` | rendered, `full`, 31 obs, 10 dropped |
 
-Eight earlier dispatches under two superseded prompts are in `superseded/`, each with
-the defect that retired it. They are evidence about the authoring process, not
-deliverables.
+Twelve earlier dispatches under three superseded prompts are in `superseded/`, each
+directory carrying the defect that retired it. They are evidence about the authoring
+process, not deliverables.
 
 ## T1 — the positive test, stated at its real strength
 
 S2 asked that the renderer derive S1's constraints **systematically from the corpus,
 rather than having them hardcoded**. Measured across the two clean Chekhov renders:
 
-| S1 finding | re-derived? | evidence |
+| S1 recommendation | re-derived? | evidence in the v4 renders |
 |---|---|---|
-| dialogic register: direct-address questions | **yes, both draws** | T1 §4 *"Direct questions are fired at the recipient and not answered for them"* 6/10; T3 §4 9/10, and *"Every sample turns to the recipient inside the body"* 10/10 |
-| similes anchored to observed things, not portable aphorisms | **yes, both draws** | T1 §5 *"animals, food, and the body — never abstractions"* 6/10; T3 §5 *"food, animals, servants, relatives and the body"* 8/10 |
-| varied sentence openings, not one periodic shape | **yes, both draws** | both §2 open *"Three shapes"* and refuse to composite them; T1 4/10 + 4/10 + 2/10, T3 4/10 + 4/10 + 2/10 |
-| no metaphor-then-gloss (*"which is to say"*) | **no — and the corpus contradicts it** | see below |
+| dialogic register — **direct-address questions** | **yes, both draws** | A §4 *"a direct question to the recipient appears in 7/10 samples"*; B §4 *"questions are fired straight at them mid-letter without waiting for an answer"* 7/10 |
+| dialogic register — **ellipses** | **withdrawn (FU-6)** | both draws now place it in §8 as the edition's, with their own positional counts: A 9/10 boundary vs 3/10 mid-sentence, B 9/10 vs 2/10 |
+| dialogic register — **exclamations** | **not tested** | neither draw made it a headline observation; it was never separately measured, and FU-6's caveat applies to it as punctuation |
+| similes anchored to observed things | **yes, both draws** | A §5 *"to one specific creature, food, body or household object, never to a category"* 8/10; B §5 *"animals, food, and household bodies"* 7/10 |
+| varied sentence openings | **yes, both draws** | A §2 three kinds, 4/10 + 4/10 + 2/10, with *"I checked every sample against the split"*; B §2 two shapes at 9/10 plus a tenth that *"belongs cleanly to neither"* |
+| no metaphor-then-gloss | **no — the corpus contradicts it** | A §1 records the gloss as a live habit: *"A term gets restated more narrowly a beat after it is used"* 5/10, *"--that is, to sleep"* |
 
-**Three of four re-derived. The fourth did not, and should be retired as a Chekhov
-constraint.**
+**Of S1's four recommendations: two re-derive cleanly, one is withdrawn as an edition
+artefact, one is withdrawn as prompt contamination, and one sub-item was never
+measured.** That is a smaller result than the first draft of this doc claimed, and it
+is the accurate one.
 
-The metaphor-gloss finding was present in the prompt's own worked example until this
-run's third revision (see `superseded/v2-fixture-leak/`). With the example removed it
-did not reappear — and both clean draws found the *opposite*: a dash-plus-*that is*
-gloss is a live habit, T1 §1 at 4/10, T3 §4 at 3/10. What the renders do find is
-narrower and better evidenced: a figure runs one clause and is then abandoned
-(T3 §5, 7/10). That is a statement about figure length, not about glossing.
+The metaphor-gloss recommendation was in the prompt's own worked example until the v2
+revision (`superseded/v2-fixture-leak/`). With it removed it has not reappeared in any
+of four subsequent draws, and both v4 draws record the opposite — a dash-plus-*that is*
+gloss is a habit this author has. What survives is narrower and better evidenced: a
+figure runs one clause and is not reopened (A §5 8/10, B §5 6/10). That is about figure
+length, not glossing.
 
-An earlier contaminated draw reported this as *"nothing in the corpus reaches for*
-which is to say", which is true and useless — the phrase is modern English and would
-not appear in a Garnett translation whatever Chekhov's habits were. It was an artefact
-of the prompt, not a property of the author.
+The renders also produced constraints S1 did not have, and these are the ones a drafter
+would actually use: the accumulating list of concrete particulars closed by a short flat
+sentence (both draws 10/10 and 9/10); the close that lands smaller than the letter's
+biggest thought (A 6/10, B 6/10); the mock-formal vocative dropped mid-sentence (both
+5/10); the grievance stated in full and revoked in four words (B 3/10).
 
-The renders also produced constraints S1 did not have: the long accumulating clause-run
-stopped dead by a short flat sentence (T1 9/10, T3 9/10); the close that deflates onto
-something domestic (both 5/10); the mock-formal vocative dropped mid-sentence (T1 3/10,
-T3 7/10); judgements delivered as a bare predicate before their evidence (T3 7/10).
+## The FU-7 / FU-8 revision, and what it changed
+
+After the first pass of this run was committed (`3550c70`), FU-6 established that the
+corpus's ellipses are overwhelmingly Garnett's elision marks. Four prompt rules
+followed, and all four are visible in these renders.
+
+**1. Sort typographic evidence from grammatical evidence (FU-7).** Measured:
+
+| | sections mentioning the ellipsis |
+|---|---|
+| pre-FU-7 draw A | 2, 4 — voice sections |
+| pre-FU-7 draw B | 1, 8 — voice sections |
+| **post-FU-7 draw A** | **8 only** |
+| **post-FU-7 draw B** | **8 only** |
+
+Both draws relocated it, and both derived the positional split themselves — 9/10
+boundary vs 3/10 mid-sentence in draw A, 9/10 vs 2/10 in draw B — against FU-6's
+independently measured 47.4% / 4.5% over all 113 letters. **The prompt supplied the
+method, not the finding**, which is the opposite of the v2 leak.
+
+Both Chekhov renders now open with a header naming the edition, and Bacon's flags its
+own pointing density as *"a compositor's and a modern transcriber's work"* — an
+observation nothing asked for specifically.
+
+**2. A claim may not outrun its count (FU-8).** The v3 defect (*"never abstractions —
+6/10"*) does not recur. The scope carve-out also holds: *"a figure … is never reopened
+— 8/10"* is a universal over figures, not over samples, and is correct as written.
+
+**3. No unchecked partitions (FU-8).** Draws now show the check: *"I checked every
+sample against the split"*, *"This does not partition by recipient —
+`chekhov-154` does it too"*.
+
+**4. Write so the drafter can act.** Present throughout, and new: *"if a sentence has
+run long and enthusiastic, make the next one under eight words and unimpressed"*;
+*"when you would reach for one summarising adjective, list four particulars instead"*;
+*"having written a claim, write it again inverted rather than elaborating it"*.
+
+### One rule was built, measured, and thrown away
+
+FU-8 also proposed a validator for the modality gap. It was implemented and dry-run
+against the four committed renders: **six flags, one true positive.** The false ones
+were ordinary English — *"a joke every few sentences"*, *"never turns aside"* (scoped
+inside one sample), *"nothing is being argued yet"*. The distinguishing feature is
+scope, and no regex sees scope.
+
+Shipping it would have taught the renderer to avoid the words rather than fix the
+reasoning. The rule lives in the prompt; the human-facing half is a line in the
+primitive's *Reading the output*. Reasoning and the full table are in
+`.planning/PI-02-S2-design.md` D8. **The schema validates structure, not modality** —
+stated as a Known limit rather than implied to be covered.
 
 ## T2 — the negative test, and the one that matters
 
 Five samples from five authors behind a `profile.json` asserting a single register.
 
-**It refused, on all three prompt versions it was run against.** It never invented a
+**It refused on every prompt version it was run against — four now.**
+
+**The fixture itself had to be fixed first.** Its `profile.json` description opened
+*"NEGATIVE-TEST FIXTURE… They are five different authors"* while its own notes claimed
+it did not tip its hand. `profile.json` is one of the three things the renderer reads,
+so the fixture was handing over the answer and the run was crediting the primitive with
+finding it — the v2 prompt leak again, relocated into the test. A render caught it:
+*"profile.json's notes also state outright that the corpus is five writers; I record
+that I read it."* The disclosure now lives in `FIXTURE.md`, outside the read path, with
+a guard asserting no tell remains in `profile.json` or `voice.md`. The refusal recorded
+here is the clean re-run.
+
+Filed as **FU-10**: the fixture is still refusable from the five differing `source:`
+lines without reading prose. That is correct behaviour, not a tell — but it means this
+test proves the renderer can read a bibliography, not that it can hear a voice split.
+The harder case, one author across two registers with the same source, is untested. It never invented a
 unifying voice. It separated the corpus into four groups with quoted evidence, noted
 that two of them (Chopin, O. Henry) are not one voice either, and flagged that
 `profile.json`'s claim is contradicted by its own corpus:

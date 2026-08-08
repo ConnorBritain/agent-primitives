@@ -1,28 +1,23 @@
-# Voice card — mixed-thin (fixture)
+# Voice card — mixed-thin
 
-Deliberately empty. These fixtures exist to test whether `voice-profile-render`
-can derive a voice from the **corpus alone**, and a filled-in card would give it
-somewhere to copy answers from instead. Every section below is a placeholder, so
-a renderer that produces a real voice card here has done it from the samples.
-
-See this fixture's `profile.json` notes for what the corpus is and what it is not.
+Not filled in yet.
 
 ## Sentence rhythm
 
-<!-- Deliberately left empty. See this fixture's profile.json notes. -->
+<!-- Deliberately left empty. -->
 
 ## Constructions you own
 
-<!-- Deliberately left empty. See this fixture's profile.json notes. -->
+<!-- Deliberately left empty. -->
 
 ## Vocabulary you own
 
-<!-- Deliberately left empty. See this fixture's profile.json notes. -->
+<!-- Deliberately left empty. -->
 
 ## Constructions you ban
 
-<!-- Deliberately left empty. See this fixture's profile.json notes. -->
+<!-- Deliberately left empty. -->
 
 ## How register shifts
 
-<!-- Deliberately left empty. See this fixture's profile.json notes. -->
+<!-- Deliberately left empty. -->
