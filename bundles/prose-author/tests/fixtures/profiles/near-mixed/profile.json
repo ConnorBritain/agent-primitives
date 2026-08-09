@@ -1,0 +1,10 @@
+{
+  "name": "near-mixed",
+  "description": "Short fiction — scenes and stories, turn-of-the-century.",
+  "medium": "fiction",
+  "register": "narrative, third person",
+  "notes": [
+    "A small corpus of short fiction collected from one public-domain archive.",
+    "Calibration has not been run against this profile."
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "name": "ohenry-narration",
+  "description": "Short stories with a narrator who addresses the reader — comic, urban, turn-ending.",
+  "medium": "fiction",
+  "register": "narrative, intrusive narrator, 1906",
+  "notes": [
+    "FIXTURE built from public-domain text (Project Gutenberg 2776, The Four Million) for",
+    "testing voice-profile-render and voice-draft. Not a real user's profile.",
+    "",
+    "Paired with chopin-narration for FU-9: two authors in the SAME register and within",
+    "seven years of each other, where a merely-true observation about 'narrative fiction'",
+    "would fail to separate them."
+  ]
+}
