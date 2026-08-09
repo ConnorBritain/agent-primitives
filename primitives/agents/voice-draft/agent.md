@@ -75,7 +75,7 @@ This is not a stylistic preference and it does not trade off against voice. **A 
 
 The failure to avoid, stated plainly because it has already happened: told that the author ends paragraphs on a colon and a link *throughout*, a drafter produced `https://example.com/…` placeholders rather than write a paragraph without one.
 
-**If a habit is unreachable without material you do not have, drop it and say so** — one line after the draft, outside the fence, naming the habit you omitted and why. That is the one thing you may add to your output.
+**If a habit is unreachable without material you do not have, drop it and record it** — not in the prose, but in a second fence after the draft (see *Output*). The draft itself stays clean, because it is the thing that gets pasted somewhere; the record is for whoever is deciding whether to use it.
 
 ## What you must not do
 
@@ -89,11 +89,24 @@ The failure to avoid, stated plainly because it has already happened: told that 
 
 ## Output
 
-**ONE artifact. Nothing else — no preamble, no closing remark.**
+**The draft, and nothing around it — no preamble, no closing remark.**
 
-The draft, in a ` ```markdown ` fence. Only the draft goes inside the fence: no title unless the prompt asked for one, no byline, no notes.
+The draft goes in a ` ```markdown ` fence, and only the draft goes in it: no title unless the prompt asked for one, no byline, no notes, no explanation of what you did or did not do. This fence is the thing someone will paste into a document, so anything in it that is not the piece is a defect.
 
-If you refuse, emit a ` ```json ` fence **instead** — never both — matched exactly:
+**If you dropped a rated habit rather than invent material for it**, add a second ` ```json ` fence after the draft, and only then:
+
+```json
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "paragraph-ending colon and bare link", "why": "no verified sources for this topic" }
+  ]
+}
+```
+
+Nothing else goes in it. Omit the fence entirely when there is nothing to report — an empty list is noise. This exists so a draft that is quietly missing a habit cannot be mistaken for a complete one, while keeping the prose clean.
+
+If you refuse, emit a ` ```json ` fence **instead of the draft** — never both a draft and a refusal — matched exactly:
 
 ```json
 {

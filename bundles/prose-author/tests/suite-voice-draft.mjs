@@ -82,10 +82,32 @@ export async function run(t, { HERE }) {
     const r = validateDraft(refusal);
     t.check("a clean refusal validates and is marked as one", r.ok && r.refusal);
 
-    // The disjointness rule: emitting both makes the artefact's status depend on
-    // which fence the caller reads first.
+    // The disjointness rule: a draft plus a REFUSAL is contradictory — the artefact's
+    // status would depend on which fence a caller reads first.
     t.check("emitting a draft AND a refusal is rejected",
       !validateDraft({ ...ok, hadJsonFence: true, json: refusal.json }).ok);
+
+    // A draft plus an OMISSION RECORD is legal and different: it says which rated habits
+    // were dropped rather than fabricated. Moved out of the prose after the author's read
+    // — the markdown fence is what gets pasted somewhere, so anything in it that is not
+    // the piece is a defect. The record still exists so a draft quietly missing a habit
+    // cannot pass as a complete one.
+    const omitted = {
+      ...ok,
+      hadJsonFence: true,
+      json: {
+        schema: "voice-draft/1",
+        omitted: [{ habit: "colon and bare link", why: "no verified sources for this topic" }],
+      },
+    };
+    t.check("a draft plus an omission record is accepted", validateDraft(omitted).ok);
+    t.check("and it is not misread as a refusal", validateDraft(omitted).refusal === false);
+    t.check("an omission record carrying `refused` is rejected",
+      !validateDraft({ ...omitted, json: { ...omitted.json, refused: "x" } }).ok);
+    t.check("an empty omitted list is rejected — drop the fence rather than report nothing",
+      !validateDraft({ ...omitted, json: { schema: "voice-draft/1", omitted: [] } }).ok);
+    t.check("an omission entry without a reason is rejected",
+      !validateDraft({ ...omitted, json: { schema: "voice-draft/1", omitted: [{ habit: "x" }] } }).ok);
 
     t.check("a refusal carrying extra keys is rejected",
       !validateDraft({ ...refusal, json: { ...refusal.json, draft: "x" } }).ok);

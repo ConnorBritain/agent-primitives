@@ -139,8 +139,8 @@
     "voice_card_sha256": "f7b3810aff0c6736a07a4cc0a7116a37856c7646380dc15abb731c28f244ae0a",
     "profile_json_sha256": "d5fa00d877ca6d793c272ea7863535188ee4ae3f6763ebcab7b2c116b3fa7026",
     "agent": "voice-draft",
-    "agent_sha256": "4e9153ff8b182f12eb8509ac8f35b3fc7345c4646b3e4b75abf7388a6accce41",
+    "agent_sha256": "9478fbc4ece0a8af516d07aef6f8e779674cf391febc18442f08ef2d7d43b363",
     "sample_count": 10,
-    "aggregate_sha256": "f89d9ac2024b497cb1b1023d81d1a9d6d73790ae5102e6666ee1be9361e83947"
+    "aggregate_sha256": "f97e9adcd07ce48dc84d8ea289febb93a1d32a77fbe0a131cbb3416828912a78"
   }
 }

@@ -42,14 +42,39 @@ export function validateDraft(parsed) {
   if (!parsed.hadDraftFence && !parsed.hadJsonFence) {
     return { ok: false, refusal: false, errors: ["no fence emitted"] };
   }
-  // The disjointness rule. A dispatch that emits both has produced an artefact whose
-  // status is ambiguous, and the ambiguity resolves differently depending on which
-  // fence a caller happens to read first.
-  if (parsed.hadDraftFence && parsed.hadJsonFence) {
-    err("emitted both a draft and a refusal — the contract permits exactly one");
-  }
+  // The disjointness rule is about a draft and a REFUSAL, not about two fences: a draft
+  // may legally carry an omission record. What must never coexist is a piece of prose and
+  // a statement that no prose was produced, because the artefact's status would then
+  // depend on which fence a caller read first. That case is checked below, where the
+  // json's own shape says which of the two it is.
 
-  if (parsed.hadJsonFence) {
+  // A json fence means one of two different things depending on whether a draft came
+  // with it: alone it is a refusal, alongside a draft it is an omission record. Keeping
+  // the shapes disjoint is what stops a caller reading a draft off a refusal, and the
+  // draft-present branch is checked first so an omission record is never mistaken for one.
+  if (parsed.hadJsonFence && parsed.hadDraftFence) {
+    if (parsed.json === null) {
+      err(`omission record does not parse: ${parsed.jsonError}`);
+    } else {
+      const keys = Object.keys(parsed.json).sort();
+      if (parsed.json.schema !== SCHEMA_ID) err(`schema must be "${SCHEMA_ID}"`);
+      if (Object.hasOwn(parsed.json, "refused")) {
+        err("a draft and a refusal cannot both be emitted");
+      }
+      if (!Array.isArray(parsed.json.omitted) || parsed.json.omitted.length === 0) {
+        err("omitted must be a non-empty array — drop the fence entirely when nothing was omitted");
+      } else {
+        for (const [i, o] of parsed.json.omitted.entries()) {
+          if (!o || typeof o !== "object" || typeof o.habit !== "string" || typeof o.why !== "string") {
+            err(`omitted[${i}] needs a habit and a why, both strings`);
+          }
+        }
+      }
+      if (JSON.stringify(keys) !== JSON.stringify(["omitted", "schema"])) {
+        err(`omission record carries keys outside the contract: ${keys.join(", ")}`);
+      }
+    }
+  } else if (parsed.hadJsonFence) {
     if (parsed.json === null) {
       err(`json fence does not parse: ${parsed.jsonError}`);
       return { ok: false, refusal: true, errors };
