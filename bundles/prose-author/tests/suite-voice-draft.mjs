@@ -109,6 +109,30 @@ export async function run(t, { HERE }) {
     t.check("an omission entry without a reason is rejected",
       !validateDraft({ ...omitted, json: { schema: "voice-draft/1", omitted: [{ habit: "x" }] } }).ok);
 
+    // FU-18. A draft that will not fabricate a URL will still confidently date an
+    // acquisition, and a wrong date has no example.com tell — it reads exactly like a
+    // right one. The claims list moves that burden to whoever publishes, at no cost to
+    // the prose. It bites hardest on drafts a reader calls spot-on, because those are
+    // the ones nobody re-checks.
+    const claims = {
+      ...ok,
+      hadJsonFence: true,
+      json: {
+        schema: "voice-draft/1",
+        claims: [{ claim: "LastPass was taken private in 2020", where: "paragraph 6" }],
+      },
+    };
+    t.check("a draft plus a claims list is accepted", validateDraft(claims).ok);
+    t.check("omitted and claims may appear together",
+      validateDraft({ ...claims, json: { ...claims.json, omitted: omitted.json.omitted } }).ok);
+    t.check("a claim without a location is rejected — 'what to check' needs 'where'",
+      !validateDraft({ ...claims, json: { schema: "voice-draft/1", claims: [{ claim: "x" }] } }).ok);
+    t.check("an empty claims list is rejected — omit the key instead",
+      !validateDraft({ ...claims, json: { schema: "voice-draft/1", claims: [] } }).ok);
+    t.check("a record with neither list is rejected — the fence should not exist",
+      !validateDraft({ ...claims, json: { schema: "voice-draft/1" } }).ok);
+    t.check("a claims record is still not a refusal", validateDraft(claims).refusal === false);
+
     t.check("a refusal carrying extra keys is rejected",
       !validateDraft({ ...refusal, json: { ...refusal.json, draft: "x" } }).ok);
     t.check("a refusal with an empty reason is rejected",

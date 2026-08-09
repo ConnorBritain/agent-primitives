@@ -61,18 +61,27 @@ export function validateDraft(parsed) {
       if (Object.hasOwn(parsed.json, "refused")) {
         err("a draft and a refusal cannot both be emitted");
       }
-      if (!Array.isArray(parsed.json.omitted) || parsed.json.omitted.length === 0) {
-        err("omitted must be a non-empty array — drop the fence entirely when nothing was omitted");
-      } else {
-        for (const [i, o] of parsed.json.omitted.entries()) {
-          if (!o || typeof o !== "object" || typeof o.habit !== "string" || typeof o.why !== "string") {
-            err(`omitted[${i}] needs a habit and a why, both strings`);
+      // Either list may be absent; both absent means the fence should not exist.
+      const has = (k) => Object.hasOwn(parsed.json, k);
+      if (!has("omitted") && !has("claims")) {
+        err("record carries neither omitted nor claims — drop the fence entirely when there is nothing to report");
+      }
+      for (const [key, fields] of [["omitted", ["habit", "why"]], ["claims", ["claim", "where"]]]) {
+        if (!has(key)) continue;
+        const list = parsed.json[key];
+        if (!Array.isArray(list) || list.length === 0) {
+          err(`${key} must be a non-empty array — omit the key rather than reporting nothing`);
+          continue;
+        }
+        for (const [i, entry] of list.entries()) {
+          if (!entry || typeof entry !== "object" || fields.some((f) => typeof entry[f] !== "string" || !entry[f].trim())) {
+            err(`${key}[${i}] needs ${fields.join(" and ")}, both non-empty strings`);
           }
         }
       }
-      if (JSON.stringify(keys) !== JSON.stringify(["omitted", "schema"])) {
-        err(`omission record carries keys outside the contract: ${keys.join(", ")}`);
-      }
+      const allowed = ["claims", "omitted", "schema"];
+      const extra = keys.filter((k) => !allowed.includes(k));
+      if (extra.length) err(`record carries keys outside the contract: ${extra.join(", ")}`);
     }
   } else if (parsed.hadJsonFence) {
     if (parsed.json === null) {

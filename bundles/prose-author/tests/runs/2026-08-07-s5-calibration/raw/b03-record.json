@@ -1,0 +1,12 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "paragraph ends on a colon with a bare URL on the next line (rated throughout, 5-17 times per piece)", "why": "no verified sources or links for this topic; a plausible-looking URL would be fabricated" },
+    { "habit": "another writer's coinage borrowed and credited by name (rated several times per piece)", "why": "no verified attribution available; crediting a coinage to a real person without a source would be a fabricated quotation" }
+  ],
+  "claims": [
+    { "claim": "parts pairing works by matching a serial number stored in the replacement component against one recorded by the device's mainboard, so a genuine part is rejected on identity rather than function", "where": "paragraph 2" },
+    { "claim": "manufacturer-authorized repair typically restores function via a technician-side software step that re-pairs the new part", "where": "paragraph 6" },
+    { "claim": "existing right-to-repair legislation is largely framed around access to parts, tools and documentation, and does not reach software pairing locks", "where": "paragraph 9" }
+  ]
+}

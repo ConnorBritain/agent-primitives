@@ -1,0 +1,35 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "paragraph-ending colon and bare URL (rated throughout, five to seventeen times per piece)",
+      "why": "no verified links available for any of these examples; a plausible-looking URL would be a fabrication"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "\"embrace, extend, extinguish\" originated in Microsoft internal documents and surfaced publicly, including in antitrust litigation",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Eric Raymond published the Halloween Documents in 1998",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Windows 2000 shipped a Kerberos implementation with a proprietary extra field, whose specification was released under a click-through license",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Sun sued Microsoft in 1997 over its incompatible Java implementation",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Google's AMP was HTML plus Google-specific extensions, and pages served from Google's cache received placement in the top-of-results carousel",
+      "where": "paragraph 9"
+    },
+    {
+      "claim": "Lawrence Lessig is the source of \"code is law\"",
+      "where": "paragraph 10"
+    }
+  ]
+}

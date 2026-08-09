@@ -31,6 +31,17 @@ The over-application FU-13 reported does not recur, by the same instrument that 
 Deterministically, paragraph-final short-sentence rate: corpus **0.12**, pre-FU-16 draft
 **0.25**, post-FU-16 draft **0.11**.
 
+> **RETRACTED 2026-08-07 — that measure does not test this claim.** A later k=3 on the v3
+> draft had one draw raise the same complaint again: *"Every paragraph but one lands on an
+> epigram."* The measure counts **short sentences**; the critic counts **epigrams**, and
+> *"It's a hostage situation with a nice icon and a monthly invoice"* is twelve words —
+> not short, still an epigram. Length is not a proxy for rhetorical shape, so the numbers
+> above say nothing about whether the habit was over-applied. **Criterion (a)'s pass rests
+> on the three draws clearing rhythm, not on this.** The script was never checked in and
+> is not being kept. The fix that followed is a rule in `voice-draft` about reading
+> paragraph endings as a set, which explicitly says counting words will not tell you
+> whether you have done it.
+
 ## Criterion (b): FAILS
 
 | | findings | mean | verdicts |
