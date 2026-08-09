@@ -10,7 +10,10 @@
 import { mkdirSync, readdirSync, writeFileSync, existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 import { join, resolve } from "node:path";
 import { createHash } from "node:crypto";
-import { validateVoiceProfile, corpusLock, parseRender } from "./voice-profile.mjs";
+import {
+  validateVoiceProfile, corpusLock, parseRender,
+  checkFrequencyDiscipline, FREQUENCIES,
+} from "./voice-profile.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 
 export async function run(t, { tmp, HERE }) {
@@ -210,6 +213,58 @@ export async function run(t, { tmp, HERE }) {
     }
   }
 
+  t.group("voice-profile frequency — a count says how many samples, never how often");
+  {
+    // FU-16. Five consecutive profiles opened on the same observation - "a long sentence
+    // accumulates, then a short flat one lands" - each introduced as that voice's engine.
+    // A drafter read one and ended 7 of 7 paragraphs on the move, against a corpus that
+    // does it once or twice per piece. The drafter obeyed; the profile overclaimed.
+    //
+    // n/m cannot carry density, so the renderer must state it separately. These assert
+    // the documentation property, which is decidable from the text - NOT that the habit
+    // is real or the rate accurate, which only the corpus and a human can settle.
+    const good = "Sentences accumulate and are then stopped by a short flat one — 9/10 samples, "
+      + "several times per piece (`s-01`: \"...\").";
+    t.check("an observation carrying a frequency passes",
+      checkFrequencyDiscipline(good).length === 0);
+
+    const noFreq = "Sentences accumulate and are then stopped by a short flat one — 9/10 samples.";
+    t.check("a profile that states no frequency anywhere is flagged",
+      checkFrequencyDiscipline(noFreq).some((f) => f.kind === "no-frequency-anywhere"));
+
+    // The exact shape that produced the caricature.
+    const dominant = "This is the engine of this prose: a long sentence accumulates and a short "
+      + "flat one delivers the verdict — 10/10 samples, once or twice per piece.";
+    const r = checkFrequencyDiscipline(dominant);
+    t.check("claiming a habit is the engine while rating it once-or-twice is a contradiction",
+      r.some((f) => f.kind === "dominance-without-throughout"));
+    t.check("and the finding quotes the phrase that made the claim",
+      r.some((f) => f.phrase === "the engine of"));
+
+    t.check("the same claim rated `throughout` is allowed — it is then merely a claim",
+      checkFrequencyDiscipline("This is the engine of this prose — 10/10 samples, throughout.")
+        .filter((f) => f.kind === "dominance-without-throughout").length === 0);
+
+    // Scope: only sentences carrying a count are making an observation. Section 8 prose
+    // about the corpus at large is not, and flagging it would train the renderer to
+    // avoid ordinary words.
+    t.check("a dominance word in prose with no count is not flagged",
+      checkFrequencyDiscipline("Every paragraph of the source is set in the same type. Several times per piece.")
+        .filter((f) => f.kind === "dominance-without-throughout").length === 0);
+
+    t.check("the frequency vocabulary is fixed and exported, not improvised",
+      FREQUENCIES.length === 3 && FREQUENCIES.includes("throughout"));
+
+    // The detector must fire on the profiles that predate it, or it is tuned to pass.
+    {
+      const pre = resolve(HERE, "runs", "2026-08-07-fu13-period-floor", "inputs", "profiles", "doctorow-blog.md");
+      if (fsExists(pre)) {
+        t.check("it fires on the pre-FU-16 profile that produced the caricature",
+          checkFrequencyDiscipline(fsRead(pre, "utf8")).length > 0);
+      }
+    }
+  }
+
   t.group("voice-profile fixtures — provenance, and the corpus a profile is keyed to");
   {
     const fixtures = resolve(HERE, "fixtures", "profiles");
@@ -331,24 +386,40 @@ export async function run(t, { tmp, HERE }) {
     // voice-draft artefacts to their own group. Deriving the owner rather than
     // hard-coding it is what stops a second primitive silently failing the first
     // one's guards - which is exactly what happened when S3 landed.
-    const ownerOf = (name) => {
+    // A run may exercise more than one primitive - FU-16's re-render and re-drafts used
+    // voice-profile-render AND voice-draft in the same directory. Returning a SET rather
+    // than a single owner is what lets such a run declare both honestly instead of
+    // picking one and under-reporting the other.
+    const ownersOf = (name) => {
       const lockPath = join(runs, name, "corpus.lock.json");
-      if (!fsExists(lockPath)) return null;
-      const owners = [...new Set(Object.values(JSON.parse(fsRead(lockPath, "utf8"))).map((l) => l.agent))];
-      return owners.length === 1 ? owners[0] : null;
+      if (!fsExists(lockPath)) return [];
+      return [...new Set(Object.values(JSON.parse(fsRead(lockPath, "utf8")))
+        .map((l) => l.agent).filter(Boolean))];
     };
-    const profileRuns = runDirs.filter((n) => ownerOf(n) === "voice-profile-render");
+    const profileRuns = runDirs.filter((n) => ownersOf(n).includes("voice-profile-render"));
 
-    const found = profileRuns.flatMap((n) => {
+    // A run that exercises two primitives has both kinds of artefact in raw/ — FU-16's
+    // holds one re-render and three drafts. Only renders are validated here; drafts are
+    // the voice-draft suite's business. Selection is by SHAPE (a voice-profile/1 json
+    // fence) rather than by filename, so a malformed render still gets caught instead of
+    // being quietly filed as "not a render".
+    const allRaw = profileRuns.flatMap((n) => {
       const dir = join(runs, n, "raw");
       if (!fsExists(dir)) return [];
       return readdirSync(dir).filter((f) => f.endsWith(".md")).map((f) => join(dir, f));
     });
+    const isRenderShaped = (p) => /"schema"\s*:\s*"voice-profile\/1"/.test(fsRead(p, "utf8"));
+    const found = allRaw.filter(isRenderShaped);
+    const skipped = allRaw.filter((p) => !isRenderShaped(p));
+    if (skipped.length) {
+      process.stdout.write(`  note ${skipped.length} non-render artefact(s) in render runs, `
+        + `validated by their own suite: ${skipped.map((p) => p.split("/").pop()).join(", ")}\n`);
+    }
 
     t.check("at least one recorded render to validate", found.length > 0, `looked in ${runs}`);
-    t.check("every run directory declares which primitive produced it",
-      runDirs.every((n) => !fsExists(join(runs, n, "corpus.lock.json")) || ownerOf(n)),
-      runDirs.filter((n) => fsExists(join(runs, n, "corpus.lock.json")) && !ownerOf(n)).join(", "));
+    t.check("every run directory declares which primitive(s) produced it",
+      runDirs.every((n) => !fsExists(join(runs, n, "corpus.lock.json")) || ownersOf(n).length > 0),
+      runDirs.filter((n) => fsExists(join(runs, n, "corpus.lock.json")) && ownersOf(n).length === 0).join(", "));
 
     // The primitive's own spec says a stale profile is REPORTED, not silently
     // trusted. That contract has to bind its own authoring record first: a run
@@ -360,14 +431,15 @@ export async function run(t, { tmp, HERE }) {
     for (const name of runDirs) {
       const lockPath = join(runs, name, "corpus.lock.json");
       if (!fsExists(lockPath)) continue;
-      const owner = ownerOf(name);
-      if (!owner) continue;
+      const owners = ownersOf(name);
+      if (owners.length === 0) continue;
+      const locks = Object.values(JSON.parse(fsRead(lockPath, "utf8")));
+      for (const owner of owners) {
       const agentSrc = resolve(HERE, "..", "..", "..", "primitives", "agents", owner, "agent.md");
       if (!fsExists(agentSrc)) { t.check(`${name}: its declared agent ${owner} exists`, false); continue; }
       const live = createHash("sha256").update(fsRead(agentSrc)).digest("hex");
-      const locks = JSON.parse(fsRead(lockPath, "utf8"));
-      const recorded = [...new Set(Object.values(locks).map((l) => l.agent_sha256))];
-      t.check(`${name}/corpus.lock.json records exactly one prompt hash`, recorded.length === 1,
+      const recorded = [...new Set(locks.filter((l) => l.agent === owner).map((l) => l.agent_sha256))];
+      t.check(`${name}/corpus.lock.json records one ${owner} prompt hash`, recorded.length === 1,
         recorded.join(", "));
       // Drift from the prompt currently on disk is NOT a failure. A run directory is a
       // historical record: it pins what produced it, and once a prompt is revised the
@@ -385,6 +457,7 @@ export async function run(t, { tmp, HERE }) {
       if (!isCurrent) {
         process.stdout.write(`  note ${name}: historical — pins ${owner}@${recorded[0]?.slice(0, 12)},`
           + ` current is ${live.slice(0, 12)}\n`);
+      }
       }
     }
 

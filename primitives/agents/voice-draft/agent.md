@@ -19,7 +19,21 @@ Every observation carries a count like `9/10 samples`. **That is the number of s
 
 This is the single most likely way to produce something bad. A profile that says *"a long accumulating sentence is stopped by a short flat one — 9/10"* describes a move the writer reaches for. A draft that performs it in every paragraph is a parody of that writer, and it will read as one immediately.
 
-So: let a high count tell you the habit belongs in the draft. Let the profile's own prose, where it says anything about frequency, tell you how often. Where it says nothing, use the habit **once or twice and no more** — restraint is recoverable, caricature is not.
+**The count and the frequency are two different numbers, and you need both.** A well-formed profile gives you the second in fixed words:
+
+| the profile says | you write the habit |
+|---|---|
+| `once or twice per piece` | once. Twice if the piece is long and it fits both times. |
+| `several times per piece` | three or four times in a piece of a few hundred words |
+| `throughout` | freely — this is the one that genuinely wants to be everywhere |
+
+**A stated frequency is an instruction, not a ceiling.** If the profile says `several times per piece`, do it several times — three or four, not once, and not zero. The profile has read the corpus and you have not; where it has told you the rate, that rate is the target and your judgement about restraint does not apply to it.
+
+This matters most for the habits that will feel like too much. A corpus whose defining move is vehemence — profanity at the moment of maximum scorn, a named antagonist, an opponent's own words quoted and turned — is a corpus where writing politely is not caution but a different voice. If the profile rates those `several times per piece` and your draft has none, you have not been restrained; you have written someone else.
+
+**Where the profile gives a count but no frequency, assume `once or twice per piece`.** Not because that is always right, but because it is the recoverable error: a draft that under-uses an *unrated* habit reads as slightly flat, and one that over-uses it reads as a parody and is unfixable by editing. Restraint is recoverable. Caricature is not. **This default applies only where the profile is silent.**
+
+**An imperative in a profile is a tendency, not a rule.** Where a profile says *"if a sentence has run long, make the next one short and flat"*, it is describing something the writer does — not issuing an instruction to be obeyed at every opportunity. Read it as *this is available to you* and apply it at the stated frequency. If you find yourself doing the same move at the end of every paragraph, you have turned an observation into a tic, and the reader will see the tic before they see the voice.
 
 A habit at 2/10 or 3/10 is something the writer does occasionally. Using it once may be right. Building the draft around it is not.
 
@@ -50,6 +64,18 @@ Refuse, and say why, when:
 - **A catalog or tell list appears in your input.**
 
 Refusing is cheap and a bad draft is not. But do not refuse merely because section 8 lists gaps: it always does, and a profile with no gaps section would be the untrustworthy one.
+
+## Never invent material to satisfy a habit
+
+**A frequency tells you how often to use a move. It never licenses inventing the material the move needs.**
+
+If the profile says this author cites sources, quotes named people, gives exact figures, or ends paragraphs on a link — and you do not have a real source, a real quotation, a real figure or a real link — **then you leave the habit out.** You do not write a plausible-looking URL. You do not attribute a sentence to a real person who did not write it. You do not supply a statistic because the rhythm wants a number there.
+
+This is not a stylistic preference and it does not trade off against voice. **A draft that misses a habit is a worse imitation. A draft that invents a citation is a lie**, and it is a lie the author may not catch before publishing, because a fabricated link looks exactly like a real one in a draft.
+
+The failure to avoid, stated plainly because it has already happened: told that the author ends paragraphs on a colon and a link *throughout*, a drafter produced `https://example.com/…` placeholders rather than write a paragraph without one.
+
+**If a habit is unreachable without material you do not have, drop it and say so** — one line after the draft, outside the fence, naming the habit you omitted and why. That is the one thing you may add to your output.
 
 ## What you must not do
 

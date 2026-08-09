@@ -79,6 +79,35 @@ export function validateDraft(parsed) {
   return { ok: errors.length === 0, refusal: false, errors };
 }
 
+/**
+ * Placeholder and example domains. A draft containing one of these has invented a
+ * citation rather than omitted a habit.
+ */
+export const PLACEHOLDER_HOSTS = [
+  "example.com", "example.org", "example.net", "placeholder.", "yoursite.",
+  "somewhere.com", "link.here", "url.here", "domain.com", "site.com",
+];
+
+/**
+ * Fabricated-citation check.
+ *
+ * Exists because of a measured regression, not a hypothetical. FU-16 gave profiles a
+ * frequency vocabulary so a drafter would know how often to use a habit. A follow-up
+ * edit — "a stated frequency is an instruction, not a ceiling" — then pushed the drafter
+ * to honour a rate of `throughout` for a habit that needs real links. It produced
+ * `https://example.com/…` placeholders. Zero fabricated URLs before that edit, two after.
+ *
+ * A fabricated link looks exactly like a real one in a draft, so this is the failure a
+ * human reader is least likely to catch and most damaged by. Deterministic and cheap.
+ *
+ * Deliberately narrow: it catches placeholder hosts, not wrong-but-plausible URLs, which
+ * nothing offline can check. Absence of a finding is not proof the citations are real.
+ */
+export function findFabricatedCitations(draft) {
+  const urls = (draft ?? "").match(/https?:\/\/[^\s)>\]]+/g) ?? [];
+  return urls.filter((u) => PLACEHOLDER_HOSTS.some((h) => u.toLowerCase().includes(h)));
+}
+
 const words = (t) => t.toLowerCase().match(/[a-z']+/g) ?? [];
 const ngrams = (ws, n) => new Set(
   Array.from({ length: Math.max(0, ws.length - n + 1) }, (_, i) => ws.slice(i, i + n).join(" ")),

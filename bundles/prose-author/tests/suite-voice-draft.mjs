@@ -9,7 +9,7 @@
 
 import { readdirSync, existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 import { join, resolve } from "node:path";
-import { validateDraft, loadRun, corpusLeakage } from "./voice-draft.mjs";
+import { validateDraft, loadRun, corpusLeakage, findFabricatedCitations } from "./voice-draft.mjs";
 
 export async function run(t, { HERE }) {
   t.group("voice-draft — the hold, and the fixtures staying out of the prompt");
@@ -102,6 +102,33 @@ export async function run(t, { HERE }) {
     ]) {
       t.check(`a draft making ${label} is rejected`,
         !validateDraft({ hadDraftFence: true, hadJsonFence: false, draft: text }).ok);
+    }
+  }
+
+  t.group("voice-draft — a missed habit is a worse imitation; an invented citation is a lie");
+  {
+    // Measured regression, not a hypothetical. FU-16's frequency vocabulary told the
+    // drafter how often to use a habit; a follow-up edit told it a stated rate is an
+    // instruction rather than a ceiling. Handed a corpus that ends paragraphs on a link
+    // "throughout", it invented https://example.com/... placeholders. Zero fabricated
+    // URLs before that edit, two after.
+    //
+    // This is the failure a reader is least likely to catch: a fake link is
+    // indistinguishable from a real one in a draft.
+    t.check("a placeholder URL is caught",
+      findFabricatedCitations("the receipts are here:\nhttps://example.com/pw-acquisition").length === 1);
+    t.check("several are all reported, not just the first",
+      findFabricatedCitations("a https://example.com/x b https://yoursite.com/y").length === 2);
+    t.check("a real-looking URL is not flagged — this check cannot verify reachability",
+      findFabricatedCitations("https://blog.lastpass.com/posts/notice-of-recent-security-incident").length === 0);
+    t.check("prose with no URLs is not an accusation",
+      findFabricatedCitations("No links at all in this paragraph.").length === 0);
+
+    // The regression itself, pinned so it cannot silently return.
+    const v2 = resolve(HERE, "runs", "2026-08-07-fu16-frequency", "superseded", "draft-v2-fabricated-urls.txt");
+    if (fsExists(v2)) {
+      t.check("the recorded fabrication regression still reproduces from its artefact",
+        findFabricatedCitations(fsRead(v2, "utf8")).length === 2);
     }
   }
 

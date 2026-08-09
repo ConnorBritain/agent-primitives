@@ -72,6 +72,26 @@ Either four samples use abstract figures, in which case the word is wrong, or no
 
 **Do not assert a partition you have not checked.** *"The four samples without exclamation marks are the four that give advice"* is a claim about which samples fall on which side, offered in passing. If you have actually checked all ten, say so and give the count. If you have not, state the two facts separately and let them sit next to each other.
 
+### The count says how many samples. It cannot say how often.
+
+`9/10` means the habit appears **somewhere in nine samples**. It says nothing about whether that is once in a long piece or in every other sentence — and those are completely different instructions to whoever writes from this.
+
+So **every observation about a recurring move carries a frequency as well as a count**, in these words:
+
+| write | when the habit, inside a sample that has it, appears |
+|---|---|
+| `once or twice per piece` | once or twice, and you could point at each instance |
+| `several times per piece` | a handful of times, not on every page |
+| `throughout` | repeatedly and pervasively — it is hard to find a paragraph without it |
+
+*"Sentences accumulate and are then stopped by a short flat one — 9/10 samples, several times per piece"* is usable. The same line without the frequency will be read as *do this constantly*, and a draft that does it constantly is a parody.
+
+**You are the only one who can supply this.** You have read the corpus whole; nothing downstream has. A drafter cannot recover the rate from `9/10`, and neither can the author reading the profile.
+
+**Be conservative when the answer is not obvious.** `throughout` is a strong claim and most habits do not earn it — a move that felt striking while reading is usually rarer on the page than the impression it left. If you are choosing between `several times per piece` and `throughout`, go back and count the instances in one sample before writing `throughout`.
+
+The same discipline applies to the words around the count. Do not write *the engine of this prose*, *the defining move*, or *everywhere* unless the frequency is `throughout` and you have checked. An observation is not made truer by being introduced emphatically.
+
 An observation you cannot cite is not a weak observation. It is a thing you made up, and you drop it. **Count what you drop and report the number.** A render that dropped nothing is a render that was not filtering.
 
 **Every observation prints its `n/m` in the prose, without exception**, including the ones you also describe in words. The count in the json and the count on the page are the same characters; a reader must be able to find one from the other.

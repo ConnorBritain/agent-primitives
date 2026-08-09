@@ -85,6 +85,8 @@ const EVALUATE = `${SIBLING}/lib/evaluate.mjs`;
 const SCANNER = `${SIBLING}/tell-scan.mjs`;
 const FIDELITY = "bundles/prose-review/tools/fidelity-scan.mjs";
 const LOOP = "bundles/prose-author/tests/loop.mjs";
+const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
+const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 
 /**
  * A throwaway copy of the whole repo, minus the things that must not be copied.
@@ -117,6 +119,31 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  // --- frequency discipline and fabricated citations (PI-02 FU-16) ---
+  // Both guard failures are invisible in the artefact: an overclaimed profile reads
+  // like a confident one, and a fabricated URL reads like a real one.
+  {
+    name: "stop noticing dominance claims",
+    file: VPROFILE,
+    find: "  const hit = DOMINANCE_PHRASES.find((p) => lower.includes(p));",
+    with: "  const hit = undefined;",
+    guards: "a profile calling a habit the engine of a voice must state the rate that backs it",
+  },
+  {
+    name: "accept a profile that states no frequency at all",
+    file: VPROFILE,
+    find: "  if (stated.length === 0) {",
+    with: "  if (false) {",
+    guards: "a count without a rate cannot tell a drafter how often to use a habit",
+  },
+  {
+    name: "stop recognising placeholder hosts",
+    file: VDRAFT,
+    find: "  return urls.filter((u) => PLACEHOLDER_HOSTS.some((h) => u.toLowerCase().includes(h)));",
+    with: "  return [];",
+    guards: "an invented citation is caught before it reaches a reader",
+  },
+
   // --- the generate -> critique -> revise loop (PI-02 S4) ---
   // Every guard below decides whether a revision is kept. All of them fail silently:
   // the loop keeps running and the transcript still looks orderly.

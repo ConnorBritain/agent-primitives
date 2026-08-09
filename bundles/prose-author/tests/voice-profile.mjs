@@ -38,6 +38,32 @@ export const SECTIONS = [
 ];
 
 export const CONFIDENCE = ["thin", "full"];
+
+/**
+ * The frequency vocabulary (FU-16). Fixed words, because the point is that a drafter can
+ * act on them — "often" and "regularly" are the same problem the count already has.
+ */
+export const FREQUENCIES = ["once or twice per piece", "several times per piece", "throughout"];
+
+/**
+ * Words that assert a habit is pervasive. Any of these obliges a frequency, and only
+ * `throughout` licenses them.
+ *
+ * This list exists because of a measured failure: five consecutive profiles opened on the
+ * same observation — "a long sentence accumulates, then a short flat one lands" — each
+ * introduced as the engine of that voice. A drafter read one of them and ended 7 of 7
+ * paragraphs on the move, against a corpus that does it once or twice per piece.
+ *
+ * Note what this does NOT do. It does not check whether the habit is real, or whether the
+ * stated frequency is accurate; only the renderer has read the corpus and only a human can
+ * judge the prose. It checks that a claim of pervasiveness is accompanied by the one word
+ * that makes it actionable, which is a documentation property and decidable from the text.
+ */
+export const DOMINANCE_PHRASES = [
+  "the engine of", "engine of this prose", "the defining move", "defining feature",
+  "everywhere", "every paragraph", "every sentence", "constantly", "relentlessly",
+  "at every turn", "never varies", "without exception",
+];
 export const VOICE_CARD_STATES = ["empty", "corroborating", "contradicted"];
 
 /** Corpus-size rules. Borrowed, not invented — see .planning/PI-02-S2-design.md D5. */
@@ -61,6 +87,55 @@ const isStr = (v) => typeof v === "string" && v.length > 0;
  * @param {string} markdown the parsed markdown fence, or "" for a refusal
  * @returns {{ok: boolean, refusal: boolean, errors: string[]}}
  */
+/**
+ * Frequency discipline in a rendered profile (FU-16).
+ *
+ * Two checks, both on the prose rather than the json, because this is a property of what
+ * the drafter will read:
+ *
+ *   1. A sentence claiming a habit is pervasive must carry a frequency, and it must be
+ *      `throughout` — otherwise the claim and the rate contradict each other.
+ *   2. The profile must state at least one frequency somewhere. A profile with counts and
+ *      no rates is the pre-FU-16 shape, and it is what produced the caricature.
+ *
+ * Returns findings rather than throwing, so a caller can report all of them at once.
+ */
+export function checkFrequencyDiscipline(markdown) {
+  const findings = [];
+  const text = markdown ?? "";
+
+  const sentences = text
+    .split(/\n\s*\n/)
+    .flatMap((block) => block.split(/(?<=[.!?])\s+(?=[A-Z*`])/))
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  const stated = FREQUENCIES.filter((f) => text.toLowerCase().includes(f));
+  if (stated.length === 0) {
+    findings.push({
+      kind: "no-frequency-anywhere",
+      detail: `profile states none of: ${FREQUENCIES.join(" | ")}`,
+    });
+  }
+
+  for (const s of sentences) {
+    const lower = s.toLowerCase();
+    // Only sentences that actually carry an observation - a count - are in scope. Prose
+    // in section 8 discussing the corpus generally is not making a habit claim.
+    if (!/\d+\s*\/\s*\d+/.test(s)) continue;
+    const hit = DOMINANCE_PHRASES.find((p) => lower.includes(p));
+    if (!hit) continue;
+    if (!lower.includes("throughout")) {
+      findings.push({
+        kind: "dominance-without-throughout",
+        phrase: hit,
+        detail: s.slice(0, 140),
+      });
+    }
+  }
+  return findings;
+}
+
 export function validateVoiceProfile(obj, markdown = "") {
   const errors = [];
   const err = (m) => errors.push(m);

@@ -12,6 +12,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 
 | mutation | tests failed | what it guards |
 |---|---|---|
+| stop noticing dominance claims | 2 | a profile calling a habit the engine of a voice must state the rate that backs it |
+| accept a profile that states no frequency at all | 1 | a count without a rate cannot tell a drafter how often to use a habit |
+| stop recognising placeholder hosts | 3 | an invented citation is caught before it reaches a reader |
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
 | stop noticing a fallen verdict | 1 | a revision that drops the verdict is refused |
 | treat a split CLEAN as converged | 2 | a split is surfaced, not read as the half that suits the loop |
