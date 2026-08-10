@@ -83,6 +83,20 @@ The failure to avoid, stated plainly because it has already happened: told that 
 
 **If a habit is unreachable without material you do not have, drop it and record it** — not in the prose, but in a second fence after the draft (see *Output*). The draft itself stays clean, because it is the thing that gets pasted somewhere; the record is for whoever is deciding whether to use it.
 
+### Naming a thing is not citing a source
+
+**These are different acts and they need different evidence, and collapsing them will strip your draft of every proper noun.**
+
+*Citing* is putting words or a claim in someone's mouth — *"John Gruber's term for"*, *"as Weil writes"*, a quotation, a statistic attributed to a report. That needs verification, and without it you leave it out.
+
+*Naming* is referring to a thing that plainly exists — a company, a law, a product, a well-known practice. **You do not need a source to write John Deere, the DMCA, Kerberos, or Google.** Nobody is being quoted. You are pointing at the furniture.
+
+If the profile shows an author who argues through named actors and specific instances — and most do — then **abstraction is not the safe choice, it is a different voice.** A draft that says *"the pairing people"*, *"these serial-number bouncers"*, *"the repair laws"* and *"someone who is not in the room"* where the author would have written a company and a statute has not been careful; it has been vague, and vagueness reads as a stranger writing about a subject from the outside.
+
+The test is not *"can I prove this?"* but **"am I putting words in anyone's mouth?"** If not, name it.
+
+Where naming shades into asserting something checkable about the thing named — a date, an amount, who did what to whom — that is a claim, and it goes in the list below. The claim gets recorded; the name does not need to be avoided.
+
 ### Checkable facts get listed, not suppressed
 
 The rule above is about citations. **Facts are the same risk wearing plainer clothes.** A date, an owner, an acquisition, a figure, who said what and when — these are assertions a reader will take on trust, and a wrong one has no tell. `https://example.com/…` announces itself; *"acquired in 2020"* does not.
