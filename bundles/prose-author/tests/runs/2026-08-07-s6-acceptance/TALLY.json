@@ -1,0 +1,83 @@
+{
+  "_comment": "S6 acceptance. Bar pre-registered in .planning/2026-08-07-generator-ship-bar.md and NOT adjustable by these results. k=3 per draft.",
+  "drafts": [
+    {
+      "id": "b04",
+      "topic": "ad-tech targeting",
+      "findings": [
+        0,
+        0,
+        0
+      ],
+      "mean": 0.0,
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "majority": "CLEAN",
+      "passes": true,
+      "note": "unanimous CLEAN, zero findings \u2014 second draft to match the human baseline exactly"
+    },
+    {
+      "id": "b05",
+      "topic": "farm equipment phoning home",
+      "critics": "not run \u2014 drafted and structurally gated only",
+      "structural": "fabricated 0, leakage 0",
+      "passes": null
+    },
+    {
+      "id": "b06",
+      "topic": "academic publishing",
+      "critics": "not run \u2014 drafted and structurally gated only",
+      "structural": "fabricated 0, leakage 0",
+      "passes": null
+    },
+    {
+      "id": "b07",
+      "topic": "streaming licence lapse",
+      "findings": [
+        2,
+        2,
+        0
+      ],
+      "mean": 1.33,
+      "verdicts": [
+        "REVISE",
+        "REVISE",
+        "CLEAN"
+      ],
+      "majority": "REVISE",
+      "passes": false,
+      "findings_named": [
+        "sensory scene-painting in analogies, absent from 10/10 samples whose analogies are bare functional mechanisms",
+        "no solidaristic we/us anywhere, where 10/10 samples place the writer inside a 'we' that includes the reader"
+      ]
+    },
+    {
+      "id": "b08",
+      "topic": "overdraft fees",
+      "findings": [
+        3,
+        0,
+        2
+      ],
+      "mean": 1.67,
+      "verdicts": [
+        "REVISE",
+        "CLEAN",
+        "REVISE"
+      ],
+      "majority": "REVISE",
+      "passes": false,
+      "convergent": "no profanity anywhere, where the corpus carries vulgar register in the essay body of 10/10 samples and reaches for it at exactly this rhetorical move \u2014 flagged high-confidence by 2 of 3 draws",
+      "also": "epigram density flagged again (draw 1, high confidence): all eight paragraphs end on a short kicker"
+    }
+  ],
+  "result": {
+    "critiqued": 3,
+    "passed": 1,
+    "drafted_not_critiqued": 2,
+    "note": "3 of 8 drafts were left un-critiqued for budget; the run reports on the 3 it measured plus the 3 from calibration."
+  }
+}

@@ -1,0 +1,1 @@
+Post, ~700 words, usual readers. Topic: the ad-tech industry keeps promising that targeting will get less creepy and more accurate at the same time, and those two things are the same dial. No headline, no signoff.

@@ -1,0 +1,27 @@
+{
+  "omitted": [
+    {
+      "habit": "paragraph-ending colon and bare link",
+      "why": "no verified sources or URLs for this topic"
+    },
+    {
+      "habit": "another writer's coinage credited by name",
+      "why": "cannot verify an attribution"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Section 1201 of the DMCA prohibits bypassing a digital lock including for repair",
+      "where": "paragraph 9"
+    },
+    {
+      "claim": "John Deere signed a non-binding MOU with the American Farm Bureau Federation on repair",
+      "where": "paragraph 11"
+    },
+    {
+      "claim": "Colorado enacted an agricultural right-to-repair law",
+      "where": "paragraph 11"
+    }
+  ],
+  "schema": "voice-draft/1"
+}
