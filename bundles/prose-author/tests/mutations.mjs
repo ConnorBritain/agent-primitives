@@ -87,6 +87,8 @@ const FIDELITY = "bundles/prose-review/tools/fidelity-scan.mjs";
 const LOOP = "bundles/prose-author/tests/loop.mjs";
 const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
+const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
+const FGUARD = "bundles/prose-author/tests/fixture-guard.mjs";
 
 /**
  * A throwaway copy of the whole repo, minus the things that must not be copied.
@@ -377,6 +379,67 @@ export const MUTATIONS = [
     find: "  const lcs = lcsLength(a, b);\n  return round((b.length - lcs) / b.length, 4);",
     with: "  return 1;",
     guards: "edit_fraction is computed from a diff, never asserted",
+  },
+
+  // --- habit rates and the fixture guard (PI-02 FU-12 / FU-19) ---
+  // The rate screen is the only instrument comparing a draft to the corpus, and the
+  // fixture guard is what stops a prompt handing a primitive its own findings. Both
+  // fail silently: a broken screen reports in-band, a broken guard reports clean.
+  {
+    name: "let an open suffix swallow coinages in the profanity pattern",
+    file: RATES,
+    find: "|dick|dicks|prick|pricks|",
+    with: "|dick\\w*|prick\\w*|",
+    guards: "a coined term built on a rude root is not counted as the habit it resembles",
+  },
+  {
+    name: "measure rates over the whole file instead of the essay body",
+    file: RATES,
+    find: "  const first = lines.findIndex((l) => /\\(permalink\\)\\s*$/.test(l));",
+    with: "  const first = -1;",
+    guards: "site boilerplate is excluded from a rate the profile will quote",
+  },
+  {
+    name: "let a ratio breach alone become a verdict",
+    file: RATES,
+    find: "  if (absDeviation >= floor) {",
+    with: "  if (true) {",
+    guards: "one extra instance in a short draft is not reported as caricature",
+  },
+  {
+    name: "scan the corpus directly instead of delegating to the drafter's reader",
+    file: RATES,
+    find: "  const { usable } = readSamples(humanDir, { requireAttestation: true });",
+    with: "  const { usable } = readSamples(humanDir, { requireAttestation: false });",
+    guards: "rates are measured over the same attested samples the drafter is shown",
+  },
+  {
+    name: "measure an undelimited corpus without saying so",
+    file: RATES,
+    find: "  if (first === -1) return { body: body.trim(), extraction: \"whole-file\" };",
+    with: "  if (first === -1) return { body: body.trim(), extraction: \"permalink-delimited\" };",
+    guards: "a corpus measured whole cannot report itself as cleanly delimited",
+  },
+  {
+    name: "let the solidarity pattern match inside longer words",
+    file: RATES,
+    find: "  solidarity: /\\b(we|us|our|ours|we're|we've|we'd|we'll)\\b/gi,",
+    with: "  solidarity: /(we|us|our|ours)/gi,",
+    guards: "the habit five drafts are deficient in is not inflated by substring hits",
+  },
+  {
+    name: "stop deriving author tokens from corpus frontmatter",
+    file: FGUARD,
+    find: "        if (tok.length >= MIN_TOKEN) tokens.add(tok.toLowerCase());",
+    with: "        if (false) tokens.add(tok.toLowerCase());",
+    guards: "a prompt naming an author by any part of their name is caught, not just the surname",
+  },
+  {
+    name: "let a not-author-named exemption go stale",
+    file: FGUARD,
+    find: "  return Object.keys(NOT_AUTHOR_NAMED).filter((n) => !present.has(n));",
+    with: "  return [];",
+    guards: "an exemption that no longer matches a fixture cannot silently disable a check",
   },
 ];
 

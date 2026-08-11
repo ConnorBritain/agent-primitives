@@ -10,6 +10,7 @@
 import { readdirSync, existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 import { join, resolve } from "node:path";
 import { validateDraft, loadRun, corpusLeakage, findFabricatedCitations } from "./voice-draft.mjs";
+import { fixtureGuards, staleExemptions } from "./fixture-guard.mjs";
 
 export async function run(t, { HERE }) {
   t.group("voice-draft — the hold, and the fixtures staying out of the prompt");
@@ -50,14 +51,15 @@ export async function run(t, { HERE }) {
       // with making.
       const prompt = src.toLowerCase();
       const fixtures = resolve(HERE, "fixtures", "profiles");
-      for (const name of fsExists(fixtures)
-        ? readdirSync(fixtures, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
-        : []) {
+
+      t.check("voice-draft: no fixture claims a not-author-named exemption it no longer needs",
+        staleExemptions(fixtures).length === 0, staleExemptions(fixtures).join(", "));
+
+      for (const { fixture: name, tokens } of fixtureGuards(fixtures)) {
         t.check(`voice-draft prompt does not name the ${name} fixture`, !prompt.includes(name.toLowerCase()));
-        const surname = name.split("-")[0];
-        if (surname.length > 4) {
-          t.check(`voice-draft prompt does not name the ${surname} corpus`, !prompt.includes(surname));
-        }
+        const leakedTokens = tokens.filter((tok) => prompt.includes(tok));
+        t.check(`voice-draft prompt names no author of the ${name} corpus`,
+          leakedTokens.length === 0, leakedTokens.join(", "));
       }
 
       if (shipped && fsExists(rendered)) {

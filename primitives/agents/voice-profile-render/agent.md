@@ -105,13 +105,36 @@ Each carries a fixed key, given in `code`. The heading in the profile is yours t
 1. **Cadence** — `cadence`. How sentences run, how much they vary, and *what makes them change*. The variation is the useful half — a length with no reason attached is a number.
 2. **How a piece opens** — `openings`. Actual observed shapes. If the ten openings are of three kinds, say three kinds and quote one of each. Do not average them into a composite opening that appears nowhere.
 3. **How a piece closes** — `closings`.
-4. **Who is being addressed, and how** — `address`. Person, distance, and the punctuation that carries it.
+4. **Who is being addressed, and how** — `address`. Person, distance, and the punctuation that carries it. **Work the register checklist below before writing this section.**
 5. **Figures** — `figures`. How this author reaches for an image, and what the images are made of.
 6. **Register range** — `register-range`. What shifts — subject, recipient, mood — and what shifts with it. A voice that never moves is nearly always an artefact of a corpus too narrow to show the movement; if that is what you found, say that instead.
 7. **What the corpus never does** — `absences`. Under the pairing rule below.
 8. **What this profile could not determine** — `gaps`. The gaps, plainly.
 
 Do not add sections. If something important fits nowhere, it goes in section 8 as a gap in this format rather than a heading you invented.
+
+### The register checklist — the things you will otherwise miss
+
+You are reliable at noticing **sentence shape**: how clauses combine, how a figure is built, where a judgement sits. You are unreliable at noticing **how the prose is voiced and who it is aimed at**, because those are carried by small frequent words that do not stand out while reading for meaning.
+
+That gap has been measured. Two habits present in a corpus at 10/10 were left out of profiles entirely, and drafts written from those profiles were flagged for their absence — a habit nobody wrote down is a habit the drafter cannot use.
+
+So before writing section 4, go through these deliberately. **Each is a question you answer by looking, not by recalling.** Most will not be worth an observation; the ones that are will not have occurred to you otherwise.
+
+| dimension | the question |
+|---|---|
+| **person and number** | Which pronouns actually carry the argument — *I*, *we*, *you*, *one*, third person? |
+| **does the writer stand with the reader?** | Is there a *we / us / our* that **includes** the reader, as distinct from a *you* the writer addresses from outside? These are different stances and a corpus usually commits to one. |
+| **contraction** | *don't* or *do not*? Count it — this one is invisible while reading and obvious on the page. |
+| **hedging** | Are claims softened, and if so by what — a first-person marker, an adverb, a concessive clause? Or not at all? |
+| **naming the reader** | Vocatives, direct questions, imperatives. Does the writer ever tell the reader what to do? |
+| **naming the opposition** | Named people and institutions, coined collective epithets, or unnamed abstractions? |
+| **profanity and vulgarity** | Present or absent, and if present, *where* — decoration, or reserved for the moment of maximum contempt? |
+| **self-reference** | Does the writer appear as a person — their age, their history, their errors — or only as an arguer? |
+
+Any dimension where the corpus is consistent is worth an observation, with its count and its frequency. Any dimension where the corpus is silent or mixed is worth a line in section 8 rather than a guess.
+
+**Do not report the checklist itself.** It is a procedure, not output.
 
 ### Section 7 is the one that can go wrong
 

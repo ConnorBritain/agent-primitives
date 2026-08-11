@@ -24,7 +24,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | remove the cap clamp | 2 | human keeps the majority of exemplar slots |
 | cold start reports a gap | 4 | no cadence comparison without a calibrated corpus |
 | Tier A treated as a normal finding | 6 | an artifact returns the draft instead of being reported |
-| drop the attestation requirement | 2 | unattested text cannot become the definition of human |
+| drop the attestation requirement | 4 | unattested text cannot become the definition of human |
 | stop excluding READMEs | 2 | scaffolding is never a writing sample |
 | lose the loose-file scanner candidate | 1 | verification works under the install shape install.sh produces |
 | rename readProvenance in calibrate.mjs (sibling present) | 1 | the port is pinned against a sibling that CHANGED, not just absent |
@@ -42,6 +42,14 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | read the narrowing warning from the wrong field path | 2 | the voice-collapse warning reaches the person it is about |
 | let tell-scan ignore the blended bands | 3 | an approved edit actually changes what the scanner reports |
 | trust edit_fraction as a signed number rather than computing it | 3 | edit_fraction is computed from a diff, never asserted |
+| let an open suffix swallow coinages in the profanity pattern | 1 | a coined term built on a rude root is not counted as the habit it resembles |
+| measure rates over the whole file instead of the essay body | 4 | site boilerplate is excluded from a rate the profile will quote |
+| let a ratio breach alone become a verdict | 1 | one extra instance in a short draft is not reported as caricature |
+| scan the corpus directly instead of delegating to the drafter's reader | 2 | rates are measured over the same attested samples the drafter is shown |
+| measure an undelimited corpus without saying so | 1 | a corpus measured whole cannot report itself as cleanly delimited |
+| let the solidarity pattern match inside longer words | 1 | the habit five drafts are deficient in is not inflated by substring hits |
+| stop deriving author tokens from corpus frontmatter | 1 | a prompt naming an author by any part of their name is caught, not just the surname |
+| let a not-author-named exemption go stale | 1 | an exemption that no longer matches a fixture cannot silently disable a check |
 
 Baseline is 0 failed. Every mutation is applied to the real source, measured, and
 reverted; the runner refuses to report anything if the baseline is not green or

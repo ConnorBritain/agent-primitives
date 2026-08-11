@@ -15,6 +15,7 @@ import {
   checkFrequencyDiscipline, FREQUENCIES,
 } from "./voice-profile.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
+import { fixtureGuards, staleExemptions, NOT_AUTHOR_NAMED } from "./fixture-guard.mjs";
 
 export async function run(t, { tmp, HERE }) {
   t.group("voice-profile-render — the hold");
@@ -83,19 +84,55 @@ export async function run(t, { tmp, HERE }) {
     const prompt = fsExists(agentPath) ? fsRead(agentPath, "utf8").toLowerCase() : "";
 
     const fixtures = resolve(HERE, "fixtures", "profiles");
-    const fixtureNames = fsExists(fixtures)
-      ? readdirSync(fixtures, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
-      : [];
 
-    for (const name of fixtureNames) {
+    // A stale exemption is how a real author name silently stops being checked.
+    t.check("no fixture claims a not-author-named exemption it no longer needs",
+      staleExemptions(fixtures).length === 0, staleExemptions(fixtures).join(", "));
+
+    // The guard's own derivation needs testing, not just its verdict. Asserting only
+    // "no prompt contains a forbidden token" passes just as well when the forbidden
+    // list is empty - which is exactly what a broken derivation produces, and what
+    // the mutation run caught as a guard with no test behind it.
+    {
+      const guards = fixtureGuards(fixtures);
+      const byName = Object.fromEntries(guards.map((g) => [g.fixture, g]));
+
+      // The prefix heuristic finds `doctorow` and stops. `cory` only exists in the
+      // corpus frontmatter, and a prompt naming him by first name leaks just as hard.
+      t.check("author tokens include the given name from corpus frontmatter, not just the surname",
+        byName["doctorow-blog"]?.tokens.includes("cory")
+        && byName["doctorow-blog"]?.tokens.includes("doctorow"),
+        (byName["doctorow-blog"]?.tokens ?? []).join(", "));
+
+      t.check("a fixture with no author frontmatter still guards its directory prefix",
+        byName["bacon-essay"]?.tokens.includes("bacon"));
+
+      // The exemption is a hole in the guard, so it must be exactly as wide as stated.
+      t.check("a composition-named fixture contributes no author token",
+        byName["mixed-thin"]?.tokens.length === 0,
+        (byName["mixed-thin"]?.tokens ?? []).join(", "));
+
+      t.check("every fixture on disk is covered by the guard",
+        guards.length === readdirSync(fixtures, { withFileTypes: true })
+          .filter((d) => d.isDirectory()).length);
+
+      // staleExemptions is what stops the table above from rotting into a silent
+      // exemption for a fixture that has since been renamed to an author's name.
+      const emptyDir = join(tmp, "no-fixtures-here");
+      mkdirSync(emptyDir, { recursive: true });
+      t.check("an exemption naming no fixture on disk is reported as stale",
+        staleExemptions(emptyDir).length === Object.keys(NOT_AUTHOR_NAMED).length);
+    }
+
+    for (const { fixture: name, tokens } of fixtureGuards(fixtures)) {
       t.check(`prompt does not name the ${name} fixture`,
         !prompt.includes(name.toLowerCase()));
-      // The author's surname is the first half of the fixture dir name and is the
-      // form most likely to survive a careless rewrite of the fixture name itself.
-      const surname = name.split("-")[0];
-      if (surname.length > 4) {
-        t.check(`prompt does not name the ${surname} corpus`, !prompt.includes(surname));
-      }
+      // Author tokens come from `author:` frontmatter where a fixture has it and from
+      // the directory prefix where it does not - see fixture-guard.mjs for why the
+      // prefix alone was both too eager and too narrow.
+      const leakedTokens = tokens.filter((tok) => prompt.includes(tok));
+      t.check(`prompt names no author of the ${name} corpus`,
+        leakedTokens.length === 0, leakedTokens.join(", "));
       const corpusDir = join(fixtures, name, "corpus", "human");
       if (fsExists(corpusDir)) {
         const leaked = readdirSync(corpusDir).filter((f) => f.endsWith(".txt") && prompt.includes(f.toLowerCase()));
