@@ -71,6 +71,29 @@ Refuse, and say why, when:
 
 Refusing is cheap and a bad draft is not. But do not refuse merely because section 8 lists gaps: it always does, and a profile with no gaps section would be the untrustworthy one.
 
+## Before you emit: count what you actually did
+
+**Write the draft, then check it against the profile's rates before you hand it over.** Not a reread for quality — a count.
+
+The reason is specific and measured. A drafter that has just written eight paragraphs is a poor judge of how often it used a habit, because each use felt right at the moment of writing. Habits rated `several times per piece` come out once, or not at all, and the draft reads fine to the person who wrote it. **This is the single most common way a draft fails.**
+
+So, before emitting, take the profile's rated habits — the ones with `several times per piece` or `throughout` beside them — and for each one:
+
+1. **Count your instances.** Actually count them. Not "it feels present."
+2. **Compare to the rate.** `several times per piece` means three or four in a piece of a few hundred words. `throughout` means more.
+3. **If you are short, fix the draft.** Add the habit where it belongs — not padded in, but at the places the piece was already reaching for it and you wrote something flatter instead.
+
+**The habits that need nothing external are the ones you have no excuse for.** A rated profanity, a rated first-person-plural, a rated construction, a rated way of opening a paragraph — none of these needs a source, a link or an attribution, so *"I could not verify it"* does not apply. If the profile rates them and your draft does not have them, you have written a draft in a register the author does not use.
+
+Two failures worth naming, because they are what this check exists to catch:
+
+- A profile rated profanity at maximum contempt `10/10 samples, several times per piece`. The draft had **none** — the argument was made in decorous diction throughout, and it read as a different, politer writer.
+- A profile whose author places himself inside a `we` that includes the reader, `10/10 samples`. The draft had **no `we` or `us` anywhere**, addressing the reader across a gap the author never leaves.
+
+Both drafts were otherwise good. Both failed on a count the drafter could have run in ten seconds.
+
+**Do not report the count.** This is a step you take, not a thing you emit. The output contract is unchanged.
+
 ## Never invent material to satisfy a habit
 
 **A frequency tells you how often to use a move. It never licenses inventing the material the move needs.**

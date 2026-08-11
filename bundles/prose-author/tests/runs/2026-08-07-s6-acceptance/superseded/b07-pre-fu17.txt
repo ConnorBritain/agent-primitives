@@ -1,0 +1,21 @@
+You didn't buy that show.
+
+You paid for it. There was a button, and the button said BUY, in the imperative, in a typeface some designer was paid to make reassuring, and beside it was a number with a decimal point in it, and when you clicked, a receipt landed in your inbox with a date and a total and a line item — all the furniture of a purchase, every stick of it. Then one Tuesday the tile was gone out of your library. A licensing deal lapsed.
+
+Nothing broke. No drive failed, no server caught fire, nobody at the company fat-fingered a database. The tile went away because a contract between two firms you have never heard of, containing terms you will never see, reached the end of its term.
+
+Picture doing this with a couch. You buy the couch, you get it up the stairs, you take the plastic off, you spend a year putting your body on it every night. Then two men arrive with a dolly and explain that the mill that makes the fabric has ended its arrangement with the showroom, and the showroom's right to have sold you that pattern has therefore expired, and they are very sorry, and here is a credit toward a different couch.
+
+You would not stand there nodding. You would ask which of them had your money, and they would each point at the other, and the men with the dolly would keep loading. Nobody in this story is a thief. The showroom sold in good faith, the mill withdrew in good faith, the delivery guys are hourly, and at the end of it you are sitting on the floor.
+
+That's the arrangement, and in the streaming version there are no stairs and no dolly, so it costs them nothing and you don't even get to watch it happen. Sony told PlayStation owners in 2023 that their purchased Discovery shows were going away because the rights had run out; a fresh deal turned up and the tiles came back, which everyone reported as good news. It was not good news. It was a demonstration.
+
+The lock is what makes it stick. The file is encrypted, and breaking the encryption is illegal under section 1201 of the DMCA — not the copying, the breaking — so the one act that would let you keep the thing you paid for is the one act Congress made a crime. This is Bruce Schneier's feudal security, where your safety is real but conditional, granted by a lord who can revoke it, and the price of the walls is that you don't hold the keys to your own gate. Aaron Perzanowski and Jason Schultz wrote a whole book called The End of Ownership about this, and the title is not a metaphor.
+
+So ask the clearance goblins the question they hate: if it's a purchase, why can it end? And if it's a rental, why is there no return date anywhere on the receipt, and why does it cost four times what the rental costs, and why does the button not say RENT? They can't answer that, because both answers cost them money. A purchase that can lapse is a rental with a fucking hostage fee attached.
+
+I think this is why the industry fought so hard over one word in California. AB 2426 says a storefront can't use "buy" or "purchase" for a licensed digital good without telling you plainly that you're getting a revocable license. That's it. That's the whole reform — a (very, very modest) demand that the verb match the transaction — and the terms-of-service clergy treated it like an expropriation, which tells you exactly what the verb was worth to them.
+
+None of this requires anyone to be a villain. The rights-window men are just doing rights windows. But a business model that depends on you misreading a four-letter word is not a business model, it's a fucking con with a legal department, and the tell is that it dies the instant the word is corrected.
+
+They call it your library. A library is the room where the thing you have stays where you put it. What they've sold you is a seat in someone else's reading room, on a card that can be cancelled, in a building that can be sold — and the only purchase that ever completed here was theirs, when they bought your assumption that "buy" means buy, and got it for nothing.
