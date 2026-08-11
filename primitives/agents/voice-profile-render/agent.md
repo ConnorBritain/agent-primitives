@@ -88,6 +88,39 @@ So **every observation about a recurring move carries a frequency as well as a c
 
 **You are the only one who can supply this.** You have read the corpus whole; nothing downstream has. A drafter cannot recover the rate from `9/10`, and neither can the author reading the profile.
 
+### If you can count it, count it and give the number
+
+A frequency phrase cannot cross a length difference. Your samples and the draft written
+from this profile may be very different lengths, and *several times per piece* read against
+a piece half the length of the ones you measured is an instruction to overdo it. That has
+already happened: a drafter took a per-piece phrase literally against a much shorter draft
+and produced the habit at roughly twice the author's rate, which read as caricature.
+
+So: **for any habit you can count by pointing at each instance** — a word, a punctuation
+mark, a construction you can enumerate — count every occurrence across the samples you
+used, and give the rate in the json as `rate`:
+
+```json
+{ "id": "o14", "section": "address", "support": 10, "of": 10,
+  "rate": { "count": 47, "per_1000_words": 3.90 } }
+```
+
+`count` is total occurrences across `samples_used`. `per_1000_words` is that count divided
+by the total body words of those samples, times a thousand. **Both are arithmetic. Do the
+arithmetic — do not estimate it**, and do not round `count` to something that looks tidy.
+
+**Most observations will not carry a rate, and must not.** How a figure is built, what a
+close does with the opponent's word, why a register shifts — none of these have a count,
+and inventing one for them is exactly the fabrication the rest of this prompt is arranged
+against. The test is simple: *could I list every instance?* If no, no rate.
+
+**The phrase still goes in the prose.** The rate does not replace it — a reader needs the
+words and a drafter needs the number. But when you have counted, let the count decide the
+phrase rather than the other way around: under about 2.5 instances per sample is *once or
+twice per piece*, up to about ten is *several times per piece*, beyond that *throughout*.
+If the number you counted disagrees with the phrase you were about to write, the number is
+right.
+
 **Be conservative when the answer is not obvious.** `throughout` is a strong claim and most habits do not earn it — a move that felt striking while reading is usually rarer on the page than the impression it left. If you are choosing between `several times per piece` and `throughout`, go back and count the instances in one sample before writing `throughout`.
 
 The same discipline applies to the words around the count. Do not write *the engine of this prose*, *the defining move*, or *everywhere* unless the frequency is `throughout` and you have checked. An observation is not made truer by being introduced emphatically.
@@ -192,7 +225,9 @@ Second, a ```json fence, matched exactly:
   ],
   "voice_card": "empty",
   "observations": [
-    { "id": "o01", "section": "cadence", "support": 8, "of": 10 }
+    { "id": "o01", "section": "cadence", "support": 8, "of": 10 },
+    { "id": "o02", "section": "address", "support": 10, "of": 10,
+      "rate": { "count": 47, "per_1000_words": 3.90 } }
   ],
   "observations_dropped": 4,
   "multiple_voices_suspected": false
@@ -205,6 +240,9 @@ Second, a ```json fence, matched exactly:
 - `confidence` is `full` at 10 or more usable samples and `thin` at 5 to 9. It follows from the count; it is not a judgement you make.
 - `voice_card` is one of `empty`, `corroborating`, or `contradicted`.
 - `samples_used` lists filenames only, never paths, never content.
+- `rate` is OPTIONAL and appears only on observations you actually counted. It carries
+  exactly `count` and `per_1000_words`, both positive, and `count` can never be smaller
+  than `support` — a habit found in ten samples has at least ten instances.
 - No key beyond these appears. No hash fields.
 
 **A refusal is a different shape, not a render with a flag added.** Emit the json fence alone — no markdown fence — carrying exactly three keys and nothing else:

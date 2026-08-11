@@ -406,6 +406,37 @@ export const MUTATIONS = [
     with: "  if (true) {",
     guards: "one extra instance in a short draft is not reported as caricature",
   },
+  // --- renderer-emitted rates (PI-02 FU-19 option 3) ---
+  // A rate in a profile is an instruction a drafter acts on numerically. Every failure
+  // here reaches the draft as a wrong target and reads like a confident one.
+  {
+    name: "accept a non-integer occurrence count",
+    file: VPROFILE,
+    find: "          if (!isInt(r.count)) err(`${at}.rate.count must be an integer`);",
+    with: "          if (false) err(`${at}.rate.count must be an integer`);",
+    guards: "a count is a count of instances, not an estimate the renderer interpolated",
+  },
+  {
+    name: "let a stated rate disagree with its own count",
+    file: VPROFILE,
+    find: "    if (Math.abs(r.per_1000_words - expected) > Math.max(tolerance, expected * tolerance)) {",
+    with: "    if (false) {",
+    guards: "a rate is arithmetic on the corpus, not a number the renderer liked",
+  },
+  {
+    name: "accept a count smaller than the number of samples supporting it",
+    file: VPROFILE,
+    find: "          if (isInt(r.count) && isInt(o.support) && r.count < o.support) {",
+    with: "          if (false) {",
+    guards: "a habit found in ten samples has at least ten instances",
+  },
+  {
+    name: "stop comparing the frequency phrase against the counted rate",
+    file: VPROFILE,
+    find: "    if (Math.abs(statedBand - actualBand) >= 2) {",
+    with: "    if (false) {",
+    guards: "the phrase a drafter reads and the number a harness reads agree",
+  },
   {
     name: "scan the corpus directly instead of delegating to the drafter's reader",
     file: RATES,
@@ -426,6 +457,13 @@ export const MUTATIONS = [
     find: "  solidarity: /\\b(we|us|our|ours|we're|we've|we'd|we'll)\\b/gi,",
     with: "  solidarity: /(we|us|our|ours)/gi,",
     guards: "the habit five drafts are deficient in is not inflated by substring hits",
+  },
+  {
+    name: "stop guarding the corpus's measured rates against leaking into a prompt",
+    file: FGUARD,
+    find: "      if (per1000 >= 1) out.push({ fixture, what: `${habit} per 1000 words`, token: rate });",
+    with: "      if (false) out.push({ fixture, what: `${habit} per 1000 words`, token: rate });",
+    guards: "a renderer is not handed the number it is being asked to derive",
   },
   {
     name: "stop deriving author tokens from corpus frontmatter",

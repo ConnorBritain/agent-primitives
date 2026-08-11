@@ -31,6 +31,8 @@
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 
+import { HABITS, corpusBodies, corpusRate, words } from "./corpus-rates.mjs";
+
 /**
  * Fixture directories whose name describes the corpus's composition, not its author.
  *
@@ -117,6 +119,58 @@ export function fixtureGuards(fixturesDir) {
  * A stale exemption is how a real author name silently stops being checked, so the
  * suites assert this is empty rather than trusting the table.
  */
+/**
+ * Distinctive numbers measured from the fixture corpora, which a prompt must not contain.
+ *
+ * WHY A SECOND KIND OF LEAK EXISTS. The name guard above catches a prompt that says
+ * "Chekhov". It does not catch a prompt that says "a habit occurring 2.6 times in a
+ * 1,755-word sample" - and 2.6 and 1,755 are the doctorow corpus's actual profanity rate
+ * and mean sample length. A renderer told that number, then asked to measure that corpus,
+ * can report it without counting.
+ *
+ * This was a live leak, written into the prompt while adding the `rate` field and caught
+ * by hand rather than by any check - in the same commit whose whole purpose was making
+ * the renderer's counts trustworthy. Handing the renderer the number it is supposed to
+ * derive is the S2 leak with arithmetic instead of prose.
+ *
+ * Only DISTINCTIVE values are returned. Small integers collide with ordinary prompt text
+ * ("the eight sections", "10/10 samples") and would fail honest prompts, which is the
+ * false-positive failure the name guard already demonstrated.
+ */
+export function corpusMeasurements(fixturesDir) {
+  if (!existsSync(fixturesDir)) return [];
+  const out = [];
+
+  for (const { fixture } of fixtureGuards(fixturesDir)) {
+    const bodies = corpusBodies(join(fixturesDir, fixture));
+    if (bodies.length === 0) continue;
+
+    const totalWords = bodies.reduce((a, b) => a + words(b.body), 0);
+    const meanWords = Math.round(totalWords / bodies.length);
+
+    const add = (value, what) => {
+      // Below 1000 the integers are not distinctive enough to be evidence.
+      if (value >= 1000) {
+        out.push({ fixture, what, token: String(value) });
+        out.push({ fixture, what, token: value.toLocaleString("en-US") });
+      }
+    };
+    add(totalWords, "total body words");
+    add(meanWords, "mean sample words");
+
+    for (const [habit, pattern] of Object.entries(HABITS)) {
+      const { count, per1000 } = corpusRate(bodies, pattern);
+      if (count >= 10) out.push({ fixture, what: `${habit} count`, token: String(count) });
+      // Two decimals is specific enough to be a fingerprint rather than a coincidence.
+      const rate = per1000.toFixed(2);
+      if (per1000 >= 1) out.push({ fixture, what: `${habit} per 1000 words`, token: rate });
+      const perPiece = ((per1000 * meanWords) / 1000).toFixed(1);
+      if (Number(perPiece) >= 1) out.push({ fixture, what: `${habit} per piece`, token: perPiece });
+    }
+  }
+  return out;
+}
+
 export function staleExemptions(fixturesDir) {
   if (!existsSync(fixturesDir)) return [];
   const present = new Set(

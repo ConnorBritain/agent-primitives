@@ -42,12 +42,17 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | read the narrowing warning from the wrong field path | 2 | the voice-collapse warning reaches the person it is about |
 | let tell-scan ignore the blended bands | 3 | an approved edit actually changes what the scanner reports |
 | trust edit_fraction as a signed number rather than computing it | 3 | edit_fraction is computed from a diff, never asserted |
-| let an open suffix swallow coinages in the profanity pattern | 1 | a coined term built on a rude root is not counted as the habit it resembles |
-| measure rates over the whole file instead of the essay body | 4 | site boilerplate is excluded from a rate the profile will quote |
+| let an open suffix swallow coinages in the profanity pattern | 2 | a coined term built on a rude root is not counted as the habit it resembles |
+| measure rates over the whole file instead of the essay body | 5 | site boilerplate is excluded from a rate the profile will quote |
 | let a ratio breach alone become a verdict | 1 | one extra instance in a short draft is not reported as caricature |
+| accept a non-integer occurrence count | 1 | a count is a count of instances, not an estimate the renderer interpolated |
+| let a stated rate disagree with its own count | 1 | a rate is arithmetic on the corpus, not a number the renderer liked |
+| accept a count smaller than the number of samples supporting it | 2 | a habit found in ten samples has at least ten instances |
+| stop comparing the frequency phrase against the counted rate | 1 | the phrase a drafter reads and the number a harness reads agree |
 | scan the corpus directly instead of delegating to the drafter's reader | 2 | rates are measured over the same attested samples the drafter is shown |
 | measure an undelimited corpus without saying so | 1 | a corpus measured whole cannot report itself as cleanly delimited |
 | let the solidarity pattern match inside longer words | 1 | the habit five drafts are deficient in is not inflated by substring hits |
+| stop guarding the corpus's measured rates against leaking into a prompt | 1 | a renderer is not handed the number it is being asked to derive |
 | stop deriving author tokens from corpus frontmatter | 1 | a prompt naming an author by any part of their name is caught, not just the surname |
 | let a not-author-named exemption go stale | 1 | an exemption that no longer matches a fixture cannot silently disable a check |
 

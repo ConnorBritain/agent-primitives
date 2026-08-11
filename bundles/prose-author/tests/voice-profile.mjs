@@ -136,6 +136,104 @@ export function checkFrequencyDiscipline(markdown) {
   return findings;
 }
 
+/**
+ * Per-piece thresholds the frequency vocabulary means, in instances per sample.
+ *
+ * These make FREQUENCIES checkable instead of impressionistic. They are not a
+ * redefinition: `once or twice` means once or twice, and `throughout` is glossed in the
+ * prompt as "hard to find a paragraph without it", which in a piece of twenty-odd
+ * paragraphs is upwards of ten.
+ */
+export const FREQUENCY_BANDS = [
+  { phrase: "once or twice per piece", max: 2.5 },
+  { phrase: "several times per piece", max: 10 },
+  { phrase: "throughout", max: Infinity },
+];
+
+const bandOf = (perPiece) => FREQUENCY_BANDS.findIndex((b) => perPiece < b.max);
+
+/**
+ * A rate the renderer states must be arithmetic on the corpus it says it read.
+ *
+ * This is the check that makes a renderer-emitted number worth having. The same
+ * quantity was measured three different ways during PI-02 and came back 16, 26 and 56
+ * occurrences; a number in a profile with nothing able to recompute it is a confident
+ * wrong number with better distribution than a hedge.
+ *
+ * It verifies `per_1000_words` against `count` over the corpus word total. It cannot
+ * verify `count` itself - only a pattern-based screen can do that, and only for habits
+ * a pattern can express - so a renderer that miscounts consistently still passes here.
+ * That limit is why `corpus-rates.mjs` exists alongside this rather than instead of it.
+ */
+export function checkRateArithmetic(obj, corpusWords, { tolerance = 0.05 } = {}) {
+  const findings = [];
+  if (!obj || !Array.isArray(obj.observations) || !corpusWords) return findings;
+
+  for (const o of obj.observations) {
+    const r = o?.rate;
+    if (!r || typeof r.count !== "number" || typeof r.per_1000_words !== "number") continue;
+    const expected = (r.count / corpusWords) * 1000;
+    if (Math.abs(r.per_1000_words - expected) > Math.max(tolerance, expected * tolerance)) {
+      findings.push({
+        id: o.id,
+        stated: r.per_1000_words,
+        expected: Math.round(expected * 100) / 100,
+        detail: `${o.id}: states ${r.per_1000_words} per 1000 words, but ${r.count} occurrences over ${corpusWords} words is ${Math.round(expected * 100) / 100}`,
+      });
+    }
+  }
+  return findings;
+}
+
+/**
+ * The frequency word in the prose must agree with the number beside it.
+ *
+ * A profile can now say two things about how often a habit occurs - a phrase and a
+ * rate - and a drafter reading the phrase while the harness reads the number is exactly
+ * the split this was built to close. Measured instance: a corpus habit occurring 2.6
+ * times per piece was described as `once or twice per piece` by one render and `several
+ * times per piece` by another.
+ *
+ * ONLY GROSS DISAGREEMENT IS REPORTED - two bands apart, not one. The band edges are
+ * judgement calls sitting in a continuum, and a habit at 2.6 per piece genuinely
+ * straddles the first two phrases. Flagging that would train renderers to write toward
+ * the checker, which is how a profile stops describing the corpus.
+ */
+export function checkFrequencyAgainstRate(markdown, obj, meanPieceWords) {
+  const findings = [];
+  if (!markdown || !obj || !Array.isArray(obj.observations) || !meanPieceWords) return findings;
+
+  const sentences = markdown
+    .split(/\n\s*\n/)
+    .flatMap((b) => b.split(/(?<=[.!?])\s+/))
+    .map((s) => s.replace(/\s+/g, " ").trim())
+    .filter(Boolean);
+
+  for (const o of obj.observations) {
+    const r = o?.rate;
+    if (!r || typeof r.per_1000_words !== "number") continue;
+
+    const countPattern = new RegExp(`\\b${o.support}\\s*/\\s*${o.of}\\b`);
+    const host = sentences.find((s) => countPattern.test(s));
+    if (!host) continue;
+
+    const statedBand = FREQUENCY_BANDS.findIndex((b) => host.toLowerCase().includes(b.phrase));
+    if (statedBand === -1) continue;
+
+    const perPiece = (r.per_1000_words * meanPieceWords) / 1000;
+    const actualBand = bandOf(perPiece);
+    if (Math.abs(statedBand - actualBand) >= 2) {
+      findings.push({
+        id: o.id,
+        stated: FREQUENCY_BANDS[statedBand].phrase,
+        perPiece: Math.round(perPiece * 100) / 100,
+        detail: `${o.id}: prose says "${FREQUENCY_BANDS[statedBand].phrase}" but the stated rate is ${Math.round(perPiece * 100) / 100} per piece`,
+      });
+    }
+  }
+  return findings;
+}
+
 export function validateVoiceProfile(obj, markdown = "") {
   const errors = [];
   const err = (m) => errors.push(m);
@@ -213,7 +311,7 @@ export function validateVoiceProfile(obj, markdown = "") {
       const at = `observations[${i}]`;
       if (!o || typeof o !== "object") { err(`${at} is not an object`); continue; }
       for (const k of Object.keys(o)) {
-        if (!["id", "section", "support", "of"].includes(k)) err(`${at} has key not in contract: ${k}`);
+        if (!["id", "section", "support", "of", "rate"].includes(k)) err(`${at} has key not in contract: ${k}`);
       }
       if (!isStr(o.id)) err(`${at}.id must be a non-empty string`);
       else if (ids.has(o.id)) err(`${at}.id is a duplicate: ${o.id}`);
@@ -230,6 +328,40 @@ export function validateVoiceProfile(obj, markdown = "") {
       }
       if (Array.isArray(used) && isInt(o.of) && used.length > 0 && o.of !== used.length) {
         err(`${at}.of is ${o.of} but ${used.length} samples were used`);
+      }
+
+      // OPTIONAL, and optional on purpose. Most observations in a profile describe
+      // something no count can express - how a figure is built, what a close does with
+      // the opponent's word. Requiring a rate everywhere would force the renderer to
+      // invent numbers for things that do not have them, which is the failure this
+      // whole primitive is arranged against.
+      //
+      // But where a habit CAN be counted by pointing at instances, the count is the
+      // only form a drafter can act on. `9/10 samples, several times per piece` cannot
+      // tell a 700-word draft how many times to do something the author does 2.6 times
+      // in 1755 words. That gap is what produced FU-17's overshoot.
+      if (o.rate !== undefined) {
+        const r = o.rate;
+        if (!r || typeof r !== "object" || Array.isArray(r)) {
+          err(`${at}.rate must be an object`);
+        } else {
+          for (const k of Object.keys(r)) {
+            if (!["count", "per_1000_words"].includes(k)) err(`${at}.rate has key not in contract: ${k}`);
+          }
+          if (!isInt(r.count)) err(`${at}.rate.count must be an integer`);
+          if (typeof r.per_1000_words !== "number" || !Number.isFinite(r.per_1000_words) || r.per_1000_words <= 0) {
+            err(`${at}.rate.per_1000_words must be a positive number`);
+          }
+          // An observation supported by n samples cannot have fewer than n instances.
+          //
+          // This subsumes the zero check that used to sit above it: `support` is already
+          // required to be >= 1, so a count of zero always fails here. The separate
+          // `count >= 1` test was dead - a mutation removing it killed nothing, which is
+          // how it was found. One assertion, not two overlapping ones.
+          if (isInt(r.count) && isInt(o.support) && r.count < o.support) {
+            err(`${at}.rate.count is ${r.count} but the habit is claimed in ${o.support} samples (a count of zero is an absence, not a habit)`);
+          }
+        }
       }
     }
 

@@ -13,9 +13,12 @@ import { createHash } from "node:crypto";
 import {
   validateVoiceProfile, corpusLock, parseRender,
   checkFrequencyDiscipline, FREQUENCIES,
+  checkRateArithmetic, checkFrequencyAgainstRate,
 } from "./voice-profile.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
-import { fixtureGuards, staleExemptions, NOT_AUTHOR_NAMED } from "./fixture-guard.mjs";
+import {
+  fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
+} from "./fixture-guard.mjs";
 
 export async function run(t, { tmp, HERE }) {
   t.group("voice-profile-render — the hold");
@@ -88,6 +91,28 @@ export async function run(t, { tmp, HERE }) {
     // A stale exemption is how a real author name silently stops being checked.
     t.check("no fixture claims a not-author-named exemption it no longer needs",
       staleExemptions(fixtures).length === 0, staleExemptions(fixtures).join(", "));
+
+    // A leaked MEASUREMENT is the same contamination as a leaked name, and the name
+    // guard cannot see it. This was live: the prompt gained "a habit occurring 2.6 times
+    // in a 1,755-word sample" while the `rate` field was being added - the doctorow
+    // corpus's own profanity rate and mean length, handed to the renderer that was about
+    // to be asked to derive them. Caught by hand, in the commit whose entire purpose was
+    // making the renderer's counts trustworthy.
+    {
+      const measurements = corpusMeasurements(fixtures);
+      const leakedNumbers = measurements.filter((m) => prompt.includes(m.token));
+      t.check("prompt states no measurement taken from a fixture corpus",
+        leakedNumbers.length === 0,
+        leakedNumbers.map((m) => `${m.fixture} ${m.what}=${m.token}`).join("; "));
+
+      // "No prompt contains a forbidden number" passes trivially when the forbidden
+      // list is empty, so the list itself is asserted. These are the exact strings the
+      // real leak used, in both plain and comma-grouped form.
+      const has = (tok) => measurements.some((m) => m.token === tok);
+      t.check("the measurement guard covers rates, counts, totals and per-piece figures",
+        has("1.48") && has("2.6") && has("17549") && has("17,549") && has("1,755"),
+        `${measurements.length} tokens`);
+    }
 
     // The guard's own derivation needs testing, not just its verdict. Asserting only
     // "no prompt contains a forbidden token" passes just as well when the forbidden
@@ -300,6 +325,82 @@ export async function run(t, { tmp, HERE }) {
           checkFrequencyDiscipline(fsRead(pre, "utf8")).length > 0);
       }
     }
+  }
+
+  t.group("voice-profile rates — the number a drafter can act on");
+  {
+    const withRate = (rate, support = 10) => ({
+      schema: "voice-profile/1",
+      profile: "doctorow-blog",
+      confidence: "full",
+      samples_used: Array.from({ length: 10 }, (_, i) => `s${i}.txt`),
+      samples_excluded: [],
+      voice_card: "empty",
+      observations: [{ id: "o01", section: "address", support, of: 10, rate }],
+      observations_dropped: 1,
+      multiple_voices_suspected: false,
+    });
+    const md = "Profanity lands on the verdict — 10/10 samples, several times per piece.";
+
+    t.check("an observation may carry a counted rate",
+      validateVoiceProfile(withRate({ count: 26, per_1000_words: 1.48 }), md).ok);
+
+    // Optional on purpose: most observations describe something no count expresses, and
+    // requiring a rate everywhere would force the renderer to invent numbers.
+    t.check("an observation without a rate is still valid",
+      validateVoiceProfile(withRate(undefined), md).ok);
+
+    // A rate of zero is an absence. Letting it through would put "the author does this
+    // 0 times per 1000 words" in front of a drafter as a habit to reproduce.
+    t.check("a zero count is rejected — an absence is not a habit",
+      !validateVoiceProfile(withRate({ count: 0, per_1000_words: 0.5 }), md).ok);
+
+    // A fractional count means the renderer interpolated rather than enumerated, which
+    // is the estimation this whole field exists to replace.
+    t.check("a fractional count is rejected — instances are countable or absent",
+      !validateVoiceProfile(withRate({ count: 26.5, per_1000_words: 1.5 }), md).ok);
+
+    // A habit found in ten samples has at least ten instances. Fewer means the count
+    // and the support describe different things, and a drafter cannot tell which is real.
+    t.check("a count smaller than the support count is rejected",
+      !validateVoiceProfile(withRate({ count: 3, per_1000_words: 0.2 }), md).ok);
+
+    t.check("an unknown key inside rate is rejected",
+      !validateVoiceProfile(withRate({ count: 26, per_1000_words: 1.48, note: "x" }), md).ok);
+
+    t.check("a non-numeric rate is rejected",
+      !validateVoiceProfile(withRate({ count: 26, per_1000_words: "1.48" }), md).ok);
+
+    // The arithmetic check is what makes a renderer-emitted number worth having. The
+    // same quantity was measured three ways in PI-02 and gave 16, 26 and 56; a number
+    // nothing can recompute is a confident wrong number.
+    const CORPUS_WORDS = 17549;
+    t.check("a rate consistent with its own count and the corpus size passes",
+      checkRateArithmetic(withRate({ count: 26, per_1000_words: 1.48 }), CORPUS_WORDS).length === 0);
+
+    t.check("a rate that is not arithmetic on its own count is caught",
+      checkRateArithmetic(withRate({ count: 26, per_1000_words: 4.17 }), CORPUS_WORDS).length === 1);
+
+    t.check("no corpus size means no arithmetic claim, not a false pass",
+      checkRateArithmetic(withRate({ count: 26, per_1000_words: 4.17 }), 0).length === 0);
+
+    // The prose phrase and the number must not tell a drafter two different things.
+    const MEAN_PIECE = 1755;
+    t.check("a phrase two bands from the counted rate is caught",
+      checkFrequencyAgainstRate(
+        "Profanity lands on the verdict — 10/10 samples, once or twice per piece.",
+        withRate({ count: 300, per_1000_words: 17.1 }), MEAN_PIECE).length === 1);
+
+    // Only GROSS disagreement is reported. A habit at 2.6 per piece genuinely straddles
+    // the first two phrases, and flagging it would train renderers to write toward the
+    // checker instead of describing the corpus.
+    t.check("a phrase one band from the rate is left alone",
+      checkFrequencyAgainstRate(
+        "Profanity lands on the verdict — 10/10 samples, once or twice per piece.",
+        withRate({ count: 26, per_1000_words: 1.48 }), MEAN_PIECE).length === 0);
+
+    t.check("an observation with no rate is not judged on its phrase",
+      checkFrequencyAgainstRate(md, withRate(undefined), MEAN_PIECE).length === 0);
   }
 
   t.group("voice-profile fixtures — provenance, and the corpus a profile is keyed to");
