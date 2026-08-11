@@ -1,0 +1,11 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim-colon-link unit — claim ends on a colon, bare URL alone on the next line (5.87 per 1,000 words)", "why": "no verified sources or URLs available for this topic; fabricating links is not permitted" }
+  ],
+  "claims": [
+    { "claim": "Microsoft's Office Open XML was standardised via ECMA and then ISO's fast-track process, accompanied by a surge of new participants in national standards bodies", "where": "paragraph 6" },
+    { "claim": "The W3C published Encrypted Media Extensions (EME) as a Recommendation in 2017", "where": "paragraph 8" },
+    { "claim": "The EFF resigned from the W3C over EME", "where": "paragraph 8" }
+  ]
+}

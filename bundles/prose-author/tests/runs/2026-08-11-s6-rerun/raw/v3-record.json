@@ -1,0 +1,9 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim-colon-link unit (claim ends on a colon, bare URL alone on the next line), rated several times per piece", "why": "no verified sources or URLs available for this topic; fabricating links is prohibited" }
+  ],
+  "claims": [
+    { "claim": "LastPass had customer vault backups stolen, and encrypted copies were taken by the attacker", "where": "paragraph 5" }
+  ]
+}

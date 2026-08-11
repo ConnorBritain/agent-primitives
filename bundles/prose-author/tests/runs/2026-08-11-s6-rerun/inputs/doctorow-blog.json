@@ -1,0 +1,223 @@
+{
+  "schema": "voice-profile/1",
+  "profile": "doctorow-blog",
+  "confidence": "full",
+  "samples_used": [
+    "2026-07-09-wilhoitian.txt",
+    "2026-07-10-posthuman-as-in-no-humans.txt",
+    "2026-07-11-your-risk.txt",
+    "2026-07-13-go-meta-meta.txt",
+    "2026-07-14-designated-survivor.txt",
+    "2026-07-16-lucky-orifices.txt",
+    "2026-07-21-dickovers.txt",
+    "2026-07-22-table-flipper.txt",
+    "2026-07-23-drop-a-dime.txt",
+    "2026-07-24-supplemental-income.txt"
+  ],
+  "samples_excluded": [],
+  "voice_card": "empty",
+  "observations": [
+    {
+      "id": "o01",
+      "section": "cadence",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 113,
+        "per_1000_words": 6.44
+      }
+    },
+    {
+      "id": "o02",
+      "section": "cadence",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 55,
+        "per_1000_words": 3.13
+      }
+    },
+    {
+      "id": "o03",
+      "section": "cadence",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 305,
+        "per_1000_words": 17.38
+      }
+    },
+    {
+      "id": "o04",
+      "section": "openings",
+      "support": 3,
+      "of": 10
+    },
+    {
+      "id": "o05",
+      "section": "openings",
+      "support": 4,
+      "of": 10
+    },
+    {
+      "id": "o06",
+      "section": "openings",
+      "support": 3,
+      "of": 10
+    },
+    {
+      "id": "o07",
+      "section": "closings",
+      "support": 10,
+      "of": 10
+    },
+    {
+      "id": "o08",
+      "section": "closings",
+      "support": 9,
+      "of": 10
+    },
+    {
+      "id": "o09",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 395,
+        "per_1000_words": 22.51
+      }
+    },
+    {
+      "id": "o10",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 169,
+        "per_1000_words": 9.63
+      }
+    },
+    {
+      "id": "o11",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 427,
+        "per_1000_words": 24.33
+      }
+    },
+    {
+      "id": "o12",
+      "section": "address",
+      "support": 9,
+      "of": 10,
+      "rate": {
+        "count": 19,
+        "per_1000_words": 1.08
+      }
+    },
+    {
+      "id": "o13",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 21,
+        "per_1000_words": 1.2
+      }
+    },
+    {
+      "id": "o14",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 154,
+        "per_1000_words": 8.78
+      }
+    },
+    {
+      "id": "o15",
+      "section": "figures",
+      "support": 9,
+      "of": 10
+    },
+    {
+      "id": "o16",
+      "section": "figures",
+      "support": 8,
+      "of": 10,
+      "rate": {
+        "count": 19,
+        "per_1000_words": 1.08
+      }
+    },
+    {
+      "id": "o17",
+      "section": "figures",
+      "support": 7,
+      "of": 10
+    },
+    {
+      "id": "o18",
+      "section": "register-range",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 110,
+        "per_1000_words": 6.27
+      }
+    },
+    {
+      "id": "o19",
+      "section": "register-range",
+      "support": 7,
+      "of": 10,
+      "rate": {
+        "count": 20,
+        "per_1000_words": 1.14
+      }
+    },
+    {
+      "id": "o20",
+      "section": "absences",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 103,
+        "per_1000_words": 5.87
+      }
+    },
+    {
+      "id": "o21",
+      "section": "absences",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 73,
+        "per_1000_words": 4.16
+      }
+    },
+    {
+      "id": "o22",
+      "section": "gaps",
+      "support": 10,
+      "of": 10
+    },
+    {
+      "id": "o23",
+      "section": "gaps",
+      "support": 10,
+      "of": 10
+    },
+    {
+      "id": "o24",
+      "section": "gaps",
+      "support": 10,
+      "of": 10
+    }
+  ],
+  "observations_dropped": 6,
+  "multiple_voices_suspected": false
+}

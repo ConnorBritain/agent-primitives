@@ -1,0 +1,99 @@
+{
+  "_comment": "S6 re-run against the rate-bearing profile. Bar pre-registered 2026-08-07 in .planning/2026-08-07-generator-ship-bar.md and NOT adjustable by these results, in either direction. k=3 per draft. Rate columns are DISCLOSURE and are not part of the bar - see DESIGN.md.",
+  "bar": {
+    "majority_clean": "at least 2 of 3 draws",
+    "findings_per_draw": "<= 1.0 mean across three draws",
+    "conjunctive": true
+  },
+  "drafts": [
+    {
+      "id": "v3",
+      "topic": "password managers",
+      "findings": [1, 0, 0],
+      "mean": 0.33,
+      "verdicts": ["REVISE", "CLEAN", "CLEAN"],
+      "majority": "CLEAN",
+      "split": true,
+      "passes": true,
+      "dissent": "draw 1, high confidence: the draft holds one controlled register where every corpus sample breaks into slang, scatology or direct taunting at least once"
+    },
+    {
+      "id": "b02",
+      "topic": "open standards",
+      "findings": [0, 1, 0],
+      "mean": 0.33,
+      "verdicts": ["CLEAN", "REVISE", "CLEAN"],
+      "majority": "CLEAN",
+      "split": true,
+      "passes": true,
+      "dissent": "draw 2, high confidence: no first-person authorial anchor anywhere; 8/10 corpus samples anchor the argument in the author's own experience",
+      "note": "independently confirmed by corpus-rates: b02 has 0 first-person tokens against a corpus rate of 6.21/1000 at 10/10 samples"
+    },
+    {
+      "id": "b03",
+      "topic": "parts pairing",
+      "findings": [0, 0, 0],
+      "mean": 0.0,
+      "verdicts": ["CLEAN", "CLEAN", "CLEAN"],
+      "majority": "CLEAN",
+      "split": false,
+      "passes": true,
+      "note": "unanimous CLEAN, zero findings - matches the human baseline exactly"
+    },
+    {
+      "id": "b04",
+      "topic": "ad-tech targeting",
+      "findings": [1, 1, 3],
+      "mean": 1.67,
+      "verdicts": ["REVISE", "REVISE", "REVISE"],
+      "majority": "REVISE",
+      "split": false,
+      "passes": false,
+      "note": "FAILS BOTH CRITERIA. All three draws independently found the same defect - the draft never routes an argument through a named person - and two rated it high confidence. Draw 3 added a high-confidence paragraph-structure finding: zero standalone short paragraphs where all ten samples use them at least twice."
+    },
+    {
+      "id": "b07",
+      "topic": "streaming licence lapse",
+      "findings": [0, 0, 0],
+      "mean": 0.0,
+      "verdicts": ["CLEAN", "CLEAN", "CLEAN"],
+      "majority": "CLEAN",
+      "split": false,
+      "passes": true,
+      "note": "unanimous CLEAN, zero findings. This draft FAILED the 2026-08-07 run on the missing solidaristic we/us - the habit the old profile never recorded."
+    },
+    {
+      "id": "b08",
+      "topic": "overdraft fees",
+      "findings": [0, 0, 0],
+      "mean": 0.0,
+      "verdicts": ["CLEAN", "CLEAN", "CLEAN"],
+      "majority": "CLEAN",
+      "split": false,
+      "passes": true,
+      "note": "unanimous CLEAN, zero findings. Failed the 2026-08-07 run at 1.67."
+    }
+  ],
+  "summary": {
+    "passed": 5,
+    "of": 6,
+    "unanimous_clean_zero_findings": 3,
+    "total_draws": 18,
+    "total_findings": 6
+  },
+  "structural_gates": {
+    "corpus_leakage": "0 across all six drafts",
+    "fabricated_citations": "0 across all six drafts",
+    "checkable_claims_disclosed": 21,
+    "refusal_on_underdetermined_register": "not exercised in this run - no ambiguous-prompt cell",
+    "resemblance_or_detector_claims": "none"
+  },
+  "rate_disclosure_not_a_gate": {
+    "_comment": "corpus-rates.mjs verdicts. Reported as evidence about a successor bar, NOT applied as a pass/fail criterion here.",
+    "flagged_cells": 2,
+    "of_cells": 24,
+    "excess": "none",
+    "deficit": ["b04 we/us 0.40x", "b08 we/us 0.42x"],
+    "against_2026_08_07": "that run had 5/5 drafts at we/us deficit (4 at zero) and 3 drafts in second-person excess (2.09x, 2.09x, 2.47x). All excess flags are gone."
+  }
+}
