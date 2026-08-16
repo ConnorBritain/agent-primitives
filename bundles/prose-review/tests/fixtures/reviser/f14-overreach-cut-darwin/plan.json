@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 41,
+        "quote": "rains very seldom, but during a short portion of the year heavy"
+      },
+      "change": "cut the clause entirely — remove 'rains very seldom, but during a short portion of the year heavy'",
+      "reason": "voice-critic: the qualification slows the paragraph"
+    }
+  ]
+}

@@ -61,78 +61,182 @@
       "name": "f01-word-swap-tihonov",
       "source": "chekhov-081-to-v-a-tihonov.txt",
       "kind": "faithful-local-edit",
-      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
       "what_it_tests": "the simplest safe edit: replace one construction with an equivalent one, no fact touched. If this returns MATERIAL-LOSS, the whole primitive is broken."
     },
     {
       "name": "f02a-overreach-cut-marker",
       "source": "chekhov-058-to-his-sister.txt",
       "kind": "gate-catches-loss",
-      "expected": {"gate": "MATERIAL-LOSS", "reviser": "applied"},
+      "expected": {
+        "gate": "MATERIAL-LOSS",
+        "reviser": "applied"
+      },
       "what_it_tests": "safety net (paired with f02b): the plan authorises cutting BOTH halves of 'There is no describing Paris, though; I will put off the description of it till I get home.', destroying the 'put off till home' deferral that pays off in the letter's closing. The fidelity gate catches the loss even though the excised span contains no extractable atom."
     },
     {
       "name": "f02b-surgical-cut-marker",
       "source": "chekhov-058-to-his-sister.txt",
       "kind": "gate-catches-loss",
-      "expected": {"gate": "MATERIAL-LOSS", "reviser": "applied"},
+      "expected": {
+        "gate": "MATERIAL-LOSS",
+        "reviser": "applied"
+      },
       "what_it_tests": "safety net (second, tighter version of f02a): reclassified 2026-08-07 after k=21 measurement returned 0F/21ML — the critic consistently reads the 'no describing Paris, though;' cut as losing the 'indescribable' claim, even when the deferral is preserved. This fixture now proves the gate catches even a scoped cut whose semantic content matters. Original intent (a faithful-cut demo) is preserved via f03b-surgical-rephrase-rossolimo, which does clear the gate."
     },
     {
       "name": "f03a-overreach-rephrase-rossolimo",
       "source": "chekhov-119-to-g-i-rossolimo.txt",
       "kind": "gate-catches-loss",
-      "expected": {"gate": "MATERIAL-LOSS", "reviser": "applied"},
+      "expected": {
+        "gate": "MATERIAL-LOSS",
+        "reviser": "applied"
+      },
       "what_it_tests": "safety net (paired with f03b): the plan reorders 'In 1888 I took the Pushkin prize.' to 'The Pushkin prize came in 1888.', flipping Chekhov from agent to patient. Same date, same prize, but the reader loses that Chekhov claims to have taken it. Fidelity gate catches the claim-drift."
     },
     {
       "name": "f03b-surgical-rephrase-rossolimo",
       "source": "chekhov-119-to-g-i-rossolimo.txt",
       "kind": "faithful-reorder",
-      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
       "what_it_tests": "scoped version of f03a: reorder to 'I took the Pushkin prize in 1888.' — same year, same prize, Chekhov still the agent. Breaks the voice-critic-flagged 'In YEAR I did X' template without changing who did what."
     },
     {
       "name": "f04-multi-entry-tihonov",
       "source": "chekhov-081-to-v-a-tihonov.txt",
       "kind": "faithful-multi-entry",
-      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
       "what_it_tests": "three small edits in one plan, applied in order. Verifies the change log has one edit per plan entry and no out-of-plan edits. Tests the multi-edit path."
     },
     {
       "name": "f05a-overreach-cut-restatement-sister",
       "source": "chekhov-058-to-his-sister.txt",
       "kind": "gate-catches-loss",
-      "expected": {"gate": "MATERIAL-LOSS", "reviser": "applied"},
+      "expected": {
+        "gate": "MATERIAL-LOSS",
+        "reviser": "applied"
+      },
       "what_it_tests": "safety net (paired with f05b): the plan cuts the whole two-word fragment 'Noise, hubbub.' as a restatement, but the paragraph's other sentences carry only visual ('swarming and surging') and spatial ('pavements filled') dimensions — the auditory register is present only here. Fidelity gate catches the dropped dimension."
     },
     {
       "name": "f05b-surgical-cut-restatement-sister",
       "source": "chekhov-058-to-his-sister.txt",
       "kind": "faithful-cut",
-      "expected": {"gate": "FAITHFUL", "reviser": "applied"},
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
       "what_it_tests": "scoped version of f05a: cut only 'Noise, ' leaving 'Hubbub.' as a one-word sentence. Removes the doublet the voice-critic flagged while keeping the auditory dimension the paragraph's other sentences do not carry."
     },
     {
       "name": "f06-refuse-quote-drift",
       "source": "chekhov-081-to-v-a-tihonov.txt",
       "kind": "refuse-quote-drift",
-      "expected": {"gate": "FAITHFUL", "reviser": "refused"},
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "refused"
+      },
       "what_it_tests": "the plan quotes text that does not appear in the draft. The reviser must refuse the entry, log the reason, and emit the draft unchanged. Fidelity gate is trivially FAITHFUL (no diff). Tests the refuse-cleanly path."
     },
     {
       "name": "f07-refuse-ambiguous",
       "source": "chekhov-058-to-his-sister.txt",
       "kind": "refuse-ambiguous",
-      "expected": {"gate": "FAITHFUL", "reviser": "refused"},
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "refused"
+      },
       "what_it_tests": "the plan says 'improve the flow' — no specific edit. Two reasonable reviser edits would both satisfy this, which means neither is authorised. Refuse and log."
     },
     {
       "name": "f08-aggressive-drop-date",
       "source": "chekhov-081-to-v-a-tihonov.txt",
       "kind": "gate-catches-loss",
-      "expected": {"gate": "MATERIAL-LOSS", "reviser": "applied"},
+      "expected": {
+        "gate": "MATERIAL-LOSS",
+        "reviser": "applied"
+      },
       "what_it_tests": "the plan explicitly authorises cutting a sentence whose text contains a date (1884) and a named entity (University of Moscow). The reviser applies the plan as written; the fidelity gate is what catches the loss. This is the safety net exercised. Note: an equally valid reviser outcome is to REFUSE, and the fidelity gate then trivially returns FAITHFUL — both are recorded as passing this fixture's intent, which is 'the pipeline caught it somewhere'."
+    },
+    {
+      "name": "f09-surgical-hedge-chesterton",
+      "source": "chesterton-the-twelve-men.txt",
+      "kind": "faithful-local-edit",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3: the same one-word intensifier cut as f01, in a whimsical-digressive essay register rather than a letter. If the critic's stability is Chekhov-specific, this is where it shows."
+    },
+    {
+      "name": "f10-surgical-hedge-darwin",
+      "source": "darwin-001-the-voyage-of-the-beagle-chapter-i.txt",
+      "kind": "faithful-local-edit",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3: an intensifier cut in observational scientific narrative, where the surrounding prose is dense with factual detail the gate must not read the deletion as touching."
+    },
+    {
+      "name": "f11-surgical-hedge-huxley",
+      "source": "huxley-technical-education.txt",
+      "kind": "faithful-local-edit",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3: an intensifier cut in didactic lecture prose — argumentative, first-person, addressed to an audience. The nearest register to Chekhov's letters in the new set, and the control for the others."
+    },
+    {
+      "name": "f12-surgical-hedge-chopin",
+      "source": "chopin-002-the-awakening-chapter-ii.txt",
+      "kind": "faithful-local-edit",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3: an intensifier cut in third-person narrative fiction with free-indirect style. The only fixture where the deleted word might be read as a character's judgement rather than the narrator's."
+    },
+    {
+      "name": "f13-refuse-ambiguous-ohenry",
+      "source": "ohenry-after-twenty-years.txt",
+      "kind": "refuse-ambiguous",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "refused"
+      },
+      "what_it_tests": "FU-3: the f07 refusal case in a new author. 'Tighten the opening' names a span but authorises no specific edit, so the reviser must refuse rather than invent one. Refusal must not be Chekhov-specific either."
+    },
+    {
+      "name": "f14-overreach-cut-darwin",
+      "source": "darwin-001-the-voyage-of-the-beagle-chapter-i.txt",
+      "kind": "safety-net",
+      "expected": {
+        "gate": "MATERIAL-LOSS",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3 safety net: the plan authorises cutting a clause carrying frequency information about rainfall. The reviser has no basis to refuse an explicit, unambiguous cut; the GATE must catch the loss. If this returns FAITHFUL the safety net has a hole outside Chekhov."
+    },
+    {
+      "name": "f15-surgical-hedge-eff",
+      "source": "2026-07-13-sony-nerfs-videogame-ownership.txt",
+      "corpus_root": "../../../../prose-tell-scan/tests/corpus/human-professional",
+      "kind": "faithful-local-edit",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3: the modern voice the ticket asked for. Contemporary advocacy prose, 2026, not public-domain-period. Uses a per-fixture corpus_root because it does not live in the Gutenberg tree."
     }
   ]
 }

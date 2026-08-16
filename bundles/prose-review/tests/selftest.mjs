@@ -487,7 +487,12 @@ group("fidelity fixtures — integrity");
     // THE ANTI-TUNING CHECK. If I can edit an "original", I can edit it until a
     // fixture produces the verdict I wanted, and the harness measures nothing. The
     // original is the corpus file or it is not evidence.
-    const source = readFileSync(new URL(f.source, corpus), "utf8");
+    // A fixture may override corpus_root. The reviser set was single-root (Gutenberg
+    // essays) until FU-3 broadened it, and a modern voice does not live in that tree —
+    // so the alternative to an override was leaving the corpus period-locked, which is
+    // the limitation FU-3 exists to remove.
+    const root = f.corpus_root ? new URL(`${f.corpus_root}/`, dir) : corpus;
+    const source = readFileSync(new URL(f.source, root), "utf8");
     check(`${f.name}: original is byte-identical to ${f.source}`, original === source);
 
     // THE LEAK GUARD, and it exists because the first harness run was invalid.
@@ -614,7 +619,12 @@ group("reviser fixtures — integrity");
   const STRIP = (t) => { const m = t.match(/^---\n[\s\S]*?\n---\n/); return m ? t.slice(m[0].length) : t; };
   for (const f of manifest.fixtures) {
     const orig = readFileSync(new URL(`${f.name}/original.md`, dir), "utf8");
-    const source = readFileSync(new URL(f.source, corpus), "utf8");
+    // A fixture may override corpus_root. The reviser set was single-root (Gutenberg
+    // essays) until FU-3 broadened it, and a modern voice does not live in that tree —
+    // so the alternative to an override was leaving the corpus period-locked, which is
+    // the limitation FU-3 exists to remove.
+    const root = f.corpus_root ? new URL(`${f.corpus_root}/`, dir) : corpus;
+    const source = readFileSync(new URL(f.source, root), "utf8");
     check(`${f.name}: original is byte-identical to ${f.source}`, orig === source);
 
     const plan = JSON.parse(readFileSync(new URL(`${f.name}/plan.json`, dir), "utf8"));
