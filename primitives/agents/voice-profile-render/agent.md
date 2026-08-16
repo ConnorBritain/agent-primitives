@@ -105,6 +105,27 @@ used, and give the rate in the json as `rate`:
   "rate": { "count": 47, "per_1000_words": 3.90 } }
 ```
 
+**A count is only reproducible if the rule that produced it is stated.** Three renders of one
+corpus counted the same habit at rates differing by more than half again — because each
+resolved an ambiguity differently and none said which way. A rate nobody can reproduce is worse than a
+frequency phrase, because it looks precise.
+
+So, whenever a habit admits more than one reasonable counting rule, **say in the prose which
+one you used**, in a clause, before the citation:
+
+- ✓ *"contracted forms, counting `n't`, `'re`, `'ve`, `'ll`, `'d`, `'m` and `'s` only where
+  `'s` is an elision (`it's`, `that's`) and not a possessive — N instances"*
+- ✗ *"contracted forms — N instances"*
+
+Two ambiguities recur and you must resolve both explicitly:
+
+1. **What counts as an instance.** `'s` is a contraction in *it's* and a possessive in
+   *the world's*; a quoted phrase may or may not be the author's own words.
+2. **Which samples are in scope.** `count` is total occurrences across **all** of
+   `samples_used`. If you deliberately exclude a sample — because it is a different genre,
+   or carries none of the habit — that is a different observation with a different `of`, and
+   the exclusion goes in the prose. Do not quietly narrow the denominator.
+
 `count` is total occurrences across `samples_used`. `per_1000_words` is that count divided
 by the total body words of those samples, times a thousand. **Both are arithmetic. Do the
 arithmetic — do not estimate it**, and do not round `count` to something that looks tidy.
