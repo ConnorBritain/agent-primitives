@@ -85,20 +85,25 @@ two writers on the same beat. It did not.
 
 Three renders of the same corpus, compared against each other and the harness:
 
-| habit | render A | render B | harness | verdict |
-|---|---|---|---|---|
-| second person | 9 (1.12) | 9 (1.12) | 11 (1.36) | **stable** |
-| solidaristic *we/us* | 15 (1.86) | 15 (1.86) | 19 (2.36) | **stable** |
-| profanity | 0 | 0 | 0 | **exact** |
-| body words | 8,051 | — | 8,066 | **0.2%** |
-| **contraction** | **69 (8.57)** | **126 (15.64)** | **86 (10.66)** | **unstable — 1.8×** |
+| habit | render A | render B | render C | harness | verdict |
+|---|---|---|---|---|---|
+| second person | 9 | 9 | 8 | 11 | **stable** |
+| solidaristic *we/us* | 15 | 15 | 15 | 19 | **stable** |
+| profanity | 0 | 0 | 0 | 0 | **exact** |
+| body words | 8,051 | — | 8,056 | 8,066 | **0.2%** |
+| **contraction** | **69** | **126** | **86** | **86** | **spread 1.8×** |
+
+**Render C reproduces the harness exactly on contraction — 86 against 86.** So the harness
+value is not arbitrary; one independent render lands on it. The spread is still real and
+still 1.8× across renders, which is what FU-23 is about, but the middle of that spread is
+corroborated rather than assumed.
 
 **Second person, `we/us` and profanity reproduce across independent renders** and sit close
 to the harness. Those are the habits the discrimination result in §1 rests on, and they are
 the stable ones.
 
-**Contraction does not reproduce.** 69 against 126 is a 1.8× spread on the same 8,066 words,
-and the harness sits between them. The renders disagree because they are counting different
+**Contraction does not reproduce.** 69, 126 and 86 on the same corpus is a 1.8× spread, and
+the harness sits at 86 — matched exactly by one render. The renders disagree because they are counting different
 things — render A says it excluded the two coalition-letter samples, which it separately
 reports carry no contractions; render B counted all eleven and notes "the two shortest
 pieces carry only three contractions each".
