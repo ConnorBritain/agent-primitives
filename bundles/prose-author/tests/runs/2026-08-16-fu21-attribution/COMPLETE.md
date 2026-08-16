@@ -63,10 +63,26 @@ So the state has genuinely changed: before, the profile did not record the habit
 draft was silently missing it. Now the profile records it, the drafter reaches for it, and
 the shortfall is **on the record in the artefact** where a publisher can see it.
 
-**A critic may still flag it, and that would not be a failure of this fix.** It is the same
-documented trade as b03's namelessness: anti-fabrication costs voice on topics where the
-drafter lacks verified sources, and the cost is now visible instead of silent. **No k=3
-critique was run on this draft**, so whether the finding recurs is untested.
+**k=3 critique run 2026-08-16. b04 converts.**
+
+| | findings | mean | majority | bar |
+|---|---|---|---|---|
+| b04 pre-FU-21 (S6 re-run) | 1, 1, 3 | 1.67 | REVISE | **fail** |
+| b04 post-FU-21 | 2, 0, 0 | **0.67** | CLEAN | **pass** |
+
+**The named-source finding did not recur on any draw.** It was the unanimous cause of the
+original failure and it is gone. Draw 3 considered attribution explicitly and dropped it as
+non-evidence, having found a corpus counter-example itself: *"posthuman-as-in-no-humans, the
+closest genre match, likewise attributes nothing to a named external thinker, so absence of
+attribution is not a deviation from this author."*
+
+That is a better outcome than the criterion asked for. The habit is now in the profile, the
+drafter reaches for it, discloses when it cannot honestly apply it — and the critic, reading
+the corpus directly, agrees that on this genre the absence is not a defect.
+
+Draw 1's two findings are new and unrelated to attribution (elegiac figuration; no
+within-piece register break). The second is filed as FU-22 and tempered there, because draws
+2 and 3 cleared that category.
 
 ## 5. Incidental — the renderer rejected FU-14's original hypothesis
 

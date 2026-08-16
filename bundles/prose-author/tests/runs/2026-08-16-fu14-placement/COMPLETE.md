@@ -1,7 +1,9 @@
 # PI-02 · FU-14 — placement, not frequency (2026-08-16)
 
-**Result: the diagnosis holds and the fix is unproven. 2 of 3 drafts land at or above the
-corpus; the third drifts slightly the wrong way. FU-14 stays open.**
+**Result: the diagnosis holds. 2 of 3 drafts land at or above the corpus, the third drifts
+slightly the wrong way, and 6 critic draws across two of them returned zero findings. FU-14
+stays open on a technicality that matters: the drafts that drew the original finding have
+not been re-drafted.**
 
 ---
 
@@ -65,13 +67,32 @@ this is evidence the rule can cost something where there was no problem.
 
 **No draft reaches the 0.77 / 27–37% range that produced the original findings.**
 
-## 4. Why this is not called done
+## 4. Critics ran — 6 draws, 0 findings
 
-- **No critic ran on these three drafts.** The measure is deterministic and the finding it
-  models was a critic's; until a critic sees them, the fix is verified against a proxy for
-  the thing that complained.
-- **b04 got worse.** Small, one draw, on the least informative case — but in the wrong
-  direction, and the rule now has a cost as well as a benefit.
+k=3 on b09 and b10, judged against the corpus directly:
+
+| draft | findings | mean | verdicts |
+|---|---|---|---|
+| b09 | 0, 0, 0 | **0.00** | unanimous CLEAN |
+| b10 | 0, 0, 0 | **0.00** | unanimous CLEAN |
+
+Both at the human-writing baseline. **The epigram finding did not appear on any draw**, and
+several draws affirmatively cleared the rhythm category with corpus citations — *"long
+periodic sentences punctuated by short declaratives... the corpus varies identically."*
+
+b04 was not re-critiqued here; its k=3 under FU-21 returned [2,0,0] and neither finding was
+about paragraph endings.
+
+## 5. Why this is STILL not called done
+
+- **These are the wrong drafts to prove the fix.** My own ship criterion says re-draft
+  **b07 and b08** — the two that actually drew the original finding — and check it does not
+  recur. b09 and b10 are new topics. Six clean draws show the rule does no harm and that
+  drafts written under it pass; they do not show it repairs the drafts that were broken.
+  That test is still outstanding and is cheap.
+- **b04 got worse on the deterministic measure.** Small, one draw, on the least informative
+  case — its predecessor was already at the corpus. The critics did not flag it, but the
+  drift number moved the wrong way and the rule now has a cost as well as a benefit.
 - **n = 3, one corpus.**
 - **The measure's known limit is real:** it cannot tell an epigram from a flatly expository
   short sentence. It detects the set-level drift, which is what the critic sees, and
