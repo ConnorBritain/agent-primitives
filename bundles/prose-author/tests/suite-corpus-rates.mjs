@@ -111,6 +111,17 @@ export async function run(t, { tmp, HERE } = {}) {
     t.check("solidarity does not match inside longer words",
       countMatches("four hours, journal, plus.", HABITS.solidarity) === 0);
 
+    // THE 32% BUG. A case-insensitive \bus\b matches the country. This corpus is
+    // American political writing and contains 41 of them, which inflated the habit
+    // from 127 to 168 - and drafts were then reported deficient against the inflated
+    // number. Three independent renders disagreed with the harness before anyone
+    // checked the harness.
+    t.check("the country US is not counted as the pronoun us",
+      countMatches("The US and the EU signed it.", HABITS.solidarity) === 0);
+
+    t.check("the pronoun us is still counted, including sentence-initial We",
+      countMatches("We know it. It happened to us.", HABITS.solidarity) === 2);
+
     t.check("second person counts address forms including contractions",
       countMatches("You said you're taking yours, not your other one.", HABITS.secondPerson) === 4);
 
@@ -121,6 +132,20 @@ export async function run(t, { tmp, HERE } = {}) {
 
     t.check("contraction counts elided forms, not possessives of plurals",
       countMatches("don't, we're, it'll, I'd, I'm, he's", HABITS.contraction) === 6);
+
+    // THE 41% BUG. `[A-Za-z]+'s` cannot tell "it's" from "the world's". 228 of 424
+    // matches ended in 's, most of them possessives, and the profile then told a
+    // drafter the author contracts far more than he does.
+    t.check("a possessive is not a contraction",
+      countMatches("the world's fair, Wilhoit's law, the boss's desk", HABITS.contraction) === 0);
+
+    t.check("'s IS a contraction for the closed host set",
+      countMatches("it's here, that's true, there's more, who's asking", HABITS.contraction) === 4);
+
+    // The unambiguous elisions must keep taking any host, or the fix for one bug
+    // becomes an undercount everywhere else.
+    t.check("non-'s elisions still take any host",
+      countMatches("Doctorow'll go, Kate've seen, Chekhov'd know", HABITS.contraction) === 3);
 
     t.check("contraction accepts a typographic apostrophe as well as an ascii one",
       countMatches("don’t", HABITS.contraction) === 1);

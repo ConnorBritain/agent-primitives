@@ -144,3 +144,70 @@ as before.
 That is a real result. It is also 6 drafts on one blogger, judged by an instrument whose
 blind spot in the other direction was discovered four days ago, with one failure I cannot
 yet exonerate myself for.
+
+---
+
+# CORRECTION — 2026-08-15: two of the rate numbers above were wrong
+
+**The verdicts, findings and bar result are unaffected.** The critic never saw these
+numbers. What changes is §3's disclosure table and §6's reason 4.
+
+FU-20's k=3 measurement produced three renders whose counts disagreed with the harness on
+two habits. I initially read that as renderer instability. **It was not — the bugs were in
+`corpus-rates.mjs`, and two of the three renders had them right.**
+
+| habit | harness (buggy) | corrected | draw 1 | draw 2 | draw 3 |
+|---|---|---|---|---|---|
+| we/us/our | 168 | **127** | 120 | 169 | 121 |
+| contraction | 424 | **300** | 296 | 417 | 285 |
+
+1. **`/\bus\b/gi` matched the country.** This corpus is American political writing and
+   contains 41 instances of `US`. That is the whole 168 → 127 gap, a 32% inflation.
+2. **`[A-Za-z]+['’]s` counted possessives as contractions** — `earth's`, `world's`,
+   `library's`, `boss's`. 228 of 424 matches ended in `'s`. Restricting `'s` to a closed
+   host set gives 300, a 41% inflation removed.
+
+Corrected corpus rates: **we/us 7.24 per 1000** (was 9.57), **contraction 17.09** (was
+24.16). Both patterns now carry tests and mutations.
+
+## What the correction does to §3
+
+**The two `we/us` deficits are gone.** b04 and b08 were reported at 0.40× and 0.42×
+against an inflated corpus rate; against the true rate they are **0.54× and 0.55×, both
+in-band**. Every draft in this run is in-band on `we/us`.
+
+**A real excess appears that the inflated rate was hiding:** b03 contraction at **2.12×**.
+An inflated corpus denominator made over-contraction look normal.
+
+Corrected table, all 24 cells:
+
+| draft | profanity | we/us | 2nd person | contraction |
+|---|---|---|---|---|
+| v3 | 0.82× | 0.84× | 1.71× | 1.28× |
+| b02 | 0.91× | 0.93× | 1.17× | 1.42× |
+| b03 | 0.91× | 1.48× | 0.86× | **!2.12×** |
+| b04 | 0.87× | 0.54× | 1.59× | 1.89× |
+| b07 | 0.86× | 1.58× | 1.50× | 1.93× |
+| b08 | 1.80× | 0.55× | 1.58× | 1.48× |
+
+**1 flagged cell of 24**, not 2 — and a different one.
+
+## What it does NOT change
+
+- **b07's causal result stands.** Its `we/us` went from 0 instances to 9; zero is zero
+  under either pattern.
+- **The 2026-08-07 comparison stands.** Recomputed with the corrected patterns, that run's
+  five drafts are still at deficit: 0×, 0×, 0.18×, 0×, 0×.
+- **All second-person and profanity figures stand.** Neither pattern was touched.
+
+## The part worth keeping
+
+**Some of the cross-checks I reported as validation were two instruments sharing an
+error.** Draw 2 reproduced both of my bugs independently — 169 and 417 against my 168 and
+424 — so a renderer/harness agreement is weaker evidence than I treated it as. The genuine
+agreements (second person 385/390/395, first person 109/110) still hold.
+
+Nothing in the pipeline caught this. `checkRateArithmetic` passed, because each rate was
+arithmetic on its own count. The harness cross-check passed, because both sides were
+wrong the same way. **It was caught only because three independent draws disagreed with
+each other**, which is an argument for k>1 on renders and not just on critiques.

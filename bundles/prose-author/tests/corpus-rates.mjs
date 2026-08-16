@@ -71,9 +71,24 @@ export const HABITS = {
   // habit being measured, and only an enumerated list can tell the difference.
   profanity:
     /\b(fuck|fucks|fucked|fucking|fucker|fuckers|shit|shits|shitty|shittiness|bullshit|piss|pissed|pissing|crap|crappy|ass|asses|asshole|assholes|bastard|bastards|damn|damned|goddamn|hell|balls|bollocks|dick|dicks|prick|pricks|cunt|cunts|wank|wanker|wankers|screwed|suck|sucks)\b/gi,
-  solidarity: /\b(we|us|our|ours|we're|we've|we'd|we'll)\b/gi,
+  // NOT case-insensitive, and that is the whole point. `/\bus\b/gi` matches the country
+  // `US`, which appears 41 times in this corpus of American political writing - a 32%
+  // inflation of a habit that drafts were then judged deficient in. Case is the only
+  // signal separating the pronoun from the abbreviation, so it must be preserved. The
+  // sentence-initial capitalised pronouns are enumerated instead.
+  solidarity: /\b(we|We|us|our|Our|ours|Ours|we're|We're|we've|We've|we'd|We'd|we'll|We'll)\b/g,
   secondPerson: /\b(you|your|yours|you're|you've|you'd|you'll)\b/gi,
-  contraction: /\b[A-Za-z]+['’](t|s|re|ve|ll|d|m)\b/gi,
+
+  // `'s` is a contraction for a CLOSED set of hosts and a possessive everywhere else.
+  // The open form `[A-Za-z]+['’]s` counted `earth's`, `world's`, `library's`, `boss's`
+  // and 200-odd other possessives as contractions, inflating the count from 300 to 424.
+  // A drafter told the corpus contracts 24 times per 1000 words when it does so 17
+  // times is being told to write in a register the author does not use.
+  //
+  // The other elisions (`n't`, `'re`, `'ve`, `'ll`, `'d`, `'m`) are unambiguous and take
+  // any host.
+  contraction:
+    /\b(?:(?:it|that|there|here|who|what|where|when|how|why|he|she|let|one|nothing|everything|something|somebody|nobody|this)['’]s|[A-Za-z]+['’](?:t|re|ve|ll|d|m))\b/gi,
 };
 
 /** Strip YAML frontmatter delimited by --- lines at the top of the file. */

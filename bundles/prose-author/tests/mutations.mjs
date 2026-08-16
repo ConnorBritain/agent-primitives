@@ -452,10 +452,24 @@ export const MUTATIONS = [
     guards: "a corpus measured whole cannot report itself as cleanly delimited",
   },
   {
+    name: "count the country US as the pronoun us",
+    file: RATES,
+    find: "  solidarity: /\\b(we|We|us|our|Our|ours|Ours|we're|We're|we've|We've|we'd|We'd|we'll|We'll)\\b/g,",
+    with: "  solidarity: /\\b(we|us|our|ours)\\b/gi,",
+    guards: "a habit rate is not inflated 32% by an abbreviation that shares its letters",
+  },
+  {
+    name: "treat every possessive as a contraction",
+    file: RATES,
+    find: "    /\\b(?:(?:it|that|there|here|who|what|where|when|how|why|he|she|let|one|nothing|everything|something|somebody|nobody|this)['’]s|[A-Za-z]+['’](?:t|re|ve|ll|d|m))\\b/gi,",
+    with: "    /\\b[A-Za-z]+['’](?:t|s|re|ve|ll|d|m)\\b/gi,",
+    guards: "the world's fair is not evidence that the author contracts",
+  },
+  {
     name: "let the solidarity pattern match inside longer words",
     file: RATES,
-    find: "  solidarity: /\\b(we|us|our|ours|we're|we've|we'd|we'll)\\b/gi,",
-    with: "  solidarity: /(we|us|our|ours)/gi,",
+    find: "  solidarity: /\\b(we|We|us|our|Our|ours|Ours|we're|We're|we've|We've|we'd|We'd|we'll|We'll)\\b/g,",
+    with: "  solidarity: /(we|We|us|our|Our|ours)/g,",
     guards: "the habit five drafts are deficient in is not inflated by substring hits",
   },
   {

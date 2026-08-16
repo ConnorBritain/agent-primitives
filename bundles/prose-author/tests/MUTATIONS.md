@@ -51,6 +51,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | stop comparing the frequency phrase against the counted rate | 1 | the phrase a drafter reads and the number a harness reads agree |
 | scan the corpus directly instead of delegating to the drafter's reader | 2 | rates are measured over the same attested samples the drafter is shown |
 | measure an undelimited corpus without saying so | 1 | a corpus measured whole cannot report itself as cleanly delimited |
+| count the country US as the pronoun us | 1 | a habit rate is not inflated 32% by an abbreviation that shares its letters |
+| treat every possessive as a contraction | 1 | the world's fair is not evidence that the author contracts |
 | let the solidarity pattern match inside longer words | 1 | the habit five drafts are deficient in is not inflated by substring hits |
 | stop guarding the corpus's measured rates against leaking into a prompt | 1 | a renderer is not handed the number it is being asked to derive |
 | stop deriving author tokens from corpus frontmatter | 1 | a prompt naming an author by any part of their name is caught, not just the surname |
