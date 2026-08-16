@@ -86,7 +86,7 @@
 
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "human-professional");
@@ -156,7 +156,10 @@ function parseItems(rss) {
  * identify furniture must still be recognisable when we cut, so class-based
  * removals run BEFORE the blanket tag strip.
  */
-function extractBody(html) {
+// Exported so a corpus can be vendored from already-downloaded pages without
+// reimplementing the extractor. The repo has twice been bitten by a second copy of a
+// scan drifting from the first; this is the same lesson applied before it happens.
+export function extractBody(html) {
   let s = html;
 
   // 1. Campaign furniture. Deeplinks wraps its calls to action in
@@ -378,7 +381,13 @@ async function main() {
   process.stdout.write(`  wrote ${ATTR_PATH}\n\n`);
 }
 
-main().catch((err) => {
-  process.stderr.write(`fetch-professional: ${err.message}\n`);
-  process.exit(1);
-});
+// Run main ONLY when invoked as a script. Without this guard, importing the module to
+// reuse extractBody() also fires a network fetch of the RSS feed - a side effect that
+// makes the extractor effectively unreusable and would push the next caller into writing
+// a second copy of it.
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+  main().catch((err) => {
+    process.stderr.write(`fetch-professional: ${err.message}\n`);
+    process.exit(1);
+  });
+}

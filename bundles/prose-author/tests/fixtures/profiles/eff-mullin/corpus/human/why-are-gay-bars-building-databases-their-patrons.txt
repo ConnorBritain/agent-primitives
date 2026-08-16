@@ -1,0 +1,809 @@
+---
+source: EFF Deeplinks (eff.org)
+title: Why Are Gay Bars Building Databases of Their Patrons?
+author: Joe Mullin
+date: 2026-07-01
+human_authored: true
+license: CC-BY-4.0
+link_targets: stripped
+permalink: https://www.eff.org/deeplinks/2026/07/why-are-gay-bars-building-databases-their-patrons
+---
+Why Are Gay Bars Building Databases of Their Patrons? | Electronic Frontier Foundation
+
+
+
+
+[Skip to main content](#main-content)
+
+
+
+
+[About](https://www.eff.org/about)[Contact](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+[People](https://www.eff.org/about/staff)
+
+[Opportunities](https://www.eff.org/about/opportunities)
+
+[Issues](https://www.eff.org/work)[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity and Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+[Our Work](https://www.eff.org/updates)[Deeplinks Blog](https://www.eff.org/deeplinks)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/events/list?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[Podcasts](https://www.eff.org/pages/keep-digital-rights-eff-podcasts)
+
+[Annual Reports](https://www.eff.org/about/annual-reports-and-financials)
+
+[Take Action](https://act.eff.org/)[Action Center](https://act.eff.org/)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Follow EFF](https://www.eff.org/pages/where-find-eff)
+
+[Tools](https://www.eff.org/pages/tools)[Privacy Badger](https://www.eff.org/pages/privacy-badger)
+
+[Surveillance Self-Defense](https://www.eff.org/pages/surveillance-self-defense)
+
+[Certbot](https://www.eff.org/pages/certbot)
+
+[Atlas of Surveillance](https://www.eff.org/pages/atlas-surveillance)
+
+[Cover Your Tracks](https://www.eff.org/pages/cover-your-tracks)
+
+[Street Level Surveillance](https://sls.eff.org/)
+
+[apkeep](https://www.eff.org/pages/apkeep)
+
+[Shop](https://shop.eff.org)
+
+[Donate](https://supporters.eff.org/donate/join-eff-today)[Donate to EFF](https://supporters.eff.org/donate/join-eff-today)
+
+[Shop](https://shop.eff.org)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Sponsorships](https://www.eff.org/thanks#organizational_members)
+
+[Other Ways to Give](https://www.eff.org/pages/other-ways-give-and-donor-support)
+
+[Membership FAQ](https://www.eff.org/pages/membership-faq)
+
+
+
+
+
+
+
+Email updates on news, actions,
+
+and events in your area.
+
+
+
+[Join EFF Lists](https://eff.org/signup)
+
+
+
+
+[Copyright (CC BY)](https://www.eff.org/copyright)
+
+[Trademark](https://www.eff.org/pages/trademark-and-brand-usage-policy)
+
+[Privacy Policy](https://www.eff.org/policy)
+
+[Thanks](https://www.eff.org/thanks)
+
+
+
+
+
+
+
+
+[Electronic Frontier Foundation](https://www.eff.org/)
+
+
+
+
+
+
+[Donate](https://supporters.eff.org/donate/site-m--m)
+
+
+
+
+
+If you use technology, this fight is yours.[Donate today](https://supporters.eff.org/donate/virtualvegas--wssn)
+
+
+
+
+
+
+
+
+
+
+
+[Electronic Frontier Foundation](https://www.eff.org/)
+
+
+
+
+
+
+[About](https://www.eff.org/about)[Contact](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+[People](https://www.eff.org/about/staff)
+
+[Opportunities](https://www.eff.org/about/opportunities)
+
+[Issues](https://www.eff.org/work)[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity and Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+[Our Work](https://www.eff.org/updates)[Deeplinks Blog](https://www.eff.org/deeplinks)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/events/list?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[Podcasts](https://www.eff.org/pages/keep-digital-rights-eff-podcasts)
+
+[Annual Reports](https://www.eff.org/about/annual-reports-and-financials)
+
+[Take Action](https://act.eff.org/)[Action Center](https://act.eff.org/)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Follow EFF](https://www.eff.org/pages/where-find-eff)
+
+[Tools](https://www.eff.org/pages/tools)[Privacy Badger](https://www.eff.org/pages/privacy-badger)
+
+[Surveillance Self-Defense](https://www.eff.org/pages/surveillance-self-defense)
+
+[Certbot](https://www.eff.org/pages/certbot)
+
+[Atlas of Surveillance](https://www.eff.org/pages/atlas-surveillance)
+
+[Cover Your Tracks](https://www.eff.org/pages/cover-your-tracks)
+
+[Street Level Surveillance](https://sls.eff.org/)
+
+[apkeep](https://www.eff.org/pages/apkeep)
+
+[Shop](https://shop.eff.org)
+
+[Donate](https://supporters.eff.org/donate/join-eff-today)[Donate to EFF](https://supporters.eff.org/donate/join-eff-today)
+
+[Shop](https://shop.eff.org)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Sponsorships](https://www.eff.org/thanks#organizational_members)
+
+[Other Ways to Give](https://www.eff.org/pages/other-ways-give-and-donor-support)
+
+[Membership FAQ](https://www.eff.org/pages/membership-faq)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Why Are Gay Bars Building Databases of Their Patrons?
+
+
+
+DEEPLINKS BLOG
+
+By [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+
+July 28, 2026
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Why Are Gay Bars Building Databases of Their Patrons?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Español](https://www.eff.org/deeplinks/2026/07/why-are-gay-bars-building-databases-their-patrons?language=es)
+
+Update 8/10/2026: Two San Francisco bars that used Patronscan have said they will [stop using the system](https://www.sfgate.com/sf-culture/article/bars-face-scanning-reverse-22382172.php) after listening to customers’ privacy concerns. EFF applauds this change and we hope other bars follow suit by returning to ID-checking systems that respect their customers’ rights.
+
+————————————————————
+
+[Recent reports](https://www.advocate.com/news/san-francisco-gay-bars-privacy) have [raised alarm](https://sf.gazetteer.co/why-do-these-castro-gay-bars-have-tsa-style-face-scanners) about the use of PatronScan, an ID-checking and face-scanning system, at multiple LGBTQ+ bars in San Francisco’s Castro neighborhood. Much of the attention has focused on reports that the system photographs patrons as they enter venues and questions about whether those images are used for facial recognition.
+
+A broader privacy concern also deserves scrutiny. For years, PatronScan has marketed itself not just as an ID-verification tool, but as a system that allows bars and clubs to identify patrons, keep records about them, and share information across venues. As one news article published in 2019 [documented](https://onezero.medium.com/id-at-the-door-meet-the-security-company-building-an-international-database-of-banned-bar-patrons-7c6d4b236fc3), PatronScan built a network that allowed participating bars to flag patrons and share information about them with other establishments. 
+
+And in California, it’s not at all clear how PatronScan’s business model of scanning IDs and sharing the information from those scans with other bars comports with the law. California’s [ID privacy law](https://codes.findlaw.com/ca/civil-code/civ-sect-1798-90-1/), which was amended in 2018 to add ID “scans,” states that no businesses shall “retain or use” any information from a scanned ID card except for limited purposes such as to verify age, comply with a legal requirement, or prevent fraud. 
+
+A venue cannot claim to be a safe space while feeding its patrons’ data to a third party database.
+
+Californians should be deeply concerned about businesses that collect information from government-issued IDs and use it to build databases about where people go, whom they associate with, and whether they should be allowed into other public gathering places. That concern is especially strong in LGBTQ+ spaces, which have long served as refuges for people to go without being tracked, monitored, or put on lists. 
+
+We reached out to Patronscan with questions regarding their practices and their views on California ID law. They referred us to their [published FAQ](https://patronscan.com/policies/) question “Is Patronscan privacy compliant in California?” which claims that the use of Patronscan kiosks is legal in California. They also said “Patronscan does not do facial recognition in North America, or any kind of automated analysis of the ID or the live photo image.” 
+
+The California Legislature Has Investigated PatronScan’s Business Model 
+
+In 2018, the California Legislature published bill analyses (on that year's [AB 2769](https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=201720180AB2769)) that went into detail about PatronScan’s business. Reviewing PatronScan's own materials, the California Senate Judiciary Committee [found that the company had collected and retained information](https://www.eff.org/document/ca-senate-floor-analysis-ab-2769) on 561,087 customers in Sacramento alone during the first five months of 2018—a remarkable figure for a city whose population had only recently topped 500,000.
+
+Lawmakers also found that at that time, PatronScan retained information for at least 90 days or longer in some cases, shared information among participating bars, and maintained bans that lasted an average of more than 19 years. A PatronScan “Public Safety Report” used 10,000 scans collected on a single day to report on “where customers live, how far they have traveled, and how many different venues the customers patronized.” 
+
+This was not simply checking IDs at the door. PatronScan was building a database. 
+
+An immigrants’ rights group, the Coalition for Human Immigrant Rights (CHIRLA), [wrote about its concern](https://www.eff.org/document/ca-assembly-floor-analysis-ca-2769) at the time with these growing ID databases, saying that “placing individuals on a database that labels them a "threat to public safety" has “significant immigration consequences that could lead to deportation, revoking of current status, or denial of future immigration relief.” 
+
+Today, Patronscan [states](https://patronscan.com/policies/) that it retains personal information about all customers for 21 days, and about flagged customers for up to five years. This includes the customer’s name, date of birth, photograph, gender, and zip code. It also includes the dates and times that the customer entered particular bars. Such databases are a grave privacy threat. Personal data is routinely stolen by thieves, misused by a company’s employees, seized by government agencies, and diverted to new purposes by a company’s executives. 
+
+California Law Still Bans ID-Scan Databases, And Bars Should Follow That Law
+
+In 2018, California lawmakers closed what they viewed as a loophole. Existing law already prohibited businesses from retaining or using information obtained when they “swiped” a driver's license, except for the narrow purposes of legal requirements (like a judicial warrant) or “preventing fraud, abuse, or material misrepresentation.” 
+
+After reviewing companies like PatronScan, the Legislature amended the law to make clear that the same restrictions that apply to businesses that “swipe” ID cards also apply when those IDs are “scanned.” PatronScan opposed that change, arguing it wanted to preserve the ability to share information among bars so participating venues could decide whether to admit patrons.
+
+The bill became law anyway. Yet PatronScan continues to market and sell a system that apparently retains information from scanned IDs, and allows participating venues to flag patrons and share information across its network. 
+
+At a minimum, that raises serious questions about how those practices fit with California's existing ID privacy law. Bar and nightlife venue owners who utilize PatronScan should think twice about its effects on their customers, and consider going back to standard, visual ID checks. These physical checks have been effective at keeping underage patrons out of 21-and-over venues for decades, and don’t present the serious privacy dangers of creating a private database of bar patrons. 
+
+For venues serving vulnerable communities like immigrants or the LGBTQ+ community, the stakes of using this technology are even higher. It’s disappointing and alarming to see some of California’s more well-known LGBTQ+ nightlife spots instead lining up as PatronScan’s early adopters. A venue cannot claim to be a safe space while feeding its patrons’ data to a third party database. These businesses should reject PatronScan, return to the standard ID checks that every other bar has been able to utilize, and prove to their customers that their privacy and security still matters. 
+
+
+
+
+
+
+Related Issues
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+
+
+
+Share It
+
+[Share on Mastodon](https://share.joinmastodon.org/#text=+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2026%2F07%2Fwhy-are-gay-bars-building-databases-their-patrons)
+[Share on Bluesky](https://bsky.app/intent/compose?text=Why+Are+Gay+Bars+Building+Databases+of+Their+Patrons%3F+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2026%2F07%2Fwhy-are-gay-bars-building-databases-their-patrons)
+[Share on Facebook](https://www.facebook.com/share.php?u=https%3A//www.eff.org/deeplinks/2026/07/why-are-gay-bars-building-databases-their-patrons&title=Why%20Are%20Gay%20Bars%20Building%20Databases%20of%20Their%20Patrons%3F)
+[Copy link](https://www.eff.org/deeplinks/2026/07/why-are-gay-bars-building-databases-their-patrons)
+
+
+
+
+
+
+
+
+
+
+Related Updates
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [India McKinney](https://www.eff.org/about/staff/india-mckinney)
+| August 4, 2026
+
+[Tomorrow’s U.S. Senate Vote: Four Internet Bills, One Wrong Direction](https://www.eff.org/deeplinks/2026/08/senate-vote-tomorrow-four-internet-bills-one-wrong-direction)
+
+
+
+
+
+
+
+
+The Senate Commerce Committee [will](https://www.commerce.senate.gov/meetings/executive-session-24-08-05-2026/)[vote](https://www.commerce.senate.gov/meetings/executive-session-24-08-05-2026/)[this week](https://www.commerce.senate.gov/meetings/executive-session-24-08-05-2026/) on several censorious and privacy invasive bills: [KOSA](https://www.eff.org/deeplinks/2026/08/senate-should-reject-kosas-privacy-risks), the [SCREEN Act](https://www.eff.org/deeplinks/2026/07/screen-act-threatens-privacy-far-beyond-adult-websites), [Youth AI Privacy Act,](https://www.eff.org/deeplinks/2026/08/youth-ai-privacy-acts-privacy-paradox) and [CHATBOT Act](https://www.eff.org/deeplinks/2026/07/chatbot-act-forces-one-parenting-model-every-family). While we appreciate that the Committee is taking the time to look at these bills separately, it’s...
+
+
+
+
+
+
+
+
+
+
+
+[Press Release](https://www.eff.org/updates?type=press_release)
+| August 4, 2026
+
+[Mobile Ad Software Encourages Location Data Sharing, EFF Report Finds](https://www.eff.org/press/releases/mobile-ad-software-encourages-location-data-sharing-eff-report-finds)
+
+
+
+
+
+
+
+
+SAN FRANCISCO – Some software development kits (SDKs) provided by advertising companies to help developers monetize their apps are automatically feeding users’ location data into systems that location data brokers use to track people, an Electronic Frontier Foundation (EFF) [report found](https://www.eff.org/deeplinks/2026/07/developers-beware-ad-libraries-betray-your-users-location-privacy). EFF began investigating the location-sharing practices of various...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+| August 3, 2026
+
+[The Senate Should Reject KOSA's Privacy Risks](https://www.eff.org/deeplinks/2026/08/senate-should-reject-kosas-privacy-risks)
+
+
+
+
+
+
+
+
+Update: The Senate Commerce Committee voted to advance this bill on August 5, 2026. EFF continues to oppose the bill, which still needs approval from the full Senate. The Senate Commerce Committee is once again considering legislation that would dramatically expand age verification, and undermine privacy for everyone. Alongside the...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Maddie Daly](https://www.eff.org/about/staff/maddie-daly)
+| August 3, 2026
+
+[The Youth AI Privacy Act’s Privacy Paradox](https://www.eff.org/deeplinks/2026/08/youth-ai-privacy-acts-privacy-paradox)
+
+
+
+
+
+
+
+
+Update: The Senate Commerce Committee voted to advance this bill on August 5, 2026. EFF continues to oppose the bill, which still needs approval from the full Senate. The Senate Commerce Committee is poised to consider the [Youth AI Privacy Act](https://www.congress.gov/119/bills/s4199/BILLS-119s4199is.pdf), a bill that would require AI companies to...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+| July 31, 2026
+
+[The CHATBOT Act Forces One Parenting Model On Every Family](https://www.eff.org/deeplinks/2026/07/chatbot-act-forces-one-parenting-model-every-family)
+
+
+
+
+
+
+
+
+Update: The Senate Commerce Committee voted to advance this bill on August 5, 2026. EFF continues to oppose the bill, which still needs approval from the full Senate. Artificial intelligence is rapidly changing education, and the way people search for information. Parents, teenagers, teachers, and schools are struggling with tough...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Matthew Guariglia](https://www.eff.org/about/staff/dr-matthew-guariglia-0), [Hayley Tsukayama](https://www.eff.org/about/staff/hayley-tsukayama)
+| July 28, 2026
+
+[San Francisco: Don’t Fall for Industry Defense of Surveillance Pricing](https://www.eff.org/deeplinks/2026/07/san-francisco-dont-fall-industry-defense-surveillance-pricing)
+
+
+
+
+
+
+
+
+The concept of “surveillance pricing” is just one part of a much larger problem and business model: corporations maximizing their profits by invading our privacy. The all-too-common business model is to systematically harvest, collate, and store as much of our personal data as possible, and then monetize it through use...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Hayley Tsukayama](https://www.eff.org/about/staff/hayley-tsukayama)
+| July 20, 2026
+
+[Protect Your Privacy with California's DROP Tool](https://www.eff.org/deeplinks/2026/07/what-you-need-know-about-californias-drop-tool)
+
+
+
+
+
+
+
+
+Are you a California resident? Then we've got exciting news for you: there's a tool just for you that lets you take a single, relatively easy step to protect your privacy. It's called a DROP request. (That's Delete Request and Opt-out Platform, if you're fancy). This one bit of paperwork...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Dave Maass](https://www.eff.org/about/staff/dave-maass)
+| July 17, 2026
+
+[How the Watch Dogs Video Game Series Mirrored and Predicted Real-World Digital Rights Issues](https://www.eff.org/deeplinks/2026/07/how-watch-dogs-video-game-series-mirrored-and-predicted-real-world-digital-rights)
+
+
+
+
+
+
+
+
+When Ubisoft's Watch Dogs 2 was released in 2016, it was a headtrip for those of us working on digital-rights issues in the Bay Area. The game's missions often felt like they were ripped from the pages of EFF's Deeplinks blog.
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Thorin Klosowski](https://www.eff.org/about/staff/thorin-klosowski-0)
+| July 15, 2026
+
+[Most Smart Watches, Rings, and Bands Lack Basic Transparency Reports and Key Privacy Features](https://www.eff.org/deeplinks/2026/07/most-smart-watches-rings-and-bands-lack-basic-transparency-reports-and-key-privacy)
+
+
+
+
+
+
+
+
+Oura Rings, Garmin GPS fitness watches, Apple Watches, Whoop bands—every year, more and more tech devices are promising to monitor our health and fitness, guide us toward healthier living, and provide useful health metrics to take to our doctors. But few of these tools provide the sorts of privacy and...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Rory Mir](https://www.eff.org/about/staff/rory-mir)
+| July 14, 2026
+
+[Don’t Repeat NY’s 3D Printing Blunder](https://www.eff.org/deeplinks/2026/07/dont-repeat-nys-3d-printing-blunder)
+
+
+
+
+
+
+
+
+This year the state of New York had the dubious honor of being the first to pass a controversial provision to mandate all 3D printers come with surveillance and censorship. That means not only is there a ticking clock to protect every artist, researcher, engineer, and hobbyist in the state...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Share on Mastodon](https://share.joinmastodon.org/#text=Why+Are+Gay+Bars+Building+Databases+of+Their+Patrons%3F+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2026%2F07%2Fwhy-are-gay-bars-building-databases-their-patrons)[Share on Bluesky](https://bsky.app/intent/compose?text=Why+Are+Gay+Bars+Building+Databases+of+Their+Patrons%3F+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2026%2F07%2Fwhy-are-gay-bars-building-databases-their-patrons)[Share on Facebook](https://www.facebook.com/share.php?u=https%3A//www.eff.org/deeplinks/2026/07/why-are-gay-bars-building-databases-their-patrons&title=Why%20Are%20Gay%20Bars%20Building%20Databases%20of%20Their%20Patrons%3F)
+
+
+
+Related Issues
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Back to top](#main-content)
+
+
+
+
+
+
+
+Follow EFF:
+
+
+[mastodon](https://mastodon.social/@eff)
+
+[facebook](https://www.facebook.com/eff)
+
+[instagram](https://www.instagram.com/efforg/)
+
+[Blue Sky](https://bsky.app/profile/eff.org)
+
+[youtube](https://www.youtube.com/efforg)
+
+[flicker](https://www.flickr.com/photos/electronicfrontierfoundation)
+
+[linkedin](https://www.linkedin.com/company/EFF)
+
+[tiktok](https://www.tiktok.com/@efforg)
+
+[threads](https://www.threads.net/@efforg)
+
+
+
+Check out our 4-star rating on [Charity Navigator](https://www.charitynavigator.org/ein/043091431).
+
+
+
+Contact
+
+[General](https://www.eff.org/about/contact)
+
+[Legal](https://www.eff.org/pages/legal-assistance)
+
+[Security](https://www.eff.org/security)
+
+[Membership](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+
+
+About
+
+[Calendar](https://www.eff.org/event)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Victories](https://www.eff.org/victories)
+
+[History](https://www.eff.org/about/history)
+
+[Internships](https://www.eff.org/about/opportunities/interns)
+
+[Jobs](https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=28620672D234BF368306CEB4A2746667)
+
+[Staff](https://www.eff.org/about/staff)
+
+[Diversity & Inclusion](https://www.eff.org/pages/effs-diversity-statement)
+
+
+
+Issues
+
+[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity & Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+
+
+Updates
+
+[Blog](https://www.eff.org/deeplinks?type=blog)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/updates?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[EFFector Newsletter](https://www.eff.org/effector)
+
+
+
+Press
+
+[Press Contact](https://www.eff.org/press/contact)
+
+
+
+Donate
+
+[Join or Renew Membership Online](https://supporters.eff.org/donate/donate-df)
+
+[One-Time Donation Online](https://supporters.eff.org/donate/donate-df)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Corporate Giving and Sponsorship](https://www.eff.org/thanks#organizational_members)
+
+[Shop](https://shop.eff.org)
+
+[Other Ways to Give](https://www.eff.org/helpout)
+
+
+
+
+
+
+
+[Copyright (CC BY)](https://www.eff.org/copyright)
+
+[Trademark](https://www.eff.org/pages/trademark-and-brand-usage-policy)
+
+[Privacy Policy](https://www.eff.org/policy)
+
+[Thanks](https://www.eff.org/thanks)
+
+
+
+
+
+[JavaScript license information](https://www.eff.org/librejs/jslicense)

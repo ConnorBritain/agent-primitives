@@ -1,0 +1,804 @@
+---
+source: EFF Deeplinks (eff.org)
+title: The Kids Online Safety Act Will Make the Internet Worse for Everyone
+author: Joe Mullin
+date: 2025-05-01
+human_authored: true
+license: CC-BY-4.0
+link_targets: stripped
+permalink: https://www.eff.org/deeplinks/2025/05/kids-online-safety-act-will-make-internet-worse-everyone
+---
+The Kids Online Safety Act Will Make the Internet Worse for Everyone | Electronic Frontier Foundation
+
+
+
+
+[Skip to main content](#main-content)
+
+
+
+
+[About](https://www.eff.org/about)[Contact](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+[People](https://www.eff.org/about/staff)
+
+[Opportunities](https://www.eff.org/about/opportunities)
+
+[Issues](https://www.eff.org/work)[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity and Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+[Our Work](https://www.eff.org/updates)[Deeplinks Blog](https://www.eff.org/deeplinks)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/events/list?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[Podcasts](https://www.eff.org/pages/keep-digital-rights-eff-podcasts)
+
+[Annual Reports](https://www.eff.org/about/annual-reports-and-financials)
+
+[Take Action](https://act.eff.org/)[Action Center](https://act.eff.org/)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Follow EFF](https://www.eff.org/pages/where-find-eff)
+
+[Tools](https://www.eff.org/pages/tools)[Privacy Badger](https://www.eff.org/pages/privacy-badger)
+
+[Surveillance Self-Defense](https://www.eff.org/pages/surveillance-self-defense)
+
+[Certbot](https://www.eff.org/pages/certbot)
+
+[Atlas of Surveillance](https://www.eff.org/pages/atlas-surveillance)
+
+[Cover Your Tracks](https://www.eff.org/pages/cover-your-tracks)
+
+[Street Level Surveillance](https://sls.eff.org/)
+
+[apkeep](https://www.eff.org/pages/apkeep)
+
+[Shop](https://shop.eff.org)
+
+[Donate](https://supporters.eff.org/donate/join-eff-today)[Donate to EFF](https://supporters.eff.org/donate/join-eff-today)
+
+[Shop](https://shop.eff.org)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Sponsorships](https://www.eff.org/thanks#organizational_members)
+
+[Other Ways to Give](https://www.eff.org/pages/other-ways-give-and-donor-support)
+
+[Membership FAQ](https://www.eff.org/pages/membership-faq)
+
+
+
+
+
+
+
+Email updates on news, actions,
+
+and events in your area.
+
+
+
+[Join EFF Lists](https://eff.org/signup)
+
+
+
+
+[Copyright (CC BY)](https://www.eff.org/copyright)
+
+[Trademark](https://www.eff.org/pages/trademark-and-brand-usage-policy)
+
+[Privacy Policy](https://www.eff.org/policy)
+
+[Thanks](https://www.eff.org/thanks)
+
+
+
+
+
+
+
+
+[Electronic Frontier Foundation](https://www.eff.org/)
+
+
+
+
+
+
+[Donate](https://supporters.eff.org/donate/site-m--m)
+
+
+
+
+
+If you use technology, this fight is yours.[Donate today](https://supporters.eff.org/donate/virtualvegas--wssn)
+
+
+
+
+
+
+
+
+
+
+
+[Electronic Frontier Foundation](https://www.eff.org/)
+
+
+
+
+
+
+[About](https://www.eff.org/about)[Contact](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+[People](https://www.eff.org/about/staff)
+
+[Opportunities](https://www.eff.org/about/opportunities)
+
+[Issues](https://www.eff.org/work)[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity and Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+[Our Work](https://www.eff.org/updates)[Deeplinks Blog](https://www.eff.org/deeplinks)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/events/list?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[Podcasts](https://www.eff.org/pages/keep-digital-rights-eff-podcasts)
+
+[Annual Reports](https://www.eff.org/about/annual-reports-and-financials)
+
+[Take Action](https://act.eff.org/)[Action Center](https://act.eff.org/)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Follow EFF](https://www.eff.org/pages/where-find-eff)
+
+[Tools](https://www.eff.org/pages/tools)[Privacy Badger](https://www.eff.org/pages/privacy-badger)
+
+[Surveillance Self-Defense](https://www.eff.org/pages/surveillance-self-defense)
+
+[Certbot](https://www.eff.org/pages/certbot)
+
+[Atlas of Surveillance](https://www.eff.org/pages/atlas-surveillance)
+
+[Cover Your Tracks](https://www.eff.org/pages/cover-your-tracks)
+
+[Street Level Surveillance](https://sls.eff.org/)
+
+[apkeep](https://www.eff.org/pages/apkeep)
+
+[Shop](https://shop.eff.org)
+
+[Donate](https://supporters.eff.org/donate/join-eff-today)[Donate to EFF](https://supporters.eff.org/donate/join-eff-today)
+
+[Shop](https://shop.eff.org)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Sponsorships](https://www.eff.org/thanks#organizational_members)
+
+[Other Ways to Give](https://www.eff.org/pages/other-ways-give-and-donor-support)
+
+[Membership FAQ](https://www.eff.org/pages/membership-faq)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The Kids Online Safety Act Will Make the Internet Worse for Everyone
+
+
+
+DEEPLINKS BLOG
+
+By [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+
+May 15, 2025
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The Kids Online Safety Act Will Make the Internet Worse for Everyone
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+The Kids Online Safety Act (KOSA) is back in the Senate. Sponsors are claiming—again—that the latest version won’t censor online content. It isn’t true. This bill still sets up a censorship regime disguised as a “duty of care,” and it will do what previous versions threatened: suppress lawful, important speech online, especially for young people.
+
+KOSA Still Forces Platforms to Police Legal Speech
+
+At the center of the bill is a requirement that platforms “exercise reasonable care” to prevent and mitigate a sweeping list of harms to minors, including depression, anxiety, eating disorders, substance use, bullying, and “compulsive usage.” The bill claims to bar lawsuits over “the viewpoint of users,” but that’s a [smokescreen](https://www.eff.org/deeplinks/2024/03/analyzing-kosas-constitutional-problems-depth). Its core function is to let government agencies sue platforms, big or small, that don’t block or restrict content someone later claims contributed to one of these harms. 
+
+When the safest legal option is to delete a forum, platforms will delete the forum.
+
+This bill won’t bother big tech. Large companies will be able to manage this regulation, which is why [Apple](https://www.blackburn.senate.gov/services/files/660C34AF-4D56-47F6-8460-3BC74023F853) and [X](https://thehill.com/policy/technology/5029776-kids-online-safety-act-update/) have agreed to support it. In fact, X [helped negotiate the text](https://www.eff.org/deeplinks/2024/12/xs-last-minute-update-kids-online-safety-act-still-fails-protect-kids-or-adults) of the last version of this bill we saw. Meanwhile, those companies’ smaller competitors will be left scrambling to comply. Under KOSA, a small platform hosting mental health discussion boards will be just as vulnerable as Meta or TikTok—but much less able to defend itself. 
+
+To avoid liability, platforms will over-censor. It’s not merely hypothetical. It’s what happens when speech becomes a legal risk. The list of harms in KOSA’s “duty of care” provision is so broad and vague that no platform will know what to do regarding any given piece of content. Forums won’t be able to host posts with messages like “love your body,” “please don’t do drugs,” or “here’s how I got through depression” without fearing that an attorney general or FTC lawyer might later decide the content was harmful. Support groups and anti-harm communities, which can’t do their work without talking about difficult subjects like eating disorders, mental health, and drug abuse, will get caught in the dragnet. 
+
+When the safest legal option is to delete a forum, platforms will delete the forum.
+
+There’s Still No Science Behind KOSA’s Core Claims
+
+KOSA relies heavily on vague, subjective harms like “compulsive usage.” The bill defines it as repetitive online behavior that disrupts life activities like eating, sleeping, or socializing. But here’s the problem: there is no accepted clinical definition of “compulsive usage” of online services.
+
+There’s no scientific consensus that online platforms cause mental health disorders, nor agreement on how to measure so-called “addictive” behavior online. The term sounds like settled medical science, but it’s legislative sleight-of-hand: an undefined concept given legal teeth, with major consequences for speech and access to information.
+
+Carveouts Don’t Fix the First Amendment Problem
+
+The bill says it can’t be enforced based on a user’s “viewpoint.” But the text of the bill itself [preferences certain viewpoints](https://www.eff.org/deeplinks/2024/03/analyzing-kosas-constitutional-problems-depth) over others. Plus, liability in KOSA attaches to the platform, not the user. The only way for platforms to reduce risk in the world of KOSA is to monitor, filter, and restrict what users say.
+
+If the FTC can sue a platform because minors saw a medical forum discussing anorexia, or posts about LGBTQ identity, or posts discussing how to help a friend who’s depressed, then that’s censorship. The bill’s stock language that “viewpoints are protected” won’t matter. The legal incentives guarantee that platforms will silence even remotely controversial speech to stay safe.
+
+Lawmakers who support KOSA today are choosing to trust the current administration, and future administrations, to define what youth—and to some degree, all of us—should be allowed to read online. 
+
+KOSA will not make kids safer. It will make the internet more dangerous for anyone who relies on it to learn, connect, or speak freely. Lawmakers should reject it, and fast. 
+
+
+
+
+
+
+Related Issues
+
+[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Age Verification and Age Gating: Resource Hub](https://www.eff.org/issues/age-verification)
+
+
+
+
+Share It
+
+[Share on Mastodon](https://share.joinmastodon.org/#text=+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F05%2Fkids-online-safety-act-will-make-internet-worse-everyone)
+[Share on Bluesky](https://bsky.app/intent/compose?text=The+Kids+Online+Safety+Act+Will+Make+the+Internet+Worse+for+Everyone+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F05%2Fkids-online-safety-act-will-make-internet-worse-everyone)
+[Share on Facebook](https://www.facebook.com/share.php?u=https%3A//www.eff.org/deeplinks/2025/05/kids-online-safety-act-will-make-internet-worse-everyone&title=The%20Kids%20Online%20Safety%20Act%20Will%20Make%20the%20Internet%20Worse%20for%20Everyone)
+[Copy link](https://www.eff.org/deeplinks/2025/05/kids-online-safety-act-will-make-internet-worse-everyone)
+
+
+
+
+
+
+
+
+
+
+Related Updates
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Cara Gagliano](https://www.eff.org/about/staff/cara-gagliano)
+| August 10, 2026
+
+[Dismiss Church’s Trademark Lawsuit Against “Mormon Stories” Podcast, EFF Urges Court](https://www.eff.org/deeplinks/2026/08/dismiss-churchs-trademark-lawsuit-against-mormon-stories-podcast-eff-urges-court)
+
+
+
+
+
+
+
+
+Imagine if McDonald’s could use trademark law to control how you use the term “fast food.” Or if the Canadian government could stop you from using the word “Canada” in the title of a book about the country and its people. That wouldn’t just be absurd; it would be an...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Jennifer Pinsof](https://www.eff.org/about/staff/jennifer-pinsof), [Jillian C. York](https://www.eff.org/about/staff/jillian-york)
+| August 10, 2026
+
+[Meta Must Stop Silencing Reproductive Health Information](https://www.eff.org/deeplinks/2026/08/meta-must-stop-silencing-reproductive-health-information)
+
+
+
+
+
+
+
+
+Access to accurate information about reproductive and maternal health can be critical. But on Meta's platforms, simply talking about prescription medication, abortion care, or one's own medical experiences can be enough to trigger content removals and account restrictions.That's why EFF recently submitted a public comment to the Meta Oversight Board...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+| August 3, 2026
+
+[The Senate Should Reject KOSA's Privacy Risks](https://www.eff.org/deeplinks/2026/08/senate-should-reject-kosas-privacy-risks)
+
+
+
+
+
+
+
+
+Update: The Senate Commerce Committee voted to advance this bill on August 5, 2026. EFF continues to oppose the bill, which still needs approval from the full Senate. The Senate Commerce Committee is once again considering legislation that would dramatically expand age verification, and undermine privacy for everyone. Alongside the...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Tori Noble](https://www.eff.org/about/staff/tori-noble), [Hayley Tsukayama](https://www.eff.org/about/staff/hayley-tsukayama)
+| August 3, 2026
+
+[EFF Joins Call for FTC to Drop Its Disastrous AI Policy Proposal](https://www.eff.org/deeplinks/2026/08/eff-joins-comments-calling-ftc-drop-its-ai-policy-proposal)
+
+
+
+
+
+
+
+
+The Federal Trade Commission issued a proposed policy statement "concerning the suppression of accuracy in artificial intelligence systems." But the government may not install itself as the arbiter of truth. We urge the FTC to withdraw this misguided proposal and instead focus on its core strengths and mission to protect...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Maddie Daly](https://www.eff.org/about/staff/maddie-daly)
+| August 3, 2026
+
+[The Youth AI Privacy Act’s Privacy Paradox](https://www.eff.org/deeplinks/2026/08/youth-ai-privacy-acts-privacy-paradox)
+
+
+
+
+
+
+
+
+Update: The Senate Commerce Committee voted to advance this bill on August 5, 2026. EFF continues to oppose the bill, which still needs approval from the full Senate. The Senate Commerce Committee is poised to consider the [Youth AI Privacy Act](https://www.congress.gov/119/bills/s4199/BILLS-119s4199is.pdf), a bill that would require AI companies to...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+| July 31, 2026
+
+[The CHATBOT Act Forces One Parenting Model On Every Family](https://www.eff.org/deeplinks/2026/07/chatbot-act-forces-one-parenting-model-every-family)
+
+
+
+
+
+
+
+
+Update: The Senate Commerce Committee voted to advance this bill on August 5, 2026. EFF continues to oppose the bill, which still needs approval from the full Senate. Artificial intelligence is rapidly changing education, and the way people search for information. Parents, teenagers, teachers, and schools are struggling with tough...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Sophia Cope](https://www.eff.org/about/staff/sophia-cope), [Bill Budington](https://www.eff.org/about/staff/william-budington)
+| July 31, 2026
+
+[EFF Guide to Recording Law Enforcement](https://www.eff.org/deeplinks/2026/07/eff-guide-recording-law-enforcement)
+
+
+
+
+
+
+
+
+Recordings of law enforcement, whether by bystanders or by those directly encountering officers, can be powerful tools of government accountability and can support movements for social change. But recording officers can come with risks. Download EFF's guide on important legal and practical considerations related to recording the police and other...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Christoph Schmon](https://www.eff.org/about/staff/christoph-schmon)
+| July 22, 2026
+
+[New EU Court of Justice Ruling on Platform Liability Could Cause Collateral Damage to Freedom of Expression](https://www.eff.org/deeplinks/2026/07/new-eu-court-justice-ruling-platform-liability-could-cause-collateral-damage)
+
+
+
+
+
+
+
+
+Intermediary liability laws [around the world](https://www.eff.org/deeplinks/2022/05/platform-liability-trends-around-globe-taxonomy-and-tools-intermediary-liability) [recognize](https://www.eff.org/deeplinks/2021/03/rewriting-intermediary-liability-law-what-eff-asks-and-you-should-too) that social media platforms, search engines, and other online service providers have become an integral part of our lives: they shape how we access information, communicate with others and participate in public debate, and foster innovation online. These laws generally shield...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Rory Mir](https://www.eff.org/about/staff/rory-mir)
+| July 14, 2026
+
+[Don’t Repeat NY’s 3D Printing Blunder](https://www.eff.org/deeplinks/2026/07/dont-repeat-nys-3d-printing-blunder)
+
+
+
+
+
+
+
+
+This year the state of New York had the dubious honor of being the first to pass a controversial provision to mandate all 3D printers come with surveillance and censorship. That means not only is there a ticking clock to protect every artist, researcher, engineer, and hobbyist in the state...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Jillian C. York](https://www.eff.org/about/staff/jillian-york), [Corynne McSherry](https://www.eff.org/about/staff/corynne-mcsherry)
+| July 10, 2026
+
+[Automated Moderation Is Here to Stay—Accountability Must Keep Pace](https://www.eff.org/deeplinks/2026/07/part-2-automated-moderation-here-stay-accountability-must-keep-pace)
+
+
+
+
+
+
+
+
+This post is part 2 in a series about automated content moderation. Read the first post [here](https://www.eff.org/deeplinks/2026/07/part-1-automated-moderation-here-stay).When whistleblower Frances Haugen leaked a set of documents from Meta in 2020, among the revelations was a jarring statistic: The company’s algorithms designed to detect terrorist content incorrectly [deleted nonviolent Arabic-language](https://www.politico.eu/article/facebook-content-moderation-posts-wars-afghanistan-middle-east-arabic/)...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Share on Mastodon](https://share.joinmastodon.org/#text=The+Kids+Online+Safety+Act+Will+Make+the+Internet+Worse+for+Everyone+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F05%2Fkids-online-safety-act-will-make-internet-worse-everyone)[Share on Bluesky](https://bsky.app/intent/compose?text=The+Kids+Online+Safety+Act+Will+Make+the+Internet+Worse+for+Everyone+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F05%2Fkids-online-safety-act-will-make-internet-worse-everyone)[Share on Facebook](https://www.facebook.com/share.php?u=https%3A//www.eff.org/deeplinks/2025/05/kids-online-safety-act-will-make-internet-worse-everyone&title=The%20Kids%20Online%20Safety%20Act%20Will%20Make%20the%20Internet%20Worse%20for%20Everyone)
+
+
+
+Related Issues
+
+[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Age Verification and Age Gating: Resource Hub](https://www.eff.org/issues/age-verification)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Back to top](#main-content)
+
+
+
+
+
+
+
+Follow EFF:
+
+
+[mastodon](https://mastodon.social/@eff)
+
+[facebook](https://www.facebook.com/eff)
+
+[instagram](https://www.instagram.com/efforg/)
+
+[Blue Sky](https://bsky.app/profile/eff.org)
+
+[youtube](https://www.youtube.com/efforg)
+
+[flicker](https://www.flickr.com/photos/electronicfrontierfoundation)
+
+[linkedin](https://www.linkedin.com/company/EFF)
+
+[tiktok](https://www.tiktok.com/@efforg)
+
+[threads](https://www.threads.net/@efforg)
+
+
+
+Check out our 4-star rating on [Charity Navigator](https://www.charitynavigator.org/ein/043091431).
+
+
+
+Contact
+
+[General](https://www.eff.org/about/contact)
+
+[Legal](https://www.eff.org/pages/legal-assistance)
+
+[Security](https://www.eff.org/security)
+
+[Membership](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+
+
+About
+
+[Calendar](https://www.eff.org/event)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Victories](https://www.eff.org/victories)
+
+[History](https://www.eff.org/about/history)
+
+[Internships](https://www.eff.org/about/opportunities/interns)
+
+[Jobs](https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=28620672D234BF368306CEB4A2746667)
+
+[Staff](https://www.eff.org/about/staff)
+
+[Diversity & Inclusion](https://www.eff.org/pages/effs-diversity-statement)
+
+
+
+Issues
+
+[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity & Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+
+
+Updates
+
+[Blog](https://www.eff.org/deeplinks?type=blog)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/updates?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[EFFector Newsletter](https://www.eff.org/effector)
+
+
+
+Press
+
+[Press Contact](https://www.eff.org/press/contact)
+
+
+
+Donate
+
+[Join or Renew Membership Online](https://supporters.eff.org/donate/donate-df)
+
+[One-Time Donation Online](https://supporters.eff.org/donate/donate-df)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Corporate Giving and Sponsorship](https://www.eff.org/thanks#organizational_members)
+
+[Shop](https://shop.eff.org)
+
+[Other Ways to Give](https://www.eff.org/helpout)
+
+
+
+
+
+
+
+[Copyright (CC BY)](https://www.eff.org/copyright)
+
+[Trademark](https://www.eff.org/pages/trademark-and-brand-usage-policy)
+
+[Privacy Policy](https://www.eff.org/policy)
+
+[Thanks](https://www.eff.org/thanks)
+
+
+
+
+
+[JavaScript license information](https://www.eff.org/librejs/jslicense)

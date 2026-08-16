@@ -1,0 +1,804 @@
+---
+source: EFF Deeplinks (eff.org)
+title: California’s A.B. 412: A Bill That Could Crush Startups and Cement A Big Tech AI Monopoly
+author: Joe Mullin
+date: 2025-03-01
+human_authored: true
+license: CC-BY-4.0
+link_targets: stripped
+permalink: https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly
+---
+California’s A.B. 412: A Bill That Could Crush Startups and Cement A Big Tech AI Monopoly | Electronic Frontier Foundation
+
+
+
+
+[Skip to main content](#main-content)
+
+
+
+
+[About](https://www.eff.org/about)[Contact](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+[People](https://www.eff.org/about/staff)
+
+[Opportunities](https://www.eff.org/about/opportunities)
+
+[Issues](https://www.eff.org/work)[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity and Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+[Our Work](https://www.eff.org/updates)[Deeplinks Blog](https://www.eff.org/deeplinks)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/events/list?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[Podcasts](https://www.eff.org/pages/keep-digital-rights-eff-podcasts)
+
+[Annual Reports](https://www.eff.org/about/annual-reports-and-financials)
+
+[Take Action](https://act.eff.org/)[Action Center](https://act.eff.org/)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Follow EFF](https://www.eff.org/pages/where-find-eff)
+
+[Tools](https://www.eff.org/pages/tools)[Privacy Badger](https://www.eff.org/pages/privacy-badger)
+
+[Surveillance Self-Defense](https://www.eff.org/pages/surveillance-self-defense)
+
+[Certbot](https://www.eff.org/pages/certbot)
+
+[Atlas of Surveillance](https://www.eff.org/pages/atlas-surveillance)
+
+[Cover Your Tracks](https://www.eff.org/pages/cover-your-tracks)
+
+[Street Level Surveillance](https://sls.eff.org/)
+
+[apkeep](https://www.eff.org/pages/apkeep)
+
+[Shop](https://shop.eff.org)
+
+[Donate](https://supporters.eff.org/donate/join-eff-today)[Donate to EFF](https://supporters.eff.org/donate/join-eff-today)
+
+[Shop](https://shop.eff.org)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Sponsorships](https://www.eff.org/thanks#organizational_members)
+
+[Other Ways to Give](https://www.eff.org/pages/other-ways-give-and-donor-support)
+
+[Membership FAQ](https://www.eff.org/pages/membership-faq)
+
+
+
+
+
+
+
+Email updates on news, actions,
+
+and events in your area.
+
+
+
+[Join EFF Lists](https://eff.org/signup)
+
+
+
+
+[Copyright (CC BY)](https://www.eff.org/copyright)
+
+[Trademark](https://www.eff.org/pages/trademark-and-brand-usage-policy)
+
+[Privacy Policy](https://www.eff.org/policy)
+
+[Thanks](https://www.eff.org/thanks)
+
+
+
+
+
+
+
+
+[Electronic Frontier Foundation](https://www.eff.org/)
+
+
+
+
+
+
+[Donate](https://supporters.eff.org/donate/site-m--m)
+
+
+
+
+
+If you use technology, this fight is yours.[Donate today](https://supporters.eff.org/donate/virtualvegas--wssn)
+
+
+
+
+
+
+
+
+
+
+
+[Electronic Frontier Foundation](https://www.eff.org/)
+
+
+
+
+
+
+[About](https://www.eff.org/about)[Contact](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+[People](https://www.eff.org/about/staff)
+
+[Opportunities](https://www.eff.org/about/opportunities)
+
+[Issues](https://www.eff.org/work)[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity and Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+[Our Work](https://www.eff.org/updates)[Deeplinks Blog](https://www.eff.org/deeplinks)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/events/list?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[Podcasts](https://www.eff.org/pages/keep-digital-rights-eff-podcasts)
+
+[Annual Reports](https://www.eff.org/about/annual-reports-and-financials)
+
+[Take Action](https://act.eff.org/)[Action Center](https://act.eff.org/)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Follow EFF](https://www.eff.org/pages/where-find-eff)
+
+[Tools](https://www.eff.org/pages/tools)[Privacy Badger](https://www.eff.org/pages/privacy-badger)
+
+[Surveillance Self-Defense](https://www.eff.org/pages/surveillance-self-defense)
+
+[Certbot](https://www.eff.org/pages/certbot)
+
+[Atlas of Surveillance](https://www.eff.org/pages/atlas-surveillance)
+
+[Cover Your Tracks](https://www.eff.org/pages/cover-your-tracks)
+
+[Street Level Surveillance](https://sls.eff.org/)
+
+[apkeep](https://www.eff.org/pages/apkeep)
+
+[Shop](https://shop.eff.org)
+
+[Donate](https://supporters.eff.org/donate/join-eff-today)[Donate to EFF](https://supporters.eff.org/donate/join-eff-today)
+
+[Shop](https://shop.eff.org)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Sponsorships](https://www.eff.org/thanks#organizational_members)
+
+[Other Ways to Give](https://www.eff.org/pages/other-ways-give-and-donor-support)
+
+[Membership FAQ](https://www.eff.org/pages/membership-faq)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+California’s A.B. 412: A Bill That Could Crush Startups and Cement A Big Tech AI Monopoly
+
+
+
+DEEPLINKS BLOG
+
+By [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+
+March 17, 2025
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+California’s A.B. 412: A Bill That Could Crush Startups and Cement A Big Tech AI Monopoly
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Español](https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly?language=es)
+
+California legislators have begun debating a bill (A.B. 412) that would require AI developers to track and disclose every registered copyrighted work used in AI training. At first glance, this might sound like a reasonable step toward transparency. But it’s an impossible standard that could crush small AI startups and developers while giving big tech firms even more power.
+
+A Burden That Small Developers Can’t Bear
+
+The AI landscape is in danger of being dominated by large companies with deep pockets. These big names are in the news almost daily. But they’re far from the only ones – there are [dozens of AI companies](https://explodingtopics.com/blog/ai-startups) with [fewer than 10 employees](https://www.ycombinator.com/companies/industry/ai) trying to build something new in a particular niche. 
+
+This bill demands that creators of any AI model–even a two-person company or a hobbyist tinkering with a small software build– identify copyrighted materials used in training.  That requirement will be incredibly onerous, even if limited just to works registered with the U.S. Copyright Office. The registration system is a cumbersome beast at best–neither machine-readable nor accessible, it’s more like a card catalog than a database–that doesn’t offer information sufficient to identify all authors of a work,  much less help developers to reliably match works in a training set to works in the system.
+
+Even for major tech companies, meeting these new obligations  would be a daunting task. For a small startup, throwing on such an impossible requirement could be a death sentence. If A.B. 412 becomes law, these smaller players will be forced to devote scarce resources to an unworkable compliance regime instead of focusing on development and innovation. The risk of lawsuits—potentially from copyright trolls—would discourage new startups from even attempting to enter the field.
+
+A.I. Training Is Like Reading And It’s Very Likely Fair Use 
+
+A.B. 412 starts from a premise that’s both untrue and harmful to the public interest: that reading, scraping or searching of open web content shouldn’t be allowed without payment. In reality, courts should, and we believe will, find that the great majority of this activity is fair use. 
+
+It’s now bedrock internet law principle that some forms of copying content online are transformative, and thus legal fair use. That includes reproducing [thumbnail images for image search](https://www.eff.org/deeplinks/2007/05/p10-v-google-public-interest-prevails-digital-copyright-showdown), or [snippets of text to search books](https://www.authorsalliance.org/2023/02/24/fair-use-week-2023-looking-back-at-google-books-eight-years-later/). 
+
+The U.S. copyright system is meant to balance innovation with creator rights, and courts are still working through how copyright applies to AI training. In most of the AI cases, [courts have yet to consider](https://www.eff.org/deeplinks/2025/02/copyright-and-ai-cases-and-consequences)—let alone decide—how fair use applies. A.B. 412 jumps the gun, preempting this process and imposing a vague, overly broad standard that will do more harm than good.
+
+Importantly, those key court cases are all federal. The U.S. Constitution makes it clear that copyright is governed by federal law, and A.B. 412 improperly attempts to impose state-level copyright regulations on an issue still in flux. 
+
+A.B. 412 Is A Gift to Big Tech
+
+The irony of A.B. 412 is that it won’t stop AI development—it will simply consolidate it in the hands of the largest corporations. Big tech firms already have the resources to navigate complex legal and regulatory environments, and they can afford to comply (or at least appear to comply) with A.B. 412’s burdensome requirements. Small developers, on the other hand, will either be forced out of the market or driven into partnerships where they lose their independence. The result will be less competition, fewer innovations, and a tech landscape even more dominated by a handful of massive companies.
+
+If lawmakers are able to iron out some of the practical problems with A.B. 412 and pass some version of it, they may be able to force programmers to research–and effectively, pay off–copyright owners before they even write a line of code. If that’s the outcome in California, Big Tech will not despair. They’ll celebrate. Only a few companies own large content libraries or can afford to license enough material to build a deep learning model. The possibilities for startups and small programmers will be so meager, and competition will be so limited, that profits for big incumbent companies will be locked in for a generation. 
+
+If you are a California resident and want to speak out about A.B. 412, you can find and contact your legislators [through this website](https://findyourrep.legislature.ca.gov/). 
+
+
+
+
+
+
+Related Issues
+
+[Fair Use](https://www.eff.org/issues/intellectual-property)
+
+[Creativity & Innovation](https://www.eff.org/issues/innovation)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+
+
+
+Share It
+
+[Share on Mastodon](https://share.joinmastodon.org/#text=+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F03%2Fcalifornias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly)
+[Share on Bluesky](https://bsky.app/intent/compose?text=California%E2%80%99s+A.B.+412%3A+A+Bill+That+Could+Crush+Startups+and+Cement+A+Big+Tech+AI+Monopoly+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F03%2Fcalifornias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly)
+[Share on Facebook](https://www.facebook.com/share.php?u=https%3A//www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly&title=California%E2%80%99s%20A.B.%20412%3A%20A%20Bill%20That%20Could%20Crush%20Startups%20and%20Cement%20A%20Big%20Tech%20AI%20Monopoly)
+[Copy link](https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly)
+
+
+
+
+
+
+
+
+
+
+Related Updates
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by Tierney Hamilton
+| June 18, 2026
+
+[EFF Thanks SerpApi For Helping Us Protect Free Speech Online](https://www.eff.org/deeplinks/2026/06/eff-thanks-serpapi-helping-us-protect-free-speech-online)
+
+
+
+
+
+
+
+
+EFF is grateful for [SerpApi](https://serpapi.com)’s generous support, helping us fight for your rights to speak and access information online. SerpApi has been giving to EFF every year since 2018, and alongside our 32,000 individual donors, their gift is critical to keeping up the fight.Whether in the courts, halls of...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Cory Doctorow](https://www.eff.org/about/staff/cory-doctorow)
+| June 10, 2026
+
+[Enshittification Merch That Actually Fights Enshittification](https://www.eff.org/deeplinks/2026/06/enshittification-merch-actually-fights-enshittification)
+
+
+
+
+
+
+
+
+There are now enshittification pins and stickers in the EFF shop, and all proceeds go directly to EFF's work defending digital rights. When someone sees the enshittification emoji, it signals that you understand what's happening to the internet, and that you know we can do better.
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Katharine Trendacosta](https://www.eff.org/about/staff/katharine-trendacosta)
+| June 9, 2026
+
+[Tell Congress: Just Say No to NO FAKES](https://www.eff.org/deeplinks/2026/06/tell-congress-just-say-no-no-fakes)
+
+
+
+
+
+
+
+
+The Senate Judiciary Committee is set to consider and vote on the [Nurture Originals, Foster Art, and Keep Entertainment Safe Act](https://www.congress.gov/bill/119th-congress/senate-bill/4591) (NO FAKES). Instead of targeting the real privacy harms posed by AI-generated replicas, this law would create another layer of internet censorship on top of the already existing...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Joe Mullin](https://www.eff.org/about/staff/joe-mullin)
+| June 4, 2026
+
+[California’s AB 412 Still Demands Developers Do The Impossible](https://www.eff.org/deeplinks/2026/06/californias-ab-412-still-demands-developers-do-impossible)
+
+
+
+
+
+
+
+
+California lawmakers are [again](https://www.eff.org/deeplinks/2025/07/california-ab-412-stalls-out-win-innovation-and-fair-use) considering [A.B. 412](https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260AB412), a bill that would require AI developers to identify and disclose copyrighted works used to train generative AI systems.The problem this year is the [same as last year](https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly): it’s practically impossible...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Mitch Stoltz](https://www.eff.org/about/staff/mitch-stoltz)
+| April 8, 2026
+
+[Another Court Rules Copyright Can’t Stop People From Reading and Speaking the Law](https://www.eff.org/deeplinks/2026/04/another-court-rules-copyright-cant-stop-people-reading-and-speaking-law)
+
+
+
+
+
+
+
+
+The U.S. Court of Appeals for the Third Circuit upheld a lower court’s ruling that it is fair use to copy and disseminate building codes that have been incorporated into federal and state law, even though those codes are developed by private parties who claim copyright in them. The court...
+
+
+
+
+
+
+
+
+
+
+
+[Legal Case](https://www.eff.org/cases)
+
+[In Re Watch Tower Subpoenas to Cloudflare and Google 2025](https://www.eff.org/cases/re-watch-tower-subpoenas-cloudflare-and-google-2025)
+
+
+
+
+
+
+
+
+The [Watch Tower Bible and Tract Society](https://www.ebsco.com/research-starters/religion-and-philosophy/watch-tower-bible-and-tract-society) is trying to use flimsy copyright claims to exploit the special legal tools available to copyright owners in order to unmask anonymous online speakers. EFF has stepped in to [urge](https://www.eff.org/deeplinks/2026/03/eff.org/document/march-2026-motion-quash-watch-tower-subpoena-cloudflare) the [courts](https://www.eff.org/deeplinks/2026/03/eff.org/document/march-2026-motion-quash-watch-tower-subpoena-google) not to give Watch Tower’s attempts the force...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Corynne McSherry](https://www.eff.org/about/staff/corynne-mcsherry)
+| March 13, 2026
+
+[EFF Launches New Fight to Free the Law](https://www.eff.org/deeplinks/2026/03/eff-launches-new-fight-free-law)
+
+
+
+
+
+
+
+
+EFF [has filed a new lawsuit](https://www.eff.org/document/publicresourceorg-v-cpsc-complaint) against the Consumer Product Safety Commission (CPSC) to ensure that the public has full access to the laws that govern us.Our client [Public.Resource.Org](https://public.resource.org/) (Public Resource), a tiny non-profit founded by open records advocate Carl Malamud, has a mission that’s...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Kit Walsh](https://www.eff.org/about/staff/kit-walsh)
+| March 10, 2026
+
+[Copyright Bullying vs. Religious Freedom](https://www.eff.org/deeplinks/2026/03/copyright-bullying-vs-religious-freedom-0)
+
+
+
+
+
+
+
+
+The government should not help a religious institution to punish or deter members from inquiring about their faith. Yet, [once again](https://www.eff.org/press/releases/redditor-wins-fight-stay-anonymous), the [Watch Tower Bible and Tract Society](https://www.ebsco.com/research-starters/religion-and-philosophy/watch-tower-bible-and-tract-society) is trying to use flimsy copyright claims to exploit the special legal tools available to copyright owners in order to...
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Tori Noble](https://www.eff.org/about/staff/tori-noble)
+| December 25, 2025
+
+[Artificial Intelligence, Copyright, and the Fight for User Rights: 2025 in Review](https://www.eff.org/deeplinks/2025/12/artificial-intelligence-copyright-and-fight-user-rights-2025-review)
+
+
+
+
+
+
+
+
+A growing wave of copyright lawsuits and dangerous policies threaten beneficial uses of AI. In 2025, EFF fought back
+
+
+
+
+
+
+
+
+
+
+
+[Deeplinks Blog](https://www.eff.org/updates?type=blog)
+by [Corynne McSherry](https://www.eff.org/about/staff/corynne-mcsherry), [Kit Walsh](https://www.eff.org/about/staff/kit-walsh)
+| December 19, 2025
+
+[Online Gaming’s Final Boss: The Copyright Bully](https://www.eff.org/deeplinks/2025/12/online-gamings-final-boss-copyright-bully)
+
+
+
+
+
+
+
+
+Since earliest days of computer games, people have tinkered with the software to customize their own experiences or share their vision with others. From the dad who changed the game’s male protagonist to a girl so his daughter could see herself in it, to the developers who got their start...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Share on Mastodon](https://share.joinmastodon.org/#text=California%E2%80%99s+A.B.+412%3A+A+Bill+That+Could+Crush+Startups+and+Cement+A+Big+Tech+AI+Monopoly+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F03%2Fcalifornias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly)[Share on Bluesky](https://bsky.app/intent/compose?text=California%E2%80%99s+A.B.+412%3A+A+Bill+That+Could+Crush+Startups+and+Cement+A+Big+Tech+AI+Monopoly+https%3A%2F%2Fwww.eff.org%2Fdeeplinks%2F2025%2F03%2Fcalifornias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly)[Share on Facebook](https://www.facebook.com/share.php?u=https%3A//www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly&title=California%E2%80%99s%20A.B.%20412%3A%20A%20Bill%20That%20Could%20Crush%20Startups%20and%20Cement%20A%20Big%20Tech%20AI%20Monopoly)
+
+
+
+Related Issues
+
+[Fair Use](https://www.eff.org/issues/intellectual-property)
+
+[Creativity & Innovation](https://www.eff.org/issues/innovation)
+
+[Artificial Intelligence](https://www.eff.org/issues/ai)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Back to top](#main-content)
+
+
+
+
+
+
+
+Follow EFF:
+
+
+[mastodon](https://mastodon.social/@eff)
+
+[facebook](https://www.facebook.com/eff)
+
+[instagram](https://www.instagram.com/efforg/)
+
+[Blue Sky](https://bsky.app/profile/eff.org)
+
+[youtube](https://www.youtube.com/efforg)
+
+[flicker](https://www.flickr.com/photos/electronicfrontierfoundation)
+
+[linkedin](https://www.linkedin.com/company/EFF)
+
+[tiktok](https://www.tiktok.com/@efforg)
+
+[threads](https://www.threads.net/@efforg)
+
+
+
+Check out our 4-star rating on [Charity Navigator](https://www.charitynavigator.org/ein/043091431).
+
+
+
+Contact
+
+[General](https://www.eff.org/about/contact)
+
+[Legal](https://www.eff.org/pages/legal-assistance)
+
+[Security](https://www.eff.org/security)
+
+[Membership](https://www.eff.org/about/contact)
+
+[Press](https://www.eff.org/press/contact)
+
+
+
+About
+
+[Calendar](https://www.eff.org/event)
+
+[Volunteer](https://www.eff.org/about/opportunities/volunteer)
+
+[Victories](https://www.eff.org/victories)
+
+[History](https://www.eff.org/about/history)
+
+[Internships](https://www.eff.org/about/opportunities/interns)
+
+[Jobs](https://www.paycomonline.net/v4/ats/web.php/jobs?clientkey=28620672D234BF368306CEB4A2746667)
+
+[Staff](https://www.eff.org/about/staff)
+
+[Diversity & Inclusion](https://www.eff.org/pages/effs-diversity-statement)
+
+
+
+Issues
+
+[Free Speech](https://www.eff.org/issues/free-speech)
+
+[Privacy](https://www.eff.org/issues/privacy)
+
+[Creativity & Innovation](https://www.eff.org/issues/innovation)
+
+[Transparency](https://www.eff.org/issues/transparency)
+
+[International](https://www.eff.org/issues/international)
+
+[Security](https://www.eff.org/issues/security)
+
+
+
+Updates
+
+[Blog](https://www.eff.org/deeplinks?type=blog)
+
+[Press Releases](https://www.eff.org/updates?type=press_release)
+
+[Events](https://www.eff.org/updates?type=event&type=event)
+
+[Legal Cases](https://www.eff.org/pages/legal-cases)
+
+[Whitepapers](https://www.eff.org/updates?type=whitepaper)
+
+[EFFector Newsletter](https://www.eff.org/effector)
+
+
+
+Press
+
+[Press Contact](https://www.eff.org/press/contact)
+
+
+
+Donate
+
+[Join or Renew Membership Online](https://supporters.eff.org/donate/donate-df)
+
+[One-Time Donation Online](https://supporters.eff.org/donate/donate-df)
+
+[Giving Societies](https://www.eff.org/givingsociety)
+
+[Corporate Giving and Sponsorship](https://www.eff.org/thanks#organizational_members)
+
+[Shop](https://shop.eff.org)
+
+[Other Ways to Give](https://www.eff.org/helpout)
+
+
+
+
+
+
+
+[Copyright (CC BY)](https://www.eff.org/copyright)
+
+[Trademark](https://www.eff.org/pages/trademark-and-brand-usage-policy)
+
+[Privacy Policy](https://www.eff.org/policy)
+
+[Thanks](https://www.eff.org/thanks)
+
+
+
+
+
+[JavaScript license information](https://www.eff.org/librejs/jslicense)
