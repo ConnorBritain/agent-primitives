@@ -1,0 +1,11 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "paragraph ending on a colon and a bare URL on its own line", "why": "no verified sources or links available for this topic" },
+    { "habit": "naming an ally and handing over with an attributive clause before extending them", "why": "would require a real quotation from a real writer, which I cannot verify" }
+  ],
+  "claims": [
+    { "claim": "Google's Privacy Sandbox / Topics proposal performs interest categorization in the browser rather than on a server", "where": "paragraph 3" },
+    { "claim": "Apple's App Tracking Transparency changed who may hold the cross-app identifier rather than reducing what is collected", "where": "paragraph 3" }
+  ]
+}

@@ -5,9 +5,12 @@
  *
  * The voice critic is one-sided. It reliably flags a habit the draft is MISSING —
  * that finding is what drove FU-17 — and it does not flag a habit the draft is
- * OVERUSING. Measured: the doctorow corpus swears 0.91 times per 1000 words; drafts
- * written after FU-17's count-before-emit fix swore at up to 4.17 per 1000, and all
- * three critic draws returned CLEAN while citing the profanity as in-range.
+ * OVERUSING. Measured on second-person address: three drafts used it at 2.09x, 2.09x
+ * and 2.47x the corpus rate, and nine critic draws across them returned CLEAN.
+ *
+ * (An earlier version of this note cited profanity at 4.6x. That measurement was wrong
+ * — the corpus figure came from a hand count with too narrow a word list — and was
+ * retracted. The second-person numbers are the surviving evidence for the same claim.)
  *
  * That is a hole in the ship bar, not just in the critic. The bar is "majority CLEAN
  * and <= 1.0 findings/draw", which assumes the instrument detects deviation. If
@@ -21,10 +24,10 @@
  *
  * THREE DESIGN DECISIONS, EACH FROM A FAILURE.
  *
- * 1. Rates are per-1000-words, never per-piece. Corpus pieces here average 1754
- *    words; drafts run ~700. "Once or twice per piece" means different absolute
- *    counts for each, and reading the profile's per-piece frequency as a target for
- *    a short draft is exactly how FU-17's fix overshot to 4.6x.
+ * 1. Rates are per-1000-words, never per-piece. Corpus pieces here run far longer
+ *    than the drafts written from them. "Once or twice per piece" means different
+ *    absolute counts for each, and reading a per-piece frequency as a target for a
+ *    much shorter draft is how a habit gets over-applied without anyone noticing.
  *
  * 2. Body extraction is not optional. These corpus files carry site navigation,
  *    an appearances list and a colophon around the actual essay. A rate computed
@@ -34,8 +37,8 @@
  *    other returned the whole file and reported all zeros.
  *
  * 3. A flag needs BOTH a ratio breach and an absolute-count breach. At draft length
- *    a single instance swings the rate hugely: against a 0.91/1000 corpus, a
- *    700-word draft's second instance alone pushes it past 3x. Ratio alone would
+ *    a single instance swings the rate hugely: against a corpus rate near 1 per 1000,
+ *    a 700-word draft's second instance alone pushes it past 3x. Ratio alone would
  *    flag ordinary variation as caricature. See compareRate.
  */
 
@@ -301,3 +304,79 @@ function round2(n) {
  * - The band and the absolute floor are judgement calls, pre-registered rather than
  *   derived. They were fixed before any draft was measured against them.
  */
+
+/**
+ * Paragraph-ending shape — the measure that finally caught FU-14.
+ *
+ * WHY A SEPARATE MEASURE. The voice critic complained six times, across three attempted
+ * fixes, that a draft "lands every paragraph on a short epigrammatic kicker". Every fix
+ * tried to reduce the NUMBER of epigrams, and every measure built to check them counted
+ * short sentences ANYWHERE in the draft. On that measure the problem read as solved -
+ * 0.11 against a corpus 0.12 - and the measure was retracted as invalid.
+ *
+ * The critic was never talking about short sentences in general. It was talking about
+ * paragraph ENDINGS. Measuring those separately splits the two apart immediately: the
+ * corpus ends paragraphs on a median 29-word sentence, and the flagged drafts ended them
+ * on 10 to 22. The corpus's short flat verdict is real, and it lands INSIDE a paragraph
+ * or stands as its own - it is not where the paragraph comes to rest.
+ *
+ * So the defect is placement, not frequency, and this reports both halves: how often a
+ * paragraph ends short, and how far the endings have drifted from the prose around them.
+ *
+ * KNOWN LIMITS. This cannot tell an epigram from a flatly expository short sentence -
+ * that is genuinely a shape judgement and a length proxy will never make it. What it can
+ * do is detect the SET-level drift, which is what the critic actually sees and what no
+ * per-sentence check catches.
+ */
+export const SHORT_FINAL_WORDS = 8;
+
+const sentencesOf = (para) =>
+  para.replace(/\s+/g, " ").trim().split(/(?<=[.!?])\s+/).filter(Boolean);
+
+/** Prose paragraphs, excluding bare-URL lines which are citation scaffolding, not prose. */
+function proseParagraphs(text) {
+  return bodyOf(text)
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter((p) => p && !/^https?:\S*$/.test(p));
+}
+
+/**
+ * `{ paragraphs, shortFinal, shortFinalFraction, medianFinal, medianOverall, drift }`.
+ *
+ * `drift` is medianFinal / medianOverall. Below 1 means paragraphs end shorter than the
+ * piece reads — the drumbeat signature. At or above 1 means endings sit with the prose.
+ */
+export function paragraphEndings(text) {
+  const paras = proseParagraphs(text);
+  const finals = [];
+  const all = [];
+  for (const p of paras) {
+    const s = sentencesOf(p);
+    if (!s.length) continue;
+    for (const one of s) all.push(one.split(/\s+/).length);
+    finals.push(s[s.length - 1].split(/\s+/).length);
+  }
+  const median = (xs) => {
+    if (!xs.length) return 0;
+    const t = [...xs].sort((a, b) => a - b);
+    return t[Math.floor(t.length / 2)];
+  };
+  const shortFinal = finals.filter((n) => n <= SHORT_FINAL_WORDS).length;
+  const medianFinal = median(finals);
+  const medianOverall = median(all);
+  return {
+    paragraphs: finals.length,
+    shortFinal,
+    shortFinalFraction: finals.length ? shortFinal / finals.length : 0,
+    medianFinal,
+    medianOverall,
+    drift: medianOverall ? medianFinal / medianOverall : 0,
+  };
+}
+
+/** Corpus-wide paragraph-ending profile, pooled across samples. */
+export function corpusParagraphEndings(bodies) {
+  const pooled = bodies.map((b) => b.body).join("\n\n");
+  return paragraphEndings(pooled);
+}

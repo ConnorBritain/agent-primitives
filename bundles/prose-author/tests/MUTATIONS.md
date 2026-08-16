@@ -43,7 +43,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let tell-scan ignore the blended bands | 3 | an approved edit actually changes what the scanner reports |
 | trust edit_fraction as a signed number rather than computing it | 3 | edit_fraction is computed from a diff, never asserted |
 | let an open suffix swallow coinages in the profanity pattern | 2 | a coined term built on a rude root is not counted as the habit it resembles |
-| measure rates over the whole file instead of the essay body | 5 | site boilerplate is excluded from a rate the profile will quote |
+| measure rates over the whole file instead of the essay body | 6 | site boilerplate is excluded from a rate the profile will quote |
 | let a ratio breach alone become a verdict | 1 | one extra instance in a short draft is not reported as caricature |
 | accept a non-integer occurrence count | 1 | a count is a count of instances, not an estimate the renderer interpolated |
 | let a stated rate disagree with its own count | 1 | a rate is arithmetic on the corpus, not a number the renderer liked |
@@ -51,6 +51,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | stop comparing the frequency phrase against the counted rate | 1 | the phrase a drafter reads and the number a harness reads agree |
 | scan the corpus directly instead of delegating to the drafter's reader | 2 | rates are measured over the same attested samples the drafter is shown |
 | measure an undelimited corpus without saying so | 1 | a corpus measured whole cannot report itself as cleanly delimited |
+| count bare-URL lines as paragraph endings | 2 | citation scaffolding is not measured as a one-word paragraph ending |
+| measure every sentence instead of paragraph-final ones | 3 | the drumbeat is visible only when endings are measured apart from the prose |
 | count the country US as the pronoun us | 1 | a habit rate is not inflated 32% by an abbreviation that shares its letters |
 | treat every possessive as a contraction | 1 | the world's fair is not evidence that the author contracts |
 | let the solidarity pattern match inside longer words | 1 | the habit five drafts are deficient in is not inflated by substring hits |

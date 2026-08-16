@@ -452,6 +452,20 @@ export const MUTATIONS = [
     guards: "a corpus measured whole cannot report itself as cleanly delimited",
   },
   {
+    name: "count bare-URL lines as paragraph endings",
+    file: RATES,
+    find: "    .filter((p) => p && !/^https?:\\S*$/.test(p));",
+    with: "    .filter((p) => p);",
+    guards: "citation scaffolding is not measured as a one-word paragraph ending",
+  },
+  {
+    name: "measure every sentence instead of paragraph-final ones",
+    file: RATES,
+    find: "    finals.push(s[s.length - 1].split(/\\s+/).length);",
+    with: "    for (const one of s) finals.push(one.split(/\\s+/).length);",
+    guards: "the drumbeat is visible only when endings are measured apart from the prose",
+  },
+  {
     name: "count the country US as the pronoun us",
     file: RATES,
     find: "  solidarity: /\\b(we|We|us|our|Our|ours|Ours|we're|We're|we've|We've|we'd|We'd|we'll|We'll)\\b/g,",

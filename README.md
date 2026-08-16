@@ -181,6 +181,8 @@ bundles/<bundle>/             a deployable unit — the primitives you turn on a
 docs/
   wiring.md                   how any primitive gets invoked; editing CLAUDE.md / AGENTS.md
   portability.md              the degradation ladder, per kind
+
+CHANGELOG.md                  per-bundle release history, including what is HELD and why
 ```
 
 Repo-level `docs/` is **kind-agnostic**. Anything true only of one bundle lives in that

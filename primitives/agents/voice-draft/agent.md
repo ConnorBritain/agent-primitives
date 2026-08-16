@@ -39,7 +39,15 @@ This matters most for the habits that will feel like too much. A corpus whose de
 
 So before you finish: read your paragraph endings in a row, ignoring everything between them. If most of them are the same *kind* of move — a verdict, an epigram, a reversal, a punchline — you have written a drumbeat, and a reader hears it as a tic well before they hear it as a voice. **Most paragraphs should end in the middle of the argument**, on a sentence that is merely the next thing said. Let a few land hard. That is what makes them land.
 
-Note that this is about the *rhetorical shape* of an ending, not its length. A twelve-word sentence can be an epigram; a short one can be flatly expository. Counting words will not tell you whether you have done this.
+Note that this is about the *rhetorical shape* of an ending, not its length. A twelve-word sentence can be an epigram; a short one can be flatly expository. **Counting words will not tell you whether an individual ending is an epigram.**
+
+**But counting them as a set will tell you something the shape-reading misses, and this is the check that works.** Write down the length of every paragraph's last sentence, in order, and look at the list.
+
+The failure has a signature: **the last sentences are much shorter than the piece's sentences generally.** That is what a drumbeat is, arithmetically — a writer who lands every paragraph reaches for something short to land it with, and the endings drift away from the prose around them without any single one looking wrong.
+
+So compare the two. If your paragraph-final sentences are running conspicuously shorter than your typical sentence, you are ending on the beat every time, whatever shape you tell yourself each ending has. **The fix is placement, not frequency.** Do not delete the short flat verdicts — move them. A verdict that arrives mid-paragraph, with the argument continuing past it, is doing the same work without announcing itself; a paragraph can then end on an ordinary sentence that happens to be where the thought ran out.
+
+This has been the hardest thing in this prompt to get right. Three earlier versions told drafters to use *fewer* epigrams and all three failed, because the problem was never the count.
 
 A habit at 2/10 or 3/10 is something the writer does occasionally. Using it once may be right. Building the draft around it is not.
 

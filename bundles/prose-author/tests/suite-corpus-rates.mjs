@@ -21,6 +21,7 @@ import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 import {
   HABITS, stripFrontmatter, bodyOf, extractBody, words, countMatches, ratePer1000,
   corpusRate, compareRate, corpusBodies, undelimitedSamples,
+  paragraphEndings, corpusParagraphEndings,
   DEFAULT_RATIO_BAND, MIN_ABSOLUTE_DEVIATION,
 } from "./corpus-rates.mjs";
 
@@ -221,6 +222,46 @@ export async function run(t, { tmp, HERE } = {}) {
     t.check("a sample under the word floor is not measured",
       !scanned.some((b) => b.file === "tiny.txt"));
     t.check("the attested sample is measured", scanned.length === 1 && scanned[0].file === "good.txt");
+  }
+
+  t.group("corpus-rates — paragraph endings, the measure that caught FU-14");
+  {
+    // Six critic complaints and three failed fixes went past this, because every earlier
+    // measure counted short sentences ANYWHERE. On that measure the drumbeat read as
+    // solved. Measuring ENDINGS separately is the whole difference.
+    const drumbeat = [
+      "This is a long opening sentence that establishes the argument carefully and at length. It's bullshit.",
+      "Here is another long sentence doing patient expository work across many words. That's the crux.",
+      "A third long sentence, again unhurried, again laying out the mechanism in detail. Nobody noticed.",
+    ].join("\n\n");
+    const d = paragraphEndings(drumbeat);
+    t.check("a draft that lands every paragraph short is caught by the drift ratio",
+      d.drift < 1 && d.shortFinalFraction === 1, `drift ${d.drift.toFixed(2)}`);
+
+    // The same short sentences, moved inside the paragraphs. Frequency identical,
+    // placement different - and placement is what the critic was seeing.
+    const placed = [
+      "This is a long opening sentence that establishes the argument carefully and at length. It's bullshit. The consequence follows over a further stretch of unhurried expository prose.",
+      "Here is another long sentence doing patient expository work across many words. That's the crux. And the argument continues past it for a while longer yet.",
+    ].join("\n\n");
+    const p = paragraphEndings(placed);
+    t.check("the same verdicts moved mid-paragraph are NOT caught — placement, not frequency",
+      p.shortFinalFraction === 0 && p.drift >= 1, `drift ${p.drift.toFixed(2)}`);
+
+    // A bare URL on its own line is citation scaffolding. Counting it as a paragraph
+    // ending would report a one-word ending for every cited claim in the corpus.
+    t.check("a bare URL line is not counted as a paragraph ending",
+      paragraphEndings("A claim that runs on for a good while here:\n\nhttps://example.com/x").paragraphs === 1);
+
+    t.check("empty text does not divide by zero",
+      paragraphEndings("").paragraphs === 0 && paragraphEndings("").drift === 0);
+
+    // The corpus baseline is the thing every draft is compared against, so a change
+    // that silently moved it would invalidate the comparison without failing anything.
+    const corpus = corpusParagraphEndings(corpusBodies(join(resolve(HERE, "fixtures", "profiles"), "doctorow-blog")));
+    t.check("the corpus ends paragraphs LONGER than it writes generally — the fact the fix rests on",
+      corpus.drift > 1 && corpus.shortFinalFraction < 0.15,
+      `drift ${corpus.drift.toFixed(2)}, shortFinal ${(corpus.shortFinalFraction * 100).toFixed(1)}%`);
   }
 
   t.group("corpus-rates — when a ratio is allowed to become a verdict");

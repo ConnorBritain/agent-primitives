@@ -162,6 +162,7 @@ So before writing section 4, go through these deliberately. **Each is a question
 | **hedging** | Are claims softened, and if so by what — a first-person marker, an adverb, a concessive clause? Or not at all? |
 | **naming the reader** | Vocatives, direct questions, imperatives. Does the writer ever tell the reader what to do? |
 | **naming the opposition** | Named people and institutions, coined collective epithets, or unnamed abstractions? |
+| **whose words carry the argument** | Does the writer argue alone, or hand the floor to named others — *as X writes*, *what Y calls*, *Z's term for* — and build on, extend or correct them? This is about **allies and sources**, not targets: a writer can name everyone they attack and still never cite anyone they agree with. Look for the attributive clause, not the proper noun. |
 | **profanity and vulgarity** | Present or absent, and if present, *where* — decoration, or reserved for the moment of maximum contempt? |
 | **self-reference** | Does the writer appear as a person — their age, their history, their errors — or only as an arguer? |
 
