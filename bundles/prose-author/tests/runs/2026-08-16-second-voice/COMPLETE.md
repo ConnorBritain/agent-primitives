@@ -78,3 +78,37 @@ renderer produced a profile that is *specific* — no first person, no profanity
 address, a within-corpus register split — rather than a generic description of advocacy
 prose. A profile format that described genre would have produced two similar documents for
 two writers on the same beat. It did not.
+
+---
+
+## 6. Cross-render stability, k=3 on the clean corpus
+
+Three renders of the same corpus, compared against each other and the harness:
+
+| habit | render A | render B | harness | verdict |
+|---|---|---|---|---|
+| second person | 9 (1.12) | 9 (1.12) | 11 (1.36) | **stable** |
+| solidaristic *we/us* | 15 (1.86) | 15 (1.86) | 19 (2.36) | **stable** |
+| profanity | 0 | 0 | 0 | **exact** |
+| body words | 8,051 | — | 8,066 | **0.2%** |
+| **contraction** | **69 (8.57)** | **126 (15.64)** | **86 (10.66)** | **unstable — 1.8×** |
+
+**Second person, `we/us` and profanity reproduce across independent renders** and sit close
+to the harness. Those are the habits the discrimination result in §1 rests on, and they are
+the stable ones.
+
+**Contraction does not reproduce.** 69 against 126 is a 1.8× spread on the same 8,066 words,
+and the harness sits between them. The renders disagree because they are counting different
+things — render A says it excluded the two coalition-letter samples, which it separately
+reports carry no contractions; render B counted all eleven and notes "the two shortest
+pieces carry only three contractions each".
+
+**This is the third time contraction has been the noisy habit.** It is where my own harness
+had a possessive-vs-elision bug (FU-20), where two doctorow renders disagreed 296 vs 417,
+and now where two mullin renders disagree 69 vs 126. The pattern is not a model failure —
+it is that `'s` is genuinely ambiguous and every counter resolves it differently.
+
+**Consequence for the rate mechanism:** a profile stating a contraction rate is stating one
+of several defensible numbers, and a drafter told to hit 8.57 or 15.64 per 1000 is being
+given a target with a 1.8× error bar it cannot see. Either the prompt should name the
+convention explicitly, or contraction should not carry a rate at all. Filed as **FU-23**.
