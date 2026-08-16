@@ -146,3 +146,43 @@ floor, which is what killed every earlier epigram measure.
 observation *"that paragraphs end on their shortest sentence"* for lack of support — a
 renderer reading the corpus directly declined to record the very belief the three failed
 fixes assumed.
+
+---
+
+## 7. b07 draw 3 closed the k=3 — and found something else, countably
+
+b07 finishes at **[0, 0, 2], mean 0.67, majority CLEAN**. Neither of draw 3's findings is
+the epigram, so §5's conclusion stands.
+
+Draw 3's high-confidence finding is a different defect, and it is the first time that
+defect has been stated in a form that can be checked:
+
+> *"The draft never interrupts itself — 776 words with no parenthetical aside and no
+> rhetorical question answered in the author's own voice... Rate across the corpus: 5.2
+> parentheticals and 2.2 question marks per 1,000 words; the draft has 0 and 0."*
+
+Verified against the harness:
+
+| | corpus | b07 | b08 | b09 | b10 |
+|---|---|---|---|---|---|
+| parenthetical asides | **5.01/1000, 10/10 samples** | **0** | **0** | **0** | **0** |
+| question marks | **2.17/1000, 10/10 samples** | 0 | 1 | 0 | 1 |
+
+The critic reported 5.2 and 2.2; the harness measures 5.01 and 2.17 — agreement within 4%.
+**Zero parentheticals across four drafts, against a habit in ten of ten corpus samples.**
+
+**This corrects a call I made earlier.** The same defect had appeared three times in vaguer
+form — "the draft never breaks its own register" — and six draws had cleared that category,
+so I tempered the ticket as probable critic variance. Those six were answering a different
+question, and answering it correctly: individual corpus essays *do* hold one register. The
+countable claim is not *the tone never moves* but *the writer never interrupts himself*, and
+on that claim the drafts are uniformly at zero.
+
+I decided a ticket on the contested formulation instead of waiting for the measurable one.
+That is this run's own lesson applied backwards.
+
+**It is a drafter-side defect, not a renderer gap.** Two doctorow renders already record the
+habit with a rate — *"a mid-sentence parenthesis carries the judgement or the joke that would
+otherwise stop the sentence — 10/10 samples"*, and *"97 instances, 5.53 per 1,000"*. The
+profile has it; the drafter is not applying it. Same shape as b02's zero first-person against
+a stated rate of 6.27.
