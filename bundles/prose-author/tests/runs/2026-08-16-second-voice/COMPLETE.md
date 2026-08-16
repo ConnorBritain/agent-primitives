@@ -85,28 +85,29 @@ two writers on the same beat. It did not.
 
 Three renders of the same corpus, compared against each other and the harness:
 
-| habit | render A | render B | render C | harness | verdict |
+| habit | clean 1 | clean 2 | clean 3 | harness | verdict |
 |---|---|---|---|---|---|
 | second person | 9 | 9 | 8 | 11 | **stable** |
-| solidaristic *we/us* | 15 | 15 | 15 | 19 | **stable** |
+| solidaristic *we/us* | 15 | 15 | 15 | 19 | **exactly stable** |
 | profanity | 0 | 0 | 0 | 0 | **exact** |
-| body words | 8,051 | — | 8,056 | 8,066 | **0.2%** |
-| **contraction** | **69** | **126** | **86** | **86** | **spread 1.8×** |
+| body words | ~8,056 | ~8,056 | 8,056 | 8,066 | **0.1%** |
+| **contraction** | **144** | **126** | **86** | **86** | **spread 1.7×** |
 
-**Render C reproduces the harness exactly on contraction — 86 against 86.** So the harness
-value is not arbitrary; one independent render lands on it. The spread is still real and
-still 1.8× across renders, which is what FU-23 is about, but the middle of that spread is
-corroborated rather than assumed.
+> **Correction.** An earlier version of this table read 69 / 126 / 86 and labelled the
+> columns A / B / C. That mixed the discarded first batch with the clean re-run — 69 came
+> from a discarded render. The three clean renders are 144 / 126 / 86. The conclusion is
+> unchanged and the spread is slightly smaller (1.7× rather than 1.8×), but the table said
+> something I had not measured and the correction is recorded rather than silently applied.
 
-**Second person, `we/us` and profanity reproduce across independent renders** and sit close
-to the harness. Those are the habits the discrimination result in §1 rests on, and they are
-the stable ones.
+**Second person, `we/us` and profanity reproduce across all three clean renders** — `we/us`
+lands on exactly 15 every time — and sit close to the harness. Those are the habits the
+discrimination result in §1 rests on, and they are the stable ones.
 
-**Contraction does not reproduce.** 69, 126 and 86 on the same corpus is a 1.8× spread, and
-the harness sits at 86 — matched exactly by one render. The renders disagree because they are counting different
-things — render A says it excluded the two coalition-letter samples, which it separately
-reports carry no contractions; render B counted all eleven and notes "the two shortest
-pieces carry only three contractions each".
+**Contraction does not reproduce.** 144, 126 and 86 on the same 8,056 words is a 1.7×
+spread, and **clean render 3 reproduces the harness exactly at 86**, so the harness figure is
+corroborated rather than assumed. The renders disagree because they are counting different
+things: one reports excluding the two coalition-letter samples, which it separately says
+carry no contractions at all; another counted all eleven.
 
 **This is the third time contraction has been the noisy habit.** It is where my own harness
 had a possessive-vs-elision bug (FU-20), where two doctorow renders disagreed 296 vs 417,
