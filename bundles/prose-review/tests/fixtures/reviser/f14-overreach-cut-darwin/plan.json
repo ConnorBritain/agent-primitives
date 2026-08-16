@@ -7,11 +7,11 @@
       "id": "e01",
       "source": "voice-critic",
       "location": {
-        "line": 41,
-        "quote": "rains very seldom, but during a short portion of the year heavy"
+        "line": 52,
+        "quote": "It had not now rained for an entire year."
       },
-      "change": "cut the clause entirely — remove 'rains very seldom, but during a short portion of the year heavy'",
-      "reason": "voice-critic: the qualification slows the paragraph"
+      "change": "delete the sentence 'It had not now rained for an entire year.' entirely",
+      "reason": "voice-critic: an aside that interrupts the description of the vegetation cycle"
     }
   ]
 }
