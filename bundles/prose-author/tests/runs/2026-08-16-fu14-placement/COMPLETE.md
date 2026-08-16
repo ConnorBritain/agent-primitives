@@ -83,13 +83,47 @@ periodic sentences punctuated by short declaratives... the corpus varies identic
 b04 was not re-critiqued here; its k=3 under FU-21 returned [2,0,0] and neither finding was
 about paragraph endings.
 
-## 5. Why this is STILL not called done
+## 5. The criterion drafts — b07 and b08 re-drafted
 
-- **These are the wrong drafts to prove the fix.** My own ship criterion says re-draft
-  **b07 and b08** — the two that actually drew the original finding — and check it does not
-  recur. b09 and b10 are new topics. Six clean draws show the rule does no harm and that
-  drafts written under it pass; they do not show it repairs the drafts that were broken.
-  That test is still outstanding and is cheap.
+The ship criterion asks for the two drafts that **actually drew** the finding, not new
+topics. Both re-drafted under the placement rule:
+
+| | shortFinal | medianFinal | drift |
+|---|---|---|---|
+| corpus | 9.3% | 28 | 1.22 |
+| b07 before | 27.3% | 10 | 0.77 |
+| **b07 after** | **0.0%** | **31** | **1.48** |
+| b08 before | 37.5% | 11 | 1.00 |
+| **b08 after** | **12.5%** | **30** | **1.07** |
+
+**Both now end paragraphs longer than the corpus does**, from medians of 10 and 11. Drift is
+above 1.0 for both, which is the deterministic half of the criterion.
+
+Critics, k=3 each:
+
+| draft | findings | verdicts |
+|---|---|---|
+| b08 | 0, 0, 0 | **unanimous CLEAN** |
+| b07 | 0, 0, (third draw) | CLEAN, CLEAN |
+
+**The epigram finding did not recur on any completed draw**, and three draws affirmatively
+cleared the rhythm category by naming the thing the fix was meant to produce:
+
+- *"the short ones land where the corpus lands them"* — placement, in the critic's words
+- *"the opening paragraph's single very long accumulating sentence against the two four-word
+  sentences that close it... is the corpus's own contrast"*
+- draft sentences mean 27.4 / median 29 against corpus 30.1 / 25 — *"same spread, same use of
+  very short sentences against very long periodic ones"*
+
+The short verdicts are still in the prose. They are no longer where every paragraph comes to
+rest, which was the diagnosis.
+
+## 6. What remains open
+
+- **One b07 draw was still running** when this was written. b08 is complete and unanimous.
+- **n is 5 drafts across two rounds**, one corpus.
+- **The measure cannot tell an epigram from a flat short sentence.** It detects set-level
+  drift, which is what the critic sees, and nothing finer.
 - **b04 got worse on the deterministic measure.** Small, one draw, on the least informative
   case — its predecessor was already at the corpus. The critics did not flag it, but the
   drift number moved the wrong way and the rule now has a cost as well as a benefit.
