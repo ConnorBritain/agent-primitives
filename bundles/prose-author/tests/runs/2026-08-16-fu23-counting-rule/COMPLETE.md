@@ -75,3 +75,41 @@ six critic complaints getting wrong.
   by 1.7× and both be correct under this rule, provided both say what they did. Whether that
   is enough for a drafter given a target is a separate question and is not settled here.
 - **One corpus.**
+
+---
+
+## 7. Second corpus, and the fix converges
+
+A render of `eff-mullin` under the same rule. Contraction is the habit FU-23 was filed for —
+it varied **144 / 126 / 86** across three renders of that corpus before the fix.
+
+| habit | renderer | harness | |
+|---|---|---|---|
+| **contraction** | **86** | **86** | **exact** |
+| solidaristic *we/us* | 15 | 19 | renderer counts author-voice only |
+| second person | 9 | 11 | renderer excludes quoted matter |
+
+**The contraction count is now exact**, and the reason is visible in the render's own prose:
+
+> *"counting `n't`, `'re`, `'ve`, `'ll`, `'d`, `'m`, and `'s` only where `'s` is an elision
+> (`it's`, `that's`, `there's`, `here's`) and not a possessive; straight and curly
+> apostrophes both counted."*
+
+That is the same rule `corpus-rates.mjs` implements, arrived at independently and written
+down. **When two counters state their rules and the rules agree, the counts agree.** That is
+the fix doing exactly what it was built to do, and it is stronger evidence than the
+doctorow render, where the rules differed and the numbers differed accordingly.
+
+## 8. FU-21's checklist working in the negative
+
+The same render records the named-source habit as **absent**, paired with what occupies its
+place:
+
+> *"Nothing here shows the writer handing the floor to a named individual and building on
+> their term — allies appear as institutions and coalitions, never as *as X writes* or *what
+> Y calls* — 11/11 samples. A drafter has no evidence for how this voice cites a person it
+> agrees with."*
+
+FU-21 added that checklist row after b04 failed 3/3 on the habit's absence from a profile.
+Here the renderer checks for it, finds it absent, and says so as a **gap** — which is what a
+drafter needs, and what the absence-pairing rule requires.
