@@ -170,42 +170,42 @@
     {
       "name": "f09-surgical-hedge-chesterton",
       "source": "chesterton-the-twelve-men.txt",
-      "kind": "faithful-local-edit",
+      "kind": "safety-net",
       "expected": {
-        "gate": "FAITHFUL",
+        "gate": "MATERIAL-LOSS",
         "reviser": "applied"
       },
-      "what_it_tests": "FU-3: the same one-word intensifier cut as f01, in a whimsical-digressive essay register rather than a letter. If the critic's stability is Chekhov-specific, this is where it shows."
+      "what_it_tests": "FU-3 safety net (RECLASSIFIED 2026-08-16). Authored as a faithful intensifier cut; the gate returned MATERIAL-LOSS on 2 of 2 draws with the scan staged, arguing 'really' separates the world BEING reasonable from BEING CALLED reasonable, which is the hinge of the paragraph. The evidence overrode the hypothesis. In its corrected role it tests that the gate catches a dropped qualification in whimsical-digressive essay prose."
     },
     {
       "name": "f10-surgical-hedge-darwin",
       "source": "darwin-001-the-voyage-of-the-beagle-chapter-i.txt",
-      "kind": "faithful-local-edit",
+      "kind": "safety-net",
       "expected": {
-        "gate": "FAITHFUL",
+        "gate": "MATERIAL-LOSS",
         "reviser": "applied"
       },
-      "what_it_tests": "FU-3: an intensifier cut in observational scientific narrative, where the surrounding prose is dense with factual detail the gate must not read the deletion as touching."
+      "what_it_tests": "FU-3 safety net (RECLASSIFIED 2026-08-16). Same correction as f09. The gate argued 'very uninteresting' is the extreme the sentence's reversal pushes against, so cutting it flattens a contrast Darwin built. Tests dropped-degree detection in observational scientific narrative."
     },
     {
       "name": "f11-surgical-hedge-huxley",
       "source": "huxley-technical-education.txt",
-      "kind": "faithful-local-edit",
+      "kind": "safety-net",
       "expected": {
-        "gate": "FAITHFUL",
+        "gate": "MATERIAL-LOSS",
         "reviser": "applied"
       },
-      "what_it_tests": "FU-3: an intensifier cut in didactic lecture prose — argumentative, first-person, addressed to an audience. The nearest register to Chekhov's letters in the new set, and the control for the others."
+      "what_it_tests": "FU-3 safety net (RECLASSIFIED 2026-08-16). Same correction. The gate argued 'very proper' is emphatic endorsement where 'proper' is bare concession, and that the emphasis is what licenses the autobiographical digression following it. Tests dropped-degree detection in didactic lecture prose."
     },
     {
       "name": "f12-surgical-hedge-chopin",
       "source": "chopin-002-the-awakening-chapter-ii.txt",
-      "kind": "faithful-local-edit",
+      "kind": "safety-net",
       "expected": {
-        "gate": "FAITHFUL",
+        "gate": "MATERIAL-LOSS",
         "reviser": "applied"
       },
-      "what_it_tests": "FU-3: an intensifier cut in third-person narrative fiction with free-indirect style. The only fixture where the deleted word might be read as a character's judgement rather than the narrator's."
+      "what_it_tests": "FU-3 safety net (RECLASSIFIED 2026-08-16). Same correction. The gate argued 'very young' is the degree that makes Robert's self-absorption excusable, and that the next sentence extends the same indulgence to Mrs Pontellier by reference. Tests dropped-degree detection in third-person fiction with free-indirect style."
     },
     {
       "name": "f13-refuse-ambiguous-ohenry",
@@ -231,12 +231,42 @@
       "name": "f15-surgical-hedge-eff",
       "source": "2026-07-13-sony-nerfs-videogame-ownership.txt",
       "corpus_root": "../../../../prose-tell-scan/tests/corpus/human-professional",
+      "kind": "safety-net",
+      "expected": {
+        "gate": "MATERIAL-LOSS",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3 safety net (RECLASSIFIED 2026-08-16). Same correction. 'actually' is contrastive here - it marks the companies as the real owners as against the paying customer. Tests dropped-contrast detection in contemporary advocacy prose."
+    },
+    {
+      "name": "f16-swap-chesterton",
+      "source": "chesterton-the-twelve-men.txt",
       "kind": "faithful-local-edit",
       "expected": {
         "gate": "FAITHFUL",
         "reviser": "applied"
       },
-      "what_it_tests": "FU-3: the modern voice the ticket asked for. Contemporary advocacy prose, 2026, not public-domain-period. Uses a per-fixture corpus_root because it does not live in the Gutenberg tree."
+      "what_it_tests": "FU-3 faithful side, authored 2026-08-16 after the deletion fixtures were reclassified. 'at once' -> 'immediately': a synonym substitution with identical temporal force, which is f01's shape - replace one construction with an equivalent one, no fact touched. This is what the deletion fixtures were SUPPOSED to be."
+    },
+    {
+      "name": "f17-swap-darwin",
+      "source": "darwin-001-the-voyage-of-the-beagle-chapter-i.txt",
+      "kind": "faithful-local-edit",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3 faithful side. 'procured' -> 'obtained': the same act of acquiring, in observational scientific narrative."
+    },
+    {
+      "name": "f18-swap-huxley",
+      "source": "huxley-technical-education.txt",
+      "kind": "faithful-local-edit",
+      "expected": {
+        "gate": "FAITHFUL",
+        "reviser": "applied"
+      },
+      "what_it_tests": "FU-3 faithful side. 'endeavoured' -> 'sought': the same attempt, in didactic lecture prose."
     }
   ]
 }

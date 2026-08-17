@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 56,
+        "quote": "proceed at once"
+      },
+      "change": "replace with 'proceed immediately'",
+      "reason": "voice-critic: 'at once' is an idiom the corpus samples do not use; 'immediately' is the plain equivalent"
+    }
+  ]
+}

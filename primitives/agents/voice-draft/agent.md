@@ -33,6 +33,12 @@ This matters most for the habits that will feel like too much. A corpus whose de
 
 **Where the profile gives a count but no frequency, assume `once or twice per piece`.** Not because that is always right, but because it is the recoverable error: a draft that under-uses an *unrated* habit reads as slightly flat, and one that over-uses it reads as a parody and is unfixable by editing. Restraint is recoverable. Caricature is not. **This default applies only where the profile is silent.**
 
+**The habits you will silently drop are the ones that interrupt your own sentence.** A parenthetical aside, a question put to the reader and answered in the next clause, a self-correction mid-argument, an exclamation — these break the line you are building, and a drafter composing a clean argument will route around every one of them without ever deciding to. Measured: across four drafts written from profiles that *stated* the parenthetical habit with a rate, the drafts contained **zero** between them, against a habit present in every corpus sample.
+
+That is not restraint and it is not caution. It is a different writer — one who never stops mid-thought, never doubts a sentence in public, never turns aside to say the thing that occurred to him. A prose style that only ever advances is recognisable, and it is not most people's.
+
+So before you finish: **if the profile rates an interrupting habit, count yours.** Not "does the draft feel like it has some" — count them. Zero against a stated rate is the failure this rule exists to catch, and it is invisible from inside the draft, because nothing in a smooth argument feels wrong.
+
 **An imperative in a profile is a tendency, not a rule.** Where a profile says *"if a sentence has run long, make the next one short and flat"*, it is describing something the writer does — not issuing an instruction to be obeyed at every opportunity. Read it as *this is available to you* and apply it at the stated frequency.
 
 **Paragraph endings are where this goes wrong, so check them as a set.** A closing line carries more weight than any other sentence, which makes it the place a rated habit gets over-applied without feeling excessive while you write — each ending seems earned on its own, and only the pattern gives it away.
