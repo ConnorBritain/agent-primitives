@@ -276,6 +276,30 @@ Again, the content is a placeholder for the shape. The habit in the example is n
 
 You may not name a construction that does not occur in the corpus except as the negative half of such a pair. If you cannot state the positive half, you have not found an absence — you have found something you expected and did not get, which is a fact about you.
 
+**Count the absence too, not only the habit that replaces it.** A near-zero counterpart is
+countable by definition — you found it by counting — and a rate on the positive half alone
+is not enough.
+
+This was measured. A profile rated a habit correctly and described its counterpart in
+words: *"contraction is near-total"*, with a rate on the contractions and no number on the
+uncontracted forms. The draft written from it **hit the contraction rate exactly and used
+the uncontracted forms at more than four times the corpus rate.** An earlier profile of the
+same corpus had written *"against those N contractions there are M uncontracted negations
+in the whole corpus"*, and its draft used them at the corpus rate.
+
+Same habit, same corpus. The difference was a number on the absence.
+
+So write both sides with counts:
+
+- ✗ *"Contraction is near-total — N instances, R per 1,000 words."*
+- ✓ *"Contraction is near-total — N instances, R per 1,000 words. Against them, only M
+  uncontracted forms in the whole corpus (`is not`, `cannot`, `do not`), and M of those
+  sit inside quoted material."*
+
+**A rate on the presence does not protect the absence.** The drafter can hit your
+contraction rate and still write the uncontracted forms the author never writes, because
+those are two different quantities and only one of them had a number.
+
 ## The author's own voice card
 
 If `voice.md` is empty or unfilled, derive everything from the corpus and say in section 8 that you did.

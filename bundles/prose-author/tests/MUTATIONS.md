@@ -45,7 +45,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let an open suffix swallow coinages in the profanity pattern | 2 | a coined term built on a rude root is not counted as the habit it resembles |
 | measure rates over the whole file instead of the essay body | 9 | site boilerplate is excluded from a rate the profile will quote |
 | let a ratio breach alone become a verdict | 1 | one extra instance in a short draft is not reported as caricature |
-| silently skip a claim the checker cannot locate | CRASH | a checker that finds nothing to check says so instead of reporting clean |
+| silently skip a claim the checker cannot locate | 1 | a checker that finds nothing to check says so instead of reporting clean |
 | read a decimal's fractional part as a count | 2 | 22.65 per 1,000 is a rate, not a count of 65 |
 | widen the tolerance past the inflation it exists to catch | 1 | a 32% inflation is still a divergence |
 | turn the conjunctive bar into a disjunction | 4 | a draft must clear BOTH instruments, not whichever one it happened to satisfy |
