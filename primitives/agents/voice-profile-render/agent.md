@@ -172,6 +172,28 @@ a countable component — you have renamed the thing you could not bound. **Writ
 and say why.** That refusal is still available and still correct; it is only the first
 resort that has changed.
 
+**A component is not a measurement of the whole, and it IS a target for itself.** Both
+halves matter, and dropping the second is how this rule failed the first time it was used.
+
+A render rated a figure vocabulary, correctly disclaimed that it was not a count of
+figures, and then added: *"a drafter should read them as raw material rather than as a
+target."* Everything in that sentence is true of **figures**. None of it is true of **the
+vocabulary**, which is exactly the kind of thing a drafter can and should aim at. The draft
+written from that profile used the vocabulary zero times — the same as when it was not
+rated at all. The number was there and the sentence beside it switched the number off.
+
+So say both, and keep them apart:
+
+- ✓ *"This is not a count of figures — I cannot bound one. It is a count of the vocabulary
+  they are built from, under the list above. **Use that vocabulary at about this rate.**"*
+- ✗ *"...so read these as raw material rather than as a target."*
+
+**Never tell the drafter to discount a number you have just given it.** If a number is too
+unreliable to aim at, it was too unreliable to state — drop it and write `no rate`. What
+you must not do is publish it with a caveat that neutralises it, because that costs the
+drafter a habit it would otherwise have used and leaves a figure in the profile that looks
+like evidence.
+
 **Why this rule exists, stated plainly.** Measured across six drafts: every habit this
 profile format rated was reproduced at or near the corpus rate, and **every habit it left
 unrated came back at exactly zero** — including habits marked `10/10 samples` with a

@@ -1,0 +1,23 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "paragraph ending on a colon that hands off to a bare link",
+      "why": "no verified sources or URLs available for this topic"
+    },
+    {
+      "habit": "named ally given the floor with a speech verb",
+      "why": "no verified quotation from a real named writer was available"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Section 1201 of the DMCA makes circumventing DRM a potential felony even on lawfully purchased content",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "California enacted a law barring stores from using the word buy for revocable digital goods",
+      "where": "paragraph 7"
+    }
+  ]
+}

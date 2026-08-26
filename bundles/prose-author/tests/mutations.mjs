@@ -89,6 +89,7 @@ const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
+const XCOUNT = "bundles/prose-author/tests/cross-count.mjs";
 const GATES = "bundles/prose-author/tests/run-gates.mjs";
 const FGUARD = "bundles/prose-author/tests/fixture-guard.mjs";
 
@@ -408,6 +409,32 @@ export const MUTATIONS = [
     with: "  if (true) {",
     guards: "one extra instance in a short draft is not reported as caricature",
   },
+  // --- the differential counter ---
+  // The only check here that can catch a wrong number rather than a wrong shape. Each
+  // mutation makes it report clean over nothing, which is the failure mode that matters:
+  // a cross-checker that silently stops checking looks exactly like one that found no
+  // problems.
+  {
+    name: "silently skip a claim the checker cannot locate",
+    file: XCOUNT,
+    find: "    if (!stated) { rows.push({ id: claim.id, status: \"unlocatable\", measured }); continue; }",
+    with: "    if (!stated) { continue; }",
+    guards: "a checker that finds nothing to check says so instead of reporting clean",
+  },
+  {
+    name: "read a decimal's fractional part as a count",
+    file: XCOUNT,
+    find: "  const NUM = \"(?<![.\\\\d/])(\\\\d[\\\\d,]{1,6})(?![\\\\d.]|\\\\s*/)\";",
+    with: "  const NUM = \"(\\\\d[\\\\d,]{1,6})\";",
+    guards: "22.65 per 1,000 is a rate, not a count of 65",
+  },
+  {
+    name: "widen the tolerance past the inflation it exists to catch",
+    file: XCOUNT,
+    find: "export function crossCount(profileDir, markdown, { tolerance = 0.15 } = {}) {",
+    with: "export function crossCount(profileDir, markdown, { tolerance = 0.95 } = {}) {",
+    guards: "a 32% inflation is still a divergence",
+  },
   // --- the ship bar (PI-02 S7) ---
   // This decides whether two held primitives ship. Every mutation below turns a failing
   // run into a passing one, and none of them looks wrong in the output.
@@ -501,9 +528,9 @@ export const MUTATIONS = [
   {
     name: "count bare-URL lines as paragraph endings",
     file: RATES,
-    find: "    .filter((p) => p && !/^https?:\\S*$/.test(p));",
+    find: "    .filter((p) => p && !/^https?:\\S*$/.test(p) && !IMAGE_CREDIT.test(p));",
     with: "    .filter((p) => p);",
-    guards: "citation scaffolding is not measured as a one-word paragraph ending",
+    guards: "citation scaffolding and image credits are not measured as paragraph endings",
   },
   {
     name: "measure every sentence instead of paragraph-final ones",
