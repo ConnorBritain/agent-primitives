@@ -1,0 +1,23 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "paragraph ending in a colon followed by a bare URL on its own line",
+      "why": "no verified sources or links available for this topic"
+    },
+    {
+      "habit": "named ally quoted with a reporting verb",
+      "why": "would require attributing words to a real person without verification"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Sony notified PlayStation owners in Germany and Austria, in advance, that purchased video titles would be removed over a licensing lapse",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Section 1201 of the DMCA makes circumventing a digital lock an offence regardless of ownership of the underlying copy",
+      "where": "paragraph 6"
+    }
+  ]
+}
