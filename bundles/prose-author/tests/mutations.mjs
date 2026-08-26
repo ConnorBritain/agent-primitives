@@ -89,6 +89,7 @@ const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
+const GATES = "bundles/prose-author/tests/run-gates.mjs";
 const FGUARD = "bundles/prose-author/tests/fixture-guard.mjs";
 
 /**
@@ -437,6 +438,20 @@ export const MUTATIONS = [
     find: "    clears: drafts.length > 0 && passed === drafts.length && gateFailures.length === 0,",
     with: "    clears: passed === drafts.length && gateFailures.length === 0,",
     guards: "a run that dispatched nothing cannot report a pass",
+  },
+  {
+    name: "narrow the detector-claim pattern back to a single determiner",
+    file: GATES,
+    find: "  /\\b(beat|fool|evade|pass|defeat)(s|es|ed)? (any |an? |the |every )?(ai |content |plagiarism )?detector/i,",
+    with: "  /\\b(beat|fool|evade)s? (an? )?(ai )?detector\\b/i,",
+    guards: "a draft claiming to fool ANY detector is caught, not just one phrased with 'a'",
+  },
+  {
+    name: "let `undetectable` fire without a text subject",
+    file: GATES,
+    find: "  /\\bundetectable\\b[^.!?]{0,60}\\b(ai|detector|human|machine|writing|text|prose)\\b/i,",
+    with: "  /\\bundetectable\\b/i,",
+    guards: "the gate does not flag innocent prose, which is how a gate gets switched off",
   },
   // --- renderer-emitted rates (PI-02 FU-19 option 3) ---
   // A rate in a profile is an instruction a drafter acts on numerically. Every failure

@@ -10,6 +10,7 @@
 import {
   scoreDraft, scoreRun, MAJORITY_VERDICT, MAX_FINDINGS_PER_DRAW, STRUCTURAL_GATES,
 } from "./bar.mjs";
+import { RESEMBLANCE_CLAIMS } from "./run-gates.mjs";
 
 const draws = (verdicts, findings) => verdicts.map((v, i) => ({ verdict: v, findings: findings[i] }));
 const allGatesPass = Object.fromEntries(STRUCTURAL_GATES.map((g) => [g, "pass"]));
@@ -94,5 +95,27 @@ export async function run(t) {
     t.check("a run with no drafts does not clear",
       !scoreRun({ drafts: [], structural_gates: allGatesPass }).clears);
     t.check("a draft with no draws does not pass", !scoreDraft([]).passes);
+  }
+
+  t.group("bar — the resemblance gate, which was previously checked by eye");
+  {
+    // The drafter cannot know whether it sounds like the author, whether it is good, or
+    // whether it beats a detector. Asserting any of the three is a lie about its own
+    // output, not a stylistic lapse - and it is the claim most likely to be believed by
+    // whoever reads the draft.
+    const hits = (s) => RESEMBLANCE_CLAIMS.filter((re) => re.test(s)).length;
+
+    t.check("a draft claiming to sound like the author is caught",
+      hits("This sounds just like him.") > 0);
+    t.check("a draft claiming to be indistinguishable is caught",
+      hits("The result is indistinguishable from the real thing.") > 0);
+    t.check("a draft claiming to beat a detector is caught",
+      hits("It will fool any AI detector.") > 0 && hits("The text is undetectable.") > 0);
+
+    // The gate must not fire on ordinary prose that happens to discuss likeness, or it
+    // becomes noise the next person turns off.
+    t.check("ordinary prose about resemblance does not trip the gate",
+      hits("The freezer sounds like it is failing, and the noise is undetectable to me.") === 0,
+      "false positive on innocent prose");
   }
 }

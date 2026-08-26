@@ -49,6 +49,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | loosen the pre-registered findings ceiling | 3 | a threshold pre-registered before the run cannot be edited after seeing it |
 | let a failed structural gate through | 2 | a fabricated citation fails the run no matter how the drafts scored |
 | let a run with no drafts clear the bar | 1 | a run that dispatched nothing cannot report a pass |
+| narrow the detector-claim pattern back to a single determiner | 1 | a draft claiming to fool ANY detector is caught, not just one phrased with 'a' |
+| let `undetectable` fire without a text subject | 1 | the gate does not flag innocent prose, which is how a gate gets switched off |
 | accept a non-integer occurrence count | 1 | a count is a count of instances, not an estimate the renderer interpolated |
 | let a stated rate disagree with its own count | 1 | a rate is arithmetic on the corpus, not a number the renderer liked |
 | accept a count smaller than the number of samples supporting it | 2 | a habit found in ten samples has at least ten instances |

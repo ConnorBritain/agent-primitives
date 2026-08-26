@@ -104,7 +104,7 @@ function main() {
   const dir = process.argv[2];
   if (!dir) { process.stderr.write("usage: bar.mjs <run-dir>\n"); process.exit(2); }
   const r = scoreRun(loadTally(dir));
-  process.stdout.write(`\n  bar: majority ${MAJORITY_VERDICT} AND <= ${MAX_FINDINGS_PER_DRAW} findings/draw, conjunctive\n\n`);
+  process.stdout.write(`\n  bar: majority ${MAJORITY_VERDICT} AND <= ${MAX_FINDINGS_PER_DRAW.toFixed(1)} findings/draw, conjunctive\n\n`);
   for (const d of r.drafts) {
     const mark = d.passes ? "pass" : "FAIL";
     const per = d.findings ? d.findings.per.join(", ") : "-";
