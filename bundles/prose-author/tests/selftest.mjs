@@ -20,6 +20,7 @@ import * as voiceProfileRender from "./suite-voice-profile-render.mjs";
 import * as voiceDraft from "./suite-voice-draft.mjs";
 import * as loop from "./suite-loop.mjs";
 import * as corpusRates from "./suite-corpus-rates.mjs";
+import * as bar from "./suite-bar.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = resolve(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
@@ -81,6 +82,7 @@ const SUITES = [
   ["voice-draft", voiceDraft],
   ["loop", loop],
   ["corpus-rates", corpusRates],
+  ["bar", bar],
 ];
 const only = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 const selected = only.length

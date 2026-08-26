@@ -18,7 +18,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
 | stop noticing a fallen verdict | 1 | a revision that drops the verdict is refused |
 | treat a split CLEAN as converged | 2 | a split is surfaced, not read as the half that suits the loop |
-| resolve a verdict tie to the better verdict | 1 | a coin-flip tie is not evidence of clean |
+| resolve a verdict tie to the better verdict | 2 | a coin-flip tie is not evidence of clean |
 | drop the attributable-length floor | 1 | a two-letter edit cannot be blamed for an unrelated finding |
 | blame edits for text that was already there | 1 | only text an edit INTRODUCED can have caused a finding |
 | remove the cap clamp | 2 | human keeps the majority of exemplar slots |
@@ -45,6 +45,10 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let an open suffix swallow coinages in the profanity pattern | 2 | a coined term built on a rude root is not counted as the habit it resembles |
 | measure rates over the whole file instead of the essay body | 6 | site boilerplate is excluded from a rate the profile will quote |
 | let a ratio breach alone become a verdict | 1 | one extra instance in a short draft is not reported as caricature |
+| turn the conjunctive bar into a disjunction | 4 | a draft must clear BOTH instruments, not whichever one it happened to satisfy |
+| loosen the pre-registered findings ceiling | 3 | a threshold pre-registered before the run cannot be edited after seeing it |
+| let a failed structural gate through | 2 | a fabricated citation fails the run no matter how the drafts scored |
+| let a run with no drafts clear the bar | 1 | a run that dispatched nothing cannot report a pass |
 | accept a non-integer occurrence count | 1 | a count is a count of instances, not an estimate the renderer interpolated |
 | let a stated rate disagree with its own count | 1 | a rate is arithmetic on the corpus, not a number the renderer liked |
 | accept a count smaller than the number of samples supporting it | 2 | a habit found in ten samples has at least ten instances |

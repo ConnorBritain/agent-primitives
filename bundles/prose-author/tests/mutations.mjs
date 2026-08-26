@@ -88,6 +88,7 @@ const LOOP = "bundles/prose-author/tests/loop.mjs";
 const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
+const BAR = "bundles/prose-author/tests/bar.mjs";
 const FGUARD = "bundles/prose-author/tests/fixture-guard.mjs";
 
 /**
@@ -405,6 +406,37 @@ export const MUTATIONS = [
     find: "  if (absDeviation >= floor) {",
     with: "  if (true) {",
     guards: "one extra instance in a short draft is not reported as caricature",
+  },
+  // --- the ship bar (PI-02 S7) ---
+  // This decides whether two held primitives ship. Every mutation below turns a failing
+  // run into a passing one, and none of them looks wrong in the output.
+  {
+    name: "turn the conjunctive bar into a disjunction",
+    file: BAR,
+    find: "    passes: majorityClean && rateOk,",
+    with: "    passes: majorityClean || rateOk,",
+    guards: "a draft must clear BOTH instruments, not whichever one it happened to satisfy",
+  },
+  {
+    name: "loosen the pre-registered findings ceiling",
+    file: BAR,
+    find: "export const MAX_FINDINGS_PER_DRAW = 1.0;",
+    with: "export const MAX_FINDINGS_PER_DRAW = 2.0;",
+    guards: "a threshold pre-registered before the run cannot be edited after seeing it",
+  },
+  {
+    name: "let a failed structural gate through",
+    file: BAR,
+    find: "  const gateFailures = STRUCTURAL_GATES.filter((g) => structural[g] !== \"pass\");",
+    with: "  const gateFailures = [];",
+    guards: "a fabricated citation fails the run no matter how the drafts scored",
+  },
+  {
+    name: "let a run with no drafts clear the bar",
+    file: BAR,
+    find: "    clears: drafts.length > 0 && passed === drafts.length && gateFailures.length === 0,",
+    with: "    clears: passed === drafts.length && gateFailures.length === 0,",
+    guards: "a run that dispatched nothing cannot report a pass",
   },
   // --- renderer-emitted rates (PI-02 FU-19 option 3) ---
   // A rate in a profile is an instruction a drafter acts on numerically. Every failure
