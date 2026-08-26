@@ -1,0 +1,95 @@
+{
+  "_comment": "PI-02 S7. Bar pre-registered 2026-08-07, quoted verbatim in DESIGN.md, not adjustable by these results. k=3 per draft. Scored by bar.mjs; structural gates produced by run-gates.mjs.",
+  "drafts": [
+    {
+      "id": "v3",
+      "topic": "password managers",
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "findings": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "b02",
+      "topic": "open standards",
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "findings": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "b03",
+      "topic": "parts pairing",
+      "verdicts": [
+        "CLEAN",
+        "REVISE",
+        "CLEAN"
+      ],
+      "findings": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "b04",
+      "topic": "ad-tech targeting",
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "REVISE"
+      ],
+      "findings": [
+        0,
+        0,
+        2
+      ]
+    },
+    {
+      "id": "b07",
+      "topic": "streaming licence lapse",
+      "verdicts": [
+        "CLEAN",
+        "REVISE",
+        "REVISE"
+      ],
+      "findings": [
+        0,
+        3,
+        1
+      ]
+    },
+    {
+      "id": "b08",
+      "topic": "overdraft fees",
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "findings": [
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "structural_gates": {
+    "fabricated_citations": "pass",
+    "corpus_leakage": "pass",
+    "refuses_when_underdetermined": "pass",
+    "no_resemblance_claims": "pass"
+  }
+}

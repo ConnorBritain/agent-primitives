@@ -1,0 +1,23 @@
+Your password manager is a single point of failure. That isn't a knock on any particular vendor's engineering, it's arithmetic: the pitch was that you'd stop reusing one mediocre password across two hundred sites and start using two hundred good ones, which works beautifully right up until you notice that all two hundred are sitting behind one mediocre password you invented in 2017 and have typed into a browser extension every morning since.
+
+We knew this. The trade has known it since the first person drew the diagram, and the answer we all gave was the same shrug, defense in depth, a second factor (the good kind, if you're lucky), a long master password, as though bolting another lock onto the same door counted as owning a second door.
+
+Picture a town where everyone hid a spare key under the mat. Everyone knew it, the burglars knew it best of all, and the insurers had been sending sternly worded letters about it for a decade.
+
+So the town builds a key depository on Main Street – one hardened building, one guard, an armoured door, a rack of numbered boxes – and by every measure anybody thought to apply, it works. Break-ins collapse. The letters stop.
+
+The trouble is that nobody in town ever has to think about their own front door again (which is the point, and also the problem), because the depository is now the only door that matters, and the guard is one underpaid man with a phishable phone and a queue of furious people who have locked themselves out.
+
+The depository is your password manager. The guard is a help desk in a city you've never visited, the numbered boxes are encrypted vault blobs, and encryption isn't a state a file is in – it's a race the file is running against hardware nobody has built yet.
+
+That race isn't hypothetical. When LastPass disclosed in 2022 that attackers had walked off with encrypted customer vault backups, the thing worth noticing wasn't the breach, it was the tense: everything in those files was compromised in the future, on somebody else's schedule, with no notification and no moment at which anyone finds out. I don't know when those vaults get opened. Neither does anybody else.
+
+Meanwhile the advice you'll get from your bank, from my employer's annual training and from every listicle written since (all of them, in the same order) is: use a password manager. Full stop. It's good advice the way "keep your money in a bank" is good advice, true and load-bearing and silent about who runs the bank, and about whether it's the same bank as everybody else's.
+
+Because that's the part nobody says out loud. Two or three products hold the credentials of an enormous share of the technically literate world, and a handful of identity providers, Okta and Microsoft and Google, hold the front door to the rest of our lives. That's not two hundred locks. That's two hundred locks and four keys (five on a generous count), and the industry keeps proudly counting the locks.
+
+Sure, the alternative is worse, and I'm not telling you to go back to reusing "hunter2" everywhere. But "use a password manager" as a complete sentence is bullshit advice now, because everything that matters got cut off after the verb. Where does the vault live? Who can be talked into restoring it onto a stranger's laptop? What breaks first if that vendor is bought, breached, or has a bad Tuesday?
+
+I think the honest version is four sentences longer, and nobody says them, because they make a product sound like a dependency. You don't have to become a cryptographer to ask. You have to know whether the vault syncs to somebody's cloud, whether the recovery path is a phone number a bored teenager can port away, and whether the one password holding the whole arrangement up is one you can still produce under stress.
+
+Ask a vendor where the vault lives and you get a marketing page. Ask who can restore it and you get a marketing page. Ask what happens when the company is acquired and you get a press release. A business whose whole product is your trust has no incentive to teach you what to do when that trust is misplaced, and "user error" is a much better story than "we were the door." But the only user error here is ours: we told everybody to put everything in one box, called it best practice, and never said whose box it was.

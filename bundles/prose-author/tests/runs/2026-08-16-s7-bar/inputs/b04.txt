@@ -1,0 +1,25 @@
+There is only one dial.
+
+The people who sell you ads will tell you there are two. One is marked "accuracy", and they'd like to turn it up, because that's what an advertiser is paying for. The other is marked "invasiveness", and they swear they're turning it down, because that's what a regulator asks about. The whole industry is now built on the premise that these knobs are in different rooms.
+
+Say you want a suit that fits. Not fits-ish, not a size some factory decided was close enough – fits. To get one, somebody has to put their hands on the customer. They run a tape from crotch to ankle and write the number down, and then they keep it, because a tailor who forgets an inseam is a tailor who has to do the whole humiliating business again next spring.
+
+Now imagine a tailor who won't touch anybody. He's proud of this. He'll tell you at length that his refusal to touch a customer is the entirety of his ethics, and then he'll hand you a sack with armholes, and the sack will fit about as well as it fits everyone else who came in that day.
+
+Then there's the third tailor, the one with the telescope. He sits across the street with a notebook and watches the door every morning for a year, and by the end of it he knows an inseam to the quarter inch, the shoulders, the way one hip rides higher than the other. He has never laid a finger on anyone, and he will find a way to mention that within the first minute of any conversation.
+
+That third tailor is what this industry means by "privacy-preserving". Keep the telescope, lose the tape. The computation moves onto the handset, the identifier gets hashed (hashed, which is to say still unique to exactly one person), the data goes into a "clean room" where two firms compare notes about you without either technically handing anything over, and the profile that comes out is exactly as fine-grained as the one that went in. Nobody touched you.
+
+Accuracy and invasiveness are one dial and not two because relevance has no second ingredient. An ad lands because whoever placed it knew something true about the person it landed on: that she is pregnant, that he is three weeks behind on rent, that somebody was awake at four in the morning reading about a lump. Take the knowledge out and you have not built a considerate targeted ad; you have built a billboard, which is a fine thing to build and a much cheaper one, and which is precisely why nobody in this business will build it.
+
+Sure, there are ads that need to know nothing about anyone – the ones sitting beside the thing you already came to read, sold on context instead of on a dossier. That business is real and it works. It is also the business that Google, Meta, Criteo and The Trade Desk have spent their entire existence escaping, and when their decks promise dossier-grade performance in an era of "signal loss", that's bullshit with a logo on it.
+
+The on-device move gets the most applause and deserves the least. Shifting the inference from a datacentre to your pocket changes who owns the computer. It doesn't change what the computer works out about a person, and it doesn't change who gets told afterwards. So which half of this has been made less invasive – the knowing, or the postcode of the knowing?
+
+Hash the identifier and the profile survives. Move the model onto the handset and the profile survives. Put the numbers in a clean room and the profile survives. Give the apparatus a new name with "privacy" in it and the profile survives, because the profile is the product and everything else is wrapping paper.
+
+I've read enough of these decks to have a guess at what happens inside them, and I think it's simpler than bad faith: the accuracy number gets you promoted and the invasiveness number gets you sued, so the two are owned by different people who never have to reconcile them (they reconcile eventually, in the form of a fine).
+
+The rule that would actually move the dial is a rule about collection, and we haven't passed one. Not consent, which we tried, and which produced a banner dismissed on the way to the article. Not disclosure, which produced a policy nobody has finished reading. You can run the blockers, and you should run them, and I do. They only reach the surveillance that arrives through a browser, and most of it stopped arriving that way years ago.
+
+They call the good outcome "relevance", and they mean an ad that finally finds the person it was made for. The only relevance anyone has demonstrated here is the relevance of your life to their revenue, which is total, and which no amount of on-device anything has ever reduced by a cent.

@@ -135,6 +135,37 @@ close does with the opponent's word, why a register shifts — none of these hav
 and inventing one for them is exactly the fabrication the rest of this prompt is arranged
 against. The test is simple: *could I list every instance?* If no, no rate.
 
+**But before you drop the rate, look for a countable part.** An observation you cannot
+bound is often made of something you can. You may not be able to say where a figure starts
+and stops — but you can count the *vocabulary the figures are drawn from*. You may not be
+able to decide what counts as naming an opponent — but you can count the proper nouns in
+subject position.
+
+So when you are about to write *no rate*, ask one more question: **is there a well-defined
+component of this habit that I could enumerate?** If there is, rate the component, and name
+it as the component:
+
+- ✗ *"images come from the body and from borrowed stories — 9/10 samples."* Then, elsewhere:
+  *"No rate: I could not draw a line around a figure."*
+- ✓ *"images come from the body and from borrowed stories — 9/10 samples. I cannot bound
+  'a figure', so this is not a count of figures: it is a count of the vocabulary they are
+  built from — N words from that register, R per 1,000 words."*
+
+The second is not more precise about figures. It is precise about a smaller thing, and it
+says which smaller thing. That is the honest version, and it is the one a drafter can act
+on.
+
+**Why this rule exists, stated plainly.** Measured across six drafts: every habit this
+profile format rated was reproduced at or near the corpus rate, and **every habit it left
+unrated came back at exactly zero** — including habits marked `10/10 samples` with a
+frequency phrase attached. A support count and a phrase are not enough. Whatever carries a
+number gets written; whatever carries only words does not.
+
+That is a fact about the reader of this profile, not about what is true of the corpus. You
+still may not invent a number. But where a number is available and you declined to look
+for it, the habit will be silently dropped from every draft — and a habit dropped that way
+is one nobody will notice is missing.
+
 **The phrase still goes in the prose.** The rate does not replace it — a reader needs the
 words and a drafter needs the number. But when you have counted, let the count decide the
 phrase rather than the other way around: under about 2.5 instances per sample is *once or

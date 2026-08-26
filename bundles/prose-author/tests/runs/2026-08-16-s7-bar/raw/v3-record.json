@@ -1,0 +1,7 @@
+{"schema":"voice-draft/1",
+ "omitted":[
+  {"habit":"named-ally attributive clause, several times per piece","why":"would require real quotations from real people, and I have no verified source to quote"},
+  {"habit":"paragraph ending on a colon followed by a bare URL line, throughout","why":"no verified links available for this topic"}],
+ "claims":[
+  {"claim":"LastPass disclosed in 2022 that attackers exfiltrated encrypted customer vault backups","where":"paragraph 7"},
+  {"claim":"Okta, Microsoft and Google are the dominant identity providers fronting most other logins","where":"paragraph 9"}]}

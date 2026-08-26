@@ -1,0 +1,23 @@
+Overdraft fees are a fine for not having money, levied by the same institution that is currently holding the money you don't have, and charged as a flat thirty-five dollars whether the shortfall is four hundred dollars or four. That's the whole product.
+
+I've paid maybe four of them in my life, and the one I remember was thirty-five dollars against a four-dollar coffee, because a subscription I'd forgotten about happened to land the night before. But people like me aren't who the fee is for: something like nine percent of accounts produce eighty percent of overdraft revenue, and those people aren't losing track for an afternoon, they're broke on a schedule, which is what makes the money forecastable.
+
+Picture a bar that lets you run a tab: you order all night, the bartender totals it at closing, and if the total runs past what you've got on you he charges a flat penalty for the shortfall and sends you home. Those were the rules when the tab was opened.
+
+Now picture one extra step at closing, where before he charges anything he re-sorts the whole evening, the forty-dollar bottle first, then the twelve-dollar cocktail, then the four six-dollar beers, regardless of when you actually drank them. The total is unchanged to the penny (he isn't lying about the total), but the moment of "insufficient funds" has moved to the front of the night, and every cheap drink after that moment becomes a separate violation carrying its own separate penalty.
+
+One shortfall becomes five, and he has invented no charge and moved no price, he has only picked the sequence that maximises the number of times a line gets crossed. Why that order? For your benefit, he'll tell you, so the important things clear first, which is true if a bottle of wine matters more to you than a beer.
+
+That is high-to-low posting, or "posting order" as the industry prefers, and banks ran it on debit transactions for years, sorting a day's purchases largest to smallest before applying them to the balance (a sequence no customer ever asked for), until class actions rather than anything we voted for stopped it. Wells Fargo was ordered to pay $203m over it in California, and what it was punished for was never a quirk of the overnight batch process – it was the batch process, aimed.
+
+Why did any of this last so long? Partly because the fee is invisible at the point of sale: nobody shops for a charge they don't expect to incur, so people compare the monthly maintenance fee, which is zero (the number that goes on the poster). If you want to know who a product is really for, you should look past the price and ask who pays it twice.
+
+The bigger reason is that the arrangement quietly pays the rest of us, because "free checking" isn't free – it's cross-subsidised by that nine percent – which means most depositors hold a small, silent, unexamined stake in the fee continuing. We aren't being robbed so much as we're being cut in, which is why the outrage never arrives and why reform, when it comes, comes from a regulator and not a crowd.
+
+The rules, meanwhile, were written as disclosure rather than prohibition. Overdraw your account and you're charged. Overdraw it three times on a Tuesday and you're charged three times. Deposit your wages an hour past the cutoff and you're charged for the hours between owning our money and being allowed to touch it.
+
+When the opt-in rule arrived in 2010 the banks turned the remedy into a marketing campaign, and letters went out urging customers to opt in, not to a fee, obviously, but to "protection", to "peace of mind", to a "courtesy" the bank was pleased to extend. Opt in, or your card gets declined at the pump with people behind you, and millions did.
+
+Of course it's better than it was, and several large banks have cut or dropped the fee on their own (after two decades of explaining that they couldn't), but when a federal cap of five dollars was finally written into a rule Congress voted it back out, and the trade groups explained that the cap would have harmed "the very consumers" who depend on the product. It's bullshit. I think a fair number of them half believe it, which is the worse possibility.
+
+A courtesy is something done for you at the doer's expense, and rearranging your Tuesday until it holds more failures than it held when you lived through it isn't a courtesy. The only courtesy in the whole arrangement was the one we extended to the bank, and we extended it for twenty years.

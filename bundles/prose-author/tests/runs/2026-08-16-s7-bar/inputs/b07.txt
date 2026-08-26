@@ -1,0 +1,27 @@
+The buy button is a lie.
+
+Not a figure of speech, and not a critic's flourish that gets walked back a paragraph later – a lie in the flat sense that the word printed on the button describes a transaction that isn't happening when you press it. You click "buy". What you get is a licence: revocable, terminable, and contingent on a contract between two companies, neither of which you're a party to.
+
+So when that contract lapses, and it always lapses, because these deals are struck for a term and terms run out, the film you paid for is lifted out of your library by a company that owes you an explanation and sends an email instead. Your account still works, and the row where the thing used to be just closes up, the way water closes over a stone.
+
+Imagine you buy a burial plot. You pay once, you get a deed, and the entire reason a plot costs what it costs is that it's the one piece of real estate on earth whose whole value is that nobody can make you leave it.
+
+Now imagine the cemetery doesn't own the field. It leases it, on a twenty-year term, from a landowner who has never met you, has no contract with you, and won't be at the meeting where your continued presence is discussed. The term runs out. The rent talks go badly, a contractor arrives with a small excavator, and the cemetery's customer care team sends your widow a note about its "commitment to families".
+
+Nobody refunds the plot. Nobody has to, because the paper you signed said "perpetual right of interment" and the paper the cemetery signed said twenty years, and the gap between those two documents is not an oversight – it's the business. (You were sold permanence, wholesale, out of a lease.)
+
+The cemetery is your streaming service. The landowner is the studio holding the rights. You're the one in the box, and the excavator is a database write that costs somebody a fraction of a cent. So what, exactly, did you buy?
+
+None of this is hypothetical (none of it is even unusual). Amazon reached into people's Kindles and deleted their copies of 1984 – yes, that book – after a licensing problem surfaced. Sony told PlayStation owners that Discovery shows already sitting in their purchased libraries would be removed when a deal lapsed. Ubisoft switched off The Crew and revoked the licences of everyone who'd bought it, which is to say a publisher repossessed a racing game out of every living room at once.
+
+Sure, the terms of service told you. They told you in a document longer than most of what you'll ever watch, in language you can't alter by a comma, presented at the exact moment you'd already decided to spend the money and wanted the film to start. That's the consent we're all pretending happened. It's bullshit.
+
+Buy a film and the studio can pull it. Buy a game and the publisher can brick it. Buy a book and the shop can reach into your shelf and take it back. Buy a song and the rights revert to somebody who'd rather you streamed it.
+
+And here's what should bother you more than any single deletion: nobody in that negotiation is arguing for you. Why would they? A lapsed licence costs the studio nothing and the platform a support ticket, which means the one party with a real interest in renewal is the only party without a seat. You can't bid in an auction you weren't told about.
+
+We can fix the word first, and one legislature already has. California now requires sellers to stop calling it a "purchase" when what changes hands is a revocable licence. That's worth having (it costs the platforms nothing except the truth), but a truthful label on a shelf that still empties is a smaller win than it sounds. What we owe each other is the rule underneath: when a licence lapses, the copies people already paid for stay where they are, and the cost of a failed negotiation lands on the parties who failed, not on some guy who paid for a film once and got fucked by a contract he was never shown.
+
+Until then you should keep local copies, and I know how that sounds. (I'm aware I'm the man telling you to fill a hard drive in the precise decade whose entire pitch was that you'd never think about storage again.) I suspect that pitch was always the point. Download the thing. Back it up.
+
+They call it a "library". A library is a room where the books stay on the shelf whether or not the people who published them are still speaking to each other, and where nobody comes in at night with a list. What you have is a window onto somebody else's warehouse, and their hand is on the sash.
