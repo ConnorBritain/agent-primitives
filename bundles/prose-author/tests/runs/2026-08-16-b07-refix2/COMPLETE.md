@@ -1,7 +1,8 @@
 # The amendment reaches the draft (2026-08-16)
 
-**Result: P1 and P3 both hold. The figure vocabulary appears in a draft for the first
-time.** Predictions committed in `dcede29`; checker in `dc2632e`. Neither was written
+**Result: all three predictions hold. P1 and P3 measured; P2 returned [0, 0, 2], mean 0.67,
+majority CLEAN — and no draw raised figures or decorative imagery, which is the axis the
+S7 bar failed on.** Predictions committed in `dcede29`; checker in `dc2632e`. Neither was written
 after seeing this draft.
 
 ---
@@ -70,10 +71,37 @@ FU-14 took six critic complaints and three failed fixes to reach that conclusion
 renderer reached it from the corpus, quantified it, and wrote it as an instruction. It is
 now in the profile rather than in a ticket.
 
-## 5. Not yet established
+## 5. P2 — the finding did not recur
 
-- **P2 is unmeasured.** Three critic draws are running. Whether the finding that failed
-  the S7 bar actually stops recurring is a critic result, and a script cannot check it.
+`[0, 0, 2]`, mean 0.67, majority CLEAN. **Zero draws mentioned figures, mood-only imagery,
+or decorative comparison.** That was the whole S7 failure and it is absent from all three.
+
+Draw 3's two findings are new. The high-confidence one is uncontracted forms, and I
+verified every countable claim in it: `cannot` 0, `could not` 0, `is not` 1, against
+`isn't` 16, `can't` 11, `don't` 30, `it's` 46 vs `it is` 5. Its numbers run slightly below
+mine because it excluded quoted material, which it said.
+
+## 5b. The finding is the mechanism again, and I caused it
+
+| profile | rates the absence? | draft's uncontracted forms |
+|---|---|---|
+| S7 | **yes** — "9 uncontracted negations in the whole corpus" | **2** (2.43/1000) |
+| amended | **no** — the clause is gone | **8** (10.68/1000) |
+
+The amended render improved section 5 and **silently dropped the uncontracted count the S7
+render carried**. The draft's rate rose 4.4x and a critic caught it at high confidence.
+
+**The contraction rate was in band the whole time** — 20.03 against a corpus 17.09. So a
+rate can be correct while its paired absence is violated, because the absence carried no
+number.
+
+That is a sharper form of the same rule, and it is the fourth demonstration today: **it is
+not enough to rate a habit. Where the habit has a near-zero counterpart, the counterpart
+needs a number too.** Section 7's pairing rule already requires an absence be paired with
+the positive habit occupying its place; what it does not require is that the absence carry
+a count.
+
+## 6. Not yet established
 - **One draft.** The bar needs six drafts and eighteen draws.
 - **One corpus.**
 - **The two defects no gate catches** — a fabricated biographical fact and a pronoun slip —

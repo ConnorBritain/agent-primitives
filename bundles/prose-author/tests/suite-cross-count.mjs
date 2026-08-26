@@ -17,7 +17,12 @@ import { crossCount, RECOUNTABLE } from "./cross-count.mjs";
 export async function run(t, { HERE } = {}) {
   const { resolve } = await import("node:path");
   const P = resolve(HERE, "fixtures", "profiles", "doctorow-blog");
-  const find = (rows, id) => rows.find((r) => r.id === id);
+  // Crash-safe by design. A mutation that stops the checker reporting a row must produce
+  // a clean FAIL, not a TypeError - the mutation harness treats a crash as "the count is
+  // not a count" and refuses to score it, so a test that throws hides the very guard it
+  // was written to prove. Returning a sentinel makes the assertion fail on its merits.
+  const MISSING = { id: null, status: "missing", stated: null, measured: null, delta: null };
+  const find = (rows, id) => rows.find((r) => r.id === id) ?? MISSING;
 
   t.group("cross-count — it compares, and says when it cannot");
   {

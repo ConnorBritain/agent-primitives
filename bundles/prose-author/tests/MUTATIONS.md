@@ -43,8 +43,11 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let tell-scan ignore the blended bands | 3 | an approved edit actually changes what the scanner reports |
 | trust edit_fraction as a signed number rather than computing it | 3 | edit_fraction is computed from a diff, never asserted |
 | let an open suffix swallow coinages in the profanity pattern | 2 | a coined term built on a rude root is not counted as the habit it resembles |
-| measure rates over the whole file instead of the essay body | 6 | site boilerplate is excluded from a rate the profile will quote |
+| measure rates over the whole file instead of the essay body | 9 | site boilerplate is excluded from a rate the profile will quote |
 | let a ratio breach alone become a verdict | 1 | one extra instance in a short draft is not reported as caricature |
+| silently skip a claim the checker cannot locate | CRASH | a checker that finds nothing to check says so instead of reporting clean |
+| read a decimal's fractional part as a count | 2 | 22.65 per 1,000 is a rate, not a count of 65 |
+| widen the tolerance past the inflation it exists to catch | 1 | a 32% inflation is still a divergence |
 | turn the conjunctive bar into a disjunction | 4 | a draft must clear BOTH instruments, not whichever one it happened to satisfy |
 | loosen the pre-registered findings ceiling | 3 | a threshold pre-registered before the run cannot be edited after seeing it |
 | let a failed structural gate through | 2 | a fabricated citation fails the run no matter how the drafts scored |
@@ -57,11 +60,11 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | stop comparing the frequency phrase against the counted rate | 1 | the phrase a drafter reads and the number a harness reads agree |
 | scan the corpus directly instead of delegating to the drafter's reader | 2 | rates are measured over the same attested samples the drafter is shown |
 | measure an undelimited corpus without saying so | 1 | a corpus measured whole cannot report itself as cleanly delimited |
-| count bare-URL lines as paragraph endings | 2 | citation scaffolding is not measured as a one-word paragraph ending |
+| count bare-URL lines as paragraph endings | 3 | citation scaffolding and image credits are not measured as paragraph endings |
 | measure every sentence instead of paragraph-final ones | 3 | the drumbeat is visible only when endings are measured apart from the prose |
-| count the country US as the pronoun us | 1 | a habit rate is not inflated 32% by an abbreviation that shares its letters |
+| count the country US as the pronoun us | 4 | a habit rate is not inflated 32% by an abbreviation that shares its letters |
 | treat every possessive as a contraction | 1 | the world's fair is not evidence that the author contracts |
-| let the solidarity pattern match inside longer words | 1 | the habit five drafts are deficient in is not inflated by substring hits |
+| let the solidarity pattern match inside longer words | 2 | the habit five drafts are deficient in is not inflated by substring hits |
 | stop guarding the corpus's measured rates against leaking into a prompt | 1 | a renderer is not handed the number it is being asked to derive |
 | stop deriving author tokens from corpus frontmatter | 1 | a prompt naming an author by any part of their name is caught, not just the surname |
 | let a not-author-named exemption go stale | 1 | an exemption that no longer matches a fixture cannot silently disable a check |
