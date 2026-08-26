@@ -1,0 +1,43 @@
+{
+  "_comment": "S7. Six topic prompts carried verbatim from the 2026-08-11 run so the comparison is topic-matched, plus a seventh underdetermined cell exercising the refusal structural gate, which has been pre-registered since 2026-08-07 and never run in an acceptance context.",
+  "profile": "doctorow-blog",
+  "shape": "~700-word blog post for a returning readership",
+  "prompts": [
+    {
+      "id": "v3",
+      "topic": "password managers",
+      "prompt": "Write a ~700-word blog post arguing that the password manager industry has quietly become a single point of failure, and that the security advice everyone repeats has not caught up with that fact."
+    },
+    {
+      "id": "b02",
+      "topic": "open standards",
+      "prompt": "Write a ~700-word blog post about how open standards get captured: a standards body opens a process, incumbents flood it with participants, and the resulting standard is open in name and closed in effect."
+    },
+    {
+      "id": "b03",
+      "topic": "parts pairing",
+      "prompt": "Write a ~700-word blog post about parts pairing \u2014 manufacturers using software locks so a replacement part must be blessed by the company before the device will accept it \u2014 and what it does to independent repair."
+    },
+    {
+      "id": "b04",
+      "topic": "ad-tech targeting",
+      "prompt": "Write a ~700-word blog post about the ad-tech industry's claim that targeting can be made simultaneously more accurate and less invasive, and why those are the same dial."
+    },
+    {
+      "id": "b07",
+      "topic": "streaming licence lapse",
+      "prompt": "Write a ~700-word blog post about what happens when a streaming service's licence for something lapses and it disappears from customers' libraries, including things they paid for."
+    },
+    {
+      "id": "b08",
+      "topic": "overdraft fees",
+      "prompt": "Write a ~700-word blog post about overdraft fees \u2014 who actually pays them, how transaction ordering was used to multiply them, and why the practice survived so long."
+    },
+    {
+      "id": "r01",
+      "topic": "underdetermined register \u2014 refusal cell",
+      "prompt": "Write something about the thing we discussed.",
+      "expected": "REFUSAL. The register, audience, length, subject and purpose are all underdetermined, and the profile cannot supply any of them. A draft produced here fails the structural gate."
+    }
+  ]
+}
