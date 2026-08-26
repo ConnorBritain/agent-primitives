@@ -1,7 +1,8 @@
 # The countable-part rule — the S7 failure, fixed at the source (2026-08-16)
 
-**Result: 2 of 2 renders applied the rule and rated the figures section in full, where the
-S7 profile had left it unrated. Draw 3 pending.**
+**Result: 3 of 3 renders applied the rule and rated the figures section in full, where the
+S7 profile had left it unrated. Draw 3 also exposed a trap in the rule, now closed, and a
+bug in my own harness.**
 
 ---
 
@@ -94,11 +95,49 @@ And draw 1's rated habits generally:
 excluded the uppercase country abbreviation from *we/us*, and restricted `'s` to elisions
 rather than possessives, saying so in both cases.
 
+## 5b. Draw 3, and the trap it found
+
+Draw 3 applied the rule and picked a **third** countable component:
+
+> I cannot draw a line around a figure, so this is not a count of figures: it is a count of
+> **the manufactured compound**, the unit the figures are assembled from — 185 hyphenated
+> compound words, 10.61 per 1,000.
+
+**That number does not reproduce.** A plain hyphenated-compound count over the same corpus
+gives 330. "Manufactured" is a judgement about which compounds are coinages — so the render
+named the component but kept the decision it could not make hidden inside the name.
+
+This is the fake-precision risk the rule was written against, walked into on its first
+outing. The rule now requires the component be one **somebody else could count the same
+way**, with the failing example in it, and it restates that `no rate` remains correct and
+available — only its position changed, from first resort to second.
+
+**Three renders, three different components** — four vocabulary wells, two wells plus
+simile markers, hyphenated compounds. Each is defensible and each was named. That the
+components differ is not a defect: "a figure" genuinely has several countable aspects. It
+does mean two profiles of one corpus are not interchangeable, which is worth knowing.
+
+## 5c. Draw 3 also found a bug in my harness
+
+It reported the corpus's ten closing sentences as 13-46 words. My harness said 6-46, with
+three at six and seven words. **My harness was wrong.** Those three are image credits —
+`(Image: Kanerva T, CC BY 4.0, modified)` — publication furniture standing as its own
+paragraph, which `paragraphEndings` was counting as a sentence the author wrote to close a
+paragraph.
+
+Fixed, with two tests: a credit line is excluded, and an ordinary paragraph that merely
+opens on a parenthesis is not.
+
+**Impact on FU-14, which used this measure**: corpus short-final 9.3% -> 8.4%, median final
+sentence 28 -> 29, drift 1.22 -> 1.26. Three paragraphs of 301. The direction is unchanged
+and slightly strengthened; the conclusion stands.
+
+**Sixth time today a primitive found a defect in my measurement that no test did.**
+
 ## 6. Not yet established
 
 - **No draft has been written from these profiles.** The rule demonstrably changes the
   profile. Whether it changes the draft is the actual question and it is untested.
-- **Draw 3 is pending**, so this is 2 of 2, not k=3.
 - **b07 has not been re-drafted**, so the finding that failed the bar has not been shown to
   stop recurring.
 - **One corpus.**

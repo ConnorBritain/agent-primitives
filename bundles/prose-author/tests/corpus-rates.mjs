@@ -333,12 +333,28 @@ export const SHORT_FINAL_WORDS = 8;
 const sentencesOf = (para) =>
   para.replace(/\s+/g, " ").trim().split(/(?<=[.!?])\s+/).filter(Boolean);
 
-/** Prose paragraphs, excluding bare-URL lines which are citation scaffolding, not prose. */
+/**
+ * A bracketed image credit standing as its own paragraph.
+ *
+ * Three of the ten doctorow samples end on one - "(Image: Kanerva T, CC BY 4.0, modified)".
+ * It is publication furniture, not a sentence the author wrote to end a paragraph, and
+ * counting it as a paragraph ending made three of the corpus's ten closing sentences look
+ * like six- and seven-word punches. A renderer caught this before any test did.
+ */
+const IMAGE_CREDIT = /^\(\s*(?:image|photo|illustration|credit|pic)\b[^)]*\)$/i;
+
+/**
+ * Prose paragraphs: not bare-URL citation lines, and not image credits.
+ *
+ * Both exclusions are the same rule - measure what the author wrote, not what the
+ * publishing platform added around it - and both were found the same way, by a number
+ * looking wrong rather than by a test failing.
+ */
 function proseParagraphs(text) {
   return bodyOf(text)
     .split(/\n\s*\n/)
     .map((p) => p.trim())
-    .filter((p) => p && !/^https?:\S*$/.test(p));
+    .filter((p) => p && !/^https?:\S*$/.test(p) && !IMAGE_CREDIT.test(p));
 }
 
 /**

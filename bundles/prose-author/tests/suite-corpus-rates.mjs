@@ -253,6 +253,16 @@ export async function run(t, { tmp, HERE } = {}) {
     t.check("a bare URL line is not counted as a paragraph ending",
       paragraphEndings("A claim that runs on for a good while here:\n\nhttps://example.com/x").paragraphs === 1);
 
+    // Three of the ten doctorow samples end on "(Image: ..., CC BY ..., modified)". Counted
+    // as a paragraph ending, that is a six- or seven-word close the author never wrote, and
+    // it drags the corpus baseline every draft is compared against.
+    t.check("a bracketed image credit is not counted as a paragraph ending",
+      paragraphEndings("A real closing sentence of some length here.\n\n(Image: Kanerva T, CC BY 4.0, modified)").paragraphs === 1);
+
+    // The exclusion must not eat prose that merely opens on a parenthesis.
+    t.check("an ordinary parenthetical paragraph still counts",
+      paragraphEndings("(This is a real aside the author wrote, and it runs on.)").paragraphs === 1);
+
     t.check("empty text does not divide by zero",
       paragraphEndings("").paragraphs === 0 && paragraphEndings("").drift === 0);
 

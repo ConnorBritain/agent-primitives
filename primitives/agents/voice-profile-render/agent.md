@@ -155,6 +155,23 @@ The second is not more precise about figures. It is precise about a smaller thin
 says which smaller thing. That is the honest version, and it is the one a drafter can act
 on.
 
+**The component must be one somebody else could count the same way.** This is the trap in
+the rule and it has already been walked into: a render counted *"the manufactured compound,
+the unit the figures are assembled from"* and gave a number. But "manufactured" is a
+judgement about which compounds are coinages, so a second counter working from the same
+corpus got nearly twice the figure. Naming the component is not enough if the name still
+hides the decision you could not make.
+
+So the component needs an enumerable rule, not a label:
+
+- ✗ *"the manufactured compound"* — which compounds are manufactured?
+- ✓ *"hyphenated compounds"*, or a stated word list, or a named grammatical form
+
+If you cannot write the rule down so a stranger reproduces your number, you have not found
+a countable component — you have renamed the thing you could not bound. **Write `no rate`
+and say why.** That refusal is still available and still correct; it is only the first
+resort that has changed.
+
 **Why this rule exists, stated plainly.** Measured across six drafts: every habit this
 profile format rated was reproduced at or near the corpus rate, and **every habit it left
 unrated came back at exactly zero** — including habits marked `10/10 samples` with a
