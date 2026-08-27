@@ -40,6 +40,7 @@ const TESTS = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MODEL = process.env.ACCEPTANCE_MODEL || "sonnet";
+const EFFORT = process.env.ACCEPTANCE_EFFORT || "medium";
 const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "4", "ACCEPTANCE_CONCURRENCY");
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
@@ -195,6 +196,7 @@ function prepare(runDir) {
     prepared: today(),
     prepared_commit: preparedCommit,
     model: MODEL,
+    effort: EFFORT,
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
     cases_sha256: SHA(text(p.cases)),
@@ -257,7 +259,7 @@ async function claude({ system, prompt, cwd, tools, allowed, output }) {
   if (completedResult(output)) return { skipped: true, output };
   const args = [
     "-p", "--output-format", "json", "--no-session-persistence", "--model", MODEL,
-    "--effort", "high", "--system-prompt-file", system,
+    "--effort", EFFORT, "--system-prompt-file", system,
     // Keep the clean context actually clean. Without these flags Claude Code loads the
     // user's plugins, MCP servers and settings into every print-mode call. On this host
     // that consumed roughly 130k cached tokens before a 60k-token corpus prompt, leaving

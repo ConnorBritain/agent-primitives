@@ -63,6 +63,8 @@ export async function run(t, { HERE }) {
   t.check("clean-context calls exclude user plugins, MCP servers, settings, and Chrome",
     ["--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "--no-chrome"]
       .every((flag) => source.includes(`\"${flag}\"`)));
+  t.check("the model effort is pinned in the manifest rather than inherited",
+    /effort: EFFORT/.test(source) && /"--effort", EFFORT/.test(source));
   t.check("the checker pins design, case, agent, corpus, request, and artefact hashes",
     ["design_sha256", "cases_sha256", "agent snapshot hash mismatch", "corpus lock drifted", "prompt hash mismatch", "missing artifact"]
       .every((phrase) => source.includes(phrase)));
