@@ -49,6 +49,8 @@ export async function run(t, { HERE }) {
       /audit every coverage row mechanically[\s\S]*rated if ANY referenced[\s\S]*described only if NONE/.test(prompt));
     t.check("profile prompts audit every rated rule before emission",
       /complete counting_rule verbatim[\s\S]*not literally present[\s\S]*remove the rate[\s\S]*Never invent a rate/.test(prompt));
+    t.check("profile prompts audit literal support, zero absences, and prose coverage",
+      /exact <support>\/<of> token[\s\S]*zero rate is an[\s\S]*absent-paired[\s\S]*distinct positive rated replacement[\s\S]*personal testimony\/disclosure/.test(prompt));
   }
   {
     const prompt = draftPrompt({ prompt: "Write X." }, "Profile prose", { schema: "voice-profile/2" });

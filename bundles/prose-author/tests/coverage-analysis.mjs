@@ -18,7 +18,7 @@ export const DEFAULT_HABITS = [
   { id: "questions-imperatives-vocatives", pattern: /\bquestions?|\bimperatives?|\bvocatives?\b/i },
   { id: "opponents-allies-sources", pattern: /\bopponents?|\ballies|\bsources?|\battribut(?:e|ion|ive)\b/i },
   { id: "profanity-vulgarity", pattern: /\bprofan(?:e|ity)|\bvulgar(?:ity)?\b/i },
-  { id: "self-reference-biography", pattern: /\bself-reference|\bbiograph(?:y|ical)|\bpersonal history\b/i },
+  { id: "self-reference-biography", pattern: /\bself-reference|\bbiograph(?:y|ical)|\bpersonal (?:history|experience|testimony|disclosure|material)\b|\bfirst-person singular\b|\bthe (?:writer|author) (?:does not )?appear(?:s)? as (?:a person|an individual)\b/i },
   { id: "interruption-punctuation", pattern: /\binterruption|\bparenthe(?:sis|tical)|\bdashes?\b/i },
   { id: "figures-analogy", pattern: /\bfigures?|\banalog(?:y|ies)|\bmetaphor|\bimage vocabulary\b/i },
   { id: "openings-endings-closure", pattern: /\bopenings?|\bparagraph endings?|\bclos(?:e|es|ing|ure)\b/i },

@@ -1,7 +1,3 @@
----
-name: voice-profile-render
-description: Reads an author's writing corpus and writes the voice profile a drafter will later work from — a prose description of how this person writes, every observation carrying a sample citation and a support count. Use when a profile directory has a filled corpus and something needs to draft in that voice without being handed the corpus itself. It never reads the AI-tell catalog, never emits a list of things to avoid, and never claims a draft written from its profile will sound like the author. Distinct from prose-draft (writes the prose) and prose-voice-critic (judges a draft against the corpus directly).
----
 
 Your only job is to write one document: a description of how a particular person writes, derived from samples of their writing, addressed to whoever has to write in that voice next.
 
@@ -447,7 +443,7 @@ output fence):
 ```
 ````
 
-- Every observation in the profile prose has exactly one entry in `observations[]`, in the order it appears, and `support`/`of` MUST match the count printed in the prose. The exact compact numeric token `<support>/<of>` MUST appear in that observation's own prose paragraph; phrases such as "all N samples," "established across N samples," "several," or "most" do not satisfy this requirement.
+- Every observation in the profile prose has exactly one entry in `observations[]`, in the order it appears, and `support`/`of` MUST match the count printed in the prose. Prefer the compact numeric token `5/10`; never leave support implicit in words such as "several" or "most."
 - `section` MUST be one of the eight keys given above, spelled exactly: `cadence`, `openings`, `closings`, `address`, `figures`, `register-range`, `absences`, `gaps`.
 - `of` MUST equal the length of `samples_used`.
 - `confidence` is `full` at 10 or more usable samples and `thin` at 5 to 9. It follows from the count; it is not a judgement you make.
@@ -475,27 +471,7 @@ output fence):
   `positive_observation_id` and `absence_observation_id`. Both observations carry rates
   and counting rules. The absence count may be zero; its support still records how many
   samples establish the absence. The positive and absence IDs must differ.
-- A zero `rate.count` is an absence, never a rated habit. Any coverage dimension that
-  references it MUST be `absent-paired`, and the zero-count observation MUST be its
-  `absence_observation_id`. Pair it to a distinct positive measured replacement; if no
-  supported positive replacement exists, do not emit the zero-count rate and use an
-  unresolved coverage row instead.
 - No key beyond these appears. No hash fields.
-
-Before emitting, run this final mechanical audit over the finished prose and JSON:
-
-1. For every `observations[]` entry, search its own prose paragraph for the exact
-   `<support>/<of>` token. Replace verbal forms such as "all N samples" with the actual
-   compact numeric fraction.
-2. For every observation with `rate`, search that same paragraph for the complete
-   `counting_rule`, exact `count`, and exact `per_1000_words`.
-3. For every zero rate, verify its coverage row is `absent-paired`, names it as
-   `absence_observation_id`, and names a different positive rated observation.
-4. For each of the ten coverage dimensions, point to a prose paragraph that actually
-   discusses it. For self-reference and biography, explicitly discuss self-reference,
-   first-person singular, personal testimony/disclosure, or biographical stance.
-5. Recompute every coverage status from its referenced observations only after steps
-   1–4. Do not emit until all five checks pass.
 
 **A refusal is a different shape, not a render with a flag added.** Emit one json fence carrying exactly three keys and nothing else:
 

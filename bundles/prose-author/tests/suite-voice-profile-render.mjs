@@ -492,6 +492,12 @@ export async function run(t, { tmp, HERE }) {
         analyzeParagraphCoverage(sameParagraph, habits)[0].status === "rated");
       t.check("coverage analysis does not borrow a rate from another paragraph",
         analyzeParagraphCoverage(separateParagraphs, habits)[0].status === "mentioned");
+      t.check("coverage analysis recognizes natural self-reference and biography language",
+        [
+          "The register shifts into personal testimony before returning to analysis.",
+          "First-person singular is near-absent; the writer does not appear as a person.",
+        ].every((prose) => analyzeParagraphCoverage(prose)
+          .find((row) => row.id === "self-reference-biography")?.status === "mentioned"));
     }
   }
 

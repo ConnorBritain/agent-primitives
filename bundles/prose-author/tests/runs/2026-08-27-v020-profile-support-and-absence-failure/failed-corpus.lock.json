@@ -1,0 +1,302 @@
+{
+  "doctorow-blog-renderer": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "2026-07-09-wilhoitian.txt",
+        "group": null,
+        "words": 2067,
+        "sha256": "3bf7f8097ec5ebf15f5759c2c13850490960baddd33711962afe3fb0dcb28d9b"
+      },
+      {
+        "file": "2026-07-10-posthuman-as-in-no-humans.txt",
+        "group": null,
+        "words": 1869,
+        "sha256": "52ab7ded9f7a93fb53feb8f4490f778b0969c6acf4d3a439cc81ce626de900ef"
+      },
+      {
+        "file": "2026-07-11-your-risk.txt",
+        "group": null,
+        "words": 3129,
+        "sha256": "8e633c1ea0f3a962aa9af4447b6911268e84bfb22508bea43a8ce5fb86fc858d"
+      },
+      {
+        "file": "2026-07-13-go-meta-meta.txt",
+        "group": null,
+        "words": 1790,
+        "sha256": "4356ecc760a0249bef1c7cfc3be0a75d2d0a6fc23bb7df29f6dbbef8db875aad"
+      },
+      {
+        "file": "2026-07-14-designated-survivor.txt",
+        "group": null,
+        "words": 2059,
+        "sha256": "58d9cbc639bb98c04dade8b0437a7a1a7e1fc448b4ebeb81cc867b92812125bb"
+      },
+      {
+        "file": "2026-07-16-lucky-orifices.txt",
+        "group": null,
+        "words": 3277,
+        "sha256": "1ef6d9168d6b18adf57e7ac090830597563b1f484b2d15d7a5c3f71d14ab5852"
+      },
+      {
+        "file": "2026-07-21-dickovers.txt",
+        "group": null,
+        "words": 3015,
+        "sha256": "2aee21894ef7a52ff59d90ef2f6dee3306f0221ec38649bef3794fdf5c33f936"
+      },
+      {
+        "file": "2026-07-22-table-flipper.txt",
+        "group": null,
+        "words": 2731,
+        "sha256": "4fd0b86f9d1d4f5c7099148f159902af14c0b455daacb677c980589e37312d38"
+      },
+      {
+        "file": "2026-07-23-drop-a-dime.txt",
+        "group": null,
+        "words": 2571,
+        "sha256": "72a90d8f6992f665ab520adf92bb6f7c817f94b97fe53296ba8601be2936d924"
+      },
+      {
+        "file": "2026-07-24-supplemental-income.txt",
+        "group": null,
+        "words": 2131,
+        "sha256": "4947eecc2673e18db86e6a820743d1bb1b3d29f7094debf6e25062352a5d1133"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "f7b3810aff0c6736a07a4cc0a7116a37856c7646380dc15abb731c28f244ae0a",
+    "profile_json_sha256": "d5fa00d877ca6d793c272ea7863535188ee4ae3f6763ebcab7b2c116b3fa7026",
+    "agent": "voice-profile-render",
+    "agent_sha256": "1813eaebd493d90c267dbe3a6016167dd11d0d20274083a0ab3ee42b65739337",
+    "sample_count": 10,
+    "aggregate_sha256": "f87790cc4c1c6be94fd38f2369048d38e8171e40a5c3ecc67d42e7e67a004b9c"
+  },
+  "doctorow-blog-drafter": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "2026-07-09-wilhoitian.txt",
+        "group": null,
+        "words": 2067,
+        "sha256": "3bf7f8097ec5ebf15f5759c2c13850490960baddd33711962afe3fb0dcb28d9b"
+      },
+      {
+        "file": "2026-07-10-posthuman-as-in-no-humans.txt",
+        "group": null,
+        "words": 1869,
+        "sha256": "52ab7ded9f7a93fb53feb8f4490f778b0969c6acf4d3a439cc81ce626de900ef"
+      },
+      {
+        "file": "2026-07-11-your-risk.txt",
+        "group": null,
+        "words": 3129,
+        "sha256": "8e633c1ea0f3a962aa9af4447b6911268e84bfb22508bea43a8ce5fb86fc858d"
+      },
+      {
+        "file": "2026-07-13-go-meta-meta.txt",
+        "group": null,
+        "words": 1790,
+        "sha256": "4356ecc760a0249bef1c7cfc3be0a75d2d0a6fc23bb7df29f6dbbef8db875aad"
+      },
+      {
+        "file": "2026-07-14-designated-survivor.txt",
+        "group": null,
+        "words": 2059,
+        "sha256": "58d9cbc639bb98c04dade8b0437a7a1a7e1fc448b4ebeb81cc867b92812125bb"
+      },
+      {
+        "file": "2026-07-16-lucky-orifices.txt",
+        "group": null,
+        "words": 3277,
+        "sha256": "1ef6d9168d6b18adf57e7ac090830597563b1f484b2d15d7a5c3f71d14ab5852"
+      },
+      {
+        "file": "2026-07-21-dickovers.txt",
+        "group": null,
+        "words": 3015,
+        "sha256": "2aee21894ef7a52ff59d90ef2f6dee3306f0221ec38649bef3794fdf5c33f936"
+      },
+      {
+        "file": "2026-07-22-table-flipper.txt",
+        "group": null,
+        "words": 2731,
+        "sha256": "4fd0b86f9d1d4f5c7099148f159902af14c0b455daacb677c980589e37312d38"
+      },
+      {
+        "file": "2026-07-23-drop-a-dime.txt",
+        "group": null,
+        "words": 2571,
+        "sha256": "72a90d8f6992f665ab520adf92bb6f7c817f94b97fe53296ba8601be2936d924"
+      },
+      {
+        "file": "2026-07-24-supplemental-income.txt",
+        "group": null,
+        "words": 2131,
+        "sha256": "4947eecc2673e18db86e6a820743d1bb1b3d29f7094debf6e25062352a5d1133"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "f7b3810aff0c6736a07a4cc0a7116a37856c7646380dc15abb731c28f244ae0a",
+    "profile_json_sha256": "d5fa00d877ca6d793c272ea7863535188ee4ae3f6763ebcab7b2c116b3fa7026",
+    "agent": "voice-draft",
+    "agent_sha256": "e42ee8e2fb2e6d42d75132c52a9fdaa5b73066b75f0e63133f8cf869887ab602",
+    "sample_count": 10,
+    "aggregate_sha256": "41eaa19e776a5c79c5e8f9425eb2fd10cff5f493a8b12d66a0375802ce259bf3"
+  },
+  "eff-mullin-renderer": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "group": null,
+        "words": 378,
+        "sha256": "aa696f2a0fb1fd3fa2b7104bd68d1df51c65a47bbab11897ed89731675adfae0"
+      },
+      {
+        "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "group": null,
+        "words": 714,
+        "sha256": "8fce832accc11aca75a5021f8164d0e4d3a022fa1673a32c33b259f4ee7b991f"
+      },
+      {
+        "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "group": null,
+        "words": 671,
+        "sha256": "a4e349eeb1feeaea7846e57000e7bd2ac9a6030832b2313e43c24686f29c090d"
+      },
+      {
+        "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "group": null,
+        "words": 1398,
+        "sha256": "4cc9698bc6d486f51e10b9724ffd0ede90672c40fd1b8291d2a4bba5985ac3c5"
+      },
+      {
+        "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "group": null,
+        "words": 750,
+        "sha256": "a888f3fd0869cb9c9a8cf325cb612204b7522ff4d8d501f8fb3be4f12bb53c82"
+      },
+      {
+        "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "group": null,
+        "words": 686,
+        "sha256": "54321c7c3c30267601ba5c693997f6dd6ff4d318a5aefd7d51927715b4926c7d"
+      },
+      {
+        "file": "court-records-should-be-free.txt",
+        "group": null,
+        "words": 360,
+        "sha256": "40a58864bc4e143f185882102b84df382247061c49f492c347016b3e9bd75188"
+      },
+      {
+        "file": "kids-act-would-require-age-checks-get-online.txt",
+        "group": null,
+        "words": 1117,
+        "sha256": "c3280d88e979abf16567593368b47f2ad02a67708db7ff8f7ae359230e81197a"
+      },
+      {
+        "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "group": null,
+        "words": 648,
+        "sha256": "ded228c99b2238a11b58fe13f6c1099fd63823dc762c5cf2f4cb8ceee33e36d8"
+      },
+      {
+        "file": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "group": null,
+        "words": 345,
+        "sha256": "dab051da9d7253cdf5e6da9a406abc6b8746227a7d8a596999978118624544fd"
+      },
+      {
+        "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+        "group": null,
+        "words": 999,
+        "sha256": "4305035ad15289015a47f58bb2853cc7f7d15a67a56ea403685759ed495e36d0"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "8fc6da4335de6b74d59f4cb68342e0cb28aacc43c523006985db99ed65a52f13",
+    "profile_json_sha256": "5c636425a35ba78f1af5e2957112b72e6b4e4507064ffd9c6b52ca7dd24bbea8",
+    "agent": "voice-profile-render",
+    "agent_sha256": "1813eaebd493d90c267dbe3a6016167dd11d0d20274083a0ab3ee42b65739337",
+    "sample_count": 11,
+    "aggregate_sha256": "8255a052fcee6d9b8fbcb139f3c9e89f47f55992618a3bece974412ad4312ce6"
+  },
+  "eff-mullin-drafter": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "group": null,
+        "words": 378,
+        "sha256": "aa696f2a0fb1fd3fa2b7104bd68d1df51c65a47bbab11897ed89731675adfae0"
+      },
+      {
+        "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "group": null,
+        "words": 714,
+        "sha256": "8fce832accc11aca75a5021f8164d0e4d3a022fa1673a32c33b259f4ee7b991f"
+      },
+      {
+        "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "group": null,
+        "words": 671,
+        "sha256": "a4e349eeb1feeaea7846e57000e7bd2ac9a6030832b2313e43c24686f29c090d"
+      },
+      {
+        "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "group": null,
+        "words": 1398,
+        "sha256": "4cc9698bc6d486f51e10b9724ffd0ede90672c40fd1b8291d2a4bba5985ac3c5"
+      },
+      {
+        "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "group": null,
+        "words": 750,
+        "sha256": "a888f3fd0869cb9c9a8cf325cb612204b7522ff4d8d501f8fb3be4f12bb53c82"
+      },
+      {
+        "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "group": null,
+        "words": 686,
+        "sha256": "54321c7c3c30267601ba5c693997f6dd6ff4d318a5aefd7d51927715b4926c7d"
+      },
+      {
+        "file": "court-records-should-be-free.txt",
+        "group": null,
+        "words": 360,
+        "sha256": "40a58864bc4e143f185882102b84df382247061c49f492c347016b3e9bd75188"
+      },
+      {
+        "file": "kids-act-would-require-age-checks-get-online.txt",
+        "group": null,
+        "words": 1117,
+        "sha256": "c3280d88e979abf16567593368b47f2ad02a67708db7ff8f7ae359230e81197a"
+      },
+      {
+        "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "group": null,
+        "words": 648,
+        "sha256": "ded228c99b2238a11b58fe13f6c1099fd63823dc762c5cf2f4cb8ceee33e36d8"
+      },
+      {
+        "file": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "group": null,
+        "words": 345,
+        "sha256": "dab051da9d7253cdf5e6da9a406abc6b8746227a7d8a596999978118624544fd"
+      },
+      {
+        "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+        "group": null,
+        "words": 999,
+        "sha256": "4305035ad15289015a47f58bb2853cc7f7d15a67a56ea403685759ed495e36d0"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "8fc6da4335de6b74d59f4cb68342e0cb28aacc43c523006985db99ed65a52f13",
+    "profile_json_sha256": "5c636425a35ba78f1af5e2957112b72e6b4e4507064ffd9c6b52ca7dd24bbea8",
+    "agent": "voice-draft",
+    "agent_sha256": "e42ee8e2fb2e6d42d75132c52a9fdaa5b73066b75f0e63133f8cf869887ab602",
+    "sample_count": 11,
+    "aggregate_sha256": "8a20531fc0d979881194000a46df9f46ea5d05546d1a7ca7ea14a0665106b6b3"
+  }
+}

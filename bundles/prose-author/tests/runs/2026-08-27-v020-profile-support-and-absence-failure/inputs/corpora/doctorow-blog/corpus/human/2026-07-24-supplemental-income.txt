@@ -1,0 +1,76 @@
+---
+source: pluralistic.net (Cory Doctorow)
+title: AI solipsists and AI cynics
+author: Cory Doctorow
+date: 2026-07-24
+human_authored: true
+license: CC-BY-4.0
+permalink: https://pluralistic.net/2026/07/24/supplemental-income/
+---
+As a technology, AI isn't exceptional. It's not exceptionally wicked. It's not exceptionally good. Take away the accompanying, galactic-scale stock-swindle, and we'd call AI's applications "plug-ins" and we'd use them and abuse them in the same way that we've used every other technology:
+
+https://www.normaltech.ai/
+
+As a destructive economic pathology, AI is extraordinary. AI boosters have spent a baffling and terrifying sum of money – over $1.4T, most of that in the past year – on the promise of making as many workers unemployed as possible, while lowering the wages of the meager survivors of this jobspocalypse. To make things worse, AI can't do the jobs it's replacing: AI is predicated on the premise that the monopolies, duopolies and cartels that control the global economy can deliberately worsen their products without suffering economic or regulatory consequences, because they're the only game in town.
+
+In service to this bubble, AI companies have suborned regional governments into running roughshod over environmental and planning review in order to build endless acres of data centers, many of which will likely end up casualties of the imminent bubble-pop, never to be switched on or even completed. What an indignity to have your farm or house seized through eminent domain, only to see it razed and replaced by a weed-choked empty field, a lonely foundation slab, or an abandoned empty building that could only ever be repurposed for laser-tag or an ICE concentration-camp:
+
+https://gizmodo.com/trump-on-data-centers-you-cant-fight-it-you-have-to-go-with-it-2000790014
+
+This is just one of the many negative effects of AI that can be traced to the scale of the bubble. Were it not for the imperative to turn more than a trillion dollars of losses into a profit, we would not have the aggressive, site-destroying scraping epidemic. Nor would we see AI crammed into every part of every product and service we use. And of course, in the absence of the investment bubble, businesses wouldn't be firing productive workers and replacing them with defective chatbots.
+
+The single most salient fact about AI is the investment bubble, not the technical characteristics of chatbots or recent advances in statistical inference. AI's investor story is an incoherent tangle of predictions about AI's future, ranging from the outlandish ("Once we spend enough money, AI will become God and solve all our problems, including our profitability crisis") to the dystopian ("The majority of jobs in the economy will be done by our chatbots, and the employers who previously employed those workers will split the wage savings with us").
+
+None of these stories are plausible, which raises an urgent question: why have the world's wealthiest investors been so eager to hand over trillions to finance this bubble?
+
+I have previously written about one reason that billionaires find the AI story so compelling: at root, many billionaires just don't believe most other people are actually, fully real. How could they? Achieving billionairehood requires that you inflict pain on vast numbers of people. If you truly believed that those people were as real as you are, you'd never be able to look yourself in the mirror. Whether it's Leona Helmsley's claim that "only the little people pay taxes," or Elon Musk's habit of calling people who disagree with him "NPCs," the whole ideological project of billionaireism is shot through with a kind of solipsism:
+
+https://pluralistic.net/2026/01/05/fisher-price-steering-wheel/#billionaire-solipsism
+
+This is true even in one-on-one encounters: for the Epstein Class, the children raped on his island weren't fully real – certainly not as real as their own children. It's even more true for the people that billionaires experience as statistical artifacts, such as Jeff Bezos's vast army of drivers and warehouse workers, with their sky-high on-the-job injury rates and the everyday indignity of their piss-bottles. It gets worse for social media bosses like Mark Zuckerberg, for whom AI's principal appeal is the prospect of ending socializing on social media, swapping your mulish friends for pliable chatbots who will organize their interactions with you to maximize your platform usage and thus the number of ads you see:
+
+https://pluralistic.net/2026/01/19/billionaire-solipsism/#sirius-cybernetics
+
+I think billionaire solipsism can account for much of the malinvestment in this obvious bubble, but I don't think it's the whole story. Rather, I think there's a whole cohort of investors who don't believe in AI, but believe that other people will believe in AI.
+
+This is a well-established investment principle. As Keynes wrote, the point of investing isn't necessarily to pick the most beautiful contestant to win the beauty contest – it's to pick the contestant that the other judges will hand the crown to:
+
+https://en.wikipedia.org/wiki/Keynesian_beauty_contest
+
+In other words, you don't get rich from stock speculation by identifying the businesses whose profitability will grow the most – you get rich by identifying the businesses that other investors will pile into, pushing the price up. All you need to do is sell your shares after the price spike, but before anyone else figures out that the business is a turkey. It's like that old joke: "I don't need to run faster than the bear (market), I just have to run faster than you."
+
+From the perspective of a cynical AI investor, the question isn't, "Can AI do your job?" The question is, "Can an AI salesman convince your boss that an AI can do your job?" So long as enough bosses are convinced to fire workers and replace them with AI, AI valuation will continue to climb, and if they time the market right, they can get out before those valuations crash. This proposition gets even sweeter if the CEO of the AI company is in bed with financial regulators and stock exchanges, and can force your financial advisor to buy his worthless AI stock with "little people's" retirement savings:
+
+https://fortune.com/2026/06/13/spacex-stock-index-funds-passive-investing-401k-nasdaq-100-russell/
+
+A bet that bosses will fire workers and replace them with AI is a good wager. Bosses are absolute suckers for this scam. Bosses hate the fact that they can't translate their plans into action without first having a series of ego-shattering confrontations with workers who actually know how to do things, who insist that those plans are illegal, stupid, impossible or will kill people:
+
+https://pluralistic.net/2026/03/12/normal-technology/#bubble-exceptionalism
+
+For these bosses, AI is the chance to wire the toy steering wheel they play with all day directly into the corporate drive-train. With enough AI slaves, the boss can run the company all on their own:
+
+https://pluralistic.net/2026/07/10/posthuman-as-in-no-humans/#hell-is-other-people
+
+In other words, you don't need to be a solipsist to bet on AI. It is sufficient to believe that bosses are solipsists, who can be relied upon to empty the corporate coffers in exchange for worker-replacing magic beans.
+
+This is true in many scam sectors. I'm sure that most of the people who finance the supplements that Andrew Tate and Joe Rogan hawk understand that they're just a way to give yourself very expensive piss. They don't have to believe supplements work to believe that there is an army of desperate and credulous young men who will give anything for the promise they dangle.
+
+Likewise, you don't have to believe that Gwyneth Paltrow can help women "regulate their periods" and "correct their hormonal imbalances" by selling them rocks to stuff in their vaginas. You just have to believe that between patriarchy-induced body shame and patriarchy-driven medical neglect, there's an army of desperate women out there who will buy those rocks and risk their lives by sticking them inside their bodies:
+
+https://web.archive.org/web/20181225035739/https://www.vogue.com/article/goop-jade-yoni-egg-lawsuit-gwyneth-paltrow-vaginal-pelvic-floor-health
+
+AI is even worse than vagina-rocks, of course. When the bubble bursts, when the seven AI companies that make up 35% of the S&P 500 tank, when a third of the US stock market is vaporized overnight, our governments will reflexively turn to austerity, the go-to response to every financial crisis. Austerity is fascism's best recruiting tool:
+
+https://pluralistic.net/2026/04/12/always-great/#our-nhs
+
+When the AI bubble bursts, the defective chatbots that replaced skilled workers will disappear with it, leaving us scrambling to get that work done after the workers who understood it have retrained, retired, or exited the workforce. AI is the asbestos we're shoveling into the walls of our civilization and our descendants will be digging it out for generations:
+
+https://pluralistic.net/2026/04/08/process-knowledge-vs-bosses/#wash-dishes-cut-wood
+
+Long after the AI bubble bursts, we'll be dealing with its catastrophic carbon emissions. The Second Law of Thermodynamics isn't up for debate. Once we sink enough therms into the sea, we are losing the ice-caps.
+
+AI is an ordinary technology, but the AI bubble is extraordinary: extraordinarily toxic and extraordinarily dangerous. The source of that danger is financiers, and they are motivated by a mix of solipsism and a belief in other people's solipsism. For them, the most exciting investment hypothesis is that "hell is other people":
+
+https://locusmag.com/feature/commentary-cory-doctorow-hell-is-other-people/
+
+(Image: Cryteria, CC BY 3.0, modified)
