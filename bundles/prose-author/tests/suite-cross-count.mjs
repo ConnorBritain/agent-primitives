@@ -48,6 +48,11 @@ export async function run(t, { HERE } = {}) {
     t.check("a decimal's fractional part is not read as the count",
       find(decimal, "second person").stated === 390);
 
+    const rateFirst = crossCount(P, "Second person runs throughout at 21.94 per 1,000 words — counting the you-family: 385 instances, 10/10 samples.");
+    t.check("a per-1,000 denominator before the occurrence count is not read as the count",
+      find(rateFirst, "second person").stated === 385
+        && find(rateFirst, "second person").status === "agrees");
+
     // "10/10 samples" is a support count. Read as an occurrence count against a habit
     // measured at zero, it manufactures a 100% divergence out of a correct claim - which
     // is what it did to the em-dash observation, the one claim in the corpus that is

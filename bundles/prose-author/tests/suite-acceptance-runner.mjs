@@ -47,6 +47,8 @@ export async function run(t, { HERE }) {
       /single Markdown-fence voice-profile\/2 envelope[\s\S]*voice-profile\/2:profile[\s\S]*voice-profile\/2:record[\s\S]*one Markdown fence/.test(prompt));
     t.check("profile prompts end on a mechanical coverage-status audit",
       /audit every coverage row mechanically[\s\S]*rated if ANY referenced[\s\S]*described only if NONE/.test(prompt));
+    t.check("profile prompts audit every rated rule before emission",
+      /complete counting_rule verbatim[\s\S]*not literally present[\s\S]*remove the rate[\s\S]*Never invent a rate/.test(prompt));
   }
   {
     const prompt = draftPrompt({ prompt: "Write X." }, "Profile prose", { schema: "voice-profile/2" });

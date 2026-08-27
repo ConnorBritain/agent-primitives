@@ -46,7 +46,7 @@ export const RECOUNTABLE = [
   { id: "em dash", cue: /\bem dash(es)?\b/i, pattern: /—/g },
 ];
 
-/** Pull `<count> ... per 1,000` style figures out of the sentence that carries a cue. */
+/** Pull the occurrence count out of the sentence that carries a cue and a rate. */
 function claimedCount(markdown, cue) {
   const sentences = markdown
     .split(/\n\s*\n/)
@@ -54,8 +54,11 @@ function claimedCount(markdown, cue) {
     .map((s) => s.replace(/\s+/g, " ").trim());
   const host = sentences.find((s) => cue.test(s));
   if (!host) return null;
-  // The count is the integer that sits before a "per 1,000" figure, or failing that the
-  // first standalone integer of two or more digits in the sentence.
+  // Prefer an explicitly labelled occurrence count. Renderers legitimately put the rate
+  // first ("21.94 per 1,000 words ... 385 instances") or the count first ("385 tokens ...
+  // 21.94 per 1,000"). Looking only before the rate makes its fixed denominator look like
+  // the claim. `count: N` is the deterministic-prepass spelling; the unit spelling covers
+  // ordinary prose.
   // A number must NOT be preceded by a decimal point. Without that guard, "22.65 per
   // 1,000" yields 65 - the fractional part of the rate read as the count. That bug was in
   // the first version of this file, which is the eighth time in one session that a
@@ -66,9 +69,11 @@ function claimedCount(markdown, cue) {
   // anywhere - 10/10 samples contain zero" - reports a claimed count of 10 against a
   // measured 0 and manufactures a divergence out of a correct claim.
   const NUM = "(?<![.\\d/])(\\d[\\d,]{1,6})(?![\\d.]|\\s*/)";
-  const withRate = new RegExp(`${NUM}\\s+(?:instances|tokens|of them|spans|such|en dashes|em dashes)?[^.]*?per 1,?000`, "i").exec(host);
+  const labelled = new RegExp(`\\bcount\\s*:\\s*${NUM}`, "i").exec(host);
+  const withUnit = new RegExp(`${NUM}\\s+(?:instances|tokens|spans|en dashes|em dashes)\\b`, "i").exec(host);
+  const beforeRate = new RegExp(`${NUM}\\s+(?:of them|such)?[^.]*?per 1,?000`, "i").exec(host);
   const bare = new RegExp(`\\b${NUM}`).exec(host);
-  const raw = withRate?.[1] ?? bare?.[1];
+  const raw = labelled?.[1] ?? withUnit?.[1] ?? beforeRate?.[1] ?? bare?.[1];
   return raw ? { count: Number(raw.replace(/,/g, "")), host } : null;
 }
 
