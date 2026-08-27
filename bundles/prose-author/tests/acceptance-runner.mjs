@@ -359,7 +359,7 @@ function collectProfiles(runDir) {
     artifacts.profiles[profile.id] = {};
       const expectedSamples = manifest.corpora[profile.id].lock.files.map((f) => f.file).sort();
     const measurements = manifest.corpora[profile.id].measurements;
-    const byRule = new Map(measurements.measurements.map((m) => [m.counting_rule, m]));
+    const byId = new Map(measurements.measurements.map((m) => [m.id, m]));
     for (let render = 1; render <= profile.renders; render += 1) {
       const rawPath = join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`);
       const record = completedResult(rawPath);
@@ -373,7 +373,8 @@ function collectProfiles(runDir) {
       }
       for (const observation of parsed.json.observations) {
         if (!observation.rate) continue;
-        const measured = byRule.get(observation.rate.counting_rule);
+        const measurementId = observation.rate.counting_rule.match(/\[measurement:([a-z0-9-]+)\]/)?.[1];
+        const measured = byId.get(measurementId);
         if (!measured) die(`${profile.id}-r${render} rate ${observation.id} has no independently locatable counting rule`);
         if (measured.count !== observation.rate.count || Math.abs(measured.per_1000_words - observation.rate.per_1000_words) > 0.01) {
           die(`${profile.id}-r${render} rate ${observation.id} diverges from its independent counter`);

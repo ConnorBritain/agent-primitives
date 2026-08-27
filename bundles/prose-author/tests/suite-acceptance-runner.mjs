@@ -77,6 +77,8 @@ export async function run(t, { HERE }) {
     t.check("every prepass rate is arithmetic on its count and corpus words",
       measured.measurements.every((m) => Math.abs(m.per_1000_words
         - Math.round((m.count / measured.corpus_words) * 100000) / 100) < 1e-9));
+    t.check("every deterministic counting rule carries a stable measurement locator",
+      measured.measurements.every((m) => m.counting_rule.startsWith(`[measurement:${m.id}]`)));
   }
   t.check("the checker pins design, case, agent, corpus, request, and artefact hashes",
     ["design_sha256", "cases_sha256", "agent snapshot hash mismatch", "corpus lock drifted", "prompt hash mismatch", "missing artifact"]

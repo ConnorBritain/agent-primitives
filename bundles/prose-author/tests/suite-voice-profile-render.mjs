@@ -398,6 +398,21 @@ export async function run(t, { tmp, HERE }) {
 
     {
       const o = base();
+      o.observations[0].rate.counting_rule = "[measurement:question-marks] Count literal question marks.";
+      const r = validateVoiceProfile(o, `${md} The rate uses [measurement:question-marks].`);
+      t.check("a deterministic measurement locator survives grammatical prose around its rule", r.ok);
+    }
+
+    {
+      const o = base();
+      o.observations[0].rate.counting_rule = "[measurement:question-marks] Count literal question marks.";
+      const r = validateVoiceProfile(o, md);
+      t.check("a deterministic rule whose locator is absent from prose is rejected",
+        !r.ok && r.errors.some((e) => /counting_rule is unlocatable/.test(e)));
+    }
+
+    {
+      const o = base();
       delete o.observations[0].rate.counting_rule;
       const r = validateVoiceProfile(o, md);
       t.check("a rated observation without a reproducible counting rule is rejected",

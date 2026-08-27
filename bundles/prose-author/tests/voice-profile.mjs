@@ -469,8 +469,14 @@ export function validateVoiceProfile(obj, markdown = "") {
           }
           if (v2 && !isText(r.counting_rule)) {
             err(`${at}.rate.counting_rule must be a reproducible non-empty rule`);
-          } else if (v2 && !markdown.includes(r.counting_rule)) {
-            err(`${at}.rate.counting_rule is unlocatable in the profile prose`);
+          } else if (v2) {
+            // A deterministic analyzer locator is stronger than byte-copying a long
+            // prose rule. The renderer may grammatically introduce the rule, but the
+            // stable marker must occur in both artefacts so the independent counter can
+            // be resolved without guessing. Hand-counted rules have no marker and retain
+            // the stricter historical byte-location check.
+            const locator = r.counting_rule.match(/\[measurement:[a-z0-9-]+\]/)?.[0] ?? r.counting_rule;
+            if (!markdown.includes(locator)) err(`${at}.rate.counting_rule is unlocatable in the profile prose`);
           }
           if (v2 && isInt(r.count) && typeof r.per_1000_words === "number"
               && Number.isFinite(r.per_1000_words) && isInt(obj.corpus_words) && obj.corpus_words > 0) {

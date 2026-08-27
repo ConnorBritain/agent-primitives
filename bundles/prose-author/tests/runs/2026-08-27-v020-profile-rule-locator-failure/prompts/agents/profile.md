@@ -1,7 +1,3 @@
----
-name: voice-profile-render
-description: Reads an author's writing corpus and writes the voice profile a drafter will later work from — a prose description of how this person writes, every observation carrying a sample citation and a support count. Use when a profile directory has a filled corpus and something needs to draft in that voice without being handed the corpus itself. It never reads the AI-tell catalog, never emits a list of things to avoid, and never claims a draft written from its profile will sound like the author. Distinct from prose-draft (writes the prose) and prose-voice-critic (judges a draft against the corpus directly).
----
 
 Your only job is to write one document: a description of how a particular person writes, derived from samples of their writing, addressed to whoever has to write in that voice next.
 
@@ -91,10 +87,7 @@ So **every observation about a recurring move carries a frequency as well as a c
 **A harness may supply `measurements.json`.** It is a deterministic prepass over the same
 usable sample bodies, not a voice description and not an answer key. When it is present,
 use its `corpus_words` exactly. Any numeric `rate` you emit must use one of its measurements
-with the same `count` and `per_1000_words`. Its `counting_rule` begins with a stable
-`[measurement:<id>]` locator. Copy that locator into the JSON rule and into the prose
-paragraph carrying the rate; do not rename or omit it. You may join the rule to the prose
-grammatically, but its meaning must not change. Read the corpus yourself
+verbatim: the same `count`, `per_1000_words`, and `counting_rule`. Read the corpus yourself
 to decide what the measurement means, whether it supports an instruction, which samples
 support the observation, and which quotation demonstrates it. A precomputed count can
 remove arithmetic from your job; it cannot turn a regex into an interpretation. Do not

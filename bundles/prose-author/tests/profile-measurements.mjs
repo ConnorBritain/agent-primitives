@@ -78,7 +78,7 @@ export function measureProfile(profileDir) {
         per_1000_words: corpusWords ? Math.round((count / corpusWords) * 100000) / 100 : 0,
         samples_with: perSample.filter((n) => n > 0).length,
         samples_without: perSample.filter((n) => n === 0).length,
-        counting_rule: rule.counting_rule,
+        counting_rule: `[measurement:${rule.id}] ${rule.counting_rule}`,
       };
     }),
   };
