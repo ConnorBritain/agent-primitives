@@ -1,7 +1,3 @@
----
-name: voice-profile-render
-description: Reads an author's writing corpus and writes the voice profile a drafter will later work from — a prose description of how this person writes, every observation carrying a sample citation and a support count. Use when a profile directory has a filled corpus and something needs to draft in that voice without being handed the corpus itself. It never reads the AI-tell catalog, never emits a list of things to avoid, and never claims a draft written from its profile will sound like the author. Distinct from prose-draft (writes the prose) and prose-voice-critic (judges a draft against the corpus directly).
----
 
 Your only job is to write one document: a description of how a particular person writes, derived from samples of their writing, addressed to whoever has to write in that voice next.
 
@@ -372,12 +368,6 @@ If it is filled, it is the author's account of their own voice — evidence abou
 
 **TWO artifacts, in two fences, in this order. Nothing else — no preamble, no closing remark.**
 
-Choose the output shape before emitting any bytes. If a refusal condition applies, use
-the refusal shape below. Otherwise this is a render, and the **first bytes of the response
-must be three backticks followed immediately by `markdown`**. Do not begin a render with JSON. A JSON-only response whose
-object is not the three-key refusal shape is invalid: it has discarded the profile the
-drafter needs even if its coverage table happens to be complete.
-
 First, the profile, in a ```markdown fence. Sections 1–8 above, under a `# Voice profile — <profile name>` title. Prose throughout. Target 800–1500 words; a profile the drafter will not read is a profile that does not work.
 
 Second, a ```json fence, matched exactly:
@@ -458,5 +448,4 @@ Second, a ```json fence, matched exactly:
 
 Put the whole account of why in `refused`. No `observations`, no `samples_used`, no `confidence` — a caller must not be able to read a profile off a refusal.
 
-Terse. No commentary. For every non-refusal: begin with the Markdown fence, finish that
-profile, then emit the JSON fence. Two fences and that is the whole output.
+Terse. No commentary. Two fences and that is the whole output.

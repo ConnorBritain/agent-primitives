@@ -132,6 +132,30 @@ function sourceProfile(profile) {
   return join(TESTS, "fixtures", "profiles", profile.fixture);
 }
 
+export function profileRenderPrompt(profileId, inputs) {
+  return [
+    `Render profile ${profileId}.`,
+    "Every allowed input file is reproduced verbatim below. Read all of them and",
+    "follow the system prompt's output contract exactly. No filesystem tools exist.",
+    "",
+    ...inputs.flatMap(({ file, body }) => [
+      `## Input file: ${file}`,
+      "",
+      "<file>",
+      body,
+      "</file>",
+      "",
+    ]),
+    "",
+    "Complete the renderer's refusal checks now.",
+    "If a refusal applies, emit only the three-key refusal JSON described by the system prompt.",
+    "Otherwise this is a render: the FIRST bytes of your response MUST be ```markdown,",
+    "followed by the complete 800–1500 word profile and its closing fence. Only after that",
+    "closing fence emit the ```json fence. Do not begin a render with JSON. A non-refusal",
+    "JSON-only response is invalid and must never be emitted.",
+  ].join("\n");
+}
+
 function prepare(runDir) {
   const p = expectedFiles(runDir);
   if (!existsSync(p.cases) || !existsSync(p.design)) die("run directory needs committed DESIGN.md and CASES.json");
@@ -232,22 +256,8 @@ function prepare(runDir) {
         "measurements.json",
         ...manifest.corpora[profile.id].lock.files.map((f) => `corpus/human/${f.file}`),
       ];
-      const prompt = [
-        `Render profile ${profile.id}.`,
-        "Every allowed input file is reproduced verbatim below. Read all of them and",
-        "follow the system prompt's output contract exactly. No filesystem tools exist.",
-        "",
-        ...files.flatMap((file) => [
-          `## Input file: ${file}`,
-          "",
-          "<file>",
-          text(join(staged, file)),
-          "</file>",
-          "",
-        ]),
-        "",
-        "Emit the profile fences only.",
-      ].join("\n");
+      const prompt = profileRenderPrompt(profile.id,
+        files.map((file) => ({ file, body: text(join(staged, file)) })));
       write(join(runDir, "prompts", "profiles", `${profile.id}-r${render}.md`), `${prompt}\n`);
     }
   }

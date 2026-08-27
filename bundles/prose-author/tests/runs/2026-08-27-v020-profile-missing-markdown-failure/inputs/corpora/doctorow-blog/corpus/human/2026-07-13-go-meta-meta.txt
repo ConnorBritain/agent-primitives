@@ -1,0 +1,46 @@
+---
+source: pluralistic.net (Cory Doctorow)
+title: Why aren&#039;t AI companies competing directly with their customers?
+author: Cory Doctorow
+date: 2026-07-13
+human_authored: true
+license: CC-BY-4.0
+permalink: https://pluralistic.net/2026/07/13/go-meta-meta/
+---
+"I often wonder what the Vintners buy/One half so precious as the Goods they sell" -The Rubáiyát of Omar Khayyám
+
+I first encountered that quote from someone extolling the virtues of bookstores, and it stuck with me, because for most of my childhood, every bookstore visit ended with me broke and wishing I'd had three times as much to spend.
+
+As a larval hyperlexic, I just didn't understand what a bookseller could possibly buy with my money that was better than the books they already had? Of course, then I became a bookseller and discovered that Sturgeon's Law ("90% of everything is shit") applies to a bookstore's wares as much as it does to anything else. I also acquired a monthly rent obligation and discovered just how important money could be.
+
+Nevertheless, Omar Khayyám's question stuck with me, especially when I fell down a years-long rabbit-hole of learning about scams and the finance sector (but I repeat myself). Every get-rich-quick schemer will tell you that they've found the infinite money hack, which they will sell to you for a remarkably reasonable sum. Likewise, every stock picker claims they can outperform a simple low-load index fund, and all they ask of you is a few hundred basis points in exchange for multiplying your wealth beyond the dreams of Creosote. Neither one has a good answer to Khayyám's question: if you can make all the money with your amazing system, why do you need my money?
+
+This is a question that needs to be forcefully put to AI hucksters. In their more expansive moments, the Altmans and Amodeis of the world will tell you that they're planning to teach the word-guessing program so many words that it will wake up and become god. DOGE's broccoli-haired brownshirts laughed in the faces of the NIH lifers who begged them not to vaporize their long-running cancer research projects: "General AI is around the corner and it's going to cure cancer. Cancer research is a waste of money!"
+
+Which all raises the question: if you've truly incubated a foetal demiurge in your "AI lab," why are you offering to sell it to me? What do the AI hucksters buy/One half so precious as the Gods they sell?"
+
+Of course, they might answer, "We need your money now so we can make god later." That's why they want your boss to fire you and replace you with their chatbots and split your wages with your former employer. But this just raises the same question: if you have a chatbot that can do a doctor's job, why sell it to a hospital? Why not just open your own hospital? If you've got a chatbot that can do a tax accountant's job, why sell it to a tax-prep service? Why not just open a tax-prep service? If you've got a chatbot that can teach my kids, why sell it to my local school district? Why not just open a school?
+
+If the chatbot can do the job, and if the chatbot costs less than the worker who does the job today, then the chatbot company can profitably sell services more cheaply than anyone who presently employs that worker, because the chatbot company already owns the chatbot. If you were really on a glide path to creating an all-powerful deity and just needed cash to keep the venture going until the cancer-curing word-guesser awoke from its long slumber, then wouldn't you want as much cash as possible? Why would you voluntarily split the take with some sucky, washed, non-god-generating business from before 2022?
+
+I think the only reason this question doesn't come up more frequently is that we're stewing in what Douglas Rushkoff calls the "go meta" economy, in which the most respectable and smartest business to operate must be as many abstraction layers away from real work as possible. Don't drive a taxi, own a medallion that you rent to the cab driver. Don't own a medallion, start a "rideshare" company. Don't start a rideshare company, invest in a rideshare company. Don't invest in a rideshare company, buy options to invest in a rideshare company:
+
+https://pluralistic.net/2022/09/13/collapse-porn/#collapse-porn
+
+The inverse relationship between doing something useful and making money is deeply ingrained in our economic wisdom. Take the world of online grifters, who don't just peddle get-rich-quick PDFs, they also peddle tools to generate get-rich-quick PDFs, as well as tools to steal other "wealth influencers'" insta videos and deepfake yourself into their pretend private jets:
+
+https://www.404media.co/how-i-bought-a-private-jet-by-selling-10-subscriptions-to-404-media/
+
+The scam economy boasts a bewildering array of ancillary services, like a $150/month service that lets you produce fake screenshots showing vast monthly income on other scam services (November Kelly calls this "The world's most expensive 'inspect element'"):
+
+https://www.patreon.com/trashfuture/posts/faux-high-level-163443872
+
+It's an old truism that in a gold rush, the only people who come out ahead are the people selling the picks and shovels. But that's not true – there's even more money to be made wholesaling picks and shovels to the retailers who operate the frontier mercantiles. Go meta!
+
+https://commons.wikimedia.org/wiki/File:Alaskan_Gold_Mining_Supplies_(1897)_(ADVERT_277).jpeg
+
+Today's economy is dominated by pick-and-shovel wholesalers. America is a gerontocracy drowning in MBAs, while there's no one to do eldercare:
+
+https://www.msn.com/en-us/news/us/why-recruiters-can-t-find-workers-and-new-grads-can-t-find-jobs-it-s-not-ai/ar-AA27K57y
+
+So it's not surprising that we don't ask why these AI god-botherers need our stupid money while they're immanentizing the eschaton. Why would they operate a hospital if they could go meta and sell the doctorbots to the MBAs running the hospital?

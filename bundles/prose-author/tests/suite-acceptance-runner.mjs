@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import {
-  criticPrompt, deriveCritic, draftPrompt, validateCases,
+  criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 
@@ -40,6 +40,12 @@ export async function run(t, { HERE }) {
   }
 
   t.group("v0.2 acceptance harness — dispatch boundaries");
+  {
+    const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }]);
+    t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
+    t.check("profile prompts end on the non-refusal fence-order fail-safe",
+      /FIRST bytes[\s\S]*MUST be ```markdown[\s\S]*Do not begin a render with JSON[\s\S]*JSON-only response is invalid/.test(prompt));
+  }
   {
     const prompt = draftPrompt({ prompt: "Write X." }, "Profile prose", { schema: "voice-profile/2" });
     t.check("the drafter prompt contains the request and rendered profile", /Write X\./.test(prompt) && /Profile prose/.test(prompt));

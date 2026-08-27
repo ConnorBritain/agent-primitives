@@ -1,0 +1,48 @@
+---
+source: EFF Deeplinks (eff.org)
+title: California’s AB 412 Still Demands Developers Do The Impossible
+author: Joe Mullin
+date: 2026-06-01
+human_authored: true
+license: CC-BY-4.0
+link_targets: stripped
+extraction: field--name-body node only
+permalink: https://www.eff.org/deeplinks/2026/06/californias-ab-412-still-demands-developers-do-impossible
+---
+California lawmakers are [again](https://www.eff.org/deeplinks/2025/07/california-ab-412-stalls-out-win-innovation-and-fair-use) considering [A.B. 412](https://leginfo.legislature.ca.gov/faces/billNavClient.xhtml?bill_id=202520260AB412), a bill that would require AI developers to identify and disclose copyrighted works used to train generative AI systems.
+
+The problem this year is the [same as last year](https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly): it’s practically impossible to comply with this law. The bill demands information that often does not exist, and cannot realistically be obtained.
+
+EFF submitted an [opposition letter](https://www.eff.org/files/2026/06/04/ab_412_may_2026_opp_letter.pdf) to the California Senate Privacy Committee explaining why we continue to believe A.B. 412 is simply unworkable. To the extent developers do follow this law, it will have the effect of locking in the power of the largest companies in AI.
+
+A Burden That Can’t Be Met
+
+A.B. 412 sounds simple: just have AI developers create and keep a list of all the registered copyrighted works they use in AI training.
+
+That may seem straightforward. In practice, it’s anything but.
+
+There is no machine-readable “list” of copyrighted works at the U.S. Copyright Office. And many copyright holders can get a copyright without even depositing a publicly viewable sample of the work—for example, software companies may register copyright on proprietary code without revealing it to the public.
+
+And on the open internet, copyright information is often incomplete, unavailable, or impossible to verify. One image may be registered with the copyright office, while the next is licensed under a free Creative Commons license (like [the images that EFF creates](https://www.eff.org/copyright)), and the next is public domain. A message forum user might post an original story, photograph, or poem without any indication of ownership or registration status.
+
+The bill effectively asks developers to continuously cross-reference massive batches of online data against a copyright system that simply wasn’t designed to do so. If California passes A.B. 412, its impact will go far beyond the large AI companies we read about in the headlines.
+
+Not Just Big Tech
+
+Supporters often frame this bill as a way to help creative workers have some leverage against Big Tech, but the bill reaches much further than the big AI companies.
+
+Its definition of “developer” extends to anyone who makes a generative AI model available to Californians. That includes indie developers tinkering with an existing model, open-source initiatives, nonprofits, and other non-commercial efforts. Recent amendments added exemptions for universities and government entities, which is important, but that still leaves out a vast swathe of non-commercial tech work that’s done by people without full-time jobs in government or academia.
+
+Large companies will hire compliance teams and lawyers to navigate these requirements. Smaller organizations and independent developers usually can’t. The result will be fewer opportunities for startups and new entrants. Faced with this massive compliance burden, some won’t even try.
+
+Courts Are Already Deciding These Questions
+
+The bill is premised on the idea that copyright owners currently don’t have good remedies if they’re mistreated by AI companies. That simply isn’t true. And the growing wave of federal court filings in this space prove it. Content companies that want to sue tech companies, large or small, [have no problem doing so](https://chatgptiseatingtheworld.com/aicopyrightcasetracker/). Those courts are still working through important questions about fair use and transformative use. Some courts have already concluded that [many AI training activities qualify as fair use](https://www.eff.org/deeplinks/2025/06/two-courts-rule-generative-ai-and-fair-use-one-gets-it-right). Others continue to evaluate the issue.
+
+California lawmakers should not rush to impose new state regulation while those questions remain unresolved. This is why copyright is governed at the federal level: both creators and fair users benefit from a single set of nationwide rules.
+
+At this point, the bill remains a solution in search of a problem. Rights holders already have powerful tools to protect their interests under existing federal law. What this bill adds isn’t clarity or transparency, but a costly and essentially impossible compliance burden that will discourage small developers and researchers.
+
+California has been able to support both artistic creativity and tech innovation for decades now.  But A.B. 412 does not strike the right balance.
+
+If you are a California resident and interested in speaking out about this bill, you can find and contact your representatives [through this website](https://findyourrep.legislature.ca.gov/).
