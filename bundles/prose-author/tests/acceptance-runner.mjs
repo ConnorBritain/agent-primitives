@@ -258,6 +258,12 @@ async function claude({ system, prompt, cwd, tools, allowed, output }) {
   const args = [
     "-p", "--output-format", "json", "--no-session-persistence", "--model", MODEL,
     "--effort", "high", "--system-prompt-file", system,
+    // Keep the clean context actually clean. Without these flags Claude Code loads the
+    // user's plugins, MCP servers and settings into every print-mode call. On this host
+    // that consumed roughly 130k cached tokens before a 60k-token corpus prompt, leaving
+    // the renderer at the context ceiling and causing long no-output stalls.
+    "--disable-slash-commands", "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}',
+    "--setting-sources", "", "--no-chrome",
     "--tools", tools,
   ];
   if (allowed?.length) args.push("--allowedTools", ...allowed);
