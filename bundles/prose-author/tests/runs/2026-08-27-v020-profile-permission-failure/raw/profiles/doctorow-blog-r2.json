@@ -1,0 +1,158 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 47186,
+  "duration_api_ms": 47157,
+  "num_turns": 17,
+  "result": "```json\n{ \"schema\": \"voice-profile/2\", \"profile\": \"doctorow-blog\", \"refused\": \"The file system tool returned permission errors for every path listed in the task — profile.json, voice.md, and all ten corpus files under corpus/human/. No file could be read. Reading every usable sample end to end is a precondition for rendering; I cannot satisfy it without corpus access. Grant read permission to the profile root and re-run.\" }\n```",
+  "stop_reason": "end_turn",
+  "session_id": "f1e13f9e-5a4a-4a11-aa65-1e73fc4df738",
+  "total_cost_usd": 0.407331,
+  "usage": {
+    "input_tokens": 7,
+    "cache_creation_input_tokens": 72512,
+    "cache_read_input_tokens": 351150,
+    "output_tokens": 2003,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 72512,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 7,
+      "outputTokens": 2003,
+      "cacheReadInputTokens": 351150,
+      "cacheCreationInputTokens": 72512,
+      "webSearchRequests": 0,
+      "costUSD": 0.407331,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01LyVBg19gRdF5kWf1rX59G1",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/profile.json"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01Fi1sffeAD8YteKPCdcck4f",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/voice.md"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01A22MhFeK3B5GTJ2KfBmVa3",
+      "tool_input": {
+        "file_path": "/Users/dahlia/profile.json"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_015fSfwB8Zgcc64jjvEB5GrS",
+      "tool_input": {
+        "file_path": "/Users/dahlia/voice.md"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01MfR3Y1n5YTuNUKNRHoCBUS",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-09-wilhoitian.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01L1HzRhjcgXP1AuhWCPske1",
+      "tool_input": {
+        "file_path": "/Users/dahlia/profile.json"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_011PaUvaTEj1rFseReXZhqT7",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-09-wilhoitian.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01QP1R3sYhTydeMefVbN1vEb",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-10-posthuman-as-in-no-humans.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01Yb7QQiYTtN5SKBUwPvX2Ew",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-11-your-risk.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01Mf36chX6acc2WWLvsXyNmj",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-13-go-meta-meta.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_011dPtWr3C6Xe9iS2X7jfceG",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-14-designated-survivor.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01XkKp2nSWC2XQfkEieHuWW1",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-16-lucky-orifices.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01FmgrAeX9qGZgmKD3hjomMf",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-21-dickovers.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_0153sCyAEyVY5ZLgs97dYZoR",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-22-table-flipper.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01RpB4GQP3hvhvDxEgeYTxKS",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-23-drop-a-dime.txt"
+      }
+    },
+    {
+      "tool_name": "Read",
+      "tool_use_id": "toolu_01RnhP9JAHCKrzKV92U5HGsQ",
+      "tool_input": {
+        "file_path": "/Users/dahlia/Code/agent-primitives-dev/agent-primitives/corpus/human/2026-07-24-supplemental-income.txt"
+      }
+    }
+  ],
+  "fast_mode_state": "off",
+  "uuid": "4a26126d-75f4-4c7e-8b0b-855fe5c2acee"
+}

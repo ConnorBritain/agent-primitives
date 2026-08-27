@@ -209,16 +209,24 @@ function prepare(runDir) {
   for (const profile of cases.profiles) {
     for (let render = 1; render <= profile.renders; render += 1) {
       const staged = resolve(REPO, manifest.corpora[profile.id].staged);
-      const files = manifest.corpora[profile.id].lock.files.map((f) => `- corpus/human/${f.file}`);
+      const files = [
+        ...(existsSync(join(staged, "profile.json")) ? ["profile.json"] : []),
+        ...(existsSync(join(staged, "voice.md")) ? ["voice.md"] : []),
+        ...manifest.corpora[profile.id].lock.files.map((f) => `corpus/human/${f.file}`),
+      ];
       const prompt = [
-        `Render profile ${profile.id}, independent draw ${render} of 3.`,
-        "Read every file listed below and follow the system prompt's output contract exactly.",
-        "The profile root is the current working directory. Do not read any other path.",
+        `Render profile ${profile.id}.`,
+        "Every allowed input file is reproduced verbatim below. Read all of them and",
+        "follow the system prompt's output contract exactly. No filesystem tools exist.",
         "",
-        "Profile inputs:",
-        ...(existsSync(join(staged, "profile.json")) ? ["- profile.json"] : []),
-        ...(existsSync(join(staged, "voice.md")) ? ["- voice.md"] : []),
-        ...files,
+        ...files.flatMap((file) => [
+          `## Input file: ${file}`,
+          "",
+          "<file>",
+          text(join(staged, file)),
+          "</file>",
+          "",
+        ]),
         "",
         "Emit the profile fences only.",
       ].join("\n");
@@ -309,8 +317,7 @@ async function dispatchProfiles(runDir) {
       return {
         id: `${profile.id}-r${render}`,
         run: () => claude({
-          system, cwd, prompt: text(promptPath), tools: "Read",
-          allowed: [`Read(${cwd}/**)`],
+          system, cwd, prompt: text(promptPath), tools: "", allowed: [],
           output: join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`),
         }),
       };
@@ -473,7 +480,7 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
   write(auditPath, prior);
 }
 
-function criticPrompt(caseId, corpusFiles) {
+function criticPrompt(caseId, corpus, draft) {
   return [
     `# Voice acceptance critic — ${caseId}`,
     "",
@@ -481,12 +488,19 @@ function criticPrompt(caseId, corpusFiles) {
     "The corpus is the only voice evidence. No voice card is supplied.",
     "No deterministic rhythm scan is supplied; say so rather than guessing at category 4.",
     "",
-    "Allowed inputs:",
-    ...corpusFiles.map((f) => `- corpus/${f}`),
-    "- draft.txt",
+    "Every allowed input is reproduced verbatim below. No filesystem tools exist.",
     "",
     "Do not read or infer any fixture manifest, answer key, other draft, profile,",
     "previous draw, or other run artifact. Output the report and closing verdict only.",
+    "",
+    ...corpus.flatMap(({ file, body }) => [
+      `## Corpus sample: ${file}`,
+      "",
+      "<corpus-sample>", body, "</corpus-sample>", "",
+    ]),
+    "## Draft: draft.txt",
+    "",
+    "<draft>", draft, "</draft>",
   ].join("\n");
 }
 
@@ -503,14 +517,18 @@ async function dispatchCritics(runDir) {
       cpSync(join(runDir, "inputs", "drafts", `${c.id}.txt`), join(inputDir, "draft.txt"));
     }
     const corpusFiles = readdirSync(join(inputDir, "corpus")).filter((f) => statSync(join(inputDir, "corpus", f)).isFile()).sort();
-    const prompt = criticPrompt(c.id, corpusFiles);
+    const corpus = corpusFiles.map((file) => ({
+      file,
+      body: stripFrontmatter(text(join(inputDir, "corpus", file))),
+    }));
+    const prompt = criticPrompt(c.id, corpus, text(join(inputDir, "draft.txt")));
     for (let draw = 1; draw <= 3; draw += 1) {
       const promptPath = join(runDir, "critics", "prompts", `${c.id}-d${draw}.md`);
       write(promptPath, `${prompt}\n`);
       jobs.push({
         id: `${c.id}-d${draw}`,
         run: () => claude({
-          system, cwd: inputDir, prompt, tools: "Read", allowed: [`Read(${inputDir}/**)`],
+          system, cwd: inputDir, prompt, tools: "", allowed: [],
           output: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`),
         }),
       });

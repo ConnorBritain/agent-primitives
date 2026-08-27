@@ -45,9 +45,14 @@ export async function run(t, { HERE }) {
     t.check("the drafter prompt states that corpus access is unavailable", /no corpus access/i.test(prompt));
   }
   {
-    const prompt = criticPrompt("opaque-01", ["a.txt", "b.txt"]);
-    t.check("critic prompts enumerate only their staged corpus and draft",
-      /corpus\/a\.txt/.test(prompt) && /corpus\/b\.txt/.test(prompt) && /draft\.txt/.test(prompt));
+    const prompt = criticPrompt("opaque-01", [
+      { file: "a.txt", body: "Alpha corpus." }, { file: "b.txt", body: "Beta corpus." },
+    ], "Draft body.");
+    t.check("critic prompts inline only their staged corpus and draft",
+      /Corpus sample: a\.txt/.test(prompt) && /Corpus sample: b\.txt/.test(prompt)
+        && /Alpha corpus\./.test(prompt) && /Beta corpus\./.test(prompt)
+        && /Draft body\./.test(prompt));
+    t.check("critic prompts state that filesystem tools do not exist", /No filesystem tools exist/.test(prompt));
     t.check("critic prompts carry no expected verdict", !/expected (?:verdict|result)|\bCLEAN\b|\bREVISE\b/.test(prompt));
   }
   t.check("completed responses are immutable rather than overwritten",
