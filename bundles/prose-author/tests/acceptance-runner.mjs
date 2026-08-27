@@ -28,6 +28,8 @@ import { fileURLToPath, pathToFileURL } from "node:url";
 import { scoreRun } from "./bar.mjs";
 import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { crossCount } from "./cross-count.mjs";
+import { bodyOf } from "./corpus-rates.mjs";
+import { measureProfile } from "./profile-measurements.mjs";
 import {
   corpusLeakage, findFabricatedCitations, parseDraft, validateDraft,
 } from "./voice-draft.mjs";
@@ -147,6 +149,7 @@ function prepare(runDir) {
     "bundles/prose-author/tests/voice-profile.mjs",
     "bundles/prose-author/tests/voice-draft.mjs",
     "bundles/prose-author/tests/coverage-analysis.mjs",
+    "bundles/prose-author/tests/profile-measurements.mjs",
     "bundles/prose-author/tests/acceptance-runner.mjs",
     "bundles/prose-author/tests/fixtures/voice-draft-regressions/safeguards.json",
   ];
@@ -173,15 +176,27 @@ function prepare(runDir) {
     const lock = corpusLock(source, { agentPath: join(REPO, AGENTS.profile) });
     const staged = join(runDir, "inputs", "corpora", profile.id);
     mkdirSync(staged, { recursive: true });
-    cpSync(join(source, "corpus", "human"), join(staged, "corpus", "human"), { recursive: true });
+    // Stage the author's prose whole, not the site's repeated navigation/colophon.
+    // Frontmatter remains because provenance is part of the renderer's evidence.
+    for (const sample of lock.files) {
+      const from = join(source, "corpus", "human", ...(sample.group ? [sample.group] : []), sample.file);
+      const raw = text(from);
+      const frontmatter = raw.match(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/)?.[0] ?? "";
+      const to = join(staged, "corpus", "human", ...(sample.group ? [sample.group] : []), sample.file);
+      write(to, `${frontmatter}${bodyOf(raw).trim()}\n`);
+    }
     for (const f of ["profile.json", "voice.md"]) {
       if (existsSync(join(source, f))) cpSync(join(source, f), join(staged, f));
     }
+    const measurements = measureProfile(source);
+    write(join(staged, "measurements.json"), measurements);
     corpusEntries[profile.id] = {
       fixture: profile.fixture,
       source: rel(source),
       staged: rel(staged),
       lock,
+      measurements,
+      measurements_sha256: SHA(`${JSON.stringify(measurements, null, 2)}\n`),
     };
     currencyLocks[`${profile.id}-renderer`] = lock;
     currencyLocks[`${profile.id}-drafter`] = corpusLock(source, { agentPath: join(REPO, AGENTS.draft) });
@@ -214,6 +229,7 @@ function prepare(runDir) {
       const files = [
         ...(existsSync(join(staged, "profile.json")) ? ["profile.json"] : []),
         ...(existsSync(join(staged, "voice.md")) ? ["voice.md"] : []),
+        "measurements.json",
         ...manifest.corpora[profile.id].lock.files.map((f) => `corpus/human/${f.file}`),
       ];
       const prompt = [
@@ -341,7 +357,9 @@ function collectProfiles(runDir) {
   };
   for (const profile of cases.profiles) {
     artifacts.profiles[profile.id] = {};
-    const expectedSamples = manifest.corpora[profile.id].lock.files.map((f) => f.file).sort();
+      const expectedSamples = manifest.corpora[profile.id].lock.files.map((f) => f.file).sort();
+    const measurements = manifest.corpora[profile.id].measurements;
+    const byRule = new Map(measurements.measurements.map((m) => [m.counting_rule, m]));
     for (let render = 1; render <= profile.renders; render += 1) {
       const rawPath = join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`);
       const record = completedResult(rawPath);
@@ -350,6 +368,17 @@ function collectProfiles(runDir) {
       const validation = validateVoiceProfile(parsed.json, parsed.markdown);
       if (!validation.ok || validation.refusal) die(`${profile.id}-r${render} invalid: ${validation.errors.join("; ")}`);
       if (parsed.json.schema !== PROFILE_SCHEMA) die(`${profile.id}-r${render} is not ${PROFILE_SCHEMA}`);
+      if (parsed.json.corpus_words !== measurements.corpus_words) {
+        die(`${profile.id}-r${render} corpus_words diverges from the deterministic measurement`);
+      }
+      for (const observation of parsed.json.observations) {
+        if (!observation.rate) continue;
+        const measured = byRule.get(observation.rate.counting_rule);
+        if (!measured) die(`${profile.id}-r${render} rate ${observation.id} has no independently locatable counting rule`);
+        if (measured.count !== observation.rate.count || Math.abs(measured.per_1000_words - observation.rate.per_1000_words) > 0.01) {
+          die(`${profile.id}-r${render} rate ${observation.id} diverges from its independent counter`);
+        }
+      }
       const gotSamples = [...parsed.json.samples_used].sort();
       if (JSON.stringify(gotSamples) !== JSON.stringify(expectedSamples)) {
         die(`${profile.id}-r${render} samples_used differs from its corpus lock`);
@@ -648,6 +677,10 @@ function check(runDir) {
   for (const profile of cases.profiles) {
     const now = corpusLock(sourceProfile(profile), { agentPath: join(REPO, AGENTS.profile) });
     if (now.aggregate_sha256 !== manifest.corpora[profile.id].lock.aggregate_sha256) errors.push(`${profile.id} corpus lock drifted`);
+    const measured = measureProfile(sourceProfile(profile));
+    if (SHA(`${JSON.stringify(measured, null, 2)}\n`) !== manifest.corpora[profile.id].measurements_sha256) {
+      errors.push(`${profile.id} deterministic measurements drifted`);
+    }
   }
   for (const c of [...cases.cases, ...cases.refusals]) {
     if (SHA(c.prompt) !== manifest.prompts[c.id]?.sha256) errors.push(`${c.id} prompt hash mismatch`);

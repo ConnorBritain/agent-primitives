@@ -6,6 +6,7 @@ import { join } from "node:path";
 import {
   criticPrompt, deriveCritic, draftPrompt, validateCases,
 } from "./acceptance-runner.mjs";
+import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -65,6 +66,18 @@ export async function run(t, { HERE }) {
       .every((flag) => source.includes(`\"${flag}\"`)));
   t.check("the model effort is pinned in the manifest rather than inherited",
     /effort: EFFORT/.test(source) && /"--effort", EFFORT/.test(source));
+  t.check("the deterministic profile prepass covers the major countable dimensions",
+    ["second-person-family", "contractions", "uncontracted-negatives", "profanity-vulgarity",
+      "first-person-singular-family", "question-marks", "round-parenthetical-spans", "em-dashes"]
+      .every((id) => PROFILE_MEASUREMENT_RULES.some((rule) => rule.id === id)));
+  {
+    const measured = measureProfile(join(HERE, "fixtures", "profiles", "doctorow-blog"));
+    t.check("the prepass produces one corpus word total and one row per fixed rule",
+      measured.corpus_words > 0 && measured.measurements.length === PROFILE_MEASUREMENT_RULES.length);
+    t.check("every prepass rate is arithmetic on its count and corpus words",
+      measured.measurements.every((m) => Math.abs(m.per_1000_words
+        - Math.round((m.count / measured.corpus_words) * 100000) / 100) < 1e-9));
+  }
   t.check("the checker pins design, case, agent, corpus, request, and artefact hashes",
     ["design_sha256", "cases_sha256", "agent snapshot hash mismatch", "corpus lock drifted", "prompt hash mismatch", "missing artifact"]
       .every((phrase) => source.includes(phrase)));

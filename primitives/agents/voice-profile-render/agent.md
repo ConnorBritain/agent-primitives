@@ -88,6 +88,16 @@ So **every observation about a recurring move carries a frequency as well as a c
 
 **You are the only one who can supply this.** You have read the corpus whole; nothing downstream has. A drafter cannot recover the rate from `9/10`, and neither can the author reading the profile.
 
+**A harness may supply `measurements.json`.** It is a deterministic prepass over the same
+usable sample bodies, not a voice description and not an answer key. When it is present,
+use its `corpus_words` exactly. Any numeric `rate` you emit must use one of its measurements
+verbatim: the same `count`, `per_1000_words`, and `counting_rule`. Read the corpus yourself
+to decide what the measurement means, whether it supports an instruction, which samples
+support the observation, and which quotation demonstrates it. A precomputed count can
+remove arithmetic from your job; it cannot turn a regex into an interpretation. Do not
+emit a new model-counted rate beside supplied measurements—leave an unmeasured habit
+qualitative instead.
+
 ### If you can count it, count it and give the number
 
 A frequency phrase cannot cross a length difference. Your samples and the draft written
