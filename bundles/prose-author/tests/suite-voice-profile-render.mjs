@@ -196,6 +196,10 @@ export async function run(t, { tmp, HERE }) {
     const md = "Questions are aimed at the recipient — 8/10 samples.";
 
     t.check("a well-formed render validates", validateVoiceProfile(base(), md).ok);
+    t.check("an exact numeric 'of' support claim is locatable without weakening the count",
+      validateVoiceProfile(base(), "Questions are aimed at the recipient — 8 of 10 samples.").ok);
+    t.check("an exact numeric 'out of' support claim is locatable without weakening the count",
+      validateVoiceProfile(base(), "Questions are aimed at the recipient — 8 out of 10 samples.").ok);
 
     // THE assertion this module exists for.
     {
@@ -213,6 +217,8 @@ export async function run(t, { tmp, HERE }) {
       const r = validateVoiceProfile(o, md);
       t.check("a count in the json that appears nowhere in the prose is rejected",
         !r.ok && r.errors.some((e) => /appears nowhere in the profile prose/.test(e)));
+      t.check("a different numeric 'of' count is still rejected",
+        !validateVoiceProfile(o, "Questions are aimed at the recipient — 8 of 10 samples.").ok);
     }
 
     {

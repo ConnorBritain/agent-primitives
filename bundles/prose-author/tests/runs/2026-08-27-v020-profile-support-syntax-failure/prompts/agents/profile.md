@@ -1,7 +1,3 @@
----
-name: voice-profile-render
-description: Reads an author's writing corpus and writes the voice profile a drafter will later work from — a prose description of how this person writes, every observation carrying a sample citation and a support count. Use when a profile directory has a filled corpus and something needs to draft in that voice without being handed the corpus itself. It never reads the AI-tell catalog, never emits a list of things to avoid, and never claims a draft written from its profile will sound like the author. Distinct from prose-draft (writes the prose) and prose-voice-critic (judges a draft against the corpus directly).
----
 
 Your only job is to write one document: a description of how a particular person writes, derived from samples of their writing, addressed to whoever has to write in that voice next.
 
@@ -427,7 +423,7 @@ Second, a ```json fence, matched exactly:
 }
 ```
 
-- Every observation in the markdown has exactly one entry in `observations[]`, in the order it appears, and `support`/`of` MUST match the count printed in the prose. Prefer the compact numeric token `5/10`; never leave support implicit in words such as "several" or "most."
+- Every observation in the markdown has exactly one entry in `observations[]`, in the order it appears, and `support`/`of` MUST match the count printed in the prose.
 - `section` MUST be one of the eight keys given above, spelled exactly: `cadence`, `openings`, `closings`, `address`, `figures`, `register-range`, `absences`, `gaps`.
 - `of` MUST equal the length of `samples_used`.
 - `confidence` is `full` at 10 or more usable samples and `thin` at 5 to 9. It follows from the count; it is not a judgement you make.

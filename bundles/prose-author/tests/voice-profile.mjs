@@ -46,6 +46,11 @@ export const COVERAGE_DIMENSIONS = [
 
 export const COVERAGE_STATUSES = ["rated", "described", "absent-paired", "unresolved"];
 
+/** Locate an exact numeric support claim without making punctuation part of the schema. */
+function supportPattern(support, of) {
+  return new RegExp(`\\b${support}\\s*(?:/|(?:out\\s+)?of)\\s*${of}\\b`, "i");
+}
+
 /** Sections the renderer may emit. It may not add to this list. */
 export const SECTIONS = [
   "cadence",
@@ -236,7 +241,7 @@ export function checkFrequencyAgainstRate(markdown, obj, meanPieceWords) {
     const r = o?.rate;
     if (!r || typeof r.per_1000_words !== "number") continue;
 
-    const countPattern = new RegExp(`\\b${o.support}\\s*/\\s*${o.of}\\b`);
+    const countPattern = supportPattern(o.support, o.of);
     const host = sentences.find((s) => countPattern.test(s));
     if (!host) continue;
 
@@ -494,7 +499,7 @@ export function validateVoiceProfile(obj, markdown = "") {
     if (markdown) {
       for (const [i, o] of obs.entries()) {
         if (!isInt(o.support) || !isInt(o.of)) continue;
-        const pattern = new RegExp(`\\b${o.support}\\s*/\\s*${o.of}\\b`);
+        const pattern = supportPattern(o.support, o.of);
         if (!pattern.test(markdown)) {
           err(`observations[${i}] claims ${o.support}/${o.of}, which appears nowhere in the profile prose`);
         }
