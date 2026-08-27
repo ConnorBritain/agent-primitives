@@ -365,15 +365,29 @@ export async function run(t, { tmp, HERE }) {
       };
     };
     const md = `Each observation is established in 10/10 samples. ${rule}`;
+    const enveloped = (obj, prose = md) => ({ ...obj, profile_markdown: prose });
 
-    t.check("a complete voice-profile/2 render validates", validateVoiceProfile(base(), md).ok);
-    t.check("a voice-profile/2 json block without its prose is rejected",
-      validateVoiceProfile(base()).errors.some((e) => /must include its markdown profile/.test(e)));
+    t.check("a complete self-contained voice-profile/2 envelope validates",
+      validateVoiceProfile(enveloped(base())).ok);
+    {
+      const envelope = enveloped(base());
+      const parsed = parseRender(`\`\`\`json\n${JSON.stringify(envelope)}\n\`\`\``);
+      t.check("a JSON-only voice-profile/2 envelope materializes its human Markdown",
+        !parsed.hadMarkdownFence && parsed.markdown === md
+          && validateVoiceProfile(parsed.json, parsed.markdown).ok);
+    }
+    t.check("a voice-profile/2 envelope without its prose is rejected",
+      validateVoiceProfile(base()).errors.some((e) => /profile_markdown must contain/.test(e)));
+    {
+      const o = enveloped(base());
+      t.check("a divergent separately supplied profile is rejected",
+        !validateVoiceProfile(o, `${md} changed`).ok);
+    }
 
     {
       const o = base();
       o.coverage.pop();
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("silently omitting one fixed coverage dimension is rejected",
         !r.ok && r.errors.some((e) => /silently omits required dimension/.test(e)));
     }
@@ -381,7 +395,7 @@ export async function run(t, { tmp, HERE }) {
     {
       const o = base();
       o.coverage[2].observation_ids = ["o404"];
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("a dangling coverage observation reference is rejected",
         !r.ok && r.errors.some((e) => /dangling observation reference/.test(e)));
     }
@@ -389,7 +403,7 @@ export async function run(t, { tmp, HERE }) {
     {
       const o = base();
       o.coverage[0].status = "described";
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("a described dimension cannot hide a rate that makes it rated",
         !r.ok && r.errors.some((e) => /described but references a rated observation/.test(e)));
     }
@@ -397,7 +411,7 @@ export async function run(t, { tmp, HERE }) {
     {
       const o = base();
       o.observations[0].rate.counting_rule = "A rule absent from the prose.";
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("a counting rule that cannot be located in the profile prose is rejected",
         !r.ok && r.errors.some((e) => /counting_rule is unlocatable/.test(e)));
     }
@@ -405,14 +419,15 @@ export async function run(t, { tmp, HERE }) {
     {
       const o = base();
       o.observations[0].rate.counting_rule = "[measurement:question-marks] Count literal question marks.";
-      const r = validateVoiceProfile(o, `${md} The rate uses [measurement:question-marks].`);
+      const prose = `${md} The rate uses [measurement:question-marks].`;
+      const r = validateVoiceProfile(enveloped(o, prose));
       t.check("a deterministic measurement locator survives grammatical prose around its rule", r.ok);
     }
 
     {
       const o = base();
       o.observations[0].rate.counting_rule = "[measurement:question-marks] Count literal question marks.";
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("a deterministic rule whose locator is absent from prose is rejected",
         !r.ok && r.errors.some((e) => /counting_rule is unlocatable/.test(e)));
     }
@@ -420,7 +435,7 @@ export async function run(t, { tmp, HERE }) {
     {
       const o = base();
       delete o.observations[0].rate.counting_rule;
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("a rated observation without a reproducible counting rule is rejected",
         !r.ok && r.errors.some((e) => /counting_rule must be a reproducible/.test(e)));
     }
@@ -428,7 +443,7 @@ export async function run(t, { tmp, HERE }) {
     {
       const o = base();
       o.observations[0].rate.per_1000_words = 8;
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("invalid v2 rate arithmetic is rejected from the self-contained render",
         !r.ok && r.errors.some((e) => /rate arithmetic is invalid/.test(e)));
     }
@@ -447,10 +462,10 @@ export async function run(t, { tmp, HERE }) {
         absence_observation_id: "o11",
       };
       t.check("a zero counted absence validates only when paired to a counted positive habit",
-        validateVoiceProfile(o, md).ok);
+        validateVoiceProfile(enveloped(o)).ok);
 
       delete o.observations[0].rate;
-      const r = validateVoiceProfile(o, md);
+      const r = validateVoiceProfile(enveloped(o));
       t.check("an absent-paired dimension without a counted positive replacement is rejected",
         !r.ok && r.errors.some((e) => /positive replacement must carry a counted rate/.test(e)));
     }

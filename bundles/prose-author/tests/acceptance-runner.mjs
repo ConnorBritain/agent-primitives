@@ -149,10 +149,9 @@ export function profileRenderPrompt(profileId, inputs) {
     "",
     "Complete the renderer's refusal checks now.",
     "If a refusal applies, emit only the three-key refusal JSON described by the system prompt.",
-    "Otherwise this is a render: the FIRST bytes of your response MUST be ```markdown,",
-    "followed by the complete 800–1500 word profile and its closing fence. Only after that",
-    "closing fence emit the ```json fence. Do not begin a render with JSON. A non-refusal",
-    "JSON-only response is invalid and must never be emitted.",
+    "Otherwise this is a render: emit the single voice-profile/2 JSON envelope described",
+    "by the system prompt. Its required profile_markdown string contains the complete",
+    "800–1500 word profile. Emit one JSON fence and nothing else.",
   ].join("\n");
 }
 
@@ -407,9 +406,10 @@ function collectProfiles(runDir) {
       const js = join(outDir, `r${render}.json`);
       write(md, `${parsed.markdown.trim()}\n`);
       write(js, parsed.json);
-      // The historical render suite reads verbatim two-fence outputs from raw/*.md.
-      // Keep that convention while the machine record (cost/duration/result) remains
-      // separately immutable under raw/profiles/*.json.
+      // The historical render suite reads verbatim model outputs from raw/*.md. Keep
+      // that convention while the machine record (cost/duration/result) remains
+      // separately immutable under raw/profiles/*.json. parseRender materializes the
+      // v2 envelope's embedded Markdown for the human-facing inputs above.
       const rawRender = join(runDir, "raw", `${profile.id}-r${render}.md`);
       write(rawRender, `${record.result.trim()}\n`);
       artifacts.profiles[profile.id][`r${render}`] = {

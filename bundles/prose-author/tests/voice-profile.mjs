@@ -101,7 +101,7 @@ const RENDER_KEYS_V1 = [
   "schema", "profile", "confidence", "samples_used", "samples_excluded",
   "voice_card", "observations", "observations_dropped", "multiple_voices_suspected",
 ];
-const RENDER_KEYS_V2 = [...RENDER_KEYS_V1, "corpus_words", "coverage"];
+const RENDER_KEYS_V2 = [...RENDER_KEYS_V1, "profile_markdown", "corpus_words", "coverage"];
 const REFUSAL_KEYS = ["schema", "profile", "refused"];
 
 const isInt = (v) => Number.isInteger(v);
@@ -112,7 +112,7 @@ const isText = (v) => typeof v === "string" && v.trim().length > 0;
  * Validate an emitted voice-profile JSON block.
  *
  * @param {object} obj      the parsed json fence
- * @param {string} markdown the parsed markdown fence, or "" for a refusal
+ * @param {string} markdown historical separately parsed Markdown, or "" to use the v2 envelope
  * @returns {{ok: boolean, refusal: boolean, errors: string[]}}
  */
 /**
@@ -296,6 +296,19 @@ export function validateVoiceProfile(obj, markdown = "") {
     if (!Object.hasOwn(obj, k)) err(`missing required key: ${k}`);
   }
 
+  if (v2) {
+    if (!isText(obj.profile_markdown)) {
+      err("profile_markdown must contain the complete Markdown profile");
+    } else {
+      const embedded = obj.profile_markdown.trim();
+      if (markdown.trim() && markdown.trim() !== embedded) {
+        err("profile_markdown diverges from the separately supplied Markdown profile");
+      }
+      // The envelope is canonical. Callers may pass the extracted prose for historical
+      // two-fence handling, or pass nothing and let validation materialize it here.
+      markdown = obj.profile_markdown;
+    }
+  }
   if (v2 && (!isInt(obj.corpus_words) || obj.corpus_words < 1)) {
     err("corpus_words must be a positive integer");
   }
@@ -617,11 +630,14 @@ export function corpusLock(profileDir, { agentPath = null } = {}) {
   };
 }
 
-/** A two-fence render, named in this primitive's own terms. */
+/** Parse historical two-fence renders and the self-contained voice-profile/2 envelope. */
 export function parseRender(text) {
   const f = parseFences(text);
+  const embedded = f.json?.schema === SCHEMA_ID && isText(f.json?.profile_markdown)
+    ? f.json.profile_markdown
+    : null;
   return {
-    markdown: f.markdown ?? "",
+    markdown: f.markdown ?? embedded ?? "",
     json: f.json,
     jsonError: f.jsonError,
     hadMarkdownFence: f.hadMarkdown,
