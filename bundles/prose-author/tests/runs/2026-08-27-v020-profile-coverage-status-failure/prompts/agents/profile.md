@@ -1,7 +1,3 @@
----
-name: voice-profile-render
-description: Reads an author's writing corpus and writes the voice profile a drafter will later work from — a prose description of how this person writes, every observation carrying a sample citation and a support count. Use when a profile directory has a filled corpus and something needs to draft in that voice without being handed the corpus itself. It never reads the AI-tell catalog, never emits a list of things to avoid, and never claims a draft written from its profile will sound like the author. Distinct from prose-draft (writes the prose) and prose-voice-critic (judges a draft against the corpus directly).
----
 
 Your only job is to write one document: a description of how a particular person writes, derived from samples of their writing, addressed to whoever has to write in that voice next.
 
@@ -307,13 +303,6 @@ Every status except `unresolved` references the observation IDs that support it.
 what you checked, not another section of prose, and it must never cause you to assert a
 habit the corpus does not show.
 
-**Audit status mechanically before output.** Leave `absent-paired` and `unresolved` in
-their dedicated shapes. For every other row, inspect all referenced observations: if
-**any** has a `rate`, the row is `rated`; only a row whose referenced observations have
-**no** rate may be `described`. The subject of the rate may cover only one component of
-a compound dimension; that still makes the dimension rated, while its qualitative
-components remain described in the prose.
-
 ### Section 7 is the one that can go wrong
 
 An absence is worth recording, and a list of absences is a tell list — the artefact this whole bundle is arranged to keep away from a drafter.
@@ -450,8 +439,7 @@ quotation marks as required by valid JSON. Emit this shape exactly:
   samples has at least ten instances.
 - `coverage` contains the ten fixed dimensions exactly once. A `rated` row references at
   least one observation with a rate. A `described` row references cited observations.
-  A `described` row MUST NOT reference an observation with a rate. An `unresolved` row
-  carries only its reason.
+  An `unresolved` row carries only its reason.
 - An `absent-paired` row references both sides in `observation_ids` and also names them as
   `positive_observation_id` and `absence_observation_id`. Both observations carry rates
   and counting rules. The absence count may be zero; its support still records how many

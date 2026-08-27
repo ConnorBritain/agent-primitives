@@ -45,6 +45,8 @@ export async function run(t, { HERE }) {
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
     t.check("profile prompts end on the self-contained envelope contract",
       /single voice-profile\/2 JSON envelope[\s\S]*required profile_markdown[\s\S]*one JSON fence/.test(prompt));
+    t.check("profile prompts end on a mechanical coverage-status audit",
+      /audit every coverage row mechanically[\s\S]*rated if ANY referenced[\s\S]*described only if NONE/.test(prompt));
   }
   {
     const prompt = draftPrompt({ prompt: "Write X." }, "Profile prose", { schema: "voice-profile/2" });
