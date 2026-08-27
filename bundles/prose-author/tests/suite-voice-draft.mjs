@@ -62,6 +62,31 @@ export async function run(t, { HERE }) {
           leakedTokens.length === 0, leakedTokens.join(", "));
       }
 
+      // PI-02 ship blocker: a render's ten coverage rows are useful only if the
+      // drafter reads every row. These assertions pin the prompt-side protocol rather
+      // than pretending a deterministic selftest can grade a model-written draft.
+      const coverageDimensions = [
+        "person-reader-stance", "contraction-negation", "qualification-hedging",
+        "questions-imperatives-vocatives", "opponents-allies-sources",
+        "profanity-vulgarity", "self-reference-biography", "interruption-punctuation",
+        "figures-analogy", "openings-endings-closure",
+      ];
+      t.check("voice-draft: names all ten voice-profile/2 coverage dimensions",
+        coverageDimensions.every((dimension) => prompt.includes(`\`${dimension}\``)),
+        coverageDimensions.filter((dimension) => !prompt.includes(`\`${dimension}\``)).join(", "));
+      for (const status of ["rated", "described", "absent-paired", "unresolved"]) {
+        t.check(`voice-draft: defines how to process ${status} coverage`,
+          new RegExp(`\\*\\*\\\`${status}\\\`\\*\\*`).test(prompt));
+      }
+      t.check("voice-draft: resolves supported coverage through observation ids",
+        /resolve each supported entry through its `observation_ids`/.test(prompt));
+      t.check("voice-draft: remains compatible with historical voice-profile/1 inputs",
+        /older `voice-profile\/1` profiles have no coverage table[\s\S]*remain usable/.test(prompt));
+      t.check("voice-draft: silently dropping any supported instruction requires an omission record",
+        /whether its status is `rated`, `described`, or `absent-paired`[\s\S]*put it in `omitted`/.test(prompt));
+      t.check("voice-draft: v2 omissions identify the dimension and every observation",
+        /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
+
       if (shipped && fsExists(rendered)) {
         const strip = (s) => s.replace(/^---\n[\s\S]*?\n---\n/, "");
         t.check("voice-draft: rendered body is byte-identical to primitives/ source (AGENTS.md rule 1)",
@@ -69,6 +94,68 @@ export async function run(t, { HERE }) {
       }
     } else {
       t.check("voice-draft: agent.md exists", false);
+    }
+  }
+
+  t.group("voice-draft prompt regressions — known silent failures have explicit final checks");
+  {
+    const agentPath = resolve(HERE, "..", "..", "..", "primitives", "agents", "voice-draft", "agent.md");
+    const src = fsRead(agentPath, "utf8").toLowerCase();
+    const fixturePath = resolve(HERE, "fixtures", "voice-draft-regressions", "safeguards.json");
+    t.check("the five drafter safeguard regressions are checked in", fsExists(fixturePath), fixturePath);
+    const fixture = fsExists(fixturePath)
+      ? JSON.parse(fsRead(fixturePath, "utf8"))
+      : { schema: null, cases: [] };
+    t.check("drafter safeguards use the versioned regression-fixture schema",
+      fixture.schema === "voice-draft-regressions/1");
+    const expected = [
+      "fabricated-first-person-employer",
+      "possessive-pronoun-referent-slip",
+      "dropped-rated-parentheticals",
+      "dropped-rated-figure-vocabulary",
+      "positive-rate-hides-counted-absence",
+    ];
+    const ids = fixture.cases.map((c) => c.id);
+    t.check("the regression fixture covers all five measured failures exactly once",
+      JSON.stringify(ids.sort()) === JSON.stringify([...expected].sort()), ids.join(", "));
+    t.check("every safeguard fixture ties a bad draft to coverage evidence and an expected action",
+      fixture.cases.every((c) => c.coverage_dimension && c.coverage_status
+        && c.profile_evidence && c.bad_draft && c.expected_safeguard));
+    const byId = Object.fromEntries(fixture.cases.map((c) => [c.id, c]));
+    t.check("the biography regression lacks profile support for the invented employer",
+      !/employer/i.test(byId["fabricated-first-person-employer"]?.profile_evidence ?? "")
+        && /employer/i.test(byId["fabricated-first-person-employer"]?.bad_draft ?? ""));
+    t.check("the referent regression contains the your-to-our ownership slip",
+      /\byour\b/i.test(byId["possessive-pronoun-referent-slip"]?.bad_draft ?? "")
+        && /\bour\b/i.test(byId["possessive-pronoun-referent-slip"]?.bad_draft ?? ""));
+    t.check("the interruption regression is a rated non-zero parenthetical dropped to zero",
+      byId["dropped-rated-parentheticals"]?.coverage_status === "rated"
+        && /5\.05 per 1,000/i.test(byId["dropped-rated-parentheticals"]?.profile_evidence ?? "")
+        && /\bno round-bracketed span\b/i.test(byId["dropped-rated-parentheticals"]?.bad_draft ?? ""));
+    t.check("the figure regression distinguishes rated vocabulary from generic analogy",
+      /vocabulary at 0\.80 per 1,000/i.test(byId["dropped-rated-figure-vocabulary"]?.profile_evidence ?? "")
+        && /none of the referenced figure vocabulary/i.test(byId["dropped-rated-figure-vocabulary"]?.bad_draft ?? ""));
+    t.check("the absence regression can pass the positive rate while failing its pair",
+      byId["positive-rate-hides-counted-absence"]?.coverage_status === "absent-paired"
+        && /contraction rate is in band/i.test(byId["positive-rate-hides-counted-absence"]?.bad_draft ?? "")
+        && /uncontracted negatives recur/i.test(byId["positive-rate-hides-counted-absence"]?.bad_draft ?? ""));
+
+    const policies = [
+      ["first-person grammar does not invent biography",
+        /first person is grammar, not biography[\s\S]*never invent an employer/],
+      ["unsupported author facts are removed rather than laundered through claims",
+        /if it is unsupported, remove or recast it[\s\S]*does not license making one up/],
+      ["the final pronoun pass checks ownership and inclusive groups",
+        /final pronoun and referent check[\s\S]*person, number, ownership, or inclusive group/],
+      ["rated parentheticals are counted rather than remembered",
+        /interruption-punctuation[\s\S]*count rated parenthetical spans/],
+      ["rated figure vocabulary cannot be replaced by a generic comparison",
+        /figures-analogy[\s\S]*generic comparison does not satisfy a rated lexical register/],
+      ["counted absences are checked separately from their positive replacement",
+        /absent-paired[\s\S]*count the absent form and its positive replacement separately/],
+    ];
+    for (const [label, pattern] of policies) {
+      t.check(`voice-draft: ${label}`, pattern.test(src));
     }
   }
 

@@ -259,7 +259,40 @@ So before writing section 4, go through these deliberately. **Each is a question
 
 Any dimension where the corpus is consistent is worth an observation, with its count and its frequency. Any dimension where the corpus is silent or mixed is worth a line in section 8 rather than a guess.
 
-**Do not report the checklist itself.** It is a procedure, not output.
+The checklist is now part of a larger fixed coverage pass. **Do not turn that pass into
+ten prescribed habits.** It is ten questions whose answers may be measured, described,
+paired with a positive replacement, or honestly left unresolved. The observations still
+come only from this corpus.
+
+## The coverage pass — no dimension disappears silently
+
+Before writing, make a row for every dimension below. Work each row against the whole
+corpus even when nothing memorable stood out while reading:
+
+1. person, number, and reader stance
+2. contraction and negation form
+3. qualification and hedging
+4. questions, imperatives, and vocatives
+5. named opponents, allies, and sources
+6. profanity and vulgarity
+7. self-reference and biographical stance
+8. interruption punctuation
+9. figures, analogy vocabulary, and function
+10. openings, paragraph endings, and closure
+
+Give each row exactly one status in the JSON:
+
+- `rated` — at least one cited observation for the dimension has an enumerated rate;
+- `described` — the evidence supports a cited qualitative observation, but no honest
+  enumerable component exists;
+- `absent-paired` — a counted absence is paired with the counted positive habit that
+  occupies its place;
+- `unresolved` — the corpus cannot support an instruction. State why; do not invent one.
+
+Every status except `unresolved` references the observation IDs that support it. An
+`unresolved` row instead carries a non-empty `unresolved_reason`. Coverage is an audit of
+what you checked, not another section of prose, and it must never cause you to assert a
+habit the corpus does not show.
 
 ### Section 7 is the one that can go wrong
 
@@ -332,18 +365,43 @@ Second, a ```json fence, matched exactly:
 
 ```json
 {
-  "schema": "voice-profile/1",
+  "schema": "voice-profile/2",
   "profile": "<profile-dir-name>",
   "confidence": "full",
-  "samples_used": ["sample-04.txt"],
+  "corpus_words": 12000,
+  "samples_used": ["piece-a.txt", "piece-b.txt", "piece-c.txt", "piece-d.txt", "piece-e.txt",
+    "piece-f.txt", "piece-g.txt", "piece-h.txt", "piece-i.txt", "piece-j.txt"],
   "samples_excluded": [
     { "file": "notes.txt", "reason": "no provenance frontmatter" }
   ],
   "voice_card": "empty",
   "observations": [
-    { "id": "o01", "section": "cadence", "support": 8, "of": 10 },
+    { "id": "o01", "section": "openings", "support": 8, "of": 10 },
     { "id": "o02", "section": "address", "support": 10, "of": 10,
-      "rate": { "count": 47, "per_1000_words": 3.90 } }
+      "rate": { "count": 24, "per_1000_words": 2.00,
+        "counting_rule": "Count only the named grammatical form outside quoted material." } }
+  ],
+  "coverage": [
+    { "dimension": "person-reader-stance", "status": "rated",
+      "observation_ids": ["o02"] },
+    { "dimension": "contraction-negation", "status": "unresolved",
+      "unresolved_reason": "The usable samples do not settle which form belongs to this register." },
+    { "dimension": "qualification-hedging", "status": "unresolved",
+      "unresolved_reason": "The corpus does not establish a stable form of qualification." },
+    { "dimension": "questions-imperatives-vocatives", "status": "unresolved",
+      "unresolved_reason": "The corpus does not establish a stable instruction for direct address." },
+    { "dimension": "opponents-allies-sources", "status": "unresolved",
+      "unresolved_reason": "The corpus does not establish a stable attribution pattern." },
+    { "dimension": "profanity-vulgarity", "status": "unresolved",
+      "unresolved_reason": "The corpus supplies no stable instruction for this register." },
+    { "dimension": "self-reference-biography", "status": "unresolved",
+      "unresolved_reason": "The corpus does not establish a stable biographical stance." },
+    { "dimension": "interruption-punctuation", "status": "unresolved",
+      "unresolved_reason": "The corpus does not distinguish authorial from editorial interruptions." },
+    { "dimension": "figures-analogy", "status": "unresolved",
+      "unresolved_reason": "No enumerable or stable qualitative figure pattern is supported." },
+    { "dimension": "openings-endings-closure", "status": "described",
+      "observation_ids": ["o01"] }
   ],
   "observations_dropped": 4,
   "multiple_voices_suspected": false
@@ -356,15 +414,27 @@ Second, a ```json fence, matched exactly:
 - `confidence` is `full` at 10 or more usable samples and `thin` at 5 to 9. It follows from the count; it is not a judgement you make.
 - `voice_card` is one of `empty`, `corroborating`, or `contradicted`.
 - `samples_used` lists filenames only, never paths, never content.
+- `corpus_words` is the exact total number of body words in `samples_used`; frontmatter is
+  excluded. `per_1000_words` MUST equal `count / corpus_words * 1000`, rounded to two
+  decimal places.
 - `rate` is OPTIONAL and appears only on observations you actually counted. It carries
-  exactly `count` and `per_1000_words`, both positive, and `count` can never be smaller
-  than `support` — a habit found in ten samples has at least ten instances.
+  exactly `count`, `per_1000_words`, and `counting_rule`. The rule is a reproducible,
+  non-empty sentence and appears verbatim in the observation's prose paragraph. A
+  positive habit's `count` can never be smaller than `support` — a habit found in ten
+  samples has at least ten instances.
+- `coverage` contains the ten fixed dimensions exactly once. A `rated` row references at
+  least one observation with a rate. A `described` row references cited observations.
+  An `unresolved` row carries only its reason.
+- An `absent-paired` row references both sides in `observation_ids` and also names them as
+  `positive_observation_id` and `absence_observation_id`. Both observations carry rates
+  and counting rules. The absence count may be zero; its support still records how many
+  samples establish the absence. The positive and absence IDs must differ.
 - No key beyond these appears. No hash fields.
 
 **A refusal is a different shape, not a render with a flag added.** Emit the json fence alone — no markdown fence — carrying exactly three keys and nothing else:
 
 ```json
-{ "schema": "voice-profile/1", "profile": "<profile-dir-name>", "refused": "the reason, and the evidence for it" }
+{ "schema": "voice-profile/2", "profile": "<profile-dir-name>", "refused": "the reason, and the evidence for it" }
 ```
 
 Put the whole account of why in `refused`. No `observations`, no `samples_used`, no `confidence` — a caller must not be able to read a profile off a refusal.

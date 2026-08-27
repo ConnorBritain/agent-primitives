@@ -11,12 +11,12 @@
 # skill. Skills live in the bundle only (CONTRIBUTING, "Surfaces"), are auto-
 # discovered, and this bundle's plugin.json points at the whole skills/ directory
 # — so a skill added here ships on merge, and there is no ships: false for it.
-# PI-02 requires that nothing generate under a bar that does not exist until S5.
+# PI-02 required that nothing ship before the preregistered bar exists and clears.
 # An agent can be held; a skill cannot. See .planning/PI-02-S3-design.md D1.
 #
-# TO LIFT THE HOLD: S5 pre-registers a ship bar and S6 clears it. Then render into
-# bundles/prose-author/agents/, add to all four manifests and the marketplace
-# entry, bump the bundle version, flip ships: true, and give the shipped
+# TO LIFT THE HOLD: the ship bar is pre-registered. The final v0.2 implementation
+# must clear a fresh two-corpus, 20-draft acceptance run. Then render into the bundle,
+# update its supported manifests, bump the version, flip ships: true, and give the shipped
 # prose-draft skill a blank-page path that spawns this agent (CONTRIBUTING's
 # "a skill that spawns the agent"). The parity guard in the bundle selftest
 # already carries the shipped branch.
@@ -24,7 +24,7 @@
 name: voice-draft
 kind: author
 ships: false
-held_reason: no ship bar exists yet; PI-02 S5 pre-registers one before any acceptance run
+held_reason: final coverage-aware implementation has not yet cleared the locked v0.2.0 acceptance run
 held_since: 2026-08-07
 surface: agent
 bundle: prose-author

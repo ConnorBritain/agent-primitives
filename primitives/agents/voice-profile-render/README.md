@@ -6,18 +6,15 @@ to the drafter every time.
 
 ## Status
 
-**Held.** `ships: false` since 2026-08-07. Authored under PI-02 S2; there is no
+**Held pending the locked v0.2.0 acceptance run.** `ships: false` since 2026-08-07. There is no
 rendered copy under `bundles/prose-author/agents/`, no manifest entry, and no
 marketplace entry. The gap between `primitives/` and `bundles/` is the hold.
 
-The hold is not a quality judgement. **S2's exit was met on 2026-08-07** — the rendered
-Chekhov profile was read by the author and confirmed to read as Chekhov, alongside the
-machine checks. **What does not exist is a ship bar.** PI-02 sequences the
-bar into S5, pre-registered before any acceptance run, and S2 deliberately did not
-write one — a bar authored by the same person in the same sitting as the primitive is
-a bar shaped to be cleared. The authoring tests (positive, negative, stability,
-firewall, schema) are recorded in the S2 run directory under
-`bundles/prose-author/tests/runs/`, and they are authoring tests, not acceptance.
+The ship bar now exists and remains unchanged. The final `voice-profile/2` renderer must
+produce three valid renders for each of the two licensed modern corpora, and the complete
+profile-to-draft pipeline must clear all twenty preregistered draft cells. Until that fresh
+evidence exists, the primitive remains source-only. Historical authoring tests remain
+evidence about their pinned prompts, not acceptance evidence for the current prompt.
 
 Design decisions, including two deviations from PI-02.md, are in
 `.planning/PI-02-S2-design.md`.
@@ -193,10 +190,9 @@ is real and irrelevant.
   only substantial single-author corpus this repo has. It is a real caveat for the
   fixture and not a defect in the primitive — a user's own corpus has no translator.
 
-- **Never measured on a real person's writing.** Same gap `prose-author` and
-  `prose-voice-critic` both declare, for the same reason: measuring "did this describe
-  how they actually write" needs one author's corpus with provenance discipline, and
-  this repo has public-domain fiction and letters instead.
+- **No private user corpus is part of the release gate.** The locked v0.2.0 run uses two
+  modern, licensed, public corpora. That can test the mechanism without establishing how
+  it works on a particular user's private writing.
 
 - **Stability is tested, not guaranteed.** Two renders of the same corpus produce the
   same section structure and substantially overlapping observations. They do not
@@ -215,8 +211,7 @@ is real and irrelevant.
   the count is right — that would need the corpus scan the primitive is deliberately
   not carrying. A miscount is a real failure mode and only a human spot-check finds it.
 
-- **No ship bar.** See *Status*. The primitive is authored and tested; it has not been
-  measured against a pre-registered standard, because none exists until PI-02 S5.
+- **The current implementation has not cleared its locked ship bar yet.** See *Status*.
 
 - **Never claims a draft will sound like the author.** Nor that a draft is good, nor
   that anything would pass a detector. The first is the one judgement the author is

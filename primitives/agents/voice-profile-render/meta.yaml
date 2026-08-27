@@ -8,17 +8,14 @@
 # source, bundles/ is the deployment, and the gap between them is the hold. Same
 # shape as prose-pattern-critic and as prose-reviser during its own hold.
 #
-# TO LIFT THE HOLD: PI-02 S5 must first pre-register a ship bar — none exists yet,
-# and S2 deliberately did not write one. Then render into bundles/prose-author/agents/,
-# add to all four manifests and the marketplace entry, bump the bundle version, and
-# flip ships: true. The parity guard in bundles/prose-author/tests/selftest.mjs
-# already carries the shipped branch, so a bad lift fails the gate rather than
-# needing the check written after the fact.
+# TO LIFT THE HOLD: the pre-registered bar now exists. The final v0.2 implementation
+# must clear its fresh two-corpus, 20-draft acceptance run before packaging. A miss
+# keeps this source-only; a pass permits the rendered bundle copy and ships: true.
 
 name: voice-profile-render
 kind: author
 ships: false
-held_reason: no ship bar exists yet; PI-02 S5 pre-registers one before any acceptance run
+held_reason: final voice-profile/2 implementation has not yet cleared the locked v0.2.0 acceptance run
 held_since: 2026-08-07
 surface: agent
 bundle: prose-author

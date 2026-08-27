@@ -1,0 +1,45 @@
+{
+  "schema": "voice-draft-regressions/1",
+  "cases": [
+    {
+      "id": "fabricated-first-person-employer",
+      "coverage_dimension": "self-reference-biography",
+      "coverage_status": "described",
+      "profile_evidence": "The writer sometimes enters an argument in the first person; the profile contains no employment history.",
+      "bad_draft": "At my employer's annual training, I watched this policy fail in real time.",
+      "expected_safeguard": "remove-unsupported-biography-or-record-supported-checkable-claim"
+    },
+    {
+      "id": "possessive-pronoun-referent-slip",
+      "coverage_dimension": "person-reader-stance",
+      "coverage_status": "rated",
+      "profile_evidence": "The draft addresses an individual reader as you while placing writer and reader together only for shared civic action.",
+      "bad_draft": "The bank can freeze your account in the hours between owning our money and getting it back.",
+      "expected_safeguard": "repair-person-number-ownership-or-inclusive-group"
+    },
+    {
+      "id": "dropped-rated-parentheticals",
+      "coverage_dimension": "interruption-punctuation",
+      "coverage_status": "rated",
+      "profile_evidence": "Round-bracketed asides occur at 5.05 per 1,000 words under the profile's counting rule.",
+      "bad_draft": "A smooth eight-hundred-word draft with no round-bracketed span.",
+      "expected_safeguard": "count-and-revise-to-measured-band"
+    },
+    {
+      "id": "dropped-rated-figure-vocabulary",
+      "coverage_dimension": "figures-analogy",
+      "coverage_status": "rated",
+      "profile_evidence": "Figures use a measured body-and-indignity vocabulary at 0.80 per 1,000 words.",
+      "bad_draft": "The draft contains abstract comparisons but none of the referenced figure vocabulary.",
+      "expected_safeguard": "count-referenced-vocabulary-not-generic-analogy"
+    },
+    {
+      "id": "positive-rate-hides-counted-absence",
+      "coverage_dimension": "contraction-negation",
+      "coverage_status": "absent-paired",
+      "profile_evidence": "Contractions are rated throughout; uncommon uncontracted forms have a separate near-zero count.",
+      "bad_draft": "The contraction rate is in band, but uncommon uncontracted negatives recur eight times.",
+      "expected_safeguard": "count-positive-and-absent-forms-separately"
+    }
+  ]
+}

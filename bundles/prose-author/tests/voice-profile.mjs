@@ -23,7 +23,28 @@ import { join } from "node:path";
 import { parseFences } from "./fences.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 
-export const SCHEMA_ID = "voice-profile/1";
+export const SCHEMA_ID_V1 = "voice-profile/1";
+export const SCHEMA_ID = "voice-profile/2";
+export const SCHEMA_IDS = [SCHEMA_ID_V1, SCHEMA_ID];
+
+/**
+ * Coverage is deliberately fixed while observations remain corpus-derived. These are
+ * questions every render must answer, not habits every author is expected to have.
+ */
+export const COVERAGE_DIMENSIONS = [
+  "person-reader-stance",
+  "contraction-negation",
+  "qualification-hedging",
+  "questions-imperatives-vocatives",
+  "opponents-allies-sources",
+  "profanity-vulgarity",
+  "self-reference-biography",
+  "interruption-punctuation",
+  "figures-analogy",
+  "openings-endings-closure",
+];
+
+export const COVERAGE_STATUSES = ["rated", "described", "absent-paired", "unresolved"];
 
 /** Sections the renderer may emit. It may not add to this list. */
 export const SECTIONS = [
@@ -71,14 +92,16 @@ export const REFUSE_BELOW = 5; // the floor calibrate.mjs refuses at
 export const FULL_AT = 10; // CORPUS_MINIMUM in exemplars.mjs
 export const REFUSE_ABOVE = 50; // past a whole read; sampling nobody can see
 
-const RENDER_KEYS = [
+const RENDER_KEYS_V1 = [
   "schema", "profile", "confidence", "samples_used", "samples_excluded",
   "voice_card", "observations", "observations_dropped", "multiple_voices_suspected",
 ];
+const RENDER_KEYS_V2 = [...RENDER_KEYS_V1, "corpus_words", "coverage"];
 const REFUSAL_KEYS = ["schema", "profile", "refused"];
 
 const isInt = (v) => Number.isInteger(v);
 const isStr = (v) => typeof v === "string" && v.length > 0;
+const isText = (v) => typeof v === "string" && v.trim().length > 0;
 
 /**
  * Validate an emitted voice-profile JSON block.
@@ -242,7 +265,10 @@ export function validateVoiceProfile(obj, markdown = "") {
     return { ok: false, refusal: false, errors: ["not a json object"] };
   }
 
-  if (obj.schema !== SCHEMA_ID) err(`schema must be "${SCHEMA_ID}", got ${JSON.stringify(obj.schema)}`);
+  if (!SCHEMA_IDS.includes(obj.schema)) {
+    err(`schema must be one of ${SCHEMA_IDS.join("|")}, got ${JSON.stringify(obj.schema)}`);
+  }
+  const v2 = obj.schema === SCHEMA_ID;
   if (!isStr(obj.profile)) err("profile must be a non-empty string");
 
   // A refusal is a DIFFERENT SHAPE, not a render with a flag bolted on. Keeping the
@@ -257,11 +283,19 @@ export function validateVoiceProfile(obj, markdown = "") {
     return { ok: errors.length === 0, refusal: true, errors };
   }
 
+  const renderKeys = v2 ? RENDER_KEYS_V2 : RENDER_KEYS_V1;
   for (const k of Object.keys(obj)) {
-    if (!RENDER_KEYS.includes(k)) err(`key not in the output contract: ${k}`);
+    if (!renderKeys.includes(k)) err(`key not in the output contract: ${k}`);
   }
-  for (const k of RENDER_KEYS) {
+  for (const k of renderKeys) {
     if (!Object.hasOwn(obj, k)) err(`missing required key: ${k}`);
+  }
+
+  if (v2 && (!isInt(obj.corpus_words) || obj.corpus_words < 1)) {
+    err("corpus_words must be a positive integer");
+  }
+  if (v2 && markdown.trim() === "") {
+    err("voice-profile/2 render must include its markdown profile");
   }
 
   if (!CONFIDENCE.includes(obj.confidence)) err(`confidence must be one of ${CONFIDENCE.join("|")}`);
@@ -296,6 +330,72 @@ export function validateVoiceProfile(obj, markdown = "") {
     for (const e of obj.samples_excluded) {
       if (!e || typeof e !== "object" || !isStr(e.file) || !isStr(e.reason)) {
         err("each samples_excluded entry needs a file and a reason");
+      }
+    }
+  }
+
+  // Validate coverage before rates: an absent observation is the one legitimate case
+  // where an enumerated count may be zero.
+  const absenceObservationIds = new Set();
+  const coverage = obj.coverage;
+  if (v2) {
+    if (!Array.isArray(coverage)) {
+      err("coverage must be an array");
+    } else {
+      const seen = new Set();
+      for (const [i, c] of coverage.entries()) {
+        const at = `coverage[${i}]`;
+        if (!c || typeof c !== "object" || Array.isArray(c)) {
+          err(`${at} is not an object`);
+          continue;
+        }
+        const allowed = c.status === "unresolved"
+          ? ["dimension", "status", "unresolved_reason"]
+          : c.status === "absent-paired"
+            ? ["dimension", "status", "observation_ids", "positive_observation_id", "absence_observation_id"]
+            : ["dimension", "status", "observation_ids"];
+        for (const k of Object.keys(c)) {
+          if (!allowed.includes(k)) err(`${at} has key not in contract: ${k}`);
+        }
+        if (!COVERAGE_DIMENSIONS.includes(c.dimension)) {
+          err(`${at}.dimension ${JSON.stringify(c.dimension)} is not a fixed coverage dimension`);
+        } else if (seen.has(c.dimension)) {
+          err(`${at}.dimension is duplicated: ${c.dimension}`);
+        } else {
+          seen.add(c.dimension);
+        }
+        if (!COVERAGE_STATUSES.includes(c.status)) {
+          err(`${at}.status must be one of ${COVERAGE_STATUSES.join("|")}`);
+          continue;
+        }
+        if (c.status === "unresolved") {
+          if (!isText(c.unresolved_reason)) err(`${at}.unresolved_reason must explain why the dimension is unresolved`);
+          continue;
+        }
+        if (!Array.isArray(c.observation_ids) || c.observation_ids.length === 0 || !c.observation_ids.every(isStr)) {
+          err(`${at}.observation_ids must be a non-empty array of observation ids`);
+        } else if (new Set(c.observation_ids).size !== c.observation_ids.length) {
+          err(`${at}.observation_ids contains duplicates`);
+        }
+        if (c.status === "absent-paired") {
+          if (!isStr(c.positive_observation_id) || !c.observation_ids?.includes(c.positive_observation_id)) {
+            err(`${at}.positive_observation_id must name one of observation_ids`);
+          }
+          if (!isStr(c.absence_observation_id) || !c.observation_ids?.includes(c.absence_observation_id)) {
+            err(`${at}.absence_observation_id must name one of observation_ids`);
+          } else {
+            absenceObservationIds.add(c.absence_observation_id);
+          }
+          if (c.positive_observation_id === c.absence_observation_id) {
+            err(`${at} must use different observations for the positive habit and its absence`);
+          }
+        }
+      }
+      for (const dimension of COVERAGE_DIMENSIONS) {
+        if (!seen.has(dimension)) err(`coverage silently omits required dimension: ${dimension}`);
+      }
+      if (coverage.length !== COVERAGE_DIMENSIONS.length) {
+        err(`coverage must contain exactly ${COVERAGE_DIMENSIONS.length} dimensions`);
       }
     }
   }
@@ -345,12 +445,15 @@ export function validateVoiceProfile(obj, markdown = "") {
         if (!r || typeof r !== "object" || Array.isArray(r)) {
           err(`${at}.rate must be an object`);
         } else {
+          const rateKeys = v2 ? ["count", "per_1000_words", "counting_rule"] : ["count", "per_1000_words"];
           for (const k of Object.keys(r)) {
-            if (!["count", "per_1000_words"].includes(k)) err(`${at}.rate has key not in contract: ${k}`);
+            if (!rateKeys.includes(k)) err(`${at}.rate has key not in contract: ${k}`);
           }
           if (!isInt(r.count)) err(`${at}.rate.count must be an integer`);
-          if (typeof r.per_1000_words !== "number" || !Number.isFinite(r.per_1000_words) || r.per_1000_words <= 0) {
-            err(`${at}.rate.per_1000_words must be a positive number`);
+          const isAbsence = absenceObservationIds.has(o.id);
+          if (typeof r.per_1000_words !== "number" || !Number.isFinite(r.per_1000_words)
+              || (isAbsence ? r.per_1000_words < 0 : r.per_1000_words <= 0)) {
+            err(`${at}.rate.per_1000_words must be ${isAbsence ? "a non-negative" : "a positive"} number`);
           }
           // An observation supported by n samples cannot have fewer than n instances.
           //
@@ -358,8 +461,23 @@ export function validateVoiceProfile(obj, markdown = "") {
           // required to be >= 1, so a count of zero always fails here. The separate
           // `count >= 1` test was dead - a mutation removing it killed nothing, which is
           // how it was found. One assertion, not two overlapping ones.
-          if (isInt(r.count) && isInt(o.support) && r.count < o.support) {
+          if (isInt(r.count) && !isAbsence && isInt(o.support) && r.count < o.support) {
             err(`${at}.rate.count is ${r.count} but the habit is claimed in ${o.support} samples (a count of zero is an absence, not a habit)`);
+          }
+          if (isInt(r.count) && isAbsence && r.count < 0) {
+            err(`${at}.rate.count must be a non-negative integer for an absence`);
+          }
+          if (v2 && !isText(r.counting_rule)) {
+            err(`${at}.rate.counting_rule must be a reproducible non-empty rule`);
+          } else if (v2 && !markdown.includes(r.counting_rule)) {
+            err(`${at}.rate.counting_rule is unlocatable in the profile prose`);
+          }
+          if (v2 && isInt(r.count) && typeof r.per_1000_words === "number"
+              && Number.isFinite(r.per_1000_words) && isInt(obj.corpus_words) && obj.corpus_words > 0) {
+            const expected = (r.count / obj.corpus_words) * 1000;
+            if (Math.abs(r.per_1000_words - expected) > Math.max(0.01, expected * 0.005)) {
+              err(`${at}.rate arithmetic is invalid: ${r.count} occurrences over ${obj.corpus_words} words is ${Math.round(expected * 100) / 100} per 1000 words`);
+            }
           }
         }
       }
@@ -373,6 +491,31 @@ export function validateVoiceProfile(obj, markdown = "") {
         const pattern = new RegExp(`\\b${o.support}\\s*/\\s*${o.of}\\b`);
         if (!pattern.test(markdown)) {
           err(`observations[${i}] claims ${o.support}/${o.of}, which appears nowhere in the profile prose`);
+        }
+      }
+    }
+
+    if (v2 && Array.isArray(coverage)) {
+      const ids = new Set(obs.filter((o) => o && typeof o === "object" && isStr(o.id)).map((o) => o.id));
+      const byId = new Map(obs.filter((o) => o && typeof o === "object" && isStr(o.id)).map((o) => [o.id, o]));
+      for (const [i, c] of coverage.entries()) {
+        if (!c || typeof c !== "object" || !Array.isArray(c.observation_ids)) continue;
+        for (const id of c.observation_ids) {
+          if (!ids.has(id)) err(`coverage[${i}] has dangling observation reference: ${id}`);
+        }
+        if (c.status === "rated" && !c.observation_ids.some((id) => byId.get(id)?.rate)) {
+          err(`coverage[${i}] is rated but none of its observations carries a rate`);
+        }
+        if (c.status === "described" && c.observation_ids.some((id) => byId.get(id)?.rate)) {
+          err(`coverage[${i}] is described but references a rated observation`);
+        }
+        if (c.status === "absent-paired") {
+          if (!byId.get(c.positive_observation_id)?.rate) {
+            err(`coverage[${i}] positive replacement must carry a counted rate`);
+          }
+          if (!byId.get(c.absence_observation_id)?.rate) {
+            err(`coverage[${i}] absence must carry a counted rate`);
+          }
         }
       }
     }

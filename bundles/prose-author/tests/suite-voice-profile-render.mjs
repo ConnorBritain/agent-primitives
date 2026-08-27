@@ -14,7 +14,9 @@ import {
   validateVoiceProfile, corpusLock, parseRender,
   checkFrequencyDiscipline, FREQUENCIES,
   checkRateArithmetic, checkFrequencyAgainstRate,
+  COVERAGE_DIMENSIONS,
 } from "./voice-profile.mjs";
+import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 import {
   fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
@@ -327,6 +329,122 @@ export async function run(t, { tmp, HERE }) {
     }
   }
 
+  t.group("voice-profile/2 coverage — every fixed question receives an evidence status");
+  {
+    const rule = "Count the named form outside quoted material.";
+    const base = () => {
+      const observations = COVERAGE_DIMENSIONS.map((_, i) => ({
+        id: `o${String(i + 1).padStart(2, "0")}`,
+        section: i === 9 ? "openings" : "address",
+        support: 10,
+        of: 10,
+      }));
+      observations[0].rate = { count: 20, per_1000_words: 2, counting_rule: rule };
+      return {
+        schema: "voice-profile/2",
+        profile: "coverage-fixture",
+        confidence: "full",
+        corpus_words: 10000,
+        samples_used: Array.from({ length: 10 }, (_, i) => `s${i}.txt`),
+        samples_excluded: [],
+        voice_card: "empty",
+        observations,
+        coverage: COVERAGE_DIMENSIONS.map((dimension, i) => ({
+          dimension,
+          status: i === 0 ? "rated" : "described",
+          observation_ids: [observations[i].id],
+        })),
+        observations_dropped: 2,
+        multiple_voices_suspected: false,
+      };
+    };
+    const md = `Each observation is established in 10/10 samples. ${rule}`;
+
+    t.check("a complete voice-profile/2 render validates", validateVoiceProfile(base(), md).ok);
+    t.check("a voice-profile/2 json block without its prose is rejected",
+      validateVoiceProfile(base()).errors.some((e) => /must include its markdown profile/.test(e)));
+
+    {
+      const o = base();
+      o.coverage.pop();
+      const r = validateVoiceProfile(o, md);
+      t.check("silently omitting one fixed coverage dimension is rejected",
+        !r.ok && r.errors.some((e) => /silently omits required dimension/.test(e)));
+    }
+
+    {
+      const o = base();
+      o.coverage[2].observation_ids = ["o404"];
+      const r = validateVoiceProfile(o, md);
+      t.check("a dangling coverage observation reference is rejected",
+        !r.ok && r.errors.some((e) => /dangling observation reference/.test(e)));
+    }
+
+    {
+      const o = base();
+      o.coverage[0].status = "described";
+      const r = validateVoiceProfile(o, md);
+      t.check("a described dimension cannot hide a rate that makes it rated",
+        !r.ok && r.errors.some((e) => /described but references a rated observation/.test(e)));
+    }
+
+    {
+      const o = base();
+      o.observations[0].rate.counting_rule = "A rule absent from the prose.";
+      const r = validateVoiceProfile(o, md);
+      t.check("a counting rule that cannot be located in the profile prose is rejected",
+        !r.ok && r.errors.some((e) => /counting_rule is unlocatable/.test(e)));
+    }
+
+    {
+      const o = base();
+      delete o.observations[0].rate.counting_rule;
+      const r = validateVoiceProfile(o, md);
+      t.check("a rated observation without a reproducible counting rule is rejected",
+        !r.ok && r.errors.some((e) => /counting_rule must be a reproducible/.test(e)));
+    }
+
+    {
+      const o = base();
+      o.observations[0].rate.per_1000_words = 8;
+      const r = validateVoiceProfile(o, md);
+      t.check("invalid v2 rate arithmetic is rejected from the self-contained render",
+        !r.ok && r.errors.some((e) => /rate arithmetic is invalid/.test(e)));
+    }
+
+    {
+      const o = base();
+      o.observations.push({
+        id: "o11", section: "absences", support: 10, of: 10,
+        rate: { count: 0, per_1000_words: 0, counting_rule: rule },
+      });
+      o.coverage[1] = {
+        dimension: COVERAGE_DIMENSIONS[1],
+        status: "absent-paired",
+        observation_ids: ["o01", "o11"],
+        positive_observation_id: "o01",
+        absence_observation_id: "o11",
+      };
+      t.check("a zero counted absence validates only when paired to a counted positive habit",
+        validateVoiceProfile(o, md).ok);
+
+      delete o.observations[0].rate;
+      const r = validateVoiceProfile(o, md);
+      t.check("an absent-paired dimension without a counted positive replacement is rejected",
+        !r.ok && r.errors.some((e) => /positive replacement must carry a counted rate/.test(e)));
+    }
+
+    {
+      const sameParagraph = "Parenthetical phrasing interrupts the claim. Its rate is 3.2 per 1,000 words.";
+      const separateParagraphs = "Parenthetical phrasing interrupts the claim.\n\nIts rate is 3.2 per 1,000 words.";
+      const habits = [{ id: "parentheticals", pattern: /parenthetical/i }];
+      t.check("coverage analysis finds a rate in the next sentence of the same paragraph",
+        analyzeParagraphCoverage(sameParagraph, habits)[0].status === "rated");
+      t.check("coverage analysis does not borrow a rate from another paragraph",
+        analyzeParagraphCoverage(separateParagraphs, habits)[0].status === "mentioned");
+    }
+  }
+
   t.group("voice-profile rates — the number a drafter can act on");
   {
     const withRate = (rate, support = 10) => ({
@@ -538,7 +656,7 @@ export async function run(t, { tmp, HERE }) {
 
     // A run that exercises two primitives has both kinds of artefact in raw/ — FU-16's
     // holds one re-render and three drafts. Only renders are validated here; drafts are
-    // the voice-draft suite's business. Selection is by SHAPE (a voice-profile/1 json
+    // the voice-draft suite's business. Selection is by SHAPE (a supported voice-profile json
     // fence) rather than by filename, so a malformed render still gets caught instead of
     // being quietly filed as "not a render".
     const allRaw = profileRuns.flatMap((n) => {
@@ -546,7 +664,7 @@ export async function run(t, { tmp, HERE }) {
       if (!fsExists(dir)) return [];
       return readdirSync(dir).filter((f) => f.endsWith(".md")).map((f) => join(dir, f));
     });
-    const isRenderShaped = (p) => /"schema"\s*:\s*"voice-profile\/1"/.test(fsRead(p, "utf8"));
+    const isRenderShaped = (p) => /"schema"\s*:\s*"voice-profile\/(?:1|2)"/.test(fsRead(p, "utf8"));
     const found = allRaw.filter(isRenderShaped);
     const skipped = allRaw.filter((p) => !isRenderShaped(p));
     if (skipped.length) {
@@ -611,7 +729,7 @@ export async function run(t, { tmp, HERE }) {
         parsed.jsonError ?? "no json fence");
       if (parsed.json === null) continue;
       const r = validateVoiceProfile(parsed.json, parsed.markdown);
-      t.check(`${label}: validates against voice-profile/1`, r.ok, r.errors.join("; "));
+      t.check(`${label}: validates against its declared voice-profile schema`, r.ok, r.errors.join("; "));
 
       if (!r.refusal) {
         // The firewall, checked on the artefact rather than trusted from the prompt.

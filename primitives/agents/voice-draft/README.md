@@ -5,13 +5,14 @@ someone's voice does not require handing their corpus to the drafter.
 
 ## Status
 
-**Held.** `ships: false` since 2026-08-07. Authored under PI-02 S3. There is no rendered
+**Held pending the locked v0.2.0 acceptance run.** `ships: false` since 2026-08-07. There is no rendered
 copy under `bundles/prose-author/agents/`, no manifest entry, and no marketplace entry.
 The gap between `primitives/` and `bundles/` is the hold.
 
-**No ship bar exists yet.** PI-02 sequences it into S5, pre-registered before any
-acceptance run. The fixture results in `bundles/prose-author/tests/runs/` are authoring
-tests, not acceptance.
+The ship bar now exists and remains unchanged. The final coverage-aware prompt must clear
+all twenty fresh cells across two modern licensed corpora, plus both underdetermined
+refusals, before this agent is rendered into the bundle. Historical fixture results remain
+authoring evidence for their pinned prompts, not acceptance for the current prompt.
 
 Design decisions, including why this is an agent rather than an extension of the shipped
 `prose-draft` skill, are in `.planning/PI-02-S3-design.md`.
@@ -25,8 +26,8 @@ from a summary.
 It is an **agent** rather than a second skill for a reason that has nothing to do with
 taste. Skills live in the bundle only and are auto-discovered, so a skill added to this
 bundle **ships on merge**; there is no `ships: false` for one, because the hold mechanism
-*is* the absence of a bundle copy. PI-02 requires that nothing generate under a bar that
-does not exist until S5. An agent can be held. A skill cannot.
+*is* the absence of a bundle copy. PI-02 requires the generator to remain held until its
+pre-registered bar clears. An agent can be held. A skill cannot.
 
 It is named `voice-draft` because `prose-draft` is taken, and two things under one name in
 one bundle is a dispatcher ambiguity, not a cosmetic problem.
@@ -119,21 +120,20 @@ Then, specifically:
 
 ## Known limits
 
-- **No draft has yet reached the author's own baseline.** In the S3 run, `prose-voice-critic`
+- **The original S3 drafts did not reach the corpus baseline.** In that pinned run, `prose-voice-critic`
   returned 1–3 findings on profile-matched drafts against a baseline of **0 findings,
   unanimous CLEAN, on the author's real writing**. The drafts are distinguishable from the
-  author by the same instrument that judges them. Whether that gap closes is what S5's bar
-  will measure; it is not closed now, and this README will not claim otherwise.
+  author by the same instrument that judged them. The locked v0.2.0 run must establish the
+  current result before packaging; this README does not project a pass in advance.
 
 - **The profile can be silent about something that matters.** A critic in the S3 run
   flagged a matched draft for using no contractions anywhere, citing nine of ten corpus
   samples that contract densely. The profile records no contraction habit at all, so the
   drafter had no way to know. Every gap in a profile becomes a gap in the draft, invisibly.
 
-- **Never measured on a real person's writing.** Same gap `prose-author`,
-  `prose-voice-critic` and `voice-profile-render` all declare, for the same reason: this
-  repo has public-domain letters and essays, not one author's corpus with provenance
-  discipline.
+- **No private user corpus is part of the release gate.** The locked v0.2.0 run uses two
+  modern, licensed, public corpora; it does not establish performance on an individual
+  user's private writing.
 
 - **The empty tool allowlist is not reproducible in the test harness.** Test dispatches
   read two files by path under an explicit prohibition on reading anything else. The

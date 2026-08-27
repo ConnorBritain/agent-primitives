@@ -22,6 +22,7 @@ import * as loop from "./suite-loop.mjs";
 import * as corpusRates from "./suite-corpus-rates.mjs";
 import * as bar from "./suite-bar.mjs";
 import * as crossCount from "./suite-cross-count.mjs";
+import * as acceptanceRunner from "./suite-acceptance-runner.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = resolve(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
@@ -85,6 +86,7 @@ const SUITES = [
   ["corpus-rates", corpusRates],
   ["bar", bar],
   ["cross-count", crossCount],
+  ["acceptance-runner", acceptanceRunner],
 ];
 const only = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 const selected = only.length
