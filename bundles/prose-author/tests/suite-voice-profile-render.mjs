@@ -376,6 +376,20 @@ export async function run(t, { tmp, HERE }) {
         !parsed.hadMarkdownFence && parsed.markdown === md
           && validateVoiceProfile(parsed.json, parsed.markdown).ok);
     }
+    {
+      const record = base();
+      const raw = [
+        "```markdown", "<!-- voice-profile/2:profile -->", md,
+        "<!-- voice-profile/2:record -->", JSON.stringify(record), "```",
+      ].join("\n");
+      const parsed = parseRender(raw);
+      t.check("a single-fence voice-profile/2 envelope materializes prose and record",
+        parsed.hadMarkdownFence && parsed.markdown === md
+          && parsed.json?.profile_markdown === md
+          && validateVoiceProfile(parsed.json, parsed.markdown).ok);
+      t.check("a single-fence envelope rejects reversed markers",
+        parseRender(raw.replace("voice-profile/2:profile", "voice-profile/2:wrong")).json === null);
+    }
     t.check("a voice-profile/2 envelope without its prose is rejected",
       validateVoiceProfile(base()).errors.some((e) => /profile_markdown must contain/.test(e)));
     {

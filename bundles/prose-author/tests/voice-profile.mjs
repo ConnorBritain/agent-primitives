@@ -103,6 +103,8 @@ const RENDER_KEYS_V1 = [
 ];
 const RENDER_KEYS_V2 = [...RENDER_KEYS_V1, "profile_markdown", "corpus_words", "coverage"];
 const REFUSAL_KEYS = ["schema", "profile", "refused"];
+const PROFILE_MARKER = "<!-- voice-profile/2:profile -->";
+const RECORD_MARKER = "<!-- voice-profile/2:record -->";
 
 const isInt = (v) => Number.isInteger(v);
 const isStr = (v) => typeof v === "string" && v.length > 0;
@@ -633,6 +635,37 @@ export function corpusLock(profileDir, { agentPath = null } = {}) {
 /** Parse historical two-fence renders and the self-contained voice-profile/2 envelope. */
 export function parseRender(text) {
   const f = parseFences(text);
+  if (f.markdown?.includes(PROFILE_MARKER) || f.markdown?.includes(RECORD_MARKER)) {
+    const profileAt = f.markdown.indexOf(PROFILE_MARKER);
+    const recordAt = f.markdown.indexOf(RECORD_MARKER);
+    if (profileAt !== 0 || recordAt <= PROFILE_MARKER.length) {
+      return {
+        markdown: "", json: null,
+        jsonError: "voice-profile/2 envelope markers are missing, duplicated, or out of order",
+        hadMarkdownFence: f.hadMarkdown, hadJsonFence: f.hadJson,
+      };
+    }
+    const markdown = f.markdown.slice(PROFILE_MARKER.length, recordAt).trim();
+    const recordText = f.markdown.slice(recordAt + RECORD_MARKER.length).trim();
+    try {
+      const record = JSON.parse(recordText);
+      if (Object.hasOwn(record, "profile_markdown")) {
+        throw new Error("embedded record must not duplicate profile_markdown");
+      }
+      return {
+        markdown,
+        json: { ...record, profile_markdown: markdown },
+        jsonError: null,
+        hadMarkdownFence: f.hadMarkdown,
+        hadJsonFence: f.hadJson,
+      };
+    } catch (error) {
+      return {
+        markdown, json: null, jsonError: `voice-profile/2 embedded record is invalid JSON: ${error.message}`,
+        hadMarkdownFence: f.hadMarkdown, hadJsonFence: f.hadJson,
+      };
+    }
+  }
   const embedded = f.json?.schema === SCHEMA_ID && isText(f.json?.profile_markdown)
     ? f.json.profile_markdown
     : null;

@@ -377,22 +377,34 @@ If it is filled, it is the author's account of their own voice — evidence abou
 
 ## Output
 
-**ONE self-contained artifact in one `json` fence. Nothing else — no preamble, no
-closing remark.** The human profile and its machine record are inseparable. The full
-profile lives in the required `profile_markdown` string; a harness extracts that string
-into a `.md` file for the drafter and keeps the rest as the audit record. This prevents a
-successful response from carrying the coverage table while silently dropping the prose.
+**ONE self-contained artifact in one `markdown` fence. Nothing else — no preamble, no
+closing remark.** The human profile and its machine record are inseparable inside that
+fence. Two exact HTML-comment sentinels divide them. A harness extracts the prose into a
+`.md` file and parses the compact record into `voice-profile/2`; neither half can arrive
+as a successful standalone response.
 
-`profile_markdown` contains sections 1–8 above under a
-`# Voice profile — <profile name>` title. It is Markdown prose throughout, 800–1500 words;
-a profile the drafter will not read is a profile that does not work. Encode newlines and
-quotation marks as required by valid JSON. Emit this shape exactly:
+The profile contains sections 1–8 above under a `# Voice profile — <profile name>` title.
+It is Markdown prose throughout, 800–1500 words; a profile the drafter will not read is a
+profile that does not work. Do not put a code fence inside the envelope. Emit this shape
+exactly (the four-backtick wrapper below only demonstrates the required three-backtick
+output fence):
 
-```json
+````markdown
+```markdown
+<!-- voice-profile/2:profile -->
+# Voice profile — <profile name>
+
+## 1. Cadence
+
+<complete profile prose>
+
+## 8. What this profile could not determine
+
+<complete gap account>
+<!-- voice-profile/2:record -->
 {
   "schema": "voice-profile/2",
   "profile": "<profile-dir-name>",
-  "profile_markdown": "# Voice profile — <profile name>\n\n## 1. Cadence\n\n<complete profile prose>\n\n## 8. What this profile could not determine\n\n<complete gap account>",
   "confidence": "full",
   "corpus_words": 12000,
   "samples_used": ["piece-a.txt", "piece-b.txt", "piece-c.txt", "piece-d.txt", "piece-e.txt",
@@ -433,8 +445,9 @@ quotation marks as required by valid JSON. Emit this shape exactly:
   "multiple_voices_suspected": false
 }
 ```
+````
 
-- Every observation in `profile_markdown` has exactly one entry in `observations[]`, in the order it appears, and `support`/`of` MUST match the count printed in the prose. Prefer the compact numeric token `5/10`; never leave support implicit in words such as "several" or "most."
+- Every observation in the profile prose has exactly one entry in `observations[]`, in the order it appears, and `support`/`of` MUST match the count printed in the prose. Prefer the compact numeric token `5/10`; never leave support implicit in words such as "several" or "most."
 - `section` MUST be one of the eight keys given above, spelled exactly: `cadence`, `openings`, `closings`, `address`, `figures`, `register-range`, `absences`, `gaps`.
 - `of` MUST equal the length of `samples_used`.
 - `confidence` is `full` at 10 or more usable samples and `thin` at 5 to 9. It follows from the count; it is not a judgement you make.
@@ -466,4 +479,5 @@ quotation marks as required by valid JSON. Emit this shape exactly:
 
 Put the whole account of why in `refused`. No `observations`, no `samples_used`, no `confidence` — a caller must not be able to read a profile off a refusal.
 
-Terse. No commentary. One JSON fence and that is the whole output.
+Terse. No commentary. A render is one Markdown fence containing both exact sentinels and
+both artifacts. A refusal is one JSON fence. That is the whole output.

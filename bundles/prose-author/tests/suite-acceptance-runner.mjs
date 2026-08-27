@@ -44,7 +44,7 @@ export async function run(t, { HERE }) {
     const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }]);
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
     t.check("profile prompts end on the self-contained envelope contract",
-      /single voice-profile\/2 JSON envelope[\s\S]*required profile_markdown[\s\S]*one JSON fence/.test(prompt));
+      /single Markdown-fence voice-profile\/2 envelope[\s\S]*voice-profile\/2:profile[\s\S]*voice-profile\/2:record[\s\S]*one Markdown fence/.test(prompt));
     t.check("profile prompts end on a mechanical coverage-status audit",
       /audit every coverage row mechanically[\s\S]*rated if ANY referenced[\s\S]*described only if NONE/.test(prompt));
   }

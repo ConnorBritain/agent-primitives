@@ -153,9 +153,10 @@ export function profileRenderPrompt(profileId, inputs) {
     "unresolved keep their dedicated shapes; otherwise a row is rated if ANY referenced",
     "observation has rate, and described only if NONE does. Never label a row described",
     "while referencing a rated observation.",
-    "Otherwise this is a render: emit the single voice-profile/2 JSON envelope described",
-    "by the system prompt. Its required profile_markdown string contains the complete",
-    "800–1500 word profile. Emit one JSON fence and nothing else.",
+    "Otherwise this is a render: emit the single Markdown-fence voice-profile/2 envelope",
+    "described by the system prompt. Begin with <!-- voice-profile/2:profile -->, write the",
+    "complete 800–1500 word profile, then <!-- voice-profile/2:record --> and its compact",
+    "JSON audit object. Emit one Markdown fence and nothing else.",
   ].join("\n");
 }
 
