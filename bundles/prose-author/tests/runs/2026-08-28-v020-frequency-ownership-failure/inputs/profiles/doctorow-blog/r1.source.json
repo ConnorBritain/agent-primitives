@@ -1,0 +1,173 @@
+{
+  "schema": "voice-profile-source/1",
+  "voice_card": "empty",
+  "dimensions": {
+    "person-reader-stance": {
+      "observations": [
+        {
+          "section": "address",
+          "prose": "The prose addresses the reader as ‘you’ in every piece — not the instructional ‘you’ of a manual, but the ‘you’ of political solidarity. The reader is placed inside the situation being analysed: ‘it is the company’s actions, not the driver’s, that determine whether that driver gets a job’ (2026-07-11-your-risk.txt). Write ‘you’ when the reader is the person on whom the described system operates.",
+          "measurement_id": "second-person-family",
+          "frequency": "throughout"
+        },
+        {
+          "section": "address",
+          "prose": "‘We’ appears alongside ‘you’ as a co-sufferer or co-citizen pronoun: ‘We got rid of pop-ups by installing pop-up blockers’ (2026-07-21-dickovers.txt) places writer and reader together in historical action. Use ‘we’ when the claim is collective — something done or endured together — and ‘you’ when the cost falls on the reader individually. These two stances alternate within single pieces without friction.",
+          "measurement_id": "first-person-plural-family",
+          "frequency": "throughout"
+        }
+      ]
+    },
+    "contraction-negation": {
+      "observations": [
+        {
+          "section": "cadence",
+          "prose": "Contracted forms are the default register of every piece. ‘They won’t share the data,’ ‘it’s flexibility for Uber,’ ‘we’d call AI’s applications plug-ins’ — the contraction appears in nearly every sentence (2026-07-11-your-risk.txt, 2026-07-24-supplemental-income.txt). Write contracted forms throughout; uncontracted negatives belong only to formal or legal quotation reproduced within the text.",
+          "measurement_id": "contractions",
+          "frequency": "throughout"
+        },
+        {
+          "section": "absences",
+          "prose": "Uncontracted negation — ‘do not,’ ‘cannot,’ ‘will not’ — is near-absent across the corpus. Against the dense contracted baseline, an uncontracted negative would register as a formal register the prose never enters. The positive habit this replaces is the contracted form throughout; the assembler reuses that observation here.",
+          "measurement_id": "uncontracted-negatives"
+        }
+      ]
+    },
+    "qualification-hedging": {
+      "observations": [
+        {
+          "section": "register-range",
+          "prose": "When uncertainty is acknowledged, it arrives as a first-person marker rather than a hedging adverb: ‘I think the only reason this question doesn’t come up more frequently’ (2026-07-13-go-meta-meta.txt), ‘I think there’s a whole cohort of investors’ (2026-07-24-supplemental-income.txt). Most claims land without any qualification at all. If you need to hedge, write ‘I think’ or ‘I’d add’; do not reach for ‘perhaps,’ ‘arguably,’ or ‘it could be said.’",
+          "support_files": [
+            "2026-07-09-wilhoitian.txt",
+            "2026-07-11-your-risk.txt",
+            "2026-07-13-go-meta-meta.txt",
+            "2026-07-16-lucky-orifices.txt",
+            "2026-07-24-supplemental-income.txt"
+          ],
+          "frequency": "once or twice per piece"
+        }
+      ]
+    },
+    "questions-imperatives-vocatives": {
+      "observations": [
+        {
+          "section": "address",
+          "prose": "Rhetorical questions drive the argument forward and are answered in the next sentence or paragraph. ‘Why would they operate a hospital if they could go meta and sell the doctorbots to the MBAs running the hospital?’ (2026-07-13-go-meta-meta.txt). The question is never left open; it frames an answer the prose has already prepared. Pose the question, then deliver the answer in the sentence that follows it.",
+          "measurement_id": "question-marks",
+          "frequency": "several times per piece"
+        }
+      ]
+    },
+    "opponents-allies-sources": {
+      "observations": [
+        {
+          "section": "address",
+          "prose": "Named sources are handed the floor briefly, then extended or corrected: ‘As Weil writes,’ ‘As Quiggin writes,’ ‘As Tim O’Reilly writes’ — the attribution opens the engagement (2026-07-11-your-risk.txt, 2026-07-22-table-flipper.txt, 2026-07-16-lucky-orifices.txt). Opponents are also named directly: Trump, Uber, Thiel. Front-load the name when citing an ally; name the opponent before characterising their position, not after it.",
+          "support_files": [
+            "2026-07-09-wilhoitian.txt",
+            "2026-07-11-your-risk.txt",
+            "2026-07-13-go-meta-meta.txt",
+            "2026-07-14-designated-survivor.txt",
+            "2026-07-16-lucky-orifices.txt",
+            "2026-07-22-table-flipper.txt",
+            "2026-07-23-drop-a-dime.txt",
+            "2026-07-24-supplemental-income.txt"
+          ],
+          "frequency": "throughout"
+        }
+      ]
+    },
+    "profanity-vulgarity": {
+      "observations": [
+        {
+          "section": "register-range",
+          "prose": "Profanity appears in every piece but is rationed, arriving at the moment of maximum contempt or absurdity: ‘tell the cartel to fuck off’ (2026-07-09-wilhoitian.txt), ‘holy shit, is Uber’s investor relations site seriously serving ASPX pages’ (2026-07-11-your-risk.txt). The expletive marks a rupture in register that signals genuine disgust rather than rhetorical heat. Spend it once; a second use in a piece should feel more earned than the first.",
+          "measurement_id": "profanity-vulgarity",
+          "frequency": "once or twice per piece"
+        }
+      ]
+    },
+    "self-reference-biography": {
+      "observations": [
+        {
+          "section": "address",
+          "prose": "The writer enters as a named individual with history: age, illness, named friends, a daughter’s age. ‘My doctor just informed me that I am cancer free, following excision, radiotherapy and immunotherapy’ (2026-07-14-designated-survivor.txt). These biographical facts are not incidental — they anchor abstract actuarial or strategic claims in personal stakes. Place the biographical detail before the abstract claim it grounds, not as an afterthought.",
+          "measurement_id": "first-person-singular-family",
+          "frequency": "throughout"
+        }
+      ]
+    },
+    "interruption-punctuation": {
+      "observations": [
+        {
+          "section": "cadence",
+          "prose": "En-dashes handle mid-sentence interruption and parenthetical elaboration throughout the corpus, with round parentheses serving the lighter asides. Sharp pivots and qualifications that interrupt the main clause use the en-dash: ‘you become painfully aware that there are plenty of people who need your job — who will happily step in to take it’ (2026-07-10-posthuman-as-in-no-humans.txt). Write en-dashes for interruption; not em-dashes.",
+          "measurement_id": "en-dashes",
+          "frequency": "throughout"
+        },
+        {
+          "section": "absences",
+          "prose": "Em-dashes are absent from every piece in the corpus. The interruption role they would occupy is taken entirely by en-dashes and, for lighter asides, parentheses. Use en-dashes (–) for mid-sentence breaks; do not use em-dashes (—).",
+          "measurement_id": "em-dashes"
+        }
+      ]
+    },
+    "figures-analogy": {
+      "observations": [
+        {
+          "section": "figures",
+          "prose": "Analogies are built from concrete, everyday transactions — restaurants, escrow agents, markets, bears — to explain abstract economic or political structures. ‘Trump is the escrow agent who keeps the money and the deed, then announces he did it because the seller was a fentanyl dealer’ (2026-07-22-table-flipper.txt). The analogy is extended until it collapses under the target’s own absurdity. Choose a familiar transaction, run it until it exposes the logic as incoherent.",
+          "support_files": [
+            "2026-07-10-posthuman-as-in-no-humans.txt",
+            "2026-07-11-your-risk.txt",
+            "2026-07-13-go-meta-meta.txt",
+            "2026-07-16-lucky-orifices.txt",
+            "2026-07-22-table-flipper.txt",
+            "2026-07-24-supplemental-income.txt"
+          ],
+          "frequency": "several times per piece"
+        }
+      ]
+    },
+    "openings-endings-closure": {
+      "observations": [
+        {
+          "section": "openings",
+          "prose": "Pieces open in one of three shapes: an ironic framing (‘Here’s an irony’ — 2026-07-11-your-risk.txt; ‘Here’s a sentence that stopped me in my tracks’ — 2026-07-22-table-flipper.txt); a term introduced and defined (‘One of 2026’s better tech-related coinages is “dickover”’ — 2026-07-21-dickovers.txt); or a theoretical proposition immediately put under pressure (‘The theory of markets goes like this’ — 2026-07-16-lucky-orifices.txt). None begin with the central claim; all begin with the frame that makes the claim legible.",
+          "support_files": [
+            "2026-07-09-wilhoitian.txt",
+            "2026-07-10-posthuman-as-in-no-humans.txt",
+            "2026-07-11-your-risk.txt",
+            "2026-07-13-go-meta-meta.txt",
+            "2026-07-14-designated-survivor.txt",
+            "2026-07-16-lucky-orifices.txt",
+            "2026-07-21-dickovers.txt",
+            "2026-07-22-table-flipper.txt",
+            "2026-07-23-drop-a-dime.txt",
+            "2026-07-24-supplemental-income.txt"
+          ],
+          "frequency": "once or twice per piece"
+        },
+        {
+          "section": "closings",
+          "prose": "Closings return to the opening frame or compress the argument’s stakes into a single portable formulation. ‘What they call “theft” is just self-defense’ (2026-07-21-dickovers.txt). ‘Politics aren’t about who rules — it’s about whether we are ruled at all, or whether we are free’ (2026-07-09-wilhoitian.txt). The final paragraph introduces no new evidence; it turns the accumulated argument into a sentence the reader can carry away. End with the sharpest version of the thesis, not a summary of the path taken.",
+          "support_files": [
+            "2026-07-09-wilhoitian.txt",
+            "2026-07-10-posthuman-as-in-no-humans.txt",
+            "2026-07-11-your-risk.txt",
+            "2026-07-16-lucky-orifices.txt",
+            "2026-07-21-dickovers.txt",
+            "2026-07-22-table-flipper.txt",
+            "2026-07-23-drop-a-dime.txt",
+            "2026-07-24-supplemental-income.txt"
+          ],
+          "frequency": "once or twice per piece"
+        }
+      ]
+    }
+  },
+  "gaps": "The voice card was unfilled; all findings derive from the corpus alone. The corpus spans ten consecutive days in a single argumentative register — tech, economics, and politics for a returning readership. How this voice behaves in shorter forms, in fiction, in correspondence, or in sustained scholarly argument is unknown. The biographical self-reference is consistent but narrow in range; whether it deepens or recedes under different emotional conditions cannot be determined here. The round-parenthetical-spans measurement shows heavy parenthetical use across all pieces but no separate observation could be accommodated within the fourteen-observation ceiling; the assembler has the measurement available.",
+  "observations_dropped": 3,
+  "multiple_voices_suspected": false
+}
