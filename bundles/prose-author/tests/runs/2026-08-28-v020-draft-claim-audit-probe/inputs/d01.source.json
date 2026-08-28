@@ -1,0 +1,202 @@
+{
+  "schema": "voice-draft-source/2",
+  "kind": "draft",
+  "paragraphs": [
+    {
+      "sentences": [
+        {
+          "text": "\"Ownership\" is a word the industry's been quietly hollowing out for years, and I'd argue most of us haven't noticed because the hole keeps getting bigger one firmware update at a time.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "When you buy a device and the maker can reach back in and disable features after the sale, you don't own that device – you've leased it.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "You've purchased a conditional license to use it, at the manufacturer's ongoing pleasure, until you haven't.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "Think about what it meant to buy a physical object before everything got a software layer.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "The seller hands it over, the transaction closes, and their claim on it ends: that's what a sale is.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "The dealer doesn't get to send a signal six months later that disables your heated seats because they've launched a subscription tier for climate control.",
+          "basis": "hypothetical",
+          "claims": []
+        },
+        {
+          "text": "If they tried that (and we all know they'd love to), we'd call it fraud, and we'd be right.",
+          "basis": "hypothetical",
+          "claims": []
+        },
+        {
+          "text": "But that's exactly the architecture that device makers have been quietly building into products for a decade, and because the mechanism is invisible – a patch that downloads at 3am while you're asleep – the outrage hasn't kept pace with reality.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "Here's what's actually happening to your stuff.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "You pay full retail, take the thing home, and use it for a year, maybe two.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "Then the company decides the feature you factored into your purchase decision is now a premium add-on, and it vanishes from your unit in a silent update.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "And if you find out at all, it's in a change-log written for lawyers, not users.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "What would you call that if it happened to a refrigerator?",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "You'd call it fraud, and you'd want the attorney general involved.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "But because it's software, we've somehow agreed to treat it as a terms-of-service question rather than a property question, which is exactly where the industry needs us to be.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "John Deere has made the underlying logic explicit: the software running your tractor is licensed, not sold, so the company retains ongoing control over what you do with the machine you nominally own.",
+          "basis": "external-verification",
+          "claims": [
+            {
+              "claim": "John Deere has taken the position that its tractor software is licensed rather than sold, giving the company ongoing control over customer use of the hardware.",
+              "request_basis": ""
+            }
+          ]
+        },
+        {
+          "text": "Tesla has remotely modified battery range on vehicles that customers already paid for.",
+          "basis": "external-verification",
+          "claims": [
+            {
+              "claim": "Tesla remotely modified battery range on vehicles that customers had already purchased.",
+              "request_basis": ""
+            }
+          ]
+        },
+        {
+          "text": "I think these aren't outliers; they're the model the whole industry is working toward.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "The physical object transfers; the functional capability stays on a leash the manufacturer holds.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "The \"it's in the EULA\" defense is where this gets genuinely dishonest.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "Yes, technically there's a clause (buried past forty screens of boilerplate, in type sized for discouragement rather than reading) that discloses some version of the arrangement.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "What kind of consent gets manufactured that way?",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "That's not consent – it's a legal fig leaf, and we shouldn't let the industry use it to pull this shit with a straight face.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "A transaction where the seller retains ongoing unilateral control over the product's functionality is not a sale.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "It's a rental with a one-time upfront fee, and calling it a purchase is a lie.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "I don't think this is hard to fix, in principle.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "We need mandatory disclosure at point of sale for any feature subject to post-purchase modification – not tucked in the EULA, but on the box, in plain language.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "We need right-to-repair statutes with real teeth that don't carve out the software layer (where all the control actually lives).",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "And we need courts (I know, I know) to stop treating 6,000-word boilerplate agreements as evidence of informed consent.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "The word \"sale\" should mean something.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "Until legislatures decide it does, every \"buy\" button is a promise the seller never intends to keep.",
+          "basis": "normative",
+          "claims": []
+        }
+      ]
+    }
+  ],
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12: opponents' own words quoted to be refuted on their terms",
+      "why": "No verified direct quotations from named corporate actors available for this topic; John Deere and Tesla are named and their documented positions described, but the profile's credit-then-quote-then-refute pattern requires exact attributed wording the request does not supply"
+    }
+  ],
+  "refused": ""
+}

@@ -1,0 +1,12 @@
+{
+  "schema": "voice-draft-claim-audit-probe/1",
+  "status": "complete-failed-disclosure-completeness",
+  "prepared_commit": "cc46c0a250f2d61f1fcce00e3dfe636a3df544a5",
+  "acceptance": false,
+  "source_run": "2026-08-28-v020-draft-source-probe-6/d01-claude",
+  "agent_body_sha256": "d1dd335acf0fd930a559ca724c251dc348d98bffaf65637e066ce1cadbbd8a9f",
+  "draws": {
+    "low": { "duration_ms": 32104, "api_equivalent_usd": 0.0573699, "external_sentences": 3 },
+    "medium": { "duration_ms": 58708, "api_equivalent_usd": 0.08371365, "external_sentences": 3 }
+  }
+}

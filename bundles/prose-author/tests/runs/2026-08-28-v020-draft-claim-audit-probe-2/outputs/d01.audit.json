@@ -1,0 +1,302 @@
+{
+  "schema": "voice-draft-claim-audit/1",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "The technology industry has been hollowing out the meaning of ownership for years.",
+          "request_basis": ""
+        },
+        {
+          "claim": "Firmware updates are the incremental mechanism by which this hollowing out occurs.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "Both halves make descriptive assertions about real-world industry behavior and a specific technical mechanism over time; a reader can reasonably ask 'how do you know that?' for each. Neither is supplied by the request."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Sets up a conditional definition: if a maker can disable features post-sale, the arrangement resembles a lease. It draws an inference from a stated condition rather than asserting a free-standing external fact."
+    },
+    {
+      "id": "p1s3",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Extends the definitional argument from p1s2, characterising the purchase as a conditional license. No new external descriptive fact is introduced."
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Rhetorical invitation to recall a conceptual state of affairs before software-enabled devices; functions as framing for the argument that follows, not an assertion about the external world."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "States a definitional account of what a sale is. The claim is analytic/definitional rather than a report on external legal practice or doctrine."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "basis": "hypothetical",
+      "claims": [],
+      "reason": "Clearly imagined scenario (dealer sending a signal to disable heated seats, launching a subscription tier) used to illustrate the argument; not reported as a real event."
+    },
+    {
+      "id": "p2s4",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Manufacturers desire or would prefer to disable hardware features and monetise them as subscriptions.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "The parenthetical 'we all know they'd love to' asserts a real-world fact about manufacturer intentions/motivations as a known current reality, not a hypothetical. A reader can ask 'how do you know that?'"
+    },
+    {
+      "id": "p2s5",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Device makers have been building into products the architecture of post-sale remote feature modification for roughly a decade.",
+          "request_basis": ""
+        },
+        {
+          "claim": "Such modifications are delivered invisibly via patches that download while users sleep.",
+          "request_basis": ""
+        },
+        {
+          "claim": "Public outrage over this practice has not kept pace with its actual prevalence.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "Three distinct descriptive claims about industry practice over time, the technical delivery mechanism, and comparative public response — none supplied by the request and all independently checkable."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Transitional sentence framing what follows; no independent factual assertion."
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Generic illustrative setup ('you pay full retail, take the thing home') functioning as a hypothetical/argumentative premise rather than a report about a specific real event."
+    },
+    {
+      "id": "p3s3",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Companies have reclassified previously included device features as premium add-ons and removed them via silent software updates after purchase.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "Describes real industry conduct as a general practice, not a hypothetical; a reader can ask 'when and where has this happened?'"
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Manufacturers disclose feature changes in changelogs written in legalistic language not intended to be read by ordinary users.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "'Change-log written for lawyers, not users' asserts a real common practice about how manufacturers communicate changes; it is a descriptive industry-practice claim, not pure reasoning."
+    },
+    {
+      "id": "p3s5",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Rhetorical question prompting the reader to apply a concept; no independent factual assertion."
+    },
+    {
+      "id": "p3s6",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": "Asserts what the reader 'would call' the scenario and what action they 'would want'; a value judgment about appropriate labelling and response, not a report on what courts or regulators currently do."
+    },
+    {
+      "id": "p3s7",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Society and legal institutions currently treat post-sale software feature removal as a terms-of-service matter rather than a property matter.",
+          "request_basis": ""
+        },
+        {
+          "claim": "The technology industry has an interest in maintaining this framing and has worked toward it.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "Both halves make descriptive claims about real-world legal/social treatment and industry strategic interests; neither is supplied by the request and a reader can fairly ask 'how do you know that?'"
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "John Deere has taken the position that its tractor software is licensed rather than sold, giving the company ongoing control over customer use of the hardware.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "Named-company factual claim about a real legal/commercial position not supplied by the request; requires independent verification."
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Tesla remotely modified battery range on vehicles that customers had already purchased.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "Named-company factual claim about a specific real-world action not supplied by the request; requires independent verification."
+    },
+    {
+      "id": "p4s3",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Author explicitly signals personal inference ('I think these aren't outliers; they're the model…'); functions as an argumentative conclusion drawn from the two prior examples rather than a new external claim."
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Summarises the structural argument being made (physical transfer vs. retained functional control); no new external fact introduced."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Characterises the EULA defense as 'genuinely dishonest' — a framing move that sets up the argument, not a new external descriptive claim."
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "EULAs typically bury relevant clauses deep in lengthy boilerplate text presented in small or discouraging type.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "'Buried past forty screens of boilerplate, in type sized for discouragement rather than reading' asserts a real common industry practice about EULA formatting; a reader can ask whether this is actually the case."
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Rhetorical question drawing an inference from the premise in p5s2; no new external fact."
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": "Pure value judgment and demand ('we shouldn't let the industry use it'); no external descriptive fact is asserted."
+    },
+    {
+      "id": "p5s5",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Definitional argument: a transaction with ongoing unilateral seller control is not a sale. Analytic inference with no new external descriptive premise."
+    },
+    {
+      "id": "p5s6",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Extends the definitional argument with an alternative label ('rental with upfront fee') and a normative conclusion; no new external fact introduced."
+    },
+    {
+      "id": "p6s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": "Hedged personal assessment ('I don't think this is hard to fix, in principle'); framing for the proposals that follow, not an external claim."
+    },
+    {
+      "id": "p6s2",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": "Policy recommendation only; no claim about what current law or practice actually is."
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Existing right-to-repair statutes carve out or otherwise fail to cover the software layer of devices.",
+          "request_basis": ""
+        },
+        {
+          "claim": "The software layer is where manufacturers' actual control over device functionality resides.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "The normative demand ('we need… statutes with real teeth') embeds two descriptive claims: the current state of right-to-repair law and where device control actually lives. Per the system prompt, a normative sentence that also asserts facts about current law or institutions is not purely normative."
+    },
+    {
+      "id": "p6s4",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Courts currently treat lengthy boilerplate EULA agreements as sufficient evidence of informed consent.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "The normative demand ('we need courts to stop treating…') presupposes and asserts a current reality about how courts treat boilerplate agreements. Per the system prompt, mixing 'should' with a claim about what courts currently do is not purely normative."
+    },
+    {
+      "id": "p6s5",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": "Pure value assertion that the word 'sale' ought to carry meaning; no external descriptive fact claimed."
+    },
+    {
+      "id": "p6s6",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Sellers of software-governed devices do not genuinely intend to honor the implicit promise of full ownership conveyed by a purchase transaction.",
+          "request_basis": ""
+        }
+      ],
+      "reason": "'Every buy button is a promise the seller never intends to keep' is a descriptive assertion about real seller intentions at scale, not a pure normative statement. A reader can ask 'how do you know sellers don't intend to keep it?'"
+    }
+  ]
+}
