@@ -121,11 +121,11 @@ const qualitativeObservationSchema = {
   properties: {
     dimensions: {
       type: "array", minItems: 1, maxItems: 3, uniqueItems: true,
-      items: { enum: COVERAGE_DIMENSIONS },
+      items: { type: "string", enum: COVERAGE_DIMENSIONS },
     },
-    section: { enum: SECTIONS },
+    section: { type: "string", enum: SECTIONS },
     prose: { type: "string", minLength: 100, maxLength: 450 },
-    frequency: { enum: FREQUENCIES },
+    frequency: { type: "string", enum: FREQUENCIES },
     support_files: {
       type: "array", minItems: 2, uniqueItems: true,
       items: { type: "string", minLength: 1 },
@@ -187,13 +187,13 @@ export function sourceRenderSchema(measurements) {
         ...qualitativeObservationSchema.properties,
         dimensions: {
           ...qualitativeObservationSchema.properties.dimensions,
-          items: { enum: plan.qualitativeDimensions },
+          items: { type: "string", enum: plan.qualitativeDimensions },
         },
       },
     } },
     properties: {
-      schema: { const: SOURCE_SCHEMA_ID },
-      voice_card: { enum: ["empty", "corroborating", "contradicted"] },
+      schema: { type: "string", const: SOURCE_SCHEMA_ID },
+      voice_card: { type: "string", enum: ["empty", "corroborating", "contradicted"] },
       measured: {
         type: "object",
         additionalProperties: false,
@@ -231,8 +231,8 @@ const SOURCE_RENDER_SCHEMA = {
   additionalProperties: false,
   $defs: { measuredSemantic: measuredSemanticSchema, qualitativeObservation: qualitativeObservationSchema },
   properties: {
-    schema: { const: SOURCE_SCHEMA_ID },
-    voice_card: { enum: ["empty", "corroborating", "contradicted"] },
+    schema: { type: "string", const: SOURCE_SCHEMA_ID },
+    voice_card: { type: "string", enum: ["empty", "corroborating", "contradicted"] },
     measured: {
       type: "object", additionalProperties: { $ref: "#/$defs/measuredSemantic" },
     },
@@ -260,7 +260,7 @@ export const SOURCE_REFUSAL_SCHEMA = {
   type: "object",
   additionalProperties: false,
   properties: {
-    schema: { const: SOURCE_SCHEMA_ID },
+    schema: { type: "string", const: SOURCE_SCHEMA_ID },
     refused: { type: "string", minLength: 1 },
   },
   required: ["schema", "refused"],

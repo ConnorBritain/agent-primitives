@@ -248,7 +248,9 @@ export async function run(t, { HERE }) {
     const required = ["schema", "kind", "draft", "omitted", "claims", "refused"];
     t.check("the provider-neutral draft schema requires one fixed shape",
       JSON.stringify([...DRAFT_SOURCE_SCHEMA.required].sort()) === JSON.stringify([...required].sort())
-        && DRAFT_SOURCE_SCHEMA.additionalProperties === false);
+        && DRAFT_SOURCE_SCHEMA.additionalProperties === false
+        && DRAFT_SOURCE_SCHEMA.properties.schema.type === "string"
+        && DRAFT_SOURCE_SCHEMA.properties.kind.type === "string");
     const source = {
       schema: "voice-draft-source/1", kind: "draft", draft: "Eleven years, and a shelf.",
       omitted: [], claims: [], refused: "",

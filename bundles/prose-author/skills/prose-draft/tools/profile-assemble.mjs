@@ -8,14 +8,16 @@
  *
  *   node profile-assemble.mjs --source source.json --context context.json
  *   node profile-assemble.mjs --source - --context context.json --json profile.json --markdown voice.md
- *   node profile-assemble.mjs --schema
+ *   node profile-assemble.mjs --schema [--context context.json]
  */
 
 import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { assembleVoiceProfile, parseVoiceProfileSource, SOURCE_SCHEMA } from "./profile-contract.mjs";
+import {
+  assembleVoiceProfile, parseVoiceProfileSource, SOURCE_SCHEMA, sourceRenderSchema,
+} from "./profile-contract.mjs";
 
 function die(message) {
   process.stderr.write(`profile-assemble: ${message}\n`);
@@ -42,7 +44,11 @@ function parseJson(raw, label, { source = false } = {}) {
 
 export function main() {
   if (process.argv.includes("--schema")) {
-    process.stdout.write(`${JSON.stringify(SOURCE_SCHEMA, null, 2)}\n`);
+    const contextArg = flag("--context");
+    const schema = contextArg
+      ? sourceRenderSchema(parseJson(readFileSync(resolve(contextArg), "utf8"), "context").measurements)
+      : SOURCE_SCHEMA;
+    process.stdout.write(`${JSON.stringify(schema, null, 2)}\n`);
     return;
   }
   const sourceArg = flag("--source");

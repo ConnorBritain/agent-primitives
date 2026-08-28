@@ -629,6 +629,13 @@ export async function run(t, { tmp, HERE }) {
       const output = JSON.parse(execFileSync(process.execPath, [cli, "--source", sourcePath, "--context", contextPath], { encoding: "utf8" }));
       t.check("the shipped CLI gives Codex and generic harnesses the same assembler",
         output.schema === "voice-profile/2" && output.profile_markdown === assembled.profile?.profile_markdown);
+      const strictSchema = JSON.parse(execFileSync(process.execPath,
+        [cli, "--schema", "--context", contextPath], { encoding: "utf8" }));
+      t.check("the shipped CLI gives strict harnesses a context-specific profile schema",
+        strictSchema.properties.schema.type === "string"
+          && strictSchema.properties.voice_card.type === "string"
+          && strictSchema.properties.qualitative.items.$ref === "#/$defs/qualitativeObservation"
+          && strictSchema.$defs.qualitativeObservation.properties.dimensions.items.type === "string");
     }
 
     {

@@ -88,6 +88,7 @@ const LOOP = "bundles/prose-author/tests/loop.mjs";
 const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const DRAFT_CONTRACT = `${TOOLS}/draft-contract.mjs`;
+const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
 const XCOUNT = "bundles/prose-author/tests/cross-count.mjs";
@@ -162,6 +163,20 @@ export const MUTATIONS = [
     find: '    if (/```/.test(String(source.draft ?? ""))) errors.push("a draft source cannot carry output fences inside its prose");',
     with: "    if (false) errors.push(\"a draft source cannot carry output fences inside its prose\");",
     guards: "a model cannot smuggle a second public envelope through the draft string",
+  },
+  {
+    name: "drop the explicit type Codex requires beside the draft schema const",
+    file: DRAFT_CONTRACT,
+    find: '    schema: { type: "string", const: SOURCE_SCHEMA_ID },',
+    with: "    schema: { const: SOURCE_SCHEMA_ID },",
+    guards: "one source schema is valid in strict Codex output as well as Claude",
+  },
+  {
+    name: "drop the explicit type from context-specific profile dimensions",
+    file: PROFILE_CONTRACT,
+    find: '          items: { type: "string", enum: plan.qualitativeDimensions },',
+    with: "          items: { enum: plan.qualitativeDimensions },",
+    guards: "the generated profile schema remains valid in strict structured-output harnesses",
   },
 
   // --- the generate -> critique -> revise loop (PI-02 S4) ---

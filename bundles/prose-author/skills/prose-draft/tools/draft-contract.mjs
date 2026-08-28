@@ -31,8 +31,8 @@ export const SOURCE_SCHEMA = {
   type: "object",
   additionalProperties: false,
   properties: {
-    schema: { const: SOURCE_SCHEMA_ID },
-    kind: { enum: ["draft", "refusal"] },
+    schema: { type: "string", const: SOURCE_SCHEMA_ID },
+    kind: { type: "string", enum: ["draft", "refusal"] },
     draft: { type: "string" },
     omitted: {
       type: "array", maxItems: 50,
