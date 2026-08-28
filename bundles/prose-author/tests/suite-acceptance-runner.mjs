@@ -45,7 +45,7 @@ export async function run(t, { HERE }) {
     const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }], measurements);
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
     t.check("profile prompts end on the provider-neutral semantic source contract",
-      /emit voice-profile-source\/2[\s\S]*semantic prose[\s\S]*supporting filenames[\s\S]*measurement IDs[\s\S]*every coverage dimension/.test(prompt));
+      /emit voice-profile-source\/3[\s\S]*deterministic measured slot[\s\S]*supporting[\s\S]*qualitative dimensions[\s\S]*unresolved reason/.test(prompt));
     t.check("profile prompts assign all duplicate bookkeeping to deterministic code",
       /Do not copy counts, rates, support[\s\S]*observation IDs, coverage statuses, or final profile fields[\s\S]*deterministic assembler owns/.test(prompt));
     t.check("profile prompts require refusal instead of invented evidence",
@@ -56,8 +56,11 @@ export async function run(t, { HERE }) {
     t.check("profile prompts leave measured frequency bands to deterministic assembly",
       /qualitative frequencies/.test(prompt)
         && /not sparse relative to an allowed measured replacement; it is positive and the assembler derives its fixed frequency/.test(prompt));
+    t.check("profile prompts pin every measured ID to a unique semantic slot",
+      /first-person-singular-family -> self-reference-biography; section absences; counted absence/.test(prompt)
+        && /Required unresolved dimensions: profanity-vulgarity/.test(prompt));
     t.check("profile dispatch can request native structure without making assembly depend on it",
-      source.includes("PROFILE_NATIVE_SCHEMA ? SOURCE_RENDER_SCHEMA : null")
+      source.includes("PROFILE_NATIVE_SCHEMA ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null")
         && source.includes('"--json-schema"')
         && source.includes("assembleVoiceProfile(source"));
   }

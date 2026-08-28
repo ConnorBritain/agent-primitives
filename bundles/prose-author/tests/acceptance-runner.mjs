@@ -32,7 +32,8 @@ import { bodyOf } from "./corpus-rates.mjs";
 import { analyzeProfileStability } from "./profile-stability.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
-  ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, SOURCE_RENDER_SCHEMA,
+  ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, sourceMeasurementPlan,
+  sourceRenderSchema,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   corpusLeakage, findFabricatedCitations, parseDraft, validateDraft,
@@ -141,6 +142,7 @@ function sourceProfile(profile) {
 
 export function profileRenderPrompt(profileId, inputs, measurements = null) {
   const byId = new Map((measurements?.measurements ?? []).map((row) => [row.id, row]));
+  const sourcePlan = sourceMeasurementPlan(measurements);
   const absenceGuidance = [...byId.values()]
     .map((row) => {
       const available = (ABSENCE_REPLACEMENTS[row.id] ?? []).filter((id) => (byId.get(id)?.count ?? 0) > 0);
@@ -170,12 +172,20 @@ export function profileRenderPrompt(profileId, inputs, measurements = null) {
     "Complete the renderer's refusal checks now.",
     "This locked corpus is expected to be renderable; if it is not, state the refusal",
     "rather than inventing evidence.",
-    "Otherwise emit voice-profile-source/2 exactly as described by the system prompt.",
-    "Supply semantic prose, supporting filenames, qualitative frequencies, measurement IDs,",
-    "and cover every coverage dimension across the flat observation dimension arrays or",
-    "the unresolved map. Do not copy counts, rates, support",
+    "Otherwise emit voice-profile-source/3 exactly as described by the system prompt.",
+    "Fill every deterministic measured slot below with semantic prose. Supply supporting",
+    "filenames and qualitative frequencies for the remaining qualitative dimensions, and",
+    "fill every required unresolved reason. Do not copy counts, rates, support",
     "fractions, rules, observation IDs, coverage statuses, or final profile fields; the",
     "portable deterministic assembler owns those. Return the structured object only.",
+    "",
+    "Deterministic measured slots (the key, dimensions, section, and polarity are fixed):",
+    ...sourcePlan.measured.map((slot) =>
+      `- ${slot.id} -> ${slot.dimensions.join(", ")}; section ${slot.section}; ${slot.absence ? "counted absence" : "counted positive"}.`),
+    "",
+    `Qualitative dimensions: ${sourcePlan.qualitativeDimensions.join(", ") || "none"}.`,
+    `Return ${sourcePlan.qualitativeMin}–${sourcePlan.qualitativeMax} qualitative observations.`,
+    `Required unresolved dimensions: ${sourcePlan.unresolvedDimensions.join(", ") || "none"}.`,
     ...(absenceGuidance.length ? ["", "Mechanical absence availability:", ...absenceGuidance] : []),
   ].join("\n");
 }
@@ -407,7 +417,7 @@ async function dispatchProfiles(runDir) {
         run: () => claude({
           system, cwd, prompt: text(promptPath), tools: "", allowed: [],
           effort: PROFILE_EFFORT,
-          schema: PROFILE_NATIVE_SCHEMA ? SOURCE_RENDER_SCHEMA : null,
+          schema: PROFILE_NATIVE_SCHEMA ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null,
           output: join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`),
         }),
       };

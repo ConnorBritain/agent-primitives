@@ -23,7 +23,7 @@ import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 import { measureProfile } from "./profile-measurements.mjs";
 import {
   assembleVoiceProfile, COVERAGE_DIMENSIONS as SOURCE_DIMENSIONS, parseVoiceProfileSource,
-  frequencyForPerPiece,
+  frequencyForPerPiece, sourceMeasurementPlan,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
@@ -511,7 +511,7 @@ export async function run(t, { tmp, HERE }) {
   t.group("voice-profile source assembly — models interpret, code keeps the books");
   {
     {
-      const decoded = parseVoiceProfileSource('```json\n{"schema":"voice-profile-source/2","prose":"They call it "theft" and move on."}\n```');
+      const decoded = parseVoiceProfileSource('```json\n{"schema":"voice-profile-source/3","prose":"They call it "theft" and move on."}\n```');
       t.check("transport decoding repairs only structurally internal bare prose quotes",
         decoded.repairs === 2 && decoded.source?.prose === 'They call it "theft" and move on.');
     }
@@ -524,40 +524,40 @@ export async function run(t, { tmp, HERE }) {
       dimensions, section, prose: `${prose} Evidence appears in ${cited}. ${placement}`,
       support_files: support, frequency: "several times per piece",
     });
-    const rated = (dimensions, section, measurement_id, prose) => ({
-      dimensions, section, measurement_id, prose: `${prose} A representative use appears in ${cited}. ${placement}`,
+    const measuredProse = (measurementId) => ({
+      prose: `The counted ${measurementId} form has a stable rhetorical job in the locked register. A representative use establishes its function without restating arithmetic. ${placement}`,
     });
     const source = () => ({
-      schema: "voice-profile-source/2",
+      schema: "voice-profile-source/3",
       voice_card: "empty",
-      observations: [
-        qualitative(["person-reader-stance"], "cadence", "Direct address is integrated into the sentence rhythm."),
-        rated(["person-reader-stance"], "address", "second-person-family", "Second-person address places the reader inside the mechanism."),
-        rated(["contraction-negation"], "address", "contractions", "Contractions keep the argumentative register conversational."),
+      measured: Object.fromEntries(measured.measurements.map((row) => [row.id, measuredProse(row.id)])),
+      qualitative: [
         qualitative(["qualification-hedging"], "register-range", "Qualification is owned by the speaker rather than hidden in vague adverbs."),
-        rated(["questions-imperatives-vocatives"], "address", "question-marks", "Questions apply pressure and are answered by the following claim."),
         qualitative(["opponents-allies-sources"], "address", "Named opponents and sources are quoted before their terms are turned."),
-        rated(["profanity-vulgarity"], "register-range", "profanity-vulgarity", "Profanity is reserved for the point of maximum contempt."),
-        rated(["self-reference-biography"], "register-range", "first-person-singular-family", "First-person singular owns claims and occasional personal testimony."),
-        rated(["interruption-punctuation"], "absences", "en-dashes", "En-dashes provide the positive interruption form."),
-        {
-          dimensions: ["interruption-punctuation"], section: "absences", measurement_id: "em-dashes",
-          prose: `Em-dashes are absent; use the measured positive replacement instead. ${placement}`,
-        },
         qualitative(["figures-analogy"], "figures", "Figures draw on legal, commercial, and bodily vocabulary."),
-        qualitative(["openings-endings-closure"], "openings", "Openings place the disputed object on the table immediately."),
-        qualitative(["openings-endings-closure"], "closings", "Closings return an opponent's term with its meaning reversed."),
+        qualitative(["openings-endings-closure"], "closings", "Openings place the disputed object on the table immediately, while closings return an opponent's term with its meaning reversed."),
       ],
       unresolved: {},
       gaps: "The corpus does not establish whether these placements survive a private or ceremonial register.",
       observations_dropped: 3,
       multiple_voices_suspected: false,
     });
-    const observationFor = (value, dimension, predicate = () => true) => value.observations
+    const observationFor = (value, dimension, predicate = () => true) => value.qualitative
       .find((observation) => observation.dimensions.includes(dimension) && predicate(observation));
     const context = {
       profile: "doctorow-blog", measurements: measured, samples_used: files, samples_excluded: [],
     };
+    {
+      const plan = sourceMeasurementPlan(measured);
+      t.check("the locked measurement plan creates one unique slot per relevant counter",
+        plan.measured.length === 10
+          && new Set(plan.measured.map((slot) => slot.id)).size === plan.measured.length
+          && plan.measured.find((slot) => slot.id === "em-dashes")?.absence
+          && JSON.stringify(plan.qualitativeDimensions) === JSON.stringify([
+            "qualification-hedging", "opponents-allies-sources", "figures-analogy", "openings-endings-closure",
+          ])
+          && plan.qualitativeMin === 0 && plan.qualitativeMax === 4);
+    }
     {
       const measureCli = resolve(HERE, "..", "skills", "prose-draft", "tools", "profile-measure.mjs");
       const portable = JSON.parse(execFileSync(process.execPath, [measureCli, profileDir, "--context", "doctorow-blog"], { encoding: "utf8" }));
@@ -633,37 +633,43 @@ export async function run(t, { tmp, HERE }) {
 
     {
       const bad = source();
-      bad.observations = bad.observations
+      bad.qualitative = bad.qualitative
         .filter((observation) => !observation.dimensions.includes("figures-analogy"));
       t.check("assembly rejects a silently omitted dimension",
         assembleVoiceProfile(bad, context).errors.some((error) => /missing coverage dimension: figures-analogy/.test(error)));
     }
     {
       const compact = source();
-      compact.observations = compact.observations.filter((observation) =>
-        !observation.dimensions.includes("qualification-hedging"));
-      compact.observations[0].dimensions.push("qualification-hedging");
+      observationFor(compact, "figures-analogy").dimensions.push("qualification-hedging");
+      observationFor(compact, "qualification-hedging").dimensions = ["figures-analogy"];
       const result = assembleVoiceProfile(compact, context);
-      t.check("one flat observation can cover overlapping dimensions without duplicating evidence",
+      t.check("one qualitative observation can cover overlapping dimensions without duplicating evidence",
         result.ok
-          && result.profile.coverage.find((row) => row.dimension === "person-reader-stance")?.observation_ids
+          && result.profile.coverage.find((row) => row.dimension === "figures-analogy")?.observation_ids
             .some((id) => result.profile.coverage.find((row) => row.dimension === "qualification-hedging")
               ?.observation_ids.includes(id)));
     }
     {
       const bad = source();
-      bad.observations.push(qualitative(["figures-analogy"], "figures",
+      bad.qualitative.push(qualitative(["figures-analogy"], "figures",
         "A second figure claim exists only to exceed the global semantic-source budget."));
-      bad.observations.push(qualitative(["figures-analogy"], "figures",
-        "A third figure claim exists only to exceed the global semantic-source budget."));
-      t.check("the flat source enforces its global fourteen-observation ceiling",
-        assembleVoiceProfile(bad, context).errors.some((error) => /ten to fourteen entries/.test(error)));
+      t.check("the context-specific source enforces its global fourteen-observation ceiling",
+        assembleVoiceProfile(bad, context).errors.some((error) => /qualitative must contain 0–4 entries/.test(error)));
     }
     {
       const bad = source();
       bad.unresolved["figures-analogy"] = "The corpus cannot establish a stable figure instruction despite the emitted observation.";
       t.check("a dimension cannot be both supported and unresolved",
         assembleVoiceProfile(bad, context).errors.some((error) => /figures-analogy cannot be both observed and unresolved/.test(error)));
+    }
+    {
+      const unresolved = source();
+      unresolved.qualitative = unresolved.qualitative
+        .filter((observation) => !observation.dimensions.includes("figures-analogy"));
+      unresolved.unresolved["figures-analogy"] = "The corpus does not establish one stable figure vocabulary or placement instruction across the locked register.";
+      const result = assembleVoiceProfile(unresolved, context);
+      t.check("a qualitative dimension may remain explicitly unresolved without an invented observation",
+        result.ok && result.profile.coverage.find((row) => row.dimension === "figures-analogy")?.status === "unresolved");
     }
     {
       const bad = source();
@@ -679,13 +685,13 @@ export async function run(t, { tmp, HERE }) {
     }
     {
       const bad = source();
-      observationFor(bad, "questions-imperatives-vocatives").frequency = "throughout";
-      t.check("a model cannot override a measured frequency band",
-        assembleVoiceProfile(bad, context).errors.some((error) => /must omit frequency; the assembler derives/.test(error)));
+      bad.measured["question-marks"].frequency = "throughout";
+      t.check("a measured slot structurally rejects a model-owned frequency band",
+        assembleVoiceProfile(bad, context).errors.some((error) => /measured\.question-marks carries unknown key: frequency/.test(error)));
     }
     {
       const bad = source();
-      observationFor(bad, "questions-imperatives-vocatives").prose += " It recurs throughout.";
+      bad.measured["question-marks"].prose += " It recurs throughout.";
       const result = assembleVoiceProfile(bad, context);
       t.check("measured semantic prose gets deterministic density normalization before its derived band",
         result.ok && !result.profile.profile_markdown.includes("recurs throughout")
@@ -693,26 +699,46 @@ export async function run(t, { tmp, HERE }) {
     }
     {
       const bad = source();
-      bad.observations = bad.observations.filter((observation) => observation.measurement_id !== "en-dashes");
-      t.check("a zero measurement cannot silently become a rated absence",
-        assembleVoiceProfile(bad, context).errors.some((error) => /counted absence but not exactly one absence plus a positive measured replacement/.test(error)));
+      delete bad.measured["en-dashes"];
+      t.check("a counted absence cannot omit its deterministic positive replacement slot",
+        assembleVoiceProfile(bad, context).errors.some((error) => /measured\.en-dashes is missing/.test(error)));
     }
     {
       const noAbsence = source();
-      noAbsence.observations = noAbsence.observations.filter((observation) => observation.measurement_id !== "em-dashes");
-      observationFor(noAbsence, "interruption-punctuation").section = "cadence";
+      const positiveMeasurements = JSON.parse(JSON.stringify(measured));
+      const em = positiveMeasurements.measurements.find((row) => row.id === "em-dashes");
+      em.count = 100;
+      em.per_1000_words = Math.round((em.count / positiveMeasurements.corpus_words) * 100000) / 100;
+      em.files_with = [...files];
+      em.files_without = [];
+      em.samples_with = files.length;
+      em.samples_without = 0;
+      const fullNegatives = positiveMeasurements.measurements.find((row) => row.id === "uncontracted-negatives");
+      fullNegatives.count = 100;
+      fullNegatives.per_1000_words = Math.round((fullNegatives.count / positiveMeasurements.corpus_words) * 100000) / 100;
+      fullNegatives.files_with = [...files];
+      fullNegatives.files_without = [];
+      fullNegatives.samples_with = files.length;
+      fullNegatives.samples_without = 0;
       noAbsence.gaps += " The available pieces also do not establish how the register changes in private correspondence, ceremonial writing, short notices, collaborative work, or speech. Those unknowns remain explicit instead of becoming unsupported observations merely to fill a section.";
-      const result = assembleVoiceProfile(noAbsence, context);
+      const result = assembleVoiceProfile(noAbsence, { ...context, measurements: positiveMeasurements });
       t.check("a corpus with no supported absence gets a neutral section rather than an invented habit",
         result.ok && /No counted absence with a positive measured replacement was established/.test(result.profile.profile_markdown),
         result.ok ? result.profile.profile_markdown.match(/## 7[\s\S]*?## 8/)?.[0] : result.errors.join("; "));
     }
     {
       const withUnresolved = source();
-      withUnresolved.observations = withUnresolved.observations
-        .filter((observation) => !observation.dimensions.includes("profanity-vulgarity"));
+      const zeroMeasurements = JSON.parse(JSON.stringify(measured));
+      const profanity = zeroMeasurements.measurements.find((row) => row.id === "profanity-vulgarity");
+      profanity.count = 0;
+      profanity.per_1000_words = 0;
+      profanity.files_with = [];
+      profanity.files_without = [...files];
+      profanity.samples_with = 0;
+      profanity.samples_without = files.length;
+      delete withUnresolved.measured["profanity-vulgarity"];
       withUnresolved.unresolved["profanity-vulgarity"] = "The measured absence has no counted positive replacement, so this corpus supports no drafting instruction for the dimension.";
-      const result = assembleVoiceProfile(withUnresolved, context);
+      const result = assembleVoiceProfile(withUnresolved, { ...context, measurements: zeroMeasurements });
       t.check("an unresolved dimension is explicit in both coverage and section 8 prose",
         result.ok
           && result.profile.coverage.find((row) => row.dimension === "profanity-vulgarity")?.status === "unresolved"
@@ -728,14 +754,6 @@ export async function run(t, { tmp, HERE }) {
       singular.samples_with = 1;
       singular.samples_without = files.length - 1;
       const overlapping = source();
-      overlapping.observations.push(
-        rated(["person-reader-stance"], "address", "first-person-plural-family", "Institutional first-person plural places the writer and reader on the same side of the argument."),
-      );
-      Object.assign(observationFor(overlapping, "self-reference-biography"), {
-        dimensions: ["self-reference-biography"], section: "absences",
-        measurement_id: "first-person-singular-family",
-        prose: `Individual first-person testimony is a sparse exception; keep biography out and use the measured institutional stance instead. ${placement}`,
-      });
       const result = assembleVoiceProfile(overlapping, { ...context, measurements: sparseMeasurements });
       const person = result.profile?.coverage.find((row) => row.dimension === "person-reader-stance");
       const self = result.profile?.coverage.find((row) => row.dimension === "self-reference-biography");

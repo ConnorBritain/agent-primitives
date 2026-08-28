@@ -81,16 +81,18 @@ with its own narrow allowlist makes that a boundary rather than a promise.
 
 The production path deterministically measures `corpus/human/**`, then gives those
 measurements, the corpus, `voice.md`, and `profile.json` to one clean semantic render. The
-model emits `voice-profile-source/2`. The portable assembler turns that source into one
+model emits `voice-profile-source/3`. The portable assembler turns that source into one
 self-contained `voice-profile/2` whose `profile_markdown` is what the drafter reads and
 whose structured fields are what the harness verifies.
 
-The semantic source has one flat, globally bounded observation array. An observation may
-answer up to three overlapping coverage questions, so the model does not have to repeat a
-claim merely because it belongs to two dimensions. The schema caps the array at fourteen;
-the local validator then requires every dimension to be either supported or explicitly
-unresolved. Providers with native structured output can enforce the same shape while
-decoding. Other harnesses emit ordinary JSON and pass it through the identical validator.
+The semantic source has deterministic measured slots plus a bounded qualitative array.
+Measurement IDs, dimensions, sections, polarity, and the remaining qualitative budget come
+from the locked measurement context; the model fills only semantic prose for those slots.
+A qualitative observation may answer up to three overlapping coverage questions. The local
+validator requires every dimension to be supported or explicitly unresolved. Providers
+with native structured output enforce the context-specific slot schema while decoding.
+Other harnesses receive the same slot plan, emit ordinary JSON, and pass it through the
+identical validator.
 The Claude acceptance harness uses native structure by default; setting
 `ACCEPTANCE_PROFILE_NATIVE_SCHEMA=0` exists only to exercise the JSON-fence fallback.
 

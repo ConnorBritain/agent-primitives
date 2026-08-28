@@ -8,7 +8,7 @@
  * while decoding; Codex and other harnesses may write ordinary JSON and call assemble.
  */
 
-export const SOURCE_SCHEMA_ID = "voice-profile-source/2";
+export const SOURCE_SCHEMA_ID = "voice-profile-source/3";
 export const PROFILE_SCHEMA_ID = "voice-profile/2";
 
 export const COVERAGE_DIMENSIONS = [
@@ -82,7 +82,40 @@ export const ABSENCE_REPLACEMENTS = {
   "profanity-vulgarity": [],
 };
 
-const observationSchema = {
+export const MEASUREMENT_DIMENSIONS = {
+  "second-person-family": ["person-reader-stance"],
+  "first-person-plural-family": ["person-reader-stance"],
+  contractions: ["contraction-negation"],
+  "uncontracted-negatives": ["contraction-negation"],
+  "profanity-vulgarity": ["profanity-vulgarity"],
+  "first-person-singular-family": ["self-reference-biography"],
+  "question-marks": ["questions-imperatives-vocatives"],
+  "round-parenthetical-spans": ["interruption-punctuation"],
+  "em-dashes": ["interruption-punctuation"],
+  "en-dashes": ["interruption-punctuation"],
+};
+
+export const MEASUREMENT_SECTIONS = {
+  "second-person-family": "address",
+  "first-person-plural-family": "address",
+  contractions: "cadence",
+  "uncontracted-negatives": "cadence",
+  "profanity-vulgarity": "register-range",
+  "first-person-singular-family": "register-range",
+  "question-marks": "address",
+  "round-parenthetical-spans": "cadence",
+  "em-dashes": "cadence",
+  "en-dashes": "cadence",
+};
+
+const measuredSemanticSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: { prose: { type: "string", minLength: 100, maxLength: 450 } },
+  required: ["prose"],
+};
+
+const qualitativeObservationSchema = {
   type: "object",
   additionalProperties: false,
   properties: {
@@ -93,36 +126,118 @@ const observationSchema = {
     section: { enum: SECTIONS },
     prose: { type: "string", minLength: 100, maxLength: 450 },
     frequency: { enum: FREQUENCIES },
-    measurement_id: { type: "string", minLength: 1 },
     support_files: {
       type: "array", minItems: 2, uniqueItems: true,
       items: { type: "string", minLength: 1 },
     },
   },
-  required: ["dimensions", "section", "prose"],
-  oneOf: [
-    {
-      required: ["measurement_id"],
-      not: { anyOf: [{ required: ["support_files"] }, { required: ["frequency"] }] },
-    },
-    {
-      required: ["support_files", "frequency"],
-      not: { required: ["measurement_id"] },
-    },
-  ],
+  required: ["dimensions", "section", "prose", "support_files", "frequency"],
 };
 
-/** Render-only schema for providers whose structured-output decoder cannot express unions. */
-export const SOURCE_RENDER_SCHEMA = {
+function positiveReplacement(row, byId) {
+  return (ABSENCE_REPLACEMENTS[row.id] ?? []).map((id) => byId.get(id)).find((candidate) => candidate?.count > 0);
+}
+
+export function sourceMeasurementPlan(measurements) {
+  const rows = Array.isArray(measurements?.measurements)
+    ? measurements.measurements.filter((row) => row && typeof row === "object" && typeof row.id === "string")
+    : [];
+  const byId = new Map(rows.map((row) => [row.id, row]));
+  const measured = [];
+  const unresolved = new Set();
+  for (const row of rows) {
+    const dimensions = MEASUREMENT_DIMENSIONS[row.id];
+    if (!dimensions) continue;
+    const replacement = positiveReplacement(row, byId);
+    if (row.count === 0 && !replacement) {
+      dimensions.forEach((dimension) => unresolved.add(dimension));
+      continue;
+    }
+    const absence = row.count === 0 || Boolean(replacement && row.count <= replacement.count * 0.2);
+    measured.push({
+      id: row.id,
+      dimensions,
+      section: absence ? "absences" : MEASUREMENT_SECTIONS[row.id],
+      absence,
+    });
+  }
+  const measuredDimensions = new Set(measured.flatMap((slot) => slot.dimensions));
+  const qualitativeDimensions = COVERAGE_DIMENSIONS.filter((dimension) =>
+    !measuredDimensions.has(dimension) && !unresolved.has(dimension));
+  const qualitativeMin = Math.max(0, 10 - measured.length);
+  const qualitativeMax = 14 - measured.length;
+  return {
+    measured,
+    qualitativeDimensions,
+    unresolvedDimensions: [...unresolved],
+    qualitativeMin,
+    qualitativeMax,
+  };
+}
+
+/** Native render schema generated from the locked deterministic measurement context. */
+export function sourceRenderSchema(measurements) {
+  const plan = sourceMeasurementPlan(measurements);
+  return {
+    type: "object",
+    additionalProperties: false,
+    $defs: { measuredSemantic: measuredSemanticSchema, qualitativeObservation: {
+      ...qualitativeObservationSchema,
+      properties: {
+        ...qualitativeObservationSchema.properties,
+        dimensions: {
+          ...qualitativeObservationSchema.properties.dimensions,
+          items: { enum: plan.qualitativeDimensions },
+        },
+      },
+    } },
+    properties: {
+      schema: { const: SOURCE_SCHEMA_ID },
+      voice_card: { enum: ["empty", "corroborating", "contradicted"] },
+      measured: {
+        type: "object",
+        additionalProperties: false,
+        properties: Object.fromEntries(plan.measured.map((slot) => [slot.id, { $ref: "#/$defs/measuredSemantic" }])),
+        required: plan.measured.map((slot) => slot.id),
+      },
+      qualitative: {
+        type: "array", minItems: plan.qualitativeMin, maxItems: plan.qualitativeMax,
+        items: { $ref: "#/$defs/qualitativeObservation" },
+      },
+      unresolved: {
+        type: "object",
+        additionalProperties: false,
+        properties: Object.fromEntries([
+          ...plan.qualitativeDimensions, ...plan.unresolvedDimensions,
+        ].map((id) => [id, {
+          type: "string", minLength: 20, maxLength: 500,
+        }])),
+        ...(plan.unresolvedDimensions.length ? { required: plan.unresolvedDimensions } : {}),
+      },
+      gaps: { type: "string", minLength: 40, maxLength: 900 },
+      observations_dropped: { type: "integer", minimum: 0 },
+      multiple_voices_suspected: { type: "boolean" },
+    },
+    required: [
+      "schema", "voice_card", "measured", "qualitative", "unresolved", "gaps",
+      "observations_dropped", "multiple_voices_suspected",
+    ],
+  };
+}
+
+/** Generic provider-neutral shape; context-specific slot checks remain local and authoritative. */
+const SOURCE_RENDER_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  $defs: { observation: observationSchema },
+  $defs: { measuredSemantic: measuredSemanticSchema, qualitativeObservation: qualitativeObservationSchema },
   properties: {
     schema: { const: SOURCE_SCHEMA_ID },
     voice_card: { enum: ["empty", "corroborating", "contradicted"] },
-    observations: {
-      type: "array", minItems: 10, maxItems: 14,
-      items: { $ref: "#/$defs/observation" },
+    measured: {
+      type: "object", additionalProperties: { $ref: "#/$defs/measuredSemantic" },
+    },
+    qualitative: {
+      type: "array", maxItems: 14, items: { $ref: "#/$defs/qualitativeObservation" },
     },
     unresolved: {
       type: "object",
@@ -136,8 +251,8 @@ export const SOURCE_RENDER_SCHEMA = {
     multiple_voices_suspected: { type: "boolean" },
   },
   required: [
-    "schema", "voice_card", "observations", "unresolved", "gaps", "observations_dropped",
-    "multiple_voices_suspected",
+    "schema", "voice_card", "measured", "qualitative", "unresolved", "gaps",
+    "observations_dropped", "multiple_voices_suspected",
   ],
 };
 
@@ -224,13 +339,13 @@ export function parseVoiceProfileSource(raw) {
   }
 }
 
-function sourceErrors(source) {
+function sourceErrors(source, measurements = null) {
   const errors = [];
   const err = (message) => errors.push(message);
   if (!isObject(source)) return ["source is not an object"];
   if (source.schema !== SOURCE_SCHEMA_ID) err(`source.schema must be ${SOURCE_SCHEMA_ID}`);
   for (const key of exactKeys(source, [
-    "schema", "voice_card", "observations", "unresolved", "gaps", "observations_dropped",
+    "schema", "voice_card", "measured", "qualitative", "unresolved", "gaps", "observations_dropped",
     "multiple_voices_suspected", "refused",
   ])) err(`source carries unknown key: ${key}`);
 
@@ -254,12 +369,10 @@ function sourceErrors(source) {
   if (typeof source.multiple_voices_suspected !== "boolean") {
     err("source.multiple_voices_suspected must be boolean");
   }
-  if (!Array.isArray(source.observations)) return [...errors, "source.observations must be an array"];
-  if (source.observations.length < 10 || source.observations.length > 14) {
-    err("source.observations must contain ten to fourteen entries");
-  }
+  if (!isObject(source.measured)) err("source.measured must be an object");
+  if (!Array.isArray(source.qualitative)) err("source.qualitative must be an array");
   if (!isObject(source.unresolved)) err("source.unresolved must be an object");
-  else {
+  if (isObject(source.unresolved)) {
     for (const extra of exactKeys(source.unresolved, COVERAGE_DIMENSIONS)) {
       err(`unknown unresolved coverage dimension: ${extra}`);
     }
@@ -270,17 +383,41 @@ function sourceErrors(source) {
     }
   }
 
+  const plan = measurements ? sourceMeasurementPlan(measurements) : null;
   const coveredDimensions = new Set();
-  for (const [i, observation] of source.observations.entries()) {
-    const at = `observations[${i}]`;
+  if (isObject(source.measured)) {
+    const expectedIds = plan?.measured.map((slot) => slot.id) ?? Object.keys(source.measured);
+    for (const extra of exactKeys(source.measured, expectedIds)) err(`source.measured carries unexpected slot: ${extra}`);
+    for (const id of expectedIds) {
+      const at = `measured.${id}`;
+      const observation = source.measured[id];
+      if (!isObject(observation)) { err(`${at} is missing or not an object`); continue; }
+      for (const extra of exactKeys(observation, ["prose"])) err(`${at} carries unknown key: ${extra}`);
+      if (!isText(observation.prose) || observation.prose.trim().length < 100
+        || observation.prose.trim().length > 450) {
+        err(`${at}.prose must contain 100–450 characters of actionable evidence`);
+      }
+      if (/\b\d+\s*\/\s*\d+\s+samples?\b/i.test(observation.prose)
+        || /\bper\s+1[,.]?000\s+words?\b/i.test(observation.prose)
+        || /\[measurement:[a-z0-9-]+\]/i.test(observation.prose)) {
+        err(`${at}.prose duplicates deterministic evidence`);
+      }
+      plan?.measured.find((slot) => slot.id === id)?.dimensions
+        .forEach((dimension) => coveredDimensions.add(dimension));
+    }
+  }
+
+  for (const [i, observation] of (Array.isArray(source.qualitative) ? source.qualitative : []).entries()) {
+    const at = `qualitative[${i}]`;
     if (!isObject(observation)) { err(`${at} is not an object`); continue; }
     for (const extra of exactKeys(observation, [
-      "dimensions", "section", "prose", "frequency", "measurement_id", "support_files",
+      "dimensions", "section", "prose", "frequency", "support_files",
     ])) err(`${at} carries unknown key: ${extra}`);
+    const allowedDimensions = plan?.qualitativeDimensions ?? COVERAGE_DIMENSIONS;
     if (!Array.isArray(observation.dimensions) || observation.dimensions.length < 1
       || observation.dimensions.length > 3 || new Set(observation.dimensions).size !== observation.dimensions.length
-      || !observation.dimensions.every((dimension) => COVERAGE_DIMENSIONS.includes(dimension))) {
-      err(`${at}.dimensions must contain one to three unique coverage dimensions`);
+      || !observation.dimensions.every((dimension) => allowedDimensions.includes(dimension))) {
+      err(`${at}.dimensions must contain one to three unique qualitative coverage dimensions`);
     } else {
       observation.dimensions.forEach((dimension) => coveredDimensions.add(dimension));
     }
@@ -292,18 +429,12 @@ function sourceErrors(source) {
     if (observation.frequency !== undefined && !FREQUENCIES.includes(observation.frequency)) {
       err(`${at}.frequency is invalid`);
     }
-    const measured = isText(observation.measurement_id);
-    const qualitative = Array.isArray(observation.support_files);
-    if (measured === qualitative) err(`${at} must carry measurement_id or support_files, exclusively`);
-    if (measured && observation.frequency !== undefined) {
-      err(`${at} is measured and must omit frequency; the assembler derives its fixed band`);
-    }
-    if (qualitative && !FREQUENCIES.includes(observation.frequency)) {
+    if (!FREQUENCIES.includes(observation.frequency)) {
       err(`${at} is qualitative and must carry one fixed frequency`);
     }
-    if (qualitative && (observation.support_files.length < 2
+    if (!Array.isArray(observation.support_files) || observation.support_files.length < 2
       || !observation.support_files.every(isText)
-      || new Set(observation.support_files).size !== observation.support_files.length)) {
+      || new Set(observation.support_files).size !== observation.support_files.length) {
       err(`${at}.support_files must contain at least two unique filenames`);
     }
     // Evidence is assembled below. A semantic stage that also writes figures creates
@@ -312,6 +443,24 @@ function sourceErrors(source) {
       || /\bper\s+1[,.]?000\s+words?\b/i.test(observation.prose)
       || /\[measurement:[a-z0-9-]+\]/i.test(observation.prose)) {
       err(`${at}.prose duplicates deterministic evidence`);
+    }
+  }
+  if (plan && Array.isArray(source.qualitative)
+    && (source.qualitative.length < plan.qualitativeMin || source.qualitative.length > plan.qualitativeMax)) {
+    err(`source.qualitative must contain ${plan.qualitativeMin}–${plan.qualitativeMax} entries for this measurement plan`);
+  }
+  const totalObservations = (isObject(source.measured) ? Object.keys(source.measured).length : 0)
+    + (Array.isArray(source.qualitative) ? source.qualitative.length : 0);
+  if (totalObservations < 10 || totalObservations > 14) {
+    err("source must contain ten to fourteen measured and qualitative observations in total");
+  }
+  if (plan && isObject(source.unresolved)) {
+    for (const dimension of plan.unresolvedDimensions) {
+      if (!Object.hasOwn(source.unresolved, dimension)) err(`missing required unresolved dimension: ${dimension}`);
+    }
+    const allowedUnresolved = [...plan.qualitativeDimensions, ...plan.unresolvedDimensions];
+    for (const dimension of Object.keys(source.unresolved)) {
+      if (!allowedUnresolved.includes(dimension)) err(`unexpected unresolved dimension: ${dimension}`);
     }
   }
   for (const dimension of COVERAGE_DIMENSIONS) {
@@ -323,9 +472,11 @@ function sourceErrors(source) {
         : `missing coverage dimension: ${dimension}`);
     }
   }
-  const semanticWords = source.observations.reduce(
-    (sum, observation) => sum
-      + String(observation?.prose ?? "").trim().split(/\s+/).filter(Boolean).length,
+  const semanticWords = [
+    ...Object.values(isObject(source.measured) ? source.measured : {}),
+    ...(Array.isArray(source.qualitative) ? source.qualitative : []),
+  ].reduce((sum, observation) => sum
+    + String(observation?.prose ?? "").trim().split(/\s+/).filter(Boolean).length,
     String(source.gaps ?? "").trim().split(/\s+/).filter(Boolean).length,
   );
   if (semanticWords > 900) err(`source semantic prose is ${semanticWords} words; maximum is 900`);
@@ -364,7 +515,7 @@ function normalizeMeasuredDensityLanguage(prose) {
  * Returns all errors at once; it never repairs structure or guesses evidence.
  */
 export function assembleVoiceProfile(source, context) {
-  const errors = sourceErrors(source);
+  const errors = sourceErrors(source, context?.measurements);
   const profile = context?.profile;
   if (!isText(profile)) errors.push("context.profile must be non-empty");
 
@@ -446,8 +597,18 @@ export function assembleVoiceProfile(source, context) {
   const idsByDimension = new Map(COVERAGE_DIMENSIONS.map((dimension) => [dimension, []]));
   const positiveRatedByDimension = new Map(COVERAGE_DIMENSIONS.map((dimension) => [dimension, []]));
   const absenceRatedByDimension = new Map(COVERAGE_DIMENSIONS.map((dimension) => [dimension, []]));
+  const measurementPlan = sourceMeasurementPlan(measurements);
+  const sourceItems = [
+    ...measurementPlan.measured.map((slot) => ({
+      measurement_id: slot.id,
+      dimensions: slot.dimensions,
+      section: slot.section,
+      prose: source.measured[slot.id].prose,
+    })),
+    ...source.qualitative,
+  ];
 
-  for (const [index, item] of source.observations.entries()) {
+  for (const [index, item] of sourceItems.entries()) {
     const at = `observations[${index}]`;
     let measurement = null;
     let supportFiles;

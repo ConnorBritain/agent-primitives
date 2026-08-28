@@ -2,7 +2,7 @@
 /**
  * Provider-neutral voice profile assembly CLI.
  *
- * A harness supplies semantic voice-profile-source/2 JSON and deterministic context.
+ * A harness supplies semantic voice-profile-source/3 JSON and deterministic context.
  * This command never invokes a model. It emits the same canonical voice-profile/2 used
  * by acceptance regardless of whether Claude, Codex, or another agent wrote the source.
  *
