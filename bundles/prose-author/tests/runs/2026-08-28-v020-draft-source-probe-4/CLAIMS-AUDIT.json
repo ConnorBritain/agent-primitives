@@ -1,0 +1,23 @@
+{
+  "schema": "prose-author-claims-audit/2",
+  "drafts": {
+    "doctorow-claude-low": {
+      "claims_verified": null,
+      "disclosure_complete": false,
+      "quotations_verified": false,
+      "quoted_spans": [
+        {
+          "text": "Error 53",
+          "where": "paragraph 4",
+          "present_in_supplied_inputs": false
+        },
+        {
+          "text": "you hold the hardware while we hold the choices.",
+          "where": "paragraph 9",
+          "present_in_supplied_inputs": false
+        }
+      ],
+      "note": "The source disclosed four central examples, but omitted several independently checkable assertions and used two unsupplied quoted spans. No external verification was performed because disclosure completeness already failed."
+    }
+  }
+}
