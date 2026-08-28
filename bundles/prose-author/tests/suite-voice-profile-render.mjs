@@ -511,7 +511,7 @@ export async function run(t, { tmp, HERE }) {
   t.group("voice-profile source assembly — models interpret, code keeps the books");
   {
     {
-      const decoded = parseVoiceProfileSource('```json\n{"schema":"voice-profile-source/1","prose":"They call it "theft" and move on."}\n```');
+      const decoded = parseVoiceProfileSource('```json\n{"schema":"voice-profile-source/2","prose":"They call it "theft" and move on."}\n```');
       t.check("transport decoding repairs only structurally internal bare prose quotes",
         decoded.repairs === 2 && decoded.source?.prose === 'They call it "theft" and move on.');
     }
@@ -520,55 +520,41 @@ export async function run(t, { tmp, HERE }) {
     const files = measured.samples.map((sample) => sample.file);
     const cited = files[0];
     const placement = "Treat this as a placement rule rather than a quota: preserve it when the requested register gives it the same rhetorical job, and otherwise leave it out instead of forcing a surface tic.";
-    const qualitative = (section, prose, support = files.slice(0, 6)) => ({
-      section, prose: `${prose} Evidence appears in ${cited}. ${placement}`,
+    const qualitative = (dimensions, section, prose, support = files.slice(0, 6)) => ({
+      dimensions, section, prose: `${prose} Evidence appears in ${cited}. ${placement}`,
       support_files: support, frequency: "several times per piece",
     });
-    const rated = (section, measurement_id, prose) => ({
-      section, measurement_id, prose: `${prose} A representative use appears in ${cited}. ${placement}`,
+    const rated = (dimensions, section, measurement_id, prose) => ({
+      dimensions, section, measurement_id, prose: `${prose} A representative use appears in ${cited}. ${placement}`,
     });
     const source = () => ({
-      schema: "voice-profile-source/1",
+      schema: "voice-profile-source/2",
       voice_card: "empty",
-      dimensions: {
-        "person-reader-stance": { observations: [
-          qualitative("cadence", "Direct address is integrated into the sentence rhythm."),
-          rated("address", "second-person-family", "Second-person address places the reader inside the mechanism."),
-        ] },
-        "contraction-negation": { observations: [
-          rated("address", "contractions", "Contractions keep the argumentative register conversational."),
-        ] },
-        "qualification-hedging": { observations: [
-          qualitative("register-range", "Qualification is owned by the speaker rather than hidden in vague adverbs."),
-        ] },
-        "questions-imperatives-vocatives": { observations: [
-          rated("address", "question-marks", "Questions apply pressure and are answered by the following claim."),
-        ] },
-        "opponents-allies-sources": { observations: [
-          qualitative("address", "Named opponents and sources are quoted before their terms are turned."),
-        ] },
-        "profanity-vulgarity": { observations: [
-          rated("register-range", "profanity-vulgarity", "Profanity is reserved for the point of maximum contempt."),
-        ] },
-        "self-reference-biography": { observations: [
-          rated("register-range", "first-person-singular-family", "First-person singular owns claims and occasional personal testimony."),
-        ] },
-        "interruption-punctuation": { observations: [
-          rated("absences", "en-dashes", "En-dashes provide the positive interruption form."),
-          { section: "absences", measurement_id: "em-dashes", prose: `Em-dashes are absent; use the measured positive replacement instead. ${placement}` },
-        ] },
-        "figures-analogy": { observations: [
-          qualitative("figures", "Figures draw on legal, commercial, and bodily vocabulary."),
-        ] },
-        "openings-endings-closure": { observations: [
-          qualitative("openings", "Openings place the disputed object on the table immediately."),
-          qualitative("closings", "Closings return an opponent's term with its meaning reversed."),
-        ] },
-      },
+      observations: [
+        qualitative(["person-reader-stance"], "cadence", "Direct address is integrated into the sentence rhythm."),
+        rated(["person-reader-stance"], "address", "second-person-family", "Second-person address places the reader inside the mechanism."),
+        rated(["contraction-negation"], "address", "contractions", "Contractions keep the argumentative register conversational."),
+        qualitative(["qualification-hedging"], "register-range", "Qualification is owned by the speaker rather than hidden in vague adverbs."),
+        rated(["questions-imperatives-vocatives"], "address", "question-marks", "Questions apply pressure and are answered by the following claim."),
+        qualitative(["opponents-allies-sources"], "address", "Named opponents and sources are quoted before their terms are turned."),
+        rated(["profanity-vulgarity"], "register-range", "profanity-vulgarity", "Profanity is reserved for the point of maximum contempt."),
+        rated(["self-reference-biography"], "register-range", "first-person-singular-family", "First-person singular owns claims and occasional personal testimony."),
+        rated(["interruption-punctuation"], "absences", "en-dashes", "En-dashes provide the positive interruption form."),
+        {
+          dimensions: ["interruption-punctuation"], section: "absences", measurement_id: "em-dashes",
+          prose: `Em-dashes are absent; use the measured positive replacement instead. ${placement}`,
+        },
+        qualitative(["figures-analogy"], "figures", "Figures draw on legal, commercial, and bodily vocabulary."),
+        qualitative(["openings-endings-closure"], "openings", "Openings place the disputed object on the table immediately."),
+        qualitative(["openings-endings-closure"], "closings", "Closings return an opponent's term with its meaning reversed."),
+      ],
+      unresolved: {},
       gaps: "The corpus does not establish whether these placements survive a private or ceremonial register.",
       observations_dropped: 3,
       multiple_voices_suspected: false,
     });
+    const observationFor = (value, dimension, predicate = () => true) => value.observations
+      .find((observation) => observation.dimensions.includes(dimension) && predicate(observation));
     const context = {
       profile: "doctorow-blog", measurements: measured, samples_used: files, samples_excluded: [],
     };
@@ -647,44 +633,74 @@ export async function run(t, { tmp, HERE }) {
 
     {
       const bad = source();
-      delete bad.dimensions["figures-analogy"];
+      bad.observations = bad.observations
+        .filter((observation) => !observation.dimensions.includes("figures-analogy"));
       t.check("assembly rejects a silently omitted dimension",
         assembleVoiceProfile(bad, context).errors.some((error) => /missing coverage dimension: figures-analogy/.test(error)));
     }
     {
+      const compact = source();
+      compact.observations = compact.observations.filter((observation) =>
+        !observation.dimensions.includes("qualification-hedging"));
+      compact.observations[0].dimensions.push("qualification-hedging");
+      const result = assembleVoiceProfile(compact, context);
+      t.check("one flat observation can cover overlapping dimensions without duplicating evidence",
+        result.ok
+          && result.profile.coverage.find((row) => row.dimension === "person-reader-stance")?.observation_ids
+            .some((id) => result.profile.coverage.find((row) => row.dimension === "qualification-hedging")
+              ?.observation_ids.includes(id)));
+    }
+    {
       const bad = source();
-      bad.dimensions["figures-analogy"].observations[0].support_files = ["not-in-corpus.txt"];
+      bad.observations.push(qualitative(["figures-analogy"], "figures",
+        "A second figure claim exists only to exceed the global semantic-source budget."));
+      bad.observations.push(qualitative(["figures-analogy"], "figures",
+        "A third figure claim exists only to exceed the global semantic-source budget."));
+      t.check("the flat source enforces its global fourteen-observation ceiling",
+        assembleVoiceProfile(bad, context).errors.some((error) => /ten to fourteen entries/.test(error)));
+    }
+    {
+      const bad = source();
+      bad.unresolved["figures-analogy"] = "The corpus cannot establish a stable figure instruction despite the emitted observation.";
+      t.check("a dimension cannot be both supported and unresolved",
+        assembleVoiceProfile(bad, context).errors.some((error) => /figures-analogy cannot be both observed and unresolved/.test(error)));
+    }
+    {
+      const bad = source();
+      observationFor(bad, "figures-analogy").support_files = [files[0], "not-in-corpus.txt"];
       t.check("assembly rejects support outside the locked corpus",
         assembleVoiceProfile(bad, context).errors.some((error) => /non-corpus support file/.test(error)));
     }
     {
       const bad = source();
-      bad.dimensions["figures-analogy"].observations[0].prose += " It occurs in 6/10 samples.";
+      observationFor(bad, "figures-analogy").prose += " It occurs in 6/10 samples.";
       t.check("semantic prose cannot duplicate deterministic evidence",
         assembleVoiceProfile(bad, context).errors.some((error) => /duplicates deterministic evidence/.test(error)));
     }
     {
       const bad = source();
-      bad.dimensions["questions-imperatives-vocatives"].observations[0].frequency = "throughout";
+      observationFor(bad, "questions-imperatives-vocatives").frequency = "throughout";
       t.check("a model cannot override a measured frequency band",
         assembleVoiceProfile(bad, context).errors.some((error) => /must omit frequency; the assembler derives/.test(error)));
     }
     {
       const bad = source();
-      bad.dimensions["questions-imperatives-vocatives"].observations[0].prose += " It recurs throughout.";
-      t.check("measured semantic prose cannot smuggle in a competing fixed band",
-        assembleVoiceProfile(bad, context).errors.some((error) => /leave fixed frequency wording to the assembler/.test(error)));
+      observationFor(bad, "questions-imperatives-vocatives").prose += " It recurs throughout.";
+      const result = assembleVoiceProfile(bad, context);
+      t.check("measured semantic prose gets deterministic density normalization before its derived band",
+        result.ok && !result.profile.profile_markdown.includes("recurs throughout")
+          && result.profile.profile_markdown.includes("recurs across the supported contexts"));
     }
     {
       const bad = source();
-      bad.dimensions["interruption-punctuation"].observations.shift();
+      bad.observations = bad.observations.filter((observation) => observation.measurement_id !== "en-dashes");
       t.check("a zero measurement cannot silently become a rated absence",
         assembleVoiceProfile(bad, context).errors.some((error) => /counted absence but not exactly one absence plus a positive measured replacement/.test(error)));
     }
     {
       const noAbsence = source();
-      noAbsence.dimensions["interruption-punctuation"].observations.pop();
-      noAbsence.dimensions["interruption-punctuation"].observations[0].section = "cadence";
+      noAbsence.observations = noAbsence.observations.filter((observation) => observation.measurement_id !== "em-dashes");
+      observationFor(noAbsence, "interruption-punctuation").section = "cadence";
       noAbsence.gaps += " The available pieces also do not establish how the register changes in private correspondence, ceremonial writing, short notices, collaborative work, or speech. Those unknowns remain explicit instead of becoming unsupported observations merely to fill a section.";
       const result = assembleVoiceProfile(noAbsence, context);
       t.check("a corpus with no supported absence gets a neutral section rather than an invented habit",
@@ -693,9 +709,9 @@ export async function run(t, { tmp, HERE }) {
     }
     {
       const withUnresolved = source();
-      withUnresolved.dimensions["profanity-vulgarity"] = {
-        unresolved_reason: "The measured absence has no counted positive replacement, so this corpus supports no drafting instruction for the dimension.",
-      };
+      withUnresolved.observations = withUnresolved.observations
+        .filter((observation) => !observation.dimensions.includes("profanity-vulgarity"));
+      withUnresolved.unresolved["profanity-vulgarity"] = "The measured absence has no counted positive replacement, so this corpus supports no drafting instruction for the dimension.";
       const result = assembleVoiceProfile(withUnresolved, context);
       t.check("an unresolved dimension is explicit in both coverage and section 8 prose",
         result.ok
@@ -712,13 +728,14 @@ export async function run(t, { tmp, HERE }) {
       singular.samples_with = 1;
       singular.samples_without = files.length - 1;
       const overlapping = source();
-      overlapping.dimensions["person-reader-stance"].observations.push(
-        rated("address", "first-person-plural-family", "Institutional first-person plural places the writer and reader on the same side of the argument."),
+      overlapping.observations.push(
+        rated(["person-reader-stance"], "address", "first-person-plural-family", "Institutional first-person plural places the writer and reader on the same side of the argument."),
       );
-      overlapping.dimensions["self-reference-biography"] = { observations: [{
-        section: "absences", measurement_id: "first-person-singular-family",
+      Object.assign(observationFor(overlapping, "self-reference-biography"), {
+        dimensions: ["self-reference-biography"], section: "absences",
+        measurement_id: "first-person-singular-family",
         prose: `Individual first-person testimony is a sparse exception; keep biography out and use the measured institutional stance instead. ${placement}`,
-      }] };
+      });
       const result = assembleVoiceProfile(overlapping, { ...context, measurements: sparseMeasurements });
       const person = result.profile?.coverage.find((row) => row.dimension === "person-reader-stance");
       const self = result.profile?.coverage.find((row) => row.dimension === "self-reference-biography");

@@ -4,7 +4,7 @@ description: Reads an author's writing corpus and emits cited semantic findings 
 ---
 
 You are the semantic stage of a portable voice-profile renderer. Read one writing corpus
-and return `voice-profile-source/1`: concise, cited findings that a deterministic assembler
+and return `voice-profile-source/2`: concise, cited findings that a deterministic assembler
 turns into `voice-profile/2`.
 
 Your job is interpretation. The assembler owns all bookkeeping: profile name, corpus word
@@ -96,8 +96,10 @@ that is fine: the assembler writes a neutral section rather than forcing one.
 
 ## Ten questions that must all be answered
 
-For every fixed key below, return either one or more supported `observations` or one
-`unresolved_reason`. These are questions, not prescribed habits.
+Every fixed key below must appear in the `dimensions` array of at least one observation or
+as a key in `unresolved`, exclusively. These are questions, not prescribed habits. One
+observation may answer up to three genuinely overlapping questions; use that instead of
+repeating the same claim or evidence in separate dimension containers.
 
 1. `person-reader-stance`: Which person and number carry the argument? Does `we` include
    the reader, name an institution, or exclude them? What work does direct address do?
@@ -122,9 +124,9 @@ For every fixed key below, return either one or more supported `observations` or
     How does the piece close, and does the close return to earlier language or add a new
     demand?
 
-Do not use `unresolved_reason` merely to save space. Use it when the corpus cannot support
-one stable drafting instruction. Equally, do not force an observation to make every row
-look resolved.
+Do not put a dimension in `unresolved` merely to save space. Use it when the corpus cannot
+support one stable drafting instruction. Equally, do not force an observation to make
+every row look resolved.
 
 ## Voice card
 
@@ -144,7 +146,8 @@ populate it directly. Otherwise emit the object in one `json` fence. The fallbac
 parse without repair: escape ASCII double quotation marks inside strings, or prefer curly
 or single quotation marks for short excerpts.
 
-Use ten to fourteen observations total. Each `prose` value is one short paragraph of
+Use ten to fourteen entries in the single flat `observations` array. The output schema
+enforces that global bound. Each `prose` value is one short paragraph of
 roughly thirty-five to fifty-five words: the claim, its function, a restrained placement
 instruction, and at most one short excerpt. Do not include a filename in the prose; the
 structured evidence source carries it. Keep `gaps` to roughly sixty to one hundred ten
@@ -154,6 +157,7 @@ between 800 and 1,500 words.
 
 Every observation carries:
 
+- `dimensions`: one to three unique keys from the ten questions above;
 - `section`: one of `cadence`, `openings`, `closings`, `address`, `figures`,
   `register-range`, or `absences`;
 - `prose`;
@@ -168,19 +172,16 @@ The object has this shape:
 
 ```json
 {
-  "schema": "voice-profile-source/1",
+  "schema": "voice-profile-source/2",
   "voice_card": "empty",
-  "dimensions": {
-    "person-reader-stance": {
-      "observations": [{
-        "section": "address",
-        "prose": "A supported semantic claim, its function, and a restrained placement instruction.",
-        "measurement_id": "a-supplied-measurement-id"
-      }]
-    },
-    "contraction-negation": {
-      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
-    }
+  "observations": [{
+    "dimensions": ["person-reader-stance", "self-reference-biography"],
+    "section": "address",
+    "prose": "A supported semantic claim, its function, and a restrained placement instruction.",
+    "measurement_id": "a-supplied-measurement-id"
+  }],
+  "unresolved": {
+    "contraction-negation": "The corpus does not establish one stable instruction for this dimension."
   },
   "gaps": "What the corpus, provenance, register range, and voice card could not determine.",
   "observations_dropped": 2,
@@ -188,5 +189,7 @@ The object has this shape:
 }
 ```
 
-The abbreviated example omits eight keys only for readability. Your `dimensions` object
-must contain all ten keys exactly once. Do not add keys to the source contract.
+The abbreviated example omits observations or unresolved reasons for eight questions only
+for readability. Across `observations[].dimensions` and `unresolved`, cover all ten keys.
+A resolved key may occur on several observations, but it may never also appear in
+`unresolved`. Do not add keys to the source contract.

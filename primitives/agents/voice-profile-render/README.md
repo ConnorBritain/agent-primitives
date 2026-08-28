@@ -81,9 +81,16 @@ with its own narrow allowlist makes that a boundary rather than a promise.
 
 The production path deterministically measures `corpus/human/**`, then gives those
 measurements, the corpus, `voice.md`, and `profile.json` to one clean semantic render. The
-model emits `voice-profile-source/1`. The portable assembler turns that source into one
+model emits `voice-profile-source/2`. The portable assembler turns that source into one
 self-contained `voice-profile/2` whose `profile_markdown` is what the drafter reads and
 whose structured fields are what the harness verifies.
+
+The semantic source has one flat, globally bounded observation array. An observation may
+answer up to three overlapping coverage questions, so the model does not have to repeat a
+claim merely because it belongs to two dimensions. The schema caps the array at fourteen;
+the local validator then requires every dimension to be either supported or explicitly
+unresolved. Providers with native structured output can enforce the same shape while
+decoding. Other harnesses emit ordinary JSON and pass it through the identical validator.
 
 `profile-measure.mjs`, `profile-assemble.mjs`, and their shared contract are ordinary
 Node CLIs. Claude, Codex, and another harness can invoke the semantic stage differently

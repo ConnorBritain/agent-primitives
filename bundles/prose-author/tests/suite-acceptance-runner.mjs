@@ -45,7 +45,7 @@ export async function run(t, { HERE }) {
     const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }], measurements);
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
     t.check("profile prompts end on the provider-neutral semantic source contract",
-      /emit voice-profile-source\/1[\s\S]*semantic prose[\s\S]*supporting filenames[\s\S]*measurement IDs[\s\S]*every coverage dimension/.test(prompt));
+      /emit voice-profile-source\/2[\s\S]*semantic prose[\s\S]*supporting filenames[\s\S]*measurement IDs[\s\S]*every coverage dimension/.test(prompt));
     t.check("profile prompts assign all duplicate bookkeeping to deterministic code",
       /Do not copy counts, rates, support[\s\S]*observation IDs, coverage statuses, or final profile fields[\s\S]*deterministic assembler owns/.test(prompt));
     t.check("profile prompts require refusal instead of invented evidence",

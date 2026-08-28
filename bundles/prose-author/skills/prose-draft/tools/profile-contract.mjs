@@ -8,7 +8,7 @@
  * while decoding; Codex and other harnesses may write ordinary JSON and call assemble.
  */
 
-export const SOURCE_SCHEMA_ID = "voice-profile-source/1";
+export const SOURCE_SCHEMA_ID = "voice-profile-source/2";
 export const PROFILE_SCHEMA_ID = "voice-profile/2";
 
 export const COVERAGE_DIMENSIONS = [
@@ -86,16 +86,20 @@ const observationSchema = {
   type: "object",
   additionalProperties: false,
   properties: {
+    dimensions: {
+      type: "array", minItems: 1, maxItems: 3, uniqueItems: true,
+      items: { enum: COVERAGE_DIMENSIONS },
+    },
     section: { enum: SECTIONS },
     prose: { type: "string", minLength: 100, maxLength: 450 },
     frequency: { enum: FREQUENCIES },
     measurement_id: { type: "string", minLength: 1 },
     support_files: {
-      type: "array", minItems: 1, uniqueItems: true,
+      type: "array", minItems: 2, uniqueItems: true,
       items: { type: "string", minLength: 1 },
     },
   },
-  required: ["section", "prose"],
+  required: ["dimensions", "section", "prose"],
   oneOf: [
     {
       required: ["measurement_id"],
@@ -108,36 +112,31 @@ const observationSchema = {
   ],
 };
 
-const dimensionSchema = {
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    observations: { type: "array", minItems: 1, maxItems: 5, items: { $ref: "#/$defs/observation" } },
-    unresolved_reason: { type: "string", minLength: 20, maxLength: 500 },
-  },
-  oneOf: [{ required: ["observations"] }, { required: ["unresolved_reason"] }],
-};
-
 /** Render-only schema for providers whose structured-output decoder cannot express unions. */
 export const SOURCE_RENDER_SCHEMA = {
   type: "object",
   additionalProperties: false,
-  $defs: { observation: observationSchema, dimension: dimensionSchema },
+  $defs: { observation: observationSchema },
   properties: {
     schema: { const: SOURCE_SCHEMA_ID },
     voice_card: { enum: ["empty", "corroborating", "contradicted"] },
-    dimensions: {
+    observations: {
+      type: "array", minItems: 10, maxItems: 14,
+      items: { $ref: "#/$defs/observation" },
+    },
+    unresolved: {
       type: "object",
       additionalProperties: false,
-      properties: Object.fromEntries(COVERAGE_DIMENSIONS.map((id) => [id, { $ref: "#/$defs/dimension" }])),
-      required: COVERAGE_DIMENSIONS,
+      properties: Object.fromEntries(COVERAGE_DIMENSIONS.map((id) => [id, {
+        type: "string", minLength: 20, maxLength: 500,
+      }])),
     },
     gaps: { type: "string", minLength: 40, maxLength: 900 },
     observations_dropped: { type: "integer", minimum: 0 },
     multiple_voices_suspected: { type: "boolean" },
   },
   required: [
-    "schema", "voice_card", "dimensions", "gaps", "observations_dropped",
+    "schema", "voice_card", "observations", "unresolved", "gaps", "observations_dropped",
     "multiple_voices_suspected",
   ],
 };
@@ -231,7 +230,7 @@ function sourceErrors(source) {
   if (!isObject(source)) return ["source is not an object"];
   if (source.schema !== SOURCE_SCHEMA_ID) err(`source.schema must be ${SOURCE_SCHEMA_ID}`);
   for (const key of exactKeys(source, [
-    "schema", "voice_card", "dimensions", "gaps", "observations_dropped",
+    "schema", "voice_card", "observations", "unresolved", "gaps", "observations_dropped",
     "multiple_voices_suspected", "refused",
   ])) err(`source carries unknown key: ${key}`);
 
@@ -255,79 +254,78 @@ function sourceErrors(source) {
   if (typeof source.multiple_voices_suspected !== "boolean") {
     err("source.multiple_voices_suspected must be boolean");
   }
-  if (!isObject(source.dimensions)) return [...errors, "source.dimensions must be an object"];
-  for (const extra of exactKeys(source.dimensions, COVERAGE_DIMENSIONS)) {
-    err(`unknown coverage dimension: ${extra}`);
+  if (!Array.isArray(source.observations)) return [...errors, "source.observations must be an array"];
+  if (source.observations.length < 10 || source.observations.length > 14) {
+    err("source.observations must contain ten to fourteen entries");
+  }
+  if (!isObject(source.unresolved)) err("source.unresolved must be an object");
+  else {
+    for (const extra of exactKeys(source.unresolved, COVERAGE_DIMENSIONS)) {
+      err(`unknown unresolved coverage dimension: ${extra}`);
+    }
+    for (const [dimension, reason] of Object.entries(source.unresolved)) {
+      if (!isText(reason) || reason.trim().length < 20 || reason.trim().length > 500) {
+        err(`source.unresolved.${dimension} must contain 20–500 characters`);
+      }
+    }
+  }
+
+  const coveredDimensions = new Set();
+  for (const [i, observation] of source.observations.entries()) {
+    const at = `observations[${i}]`;
+    if (!isObject(observation)) { err(`${at} is not an object`); continue; }
+    for (const extra of exactKeys(observation, [
+      "dimensions", "section", "prose", "frequency", "measurement_id", "support_files",
+    ])) err(`${at} carries unknown key: ${extra}`);
+    if (!Array.isArray(observation.dimensions) || observation.dimensions.length < 1
+      || observation.dimensions.length > 3 || new Set(observation.dimensions).size !== observation.dimensions.length
+      || !observation.dimensions.every((dimension) => COVERAGE_DIMENSIONS.includes(dimension))) {
+      err(`${at}.dimensions must contain one to three unique coverage dimensions`);
+    } else {
+      observation.dimensions.forEach((dimension) => coveredDimensions.add(dimension));
+    }
+    if (!SECTIONS.includes(observation.section)) err(`${at}.section is invalid`);
+    if (!isText(observation.prose) || observation.prose.trim().length < 100
+      || observation.prose.trim().length > 450) {
+      err(`${at}.prose must contain 100–450 characters of actionable evidence`);
+    }
+    if (observation.frequency !== undefined && !FREQUENCIES.includes(observation.frequency)) {
+      err(`${at}.frequency is invalid`);
+    }
+    const measured = isText(observation.measurement_id);
+    const qualitative = Array.isArray(observation.support_files);
+    if (measured === qualitative) err(`${at} must carry measurement_id or support_files, exclusively`);
+    if (measured && observation.frequency !== undefined) {
+      err(`${at} is measured and must omit frequency; the assembler derives its fixed band`);
+    }
+    if (qualitative && !FREQUENCIES.includes(observation.frequency)) {
+      err(`${at} is qualitative and must carry one fixed frequency`);
+    }
+    if (qualitative && (observation.support_files.length < 2
+      || !observation.support_files.every(isText)
+      || new Set(observation.support_files).size !== observation.support_files.length)) {
+      err(`${at}.support_files must contain at least two unique filenames`);
+    }
+    // Evidence is assembled below. A semantic stage that also writes figures creates
+    // two sources of truth and recreates the failure this boundary removes.
+    if (/\b\d+\s*\/\s*\d+\s+samples?\b/i.test(observation.prose)
+      || /\bper\s+1[,.]?000\s+words?\b/i.test(observation.prose)
+      || /\[measurement:[a-z0-9-]+\]/i.test(observation.prose)) {
+      err(`${at}.prose duplicates deterministic evidence`);
+    }
   }
   for (const dimension of COVERAGE_DIMENSIONS) {
-    const row = source.dimensions[dimension];
-    if (!isObject(row)) { err(`missing coverage dimension: ${dimension}`); continue; }
-    const hasObservations = Array.isArray(row.observations);
-    const hasUnresolved = isText(row.unresolved_reason);
-    if (hasObservations === hasUnresolved) {
-      err(`${dimension} must carry observations or unresolved_reason, exclusively`);
-      continue;
-    }
-    if (hasUnresolved && (row.unresolved_reason.trim().length < 20
-      || row.unresolved_reason.trim().length > 500)) {
-      err(`${dimension}.unresolved_reason must contain 20–500 characters`);
-    }
-    for (const extra of exactKeys(row, ["observations", "unresolved_reason"])) {
-      err(`${dimension} carries unknown key: ${extra}`);
-    }
-    if (!hasObservations) continue;
-    if (row.observations.length === 0 || row.observations.length > 5) {
-      err(`${dimension}.observations must contain one to five entries`);
-    }
-    for (const [i, observation] of row.observations.entries()) {
-      const at = `${dimension}.observations[${i}]`;
-      if (!isObject(observation)) { err(`${at} is not an object`); continue; }
-      for (const extra of exactKeys(observation, [
-        "section", "prose", "frequency", "measurement_id", "support_files",
-      ])) err(`${at} carries unknown key: ${extra}`);
-      if (!SECTIONS.includes(observation.section)) err(`${at}.section is invalid`);
-      if (!isText(observation.prose) || observation.prose.trim().length < 100
-        || observation.prose.trim().length > 450) {
-        err(`${at}.prose must contain 100–450 characters of actionable evidence`);
-      }
-      if (observation.frequency !== undefined && !FREQUENCIES.includes(observation.frequency)) {
-        err(`${at}.frequency is invalid`);
-      }
-      const measured = isText(observation.measurement_id);
-      const qualitative = Array.isArray(observation.support_files);
-      if (measured === qualitative) err(`${at} must carry measurement_id or support_files, exclusively`);
-      if (measured && observation.frequency !== undefined) {
-        err(`${at} is measured and must omit frequency; the assembler derives its fixed band`);
-      }
-      if (measured && FREQUENCIES.some((phrase) => new RegExp(`\\b${phrase.replace(/ /g, "\\s+")}\\b`, "i")
-        .test(observation.prose))) {
-        err(`${at} is measured and must leave fixed frequency wording to the assembler`);
-      }
-      if (qualitative && !FREQUENCIES.includes(observation.frequency)) {
-        err(`${at} is qualitative and must carry one fixed frequency`);
-      }
-      if (qualitative && (observation.support_files.length === 0
-        || !observation.support_files.every(isText)
-        || new Set(observation.support_files).size !== observation.support_files.length)) {
-        err(`${at}.support_files must contain unique filenames`);
-      }
-      // Evidence is assembled below. A semantic stage that also writes figures creates
-      // two sources of truth and recreates the failure this boundary removes.
-      if (/\b\d+\s*\/\s*\d+\s+samples?\b/i.test(observation.prose)
-        || /\bper\s+1[,.]?000\s+words?\b/i.test(observation.prose)
-        || /\[measurement:[a-z0-9-]+\]/i.test(observation.prose)) {
-        err(`${at}.prose duplicates deterministic evidence`);
-      }
+    const covered = coveredDimensions.has(dimension);
+    const unresolved = isObject(source.unresolved) && Object.hasOwn(source.unresolved, dimension);
+    if (covered === unresolved) {
+      err(covered
+        ? `${dimension} cannot be both observed and unresolved`
+        : `missing coverage dimension: ${dimension}`);
     }
   }
-  const observationCount = COVERAGE_DIMENSIONS.reduce(
-    (sum, dimension) => sum + (source.dimensions?.[dimension]?.observations?.length ?? 0), 0,
-  );
-  if (observationCount > 14) err("source may contain at most 14 observations");
-  const semanticWords = COVERAGE_DIMENSIONS.reduce(
-    (sum, dimension) => sum + (source.dimensions?.[dimension]?.observations ?? [])
-      .reduce((words, observation) => words
-        + String(observation?.prose ?? "").trim().split(/\s+/).filter(Boolean).length, 0),
+  const semanticWords = source.observations.reduce(
+    (sum, observation) => sum
+      + String(observation?.prose ?? "").trim().split(/\s+/).filter(Boolean).length,
     String(source.gaps ?? "").trim().split(/\s+/).filter(Boolean).length,
   );
   if (semanticWords > 900) err(`source semantic prose is ${semanticWords} words; maximum is 900`);
@@ -347,8 +345,23 @@ function evidenceLine({ support, of, frequency, measurement, citationFile, absen
 }
 
 /**
+ * Density words in measured prose are not evidence. Remove the three reserved presentation
+ * bands from that prose before the deterministic evidence line supplies the measured band.
+ * This is a bounded lexical normalization, not a semantic repair: it cannot create a habit,
+ * support file, count, polarity, or placement instruction.
+ */
+function normalizeMeasuredDensityLanguage(prose) {
+  return prose
+    .replace(/\bonce\s+or\s+twice\s+per\s+piece\b/gi, "in its measured contexts")
+    .replace(/\bseveral\s+times\s+per\s+piece\b/gi, "in its measured contexts")
+    .replace(/\bthroughout\b/gi, "across the supported contexts")
+    .replace(/\s{2,}/g, " ")
+    .trim();
+}
+
+/**
  * Assemble one semantic source response into canonical voice-profile/2.
- * Returns all errors at once; it never repairs or guesses.
+ * Returns all errors at once; it never repairs structure or guesses evidence.
  */
 export function assembleVoiceProfile(source, context) {
   const errors = sourceErrors(source);
@@ -426,98 +439,96 @@ export function assembleVoiceProfile(source, context) {
     .map((id) => byMeasurement.get(id))
     .find((row) => row?.count > 0);
   const observations = [];
-  const coverage = [];
   const proseBySection = new Map(SECTIONS.map((section) => [section, []]));
   const usedMeasurementIds = new Set();
   const observationByMeasurement = new Map();
   const measurementByObservation = new Map();
+  const idsByDimension = new Map(COVERAGE_DIMENSIONS.map((dimension) => [dimension, []]));
+  const positiveRatedByDimension = new Map(COVERAGE_DIMENSIONS.map((dimension) => [dimension, []]));
+  const absenceRatedByDimension = new Map(COVERAGE_DIMENSIONS.map((dimension) => [dimension, []]));
 
+  for (const [index, item] of source.observations.entries()) {
+    const at = `observations[${index}]`;
+    let measurement = null;
+    let supportFiles;
+    let absence = false;
+    if (item.measurement_id) {
+      measurement = byMeasurement.get(item.measurement_id);
+      if (!measurement) { errors.push(`${at} names unknown measurement ${item.measurement_id}`); continue; }
+      if (usedMeasurementIds.has(item.measurement_id)) {
+        errors.push(`${at} reuses measurement ${item.measurement_id}; one measured claim has one canonical observation`);
+        continue;
+      }
+      usedMeasurementIds.add(item.measurement_id);
+      const replacement = replacementFor(item.measurement_id);
+      // Polarity is arithmetic, not a side channel encoded by whether the model
+      // happened to emit `frequency`. Zero and genuinely sparse counterparts are
+      // absences; every other measured row is positive.
+      absence = measurement.count === 0
+        || Boolean(replacement && measurement.count <= replacement.count * 0.2);
+      supportFiles = absence ? [...(measurement.files_without ?? [])] : [...(measurement.files_with ?? [])];
+      if (!absence && measurement.samples_with !== supportFiles.length) {
+        errors.push(`${at} measurement ${item.measurement_id} has inconsistent file support`);
+      }
+    } else {
+      supportFiles = [...item.support_files];
+    }
+    for (const file of supportFiles) if (!sampleSet.has(file)) errors.push(`${at} names non-corpus support file ${file}`);
+    if (supportFiles.length === 0) errors.push(`${at} has no positive support`);
+
+    const frequency = measurement && !absence
+      ? frequencyForPerPiece(measurement.count / samplesUsed.length)
+      : item.frequency;
+    if (!absence && !FREQUENCIES.includes(frequency)) errors.push(`${at} must carry one fixed frequency`);
+
+    const id = `o${String(observations.length + 1).padStart(2, "0")}`;
+    const observation = {
+      id, section: item.section, support: supportFiles.length, of: samplesUsed.length,
+    };
+    if (measurement) observation.rate = {
+      count: measurement.count,
+      per_1000_words: measurement.per_1000_words,
+      counting_rule: measurement.counting_rule,
+    };
+    observations.push(observation);
+    if (measurement && !absence) observationByMeasurement.set(item.measurement_id, id);
+    if (measurement) measurementByObservation.set(id, item.measurement_id);
+    for (const dimension of item.dimensions) {
+      idsByDimension.get(dimension).push(id);
+      if (absence) absenceRatedByDimension.get(dimension).push(id);
+      else if (measurement) positiveRatedByDimension.get(dimension).push(id);
+    }
+    const labels = item.dimensions.map((dimension) => DIMENSION_LABELS[dimension]).join("; ");
+    const prose = measurement ? normalizeMeasuredDensityLanguage(item.prose.trim()) : item.prose.trim();
+    proseBySection.get(item.section).push([
+      `**${labels}.** ${prose}`,
+      evidenceLine({
+        support: supportFiles.length, of: samplesUsed.length,
+        frequency, measurement, absence,
+        citationFile: supportFiles[0],
+      }),
+    ].join("\n"));
+  }
+
+  const coverage = [];
   for (const dimension of COVERAGE_DIMENSIONS) {
-    const sourceRow = source.dimensions[dimension];
-    if (sourceRow.unresolved_reason) {
-      coverage.push({ dimension, status: "unresolved", unresolved_reason: sourceRow.unresolved_reason.trim() });
+    if (Object.hasOwn(source.unresolved, dimension)) {
+      coverage.push({ dimension, status: "unresolved", unresolved_reason: source.unresolved[dimension].trim() });
       continue;
     }
-
-    const ids = [];
-    const positiveRated = [];
-    const absenceRated = [];
-    for (const [index, item] of sourceRow.observations.entries()) {
-      const at = `${dimension}.observations[${index}]`;
-      let measurement = null;
-      let supportFiles;
-      let absence = false;
-      if (item.measurement_id) {
-        measurement = byMeasurement.get(item.measurement_id);
-        if (!measurement) { errors.push(`${at} names unknown measurement ${item.measurement_id}`); continue; }
-        if (usedMeasurementIds.has(item.measurement_id)) {
-          errors.push(`${at} reuses measurement ${item.measurement_id}; one measured claim has one canonical observation`);
-          continue;
-        }
-        usedMeasurementIds.add(item.measurement_id);
-        const replacement = replacementFor(item.measurement_id);
-        // Polarity is arithmetic, not a side channel encoded by whether the model
-        // happened to emit `frequency`. Zero and genuinely sparse counterparts are
-        // absences; every other measured row is positive.
-        absence = measurement.count === 0
-          || Boolean(replacement && measurement.count <= replacement.count * 0.2);
-        supportFiles = absence ? [...(measurement.files_without ?? [])] : [...(measurement.files_with ?? [])];
-        if (!absence && measurement.samples_with !== supportFiles.length) {
-          errors.push(`${at} measurement ${item.measurement_id} has inconsistent file support`);
-        }
-      } else {
-        supportFiles = [...item.support_files];
-      }
-      for (const file of supportFiles) if (!sampleSet.has(file)) errors.push(`${at} names non-corpus support file ${file}`);
-      if (supportFiles.length === 0) errors.push(`${at} has no positive support`);
-
-      const frequency = measurement && !absence
-        ? frequencyForPerPiece(measurement.count / samplesUsed.length)
-        : item.frequency;
-      if (!absence && !FREQUENCIES.includes(frequency)) {
-        errors.push(`${at} must carry one fixed frequency`);
-      }
-
-      const id = `o${String(observations.length + 1).padStart(2, "0")}`;
-      const observation = {
-        id, section: item.section, support: supportFiles.length, of: samplesUsed.length,
-      };
-      if (measurement) observation.rate = {
-        count: measurement.count,
-        per_1000_words: measurement.per_1000_words,
-        counting_rule: measurement.counting_rule,
-      };
-      observations.push(observation);
-      if (measurement && !absence) observationByMeasurement.set(item.measurement_id, id);
-      if (measurement) measurementByObservation.set(id, item.measurement_id);
-      ids.push(id);
-      if (absence) absenceRated.push(id);
-      else if (measurement) positiveRated.push(id);
-      proseBySection.get(item.section).push([
-        `**${DIMENSION_LABELS[dimension]}.** ${item.prose.trim()}`,
-        evidenceLine({
-          support: supportFiles.length, of: samplesUsed.length,
-          frequency, measurement, absence,
-          citationFile: supportFiles[0],
-        }),
-      ].join("\n"));
-    }
-
+    const ids = [...idsByDimension.get(dimension)];
+    const positiveRated = positiveRatedByDimension.get(dimension);
+    const absenceRated = absenceRatedByDimension.get(dimension);
     if (absenceRated.length) {
-      const absenceItem = sourceRow.observations.find((item) => {
-        if (!item.measurement_id) return false;
-        const measured = byMeasurement.get(item.measurement_id);
-        const replacement = replacementFor(item.measurement_id);
-        return measured?.count === 0
-          || Boolean(replacement && measured.count <= replacement.count * 0.2);
-      });
-      const allowedReplacementIds = ABSENCE_REPLACEMENTS[absenceItem?.measurement_id] ?? [];
+      const absenceId = absenceRated[0];
+      const absenceMeasurementId = measurementByObservation.get(absenceId);
+      const allowedReplacementIds = ABSENCE_REPLACEMENTS[absenceMeasurementId] ?? [];
       const positiveId = positiveRated.find((id) => allowedReplacementIds.includes(measurementByObservation.get(id)))
         ?? allowedReplacementIds.map((measurementId) => observationByMeasurement.get(measurementId)).find(Boolean);
       if (absenceRated.length !== 1 || !positiveId) {
         errors.push(`${dimension} has a counted absence but not exactly one absence plus a positive measured replacement`);
       } else {
-        const absenceMeasurement = byMeasurement.get(absenceItem.measurement_id);
+        const absenceMeasurement = byMeasurement.get(absenceMeasurementId);
         const positiveMeasurement = byMeasurement.get(measurementByObservation.get(positiveId));
         if (absenceMeasurement.count > positiveMeasurement.count * 0.2) {
           errors.push(`${dimension} sparse counterpart count ${absenceMeasurement.count} exceeds one-fifth of replacement count ${positiveMeasurement.count}`);
@@ -525,7 +536,7 @@ export function assembleVoiceProfile(source, context) {
         if (!ids.includes(positiveId)) ids.unshift(positiveId);
         coverage.push({
           dimension, status: "absent-paired", observation_ids: ids,
-          positive_observation_id: positiveId, absence_observation_id: absenceRated[0],
+          positive_observation_id: positiveId, absence_observation_id: absenceId,
         });
       }
     } else if (positiveRated.length) {

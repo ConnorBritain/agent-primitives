@@ -95,7 +95,7 @@ harness:
     enforcement: advisory
     notes: >-
       Neither the read-only tool restriction nor context isolation is enforced. Run as
-      a fresh `codex exec`, ask it for voice-profile-source/1, then pass that object and
+      a fresh `codex exec`, ask it for voice-profile-source/2, then pass that object and
       the deterministic measurement context to profile-assemble.mjs. The same portable
       source validation and canonical voice-profile/2 assembly apply; do not ask Codex
       to recreate counts or final fields in prose.
