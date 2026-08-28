@@ -115,7 +115,7 @@ non-empty disclosure record when needed, or a `json` refusal, never both. Histor
 This split is mechanical, not editorial. The model still owns every word of prose, the
 pre-writing ledger, every sentence classification, and every omission. Deterministic code
 owns the envelope, requires every sentence to be represented, rejects request evidence it
-cannot locate, rejects dangling, unused, repeated, or cross-basis ledger references,
+cannot locate, rejects dangling, unused, or cross-basis ledger references,
 derives the claim record, and removes empty source arrays. Claude can enforce the schema
 while decoding; Codex exposes `--output-schema`; generic harnesses can emit ordinary JSON
 and run the same local validator and assembler with the original request.

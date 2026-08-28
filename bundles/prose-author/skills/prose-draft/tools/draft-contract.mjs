@@ -319,7 +319,6 @@ function validateLedgerSentenceUnits(source, request) {
   for (const entry of Array.isArray(source.ledger) ? source.ledger : []) {
     const count = references.get(entry?.id) ?? 0;
     if (count === 0) errors.push(`source.ledger ${entry?.id ?? "entry"} is not cited by any sentence`);
-    if (count > 1) errors.push(`source.ledger ${entry.id} is cited by ${count} sentences; split repeated assertions into separate entries`);
   }
   return errors;
 }

@@ -384,6 +384,14 @@ export async function run(t, { HERE }) {
         && !validateVoiceDraftSource({ ...source,
           paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claim_ids: ["c9"] }] }],
         }, { request }).ok);
+    t.check("one authorized premise may support several sentences without inventing a new claim",
+      validateVoiceDraftSource({
+        ...source,
+        paragraphs: [{ sentences: [
+          source.paragraphs[0].sentences[0],
+          { text: "After sale, the maker can still disable the feature.", basis: "request-supported", claim_ids: ["c1"] },
+        ] }],
+      }, { request }).ok);
     t.check("source/3 proves the ledger was emitted before expressive prose",
       !validateVoiceDraftSource({
         schema: source.schema, kind: source.kind, paragraphs: source.paragraphs,

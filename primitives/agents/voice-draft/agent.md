@@ -208,8 +208,9 @@ empty and remains explicitly queued for verification. Assign the fixed IDs `c1`,
 in order. Then close the ledger. Do not add a new factual premise while drafting.
 
 Every factual sentence cites the IDs that authorize all of its descriptive clauses. The
-assembler rejects dangling IDs, unused entries, cross-basis references, and one ledger
-entry reused as cover for several sentences. A ledger entry is not a source and never
+assembler rejects dangling IDs, unused entries, and cross-basis references. A claim may
+support several sentences only when every one repeats or reasons directly from that same
+proposition; it cannot cover new details merely because they share a topic. A ledger entry is not a source and never
 licenses an attributed quote, fabricated citation, invented author biography, or fact you
 do not believe.
 
