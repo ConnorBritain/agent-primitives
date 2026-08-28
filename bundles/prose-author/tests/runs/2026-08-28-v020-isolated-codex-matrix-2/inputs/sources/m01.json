@@ -1,0 +1,216 @@
+{
+  "schema": "voice-draft-source/3",
+  "kind": "draft",
+  "ledger": [
+    {
+      "id": "c1",
+      "basis": "request-supported",
+      "claim": "A device is not fully owned when its maker can disable features after sale.",
+      "request_basis": "a device is not fully owned when its maker can disable features after sale"
+    }
+  ],
+  "paragraphs": [
+    {
+      "sentences": [
+        {
+          "text": "A device is not fully owned when its maker can disable features after sale.",
+          "basis": "request-supported",
+          "claim_ids": [
+            "c1"
+          ]
+        },
+        {
+          "text": "That may sound like a narrow dispute about software, but it reaches the center of ownership: who gets to decide what the thing can do after money has changed hands?",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "If the answer is still the maker, the buyer has received possession without receiving complete control.",
+          "basis": "reasoning",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "Ownership has never meant that a product must remain untouched or frozen in its original condition.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "A maker can repair it, improve it, or sell a replacement without retaining a remote veto over its ordinary functions.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "The distinction matters because an update is not the same thing as a command from elsewhere (even when both arrive through the same connection).",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "One changes the product while leaving the owner in charge; the other changes the owner's authority along with the product.",
+          "basis": "reasoning",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "The familiar defense is that the buyer agreed to terms, accepted an account, or understood that some features depended on continued permission.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "That might be relevant to the contract, but it does not settle the ownership question.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "A long agreement cannot turn control into ownership merely by placing the loss of control in fine print.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "Nor does the fact that a device is complicated mean its maker should keep the last word over it.",
+          "basis": "normative",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "What does it mean to buy a device if the most important switch remains on someone else's desk?",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "It means the transaction has acquired a second layer: the visible product and an invisible permission system that can overrule the person who paid for it.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "That permission system is less like a key than a lease with a particularly confident landlord.",
+          "basis": "reasoning",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "This is not an argument against software, networked products, or legitimate safety limits.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "It is an argument against treating every maker decision as part of the product's natural identity.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "A safety mechanism may be necessary; a service may be optional; a feature may be experimental—but those categories should not silently merge into a general power to withdraw functionality.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "When the boundaries are unclear, the maker will likely describe control as maintenance and the buyer may simply discover that maintenance has become a lock.",
+          "basis": "hypothetical",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "The burden falls hardest when a device has become part of a person's routine, work, communication, or access to information.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "A disabled feature is not merely a disappointing menu option if the buyer relied on it to use the product as purchased.",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "The loss can be practical, expensive, and difficult to reverse (especially when no independent repair or replacement path exists).",
+          "basis": "reasoning",
+          "claim_ids": []
+        },
+        {
+          "text": "Ownership that disappears at the moment of inconvenience is ownership only in the brochure.",
+          "basis": "normative",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "We should therefore judge device ownership by control, not by the number of components that sit in the buyer's home.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "That means asking whether the owner can keep using the core functions, preserve access to purchased capabilities, and choose repairs without begging the maker for permission.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "It also means recognizing that a device can be physically present and legally possessed while remaining substantively conditional.",
+          "basis": "reasoning",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "If you are deciding whether a product is yours, do not stop at the receipt or the box.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "Ask who can change its terms after the sale, who can disable what you paid for, and whether your control survives a disagreement with the maker.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "Those questions are not technical footnotes; they are the ownership test.",
+          "basis": "reasoning",
+          "claim_ids": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "Makers should not be allowed to sell control in the language of ownership and reclaim it through an unseen switch.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "Policy should protect the buyer's continuing ability to use the device's core features, repair it, and retain purchased functionality.",
+          "basis": "normative",
+          "claim_ids": []
+        },
+        {
+          "text": "A device is fully owned only when the person who bought it—not the maker—gets the final say over whether its ordinary capabilities remain available.",
+          "basis": "request-supported",
+          "claim_ids": [
+            "c1"
+          ]
+        }
+      ]
+    }
+  ],
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o11: named institutional opponents, organisation allies, inline hyperlinks, and primary-text quotations",
+      "why": "The request supplies no verified sources, named organizations, or quotations for this topic."
+    }
+  ],
+  "refused": ""
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04aae-097e-7810-b385-e58819d6c9e9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/3\",\"kind\":\"refusal\",\"ledger\":[],\"paragraphs\":[],\"omitted\":[],\"refused\":\"The subject, audience, purpose, and requested form are unspecified: “the problem we discussed” provides no usable topic. Supply the problem and, if relevant, the intended reader or occasion so I can proceed.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":23210,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":130,"reasoning_output_tokens":46}}

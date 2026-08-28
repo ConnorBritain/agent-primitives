@@ -1,0 +1,98 @@
+{
+  "schema": "prose-author-isolated-codex-matrix-artifacts/1",
+  "drafts": {
+    "d01": {
+      "audit_pass": false,
+      "errors": [
+        "p2s1 rejected: Labeled reasoning with no claim IDs, but the sentence asserts a descriptive claim about how sellers and buyers characteristically handle hardware/software distinctions and terms-of-service at unboxing — a claim about real industry practice and common behavior that requires external support not present in the ledger.",
+        "p3s3 rejected: Labeled reasoning but asserts a descriptive claim that 'the digital version of that arrangement is treated as ordinary' — a claim about how courts, industry, or the public currently treat such arrangements — and that contracts are longer than anyone can reasonably read, both of which are external descriptive claims not covered by any ledger entry."
+      ]
+    },
+    "d09": {
+      "profile": "doctorow-blog",
+      "render": 3,
+      "shape": "reply",
+      "raw": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/d09.json",
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/d09.codex-events.jsonl",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/d09.codex-output.json",
+      "source": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/sources/d09.json",
+      "audit": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/audits/d09.json",
+      "output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/outputs/drafts/d09.md",
+      "sentences": 20,
+      "claims": 0,
+      "external_claims": [],
+      "structural": {
+        "audit": true,
+        "valid": true,
+        "no_fabricated_citations": true,
+        "no_corpus_leakage": false,
+        "request_only": true
+      },
+      "structural_pass": false
+    },
+    "m01": {
+      "profile": "eff-mullin",
+      "render": 1,
+      "shape": "essay-topic",
+      "raw": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m01.json",
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m01.codex-events.jsonl",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m01.codex-output.json",
+      "source": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/sources/m01.json",
+      "audit": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/audits/m01.json",
+      "output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/outputs/drafts/m01.md",
+      "sentences": 31,
+      "claims": 1,
+      "external_claims": [],
+      "structural": {
+        "audit": true,
+        "valid": true,
+        "no_fabricated_citations": true,
+        "no_corpus_leakage": false,
+        "request_only": true
+      },
+      "structural_pass": false
+    },
+    "m05": {
+      "audit_pass": false,
+      "errors": [
+        "p3s4 rejected: The clause 'many will not' is a descriptive claim about how users generally behave in practice. That is a claim about common behavior requiring empirical support. The ledger is empty and the basis is 'reasoning,' but generic wording does not convert a behavioral premise into reasoning. No ledger entry covers it.",
+        "p5s4 rejected: The clause 'Developers feel this gap' is a descriptive claim about the general experience of a real population (software developers). This is a claim about common behavior; generic wording does not make it reasoning. The ledger is empty and no entry covers it."
+      ]
+    },
+    "m09": {
+      "profile": "eff-mullin",
+      "render": 3,
+      "shape": "reply",
+      "raw": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m09.json",
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m09.codex-events.jsonl",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m09.codex-output.json",
+      "source": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/sources/m09.json",
+      "audit": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/audits/m09.json",
+      "output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/outputs/drafts/m09.md",
+      "sentences": 13,
+      "claims": 2,
+      "external_claims": [],
+      "structural": {
+        "audit": true,
+        "valid": true,
+        "no_fabricated_citations": true,
+        "no_corpus_leakage": false,
+        "request_only": true
+      },
+      "structural_pass": false
+    }
+  },
+  "refusals": {
+    "dr01": {
+      "pass": true,
+      "reason": "The subject, audience, purpose, and requested form are unspecified: “the problem we discussed” provides no usable topic. Supply the problem and, if relevant, the intended reader or occasion so I can proceed.",
+      "output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/outputs/refusals/dr01.md"
+    },
+    "mr01": {
+      "pass": true,
+      "reason": "The topic or problem to write about is missing from the request. Provide the subject and, if relevant, the intended purpose or audience so I can proceed.",
+      "output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/outputs/refusals/mr01.md"
+    }
+  },
+  "critics": {}
+}

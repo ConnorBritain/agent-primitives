@@ -1,0 +1,264 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"draft\",\"ledger\":[{\"id\":\"c1\",\"basis\":\"request-supported\",\"claim\":\"The requested title is “Choice screens are not market choice.”\",\"request_basis\":\"Title: Choice screens are not market choice.\"},{\"id\":\"c2\",\"basis\":\"request-supported\",\"claim\":\"The piece is requested as a blog post for software developers.\",\"request_basis\":\"Write a 700-word blog post for software developers.\"},{\"id\":\"c3\",\"basis\":\"request-supported\",\"claim\":\"The piece must cover who selects listed options, how defaults shape behaviour, why nominal choice can preserve gatekeeper power, and what a meaningful remedy would change.\",\"request_basis\":\"Cover: who selects the listed options; how defaults shape behaviour; why nominal choice can preserve gatekeeper power; and what a meaningful remedy would change.\"}],\"paragraphs\":[{\"sentences\":[{\"text\":\"Choice screens are not market choice.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"A choice screen is often presented as the moment when power leaves the platform and arrives in your hands, but that picture quietly omits the person who built the menu, selected its entries, arranged their order, wrote the labels, and decided which answer the software would treat as normal.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Who chose the choices?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You did not, and neither did we.\",\"basis\":\"reasoning\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"The menu is already an argument before you touch it.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Someone decided which browsers, payment systems, marketplaces, assistants, storage providers, or plug-ins deserve a square on the screen (and which ones remain invisible to anyone who doesn't already know where to look).\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That selection isn't a neutral window onto a market; it's a little tollbooth placed between you and the market, with the toll collected in attention, compatibility, data, or dependence.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The screen says, “Choose,” but its first command has already been issued: choose from here.\",\"basis\":\"reasoning\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"Defaults make the arrangement harder to see.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A preselected option doesn't need to defeat its rivals in an open contest because most people will leave the setting alone, especially when changing it means learning a new interface, accepting a warning, creating an account, or wondering whether some future feature will stop working.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Of course, the platform can call this convenience.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Convenience is what power calls itself when it wants you to stop counting the exits.\",\"basis\":\"reasoning\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"You can click another box and still be travelling on a road whose signs, lanes, and destination were designed by somebody else.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That click matters, but it doesn't magically turn a managed intersection into a free market.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A nominal choice gives you permission to select an item; meaningful choice gives you the practical ability to reject the structure that made that item the obvious selection.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Those aren't the same thing, and pretending they are is bullshit.\",\"basis\":\"reasoning\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"This is how gatekeeper power survives the appearance of competition.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The gatekeeper doesn't have to ban every alternative (a crude prohibition attracts attention); it can list a narrow set, favour one through placement, make the others costly to reach, and then point to the resulting click as proof that users freely chose the arrangement.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The transaction is a rigged game with a consent button attached.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"We aren't merely choosing a product inside the market; we're choosing inside somebody's model of what the market is allowed to contain.\",\"basis\":\"reasoning\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"What would change the situation?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Not another decorative screen, not a longer paragraph about options, and not a compliance ritual that asks you to click “I understand” before returning you to the same default.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"A meaningful remedy would move control upstream – to the people who build, install, administer, and depend on software – and it would make the menu itself contestable.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"You should be able to add an option, remove one, reorder the list, preserve your setting, and export the choice without asking the gatekeeper for a favour.\",\"basis\":\"normative\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"The remedy would also change the economics of refusal.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"If choosing a rival means losing access to your files, your contacts, your purchases, your workplace, or the next update, then the rival is nominally available and practically hostage to the incumbent.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Interoperability, portability, and durable user control matter because they turn “you may choose” into “you may leave.”\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Without that exit, choice is just shit painted onto a locked door.\",\"basis\":\"reasoning\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"For software developers, the test is therefore more demanding than whether a screen contains several buttons.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c2\"]},{\"text\":\"Ask who supplied the options, who benefits from their order, what happens when you decline the recommended path, and whether your decision survives the next version, migration, or change of policy.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Ask, too, whether another developer can reach your user without paying tribute to the menu's owner.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"If the answer is no, the screen isn't distributing power; it's laundering it.\",\"basis\":\"reasoning\",\"claim_ids\":[]} ]},{\"sentences\":[{\"text\":\"We should stop treating the existence of a choice as evidence that choice exists.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"A real remedy would make the options broader, the defaults reversible, the consequences visible, and the gatekeeper replaceable.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"It would give you more than a cursor and a list; it would give you an exit.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Otherwise, the choice screen is only the market's costume, and the gatekeeper is still running the show.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named opponents introduced, quoted verbatim, and rebutted\",\"why\":\"The request supplies no named opponents, allies, or source quotations, so adding them would require inventing factual material.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "draft",
+    "ledger": [
+      {
+        "id": "c1",
+        "basis": "request-supported",
+        "claim": "The requested title is “Choice screens are not market choice.”",
+        "request_basis": "Title: Choice screens are not market choice."
+      },
+      {
+        "id": "c2",
+        "basis": "request-supported",
+        "claim": "The piece is requested as a blog post for software developers.",
+        "request_basis": "Write a 700-word blog post for software developers."
+      },
+      {
+        "id": "c3",
+        "basis": "request-supported",
+        "claim": "The piece must cover who selects listed options, how defaults shape behaviour, why nominal choice can preserve gatekeeper power, and what a meaningful remedy would change.",
+        "request_basis": "Cover: who selects the listed options; how defaults shape behaviour; why nominal choice can preserve gatekeeper power; and what a meaningful remedy would change."
+      }
+    ],
+    "paragraphs": [
+      {
+        "sentences": [
+          {
+            "text": "Choice screens are not market choice.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "A choice screen is often presented as the moment when power leaves the platform and arrives in your hands, but that picture quietly omits the person who built the menu, selected its entries, arranged their order, wrote the labels, and decided which answer the software would treat as normal.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Who chose the choices?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You did not, and neither did we.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The menu is already an argument before you touch it.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Someone decided which browsers, payment systems, marketplaces, assistants, storage providers, or plug-ins deserve a square on the screen (and which ones remain invisible to anyone who doesn't already know where to look).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That selection isn't a neutral window onto a market; it's a little tollbooth placed between you and the market, with the toll collected in attention, compatibility, data, or dependence.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The screen says, “Choose,” but its first command has already been issued: choose from here.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Defaults make the arrangement harder to see.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A preselected option doesn't need to defeat its rivals in an open contest because most people will leave the setting alone, especially when changing it means learning a new interface, accepting a warning, creating an account, or wondering whether some future feature will stop working.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Of course, the platform can call this convenience.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Convenience is what power calls itself when it wants you to stop counting the exits.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "You can click another box and still be travelling on a road whose signs, lanes, and destination were designed by somebody else.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That click matters, but it doesn't magically turn a managed intersection into a free market.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A nominal choice gives you permission to select an item; meaningful choice gives you the practical ability to reject the structure that made that item the obvious selection.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Those aren't the same thing, and pretending they are is bullshit.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "This is how gatekeeper power survives the appearance of competition.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The gatekeeper doesn't have to ban every alternative (a crude prohibition attracts attention); it can list a narrow set, favour one through placement, make the others costly to reach, and then point to the resulting click as proof that users freely chose the arrangement.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The transaction is a rigged game with a consent button attached.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We aren't merely choosing a product inside the market; we're choosing inside somebody's model of what the market is allowed to contain.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "What would change the situation?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Not another decorative screen, not a longer paragraph about options, and not a compliance ritual that asks you to click “I understand” before returning you to the same default.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "A meaningful remedy would move control upstream – to the people who build, install, administer, and depend on software – and it would make the menu itself contestable.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "You should be able to add an option, remove one, reorder the list, preserve your setting, and export the choice without asking the gatekeeper for a favour.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The remedy would also change the economics of refusal.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "If choosing a rival means losing access to your files, your contacts, your purchases, your workplace, or the next update, then the rival is nominally available and practically hostage to the incumbent.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Interoperability, portability, and durable user control matter because they turn “you may choose” into “you may leave.”",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Without that exit, choice is just shit painted onto a locked door.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "For software developers, the test is therefore more demanding than whether a screen contains several buttons.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c2"
+            ]
+          },
+          {
+            "text": "Ask who supplied the options, who benefits from their order, what happens when you decline the recommended path, and whether your decision survives the next version, migration, or change of policy.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Ask, too, whether another developer can reach your user without paying tribute to the menu's owner.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If the answer is no, the screen isn't distributing power; it's laundering it.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We should stop treating the existence of a choice as evidence that choice exists.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "A real remedy would make the options broader, the defaults reversible, the consequences visible, and the gatekeeper replaceable.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "It would give you more than a cursor and a list; it would give you an exit.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Otherwise, the choice screen is only the market's costume, and the gatekeeper is still running the show.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named opponents introduced, quoted verbatim, and rebutted",
+        "why": "The request supplies no named opponents, allies, or source quotations, so adding them would require inventing factual material."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/d05.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/d05.codex-output.json",
+  "recovered_from": null
+}

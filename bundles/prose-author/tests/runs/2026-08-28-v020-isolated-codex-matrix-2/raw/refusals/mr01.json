@@ -1,0 +1,19 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"refusal\",\"ledger\":[],\"paragraphs\":[],\"omitted\":[],\"refused\":\"The topic or problem to write about is missing from the request. Provide the subject and, if relevant, the intended purpose or audience so I can proceed.\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "refusal",
+    "ledger": [],
+    "paragraphs": [],
+    "omitted": [],
+    "refused": "The topic or problem to write about is missing from the request. Provide the subject and, if relevant, the intended purpose or audience so I can proceed."
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/refusals/mr01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/refusals/mr01.codex-output.json",
+  "recovered_from": null
+}
