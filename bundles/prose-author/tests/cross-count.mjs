@@ -40,19 +40,20 @@ import { corpusBodies, corpusRate, HABITS } from "./corpus-rates.mjs";
  * this whole module exists to prevent.
  */
 export const RECOUNTABLE = [
-  { id: "second person", cue: /\byou-family|second person|tokens of \*?you\b/i, pattern: HABITS.secondPerson },
-  { id: "we/us", cue: /\bwe-family|we\/us|inclusive first-person plural|a \*?we\*? that\b/i, pattern: HABITS.solidarity },
-  { id: "en dash", cue: /\ben dash(es)?\b/i, pattern: /–/g },
-  { id: "em dash", cue: /\bem dash(es)?\b/i, pattern: /—/g },
+  { id: "second person", measurement: "second-person-family", cue: /\byou-family|second person|tokens of \*?you\b/i, pattern: HABITS.secondPerson },
+  { id: "we/us", measurement: "first-person-plural-family", cue: /\bwe-family|we\/us|inclusive first-person plural|a \*?we\*? that\b/i, pattern: HABITS.solidarity },
+  { id: "en dash", measurement: "en-dashes", cue: /\ben dash(es)?\b/i, pattern: /–/g },
+  { id: "em dash", measurement: "em-dashes", cue: /\bem dash(es)?\b/i, pattern: /—/g },
 ];
 
 /** Pull the occurrence count out of the sentence that carries a cue and a rate. */
-function claimedCount(markdown, cue) {
-  const sentences = markdown
-    .split(/\n\s*\n/)
+function claimedCount(markdown, cue, measurement) {
+  const paragraphs = markdown.split(/\n\s*\n/);
+  const located = paragraphs.find((paragraph) => paragraph.includes(`[measurement:${measurement}]`));
+  const sentences = paragraphs
     .flatMap((b) => b.split(/(?<=[.!?])\s+/))
     .map((s) => s.replace(/\s+/g, " ").trim());
-  const host = sentences.find((s) => cue.test(s));
+  const host = located?.replace(/\s+/g, " ").trim() ?? sentences.find((s) => cue.test(s));
   if (!host) return null;
   // Prefer an explicitly labelled occurrence count. Renderers legitimately put the rate
   // first ("21.94 per 1,000 words ... 385 instances") or the count first ("385 tokens ...
@@ -68,7 +69,7 @@ function claimedCount(markdown, cue) {
   // samples", not an occurrence count. Without this the em-dash sentence - "no em dash
   // anywhere - 10/10 samples contain zero" - reports a claimed count of 10 against a
   // measured 0 and manufactures a divergence out of a correct claim.
-  const NUM = "(?<![.\\d/])(\\d[\\d,]{1,6})(?![\\d.]|\\s*/)";
+  const NUM = "(?<![.\\d/,])(\\d[\\d,]{0,6})(?![\\d.]|\\s*/)";
   const labelled = new RegExp(`\\bcount\\s*:\\s*${NUM}`, "i").exec(host);
   const withUnit = new RegExp(`${NUM}\\s+(?:instances|tokens|spans|en dashes|em dashes)\\b`, "i").exec(host);
   const beforeRate = new RegExp(`${NUM}\\s+(?:of them|such)?[^.]*?per 1,?000`, "i").exec(host);
@@ -89,7 +90,7 @@ export function crossCount(profileDir, markdown, { tolerance = 0.15 } = {}) {
   const bodies = corpusBodies(profileDir);
   const rows = [];
   for (const claim of RECOUNTABLE) {
-    const stated = claimedCount(markdown, claim.cue);
+    const stated = claimedCount(markdown, claim.cue, claim.measurement);
     const measured = corpusRate(bodies, claim.pattern).count;
     if (!stated) { rows.push({ id: claim.id, status: "unlocatable", measured }); continue; }
     const delta = measured === 0

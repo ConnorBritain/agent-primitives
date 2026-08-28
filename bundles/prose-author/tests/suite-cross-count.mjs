@@ -37,6 +37,11 @@ export async function run(t, { HERE } = {}) {
     // the checker did run and what it found.
     t.check("the harness count is still reported for an unlocatable claim",
       rows.every((r) => typeof r.measured === "number"));
+
+    const located = crossCount(P,
+      "Second-person address. [measurement:second-person-family] Count: 385 instances; 21.94 per 1,000 words.");
+    t.check("a stable measurement locator makes a canonical v2 claim recountable",
+      find(located, "second person").status === "agrees");
   }
 
   t.group("cross-count — the two ways a rate sentence lies to a naive parser");

@@ -41,7 +41,8 @@ export async function run(t, { HERE }) {
 
   t.group("v0.2 acceptance harness — dispatch boundaries");
   {
-    const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }]);
+    const measurements = measureProfile(join(HERE, "fixtures", "profiles", "eff-mullin"));
+    const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }], measurements);
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
     t.check("profile prompts end on the provider-neutral semantic source contract",
       /emit voice-profile-source\/1[\s\S]*semantic prose[\s\S]*supporting filenames[\s\S]*measurement IDs[\s\S]*every coverage dimension/.test(prompt));
@@ -49,8 +50,11 @@ export async function run(t, { HERE }) {
       /Do not copy counts, rates, support[\s\S]*observation IDs, coverage statuses, or final profile fields[\s\S]*deterministic assembler owns/.test(prompt));
     t.check("profile prompts require refusal instead of invented evidence",
       /Complete the renderer's refusal checks[\s\S]*state the refusal[\s\S]*rather than inventing evidence/.test(prompt));
-    t.check("profile dispatch requests native structure without making assembly provider-specific",
-      source.includes("schema: SOURCE_RENDER_SCHEMA")
+    t.check("profile prompts state which sparse measurements can and cannot form an absence pair",
+      /first-person-singular-family may be an absence only with measured replacement first-person-plural-family/.test(prompt)
+        && /profanity-vulgarity has no measured positive replacement; do not emit it as an absence/.test(prompt));
+    t.check("profile dispatch can request native structure without making assembly depend on it",
+      source.includes("PROFILE_NATIVE_SCHEMA ? SOURCE_RENDER_SCHEMA : null")
         && source.includes('"--json-schema"')
         && source.includes("assembleVoiceProfile(source"));
   }
@@ -79,7 +83,16 @@ export async function run(t, { HERE }) {
     ["--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "--no-chrome"]
       .every((flag) => source.includes(`\"${flag}\"`)));
   t.check("the model effort is pinned in the manifest rather than inherited",
-    /effort: EFFORT/.test(source) && /"--effort", EFFORT/.test(source));
+    /effort: EFFORT/.test(source) && /profile_effort: PROFILE_EFFORT/.test(source)
+      && /"--effort", effort/.test(source) && /effort: PROFILE_EFFORT/.test(source));
+  t.check("acceptance defaults to one model process and portable JSON-fence transport",
+    /ACCEPTANCE_CONCURRENCY \|\| "1"/.test(source)
+      && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA === "1"/.test(source)
+      && /profile_transport: PROFILE_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+  t.check("model dispatch has a hard timeout instead of waiting indefinitely",
+    /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
+      && /child\.kill\("SIGTERM"\)/.test(source)
+      && /exceeded \$\{MODEL_TIMEOUT_MS\}ms/.test(source));
   t.check("the deterministic profile prepass covers the major countable dimensions",
     ["second-person-family", "contractions", "uncontracted-negatives", "profanity-vulgarity",
       "first-person-singular-family", "question-marks", "round-parenthetical-spans", "em-dashes"]

@@ -32,7 +32,7 @@ import { bodyOf } from "./corpus-rates.mjs";
 import { parseFences } from "./fences.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
-  assembleVoiceProfile, SOURCE_RENDER_SCHEMA,
+  ABSENCE_REPLACEMENTS, assembleVoiceProfile, SOURCE_RENDER_SCHEMA,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   corpusLeakage, findFabricatedCitations, parseDraft, validateDraft,
@@ -47,7 +47,10 @@ const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MODEL = process.env.ACCEPTANCE_MODEL || "sonnet";
 const EFFORT = process.env.ACCEPTANCE_EFFORT || "medium";
-const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "4", "ACCEPTANCE_CONCURRENCY");
+const PROFILE_EFFORT = process.env.ACCEPTANCE_PROFILE_EFFORT || "low";
+const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY");
+const MODEL_TIMEOUT_MS = positiveInt(process.env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS");
+const PROFILE_NATIVE_SCHEMA = process.env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA === "1";
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
 const text = (path) => readFileSync(path, "utf8");
@@ -136,7 +139,16 @@ function sourceProfile(profile) {
   return join(TESTS, "fixtures", "profiles", profile.fixture);
 }
 
-export function profileRenderPrompt(profileId, inputs) {
+export function profileRenderPrompt(profileId, inputs, measurements = null) {
+  const byId = new Map((measurements?.measurements ?? []).map((row) => [row.id, row]));
+  const absenceGuidance = [...byId.values()]
+    .filter((row) => row.files_with?.length <= Math.max(2, Math.floor((measurements?.sample_count ?? 0) * 0.2)))
+    .map((row) => {
+      const available = (ABSENCE_REPLACEMENTS[row.id] ?? []).filter((id) => (byId.get(id)?.count ?? 0) > 0);
+      return available.length
+        ? `- ${row.id} may be an absence only with measured replacement ${available.join(" or ")}; the assembler may reuse that positive observation across dimensions.`
+        : `- ${row.id} has no measured positive replacement; do not emit it as an absence. Leave its dimension unresolved instead.`;
+    });
   return [
     `Render profile ${profileId}.`,
     "Every allowed input file is reproduced verbatim below. Read all of them and",
@@ -159,6 +171,7 @@ export function profileRenderPrompt(profileId, inputs) {
     "and one entry for every coverage dimension. Do not copy counts, rates, support",
     "fractions, rules, observation IDs, coverage statuses, or final profile fields; the",
     "portable deterministic assembler owns those. Return the structured object only.",
+    ...(absenceGuidance.length ? ["", "Mechanical absence availability:", ...absenceGuidance] : []),
   ].join("\n");
 }
 
@@ -244,6 +257,10 @@ function prepare(runDir) {
     prepared_commit: preparedCommit,
     model: MODEL,
     effort: EFFORT,
+    profile_effort: PROFILE_EFFORT,
+    concurrency: CONCURRENCY,
+    profile_transport: PROFILE_NATIVE_SCHEMA ? "native-structured" : "json-fence",
+    model_timeout_ms: MODEL_TIMEOUT_MS,
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
     cases_sha256: SHA(text(p.cases)),
@@ -265,7 +282,8 @@ function prepare(runDir) {
         ...manifest.corpora[profile.id].lock.files.map((f) => `corpus/human/${f.file}`),
       ];
       const prompt = profileRenderPrompt(profile.id,
-        files.map((file) => ({ file, body: text(join(staged, file)) })));
+        files.map((file) => ({ file, body: text(join(staged, file)) })),
+        manifest.corpora[profile.id].measurements);
       write(join(runDir, "prompts", "profiles", `${profile.id}-r${render}.md`), `${prompt}\n`);
     }
   }
@@ -301,11 +319,11 @@ function semanticSource(record) {
   try { return JSON.parse(record.result); } catch { return null; }
 }
 
-async function claude({ system, prompt, cwd, tools, allowed, output, schema = null }) {
+async function claude({ system, prompt, cwd, tools, allowed, output, schema = null, effort = EFFORT }) {
   if (completedResult(output)) return { skipped: true, output };
   const args = [
     "-p", "--output-format", "json", "--no-session-persistence", "--model", MODEL,
-    "--effort", EFFORT, "--system-prompt-file", system,
+    "--effort", effort, "--system-prompt-file", system,
     // Keep the clean context actually clean. Without these flags Claude Code loads the
     // user's plugins, MCP servers and settings into every print-mode call. On this host
     // that consumed roughly 130k cached tokens before a 60k-token corpus prompt, leaving
@@ -321,10 +339,17 @@ async function claude({ system, prompt, cwd, tools, allowed, output, schema = nu
     const child = spawn("claude", args, { cwd, stdio: ["pipe", "pipe", "pipe"] });
     let stdout = "";
     let stderr = "";
+    let timedOut = false;
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      child.kill("SIGTERM");
+    }, MODEL_TIMEOUT_MS);
     child.stdout.on("data", (chunk) => { stdout += chunk; });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
-    child.on("error", reject);
+    child.on("error", (error) => { clearTimeout(timeout); reject(error); });
     child.on("close", (code) => {
+      clearTimeout(timeout);
+      if (timedOut) return reject(new Error(`claude exceeded ${MODEL_TIMEOUT_MS}ms; no redraw was made`));
       if (code !== 0) return reject(new Error(`claude exited ${code}: ${stderr.slice(0, 2000)}`));
       let record;
       try { record = JSON.parse(stdout); } catch { return reject(new Error(`claude emitted invalid JSON: ${stdout.slice(0, 500)}`)); }
@@ -376,7 +401,8 @@ async function dispatchProfiles(runDir) {
         id: `${profile.id}-r${render}`,
         run: () => claude({
           system, cwd, prompt: text(promptPath), tools: "", allowed: [],
-          schema: SOURCE_RENDER_SCHEMA,
+          effort: PROFILE_EFFORT,
+          schema: PROFILE_NATIVE_SCHEMA ? SOURCE_RENDER_SCHEMA : null,
           output: join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`),
         }),
       };

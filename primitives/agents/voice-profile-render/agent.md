@@ -265,8 +265,9 @@ An observation carries:
 
 - `section`: one of `cadence`, `openings`, `closings`, `address`, `figures`,
   `register-range`, `absences`;
-- `prose`: the actionable claim, its function and placement, and at least one supporting
-  corpus filename with a short quotation;
+- `prose`: the actionable claim, its function and placement, and a short quotation where
+  one makes the claim clearer; the assembler prints a representative filename from the
+  structured evidence source, so do not duplicate filenames merely as formatting;
 - exactly one evidence source:
   - `measurement_id` for a row supplied in `measurements.json`; or
   - `support_files`, listing every usable sample filename that supports a qualitative
@@ -274,6 +275,15 @@ An observation carries:
 - `frequency`: exactly `once or twice per piece`, `several times per piece`, or
   `throughout`, except that a zero measurement is a counted absence and carries no
   frequency.
+
+Keep the source compact enough to survive every harness unchanged. Use between ten and
+fourteen observations total, never more than five in one compound dimension. Each `prose`
+value is one short paragraph, between thirty-five and seventy words: one
+claim, one short quotation, its filename, its function, and a restrained placement
+instruction. Do not write a mini-essay for each observation. Keep `gaps` between sixty
+and one hundred forty words. Across observation prose and `gaps`, target roughly six
+hundred to eight hundred fifty words; the assembler's labels,
+headings, and evidence lines bring the final profile into its required 800–1500 range.
 
 Do not put observation IDs, support fractions, sample totals, counts, rates, counting
 rules, measurement locators, or `per 1,000` figures in `prose`. The assembler inserts all
@@ -286,10 +296,16 @@ Each observation must cite at least one filename. For a qualitative observation,
 `support_files` must list every sample that supports it; do not put the derived count in
 prose.
 
-A zero-count measurement is an absence. Put it in the same dimension as a distinct
-positive measured replacement. If no positive measured replacement exists, leave that
-dimension unresolved rather than emitting the zero measurement. The assembler derives
-`absent-paired` and rejects any other shape.
+A zero or genuinely sparse measurement may be the negative side of an absence pair. Omit
+its `frequency` to mark that role, and put it in the same dimension as a distinct positive
+measured replacement. The assembler accepts a sparse exception only when the measurement
+has positive instances in no more than a small minority of samples. If no positive
+measured replacement exists, leave that dimension unresolved. The assembler derives
+`absent-paired` and rejects every unpaired shape. The caller may append a mechanical
+absence-availability list derived from the supplied measurements. Follow it literally.
+When it says the assembler may reuse a positive observation across dimensions, do not
+duplicate that observation merely to make the pair local. Put every counted absence
+observation in the `absences` section; that negative half is the content of section 7.
 
 The ten required dimension keys are:
 

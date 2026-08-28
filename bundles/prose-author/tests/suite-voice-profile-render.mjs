@@ -627,6 +627,41 @@ export async function run(t, { tmp, HERE }) {
       t.check("a zero measurement cannot silently become a rated absence",
         assembleVoiceProfile(bad, context).errors.some((error) => /counted absence but not exactly one absence plus a positive measured replacement/.test(error)));
     }
+    {
+      const withUnresolved = source();
+      withUnresolved.dimensions["profanity-vulgarity"] = {
+        unresolved_reason: "The measured absence has no counted positive replacement, so this corpus supports no drafting instruction for the dimension.",
+      };
+      const result = assembleVoiceProfile(withUnresolved, context);
+      t.check("an unresolved dimension is explicit in both coverage and section 8 prose",
+        result.ok
+          && result.profile.coverage.find((row) => row.dimension === "profanity-vulgarity")?.status === "unresolved"
+          && /Profanity and vulgarity — unresolved/.test(result.profile.profile_markdown));
+    }
+    {
+      const sparseMeasurements = JSON.parse(JSON.stringify(measured));
+      const singular = sparseMeasurements.measurements.find((row) => row.id === "first-person-singular-family");
+      singular.count = 1;
+      singular.per_1000_words = Math.round((1 / sparseMeasurements.corpus_words) * 100000) / 100;
+      singular.files_with = [files[0]];
+      singular.files_without = files.slice(1);
+      singular.samples_with = 1;
+      singular.samples_without = files.length - 1;
+      const overlapping = source();
+      overlapping.dimensions["person-reader-stance"].observations.push(
+        rated("address", "first-person-plural-family", "Institutional first-person plural places the writer and reader on the same side of the argument."),
+      );
+      overlapping.dimensions["self-reference-biography"] = { observations: [{
+        section: "absences", measurement_id: "first-person-singular-family",
+        prose: `Individual first-person testimony is a sparse exception; keep biography out and use the measured institutional stance instead. ${placement}`,
+      }] };
+      const result = assembleVoiceProfile(overlapping, { ...context, measurements: sparseMeasurements });
+      const person = result.profile?.coverage.find((row) => row.dimension === "person-reader-stance");
+      const self = result.profile?.coverage.find((row) => row.dimension === "self-reference-biography");
+      t.check("overlapping dimensions reuse one canonical measured positive for a sparse absence pair",
+        result.ok && self?.status === "absent-paired"
+          && self.positive_observation_id === person?.observation_ids.find((id) => id === self.positive_observation_id));
+    }
   }
 
   t.group("voice-profile rates — the number a drafter can act on");
