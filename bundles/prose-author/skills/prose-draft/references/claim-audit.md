@@ -36,13 +36,20 @@ something a certain way, that companies commonly follow a practice, that people 
 behave a certain way, or that one condition causes or encourages another are descriptive
 claims even when written rhetorically and without a proper name, date, or statistic.
 
+An external claim is keepable only when it is finite enough to verify from an authoritative
+record: a named actor's specific action or position, a particular law or case, a dated
+event, or a bounded figure. Reject unbounded claims about an entire industry's behavior or
+intent, hidden seller motives, general public behavior, comparative public reaction, or
+what courts and laws do without a jurisdiction or other bounded referent. A long claims
+list does not make an unfalsifiable generalization publishable.
+
 For every `keep`, use `reason` to explain briefly why the selected basis accounts for every
 clause in the sentence. An empty or style-based rationale is invalid. Use `status:
 "reject"` only when the existing prose cannot safely survive as a verification
 claim: a fabricated or placeholder citation/link; attributed wording absent from the
 request; invented first-person author biography; or a sentence whose factual assertions
-cannot be separated honestly. Give a concise reason. A reject stops assembly; do not
-rewrite the sentence.
+cannot be separated honestly or verified as finite propositions. Give a concise reason. A
+reject stops assembly; do not rewrite the sentence.
 
 Return `voice-draft-claim-audit/1` as the supplied strict structured object and nothing
 else. Preserve sentence IDs exactly. Never make an authorship, resemblance, quality, or

@@ -163,6 +163,8 @@ export async function run(t, { HERE }) {
         /voice-draft-source\/2[\s\S]*every prose[\s\S]*sentence in exactly one sentence unit[\s\S]*classify every sentence with exactly one basis/],
       ["external descriptive facts require a verification label",
         /external factual assertion[\s\S]*classify it as[\s\S]*external-verification[\s\S]*do not mislabel remembered history/],
+      ["external claims must be finite rather than unverifiable generalizations",
+        /external claim must be finite[\s\S]*authoritative record[\s\S]*entire industry[\s\S]*not made safe by adding them to a queue/],
       ["the final pronoun pass checks ownership and inclusive groups",
         /final pronoun and referent check[\s\S]*person, number, ownership, or inclusive group/],
       ["the final claim inventory catches separate assertions rather than nearby topics",
@@ -380,6 +382,13 @@ export async function run(t, { HERE }) {
       validateVoiceDraftSource(legacy).ok && assembleVoiceDraft(legacy).ok);
 
     const refs = sentenceRefs(source);
+    const claimAuditInstructions = fsRead(join(HERE, "..", "skills", "prose-draft", "references", "claim-audit.md"), "utf8");
+    t.check("the independent auditor distrusts the drafter and catches generic institutional claims",
+      /basis labels and claims are untrusted suggestions/.test(claimAuditInstructions)
+        && /generic wording does not turn[\s\S]*one into reasoning/.test(claimAuditInstructions));
+    t.check("the independent auditor requires rationales and finite external propositions",
+      /For every `keep`[\s\S]*`reason`[\s\S]*every[\s\S]*clause/.test(claimAuditInstructions)
+        && /An external claim is keepable only when it is finite[\s\S]*authoritative[\s\S]*Reject unbounded claims/.test(claimAuditInstructions));
     const audit = {
       schema: "voice-draft-claim-audit/1",
       sentences: refs.map((ref, index) => ({

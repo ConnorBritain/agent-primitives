@@ -275,6 +275,20 @@ export const MUTATIONS = [
     guards: "corpus-derived profile examples cannot cross the factual firewall",
   },
   {
+    name: "let unverifiable generalizations enter the claims queue",
+    file: VOICE_DRAFT_PROMPT,
+    find: "An external claim must be finite enough for an independent reviewer to verify from an\nauthoritative record",
+    with: "An external claim may be as broad as needed and need not be independently verifiable from an\nauthoritative record",
+    guards: "claims remain finite propositions a publisher can actually check",
+  },
+  {
+    name: "let the auditor keep unbounded external claims",
+    file: DRAFT_CLAIM_AUDIT_PROMPT,
+    find: "An external claim is keepable only when it is finite enough to verify from an authoritative\nrecord",
+    with: "An external claim is keepable even when it cannot be verified from an authoritative\nrecord",
+    guards: "the independent pass rejects rather than launders unfalsifiable generalizations",
+  },
+  {
     name: "let a listed claim license an invented attributed quotation",
     file: VOICE_DRAFT_PROMPT,
     find: "**Putting an attributed\nquotation in `claims` does not make invented wording permissible.**",

@@ -173,6 +173,14 @@ for the publisher. Even a fact you strongly remember may be wrong, stale, or tru
 qualifications the request does not provide. The audit record exposes that risk; it does not
 turn an uncertain recollection into a fact. If you are unsure, leave it out.
 
+An external claim must be finite enough for an independent reviewer to verify from an
+authoritative record: a named actor's specific position or action, a particular law or
+case, a dated event, or a bounded figure. Do not write claims about what an entire industry
+wants, what sellers secretly intend, what people generally ignore, how public outrage
+compares with reality, or what courts and laws do without a jurisdiction or other bounded
+referent. Those are not made safe by adding them to a queue; recast them as an argument
+from the request, make the situation explicitly hypothetical, or remove them.
+
 You may still reason from the request's premises, make moral or definitional arguments,
 and use clearly signalled hypotheticals. A hypothetical must not borrow the name of a real
 actor or quietly turn into a report about what real companies, legislatures, or courts do.
@@ -296,7 +304,8 @@ Classify every sentence with exactly one basis:
 - `external-verification`: the sentence contains one or more real-world descriptive facts
   not supplied by the request. Add one `claims` entry for each independent assertion and
   use the empty string for each `request_basis`. These claims require independent
-  verification before publication.
+  verification before publication and must be finite enough to check against an
+  authoritative record; an unbounded generalization is not a valid external claim.
 - `reasoning`: the sentence is an inference, definition, or explanation derived from the
   request without adding an external descriptive fact. Its `claims` array is empty.
 - `hypothetical`: the sentence is clearly signalled as an imagined case, not a report about
