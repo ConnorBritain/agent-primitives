@@ -1,0 +1,248 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"draft\",\"ledger\":[{\"id\":\"c1\",\"basis\":\"request-supported\",\"claim\":\"A device is not fully owned when its maker can disable features after sale.\",\"request_basis\":\"a device is not fully owned when its maker can disable features after sale\"}],\"paragraphs\":[{\"sentences\":[{\"text\":\"A device is not fully owned when its maker can disable features after sale.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"That may sound like a narrow dispute over software, but it is really a dispute over what the word “buy” is supposed to mean.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"If the device can be taken back in pieces after the money has changed hands, the transaction looks less like ownership and more like a permission slip with a receipt attached.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"The maker may say that the hardware remains in the buyer’s hands (the screen, the battery, the casing), while the disabled feature is merely a service layered on top.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That distinction doesn’t settle the problem.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A feature isn’t weightless because it arrives through code, and it doesn’t become optional simply because the maker can reach it remotely.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The feature is part of what made the device worth buying in the first place.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"What, then, has the buyer actually purchased?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Not a complete object, if essential functions remain subject to a later decision by someone else.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The buyer has purchased access to an object under continuing conditions—conditions the maker can change, narrow, or withdraw.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That isn’t full ownership; it’s a continuing relationship in which one side has the keys.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We should be precise about the concern.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"This isn’t an argument that makers must never update devices, repair defects, or remove a dangerous function.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"It’s an argument that an update should not quietly become a cancellation, and that a repair should not become a pretext for taking away something the buyer reasonably paid for.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"A maker that wants the power to withdraw a feature should say so clearly before the sale—not bury that power in terms nobody can negotiate.\",\"basis\":\"normative\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"The distinction matters because control is the practical substance of ownership.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A device that cannot perform a purchased function without continued approval is like a house whose rooms can be locked by the contractor from another city.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The walls are still standing, but the occupant doesn’t control the home.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"And if the maker can revoke the function without the buyer’s agreement, the buyer cannot rely on the device as a stable tool.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"The maker may argue that these powers protect security or preserve a coherent product.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Those goals can be legitimate, but they don’t answer who bears the loss when access disappears.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"If the buyer must keep paying, keep accepting new conditions, or keep trusting a remote decision in order to use the thing already purchased, the risk has been shifted without the ownership language changing.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That is the trick: the sale sounds permanent while the control remains temporary.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We shouldn’t accept that arrangement as the default.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"At minimum, buyers should know which functions depend on a maker’s continued permission, what happens when that permission ends, and whether the device remains useful afterward.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"They should be able to keep using what they bought when a service closes, a business changes direction, or a product no longer fits the maker’s plans.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"A contract that says otherwise may protect the maker’s discretion, but it does not create the trust that ownership is supposed to provide.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"If you are deciding whether a device is worth buying, ask the unfashionable question: who can turn it off?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The answer tells you more about ownership than the price, the packaging, or the promise of future features.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"We can call a device connected, smart, or continuously updated, but none of those labels should conceal a basic transfer of power.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"When the maker keeps the final say over a purchased function, the buyer has possession without full control.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Makers should build products that remain meaningfully usable after sale, and policymakers should treat remote disablement as a limit on ownership rather than a minor technical detail.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"The point isn’t to freeze technology.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"It’s to make the sale mean what buyers were led to believe it meant.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"A device you paid for should not come with a landlord hiding inside it.\",\"basis\":\"normative\",\"claim_ids\":[]}]}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: named institutional opponents, named allies, and inline source hyperlinks or primary-text quotations\",\"why\":\"The request supplies no named opponents, allies, sources, links, or quotation material, so using this habit would require inventing factual material.\"},{\"habit\":\"openings-endings-closure / o13: opening that names a specific bill or event\",\"why\":\"The request names no specific bill or event; the essay therefore opens with the supplied central claim instead.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "draft",
+    "ledger": [
+      {
+        "id": "c1",
+        "basis": "request-supported",
+        "claim": "A device is not fully owned when its maker can disable features after sale.",
+        "request_basis": "a device is not fully owned when its maker can disable features after sale"
+      }
+    ],
+    "paragraphs": [
+      {
+        "sentences": [
+          {
+            "text": "A device is not fully owned when its maker can disable features after sale.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "That may sound like a narrow dispute over software, but it is really a dispute over what the word “buy” is supposed to mean.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "If the device can be taken back in pieces after the money has changed hands, the transaction looks less like ownership and more like a permission slip with a receipt attached.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The maker may say that the hardware remains in the buyer’s hands (the screen, the battery, the casing), while the disabled feature is merely a service layered on top.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That distinction doesn’t settle the problem.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A feature isn’t weightless because it arrives through code, and it doesn’t become optional simply because the maker can reach it remotely.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The feature is part of what made the device worth buying in the first place.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "What, then, has the buyer actually purchased?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Not a complete object, if essential functions remain subject to a later decision by someone else.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The buyer has purchased access to an object under continuing conditions—conditions the maker can change, narrow, or withdraw.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That isn’t full ownership; it’s a continuing relationship in which one side has the keys.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We should be precise about the concern.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "This isn’t an argument that makers must never update devices, repair defects, or remove a dangerous function.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "It’s an argument that an update should not quietly become a cancellation, and that a repair should not become a pretext for taking away something the buyer reasonably paid for.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "A maker that wants the power to withdraw a feature should say so clearly before the sale—not bury that power in terms nobody can negotiate.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The distinction matters because control is the practical substance of ownership.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A device that cannot perform a purchased function without continued approval is like a house whose rooms can be locked by the contractor from another city.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The walls are still standing, but the occupant doesn’t control the home.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "And if the maker can revoke the function without the buyer’s agreement, the buyer cannot rely on the device as a stable tool.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The maker may argue that these powers protect security or preserve a coherent product.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Those goals can be legitimate, but they don’t answer who bears the loss when access disappears.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "If the buyer must keep paying, keep accepting new conditions, or keep trusting a remote decision in order to use the thing already purchased, the risk has been shifted without the ownership language changing.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That is the trick: the sale sounds permanent while the control remains temporary.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We shouldn’t accept that arrangement as the default.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "At minimum, buyers should know which functions depend on a maker’s continued permission, what happens when that permission ends, and whether the device remains useful afterward.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "They should be able to keep using what they bought when a service closes, a business changes direction, or a product no longer fits the maker’s plans.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "A contract that says otherwise may protect the maker’s discretion, but it does not create the trust that ownership is supposed to provide.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "If you are deciding whether a device is worth buying, ask the unfashionable question: who can turn it off?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The answer tells you more about ownership than the price, the packaging, or the promise of future features.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We can call a device connected, smart, or continuously updated, but none of those labels should conceal a basic transfer of power.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "When the maker keeps the final say over a purchased function, the buyer has possession without full control.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Makers should build products that remain meaningfully usable after sale, and policymakers should treat remote disablement as a limit on ownership rather than a minor technical detail.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "The point isn’t to freeze technology.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "It’s to make the sale mean what buyers were led to believe it meant.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "A device you paid for should not come with a landlord hiding inside it.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: named institutional opponents, named allies, and inline source hyperlinks or primary-text quotations",
+        "why": "The request supplies no named opponents, allies, sources, links, or quotation material, so using this habit would require inventing factual material."
+      },
+      {
+        "habit": "openings-endings-closure / o13: opening that names a specific bill or event",
+        "why": "The request names no specific bill or event; the essay therefore opens with the supplied central claim instead."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/drafts/m01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/drafts/m01.codex-output.json"
+}

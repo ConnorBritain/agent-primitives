@@ -1,0 +1,9 @@
+{
+  "type": "result",
+  "is_error": true,
+  "harness": "codex",
+  "result": "",
+  "structured_output": null,
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/refusals/dr01.codex-events.jsonl",
+  "error": "codex emitted no final structured output"
+}

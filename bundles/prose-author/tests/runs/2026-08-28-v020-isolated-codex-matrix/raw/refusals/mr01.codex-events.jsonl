@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04aa8-1673-72b0-bde2-ea904bedd8e7"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/3\",\"kind\":\"refusal\",\"ledger\":[],\"paragraphs\":[],\"omitted\":[],\"refused\":\"The request does not identify the subject, audience, purpose, or occasion of “the problem we discussed.” Provide the problem and, if relevant, the intended reader or format so I can draft it.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":22836,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":107,"reasoning_output_tokens":25}}

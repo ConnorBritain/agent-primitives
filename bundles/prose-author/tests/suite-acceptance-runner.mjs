@@ -152,6 +152,11 @@ export async function run(t, { HERE }) {
   t.check("Codex raw events, final output, schema, and deny-list are pinned as evidence",
     /raw_events_sha256/.test(source) && /raw_output_sha256/.test(source)
       && /codex_no_tools_config/.test(source) && /locked Codex draft schema hash mismatch/.test(source));
+  t.check("Codex output-last-message loss is recovered from the immutable event without a redraw",
+    /The JSONL agent_message is the primary raw response/.test(source)
+      && /final output file diverges from its immutable event stream/.test(source)
+      && /recovered_from/.test(source)
+      && /preserveFailure: true/.test(source));
   t.check("the model effort is pinned in the manifest rather than inherited",
     /draft_effort: DRAFT_EFFORT/.test(source) && /critic_effort: CRITIC_EFFORT/.test(source)
       && /claim_audit_effort: CLAIM_AUDIT_EFFORT/.test(source)

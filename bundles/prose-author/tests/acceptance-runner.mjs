@@ -488,10 +488,71 @@ export function codexToolEvents(events) {
   return events.filter((event) => event.item && !allowedItems.has(event.item.type));
 }
 
+function finalizeCodexEvents({ eventsOutput, finalOutput, output, model, effort, preserveFailure = false }) {
+  const lines = text(eventsOutput).trim().split("\n");
+  const events = lines.map((line, index) => {
+    try { return JSON.parse(line); } catch {
+      throw new Error(`codex event ${index + 1} was not JSON: ${line.slice(0, 500)}`);
+    }
+  });
+  const toolEvents = codexToolEvents(events);
+  if (toolEvents.length) {
+    throw new Error(`codex no-tools boundary rejected item types: ${toolEvents.map((e) => e.item.type).join(", ")}`);
+  }
+  if (!events.some((event) => event.type === "turn.completed")) {
+    throw new Error("codex emitted no completed turn");
+  }
+  const messages = events
+    .filter((event) => event.item?.type === "agent_message" && typeof event.item.text === "string")
+    .map((event) => event.item.text.trim())
+    .filter(Boolean);
+  if (!messages.length) throw new Error("codex emitted no final agent message");
+  const result = messages.at(-1);
+  if (existsSync(finalOutput)) {
+    if (text(finalOutput).trim() !== result) {
+      throw new Error("codex final output file diverges from its immutable event stream");
+    }
+  } else {
+    // Some CLI 0.146.0 calls completed before --output-last-message materialized its
+    // companion file. The JSONL agent_message is the primary raw response, so derive
+    // the convenience copy from that already-recorded event rather than redrawing.
+    write(finalOutput, `${result}\n`);
+  }
+  let structured;
+  try { structured = JSON.parse(result); } catch {
+    throw new Error(`codex final output was not JSON: ${result.slice(0, 500)}`);
+  }
+  let recoveredFrom = null;
+  if (preserveFailure && existsSync(output)) {
+    recoveredFrom = codexCompanion(output, "adapter-failure.json");
+    cpSync(output, recoveredFrom);
+  }
+  write(output, {
+    type: "result", is_error: false, harness: "codex", model, effort,
+    result, structured_output: structured, raw_events: rel(eventsOutput),
+    raw_output: rel(finalOutput), recovered_from: recoveredFrom ? rel(recoveredFrom) : null,
+  });
+  return { skipped: false, recovered: preserveFailure, output };
+}
+
 async function codex({ system, prompt, output, schemaPath, effort, model, noToolsConfig }) {
-  if (completedResult(output)) return { skipped: true, output };
   const eventsOutput = codexCompanion(output, "events.jsonl");
   const finalOutput = codexCompanion(output, "output.json");
+  if (existsSync(output)) {
+    const existing = json(output);
+    if (existing.type === "result" && !existing.is_error && existing.structured_output) {
+      completedResult(output);
+      return { skipped: true, output };
+    }
+    if (existing.type === "result" && existing.is_error
+      && existing.error === "codex emitted no final structured output"
+      && existsSync(eventsOutput)) {
+      return finalizeCodexEvents({
+        eventsOutput, finalOutput, output, model, effort, preserveFailure: true,
+      });
+    }
+    completedResult(output);
+  }
   if (existsSync(eventsOutput) || existsSync(finalOutput)) {
     die(`${rel(eventsOutput)} or its final output already exists without a successful record; do not redraw it`);
   }
@@ -543,31 +604,11 @@ async function codex({ system, prompt, output, schemaPath, effort, model, noTool
       };
       if (timedOut) return fail(`codex exceeded ${MODEL_TIMEOUT_MS}ms; no redraw was made`);
       if (code !== 0) return fail(`codex exited ${code}: ${stderr.slice(0, 2000)}`);
-      const events = [];
-      for (const [index, line] of stdout.trim().split("\n").entries()) {
-        try { events.push(JSON.parse(line)); } catch {
-          return fail(`codex event ${index + 1} was not JSON: ${line.slice(0, 500)}`);
-        }
+      try {
+        resolvePromise(finalizeCodexEvents({ eventsOutput, finalOutput, output, model, effort }));
+      } catch (error) {
+        fail(error.message);
       }
-      const toolEvents = codexToolEvents(events);
-      if (toolEvents.length) {
-        return fail(`codex no-tools boundary rejected item types: ${toolEvents.map((e) => e.item.type).join(", ")}`);
-      }
-      if (!events.some((event) => event.type === "turn.completed")) {
-        return fail("codex emitted no completed turn");
-      }
-      if (!existsSync(finalOutput)) return fail("codex emitted no final structured output");
-      const result = text(finalOutput).trim();
-      let structured;
-      try { structured = JSON.parse(result); } catch {
-        return fail(`codex final output was not JSON: ${result.slice(0, 500)}`);
-      }
-      write(output, {
-        type: "result", is_error: false, harness: "codex", model, effort,
-        result, structured_output: structured, raw_events: rel(eventsOutput),
-        raw_output: rel(finalOutput),
-      });
-      resolvePromise({ skipped: false, output });
     });
     child.stdin.end(combinedPrompt);
   });

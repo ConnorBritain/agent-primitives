@@ -1,0 +1,18 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"refusal\",\"ledger\":[],\"paragraphs\":[],\"omitted\":[],\"refused\":\"The request does not identify the subject, audience, purpose, or occasion of “the problem we discussed.” Provide the problem and, if relevant, the intended reader or format so I can draft it.\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "refusal",
+    "ledger": [],
+    "paragraphs": [],
+    "omitted": [],
+    "refused": "The request does not identify the subject, audience, purpose, or occasion of “the problem we discussed.” Provide the problem and, if relevant, the intended reader or format so I can draft it."
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/refusals/mr01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/refusals/mr01.codex-output.json"
+}
