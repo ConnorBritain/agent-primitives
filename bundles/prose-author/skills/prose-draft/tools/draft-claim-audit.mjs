@@ -100,7 +100,7 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     }
     if (!Array.isArray(row.claims)) errors.push(`${at}.claims must be an array`);
     if (typeof row.reason !== "string") errors.push(`${at}.reason must be a string`);
-    if (row.status === "keep" && String(row.reason ?? "").length !== 0) errors.push(`${at} kept a non-empty rejection reason`);
+    if (row.status === "keep" && !String(row.reason ?? "").trim()) errors.push(`${at} kept without a basis rationale`);
     if (row.status === "reject" && !String(row.reason ?? "").trim()) errors.push(`${at} rejected without a reason`);
     if (row.status === "reject") errors.push(`${row.id ?? at} rejected: ${String(row.reason).trim()}`);
     decisions.push(row);

@@ -212,6 +212,13 @@ export const MUTATIONS = [
     guards: "fabricated quotations, citations, and biographies cannot pass through as claims",
   },
   {
+    name: "accept opaque independent labels with no rationale",
+    file: DRAFT_CLAIM_AUDIT,
+    find: '    if (row.status === "keep" && !String(row.reason ?? "").trim()) errors.push(`${at} kept without a basis rationale`);',
+    with: "    if (false) errors.push(`${at} kept without a basis rationale`);",
+    guards: "every independent basis decision remains inspectable clause by clause",
+  },
+  {
     name: "let the independent auditor trust the drafter's labels",
     file: DRAFT_CLAIM_AUDIT_PROMPT,
     find: "The drafter's existing basis labels and claims are untrusted suggestions.",

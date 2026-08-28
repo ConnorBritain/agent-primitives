@@ -388,7 +388,9 @@ export async function run(t, { HERE }) {
         claims: index === 0
           ? [{ claim: "A maker can disable features after sale.", request_basis: "maker can disable features after sale" }]
           : [{ claim: "That leaves ownership hollow.", request_basis: "" }],
-        reason: "",
+        reason: index === 0
+          ? "The assertion copies the request premise."
+          : "The sentence makes an external descriptive assertion queued for verification.",
       })),
     };
     t.check("the independent audit schema is fixed and strict-harness compatible",
@@ -402,6 +404,10 @@ export async function run(t, { HERE }) {
     t.check("an audit must cover every sentence in exact order",
       !applyVoiceDraftClaimAudit(source, { ...audit, sentences: audit.sentences.slice(1) }, { request }).ok
         && !applyVoiceDraftClaimAudit(source, { ...audit, sentences: [...audit.sentences].reverse() }, { request }).ok);
+    t.check("every kept audit decision needs a reviewable basis rationale",
+      !applyVoiceDraftClaimAudit(source, {
+        ...audit, sentences: audit.sentences.map((row, index) => index ? row : { ...row, reason: "" }),
+      }, { request }).ok);
     t.check("an auditor rejection stops assembly rather than rewriting prose",
       !applyVoiceDraftClaimAudit(source, {
         ...audit,
