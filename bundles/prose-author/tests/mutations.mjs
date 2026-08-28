@@ -424,8 +424,8 @@ export const MUTATIONS = [
   {
     name: "read a decimal's fractional part as a count",
     file: XCOUNT,
-    find: "  const NUM = \"(?<![.\\\\d/])(\\\\d[\\\\d,]{1,6})(?![\\\\d.]|\\\\s*/)\";",
-    with: "  const NUM = \"(\\\\d[\\\\d,]{1,6})\";",
+    find: "  const NUM = \"(?<![.\\\\d/,])(\\\\d[\\\\d,]{0,6})(?![\\\\d.]|\\\\s*/)\";",
+    with: "  const NUM = \"(\\\\d[\\\\d,]{0,6})(?![\\\\d.]|\\\\s*/)\";",
     guards: "22.65 per 1,000 is a rate, not a count of 65",
   },
   {
@@ -500,7 +500,7 @@ export const MUTATIONS = [
   {
     name: "accept a count smaller than the number of samples supporting it",
     file: VPROFILE,
-    find: "          if (isInt(r.count) && isInt(o.support) && r.count < o.support) {",
+    find: "          if (isInt(r.count) && !isAbsence && isInt(o.support) && r.count < o.support) {",
     with: "          if (false) {",
     guards: "a habit found in ten samples has at least ten instances",
   },
