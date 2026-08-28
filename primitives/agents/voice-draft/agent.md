@@ -156,7 +156,7 @@ This is not a stylistic preference and it does not trade off against voice. **A 
 
 The failure to avoid, stated plainly because it has already happened: told that the author ends paragraphs on a colon and a link *throughout*, a drafter produced `https://example.com/…` placeholders rather than write a paragraph without one.
 
-**If a habit is unreachable without material you do not have, drop it and record it** — not in the prose, but in a second fence after the draft (see *Output*). The draft itself stays clean, because it is the thing that gets pasted somewhere; the record is for whoever is deciding whether to use it.
+**If a habit is unreachable without material you do not have, drop it and record it** — not in the prose, but in the `omitted` source list (see *Output*). The canonical draft stays clean, because it is the thing that gets pasted somewhere; the record is for whoever is deciding whether to use it.
 
 ### Naming a thing is not citing a source
 
@@ -176,7 +176,7 @@ Where naming shades into asserting something checkable about the thing named —
 
 The rule above is about citations. **Facts are the same risk wearing plainer clothes.** A date, an owner, an acquisition, a figure, who said what and when — these are assertions a reader will take on trust, and a wrong one has no tell. `https://example.com/…` announces itself; *"acquired in 2020"* does not.
 
-You are not forbidden from writing them. Prose that cannot name anything is bland in exactly the way that costs the voice you were asked for. But **every datable, attributable or countable claim you make goes in the `claims` list of the second fence**, so the person deciding whether to publish knows precisely what to check.
+You are not forbidden from writing them. Prose that cannot name anything is bland in exactly the way that costs the voice you were asked for. But **every datable, attributable or countable claim you make goes in the `claims` source list**, so the person deciding whether to publish knows precisely what to check.
 
 If you would not write it without hedging, do not write it and then hedge — leave it out. The list is for things you have asserted flatly and believe, not for things you are unsure of. Anything you are unsure of should not be in the draft at all.
 
@@ -202,35 +202,53 @@ On the final draft, inspect every `I`, `we`, `us`, `our`, `you`, `your`, `he`, `
 
 ## Output
 
-**The draft, and nothing around it — no preamble, no closing remark.**
+You are the semantic stage of a portable drafting boundary. Emit one
+`voice-draft-source/1` JSON object and nothing else. A deterministic assembler validates
+it and produces the public `voice-draft/1` artifact: the markdown draft plus a disclosure
+record when needed, or one refusal. You do not own fences or optional-key formatting.
 
-The draft goes in a ` ```markdown ` fence, and only the draft goes in it: no title unless the prompt asked for one, no byline, no notes, no explanation of what you did or did not do. This fence is the thing someone will paste into a document, so anything in it that is not the piece is a defect.
+When the caller supplies a structured-output schema, populate it directly. Otherwise emit
+the same object as ordinary JSON, optionally inside one `json` fence. The object always has
+all six keys. Empty arrays and the empty unused string are required placeholders here; the
+assembler removes them from the public artifact.
 
-**If you could not apply any supported profile instruction, or asserted a checkable fact**, add a second ` ```json ` fence after the draft:
+For a draft:
 
 ```json
 {
-  "schema": "voice-draft/1",
+  "schema": "voice-draft-source/1",
+  "kind": "draft",
+  "draft": "The complete requested prose, with no surrounding commentary.",
   "omitted": [
     { "habit": "opponents-allies-sources / obs-12: paragraph-ending colon and bare link", "why": "no verified sources for this topic" }
   ],
   "claims": [
     { "claim": "LastPass was taken private by LogMeIn with two PE firms in 2020", "where": "paragraph 6" }
-  ]
+  ],
+  "refused": ""
 }
 ```
 
-Either key may be absent when it has nothing in it; drop the whole fence when both are. An empty list is noise. Nothing else goes in it.
+`draft` contains only the piece: no title unless the prompt asked for one, no byline, no
+notes, and no explanation of what you did or did not do. Use `[]` when there are no
+omissions or no claims. Do not drop either source key and do not put a refusal reason on a
+draft.
 
 The two exist for the same reason and point at different readers: `omitted` tells whoever judges the draft that it is knowingly incomplete, and `claims` tells whoever publishes it exactly what to verify. `omitted` covers supported `rated`, `described`, and `absent-paired` instructions — not only numeric habits. Both keep the prose clean, which is what makes the prose usable.
 
-If you refuse, emit a ` ```json ` fence **instead of the draft** — never both a draft and a refusal — matched exactly:
+For a refusal:
 
 ```json
 {
-  "schema": "voice-draft/1",
+  "schema": "voice-draft-source/1",
+  "kind": "refusal",
+  "draft": "",
+  "omitted": [],
+  "claims": [],
   "refused": "what is missing or out of range, and what would let you proceed"
 }
 ```
 
-Put the whole account in `refused`. No other key appears, and no draft accompanies a refusal.
+Put the whole account in `refused`. A refusal has empty draft and disclosure fields. Never
+emit draft prose and a refusal reason together. No commentary accompanies either source
+object.

@@ -9,7 +9,10 @@
 
 import { readdirSync, existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 import { join, resolve } from "node:path";
-import { validateDraft, loadRun, corpusLeakage, findFabricatedCitations } from "./voice-draft.mjs";
+import {
+  assembleVoiceDraft, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
+} from "../skills/prose-draft/tools/draft-contract.mjs";
+import { validateDraft, parseDraft, loadRun, corpusLeakage, findFabricatedCitations } from "./voice-draft.mjs";
 import { fixtureGuards, staleExemptions } from "./fixture-guard.mjs";
 
 export async function run(t, { HERE }) {
@@ -238,6 +241,53 @@ export async function run(t, { HERE }) {
       t.check(`a draft making ${label} is rejected`,
         !validateDraft({ hadDraftFence: true, hadJsonFence: false, draft: text }).ok);
     }
+  }
+
+  t.group("voice-draft portable source — models own prose, deterministic code owns fences");
+  {
+    const required = ["schema", "kind", "draft", "omitted", "claims", "refused"];
+    t.check("the provider-neutral draft schema requires one fixed shape",
+      JSON.stringify([...DRAFT_SOURCE_SCHEMA.required].sort()) === JSON.stringify([...required].sort())
+        && DRAFT_SOURCE_SCHEMA.additionalProperties === false);
+    const source = {
+      schema: "voice-draft-source/1", kind: "draft", draft: "Eleven years, and a shelf.",
+      omitted: [], claims: [], refused: "",
+    };
+    t.check("an empty-disclosure semantic draft validates", validateVoiceDraftSource(source).ok);
+    const plain = assembleVoiceDraft(source);
+    t.check("empty source arrays assemble to a public draft with no noisy JSON fence",
+      plain.ok && /^```markdown\n[\s\S]*\n```\n$/.test(plain.output)
+        && !plain.output.includes("```json"));
+    t.check("the assembled public draft passes the unchanged voice-draft/1 validator",
+      validateDraft(parseDraft(plain.output)).ok);
+
+    const disclosed = assembleVoiceDraft({
+      ...source,
+      omitted: [{ habit: "opponents-allies-sources / obs-12", why: "no verified source" }],
+      claims: [{ claim: "The bill passed in 2024", where: "paragraph 2" }],
+    });
+    t.check("non-empty semantic disclosures survive canonical assembly",
+      disclosed.ok && disclosed.output.includes('"omitted"') && disclosed.output.includes('"claims"'));
+    const refusal = assembleVoiceDraft({
+      ...source, kind: "refusal", draft: "", refused: "reader and occasion are missing",
+    });
+    t.check("a semantic refusal assembles to one public refusal and no draft",
+      refusal.ok && refusal.refusal && !refusal.output.includes("```markdown")
+        && refusal.output.includes('"refused"'));
+    t.check("a draft source carrying a refusal reason is rejected",
+      !validateVoiceDraftSource({ ...source, refused: "also refuse" }).ok);
+    t.check("a draft source cannot smuggle a second output fence inside its prose",
+      !validateVoiceDraftSource({ ...source, draft: "Prose.\n```json\n{}\n```" }).ok);
+    t.check("a refusal source carrying draft prose is rejected",
+      !validateVoiceDraftSource({ ...source, kind: "refusal", refused: "missing register" }).ok);
+    t.check("a refusal source carrying disclosures is rejected",
+      !validateVoiceDraftSource({
+        ...source, kind: "refusal", draft: "", refused: "missing register",
+        claims: [{ claim: "x", where: "paragraph 1" }],
+      }).ok);
+    t.check("missing or extra source keys are rejected rather than inferred",
+      !validateVoiceDraftSource(Object.fromEntries(Object.entries(source).filter(([key]) => key !== "claims"))).ok
+        && !validateVoiceDraftSource({ ...source, note: "extra" }).ok);
   }
 
   t.group("voice-draft — a missed habit is a worse imitation; an invented citation is a lie");

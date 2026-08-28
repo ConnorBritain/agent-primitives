@@ -87,6 +87,7 @@ const FIDELITY = "bundles/prose-review/tools/fidelity-scan.mjs";
 const LOOP = "bundles/prose-author/tests/loop.mjs";
 const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
+const DRAFT_CONTRACT = `${TOOLS}/draft-contract.mjs`;
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
 const XCOUNT = "bundles/prose-author/tests/cross-count.mjs";
@@ -147,6 +148,20 @@ export const MUTATIONS = [
     find: "  return urls.filter((u) => PLACEHOLDER_HOSTS.some((h) => u.toLowerCase().includes(h)));",
     with: "  return [];",
     guards: "an invented citation is caught before it reaches a reader",
+  },
+  {
+    name: "render empty semantic omissions into the public draft record",
+    file: DRAFT_CONTRACT,
+    find: "  if (source.omitted.length) record.omitted = source.omitted;",
+    with: "  record.omitted = source.omitted;",
+    guards: "a fixed-shape source cannot leak an empty optional list into voice-draft/1",
+  },
+  {
+    name: "allow a semantic draft to carry output fences inside its prose",
+    file: DRAFT_CONTRACT,
+    find: '    if (/```/.test(String(source.draft ?? ""))) errors.push("a draft source cannot carry output fences inside its prose");',
+    with: "    if (false) errors.push(\"a draft source cannot carry output fences inside its prose\");",
+    guards: "a model cannot smuggle a second public envelope through the draft string",
   },
 
   // --- the generate -> critique -> revise loop (PI-02 S4) ---

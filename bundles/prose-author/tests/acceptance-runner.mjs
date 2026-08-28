@@ -30,6 +30,9 @@ import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { crossCount } from "./cross-count.mjs";
 import { bodyOf } from "./corpus-rates.mjs";
 import { analyzeProfileStability } from "./profile-stability.mjs";
+import {
+  assembleVoiceDraft, parseVoiceDraftSource, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA,
+} from "../skills/prose-draft/tools/draft-contract.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
   ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, sourceMeasurementPlan,
@@ -52,6 +55,7 @@ const PROFILE_EFFORT = process.env.ACCEPTANCE_PROFILE_EFFORT || "low";
 const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY");
 const MODEL_TIMEOUT_MS = positiveInt(process.env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS");
 const PROFILE_NATIVE_SCHEMA = process.env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0";
+const DRAFT_NATIVE_SCHEMA = process.env.ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0";
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
 const text = (path) => readFileSync(path, "utf8");
@@ -211,6 +215,8 @@ function prepare(runDir) {
     "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs",
     "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs",
     "bundles/prose-author/skills/prose-draft/tools/profile-assemble.mjs",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs",
+    "bundles/prose-author/skills/prose-draft/tools/draft-assemble.mjs",
     "bundles/prose-author/tests/acceptance-runner.mjs",
     "bundles/prose-author/tests/fixtures/voice-draft-regressions/safeguards.json",
   ];
@@ -276,6 +282,7 @@ function prepare(runDir) {
     profile_effort: PROFILE_EFFORT,
     concurrency: CONCURRENCY,
     profile_transport: PROFILE_NATIVE_SCHEMA ? "native-structured" : "json-fence",
+    draft_transport: DRAFT_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     model_timeout_ms: MODEL_TIMEOUT_MS,
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
@@ -332,6 +339,13 @@ function semanticSource(record) {
     return { source: record.structured_output, repairs: 0, error: null };
   }
   return parseVoiceProfileSource(record.result);
+}
+
+function semanticDraftSource(record) {
+  if (record.structured_output !== null && typeof record.structured_output === "object") {
+    return { source: record.structured_output, error: null };
+  }
+  return parseVoiceDraftSource(record.result);
 }
 
 async function claude({ system, prompt, cwd, tools, allowed, output, schema = null, effort = EFFORT }) {
@@ -539,7 +553,9 @@ function draftPrompt(c, profileMarkdown, profileJson) {
     JSON.stringify(profileJson, null, 2),
     "```",
     "",
-    "Output the draft or refusal fences only.",
+    "Return voice-draft-source/1 exactly as described by the system prompt.",
+    "Fill the fixed source object only. The portable deterministic assembler owns",
+    "draft/refusal fences and removes empty disclosure arrays from voice-draft/1.",
   ].join("\n");
 }
 
@@ -557,6 +573,7 @@ async function dispatchDrafts(runDir) {
       id: c.id,
       run: () => claude({
         system, cwd: runDir, prompt, tools: "", allowed: [],
+        schema: DRAFT_NATIVE_SCHEMA ? DRAFT_SOURCE_SCHEMA : null,
         output: join(runDir, "raw", c.refusal ? "refusals" : "drafts", `${c.id}.json`),
       }),
     };
@@ -574,7 +591,15 @@ function collectDrafts(runDir) {
     const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
     const record = completedResult(rawPath);
     if (!record) die(`missing ${rel(rawPath)}`);
-    const parsed = parseDraft(record.result);
+    const decoded = semanticDraftSource(record);
+    if (!decoded.source) die(`${c.id} invalid semantic draft source: ${decoded.error}`);
+    const assembled = assembleVoiceDraft(decoded.source);
+    if (!assembled.ok) die(`${c.id} invalid semantic draft source: ${assembled.errors.join("; ")}`);
+    const sourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
+    const renderPath = join(runDir, "outputs", "drafts", `${c.id}.md`);
+    write(sourcePath, decoded.source);
+    write(renderPath, assembled.output);
+    const parsed = parseDraft(assembled.output);
     const validation = validateDraft(parsed);
     if (!validation.ok || validation.refusal) die(`${c.id} invalid draft: ${validation.errors.join("; ")}`);
     const out = join(runDir, "inputs", "drafts", `${c.id}.txt`);
@@ -586,7 +611,9 @@ function collectDrafts(runDir) {
     artifacts.drafts[c.id] = {
       profile: c.profile, render: c.render, request_sha256: SHA(c.prompt),
       prompt: rel(dispatchPrompt), prompt_sha256: SHA(text(dispatchPrompt)), raw: rel(rawPath),
-      raw_sha256: SHA(text(rawPath)), draft: rel(out), draft_sha256: SHA(text(out)),
+      raw_sha256: SHA(text(rawPath)), source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
+      render_output: rel(renderPath), render_output_sha256: SHA(text(renderPath)),
+      draft: rel(out), draft_sha256: SHA(text(out)),
       disclosure: disclosure ? rel(disclosurePath) : null,
       disclosure_sha256: disclosure ? SHA(text(disclosurePath)) : null,
     };
@@ -595,13 +622,24 @@ function collectDrafts(runDir) {
     const rawPath = join(runDir, "raw", "refusals", `${c.id}.json`);
     const record = completedResult(rawPath);
     if (!record) die(`missing ${rel(rawPath)}`);
-    const parsed = parseDraft(record.result);
+    const decoded = semanticDraftSource(record);
+    if (!decoded.source) die(`${c.id} invalid semantic refusal source: ${decoded.error}`);
+    const assembled = assembleVoiceDraft(decoded.source);
+    if (!assembled.ok) die(`${c.id} invalid semantic refusal source: ${assembled.errors.join("; ")}`);
+    const sourcePath = join(runDir, "inputs", "sources", "refusals", `${c.id}.json`);
+    const renderPath = join(runDir, "outputs", "refusals", `${c.id}.md`);
+    write(sourcePath, decoded.source);
+    write(renderPath, assembled.output);
+    const parsed = parseDraft(assembled.output);
     const validation = validateDraft(parsed);
     if (!validation.ok || !validation.refusal) die(`${c.id} did not produce a valid refusal: ${validation.errors.join("; ")}`);
     const dispatchPrompt = join(runDir, "prompts", "refusals", `${c.id}.md`);
     artifacts.refusals[c.id] = {
       prompt: rel(dispatchPrompt), prompt_sha256: SHA(text(dispatchPrompt)),
-      raw: rel(rawPath), raw_sha256: SHA(text(rawPath)), reason: parsed.json.refused,
+      raw: rel(rawPath), raw_sha256: SHA(text(rawPath)),
+      source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
+      render_output: rel(renderPath), render_output_sha256: SHA(text(renderPath)),
+      reason: parsed.json.refused,
     };
   }
   write(artifactsPath, artifacts);
@@ -819,7 +857,9 @@ function check(runDir) {
     const visit = (value) => {
       if (!value || typeof value !== "object") return;
       for (const [key, child] of Object.entries(value)) {
-        if ((key === "raw" || key === "render" || key === "markdown" || key === "json" || key === "draft" || key === "disclosure" || key === "prompt") && child) {
+        if ((key === "raw" || key === "render" || key === "markdown" || key === "json"
+          || key === "source" || key === "render_output" || key === "draft"
+          || key === "disclosure" || key === "prompt") && child) {
           if (!existsSync(resolve(REPO, child))) errors.push(`missing artifact ${child}`);
         } else if (child && typeof child === "object") visit(child);
       }

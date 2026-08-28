@@ -99,9 +99,10 @@ harness:
     enforcement: advisory
     notes: >-
       Neither the tool restriction nor context isolation is enforced. Run as a
-      fresh `codex exec` with the profile pasted in. The recoverable half is the
-      output contract - one fenced draft or one fenced refusal - which a harness
-      can check without trusting the model.
+      fresh `codex exec` with the profile pasted in. Codex supports an output-schema
+      file: use the shipped voice-draft-source/1 schema, then pass that result through
+      the deterministic assembler. The recoverable half is therefore provider-neutral
+      even though the corpus firewall remains advisory in this harness.
   agents-md:
     enforcement: advisory
     notes: >-

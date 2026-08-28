@@ -68,6 +68,12 @@ export async function run(t, { HERE }) {
     const prompt = draftPrompt({ prompt: "Write X." }, "Profile prose", { schema: "voice-profile/2" });
     t.check("the drafter prompt contains the request and rendered profile", /Write X\./.test(prompt) && /Profile prose/.test(prompt));
     t.check("the drafter prompt states that corpus access is unavailable", /no corpus access/i.test(prompt));
+    t.check("the drafter prompt ends on the provider-neutral semantic source contract",
+      /Return voice-draft-source\/1[\s\S]*portable deterministic assembler owns[\s\S]*removes empty disclosure arrays/.test(prompt));
+    t.check("draft dispatch uses native structure but validates deterministic assembly",
+      source.includes("DRAFT_NATIVE_SCHEMA ? DRAFT_SOURCE_SCHEMA : null")
+        && source.includes("assembleVoiceDraft(decoded.source)")
+        && source.includes("parseDraft(assembled.output)"));
   }
   {
     const prompt = criticPrompt("opaque-01", [
@@ -103,6 +109,9 @@ export async function run(t, { HERE }) {
     /ACCEPTANCE_CONCURRENCY \|\| "1"/.test(source)
       && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0"/.test(source)
       && /profile_transport: PROFILE_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+  t.check("acceptance defaults to native structured draft transport and records it in the manifest",
+    /ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0"/.test(source)
+      && /draft_transport: DRAFT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
   t.check("model dispatch has a hard timeout instead of waiting indefinitely",
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
       && /child\.kill\("SIGTERM"\)/.test(source)
