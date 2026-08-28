@@ -1,0 +1,197 @@
+{
+  "schema": "voice-draft-source/2",
+  "kind": "draft",
+  "paragraphs": [
+    {
+      "sentences": [
+        {
+          "text": "Owning something means you control it – not that you control it until the seller changes their mind.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "I know that sounds obvious.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "It's apparently not.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "When you buy a phone, a tractor, a car, or a smart thermostat, you hand over money and receive a physical object – and you also receive a relationship with the company that made it, one with terms you didn't negotiate and can't opt out of.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "The company can push a software update and remove features you paid for.",
+          "basis": "request-supported",
+          "claims": [
+            {
+              "claim": "A device maker can push a software update and remove features the buyer paid for.",
+              "request_basis": "its maker can disable features after sale"
+            }
+          ]
+        },
+        {
+          "text": "It can decide, remotely and unilaterally, that what you bought last year isn't what you'll have next year.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "That's not a purchase.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "That's a lease with the audacity to charge you full price up front.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "Think about what we mean when we say someone owns a building.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "The new owner can renovate it, neglect it, or sell it to someone else – none of that is the previous owner's business, because the transfer was complete.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "Ownership, in the traditional sense, means the seller's interest ends at the point of sale.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "What we've got now is something different: a model where the manufacturer retains silent equity in every device they've ever shipped (redeemable at any time through a firmware update, at their discretion and for their reasons).",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "I think we'd have a very specific word for this arrangement if we encountered it in real estate.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "We'd call it fraud.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "What does it actually look like when a company exercises this residual control?",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "You buy a printer that works with third-party ink; a firmware update makes it stop.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "You buy a car with heated seats; the manufacturer decides that feature is now a monthly subscription, eighteen months after you drove it off the lot.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "You buy a robot vacuum, the company gets acquired, the servers go dark, and now you've got a very expensive hockey puck.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "The question the industry never wants to answer is: when exactly did you agree that the purchase price bought them an ongoing veto over how you use the thing you own?",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "We didn't agree to that, and we shouldn't pretend the existing legal frameworks cover it.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "The argument you'll hear from manufacturers is usually wrapped in language about 'security updates' and 'service continuity' – and I don't think that's complete bullshit, but it is a remarkably convenient alibi for a straightforward power grab.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "A security patch that happens to delete features you paid for isn't a security patch.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "It's renegotiating the sale after the fact, with you holding no cards.",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "We have warranty law, implied covenants of merchantability, consumer protection statutes – none of it was designed for a world where the seller keeps their hands on the thing indefinitely.",
+          "basis": "reasoning",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "The fix isn't hard to describe (it's hard to pass, because the companies lobbying against it have a great deal of money, but that's a different problem).",
+          "basis": "reasoning",
+          "claims": []
+        },
+        {
+          "text": "Require that any feature present at point of sale remain functional for the device's reasonable useful life, or require a full refund when it's stripped.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "Mandate disclosure of every cloud dependency (including the services that can be sunset without notice) before purchase, not buried in paragraph forty-seven of a EULA nobody reads.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "And I'd add this: if a company wants the right to keep modifying what you bought after you bought it, make them lease it.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "Stop letting them call it a sale.",
+          "basis": "normative",
+          "claims": []
+        }
+      ]
+    },
+    {
+      "sentences": [
+        {
+          "text": "Ownership is not a subscription.",
+          "basis": "normative",
+          "claims": []
+        },
+        {
+          "text": "Until we treat post-sale feature removal as what it actually is – a taking, and a fairly brazen one – we're all just renting from companies that already collected the purchase price.",
+          "basis": "normative",
+          "claims": []
+        }
+      ]
+    }
+  ],
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12: named opponents quoted in their own words, named allies with credential clauses",
+      "why": "No specific named individuals or verified quotations were supplied by the request; scare-quote anatomization of industry terms ('security updates,' 'service continuity') was carried over, but no attributed quotations from named real actors could be included without fabricating them."
+    }
+  ],
+  "refused": ""
+}

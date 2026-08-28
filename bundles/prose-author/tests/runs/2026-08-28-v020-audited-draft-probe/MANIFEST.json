@@ -1,0 +1,39 @@
+{
+  "schema": "voice-draft-audited-probe/1",
+  "status": "claim-boundary-rejection",
+  "prepared_commit": "4e8b4afc03a376e3989af528063d10392f8aaf46",
+  "acceptance": false,
+  "harness": "claude-cli",
+  "model": "claude-sonnet-4-6",
+  "effort": "low",
+  "result": {
+    "draft_transport": "pass",
+    "draft_sentences": 31,
+    "audit_transport": "pass",
+    "sentence_reconciliation": "pass",
+    "kept_sentences": 26,
+    "rejected_sentences": 5,
+    "public_assembly": "blocked",
+    "critic_draws": 0
+  },
+  "telemetry": {
+    "draft_duration_ms": 140811,
+    "draft_api_equivalent_usd": 0.2070672,
+    "audit_duration_ms": 183112,
+    "audit_api_equivalent_usd": 0.21618795
+  },
+  "locked_files": {
+    "prompts/agents/draft.md": "c822b0f2ee321a155978aed717fc1a843c5c3ae593ceba09c85659406592f963",
+    "prompts/agents/claim-audit.md": "d232c9578bc10aa82d9c4a5d46b9c172f892745185533f891aeecbc82d15b6ef",
+    "schemas/draft.json": "966ee5950d78e676b933dfc2e1da97ca8c6c1343fd2ce4e65aab7759dd03aa0f",
+    "schemas/audit.json": "d5f2b4cc9c8afe50e9cb86ae6e603421b3a9f954951a748ca478786391633a92",
+    "prompts/d01.md": "8a9a67c7a07d2bffac2a40fa6f66888ba2bb5a3a891b070878312222e2897fce",
+    "prompts/d01-audit.md": "f9c7dbf80f0445e234f41d6430f73f51312a1ff459644ba36bf707e259218fe3",
+    "inputs/d01.request.txt": "97dcd49d5bfd61bb6bd1baa4d251a43ec348b2e948016430f09f5b0c7616ba88",
+    "inputs/d01.original-source.json": "7776129261e3b3254d7c82c98691708da9d74b6db9e6ec050aee91ddde7ebe00",
+    "outputs/d01.audit.json": "d110a6a79961954c13d04c7835f118c7f5a3ce9fdcb6186ea9eba642ee1116bf",
+    "raw/d01-draft.json": "c78df05fa6d26fe96edacd17c718827972f7fd718e95835e31929ee3a0d43970",
+    "raw/d01-audit.json": "66ad14e7877bd4d36b8d3284277290b4902ee063d0078ef62184cdb9daf94a7c",
+    "corpus.lock.json": "58bcc52fb1cf737cd54f091d153da9aa1945995aa49b99f23b71158885565a4e"
+  }
+}
