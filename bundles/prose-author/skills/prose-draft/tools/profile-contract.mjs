@@ -1,0 +1,421 @@
+#!/usr/bin/env node
+/**
+ * Portable contract between the semantic voice renderer and canonical voice-profile/2.
+ *
+ * A language model decides what the corpus says. This module owns everything mechanical:
+ * support arithmetic, measurement copying, observation ids, coverage statuses, absence
+ * pairing, and the evidence lines embedded in the prose. Claude may enforce SOURCE_SCHEMA
+ * while decoding; Codex and other harnesses may write ordinary JSON and call assemble.
+ */
+
+export const SOURCE_SCHEMA_ID = "voice-profile-source/1";
+export const PROFILE_SCHEMA_ID = "voice-profile/2";
+
+export const COVERAGE_DIMENSIONS = [
+  "person-reader-stance",
+  "contraction-negation",
+  "qualification-hedging",
+  "questions-imperatives-vocatives",
+  "opponents-allies-sources",
+  "profanity-vulgarity",
+  "self-reference-biography",
+  "interruption-punctuation",
+  "figures-analogy",
+  "openings-endings-closure",
+];
+
+export const SECTIONS = [
+  "cadence", "openings", "closings", "address", "figures", "register-range", "absences",
+];
+
+export const SECTION_HEADINGS = {
+  cadence: "## 1. Cadence",
+  openings: "## 2. How a piece opens",
+  closings: "## 3. How a piece closes",
+  address: "## 4. Who is being addressed, and how",
+  figures: "## 5. Figures",
+  "register-range": "## 6. Register range",
+  absences: "## 7. What the corpus never does",
+};
+
+export const DIMENSION_LABELS = {
+  "person-reader-stance": "Person, number, and reader stance",
+  "contraction-negation": "Contraction and negation",
+  "qualification-hedging": "Qualification and hedging",
+  "questions-imperatives-vocatives": "Questions, imperatives, and vocatives",
+  "opponents-allies-sources": "Named opponents, allies, and sources",
+  "profanity-vulgarity": "Profanity and vulgarity",
+  "self-reference-biography": "Self-reference and biography",
+  "interruption-punctuation": "Interruption punctuation",
+  "figures-analogy": "Figures and analogy vocabulary",
+  "openings-endings-closure": "Openings, paragraph endings, and closure",
+};
+
+export const FREQUENCIES = [
+  "once or twice per piece", "several times per piece", "throughout",
+];
+
+const observationSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    section: { enum: SECTIONS },
+    prose: { type: "string", minLength: 40 },
+    frequency: { enum: FREQUENCIES },
+    measurement_id: { type: "string", minLength: 1 },
+    support_files: {
+      type: "array", minItems: 1, uniqueItems: true,
+      items: { type: "string", minLength: 1 },
+    },
+  },
+  required: ["section", "prose"],
+  anyOf: [{ required: ["measurement_id"] }, { required: ["support_files"] }],
+};
+
+const dimensionSchema = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    observations: { type: "array", minItems: 1, items: observationSchema },
+    unresolved_reason: { type: "string", minLength: 20 },
+  },
+  oneOf: [{ required: ["observations"] }, { required: ["unresolved_reason"] }],
+};
+
+/** Render-only schema for providers whose structured-output decoder cannot express unions. */
+export const SOURCE_RENDER_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    schema: { const: SOURCE_SCHEMA_ID },
+    voice_card: { enum: ["empty", "corroborating", "contradicted"] },
+    dimensions: {
+      type: "object",
+      additionalProperties: false,
+      properties: Object.fromEntries(COVERAGE_DIMENSIONS.map((id) => [id, dimensionSchema])),
+      required: COVERAGE_DIMENSIONS,
+    },
+    gaps: { type: "string", minLength: 40 },
+    observations_dropped: { type: "integer", minimum: 0 },
+    multiple_voices_suspected: { type: "boolean" },
+  },
+  required: [
+    "schema", "voice_card", "dimensions", "gaps", "observations_dropped",
+    "multiple_voices_suspected",
+  ],
+};
+
+export const SOURCE_REFUSAL_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    schema: { const: SOURCE_SCHEMA_ID },
+    refused: { type: "string", minLength: 1 },
+  },
+  required: ["schema", "refused"],
+};
+
+/** Complete provider-neutral contract. A harness may validate this after ordinary JSON output. */
+export const SOURCE_SCHEMA = { oneOf: [SOURCE_RENDER_SCHEMA, SOURCE_REFUSAL_SCHEMA] };
+
+const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+const isText = (value) => typeof value === "string" && value.trim().length > 0;
+const exactKeys = (obj, allowed) => Object.keys(obj).filter((key) => !allowed.includes(key));
+const stem = (file) => file.replace(/\.[^.]+$/, "");
+
+function sourceErrors(source) {
+  const errors = [];
+  const err = (message) => errors.push(message);
+  if (!isObject(source)) return ["source is not an object"];
+  if (source.schema !== SOURCE_SCHEMA_ID) err(`source.schema must be ${SOURCE_SCHEMA_ID}`);
+  for (const key of exactKeys(source, [
+    "schema", "voice_card", "dimensions", "gaps", "observations_dropped",
+    "multiple_voices_suspected", "refused",
+  ])) err(`source carries unknown key: ${key}`);
+
+  if (Object.hasOwn(source, "refused")) {
+    if (!isText(source.refused)) err("source.refused must be a non-empty reason");
+    for (const key of Object.keys(source)) {
+      if (!["schema", "refused"].includes(key)) err(`refusal carries render key: ${key}`);
+    }
+    return errors;
+  }
+
+  if (!["empty", "corroborating", "contradicted"].includes(source.voice_card)) {
+    err("source.voice_card is invalid");
+  }
+  if (!isText(source.gaps) || source.gaps.trim().length < 40) {
+    err("source.gaps must contain at least 40 characters of prose");
+  }
+  if (!Number.isInteger(source.observations_dropped) || source.observations_dropped < 0) {
+    err("source.observations_dropped must be a non-negative integer");
+  }
+  if (typeof source.multiple_voices_suspected !== "boolean") {
+    err("source.multiple_voices_suspected must be boolean");
+  }
+  if (!isObject(source.dimensions)) return [...errors, "source.dimensions must be an object"];
+  for (const extra of exactKeys(source.dimensions, COVERAGE_DIMENSIONS)) {
+    err(`unknown coverage dimension: ${extra}`);
+  }
+  for (const dimension of COVERAGE_DIMENSIONS) {
+    const row = source.dimensions[dimension];
+    if (!isObject(row)) { err(`missing coverage dimension: ${dimension}`); continue; }
+    const hasObservations = Array.isArray(row.observations);
+    const hasUnresolved = isText(row.unresolved_reason);
+    if (hasObservations === hasUnresolved) {
+      err(`${dimension} must carry observations or unresolved_reason, exclusively`);
+      continue;
+    }
+    if (hasUnresolved && row.unresolved_reason.trim().length < 20) {
+      err(`${dimension}.unresolved_reason must contain at least 20 characters`);
+    }
+    for (const extra of exactKeys(row, ["observations", "unresolved_reason"])) {
+      err(`${dimension} carries unknown key: ${extra}`);
+    }
+    if (!hasObservations) continue;
+    if (row.observations.length === 0) err(`${dimension}.observations must not be empty`);
+    for (const [i, observation] of row.observations.entries()) {
+      const at = `${dimension}.observations[${i}]`;
+      if (!isObject(observation)) { err(`${at} is not an object`); continue; }
+      for (const extra of exactKeys(observation, [
+        "section", "prose", "frequency", "measurement_id", "support_files",
+      ])) err(`${at} carries unknown key: ${extra}`);
+      if (!SECTIONS.includes(observation.section)) err(`${at}.section is invalid`);
+      if (!isText(observation.prose) || observation.prose.trim().length < 40) {
+        err(`${at}.prose must contain at least 40 characters of actionable evidence`);
+      }
+      if (observation.frequency !== undefined && !FREQUENCIES.includes(observation.frequency)) {
+        err(`${at}.frequency is invalid`);
+      }
+      const measured = isText(observation.measurement_id);
+      const qualitative = Array.isArray(observation.support_files);
+      if (measured === qualitative) err(`${at} must carry measurement_id or support_files, exclusively`);
+      if (qualitative && (observation.support_files.length === 0
+        || !observation.support_files.every(isText)
+        || new Set(observation.support_files).size !== observation.support_files.length)) {
+        err(`${at}.support_files must contain unique filenames`);
+      }
+      // Evidence is assembled below. A semantic stage that also writes figures creates
+      // two sources of truth and recreates the failure this boundary removes.
+      if (/\b\d+\s*\/\s*\d+\s+samples?\b/i.test(observation.prose)
+        || /\bper\s+1[,.]?000\s+words?\b/i.test(observation.prose)
+        || /\[measurement:[a-z0-9-]+\]/i.test(observation.prose)) {
+        err(`${at}.prose duplicates deterministic evidence`);
+      }
+    }
+  }
+  return errors;
+}
+
+function evidenceLine({ support, of, frequency, measurement }) {
+  if (!measurement) return `_Evidence: ${support}/${of} samples; ${frequency}._`;
+  const rate = Number(measurement.per_1000_words).toFixed(2);
+  if (measurement.count === 0) {
+    return `_Evidence: ${support}/${of} samples establish the absence. ${measurement.counting_rule} Count: 0 instances; ${rate} per 1,000 words._`;
+  }
+  return `_Evidence: ${support}/${of} samples; ${frequency}. ${measurement.counting_rule} Count: ${measurement.count} instances; ${rate} per 1,000 words._`;
+}
+
+/**
+ * Assemble one semantic source response into canonical voice-profile/2.
+ * Returns all errors at once; it never repairs or guesses.
+ */
+export function assembleVoiceProfile(source, context) {
+  const errors = sourceErrors(source);
+  const profile = context?.profile;
+  if (!isText(profile)) errors.push("context.profile must be non-empty");
+
+  // Refusal is deliberately independent of corpus arithmetic. A thin, mixed, stale,
+  // or oversized corpus must be able to stop before a measurement pass exists.
+  if (Object.hasOwn(source ?? {}, "refused")) {
+    if (!errors.length) {
+      return { ok: true, refusal: true, errors: [], profile: {
+        schema: PROFILE_SCHEMA_ID, profile, refused: source.refused.trim(),
+      } };
+    }
+    return { ok: false, refusal: false, errors, profile: null };
+  }
+
+  const measurements = context?.measurements;
+  const samplesUsed = context?.samples_used;
+  const samplesExcluded = context?.samples_excluded ?? [];
+  if (!Array.isArray(samplesUsed) || samplesUsed.length < 5 || !samplesUsed.every(isText)
+    || new Set(samplesUsed).size !== samplesUsed.length) {
+    errors.push("context.samples_used must contain at least five unique filenames");
+  }
+  if (!isObject(measurements) || !Number.isInteger(measurements.corpus_words)
+    || measurements.corpus_words < 1
+    || !Array.isArray(measurements.measurements)) {
+    errors.push("context.measurements is invalid");
+  }
+  if (errors.length) return { ok: false, refusal: false, errors, profile: null };
+
+  const sampleSet = new Set(samplesUsed);
+  const measurementIds = new Set();
+  for (const [index, row] of measurements.measurements.entries()) {
+    const at = `context.measurements.measurements[${index}]`;
+    if (!isObject(row) || !isText(row.id)) { errors.push(`${at} has no id`); continue; }
+    if (measurementIds.has(row.id)) errors.push(`${at} duplicates measurement id ${row.id}`);
+    measurementIds.add(row.id);
+    if (!Number.isInteger(row.count) || row.count < 0) errors.push(`${at}.count must be a non-negative integer`);
+    if (typeof row.per_1000_words !== "number" || !Number.isFinite(row.per_1000_words) || row.per_1000_words < 0) {
+      errors.push(`${at}.per_1000_words must be a non-negative number`);
+    } else if (Number.isInteger(row.count)) {
+      const expected = Math.round((row.count / measurements.corpus_words) * 100000) / 100;
+      if (Math.abs(row.per_1000_words - expected) > 0.001) errors.push(`${at} has invalid rate arithmetic`);
+    }
+    if (!isText(row.counting_rule) || !row.counting_rule.startsWith(`[measurement:${row.id}]`)) {
+      errors.push(`${at}.counting_rule must begin with its stable measurement locator`);
+    }
+    for (const key of ["files_with", "files_without"]) {
+      if (!Array.isArray(row[key]) || !row[key].every(isText) || new Set(row[key]).size !== row[key].length) {
+        errors.push(`${at}.${key} must contain unique filenames`);
+      } else {
+        for (const file of row[key]) if (!sampleSet.has(file)) errors.push(`${at}.${key} names non-corpus file ${file}`);
+      }
+    }
+    if (Array.isArray(row.files_with) && Array.isArray(row.files_without)) {
+      const partition = new Set([...row.files_with, ...row.files_without]);
+      if (partition.size !== sampleSet.size || [...sampleSet].some((file) => !partition.has(file))) {
+        errors.push(`${at} does not partition the locked samples`);
+      }
+      if (row.files_with.some((file) => row.files_without.includes(file))) errors.push(`${at} file support overlaps absence support`);
+      if (row.samples_with !== row.files_with.length || row.samples_without !== row.files_without.length) {
+        errors.push(`${at} sample counts disagree with file support`);
+      }
+      if (row.count === 0 && row.files_with.length !== 0) errors.push(`${at} claims positive file support for a zero count`);
+      if (row.count > 0 && (row.files_with.length === 0 || row.count < row.files_with.length)) {
+        errors.push(`${at} count cannot support its positive files`);
+      }
+    }
+  }
+  if (errors.length) return { ok: false, refusal: false, errors, profile: null };
+
+  const byMeasurement = new Map(measurements.measurements.map((row) => [row.id, row]));
+  const observations = [];
+  const coverage = [];
+  const proseBySection = new Map(SECTIONS.map((section) => [section, []]));
+  const usedMeasurementIds = new Set();
+
+  for (const dimension of COVERAGE_DIMENSIONS) {
+    const sourceRow = source.dimensions[dimension];
+    if (sourceRow.unresolved_reason) {
+      coverage.push({ dimension, status: "unresolved", unresolved_reason: sourceRow.unresolved_reason.trim() });
+      continue;
+    }
+
+    const ids = [];
+    const positiveRated = [];
+    const zeroRated = [];
+    for (const [index, item] of sourceRow.observations.entries()) {
+      const at = `${dimension}.observations[${index}]`;
+      let measurement = null;
+      let supportFiles;
+      if (item.measurement_id) {
+        measurement = byMeasurement.get(item.measurement_id);
+        if (!measurement) { errors.push(`${at} names unknown measurement ${item.measurement_id}`); continue; }
+        if (usedMeasurementIds.has(item.measurement_id)) {
+          errors.push(`${at} reuses measurement ${item.measurement_id}; one measured claim has one canonical observation`);
+          continue;
+        }
+        usedMeasurementIds.add(item.measurement_id);
+        supportFiles = measurement.count === 0 ? [...samplesUsed] : [...(measurement.files_with ?? [])];
+        if (measurement.count > 0 && measurement.samples_with !== supportFiles.length) {
+          errors.push(`${at} measurement ${item.measurement_id} has inconsistent file support`);
+        }
+      } else {
+        supportFiles = [...item.support_files];
+      }
+      for (const file of supportFiles) if (!sampleSet.has(file)) errors.push(`${at} names non-corpus support file ${file}`);
+      if (supportFiles.length === 0) errors.push(`${at} has no positive support`);
+
+      const cited = samplesUsed.some((file) => item.prose.includes(file) || item.prose.includes(stem(file)));
+      if ((!measurement || measurement.count > 0) && !cited) {
+        errors.push(`${at}.prose must cite at least one corpus filename`);
+      }
+      if (measurement?.count === 0) {
+        if (item.frequency !== undefined) errors.push(`${at} is a counted absence and must not carry frequency`);
+      } else if (!FREQUENCIES.includes(item.frequency)) {
+        errors.push(`${at} must carry one fixed frequency`);
+      }
+
+      const id = `o${String(observations.length + 1).padStart(2, "0")}`;
+      const observation = {
+        id, section: item.section, support: supportFiles.length, of: samplesUsed.length,
+      };
+      if (measurement) observation.rate = {
+        count: measurement.count,
+        per_1000_words: measurement.per_1000_words,
+        counting_rule: measurement.counting_rule,
+      };
+      observations.push(observation);
+      ids.push(id);
+      if (measurement?.count === 0) zeroRated.push(id);
+      else if (measurement) positiveRated.push(id);
+      proseBySection.get(item.section).push([
+        `**${DIMENSION_LABELS[dimension]}.** ${item.prose.trim()}`,
+        evidenceLine({
+          support: supportFiles.length, of: samplesUsed.length,
+          frequency: item.frequency, measurement,
+        }),
+      ].join("\n"));
+    }
+
+    if (zeroRated.length) {
+      if (zeroRated.length !== 1 || positiveRated.length === 0) {
+        errors.push(`${dimension} has a counted absence but not exactly one absence plus a positive measured replacement`);
+      } else {
+        coverage.push({
+          dimension, status: "absent-paired", observation_ids: ids,
+          positive_observation_id: positiveRated[0], absence_observation_id: zeroRated[0],
+        });
+      }
+    } else if (positiveRated.length) {
+      coverage.push({ dimension, status: "rated", observation_ids: ids });
+    } else {
+      coverage.push({ dimension, status: "described", observation_ids: ids });
+    }
+  }
+
+  for (const section of SECTIONS) {
+    if (proseBySection.get(section).length === 0) errors.push(`assembled profile leaves section ${section} empty`);
+  }
+  if (coverage.length !== COVERAGE_DIMENSIONS.length) {
+    errors.push("assembly did not produce all ten coverage rows");
+  }
+  if (errors.length) return { ok: false, refusal: false, errors, profile: null };
+
+  const blocks = [`# Voice profile — ${profile}`];
+  for (const section of SECTIONS) {
+    blocks.push(SECTION_HEADINGS[section], ...proseBySection.get(section));
+  }
+  blocks.push(
+    "## 8. What this profile could not determine",
+    source.gaps.trim(),
+    `_Observations dropped: ${source.observations_dropped}. Voice card: ${source.voice_card}._`,
+  );
+  const profileMarkdown = blocks.join("\n\n");
+  const profileWords = profileMarkdown.trim().split(/\s+/).filter(Boolean).length;
+  if (profileWords < 800 || profileWords > 1500) {
+    return {
+      ok: false, refusal: false,
+      errors: [`assembled profile is ${profileWords} words; required range is 800–1500`],
+      profile: null,
+    };
+  }
+  const assembled = {
+    schema: PROFILE_SCHEMA_ID,
+    profile,
+    profile_markdown: profileMarkdown,
+    confidence: samplesUsed.length >= 10 ? "full" : "thin",
+    corpus_words: measurements.corpus_words,
+    samples_used: [...samplesUsed],
+    samples_excluded: samplesExcluded,
+    voice_card: source.voice_card,
+    observations,
+    coverage,
+    observations_dropped: source.observations_dropped,
+    multiple_voices_suspected: source.multiple_voices_suspected,
+  };
+  return { ok: true, refusal: false, errors: [], profile: assembled };
+}

@@ -29,12 +29,16 @@ import { scoreRun } from "./bar.mjs";
 import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { crossCount } from "./cross-count.mjs";
 import { bodyOf } from "./corpus-rates.mjs";
-import { measureProfile } from "./profile-measurements.mjs";
+import { parseFences } from "./fences.mjs";
+import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
+import {
+  assembleVoiceProfile, SOURCE_RENDER_SCHEMA,
+} from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   corpusLeakage, findFabricatedCitations, parseDraft, validateDraft,
 } from "./voice-draft.mjs";
 import {
-  corpusLock, parseRender, SCHEMA_ID as PROFILE_SCHEMA, validateVoiceProfile,
+  corpusLock, SCHEMA_ID as PROFILE_SCHEMA, validateVoiceProfile,
 } from "./voice-profile.mjs";
 import { RESEMBLANCE_CLAIMS } from "./run-gates.mjs";
 
@@ -148,25 +152,13 @@ export function profileRenderPrompt(profileId, inputs) {
     ]),
     "",
     "Complete the renderer's refusal checks now.",
-    "If a refusal applies, emit only the three-key refusal JSON described by the system prompt.",
-    "Before emitting a render, audit every coverage row mechanically: absent-paired and",
-    "unresolved keep their dedicated shapes; otherwise a row is rated if ANY referenced",
-    "observation has rate, and described only if NONE does. Never label a row described",
-    "while referencing a rated observation.",
-    "For every rated observation, find its complete counting_rule verbatim in that",
-    "observation's profile paragraph. If it is not literally present, either put it there",
-    "or remove the rate and keep the habit qualitative. Never invent a rate outside the",
-    "supplied measurements.json rows.",
-    "For every observation, find the exact <support>/<of> token in its own prose",
-    "paragraph; verbal forms such as 'all N samples' do not count. A zero rate is an",
-    "absence: its coverage row must be absent-paired, name it as absence_observation_id,",
-    "and name a distinct positive rated replacement. Finally, locate a prose paragraph",
-    "for every dimension, including explicit self-reference, first-person singular,",
-    "personal testimony/disclosure, or biographical-stance language for that dimension.",
-    "Otherwise this is a render: emit the single Markdown-fence voice-profile/2 envelope",
-    "described by the system prompt. Begin with <!-- voice-profile/2:profile -->, write the",
-    "complete 800–1500 word profile, then <!-- voice-profile/2:record --> and its compact",
-    "JSON audit object. Emit one Markdown fence and nothing else.",
+    "This locked corpus is expected to be renderable; if it is not, state the refusal",
+    "rather than inventing evidence.",
+    "Otherwise emit voice-profile-source/1 exactly as described by the system prompt.",
+    "Supply semantic prose, supporting filenames, fixed frequencies, measurement IDs,",
+    "and one entry for every coverage dimension. Do not copy counts, rates, support",
+    "fractions, rules, observation IDs, coverage statuses, or final profile fields; the",
+    "portable deterministic assembler owns those. Return the structured object only.",
   ].join("\n");
 }
 
@@ -187,7 +179,9 @@ function prepare(runDir) {
     "bundles/prose-author/tests/voice-profile.mjs",
     "bundles/prose-author/tests/voice-draft.mjs",
     "bundles/prose-author/tests/coverage-analysis.mjs",
-    "bundles/prose-author/tests/profile-measurements.mjs",
+    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs",
+    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs",
+    "bundles/prose-author/skills/prose-draft/tools/profile-assemble.mjs",
     "bundles/prose-author/tests/acceptance-runner.mjs",
     "bundles/prose-author/tests/fixtures/voice-draft-regressions/safeguards.json",
   ];
@@ -289,13 +283,25 @@ function loadPrepared(runDir) {
 function completedResult(path) {
   if (!existsSync(path)) return null;
   const record = json(path);
-  if (record.type !== "result" || record.is_error || typeof record.result !== "string" || !record.result.trim()) {
+  const hasText = typeof record.result === "string" && record.result.trim();
+  const hasStructured = record.structured_output !== null
+    && typeof record.structured_output === "object";
+  if (record.type !== "result" || record.is_error || (!hasText && !hasStructured)) {
     die(`${rel(path)} exists but is not a completed successful response; do not redraw it`);
   }
   return record;
 }
 
-async function claude({ system, prompt, cwd, tools, allowed, output }) {
+function semanticSource(record) {
+  if (record.structured_output !== null && typeof record.structured_output === "object") {
+    return record.structured_output;
+  }
+  const fenced = parseFences(record.result).json;
+  if (fenced) return fenced;
+  try { return JSON.parse(record.result); } catch { return null; }
+}
+
+async function claude({ system, prompt, cwd, tools, allowed, output, schema = null }) {
   if (completedResult(output)) return { skipped: true, output };
   const args = [
     "-p", "--output-format", "json", "--no-session-persistence", "--model", MODEL,
@@ -308,6 +314,7 @@ async function claude({ system, prompt, cwd, tools, allowed, output }) {
     "--setting-sources", "", "--no-chrome",
     "--tools", tools,
   ];
+  if (schema) args.push("--json-schema", JSON.stringify(schema));
   if (allowed?.length) args.push("--allowedTools", ...allowed);
   args.push("--disallowedTools", "Bash", "Edit", "Write", "WebFetch", "WebSearch", "Task");
   return new Promise((resolvePromise, reject) => {
@@ -321,7 +328,10 @@ async function claude({ system, prompt, cwd, tools, allowed, output }) {
       if (code !== 0) return reject(new Error(`claude exited ${code}: ${stderr.slice(0, 2000)}`));
       let record;
       try { record = JSON.parse(stdout); } catch { return reject(new Error(`claude emitted invalid JSON: ${stdout.slice(0, 500)}`)); }
-      if (record.type !== "result" || record.is_error || !record.result?.trim()) {
+      const hasText = typeof record.result === "string" && record.result.trim();
+      const hasStructured = record.structured_output !== null
+        && typeof record.structured_output === "object";
+      if (record.type !== "result" || record.is_error || (!hasText && !hasStructured)) {
         return reject(new Error(`claude emitted no successful result: ${stdout.slice(0, 1000)}`));
       }
       write(output, record);
@@ -366,6 +376,7 @@ async function dispatchProfiles(runDir) {
         id: `${profile.id}-r${render}`,
         run: () => claude({
           system, cwd, prompt: text(promptPath), tools: "", allowed: [],
+          schema: SOURCE_RENDER_SCHEMA,
           output: join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`),
         }),
       };
@@ -381,14 +392,24 @@ function collectProfiles(runDir) {
   };
   for (const profile of cases.profiles) {
     artifacts.profiles[profile.id] = {};
-      const expectedSamples = manifest.corpora[profile.id].lock.files.map((f) => f.file).sort();
+    const expectedSamples = manifest.corpora[profile.id].lock.files.map((f) => f.file).sort();
     const measurements = manifest.corpora[profile.id].measurements;
     const byId = new Map(measurements.measurements.map((m) => [m.id, m]));
     for (let render = 1; render <= profile.renders; render += 1) {
       const rawPath = join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`);
       const record = completedResult(rawPath);
       if (!record) die(`missing ${rel(rawPath)}`);
-      const parsed = parseRender(record.result);
+      const source = semanticSource(record);
+      const assembled = assembleVoiceProfile(source, {
+        profile: profile.id,
+        measurements,
+        samples_used: expectedSamples,
+        samples_excluded: measurements.samples_excluded ?? [],
+      });
+      if (!assembled.ok || assembled.refusal) {
+        die(`${profile.id}-r${render} source assembly failed: ${assembled.errors.join("; ")}`);
+      }
+      const parsed = { json: assembled.profile, markdown: assembled.profile.profile_markdown };
       const validation = validateVoiceProfile(parsed.json, parsed.markdown);
       if (!validation.ok || validation.refusal) die(`${profile.id}-r${render} invalid: ${validation.errors.join("; ")}`);
       if (parsed.json.schema !== PROFILE_SCHEMA) die(`${profile.id}-r${render} is not ${PROFILE_SCHEMA}`);
@@ -419,17 +440,18 @@ function collectProfiles(runDir) {
       const outDir = join(runDir, "inputs", "profiles", profile.id);
       const md = join(outDir, `r${render}.md`);
       const js = join(outDir, `r${render}.json`);
+      const sourcePath = join(outDir, `r${render}.source.json`);
       write(md, `${parsed.markdown.trim()}\n`);
       write(js, parsed.json);
-      // The historical render suite reads verbatim model outputs from raw/*.md. Keep
-      // that convention while the machine record (cost/duration/result) remains
-      // separately immutable under raw/profiles/*.json. parseRender materializes the
-      // v2 envelope's embedded Markdown for the human-facing inputs above.
+      write(sourcePath, source);
+      // The model response remains immutable under raw/profiles/*.json. This companion
+      // artifact is the canonical assembled render that historical drift checks read.
       const rawRender = join(runDir, "raw", `${profile.id}-r${render}.md`);
-      write(rawRender, `${record.result.trim()}\n`);
+      write(rawRender, `\`\`\`json\n${JSON.stringify(parsed.json, null, 2)}\n\`\`\`\n`);
       artifacts.profiles[profile.id][`r${render}`] = {
-        raw: rel(rawPath), render: rel(rawRender), markdown: rel(md), json: rel(js),
-        raw_sha256: SHA(text(rawPath)), markdown_sha256: SHA(text(md)), json_sha256: SHA(text(js)),
+        raw: rel(rawPath), source: rel(sourcePath), render: rel(rawRender), markdown: rel(md), json: rel(js),
+        raw_sha256: SHA(text(rawPath)), source_sha256: SHA(text(sourcePath)),
+        markdown_sha256: SHA(text(md)), json_sha256: SHA(text(js)),
         coverage, recount,
       };
     }

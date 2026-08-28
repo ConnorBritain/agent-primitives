@@ -10,6 +10,7 @@
 import { mkdirSync, readdirSync, writeFileSync, existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 import { join, resolve } from "node:path";
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import {
   validateVoiceProfile, corpusLock, parseRender,
   checkFrequencyDiscipline, FREQUENCIES,
@@ -18,6 +19,10 @@ import {
 } from "./voice-profile.mjs";
 import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
+import { measureProfile } from "./profile-measurements.mjs";
+import {
+  assembleVoiceProfile, COVERAGE_DIMENSIONS as SOURCE_DIMENSIONS,
+} from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
 } from "./fixture-guard.mjs";
@@ -498,6 +503,129 @@ export async function run(t, { tmp, HERE }) {
           "First-person singular is near-absent; the writer does not appear as a person.",
         ].every((prose) => analyzeParagraphCoverage(prose)
           .find((row) => row.id === "self-reference-biography")?.status === "mentioned"));
+    }
+  }
+
+  t.group("voice-profile source assembly — models interpret, code keeps the books");
+  {
+    const profileDir = resolve(HERE, "fixtures", "profiles", "doctorow-blog");
+    const measured = measureProfile(profileDir);
+    const files = measured.samples.map((sample) => sample.file);
+    const cited = files[0];
+    const placement = "Treat this as a placement rule rather than a quota: preserve it when the requested register gives it the same rhetorical job, and otherwise leave it out instead of forcing a surface tic.";
+    const qualitative = (section, prose, support = files.slice(0, 6)) => ({
+      section, prose: `${prose} Evidence appears in ${cited}. ${placement}`,
+      support_files: support, frequency: "several times per piece",
+    });
+    const rated = (section, measurement_id, prose) => ({
+      section, measurement_id, prose: `${prose} A representative use appears in ${cited}. ${placement}`,
+      frequency: "throughout",
+    });
+    const source = () => ({
+      schema: "voice-profile-source/1",
+      voice_card: "empty",
+      dimensions: {
+        "person-reader-stance": { observations: [
+          qualitative("cadence", "Direct address is integrated into the sentence rhythm."),
+          rated("address", "second-person-family", "Second-person address places the reader inside the mechanism."),
+        ] },
+        "contraction-negation": { observations: [
+          rated("address", "contractions", "Contractions keep the argumentative register conversational."),
+        ] },
+        "qualification-hedging": { observations: [
+          qualitative("register-range", "Qualification is owned by the speaker rather than hidden in vague adverbs."),
+        ] },
+        "questions-imperatives-vocatives": { observations: [
+          rated("address", "question-marks", "Questions apply pressure and are answered by the following claim."),
+        ] },
+        "opponents-allies-sources": { observations: [
+          qualitative("address", "Named opponents and sources are quoted before their terms are turned."),
+        ] },
+        "profanity-vulgarity": { observations: [
+          rated("register-range", "profanity-vulgarity", "Profanity is reserved for the point of maximum contempt."),
+        ] },
+        "self-reference-biography": { observations: [
+          rated("register-range", "first-person-singular-family", "First-person singular owns claims and occasional personal testimony."),
+        ] },
+        "interruption-punctuation": { observations: [
+          rated("absences", "en-dashes", "En-dashes provide the positive interruption form."),
+          { section: "absences", measurement_id: "em-dashes", prose: `Em-dashes are absent; use the measured positive replacement instead. ${placement}` },
+        ] },
+        "figures-analogy": { observations: [
+          qualitative("figures", "Figures draw on legal, commercial, and bodily vocabulary."),
+        ] },
+        "openings-endings-closure": { observations: [
+          qualitative("openings", "Openings place the disputed object on the table immediately."),
+          qualitative("closings", "Closings return an opponent's term with its meaning reversed."),
+        ] },
+      },
+      gaps: "The corpus does not establish whether these placements survive a private or ceremonial register.",
+      observations_dropped: 3,
+      multiple_voices_suspected: false,
+    });
+    const context = {
+      profile: "doctorow-blog", measurements: measured, samples_used: files, samples_excluded: [],
+    };
+    {
+      const measureCli = resolve(HERE, "..", "skills", "prose-draft", "tools", "profile-measure.mjs");
+      const portable = JSON.parse(execFileSync(process.execPath, [measureCli, profileDir, "--context", "doctorow-blog"], { encoding: "utf8" }));
+      t.check("the shipped measurement CLI builds portable assembler context",
+        portable.profile === context.profile
+          && portable.measurements.corpus_words === context.measurements.corpus_words
+          && JSON.stringify(portable.samples_used) === JSON.stringify(context.samples_used));
+    }
+    const assembled = assembleVoiceProfile(source(), context);
+    t.check("one semantic source assembles into a valid canonical voice-profile/2",
+      assembled.ok && validateVoiceProfile(assembled.profile).ok, assembled.errors.join("; "));
+    t.check("assembly derives all ten coverage rows and their statuses",
+      assembled.profile?.coverage.length === SOURCE_DIMENSIONS.length
+        && assembled.profile?.coverage.find((row) => row.dimension === "interruption-punctuation")?.status === "absent-paired"
+        && assembled.profile?.coverage.find((row) => row.dimension === "figures-analogy")?.status === "described");
+    t.check("assembly derives ids, support, and measured rates rather than trusting the model",
+      assembled.profile?.observations.every((observation, i) => observation.id === `o${String(i + 1).padStart(2, "0")}`)
+        && assembled.profile?.observations.some((observation) => observation.rate?.count === 385)
+        && assembled.profile?.profile_markdown.includes("[measurement:second-person-family]"));
+    t.check("assembled rated evidence stays in the same paragraph as its dimension label",
+      analyzeParagraphCoverage(assembled.profile?.profile_markdown)
+        .find((row) => row.id === "person-reader-stance")?.status === "rated");
+    t.check("assembly enforces the complete 800–1500 word profile range",
+      assembled.profile?.profile_markdown.trim().split(/\s+/).length >= 800
+        && assembled.profile?.profile_markdown.trim().split(/\s+/).length <= 1500);
+
+    {
+      const cli = resolve(HERE, "..", "skills", "prose-draft", "tools", "profile-assemble.mjs");
+      const sourcePath = join(tmp, "portable-profile-source.json");
+      const contextPath = join(tmp, "portable-profile-context.json");
+      writeFileSync(sourcePath, `${JSON.stringify(source(), null, 2)}\n`);
+      writeFileSync(contextPath, `${JSON.stringify(context, null, 2)}\n`);
+      const output = JSON.parse(execFileSync(process.execPath, [cli, "--source", sourcePath, "--context", contextPath], { encoding: "utf8" }));
+      t.check("the shipped CLI gives Codex and generic harnesses the same assembler",
+        output.schema === "voice-profile/2" && output.profile_markdown === assembled.profile?.profile_markdown);
+    }
+
+    {
+      const bad = source();
+      delete bad.dimensions["figures-analogy"];
+      t.check("assembly rejects a silently omitted dimension",
+        assembleVoiceProfile(bad, context).errors.some((error) => /missing coverage dimension: figures-analogy/.test(error)));
+    }
+    {
+      const bad = source();
+      bad.dimensions["figures-analogy"].observations[0].support_files = ["not-in-corpus.txt"];
+      t.check("assembly rejects support outside the locked corpus",
+        assembleVoiceProfile(bad, context).errors.some((error) => /non-corpus support file/.test(error)));
+    }
+    {
+      const bad = source();
+      bad.dimensions["figures-analogy"].observations[0].prose += " It occurs in 6/10 samples.";
+      t.check("semantic prose cannot duplicate deterministic evidence",
+        assembleVoiceProfile(bad, context).errors.some((error) => /duplicates deterministic evidence/.test(error)));
+    }
+    {
+      const bad = source();
+      bad.dimensions["interruption-punctuation"].observations.shift();
+      t.check("a zero measurement cannot silently become a rated absence",
+        assembleVoiceProfile(bad, context).errors.some((error) => /counted absence but not exactly one absence plus a positive measured replacement/.test(error)));
     }
   }
 

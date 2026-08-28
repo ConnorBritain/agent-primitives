@@ -43,14 +43,16 @@ export async function run(t, { HERE }) {
   {
     const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }]);
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
-    t.check("profile prompts end on the self-contained envelope contract",
-      /single Markdown-fence voice-profile\/2 envelope[\s\S]*voice-profile\/2:profile[\s\S]*voice-profile\/2:record[\s\S]*one Markdown fence/.test(prompt));
-    t.check("profile prompts end on a mechanical coverage-status audit",
-      /audit every coverage row mechanically[\s\S]*rated if ANY referenced[\s\S]*described only if NONE/.test(prompt));
-    t.check("profile prompts audit every rated rule before emission",
-      /complete counting_rule verbatim[\s\S]*not literally present[\s\S]*remove the rate[\s\S]*Never invent a rate/.test(prompt));
-    t.check("profile prompts audit literal support, zero absences, and prose coverage",
-      /exact <support>\/<of> token[\s\S]*zero rate is an[\s\S]*absent-paired[\s\S]*distinct positive rated replacement[\s\S]*personal testimony\/disclosure/.test(prompt));
+    t.check("profile prompts end on the provider-neutral semantic source contract",
+      /emit voice-profile-source\/1[\s\S]*semantic prose[\s\S]*supporting filenames[\s\S]*measurement IDs[\s\S]*every coverage dimension/.test(prompt));
+    t.check("profile prompts assign all duplicate bookkeeping to deterministic code",
+      /Do not copy counts, rates, support[\s\S]*observation IDs, coverage statuses, or final profile fields[\s\S]*deterministic assembler owns/.test(prompt));
+    t.check("profile prompts require refusal instead of invented evidence",
+      /Complete the renderer's refusal checks[\s\S]*state the refusal[\s\S]*rather than inventing evidence/.test(prompt));
+    t.check("profile dispatch requests native structure without making assembly provider-specific",
+      source.includes("schema: SOURCE_RENDER_SCHEMA")
+        && source.includes('"--json-schema"')
+        && source.includes("assembleVoiceProfile(source"));
   }
   {
     const prompt = draftPrompt({ prompt: "Write X." }, "Profile prose", { schema: "voice-profile/2" });
@@ -91,6 +93,10 @@ export async function run(t, { HERE }) {
         - Math.round((m.count / measured.corpus_words) * 100000) / 100) < 1e-9));
     t.check("every deterministic counting rule carries a stable measurement locator",
       measured.measurements.every((m) => m.counting_rule.startsWith(`[measurement:${m.id}]`)));
+    t.check("every deterministic measurement carries an auditable file partition",
+      measured.measurements.every((m) => m.files_with.length === m.samples_with
+        && m.files_without.length === m.samples_without
+        && m.files_with.length + m.files_without.length === measured.sample_count));
   }
   t.check("the checker pins design, case, agent, corpus, request, and artefact hashes",
     ["design_sha256", "cases_sha256", "agent snapshot hash mismatch", "corpus lock drifted", "prompt hash mismatch", "missing artifact"]

@@ -1,11 +1,11 @@
 ---
 name: voice-profile-render
-description: Reads an author's writing corpus and writes the voice profile a drafter will later work from — a prose description of how this person writes, every observation carrying a sample citation and a support count. Use when a profile directory has a filled corpus and something needs to draft in that voice without being handed the corpus itself. It never reads the AI-tell catalog, never emits a list of things to avoid, and never claims a draft written from its profile will sound like the author. Distinct from prose-draft (writes the prose) and prose-voice-critic (judges a draft against the corpus directly).
+description: Reads an author's writing corpus and emits cited semantic findings for the bundled deterministic assembler, which produces the voice profile a drafter will use. Use when a profile directory has a filled corpus and something needs to draft in that voice without being handed the corpus itself. It never reads the AI-tell catalog, never emits a list of things to avoid, and never claims a draft written from its profile will sound like the author. Distinct from prose-draft (writes the prose) and prose-voice-critic (judges a draft against the corpus directly).
 ---
 
-Your only job is to write one document: a description of how a particular person writes, derived from samples of their writing, addressed to whoever has to write in that voice next.
+Your only job is to supply the semantic findings for one document: a description of how a particular person writes, derived from samples of their writing, addressed to whoever has to write in that voice next. The bundled assembler turns your source object into that document and owns its mechanical evidence.
 
-**You are describing a voice, not scoring one.** The reader of your output is a drafter facing a blank page. What helps them is "her sentences snap short when she is annoyed and run long when she is arguing, and you can hear which mood a paragraph is in from the first clause." What does not help them is a table of averages. Numbers belong in your output only where the number is the observation.
+**You are describing a voice, not scoring one.** The eventual reader is a drafter facing a blank page. What helps them is "her sentences snap short when she is annoyed and run long when she is arguing, and you can hear which mood a paragraph is in from the first clause." What does not help them is a table of averages. Supplied measurements may support a semantic observation, but their numbers belong to the deterministic assembler, not your source prose.
 
 **Write so the drafter can act, not only recognise.** An observation states what the corpus does; where you can, add the sentence that tells someone how to do it. *"A long enthusiastic sentence is followed by a short unimpressed one"* is a description. *"If a sentence has run long and enthusiastic, make the next one four words and flat"* is the same finding a drafter can use. Do this wherever the habit is reproducible — not everywhere, and never by inventing an instruction the evidence does not carry.
 
@@ -52,31 +52,22 @@ One more refusal, and it is the one that protects the drafter most. **If the cor
 
 ## The rule that governs every observation
 
-**One claim, one citation, one count.**
+**One claim, one citation, one support set.**
 
-Every statement in the profile carries the number of samples it holds in, and at least one quoted span from a named sample. Format the evidence inline so the drafter can see the voice while reading about it:
+Every qualitative observation lists every supporting filename in `support_files` and names
+at least one of those files beside a short quotation in `prose`. The assembler, not you,
+turns that set into the sample count printed in the final profile. Do not put the count in
+your semantic prose.
 
-> Paragraphs end on the shortest sentence in them — 8/10 samples (`sample-04`: *"So we waited."*).
+**A claim may not be stronger than its support set.** If you write *never*, *always*,
+*every sample*, or *nothing in the corpus* about the corpus, every usable sample must
+support the claim. Do not assert a partition you have not checked.
 
-The example is about format only. Do not go looking for the habit it happens to describe; it is not a hint about what you will find.
+### Support says where; frequency says how often.
 
-**The count is always a count of samples**, never of anything else — not of observations, not of occurrences within one sample, not of paragraphs. `8/10` means eight of the ten samples show this. A gap in section 8 is counted the same way: the samples that establish the gap. *"All ten recipients are intimates, so nothing here shows how the voice behaves toward a stranger"* is 10/10, not 0/10. If you find yourself about to write `0/`, you are counting the wrong thing.
-
-**A claim may not be stronger than its own count.** If you write *never*, *always*, *every sample*, or *nothing in the corpus* about the corpus, the count beside it must be `m/m`. Anything less and you have written a universal on partial evidence, and the drafter will read the word rather than the number.
-
-- ✗ "images are made of animals, food and the body — never abstractions — 6/10 samples"
-- ✓ "images are made of animals, food and the body — 6/10 samples" *(if four samples do something else)*
-- ✓ "no image in the corpus is built from an abstraction — 10/10 samples" *(if none does)*
-
-Either four samples use abstract figures, in which case the word is wrong, or none does, in which case the count is. Decide which by looking, then write that one. This does not apply to a universal scoped to something other than the corpus — *"a figure runs one clause and is never reopened"* is about the figures, not the samples, and takes the count of samples in which it holds.
-
-**Do not assert a partition you have not checked.** *"The four samples without exclamation marks are the four that give advice"* is a claim about which samples fall on which side, offered in passing. If you have actually checked all ten, say so and give the count. If you have not, state the two facts separately and let them sit next to each other.
-
-### The count says how many samples. It cannot say how often.
-
-`9/10` means the habit appears **somewhere in nine samples**. It says nothing about whether that is once in a long piece or in every other sentence — and those are completely different instructions to whoever writes from this.
-
-So **every observation about a recurring move carries a frequency as well as a count**, in these words:
+A support set says only which samples contain the habit. It says nothing about whether the
+habit appears once or saturates the piece. So every positive observation carries one fixed
+frequency phrase:
 
 | write | when the habit, inside a sample that has it, appears |
 |---|---|
@@ -84,24 +75,19 @@ So **every observation about a recurring move carries a frequency as well as a c
 | `several times per piece` | a handful of times, not on every page |
 | `throughout` | repeatedly and pervasively — it is hard to find a paragraph without it |
 
-*"Sentences accumulate and are then stopped by a short flat one — 9/10 samples, several times per piece"* is usable. The same line without the frequency will be read as *do this constantly*, and a draft that does it constantly is a parody.
-
-**You are the only one who can supply this.** You have read the corpus whole; nothing downstream has. A drafter cannot recover the rate from `9/10`, and neither can the author reading the profile.
+The assembler prints the support count next to this phrase. You are the only stage that has
+read the corpus whole, so you must choose the frequency from evidence rather than from how
+memorable the habit felt.
 
 **A harness may supply `measurements.json`.** It is a deterministic prepass over the same
-usable sample bodies, not a voice description and not an answer key. When it is present,
-use its `corpus_words` exactly. Any numeric `rate` you emit must use one of its measurements
-with the same `count` and `per_1000_words`. Its `counting_rule` begins with a stable
-`[measurement:<id>]` locator. Copy that locator into the JSON rule and into the prose
-paragraph carrying the rate; do not rename or omit it. You may join the rule to the prose
-grammatically, but its meaning must not change. Read the corpus yourself
-to decide what the measurement means, whether it supports an instruction, which samples
-support the observation, and which quotation demonstrates it. A precomputed count can
-remove arithmetic from your job; it cannot turn a regex into an interpretation. Do not
-emit a new model-counted rate beside supplied measurements—leave an unmeasured habit
-qualitative instead.
+usable sample bodies, not a voice description and not an answer key. You interpret what a
+measurement means and whether it supports an instruction; you do not copy its count, rate,
+rule, word total, or sample count into your response. Name only its `id` as
+`measurement_id`. The deterministic assembler copies the row into the final profile and
+will reject an unknown or reused id. Do not create a new model-counted rate beside supplied
+measurements—leave an unmeasured habit qualitative instead.
 
-### If you can count it, count it and give the number
+### If a habit is countable, bind it to a supplied measurement
 
 A frequency phrase cannot cross a length difference. Your samples and the draft written
 from this profile may be very different lengths, and *several times per piece* read against
@@ -109,135 +95,35 @@ a piece half the length of the ones you measured is an instruction to overdo it.
 already happened: a drafter took a per-piece phrase literally against a much shorter draft
 and produced the habit at roughly twice the author's rate, which read as caricature.
 
-So: **for any habit you can count by pointing at each instance** — a word, a punctuation
-mark, a construction you can enumerate — count every occurrence across the samples you
-used, and give the rate in the json as `rate`:
+For a countable habit covered by `measurements.json`, emit its `measurement_id` and the
+semantic prose only. The assembler derives the support set from the measurement's own
+per-file results, copies the exact arithmetic, inserts the reproducible counting rule, and
+prints the evidence line. This is deliberately not your bookkeeping job.
 
-```json
-{ "id": "o14", "section": "address", "support": 10, "of": 10,
-  "rate": { "count": 47, "per_1000_words": 3.90 } }
-```
+**Most observations will remain qualitative.** How a figure is built, what a close does
+with an opponent's word, and why a register shifts do not become enumerable merely because
+they are important. For these, list every supporting filename in `support_files`. The
+assembler derives the support fraction and prints it; do not repeat it in prose.
 
-**A count is only reproducible if the rule that produced it is stated.** Three renders of one
-corpus counted the same habit at rates differing by more than half again — because each
-resolved an ambiguity differently and none said which way. A rate nobody can reproduce is worse than a
-frequency phrase, because it looks precise.
+Before leaving a habit qualitative, ask whether a supplied measurement enumerates a
+well-defined component. A measurement of figure vocabulary is not a count of figures; say
+which component it represents and give the drafter an actionable placement instruction.
+If no supplied measurement fits, keep the observation qualitative. Never improvise a
+measurement, rule, or number.
 
-So, whenever a habit admits more than one reasonable counting rule, **say in the prose which
-one you used**, in a clause, before the citation:
+The fixed frequency phrase still belongs on every positive observation. Be conservative:
+`throughout` is a strong claim, and a striking move is usually rarer on the page than the
+impression it leaves. Do not write *the engine of this prose*, *the defining move*, or
+*everywhere* unless the frequency is `throughout` and you checked it across the corpus.
 
-- ✓ *"contracted forms, counting `n't`, `'re`, `'ve`, `'ll`, `'d`, `'m` and `'s` only where
-  `'s` is an elision (`it's`, `that's`) and not a possessive — N instances"*
-- ✗ *"contracted forms — N instances"*
-
-Two ambiguities recur and you must resolve both explicitly:
-
-1. **What counts as an instance.** `'s` is a contraction in *it's* and a possessive in
-   *the world's*; a quoted phrase may or may not be the author's own words.
-2. **Which samples are in scope.** `count` is total occurrences across **all** of
-   `samples_used`. If you deliberately exclude a sample — because it is a different genre,
-   or carries none of the habit — that is a different observation with a different `of`, and
-   the exclusion goes in the prose. Do not quietly narrow the denominator.
-
-`count` is total occurrences across `samples_used`. `per_1000_words` is that count divided
-by the total body words of those samples, times a thousand. **Both are arithmetic. Do the
-arithmetic — do not estimate it**, and do not round `count` to something that looks tidy.
-
-**Most observations will not carry a rate, and must not.** How a figure is built, what a
-close does with the opponent's word, why a register shifts — none of these have a count,
-and inventing one for them is exactly the fabrication the rest of this prompt is arranged
-against. The test is simple: *could I list every instance?* If no, no rate.
-
-**But before you drop the rate, look for a countable part.** An observation you cannot
-bound is often made of something you can. You may not be able to say where a figure starts
-and stops — but you can count the *vocabulary the figures are drawn from*. You may not be
-able to decide what counts as naming an opponent — but you can count the proper nouns in
-subject position.
-
-So when you are about to write *no rate*, ask one more question: **is there a well-defined
-component of this habit that I could enumerate?** If there is, rate the component, and name
-it as the component:
-
-- ✗ *"images come from the body and from borrowed stories — 9/10 samples."* Then, elsewhere:
-  *"No rate: I could not draw a line around a figure."*
-- ✓ *"images come from the body and from borrowed stories — 9/10 samples. I cannot bound
-  'a figure', so this is not a count of figures: it is a count of the vocabulary they are
-  built from — N words from that register, R per 1,000 words."*
-
-The second is not more precise about figures. It is precise about a smaller thing, and it
-says which smaller thing. That is the honest version, and it is the one a drafter can act
-on.
-
-**The component must be one somebody else could count the same way.** This is the trap in
-the rule and it has already been walked into: a render counted *"the manufactured compound,
-the unit the figures are assembled from"* and gave a number. But "manufactured" is a
-judgement about which compounds are coinages, so a second counter working from the same
-corpus got nearly twice the figure. Naming the component is not enough if the name still
-hides the decision you could not make.
-
-So the component needs an enumerable rule, not a label:
-
-- ✗ *"the manufactured compound"* — which compounds are manufactured?
-- ✓ *"hyphenated compounds"*, or a stated word list, or a named grammatical form
-
-If you cannot write the rule down so a stranger reproduces your number, you have not found
-a countable component — you have renamed the thing you could not bound. **Write `no rate`
-and say why.** That refusal is still available and still correct; it is only the first
-resort that has changed.
-
-**A component is not a measurement of the whole, and it IS a target for itself.** Both
-halves matter, and dropping the second is how this rule failed the first time it was used.
-
-A render rated a figure vocabulary, correctly disclaimed that it was not a count of
-figures, and then added: *"a drafter should read them as raw material rather than as a
-target."* Everything in that sentence is true of **figures**. None of it is true of **the
-vocabulary**, which is exactly the kind of thing a drafter can and should aim at. The draft
-written from that profile used the vocabulary zero times — the same as when it was not
-rated at all. The number was there and the sentence beside it switched the number off.
-
-So say both, and keep them apart:
-
-- ✓ *"This is not a count of figures — I cannot bound one. It is a count of the vocabulary
-  they are built from, under the list above. **Use that vocabulary at about this rate.**"*
-- ✗ *"...so read these as raw material rather than as a target."*
-
-**Never tell the drafter to discount a number you have just given it.** If a number is too
-unreliable to aim at, it was too unreliable to state — drop it and write `no rate`. What
-you must not do is publish it with a caveat that neutralises it, because that costs the
-drafter a habit it would otherwise have used and leaves a figure in the profile that looks
-like evidence.
-
-**Why this rule exists, stated plainly.** Measured across six drafts: every habit this
-profile format rated was reproduced at or near the corpus rate, and **every habit it left
-unrated came back at exactly zero** — including habits marked `10/10 samples` with a
-frequency phrase attached. A support count and a phrase are not enough. Whatever carries a
-number gets written; whatever carries only words does not.
-
-That is a fact about the reader of this profile, not about what is true of the corpus. You
-still may not invent a number. But where a number is available and you declined to look
-for it, the habit will be silently dropped from every draft — and a habit dropped that way
-is one nobody will notice is missing.
-
-**The phrase still goes in the prose.** The rate does not replace it — a reader needs the
-words and a drafter needs the number. But when you have counted, let the count decide the
-phrase rather than the other way around: under about 2.5 instances per sample is *once or
-twice per piece*, up to about ten is *several times per piece*, beyond that *throughout*.
-If the number you counted disagrees with the phrase you were about to write, the number is
-right.
-
-**Be conservative when the answer is not obvious.** `throughout` is a strong claim and most habits do not earn it — a move that felt striking while reading is usually rarer on the page than the impression it left. If you are choosing between `several times per piece` and `throughout`, go back and count the instances in one sample before writing `throughout`.
-
-The same discipline applies to the words around the count. Do not write *the engine of this prose*, *the defining move*, or *everywhere* unless the frequency is `throughout` and you have checked. An observation is not made truer by being introduced emphatically.
-
-An observation you cannot cite is not a weak observation. It is a thing you made up, and you drop it. **Count what you drop and report the number.** A render that dropped nothing is a render that was not filtering.
-
-**Every observation prints its `n/m` in the prose, without exception**, including the ones you also describe in words. The count in the json and the count on the page are the same characters; a reader must be able to find one from the other.
-
-Two supporting samples is the floor for stating a habit plainly. One sample is stated as one sample — `1/10 samples`, and say so in words too: *"1/10 samples — the only place this appears"*. Or drop it. Do not write "often", "tends to", or "generally" without the count behind it; those words are how an invented observation gets past its author.
+An observation you cannot cite is not weak; it is invented. Drop it and increment
+`observations_dropped`. A render that dropped nothing probably was not filtering. Two
+supporting samples are the floor for stating a qualitative habit plainly. A one-sample
+exception belongs in `gaps`, not as a general instruction.
 
 ## Sections, in this order
 
-Each carries a fixed key, given in `code`. The heading in the profile is yours to phrase; the key in the json is not, and must be spelled exactly as below.
+Each carries a fixed `section` key, given in `code`. The assembler supplies the final heading; your key must be spelled exactly as below.
 
 1. **Cadence** — `cadence`. How sentences run, how much they vary, and *what makes them change*. The variation is the useful half — a length with no reason attached is a number.
 2. **How a piece opens** — `openings`. Actual observed shapes. If the ten openings are of three kinds, say three kinds and quote one of each. Do not average them into a composite opening that appears nowhere.
@@ -270,7 +156,9 @@ So before writing section 4, go through these deliberately. **Each is a question
 | **profanity and vulgarity** | Present or absent, and if present, *where* — decoration, or reserved for the moment of maximum contempt? |
 | **self-reference** | Does the writer appear as a person — their age, their history, their errors — or only as an arguer? |
 
-Any dimension where the corpus is consistent is worth an observation, with its count and its frequency. Any dimension where the corpus is silent or mixed is worth a line in section 8 rather than a guess.
+Any dimension where the corpus is consistent is worth an observation, with its support
+files and frequency. Any dimension where the corpus is silent or mixed is unresolved
+rather than guessed.
 
 The checklist is now part of a larger fixed coverage pass. **Do not turn that pass into
 ten prescribed habits.** It is ten questions whose answers may be measured, described,
@@ -293,26 +181,10 @@ corpus even when nothing memorable stood out while reading:
 9. figures, analogy vocabulary, and function
 10. openings, paragraph endings, and closure
 
-Give each row exactly one status in the JSON:
-
-- `rated` — at least one cited observation for the dimension has an enumerated rate;
-- `described` — the evidence supports a cited qualitative observation, but no honest
-  enumerable component exists;
-- `absent-paired` — a counted absence is paired with the counted positive habit that
-  occupies its place;
-- `unresolved` — the corpus cannot support an instruction. State why; do not invent one.
-
-Every status except `unresolved` references the observation IDs that support it. An
-`unresolved` row instead carries a non-empty `unresolved_reason`. Coverage is an audit of
-what you checked, not another section of prose, and it must never cause you to assert a
-habit the corpus does not show.
-
-**Audit status mechanically before output.** Leave `absent-paired` and `unresolved` in
-their dedicated shapes. For every other row, inspect all referenced observations: if
-**any** has a `rate`, the row is `rated`; only a row whose referenced observations have
-**no** rate may be `described`. The subject of the rate may cover only one component of
-a compound dimension; that still makes the dimension rated, while its qualitative
-components remain described in the prose.
+For each dimension emit either `observations` or `unresolved_reason`, never a status or
+observation IDs. The assembler derives `rated`, `described`, `absent-paired`, and
+`unresolved` solely from the semantic source and deterministic measurements. Coverage is
+an audit of what you checked, not permission to assert a habit the corpus does not show.
 
 ### Section 7 is the one that can go wrong
 
@@ -321,7 +193,7 @@ An absence is worth recording, and a list of absences is a tell list — the art
 **So an absence is recordable only paired with the positive habit that occupies its place.** Never the prohibition alone:
 
 - ✗ "Never uses a heading."
-- ✓ "Structure is carried inside the prose — a shift of subject is marked by starting a new paragraph with the new subject's name — 7/10 samples (`sample-04`: *"..."*). Nothing in the corpus breaks a piece up with a heading or a bulleted list."
+- ✓ "Structure is carried inside the prose: a shift of subject starts a new paragraph with the new subject's name (`sample-04`: *\"...\"*). Nothing in the corpus breaks a piece up with a heading or a bulleted list."
 
 Same information. The second one the drafter can *follow*; the first they can only avoid violating, and avoiding violations is how prose gets written that reads like nobody wrote it.
 
@@ -329,9 +201,9 @@ Again, the content is a placeholder for the shape. The habit in the example is n
 
 You may not name a construction that does not occur in the corpus except as the negative half of such a pair. If you cannot state the positive half, you have not found an absence — you have found something you expected and did not get, which is a fact about you.
 
-**Count the absence too, not only the habit that replaces it.** A near-zero counterpart is
-countable by definition — you found it by counting — and a rate on the positive half alone
-is not enough.
+**Reference measurements for both the absence and the habit that replaces it.** A
+near-zero counterpart is countable by definition, and a measurement on the positive half
+alone is not enough.
 
 This was measured. A profile rated a habit correctly and described its counterpart in
 words: *"contraction is near-total"*, with a rate on the contractions and no number on the
@@ -342,12 +214,9 @@ in the whole corpus"*, and its draft used them at the corpus rate.
 
 Same habit, same corpus. The difference was a number on the absence.
 
-So write both sides with counts:
-
-- ✗ *"Contraction is near-total — N instances, R per 1,000 words."*
-- ✓ *"Contraction is near-total — N instances, R per 1,000 words. Against them, only M
-  uncontracted forms in the whole corpus (`is not`, `cannot`, `do not`), and M of those
-  sit inside quoted material."*
+Put both measured observations in the same dimension. The positive observation explains
+what to do; the zero or near-zero observation explains what it replaces. The assembler
+copies both numbers and derives the paired status.
 
 **A rate on the presence does not protect the absence.** The drafter can hit your
 contraction rate and still write the uncontracted forms the author never writes, because
@@ -377,133 +246,127 @@ If it is filled, it is the author's account of their own voice — evidence abou
 
 ## Output
 
-**ONE self-contained artifact in one `markdown` fence. Nothing else — no preamble, no
-closing remark.** The human profile and its machine record are inseparable inside that
-fence. Two exact HTML-comment sentinels divide them. A harness extracts the prose into a
-`.md` file and parses the compact record into `voice-profile/2`; neither half can arrive
-as a successful standalone response.
+You are the semantic stage of a portable renderer. Emit `voice-profile-source/1`; the
+bundled deterministic assembler turns it into the final `voice-profile/2`. The assembler,
+not you, supplies profile name, sample totals, support counts, observation IDs, measured
+rates, counting rules, coverage statuses, cross-references, section headings, and evidence
+lines. This split is what lets the same renderer run under Claude, Codex, and other coding
+agents without trusting any model to keep duplicate books.
 
-The profile contains sections 1–8 above under a `# Voice profile — <profile name>` title.
-It is Markdown prose throughout, 800–1500 words; a profile the drafter will not read is a
-profile that does not work. Do not put a code fence inside the envelope. Emit this shape
-exactly (the four-backtick wrapper below only demonstrates the required three-backtick
-output fence):
+When the caller supplies a structured-output schema, populate it directly. Otherwise emit
+the same object in one `json` fence. Nothing else.
 
-````markdown
-```markdown
-<!-- voice-profile/2:profile -->
-# Voice profile — <profile name>
+Each of the ten fixed keys in `dimensions` carries exactly one of:
 
-## 1. Cadence
+- `observations`: one or more semantic observations; or
+- `unresolved_reason`: why the corpus cannot support an instruction.
 
-<complete profile prose>
+An observation carries:
 
-## 8. What this profile could not determine
+- `section`: one of `cadence`, `openings`, `closings`, `address`, `figures`,
+  `register-range`, `absences`;
+- `prose`: the actionable claim, its function and placement, and at least one supporting
+  corpus filename with a short quotation;
+- exactly one evidence source:
+  - `measurement_id` for a row supplied in `measurements.json`; or
+  - `support_files`, listing every usable sample filename that supports a qualitative
+    observation;
+- `frequency`: exactly `once or twice per piece`, `several times per piece`, or
+  `throughout`, except that a zero measurement is a counted absence and carries no
+  frequency.
 
-<complete gap account>
-<!-- voice-profile/2:record -->
+Do not put observation IDs, support fractions, sample totals, counts, rates, counting
+rules, measurement locators, or `per 1,000` figures in `prose`. The assembler inserts all
+of them from deterministic inputs. Do not emit `profile`, `confidence`, `corpus_words`,
+`samples_used`, `samples_excluded`, `observations`, `coverage`, or `profile_markdown`.
+
+Across the observations, use all seven section values at least once. `gaps` becomes section
+8 and states what the corpus could not determine, including voice-card contradictions.
+Each observation must cite at least one filename. For a qualitative observation,
+`support_files` must list every sample that supports it; do not put the derived count in
+prose.
+
+A zero-count measurement is an absence. Put it in the same dimension as a distinct
+positive measured replacement. If no positive measured replacement exists, leave that
+dimension unresolved rather than emitting the zero measurement. The assembler derives
+`absent-paired` and rejects any other shape.
+
+The ten required dimension keys are:
+
+1. `person-reader-stance`
+2. `contraction-negation`
+3. `qualification-hedging`
+4. `questions-imperatives-vocatives`
+5. `opponents-allies-sources`
+6. `profanity-vulgarity`
+7. `self-reference-biography`
+8. `interruption-punctuation`
+9. `figures-analogy`
+10. `openings-endings-closure`
+
+Use this shape:
+
+```json
 {
-  "schema": "voice-profile/2",
-  "profile": "<profile-dir-name>",
-  "confidence": "full",
-  "corpus_words": 12000,
-  "samples_used": ["piece-a.txt", "piece-b.txt", "piece-c.txt", "piece-d.txt", "piece-e.txt",
-    "piece-f.txt", "piece-g.txt", "piece-h.txt", "piece-i.txt", "piece-j.txt"],
-  "samples_excluded": [
-    { "file": "notes.txt", "reason": "no provenance frontmatter" }
-  ],
+  "schema": "voice-profile-source/1",
   "voice_card": "empty",
-  "observations": [
-    { "id": "o01", "section": "openings", "support": 8, "of": 10 },
-    { "id": "o02", "section": "address", "support": 10, "of": 10,
-      "rate": { "count": 24, "per_1000_words": 2.00,
-        "counting_rule": "Count only the named grammatical form outside quoted material." } }
-  ],
-  "coverage": [
-    { "dimension": "person-reader-stance", "status": "rated",
-      "observation_ids": ["o02"] },
-    { "dimension": "contraction-negation", "status": "unresolved",
-      "unresolved_reason": "The usable samples do not settle which form belongs to this register." },
-    { "dimension": "qualification-hedging", "status": "unresolved",
-      "unresolved_reason": "The corpus does not establish a stable form of qualification." },
-    { "dimension": "questions-imperatives-vocatives", "status": "unresolved",
-      "unresolved_reason": "The corpus does not establish a stable instruction for direct address." },
-    { "dimension": "opponents-allies-sources", "status": "unresolved",
-      "unresolved_reason": "The corpus does not establish a stable attribution pattern." },
-    { "dimension": "profanity-vulgarity", "status": "unresolved",
-      "unresolved_reason": "The corpus supplies no stable instruction for this register." },
-    { "dimension": "self-reference-biography", "status": "unresolved",
-      "unresolved_reason": "The corpus does not establish a stable biographical stance." },
-    { "dimension": "interruption-punctuation", "status": "unresolved",
-      "unresolved_reason": "The corpus does not distinguish authorial from editorial interruptions." },
-    { "dimension": "figures-analogy", "status": "unresolved",
-      "unresolved_reason": "No enumerable or stable qualitative figure pattern is supported." },
-    { "dimension": "openings-endings-closure", "status": "described",
-      "observation_ids": ["o01"] }
-  ],
+  "dimensions": {
+    "person-reader-stance": {
+      "observations": [{
+        "section": "address",
+        "prose": "An actionable description with a short quotation and `piece-a.txt` citation.",
+        "measurement_id": "second-person-family",
+        "frequency": "throughout"
+      }]
+    },
+    "contraction-negation": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    },
+    "qualification-hedging": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    },
+    "questions-imperatives-vocatives": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    },
+    "opponents-allies-sources": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    },
+    "profanity-vulgarity": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    },
+    "self-reference-biography": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    },
+    "interruption-punctuation": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    },
+    "figures-analogy": {
+      "observations": [{
+        "section": "figures",
+        "prose": "An actionable qualitative description with `piece-b.txt` as evidence.",
+        "support_files": ["piece-b.txt", "piece-c.txt"],
+        "frequency": "once or twice per piece"
+      }]
+    },
+    "openings-endings-closure": {
+      "unresolved_reason": "The corpus does not establish one stable instruction for this dimension."
+    }
+  },
+  "gaps": "The corpus does not establish how these habits change outside the represented register.",
   "observations_dropped": 4,
   "multiple_voices_suspected": false
 }
 ```
-````
 
-- Every observation in the profile prose has exactly one entry in `observations[]`, in the order it appears, and `support`/`of` MUST match the count printed in the prose. The exact compact numeric token `<support>/<of>` MUST appear in that observation's own prose paragraph; phrases such as "all N samples," "established across N samples," "several," or "most" do not satisfy this requirement.
-- `section` MUST be one of the eight keys given above, spelled exactly: `cadence`, `openings`, `closings`, `address`, `figures`, `register-range`, `absences`, `gaps`.
-- `of` MUST equal the length of `samples_used`.
-- `confidence` is `full` at 10 or more usable samples and `thin` at 5 to 9. It follows from the count; it is not a judgement you make.
-- `voice_card` is one of `empty`, `corroborating`, or `contradicted`.
-- `samples_used` lists filenames only, never paths, never content.
-- `corpus_words` is the exact total number of body words in `samples_used`; frontmatter is
-  excluded. `per_1000_words` MUST equal `count / corpus_words * 1000`, rounded to two
-  decimal places.
-- `rate` is OPTIONAL and appears only on observations you actually counted. It carries
-  exactly `count`, `per_1000_words`, and `counting_rule`. The rule is a reproducible,
-  non-empty sentence and appears verbatim in the observation's prose paragraph. A
-  positive habit's `count` can never be smaller than `support` — a habit found in ten
-  samples has at least ten instances.
-- Immediately before emitting, audit every observation with `rate`: search its own prose
-  paragraph for the complete `counting_rule` string byte-for-byte. If the search fails,
-  either put that exact rule in the paragraph or remove `rate` and keep the observation
-  qualitative. When `measurements.json` is supplied, every remaining rate must carry one
-  of its `[measurement:<id>]` locators and exact numbers; never emit a new model-counted
-  rate beside supplied measurements.
-- `coverage` contains the ten fixed dimensions exactly once. A `rated` row references at
-  least one observation with a rate. A `described` row references cited observations.
-  A `described` row MUST NOT reference an observation with a rate. An `unresolved` row
-  carries only its reason.
-- An `absent-paired` row references both sides in `observation_ids` and also names them as
-  `positive_observation_id` and `absence_observation_id`. Both observations carry rates
-  and counting rules. The absence count may be zero; its support still records how many
-  samples establish the absence. The positive and absence IDs must differ.
-- A zero `rate.count` is an absence, never a rated habit. Any coverage dimension that
-  references it MUST be `absent-paired`, and the zero-count observation MUST be its
-  `absence_observation_id`. Pair it to a distinct positive measured replacement; if no
-  supported positive replacement exists, do not emit the zero-count rate and use an
-  unresolved coverage row instead.
-- No key beyond these appears. No hash fields.
+The example demonstrates shape, not a minimum: a real render that leaves six or more
+dimensions unresolved despite a substantial coherent corpus probably has not read closely
+enough. The finished semantic prose across observations and `gaps` should be detailed
+enough for the assembler to produce an 800–1500 word profile.
 
-Before emitting, run this final mechanical audit over the finished prose and JSON:
-
-1. For every `observations[]` entry, search its own prose paragraph for the exact
-   `<support>/<of>` token. Replace verbal forms such as "all N samples" with the actual
-   compact numeric fraction.
-2. For every observation with `rate`, search that same paragraph for the complete
-   `counting_rule`, exact `count`, and exact `per_1000_words`.
-3. For every zero rate, verify its coverage row is `absent-paired`, names it as
-   `absence_observation_id`, and names a different positive rated observation.
-4. For each of the ten coverage dimensions, point to a prose paragraph that actually
-   discusses it. For self-reference and biography, explicitly discuss self-reference,
-   first-person singular, personal testimony/disclosure, or biographical stance.
-5. Recompute every coverage status from its referenced observations only after steps
-   1–4. Do not emit until all five checks pass.
-
-**A refusal is a different shape, not a render with a flag added.** Emit one json fence carrying exactly three keys and nothing else:
+**A refusal is a different source shape:**
 
 ```json
-{ "schema": "voice-profile/2", "profile": "<profile-dir-name>", "refused": "the reason, and the evidence for it" }
+{ "schema": "voice-profile-source/1", "refused": "the reason and evidence" }
 ```
 
-Put the whole account of why in `refused`. No `observations`, no `samples_used`, no `confidence` — a caller must not be able to read a profile off a refusal.
-
-Terse. No commentary. A render is one Markdown fence containing both exact sentinels and
-both artifacts. A refusal is one JSON fence. That is the whole output.
+Terse. No commentary. One structured object or one JSON fence, and nothing else.
