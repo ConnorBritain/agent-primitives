@@ -1,0 +1,306 @@
+{
+  "schema": "prose-author-isolated-codex-matrix-manifest/1",
+  "prepared_commit": "1a16e09a1e5235100d74b6786bbd76ec6de19a54",
+  "design_sha256": "99c2ddcca61e43a98185be0c78aa4d668cb64e1bdc55b24d8b81564a504c291d",
+  "locked_files": {
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/DESIGN.json": "99c2ddcca61e43a98185be0c78aa4d668cb64e1bdc55b24d8b81564a504c291d",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/run.mjs": "98abfc629c42c2966e516113a88dd4d220436ac91092178b220f6a3a59906474",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "63801961b7955019a68fcca183390e151a8e54d21dcdf28a12a1d6e3caacba76",
+    "primitives/agents/voice-draft/agent.md": "7901193cb71cc63e988cecdaa56ea90d86ff5ef4684031c032c506d86ba035e9",
+    "bundles/prose-author/skills/prose-draft/references/claim-audit.md": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "primitives/agents/prose-voice-critic/agent.md": "e8395e420fc5379a20bbd58a015332404a6b9816ee2469fdfb6520a761eafcd5",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912",
+    "bundles/prose-author/tests/voice-critic-source.mjs": "7a2d1b2b621575cde7eedce0c7ef272b893b10243bbe8e0f7111533bfd8d600a",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "0bebab0c5e81b323f712cf07872f519a5c769131fc2e3f42add83f3197156a89",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "c3a4f4a8ec41ce7891e8ae1101319faafe22b55d2ac420ec4b358b093033a44e"
+  },
+  "no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ],
+  "agents": {
+    "draft": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/prompts/agents/draft.md",
+      "sha256": "7b1e939ddaea610822c06910031b0c1a3711071f2695da8dbef229e41821716f"
+    },
+    "audit": {
+      "source": "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/prompts/agents/audit.md",
+      "sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87"
+    },
+    "critic": {
+      "source": "primitives/agents/prose-voice-critic/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/prompts/agents/critic.md",
+      "sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4"
+    }
+  },
+  "schemas": {
+    "draft": {
+      "path": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/schemas/draft.json",
+      "sha256": "02851f9440276a6a519f711ab0709288daf04b9b713e589fce3a51b92e053d7d"
+    },
+    "audit": {
+      "path": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/schemas/audit.json",
+      "sha256": "e56ccc9209bd8d71156e26f4821a692d95677e3f1d4dc0293b68f0e94c37507d"
+    },
+    "critic": {
+      "path": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/schemas/critic.json",
+      "sha256": "dd761dd1cbd10318d351e228d8fa1aad06a2d5240efd53fdee3a340f660ec8ca"
+    }
+  },
+  "profiles": {
+    "doctorow-blog": {
+      "r1": {
+        "markdown": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/doctorow-blog/r1.md",
+        "markdown_sha256": "0244c56d324383349df4e53f631ef65a0852969daa3c639e217799d552104b7e",
+        "json": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/doctorow-blog/r1.json",
+        "json_sha256": "1b3ca114b7b79e9b3fb46d5b90b790aaf9b75e784eca44103beea3ba227f4a45"
+      },
+      "r2": {
+        "markdown": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/doctorow-blog/r2.md",
+        "markdown_sha256": "3d7fabb296bc80c64c0d5780cd6fbe6ddab0ea2eca3283128a7386ceb00a2e99",
+        "json": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/doctorow-blog/r2.json",
+        "json_sha256": "b24ede54f8dfc933f53a346ffcb9114a967d15f92adfd1056112693188572c40"
+      },
+      "r3": {
+        "markdown": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/doctorow-blog/r3.md",
+        "markdown_sha256": "ece142254d86fa0a6dc6bf75531257a6c6324eb980cac6dcde61ce87fed3cccd",
+        "json": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/doctorow-blog/r3.json",
+        "json_sha256": "8f3d9192270e66e92132957bf7fd3516c9ab4e7d8a6d56d985af75cdbdb29dd9"
+      }
+    },
+    "eff-mullin": {
+      "r1": {
+        "markdown": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/eff-mullin/r1.md",
+        "markdown_sha256": "7cd1ab05f474e2d1ea9a1c65eb0ca030f390b47c27e4505cda3798fcd1ef704c",
+        "json": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/eff-mullin/r1.json",
+        "json_sha256": "88dfe56f81cfc6615efd99f81d5c1f7bc82bc754ef4427365229deaabf2b2616"
+      },
+      "r2": {
+        "markdown": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/eff-mullin/r2.md",
+        "markdown_sha256": "158461407a610d1e9379484518c3a4772e3fa81731476cf70727b090941594b0",
+        "json": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/eff-mullin/r2.json",
+        "json_sha256": "746198444a1df8ad60a3464878b89b6c5647f26f2b9fcf86579bb9a6709322f7"
+      },
+      "r3": {
+        "markdown": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/eff-mullin/r3.md",
+        "markdown_sha256": "043c8430c452fcdf9a3f45cd986559d6b630123a0fe7e8bd5a7883e4b00190cc",
+        "json": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/inputs/profiles/eff-mullin/r3.json",
+        "json_sha256": "b61b83f077318f38471522e9a493a30fdea3c6248d982aaa27fbac7f971b292b"
+      }
+    }
+  },
+  "corpus_locks": {
+    "doctorow-blog-drafter": {
+      "schema": "voice-profile-lock/1",
+      "files": [
+        {
+          "file": "2026-07-09-wilhoitian.txt",
+          "group": null,
+          "words": 2067,
+          "sha256": "3bf7f8097ec5ebf15f5759c2c13850490960baddd33711962afe3fb0dcb28d9b"
+        },
+        {
+          "file": "2026-07-10-posthuman-as-in-no-humans.txt",
+          "group": null,
+          "words": 1869,
+          "sha256": "52ab7ded9f7a93fb53feb8f4490f778b0969c6acf4d3a439cc81ce626de900ef"
+        },
+        {
+          "file": "2026-07-11-your-risk.txt",
+          "group": null,
+          "words": 3129,
+          "sha256": "8e633c1ea0f3a962aa9af4447b6911268e84bfb22508bea43a8ce5fb86fc858d"
+        },
+        {
+          "file": "2026-07-13-go-meta-meta.txt",
+          "group": null,
+          "words": 1790,
+          "sha256": "4356ecc760a0249bef1c7cfc3be0a75d2d0a6fc23bb7df29f6dbbef8db875aad"
+        },
+        {
+          "file": "2026-07-14-designated-survivor.txt",
+          "group": null,
+          "words": 2059,
+          "sha256": "58d9cbc639bb98c04dade8b0437a7a1a7e1fc448b4ebeb81cc867b92812125bb"
+        },
+        {
+          "file": "2026-07-16-lucky-orifices.txt",
+          "group": null,
+          "words": 3277,
+          "sha256": "1ef6d9168d6b18adf57e7ac090830597563b1f484b2d15d7a5c3f71d14ab5852"
+        },
+        {
+          "file": "2026-07-21-dickovers.txt",
+          "group": null,
+          "words": 3015,
+          "sha256": "2aee21894ef7a52ff59d90ef2f6dee3306f0221ec38649bef3794fdf5c33f936"
+        },
+        {
+          "file": "2026-07-22-table-flipper.txt",
+          "group": null,
+          "words": 2731,
+          "sha256": "4fd0b86f9d1d4f5c7099148f159902af14c0b455daacb677c980589e37312d38"
+        },
+        {
+          "file": "2026-07-23-drop-a-dime.txt",
+          "group": null,
+          "words": 2571,
+          "sha256": "72a90d8f6992f665ab520adf92bb6f7c817f94b97fe53296ba8601be2936d924"
+        },
+        {
+          "file": "2026-07-24-supplemental-income.txt",
+          "group": null,
+          "words": 2131,
+          "sha256": "4947eecc2673e18db86e6a820743d1bb1b3d29f7094debf6e25062352a5d1133"
+        }
+      ],
+      "excluded": [],
+      "voice_card_sha256": "f7b3810aff0c6736a07a4cc0a7116a37856c7646380dc15abb731c28f244ae0a",
+      "profile_json_sha256": "d5fa00d877ca6d793c272ea7863535188ee4ae3f6763ebcab7b2c116b3fa7026",
+      "agent": "voice-draft",
+      "agent_sha256": "7901193cb71cc63e988cecdaa56ea90d86ff5ef4684031c032c506d86ba035e9",
+      "sample_count": 10,
+      "aggregate_sha256": "2532996f77e591e33d9c025a52c160df4326ef5cf99db338dfa4f12e859db621"
+    },
+    "eff-mullin-drafter": {
+      "schema": "voice-profile-lock/1",
+      "files": [
+        {
+          "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "group": null,
+          "words": 378,
+          "sha256": "aa696f2a0fb1fd3fa2b7104bd68d1df51c65a47bbab11897ed89731675adfae0"
+        },
+        {
+          "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "group": null,
+          "words": 714,
+          "sha256": "8fce832accc11aca75a5021f8164d0e4d3a022fa1673a32c33b259f4ee7b991f"
+        },
+        {
+          "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "group": null,
+          "words": 671,
+          "sha256": "a4e349eeb1feeaea7846e57000e7bd2ac9a6030832b2313e43c24686f29c090d"
+        },
+        {
+          "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "group": null,
+          "words": 1398,
+          "sha256": "4cc9698bc6d486f51e10b9724ffd0ede90672c40fd1b8291d2a4bba5985ac3c5"
+        },
+        {
+          "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "group": null,
+          "words": 750,
+          "sha256": "a888f3fd0869cb9c9a8cf325cb612204b7522ff4d8d501f8fb3be4f12bb53c82"
+        },
+        {
+          "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "group": null,
+          "words": 686,
+          "sha256": "54321c7c3c30267601ba5c693997f6dd6ff4d318a5aefd7d51927715b4926c7d"
+        },
+        {
+          "file": "court-records-should-be-free.txt",
+          "group": null,
+          "words": 360,
+          "sha256": "40a58864bc4e143f185882102b84df382247061c49f492c347016b3e9bd75188"
+        },
+        {
+          "file": "kids-act-would-require-age-checks-get-online.txt",
+          "group": null,
+          "words": 1117,
+          "sha256": "c3280d88e979abf16567593368b47f2ad02a67708db7ff8f7ae359230e81197a"
+        },
+        {
+          "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "group": null,
+          "words": 648,
+          "sha256": "ded228c99b2238a11b58fe13f6c1099fd63823dc762c5cf2f4cb8ceee33e36d8"
+        },
+        {
+          "file": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "group": null,
+          "words": 345,
+          "sha256": "dab051da9d7253cdf5e6da9a406abc6b8746227a7d8a596999978118624544fd"
+        },
+        {
+          "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+          "group": null,
+          "words": 999,
+          "sha256": "4305035ad15289015a47f58bb2853cc7f7d15a67a56ea403685759ed495e36d0"
+        }
+      ],
+      "excluded": [],
+      "voice_card_sha256": "8fc6da4335de6b74d59f4cb68342e0cb28aacc43c523006985db99ed65a52f13",
+      "profile_json_sha256": "5c636425a35ba78f1af5e2957112b72e6b4e4507064ffd9c6b52ca7dd24bbea8",
+      "agent": "voice-draft",
+      "agent_sha256": "7901193cb71cc63e988cecdaa56ea90d86ff5ef4684031c032c506d86ba035e9",
+      "sample_count": 11,
+      "aggregate_sha256": "ca472e1fda940d0b9eadc1950673ef97bc0b9ebd9f12b399693a5fe6b9940886"
+    }
+  },
+  "prompts": {
+    "d01": {
+      "sha256": "a7e8fc8f4fa870ada28d5c8a8152eb1418dbf699374b69977e25af1937bab3a9",
+      "profile": "doctorow-blog",
+      "render": 1
+    },
+    "d05": {
+      "sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553",
+      "profile": "doctorow-blog",
+      "render": 2
+    },
+    "d09": {
+      "sha256": "ea1b0dfcc4145c6df611687d13fa50a9304d50d6a69bc1d893bc1f7e411943b2",
+      "profile": "doctorow-blog",
+      "render": 3
+    },
+    "m01": {
+      "sha256": "a7e8fc8f4fa870ada28d5c8a8152eb1418dbf699374b69977e25af1937bab3a9",
+      "profile": "eff-mullin",
+      "render": 1
+    },
+    "m05": {
+      "sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553",
+      "profile": "eff-mullin",
+      "render": 2
+    },
+    "m09": {
+      "sha256": "ea1b0dfcc4145c6df611687d13fa50a9304d50d6a69bc1d893bc1f7e411943b2",
+      "profile": "eff-mullin",
+      "render": 3
+    },
+    "dr01": {
+      "sha256": "993efbc6c1ee57fb8b00f82dfd9b4f7de5c98a6fac225aedfea7a49396c2302f",
+      "profile": "doctorow-blog",
+      "render": 2
+    },
+    "mr01": {
+      "sha256": "993efbc6c1ee57fb8b00f82dfd9b4f7de5c98a6fac225aedfea7a49396c2302f",
+      "profile": "eff-mullin",
+      "render": 2
+    }
+  }
+}
