@@ -1,0 +1,142 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 222748,
+  "duration_api_ms": 222720,
+  "num_turns": 3,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "c06008a2-3b6c-4ad2-a951-c5c7d682a0d1",
+  "total_cost_usd": 0.09944159999999999,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 4084,
+    "cache_read_input_tokens": 77182,
+    "output_tokens": 4064,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 4084,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 4064,
+      "cacheReadInputTokens": 77182,
+      "cacheCreationInputTokens": 4084,
+      "webSearchRequests": 0,
+      "costUSD": 0.09944159999999999,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-profile-source/3",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct address appears selectively, mainly in pieces that close with a call to action targeting a specific implied reader—a California resident, a parent, a platform operator. When it arrives, 'you' sharpens advocacy into personal instruction rather than addressing an abstract public. Use it at action-oriented closings, not throughout the body."
+      },
+      "first-person-plural-family": {
+        "prose": "'We' is almost universally institutional: EFF submitted, we believe, we hope. It signals organizational voice and shared civil-liberties commitment rather than reader inclusion. Reserve it for statements of EFF action or collective position; do not use it to draw the reader into the argument."
+      },
+      "contractions": {
+        "prose": "Contractions appear in every sample and run throughout, keeping the register accessible even in technically dense legislative analysis. They prevent the prose from tipping into legalese and signal writing for a general policy-interested reader, not a specialist audience. Use them freely across the body."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negatives—'does not,' 'cannot,' 'will not'—land at moments of direct rebuttal or legal precision, where the uncontracted form adds declarative weight. 'There is no machine-readable list' and 'a disclaimer does not magically eliminate legal risk' are typical placements: short, emphatic sentences that deliver the nub of an objection."
+      },
+      "first-person-singular-family": {
+        "prose": "Singular 'I' is nearly absent; 'we' (institutional) carries almost all self-reference. The writer appears as organizational voice, not individual. Avoid first-person singular unless marking a personal observation that must be distinguished from EFF's official stance."
+      },
+      "question-marks": {
+        "prose": "Questions serve structural and rhetorical purposes: they open a section, surface the absurdity of a provision, or frame the gap a bill fails to address. They are not genuinely open—prose answers them immediately or lets the irony stand. Place them at section turns or as pointed lists, not in the middle of sustained argument."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses appear throughout every piece and carry a wide range of freight: bill abbreviations, clarifying definitions, dates, figures, and ironic qualifiers. They let the main sentence move at advocacy pace while technical or hedging material rides alongside. Their density makes parenthetical asides a stable feature, not an interruption."
+      },
+      "em-dashes": {
+        "prose": "Em-dashes do two distinct jobs: introducing sharp pivots ('might sound reasonable—but it's an impossible standard') and setting off appositives mid-sentence. The pivot use is the more distinctive one, placing a blunt contradiction immediately after the premise being challenged. They appear in nearly every piece."
+      },
+      "en-dashes": {
+        "prose": "En-dashes are nearly absent; the rare instance covers a numeric range in a list. Em-dashes and parentheses absorb all interruption and aside work. Do not reach for en-dashes as range or connective markers; the surrounding punctuation infrastructure already handles those functions."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "cadence",
+        "prose": "Hedges are tactical rather than habitual. Predictions use 'will likely' and 'may,' but core claims are stated flatly ('That's not true,' 'It is simply unworkable'). Concessions follow a fixed pattern: one sentence grants the bill's stated goal, the next withdraws it with 'but' or 'in reality.' The concession is never allowed to linger more than a clause.",
+        "support_files": [
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt"
+        ],
+        "frequency": "throughout"
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "cadence",
+        "prose": "Opponents are structural—'large content companies,' 'big tech firms,' 'industry lobbyists'—named by category rather than individual. Allies and co-signatories are listed by institution, lending credibility through numbers. Sources appear as embedded hyperlinks inside the argument rather than set-off citations, so evidence reads as part of the flow.",
+        "support_files": [
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "court-records-should-be-free.txt"
+        ],
+        "frequency": "throughout"
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Analogies are brief and drawn from familiar institutional contexts: the copyright registry is 'more like a card catalog than a database'; requiring parental consent for AI is compared to requiring permission before a teenager checks out a library book. Each analogy runs one or two sentences, makes a legal distinction immediately legible, then is dropped without elaboration.",
+        "support_files": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt"
+        ],
+        "frequency": "once or twice per piece"
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "prose": "Pieces open by naming the bill and its stated purpose, then immediately marking the gap between intent and effect ('At first glance…but'). Closings return to a policy demand—'the Senate should reject,' 'bars should return'—sometimes echoing opening framing to close the loop. The close rarely adds new evidence; it converts the analysis into a directive.",
+        "support_files": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt"
+        ],
+        "frequency": "throughout"
+      }
+    ],
+    "unresolved": {
+      "profanity-vulgarity": "The measured count is zero across all eleven samples and no positive replacement form exists in the measurements. No corpus evidence supports a drafting instruction about placement or rhetorical function. The register is consistently clean advocacy prose."
+    },
+    "gaps": "Voice.md is unfilled; all findings are corpus-derived only. The corpus spans March 2025 through August 2026, exclusively EFF Deeplinks advocacy posts, so the register is stable and current for the declared purpose. Typographic features appear in extracted body text under CC-BY-4.0 with no editorial intermediary disclosed and are attributed to the writer. The corpus contains no samples outside legislative advocacy; register range for other EFF formats (litigation updates, technical guides) cannot be assessed. The single en-dash cluster in one file is not a generalisable pattern.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "fast_mode_state": "off",
+  "uuid": "4b01f01a-a042-47d1-ac33-fc582681b9e1"
+}

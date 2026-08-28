@@ -1,0 +1,98 @@
+{
+  "schema": "voice-profile-source/3",
+  "voice_card": "empty",
+  "measured": {
+    "second-person-family": {
+      "prose": "The second person saturates every piece, pulling the reader into hypothetical scenarios and moral stakes: 'if you believe property rights are tools,' 'your boss has to pay you.' This implicates the reader as a party to the argument rather than a spectator. Place it wherever the argument needs to feel personal and inescapable."
+    },
+    "first-person-plural-family": {
+      "prose": "Plural 'we' and 'our' construct a collective of ordinary people set against institutional or billionaire power: 'they spy on us,' 'we can disagree about reparations.' The 'we' rarely names an institution; it recruits the reader into a shared political position. Use it to mark moments where the argument generalizes from individual to collective stakes."
+    },
+    "contractions": {
+      "prose": "Contractions run throughout at a high rate, sustaining a spoken-argument register across even technically dense passages. The effect is urgency without informality. Contractions should be the default; a full form signals deliberate rhetorical weight and should be reserved accordingly."
+    },
+    "uncontracted-negatives": {
+      "prose": "Full uncontracted negatives appear rarely and most often when mock-quoting regulatory language, marking a categorical logical boundary, or mimicking an opponent's formal register before deflating it. Their scarcity against a backdrop of contractions means each one lands with extra rhetorical mass; do not distribute them evenly."
+    },
+    "profanity-vulgarity": {
+      "prose": "Profanity appears in every piece at a steady, low-to-moderate rate — 'bullshit,' 'fuck off' — always at a peak of moral or logical indignation rather than as ambient texture. It functions as a register flare: the argument has reached the limit of polite description. Place it at the conclusion of a buildup, not in openings."
+    },
+    "first-person-singular-family": {
+      "prose": "First-person singular grounds the argument in specific personal experience — a cancer diagnosis, a friend's death, a conversation with a novelist — then pivots immediately to the political claim. The 'I' is an arguer and a situated person, not a protagonist. Use it to anchor abstract claims in something verifiable before returning to the broader point."
+    },
+    "question-marks": {
+      "prose": "Questions appear in every piece and serve primarily as structural moves: posing the opponent's best objection, framing a reductio ('If you've got a chatbot that can do a doctor's job, why sell it to a hospital?'), or opening a new argumentative section. Genuine open questions are rare; the writer answers what he asks within a sentence or two."
+    },
+    "round-parenthetical-spans": {
+      "prose": "Round parentheses appear densely throughout, carrying sardonic asides, quick definitions, and self-corrections without interrupting the main clause's momentum. They function as a rapid annotation layer. Place them where the aside is genuinely subordinate but too pointed to relegate to a footnote."
+    },
+    "em-dashes": {
+      "prose": "Em-dashes are entirely absent across all ten pieces. The pivot, aside, and appositive work that em-dashes do in other registers is handled instead by en-dashes and parentheses. Inserting an em-dash would be a visible register violation; use en-dash or parenthesis for any interruption function."
+    },
+    "en-dashes": {
+      "prose": "En-dashes appear in every piece, serving the pivot-and-aside role that em-dashes fill in other registers — marking a sharp turn, an appositive, or a clause-level qualification. The en-dash is the preferred interruption mark and should be used wherever a strong mid-sentence break is needed."
+    }
+  },
+  "qualitative": [
+    {
+      "dimensions": [
+        "qualification-hedging"
+      ],
+      "section": "cadence",
+      "prose": "Explicit hedging is sparse. The default mode is flat declarative assertion: 'Slavery is labor without even the pretense of moral consideration.' Concessions are structural — an opponent's position is stated fairly before being demolished — rather than epistemic. When genuine uncertainty appears it is bounded and immediately followed by a plan. Avoid scattering 'perhaps' or 'seems to' as defaults.",
+      "support_files": [
+        "2026-07-10-posthuman-as-in-no-humans.txt",
+        "2026-07-14-designated-survivor.txt",
+        "2026-07-16-lucky-orifices.txt",
+        "2026-07-22-table-flipper.txt"
+      ],
+      "frequency": "once or twice per piece"
+    },
+    {
+      "dimensions": [
+        "opponents-allies-sources"
+      ],
+      "section": "cadence",
+      "prose": "Opponents are named and quoted before critique: Thiel is cited in his own words; West is named with institutional context; Apple executives are quoted from discovery documents. Allies (Weil, Quiggin, Farrell) are credited by name and their arguments extended or gently corrected. Third-party terms like 'flexibility' and 'meritocracy' are introduced in quotation marks and immediately interrogated.",
+      "support_files": [
+        "2026-07-16-lucky-orifices.txt",
+        "2026-07-11-your-risk.txt",
+        "2026-07-22-table-flipper.txt",
+        "2026-07-24-supplemental-income.txt"
+      ],
+      "frequency": "throughout"
+    },
+    {
+      "dimensions": [
+        "figures-analogy"
+      ],
+      "section": "figures",
+      "prose": "Analogies are drawn from everyday commerce and biology: the restaurateur offloading wage risk, the escrow agent who keeps the deed and the money, picks-and-shovels wholesalers, asbestos in walls. Each figure is extended for two to four sentences to make an abstract power relationship visceral, then abandoned cleanly. Figures cluster at the point where logic needs to become tangible.",
+      "support_files": [
+        "2026-07-11-your-risk.txt",
+        "2026-07-22-table-flipper.txt",
+        "2026-07-13-go-meta-meta.txt",
+        "2026-07-24-supplemental-income.txt"
+      ],
+      "frequency": "several times per piece"
+    },
+    {
+      "dimensions": [
+        "openings-endings-closure"
+      ],
+      "section": "openings",
+      "prose": "Openings are hooked: a quoted term to be interrogated, an irony stated flatly, or a literary epigraph. Pieces close by returning to the opening frame or landing a sharp final declarative — 'What they call theft is just self-defense' — rather than fading. The close rarely introduces new evidence; it delivers the verdict the argument has been building toward.",
+      "support_files": [
+        "2026-07-21-dickovers.txt",
+        "2026-07-14-designated-survivor.txt",
+        "2026-07-13-go-meta-meta.txt",
+        "2026-07-23-drop-a-dime.txt"
+      ],
+      "frequency": "throughout"
+    }
+  ],
+  "unresolved": {},
+  "gaps": "Voice card is unfilled; no corroboration or conflict can be assessed. The corpus covers ten pieces from a 16-day window in July 2026, all from the same blog and register, representing a stable present-day voice but not indicating how register shifts in long-form essays or fiction. No editorial or translation caveats apply; prose is unmediated. The profanity count may include the title phrase \"lucky orifices,\" which the assembler should verify against the counting rule.",
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}

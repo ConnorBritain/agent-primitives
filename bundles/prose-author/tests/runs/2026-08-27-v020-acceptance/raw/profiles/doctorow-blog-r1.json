@@ -1,0 +1,142 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 107764,
+  "duration_api_ms": 107733,
+  "num_turns": 3,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "9bbc095c-98df-4363-a1be-1a49b0ae0fee",
+  "total_cost_usd": 0.2519727,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 41666,
+    "cache_read_input_tokens": 76544,
+    "output_tokens": 4850,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 41666,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 4850,
+      "cacheReadInputTokens": 76544,
+      "cacheCreationInputTokens": 41666,
+      "webSearchRequests": 0,
+      "costUSD": 0.2519727,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-profile-source/3",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct 'you' address is the dominant rhetorical engine: the reader is cast as affected party, hypothetical worker, driver, or citizen placed inside the argument's scenario. This is instructional and implicating at once—'your boss fires you,' 'your phone'—sustaining the tone of a writer talking to a specific returning reader rather than a general audience."
+      },
+      "first-person-plural-family": {
+        "prose": "'We' constructs civic solidarity that includes the reader alongside workers and consumers facing concentrated power. It is rarely institutional; it almost always means 'people on the receiving end of this.' Placing 'we' near policy demands ('we got rid of pop-ups,' 'we should have taken away the patents') converts analysis into collective call."
+      },
+      "contractions": {
+        "prose": "Contractions are pervasive and give the prose the cadence of spoken argument—a blogger dictating to a trusted audience. They flatten register and prevent the polemic from sounding like a brief or treatise. The effect is deliberate informality that keeps even long technical explanations feeling conversational rather than academic."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negative constructions ('is not,' 'cannot,' 'do not') are sparse against the contraction baseline and arrive at moments of definitional insistence: 'Slavery is labor without even the pretense of moral consideration.' The full form marks a claim treated as non-negotiable, functioning as typographic underlining in prose that otherwise contracts everything."
+      },
+      "profanity-vulgarity": {
+        "prose": "Profanity lands at moments of peak moral indignation or comic deflation: 'tax the shit out of empty homes,' 'tell the cartel to fuck off.' It marks the pivot where patient analysis gives way to verdict. Placement is mid-paragraph or sentence-final, rarely in openings, functioning as a pressure valve signaling the argument has reached its destination."
+      },
+      "first-person-singular-family": {
+        "prose": "The writer appears primarily as arguer and curator of evidence—'I think,' 'I collect definitions'—and occasionally as biographical witness anchoring an abstract claim in lived experience. Singular first person is moderate and subordinate to the outward-facing 'you/we'; the writer enters the frame to establish credibility or stakes, then exits."
+      },
+      "question-marks": {
+        "prose": "Questions are almost always rhetorical or structural: they name the objection about to be demolished, or stage a reveal ('If you've got a chatbot that can do a doctor's job, why sell it to a hospital?'). They ventriloquize naïve or bad-faith interlocutors, letting the writer answer before the reader can object."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses carry sardonic asides, definitional glosses, and compressed qualifications: '(a direct quote),' '(but I repeat myself).' They create a two-voice effect—main argument and wry commentator—inside a single sentence. Use them for material that sharpens the point without derailing the paragraph's propulsion."
+      },
+      "em-dashes": {
+        "prose": "Em-dashes are entirely absent. The interruption and pivot work conventionally done by em-dashes is handled exclusively by en-dashes and parenthetical spans. Drafts should not introduce em-dashes; doing so would mark a departure from the established typographic signature."
+      },
+      "en-dashes": {
+        "prose": "En-dashes serve where American prose conventions typically place em-dashes: sentence-level pivots, appositional interruptions, and clause-final emphasis. They appear in every sample and are the sole dash form in the corpus. In drafts, replace any em-dash instinct with an en-dash."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "cadence",
+        "prose": "Epistemic hedges ('I think,' 'I don't think it's the whole story') are reserved for predictions and causal claims about complex systems. Moral and definitional claims are stated flatly. The pattern is genre-driven: concession is rhetorical, not uncertainty, and is typically followed immediately by a stronger counter-assertion.",
+        "support_files": [
+          "2026-07-24-supplemental-income.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt"
+        ],
+        "frequency": "several times per piece"
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "register-range",
+        "prose": "Opponents are named and specific—Thiel, Musk, Tony West—and their own words are quoted to be refuted on their terms. Allies (Weil, Quiggin, Lina Khan) are introduced by name with a brief credential clause before their argument is extended. Other people's terms arrive in scare quotes ('flexibility,' 'meritocracy') then anatomized. Credit-then-critique sustains the sense of a well-sourced ongoing argument.",
+        "support_files": [
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "frequency": "throughout"
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Analogies are extended across multiple sentences and drawn from business operations: the restaurateur managing staffing risk, the escrow agent holding deeds. These scaffold the argument, and the writer returns to them after new evidence. Coinages ('AI Omelas,' 'lucky orifice,' 'dickover') do lighter work, supplying a memorable label at a single crux rather than sustaining a comparison.",
+        "support_files": [
+          "2026-07-11-your-risk.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-16-lucky-orifices.txt"
+        ],
+        "frequency": "several times per piece"
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "prose": "Posts open with friction: a quoted sentence, a named irony, or a blunt definitional claim. Closings compress the argument into a short verdict or restate the opening frame in stronger terms—often a one- or two-sentence paragraph. Paragraphs frequently end with a short punchy sentence delivering the claim the longer preceding sentences have built toward.",
+        "support_files": [
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-23-drop-a-dime.txt"
+        ],
+        "frequency": "once or twice per piece"
+      }
+    ],
+    "unresolved": {},
+    "gaps": "Voice.md is unfilled; no declared intent to compare against. The corpus spans a single two-week window (July 9–24, 2026), which establishes the current register well but cannot confirm whether typographic habits (en-dash for em-dash, parenthetical density) are long-standing or recent. Profanity placement is clear but the full lexical range of counted terms is not disclosed. Self-reference includes one medical disclosure and one personal-loss passage whose biographical specificity is not reusable drafting content.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "fast_mode_state": "off",
+  "uuid": "fa43ae20-d492-4eeb-a4f3-8f1faf578ede"
+}
