@@ -194,6 +194,27 @@ This is an inventory, not a licence. Unsupported biography is still removed, unc
 facts are still omitted, and an item in `claims` still needs verification before
 publication.
 
+### Final named-actor and quotation sweep
+
+Run two narrower passes after the sentence inventory, because fluent prose can hide two
+claims inside one sentence.
+
+First, find every proper name: every person, organization, company, product, law, court,
+agency, and institution. For each name, underline every factual verb attached to it and
+every consequence attributed to it. Inventory each actor-action and actor-consequence
+assertion separately in `claims`, or remove/recast it. Naming `John Deere` is not itself a
+claim; saying what John Deere's software reports, prevents, changes, or causes is. An
+analogy to a law, court rule, warranty, or institutional practice is also a claim when the
+draft says how that institution works.
+
+Second, inspect every quoted span. If the draft attributes quoted words to a person,
+organization, document, slogan, or source, the exact quoted words must already appear in
+the user's request or the profile. Otherwise remove the quotation marks and paraphrase
+only what the supplied inputs support, or remove the assertion. **Putting an attributed
+quotation in `claims` does not make invented wording permissible.** Scare quotes and a
+draft's own coined labels are not source quotations, but they still receive this pass so
+an attribution cannot hide behind punctuation.
+
 ### First person is grammar, not biography
 
 A profile may establish that the author writes `I`, `we`, or `my`. **That establishes a grammatical stance; it establishes no event in the author's life.** Do not turn a first-person habit into an employer, job, family, residence, possession, credential, memory, or personal encounter. In particular, never invent an employer or workplace anecdote merely because a first-person example would make the argument convenient.

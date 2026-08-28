@@ -666,18 +666,72 @@ function collectDrafts(runDir) {
 
 function prepareClaimsAudit(runDir, cases, artifacts) {
   const auditPath = join(runDir, "CLAIMS-AUDIT.json");
-  const prior = existsSync(auditPath) ? json(auditPath) : { schema: "prose-author-claims-audit/1", drafts: {} };
+  const prior = existsSync(auditPath) ? json(auditPath) : null;
+  const next = {
+    schema: "prose-author-claims-audit/2",
+    instructions: [
+      "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
+      "disclosure_complete: read the draft sentence by sentence and use true only when every checkable assertion is listed or supplied by the request/profile",
+      "quotations_verified: inspect every quoted span and use true only when every attributed quotation is verbatim in a supplied input or independently verified; scare quotes may be marked reviewed",
+    ],
+    drafts: {},
+  };
   for (const c of cases.cases) {
     const disclosure = artifacts.drafts[c.id].disclosure ? json(resolve(REPO, artifacts.drafts[c.id].disclosure)) : null;
     const claims = disclosure?.claims ?? [];
-    prior.drafts[c.id] = {
+    const draft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
+    const profile = text(join(runDir, "inputs", "profiles", c.profile, `r${c.render}.md`));
+    const quotedSpans = quotationAudit(draft, c.prompt, profile);
+    const previous = prior?.schema === "prose-author-claims-audit/2" ? prior.drafts?.[c.id] : null;
+    const unchanged = previous?.draft_sha256 === artifacts.drafts[c.id].draft_sha256
+      && JSON.stringify(previous.claims) === JSON.stringify(claims)
+      && JSON.stringify(previous.quoted_spans) === JSON.stringify(quotedSpans);
+    next.drafts[c.id] = {
+      draft_sha256: artifacts.drafts[c.id].draft_sha256,
       claims,
-      audited: prior.drafts?.[c.id]?.claims && JSON.stringify(prior.drafts[c.id].claims) === JSON.stringify(claims)
-        ? prior.drafts[c.id].audited : (claims.length === 0 ? true : null),
-      note: prior.drafts?.[c.id]?.note ?? "",
+      quoted_spans: quotedSpans,
+      claims_verified: unchanged ? previous.claims_verified : (claims.length === 0 ? true : null),
+      disclosure_complete: unchanged ? previous.disclosure_complete : null,
+      quotations_verified: unchanged ? previous.quotations_verified : (quotedSpans.length === 0 ? true : null),
+      note: unchanged ? (previous.note ?? "") : "",
     };
   }
-  write(auditPath, prior);
+  write(auditPath, next);
+}
+
+function quotationAudit(draft, request, profile) {
+  const supplied = normalizeAuditText(`${request}\n${profile}`);
+  const rows = [];
+  for (const [index, paragraph] of draft.trim().split(/\n\s*\n/).entries()) {
+    const quoted = /“([^”\n]+)”|"([^"\n]+)"/g;
+    for (const match of paragraph.matchAll(quoted)) {
+      const value = (match[1] ?? match[2]).trim();
+      if (!value) continue;
+      rows.push({
+        text: value,
+        where: `paragraph ${index + 1}`,
+        present_in_supplied_inputs: supplied.includes(normalizeAuditText(value)),
+      });
+    }
+  }
+  return rows;
+}
+
+function normalizeAuditText(value) {
+  return value.normalize("NFKC").replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim();
+}
+
+function claimsAuditFailures(audit, cases) {
+  const failures = [];
+  if (audit?.schema !== "prose-author-claims-audit/2") return ["CLAIMS-AUDIT.json has the wrong schema"];
+  for (const c of cases.cases) {
+    const row = audit.drafts?.[c.id];
+    if (!row) { failures.push(`${c.id}: missing audit row`); continue; }
+    for (const field of ["claims_verified", "disclosure_complete", "quotations_verified"]) {
+      if (row[field] !== true) failures.push(`${c.id}: ${field}`);
+    }
+  }
+  return failures;
 }
 
 function criticPrompt(caseId, corpus, draft) {
@@ -716,6 +770,10 @@ function criticPrompt(caseId, corpus, draft) {
 async function dispatchCritics(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
   collectDrafts(runDir);
+  const auditFailures = claimsAuditFailures(json(join(runDir, "CLAIMS-AUDIT.json")), cases);
+  if (auditFailures.length) {
+    die(`claims audit incomplete; no critic calls were made:\n    ${auditFailures.join("\n    ")}`);
+  }
   const system = resolve(REPO, manifest.agents.critic.snapshot);
   const jobs = [];
   for (const c of cases.cases) {
@@ -795,8 +853,8 @@ function collect(runDir) {
   const { manifest, cases, p } = loadPrepared(runDir);
   collectDrafts(runDir);
   const audit = json(p.audit);
-  const pending = Object.entries(audit.drafts ?? {}).filter(([, value]) => value.audited !== true);
-  if (pending.length) die(`claims audit incomplete for: ${pending.map(([id]) => id).join(", ")}`);
+  const auditFailures = claimsAuditFailures(audit, cases);
+  if (auditFailures.length) die(`claims audit incomplete:\n    ${auditFailures.join("\n    ")}`);
   const artifacts = json(p.artifacts);
   const drafts = [];
   let criticContractFailures = 0;
@@ -937,5 +995,6 @@ async function main() {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 
 export {
-  criticPrompt, deriveCritic, draftPrompt, structuralGates, validateCases,
+  claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt,
+  quotationAudit, structuralGates, validateCases,
 };

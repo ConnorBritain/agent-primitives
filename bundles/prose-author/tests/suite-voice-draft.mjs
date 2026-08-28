@@ -87,6 +87,10 @@ export async function run(t, { HERE }) {
         /older `voice-profile\/1` profiles have no coverage table[\s\S]*remain usable/.test(prompt));
       t.check("voice-draft: silently dropping any supported instruction requires an omission record",
         /whether its status is `rated`, `described`, or `absent-paired`[\s\S]*put it in `omitted`/.test(prompt));
+      t.check("voice-draft: audits each named actor action and consequence independently",
+        /every factual verb attached to it[\s\S]*Inventory each actor-action and actor-consequence[\s\S]*separately in `claims`/.test(src));
+      t.check("voice-draft: an attributed quotation must be supplied verbatim",
+        /exact quoted words must already appear in[\s\S]*user's request or the profile[\s\S]*quotation in `claims` does not make invented wording permissible/.test(src));
       t.check("voice-draft: v2 omissions identify the dimension and every observation",
         /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
 

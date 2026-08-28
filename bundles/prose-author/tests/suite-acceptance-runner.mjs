@@ -4,7 +4,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import {
-  criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt, validateCases,
+  claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt,
+  quotationAudit, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -125,6 +126,33 @@ export async function run(t, { HERE }) {
       && /critic_transport: CRITIC_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
       && source.includes("CRITIC_NATIVE_SCHEMA ? CRITIC_SOURCE_SCHEMA : null")
       && source.includes("assembleVoiceCritic(decoded.source"));
+  t.check("critic dispatch is blocked until the independent claims audit is complete",
+    /const auditFailures = claimsAuditFailures\(json\(join\(runDir, "CLAIMS-AUDIT\.json"\)\), cases\);[\s\S]*no critic calls were made/.test(source));
+
+  t.group("v0.2 acceptance harness — claim and quotation audit");
+  {
+    const rows = quotationAudit(
+      'A “supplied phrase” appears. Acme called it "invented wording."',
+      "The request includes supplied phrase.",
+      "Profile text.",
+    );
+    t.check("quoted spans are inventoried with paragraph locations",
+      rows.length === 2 && rows.every((row) => row.where === "paragraph 1"));
+    t.check("quote inventory distinguishes supplied from unsupplied wording",
+      rows[0].present_in_supplied_inputs === true && rows[1].present_in_supplied_inputs === false);
+    const casesForAudit = { cases: [{ id: "x" }] };
+    const incomplete = {
+      schema: "prose-author-claims-audit/2",
+      drafts: { x: { claims_verified: true, disclosure_complete: null, quotations_verified: true } },
+    };
+    t.check("a self-reported claims list cannot replace the independent completeness audit",
+      claimsAuditFailures(incomplete, casesForAudit).includes("x: disclosure_complete"));
+    t.check("all three explicit audit decisions are required before scoring",
+      claimsAuditFailures({
+        schema: "prose-author-claims-audit/2",
+        drafts: { x: { claims_verified: true, disclosure_complete: true, quotations_verified: true } },
+      }, casesForAudit).length === 0);
+  }
   t.check("model dispatch has a hard timeout instead of waiting indefinitely",
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
       && /child\.kill\("SIGTERM"\)/.test(source)

@@ -90,6 +90,7 @@ const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const DRAFT_CONTRACT = `${TOOLS}/draft-contract.mjs`;
 const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
+const ACCEPTANCE_RUNNER = "bundles/prose-author/tests/acceptance-runner.mjs";
 const VOICE_DRAFT_PROMPT = "primitives/agents/voice-draft/agent.md";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
@@ -193,6 +194,34 @@ export const MUTATIONS = [
     find: "After the prose is complete, read it sentence by sentence. Mark every date, amount,",
     with: "After the prose is complete, trust the claims already remembered. Mark every date, amount,",
     guards: "a nearby disclosed fact cannot hide a second checkable assertion",
+  },
+  {
+    name: "let a listed claim license an invented attributed quotation",
+    file: VOICE_DRAFT_PROMPT,
+    find: "**Putting an attributed\nquotation in `claims` does not make invented wording permissible.**",
+    with: "Putting an attributed\nquotation in `claims` makes the wording permissible.",
+    guards: "an invented quotation cannot be laundered through the verification list",
+  },
+  {
+    name: "collapse multiple named-actor assertions into one topic claim",
+    file: VOICE_DRAFT_PROMPT,
+    find: "Inventory each actor-action and actor-consequence\nassertion separately in `claims`, or remove/recast it.",
+    with: "One general topic entry may cover every actor-action and consequence\nassertion in `claims`.",
+    guards: "each checkable action and consequence remains independently auditable",
+  },
+  {
+    name: "dispatch sixty critics before the claims audit is complete",
+    file: ACCEPTANCE_RUNNER,
+    find: 'const auditFailures = claimsAuditFailures(json(join(runDir, "CLAIMS-AUDIT.json")), cases);',
+    with: "const auditFailures = [];",
+    guards: "an incomplete disclosure audit cannot spend or score sixty critic calls",
+  },
+  {
+    name: "stop requiring the independent disclosure-completeness decision",
+    file: ACCEPTANCE_RUNNER,
+    find: '["claims_verified", "disclosure_complete", "quotations_verified"]',
+    with: '["claims_verified", "quotations_verified"]',
+    guards: "the drafter cannot certify completeness merely by returning a claims list",
   },
   {
     name: "let the requested container override the profile's register",
