@@ -1,0 +1,23 @@
+{
+  "schema": "prose-author-claims-audit/2",
+  "drafts": {
+    "doctorow-claude-low": {
+      "claims_verified": true,
+      "disclosure_complete": false,
+      "quotations_verified": true,
+      "quoted_spans": [
+        {
+          "text": "right to repair",
+          "where": "paragraph 5",
+          "present_in_request": false
+        },
+        {
+          "text": "bought it",
+          "where": "paragraph 7",
+          "present_in_request": false
+        }
+      ],
+      "note": "There were no listed claims to verify. Both quotation spans are reviewed as the draft's own labels rather than attributed source wording. The draft nevertheless contains undisclosed external legal, historical, and industry assertions."
+    }
+  }
+}
