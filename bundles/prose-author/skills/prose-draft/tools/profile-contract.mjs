@@ -136,6 +136,68 @@ const isObject = (value) => value !== null && typeof value === "object" && !Arra
 const isText = (value) => typeof value === "string" && value.trim().length > 0;
 const exactKeys = (obj, allowed) => Object.keys(obj).filter((key) => !allowed.includes(key));
 
+function unwrapJsonFence(raw) {
+  const trimmed = String(raw ?? "").trim();
+  return /^```json\s*\n([\s\S]*?)\n```$/i.exec(trimmed)?.[1] ?? trimmed;
+}
+
+/**
+ * Decode model transport without repairing semantic structure.
+ *
+ * Some CLI harnesses return a JSON fence whose prose contains a copied ASCII quote that
+ * was not escaped. A quote is mechanically identifiable as internal when the following
+ * non-space character cannot close a JSON string, key, array item, or object value. Escape
+ * only those characters, report how many changed, then let JSON.parse and sourceErrors do
+ * all substantive validation.
+ */
+export function parseVoiceProfileSource(raw) {
+  const body = unwrapJsonFence(raw);
+  try { return { source: JSON.parse(body), repairs: 0, error: null }; } catch (firstError) {
+    let inString = false;
+    let escaped = false;
+    let repairs = 0;
+    let repaired = "";
+    const nextNonspace = (from) => {
+      let i = from;
+      while (/\s/.test(body[i] ?? "")) i += 1;
+      return { char: body[i], index: i };
+    };
+    for (let i = 0; i < body.length; i += 1) {
+      const char = body[i];
+      if (!inString) {
+        repaired += char;
+        if (char === '"') inString = true;
+        continue;
+      }
+      if (escaped) { repaired += char; escaped = false; continue; }
+      if (char === "\\") { repaired += char; escaped = true; continue; }
+      if (char !== '"') { repaired += char; continue; }
+
+      const next = nextNonspace(i + 1);
+      let closes = next.char === ":" || next.char === "}" || next.char === "]" || next.char === undefined;
+      if (next.char === ",") {
+        const afterComma = nextNonspace(next.index + 1).char;
+        closes = afterComma === '"' || afterComma === "}" || afterComma === "]";
+      }
+      if (closes) {
+        repaired += char;
+        inString = false;
+      } else {
+        repaired += `\\${char}`;
+        repairs += 1;
+      }
+    }
+    try {
+      return { source: JSON.parse(repaired), repairs, error: null };
+    } catch (secondError) {
+      return {
+        source: null, repairs,
+        error: `invalid JSON before repair (${firstError.message}) and after repair (${secondError.message})`,
+      };
+    }
+  }
+}
+
 function sourceErrors(source) {
   const errors = [];
   const err = (message) => errors.push(message);
@@ -319,6 +381,7 @@ export function assembleVoiceProfile(source, context) {
   const proseBySection = new Map(SECTIONS.map((section) => [section, []]));
   const usedMeasurementIds = new Set();
   const observationByMeasurement = new Map();
+  const measurementByObservation = new Map();
 
   for (const dimension of COVERAGE_DIMENSIONS) {
     const sourceRow = source.dimensions[dimension];
@@ -354,9 +417,6 @@ export function assembleVoiceProfile(source, context) {
       for (const file of supportFiles) if (!sampleSet.has(file)) errors.push(`${at} names non-corpus support file ${file}`);
       if (supportFiles.length === 0) errors.push(`${at} has no positive support`);
 
-      if (absence && measurement.files_with.length > Math.max(2, Math.floor(samplesUsed.length * 0.2))) {
-        errors.push(`${at} cannot call ${measurement.files_with.length}/${samplesUsed.length} positive samples an absence`);
-      }
       if (!absence && !FREQUENCIES.includes(item.frequency)) {
         errors.push(`${at} must carry one fixed frequency`);
       }
@@ -372,6 +432,7 @@ export function assembleVoiceProfile(source, context) {
       };
       observations.push(observation);
       if (measurement && !absence) observationByMeasurement.set(item.measurement_id, id);
+      if (measurement) measurementByObservation.set(id, item.measurement_id);
       ids.push(id);
       if (absence) absenceRated.push(id);
       else if (measurement) positiveRated.push(id);
@@ -387,13 +448,17 @@ export function assembleVoiceProfile(source, context) {
 
     if (absenceRated.length) {
       const absenceItem = sourceRow.observations.find((item) => item.measurement_id && item.frequency === undefined);
-      const allowedReplacement = (ABSENCE_REPLACEMENTS[absenceItem?.measurement_id] ?? [])
-        .map((measurementId) => observationByMeasurement.get(measurementId))
-        .find(Boolean);
-      const positiveId = positiveRated[0] ?? allowedReplacement;
+      const allowedReplacementIds = ABSENCE_REPLACEMENTS[absenceItem?.measurement_id] ?? [];
+      const positiveId = positiveRated.find((id) => allowedReplacementIds.includes(measurementByObservation.get(id)))
+        ?? allowedReplacementIds.map((measurementId) => observationByMeasurement.get(measurementId)).find(Boolean);
       if (absenceRated.length !== 1 || !positiveId) {
         errors.push(`${dimension} has a counted absence but not exactly one absence plus a positive measured replacement`);
       } else {
+        const absenceMeasurement = byMeasurement.get(absenceItem.measurement_id);
+        const positiveMeasurement = byMeasurement.get(measurementByObservation.get(positiveId));
+        if (absenceMeasurement.count > positiveMeasurement.count * 0.2) {
+          errors.push(`${dimension} sparse counterpart count ${absenceMeasurement.count} exceeds one-fifth of replacement count ${positiveMeasurement.count}`);
+        }
         if (!ids.includes(positiveId)) ids.unshift(positiveId);
         coverage.push({
           dimension, status: "absent-paired", observation_ids: ids,

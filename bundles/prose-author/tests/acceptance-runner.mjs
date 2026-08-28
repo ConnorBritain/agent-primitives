@@ -29,10 +29,9 @@ import { scoreRun } from "./bar.mjs";
 import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { crossCount } from "./cross-count.mjs";
 import { bodyOf } from "./corpus-rates.mjs";
-import { parseFences } from "./fences.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
-  ABSENCE_REPLACEMENTS, assembleVoiceProfile, SOURCE_RENDER_SCHEMA,
+  ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, SOURCE_RENDER_SCHEMA,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   corpusLeakage, findFabricatedCitations, parseDraft, validateDraft,
@@ -142,12 +141,16 @@ function sourceProfile(profile) {
 export function profileRenderPrompt(profileId, inputs, measurements = null) {
   const byId = new Map((measurements?.measurements ?? []).map((row) => [row.id, row]));
   const absenceGuidance = [...byId.values()]
-    .filter((row) => row.files_with?.length <= Math.max(2, Math.floor((measurements?.sample_count ?? 0) * 0.2)))
     .map((row) => {
       const available = (ABSENCE_REPLACEMENTS[row.id] ?? []).filter((id) => (byId.get(id)?.count ?? 0) > 0);
-      return available.length
-        ? `- ${row.id} may be an absence only with measured replacement ${available.join(" or ")}; the assembler may reuse that positive observation across dimensions.`
-        : `- ${row.id} has no measured positive replacement; do not emit it as an absence. Leave its dimension unresolved instead.`;
+      const sparse = available.filter((id) => row.count <= byId.get(id).count * 0.2);
+      if (sparse.length) {
+        return `- ${row.id} may be an absence only with measured replacement ${sparse.join(" or ")}; the assembler may reuse that positive observation across dimensions.`;
+      }
+      if (row.count === 0) {
+        return `- ${row.id} has no measured positive replacement; do not emit it as an absence. Leave its dimension unresolved instead.`;
+      }
+      return `- ${row.id} is not sparse relative to an allowed measured replacement; it is positive and must carry one fixed frequency.`;
     });
   return [
     `Render profile ${profileId}.`,
@@ -264,6 +267,7 @@ function prepare(runDir) {
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
     cases_sha256: SHA(text(p.cases)),
+    locked_files: Object.fromEntries(locked.map((file) => [file, SHA(text(join(REPO, file)))])),
     agents: agentEntries,
     corpora: corpusEntries,
     prompts: Object.fromEntries([
@@ -312,11 +316,9 @@ function completedResult(path) {
 
 function semanticSource(record) {
   if (record.structured_output !== null && typeof record.structured_output === "object") {
-    return record.structured_output;
+    return { source: record.structured_output, repairs: 0, error: null };
   }
-  const fenced = parseFences(record.result).json;
-  if (fenced) return fenced;
-  try { return JSON.parse(record.result); } catch { return null; }
+  return parseVoiceProfileSource(record.result);
 }
 
 async function claude({ system, prompt, cwd, tools, allowed, output, schema = null, effort = EFFORT }) {
@@ -425,7 +427,12 @@ function collectProfiles(runDir) {
       const rawPath = join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`);
       const record = completedResult(rawPath);
       if (!record) die(`missing ${rel(rawPath)}`);
-      const source = semanticSource(record);
+      const decoded = semanticSource(record);
+      if (!decoded.source) die(`${profile.id}-r${render} source transport failed: ${decoded.error}`);
+      if (decoded.repairs !== 0) {
+        die(`${profile.id}-r${render} source required ${decoded.repairs} transport quote repair(s)`);
+      }
+      const source = decoded.source;
       const assembled = assembleVoiceProfile(source, {
         profile: profile.id,
         measurements,
@@ -478,7 +485,7 @@ function collectProfiles(runDir) {
         raw: rel(rawPath), source: rel(sourcePath), render: rel(rawRender), markdown: rel(md), json: rel(js),
         raw_sha256: SHA(text(rawPath)), source_sha256: SHA(text(sourcePath)),
         markdown_sha256: SHA(text(md)), json_sha256: SHA(text(js)),
-        coverage, recount,
+        transport_repairs: decoded.repairs, coverage, recount,
       };
     }
   }
@@ -742,6 +749,16 @@ function check(runDir) {
   const errors = [];
   if (SHA(text(p.design)) !== manifest.design_sha256) errors.push("DESIGN.md changed after prepare");
   if (SHA(text(p.cases)) !== manifest.cases_sha256) errors.push("CASES.json changed after prepare");
+  if (!manifest.locked_files || typeof manifest.locked_files !== "object") {
+    errors.push("manifest has no locked implementation hashes");
+  } else {
+    for (const [file, expected] of Object.entries(manifest.locked_files)) {
+      const target = join(REPO, file);
+      if (!existsSync(target) || SHA(text(target)) !== expected) {
+        errors.push(`locked implementation changed after prepare: ${file}`);
+      }
+    }
+  }
   errors.push(...validateCases(cases));
   for (const [kind, entry] of Object.entries(manifest.agents)) {
     const sourceBody = stripFrontmatter(text(join(REPO, entry.source)));

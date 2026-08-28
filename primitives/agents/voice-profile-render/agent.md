@@ -277,7 +277,8 @@ An observation carries:
   frequency.
 
 Keep the source compact enough to survive every harness unchanged. Use between ten and
-fourteen observations total, never more than five in one compound dimension. Each `prose`
+fourteen observations total, never more than five in one compound dimension. Count the
+entries before returning; the fourteenth is a hard ceiling. Each `prose`
 value is one short paragraph, between thirty-five and seventy words: one
 claim, one short quotation, its filename, its function, and a restrained placement
 instruction. Do not write a mini-essay for each observation. Keep `gaps` between sixty
@@ -289,6 +290,9 @@ Do not put observation IDs, support fractions, sample totals, counts, rates, cou
 rules, measurement locators, or `per 1,000` figures in `prose`. The assembler inserts all
 of them from deterministic inputs. Do not emit `profile`, `confidence`, `corpus_words`,
 `samples_used`, `samples_excluded`, `observations`, `coverage`, or `profile_markdown`.
+Because the fallback transport is JSON, escape every ASCII double quotation mark inside a
+string. Prefer curly quotation marks or single quotation marks for short corpus quotations.
+The returned fence must parse as JSON without repair.
 
 Across the observations, use all seven section values at least once. `gaps` becomes section
 8 and states what the corpus could not determine, including voice-card contradictions.

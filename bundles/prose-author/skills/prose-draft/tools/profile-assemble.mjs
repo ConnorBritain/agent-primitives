@@ -15,7 +15,7 @@ import { readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { assembleVoiceProfile, SOURCE_SCHEMA } from "./profile-contract.mjs";
+import { assembleVoiceProfile, parseVoiceProfileSource, SOURCE_SCHEMA } from "./profile-contract.mjs";
 
 function die(message) {
   process.stderr.write(`profile-assemble: ${message}\n`);
@@ -27,11 +27,14 @@ function flag(name) {
   return index === -1 ? null : process.argv[index + 1];
 }
 
-function parseJson(raw, label) {
-  const trimmed = raw.trim();
-  const fenced = /^```json\s*\n([\s\S]*?)\n```$/i.exec(trimmed)?.[1];
+function parseJson(raw, label, { source = false } = {}) {
+  if (source) {
+    const decoded = parseVoiceProfileSource(raw);
+    if (decoded.source) return decoded.source;
+    throw new Error(`${label} is not JSON: ${decoded.error}`);
+  }
   try {
-    return JSON.parse(fenced ?? trimmed);
+    return JSON.parse(raw.trim());
   } catch (error) {
     throw new Error(`${label} is not JSON: ${error.message}`);
   }
@@ -51,7 +54,7 @@ export function main() {
   try {
     const sourceRaw = sourceArg === "-" ? readFileSync(0, "utf8") : readFileSync(resolve(sourceArg), "utf8");
     const contextRaw = readFileSync(resolve(contextArg), "utf8");
-    const assembled = assembleVoiceProfile(parseJson(sourceRaw, "source"), parseJson(contextRaw, "context"));
+    const assembled = assembleVoiceProfile(parseJson(sourceRaw, "source", { source: true }), parseJson(contextRaw, "context"));
     if (!assembled.ok) throw new Error(assembled.errors.join("; "));
 
     const jsonOut = flag("--json");

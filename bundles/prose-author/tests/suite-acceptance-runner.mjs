@@ -77,6 +77,8 @@ export async function run(t, { HERE }) {
   t.check("completed responses are immutable rather than overwritten",
     /exists but is not a completed successful response; do not redraw it/.test(source)
       && /if \(completedResult\(output\)\) return \{ skipped: true/.test(source));
+  t.check("acceptance requires source JSON to parse without transport repair",
+    /source required \$\{decoded\.repairs\} transport quote repair/.test(source));
   t.check("prepare requires the locked implementation and design to be committed",
     /must be committed before prepare/.test(source));
   t.check("clean-context calls exclude user plugins, MCP servers, settings, and Chrome",
@@ -112,7 +114,8 @@ export async function run(t, { HERE }) {
         && m.files_with.length + m.files_without.length === measured.sample_count));
   }
   t.check("the checker pins design, case, agent, corpus, request, and artefact hashes",
-    ["design_sha256", "cases_sha256", "agent snapshot hash mismatch", "corpus lock drifted", "prompt hash mismatch", "missing artifact"]
+    ["design_sha256", "cases_sha256", "locked_files", "locked implementation changed after prepare",
+      "agent snapshot hash mismatch", "corpus lock drifted", "prompt hash mismatch", "missing artifact"]
       .every((phrase) => source.includes(phrase)));
   t.check("TALLY.json is derived by collect rather than accepted as an input",
     /const tally = \{[\s\S]*drafts,[\s\S]*structural_gates: structural\.gates/.test(source));

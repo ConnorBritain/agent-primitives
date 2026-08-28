@@ -21,7 +21,7 @@ import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 import { measureProfile } from "./profile-measurements.mjs";
 import {
-  assembleVoiceProfile, COVERAGE_DIMENSIONS as SOURCE_DIMENSIONS,
+  assembleVoiceProfile, COVERAGE_DIMENSIONS as SOURCE_DIMENSIONS, parseVoiceProfileSource,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
@@ -508,6 +508,11 @@ export async function run(t, { tmp, HERE }) {
 
   t.group("voice-profile source assembly — models interpret, code keeps the books");
   {
+    {
+      const decoded = parseVoiceProfileSource('```json\n{"schema":"voice-profile-source/1","prose":"They call it "theft" and move on."}\n```');
+      t.check("transport decoding repairs only structurally internal bare prose quotes",
+        decoded.repairs === 2 && decoded.source?.prose === 'They call it "theft" and move on.');
+    }
     const profileDir = resolve(HERE, "fixtures", "profiles", "doctorow-blog");
     const measured = measureProfile(profileDir);
     const files = measured.samples.map((sample) => sample.file);
@@ -928,7 +933,18 @@ export async function run(t, { tmp, HERE }) {
       // must match, so a prompt cannot be revised leaving nothing on disk that shows
       // what it now does.
       const isCurrent = recorded.length === 1 && recorded[0] === live;
-      currency.set(owner, (currency.get(owner) ?? false) || isCurrent);
+      const artifactsPath = join(runs, name, "ARTIFACTS.json");
+      let hasValidatedArtifact = false;
+      if (fsExists(artifactsPath)) {
+        const artifacts = JSON.parse(fsRead(artifactsPath, "utf8"));
+        if (owner === "voice-profile-render") {
+          hasValidatedArtifact = Object.values(artifacts.profiles ?? {})
+            .some((renders) => Object.keys(renders ?? {}).length > 0);
+        } else if (owner === "voice-draft") {
+          hasValidatedArtifact = Object.keys(artifacts.drafts ?? {}).length > 0;
+        }
+      }
+      currency.set(owner, (currency.get(owner) ?? false) || (isCurrent && hasValidatedArtifact));
       if (!isCurrent) {
         process.stdout.write(`  note ${name}: historical — pins ${owner}@${recorded[0]?.slice(0, 12)},`
           + ` current is ${live.slice(0, 12)}\n`);
