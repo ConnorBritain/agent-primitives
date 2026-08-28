@@ -1,0 +1,28 @@
+---
+source: EFF Deeplinks (eff.org)
+title: California A.B. 412 Stalls Out—A Win for Innovation and Fair Use
+author: Joe Mullin
+date: 2025-07-01
+human_authored: true
+license: CC-BY-4.0
+link_targets: stripped
+extraction: field--name-body node only
+permalink: https://www.eff.org/deeplinks/2025/07/california-ab-412-stalls-out-win-innovation-and-fair-use
+---
+A.B. 412, the flawed California bill that threatened small developers in the name of AI “transparency,” has been delayed and turned into a [two-year bill](https://capitolmuseum.ca.gov/learn/about-the-government/life-cycle-of-a-bill/). That means it won’t move forward in 2025—a significant victory for innovation, freedom to code, and the open web.
+
+EFF [opposed this bill from the start](https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly). A.B. 412 tried to regulate generative AI, not by looking at the public interest, but by mandating training data “reading lists” designed to pave the way for new copyright lawsuits, many of which are filed by large content companies.
+
+Transparency in AI development is a laudable goal. But A.B. 412 failed to offer a fair or effective path to get there. Instead, it gave companies large and small the impossible task of differentiating between what content was copyrighted and what wasn’t—with severe penalties for anyone who couldn’t meet that regulation. That would have protected the largest AI companies, but frozen out smaller and non-commercial developers who might want to tweak or fine-tune AI systems for the public good.
+
+The most interesting work in AI won’t necessarily come from the biggest companies. It will come from small teams, fine-tuning for accessibility, privacy, and building tools that identify AI harms. And some of the most valuable work will be done using source code under permissive licenses.
+
+A.B. 412 ignored those facts, and would have punished some of the most worthwhile projects.
+
+The Bill Blew Off Fair Use Rights
+
+The question of whether—and how much—AI training qualifies as fair use is being actively litigated right now in federal courts. And so far, courts have found much of this work to be fair use. In [a recent landmark AI case,](https://www.eff.org/deeplinks/2025/06/two-courts-rule-generative-ai-and-fair-use-one-gets-it-right) Bartz v. Anthropic, for example, a federal judge found that AI training work is “transformative—spectacularly so.” He compared it to how search engines copy images and text in order to provide useful search results to users.
+
+Copyright is federally governed. When states try to rewrite the rules, they create confusion—and more litigation that doesn’t help anyone.
+
+If lawmakers want to revisit AI transparency, they need to do so without giving rights-holders a tool to weaponize copyright claims. That means rejecting A.B. 412’s approach—and crafting laws that protect speech, competition, and the public’s interest in a robust, open, and fair AI ecosystem.
