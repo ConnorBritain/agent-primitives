@@ -15,6 +15,35 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | stop noticing dominance claims | 2 | a profile calling a habit the engine of a voice must state the rate that backs it |
 | accept a profile that states no frequency at all | 1 | a count without a rate cannot tell a drafter how often to use a habit |
 | stop recognising placeholder hosts | 3 | an invented citation is caught before it reaches a reader |
+| render empty semantic omissions into the public draft record | 1 | a fixed-shape source cannot leak an empty optional list into voice-draft/1 |
+| allow a semantic sentence to carry output fences or hidden newlines | 1 | a model cannot smuggle a second public envelope or unaudited sentence through one unit |
+| drop the explicit type Codex requires beside the draft schema const | 1 | one source schema is valid in strict Codex output as well as Claude |
+| accept a request basis that cannot be found in the request | 1 | a model cannot cite an invented request premise in its sentence certificate |
+| let reasoning sentences carry hidden factual claims | 1 | derived public claims cannot be hidden under a non-factual sentence label |
+| let external facts masquerade as request-supported claims | 1 | the public audit distinguishes supplied facts from model-memory assertions |
+| allow a sentence to cite a claim outside the closed ledger | 1 | every factual sentence is restricted to the pre-writing claim ledger |
+| allow an unused retrospective claim into the ledger | 1 | the claim ledger is a closed pre-writing plan rather than a post-hoc dump |
+| allow prose to be emitted before its supposed pre-writing ledger | 1 | source/3 mechanically proves the claim ledger precedes expressive prose |
+| stop reconciling independent audit sentence ids | 1 | an audit decision cannot drift onto a different sentence |
+| assemble a sentence the independent auditor rejected | 1 | fabricated quotations, citations, and biographies cannot pass through as claims |
+| accept opaque independent labels with no rationale | 1 | every independent basis decision remains inspectable clause by clause |
+| let the independent auditor trust the drafter's labels | 1 | the factual audit is independent rather than the same self-report twice |
+| hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
+| skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
+| drop the explicit type from context-specific profile dimensions | 1 | the generated profile schema remains valid in strict structured-output harnesses |
+| derive the critic verdict from its finding count | 1 | the model-owned verdict remains independent from the findings-rate instrument |
+| drop the drafter's sentence-by-sentence claim inventory | 2 | a nearby disclosed fact cannot hide a second checkable assertion |
+| treat model memory as verified evidence | 2 | remembered examples remain explicitly queued for verification |
+| treat profile examples as reusable topic facts | 2 | corpus-derived profile examples cannot cross the factual firewall |
+| let unverifiable generalizations enter the claims queue | 2 | claims remain finite propositions a publisher can actually check |
+| let argumentative prose decorate itself with external-memory facts | 2 | a source-free argument stays within request evidence instead of inventing vivid cases |
+| let the auditor keep unbounded external claims | 1 | the independent pass rejects rather than launders unfalsifiable generalizations |
+| let a listed claim license an invented attributed quotation | 2 | an invented quotation cannot be laundered through the verification list |
+| collapse multiple named-actor assertions into one topic claim | 2 | each checkable action and consequence remains independently auditable |
+| dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
+| stop requiring the independent disclosure-completeness decision | 1 | the drafter cannot certify completeness merely by returning a claims list |
+| let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
+| let the requested container override the profile's register | 2 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
 | stop noticing a fallen verdict | 1 | a revision that drops the verdict is refused |
 | treat a split CLEAN as converged | 2 | a split is surfaced, not read as the half that suits the loop |
@@ -46,7 +75,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | measure rates over the whole file instead of the essay body | 9 | site boilerplate is excluded from a rate the profile will quote |
 | let a ratio breach alone become a verdict | 1 | one extra instance in a short draft is not reported as caricature |
 | silently skip a claim the checker cannot locate | 1 | a checker that finds nothing to check says so instead of reporting clean |
-| read a decimal's fractional part as a count | 2 | 22.65 per 1,000 is a rate, not a count of 65 |
+| read a decimal's fractional part as a count | 1 | 22.65 per 1,000 is a rate, not a count of 65 |
 | widen the tolerance past the inflation it exists to catch | 1 | a 32% inflation is still a divergence |
 | turn the conjunctive bar into a disjunction | 4 | a draft must clear BOTH instruments, not whichever one it happened to satisfy |
 | loosen the pre-registered findings ceiling | 3 | a threshold pre-registered before the run cannot be edited after seeing it |

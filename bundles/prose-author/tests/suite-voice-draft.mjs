@@ -317,11 +317,14 @@ export async function run(t, { HERE }) {
         && refusal.output.includes('"refused"'));
     t.check("a draft source carrying a refusal reason is rejected",
       !validateVoiceDraftSource({ ...source, refused: "also refuse" }, { request }).ok);
+    const hiddenEnvelope = validateVoiceDraftSource({
+      ...source,
+      ledger: [],
+      paragraphs: [{ sentences: [{ text: "Prose.\n```json", basis: "reasoning", claim_ids: [] }] }],
+    }, { request });
     t.check("a draft source cannot smuggle a fence or newline inside a sentence unit",
-      !validateVoiceDraftSource({
-        ...source,
-        paragraphs: [{ sentences: [{ text: "Prose.\n```json", basis: "reasoning", claim_ids: [] }] }],
-      }, { request }).ok);
+      !hiddenEnvelope.ok
+        && hiddenEnvelope.errors.some((error) => /text cannot contain a fence or newline/.test(error)));
     t.check("a refusal source carrying draft prose is rejected",
       !validateVoiceDraftSource({ ...source, kind: "refusal", refused: "missing register" }).ok);
     t.check("a refusal source carrying disclosures is rejected",
@@ -343,14 +346,16 @@ export async function run(t, { HERE }) {
       }, { request }).ok);
     t.check("proof-carrying drafts cannot validate without the original request",
       !validateVoiceDraftSource(source).ok && !assembleVoiceDraft(source).ok);
+    const reasoningWithClaim = validateVoiceDraftSource({
+      ...source,
+      paragraphs: [{ sentences: [{
+        text: "Supposed reasoning.", basis: "reasoning",
+        claim_ids: ["c1"],
+      }] }],
+    }, { request });
     t.check("reasoning and hypothetical units cannot cite a claim payload",
-      !validateVoiceDraftSource({
-        ...source,
-        paragraphs: [{ sentences: [{
-          text: "Supposed reasoning.", basis: "reasoning",
-          claim_ids: ["c1"],
-        }] }],
-      }, { request }).ok);
+      !reasoningWithClaim.ok
+        && reasoningWithClaim.errors.some((error) => /with reasoning basis cannot cite ledger claims/.test(error)));
     t.check("a malformed sentence claim_ids field is rejected without throwing",
       !validateVoiceDraftSource({
         ...source,
@@ -388,6 +393,16 @@ export async function run(t, { HERE }) {
         && !validateVoiceDraftSource({ ...source,
           paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claim_ids: ["c9"] }] }],
         }, { request }).ok);
+    const danglingClaim = validateVoiceDraftSource({
+      ...source,
+      ledger: [],
+      paragraphs: [{ sentences: [{
+        text: "Claim.", basis: "request-supported", claim_ids: ["c9"],
+      }] }],
+    }, { request });
+    t.check("a sentence cannot cite a claim outside an otherwise empty closed ledger",
+      !danglingClaim.ok
+        && danglingClaim.errors.some((error) => /claim_ids has dangling reference c9/.test(error)));
     t.check("one authorized premise may support several sentences without inventing a new claim",
       validateVoiceDraftSource({
         ...source,

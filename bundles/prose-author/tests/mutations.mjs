@@ -200,8 +200,8 @@ export const MUTATIONS = [
   {
     name: "allow a sentence to cite a claim outside the closed ledger",
     file: DRAFT_CONTRACT,
-    find: "        if (!claim) {",
-    with: "        if (false) {",
+    find: "          errors.push(`${sat}.claim_ids has dangling reference ${claimId}`);",
+    with: "          // dangling reference accepted",
     guards: "every factual sentence is restricted to the pre-writing claim ledger",
   },
   {
