@@ -2,14 +2,15 @@
 /**
  * Portable semantic boundary for blank-page voice drafting.
  *
- * voice-draft-source/2 is proof-carrying: prose is represented as paragraphs of
- * sentence units, and every sentence declares its factual basis. Deterministic code
- * validates that the certificate covers the complete emitted draft, checks any copied
- * request basis against the actual request, derives the public claims list, and owns the
- * canonical voice-draft/1 envelope. Historical source/1 artifacts remain readable.
+ * voice-draft-source/3 is ledger-first and proof-carrying. The model must emit a closed
+ * claim ledger before its prose; sentence units can cite only ledger IDs. Deterministic
+ * code validates the ledger against the request, rejects unreferenced or dangling claims,
+ * derives the public claims list, and owns the canonical voice-draft/1 envelope.
+ * Historical source/1 and source/2 artifacts remain readable.
  */
 
-export const SOURCE_SCHEMA_ID = "voice-draft-source/2";
+export const SOURCE_SCHEMA_ID = "voice-draft-source/3";
+export const PREVIOUS_SOURCE_SCHEMA_ID = "voice-draft-source/2";
 export const LEGACY_SOURCE_SCHEMA_ID = "voice-draft-source/1";
 export const DRAFT_SCHEMA_ID = "voice-draft/1";
 
@@ -23,14 +24,16 @@ const disclosureEntry = (first, second) => ({
   required: [first, second],
 });
 
-const sentenceClaim = {
+const ledgerEntry = {
   type: "object",
   additionalProperties: false,
   properties: {
+    id: { type: "string", pattern: "^c[1-9][0-9]*$" },
+    basis: { type: "string", enum: ["request-supported", "external-verification"] },
     claim: { type: "string", minLength: 1 },
     request_basis: { type: "string" },
   },
-  required: ["claim", "request_basis"],
+  required: ["id", "basis", "claim", "request_basis"],
 };
 
 const sentenceUnit = {
@@ -42,9 +45,12 @@ const sentenceUnit = {
       type: "string",
       enum: ["request-supported", "external-verification", "reasoning", "hypothetical", "normative"],
     },
-    claims: { type: "array", maxItems: 10, items: sentenceClaim },
+    claim_ids: {
+      type: "array", maxItems: 10,
+      items: { type: "string", pattern: "^c[1-9][0-9]*$" },
+    },
   },
-  required: ["text", "basis", "claims"],
+  required: ["text", "basis", "claim_ids"],
 };
 
 /** Fixed shape for strict structured-output implementations. */
@@ -54,6 +60,7 @@ export const SOURCE_SCHEMA = {
   properties: {
     schema: { type: "string", const: SOURCE_SCHEMA_ID },
     kind: { type: "string", enum: ["draft", "refusal"] },
+    ledger: { type: "array", maxItems: 50, items: ledgerEntry },
     paragraphs: {
       type: "array", maxItems: 50,
       items: {
@@ -71,7 +78,7 @@ export const SOURCE_SCHEMA = {
     },
     refused: { type: "string" },
   },
-  required: ["schema", "kind", "paragraphs", "omitted", "refused"],
+  required: ["schema", "kind", "ledger", "paragraphs", "omitted", "refused"],
 };
 
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
@@ -138,7 +145,7 @@ function validateLegacy(source) {
   return { ok: errors.length === 0, refusal, errors };
 }
 
-function validateSentenceUnits(source, request) {
+function validatePreviousSentenceUnits(source, request) {
   const errors = [];
   if (!Array.isArray(source.paragraphs)) return ["source.paragraphs must be an array"];
   if (source.paragraphs.length > 50) errors.push("source.paragraphs may contain at most 50 paragraphs");
@@ -216,20 +223,144 @@ function validateSentenceUnits(source, request) {
   return errors;
 }
 
+function validateLedger(source, request) {
+  const errors = [];
+  if (!Array.isArray(source.ledger)) return ["source.ledger must be an array"];
+  if (source.ledger.length > 50) errors.push("source.ledger may contain at most 50 entries");
+  const normalizedRequest = normalize(request);
+  for (const [index, entry] of source.ledger.entries()) {
+    const at = `source.ledger[${index}]`;
+    if (!isObject(entry) || !exactKeys(entry, ["id", "basis", "claim", "request_basis"])) {
+      errors.push(`${at} must carry exactly id, basis, claim, request_basis`);
+      continue;
+    }
+    if (entry.id !== `c${index + 1}`) errors.push(`${at}.id must be c${index + 1}`);
+    if (!["request-supported", "external-verification"].includes(entry.basis)) {
+      errors.push(`${at}.basis is invalid`);
+    }
+    if (!isText(entry.claim)) errors.push(`${at}.claim must be non-empty`);
+    if (typeof entry.request_basis !== "string") errors.push(`${at}.request_basis must be a string`);
+    if (entry.basis === "request-supported") {
+      if (!normalizedRequest) errors.push(`${at} cannot validate request support without the request`);
+      if (!isText(entry.request_basis)) {
+        errors.push(`${at}.request_basis must copy supporting request text`);
+      } else if (normalizedRequest && !normalizedRequest.includes(normalize(entry.request_basis))) {
+        errors.push(`${at}.request_basis is not locatable in the request`);
+      }
+    } else if (typeof entry.request_basis === "string" && entry.request_basis.length !== 0) {
+      errors.push(`${at}.request_basis must be empty for external verification`);
+    }
+  }
+  return errors;
+}
+
+function validateLedgerSentenceUnits(source, request) {
+  const errors = [];
+  if (!Array.isArray(source.paragraphs)) return ["source.paragraphs must be an array"];
+  if (source.paragraphs.length > 50) errors.push("source.paragraphs may contain at most 50 paragraphs");
+  if (request === null || request === undefined) errors.push("a source/3 draft requires the original request");
+  const ledger = new Map((Array.isArray(source.ledger) ? source.ledger : []).map((entry) => [entry?.id, entry]));
+  const references = new Map();
+  let sentenceCount = 0;
+  for (const [pIndex, paragraph] of source.paragraphs.entries()) {
+    const at = `source.paragraphs[${pIndex}]`;
+    if (!isObject(paragraph) || !exactKeys(paragraph, ["sentences"])) {
+      errors.push(`${at} must carry only sentences`);
+      continue;
+    }
+    if (!Array.isArray(paragraph.sentences) || paragraph.sentences.length < 1 || paragraph.sentences.length > 30) {
+      errors.push(`${at}.sentences must contain 1 to 30 sentence units`);
+      continue;
+    }
+    for (const [sIndex, sentence] of paragraph.sentences.entries()) {
+      sentenceCount += 1;
+      const sat = `${at}.sentences[${sIndex}]`;
+      if (!isObject(sentence) || !exactKeys(sentence, ["text", "basis", "claim_ids"])) {
+        errors.push(`${sat} must carry exactly text, basis, claim_ids`);
+        continue;
+      }
+      if (!isText(sentence.text)) errors.push(`${sat}.text must be non-empty`);
+      if (/```|[\r\n]/.test(String(sentence.text ?? ""))) errors.push(`${sat}.ledger-first text cannot contain a fence or newline`);
+      if (!["request-supported", "external-verification", "reasoning", "hypothetical", "normative"].includes(sentence.basis)) {
+        errors.push(`${sat}.basis is invalid`);
+      }
+      if (!Array.isArray(sentence.claim_ids)) {
+        errors.push(`${sat}.claim_ids must be an array`);
+        continue;
+      }
+      if (sentence.claim_ids.length > 10) errors.push(`${sat}.claim_ids may contain at most 10 entries`);
+      if (["request-supported", "external-verification"].includes(sentence.basis) && sentence.claim_ids.length === 0) {
+        errors.push(`${sat} marked ${sentence.basis} needs at least one claim id`);
+      }
+      if (!["request-supported", "external-verification"].includes(sentence.basis) && sentence.claim_ids.length) {
+        errors.push(`${sat} with ${sentence.basis} basis cannot cite ledger claims`);
+      }
+      const local = new Set();
+      for (const claimId of sentence.claim_ids) {
+        if (typeof claimId !== "string" || !/^c[1-9][0-9]*$/.test(claimId)) {
+          errors.push(`${sat}.claim_ids contains an invalid id`);
+          continue;
+        }
+        if (local.has(claimId)) errors.push(`${sat}.claim_ids repeats ${claimId}`);
+        local.add(claimId);
+        const claim = ledger.get(claimId);
+        if (!claim) {
+          errors.push(`${sat}.claim_ids has dangling reference ${claimId}`);
+          continue;
+        }
+        if (claim.basis !== sentence.basis) {
+          errors.push(`${sat} basis ${sentence.basis} cannot cite ${claimId} with basis ${claim.basis}`);
+        }
+        references.set(claimId, (references.get(claimId) ?? 0) + 1);
+      }
+    }
+  }
+  if (sentenceCount > 500) errors.push("a draft source may contain at most 500 sentence units");
+  for (const entry of Array.isArray(source.ledger) ? source.ledger : []) {
+    const count = references.get(entry?.id) ?? 0;
+    if (count === 0) errors.push(`source.ledger ${entry?.id ?? "entry"} is not cited by any sentence`);
+    if (count > 1) errors.push(`source.ledger ${entry.id} is cited by ${count} sentences; split repeated assertions into separate entries`);
+  }
+  return errors;
+}
+
 /** @returns {{ok: boolean, refusal: boolean, errors: string[]}} */
 export function validateVoiceDraftSource(source, { request = null } = {}) {
   if (!isObject(source)) return { ok: false, refusal: false, errors: ["source is not an object"] };
   if (source.schema === LEGACY_SOURCE_SCHEMA_ID) return validateLegacy(source);
+  if (source.schema === PREVIOUS_SOURCE_SCHEMA_ID) {
+    const errors = [];
+    const fields = ["schema", "kind", "paragraphs", "omitted", "refused"];
+    if (!exactKeys(source, fields)) errors.push(`source/2 must carry exactly: ${fields.join(", ")}`);
+    if (!['draft', 'refusal'].includes(source.kind)) errors.push("source.kind must be draft or refusal");
+    if (typeof source.refused !== "string") errors.push("source.refused must be a string");
+    errors.push(...disclosureErrors(source.omitted, "omitted", ["habit", "why"]));
+    const refusal = source.kind === "refusal";
+    if (source.kind === "draft") {
+      errors.push(...validatePreviousSentenceUnits(source, request));
+      if (!Array.isArray(source.paragraphs) || source.paragraphs.length === 0) errors.push("a draft source needs at least one paragraph");
+      if (String(source.refused ?? "").length !== 0) errors.push("a draft source cannot carry a refusal reason");
+    } else {
+      if (!isText(source.refused)) errors.push("a refusal source needs a non-empty reason");
+      if (!Array.isArray(source.paragraphs) || source.paragraphs.length !== 0) errors.push("a refusal source cannot carry paragraphs");
+      if (Array.isArray(source.omitted) && source.omitted.length) errors.push("a refusal source cannot carry omissions");
+    }
+    return { ok: errors.length === 0, refusal, errors };
+  }
   const errors = [];
-  const fields = ["schema", "kind", "paragraphs", "omitted", "refused"];
+  const fields = ["schema", "kind", "ledger", "paragraphs", "omitted", "refused"];
   if (!exactKeys(source, fields)) errors.push(`source must carry exactly: ${fields.join(", ")}`);
+  else if (JSON.stringify(Object.keys(source)) !== JSON.stringify(fields)) {
+    errors.push("source/3 keys must place the closed ledger before paragraphs");
+  }
   if (source.schema !== SOURCE_SCHEMA_ID) errors.push(`source.schema must be ${SOURCE_SCHEMA_ID}`);
   if (!['draft', 'refusal'].includes(source.kind)) errors.push("source.kind must be draft or refusal");
   if (typeof source.refused !== "string") errors.push("source.refused must be a string");
   errors.push(...disclosureErrors(source.omitted, "omitted", ["habit", "why"]));
   const refusal = source.kind === "refusal";
   if (source.kind === "draft") {
-    errors.push(...validateSentenceUnits(source, request));
+    errors.push(...validateLedger(source, request));
+    errors.push(...validateLedgerSentenceUnits(source, request));
     if (!Array.isArray(source.paragraphs) || source.paragraphs.length === 0) {
       errors.push("a draft source needs at least one paragraph");
     }
@@ -237,6 +368,7 @@ export function validateVoiceDraftSource(source, { request = null } = {}) {
   } else if (refusal) {
     if (!isText(source.refused)) errors.push("a refusal source needs a non-empty reason");
     if (!Array.isArray(source.paragraphs) || source.paragraphs.length !== 0) errors.push("a refusal source cannot carry paragraphs");
+    if (!Array.isArray(source.ledger) || source.ledger.length !== 0) errors.push("a refusal source cannot carry a claim ledger");
     if (Array.isArray(source.omitted) && source.omitted.length) errors.push("a refusal source cannot carry omissions");
   }
   return { ok: errors.length === 0, refusal, errors };
@@ -250,11 +382,21 @@ function materialize(source) {
   if (source.schema === LEGACY_SOURCE_SCHEMA_ID) {
     return { draft: source.draft.trim(), claims: source.claims };
   }
+  if (source.schema === PREVIOUS_SOURCE_SCHEMA_ID) {
+    const draft = source.paragraphs.map((paragraph) =>
+      paragraph.sentences.map((sentence) => sentence.text.trim()).join(" ")).join("\n\n");
+    const claims = source.paragraphs.flatMap((paragraph, pIndex) =>
+      paragraph.sentences.flatMap((sentence) => sentence.claims.map(({ claim }) => ({
+        claim: claim.trim(), where: `paragraph ${pIndex + 1}`,
+      }))));
+    return { draft, claims };
+  }
+  const ledger = new Map(source.ledger.map((entry) => [entry.id, entry]));
   const draft = source.paragraphs.map((paragraph) =>
     paragraph.sentences.map((sentence) => sentence.text.trim()).join(" ")).join("\n\n");
   const claims = source.paragraphs.flatMap((paragraph, pIndex) =>
-    paragraph.sentences.flatMap((sentence) => sentence.claims.map(({ claim }) => ({
-      claim: claim.trim(), where: `paragraph ${pIndex + 1}`,
+    paragraph.sentences.flatMap((sentence) => sentence.claim_ids.map((id) => ({
+      claim: ledger.get(id).claim.trim(), where: `paragraph ${pIndex + 1}`,
     }))));
   return { draft, claims };
 }

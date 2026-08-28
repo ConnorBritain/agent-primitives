@@ -91,9 +91,9 @@ export async function run(t, { HERE }) {
       t.check("voice-draft: silently dropping any supported instruction requires an omission record",
         /whether its status is `rated`, `described`, or `absent-paired`[\s\S]*put it in `omitted`/.test(prompt));
       t.check("voice-draft: audits each named actor action and consequence independently",
-        /every factual verb attached to it[\s\S]*Inventory each actor-action and actor-consequence[\s\S]*separately in `claims`/.test(src));
+        /every factual verb attached to it[\s\S]*Inventory each actor-action and actor-consequence[\s\S]*separately in the ledger/.test(src));
       t.check("voice-draft: an attributed quotation must be supplied verbatim",
-        /exact quoted words must already appear in[\s\S]*user's request[\s\S]*quotation in `claims` does not make invented wording permissible/.test(src));
+        /exact quoted words must already appear in[\s\S]*user's request[\s\S]*quotation in the ledger does not make invented wording permissible/.test(src));
       t.check("voice-draft: v2 omissions identify the dimension and every observation",
         /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
 
@@ -160,7 +160,9 @@ export async function run(t, { HERE }) {
       ["materials that cannot be truthfully reconstructed become omissions",
         /requires an exact quotation, citation, link, figure, or[\s\S]*do not have[\s\S]*record it in `omitted`/],
       ["every emitted sentence must carry an explicit factual basis",
-        /voice-draft-source\/2[\s\S]*every prose[\s\S]*sentence in exactly one sentence unit[\s\S]*classify every sentence with exactly one basis/],
+        /voice-draft-source\/3[\s\S]*every prose[\s\S]*sentence in exactly one sentence unit[\s\S]*classify every sentence with exactly one basis/],
+      ["the factual claim set closes before prose generation",
+        /claim ledger comes before the prose[\s\S]*before writing the first prose sentence[\s\S]*then close the ledger/],
       ["external descriptive facts require a verification label",
         /external factual assertion[\s\S]*classify it as[\s\S]*external-verification[\s\S]*do not mislabel remembered history/],
       ["external claims must be finite rather than unverifiable generalizations",
@@ -168,7 +170,7 @@ export async function run(t, { HERE }) {
       ["the final pronoun pass checks ownership and inclusive groups",
         /final pronoun and referent check[\s\S]*person, number, ownership, or inclusive group/],
       ["the final claim inventory catches separate assertions rather than nearby topics",
-        /final claim inventory[\s\S]*sentence by sentence[\s\S]*nearby[\s\S]*does not cover a second assertion/],
+        /final closed-ledger audit[\s\S]*sentence by sentence[\s\S]*nearby listed fact does not cover a second assertion/],
       ["the requested form cannot override the profile's lexical register",
         /final register check[\s\S]*requested container[\s\S]*selects form and[\s\S]*does not authorize[\s\S]*abstract nominalizations/],
       ["rated parentheticals are counted rather than remembered",
@@ -266,7 +268,7 @@ export async function run(t, { HERE }) {
 
   t.group("voice-draft portable source — models own prose, deterministic code owns fences");
   {
-    const required = ["schema", "kind", "paragraphs", "omitted", "refused"];
+    const required = ["schema", "kind", "ledger", "paragraphs", "omitted", "refused"];
     t.check("the provider-neutral draft schema requires one fixed shape",
       JSON.stringify([...DRAFT_SOURCE_SCHEMA.required].sort()) === JSON.stringify([...required].sort())
         && DRAFT_SOURCE_SCHEMA.additionalProperties === false
@@ -274,13 +276,17 @@ export async function run(t, { HERE }) {
         && DRAFT_SOURCE_SCHEMA.properties.kind.type === "string");
     const request = "A maker can disable features after sale.";
     const source = {
-      schema: "voice-draft-source/2", kind: "draft",
+      schema: "voice-draft-source/3", kind: "draft",
+      ledger: [{
+        id: "c1", basis: "request-supported", claim: "A maker can disable features after sale.",
+        request_basis: "maker can disable features after sale",
+      }],
       paragraphs: [{ sentences: [
         {
           text: "A maker can disable features after sale.", basis: "request-supported",
-          claims: [{ claim: "A maker can disable features after sale.", request_basis: "maker can disable features after sale" }],
+          claim_ids: ["c1"],
         },
-        { text: "That leaves ownership hollow.", basis: "reasoning", claims: [] },
+        { text: "That leaves ownership hollow.", basis: "reasoning", claim_ids: [] },
       ] }],
       omitted: [], refused: "",
     };
@@ -300,7 +306,7 @@ export async function run(t, { HERE }) {
     t.check("non-empty semantic disclosures survive canonical assembly",
       disclosed.ok && disclosed.output.includes('"omitted"') && disclosed.output.includes('"claims"'));
     const refusal = assembleVoiceDraft({
-      ...source, kind: "refusal", paragraphs: [], refused: "reader and occasion are missing",
+      ...source, kind: "refusal", ledger: [], paragraphs: [], refused: "reader and occasion are missing",
     });
     t.check("a semantic refusal assembles to one public refusal and no draft",
       refusal.ok && refusal.refusal && !refusal.output.includes("```markdown")
@@ -310,7 +316,7 @@ export async function run(t, { HERE }) {
     t.check("a draft source cannot smuggle a fence or newline inside a sentence unit",
       !validateVoiceDraftSource({
         ...source,
-        paragraphs: [{ sentences: [{ text: "Prose.\n```json", basis: "reasoning", claims: [] }] }],
+        paragraphs: [{ sentences: [{ text: "Prose.\n```json", basis: "reasoning", claim_ids: [] }] }],
       }, { request }).ok);
     t.check("a refusal source carrying draft prose is rejected",
       !validateVoiceDraftSource({ ...source, kind: "refusal", refused: "missing register" }).ok);
@@ -325,35 +331,33 @@ export async function run(t, { HERE }) {
     t.check("request-supported sentences require claims and a locatable request basis",
       !validateVoiceDraftSource({
         ...source,
-        paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claims: [] }] }],
+        paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claim_ids: [] }] }],
       }, { request }).ok
         && !validateVoiceDraftSource({
           ...source,
-          paragraphs: [{ sentences: [{
-            text: "Claim.", basis: "request-supported",
-            claims: [{ claim: "x", request_basis: "not in the request" }],
-          }] }],
-        }, { request }).ok);
+          ledger: [{ id: "c1", basis: "request-supported", claim: "x", request_basis: "not in the request" }],
+      }, { request }).ok);
     t.check("proof-carrying drafts cannot validate without the original request",
       !validateVoiceDraftSource(source).ok && !assembleVoiceDraft(source).ok);
-    t.check("reasoning and hypothetical units cannot hide a claims payload",
+    t.check("reasoning and hypothetical units cannot cite a claim payload",
       !validateVoiceDraftSource({
         ...source,
         paragraphs: [{ sentences: [{
           text: "Supposed reasoning.", basis: "reasoning",
-          claims: [{ claim: "hidden fact", request_basis: "maker can disable" }],
+          claim_ids: ["c1"],
         }] }],
       }, { request }).ok);
-    t.check("a malformed sentence claims field is rejected without throwing",
+    t.check("a malformed sentence claim_ids field is rejected without throwing",
       !validateVoiceDraftSource({
         ...source,
-        paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claims: "x" }] }],
+        paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claim_ids: "c1" }] }],
       }, { request }).ok);
     const external = assembleVoiceDraft({
       ...source,
+      ledger: [{ id: "c1", basis: "external-verification", claim: "The bill passed in 2024.", request_basis: "" }],
       paragraphs: [{ sentences: [{
         text: "The bill passed in 2024.", basis: "external-verification",
-        claims: [{ claim: "The bill passed in 2024.", request_basis: "" }],
+        claim_ids: ["c1"],
       }] }],
     }, { request });
     t.check("external facts remain possible but become derived verification claims",
@@ -362,17 +366,28 @@ export async function run(t, { HERE }) {
     t.check("external verification cannot masquerade as request support",
       !validateVoiceDraftSource({
         ...source,
-        paragraphs: [{ sentences: [{
-          text: "The bill passed.", basis: "external-verification",
-          claims: [{ claim: "The bill passed.", request_basis: "maker can disable" }],
-        }] }],
+        ledger: [{ id: "c1", basis: "external-verification", claim: "The bill passed.", request_basis: "maker can disable" }],
+        paragraphs: [{ sentences: [{ text: "The bill passed.", basis: "external-verification", claim_ids: ["c1"] }] }],
       }, { request }).ok);
     t.check("external verification cannot silently omit its claim queue",
       !validateVoiceDraftSource({
         ...source,
         paragraphs: [{ sentences: [{
-          text: "The bill passed.", basis: "external-verification", claims: [],
+          text: "The bill passed.", basis: "external-verification", claim_ids: [],
         }] }],
+      }, { request }).ok);
+    t.check("the claim ledger is closed, contiguous, and fully referenced",
+      !validateVoiceDraftSource({ ...source, ledger: [{ ...source.ledger[0], id: "c2" }] }, { request }).ok
+        && !validateVoiceDraftSource({ ...source, ledger: [...source.ledger, {
+          id: "c2", basis: "external-verification", claim: "Unused fact.", request_basis: "",
+        }] }, { request }).ok
+        && !validateVoiceDraftSource({ ...source,
+          paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claim_ids: ["c9"] }] }],
+        }, { request }).ok);
+    t.check("source/3 proves the ledger was emitted before expressive prose",
+      !validateVoiceDraftSource({
+        schema: source.schema, kind: source.kind, paragraphs: source.paragraphs,
+        ledger: source.ledger, omitted: source.omitted, refused: source.refused,
       }, { request }).ok);
     const legacy = {
       schema: "voice-draft-source/1", kind: "draft", draft: "Historical prose.",
@@ -380,26 +395,37 @@ export async function run(t, { HERE }) {
     };
     t.check("historical voice-draft-source/1 artifacts remain readable",
       validateVoiceDraftSource(legacy).ok && assembleVoiceDraft(legacy).ok);
+    const previous = {
+      schema: "voice-draft-source/2", kind: "draft",
+      paragraphs: [{ sentences: [{ text: "Historical proof.", basis: "reasoning", claims: [] }] }],
+      omitted: [], refused: "",
+    };
+    t.check("historical voice-draft-source/2 artifacts remain readable",
+      validateVoiceDraftSource(previous, { request }).ok && assembleVoiceDraft(previous, { request }).ok);
+    t.check("historical source/2 claim-audit/1 pairs remain readable",
+      applyVoiceDraftClaimAudit(previous, {
+        schema: "voice-draft-claim-audit/1",
+        sentences: [{
+          id: "p1s1", status: "keep", basis: "reasoning", claims: [],
+          reason: "The historical sentence adds no descriptive fact.",
+        }],
+      }, { request }).ok);
 
     const refs = sentenceRefs(source);
     const claimAuditInstructions = fsRead(join(HERE, "..", "skills", "prose-draft", "references", "claim-audit.md"), "utf8");
     t.check("the independent auditor distrusts the drafter and catches generic institutional claims",
-      /basis labels and claims are untrusted suggestions/.test(claimAuditInstructions)
-        && /generic wording does not turn[\s\S]*one into reasoning/.test(claimAuditInstructions));
+      /Sentence basis[\s\S]*ledger references are evidence to inspect, never conclusions to trust/.test(claimAuditInstructions)
+        && /Generic wording does not turn[\s\S]*into reasoning/.test(claimAuditInstructions));
     t.check("the independent auditor requires rationales and finite external propositions",
       /For every `keep`[\s\S]*`reason`[\s\S]*every[\s\S]*clause/.test(claimAuditInstructions)
-        && /An external claim is keepable only when it is finite[\s\S]*authoritative[\s\S]*Reject unbounded claims/.test(claimAuditInstructions));
+        && /An external ledger claim is usable only when it is finite[\s\S]*authoritative[\s\S]*Reject a sentence[\s\S]*unbounded/.test(claimAuditInstructions));
     const audit = {
-      schema: "voice-draft-claim-audit/1",
+      schema: "voice-draft-claim-audit/2",
       sentences: refs.map((ref, index) => ({
         id: ref.id, status: "keep",
-        basis: index === 0 ? "request-supported" : "external-verification",
-        claims: index === 0
-          ? [{ claim: "A maker can disable features after sale.", request_basis: "maker can disable features after sale" }]
-          : [{ claim: "That leaves ownership hollow.", request_basis: "" }],
         reason: index === 0
-          ? "The assertion copies the request premise."
-          : "The sentence makes an external descriptive assertion queued for verification.",
+          ? "The assertion is fully covered by request-supported ledger entry c1."
+          : "The sentence is a conclusion from the supplied premise and adds no descriptive fact.",
       })),
     };
     t.check("the independent audit schema is fixed and strict-harness compatible",
@@ -407,8 +433,8 @@ export async function run(t, { HERE }) {
         && DRAFT_AUDIT_SCHEMA.properties.schema.type === "string"
         && DRAFT_AUDIT_SCHEMA.properties.sentences.items.properties.status.type === "string");
     const applied = applyVoiceDraftClaimAudit(source, audit, { request });
-    t.check("an independent audit may correct a sentence basis and derived claim queue",
-      applied.ok && applied.source.paragraphs[0].sentences[1].basis === "external-verification"
+    t.check("an independent audit approves without rewriting the closed ledger or prose",
+      applied.ok && applied.source === source && applied.source.paragraphs[0].sentences[1].basis === "reasoning"
         && assembleVoiceDraft(applied.source, { request }).output.includes("That leaves ownership hollow."));
     t.check("an audit must cover every sentence in exact order",
       !applyVoiceDraftClaimAudit(source, { ...audit, sentences: audit.sentences.slice(1) }, { request }).ok

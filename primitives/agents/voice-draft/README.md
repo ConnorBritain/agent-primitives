@@ -104,27 +104,28 @@ form-level habits do not.
 
 ## Reading the output
 
-The semantic agent returns one fixed-shape `voice-draft-source/2` object. Its paragraphs
-contain audited sentence units, so every emitted sentence declares whether it rests on
-request evidence, an external fact queued for verification, reasoning, a hypothetical, or
-a normative judgment. The portable
-assembler validates that certificate against the request, derives claims and paragraph
+The semantic agent returns one fixed-shape `voice-draft-source/3` object. It emits a closed
+claim ledger before its paragraphs, and every sentence may cite only those pre-written
+claim IDs or declare a non-factual basis. The portable assembler validates the ledger and
+sentence certificate against the request, derives claims and paragraph
 locations, and turns it into the public artifact: a draft in a `markdown` fence with a
 non-empty disclosure record when needed, or a `json` refusal, never both. Historical
-`voice-draft-source/1` artifacts remain readable.
+`voice-draft-source/1` and `voice-draft-source/2` artifacts remain readable.
 
-This split is mechanical, not editorial. The model still owns every word of prose, every
-sentence classification, and every omission. Deterministic code owns the envelope,
-requires every sentence to be represented, rejects request evidence it cannot locate,
+This split is mechanical, not editorial. The model still owns every word of prose, the
+pre-writing ledger, every sentence classification, and every omission. Deterministic code
+owns the envelope, requires every sentence to be represented, rejects request evidence it
+cannot locate, rejects dangling, unused, repeated, or cross-basis ledger references,
 derives the claim record, and removes empty source arrays. Claude can enforce the schema
 while decoding; Codex exposes `--output-schema`; generic harnesses can emit ordinary JSON
 and run the same local validator and assembler with the original request.
 
 Before assembly, the shipped blank-page path runs the independent claim-audit prompt over
-the request and sentence units only. That pass does not see the profile and may not revise
-the prose; it corrects factual-basis labels, expands the verification queue, or rejects an
+the request, closed ledger, and sentence units only. That pass does not see the profile
+and may not revise the prose or ledger; it rejects any factual clause that escaped the
+closed set, any insufficient request basis, any unbounded external claim, or an
 unrecoverable fabricated quotation, citation, or biography. Deterministic code reconciles
-every audit decision to one sentence ID before applying it. A separate human claims audit
+every audit decision to one sentence ID. A separate human claims audit
 remains necessary before publication or release scoring.
 
 Read the draft first and ask the question the tests cannot: **does this sound like them?**

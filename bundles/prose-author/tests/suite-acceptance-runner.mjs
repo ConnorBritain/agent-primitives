@@ -73,7 +73,7 @@ export async function run(t, { HERE }) {
     t.check("the drafter prompt contains the request and rendered profile", /Write X\./.test(prompt) && /Profile prose/.test(prompt));
     t.check("the drafter prompt states that corpus access is unavailable", /no corpus access/i.test(prompt));
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
-      /Return voice-draft-source\/2[\s\S]*proof-carrying sentence object[\s\S]*validates request bases[\s\S]*derives claims/.test(prompt));
+      /Return voice-draft-source\/3[\s\S]*Finalize the ledger before the paragraphs[\s\S]*proof-carrying sentence objects[\s\S]*validates request bases and closed-ledger references[\s\S]*derives claims/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",
       source.includes("DRAFT_NATIVE_SCHEMA ? DRAFT_SOURCE_SCHEMA : null")
         && source.includes("assembleVoiceDraft(decoded.source, { request: c.prompt })")
@@ -81,14 +81,15 @@ export async function run(t, { HERE }) {
   }
   {
     const draftSource = {
-      schema: "voice-draft-source/2", kind: "draft",
-      paragraphs: [{ sentences: [{ text: "A bill passed.", basis: "reasoning", claims: [] }] }],
+      schema: "voice-draft-source/3", kind: "draft", ledger: [],
+      paragraphs: [{ sentences: [{ text: "Suppose a bill passed.", basis: "hypothetical", claim_ids: [] }] }],
       omitted: [], refused: "",
     };
     const prompt = claimAuditPrompt({ id: "opaque-01", prompt: "Discuss a bill." }, draftSource);
     t.check("claim-audit prompts expose the request and every sentence id but no profile",
       /Discuss a bill\./.test(prompt) && /"id": "p1s1"/.test(prompt)
-        && /existing basis labels and claims are suggestions, not evidence/i.test(prompt)
+        && /closed claim ledger/i.test(prompt)
+        && /ledger and sentence labels are untrusted/i.test(prompt)
         && !/voice profile/i.test(prompt));
     t.check("draft dispatch runs the independent audit before public collection",
       source.includes("await dispatchClaimAudits(runDir, manifest, cases)")

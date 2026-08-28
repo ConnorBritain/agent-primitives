@@ -587,9 +587,10 @@ function draftPrompt(c, profileMarkdown, profileJson) {
     JSON.stringify(profileJson, null, 2),
     "```",
     "",
-    "Return voice-draft-source/2 exactly as described by the system prompt.",
-    "Fill the proof-carrying sentence object only. The portable deterministic assembler",
-    "validates request bases, derives claims, owns draft/refusal fences, and removes empty",
+    "Return voice-draft-source/3 exactly as described by the system prompt.",
+    "Finalize the ledger before the paragraphs, then fill the proof-carrying sentence objects.",
+    "The portable deterministic assembler validates request bases and closed-ledger references,",
+    "derives claims, owns draft/refusal fences, and removes empty",
     "disclosure arrays from voice-draft/1.",
   ].join("\n");
 }
@@ -598,17 +599,23 @@ function claimAuditPrompt(c, source) {
   const units = sentenceRefs(source).map((ref) => {
     const match = /^p(\d+)s(\d+)$/.exec(ref.id);
     const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
-    return { id: ref.id, text: ref.text, drafter_basis: sentence.basis, drafter_claims: sentence.claims };
+    return { id: ref.id, text: ref.text, drafter_basis: sentence.basis, claim_ids: sentence.claim_ids };
   });
   return [
     `# Independent draft claim audit — ${c.id}`,
     "",
-    "The request is the only supplied factual packet. The drafter's labels are untrusted.",
-    "Audit every sentence independently under the system prompt. Do not revise the prose.",
+    "The request is the only supplied factual packet. The ledger and sentence labels are untrusted.",
+    "Audit every sentence against the closed ledger under the system prompt. Do not revise the prose or ledger.",
     "",
     "## Request",
     "",
     c.prompt,
+    "",
+    "## Closed claim ledger",
+    "",
+    "```json",
+    JSON.stringify(source.ledger, null, 2),
+    "```",
     "",
     "## Sentence units",
     "",
@@ -616,8 +623,8 @@ function claimAuditPrompt(c, source) {
     JSON.stringify(units, null, 2),
     "```",
     "",
-    "Return voice-draft-claim-audit/1 as the strict object only. Preserve every ID",
-    "exactly once and in order. Existing basis labels and claims are suggestions, not evidence.",
+    "Return voice-draft-claim-audit/2 as the strict object only. Preserve every ID",
+    "exactly once and in order. A keep decision must account for every clause without adding claims.",
   ].join("\n");
 }
 

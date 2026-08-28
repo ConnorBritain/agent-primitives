@@ -1,20 +1,11 @@
 /** Independent factual-basis audit for proof-carrying voice drafts. */
 
 import {
-  SOURCE_SCHEMA_ID as DRAFT_SOURCE_SCHEMA_ID, validateVoiceDraftSource,
+  PREVIOUS_SOURCE_SCHEMA_ID, SOURCE_SCHEMA_ID as DRAFT_SOURCE_SCHEMA_ID, validateVoiceDraftSource,
 } from "./draft-contract.mjs";
 
-export const AUDIT_SCHEMA_ID = "voice-draft-claim-audit/1";
-
-const claimSchema = {
-  type: "object",
-  additionalProperties: false,
-  properties: {
-    claim: { type: "string", minLength: 1 },
-    request_basis: { type: "string" },
-  },
-  required: ["claim", "request_basis"],
-};
+export const AUDIT_SCHEMA_ID = "voice-draft-claim-audit/2";
+export const LEGACY_AUDIT_SCHEMA_ID = "voice-draft-claim-audit/1";
 
 export const AUDIT_SCHEMA = {
   type: "object",
@@ -29,14 +20,9 @@ export const AUDIT_SCHEMA = {
         properties: {
           id: { type: "string", pattern: "^p[1-9][0-9]*s[1-9][0-9]*$" },
           status: { type: "string", enum: ["keep", "reject"] },
-          basis: {
-            type: "string",
-            enum: ["request-supported", "external-verification", "reasoning", "hypothetical", "normative"],
-          },
-          claims: { type: "array", maxItems: 10, items: claimSchema },
           reason: { type: "string" },
         },
-        required: ["id", "status", "basis", "claims", "reason"],
+        required: ["id", "status", "reason"],
       },
     },
   },
@@ -58,7 +44,9 @@ export function parseVoiceDraftClaimAudit(raw) {
 }
 
 export function sentenceRefs(source) {
-  if (!isObject(source) || source.schema !== DRAFT_SOURCE_SCHEMA_ID || !Array.isArray(source.paragraphs)) return [];
+  if (!isObject(source)
+    || ![DRAFT_SOURCE_SCHEMA_ID, PREVIOUS_SOURCE_SCHEMA_ID].includes(source.schema)
+    || !Array.isArray(source.paragraphs)) return [];
   return source.paragraphs.flatMap((paragraph, pIndex) =>
     (Array.isArray(paragraph?.sentences) ? paragraph.sentences : []).map((sentence, sIndex) => ({
       id: `p${pIndex + 1}s${sIndex + 1}`,
@@ -70,10 +58,14 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
   const errors = [];
   const original = validateVoiceDraftSource(source, { request });
   if (!original.ok) errors.push(...original.errors.map((error) => `draft source: ${error}`));
-  if (source?.schema !== DRAFT_SOURCE_SCHEMA_ID) errors.push(`claim audit requires ${DRAFT_SOURCE_SCHEMA_ID}`);
+  if (![DRAFT_SOURCE_SCHEMA_ID, PREVIOUS_SOURCE_SCHEMA_ID].includes(source?.schema)) {
+    errors.push(`claim audit requires ${DRAFT_SOURCE_SCHEMA_ID} or historical ${PREVIOUS_SOURCE_SCHEMA_ID}`);
+  }
   if (!isObject(audit)) return { ok: false, errors: [...errors, "claim audit is not an object"], source: null };
   if (!exactKeys(audit, ["schema", "sentences"])) errors.push("claim audit must carry exactly schema and sentences");
-  if (audit.schema !== AUDIT_SCHEMA_ID) errors.push(`claim audit schema must be ${AUDIT_SCHEMA_ID}`);
+  const ledgerFirst = source?.schema === DRAFT_SOURCE_SCHEMA_ID;
+  const expectedSchema = ledgerFirst ? AUDIT_SCHEMA_ID : LEGACY_AUDIT_SCHEMA_ID;
+  if (audit.schema !== expectedSchema) errors.push(`claim audit schema must be ${expectedSchema}`);
   if (!Array.isArray(audit.sentences)) {
     errors.push("claim audit sentences must be an array");
     return { ok: false, errors, source: null };
@@ -89,16 +81,19 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     const row = audit.sentences[index];
     const at = `claim audit sentences[${index}]`;
     if (!isObject(row)) { errors.push(`${at} must be an object`); continue; }
-    if (!exactKeys(row, ["id", "status", "basis", "claims", "reason"])) {
-      errors.push(`${at} must carry exactly id, status, basis, claims, reason`);
+    const rowFields = ledgerFirst ? ["id", "status", "reason"] : ["id", "status", "basis", "claims", "reason"];
+    if (!exactKeys(row, rowFields)) {
+      errors.push(`${at} must carry exactly ${rowFields.join(", ")}`);
     }
     if (expected && row.id !== expected.id) errors.push(`${at}.id must be ${expected.id}`);
     if (!expected) errors.push(`${at} has no draft sentence`);
     if (!["keep", "reject"].includes(row.status)) errors.push(`${at}.status is invalid`);
-    if (!["request-supported", "external-verification", "reasoning", "hypothetical", "normative"].includes(row.basis)) {
-      errors.push(`${at}.basis is invalid`);
+    if (!ledgerFirst) {
+      if (!["request-supported", "external-verification", "reasoning", "hypothetical", "normative"].includes(row.basis)) {
+        errors.push(`${at}.basis is invalid`);
+      }
+      if (!Array.isArray(row.claims)) errors.push(`${at}.claims must be an array`);
     }
-    if (!Array.isArray(row.claims)) errors.push(`${at}.claims must be an array`);
     if (typeof row.reason !== "string") errors.push(`${at}.reason must be a string`);
     if (row.status === "keep" && !String(row.reason ?? "").trim()) errors.push(`${at} kept without a basis rationale`);
     if (row.status === "reject" && !String(row.reason ?? "").trim()) errors.push(`${at} rejected without a reason`);
@@ -106,6 +101,8 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     decisions.push(row);
   }
   if (errors.length) return { ok: false, errors, source: null };
+
+  if (ledgerFirst) return { ok: true, errors: [], source };
 
   let cursor = 0;
   const auditedSource = {

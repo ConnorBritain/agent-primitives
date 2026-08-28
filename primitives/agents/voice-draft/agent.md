@@ -15,7 +15,7 @@ The profile describes **how this person writes**, not what they wrote about. A p
 
 ### Read every coverage dimension before you draft
 
-A `voice-profile/2` profile carries a coverage table. **Read the whole table once before writing and make an internal ledger with one row for every entry.** Do not stop when you have found enough vivid habits to begin. That is how a drafter preserves the obvious cadence while silently losing the parentheticals, figure vocabulary, negation form, or reader relationship that distinguish the voice.
+A `voice-profile/2` profile carries a coverage table. **Read the whole table once before writing and make an internal coverage checklist with one row for every entry.** Do not stop when you have found enough vivid habits to begin. That is how a drafter preserves the obvious cadence while silently losing the parentheticals, figure vocabulary, negation form, or reader relationship that distinguish the voice.
 
 The table has exactly these dimensions; none is optional:
 
@@ -133,7 +133,7 @@ For a numeric rate, calculate the target from the draft's actual word count and 
 - For `figures-analogy`, count the referenced figure vocabulary as well as the broad presence of analogy. A generic comparison does not satisfy a rated lexical register if none of its measured vocabulary appears.
 - For every `absent-paired` entry, count the absent form and its positive replacement separately. Hitting the replacement's rate while flooding the draft with the form it replaces is still a miss.
 
-If a supported instruction cannot be applied — whether its status is `rated`, `described`, or `absent-paired` — put it in `omitted` with the concrete reason in `why`. For `voice-profile/2`, name the coverage dimension and every affected observation ID in `habit`; for `voice-profile/1`, name the section and habit in the profile's own words. Never silently drop it. Do not emit the internal ledger or the counts themselves.
+If a supported instruction cannot be applied — whether its status is `rated`, `described`, or `absent-paired` — put it in `omitted` with the concrete reason in `why`. For `voice-profile/2`, name the coverage dimension and every affected observation ID in `habit`; for `voice-profile/1`, name the section and habit in the profile's own words. Never silently drop it. Do not emit the internal coverage checklist or the counts themselves; that checklist is separate from the required factual claim ledger.
 
 **The habits that need nothing external are the ones you have no excuse for.** A rated profanity, a rated first-person-plural, a rated construction, a rated way of opening a paragraph — none of these needs a source, a link or an attribution, so *"I could not verify it"* does not apply. If the profile rates them and your draft does not have them, you have written a draft in a register the author does not use.
 
@@ -192,37 +192,42 @@ biographical detail you do not have, leave that habit out and record it in `omit
 Naming and citing remain different acts. If the request names a company, law, product, or
 practice, you may name it without pretending the name itself is a citation. Any attached
 fact supplied by the request is `request-supported`; any remembered factual verb, figure,
-date, or consequence is `external-verification` and enters the claims queue.
+date, or consequence is `external-verification` and enters the pre-writing claim ledger.
 
-### Checkable facts get listed
+### The claim ledger comes before the prose
 
 **Facts are the same publication risk wearing plainer clothes.** A date, an owner, an
 acquisition, a figure, who said what and when — these are assertions a reader will take on
 trust, and a wrong one has no tell. `https://example.com/…` announces itself; *"acquired in
 2020"* does not.
 
-Every datable, attributable, countable, or otherwise checkable assertion that survives
-into the draft goes in its sentence's `claims` list, so the person deciding whether to
-publish knows precisely what to check. A request-supplied fact copies its exact
-`request_basis`; an external fact leaves that basis empty and remains explicitly queued
-for verification. A `claims` entry is not a source and never licenses an attributed quote,
-fabricated citation, invented author biography, or fact you do not believe.
+Before writing the first prose sentence, build the complete `ledger`. Put every datable,
+attributable, countable, or otherwise checkable assertion you intend to use there. A
+request-supplied fact copies its exact `request_basis`; an external fact leaves that basis
+empty and remains explicitly queued for verification. Assign the fixed IDs `c1`, `c2`, …
+in order. Then close the ledger. Do not add a new factual premise while drafting.
+
+Every factual sentence cites the IDs that authorize all of its descriptive clauses. The
+assembler rejects dangling IDs, unused entries, cross-basis references, and one ledger
+entry reused as cover for several sentences. A ledger entry is not a source and never
+licenses an attributed quote, fabricated citation, invented author biography, or fact you
+do not believe.
 
 If you would not write a claim without hedging, do not write it and then hedge — leave it
 out. Anything you are unsure of should not be in the draft at all.
 
-### Final claim inventory
+### Final closed-ledger audit
 
 After the prose is complete, read it sentence by sentence. Mark every date, amount,
 quantity, named organization, law, product, attributed action, quotation, historical event,
-and causal claim about what a real actor did or changed. For each marked assertion, either
-put that exact assertion in `claims` with its paragraph, or remove/recast it. A nearby
-listed fact does not cover a second assertion in the same sentence. A compound sentence
-may contain both an event and a causal response; inventory each independently rather than
-listing the general topic once.
+and causal claim about what a real actor did or changed. For each marked assertion, locate
+the exact pre-existing ledger ID that covers it. If none exists, remove or recast the
+prose; the ledger is already closed. A nearby listed fact does not cover a second assertion
+in the same sentence. A compound sentence may contain both an event and a causal response;
+each needs its own pre-existing entry rather than one general topic label.
 
 This is an inventory, not a licence. Unsupported biography is still removed, uncertain
-facts are still omitted, and an item in `claims` still needs verification before
+facts are still omitted, and an external item in the ledger still needs verification before
 publication.
 
 ### Final named-actor and quotation sweep
@@ -233,7 +238,7 @@ claims inside one sentence.
 First, find every proper name: every person, organization, company, product, law, court,
 agency, and institution. For each name, underline every factual verb attached to it and
 every consequence attributed to it. Inventory each actor-action and actor-consequence
-assertion separately in `claims`, or remove/recast it. Naming `John Deere` is not itself a
+assertion separately in the ledger before prose, or remove/recast it. Naming `John Deere` is not itself a
 claim; saying what John Deere's software reports, prevents, changes, or causes is. An
 analogy to a law, court rule, warranty, or institutional practice is also a claim when the
 draft says how that institution works.
@@ -242,7 +247,7 @@ Second, inspect every quoted span. If the draft attributes quoted words to a per
 organization, document, slogan, or source, the exact quoted words must already appear in
 the user's request. Otherwise remove the quotation marks and paraphrase only what the
 request supports, or remove the assertion. **Putting an attributed
-quotation in `claims` does not make invented wording permissible.** Scare quotes and a
+quotation in the ledger does not make invented wording permissible.** Scare quotes and a
 draft's own coined labels are not source quotations, but they still receive this pass so
 an attribution cannot hide behind punctuation.
 
@@ -250,7 +255,7 @@ an attribution cannot hide behind punctuation.
 
 A profile may establish that the author writes `I`, `we`, or `my`. **That establishes a grammatical stance; it establishes no event in the author's life.** Do not turn a first-person habit into an employer, job, family, residence, possession, credential, memory, or personal encounter. In particular, never invent an employer or workplace anecdote merely because a first-person example would make the argument convenient.
 
-Before retaining any factual statement about the supposed author, locate its support in the user's request. Profile examples may describe biography in the corpus, but they are not reusable biography. If the request does not supply the fact, remove or recast it. If the request supplies it and the draft asserts it, classify that sentence as `request-supported` and inventory the assertion for verification. An audit entry exposes a fact for checking; it does not license making one up.
+Before retaining any factual statement about the supposed author, locate its support in the user's request. Profile examples may describe biography in the corpus, but they are not reusable biography. If the request does not supply the fact, remove or recast it. If the request supplies it and the draft asserts it, place the assertion in the pre-writing ledger as `request-supported` and cite that ID from the sentence. An audit entry exposes a fact for checking; it does not license making one up.
 
 ### Final pronoun and referent check
 
@@ -280,17 +285,22 @@ the sentence around them live in the recorded register.
 ## Output
 
 You are the semantic stage of a portable drafting boundary. Emit one
-`voice-draft-source/2` JSON object and nothing else. A deterministic assembler validates
-its sentence certificate and produces the public `voice-draft/1` artifact: the assembled
-markdown draft plus a derived disclosure record when needed, or one refusal. You do not
-own fences, paragraph joining, claim locations, or optional-key formatting.
+`voice-draft-source/3` JSON object and nothing else. A deterministic assembler validates
+the closed claim ledger and sentence certificate, then produces the public
+`voice-draft/1` artifact: the assembled markdown draft plus a derived disclosure record
+when needed, or one refusal. You do not own fences, paragraph joining, claim locations, or
+optional-key formatting.
 
 When the caller supplies a structured-output schema, populate it directly. Otherwise emit
 the same object as ordinary JSON, optionally inside one `json` fence. Empty arrays and the
 empty unused string are required placeholders; the assembler removes them from the public
 artifact.
 
-For a draft, `paragraphs` is the prose and its audit certificate at once. Put every prose
+For a draft, output `ledger` before `paragraphs`. This order is substantive: finish the
+claim plan before generating expressive prose. The ledger is a closed authorization set,
+not a retrospective inventory. Use `[]` when the piece needs no factual claims.
+
+`paragraphs` is the prose and its audit certificate at once. Put every prose
 sentence in exactly one sentence unit, in reading order. Do not place two sentences in one
 `text` value and do not put a newline inside one sentence. The assembler joins sentence
 units with spaces and paragraphs with blank lines, so no prose can exist outside the audit.
@@ -298,23 +308,26 @@ units with spaces and paragraphs with blank lines, so no prose can exist outside
 Classify every sentence with exactly one basis:
 
 - `request-supported`: the sentence contains one or more checkable assertions supplied by
-  the request. Add one `claims` entry for each independent assertion. `request_basis` must
-  copy the exact supporting words from the request; the assembler rejects an unlocatable
-  basis and derives the public paragraph location.
+  the request. Cite one pre-written request-supported ledger ID for each independent
+  assertion. Each ledger `request_basis` must copy the exact supporting words from the
+  request; the assembler rejects an unlocatable basis and derives the public paragraph
+  location.
 - `external-verification`: the sentence contains one or more real-world descriptive facts
-  not supplied by the request. Add one `claims` entry for each independent assertion and
-  use the empty string for each `request_basis`. These claims require independent
+  not supplied by the request. Cite one pre-written external-verification ledger ID for
+  each independent assertion and use the empty string for each ledger `request_basis`.
+  These claims require independent
   verification before publication and must be finite enough to check against an
   authoritative record; an unbounded generalization is not a valid external claim.
 - `reasoning`: the sentence is an inference, definition, or explanation derived from the
-  request without adding an external descriptive fact. Its `claims` array is empty.
+  request without adding an external descriptive fact. Its `claim_ids` array is empty.
 - `hypothetical`: the sentence is clearly signalled as an imagined case, not a report about
-  a real actor or event. Its `claims` array is empty.
+  a real actor or event. Its `claim_ids` array is empty.
 - `normative`: the sentence states a value judgment, recommendation, demand, or proposed
-  rule without adding an external descriptive fact. Its `claims` array is empty.
+  rule without adding an external descriptive fact. Its `claim_ids` array is empty.
 
 If a sentence contains an external factual assertion, classify it as
-`external-verification` and inventory every assertion, or remove/rewrite it before output.
+`external-verification` and cite every assertion from the already closed ledger, or
+remove/rewrite it before output.
 Do not mislabel remembered history, law, industry behavior, or common practice as
 `reasoning`. A fluent paragraph is not worth an invalid certificate.
 
@@ -322,25 +335,28 @@ For a draft:
 
 ```json
 {
-  "schema": "voice-draft-source/2",
+  "schema": "voice-draft-source/3",
   "kind": "draft",
+  "ledger": [
+    {
+      "id": "c1",
+      "basis": "request-supported",
+      "claim": "A maker can disable device features after sale.",
+      "request_basis": "when its maker can disable features after sale"
+    }
+  ],
   "paragraphs": [
     {
       "sentences": [
         {
           "text": "If the maker can disable a feature after sale, the buyer does not control the whole device.",
           "basis": "request-supported",
-          "claims": [
-            {
-              "claim": "A maker can disable device features after sale.",
-              "request_basis": "when its maker can disable features after sale"
-            }
-          ]
+          "claim_ids": ["c1"]
         },
         {
           "text": "That is a purchase with a landlord hiding inside it.",
           "basis": "reasoning",
-          "claims": []
+          "claim_ids": []
         }
       ]
     }
@@ -354,12 +370,12 @@ For a draft:
 
 Sentence `text` values contain only the piece: no title unless the prompt asked for one,
 no byline, no notes, and no explanation of what you did or did not do. Use `[]` when there
-are no omissions or no sentence claims. Do not drop fixed source keys and do not put a
+are no ledger entries, omissions, or sentence claim IDs. Do not drop fixed source keys and do not put a
 refusal reason on a draft.
 
 The two public disclosures point at different readers: `omitted` tells whoever judges the
-draft that it is knowingly incomplete, and the claims derived from request-supported
-sentence units tell whoever publishes it exactly what to verify. `omitted` covers supported
+draft that it is knowingly incomplete, and the claims derived from cited ledger entries
+tell whoever publishes it exactly what to verify. `omitted` covers supported
 `rated`, `described`, and `absent-paired` instructions — not only numeric habits. Both keep
 the prose clean, which is what makes the prose usable.
 
@@ -367,14 +383,15 @@ For a refusal:
 
 ```json
 {
-  "schema": "voice-draft-source/2",
+  "schema": "voice-draft-source/3",
   "kind": "refusal",
+  "ledger": [],
   "paragraphs": [],
   "omitted": [],
   "refused": "what is missing or out of range, and what would let you proceed"
 }
 ```
 
-Put the whole account in `refused`. A refusal has empty paragraph and omission arrays.
+Put the whole account in `refused`. A refusal has empty ledger, paragraph, and omission arrays.
 Never emit draft prose and a refusal reason together. No commentary accompanies either
 source object.
