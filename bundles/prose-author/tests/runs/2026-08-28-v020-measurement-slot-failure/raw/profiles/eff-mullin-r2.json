@@ -1,0 +1,185 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 138681,
+  "duration_api_ms": 138659,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "3971f7ca-5bbe-4ea1-aae6-ca503765d134",
+  "total_cost_usd": 0.16774365000000002,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 8027,
+    "cache_read_input_tokens": 48978,
+    "output_tokens": 8196,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8027,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 8196,
+      "cacheReadInputTokens": 48978,
+      "cacheCreationInputTokens": 8027,
+      "webSearchRequests": 0,
+      "costUSD": 0.16774365000000002,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-profile-source/2",
+    "voice_card": "empty",
+    "observations": [
+      {
+        "dimensions": [
+          "person-reader-stance",
+          "self-reference-biography"
+        ],
+        "section": "address",
+        "prose": "'We' functions as EFF's institutional voice—a named civil-liberties organisation taking public positions—rather than a reader-inclusive 'we.' It grounds every advocacy claim in collective editorial authority, not personal opinion. Place it in position statements, opposition summaries, and bill analyses; it carries the weight of an organisational byline throughout.",
+        "measurement_id": "first-person-plural-family"
+      },
+      {
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "section": "address",
+        "prose": "'You' appears selectively in pieces that reach a civic-action moment, typically near the close when California-resident readers are directed to contact legislators. Outside those passages the prose stays in third person or institutional 'we.' Deploy 'you' only when a specific reader action—contact a legislator, sign a letter—follows immediately.",
+        "measurement_id": "second-person-family"
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "register-range",
+        "prose": "Contractions appear in every sample, sustaining a conversational register across technical policy analysis. They span both argument and narration, reducing formality without sacrificing precision. Their consistent presence means the register stays accessible to a general readership even when sentence structure or legal terminology rises in complexity.",
+        "measurement_id": "contractions"
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "register-range",
+        "prose": "Full-form negatives—'does not,' 'cannot,' 'is not'—appear alongside contractions and tend to land at evaluative pivots: direct rebuttals of a sponsor's claim or a corrective aside. The full form signals a challenge rather than background description; use it when the sentence carries a correction the reader should register as definitive.",
+        "measurement_id": "uncontracted-negatives"
+      },
+      {
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "section": "cadence",
+        "prose": "Questions appear structurally as section or title frames and rhetorically within body paragraphs to highlight a flaw a bill fails to address. They are not genuine inquiries; the answer arrives in the following sentence. Most effective at paragraph openings or section breaks, where they prime the reader for the critique that follows.",
+        "measurement_id": "question-marks"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "prose": "Parenthetical spans appear in every sample at high density, serving multiple functions: inserting bill citations, adding brief definitional glosses, and qualifying a claim mid-sentence. They keep the main clause clean while packing in reference material, suitable for readers who may follow hyperlinked citations without losing the argument's thread.",
+        "measurement_id": "round-parenthetical-spans"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "prose": "Em-dashes appear in nearly every sample as pivots and emphatic asides. They introduce a restatement or contrasting consequence after a build-up clause—'presented as a technical reorganisation—but it's much more than that'—or set off a corrective phrase mid-sentence with a sharper break than a parenthesis would supply.",
+        "measurement_id": "em-dashes"
+      },
+      {
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "section": "absences",
+        "prose": "The institutional 'we' displaces the individual 'I' almost entirely across the corpus. Writing in this voice presents the organisation's position, not a named individual's view. Self-reference should default to the organisational form; first-person singular appears only in exceptional passages where a personal observation is essential and clearly marked as such.",
+        "measurement_id": "first-person-plural-family"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "absences",
+        "prose": "En-dashes are nearly absent; the em-dash handles all inline interruption, pivot, and break functions. Drafters should default to the em-dash for asides and contrasts and avoid the en-dash, which does not appear as a stable stylistic habit in this corpus.",
+        "measurement_id": "em-dashes"
+      },
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Hedges are genre-bound and deliberately calibrated: 'may,' 'could,' 'likely,' and 'will' distinguish what a bill requires from what its incentives make probable. Strong predictive claims appear alongside tentative ones, tracking legal certainty rather than rhetorical caution. Place stronger predictions where incentive structures are unambiguous, tentative forms where courts or regulators retain discretion.",
+        "support_files": [
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt"
+        ],
+        "frequency": "throughout"
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "address",
+        "prose": "Opponents are named concretely—specific bills by acronym, large companies by name, regulatory offices by function—rather than kept abstract. Allies are introduced by institutional name and linked to public filings. Quoted terms from opponents such as 'duty of care' or 'family account' are introduced and then interrogated, signalling that the framing itself is contested.",
+        "support_files": [
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt"
+        ],
+        "frequency": "throughout"
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures draw on everyday institutional life: a copyright registry called 'a card catalog,' compliance requirements called a 'death sentence' for startups, takedown mechanics a 'heckler's veto.' Comparisons are brief—one to two sentences—chosen to translate abstract legal consequences into concrete stakes, landing mid-argument rather than at openings or closes.",
+        "support_files": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt"
+        ],
+        "frequency": "several times per piece"
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "prose": "Pieces open by naming the specific bill and immediately stating the advocacy position—often within the first two sentences. Closings deliver a direct legislative demand or civic-action instruction. Several pieces end with a sentence that echoes or sharpens the opening claim, providing closure by restating stakes rather than introducing new evidence.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "court-records-should-be-free.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt"
+        ],
+        "frequency": "throughout"
+      }
+    ],
+    "unresolved": {
+      "profanity-vulgarity": "The measured count is zero across all samples and no positive replacement form is available. The corpus establishes a clean register without profanity, but cannot supply a positive habit to anchor a drafting instruction."
+    },
+    "gaps": "All samples appear under an organisational masthead; high parenthetical and em-dash density may partly reflect EFF house style rather than individual writer habits alone. The corpus covers only technology-legislation advocacy; how this voice behaves in longer-form investigation or non-legislative commentary is unknown. The first-person-singular count is too thin to establish a stable drafting instruction beyond noting that the institutional plural dominates. Voice card is unfilled; no declared-intent evidence exists to corroborate or contradict corpus findings.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "fast_mode_state": "off",
+  "uuid": "5e6314b8-8ac9-46ab-99db-b7459e4f6161"
+}

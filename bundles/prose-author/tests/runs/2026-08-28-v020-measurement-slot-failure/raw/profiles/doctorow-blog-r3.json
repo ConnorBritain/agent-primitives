@@ -1,0 +1,193 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 133332,
+  "duration_api_ms": 133307,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "4265b2b1-79be-4ef8-a5fb-8efdb4a483fd",
+  "total_cost_usd": 0.17125455,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 7829,
+    "cache_read_input_tokens": 72506,
+    "output_tokens": 8009,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7829,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 8009,
+      "cacheReadInputTokens": 72506,
+      "cacheCreationInputTokens": 7829,
+      "webSearchRequests": 0,
+      "costUSD": 0.17125455,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-profile-source/2",
+    "voice_card": "empty",
+    "observations": [
+      {
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "section": "address",
+        "prose": "The corpus addresses readers directly with 'you'/'your' throughout, treating them as already caught inside the systems under analysis—workers facing algorithmic pricing, users blocked by dickovers, citizens watching gerontocracy. The address creates solidarity rather than instruction; the reader is implicated in the argument, not merely its recipient.",
+        "measurement_id": "second-person-family"
+      },
+      {
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "section": "address",
+        "prose": "'We' appears throughout as a broad collective—workers, citizens, internet users—that includes writer and reader against a named opponent class. It does not mark an institution or an editorial stance. Place it when naming shared exposure to a system; shift to 'you' when the action required falls on the reader alone.",
+        "measurement_id": "first-person-plural-family"
+      },
+      {
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "section": "register-range",
+        "prose": "First-person singular grounds abstract argument in lived experience—cancer treatment and literary executor arrangements anchor a piece on political gerontocracy; a childhood as a bookseller motivates a meditation on AI economics. The anecdote arrives briefly, performs a structural job (analogy or credentialing), and yields back to argument; the writer appears as arguer and exemplar, not as biographical subject.",
+        "measurement_id": "first-person-singular-family"
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "cadence",
+        "prose": "Contractions are the unmarked, default register; the prose reads as spoken argument throughout, in analytic and polemical passages alike. A full form gains rhetorical weight precisely because it is rare—reserve it for deliberate emphasis rather than standard negation.",
+        "measurement_id": "contractions"
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "absences",
+        "prose": "Uncontracted negatives are sparse against the contracted default, landing with deliberate extra weight. Where a contraction would slide past, 'cannot' or 'do not' stops the reader and signals a claim the writer is unwilling to soften. The assembler pairs this absence with the contractions measurement.",
+        "measurement_id": "uncontracted-negatives"
+      },
+      {
+        "dimensions": [
+          "profanity-vulgarity"
+        ],
+        "section": "register-range",
+        "prose": "Profanity appears across all samples as a punctual intensifier at moments of moral indignation—'tax the shit out of empty homes,' 'the whole fucking point'—not as ambient texture. Place it to mark the logical apex of an outrage; one well-placed instance per piece is the pattern, not scattered deployment.",
+        "measurement_id": "profanity-vulgarity"
+      },
+      {
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "section": "address",
+        "prose": "Questions serve three roles: structural pivots that title or open a section, Socratic challenges placed inside an opponent's position, and reader-directed moves softened from imperative to question. Direct imperatives also appear—'Stop using Chrome, switch to Firefox'—aimed at readers who must take a concrete step. Both forms appear in every sample.",
+        "measurement_id": "question-marks"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "prose": "Parentheses carry running asides, self-corrections, and sardonic glosses—'(a direct quote)' appended to a paraphrase, '(very, very weird)' amplifying an adjective. They interrupt the main clause briefly; content is typically one phrase or short sentence, functioning as a low-key register brake present across every sample.",
+        "measurement_id": "round-parenthetical-spans"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "prose": "En-dashes perform the pivoting and appending work that em-dashes conventionally handle—abrupt additions, mid-sentence redirects, appositive amplifications. They appear across every sample and are the sole dash-based interruption mark in the corpus. Use them consistently; do not substitute an em-dash.",
+        "measurement_id": "en-dashes"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "absences",
+        "prose": "Em-dashes are entirely absent across the corpus. The interruption and aside roles are filled by en-dashes and round parenthetical spans. The assembler pairs this absence with the en-dashes and round-parenthetical-spans measurements.",
+        "measurement_id": "em-dashes"
+      },
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "The prevailing mode is confident assertion. When hedges appear—'I think,' 'of course'—they typically introduce a concession the argument immediately overturns. Predictions are stated as near-certainties; genuine uncertainty markers are reserved for attributing positions to opponents, not for softening the writer's own claims. Place hedges to signal fair-mindedness before a rebuttal.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "frequency": "several times per piece"
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "register-range",
+        "prose": "Named opponents—Thiel, Musk, Trump, Uber, Facebook—are quoted directly and then systematically dismantled; their own words supply the rebuttal target. Allied sources are credited by name and extended rather than merely summarized. Third-party coinages are acknowledged by attribution: 'John Gruber's term,' 'what Douglas Rushkoff calls.'",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-21-dickovers.txt"
+        ],
+        "frequency": "throughout"
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Analogies draw from economics, legal procedure, and history and are extended to their logical limit before the punch-line names the contradiction: the US as an escrow agent who keeps both deed and money; Trump's diplomacy as a poker game with the table flipped; gig 'flexibility' as risk-transfer. A figure typically runs two to four sentences.",
+        "support_files": [
+          "2026-07-22-table-flipper.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt"
+        ],
+        "frequency": "several times per piece"
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "prose": "Pieces open with a hook—a quoted aphorism, a compressed thesis ('Data brokers are a cancer'), or a framed paradox ('Here's an irony')—that the body systematically unpacks. Closings return to the opening's frame or escalate to a broader systemic claim; the final sentence typically reframes the specific topic as symptom of a structural problem, often in a short declarative.",
+        "support_files": [
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "frequency": "throughout"
+      }
+    ],
+    "unresolved": {},
+    "gaps": "All ten samples fall within a fifteen-day window in July 2026; the register is consistent but the corpus cannot confirm whether these habits hold across longer periods or in shorter link-post formats. Personal biographical detail appears but functions structurally—anecdote serving argument—and should not be treated as factual content for reuse in drafts. No editorial mediation is disclosed; punctuation choices, dash selection, and register can be attributed to the writer directly.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "fast_mode_state": "off",
+  "uuid": "6e03c1a3-388f-4f06-af37-407e8c146b14"
+}

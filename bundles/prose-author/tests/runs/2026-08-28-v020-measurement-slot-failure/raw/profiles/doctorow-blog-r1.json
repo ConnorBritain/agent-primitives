@@ -1,0 +1,196 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 147834,
+  "duration_api_ms": 147819,
+  "num_turns": 3,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "585b38c7-830c-406d-ac44-15b794140a6c",
+  "total_cost_usd": 0.3015871500000001,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 40905,
+    "cache_read_input_tokens": 81738,
+    "output_tokens": 8244,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 40905,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 8244,
+      "cacheReadInputTokens": 81738,
+      "cacheCreationInputTokens": 40905,
+      "webSearchRequests": 0,
+      "costUSD": 0.3015871500000001,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-profile-source/2",
+    "voice_card": "empty",
+    "observations": [
+      {
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "section": "address",
+        "measurement_id": "second-person-family",
+        "prose": "Second-person address runs through every post, positioning the reader as someone already embedded in the argument's stakes — a briefed ally, not a stranger being persuaded. 'You' carries both tutorial and polemical weight, alternating between 'here is what they are doing to you' and 'here is what you can do about it.'"
+      },
+      {
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "section": "address",
+        "measurement_id": "first-person-plural-family",
+        "prose": "'We' consistently names a coalition of workers, citizens, and internet users facing collective adversaries rather than an editorial institution. It produces solidarity rather than authority. Place 'we' when the argument identifies a shared harm or a collective remedy; avoid it when the claim is the writer's individual analysis."
+      },
+      {
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "section": "address",
+        "measurement_id": "first-person-singular-family",
+        "prose": "First-person singular marks the writer as arguer and occasional biographical witness. Personal disclosures — cancer treatment, literary estate planning, a friend's death — appear briefly and pivot immediately into the structural argument they illustrate. The 'I' establishes embodied credibility, then steps back to the structural claim."
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "register-range",
+        "measurement_id": "contractions",
+        "prose": "Contractions are the default throughout, sustaining the register of a fast-talking knowledgeable friend. They prevent argumentative density from tipping into lecture. Full forms appear at moments of rhetorical stress or when mimicking the formal voice of an opponent's legal document or corporate press release."
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "absences",
+        "measurement_id": "uncontracted-negatives",
+        "prose": "Uncontracted negatives are sparse against the dominant contracted baseline. When they appear they signal a deliberate register shift — a formal charge, a legal formulation, or an ironic mimicry of officialese. The positive replacement driving this pair is the contractions pattern."
+      },
+      {
+        "dimensions": [
+          "profanity-vulgarity"
+        ],
+        "section": "register-range",
+        "measurement_id": "profanity-vulgarity",
+        "prose": "Profanity appears across every post as punctuation for moral outrage, not decoration. 'Bullshit' and 'fuck off' mark the moment an opponent's claim is not merely wrong but insulting to the reader's intelligence. Placement is typically terminal in an argument sequence, not as opener."
+      },
+      {
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "section": "cadence",
+        "measurement_id": "question-marks",
+        "prose": "Questions are structural and rhetorical — they crystallize the argument's hinge before the writer supplies the answer, or expose an opponent's position by voicing it as an open question. Direct imperatives appear in tutorial sequences only. The writer rarely leaves a question open for the reader to answer."
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "measurement_id": "round-parenthetical-spans",
+        "prose": "Round parenthetical spans handle three jobs in every post: a throwaway source credit, a dry aside that sharpens the surrounding irony, and a compressed counter-argument acknowledged and dismissed mid-sentence. They keep sentences moving without losing the qualification. Nested parentheticals do not appear."
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "measurement_id": "en-dashes",
+        "prose": "En-dashes carry the pivot, appositive, and emphatic-break work conventionally assigned to em-dashes. They are the primary inline interruption mark. Use en-dashes wherever mid-sentence interruption or a sharp pivot is required; em-dashes do not appear in this corpus."
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "absences",
+        "measurement_id": "em-dashes",
+        "prose": "Em-dashes are absent from the entire corpus. The interruption and pivot work they would normally handle is distributed between en-dashes and round parenthetical spans. The positive replacement driving this pair is the en-dashes pattern."
+      },
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-24-supplemental-income.txt",
+          "2026-07-11-your-risk.txt"
+        ],
+        "frequency": "several times per piece",
+        "prose": "Hedges are sparse and typically ironic: 'of course,' 'obviously,' and 'naturally' introduce claims that are anything but obvious to the opponent. Genuine uncertainty markers — 'I think,' 'I believe' — appear when the writer advances a novel synthesis, always followed immediately by supporting argument rather than left as an open concession."
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "register-range",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "frequency": "throughout",
+        "prose": "Opponents are named and characterized with compressed contempt. Allies and sources are named precisely, their argument stated in full, then extended or gently corrected. Other people's phrases arrive in quotation marks followed by a gloss or rebuttal — the writer rarely lets a quoted claim stand without delivering a verdict."
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "support_files": [
+          "2026-07-11-your-risk.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-24-supplemental-income.txt",
+          "2026-07-16-lucky-orifices.txt"
+        ],
+        "frequency": "several times per piece",
+        "prose": "Analogies are drawn from everyday commercial life — escrow agents, tipped minimum wage, pop-up blockers, beauty contests — and extended for one or two paragraphs before the structural parallel is made explicit. The figure arrives before the abstract claim it supports. Comparisons are not stretched beyond what the original scene can sustain."
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "frequency": "throughout",
+        "prose": "Posts open with a declarative scene — a quoted phrase, a named phenomenon, or a sharp ironic reversal — that frames the central tension within the first two sentences. Closings return to the opening's vocabulary or extend its metaphor to deliver a verdict, often as a short stand-alone sentence that names what the argument has established."
+      }
+    ],
+    "unresolved": {},
+    "gaps": "The corpus spans ten posts from a single two-week window in July 2026, which establishes the current register reliably but cannot confirm whether the tutorial register visible in the dickover post — direct imperatives, step-by-step instructions — recurs or is a one-off. The voice.md card is unfilled, so no intent-versus-corpus comparison is possible. No register shift across medium, platform, or audience type is observable within this corpus.",
+    "observations_dropped": 1,
+    "multiple_voices_suspected": false
+  },
+  "fast_mode_state": "off",
+  "uuid": "a00ff15c-8644-4dbe-b9f3-9751d5bdf143"
+}

@@ -1,0 +1,191 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 157852,
+  "duration_api_ms": 157833,
+  "num_turns": 3,
+  "result": "Here is a summary of the rendering decisions made for `doctorow-blog`:\n\n**Refusal checks passed.** Ten usable samples with valid provenance frontmatter (`source`, `date`, `human_authored: true`). One consistent voice and register throughout. No tell catalogs or detector material detected in any input file. `voice.md` is unfilled → `voice_card: empty`.\n\n**Coverage decisions:**\n\n| Dimension | Resolution |\n|---|---|\n| `person-reader-stance` | Two measured observations: `second-person-family` (reader as subject) + `first-person-plural-family` (collective \"we\") |\n| `self-reference-biography` | Measured: `first-person-singular-family` — personal episodes appear but are instrumentally brief |\n| `contraction-negation` | Measured positive (`contractions`) + absence observation for `uncontracted-negatives` per mechanical guidance |\n| `profanity-vulgarity` | Measured: present in every post, used as precision intensifier |\n| `questions-imperatives-vocatives` | Measured: `question-marks` — rhetorical/structural, placed at pivots |\n| `interruption-punctuation` | Measured `round-parenthetical-spans` + `en-dashes` + absence for `em-dashes` per mechanical guidance |\n| `opponents-allies-sources` | Qualitative: named opponents, credited allies, citation conventions |\n| `qualification-hedging` | Qualitative: rare and confined to forecasting/inference moments |\n| `figures-analogy` | Qualitative: slow-built multi-paragraph analogies from law, games, and service industries |\n| `openings-endings-closure` | Qualitative: paradox-framing openings, crystallizing closings |\n\n**`observations_dropped`: 0.** All claims are supported by at least two corpus files.",
+  "stop_reason": "end_turn",
+  "session_id": "97cf66c8-0028-44e4-b688-0e0b8b1d786a",
+  "total_cost_usd": 0.20397120000000002,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 8662,
+    "cache_read_input_tokens": 115139,
+    "output_tokens": 9129,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8662,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 9129,
+      "cacheReadInputTokens": 115139,
+      "cacheCreationInputTokens": 8662,
+      "webSearchRequests": 0,
+      "costUSD": 0.20397120000000002,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-profile-source/2",
+    "voice_card": "empty",
+    "observations": [
+      {
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "section": "address",
+        "prose": "Direct second-person address runs throughout every post, placing the reader inside the argument's consequences — 'your paycheck,' 'your boss,' 'your phone.' It functions as rhetorical inclusion rather than instruction, making systemic forces feel personally immediate. Use it to anchor abstract economic claims to individual experience.",
+        "measurement_id": "second-person-family"
+      },
+      {
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "section": "address",
+        "prose": "'We' consistently names a broad, non-institutional collective — workers, citizens, humanity — opposed to an implied 'they' of bosses, billionaires, and platforms. It never names an organization and does not include the reader conditionally. Place it when the argument shifts from individual grievance to structural stakes.",
+        "measurement_id": "first-person-plural-family"
+      },
+      {
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "section": "address",
+        "prose": "First-person singular appears in brief, functional autobiographical insertions — a cancer diagnosis, naming a literary executor — that illustrate the essay's structural argument rather than develop a persona. The personal episode is dropped as soon as the analogy lands. Keep these insertions tightly instrumental and short.",
+        "measurement_id": "first-person-singular-family"
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "register-range",
+        "prose": "Contractions sustain an oral, conversational register in every post — expository passages, polemic, and technical walkthroughs alike — signaling that register does not shift even when subject matter becomes technical or emotionally charged. The contracted form is the unmarked default; departures from it carry weight.",
+        "measurement_id": "contractions"
+      },
+      {
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "section": "absences",
+        "prose": "Uncontracted negative constructions ('do not,' 'cannot,' 'will not') are rare and deliberate. Surrounded by the contracted default, a full-form negative reads as elevated or pointed — a formal refusal or a moment requiring unusual rhetorical weight. Reserve uncontracted negatives for denials that need the extra syllable to register as final.",
+        "measurement_id": "contractions"
+      },
+      {
+        "dimensions": [
+          "profanity-vulgarity"
+        ],
+        "section": "register-range",
+        "prose": "Profanity appears in every post — 'bullshit,' 'shit,' 'fuck off' — embedded in expository and argumentative sentences rather than reserved for emotional climaxes. It marks a claim as self-evident or an institution as contemptible, functioning as a precision intensifier. Surrounding syntax stays structured; profanity does not signal loss of control.",
+        "measurement_id": "profanity-vulgarity"
+      },
+      {
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "section": "cadence",
+        "prose": "Questions are predominantly rhetorical and structural, placed at paragraph boundaries to frame the next argumentative movement — 'why sell it to a hospital?' 'what's a labor organizer to do?' They name the problem the following paragraph solves, not an invitation to reply. Place them at section pivots, not mid-argument.",
+        "measurement_id": "question-marks"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "prose": "Round parentheses appear constantly for in-line qualification, attribution, or sardonic aside — '(but I repeat myself),' '(a direct quote).' They let a secondary voice intrude without breaking the main sentence's momentum, and the aside is often the sharpest part of the sentence. Use them for embedded commentary that would derail a clause as its own sentence.",
+        "measurement_id": "round-parenthetical-spans"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "cadence",
+        "prose": "En-dashes serve the pivot and elaboration function that em-dashes fill in much edited prose — separating a clause from its expansion or a term from its gloss. They appear across all posts in this role, giving mid-sentence turns a slightly lighter visual break. Use en-dash for interruptions and pivots throughout.",
+        "measurement_id": "en-dashes"
+      },
+      {
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "section": "absences",
+        "prose": "Em-dashes are absent from the entire corpus; the interruption and pivot function they would otherwise serve is handled entirely by en-dashes and parentheses. A drafter working in this voice should use an en-dash rather than an em-dash for mid-sentence breaks, elaborations, and pivots.",
+        "measurement_id": "en-dashes"
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "address",
+        "prose": "Opponents are named and specific — Uber, Thiel, Musk, Facebook — with their arguments quoted or closely paraphrased before being countered. Allies and sources are credited by name with their role noted. 'As X writes' signals endorsement; 'but' or 'however' following a citation signals correction and reframing.",
+        "frequency": "several times per piece",
+        "support_files": [
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-09-wilhoitian.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Hedging is rare and genre-specific. When uncertainty appears — 'I think,' 'likely,' 'probably' — it marks a prediction about future events or an inference about motivation, not a softening of the core claim. Core polemical assertions are stated flatly. Hedge only at forecasting or psychological-inference moments.",
+        "frequency": "once or twice per piece",
+        "support_files": [
+          "2026-07-24-supplemental-income.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-14-designated-survivor.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Analogies are extended across multiple paragraphs and drawn from legal procedure (escrow agents), games (poker tables), and service industries (restaurateurs, tipped servers). The analogy is introduced, developed step by step with each element mapped, then collapsed back into the political claim. Short similes are rarer than these slow-built comparisons.",
+        "frequency": "several times per piece",
+        "support_files": [
+          "2026-07-22-table-flipper.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-13-go-meta-meta.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "closings",
+        "prose": "Posts open with a quoted external voice, an ironic definition, or a single declarative naming the paradox to be resolved. Closings return to that opening frame or end with a short, flat verdict: 'It's bullshit,' 'That's what planning is all about.' New demands rarely appear at the close; the final sentence crystallizes rather than escalates.",
+        "frequency": "throughout",
+        "support_files": [
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-14-designated-survivor.txt"
+        ]
+      }
+    ],
+    "unresolved": {},
+    "gaps": "The corpus covers ten consecutive days of posts within a single polemical register, giving high internal consistency but no visibility into shorter link-only posts that may be interspersed in the actual feed. Whether extended analogies and dense second-person address appear equally in those shorter formats cannot be determined. The biographical passages in 2026-07-14 are unusually personal; how frequently personal health or estate detail appears across the full archive is unknown. voice.md is unfilled, so no author intent can be corroborated or contradicted.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "fast_mode_state": "off",
+  "uuid": "b33f94f2-7b0e-4307-a630-d35797995c99"
+}
