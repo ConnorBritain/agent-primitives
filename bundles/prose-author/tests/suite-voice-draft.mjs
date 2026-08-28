@@ -151,11 +151,15 @@ export async function run(t, { HERE }) {
       ["first-person grammar does not invent biography",
         /first person is grammar, not biography[\s\S]*never invent an employer/],
       ["unsupported author facts are removed rather than laundered through claims",
-        /if it is unsupported, remove or recast it[\s\S]*does not license making one up/],
+        /request does not supply the fact, remove or recast it[\s\S]*does not license making one up/],
       ["the request is the factual packet while the profile remains voice evidence",
-        /request as the complete factual packet[\s\S]*profile is[\s\S]*not a research packet[\s\S]*pretrained memory is not an allowed source/],
-      ["unsupported named examples become omissions rather than model-memory facts",
-        /requires named opponents, quotations, sources, or exact[\s\S]*request does not provide[\s\S]*record it in `omitted`/],
+        /request as the only supplied factual packet[\s\S]*profile is[\s\S]*not a research packet[\s\S]*pretrained memory is not verified evidence/],
+      ["materials that cannot be truthfully reconstructed become omissions",
+        /requires an exact quotation, citation, link, figure, or[\s\S]*do not have[\s\S]*record it in `omitted`/],
+      ["every emitted sentence must carry an explicit factual basis",
+        /voice-draft-source\/2[\s\S]*every prose[\s\S]*sentence in exactly one sentence unit[\s\S]*classify every sentence with exactly one basis/],
+      ["external descriptive facts require a verification label",
+        /external factual assertion[\s\S]*classify it as[\s\S]*external-verification[\s\S]*do not mislabel remembered history/],
       ["the final pronoun pass checks ownership and inclusive groups",
         /final pronoun and referent check[\s\S]*person, number, ownership, or inclusive group/],
       ["the final claim inventory catches separate assertions rather than nearby topics",
@@ -257,51 +261,120 @@ export async function run(t, { HERE }) {
 
   t.group("voice-draft portable source — models own prose, deterministic code owns fences");
   {
-    const required = ["schema", "kind", "draft", "omitted", "claims", "refused"];
+    const required = ["schema", "kind", "paragraphs", "omitted", "refused"];
     t.check("the provider-neutral draft schema requires one fixed shape",
       JSON.stringify([...DRAFT_SOURCE_SCHEMA.required].sort()) === JSON.stringify([...required].sort())
         && DRAFT_SOURCE_SCHEMA.additionalProperties === false
         && DRAFT_SOURCE_SCHEMA.properties.schema.type === "string"
         && DRAFT_SOURCE_SCHEMA.properties.kind.type === "string");
+    const request = "A maker can disable features after sale.";
     const source = {
-      schema: "voice-draft-source/1", kind: "draft", draft: "Eleven years, and a shelf.",
-      omitted: [], claims: [], refused: "",
+      schema: "voice-draft-source/2", kind: "draft",
+      paragraphs: [{ sentences: [
+        {
+          text: "A maker can disable features after sale.", basis: "request-supported",
+          claims: [{ claim: "A maker can disable features after sale.", request_basis: "maker can disable features after sale" }],
+        },
+        { text: "That leaves ownership hollow.", basis: "reasoning", claims: [] },
+      ] }],
+      omitted: [], refused: "",
     };
-    t.check("an empty-disclosure semantic draft validates", validateVoiceDraftSource(source).ok);
-    const plain = assembleVoiceDraft(source);
-    t.check("empty source arrays assemble to a public draft with no noisy JSON fence",
-      plain.ok && /^```markdown\n[\s\S]*\n```\n$/.test(plain.output)
-        && !plain.output.includes("```json"));
+    t.check("a proof-carrying semantic draft validates against its request",
+      validateVoiceDraftSource(source, { request }).ok);
+    const plain = assembleVoiceDraft(source, { request });
+    t.check("sentence units assemble to prose and a derived public claim record",
+      plain.ok && plain.output.includes("A maker can disable features after sale. That leaves ownership hollow.")
+        && plain.output.includes('"where": "paragraph 1"'));
     t.check("the assembled public draft passes the unchanged voice-draft/1 validator",
       validateDraft(parseDraft(plain.output)).ok);
 
     const disclosed = assembleVoiceDraft({
       ...source,
       omitted: [{ habit: "opponents-allies-sources / obs-12", why: "no verified source" }],
-      claims: [{ claim: "The bill passed in 2024", where: "paragraph 2" }],
-    });
+    }, { request });
     t.check("non-empty semantic disclosures survive canonical assembly",
       disclosed.ok && disclosed.output.includes('"omitted"') && disclosed.output.includes('"claims"'));
     const refusal = assembleVoiceDraft({
-      ...source, kind: "refusal", draft: "", refused: "reader and occasion are missing",
+      ...source, kind: "refusal", paragraphs: [], refused: "reader and occasion are missing",
     });
     t.check("a semantic refusal assembles to one public refusal and no draft",
       refusal.ok && refusal.refusal && !refusal.output.includes("```markdown")
         && refusal.output.includes('"refused"'));
     t.check("a draft source carrying a refusal reason is rejected",
-      !validateVoiceDraftSource({ ...source, refused: "also refuse" }).ok);
-    t.check("a draft source cannot smuggle a second output fence inside its prose",
-      !validateVoiceDraftSource({ ...source, draft: "Prose.\n```json\n{}\n```" }).ok);
+      !validateVoiceDraftSource({ ...source, refused: "also refuse" }, { request }).ok);
+    t.check("a draft source cannot smuggle a fence or newline inside a sentence unit",
+      !validateVoiceDraftSource({
+        ...source,
+        paragraphs: [{ sentences: [{ text: "Prose.\n```json", basis: "reasoning", claims: [] }] }],
+      }, { request }).ok);
     t.check("a refusal source carrying draft prose is rejected",
       !validateVoiceDraftSource({ ...source, kind: "refusal", refused: "missing register" }).ok);
     t.check("a refusal source carrying disclosures is rejected",
       !validateVoiceDraftSource({
-        ...source, kind: "refusal", draft: "", refused: "missing register",
-        claims: [{ claim: "x", where: "paragraph 1" }],
+        ...source, kind: "refusal", paragraphs: [], refused: "missing register",
+        omitted: [{ habit: "x", why: "y" }],
       }).ok);
     t.check("missing or extra source keys are rejected rather than inferred",
-      !validateVoiceDraftSource(Object.fromEntries(Object.entries(source).filter(([key]) => key !== "claims"))).ok
-        && !validateVoiceDraftSource({ ...source, note: "extra" }).ok);
+      !validateVoiceDraftSource(Object.fromEntries(Object.entries(source).filter(([key]) => key !== "paragraphs")), { request }).ok
+        && !validateVoiceDraftSource({ ...source, note: "extra" }, { request }).ok);
+    t.check("request-supported sentences require claims and a locatable request basis",
+      !validateVoiceDraftSource({
+        ...source,
+        paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claims: [] }] }],
+      }, { request }).ok
+        && !validateVoiceDraftSource({
+          ...source,
+          paragraphs: [{ sentences: [{
+            text: "Claim.", basis: "request-supported",
+            claims: [{ claim: "x", request_basis: "not in the request" }],
+          }] }],
+        }, { request }).ok);
+    t.check("proof-carrying drafts cannot validate without the original request",
+      !validateVoiceDraftSource(source).ok && !assembleVoiceDraft(source).ok);
+    t.check("reasoning and hypothetical units cannot hide a claims payload",
+      !validateVoiceDraftSource({
+        ...source,
+        paragraphs: [{ sentences: [{
+          text: "Supposed reasoning.", basis: "reasoning",
+          claims: [{ claim: "hidden fact", request_basis: "maker can disable" }],
+        }] }],
+      }, { request }).ok);
+    t.check("a malformed sentence claims field is rejected without throwing",
+      !validateVoiceDraftSource({
+        ...source,
+        paragraphs: [{ sentences: [{ text: "Claim.", basis: "request-supported", claims: "x" }] }],
+      }, { request }).ok);
+    const external = assembleVoiceDraft({
+      ...source,
+      paragraphs: [{ sentences: [{
+        text: "The bill passed in 2024.", basis: "external-verification",
+        claims: [{ claim: "The bill passed in 2024.", request_basis: "" }],
+      }] }],
+    }, { request });
+    t.check("external facts remain possible but become derived verification claims",
+      external.ok && external.output.includes("The bill passed in 2024.")
+        && external.output.includes('"claim": "The bill passed in 2024."'));
+    t.check("external verification cannot masquerade as request support",
+      !validateVoiceDraftSource({
+        ...source,
+        paragraphs: [{ sentences: [{
+          text: "The bill passed.", basis: "external-verification",
+          claims: [{ claim: "The bill passed.", request_basis: "maker can disable" }],
+        }] }],
+      }, { request }).ok);
+    t.check("external verification cannot silently omit its claim queue",
+      !validateVoiceDraftSource({
+        ...source,
+        paragraphs: [{ sentences: [{
+          text: "The bill passed.", basis: "external-verification", claims: [],
+        }] }],
+      }, { request }).ok);
+    const legacy = {
+      schema: "voice-draft-source/1", kind: "draft", draft: "Historical prose.",
+      omitted: [], claims: [], refused: "",
+    };
+    t.check("historical voice-draft-source/1 artifacts remain readable",
+      validateVoiceDraftSource(legacy).ok && assembleVoiceDraft(legacy).ok);
   }
 
   t.group("voice-draft — a missed habit is a worse imitation; an invented citation is a lie");

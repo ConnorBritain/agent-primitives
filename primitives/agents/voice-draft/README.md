@@ -104,18 +104,21 @@ form-level habits do not.
 
 ## Reading the output
 
-The semantic agent returns one fixed-shape `voice-draft-source/1` object. The portable
-assembler validates draft/refusal disjointness and turns it into the public artifact: a
-draft in a `markdown` fence with a non-empty disclosure record when needed, or a `json`
-refusal, never both. No commentary, on the same reasoning as the reviser's log-only
-contract — a paragraph explaining the draft is a thumb on the scale for whoever judges
-it next.
+The semantic agent returns one fixed-shape `voice-draft-source/2` object. Its paragraphs
+contain audited sentence units, so every emitted sentence declares whether it rests on
+request evidence, an external fact queued for verification, reasoning, a hypothetical, or
+a normative judgment. The portable
+assembler validates that certificate against the request, derives claims and paragraph
+locations, and turns it into the public artifact: a draft in a `markdown` fence with a
+non-empty disclosure record when needed, or a `json` refusal, never both. Historical
+`voice-draft-source/1` artifacts remain readable.
 
-This split is mechanical, not editorial. The model still owns every word of prose and
-every omission or claim. Deterministic code owns only the envelope and removes empty
-source arrays rather than asking a stochastic model to decide whether optional keys
-exist. Claude can enforce the schema while decoding; Codex exposes `--output-schema`;
-generic harnesses can emit ordinary JSON and run the same local validator and assembler.
+This split is mechanical, not editorial. The model still owns every word of prose, every
+sentence classification, and every omission. Deterministic code owns the envelope,
+requires every sentence to be represented, rejects request evidence it cannot locate,
+derives the claim record, and removes empty source arrays. Claude can enforce the schema
+while decoding; Codex exposes `--output-schema`; generic harnesses can emit ordinary JSON
+and run the same local validator and assembler with the original request.
 
 Read the draft first and ask the question the tests cannot: **does this sound like them?**
 Then, specifically:

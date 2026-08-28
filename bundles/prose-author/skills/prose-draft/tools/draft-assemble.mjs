@@ -2,8 +2,8 @@
 /**
  * Provider-neutral voice draft assembly CLI.
  *
- *   node draft-assemble.mjs --source source.json
- *   node draft-assemble.mjs --source - --output draft.md
+ *   node draft-assemble.mjs --source source.json --request request.txt
+ *   node draft-assemble.mjs --source - --request request.txt --output draft.md
  *   node draft-assemble.mjs --schema
  */
 
@@ -32,14 +32,16 @@ export function main() {
   }
   const sourceArg = flag("--source");
   if (!sourceArg) {
-    die("usage: --source <source.json|-> [--output draft.md]");
+    die("usage: --source <source.json|-> [--request request.txt] [--output draft.md]");
     return;
   }
   try {
     const raw = sourceArg === "-" ? readFileSync(0, "utf8") : readFileSync(resolve(sourceArg), "utf8");
     const decoded = parseVoiceDraftSource(raw);
     if (!decoded.source) throw new Error(decoded.error);
-    const assembled = assembleVoiceDraft(decoded.source);
+    const requestArg = flag("--request");
+    const request = requestArg ? readFileSync(resolve(requestArg), "utf8") : null;
+    const assembled = assembleVoiceDraft(decoded.source, { request });
     if (!assembled.ok) throw new Error(assembled.errors.join("; "));
     const output = flag("--output");
     if (output) writeFileSync(resolve(output), assembled.output);

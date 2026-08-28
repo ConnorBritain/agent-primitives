@@ -569,9 +569,10 @@ function draftPrompt(c, profileMarkdown, profileJson) {
     JSON.stringify(profileJson, null, 2),
     "```",
     "",
-    "Return voice-draft-source/1 exactly as described by the system prompt.",
-    "Fill the fixed source object only. The portable deterministic assembler owns",
-    "draft/refusal fences and removes empty disclosure arrays from voice-draft/1.",
+    "Return voice-draft-source/2 exactly as described by the system prompt.",
+    "Fill the proof-carrying sentence object only. The portable deterministic assembler",
+    "validates request bases, derives claims, owns draft/refusal fences, and removes empty",
+    "disclosure arrays from voice-draft/1.",
   ].join("\n");
 }
 
@@ -610,7 +611,7 @@ function collectDrafts(runDir) {
     if (!record) die(`missing ${rel(rawPath)}`);
     const decoded = semanticDraftSource(record);
     if (!decoded.source) die(`${c.id} invalid semantic draft source: ${decoded.error}`);
-    const assembled = assembleVoiceDraft(decoded.source);
+    const assembled = assembleVoiceDraft(decoded.source, { request: c.prompt });
     if (!assembled.ok) die(`${c.id} invalid semantic draft source: ${assembled.errors.join("; ")}`);
     const sourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
     const renderPath = join(runDir, "outputs", "drafts", `${c.id}.md`);
@@ -641,7 +642,7 @@ function collectDrafts(runDir) {
     if (!record) die(`missing ${rel(rawPath)}`);
     const decoded = semanticDraftSource(record);
     if (!decoded.source) die(`${c.id} invalid semantic refusal source: ${decoded.error}`);
-    const assembled = assembleVoiceDraft(decoded.source);
+    const assembled = assembleVoiceDraft(decoded.source, { request: c.prompt });
     if (!assembled.ok) die(`${c.id} invalid semantic refusal source: ${assembled.errors.join("; ")}`);
     const sourcePath = join(runDir, "inputs", "sources", "refusals", `${c.id}.json`);
     const renderPath = join(runDir, "outputs", "refusals", `${c.id}.md`);
