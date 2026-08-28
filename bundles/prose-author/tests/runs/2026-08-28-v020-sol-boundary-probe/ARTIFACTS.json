@@ -1,0 +1,35 @@
+{
+  "schema": "prose-author-isolated-codex-matrix-artifacts/1",
+  "drafts": {
+    "d01": {
+      "profile": "doctorow-blog",
+      "render": 1,
+      "shape": "essay-topic",
+      "raw": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/raw/drafts/d01.json",
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/raw/drafts/d01.codex-events.jsonl",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/raw/drafts/d01.codex-output.json",
+      "source": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/inputs/sources/d01.json",
+      "audit": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/inputs/audits/d01.json",
+      "output": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/outputs/drafts/d01.md",
+      "sentences": 37,
+      "claims": 1,
+      "external_claims": [],
+      "structural": {
+        "audit": true,
+        "valid": true,
+        "no_fabricated_citations": true,
+        "no_corpus_leakage": true,
+        "request_only": true
+      },
+      "structural_pass": true
+    },
+    "m05": {
+      "audit_pass": false,
+      "errors": [
+        "p6s2 rejected: Labeled hypothetical but contains the phrase 'a familiar pattern in software permissions and installation flows,' which is a descriptive claim about real-world software industry behavior. That claim requires external verification. The closed ledger is empty, so it is unaccounted for."
+      ]
+    }
+  },
+  "refusals": {},
+  "critics": {}
+}

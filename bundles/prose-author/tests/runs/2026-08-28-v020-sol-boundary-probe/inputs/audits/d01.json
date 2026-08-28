@@ -1,0 +1,190 @@
+{
+  "schema": "voice-draft-claim-audit/2",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "Pure reasoning/definitional claim about ownership; no external descriptive premise added."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "Directly restates c1 (maker can disable features after sale) and draws the logical inference that possession and authority are split. Every clause is covered by c1 or reasoning from it."
+    },
+    {
+      "id": "p1s3",
+      "status": "keep",
+      "reason": "Reasoning inference from the scenario established in p1s2; no new external descriptive premise."
+    },
+    {
+      "id": "p1s4",
+      "status": "keep",
+      "reason": "Normative/reasoning conclusion; no external descriptive premise added."
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "reason": "Explicitly hypothetical analogy; unmistakably imagined, not a report about a real actor or event."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "reason": "Continuation of the hypothetical; no real actor or event described."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "Rhetorical question within the hypothetical; no external descriptive claim."
+    },
+    {
+      "id": "p2s4",
+      "status": "keep",
+      "reason": "Reasoning conclusion drawn from the hypothetical; no external descriptive premise added."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "Reasoning about conceptual confusion between possession and ownership; no external descriptive premise."
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "reason": "One-word reasoning continuation; no external descriptive premise."
+    },
+    {
+      "id": "p3s3",
+      "status": "keep",
+      "reason": "Reasoning elaboration of the possession/authority distinction; no external descriptive premise."
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "reason": "Reasoning/normative inference about the bargain's substance; no external descriptive premise."
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "Author's stated opinion/forecast ('I think'); no assertion of external fact about what devices currently do or how markets behave."
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "reason": "Explicitly normative ('shouldn't'); no descriptive claim about what courts, laws, or companies actually do."
+    },
+    {
+      "id": "p4s3",
+      "status": "keep",
+      "reason": "Reasoning/analogy elaborating the prior normative point; no external descriptive premise."
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "reason": "Reasoning observation about how the loss can appear; no external descriptive premise about real industry behavior asserted as fact."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "Rhetorical reasoning question about the nature of the transaction; no external descriptive premise."
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "reason": "Normative claim about what the honest answer must not depend on; no external descriptive premise."
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "Conditional reasoning drawn directly from c1 (maker's continuing consent necessary for feature availability); every clause is covered by c1 or inference from it."
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "reason": "Reasoning conclusion from the conditional established above; no external descriptive premise."
+    },
+    {
+      "id": "p6s1",
+      "status": "keep",
+      "reason": "Normative policy recommendation; no descriptive claim about current law or industry practice."
+    },
+    {
+      "id": "p6s2",
+      "status": "keep",
+      "reason": "Normative statement about what a sale shouldn't become and what a label shouldn't erase; no descriptive claim about what courts or laws currently do."
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "reason": "Normative recommendation directed at makers; no external descriptive premise."
+    },
+    {
+      "id": "p6s4",
+      "status": "keep",
+      "reason": "Normative judgment; no descriptive claim about what makers currently do as a general industry practice asserted as fact beyond what the request supplies."
+    },
+    {
+      "id": "p7s1",
+      "status": "keep",
+      "reason": "Normative rule proposal; no external descriptive premise about current law or regulation."
+    },
+    {
+      "id": "p7s2",
+      "status": "keep",
+      "reason": "Normative specification of what the agreement must be; no external descriptive premise."
+    },
+    {
+      "id": "p7s3",
+      "status": "keep",
+      "reason": "Normative policy recommendation about regulatory treatment; no descriptive claim about what current law does."
+    },
+    {
+      "id": "p7s4",
+      "status": "keep",
+      "reason": "Reasoning/normative analogy; no external descriptive premise."
+    },
+    {
+      "id": "p8s1",
+      "status": "keep",
+      "reason": "Author's stated anticipation ('I think makers will argue'); framed as prediction/opinion, not an asserted fact about what makers have done or currently do."
+    },
+    {
+      "id": "p8s2",
+      "status": "keep",
+      "reason": "Rhetorical reasoning question; no external descriptive premise."
+    },
+    {
+      "id": "p8s3",
+      "status": "keep",
+      "reason": "Reasoning elaboration directed at the reader; no external descriptive premise."
+    },
+    {
+      "id": "p8s4",
+      "status": "keep",
+      "reason": "Reasoning distinction between two kinds of freedom; no external descriptive premise."
+    },
+    {
+      "id": "p9s1",
+      "status": "keep",
+      "reason": "Normative claim about what we can permit without a problematic conflation; no descriptive claim about current law or industry practice stated as fact."
+    },
+    {
+      "id": "p9s2",
+      "status": "keep",
+      "reason": "Normative statement; no external descriptive premise."
+    },
+    {
+      "id": "p9s3",
+      "status": "keep",
+      "reason": "Reasoning conclusion about what the ownership situation amounts to; no external descriptive premise beyond what c1 supplies."
+    },
+    {
+      "id": "p10s1",
+      "status": "keep",
+      "reason": "Draws on c1 (maker's post-sale ability to disable features) and reasons that this exposes who retained control; 'exposes who remained in charge' is a reasoning inference from c1, not an additional unbounded external claim."
+    },
+    {
+      "id": "p10s2",
+      "status": "keep",
+      "reason": "Reasoning/definitional conclusion restating the essay's central argument; no external descriptive premise."
+    }
+  ]
+}
