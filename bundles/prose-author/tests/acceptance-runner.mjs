@@ -1270,6 +1270,7 @@ async function main() {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 
 export {
-  claimAuditPrompt, claimsAuditFailures, codex as dispatchCodex, criticPrompt, deriveCritic, draftPrompt,
+  claimAuditPrompt, claimsAuditFailures, claude as dispatchClaude, codex as dispatchCodex,
+  criticPrompt, deriveCritic, draftPrompt,
   quotationAudit, structuralGates, validateCases,
 };

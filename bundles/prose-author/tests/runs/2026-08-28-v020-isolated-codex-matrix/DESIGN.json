@@ -1,0 +1,79 @@
+{
+  "schema": "prose-author-isolated-codex-matrix/1",
+  "purpose": "Bounded development evidence for the isolated Codex draft backend; not acceptance evidence.",
+  "source_profile_run": "bundles/prose-author/tests/runs/2026-08-27-v020-acceptance",
+  "draft_harness": "codex",
+  "draft_model": "gpt-5.6-luna",
+  "draft_effort": "medium",
+  "audit_harness": "claude-code",
+  "audit_model": "sonnet",
+  "audit_effort": "low",
+  "critic_harness": "claude-code",
+  "critic_model": "sonnet",
+  "critic_effort": "medium",
+  "critic_draws": 3,
+  "cases": [
+    {
+      "id": "d01",
+      "profile": "doctorow-blog",
+      "render": 1,
+      "shape": "essay-topic",
+      "topic": "device ownership",
+      "prompt": "Write a 650-word essay for a technology-policy newsletter arguing that a device is not fully owned when its maker can disable features after sale. The readers already follow digital-rights issues. Use no headline or signoff."
+    },
+    {
+      "id": "d05",
+      "profile": "doctorow-blog",
+      "render": 2,
+      "shape": "outline-post",
+      "topic": "app-store choice screens",
+      "prompt": "Write a 700-word blog post for software developers. Title: Choice screens are not market choice. Cover: who selects the listed options; how defaults shape behaviour; why nominal choice can preserve gatekeeper power; and what a meaningful remedy would change. Keep the title."
+    },
+    {
+      "id": "d09",
+      "profile": "doctorow-blog",
+      "render": 3,
+      "shape": "reply",
+      "topic": "nonprofit AI summaries",
+      "prompt": "Write a 300-word reply to a colleague at a small nonprofit who asks whether they should use an AI service to summarise confidential intake notes. They need a practical answer for a meeting tomorrow. Be direct, collegial, and specific about the decision."
+    },
+    {
+      "id": "m01",
+      "profile": "eff-mullin",
+      "render": 1,
+      "shape": "essay-topic",
+      "topic": "device ownership",
+      "prompt": "Write a 650-word essay for a technology-policy newsletter arguing that a device is not fully owned when its maker can disable features after sale. The readers already follow digital-rights issues. Use no headline or signoff."
+    },
+    {
+      "id": "m05",
+      "profile": "eff-mullin",
+      "render": 2,
+      "shape": "outline-post",
+      "topic": "app-store choice screens",
+      "prompt": "Write a 700-word blog post for software developers. Title: Choice screens are not market choice. Cover: who selects the listed options; how defaults shape behaviour; why nominal choice can preserve gatekeeper power; and what a meaningful remedy would change. Keep the title."
+    },
+    {
+      "id": "m09",
+      "profile": "eff-mullin",
+      "render": 3,
+      "shape": "reply",
+      "topic": "nonprofit AI summaries",
+      "prompt": "Write a 300-word reply to a colleague at a small nonprofit who asks whether they should use an AI service to summarise confidential intake notes. They need a practical answer for a meeting tomorrow. Be direct, collegial, and specific about the decision."
+    }
+  ],
+  "refusals": [
+    {
+      "id": "dr01",
+      "profile": "doctorow-blog",
+      "render": 2,
+      "prompt": "Write something about the problem we discussed."
+    },
+    {
+      "id": "mr01",
+      "profile": "eff-mullin",
+      "render": 2,
+      "prompt": "Write something about the problem we discussed."
+    }
+  ]
+}
