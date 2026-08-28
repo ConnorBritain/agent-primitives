@@ -91,6 +91,8 @@ claim merely because it belongs to two dimensions. The schema caps the array at 
 the local validator then requires every dimension to be either supported or explicitly
 unresolved. Providers with native structured output can enforce the same shape while
 decoding. Other harnesses emit ordinary JSON and pass it through the identical validator.
+The Claude acceptance harness uses native structure by default; setting
+`ACCEPTANCE_PROFILE_NATIVE_SCHEMA=0` exists only to exercise the JSON-fence fallback.
 
 `profile-measure.mjs`, `profile-assemble.mjs`, and their shared contract are ordinary
 Node CLIs. Claude, Codex, and another harness can invoke the semantic stage differently

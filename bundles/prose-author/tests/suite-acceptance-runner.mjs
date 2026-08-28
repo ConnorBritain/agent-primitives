@@ -96,9 +96,9 @@ export async function run(t, { HERE }) {
   t.check("the model effort is pinned in the manifest rather than inherited",
     /effort: EFFORT/.test(source) && /profile_effort: PROFILE_EFFORT/.test(source)
       && /"--effort", effort/.test(source) && /effort: PROFILE_EFFORT/.test(source));
-  t.check("acceptance defaults to one model process and portable JSON-fence transport",
+  t.check("acceptance defaults to one model process and native structured profile transport",
     /ACCEPTANCE_CONCURRENCY \|\| "1"/.test(source)
-      && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA === "1"/.test(source)
+      && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0"/.test(source)
       && /profile_transport: PROFILE_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
   t.check("model dispatch has a hard timeout instead of waiting indefinitely",
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)

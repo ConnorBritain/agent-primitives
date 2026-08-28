@@ -50,7 +50,7 @@ const EFFORT = process.env.ACCEPTANCE_EFFORT || "medium";
 const PROFILE_EFFORT = process.env.ACCEPTANCE_PROFILE_EFFORT || "low";
 const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY");
 const MODEL_TIMEOUT_MS = positiveInt(process.env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS");
-const PROFILE_NATIVE_SCHEMA = process.env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA === "1";
+const PROFILE_NATIVE_SCHEMA = process.env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0";
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
 const text = (path) => readFileSync(path, "utf8");
