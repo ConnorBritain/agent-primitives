@@ -89,6 +89,8 @@ const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const DRAFT_CONTRACT = `${TOOLS}/draft-contract.mjs`;
 const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
+const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
+const VOICE_DRAFT_PROMPT = "primitives/agents/voice-draft/agent.md";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
 const XCOUNT = "bundles/prose-author/tests/cross-count.mjs";
@@ -177,6 +179,27 @@ export const MUTATIONS = [
     find: '          items: { type: "string", enum: plan.qualitativeDimensions },',
     with: "          items: { enum: plan.qualitativeDimensions },",
     guards: "the generated profile schema remains valid in strict structured-output harnesses",
+  },
+  {
+    name: "derive the critic verdict from its finding count",
+    file: CRITIC_SOURCE,
+    find: '  parts.push(`**${source.verdict}**`);',
+    with: '  parts.push(`**${source.findings.length ? "REVISE" : "CLEAN"}**`);',
+    guards: "the model-owned verdict remains independent from the findings-rate instrument",
+  },
+  {
+    name: "drop the drafter's sentence-by-sentence claim inventory",
+    file: VOICE_DRAFT_PROMPT,
+    find: "After the prose is complete, read it sentence by sentence. Mark every date, amount,",
+    with: "After the prose is complete, trust the claims already remembered. Mark every date, amount,",
+    guards: "a nearby disclosed fact cannot hide a second checkable assertion",
+  },
+  {
+    name: "let the requested container override the profile's register",
+    file: VOICE_DRAFT_PROMPT,
+    find: "the profile. A request for a newsletter, essay, policy argument, or reply selects form and",
+    with: "the profile. A request for a newsletter, essay, policy argument, or reply selects its generic register and",
+    guards: "a policy-newsletter request does not turn the author's vocabulary into policy-brief prose",
   },
 
   // --- the generate -> critique -> revise loop (PI-02 S4) ---

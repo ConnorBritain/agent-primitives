@@ -7,6 +7,9 @@ import {
   criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
+import {
+  assembleVoiceCritic, CRITIC_SOURCE_SCHEMA, validateVoiceCriticSource,
+} from "./voice-critic-source.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -84,7 +87,10 @@ export async function run(t, { HERE }) {
         && /Alpha corpus\./.test(prompt) && /Beta corpus\./.test(prompt)
         && /Draft body\./.test(prompt));
     t.check("critic prompts state that filesystem tools do not exist", /No filesystem tools exist/.test(prompt));
-    t.check("critic prompts carry no expected verdict", !/expected (?:verdict|result)|\bCLEAN\b|\bREVISE\b/.test(prompt));
+    t.check("critic prompts carry no expected verdict",
+      !/expected (?:verdict|result)|(?:verdict|result) (?:must|should) be (?:CLEAN|REVISE)/i.test(prompt));
+    t.check("critic prompts use a structured transport without deriving the judgment",
+      /Return voice-critic-source\/1[\s\S]*verdict remains your independent CLEAN or REVISE[\s\S]*not derived from the finding count/.test(prompt));
   }
   t.check("completed responses are immutable rather than overwritten",
     /exists but is not a completed successful response; do not redraw it/.test(source)
@@ -103,8 +109,10 @@ export async function run(t, { HERE }) {
     ["--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "--no-chrome"]
       .every((flag) => source.includes(`\"${flag}\"`)));
   t.check("the model effort is pinned in the manifest rather than inherited",
-    /effort: EFFORT/.test(source) && /profile_effort: PROFILE_EFFORT/.test(source)
-      && /"--effort", effort/.test(source) && /effort: PROFILE_EFFORT/.test(source));
+    /draft_effort: DRAFT_EFFORT/.test(source) && /critic_effort: CRITIC_EFFORT/.test(source)
+      && /profile_effort: PROFILE_EFFORT/.test(source) && /"--effort", effort/.test(source)
+      && /effort: DRAFT_EFFORT/.test(source) && /effort: CRITIC_EFFORT/.test(source)
+      && /effort: PROFILE_EFFORT/.test(source));
   t.check("acceptance defaults to one model process and native structured profile transport",
     /ACCEPTANCE_CONCURRENCY \|\| "1"/.test(source)
       && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0"/.test(source)
@@ -112,6 +120,11 @@ export async function run(t, { HERE }) {
   t.check("acceptance defaults to native structured draft transport and records it in the manifest",
     /ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0"/.test(source)
       && /draft_transport: DRAFT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+  t.check("acceptance defaults to native structured critic transport and validates assembly",
+    /ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0"/.test(source)
+      && /critic_transport: CRITIC_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
+      && source.includes("CRITIC_NATIVE_SCHEMA ? CRITIC_SOURCE_SCHEMA : null")
+      && source.includes("assembleVoiceCritic(decoded.source"));
   t.check("model dispatch has a hard timeout instead of waiting indefinitely",
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
       && /child\.kill\("SIGTERM"\)/.test(source)
@@ -143,6 +156,47 @@ export async function run(t, { HERE }) {
 
   t.group("v0.2 acceptance harness — critic contracts are derived from raw bodies");
   {
+    const sourceRecord = {
+      schema: "voice-critic-source/1", findings: [],
+      clean_categories: ["register-breaks", "unfamiliar-constructions"],
+      rhythm_assessed: false, rhythm_note: "No deterministic rhythm scan was supplied.",
+      verdict: "CLEAN",
+    };
+    t.check("the critic source schema is strict-harness compatible",
+      CRITIC_SOURCE_SCHEMA.additionalProperties === false
+        && CRITIC_SOURCE_SCHEMA.properties.schema.type === "string"
+        && CRITIC_SOURCE_SCHEMA.properties.verdict.type === "string");
+    t.check("a clean semantic critic source validates",
+      validateVoiceCriticSource(sourceRecord, { rhythmScanSupplied: false }).ok);
+    const cleanOutput = assembleVoiceCritic(sourceRecord, { rhythmScanSupplied: false });
+    t.check("critic assembly owns one exact closing token",
+      cleanOutput.ok && cleanOutput.output.trim().endsWith("**CLEAN**")
+        && deriveCritic(cleanOutput.output).verdict === "CLEAN");
+    const independent = assembleVoiceCritic({
+      ...sourceRecord,
+      findings: [{
+        location: "paragraph 2", what: "register break",
+        corpus_evidence: "sample.txt uses a concrete verb instead", confidence: "high",
+      }],
+      verdict: "CLEAN",
+    }, { rhythmScanSupplied: false });
+    t.check("critic assembly preserves a model-owned verdict independently of finding count",
+      independent.ok && deriveCritic(independent.output).verdict === "CLEAN"
+        && deriveCritic(independent.output).findings === 1);
+    t.check("an uncited semantic finding is rejected",
+      !validateVoiceCriticSource({
+        ...sourceRecord,
+        findings: [{ location: "p2", what: "break", corpus_evidence: "", confidence: "high" }],
+      }).ok);
+    t.check("a lone low-confidence finding is rejected",
+      !validateVoiceCriticSource({
+        ...sourceRecord,
+        findings: [{ location: "p2", what: "maybe", corpus_evidence: "sample.txt", confidence: "low" }],
+      }).ok);
+    t.check("a semantic critic authorship claim is rejected",
+      !validateVoiceCriticSource({ ...sourceRecord, rhythm_note: "The draft was AI-generated." }).ok);
+  }
+  {
     const clean = deriveCritic("All five categories are clean.\n\n**CLEAN**");
     t.check("a closing CLEAN verdict is derived", clean.verdict === "CLEAN" && clean.findings === 0);
   }
@@ -160,5 +214,10 @@ export async function run(t, { HERE }) {
   {
     const authorship = deriveCritic("This was AI-generated.\n\nCLEAN");
     t.check("a critic authorship claim is counted as a contract failure", authorship.authorship_claims === 1);
+  }
+  {
+    const malformed = deriveCritic("Finding.\n\n**REVISE** — one span only");
+    t.check("a model-appended explanation still fails the raw closing-token parser",
+      malformed.verdict === null);
   }
 }

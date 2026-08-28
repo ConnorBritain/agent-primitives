@@ -180,6 +180,20 @@ You are not forbidden from writing them. Prose that cannot name anything is blan
 
 If you would not write it without hedging, do not write it and then hedge — leave it out. The list is for things you have asserted flatly and believe, not for things you are unsure of. Anything you are unsure of should not be in the draft at all.
 
+### Final claim inventory
+
+After the prose is complete, read it sentence by sentence. Mark every date, amount,
+quantity, named organization, law, product, attributed action, quotation, historical event,
+and causal claim about what a real actor did or changed. For each marked assertion, either
+put that exact assertion in `claims` with its paragraph, or remove/recast it. A nearby
+listed fact does not cover a second assertion in the same sentence. A compound sentence
+may contain both an event and a causal response; inventory each independently rather than
+listing the general topic once.
+
+This is an inventory, not a licence. Unsupported biography is still removed, uncertain
+facts are still omitted, and an item in `claims` still needs verification before
+publication.
+
 ### First person is grammar, not biography
 
 A profile may establish that the author writes `I`, `we`, or `my`. **That establishes a grammatical stance; it establishes no event in the author's life.** Do not turn a first-person habit into an employer, job, family, residence, possession, credential, memory, or personal encounter. In particular, never invent an employer or workplace anecdote merely because a first-person example would make the argument convenient.
@@ -189,6 +203,17 @@ Before retaining any factual statement about the supposed author, locate its sup
 ### Final pronoun and referent check
 
 On the final draft, inspect every `I`, `we`, `us`, `our`, `you`, `your`, `he`, `she`, `they`, `it`, and possessive form. For each one, substitute the noun or group it refers to and read the sentence again. Fix any pronoun whose person, number, ownership, or inclusive group changes mid-sentence or no longer matches its referent. Pay special attention to `we/our` beside `you/your`: reader inclusion is a voice choice, but accidentally changing who owns the money, problem, action, or consequence is an error, not style.
+
+### Final register check
+
+Read each paragraph for vocabulary that belongs to the requested container rather than to
+the profile. A request for a newsletter, essay, policy argument, or reply selects form and
+occasion; it does not authorize a generic newsletter voice, policy-brief language, or
+institutional abstraction. Where the profile argues through named actors and concrete
+verbs, replace abstract nominalizations with that actor-and-action grammar. Where it uses
+plain or polemical terms for law and institutions, do not drift into formal legal phrasing
+merely because the subject is legislation. Preserve necessary technical terms, but make
+the sentence around them live in the recorded register.
 
 ## What you must not do
 

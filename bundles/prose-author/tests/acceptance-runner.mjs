@@ -31,6 +31,9 @@ import { crossCount } from "./cross-count.mjs";
 import { bodyOf } from "./corpus-rates.mjs";
 import { analyzeProfileStability } from "./profile-stability.mjs";
 import {
+  assembleVoiceCritic, CRITIC_CATEGORIES, CRITIC_SOURCE_SCHEMA, parseVoiceCriticSource,
+} from "./voice-critic-source.mjs";
+import {
   assembleVoiceDraft, parseVoiceDraftSource, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA,
 } from "../skills/prose-draft/tools/draft-contract.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
@@ -50,12 +53,14 @@ const TESTS = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MODEL = process.env.ACCEPTANCE_MODEL || "sonnet";
-const EFFORT = process.env.ACCEPTANCE_EFFORT || "medium";
+const DRAFT_EFFORT = process.env.ACCEPTANCE_DRAFT_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
+const CRITIC_EFFORT = process.env.ACCEPTANCE_CRITIC_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
 const PROFILE_EFFORT = process.env.ACCEPTANCE_PROFILE_EFFORT || "low";
 const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY");
 const MODEL_TIMEOUT_MS = positiveInt(process.env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS");
 const PROFILE_NATIVE_SCHEMA = process.env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0";
 const DRAFT_NATIVE_SCHEMA = process.env.ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0";
+const CRITIC_NATIVE_SCHEMA = process.env.ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0";
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
 const text = (path) => readFileSync(path, "utf8");
@@ -210,6 +215,7 @@ function prepare(runDir) {
     ...Object.values(AGENTS),
     "bundles/prose-author/tests/voice-profile.mjs",
     "bundles/prose-author/tests/voice-draft.mjs",
+    "bundles/prose-author/tests/voice-critic-source.mjs",
     "bundles/prose-author/tests/coverage-analysis.mjs",
     "bundles/prose-author/tests/profile-stability.mjs",
     "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs",
@@ -278,11 +284,14 @@ function prepare(runDir) {
     prepared: today(),
     prepared_commit: preparedCommit,
     model: MODEL,
-    effort: EFFORT,
+    effort: DRAFT_EFFORT,
+    draft_effort: DRAFT_EFFORT,
+    critic_effort: CRITIC_EFFORT,
     profile_effort: PROFILE_EFFORT,
     concurrency: CONCURRENCY,
     profile_transport: PROFILE_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     draft_transport: DRAFT_NATIVE_SCHEMA ? "native-structured" : "json-fence",
+    critic_transport: CRITIC_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     model_timeout_ms: MODEL_TIMEOUT_MS,
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
@@ -348,7 +357,14 @@ function semanticDraftSource(record) {
   return parseVoiceDraftSource(record.result);
 }
 
-async function claude({ system, prompt, cwd, tools, allowed, output, schema = null, effort = EFFORT }) {
+function semanticCriticSource(record) {
+  if (record.structured_output !== null && typeof record.structured_output === "object") {
+    return { source: record.structured_output, error: null };
+  }
+  return parseVoiceCriticSource(record.result);
+}
+
+async function claude({ system, prompt, cwd, tools, allowed, output, schema = null, effort = CRITIC_EFFORT }) {
   if (completedResult(output)) return { skipped: true, output };
   const args = [
     "-p", "--output-format", "json", "--no-session-persistence", "--model", MODEL,
@@ -573,6 +589,7 @@ async function dispatchDrafts(runDir) {
       id: c.id,
       run: () => claude({
         system, cwd: runDir, prompt, tools: "", allowed: [],
+        effort: DRAFT_EFFORT,
         schema: DRAFT_NATIVE_SCHEMA ? DRAFT_SOURCE_SCHEMA : null,
         output: join(runDir, "raw", c.refusal ? "refusals" : "drafts", `${c.id}.json`),
       }),
@@ -684,6 +701,15 @@ function criticPrompt(caseId, corpus, draft) {
     "## Draft: draft.txt",
     "",
     "<draft>", draft, "</draft>",
+    "",
+    "Return voice-critic-source/1 as one structured object. Do not format markdown",
+    "markers or a closing token; the deterministic transport owns those. Preserve the",
+    "system critic's substantive judgment exactly: each finding supplies location, what,",
+    "corpus_evidence, and confidence; verdict remains your independent CLEAN or REVISE",
+    "judgment and is not derived from the finding count.",
+    `Use only these clean category ids: ${CRITIC_CATEGORIES.join(", ")}.`,
+    "No deterministic rhythm scan was supplied, so rhythm_assessed is false and",
+    "rhythm_note states that category 4 was not assessed.",
   ].join("\n");
 }
 
@@ -712,6 +738,8 @@ async function dispatchCritics(runDir) {
         id: `${c.id}-d${draw}`,
         run: () => claude({
           system, cwd: inputDir, prompt, tools: "", allowed: [],
+          effort: CRITIC_EFFORT,
+          schema: CRITIC_NATIVE_SCHEMA ? CRITIC_SOURCE_SCHEMA : null,
           output: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`),
         }),
       });
@@ -780,13 +808,27 @@ function collect(runDir) {
       const rawPath = join(runDir, "critics", "raw", `${c.id}-d${draw}.json`);
       const record = completedResult(rawPath);
       if (!record) die(`missing critic draw ${c.id}-d${draw}`);
-      const derived = deriveCritic(record.result);
+      const decoded = semanticCriticSource(record);
+      if (!decoded.source) die(`${c.id}-d${draw} invalid semantic critic source: ${decoded.error}`);
+      const assembled = assembleVoiceCritic(decoded.source, { rhythmScanSupplied: false });
+      if (!assembled.ok) die(`${c.id}-d${draw} invalid semantic critic source: ${assembled.errors.join("; ")}`);
+      const sourcePath = join(runDir, "critics", "sources", `${c.id}-d${draw}.json`);
+      const renderPath = join(runDir, "critics", "outputs", `${c.id}-d${draw}.md`);
+      write(sourcePath, decoded.source);
+      write(renderPath, assembled.output);
+      const derived = deriveCritic(assembled.output);
       if (!derived.verdict) die(`${c.id}-d${draw} has no closing CLEAN/REVISE verdict`);
+      if (derived.verdict !== decoded.source.verdict || derived.findings !== decoded.source.findings.length) {
+        die(`${c.id}-d${draw} deterministic critic assembly diverged from its semantic source`);
+      }
       if (derived.uncited || derived.authorship_claims) criticContractFailures += 1;
       verdicts.push(derived.verdict);
       findings.push(derived.findings);
       artifacts.critics[c.id][`d${draw}`] = {
-        raw: rel(rawPath), sha256: SHA(text(rawPath)), ...derived,
+        raw: rel(rawPath), sha256: SHA(text(rawPath)),
+        source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
+        render: rel(renderPath), render_sha256: SHA(text(renderPath)),
+        ...derived,
       };
     }
     drafts.push({ id: c.id, topic: c.topic, verdicts, findings });
