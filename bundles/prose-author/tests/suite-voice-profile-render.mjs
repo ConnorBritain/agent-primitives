@@ -18,10 +18,12 @@ import {
   COVERAGE_DIMENSIONS,
 } from "./voice-profile.mjs";
 import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
+import { analyzeProfileStability } from "./profile-stability.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 import { measureProfile } from "./profile-measurements.mjs";
 import {
   assembleVoiceProfile, COVERAGE_DIMENSIONS as SOURCE_DIMENSIONS, parseVoiceProfileSource,
+  frequencyForPerPiece,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
 import {
   fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
@@ -524,7 +526,6 @@ export async function run(t, { tmp, HERE }) {
     });
     const rated = (section, measurement_id, prose) => ({
       section, measurement_id, prose: `${prose} A representative use appears in ${cited}. ${placement}`,
-      frequency: "throughout",
     });
     const source = () => ({
       schema: "voice-profile-source/1",
@@ -590,12 +591,48 @@ export async function run(t, { tmp, HERE }) {
       assembled.profile?.observations.every((observation, i) => observation.id === `o${String(i + 1).padStart(2, "0")}`)
         && assembled.profile?.observations.some((observation) => observation.rate?.count === 385)
         && assembled.profile?.profile_markdown.includes("[measurement:second-person-family]"));
+    t.check("measured frequency bands are deterministic rather than model-owned",
+      frequencyForPerPiece(2.49) === "once or twice per piece"
+        && frequencyForPerPiece(2.5) === "several times per piece"
+        && frequencyForPerPiece(10) === "throughout"
+        && assembled.profile?.profile_markdown.includes("[measurement:question-marks] Count: 38 instances; 2.17 per 1,000 words")
+        && checkFrequencyAgainstRate(assembled.profile?.profile_markdown, assembled.profile,
+          measured.corpus_words / measured.sample_count).length === 0);
+    t.check("reader-facing evidence keeps the locator while canonical JSON keeps the full rule",
+      !assembled.profile?.profile_markdown.includes("Every literal question-mark character in the extracted sample bodies")
+        && assembled.profile?.observations.find((observation) => observation.rate?.counting_rule
+          ?.startsWith("[measurement:question-marks] Count every literal question-mark character")));
     t.check("assembled rated evidence stays in the same paragraph as its dimension label",
       analyzeParagraphCoverage(assembled.profile?.profile_markdown)
         .find((row) => row.id === "person-reader-stance")?.status === "rated");
     t.check("assembly enforces the complete 800–1500 word profile range",
       assembled.profile?.profile_markdown.trim().split(/\s+/).length >= 800
         && assembled.profile?.profile_markdown.trim().split(/\s+/).length <= 1500);
+    {
+      const clone = (value) => JSON.parse(JSON.stringify(value));
+      const second = clone(assembled.profile);
+      const third = clone(assembled.profile);
+      second.profile_markdown += "\n\nA qualitative wording difference outside measured evidence.";
+      third.profile_markdown += "\n\nAnother qualitative wording difference outside measured evidence.";
+      const same = analyzeProfileStability([assembled.profile, second, third]);
+      t.check("k=3 stability accepts byte-different prose only when mechanical facts agree", same.ok);
+
+      const drifted = clone(assembled.profile);
+      drifted.observations.find((observation) => observation.rate).rate.count += 1;
+      const drift = analyzeProfileStability([assembled.profile, drifted]);
+      t.check("k=3 stability rejects a measured count, rate, band, or polarity contradiction",
+        !drift.ok && drift.errors.some((error) => /contradicts render/.test(error)));
+
+      const varied = clone(assembled.profile);
+      const figure = varied.coverage.find((row) => row.dimension === "figures-analogy");
+      delete figure.observation_ids;
+      figure.status = "unresolved";
+      figure.unresolved_reason = "A second render did not establish one stable qualitative figure instruction.";
+      const variation = analyzeProfileStability([assembled.profile, varied]);
+      t.check("k=3 stability reports qualitative coverage variation instead of silently unioning renders",
+        variation.ok && variation.variations.some((row) => row.dimension === "figures-analogy"
+          && row.kind === "coverage-status"));
+    }
 
     {
       const cli = resolve(HERE, "..", "skills", "prose-draft", "tools", "profile-assemble.mjs");
@@ -628,9 +665,31 @@ export async function run(t, { tmp, HERE }) {
     }
     {
       const bad = source();
+      bad.dimensions["questions-imperatives-vocatives"].observations[0].frequency = "throughout";
+      t.check("a model cannot override a measured frequency band",
+        assembleVoiceProfile(bad, context).errors.some((error) => /must omit frequency; the assembler derives/.test(error)));
+    }
+    {
+      const bad = source();
+      bad.dimensions["questions-imperatives-vocatives"].observations[0].prose += " It recurs throughout.";
+      t.check("measured semantic prose cannot smuggle in a competing fixed band",
+        assembleVoiceProfile(bad, context).errors.some((error) => /leave fixed frequency wording to the assembler/.test(error)));
+    }
+    {
+      const bad = source();
       bad.dimensions["interruption-punctuation"].observations.shift();
       t.check("a zero measurement cannot silently become a rated absence",
         assembleVoiceProfile(bad, context).errors.some((error) => /counted absence but not exactly one absence plus a positive measured replacement/.test(error)));
+    }
+    {
+      const noAbsence = source();
+      noAbsence.dimensions["interruption-punctuation"].observations.pop();
+      noAbsence.dimensions["interruption-punctuation"].observations[0].section = "cadence";
+      noAbsence.gaps += " The available pieces also do not establish how the register changes in private correspondence, ceremonial writing, short notices, collaborative work, or speech. Those unknowns remain explicit instead of becoming unsupported observations merely to fill a section.";
+      const result = assembleVoiceProfile(noAbsence, context);
+      t.check("a corpus with no supported absence gets a neutral section rather than an invented habit",
+        result.ok && /No counted absence with a positive measured replacement was established/.test(result.profile.profile_markdown),
+        result.ok ? result.profile.profile_markdown.match(/## 7[\s\S]*?## 8/)?.[0] : result.errors.join("; "));
     }
     {
       const withUnresolved = source();

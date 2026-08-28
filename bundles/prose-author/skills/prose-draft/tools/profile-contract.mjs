@@ -55,6 +55,24 @@ export const FREQUENCIES = [
   "once or twice per piece", "several times per piece", "throughout",
 ];
 
+/**
+ * The fixed prose bands are presentation derived from a measured corpus average.
+ * Models do not own this mapping: giving a semantic renderer the exact count and then
+ * asking it to choose the label produced a different label for the same row across k=3.
+ */
+export const FREQUENCY_BANDS = [
+  { phrase: "once or twice per piece", max: 2.5 },
+  { phrase: "several times per piece", max: 10 },
+  { phrase: "throughout", max: Infinity },
+];
+
+export function frequencyForPerPiece(perPiece) {
+  if (typeof perPiece !== "number" || !Number.isFinite(perPiece) || perPiece < 0) {
+    throw new TypeError("per-piece frequency must be a non-negative finite number");
+  }
+  return FREQUENCY_BANDS.find((band) => perPiece < band.max).phrase;
+}
+
 /** Counted positive forms that can occupy the place of a sparse measured counterpart. */
 export const ABSENCE_REPLACEMENTS = {
   "uncontracted-negatives": ["contractions"],
@@ -69,7 +87,7 @@ const observationSchema = {
   additionalProperties: false,
   properties: {
     section: { enum: SECTIONS },
-    prose: { type: "string", minLength: 100, maxLength: 650 },
+    prose: { type: "string", minLength: 100, maxLength: 450 },
     frequency: { enum: FREQUENCIES },
     measurement_id: { type: "string", minLength: 1 },
     support_files: {
@@ -78,7 +96,16 @@ const observationSchema = {
     },
   },
   required: ["section", "prose"],
-  oneOf: [{ required: ["measurement_id"] }, { required: ["support_files"] }],
+  oneOf: [
+    {
+      required: ["measurement_id"],
+      not: { anyOf: [{ required: ["support_files"] }, { required: ["frequency"] }] },
+    },
+    {
+      required: ["support_files", "frequency"],
+      not: { required: ["measurement_id"] },
+    },
+  ],
 };
 
 const dimensionSchema = {
@@ -105,7 +132,7 @@ export const SOURCE_RENDER_SCHEMA = {
       properties: Object.fromEntries(COVERAGE_DIMENSIONS.map((id) => [id, { $ref: "#/$defs/dimension" }])),
       required: COVERAGE_DIMENSIONS,
     },
-    gaps: { type: "string", minLength: 40, maxLength: 1200 },
+    gaps: { type: "string", minLength: 40, maxLength: 900 },
     observations_dropped: { type: "integer", minimum: 0 },
     multiple_voices_suspected: { type: "boolean" },
   },
@@ -219,8 +246,8 @@ function sourceErrors(source) {
   if (!["empty", "corroborating", "contradicted"].includes(source.voice_card)) {
     err("source.voice_card is invalid");
   }
-  if (!isText(source.gaps) || source.gaps.trim().length < 40 || source.gaps.trim().length > 1200) {
-    err("source.gaps must contain 40–1200 characters of prose");
+  if (!isText(source.gaps) || source.gaps.trim().length < 40 || source.gaps.trim().length > 900) {
+    err("source.gaps must contain 40–900 characters of prose");
   }
   if (!Number.isInteger(source.observations_dropped) || source.observations_dropped < 0) {
     err("source.observations_dropped must be a non-negative integer");
@@ -260,8 +287,8 @@ function sourceErrors(source) {
       ])) err(`${at} carries unknown key: ${extra}`);
       if (!SECTIONS.includes(observation.section)) err(`${at}.section is invalid`);
       if (!isText(observation.prose) || observation.prose.trim().length < 100
-        || observation.prose.trim().length > 650) {
-        err(`${at}.prose must contain 100–650 characters of actionable evidence`);
+        || observation.prose.trim().length > 450) {
+        err(`${at}.prose must contain 100–450 characters of actionable evidence`);
       }
       if (observation.frequency !== undefined && !FREQUENCIES.includes(observation.frequency)) {
         err(`${at}.frequency is invalid`);
@@ -269,6 +296,16 @@ function sourceErrors(source) {
       const measured = isText(observation.measurement_id);
       const qualitative = Array.isArray(observation.support_files);
       if (measured === qualitative) err(`${at} must carry measurement_id or support_files, exclusively`);
+      if (measured && observation.frequency !== undefined) {
+        err(`${at} is measured and must omit frequency; the assembler derives its fixed band`);
+      }
+      if (measured && FREQUENCIES.some((phrase) => new RegExp(`\\b${phrase.replace(/ /g, "\\s+")}\\b`, "i")
+        .test(observation.prose))) {
+        err(`${at} is measured and must leave fixed frequency wording to the assembler`);
+      }
+      if (qualitative && !FREQUENCIES.includes(observation.frequency)) {
+        err(`${at} is qualitative and must carry one fixed frequency`);
+      }
       if (qualitative && (observation.support_files.length === 0
         || !observation.support_files.every(isText)
         || new Set(observation.support_files).size !== observation.support_files.length)) {
@@ -287,6 +324,13 @@ function sourceErrors(source) {
     (sum, dimension) => sum + (source.dimensions?.[dimension]?.observations?.length ?? 0), 0,
   );
   if (observationCount > 14) err("source may contain at most 14 observations");
+  const semanticWords = COVERAGE_DIMENSIONS.reduce(
+    (sum, dimension) => sum + (source.dimensions?.[dimension]?.observations ?? [])
+      .reduce((words, observation) => words
+        + String(observation?.prose ?? "").trim().split(/\s+/).filter(Boolean).length, 0),
+    String(source.gaps ?? "").trim().split(/\s+/).filter(Boolean).length,
+  );
+  if (semanticWords > 900) err(`source semantic prose is ${semanticWords} words; maximum is 900`);
   return errors;
 }
 
@@ -294,10 +338,12 @@ function evidenceLine({ support, of, frequency, measurement, citationFile, absen
   const citation = ` Representative locked source: \`${citationFile}\`.`;
   if (!measurement) return `_Evidence: ${support}/${of} samples; ${frequency}.${citation}_`;
   const rate = Number(measurement.per_1000_words).toFixed(2);
+  const locator = measurement.counting_rule.match(/\[measurement:[a-z0-9-]+\]/)?.[0]
+    ?? measurement.counting_rule;
   if (absence) {
-    return `_Evidence: ${support}/${of} samples establish the absence or sparse exception. ${measurement.counting_rule} Count: ${measurement.count} instances; ${rate} per 1,000 words.${citation}_`;
+    return `_Evidence: ${support}/${of} samples establish the absence or sparse exception. ${locator} Count: ${measurement.count} instances; ${rate} per 1,000 words.${citation}_`;
   }
-  return `_Evidence: ${support}/${of} samples; ${frequency}. ${measurement.counting_rule} Count: ${measurement.count} instances; ${rate} per 1,000 words.${citation}_`;
+  return `_Evidence: ${support}/${of} samples; ${frequency}. ${locator} Count: ${measurement.count} instances; ${rate} per 1,000 words.${citation}_`;
 }
 
 /**
@@ -376,6 +422,9 @@ export function assembleVoiceProfile(source, context) {
   if (errors.length) return { ok: false, refusal: false, errors, profile: null };
 
   const byMeasurement = new Map(measurements.measurements.map((row) => [row.id, row]));
+  const replacementFor = (measurementId) => (ABSENCE_REPLACEMENTS[measurementId] ?? [])
+    .map((id) => byMeasurement.get(id))
+    .find((row) => row?.count > 0);
   const observations = [];
   const coverage = [];
   const proseBySection = new Map(SECTIONS.map((section) => [section, []]));
@@ -406,7 +455,12 @@ export function assembleVoiceProfile(source, context) {
           continue;
         }
         usedMeasurementIds.add(item.measurement_id);
-        absence = item.frequency === undefined;
+        const replacement = replacementFor(item.measurement_id);
+        // Polarity is arithmetic, not a side channel encoded by whether the model
+        // happened to emit `frequency`. Zero and genuinely sparse counterparts are
+        // absences; every other measured row is positive.
+        absence = measurement.count === 0
+          || Boolean(replacement && measurement.count <= replacement.count * 0.2);
         supportFiles = absence ? [...(measurement.files_without ?? [])] : [...(measurement.files_with ?? [])];
         if (!absence && measurement.samples_with !== supportFiles.length) {
           errors.push(`${at} measurement ${item.measurement_id} has inconsistent file support`);
@@ -417,7 +471,10 @@ export function assembleVoiceProfile(source, context) {
       for (const file of supportFiles) if (!sampleSet.has(file)) errors.push(`${at} names non-corpus support file ${file}`);
       if (supportFiles.length === 0) errors.push(`${at} has no positive support`);
 
-      if (!absence && !FREQUENCIES.includes(item.frequency)) {
+      const frequency = measurement && !absence
+        ? frequencyForPerPiece(measurement.count / samplesUsed.length)
+        : item.frequency;
+      if (!absence && !FREQUENCIES.includes(frequency)) {
         errors.push(`${at} must carry one fixed frequency`);
       }
 
@@ -440,14 +497,20 @@ export function assembleVoiceProfile(source, context) {
         `**${DIMENSION_LABELS[dimension]}.** ${item.prose.trim()}`,
         evidenceLine({
           support: supportFiles.length, of: samplesUsed.length,
-          frequency: item.frequency, measurement, absence,
+          frequency, measurement, absence,
           citationFile: supportFiles[0],
         }),
       ].join("\n"));
     }
 
     if (absenceRated.length) {
-      const absenceItem = sourceRow.observations.find((item) => item.measurement_id && item.frequency === undefined);
+      const absenceItem = sourceRow.observations.find((item) => {
+        if (!item.measurement_id) return false;
+        const measured = byMeasurement.get(item.measurement_id);
+        const replacement = replacementFor(item.measurement_id);
+        return measured?.count === 0
+          || Boolean(replacement && measured.count <= replacement.count * 0.2);
+      });
       const allowedReplacementIds = ABSENCE_REPLACEMENTS[absenceItem?.measurement_id] ?? [];
       const positiveId = positiveRated.find((id) => allowedReplacementIds.includes(measurementByObservation.get(id)))
         ?? allowedReplacementIds.map((measurementId) => observationByMeasurement.get(measurementId)).find(Boolean);
@@ -472,9 +535,6 @@ export function assembleVoiceProfile(source, context) {
     }
   }
 
-  for (const section of SECTIONS) {
-    if (proseBySection.get(section).length === 0) errors.push(`assembled profile leaves section ${section} empty`);
-  }
   if (coverage.length !== COVERAGE_DIMENSIONS.length) {
     errors.push("assembly did not produce all ten coverage rows");
   }
@@ -482,7 +542,11 @@ export function assembleVoiceProfile(source, context) {
 
   const blocks = [`# Voice profile — ${profile}`];
   for (const section of SECTIONS) {
-    blocks.push(SECTION_HEADINGS[section], ...proseBySection.get(section));
+    const observations = proseBySection.get(section);
+    const empty = section === "absences"
+      ? "No counted absence with a positive measured replacement was established. Do not infer a prohibition from silence."
+      : "No independently supported instruction was established for this section.";
+    blocks.push(SECTION_HEADINGS[section], ...(observations.length ? observations : [empty]));
   }
   const unresolvedBlocks = coverage
     .filter((row) => row.status === "unresolved")

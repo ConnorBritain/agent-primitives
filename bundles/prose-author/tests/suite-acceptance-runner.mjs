@@ -51,8 +51,11 @@ export async function run(t, { HERE }) {
     t.check("profile prompts require refusal instead of invented evidence",
       /Complete the renderer's refusal checks[\s\S]*state the refusal[\s\S]*rather than inventing evidence/.test(prompt));
     t.check("profile prompts state which sparse measurements can and cannot form an absence pair",
-      /first-person-singular-family may be an absence only with measured replacement first-person-plural-family/.test(prompt)
+      /first-person-singular-family is a sparse counterpart and will be an absence with measured replacement first-person-plural-family/.test(prompt)
         && /profanity-vulgarity has no measured positive replacement; do not emit it as an absence/.test(prompt));
+    t.check("profile prompts leave measured frequency bands to deterministic assembly",
+      /qualitative frequencies/.test(prompt)
+        && /not sparse relative to an allowed measured replacement; it is positive and the assembler derives its fixed frequency/.test(prompt));
     t.check("profile dispatch can request native structure without making assembly depend on it",
       source.includes("PROFILE_NATIVE_SCHEMA ? SOURCE_RENDER_SCHEMA : null")
         && source.includes('"--json-schema"')
@@ -79,6 +82,12 @@ export async function run(t, { HERE }) {
       && /if \(completedResult\(output\)\) return \{ skipped: true/.test(source));
   t.check("acceptance requires source JSON to parse without transport repair",
     /source required \$\{decoded\.repairs\} transport quote repair/.test(source));
+  t.check("acceptance rejects any measured frequency that diverges from its deterministic band",
+    /checkFrequencyAgainstRate/.test(source) && /measured frequency diverges/.test(source));
+  t.check("acceptance records k=3 mechanical stability and exposes qualitative variation",
+    /analyzeProfileStability/.test(source)
+      && /k=3 mechanical stability failed/.test(source)
+      && /profile_stability/.test(source));
   t.check("prepare requires the locked implementation and design to be committed",
     /must be committed before prepare/.test(source));
   t.check("clean-context calls exclude user plugins, MCP servers, settings, and Chrome",

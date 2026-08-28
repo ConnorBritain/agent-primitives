@@ -29,6 +29,7 @@ import { scoreRun } from "./bar.mjs";
 import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { crossCount } from "./cross-count.mjs";
 import { bodyOf } from "./corpus-rates.mjs";
+import { analyzeProfileStability } from "./profile-stability.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
   ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, SOURCE_RENDER_SCHEMA,
@@ -37,7 +38,7 @@ import {
   corpusLeakage, findFabricatedCitations, parseDraft, validateDraft,
 } from "./voice-draft.mjs";
 import {
-  corpusLock, SCHEMA_ID as PROFILE_SCHEMA, validateVoiceProfile,
+  checkFrequencyAgainstRate, corpusLock, SCHEMA_ID as PROFILE_SCHEMA, validateVoiceProfile,
 } from "./voice-profile.mjs";
 import { RESEMBLANCE_CLAIMS } from "./run-gates.mjs";
 
@@ -145,12 +146,12 @@ export function profileRenderPrompt(profileId, inputs, measurements = null) {
       const available = (ABSENCE_REPLACEMENTS[row.id] ?? []).filter((id) => (byId.get(id)?.count ?? 0) > 0);
       const sparse = available.filter((id) => row.count <= byId.get(id).count * 0.2);
       if (sparse.length) {
-        return `- ${row.id} may be an absence only with measured replacement ${sparse.join(" or ")}; the assembler may reuse that positive observation across dimensions.`;
+        return `- ${row.id} is a sparse counterpart and will be an absence with measured replacement ${sparse.join(" or ")}; the assembler may reuse that positive observation across dimensions.`;
       }
       if (row.count === 0) {
         return `- ${row.id} has no measured positive replacement; do not emit it as an absence. Leave its dimension unresolved instead.`;
       }
-      return `- ${row.id} is not sparse relative to an allowed measured replacement; it is positive and must carry one fixed frequency.`;
+      return `- ${row.id} is not sparse relative to an allowed measured replacement; it is positive and the assembler derives its fixed frequency.`;
     });
   return [
     `Render profile ${profileId}.`,
@@ -170,7 +171,7 @@ export function profileRenderPrompt(profileId, inputs, measurements = null) {
     "This locked corpus is expected to be renderable; if it is not, state the refusal",
     "rather than inventing evidence.",
     "Otherwise emit voice-profile-source/1 exactly as described by the system prompt.",
-    "Supply semantic prose, supporting filenames, fixed frequencies, measurement IDs,",
+    "Supply semantic prose, supporting filenames, qualitative frequencies, measurement IDs,",
     "and one entry for every coverage dimension. Do not copy counts, rates, support",
     "fractions, rules, observation IDs, coverage statuses, or final profile fields; the",
     "portable deterministic assembler owns those. Return the structured object only.",
@@ -195,6 +196,7 @@ function prepare(runDir) {
     "bundles/prose-author/tests/voice-profile.mjs",
     "bundles/prose-author/tests/voice-draft.mjs",
     "bundles/prose-author/tests/coverage-analysis.mjs",
+    "bundles/prose-author/tests/profile-stability.mjs",
     "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs",
     "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs",
     "bundles/prose-author/skills/prose-draft/tools/profile-assemble.mjs",
@@ -416,10 +418,12 @@ async function dispatchProfiles(runDir) {
 function collectProfiles(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
   const artifacts = existsSync(join(runDir, "ARTIFACTS.json")) ? json(join(runDir, "ARTIFACTS.json")) : {
-    schema: "prose-author-acceptance-artifacts/1", profiles: {}, drafts: {}, refusals: {}, critics: {},
+    schema: "prose-author-acceptance-artifacts/1", profiles: {}, profile_stability: {}, drafts: {}, refusals: {}, critics: {},
   };
+  artifacts.profile_stability ??= {};
   for (const profile of cases.profiles) {
     artifacts.profiles[profile.id] = {};
+    const stabilityRenders = [];
     const expectedSamples = manifest.corpora[profile.id].lock.files.map((f) => f.file).sort();
     const measurements = manifest.corpora[profile.id].measurements;
     const byId = new Map(measurements.measurements.map((m) => [m.id, m]));
@@ -443,8 +447,15 @@ function collectProfiles(runDir) {
         die(`${profile.id}-r${render} source assembly failed: ${assembled.errors.join("; ")}`);
       }
       const parsed = { json: assembled.profile, markdown: assembled.profile.profile_markdown };
+      stabilityRenders.push(parsed.json);
       const validation = validateVoiceProfile(parsed.json, parsed.markdown);
       if (!validation.ok || validation.refusal) die(`${profile.id}-r${render} invalid: ${validation.errors.join("; ")}`);
+      const bandFindings = checkFrequencyAgainstRate(
+        parsed.markdown, parsed.json, measurements.corpus_words / expectedSamples.length,
+      );
+      if (bandFindings.length) {
+        die(`${profile.id}-r${render} measured frequency diverges: ${bandFindings.map((finding) => finding.detail).join("; ")}`);
+      }
       if (parsed.json.schema !== PROFILE_SCHEMA) die(`${profile.id}-r${render} is not ${PROFILE_SCHEMA}`);
       if (parsed.json.corpus_words !== measurements.corpus_words) {
         die(`${profile.id}-r${render} corpus_words diverges from the deterministic measurement`);
@@ -488,6 +499,11 @@ function collectProfiles(runDir) {
         transport_repairs: decoded.repairs, coverage, recount,
       };
     }
+    const stability = analyzeProfileStability(stabilityRenders);
+    if (!stability.ok) {
+      die(`${profile.id} k=3 mechanical stability failed: ${stability.errors.join("; ")}`);
+    }
+    artifacts.profile_stability[profile.id] = stability;
   }
   write(join(runDir, "ARTIFACTS.json"), artifacts);
   process.stdout.write(`\n  collected and validated six ${PROFILE_SCHEMA} renders\n\n`);

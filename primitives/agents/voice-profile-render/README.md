@@ -55,14 +55,14 @@ it will produce prose aimed at a mood nobody can check. Worse, it reads *well* �
 there is no surface signal separating an observation from a compliment, so review
 does not catch it.
 
-So the primitive is organised around one rule: **one claim, one citation, one count.**
-Every observation carries the number of samples it holds in and at least one quoted
-span from a named sample. An observation that cannot be cited is dropped, and the
-number of drops is reported. A render that dropped nothing was not filtering.
+So the primitive is organised around one rule: **one claim, one structured evidence
+source.** A qualitative finding names every supporting file; a countable finding names
+one supplied deterministic measurement. The assembler derives the support count, rate,
+frequency band, citation, and observation ID. A finding that cannot supply either evidence
+shape is dropped, and the number of drops is reported.
 
-That rule is what makes the profile checkable rather than merely fluent, and it is
-checked externally — the emitted JSON carries a support count per observation and the
-bundle's selftest reads it. The primitive does not self-attest.
+That rule is what makes the profile checkable rather than merely fluent. The model does
+not self-attest or keep a second copy of arithmetic that can drift from the harness.
 
 ## Why a separate agent
 
@@ -79,9 +79,15 @@ with its own narrow allowlist makes that a boundary rather than a promise.
 
 ## What it does
 
-Reads `corpus/human/**` whole, plus `voice.md` and `profile.json` from the same
-profile directory. Emits two artifacts: a prose profile the drafter reads, and a JSON
-provenance block the harness reads.
+The production path deterministically measures `corpus/human/**`, then gives those
+measurements, the corpus, `voice.md`, and `profile.json` to one clean semantic render. The
+model emits `voice-profile-source/1`. The portable assembler turns that source into one
+self-contained `voice-profile/2` whose `profile_markdown` is what the drafter reads and
+whose structured fields are what the harness verifies.
+
+`profile-measure.mjs`, `profile-assemble.mjs`, and their shared contract are ordinary
+Node CLIs. Claude, Codex, and another harness can invoke the semantic stage differently
+without changing the measurements or canonical output rules.
 
 **It never reads the catalog, and refuses if one is placed in its input.**
 
@@ -91,14 +97,15 @@ field. `corpus.lock.json` is produced deterministically alongside the render.
 
 The profile has eight fixed sections — cadence, openings, closings, who is addressed,
 figures, register range, what the corpus never does, and what could not be determined.
-The renderer may not add sections; anything that fits nowhere goes in the last one as
-a gap.
+The renderer may not add sections. A section with no independently supported instruction
+gets an explicit neutral statement; it is never populated merely to satisfy formatting.
 
 ### Section 7 is where a tell list would sneak in
 
-An absence is worth recording and a list of absences is a tell list. The rule that
-resolves it is a phrasing rule: **an absence is recordable only paired with the
-positive habit that occupies its place.**
+An absence is worth recording and a list of absences is a tell list. **An absence is
+recordable only paired with the measured positive habit that occupies its place.** The
+assembler checks the count ratio and creates the cross-reference; model wording cannot
+turn an ordinary low-frequency form into an absence.
 
 Not *"never uses a heading."* Instead: *"structure is carried inside the prose — a shift
 of subject starts a new paragraph naming the new subject, 7/10 samples — and nothing in
@@ -154,7 +161,10 @@ sample is the erosion that voice locks were designed against. Stale is a status.
 
 ## Reading the output
 
-Two fences: the profile in `markdown`, then the provenance in `json`.
+The canonical artifact is a self-contained `voice-profile/2` JSON envelope. Its
+`profile_markdown` contains the eight-section document; its observation and coverage
+records carry the auditable contract. Historical `voice-profile/1` two-fence artifacts
+remain readable but new production renders use v2.
 
 Read the profile first, as the drafter would. The question to ask is not "is this
 accurate" — it is **"could I write from this?"** An observation you cannot act on is
@@ -176,10 +186,9 @@ Then read the JSON, and read three fields before the rest:
 - **`multiple_voices_suspected`** — if `true`, the profile is a report about the
   corpus, not a description of a voice. Do not draft from it.
 
-Then spot-check citations against the corpus. Every `support` count in the JSON must
-match the count printed in the prose beside the claim; the selftest asserts the
-structure, but only a human comparing a quote to its sample catches a citation that
-is real and irrelevant.
+Then spot-check qualitative evidence against the corpus. The assembler guarantees that
+support counts, rates, bands, locators, and citations agree mechanically; only a human
+can determine whether a cited file is genuinely relevant to the semantic claim.
 
 ## Known limits
 
@@ -206,10 +215,12 @@ is real and irrelevant.
   difference of means, and does it better. If both are available, believe the
   arithmetic.
 
-- **Support counts are the model's own count.** The schema check asserts every
-  observation *has* a count and that the JSON matches the prose. It does not verify
-  the count is right — that would need the corpus scan the primitive is deliberately
-  not carrying. A miscount is a real failure mode and only a human spot-check finds it.
+- **Qualitative support remains a model judgement.** Countable rows come from an
+  independent deterministic scan and are re-counted by a second implementation where
+  possible. For a figure, closing move, or attribution pattern, the model still decides
+  which files support one exact claim. Different valid renders can choose different
+  defensible qualitative observations; unsupported and contradictory claims remain the
+  risk that k=3 stability evidence and human review address.
 
 - **The current implementation has not cleared its locked ship bar yet.** See *Status*.
 

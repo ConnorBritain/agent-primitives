@@ -22,6 +22,11 @@ import { join } from "node:path";
 
 import { parseFences } from "./fences.mjs";
 import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
+import {
+  FREQUENCIES as PORTABLE_FREQUENCIES,
+  FREQUENCY_BANDS as PORTABLE_FREQUENCY_BANDS,
+  frequencyForPerPiece,
+} from "../skills/prose-draft/tools/profile-contract.mjs";
 
 export const SCHEMA_ID_V1 = "voice-profile/1";
 export const SCHEMA_ID = "voice-profile/2";
@@ -69,7 +74,7 @@ export const CONFIDENCE = ["thin", "full"];
  * The frequency vocabulary (FU-16). Fixed words, because the point is that a drafter can
  * act on them — "often" and "regularly" are the same problem the count already has.
  */
-export const FREQUENCIES = ["once or twice per piece", "several times per piece", "throughout"];
+export const FREQUENCIES = PORTABLE_FREQUENCIES;
 
 /**
  * Words that assert a habit is pervasive. Any of these obliges a frequency, and only
@@ -174,13 +179,7 @@ export function checkFrequencyDiscipline(markdown) {
  * prompt as "hard to find a paragraph without it", which in a piece of twenty-odd
  * paragraphs is upwards of ten.
  */
-export const FREQUENCY_BANDS = [
-  { phrase: "once or twice per piece", max: 2.5 },
-  { phrase: "several times per piece", max: 10 },
-  { phrase: "throughout", max: Infinity },
-];
-
-const bandOf = (perPiece) => FREQUENCY_BANDS.findIndex((b) => perPiece < b.max);
+export const FREQUENCY_BANDS = PORTABLE_FREQUENCY_BANDS;
 
 /**
  * A rate the renderer states must be arithmetic on the corpus it says it read.
@@ -244,14 +243,19 @@ export function checkFrequencyAgainstRate(markdown, obj, meanPieceWords) {
     if (!r || typeof r.per_1000_words !== "number") continue;
 
     const countPattern = supportPattern(o.support, o.of);
-    const host = sentences.find((s) => countPattern.test(s));
+    const locator = r.counting_rule?.match(/\[measurement:[a-z0-9-]+\]/)?.[0];
+    // Several observations legitimately share the same support fraction. Prefer the
+    // stable measurement locator or the first N/N sentence can lend one observation's
+    // frequency to another.
+    const host = (locator && sentences.find((s) => s.includes(locator)))
+      ?? sentences.find((s) => countPattern.test(s));
     if (!host) continue;
 
     const statedBand = FREQUENCY_BANDS.findIndex((b) => host.toLowerCase().includes(b.phrase));
     if (statedBand === -1) continue;
 
     const perPiece = (r.per_1000_words * meanPieceWords) / 1000;
-    const actualBand = bandOf(perPiece);
+    const actualBand = FREQUENCY_BANDS.findIndex((b) => b.phrase === frequencyForPerPiece(perPiece));
     if (Math.abs(statedBand - actualBand) >= 2) {
       findings.push({
         id: o.id,
