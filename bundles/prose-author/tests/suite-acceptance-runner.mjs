@@ -4,8 +4,8 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import {
-  claimAuditPrompt, claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt,
-  quotationAudit, validateCases,
+  claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
+  criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt, quotationAudit, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -126,6 +126,32 @@ export async function run(t, { HERE }) {
   t.check("clean-context calls exclude user plugins, MCP servers, settings, and Chrome",
     ["--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "--no-chrome"]
       .every((flag) => source.includes(`\"${flag}\"`)));
+  t.check("Codex is the default draft harness with an independently pinned model",
+    /ACCEPTANCE_DRAFT_HARNESS \|\| "codex"/.test(source)
+      && /ACCEPTANCE_DRAFT_MODEL[\s\S]*"gpt-5\.6-luna"/.test(source)
+      && /draft_harness: DRAFT_HARNESS/.test(source)
+      && /draft_model: DRAFT_MODEL/.test(source));
+  t.check("Codex draft calls disable every local, network, connector, and collaboration tool class",
+    ["features.shell_tool=false", "features.unified_exec=false", "features.apps=false",
+      "features.browser_use=false", "features.computer_use=false", "features.multi_agent=false",
+      "agents.enabled=false", "features.plugins=false", "features.hooks=false",
+      "features.skill_search=false", "features.workspace_dependencies=false",
+      "tools.view_image=false", "tools.web_search=false", 'web_search="disabled"']
+      .every((setting) => CODEX_NO_TOOLS_CONFIG.includes(setting)));
+  t.check("Codex runs outside the repository with user config and rules ignored",
+    /mkdtempSync\(join\(tmpdir\(\), "prose-author-codex-draft-"\)\)/.test(source)
+      && /"--ignore-user-config", "--ignore-rules"/.test(source)
+      && /"-C", isolationDir, "-s", "read-only"/.test(source));
+  t.check("Codex event auditing fails closed on any non-language-model item",
+    codexToolEvents([
+      { item: { type: "agent_message" } }, { item: { type: "reasoning" } },
+    ]).length === 0
+      && codexToolEvents([{ item: { type: "command_execution" } }]).length === 1
+      && codexToolEvents([{ item: { type: "mcp_tool_call" } }]).length === 1
+      && /codex no-tools boundary rejected item types/.test(source));
+  t.check("Codex raw events, final output, schema, and deny-list are pinned as evidence",
+    /raw_events_sha256/.test(source) && /raw_output_sha256/.test(source)
+      && /codex_no_tools_config/.test(source) && /locked Codex draft schema hash mismatch/.test(source));
   t.check("the model effort is pinned in the manifest rather than inherited",
     /draft_effort: DRAFT_EFFORT/.test(source) && /critic_effort: CRITIC_EFFORT/.test(source)
       && /claim_audit_effort: CLAIM_AUDIT_EFFORT/.test(source)

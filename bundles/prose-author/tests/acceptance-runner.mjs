@@ -20,8 +20,9 @@
 import { execFileSync, spawn } from "node:child_process";
 import { createHash } from "node:crypto";
 import {
-  cpSync, existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync,
+  cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync,
 } from "node:fs";
+import { tmpdir } from "node:os";
 import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
@@ -58,6 +59,12 @@ const TESTS = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MODEL = process.env.ACCEPTANCE_MODEL || "sonnet";
+const DRAFT_HARNESS = process.env.ACCEPTANCE_DRAFT_HARNESS || "codex";
+if (!["claude", "codex"].includes(DRAFT_HARNESS)) {
+  throw new Error("ACCEPTANCE_DRAFT_HARNESS must be claude or codex");
+}
+const DRAFT_MODEL = process.env.ACCEPTANCE_DRAFT_MODEL
+  || (DRAFT_HARNESS === "codex" ? "gpt-5.6-luna" : MODEL);
 const DRAFT_EFFORT = process.env.ACCEPTANCE_DRAFT_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
 const CLAIM_AUDIT_EFFORT = process.env.ACCEPTANCE_CLAIM_AUDIT_EFFORT || "low";
 const CRITIC_EFFORT = process.env.ACCEPTANCE_CRITIC_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
@@ -77,6 +84,33 @@ const write = (path, value) => {
   writeFileSync(path, typeof value === "string" ? value : `${JSON.stringify(value, null, 2)}\n`);
 };
 const stripFrontmatter = (value) => value.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
+
+// A Codex draft is a language-model call, not an agentic repository turn. Keep the
+// complete deny-list here so the invocation is portable, reviewable, and testable.
+// The event audit in codex() is the second boundary: a newly introduced tool cannot
+// silently become part of acceptance merely because this list predates it.
+export const CODEX_NO_TOOLS_CONFIG = [
+  "features.shell_tool=false",
+  "features.unified_exec=false",
+  "features.apps=false",
+  "features.browser_use=false",
+  "features.browser_use_external=false",
+  "features.browser_use_full_cdp_access=false",
+  "features.computer_use=false",
+  "features.image_generation=false",
+  "features.in_app_browser=false",
+  "features.multi_agent=false",
+  "agents.enabled=false",
+  "features.plugins=false",
+  "features.remote_plugin=false",
+  "features.hooks=false",
+  "features.goals=false",
+  "features.skill_search=false",
+  "features.workspace_dependencies=false",
+  "tools.view_image=false",
+  "tools.web_search=false",
+  'web_search="disabled"',
+];
 
 const AGENTS = {
   profile: "primitives/agents/voice-profile-render/agent.md",
@@ -251,6 +285,9 @@ function prepare(runDir) {
     agentEntries[kind] = { source, sha256: SHA(body), snapshot: rel(to) };
   }
 
+  const draftSchemaPath = join(runDir, "schemas", "voice-draft-source-3.json");
+  write(draftSchemaPath, DRAFT_SOURCE_SCHEMA);
+
   const corpusEntries = {};
   const currencyLocks = {};
   for (const profile of cases.profiles) {
@@ -293,6 +330,15 @@ function prepare(runDir) {
     prepared: today(),
     prepared_commit: preparedCommit,
     model: MODEL,
+    draft_harness: DRAFT_HARNESS,
+    draft_model: DRAFT_MODEL,
+    harnesses: {
+      profile: "claude-code", draft: DRAFT_HARNESS,
+      claim_audit: "claude-code", critic: "claude-code",
+    },
+    models: {
+      profile: MODEL, draft: DRAFT_MODEL, claim_audit: MODEL, critic: MODEL,
+    },
     effort: DRAFT_EFFORT,
     draft_effort: DRAFT_EFFORT,
     claim_audit_effort: CLAIM_AUDIT_EFFORT,
@@ -304,6 +350,10 @@ function prepare(runDir) {
     claim_audit_transport: CLAIM_AUDIT_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     critic_transport: CRITIC_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     model_timeout_ms: MODEL_TIMEOUT_MS,
+    codex_no_tools_config: DRAFT_HARNESS === "codex" ? CODEX_NO_TOOLS_CONFIG : [],
+    schemas: {
+      draft: { path: rel(draftSchemaPath), sha256: SHA(text(draftSchemaPath)) },
+    },
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
     cases_sha256: SHA(text(p.cases)),
@@ -426,6 +476,100 @@ async function claude({ system, prompt, cwd, tools, allowed, output, schema = nu
       resolvePromise({ skipped: false, output });
     });
     child.stdin.end(prompt);
+  });
+}
+
+function codexCompanion(output, suffix) {
+  return output.replace(/\.json$/, `.codex-${suffix}`);
+}
+
+export function codexToolEvents(events) {
+  const allowedItems = new Set(["agent_message", "reasoning"]);
+  return events.filter((event) => event.item && !allowedItems.has(event.item.type));
+}
+
+async function codex({ system, prompt, output, schemaPath, effort, model, noToolsConfig }) {
+  if (completedResult(output)) return { skipped: true, output };
+  const eventsOutput = codexCompanion(output, "events.jsonl");
+  const finalOutput = codexCompanion(output, "output.json");
+  if (existsSync(eventsOutput) || existsSync(finalOutput)) {
+    die(`${rel(eventsOutput)} or its final output already exists without a successful record; do not redraw it`);
+  }
+  const isolationDir = mkdtempSync(join(tmpdir(), "prose-author-codex-draft-"));
+  const args = [
+    "exec", "--json", "--ephemeral", "--ignore-user-config", "--ignore-rules",
+    "--skip-git-repo-check", "-C", isolationDir, "-s", "read-only", "-m", model,
+    "-c", `model_reasoning_effort=${JSON.stringify(effort)}`,
+    ...noToolsConfig.flatMap((setting) => ["-c", setting]),
+    "--output-schema", schemaPath,
+    "--output-last-message", finalOutput,
+    "-",
+  ];
+  const combinedPrompt = [
+    "<agent-instructions>", text(system).trim(), "</agent-instructions>", "",
+    "<task>", prompt.trim(), "</task>", "",
+    "Return only the structured object required by the agent instructions.",
+  ].join("\n");
+  return new Promise((resolvePromise, reject) => {
+    const child = spawn("codex", args, { cwd: isolationDir, stdio: ["pipe", "pipe", "pipe"] });
+    let stdout = "";
+    let stderr = "";
+    let timedOut = false;
+    let settled = false;
+    const timeout = setTimeout(() => {
+      timedOut = true;
+      child.kill("SIGTERM");
+    }, MODEL_TIMEOUT_MS);
+    child.stdout.on("data", (chunk) => { stdout += chunk; });
+    child.stderr.on("data", (chunk) => { stderr += chunk; });
+    child.on("error", (error) => {
+      settled = true;
+      clearTimeout(timeout);
+      rmSync(isolationDir, { recursive: true, force: true });
+      reject(error);
+    });
+    child.on("close", (code) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timeout);
+      rmSync(isolationDir, { recursive: true, force: true });
+      if (stdout) write(eventsOutput, stdout.endsWith("\n") ? stdout : `${stdout}\n`);
+      const fail = (message) => {
+        write(output, {
+          type: "result", is_error: true, harness: "codex", result: "",
+          structured_output: null, raw_events: rel(eventsOutput), error: message,
+        });
+        reject(new Error(message));
+      };
+      if (timedOut) return fail(`codex exceeded ${MODEL_TIMEOUT_MS}ms; no redraw was made`);
+      if (code !== 0) return fail(`codex exited ${code}: ${stderr.slice(0, 2000)}`);
+      const events = [];
+      for (const [index, line] of stdout.trim().split("\n").entries()) {
+        try { events.push(JSON.parse(line)); } catch {
+          return fail(`codex event ${index + 1} was not JSON: ${line.slice(0, 500)}`);
+        }
+      }
+      const toolEvents = codexToolEvents(events);
+      if (toolEvents.length) {
+        return fail(`codex no-tools boundary rejected item types: ${toolEvents.map((e) => e.item.type).join(", ")}`);
+      }
+      if (!events.some((event) => event.type === "turn.completed")) {
+        return fail("codex emitted no completed turn");
+      }
+      if (!existsSync(finalOutput)) return fail("codex emitted no final structured output");
+      const result = text(finalOutput).trim();
+      let structured;
+      try { structured = JSON.parse(result); } catch {
+        return fail(`codex final output was not JSON: ${result.slice(0, 500)}`);
+      }
+      write(output, {
+        type: "result", is_error: false, harness: "codex", model, effort,
+        result, structured_output: structured, raw_events: rel(eventsOutput),
+        raw_output: rel(finalOutput),
+      });
+      resolvePromise({ skipped: false, output });
+    });
+    child.stdin.end(combinedPrompt);
   });
 }
 
@@ -640,12 +784,24 @@ async function dispatchDrafts(runDir) {
     write(promptPath, `${prompt}\n`);
     return {
       id: c.id,
-      run: () => claude({
-        system, cwd: runDir, prompt, tools: "", allowed: [],
-        effort: DRAFT_EFFORT,
-        schema: DRAFT_NATIVE_SCHEMA ? DRAFT_SOURCE_SCHEMA : null,
-        output: join(runDir, "raw", c.refusal ? "refusals" : "drafts", `${c.id}.json`),
-      }),
+      run: () => {
+        const output = join(runDir, "raw", c.refusal ? "refusals" : "drafts", `${c.id}.json`);
+        if (manifest.draft_harness === "codex") {
+          if (!DRAFT_NATIVE_SCHEMA) die("Codex drafts require the locked native source schema");
+          return codex({
+            system, prompt, output,
+            effort: manifest.draft_effort, model: manifest.draft_model,
+            schemaPath: resolve(REPO, manifest.schemas.draft.path),
+            noToolsConfig: manifest.codex_no_tools_config,
+          });
+        }
+        return claude({
+          system, cwd: runDir, prompt, tools: "", allowed: [],
+          effort: manifest.draft_effort,
+          schema: DRAFT_NATIVE_SCHEMA ? DRAFT_SOURCE_SCHEMA : null,
+          output,
+        });
+      },
     };
   });
   await pool("draft", jobs);
@@ -732,6 +888,10 @@ function collectDrafts(runDir) {
       draft: rel(out), draft_sha256: SHA(text(out)),
       disclosure: disclosure ? rel(disclosurePath) : null,
       disclosure_sha256: disclosure ? SHA(text(disclosurePath)) : null,
+      raw_events: record.raw_events ?? null,
+      raw_output: record.raw_output ?? null,
+      raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
+      raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
     };
   }
   for (const c of cases.refusals) {
@@ -756,6 +916,10 @@ function collectDrafts(runDir) {
       source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
       render_output: rel(renderPath), render_output_sha256: SHA(text(renderPath)),
       reason: parsed.json.refused,
+      raw_events: record.raw_events ?? null,
+      raw_output: record.raw_output ?? null,
+      raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
+      raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
     };
   }
   write(artifactsPath, artifacts);
@@ -1039,6 +1203,17 @@ function check(runDir) {
   for (const c of [...cases.cases, ...cases.refusals]) {
     if (SHA(c.prompt) !== manifest.prompts[c.id]?.sha256) errors.push(`${c.id} prompt hash mismatch`);
   }
+  if (manifest.draft_harness === "codex") {
+    if (JSON.stringify(manifest.codex_no_tools_config) !== JSON.stringify(CODEX_NO_TOOLS_CONFIG)) {
+      errors.push("Codex no-tools configuration changed after prepare");
+    }
+    const draftSchema = manifest.schemas?.draft;
+    if (!draftSchema || !existsSync(resolve(REPO, draftSchema.path))) {
+      errors.push("locked Codex draft schema is missing");
+    } else if (SHA(text(resolve(REPO, draftSchema.path))) !== draftSchema.sha256) {
+      errors.push("locked Codex draft schema hash mismatch");
+    }
+  }
   try {
     const preparedTree = execFileSync("git", ["rev-parse", `${manifest.prepared_commit}^{tree}`], { cwd: REPO, encoding: "utf8" }).trim();
     if (!preparedTree) errors.push("prepared commit is not resolvable");
@@ -1058,7 +1233,8 @@ function check(runDir) {
         if ((key === "raw" || key === "render" || key === "markdown" || key === "json"
           || key === "source" || key === "render_output" || key === "draft"
           || key === "original_source" || key === "audit" || key === "audit_raw"
-          || key === "audit_prompt" || key === "disclosure" || key === "prompt") && child) {
+          || key === "audit_prompt" || key === "disclosure" || key === "prompt"
+          || key === "raw_events" || key === "raw_output") && child) {
           if (!existsSync(resolve(REPO, child))) errors.push(`missing artifact ${child}`);
         } else if (child && typeof child === "object") visit(child);
       }
@@ -1094,6 +1270,6 @@ async function main() {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 
 export {
-  claimAuditPrompt, claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt,
+  claimAuditPrompt, claimsAuditFailures, codex as dispatchCodex, criticPrompt, deriveCritic, draftPrompt,
   quotationAudit, structuralGates, validateCases,
 };
