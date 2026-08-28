@@ -1,0 +1,36 @@
+{
+  "schema": "voice-draft-request-only-probe/1",
+  "status": "claim-audit-failure",
+  "prepared_commit": "ff7083dd536aa27d9370a2e7334cfaa85d629a33",
+  "acceptance": false,
+  "case": "d01",
+  "profile": "doctorow-blog-r1",
+  "harness": "claude-cli",
+  "model": "claude-sonnet-4-6",
+  "effort": "low",
+  "result": {
+    "source_transport": "pass",
+    "source_contract": "pass",
+    "ledger_entries": 1,
+    "external_ledger_entries": 0,
+    "sentences": 33,
+    "claim_audit_kept": 20,
+    "claim_audit_rejected": 13,
+    "public_assembly": "blocked",
+    "critic_draws": 0
+  },
+  "telemetry": {
+    "draft_duration_ms": 106016,
+    "draft_api_equivalent_usd": 0.1818228,
+    "audit_duration_ms": 119168,
+    "audit_api_equivalent_usd": 0.14054715,
+    "direct_api_billing_claimed": false
+  },
+  "snapshots": {
+    "draft_body_sha256": "7b1e939ddaea610822c06910031b0c1a3711071f2695da8dbef229e41821716f",
+    "draft_agent_sha256": "7901193cb71cc63e988cecdaa56ea90d86ff5ef4684031c032c506d86ba035e9",
+    "claim_audit_sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "draft_schema_sha256": "02851f9440276a6a519f711ab0709288daf04b9b713e589fce3a51b92e053d7d",
+    "audit_schema_sha256": "e56ccc9209bd8d71156e26f4821a692d95677e3f1d4dc0293b68f0e94c37507d"
+  }
+}

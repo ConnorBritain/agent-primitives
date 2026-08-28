@@ -1,0 +1,170 @@
+{
+  "schema": "voice-draft-claim-audit/2",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "Normative definition of ownership; no factual claim about the world. No ledger entry required."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "Normative elaboration contrasting the stated definition against other arrangements; makes no descriptive claim about real law, companies, or consumer behavior requiring ledger support."
+    },
+    {
+      "id": "p1s3",
+      "status": "keep",
+      "reason": "Request-supported via c1. 'A company can reach into a device you paid for and disable a feature' maps directly to c1 ('maker can disable features after sale'). The conclusion 'what you've got isn't ownership' is normative inference. All clauses accounted for."
+    },
+    {
+      "id": "p1s4",
+      "status": "keep",
+      "reason": "Pure reasoning metaphor inferring from p1s3; adds no external descriptive premise."
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "reason": "Rhetorical invitation to consider an analogy; introduces no factual premise about the world."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "reason": "Reasoning analogy about car ownership describing a conceptual property scenario as an inferential illustration, not a claim about what courts or dealers actually do in any specific jurisdiction."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "Hypothetical, unmistakably imagined ('if the dealer showed up'); no report of a real actor or event. Claim-ID list empty as required."
+    },
+    {
+      "id": "p2s4",
+      "status": "reject",
+      "reason": "Two problems: (1) 'ecosystem management' is presented as a phrase companies actually use—a descriptive claim about real industry terminology not in the ledger. (2) The tractor example ('software stops recognizing the parts your mechanic installed') describes a specific mechanism differing from and not covered by c1's wording ('disable features after sale'). Both are unledgered external descriptive premises."
+    },
+    {
+      "id": "p2s5",
+      "status": "reject",
+      "reason": "Labeled reasoning but 'with better lawyers' is a descriptive claim about companies' legal resources that a reasonable reader would challenge, and it is absent from the ledger. Reasoning sentences may not add external descriptive premises."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "Normative/expressive: 'I think the piece that's hardest to swallow' is a first-person evaluative statement. 'How we got here incrementally' is a topic reference framing subsequent paragraphs, not an independent factual assertion requiring ledger support."
+    },
+    {
+      "id": "p3s2",
+      "status": "reject",
+      "reason": "Labeled reasoning but asserts a historical fact about consumer and industry behavior ('we accepted software licenses that said the company owned the code even when we owned the disc'). This is an external descriptive premise about past practice; reasoning sentences may not add such premises, and no ledger entry covers it."
+    },
+    {
+      "id": "p3s3",
+      "status": "reject",
+      "reason": "Labeled reasoning but asserts a historical behavioral fact ('we accepted devices that phoned home')—an external descriptive premise about widespread past practice not in the ledger."
+    },
+    {
+      "id": "p3s4",
+      "status": "reject",
+      "reason": "Labeled reasoning but asserts a descriptive historical fact ('we accepted that features could be gated behind subscriptions')—an external descriptive premise about consumer/industry behavior not in the ledger."
+    },
+    {
+      "id": "p3s5",
+      "status": "reject",
+      "reason": "'Each step seemed like a small concession to convenience' is a descriptive claim about consumer perception/psychology. Reasoning sentences may not add external descriptive premises; no ledger entry covers this."
+    },
+    {
+      "id": "p3s6",
+      "status": "keep",
+      "reason": "Reasoning inference: given c1 (maker can disable features post-sale), the sentence concludes the purchase price did not secure permanent control over features. No new external descriptive premise is added."
+    },
+    {
+      "id": "p4s1",
+      "status": "reject",
+      "reason": "Labeled reasoning but 'the word the industry prefers is connected' is a descriptive claim about actual industry terminology usage—an external descriptive premise not in the ledger. Reasoning sentences may not add such premises."
+    },
+    {
+      "id": "p4s2",
+      "status": "reject",
+      "reason": "Labeled request-supported via c1 but adds two unledgered premises: (1) 'permanent'—c1 does not characterize the override as permanent; (2) 'hardware you carry in your pocket'—specifies a device category absent from c1. These descriptive clauses are not covered by any ledger entry."
+    },
+    {
+      "id": "p4s3",
+      "status": "keep",
+      "reason": "Reasoning inference from c1: since makers can alter features after sale, the buyer is in a relationship with changeable terms. No new external descriptive premise added."
+    },
+    {
+      "id": "p4s4",
+      "status": "reject",
+      "reason": "'Designed to feel like a sale' asserts manufacturer intent—a descriptive claim about purposeful design of pricing structures. This is not in the ledger, and reasoning sentences may not add external descriptive premises."
+    },
+    {
+      "id": "p4s5",
+      "status": "keep",
+      "reason": "Normative conclusion ('It is not a sale'); no factual premise about real actors required."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "Hypothetical framing ('if the company goes bankrupt tomorrow'); unmistakably imagined. Claim-ID list empty as required."
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "reason": "Reasoning conclusion drawn from the hypothetical in p5s1 and c1: if post-sale feature changes can render a device non-functional, the buyer was never a true owner. No new external descriptive premise."
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "Normative/definitional claim about the concept of ownership; no claim about real law or specific jurisdiction."
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "reason": "Reasoning contrast following p5s3; no external descriptive premise."
+    },
+    {
+      "id": "p6s1",
+      "status": "reject",
+      "reason": "Labeled normative but asserts descriptive claims about real policy frameworks ('we've built policy frameworks that let this happen') and a causal claim about regulatory reasoning ('because we treated software control as categorically different'). These are claims about what existing policy actually does and why; no ledger entry covers them."
+    },
+    {
+      "id": "p6s2",
+      "status": "reject",
+      "reason": "Labeled request-supported via c1 but adds the unledgered premise that the feature is disabled 'unless you subscribe to a monthly plan.' C1 states only that makers can disable features after sale; the subscription-reactivation model is a distinct factual premise absent from c1's claim and request_basis."
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "reason": "Normative judgment ('we should be treating it like fraud'); no factual claim about what courts or law currently do."
+    },
+    {
+      "id": "p6s4",
+      "status": "keep",
+      "reason": "Normative policy proposal ('we should have rules'); no claim about existing law or current practice."
+    },
+    {
+      "id": "p7s1",
+      "status": "keep",
+      "reason": "Normative/expressive assertion ('I'm not describing a hard problem'); no external descriptive premise."
+    },
+    {
+      "id": "p7s2",
+      "status": "reject",
+      "reason": "Labeled reasoning but asserts descriptive legal claims: 'property law has handled analogous cases for centuries' and the specific rules about houses and tools are claims about what real property law does without a jurisdiction or bounded referent. Reasoning sentences may not add external descriptive premises; no ledger entry covers these claims."
+    },
+    {
+      "id": "p7s3",
+      "status": "reject",
+      "reason": "Labeled normative but asserts historical descriptive facts: 'we let them write the licenses that substituted for laws' and 'while regulators looked away' are claims about what actually happened with regulators and industry licensing—external descriptive premises not in the ledger."
+    },
+    {
+      "id": "p8s1",
+      "status": "keep",
+      "reason": "Normative definition of device ownership; no external descriptive claim."
+    },
+    {
+      "id": "p8s2",
+      "status": "keep",
+      "reason": "Reasoning conclusion following from the normative definition in p8s1 and c1; no new external descriptive premise."
+    }
+  ]
+}
