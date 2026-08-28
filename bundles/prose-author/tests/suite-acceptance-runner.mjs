@@ -132,14 +132,16 @@ export async function run(t, { HERE }) {
   t.group("v0.2 acceptance harness — claim and quotation audit");
   {
     const rows = quotationAudit(
-      'A “supplied phrase” appears. Acme called it "invented wording."',
+      'A “supplied phrase” appears. Acme called it "invented wording." A “profile phrase” appears.',
       "The request includes supplied phrase.",
-      "Profile text.",
+      "The voice profile includes profile phrase.",
     );
     t.check("quoted spans are inventoried with paragraph locations",
-      rows.length === 2 && rows.every((row) => row.where === "paragraph 1"));
+      rows.length === 3 && rows.every((row) => row.where === "paragraph 1"));
     t.check("quote inventory distinguishes supplied from unsupplied wording",
-      rows[0].present_in_supplied_inputs === true && rows[1].present_in_supplied_inputs === false);
+      rows[0].present_in_request === true
+        && rows[1].present_in_request === false
+        && rows[2].present_in_request === false);
     const casesForAudit = { cases: [{ id: "x" }] };
     const incomplete = {
       schema: "prose-author-claims-audit/2",

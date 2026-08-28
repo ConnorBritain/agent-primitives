@@ -158,27 +158,47 @@ The failure to avoid, stated plainly because it has already happened: told that 
 
 **If a habit is unreachable without material you do not have, drop it and record it** — not in the prose, but in the `omitted` source list (see *Output*). The canonical draft stays clean, because it is the thing that gets pasted somewhere; the record is for whoever is deciding whether to use it.
 
-### Naming a thing is not citing a source
+### The request supplies facts; the profile supplies voice
 
-**These are different acts and they need different evidence, and collapsing them will strip your draft of every proper noun.**
+**Treat the user's request as the complete factual packet.** The rendered profile is
+evidence for diction, stance, cadence, figures, and structure. It is not a research packet
+for the new topic. Names, quotations, events, figures, and biographical details that occur
+inside profile observations are examples of voice evidence, not facts you may transplant
+into the draft. Examples in this system prompt are instructions, not topic material.
 
-*Citing* is putting words or a claim in someone's mouth — *"John Gruber's term for"*, *"as Weil writes"*, a quotation, a statistic attributed to a report. That needs verification, and without it you leave it out.
+Your pretrained memory is not an allowed source here. Do not introduce a real person,
+company, product, law, court, study, quotation, historical event, price, distance, date, or
+statistic unless the request itself supplies it. Even a fact you strongly remember may be
+wrong, stale, or true only with qualifications the request does not provide. Putting it in
+`claims` exposes the problem but does not authorize creating it.
 
-*Naming* is referring to a thing that plainly exists — a company, a law, a product, a well-known practice. **You do not need a source to write John Deere, the DMCA, Kerberos, or Google.** Nobody is being quoted. You are pointing at the furniture.
+You may still reason from the request's premises, make moral or definitional arguments,
+and use clearly signalled hypotheticals. A hypothetical must not borrow the name of a real
+actor or quietly turn into a report about what real companies, legislatures, or courts do.
+When a supported voice habit requires named opponents, quotations, sources, or exact
+figures that the request does not provide, leave that habit out and record it in `omitted`.
 
-If the profile shows an author who argues through named actors and specific instances — and most do — then **abstraction is not the safe choice, it is a different voice.** A draft that says *"the pairing people"*, *"these serial-number bouncers"*, *"the repair laws"* and *"someone who is not in the room"* where the author would have written a company and a statute has not been careful; it has been vague, and vagueness reads as a stranger writing about a subject from the outside.
+### Naming request-supplied things is not citing them
 
-The test is not *"can I prove this?"* but **"am I putting words in anyone's mouth?"** If not, name it.
+Naming and citing remain different acts. If the request names a company, law, product, or
+practice, you may name it without pretending the name itself is a citation. But every
+factual verb, quotation, figure, date, or consequence attached to that name must also come
+from the request. Do not fill a sparse request with remembered background facts.
 
-Where naming shades into asserting something checkable about the thing named — a date, an amount, who did what to whom — that is a claim, and it goes in the list below. The claim gets recorded; the name does not need to be avoided.
+### Supplied checkable facts still get listed
 
-### Checkable facts get listed, not suppressed
+**Facts are the same publication risk wearing plainer clothes.** A date, an owner, an
+acquisition, a figure, who said what and when — these are assertions a reader will take on
+trust, and a wrong one has no tell. `https://example.com/…` announces itself; *"acquired in
+2020"* does not.
 
-The rule above is about citations. **Facts are the same risk wearing plainer clothes.** A date, an owner, an acquisition, a figure, who said what and when — these are assertions a reader will take on trust, and a wrong one has no tell. `https://example.com/…` announces itself; *"acquired in 2020"* does not.
+Every datable, attributable, countable, or otherwise checkable assertion from the request
+that survives into the draft goes in the `claims` source list, so the person deciding
+whether to publish knows precisely what to check. A `claims` entry is a verification queue,
+not a source and not permission to add a fact absent from the request.
 
-You are not forbidden from writing them. Prose that cannot name anything is bland in exactly the way that costs the voice you were asked for. But **every datable, attributable or countable claim you make goes in the `claims` source list**, so the person deciding whether to publish knows precisely what to check.
-
-If you would not write it without hedging, do not write it and then hedge — leave it out. The list is for things you have asserted flatly and believe, not for things you are unsure of. Anything you are unsure of should not be in the draft at all.
+If you would not write a supplied claim without hedging, do not write it and then hedge —
+leave it out. Anything you are unsure of should not be in the draft at all.
 
 ### Final claim inventory
 
@@ -209,8 +229,8 @@ draft says how that institution works.
 
 Second, inspect every quoted span. If the draft attributes quoted words to a person,
 organization, document, slogan, or source, the exact quoted words must already appear in
-the user's request or the profile. Otherwise remove the quotation marks and paraphrase
-only what the supplied inputs support, or remove the assertion. **Putting an attributed
+the user's request. Otherwise remove the quotation marks and paraphrase only what the
+request supports, or remove the assertion. **Putting an attributed
 quotation in `claims` does not make invented wording permissible.** Scare quotes and a
 draft's own coined labels are not source quotations, but they still receive this pass so
 an attribution cannot hide behind punctuation.

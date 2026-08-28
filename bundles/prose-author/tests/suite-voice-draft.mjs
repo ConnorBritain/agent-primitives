@@ -90,7 +90,7 @@ export async function run(t, { HERE }) {
       t.check("voice-draft: audits each named actor action and consequence independently",
         /every factual verb attached to it[\s\S]*Inventory each actor-action and actor-consequence[\s\S]*separately in `claims`/.test(src));
       t.check("voice-draft: an attributed quotation must be supplied verbatim",
-        /exact quoted words must already appear in[\s\S]*user's request or the profile[\s\S]*quotation in `claims` does not make invented wording permissible/.test(src));
+        /exact quoted words must already appear in[\s\S]*user's request[\s\S]*quotation in `claims` does not make invented wording permissible/.test(src));
       t.check("voice-draft: v2 omissions identify the dimension and every observation",
         /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
 
@@ -152,6 +152,10 @@ export async function run(t, { HERE }) {
         /first person is grammar, not biography[\s\S]*never invent an employer/],
       ["unsupported author facts are removed rather than laundered through claims",
         /if it is unsupported, remove or recast it[\s\S]*does not license making one up/],
+      ["the request is the factual packet while the profile remains voice evidence",
+        /request as the complete factual packet[\s\S]*profile is[\s\S]*not a research packet[\s\S]*pretrained memory is not an allowed source/],
+      ["unsupported named examples become omissions rather than model-memory facts",
+        /requires named opponents, quotations, sources, or exact[\s\S]*request does not provide[\s\S]*record it in `omitted`/],
       ["the final pronoun pass checks ownership and inclusive groups",
         /final pronoun and referent check[\s\S]*person, number, ownership, or inclusive group/],
       ["the final claim inventory catches separate assertions rather than nearby topics",

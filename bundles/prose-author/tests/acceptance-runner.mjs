@@ -672,7 +672,7 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     instructions: [
       "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
       "disclosure_complete: read the draft sentence by sentence and use true only when every checkable assertion is listed or supplied by the request/profile",
-      "quotations_verified: inspect every quoted span and use true only when every attributed quotation is verbatim in a supplied input or independently verified; scare quotes may be marked reviewed",
+      "quotations_verified: inspect every quoted span and use true only when every attributed quotation is verbatim in the request or independently verified; scare quotes may be marked reviewed",
     ],
     drafts: {},
   };
@@ -680,8 +680,7 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     const disclosure = artifacts.drafts[c.id].disclosure ? json(resolve(REPO, artifacts.drafts[c.id].disclosure)) : null;
     const claims = disclosure?.claims ?? [];
     const draft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
-    const profile = text(join(runDir, "inputs", "profiles", c.profile, `r${c.render}.md`));
-    const quotedSpans = quotationAudit(draft, c.prompt, profile);
+    const quotedSpans = quotationAudit(draft, c.prompt);
     const previous = prior?.schema === "prose-author-claims-audit/2" ? prior.drafts?.[c.id] : null;
     const unchanged = previous?.draft_sha256 === artifacts.drafts[c.id].draft_sha256
       && JSON.stringify(previous.claims) === JSON.stringify(claims)
@@ -699,8 +698,8 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
   write(auditPath, next);
 }
 
-function quotationAudit(draft, request, profile) {
-  const supplied = normalizeAuditText(`${request}\n${profile}`);
+function quotationAudit(draft, request, profile = "") {
+  const supplied = normalizeAuditText(request);
   const rows = [];
   for (const [index, paragraph] of draft.trim().split(/\n\s*\n/).entries()) {
     const quoted = /“([^”\n]+)”|"([^"\n]+)"/g;
@@ -710,7 +709,7 @@ function quotationAudit(draft, request, profile) {
       rows.push({
         text: value,
         where: `paragraph ${index + 1}`,
-        present_in_supplied_inputs: supplied.includes(normalizeAuditText(value)),
+        present_in_request: supplied.includes(normalizeAuditText(value)),
       });
     }
   }

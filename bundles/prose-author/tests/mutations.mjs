@@ -196,6 +196,20 @@ export const MUTATIONS = [
     guards: "a nearby disclosed fact cannot hide a second checkable assertion",
   },
   {
+    name: "let model memory become an unrecorded factual source",
+    file: VOICE_DRAFT_PROMPT,
+    find: "Your pretrained memory is not an allowed source here.",
+    with: "Your pretrained memory is an allowed source here.",
+    guards: "a blank-page draft cannot introduce unverifiable remembered examples",
+  },
+  {
+    name: "treat profile examples as reusable topic facts",
+    file: VOICE_DRAFT_PROMPT,
+    find: "It is not a research packet\nfor the new topic.",
+    with: "It is also a research packet\nfor the new topic.",
+    guards: "corpus-derived profile examples cannot cross the factual firewall",
+  },
+  {
     name: "let a listed claim license an invented attributed quotation",
     file: VOICE_DRAFT_PROMPT,
     find: "**Putting an attributed\nquotation in `claims` does not make invented wording permissible.**",
@@ -222,6 +236,13 @@ export const MUTATIONS = [
     find: '["claims_verified", "disclosure_complete", "quotations_verified"]',
     with: '["claims_verified", "quotations_verified"]',
     guards: "the drafter cannot certify completeness merely by returning a claims list",
+  },
+  {
+    name: "let a quotation hide inside a profile example",
+    file: ACCEPTANCE_RUNNER,
+    find: "const supplied = normalizeAuditText(request);",
+    with: 'const supplied = normalizeAuditText(`${request} ${profile}`);',
+    guards: "the profile remains voice evidence rather than a factual quotation source",
   },
   {
     name: "let the requested container override the profile's register",
