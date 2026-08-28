@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 195660,
+  "duration_api_ms": 195638,
+  "num_turns": 1,
+  "result": "```markdown\n\"Public\" is doing a lot of work in \"public court records.\" If you take that word seriously, it means any citizen can walk up to the system and see what their courts are doing – the evictions, the foreclosures, the corporate settlements, the criminal convictions that'll follow someone for the rest of their life. If you take it the way the system actually operates, it means you can technically access those records, provided you've got a Westlaw subscription (several thousand dollars a year), a LexisNexis seat license, or the patience to navigate PACER's per-page charges on federal documents.\n\nI've spent years watching access-to-justice fights, and what I keep running into isn't a system that's secretly closed. It performs openness. The records exist, they're nominally public, and if you ask the right bureaucrat you'll be told that access is fine. What they won't explain is that the practical infrastructure for reaching that information has been handed to private companies who've built toll booths on what should be a commons – and we've been quietly expected to treat that as a permanent feature of the landscape rather than a political choice someone made.\n\nA court record is produced at public expense. Judges are salaried by the public (by us, through our taxes). Clerks are salaried by the public. The servers, the electricity, the buildings, the staff who process filings all come out of public budgets. When you pay a Westlaw subscription to read a decade-old ruling, you're paying a private company for something we already built. Think of a public park where a company has figured out how to padlock all the gates and sell you a key: the land is still \"public\" in the sense that the deed says so, and the company will tell you (truthfully) that they don't own an inch of it. But you still need the key, and you're still paying for it, and the price goes up every year. That arrangement is not flattering to anyone who's been defending the status quo.\n\nWhat does this mean structurally? A large law firm absorbs whatever subscription costs it needs and passes them along to clients. A corporate legal department does the same. But the tenant facing eviction who wants to understand what courts have decided in cases like hers can't easily do that research. The journalist trying to pull five years of bail records on a local judge is working around the fee structure, not with it. The public defender with forty open cases and zero research budget gets what the fee structure allows – which is usually very little.\n\nPACER's defenders will tell you the per-page charges fund infrastructure. That's worth engaging: by most accounts PACER has run consistent surpluses for years, with revenues exceeding documented operating costs, and those surpluses flow into the courts' general IT budgets rather than toward expanded public access. This isn't cost recovery. It's rent collection wearing cost recovery's clothes, which is a categorically different thing.\n\nWe know an alternative works because partial versions of it already exist. The Free Law Project runs CourtListener, a freely searchable database built by harvesting PACER documents through a browser tool called RECAP (when you download something from PACER through RECAP, a copy routes automatically into a public archive). It works, it scales, and as far as I can tell the technical barriers have been solved for years. What remains is political: the gatekeepers aren't protecting infrastructure. They're protecting revenue.\n\nSo what does \"public\" actually mean here? If reading the foreclosure docket requires a billing relationship with a private company, organizing against predatory lending gets harder for the people it harms most. If pulling a corporation's litigation history needs a law school login, some newsrooms can absorb that cost and most can't. Calling records \"public\" while rationing access by ability to pay is bullshit, and I'm tired of pretending the word means anything otherwise. The records belong to all of us. So should the infrastructure for reading them.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [],\n  \"claims\": [\n    { \"claim\": \"Westlaw subscriptions cost several thousand dollars a year\", \"where\": \"paragraph 1\" },\n    { \"claim\": \"PACER charges per-page fees on federal documents\", \"where\": \"paragraph 1\" },\n    { \"claim\": \"PACER has run consistent surpluses with revenues exceeding documented operating costs, with surpluses flowing into courts' general IT budgets\", \"where\": \"paragraph 5\" },\n    { \"claim\": \"The Free Law Project runs CourtListener as a freely searchable database\", \"where\": \"paragraph 6\" },\n    { \"claim\": \"RECAP routes downloaded PACER documents automatically into a public archive\", \"where\": \"paragraph 6\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "4b1d6eb0-80ce-4682-89a3-e2416b8e4df7",
+  "total_cost_usd": 0.21308145,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6837,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 12379,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6837,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 12379,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6837,
+      "webSearchRequests": 0,
+      "costUSD": 0.21308145,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "6bb500fa-0297-4d26-8896-e58fcb39186e"
+}

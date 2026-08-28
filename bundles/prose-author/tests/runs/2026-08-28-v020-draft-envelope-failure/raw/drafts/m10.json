@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 90810,
+  "duration_api_ms": 90786,
+  "num_turns": 1,
+  "result": "```markdown\nNo, collecting identity documents is not the only option, and it's often the worst one.\n\nAge assurance (the umbrella term covering both age verification and age estimation) exists on a spectrum. At the heavy end sit government ID checks and face-scan matching: expensive, invasive, a data-breach liability waiting to materialize. At the light end sits self-declaration, which regulators will not accept as assurance on its own. Between those poles there are approaches that don't require touching a document at all.\n\nThe most practical for a solo developer is a layered soft-gate: device signals (parental-control indicators from iOS Screen Time and Android Family Link, both exposed as free platform APIs) combined with a self-declaration step that shifts legal responsibility to users who misrepresent their age. That combination is not airtight—regulators may eventually demand more—but it will likely satisfy a reasonable-effort standard under most current age-assurance frameworks, which are still being contested in court and revised by legislatures.\n\nWhere a statute specifically requires verified age rather than assured age, the situation is harder. Even there, third-party credit-header checks (available through data brokers for a few cents per lookup) can confirm an account holder is an adult without collecting a document at all. It's more like a credit card authorization than a passport inspection—less invasive, and far less legally exposed if the data is later breached.\n\nWhat we'd caution against is the identity-document path, not because it's legally wrong but because it converts a small app into a document-storage liability. One breach, and the compliance savings disappear several times over into notification and remediation costs.\n\nCheck the exact statutory language before assuming documents are required. They often are not.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [],\n  \"claims\": [\n    { \"claim\": \"iOS Screen Time and Android Family Link expose parental-control indicators as free platform APIs\", \"where\": \"paragraph 3\" },\n    { \"claim\": \"Third-party credit-header checks from data brokers are available for a few cents per lookup and can confirm an account holder is an adult\", \"where\": \"paragraph 4\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "3a11096a-9add-4779-9879-17baac71e547",
+  "total_cost_usd": 0.10556895,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6647,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 5259,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6647,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 5259,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6647,
+      "webSearchRequests": 0,
+      "costUSD": 0.10556895,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "f6baea1d-6bbf-40b2-a87c-5cd111b63b73"
+}

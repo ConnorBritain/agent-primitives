@@ -1,0 +1,100 @@
+{
+  "schema": "voice-profile-source/3",
+  "voice_card": "empty",
+  "measured": {
+    "second-person-family": {
+      "prose": "\"You\" and \"your\" saturate every piece, placing the reader inside the argument as worker, driver, or citizen. The address builds a shared scenario — your boss fires you, your data is sold — that converts abstract policy into personal stakes and recruits the reader as a party to the dispute rather than a bystander."
+    },
+    "first-person-plural-family": {
+      "prose": "\"We,\" \"us,\" and \"our\" construct solidarity between writer and reader against named adversaries: bosses, billionaires, surveillance platforms. The pronoun is consistently inclusive rather than institutional, fusing writer and reader into a collective that shares exposure to the described harms and reinforcing the polemical premise that these issues land on everyone equally."
+    },
+    "contractions": {
+      "prose": "Contractions sustain a spoken, urgent register even through technically dense passages on algorithmic pricing or browser configuration. The habit is so uniform that an expanded form registers as deliberate emphasis or legal precision rather than a register shift. Default to contractions; full forms signal that the denial or claim is itself the sentence's whole point."
+    },
+    "uncontracted-negatives": {
+      "prose": "Full negative constructions — \"do not,\" \"cannot,\" \"will not\" — are sparse and cluster around legal citations, categorical definitions, and outright refusal. The measured replacement for routine negation is contractions. Reserve expanded negatives for sentences where the denial is stated as policy or formal counter-proposition, not passing commentary."
+    },
+    "profanity-vulgarity": {
+      "prose": "Mild-to-moderate profanity — \"bullshit,\" \"shit,\" \"fuck off\" — punctuates moments of peak outrage or deflates an opponent's framing with vernacular bluntness. Placement is almost always at sentence end or as a parenthetical aside, never opening a paragraph. The rhetorical job is deflationary: strip technocratic language to expose the contempt beneath it."
+    },
+    "first-person-singular-family": {
+      "prose": "The first person appears as an arguer with biographical texture: a cancer diagnosis, literary executor arrangements, a dead friend. These details are always harnessed to structural arguments — actuarial tables, estate planning as policy analogy — rather than offered as memoir. The writer's presence authorizes the polemic without making the piece about the writer."
+    },
+    "question-marks": {
+      "prose": "Questions are predominantly rhetorical and structural, naming the problem the following paragraphs will answer: \"if you've truly incubated a foetal demiurge, why are you offering to sell it to me?\" A cluster of short questions can substitute for a thesis sentence, implying the contradiction is obvious once stated. Genuine open questions are rare."
+    },
+    "round-parenthetical-spans": {
+      "prose": "Parentheses carry snark, definitions, self-aware asides, and embedded corrections without interrupting sentence momentum — \"(but I repeat myself),\" \"(a direct quote),\" \"(a colossal asshole).\" They enable tonal pivots — irony, precision, disgust — within a single sentence. Use them for the aside that would break cadence if given its own sentence."
+    },
+    "em-dashes": {
+      "prose": "Em-dashes are absent from every sample. The interruption, pivot, and aside work they perform in much contemporary prose is handled instead by en-dashes and round parentheses. Do not introduce em-dashes; use en-dashes for mid-sentence pivots and parentheses for subordinate asides."
+    },
+    "en-dashes": {
+      "prose": "En-dashes perform the pivoting and appositional role that em-dashes occupy in many other writers. They connect a label to its expansion or mark a mid-sentence turn: \"the gig economy – a statistical black hole,\" \"AI – the money-losingest technology in human history.\" Use them wherever an em-dash might otherwise appear."
+    }
+  },
+  "qualitative": [
+    {
+      "dimensions": [
+        "qualification-hedging"
+      ],
+      "section": "cadence",
+      "prose": "Hedges are sparse and often ironic: \"of course,\" \"obviously,\" and \"naturally\" mark mock-concessions that immediately precede a reversal. Genuine uncertainty appears mainly in forecasts — \"will likely,\" \"may\" — not in core claims. The dominant mode is confident assertion; hedges smooth transitions rather than undercut conclusions. The pattern is genre-bound: polemic here prefers stated confidence over systematic qualification.",
+      "support_files": [
+        "2026-07-09-wilhoitian.txt",
+        "2026-07-16-lucky-orifices.txt",
+        "2026-07-22-table-flipper.txt",
+        "2026-07-24-supplemental-income.txt"
+      ],
+      "frequency": "several times per piece"
+    },
+    {
+      "dimensions": [
+        "opponents-allies-sources"
+      ],
+      "section": "address",
+      "prose": "Opponents are named and quoted verbatim — Thiel, Musk, Tony West, Trump — then systematically dismantled. Allies receive name, role, and publication before their argument is extended or corrected. The structure recurs: introduce by name → reproduce a key claim → rebut or affirm with evidence. No opponent stays abstract; attribution by name sets up the rebuttal's authority.",
+      "support_files": [
+        "2026-07-09-wilhoitian.txt",
+        "2026-07-11-your-risk.txt",
+        "2026-07-16-lucky-orifices.txt",
+        "2026-07-22-table-flipper.txt",
+        "2026-07-24-supplemental-income.txt"
+      ],
+      "frequency": "throughout"
+    },
+    {
+      "dimensions": [
+        "figures-analogy"
+      ],
+      "section": "figures",
+      "prose": "Analogies run several sentences before explicit return to the thesis: an escrow agent for US geopolitical trust; horses bred faster eventually foaling a locomotive; pick-and-shovel wholesaling as the apex of the \"go meta\" economy. Figures are drawn from markets, games, and everyday transactions, and they do explanatory work — not decorative work — before being reconnected to the argument.",
+      "support_files": [
+        "2026-07-13-go-meta-meta.txt",
+        "2026-07-10-posthuman-as-in-no-humans.txt",
+        "2026-07-22-table-flipper.txt",
+        "2026-07-16-lucky-orifices.txt"
+      ],
+      "frequency": "several times per piece"
+    },
+    {
+      "dimensions": [
+        "openings-endings-closure"
+      ],
+      "section": "openings",
+      "prose": "Openings anchor on a quoted phrase, paradox, or blunt declarative that names the central tension without preamble: \"Data brokers are a cancer.\" Closings return to the opening frame or escalate to a new demand and rarely trail off. Several pieces close by restating the core syllogism at its sharpest, leaving the final sentence as the argument's most condensed form.",
+      "support_files": [
+        "2026-07-23-drop-a-dime.txt",
+        "2026-07-11-your-risk.txt",
+        "2026-07-22-table-flipper.txt",
+        "2026-07-24-supplemental-income.txt",
+        "2026-07-09-wilhoitian.txt"
+      ],
+      "frequency": "once or twice per piece"
+    }
+  ],
+  "unresolved": {},
+  "gaps": "The corpus spans fifteen days in July 2026, preventing assessment of tonal or register variation over longer stretches. Several posts contain a boilerplate newsletter-plug paragraph (notably in posthuman) that is platform convention rather than prose habit. Embedded URLs are a consistent typographic feature of the medium but carry no voice signal. No editorial intermediary sits between writer and page; provenance is clean for all ten samples.",
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}

@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 77900,
+  "duration_api_ms": 77869,
+  "num_turns": 1,
+  "result": "```markdown\n\"Confidential\" is doing a lot of work in your question, and I think you already know the answer.\n\nHere's what actually happens when you paste an intake note into a third-party AI service: that text leaves your systems. The terms of service for most commercial tools (OpenAI, Google, Anthropic, whoever's in the room tomorrow) include broad provisions about using your inputs to improve their models or share with subprocessors you've never heard of. What did your clients actually consent to? They consented to tell *you* things in confidence — not to have that information processed by whatever partner company a SaaS vendor signed a deal with last quarter.\n\nThink of it like handing a sealed client file to the copy shop on the corner to scan for you. The copy shop might be perfectly trustworthy. You still shouldn't do it, because it's not your file to hand over.\n\nThe practical answer for tomorrow: don't use a general-purpose AI service for this. If summarization is a genuine workflow need (and I get that it is — intake notes are brutal to process at volume), there are paths that don't send client data offsite. A model running locally on your own hardware shares nothing with anyone. Some enterprise contracts include data processing agreements that prohibit training use, but those require a signed addendum and legal review, not just a checkbox in settings. Neither of those is \"fire up ChatGPT and paste it in.\"\n\nThe people who'll tell you the risk is overblown are the ones selling the service. What we're actually protecting is a client who came to us in crisis and said things they haven't said to anyone else. That's not bullshit liability anxiety — it's the whole job.\n\nDon't do it without a proper data agreement in place first.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [],\n  \"claims\": [\n    { \"claim\": \"OpenAI, Google, and Anthropic terms of service include broad provisions allowing use of inputs for model improvement or sharing with subprocessors\", \"where\": \"paragraph 2\" },\n    { \"claim\": \"Some enterprise AI contracts include data processing agreements that explicitly prohibit training use of customer inputs\", \"where\": \"paragraph 4\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "1abe175b-c29d-4452-a38e-88212edb3658",
+  "total_cost_usd": 0.0919527,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6852,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 4300,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6852,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 4300,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6852,
+      "webSearchRequests": 0,
+      "costUSD": 0.0919527,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "7ad4de30-2e12-4742-b0cc-ee84d80d9b07"
+}

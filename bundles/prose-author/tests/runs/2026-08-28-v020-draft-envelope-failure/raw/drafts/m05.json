@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 395152,
+  "duration_api_ms": 395126,
+  "num_turns": 1,
+  "result": "```markdown\n# Choice screens are not market choice\n\nRegulators and courts have increasingly turned to \"choice screens\"—ballot boxes that present users with a list of browsers or search engines on first setup (the initial configuration experience on a new device)—as the preferred remedy when dominant platforms are found to have illegally foreclosed competition. It's a tidy solution on paper. It is not a remedy.\n\nThe first problem is structural: the gatekeeper selects the list. When a dominant platform operator (a device manufacturer, an operating system vendor, or an app store controller) is ordered to display a choice screen, it typically controls which options appear, in what order, and under what labeling constraints. The same entity found to have excluded rivals decides who gets a slot. A browser ballot that surfaces four options chosen by the platform vendor isn't a neutral marketplace—it is a curated storefront where the landlord decides who gets a lease. Smaller browsers, privacy-respecting search engines, and open-source alternatives do not automatically make the cut simply because they exist.\n\nThe second problem is behavioral. Research on defaults is consistent: users don't change them, not most of them, not most of the time. A choice screen that presents five options will still leave the majority of users on whatever the screen designates as the pre-checked default (the option active if the user makes no selection at all). If the dominant provider appears first (in the largest button, with the most prominent branding), default power persists through the ceremony of choice regardless of how many alternatives appear alongside it. The screen looks like competition. Often enough, the outcome isn't.\n\nWhat does this mean for a competing product? A mid-sized search engine trying to gain ground after a choice screen mandate had no ballot access before this remedy. That is worth acknowledging, and the gain is real. But if the gatekeeper still controls which devices run the ballot, which app stores carry the competing product, and which APIs (the technical interfaces that allow deep integration with the operating system) a rival can even use, the choice screen is more like a card catalog than an open library. The catalog lists the book. It doesn't mean you can check it out.\n\nThe third problem is incentive. Dominant platforms have every reason to comply formally with a choice screen order while structuring the implementation to minimize its effect. Ordering of options, icon sizing, the fallback behavior when a user skips the screen entirely: each of these is a lever the platform operator retains unless the remedy specifically forecloses it. The platform will have complied. The market will not have changed. Courts and regulators that fail to specify implementation details will likely find, a few years later, that formal compliance and structural effect are very different things.\n\nA meaningful remedy would look different. Interoperability obligations—requirements that force dominant platforms to open the installation pathways, default-handling hooks, and OS-level integrations (the pieces of infrastructure competing products need to function on equal footing) that rivals depend on—do more structural work than a ballot screen. So does prohibiting the platform operator from pre-installing its own product while simultaneously controlling the default for users who skip the ballot. Requiring open publication of selection criteria (which products appear on the screen, and by what standard) would at least make the gatekeeper's curation visible to scrutiny.\n\nWe've argued before that structural remedies have to address the architecture of advantage, not just its surface expression. A choice screen addresses the surface. It tells users that alternatives exist (an informational benefit, not a structural one). It doesn't alter the economic and technical conditions that make those alternatives harder to distribute, harder to integrate, and harder to retain users on once someone does pick them.\n\nCourts and competition authorities that have gone to the trouble of finding liability owe more than a remedy that leaves every structural lever in the gatekeeper's hands. Specify who controls the list. Specify what interoperability the platform must provide. Require audit rights (the mechanism that lets competing products verify what is actually on the ballot and how it is implemented) for all affected rivals. A ballot screen that satisfies none of those conditions isn't a market remedy. It's paperwork.\n```",
+  "stop_reason": "end_turn",
+  "session_id": "16fa6108-824c-4aa8-9308-c051bf2f3304",
+  "total_cost_usd": 0.43185644999999995,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6781,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 26978,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6781,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 26978,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6781,
+      "webSearchRequests": 0,
+      "costUSD": 0.43185644999999995,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "cc1b855c-7aa1-4c67-8257-1171b03024f8"
+}

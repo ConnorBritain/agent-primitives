@@ -1,0 +1,20 @@
+{
+  "name": "doctorow-blog",
+  "description": "Daily link-blog posts and essays — argumentative, technical, addressed to a returning readership.",
+  "medium": "blog",
+  "register": "polemical, first person, one continuing audience",
+  "notes": [
+    "FIXTURE, built from CC BY 4.0 material for testing voice-profile-render and",
+    "voice-draft. Not a real user's profile.",
+    "",
+    "Unlike the chekhov and bacon fixtures this corpus is CONTEMPORARY and untranslated:",
+    "the author is living, the prose is present-day English, and no editor or translator",
+    "sits between the writer and the page. That is the whole point of it — FU-13 exists",
+    "because the period-marked fixtures put a floor under the critic's finding rate that",
+    "no amount of drafting quality can clear, and a ship bar calibrated on them would be",
+    "measuring the century rather than the generator.",
+    "",
+    "Attribution and licence: ../../../../../prose-tell-scan/tests/corpus/human-essays/",
+    "ATTRIBUTION.modern.json. Posts carry their own permalink in frontmatter."
+  ]
+}

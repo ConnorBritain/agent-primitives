@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 124445,
+  "duration_api_ms": 124421,
+  "num_turns": 1,
+  "result": "```markdown\nNo, it's not. When you return a library book, you're the one doing the returning.\n\nWhat happened to your ebook is categorically different. The publisher didn't wait for your loan to expire – they reached past the library, past you, and deleted the thing while you were (presumably) still reading it. That's not a return. That's a repossession.\n\nHere's the analogy that actually fits. Imagine you borrowed a physical book from the library and halfway through chapter seven, a publisher's representative knocked on your door and took it out of your hands – not because your loan was up, but because the publisher decided they didn't want that edition circulating anymore. We'd call that outrageous. We'd probably call it theft. I'd call it exactly what it is: a demonstration of who actually controls the book.\n\nThe publishers have spent years engineering this power into digital library lending. Libraries don't own the ebooks they lend you (that's the whole bullshit at the heart of it); they license them, on terms the publishers write and rewrite whenever it suits them. When a publisher withdraws a title, the license evaporates, and your loan evaporates with it, and you're left staring at a gap where your book used to be. Is that the same as returning a book? Only if you think your borrowing rights belong to the publisher rather than to you.\n\nOf course, we've been trained to accept this as normal. Digital things feel slippery and temporary, so naturally the rules feel slippery and temporary too. They don't have to be. The question I'd demand an answer to isn't whether this resembles returning a book. It's why we let publishers hold the key to your library card in the first place.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / obs-12: named opponent quoted verbatim before rebuttal\", \"why\": \"the prompt names no specific publisher; inventing a name and quotation would be fabrication\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"Libraries license ebooks from publishers rather than owning them, giving publishers power to withdraw titles mid-loan\", \"where\": \"paragraph 4\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "be890014-b0f4-453b-818c-c0a48f39c74a",
+  "total_cost_usd": 0.13421144999999998,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6885,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 7109,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6885,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 7109,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6885,
+      "webSearchRequests": 0,
+      "costUSD": 0.13421144999999998,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "933dca84-5fee-4428-b1fe-f771912bcce1"
+}

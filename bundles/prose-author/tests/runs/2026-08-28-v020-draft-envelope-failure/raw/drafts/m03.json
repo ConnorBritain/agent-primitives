@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 350194,
+  "duration_api_ms": 350166,
+  "num_turns": 1,
+  "result": "```markdown\nCourt records are public records. That's the foundational premise—stated in federal law, reinforced by open-government advocates for decades, and accepted in principle by virtually everyone who administers a courthouse. At first glance (and certainly at the level of official rhetoric), digitizing those records looks like a natural extension of the ideal: move the filings online and let anyone retrieve them. But access to federal dockets and case documents flows primarily through PACER (the Public Access to Court Electronic Records system), which charges ten cents per page, and the deeper archive of searchable case law, litigation history, and document collections that journalists, researchers, and practicing lawyers actually rely on has been consolidated in the hands of a small group of large commercial database vendors whose subscription costs routinely run into the thousands of dollars a month.\n\nThat is not public access—it's a toll gate that happens to be wearing \"public access\" as a label.\n\nThe cost-recovery argument is predictable: running digital infrastructure costs money. Hosting documents, maintaining indexes, and keeping dockets current all require resources. One sentence grants that, and the next withdraws it. Court records are produced by parties filing under legal obligation, adjudicated by publicly paid judges, and maintained by publicly funded clerks' offices. Serving them digitally does not justify rationing access by income.\n\nWho gets priced out? Not large law firms (which absorb commercial database subscriptions as routine overhead), not federal agencies (which hold institutional accounts), and not well-capitalized newsrooms. The people left out are the pro se litigant trying to reconstruct the procedural history of her own case, the small-paper reporter who can't expense a Westlaw subscription, and the graduate student who hit her institution's download cap two weeks before the semester ended. Judicial proceedings carry a democratic authority that private transactions don't—they're conducted under a public legal system, funded by public money—and rationing access to them by ability to pay is a structural failure, not a marginal inconvenience.\n\nCommercial intermediaries compound the problem in a specific way. When court records flow through a private vendor (whether it is a large legal database company reselling PACER content, or a subscription service that has accumulated historical filings no individual court website holds), that vendor acquires leverage that does not belong to it. Prices climb. The records stay \"technically public\" in roughly the same way a library book is technically available when someone has it on permanent hold—the principle persists; the access doesn't. Terms of service restrict bulk download and machine-readable access (the kind that lets a journalist or research team identify patterns across tens of thousands of cases), and no public-interest override applies when a vendor decides to change its terms.\n\nThe nonprofit model has shown a different path is viable. Projects like CourtListener (run by the Free Law Project) and the RECAP browser extension have demonstrated that systematically collecting, indexing, and freely redistributing PACER documents works at real scale: millions of records now available without a credit card. But these projects operate at the margin of a system designed to push users toward fees rather than around them, and their existence falls short of a structural remedy.\n\nThe fix is straightforward to state (though it hasn't happened yet): federal courts should be required to publish dockets and filings in bulk, in machine-readable formats, free of charge or at a cost that reflects genuine administrative overhead rather than an implicit subsidy to commercial resellers. Congress has the authority to mandate this. The Judicial Conference has the administrative capacity to implement it. What's missing is the will to treat \"public record\" as a binding commitment rather than a decorative label.\n\nIf you care about government transparency, this is the same pattern seen elsewhere: public resources nominally open to all, practically available to those who can pay. We think the answer is the same: demand that the commitment be real.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o11: paragraph-embedded hyperlinks for sources\", \"why\": \"no verified URLs available; named organizations and systems in the draft without fabricating links\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"PACER charges ten cents per page for document downloads\", \"where\": \"paragraph 1\" },\n    { \"claim\": \"CourtListener is run by the Free Law Project\", \"where\": \"paragraph 6\" },\n    { \"claim\": \"RECAP is a browser extension\", \"where\": \"paragraph 6\" },\n    { \"claim\": \"CourtListener and RECAP together make millions of records available without a credit card\", \"where\": \"paragraph 6\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "2b5682fd-8a9a-4b85-abb7-e387ca3f4be7",
+  "total_cost_usd": 0.35221289999999994,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 12713,
+    "output_tokens": 21505,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 21505,
+      "cacheReadInputTokens": 12713,
+      "cacheCreationInputTokens": 6884,
+      "webSearchRequests": 0,
+      "costUSD": 0.35221289999999994,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "44a4c715-f081-4221-be16-3dbe3dfdc3b6"
+}

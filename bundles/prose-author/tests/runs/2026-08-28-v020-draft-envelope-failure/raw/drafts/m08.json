@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 141185,
+  "duration_api_ms": 141160,
+  "num_turns": 1,
+  "result": "```markdown\nIs this the digital equivalent of returning a book? It is not. When a physical book goes back to the library, the borrower chose to return it. Maybe a due date arrived; maybe they finished. Either way, the timeline was fixed before the loan began. What happened here is closer to a publisher reaching into the library's shelves mid-loan to reclaim its property, except the library never really owned that property to begin with.\n\nThat's the structural problem. Libraries do not own ebooks the way they own print. The first sale doctrine (the legal principle that lets libraries lend and resell physical copies they've purchased) gives a library full control of a book it bought. Publishers cannot reverse that transaction. But publishers have largely refused to extend those terms to digital. Instead, they license ebooks under conditions they set—per-checkout fees, expiration dates, the ability to withdraw a title whenever it suits them—with no obligation to a borrower mid-loan.\n\nWhen a publisher pulls a title, the license evaporates and the book goes with it. There is no rule in copyright law requiring that an in-progress borrower gets to finish. The library likely had no more notice than you did.\n\nWe've argued that Congress should extend first sale principles to digital lending, so that a library purchase is an actual purchase (not a revocable license). Large content companies have resisted that position for years, and no legislation has moved it forward.\n\nIf this happened through a platform like Libby or OverDrive (both common library ebook systems), contact the library directly. They'll want to know, and documented incidents help build the case for reform.\n```",
+  "stop_reason": "end_turn",
+  "session_id": "faed92ac-b469-4c2e-bd7d-40aa327bcd41",
+  "total_cost_usd": 0.1529652,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6778,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 8386,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6778,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 8386,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6778,
+      "webSearchRequests": 0,
+      "costUSD": 0.1529652,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "192d1ea1-a145-44f5-8f4f-6d700a902a56"
+}

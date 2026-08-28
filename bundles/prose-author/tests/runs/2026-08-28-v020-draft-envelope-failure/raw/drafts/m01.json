@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 252032,
+  "duration_api_ms": 252008,
+  "num_turns": 1,
+  "result": "```markdown\nWhen Apple or John Deere reaches into a device after the sale and quietly removes a feature or locks out a repair, the company is making a property rights claim. That claim is a stark one: they never really finished selling the thing in the first place.\n\nThat might sound like overreach. It is not. The moment a manufacturer reserves the right to alter or disable a device's capabilities through a remote software update, the transaction at the point of purchase does not transfer ownership in any meaningful sense. It transfers something more like a revocable license (terminable at the manufacturer's discretion) dressed in the language of a sale.\n\nManufacturers have structured their agreements to support this reading. The terms attached to connected devices (and increasingly to devices that don't need to be connected to function at all) typically reserve broad rights to modify software at any time and for any reason, including removing features the customer paid for. Courts have sometimes treated these terms as controlling. We think that's the wrong frame—the question isn't what the terms say but what ownership has historically meant and what it needs to mean for property rights to retain practical force.\n\nThe problem is sharpest in the secondary market. If a device's functionality can be degraded by its original manufacturer after it leaves the factory (say, because the manufacturer detects that a third-party repair was performed outside an authorized service center), then a resale buyer is acquiring something the seller cannot fully convey. A device whose feature set is contingent on ongoing manufacturer goodwill is more like a rental unit than a piece of property (with the landlord still controlling what happens inside), and the resale market for consumer devices is far too large to treat that as an edge case.\n\nWhat's the difference between a product and a long-term subscription? In the persistent-control model, not much. The device sits in a drawer, its capabilities subject to revision by an entity that collected its money years ago.\n\nDevice makers across consumer electronics, automotive software (including the software governing charging and diagnostics in electric vehicles), and agricultural equipment have deployed remote update mechanisms to restrict functionality after sale. The stated justifications vary (security, safety, licensing compliance), but the effect is the same: the manufacturer retains a form of control that property law is poorly equipped to recognize or constrain. Existing frameworks will likely prove inadequate, because they were built around the assumption that a sale ends the seller's interest in the particular object.\n\nThe software layer is where the leverage lives. A physical good can be exhausted under copyright's first-sale doctrine (which holds that the copyright holder's rights in a particular copy are spent once it's sold), but manufacturers have structured their software licenses to sidestep that outcome. The software running a thermostat or a car's transmission controller is typically licensed rather than sold, even when the hardware isn't, which may allow the licensor to impose post-sale conditions—conditions that would otherwise expire at the point of purchase. That gap is wide enough to swallow the doctrine entirely.\n\nStatutory right-to-repair efforts have taken direct aim at the repair-authorization piece of this, and some proposals would extend to remote-disablement more broadly. Those efforts deserve support. But legislative fixes may simply address symptoms while leaving the underlying question unresolved—whether a consumer who pays a purchase price ever received ownership at all, or whether the manufacturer's persistent software control means the transaction was always something else.\n\nWe continue to believe that honest disclosure at the point of sale is the minimum starting point. If you bought a device expecting its features to remain stable, that expectation has no legal guarantee under current law. It should. The persistent-control model is a long-term lease with a one-time fee, and regulators, legislators, and courts should begin treating it as such.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o11: inline hyperlinks to sources\", \"why\": \"no verified URLs available; named actors referenced by institutional identity as the profile supports, but the hyperlink habit requires external sources that cannot be fabricated\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"Apple and John Deere have deployed software mechanisms that remove features or lock out repairs on devices after sale\", \"where\": \"paragraph 1\" },\n    { \"claim\": \"copyright's first-sale doctrine holds that the copyright holder's rights in a particular copy are spent once it is sold\", \"where\": \"paragraph 7\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "01c6a7f2-bf11-40f5-a27d-82c5e2e14d83",
+  "total_cost_usd": 0.27033645,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6645,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 16244,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6645,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 16244,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6645,
+      "webSearchRequests": 0,
+      "costUSD": 0.27033645,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "32f0393f-3536-4150-b3ff-42b7aaadf8f4"
+}

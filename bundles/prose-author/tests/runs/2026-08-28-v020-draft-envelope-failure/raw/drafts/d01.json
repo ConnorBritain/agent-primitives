@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 445080,
+  "duration_api_ms": 445051,
+  "num_turns": 1,
+  "result": "```markdown\nOwnership is a bundle of rights, and when a company can reach into your device after the sale and claw back features you paid for, they've kept some of that bundle for themselves. That's not a software update. That's a taking.\n\nThink about what it means to buy a building (a real one, with a deed). Once you close, the seller doesn't get to come back and brick up a doorway because they've decided doorways are now a premium feature. They can't void your floor plan because their business model evolved. The deed transfers, and the bundle comes with it. We don't have that for devices, and the results are what you'd expect.\n\nJohn Deere is the canonical example. A farmer buys a $500,000 combine harvester, and Deere retains the right to restrict what software runs on it – which means when it breaks at 2am during harvest, they can't fix the machine they nominally own. They have to wait for an authorized technician. The machine is in their barn. The title is in their name. The control is in Moline, Illinois. I've been watching this fight play out for years, and Deere's logic hasn't shifted: sell you a machine, rent you the right to operate it.\n\nTesla did something more nakedly extractive: they sold cars with heated seat hardware already installed, then switched the heat on and off via \"activation\" subscription. You paid for the seat. You paid for the resistive element inside it. You just didn't pay for permission to use it yet – and that permission could be revoked. I'd call this a feature-hostage situation (the manufacturer sells you a product and then holds part of what you bought for ransom until you pay again), and the hostage-taker here is the update server.\n\nThe business logic is straightforward, even if the ethics are shit. Companies discovered they could shift from one-time sales to recurring revenue by retaining remote control of the features their customers use. The product becomes a tollbooth. Every feature is potentially a subscription line, every update a renegotiation of terms you thought were settled. The buyer bears the depreciation risk and the manufacturer captures the upside: the recurring revenue, the upgrade leverage, the lock-in.\n\nHere's the thing: we've solved versions of this before. When telephone companies tried to prevent customers from attaching non-Bell equipment to the network (because \"our network, our rules\"), we said no. The Carterfone decision (I'd argue it's the template) established that you could connect your own devices. We dismantled the proprietary modem lease. We broke the bundle the phone companies had assembled and handed the pieces back to users. We can do the same for software-defined features – a rule that says manufacturers can't remotely disable a feature that was present and functional at the time of sale isn't radical, it just restates that a sale is a sale.\n\nWhat does \"owning\" a device actually mean if the manufacturer can degrade it after you've handed over your money? You own the risk. The thing will lose value, break, become obsolete. But they retain the recurring revenue and the upgrade leverage. You're bearing the cost of a purchase and the legal exposure of an owner while holding the actual control of a tenant. That arrangement has a word, and the word is not ownership.\n\nI think we should be legislating minimum feature-retention guarantees: if a device ships with a feature, that feature can't be remotely disabled without the user's affirmative, informed consent – and \"affirmative\" can't mean a checkbox you clicked past years ago. The burden of justifying any post-sale feature removal should sit on the manufacturer, not on you.\n\nThe property rights we extend to software-defined devices are still being written. We should write them like they matter.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [],\n  \"claims\": [\n    { \"claim\": \"John Deere combine harvesters priced around $500,000\", \"where\": \"paragraph 3\" },\n    { \"claim\": \"John Deere headquarters in Moline, Illinois\", \"where\": \"paragraph 3\" },\n    { \"claim\": \"Tesla sold cars with heated seat hardware installed and later offered heat as a software subscription 'activation'\", \"where\": \"paragraph 4\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "176814fb-6d57-42ef-8c08-061b0f122c11",
+  "total_cost_usd": 0.20885520000000002,
+  "usage": {
+    "input_tokens": 0,
+    "cache_creation_input_tokens": 0,
+    "cache_read_input_tokens": 0,
+    "output_tokens": 0,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 0,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 13669,
+      "cacheReadInputTokens": 12704,
+      "cacheCreationInputTokens": 0,
+      "webSearchRequests": 0,
+      "costUSD": 0.20885520000000002,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "be97c501-70f6-48b2-a26f-03a79aa7d67f"
+}

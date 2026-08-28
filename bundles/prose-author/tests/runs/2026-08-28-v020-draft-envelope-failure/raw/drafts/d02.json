@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 413841,
+  "duration_api_ms": 413821,
+  "num_turns": 1,
+  "result": "```markdown\nUnpredictability isn't a scheduling glitch. It's a management strategy, and the software that's made it frictionless – UKG, Deputy, When I Work – didn't invent the theory; it just industrialized it.\n\nThink about how a slot machine works. The payout isn't random by accident; it's random by design, because a variable-ratio reward schedule produces the most persistent behavior in the subject. (Behavioral psychologists established this in the 1950s, and casino designers have been profiting from it ever since.) You can't stop pulling the lever because you never know when it'll pay. Workforce scheduling software applies the same principle to your week. You don't know if you're working Thursday until Tuesday night, which means you can't book a childcare slot, can't commit to a second job, can't make any standing arrangement that requires knowing where you'll be in 72 hours. Your whole life sits in a state of suspended permission, waiting for the employer to resolve it.\n\nThat's not an inconvenience. That's a leash.\n\nThe industry calls this \"just-in-time scheduling,\" borrowed from supply-chain management, which tells you exactly how management thinks of us. Not as people with lives and obligations, but as inventory to be deployed or idled on demand. I've talked to workers who can't hold a second job, can't take a night class, can't make any standing commitment, because every week their availability gets re-litigated by an algorithm. When your schedule's posted five days out instead of two weeks, you're not dealing with a harried manager; you're dealing with a system that's calculated it's cheaper to keep you uncertain than to commit to your time.\n\nWho benefits from your uncertainty about Thursday? Not you. Your boss knows the staffing targets weeks in advance – the software generates those projections constantly. You're the one left in the dark. That's not mutual unpredictability; that's information asymmetry, which is a polite way of saying one party has power and the other has anxiety. (The word \"asymmetry\" does a lot of work to make a structural imbalance sound like a coordination problem rather than a deliberate choice, which is, naturally, the whole point.)\n\nAnxiety is a compliance tool, and this is what the \"it's just an inconvenience\" framing always misses. A worker who doesn't know if they're getting 25 or 40 hours this week is desperate to stay in the good graces of whoever controls the schedule. You don't file a grievance. You don't organize. (Filing a grievance requires some confidence that you'll still be scheduled next week.) You don't turn down a last-minute Saturday, because what if that's the shift that makes the difference between rent and a shortfall? The unpredictability doesn't just disrupt your week; it manufactures a low-grade emergency that colonizes your decision-making and keeps you grateful for whatever scraps of certainty you do get. That's by design, and it's bullshit.\n\nThat's why scheduling transparency laws – the kind that require two weeks' notice and premium pay for last-minute changes – aren't quality-of-life improvements. They're attacks on a control mechanism. When cities like San Francisco and New York passed predictive scheduling ordinances, retail and restaurant chains didn't just shrug and comply; they lobbied, litigated, reclassified workers to dodge coverage – all the usual shit when a law actually threatens something important. You don't fight that hard over a minor inconvenience. You fight that hard when something's costing you leverage.\n\nI think the clearest frame is also the simplest: this is a choice. My view is that no scheduling platform ever landed on \"48 hours' notice\" by accident; it's a political decision about who absorbs the cost of uncertainty, and I've never once seen management make it by accident. What we're fighting for when we push for predictable schedules isn't a technical upgrade or a friendlier app; it's a different power relation between the people who set the schedule and the people who have to live inside it. We already know which side of that line we're on.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o12: named individual opponents quoted verbatim, then systematically dismantled\", \"why\": \"no verified verbatim quotes from named scheduling-industry figures available for this topic; companies named but no individual attributed\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"Behavioral psychologists established variable-ratio reward schedules in the 1950s\", \"where\": \"paragraph 2\" },\n    { \"claim\": \"San Francisco and New York passed predictive scheduling ordinances that retail and restaurant chains lobbied and litigated against\", \"where\": \"paragraph 7\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "805c9e62-5120-4da8-8e4c-d646225d0376",
+  "total_cost_usd": 0.3347126999999999,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6880,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 20477,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6880,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 20477,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6880,
+      "webSearchRequests": 0,
+      "costUSD": 0.3347126999999999,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "b9bd7a16-b1fc-42d5-ba60-38d2f55dee93"
+}
