@@ -101,9 +101,9 @@ harness:
       Neither the tool restriction nor context isolation is enforced. Run as a
       fresh `codex exec` with the profile pasted in. Codex supports an output-schema
       file: use the shipped voice-draft-source/2 schema, then pass that result and the
-      original request through the deterministic assembler. The proof-carrying sentence
-      boundary is therefore provider-neutral even though the corpus firewall remains
-      advisory in this harness. Historical source/1 artifacts remain readable.
+      original request through the independent claim-audit schema and deterministic
+      assembler. Both strict schemas are provider-neutral even though the corpus firewall
+      remains advisory in this harness. Historical source/1 artifacts remain readable.
   agents-md:
     enforcement: advisory
     notes: >-

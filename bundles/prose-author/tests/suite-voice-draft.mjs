@@ -12,6 +12,9 @@ import { join, resolve } from "node:path";
 import {
   assembleVoiceDraft, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
 } from "../skills/prose-draft/tools/draft-contract.mjs";
+import {
+  applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA, sentenceRefs,
+} from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import { validateDraft, parseDraft, loadRun, corpusLeakage, findFabricatedCitations } from "./voice-draft.mjs";
 import { fixtureGuards, staleExemptions } from "./fixture-guard.mjs";
 
@@ -375,6 +378,37 @@ export async function run(t, { HERE }) {
     };
     t.check("historical voice-draft-source/1 artifacts remain readable",
       validateVoiceDraftSource(legacy).ok && assembleVoiceDraft(legacy).ok);
+
+    const refs = sentenceRefs(source);
+    const audit = {
+      schema: "voice-draft-claim-audit/1",
+      sentences: refs.map((ref, index) => ({
+        id: ref.id, status: "keep",
+        basis: index === 0 ? "request-supported" : "external-verification",
+        claims: index === 0
+          ? [{ claim: "A maker can disable features after sale.", request_basis: "maker can disable features after sale" }]
+          : [{ claim: "That leaves ownership hollow.", request_basis: "" }],
+        reason: "",
+      })),
+    };
+    t.check("the independent audit schema is fixed and strict-harness compatible",
+      DRAFT_AUDIT_SCHEMA.additionalProperties === false
+        && DRAFT_AUDIT_SCHEMA.properties.schema.type === "string"
+        && DRAFT_AUDIT_SCHEMA.properties.sentences.items.properties.status.type === "string");
+    const applied = applyVoiceDraftClaimAudit(source, audit, { request });
+    t.check("an independent audit may correct a sentence basis and derived claim queue",
+      applied.ok && applied.source.paragraphs[0].sentences[1].basis === "external-verification"
+        && assembleVoiceDraft(applied.source, { request }).output.includes("That leaves ownership hollow."));
+    t.check("an audit must cover every sentence in exact order",
+      !applyVoiceDraftClaimAudit(source, { ...audit, sentences: audit.sentences.slice(1) }, { request }).ok
+        && !applyVoiceDraftClaimAudit(source, { ...audit, sentences: [...audit.sentences].reverse() }, { request }).ok);
+    t.check("an auditor rejection stops assembly rather than rewriting prose",
+      !applyVoiceDraftClaimAudit(source, {
+        ...audit,
+        sentences: audit.sentences.map((row, index) => index ? row : {
+          ...row, status: "reject", reason: "attributed wording is absent from the request",
+        }),
+      }, { request }).ok);
   }
 
   t.group("voice-draft — a missed habit is a worse imitation; an invented citation is a lie");

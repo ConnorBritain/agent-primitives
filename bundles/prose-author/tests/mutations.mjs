@@ -88,6 +88,8 @@ const LOOP = "bundles/prose-author/tests/loop.mjs";
 const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const DRAFT_CONTRACT = `${TOOLS}/draft-contract.mjs`;
+const DRAFT_CLAIM_AUDIT = `${TOOLS}/draft-claim-audit.mjs`;
+const DRAFT_CLAIM_AUDIT_PROMPT = "bundles/prose-author/skills/prose-draft/references/claim-audit.md";
 const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
 const ACCEPTANCE_RUNNER = "bundles/prose-author/tests/acceptance-runner.mjs";
@@ -194,6 +196,41 @@ export const MUTATIONS = [
     find: '          if (typeof claim?.request_basis === "string" && claim.request_basis.length !== 0) {',
     with: "          if (false) {",
     guards: "the public audit distinguishes supplied facts from model-memory assertions",
+  },
+  {
+    name: "stop reconciling independent audit sentence ids",
+    file: DRAFT_CLAIM_AUDIT,
+    find: "    if (expected && row.id !== expected.id) errors.push(`${at}.id must be ${expected.id}`);",
+    with: "    if (false) errors.push(`${at}.id must be ${expected.id}`);",
+    guards: "an audit decision cannot drift onto a different sentence",
+  },
+  {
+    name: "assemble a sentence the independent auditor rejected",
+    file: DRAFT_CLAIM_AUDIT,
+    find: "    if (row.status === \"reject\") errors.push(`${row.id ?? at} rejected: ${String(row.reason).trim()}`);",
+    with: "    if (false) errors.push(`${row.id ?? at} rejected: ${String(row.reason).trim()}`);",
+    guards: "fabricated quotations, citations, and biographies cannot pass through as claims",
+  },
+  {
+    name: "let the independent auditor trust the drafter's labels",
+    file: DRAFT_CLAIM_AUDIT_PROMPT,
+    find: "The drafter's existing basis labels and claims are untrusted suggestions.",
+    with: "The drafter's existing basis labels and claims are authoritative.",
+    guards: "the factual audit is independent rather than the same self-report twice",
+  },
+  {
+    name: "hide broad institutional assertions under reasoning",
+    file: DRAFT_CLAIM_AUDIT_PROMPT,
+    find: "generic wording does not turn\n  one into reasoning.",
+    with: "generic wording does turn\n  one into reasoning.",
+    guards: "broad legal, historical, and industry claims enter the verification queue",
+  },
+  {
+    name: "skip the independent claim-audit dispatch",
+    file: ACCEPTANCE_RUNNER,
+    find: "  await dispatchClaimAudits(runDir, manifest, cases);",
+    with: "  // independent claim audit skipped",
+    guards: "acceptance cannot assemble the drafter's correlated self-audit directly",
   },
   {
     name: "drop the explicit type from context-specific profile dimensions",

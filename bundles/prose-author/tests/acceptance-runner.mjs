@@ -35,7 +35,12 @@ import {
 } from "./voice-critic-source.mjs";
 import {
   assembleVoiceDraft, parseVoiceDraftSource, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA,
+  validateVoiceDraftSource,
 } from "../skills/prose-draft/tools/draft-contract.mjs";
+import {
+  applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA,
+  parseVoiceDraftClaimAudit, sentenceRefs,
+} from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
   ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, sourceMeasurementPlan,
@@ -54,12 +59,14 @@ const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MODEL = process.env.ACCEPTANCE_MODEL || "sonnet";
 const DRAFT_EFFORT = process.env.ACCEPTANCE_DRAFT_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
+const CLAIM_AUDIT_EFFORT = process.env.ACCEPTANCE_CLAIM_AUDIT_EFFORT || "low";
 const CRITIC_EFFORT = process.env.ACCEPTANCE_CRITIC_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
 const PROFILE_EFFORT = process.env.ACCEPTANCE_PROFILE_EFFORT || "low";
 const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY");
 const MODEL_TIMEOUT_MS = positiveInt(process.env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS");
 const PROFILE_NATIVE_SCHEMA = process.env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0";
 const DRAFT_NATIVE_SCHEMA = process.env.ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0";
+const CLAIM_AUDIT_NATIVE_SCHEMA = process.env.ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0";
 const CRITIC_NATIVE_SCHEMA = process.env.ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0";
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
@@ -74,6 +81,7 @@ const stripFrontmatter = (value) => value.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\
 const AGENTS = {
   profile: "primitives/agents/voice-profile-render/agent.md",
   draft: "primitives/agents/voice-draft/agent.md",
+  claim_audit: "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
   critic: "primitives/agents/prose-voice-critic/agent.md",
 };
 
@@ -223,6 +231,7 @@ function prepare(runDir) {
     "bundles/prose-author/skills/prose-draft/tools/profile-assemble.mjs",
     "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs",
     "bundles/prose-author/skills/prose-draft/tools/draft-assemble.mjs",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs",
     "bundles/prose-author/tests/acceptance-runner.mjs",
     "bundles/prose-author/tests/fixtures/voice-draft-regressions/safeguards.json",
   ];
@@ -286,11 +295,13 @@ function prepare(runDir) {
     model: MODEL,
     effort: DRAFT_EFFORT,
     draft_effort: DRAFT_EFFORT,
+    claim_audit_effort: CLAIM_AUDIT_EFFORT,
     critic_effort: CRITIC_EFFORT,
     profile_effort: PROFILE_EFFORT,
     concurrency: CONCURRENCY,
     profile_transport: PROFILE_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     draft_transport: DRAFT_NATIVE_SCHEMA ? "native-structured" : "json-fence",
+    claim_audit_transport: CLAIM_AUDIT_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     critic_transport: CRITIC_NATIVE_SCHEMA ? "native-structured" : "json-fence",
     model_timeout_ms: MODEL_TIMEOUT_MS,
     draws_per_draft: 3,
@@ -320,7 +331,7 @@ function prepare(runDir) {
       write(join(runDir, "prompts", "profiles", `${profile.id}-r${render}.md`), `${prompt}\n`);
     }
   }
-  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 60 critic draws\n\n`);
+  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 independent claim audits, 60 critic draws\n\n`);
 }
 
 function loadPrepared(runDir) {
@@ -355,6 +366,13 @@ function semanticDraftSource(record) {
     return { source: record.structured_output, error: null };
   }
   return parseVoiceDraftSource(record.result);
+}
+
+function semanticClaimAudit(record) {
+  if (record.structured_output !== null && typeof record.structured_output === "object") {
+    return { audit: record.structured_output, error: null };
+  }
+  return parseVoiceDraftClaimAudit(record.result);
 }
 
 function semanticCriticSource(record) {
@@ -576,6 +594,33 @@ function draftPrompt(c, profileMarkdown, profileJson) {
   ].join("\n");
 }
 
+function claimAuditPrompt(c, source) {
+  const units = sentenceRefs(source).map((ref) => {
+    const match = /^p(\d+)s(\d+)$/.exec(ref.id);
+    const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
+    return { id: ref.id, text: ref.text, drafter_basis: sentence.basis, drafter_claims: sentence.claims };
+  });
+  return [
+    `# Independent draft claim audit — ${c.id}`,
+    "",
+    "The request is the only supplied factual packet. The drafter's labels are untrusted.",
+    "Audit every sentence independently under the system prompt. Do not revise the prose.",
+    "",
+    "## Request",
+    "",
+    c.prompt,
+    "",
+    "## Sentence units",
+    "",
+    "```json",
+    JSON.stringify(units, null, 2),
+    "```",
+    "",
+    "Return voice-draft-claim-audit/1 as the strict object only. Preserve every ID",
+    "exactly once and in order. Existing basis labels and claims are suggestions, not evidence.",
+  ].join("\n");
+}
+
 async function dispatchDrafts(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
   collectProfiles(runDir);
@@ -597,7 +642,36 @@ async function dispatchDrafts(runDir) {
     };
   });
   await pool("draft", jobs);
+  await dispatchClaimAudits(runDir, manifest, cases);
   collectDrafts(runDir);
+}
+
+async function dispatchClaimAudits(runDir, manifest, cases) {
+  const system = resolve(REPO, manifest.agents.claim_audit.snapshot);
+  const jobs = cases.cases.map((c) => {
+    const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
+    const record = completedResult(rawPath);
+    if (!record) die(`missing ${rel(rawPath)}`);
+    const decoded = semanticDraftSource(record);
+    if (!decoded.source) die(`${c.id} invalid semantic draft source before audit: ${decoded.error}`);
+    const validation = validateVoiceDraftSource(decoded.source, { request: c.prompt });
+    if (!validation.ok || validation.refusal) {
+      die(`${c.id} invalid semantic draft source before audit: ${validation.errors.join("; ")}`);
+    }
+    const prompt = claimAuditPrompt(c, decoded.source);
+    const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
+    write(promptPath, `${prompt}\n`);
+    return {
+      id: c.id,
+      run: () => claude({
+        system, cwd: runDir, prompt, tools: "", allowed: [],
+        effort: CLAIM_AUDIT_EFFORT,
+        schema: CLAIM_AUDIT_NATIVE_SCHEMA ? DRAFT_AUDIT_SCHEMA : null,
+        output: join(runDir, "raw", "claim-audits", `${c.id}.json`),
+      }),
+    };
+  });
+  await pool("claim audit", jobs);
 }
 
 function collectDrafts(runDir) {
@@ -611,11 +685,22 @@ function collectDrafts(runDir) {
     if (!record) die(`missing ${rel(rawPath)}`);
     const decoded = semanticDraftSource(record);
     if (!decoded.source) die(`${c.id} invalid semantic draft source: ${decoded.error}`);
-    const assembled = assembleVoiceDraft(decoded.source, { request: c.prompt });
+    const auditRawPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
+    const auditRecord = completedResult(auditRawPath);
+    if (!auditRecord) die(`missing ${rel(auditRawPath)}`);
+    const decodedAudit = semanticClaimAudit(auditRecord);
+    if (!decodedAudit.audit) die(`${c.id} invalid independent claim audit: ${decodedAudit.error}`);
+    const applied = applyVoiceDraftClaimAudit(decoded.source, decodedAudit.audit, { request: c.prompt });
+    if (!applied.ok) die(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
+    const assembled = assembleVoiceDraft(applied.source, { request: c.prompt });
     if (!assembled.ok) die(`${c.id} invalid semantic draft source: ${assembled.errors.join("; ")}`);
     const sourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
+    const originalSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.original.json`);
+    const auditPath = join(runDir, "inputs", "audits", `${c.id}.json`);
     const renderPath = join(runDir, "outputs", "drafts", `${c.id}.md`);
-    write(sourcePath, decoded.source);
+    write(originalSourcePath, decoded.source);
+    write(auditPath, decodedAudit.audit);
+    write(sourcePath, applied.source);
     write(renderPath, assembled.output);
     const parsed = parseDraft(assembled.output);
     const validation = validateDraft(parsed);
@@ -626,10 +711,16 @@ function collectDrafts(runDir) {
     const disclosurePath = join(runDir, "inputs", "records", `${c.id}.json`);
     if (disclosure) write(disclosurePath, disclosure);
     const dispatchPrompt = join(runDir, "prompts", "drafts", `${c.id}.md`);
+    const auditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
     artifacts.drafts[c.id] = {
       profile: c.profile, render: c.render, request_sha256: SHA(c.prompt),
       prompt: rel(dispatchPrompt), prompt_sha256: SHA(text(dispatchPrompt)), raw: rel(rawPath),
-      raw_sha256: SHA(text(rawPath)), source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
+      raw_sha256: SHA(text(rawPath)),
+      original_source: rel(originalSourcePath), original_source_sha256: SHA(text(originalSourcePath)),
+      audit_prompt: rel(auditPromptPath), audit_prompt_sha256: SHA(text(auditPromptPath)),
+      audit_raw: rel(auditRawPath), audit_raw_sha256: SHA(text(auditRawPath)),
+      audit: rel(auditPath), audit_sha256: SHA(text(auditPath)),
+      source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
       render_output: rel(renderPath), render_output_sha256: SHA(text(renderPath)),
       draft: rel(out), draft_sha256: SHA(text(out)),
       disclosure: disclosure ? rel(disclosurePath) : null,
@@ -959,7 +1050,8 @@ function check(runDir) {
       for (const [key, child] of Object.entries(value)) {
         if ((key === "raw" || key === "render" || key === "markdown" || key === "json"
           || key === "source" || key === "render_output" || key === "draft"
-          || key === "disclosure" || key === "prompt") && child) {
+          || key === "original_source" || key === "audit" || key === "audit_raw"
+          || key === "audit_prompt" || key === "disclosure" || key === "prompt") && child) {
           if (!existsSync(resolve(REPO, child))) errors.push(`missing artifact ${child}`);
         } else if (child && typeof child === "object") visit(child);
       }
@@ -995,6 +1087,6 @@ async function main() {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 
 export {
-  claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt,
+  claimAuditPrompt, claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt,
   quotationAudit, structuralGates, validateCases,
 };

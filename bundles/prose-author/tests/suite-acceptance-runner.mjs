@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 import {
-  claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt,
+  claimAuditPrompt, claimsAuditFailures, criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt,
   quotationAudit, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
@@ -80,6 +80,22 @@ export async function run(t, { HERE }) {
         && source.includes("parseDraft(assembled.output)"));
   }
   {
+    const draftSource = {
+      schema: "voice-draft-source/2", kind: "draft",
+      paragraphs: [{ sentences: [{ text: "A bill passed.", basis: "reasoning", claims: [] }] }],
+      omitted: [], refused: "",
+    };
+    const prompt = claimAuditPrompt({ id: "opaque-01", prompt: "Discuss a bill." }, draftSource);
+    t.check("claim-audit prompts expose the request and every sentence id but no profile",
+      /Discuss a bill\./.test(prompt) && /"id": "p1s1"/.test(prompt)
+        && /existing basis labels and claims are suggestions, not evidence/i.test(prompt)
+        && !/voice profile/i.test(prompt));
+    t.check("draft dispatch runs the independent audit before public collection",
+      source.includes("await dispatchClaimAudits(runDir, manifest, cases)")
+        && source.includes("applyVoiceDraftClaimAudit(decoded.source, decodedAudit.audit")
+        && source.includes("assembleVoiceDraft(applied.source"));
+  }
+  {
     const prompt = criticPrompt("opaque-01", [
       { file: "a.txt", body: "Alpha corpus." }, { file: "b.txt", body: "Beta corpus." },
     ], "Draft body.");
@@ -111,9 +127,10 @@ export async function run(t, { HERE }) {
       .every((flag) => source.includes(`\"${flag}\"`)));
   t.check("the model effort is pinned in the manifest rather than inherited",
     /draft_effort: DRAFT_EFFORT/.test(source) && /critic_effort: CRITIC_EFFORT/.test(source)
+      && /claim_audit_effort: CLAIM_AUDIT_EFFORT/.test(source)
       && /profile_effort: PROFILE_EFFORT/.test(source) && /"--effort", effort/.test(source)
       && /effort: DRAFT_EFFORT/.test(source) && /effort: CRITIC_EFFORT/.test(source)
-      && /effort: PROFILE_EFFORT/.test(source));
+      && /effort: CLAIM_AUDIT_EFFORT/.test(source) && /effort: PROFILE_EFFORT/.test(source));
   t.check("acceptance defaults to one model process and native structured profile transport",
     /ACCEPTANCE_CONCURRENCY \|\| "1"/.test(source)
       && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0"/.test(source)
@@ -121,6 +138,10 @@ export async function run(t, { HERE }) {
   t.check("acceptance defaults to native structured draft transport and records it in the manifest",
     /ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0"/.test(source)
       && /draft_transport: DRAFT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+  t.check("acceptance defaults to a native independent claim-audit transport",
+    /ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0"/.test(source)
+      && /claim_audit_transport: CLAIM_AUDIT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
+      && source.includes("CLAIM_AUDIT_NATIVE_SCHEMA ? DRAFT_AUDIT_SCHEMA : null"));
   t.check("acceptance defaults to native structured critic transport and validates assembly",
     /ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0"/.test(source)
       && /critic_transport: CRITIC_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)

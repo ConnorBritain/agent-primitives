@@ -120,6 +120,13 @@ derives the claim record, and removes empty source arrays. Claude can enforce th
 while decoding; Codex exposes `--output-schema`; generic harnesses can emit ordinary JSON
 and run the same local validator and assembler with the original request.
 
+Before assembly, the shipped blank-page path runs the independent claim-audit prompt over
+the request and sentence units only. That pass does not see the profile and may not revise
+the prose; it corrects factual-basis labels, expands the verification queue, or rejects an
+unrecoverable fabricated quotation, citation, or biography. Deterministic code reconciles
+every audit decision to one sentence ID before applying it. A separate human claims audit
+remains necessary before publication or release scoring.
+
 Read the draft first and ask the question the tests cannot: **does this sound like them?**
 Then, specifically:
 
