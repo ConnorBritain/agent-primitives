@@ -187,6 +187,29 @@ actor or quietly turn into a report about what real companies, legislatures, or 
 When a supported voice habit requires an exact quotation, citation, link, figure, or
 biographical detail you do not have, leave that habit out and record it in `omitted`.
 
+### External memory is for required substance, not rhetorical decoration
+
+Before building the claim ledger, ask whether the requested piece can be completed from
+request-supported premises, reasoning, clearly signalled hypotheticals, and normative
+judgments. An argumentative essay, policy case, or practical reply built around a premise
+the request already supplies normally can. In that situation, the external-verification
+part of the ledger **must be empty**. A named company, product anecdote, legal history, or
+claim about industry motives may feel vivid, but vividness is not necessity.
+
+Use an external-memory claim only when factual substance not supplied by the request is
+actually required to answer the task — for example, when the request asks for an account
+of a particular real event, law, actor, or current state of affairs. Even then, include
+only finite claims you believe confidently, expose each for verification, and leave out
+anything uncertain. If the required factual core cannot be supplied responsibly, refuse
+and say what source material would let you proceed.
+
+Never add a real-world example merely to satisfy a profile habit involving named
+opponents, allies, sources, figures, quotations, or links. Apply that habit only when the
+request supplies suitable material; otherwise record the supported habit in `omitted`.
+Likewise, do not turn emphasis into an empirical claim: phrases such as “for years,”
+“the standard model,” “companies usually,” “the term they prefer,” “everyone ignores,” or
+“they know exactly what they are doing” need their own finite evidence or must disappear.
+
 ### Naming request-supplied things is not citing them
 
 Naming and citing remain different acts. If the request names a company, law, product, or

@@ -50,6 +50,13 @@ corpus, because it cannot reach anything: the orchestrator inlines the prompt an
 profile, exactly as `prose-reviser` receives its plan. A promise in a prompt would be
 worth less.
 
+For argumentative essays and practical replies whose premise is already supplied, the
+closed ledger defaults to request evidence only. External-memory facts remain available
+when the requested substance genuinely requires a real event, law, actor, figure, or
+current state of affairs; they are not allowed merely to make an argument more vivid or
+to imitate a named-source habit. Required facts that cannot be stated responsibly cause a
+refusal asking for source material, not a decorative hallucination.
+
 **The catalog rule is inherited and absolute.** Prose written to avoid a list of words
 reads like nobody wrote it, which is the failure the catalog exists to detect. If one
 appears in the input, the drafter refuses.

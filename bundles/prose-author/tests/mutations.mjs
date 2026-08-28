@@ -303,6 +303,13 @@ export const MUTATIONS = [
     guards: "claims remain finite propositions a publisher can actually check",
   },
   {
+    name: "let argumentative prose decorate itself with external-memory facts",
+    file: VOICE_DRAFT_PROMPT,
+    find: "In that situation, the external-verification\npart of the ledger **must be empty**.",
+    with: "In that situation, the external-verification\npart of the ledger may contain decorative examples.",
+    guards: "a source-free argument stays within request evidence instead of inventing vivid cases",
+  },
+  {
     name: "let the auditor keep unbounded external claims",
     file: DRAFT_CLAIM_AUDIT_PROMPT,
     find: "An external ledger claim is usable only when it is finite enough to verify from an\nauthoritative record",
