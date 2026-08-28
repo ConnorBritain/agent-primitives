@@ -1,0 +1,17 @@
+{
+  "schema": "prose-author-claims-audit/2",
+  "drafts": {
+    "m01-codex": {
+      "claims_verified": true,
+      "disclosure_complete": true,
+      "quotations_verified": true,
+      "note": "All three public claims rest directly on the request premise. The remaining sentences are definitions, inferences, hypotheticals, or recommendations; no external actor, event, date, figure, quotation, or citation appears."
+    },
+    "d01-claude": {
+      "claims_verified": null,
+      "disclosure_complete": false,
+      "quotations_verified": false,
+      "note": "Two external examples were disclosed, but multiple additional industry, legal, and historical assertions were mislabeled as reasoning. Quoted EULA language was not supplied and was not independently verified."
+    }
+  }
+}
