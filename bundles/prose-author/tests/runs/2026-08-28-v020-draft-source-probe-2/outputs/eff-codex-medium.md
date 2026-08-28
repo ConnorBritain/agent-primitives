@@ -1,0 +1,39 @@
+```markdown
+A device isn’t fully owned when its maker can disable features after sale. It may sit on your desk, travel in your bag, and appear in your account as something you bought, but ownership means more than possession. It means the seller’s control ends when the transaction does. If a company can reach through a software update, an account requirement, or a server-side switch and remove what the device can do, then the customer has paid for control that remains conditional.
+
+This isn’t a theoretical distinction. A device can be physically yours while its most important functions remain licensed, rented, or subject to continued approval (the terms are often buried in an agreement nobody reads because the alternative is not buying the product). The manufacturer may describe the feature as part of the product, advertise it as a reason to purchase, and then reserve the power to withdraw it later. That arrangement doesn’t look like ownership. It looks more like a long-term permission slip.
+
+Why does this matter? Because the power to disable a feature changes the balance between the buyer and the maker. A company that controls the software can decide whether a product remains useful, compatible, or repairable. It can make a feature available only while an account is active. It can tie ordinary operation to a subscription. It can declare that a function once included in the purchase is now obsolete, unsupported, or unavailable in a particular market. The device still exists, but the customer’s control over it has narrowed.
+
+Manufacturers will likely argue that these restrictions protect security, prevent abuse, or allow them to improve the product. Those interests can be real. They don’t answer the ownership question. A security fix is not the same thing as removing a capability. An improvement is not the same thing as revoking a promised function. And a company’s desire to manage its ecosystem cannot become a permanent veto over what customers may do with products they have already purchased.
+
+The legal system has often treated software as a special layer floating above the physical object. That approach may have made sense when software was an optional program installed on a computer. It makes less sense when software determines whether a lock opens, a vehicle starts, a medical device operates, or a household appliance performs the function that justified its price. In those cases, the code isn’t an accessory. It is the mechanism of use.
+
+We should be especially wary when manufacturers describe disabling as a mere change to a service. If the service is necessary to use a core feature, then calling it a service does not make the loss less real. A customer who loses the feature has not received a minor terms-of-use adjustment; they have received a different product. That simply is not the same bargain.
+
+If you are deciding whether a product is truly yours, ask a practical question: can the maker take away something essential after the sale? If the answer is yes, then ownership is incomplete. Lawmakers should require clear disclosure of these limits, protect repair and offline functionality, and prevent companies from using software control to rewrite the deal. We should not accept a market where the receipt says “sold” but the device itself says “subject to approval.”
+```
+
+```json
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "A device’s software, account requirements, or server-side controls can allow its maker to disable features after sale.",
+      "where": "paragraphs 1–3"
+    },
+    {
+      "claim": "Manufacturers may justify feature restrictions as security, abuse prevention, or product improvement measures.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Software can determine whether locks, vehicles, medical devices, and household appliances operate.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "A customer who loses a core feature after purchase has received a materially different product.",
+      "where": "paragraph 6"
+    }
+  ]
+}
+```
