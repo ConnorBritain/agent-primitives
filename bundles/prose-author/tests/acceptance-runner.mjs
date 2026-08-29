@@ -71,6 +71,11 @@ const write = (path, value) => {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, typeof value === "string" ? value : `${JSON.stringify(value, null, 2)}\n`);
 };
+function stagePrompt(path, body) {
+  const prompt = body.endsWith("\n") ? body : `${body}\n`;
+  write(path, prompt);
+  return prompt;
+}
 const stripFrontmatter = (value) => value.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
 
 // A Codex draft is a language-model call, not an agentic repository turn. Keep the
@@ -226,16 +231,29 @@ function localModuleClosure(entries, repo = REPO) {
   return [...seen].sort();
 }
 
-function committedFileError(path, repo = REPO) {
+function committedManifestError(path, preparedCommit, repo = REPO) {
   const relativePath = relative(repo, resolve(path));
   if (relativePath.startsWith("..")) return "file is outside the repository";
   try {
-    const committed = execFileSync("git", ["show", `HEAD:${relativePath}`], {
+    const additions = execFileSync(
+      "git", ["log", "--diff-filter=A", "--format=%H", "--reverse", "--", relativePath],
+      { cwd: repo, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    ).trim().split("\n").filter(Boolean);
+    if (additions.length !== 1) return "manifest must have exactly one first-add commit";
+    const addedCommit = additions[0];
+    execFileSync("git", ["merge-base", "--is-ancestor", addedCommit, "HEAD"], {
+      cwd: repo, stdio: "ignore",
+    });
+    const parent = execFileSync("git", ["rev-parse", `${addedCommit}^`], {
+      cwd: repo, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+    if (parent !== preparedCommit) return "manifest first-add commit is not the child of prepared_commit";
+    const committed = execFileSync("git", ["show", `${addedCommit}:${relativePath}`], {
       cwd: repo, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"],
     });
-    if (committed !== text(path)) return "file differs from its committed HEAD version";
+    if (committed !== text(path)) return "manifest differs from its immutable first-add version";
   } catch {
-    return "file is not committed at HEAD";
+    return "manifest first-add commit is not resolvable from HEAD";
   }
   return null;
 }
@@ -516,7 +534,7 @@ function loadPrepared(runDir) {
     die("MANIFEST.json has invalid locked concurrency");
   }
   for (const stage of STAGES) manifestDispatch(manifest, stage);
-  const anchorError = committedFileError(p.manifest);
+  const anchorError = committedManifestError(p.manifest, manifest.prepared_commit);
   if (anchorError) die(`MANIFEST.json must be committed unchanged before dispatch: ${anchorError}`);
   return { p, manifest, cases };
 }
@@ -541,6 +559,10 @@ function completedResult(path, expectedDispatch = null, expectedInput = null) {
   }
   if (expectedInput && JSON.stringify(record.acceptance_input) !== JSON.stringify(expectedInput)) {
     throw new Error(`${rel(path)} invocation provenance does not match its locked prompts and schema`);
+  }
+  if (record.harness === "codex") {
+    const eventErrors = codexRecordErrors(record);
+    if (eventErrors.length) throw new Error(`${rel(path)} ${eventErrors.join("; ")}`);
   }
   return record;
 }
@@ -635,7 +657,7 @@ export function codexToolEvents(events) {
   return events.filter((event) => event.item && !allowedItems.has(event.item.type));
 }
 
-function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, input, preserveFailure = false }) {
+function codexEventPayload(eventsOutput, finalOutput, { materializeOutput = false } = {}) {
   const lines = text(eventsOutput).trim().split("\n");
   const events = lines.map((line, index) => {
     try { return JSON.parse(line); } catch {
@@ -659,16 +681,58 @@ function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, inpu
     if (text(finalOutput).trim() !== result) {
       throw new Error("codex final output file diverges from its immutable event stream");
     }
-  } else {
+  } else if (materializeOutput) {
     // Some CLI 0.146.0 calls completed before --output-last-message materialized its
     // companion file. The JSONL agent_message is the primary raw response, so derive
     // the convenience copy from that already-recorded event rather than redrawing.
     write(finalOutput, `${result}\n`);
+  } else {
+    throw new Error("codex final output companion is missing");
   }
   let structured;
   try { structured = JSON.parse(result); } catch {
     throw new Error(`codex final output was not JSON: ${result.slice(0, 500)}`);
   }
+  return { result, structured };
+}
+
+function codexRecordErrors(record, repo = REPO) {
+  const errors = [];
+  try {
+    if (typeof record.raw_events !== "string" || typeof record.raw_output !== "string") {
+      return ["Codex result has no raw event/output companions"];
+    }
+    const eventsOutput = resolve(repo, record.raw_events);
+    const finalOutput = resolve(repo, record.raw_output);
+    const payload = codexEventPayload(eventsOutput, finalOutput);
+    if (record.result.trim() !== payload.result) errors.push("Codex wrapper result diverges from its event stream");
+    if (JSON.stringify(record.structured_output) !== JSON.stringify(payload.structured)) {
+      errors.push("Codex wrapper structure diverges from its event stream");
+    }
+    if (record.recovered_from !== null && record.recovered_from !== undefined) {
+      const recoveryPath = resolve(repo, record.recovered_from);
+      if (!existsSync(recoveryPath)) {
+        errors.push("Codex recovery companion is missing");
+      } else {
+        const recovery = json(recoveryPath);
+        if (recovery.type !== "result" || recovery.is_error !== true
+          || recovery.error !== "codex emitted no final structured output"
+          || recovery.structured_output !== null
+          || recovery.raw_events !== record.raw_events
+          || !resultMatchesDispatch(recovery, record.acceptance_dispatch)
+          || JSON.stringify(recovery.acceptance_input) !== JSON.stringify(record.acceptance_input)) {
+          errors.push("Codex recovery companion does not preserve the failed adapter record");
+        }
+      }
+    }
+  } catch (error) {
+    errors.push(`Codex raw event reconstruction failed: ${error.message}`);
+  }
+  return errors;
+}
+
+function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, input, preserveFailure = false }) {
+  const { result, structured } = codexEventPayload(eventsOutput, finalOutput, { materializeOutput: true });
   let recoveredFrom = null;
   if (preserveFailure && existsSync(output)) {
     recoveredFrom = codexCompanion(output, "adapter-failure.json");
@@ -985,9 +1049,10 @@ async function dispatchDrafts(runDir) {
   const cells = [...cases.cases, ...cases.refusals.map((c) => ({ ...c, refusal: true }))];
   const jobs = cells.map((c) => {
     const profileDir = join(runDir, "inputs", "profiles", c.profile);
-    const prompt = draftPrompt(c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)));
     const promptPath = join(runDir, "prompts", c.refusal ? "refusals" : "drafts", `${c.id}.md`);
-    write(promptPath, `${prompt}\n`);
+    const prompt = stagePrompt(promptPath, draftPrompt(
+      c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)),
+    ));
     return {
       id: c.id,
       run: () => {
@@ -1028,9 +1093,8 @@ async function dispatchClaimAudits(runDir, manifest, cases) {
     if (!validation.ok || validation.refusal) {
       die(`${c.id} invalid semantic draft source before audit: ${validation.errors.join("; ")}`);
     }
-    const prompt = claimAuditPrompt(c, decoded.source);
     const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
-    write(promptPath, `${prompt}\n`);
+    const prompt = stagePrompt(promptPath, claimAuditPrompt(c, decoded.source));
     return {
       id: c.id,
       run: () => claude({
@@ -1099,8 +1163,10 @@ function collectDrafts(runDir) {
       disclosure_sha256: disclosure ? SHA(text(disclosurePath)) : null,
       raw_events: record.raw_events ?? null,
       raw_output: record.raw_output ?? null,
+      recovered_from: record.recovered_from ?? null,
       raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
       raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
+      recovered_from_sha256: record.recovered_from ? SHA(text(resolve(REPO, record.recovered_from))) : null,
     };
   }
   for (const c of cases.refusals) {
@@ -1127,8 +1193,10 @@ function collectDrafts(runDir) {
       reason: parsed.json.refused,
       raw_events: record.raw_events ?? null,
       raw_output: record.raw_output ?? null,
+      recovered_from: record.recovered_from ?? null,
       raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
       raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
+      recovered_from_sha256: record.recovered_from ? SHA(text(resolve(REPO, record.recovered_from))) : null,
     };
   }
   write(artifactsPath, artifacts);
@@ -1230,8 +1298,9 @@ const ARTIFACT_PATH_KEYS = {
   draft: [
     "prompt", "raw", "original_source", "audit_prompt", "audit_raw", "audit",
     "source", "render_output", "draft", "disclosure", "raw_events", "raw_output",
+    "recovered_from",
   ],
-  refusal: ["prompt", "raw", "source", "render_output", "raw_events", "raw_output"],
+  refusal: ["prompt", "raw", "source", "render_output", "raw_events", "raw_output", "recovered_from"],
   critic: ["prompt", "raw", "source", "render"],
   evidence: ["claims_audit", "structural", "tally", "score"],
 };
@@ -1309,7 +1378,7 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
   }
   for (const c of cases.cases) {
     const draft = artifacts.drafts?.[c.id];
-    const optional = ["disclosure"];
+    const optional = ["disclosure", "recovered_from"];
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
     errors.push(...artifactEntryHashErrors(
       draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
@@ -1328,7 +1397,8 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
     }
   }
   for (const c of cases.refusals) {
-    const optional = manifestDispatch(manifest, "draft").harness === "codex" ? [] : ["raw_events", "raw_output"];
+    const optional = ["recovered_from"];
+    if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
     errors.push(...artifactEntryHashErrors(
       artifacts.refusals?.[c.id], ARTIFACT_PATH_KEYS.refusal, `refusals.${c.id}`, runDir, optional,
     ));
@@ -1391,10 +1461,9 @@ async function dispatchCritics(runDir) {
       file,
       body: stripFrontmatter(text(join(inputDir, "corpus", file))),
     }));
-    const prompt = criticPrompt(c.id, corpus, text(join(inputDir, "draft.txt")));
     for (let draw = 1; draw <= 3; draw += 1) {
       const promptPath = join(runDir, "critics", "prompts", `${c.id}-d${draw}.md`);
-      write(promptPath, `${prompt}\n`);
+      const prompt = stagePrompt(promptPath, criticPrompt(c.id, corpus, text(join(inputDir, "draft.txt"))));
       jobs.push({
         id: `${c.id}-d${draw}`,
         run: () => claude({
@@ -2026,8 +2095,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
 export {
   artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
-  committedFileError,
+  codexRecordErrors, committedManifestError,
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, invocationInput, localModuleClosure,
-  manifestDispatch, prepareConfig, quotationAudit, structuralGates, validateCases,
+  manifestDispatch, prepareConfig, quotationAudit, stagePrompt, structuralGates, validateCases,
 };

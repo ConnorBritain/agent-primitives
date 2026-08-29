@@ -39,6 +39,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let required artifact path and hash pairs disappear together | 1 | a missing required artifact cannot pass merely because its hash was also removed |
 | omit concurrency from raw dispatch provenance | 2 | every raw result records the manifest's actual locked concurrency |
 | omit the exact prompt from raw invocation provenance | 1 | each raw result is bound to the exact prompt bytes sent to its model |
+| dispatch prompt bytes that differ from the staged evidence | 1 | the prompt file, dispatched prompt, and invocation hash use identical bytes |
 | stop checking invocation provenance on final evidence | 1 | final verification matches every raw result to its system prompt, user prompt, and schema |
 | skip staged input reconstruction during final check | 1 | final acceptance rederives every staged corpus input from the locked fixture |
 | skip prompt reconstruction during final check | 1 | final acceptance rederives every model prompt from locked inputs and raw predecessors |
@@ -46,6 +47,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | score canonical drafts without reconstructing raw draft evidence | 1 | structural gates score drafts reconstructed from raw draft and audit responses |
 | skip claims audit linkage during final check | 1 | manual claims decisions stay linked to the exact draft, disclosure, and quotations |
 | trust canonical critic sources instead of comparing them to raw | 1 | critic canonical sources reproduce byte-for-byte from raw model results |
+| trust a Codex wrapper that diverges from its primary event stream | 1 | final verification reconstructs Codex structured output from immutable JSONL events |
 | drop the explicit type from context-specific profile dimensions | 1 | the generated profile schema remains valid in strict structured-output harnesses |
 | derive the critic verdict from its finding count | 1 | the model-owned verdict remains independent from the findings-rate instrument |
 | drop the drafter's sentence-by-sentence claim inventory | 2 | a nearby disclosed fact cannot hide a second checkable assertion |

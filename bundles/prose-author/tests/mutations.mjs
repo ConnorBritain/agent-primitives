@@ -291,7 +291,7 @@ export const MUTATIONS = [
   {
     name: "resume from an uncommitted mutable manifest",
     file: ACCEPTANCE_RUNNER,
-    find: "  const anchorError = committedFileError(p.manifest);",
+    find: "  const anchorError = committedManifestError(p.manifest, manifest.prepared_commit);",
     with: "  const anchorError = null;",
     guards: "the prepared manifest is committed unchanged before its first dispatch",
   },
@@ -322,6 +322,13 @@ export const MUTATIONS = [
     find: "    prompt_sha256: SHA(prompt),",
     with: "    prompt_sha256: null,",
     guards: "each raw result is bound to the exact prompt bytes sent to its model",
+  },
+  {
+    name: "dispatch prompt bytes that differ from the staged evidence",
+    file: ACCEPTANCE_RUNNER,
+    find: '  const prompt = body.endsWith("\\n") ? body : `${body}\\n`;',
+    with: "  const prompt = body;",
+    guards: "the prompt file, dispatched prompt, and invocation hash use identical bytes",
   },
   {
     name: "stop checking invocation provenance on final evidence",
@@ -371,6 +378,13 @@ export const MUTATIONS = [
     find: "        if (!existsSync(sourcePath) || text(sourcePath) !== sourceBody) {",
     with: "        if (false) {",
     guards: "critic canonical sources reproduce byte-for-byte from raw model results",
+  },
+  {
+    name: "trust a Codex wrapper that diverges from its primary event stream",
+    file: ACCEPTANCE_RUNNER,
+    find: "    if (JSON.stringify(record.structured_output) !== JSON.stringify(payload.structured)) {",
+    with: "    if (false) {",
+    guards: "final verification reconstructs Codex structured output from immutable JSONL events",
   },
   {
     name: "drop the explicit type from context-specific profile dimensions",

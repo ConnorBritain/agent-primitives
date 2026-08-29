@@ -8,8 +8,8 @@ import { dirname, join } from "node:path";
 
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
-  committedFileError, criticPrompt, deriveCritic, draftPrompt, invocationInput, localModuleClosure, manifestDispatch,
-  prepareConfig, profileRenderPrompt, quotationAudit, validateCases,
+  codexRecordErrors, committedManifestError, criticPrompt, deriveCritic, draftPrompt, invocationInput,
+  localModuleClosure, manifestDispatch, prepareConfig, profileRenderPrompt, quotationAudit, stagePrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -224,19 +224,45 @@ export async function run(t, { HERE }) {
           && /completedResult\(item\.path, item\.dispatch, item\.input\)/.test(source));
     }
     {
+      const promptRoot = mkdtempSync(join(tmpdir(), "prose-author-staged-prompt-"));
+      try {
+        const promptPath = join(promptRoot, "prompt.md");
+        const dispatched = stagePrompt(promptPath, "exact prompt bytes");
+        t.check("the exact staged prompt bytes are the bytes dispatched and fingerprinted",
+          dispatched === readFileSync(promptPath, "utf8")
+            && dispatched.endsWith("\n")
+            && invocationInput(join(HERE, "bar.mjs"), dispatched).prompt_sha256
+              === invocationInput(join(HERE, "bar.mjs"), readFileSync(promptPath, "utf8")).prompt_sha256);
+      } finally {
+        rmSync(promptRoot, { recursive: true, force: true });
+      }
+    }
+    {
       const anchorRoot = mkdtempSync(join(tmpdir(), "prose-author-manifest-anchor-"));
       try {
         const anchorFile = join(anchorRoot, "MANIFEST.json");
-        writeFileSync(anchorFile, "{}\n");
         execFileSync("git", ["init", "-q"], { cwd: anchorRoot, stdio: "ignore" });
+        writeFileSync(join(anchorRoot, "base.txt"), "base\n");
+        execFileSync("git", ["add", "base.txt"], { cwd: anchorRoot, stdio: "ignore" });
+        execFileSync("git", ["-c", "user.name=Test", "-c", "user.email=test@example.invalid",
+          "commit", "-qm", "base"], { cwd: anchorRoot, stdio: "ignore" });
+        const preparedCommit = execFileSync("git", ["rev-parse", "HEAD"], {
+          cwd: anchorRoot, encoding: "utf8",
+        }).trim();
+        writeFileSync(anchorFile, "{}\n");
         execFileSync("git", ["add", "MANIFEST.json"], { cwd: anchorRoot, stdio: "ignore" });
         execFileSync("git", ["-c", "user.name=Test", "-c", "user.email=test@example.invalid",
           "commit", "-qm", "lock"], { cwd: anchorRoot, stdio: "ignore" });
-        const committed = committedFileError(anchorFile, anchorRoot) === null;
+        const committed = committedManifestError(anchorFile, preparedCommit, anchorRoot) === null;
         writeFileSync(anchorFile, "{\"changed\":true}\n");
+        execFileSync("git", ["add", "MANIFEST.json"], { cwd: anchorRoot, stdio: "ignore" });
+        execFileSync("git", ["-c", "user.name=Test", "-c", "user.email=test@example.invalid",
+          "commit", "-qm", "mutate"], { cwd: anchorRoot, stdio: "ignore" });
         t.check("a prepared manifest must be committed unchanged before any stage resumes",
-          committed && /differs from its committed HEAD version/.test(committedFileError(anchorFile, anchorRoot))
-            && /const anchorError = committedFileError\(p\.manifest\)/.test(source)
+          committed && /differs from its immutable first-add version/.test(
+            committedManifestError(anchorFile, preparedCommit, anchorRoot),
+          )
+            && /const anchorError = committedManifestError\(p\.manifest, manifest\.prepared_commit\)/.test(source)
             && /MANIFEST\.json must be committed unchanged before dispatch/.test(source));
       } finally {
         rmSync(anchorRoot, { recursive: true, force: true });
@@ -257,6 +283,49 @@ export async function run(t, { HERE }) {
       /recoverable failure dispatch does not match its locked manifest stage/.test(source)
         && /if \(!resultMatchesDispatch\(existing, dispatch\)/.test(source)
         && /existing\.acceptance_input/.test(source));
+    {
+      const eventRoot = mkdtempSync(join(tmpdir(), "prose-author-codex-events-"));
+      try {
+        const result = JSON.stringify({ ok: true });
+        writeFileSync(join(eventRoot, "events.jsonl"), [
+          JSON.stringify({ type: "item.completed", item: { type: "agent_message", text: result } }),
+          JSON.stringify({ type: "turn.completed" }), "",
+        ].join("\n"));
+        writeFileSync(join(eventRoot, "output.json"), `${result}\n`);
+        const acceptanceDispatch = {
+          stage: "draft", harness: "codex", model: "locked", effort: "high",
+          transport: "native-structured", timeout_ms: 10, concurrency: 1,
+          manifest_sha256: "0".repeat(64),
+        };
+        const acceptanceInput = {
+          system_sha256: "1".repeat(64), prompt_sha256: "2".repeat(64), schema_sha256: "3".repeat(64),
+        };
+        const record = {
+          harness: "codex", result, structured_output: { ok: true },
+          raw_events: "events.jsonl", raw_output: "output.json", recovered_from: null,
+          acceptance_dispatch: acceptanceDispatch, acceptance_input: acceptanceInput,
+        };
+        t.check("final Codex verification reconstructs the wrapper from its primary event stream",
+          codexRecordErrors(record, eventRoot).length === 0
+            && codexRecordErrors({ ...record, structured_output: { ok: false } }, eventRoot)
+              .some((error) => /structure diverges/.test(error)));
+        const recovery = {
+          type: "result", is_error: true, error: "codex emitted no final structured output",
+          structured_output: null, raw_events: "events.jsonl",
+          acceptance_dispatch: acceptanceDispatch, acceptance_input: acceptanceInput,
+        };
+        writeFileSync(join(eventRoot, "failure.json"), `${JSON.stringify(recovery)}\n`);
+        const recovered = { ...record, recovered_from: "failure.json" };
+        t.check("a recovered Codex wrapper requires its preserved failure companion",
+          codexRecordErrors(recovered, eventRoot).length === 0
+            && /recovered_from_sha256/.test(source));
+        writeFileSync(join(eventRoot, "failure.json"), "{}\n");
+        t.check("tampered recovery provenance fails reconstruction",
+          codexRecordErrors(recovered, eventRoot).some((error) => /does not preserve/.test(error)));
+      } finally {
+        rmSync(eventRoot, { recursive: true, force: true });
+      }
+    }
     t.check("invalid prepare-only environment does not break a read-only import",
       (() => {
         try {
@@ -335,12 +404,19 @@ export async function run(t, { HERE }) {
     const body = readFileSync(join(HERE, "acceptance-runner.mjs"), "utf8");
     const hash = createHash("sha256").update(body).digest("hex");
     const entry = { raw: "bundles/prose-author/tests/acceptance-runner.mjs", raw_sha256: hash };
+    const recovery = {
+      recovered_from: entry.raw, recovered_from_sha256: hash,
+    };
     t.check("recorded artifact hashes are verified against their files",
       artifactEntryHashErrors(entry, ["raw"], "fixture", HERE).length === 0
         && artifactEntryHashErrors({ ...entry, raw_sha256: "0".repeat(64) }, ["raw"], "fixture", HERE)
           .some((error) => /hash mismatch/.test(error))
         && artifactEntryHashErrors({}, ["raw"], "fixture", HERE)
-          .some((error) => /required path\/hash pair is missing/.test(error)));
+          .some((error) => /required path\/hash pair is missing/.test(error))
+        && artifactEntryHashErrors(recovery, ["recovered_from"], "fixture", HERE, ["recovered_from"]).length === 0
+        && artifactEntryHashErrors({ ...recovery, recovered_from_sha256: null },
+          ["recovered_from"], "fixture", HERE, ["recovered_from"])
+          .some((error) => /no valid recorded hash/.test(error)));
   }
   t.check("profile render hashes and k=3 stability are independently reproducible",
     /render_sha256: SHA\(text\(rawRender\)\)/.test(source)
