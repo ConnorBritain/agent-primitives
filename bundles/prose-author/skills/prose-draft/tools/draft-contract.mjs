@@ -373,6 +373,43 @@ export function validateVoiceDraftSource(source, { request = null } = {}) {
   return { ok: errors.length === 0, refusal, errors };
 }
 
+/**
+ * Remove only an unused contiguous suffix from a source/3 ledger. This is a
+ * representational normalization, not a prose or claim repair: every remaining byte of
+ * the semantic object is preserved and no ID is renumbered.
+ */
+export function normalizeVoiceDraftSource(source, { request = null } = {}) {
+  const initial = validateVoiceDraftSource(source, { request });
+  if (initial.ok || initial.refusal) {
+    return { ok: initial.ok, refusal: initial.refusal, changed: false, errors: initial.errors, source };
+  }
+  if (source?.schema !== SOURCE_SCHEMA_ID || !Array.isArray(source.ledger)
+    || !Array.isArray(source.paragraphs)) {
+    return { ok: false, refusal: false, changed: false, errors: initial.errors, source: null };
+  }
+  const unused = initial.errors
+    .map((error) => /^source\.ledger (c[1-9][0-9]*) is not cited by any sentence$/.exec(error)?.[1])
+    .filter(Boolean);
+  if (unused.length !== initial.errors.length || unused.length === 0) {
+    return { ok: false, refusal: false, changed: false, errors: initial.errors, source: null };
+  }
+  const referenced = new Set(source.paragraphs.flatMap((paragraph) =>
+    (Array.isArray(paragraph?.sentences) ? paragraph.sentences : [])
+      .flatMap((sentence) => Array.isArray(sentence?.claim_ids) ? sentence.claim_ids : [])));
+  let keep = source.ledger.length;
+  while (keep > 0 && !referenced.has(`c${keep}`)) keep -= 1;
+  const removed = source.ledger.slice(keep).map((entry) => entry?.id);
+  if (removed.length === 0 || unused.some((id) => !removed.includes(id))) {
+    return { ok: false, refusal: false, changed: false, errors: initial.errors, source: null };
+  }
+  const normalized = { ...source, ledger: source.ledger.slice(0, keep) };
+  const validation = validateVoiceDraftSource(normalized, { request });
+  if (!validation.ok || validation.refusal) {
+    return { ok: false, refusal: validation.refusal, changed: false, errors: validation.errors, source: null };
+  }
+  return { ok: true, refusal: false, changed: true, errors: [], source: normalized, removed_ledger_ids: removed };
+}
+
 function jsonFence(value) {
   return `\`\`\`json\n${JSON.stringify(value, null, 2)}\n\`\`\``;
 }
@@ -400,11 +437,55 @@ function materialize(source) {
   return { draft, claims };
 }
 
+function auditClaimErrors(source, claims) {
+  const errors = [];
+  if (!Array.isArray(claims)) return ["auditClaims must be an array"];
+  if (claims.length > 50) errors.push("auditClaims may contain at most 50 entries");
+  const sentences = new Map();
+  if (source?.schema === SOURCE_SCHEMA_ID) {
+    for (const [pIndex, paragraph] of source.paragraphs.entries()) {
+      for (const [sIndex, sentence] of paragraph.sentences.entries()) {
+        sentences.set(`p${pIndex + 1}s${sIndex + 1}`, { text: sentence.text, where: `paragraph ${pIndex + 1}` });
+      }
+    }
+  }
+  const seen = new Set();
+  for (const [index, claim] of claims.entries()) {
+    const at = `auditClaims[${index}]`;
+    const fields = ["claim", "where", "sentence_id", "evidence", "kind", "verification_question"];
+    if (!isObject(claim) || !exactKeys(claim, fields)) {
+      errors.push(`${at} must carry exactly ${fields.join(", ")}`);
+      continue;
+    }
+    for (const field of ["claim", "where", "sentence_id", "evidence", "verification_question"]) {
+      if (!isText(claim[field])) errors.push(`${at}.${field} must be a non-empty string`);
+    }
+    if (!["bounded-fact", "broad-generalization"].includes(claim.kind)) errors.push(`${at}.kind is invalid`);
+    const sentence = sentences.get(claim.sentence_id);
+    if (!sentence) {
+      errors.push(`${at}.sentence_id does not locate a source sentence`);
+    } else {
+      if (claim.where !== sentence.where) errors.push(`${at}.where must be ${sentence.where}`);
+      if (!sentence.text.includes(claim.evidence)) errors.push(`${at}.evidence is not an exact source span`);
+    }
+    const key = normalize(claim.claim).toLowerCase();
+    if (key && seen.has(key)) errors.push(`${at}.claim duplicates an earlier audit claim`);
+    if (key) seen.add(key);
+  }
+  return errors;
+}
+
 /** Deterministically render the public voice-draft/1 artifact. */
 export function assembleVoiceDraft(source, context = {}) {
   const validation = validateVoiceDraftSource(source, context);
   if (!validation.ok) return { ...validation, output: null };
+  const auditClaims = context.auditClaims ?? [];
+  const auditErrors = auditClaimErrors(source, auditClaims);
+  if (auditErrors.length) return { ok: false, refusal: validation.refusal, errors: auditErrors, output: null };
   if (validation.refusal) {
+    if (auditClaims.length) return {
+      ok: false, refusal: true, errors: ["a refusal cannot carry audit claims"], output: null,
+    };
     return {
       ok: true,
       refusal: true,
@@ -414,9 +495,20 @@ export function assembleVoiceDraft(source, context = {}) {
   }
 
   const materialized = materialize(source);
+  const planned = new Set(materialized.claims.map((claim) => normalize(claim.claim).toLowerCase()));
+  const duplicate = auditClaims.find((claim) => planned.has(normalize(claim.claim).toLowerCase()));
+  if (duplicate) return {
+    ok: false, refusal: false,
+    errors: [`audit claim duplicates a planned ledger claim: ${duplicate.claim}`], output: null,
+  };
+  const publicAuditClaims = auditClaims.map(({ claim, where }) => ({ claim, where }));
+  const claims = [...materialized.claims, ...publicAuditClaims];
+  if (claims.length > 50) return {
+    ok: false, refusal: false, errors: ["a public draft may disclose at most 50 claims"], output: null,
+  };
   const record = { schema: DRAFT_SCHEMA_ID };
   if (source.omitted.length) record.omitted = source.omitted;
-  if (materialized.claims.length) record.claims = materialized.claims;
+  if (claims.length) record.claims = claims;
   const disclosure = Object.keys(record).length > 1 ? `\n\n${jsonFence(record)}` : "";
   return {
     ok: true,

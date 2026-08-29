@@ -241,11 +241,39 @@ export const MUTATIONS = [
     guards: "every independent basis decision remains inspectable clause by clause",
   },
   {
+    name: "let a disclosure cite words absent from its sentence",
+    file: DRAFT_CLAIM_AUDIT,
+    find: '          if (expected && typeof claim.evidence === "string" && !String(expected.text ?? "").includes(claim.evidence)) {',
+    with: '          if (false) {',
+    guards: "an audit-owned claim is anchored to exact prose rather than invented during review",
+  },
+  {
+    name: "let a keep row smuggle claims into the audit overlay",
+    file: DRAFT_CLAIM_AUDIT,
+    find: '        if (row.status !== "disclose" && row.claims.length) errors.push(`${at} ${row.status} cannot carry claims`);',
+    with: '        if (false) errors.push(`${at} ${row.status} cannot carry claims`);',
+    guards: "only an explicit disclose decision may append to the verification queue",
+  },
+  {
+    name: "drop audit-owned claims from the public verification record",
+    file: DRAFT_CONTRACT,
+    find: "  const claims = [...materialized.claims, ...publicAuditClaims];",
+    with: "  const claims = materialized.claims;",
+    guards: "an independently discovered premise cannot disappear between audit and publication",
+  },
+  {
     name: "let the independent auditor trust the drafter's labels",
     file: DRAFT_CLAIM_AUDIT_PROMPT,
     find: "Sentence basis\nlabels and ledger references are evidence to inspect, never conclusions to trust.",
     with: "Sentence basis\nlabels and ledger references are authoritative conclusions.",
     guards: "the factual audit is independent rather than the same self-report twice",
+  },
+  {
+    name: "let hard factual failures become ordinary disclosures",
+    file: DRAFT_CLAIM_AUDIT_PROMPT,
+    find: "Use `status: \"reject\"` rather than disclosure for a fabricated or placeholder citation,",
+    with: "Use `status: \"disclose\"` rather than rejection for a fabricated or placeholder citation,",
+    guards: "fabricated citations, attributed wording, biography, and leakage remain fatal",
   },
   {
     name: "hide broad institutional assertions under reasoning",
@@ -512,13 +540,6 @@ export const MUTATIONS = [
     find: "In that situation, the external-verification\npart of the ledger **must be empty**.",
     with: "In that situation, the external-verification\npart of the ledger may contain decorative examples.",
     guards: "a source-free argument stays within request evidence instead of inventing vivid cases",
-  },
-  {
-    name: "let the auditor keep unbounded external claims",
-    file: DRAFT_CLAIM_AUDIT_PROMPT,
-    find: "An external ledger claim is usable only when it is finite enough to verify from an\nauthoritative record",
-    with: "An external ledger claim is usable even when it cannot be verified from an\nauthoritative record",
-    guards: "the independent pass rejects rather than launders unfalsifiable generalizations",
   },
   {
     name: "let a listed claim license an invented attributed quotation",

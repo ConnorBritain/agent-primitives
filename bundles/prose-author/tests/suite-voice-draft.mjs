@@ -10,7 +10,8 @@
 import { readdirSync, existsSync as fsExists, readFileSync as fsRead } from "node:fs";
 import { join, resolve } from "node:path";
 import {
-  assembleVoiceDraft, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
+  assembleVoiceDraft, normalizeVoiceDraftSource, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA,
+  validateVoiceDraftSource,
 } from "../skills/prose-draft/tools/draft-contract.mjs";
 import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA, sentenceRefs,
@@ -446,16 +447,18 @@ export async function run(t, { HERE }) {
     t.check("the independent auditor distrusts the drafter and catches generic institutional claims",
       /Sentence basis[\s\S]*ledger references are evidence to inspect, never conclusions to trust/.test(claimAuditInstructions)
         && /Generic wording does not turn[\s\S]*into reasoning/.test(claimAuditInstructions));
-    t.check("the independent auditor requires rationales and finite external propositions",
+    t.check("the independent auditor exposes unsupported propositions without laundering hard failures",
       /For every `keep`[\s\S]*`reason`[\s\S]*every[\s\S]*clause/.test(claimAuditInstructions)
-        && /An external ledger claim is usable only when it is finite[\s\S]*authoritative[\s\S]*Reject a sentence[\s\S]*unbounded/.test(claimAuditInstructions));
+        && /status: "disclose"[\s\S]*later human[\s\S]*verify, scope, or remove/.test(claimAuditInstructions)
+        && /status: "reject"[\s\S]*fabricated or placeholder citation[\s\S]*invented first-person author biography/.test(claimAuditInstructions));
     const audit = {
-      schema: "voice-draft-claim-audit/2",
+      schema: "voice-draft-claim-audit/3",
       sentences: refs.map((ref, index) => ({
         id: ref.id, status: "keep",
         reason: index === 0
           ? "The assertion is fully covered by request-supported ledger entry c1."
           : "The sentence is a conclusion from the supplied premise and adds no descriptive fact.",
+        claims: [],
       })),
     };
     t.check("the independent audit schema is fixed and strict-harness compatible",
@@ -464,8 +467,67 @@ export async function run(t, { HERE }) {
         && DRAFT_AUDIT_SCHEMA.properties.sentences.items.properties.status.type === "string");
     const applied = applyVoiceDraftClaimAudit(source, audit, { request });
     t.check("an independent audit approves without rewriting the closed ledger or prose",
-      applied.ok && applied.source === source && applied.source.paragraphs[0].sentences[1].basis === "reasoning"
+      applied.ok && applied.source === source && applied.claims.length === 0
+        && applied.source.paragraphs[0].sentences[1].basis === "reasoning"
         && assembleVoiceDraft(applied.source, { request }).output.includes("That leaves ownership hollow."));
+    const disclosureSource = {
+      ...source,
+      paragraphs: [{ sentences: [
+        source.paragraphs[0].sentences[0],
+        { text: "Many buyers never notice the setting.", basis: "reasoning", claim_ids: [] },
+      ] }],
+    };
+    const disclosureAudit = {
+      schema: "voice-draft-claim-audit/3",
+      sentences: sentenceRefs(disclosureSource).map((ref, index) => index === 0 ? {
+        id: ref.id, status: "keep", reason: "The request supplies the complete assertion.", claims: [],
+      } : {
+        id: ref.id, status: "disclose", reason: "This is an unledgered population claim.",
+        claims: [{
+          claim: "Many buyers do not notice the setting.",
+          evidence: "Many buyers never notice the setting",
+          kind: "broad-generalization",
+          verification_question: "What evidence establishes how often buyers notice this setting?",
+        }],
+      }),
+    };
+    const disclosedAudit = applyVoiceDraftClaimAudit(disclosureSource, disclosureAudit, { request });
+    const disclosedOutput = disclosedAudit.ok
+      ? assembleVoiceDraft(disclosedAudit.source, { request, auditClaims: disclosedAudit.claims })
+      : null;
+    t.check("an audit-owned disclosure preserves prose while entering the public verification queue",
+      disclosedAudit.ok && disclosedAudit.source === disclosureSource
+        && disclosedAudit.claims[0].sentence_id === "p1s2"
+        && disclosedAudit.claims[0].where === "paragraph 1"
+        && disclosedOutput.ok
+        && disclosedOutput.output.includes('"claim": "Many buyers do not notice the setting."'));
+    t.check("audit disclosure evidence must be an exact span of its own sentence",
+      !applyVoiceDraftClaimAudit(disclosureSource, {
+        ...disclosureAudit,
+        sentences: disclosureAudit.sentences.map((row, index) => index === 1 ? {
+          ...row, claims: [{ ...row.claims[0], evidence: "buyers usually ignore settings" }],
+        } : row),
+      }, { request }).ok);
+    t.check("only disclose rows can carry claims, and every disclose row carries one",
+      !applyVoiceDraftClaimAudit(disclosureSource, {
+        ...disclosureAudit,
+        sentences: disclosureAudit.sentences.map((row, index) => index === 1
+          ? { ...row, status: "keep" }
+          : row),
+      }, { request }).ok
+        && !applyVoiceDraftClaimAudit(disclosureSource, {
+          ...disclosureAudit,
+          sentences: disclosureAudit.sentences.map((row, index) => index === 1
+            ? { ...row, claims: [] }
+            : row),
+        }, { request }).ok);
+    t.check("historical source/3 claim-audit/2 evidence remains readable",
+      applyVoiceDraftClaimAudit(source, {
+        schema: "voice-draft-claim-audit/2",
+        sentences: refs.map((ref) => ({
+          id: ref.id, status: "keep", reason: "Historical complete rationale.",
+        })),
+      }, { request }).ok);
     t.check("an audit must cover every sentence in exact order",
       !applyVoiceDraftClaimAudit(source, { ...audit, sentences: audit.sentences.slice(1) }, { request }).ok
         && !applyVoiceDraftClaimAudit(source, { ...audit, sentences: [...audit.sentences].reverse() }, { request }).ok);
@@ -480,6 +542,24 @@ export async function run(t, { HERE }) {
           ...row, status: "reject", reason: "attributed wording is absent from the request",
         }),
       }, { request }).ok);
+
+    const unusedSuffix = {
+      ...source,
+      ledger: [...source.ledger, {
+        id: "c2", basis: "external-verification", claim: "Unused external claim.", request_basis: "",
+      }],
+    };
+    const normalized = normalizeVoiceDraftSource(unusedSuffix, { request });
+    t.check("an unused ledger suffix is pruned deterministically without touching prose",
+      normalized.ok && normalized.changed && normalized.removed_ledger_ids.join(",") === "c2"
+        && normalized.source.ledger.length === 1
+        && normalized.source.paragraphs === unusedSuffix.paragraphs);
+    t.check("normalization refuses anything beyond an unused contiguous ledger suffix",
+      !normalizeVoiceDraftSource({
+        ...unusedSuffix,
+        ledger: [unusedSuffix.ledger[0], { ...unusedSuffix.ledger[1], id: "c3" }],
+      }, { request }).ok
+        && !normalizeVoiceDraftSource({ ...source, refused: "also refuse" }, { request }).ok);
 
     const repairSource = {
       ...source,
@@ -509,9 +589,9 @@ export async function run(t, { HERE }) {
     t.check("a bounded repair may rewrite only independently rejected sentence units",
       validateVoiceDraftClaimRepair(repairSource, repaired, { request, audit: rejectedAudit }).ok);
     const allRejected = {
-      ...audit,
+      schema: "voice-draft-claim-audit/2",
       sentences: audit.sentences.map((row) => ({
-        ...row, status: "reject", reason: "The sentence adds an unbounded population claim.",
+        id: row.id, status: "reject", reason: "The sentence adds an unbounded population claim.",
       })),
     };
     const allRewritten = {

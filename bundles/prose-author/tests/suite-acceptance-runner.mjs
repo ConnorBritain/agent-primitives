@@ -16,6 +16,7 @@ import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurement
 import {
   assembleVoiceCritic, CRITIC_SOURCE_SCHEMA, validateVoiceCriticSource,
 } from "./voice-critic-source.mjs";
+import { sentenceRefs } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 
@@ -96,11 +97,12 @@ export async function run(t, { HERE }) {
         && /closed claim ledger/i.test(prompt)
         && /ledger and sentence labels are untrusted/i.test(prompt)
         && !/voice profile/i.test(prompt));
-    t.check("draft dispatch bounds repair and requires a fresh independent audit before collection",
+    t.check("draft dispatch normalizes bookkeeping and requires independent disclosure before collection",
       source.includes("await dispatchClaimPipeline(runDir, manifest, cases)")
-        && source.includes("validateVoiceDraftClaimRepair(need.source, decoded.source")
-        && source.includes('await pool("independent claim reaudit"')
-        && source.includes("applyVoiceDraftClaimAudit(repaired.source, decodedReaudit.audit"));
+        && source.includes("normalizeVoiceDraftSource(decoded.source")
+        && source.includes('await pool("independent claim audit"')
+        && source.includes("applyVoiceDraftClaimAudit(source, decodedAudit.audit")
+        && source.includes("auditClaims: chain.auditClaims"));
   }
   {
     const prompt = criticPrompt("opaque-01", [
@@ -183,10 +185,11 @@ export async function run(t, { HERE }) {
       && /transport: config\.claimAuditNative \? "native-structured" : "json-fence"/.test(source)
       && source.includes('auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null')
       && source.includes('reauditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null'));
-  t.check("acceptance defaults to a native bounded claim-repair transport",
+  t.check("historical bounded-repair transport stays pinned but new dispatch makes no repair call",
     prepareConfig({}).claimRepairNative
       && /transport: config\.claimRepairNative \? "native-structured" : "json-fence"/.test(source)
-      && source.includes('repairDispatch.transport === "native-structured" ? DRAFT_SOURCE_SCHEMA : null'));
+      && !source.includes('await pool("bounded claim repair"')
+      && !source.includes('await pool("independent claim reaudit"'));
   t.check("acceptance defaults to native structured critic transport and validates assembly",
     prepareConfig({}).criticNative
       && /transport: config\.criticNative \? "native-structured" : "json-fence"/.test(source)
@@ -257,6 +260,37 @@ export async function run(t, { HERE }) {
           acceptance_dispatch: manifestDispatch(manifest, stageName),
         })}\n`);
       };
+      const currentOriginal = {
+        ...original,
+        ledger: [...original.ledger, {
+          id: "c2", basis: "external-verification", claim: "Unused claim.", request_basis: "",
+        }],
+      };
+      const currentAudit = {
+        schema: "voice-draft-claim-audit/3",
+        sentences: sentenceRefs(original).map((ref, index) => index === 1 ? {
+          id: ref.id, status: "disclose", reason: "Unledgered population claim.",
+          claims: [{
+            claim: "Many buyers do not notice the condition.",
+            evidence: "Many buyers never notice",
+            kind: "broad-generalization",
+            verification_question: "What evidence establishes how many buyers notice?",
+          }],
+        } : {
+          id: ref.id, status: "keep", reason: "No unsupported descriptive premise.", claims: [],
+        }),
+      };
+      put("drafts", c.id, currentOriginal, "draft");
+      put("claim-audits", c.id, currentAudit, "claim_audit");
+      let disclosed = null;
+      try { disclosed = resolveDraftChain(chainRoot, manifest, c); } catch {}
+      t.check("current checking prunes an unused ledger suffix and preserves an audit-owned claim overlay",
+        disclosed?.normalized && !disclosed.repaired
+          && disclosed.removedLedgerIds.join(",") === "c2"
+          && disclosed.finalSource.ledger.length === 1
+          && disclosed.finalSource.paragraphs === disclosed.normalizedSource.paragraphs
+          && disclosed.auditClaims.length === 1
+          && disclosed.auditClaims[0].sentence_id === "p1s2");
       put("drafts", c.id, original, "draft");
       put("claim-audits", c.id, initialAudit, "claim_audit");
       put("claim-repairs", c.id, repaired, "claim_repair");

@@ -39,22 +39,39 @@ claims even when written rhetorically and without a proper name, date, or statis
 
 An external ledger claim is usable only when it is finite enough to verify from an
 authoritative record: a named actor's specific action or position, a particular law or
-case, a dated event, or a bounded figure. Reject a sentence that relies on an unbounded
-claim about an industry's behavior or intent, hidden seller motives, general public
-behavior, comparative public reaction, or what courts and laws do without a jurisdiction
-or other bounded referent. Being present in the ledger does not make such a claim safe.
+case, a dated event, or a bounded figure. A sentence may still contain an absent or
+unbounded descriptive claim. Do not pretend it is reasoning and do not rewrite it. Use
+`status: "disclose"` and extract every such proposition into `claims` so the later human
+claims audit must verify, scope, or remove it before critics run. Classify a finite claim
+as `bounded-fact`; classify an industry, population, causal, or other scope-dependent
+assertion as `broad-generalization`.
+
+Every disclosed claim carries:
+
+- `claim`: a complete proposition whose verification would account for the descriptive
+  clause;
+- `evidence`: an exact non-empty byte span from this sentence, never a paraphrase or text
+  from another sentence;
+- `kind`: `bounded-fact` or `broad-generalization`;
+- `verification_question`: a concrete question for the later source audit.
+
+Use `status: "reject"` rather than disclosure for a fabricated or placeholder citation,
+attributed wording absent from the request, invented first-person author biography,
+corpus/profile leakage, or a proposition that cannot be stated clearly enough for a human
+to decide whether it is supported. Those failures stop assembly.
 
 For every `keep`, use `reason` to account briefly for every clause and say why the cited
 ledger entries, or the non-factual basis, cover it. An empty or style-based rationale is
 invalid. Keep does not verify that an external claim is true; it means the complete finite
-claim is exposed for the later source-verification audit.
+claim is exposed for the later source-verification audit. A `keep` or `reject` row carries
+`claims: []`; a `disclose` row carries one or more claims and a rationale explaining why
+they were missing or insufficiently scoped.
 
-Use `status: "reject"` when any descriptive clause is absent from the closed ledger, a
-request basis does not supply its claim, an external claim is not finite, or the prose
-contains a fabricated/placeholder citation, attributed wording absent from the request,
-or invented first-person author biography. A reject stops assembly. Do not repair the
-ledger, change a basis, add a claim, or rewrite the sentence.
+Use `status: "reject"` for the hard failures above. A reject stops assembly. The audit
+overlay is not a repaired pre-writing ledger and grants no retroactive permission to the
+drafter: it is independent, append-only disclosure evidence. Do not change the ledger,
+change a basis, or rewrite a sentence.
 
-Return `voice-draft-claim-audit/2` as the supplied strict structured object and nothing
-else. Each row carries exactly `id`, `status`, and `reason`. Preserve sentence IDs exactly.
-Never make an authorship, resemblance, quality, or detector judgment.
+Return `voice-draft-claim-audit/3` as the supplied strict structured object and nothing
+else. Each row carries exactly `id`, `status`, `reason`, and `claims`. Preserve sentence
+IDs exactly. Never make an authorship, resemblance, quality, or detector judgment.

@@ -4,8 +4,21 @@ import {
   PREVIOUS_SOURCE_SCHEMA_ID, SOURCE_SCHEMA_ID as DRAFT_SOURCE_SCHEMA_ID, validateVoiceDraftSource,
 } from "./draft-contract.mjs";
 
-export const AUDIT_SCHEMA_ID = "voice-draft-claim-audit/2";
+export const AUDIT_SCHEMA_ID = "voice-draft-claim-audit/3";
+export const PREVIOUS_AUDIT_SCHEMA_ID = "voice-draft-claim-audit/2";
 export const LEGACY_AUDIT_SCHEMA_ID = "voice-draft-claim-audit/1";
+
+const disclosedClaim = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    claim: { type: "string", minLength: 1 },
+    evidence: { type: "string", minLength: 1 },
+    kind: { type: "string", enum: ["bounded-fact", "broad-generalization"] },
+    verification_question: { type: "string", minLength: 1 },
+  },
+  required: ["claim", "evidence", "kind", "verification_question"],
+};
 
 export const AUDIT_SCHEMA = {
   type: "object",
@@ -19,10 +32,11 @@ export const AUDIT_SCHEMA = {
         additionalProperties: false,
         properties: {
           id: { type: "string", pattern: "^p[1-9][0-9]*s[1-9][0-9]*$" },
-          status: { type: "string", enum: ["keep", "reject"] },
+          status: { type: "string", enum: ["keep", "disclose", "reject"] },
           reason: { type: "string" },
+          claims: { type: "array", maxItems: 10, items: disclosedClaim },
         },
-        required: ["id", "status", "reason"],
+        required: ["id", "status", "reason", "claims"],
       },
     },
   },
@@ -64,8 +78,13 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
   if (!isObject(audit)) return { ok: false, errors: [...errors, "claim audit is not an object"], source: null };
   if (!exactKeys(audit, ["schema", "sentences"])) errors.push("claim audit must carry exactly schema and sentences");
   const ledgerFirst = source?.schema === DRAFT_SOURCE_SCHEMA_ID;
-  const expectedSchema = ledgerFirst ? AUDIT_SCHEMA_ID : LEGACY_AUDIT_SCHEMA_ID;
-  if (audit.schema !== expectedSchema) errors.push(`claim audit schema must be ${expectedSchema}`);
+  const currentAudit = ledgerFirst && audit.schema === AUDIT_SCHEMA_ID;
+  const historicalLedgerAudit = ledgerFirst && audit.schema === PREVIOUS_AUDIT_SCHEMA_ID;
+  if (ledgerFirst && !currentAudit && !historicalLedgerAudit) {
+    errors.push(`claim audit schema must be ${AUDIT_SCHEMA_ID} or historical ${PREVIOUS_AUDIT_SCHEMA_ID}`);
+  } else if (!ledgerFirst && audit.schema !== LEGACY_AUDIT_SCHEMA_ID) {
+    errors.push(`claim audit schema must be ${LEGACY_AUDIT_SCHEMA_ID}`);
+  }
   if (!Array.isArray(audit.sentences)) {
     errors.push("claim audit sentences must be an array");
     return { ok: false, errors, source: null };
@@ -76,18 +95,26 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     errors.push(`claim audit covers ${audit.sentences.length} of ${refs.length} sentence units`);
   }
   const decisions = [];
+  const disclosures = [];
+  const disclosedKeys = new Set();
+  const ledgerClaims = new Set((Array.isArray(source?.ledger) ? source.ledger : [])
+    .map((entry) => String(entry?.claim ?? "").normalize("NFKC").replace(/\s+/g, " ").trim().toLowerCase())
+    .filter(Boolean));
   for (let index = 0; index < Math.max(refs.length, audit.sentences.length); index += 1) {
     const expected = refs[index];
     const row = audit.sentences[index];
     const at = `claim audit sentences[${index}]`;
     if (!isObject(row)) { errors.push(`${at} must be an object`); continue; }
-    const rowFields = ledgerFirst ? ["id", "status", "reason"] : ["id", "status", "basis", "claims", "reason"];
+    const rowFields = currentAudit
+      ? ["id", "status", "reason", "claims"]
+      : ledgerFirst ? ["id", "status", "reason"] : ["id", "status", "basis", "claims", "reason"];
     if (!exactKeys(row, rowFields)) {
       errors.push(`${at} must carry exactly ${rowFields.join(", ")}`);
     }
     if (expected && row.id !== expected.id) errors.push(`${at}.id must be ${expected.id}`);
     if (!expected) errors.push(`${at} has no draft sentence`);
-    if (!["keep", "reject"].includes(row.status)) errors.push(`${at}.status is invalid`);
+    const allowedStatuses = currentAudit ? ["keep", "disclose", "reject"] : ["keep", "reject"];
+    if (!allowedStatuses.includes(row.status)) errors.push(`${at}.status is invalid`);
     if (!ledgerFirst) {
       if (!["request-supported", "external-verification", "reasoning", "hypothetical", "normative"].includes(row.basis)) {
         errors.push(`${at}.basis is invalid`);
@@ -96,13 +123,58 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     }
     if (typeof row.reason !== "string") errors.push(`${at}.reason must be a string`);
     if (row.status === "keep" && !String(row.reason ?? "").trim()) errors.push(`${at} kept without a basis rationale`);
+    if (row.status === "disclose" && !String(row.reason ?? "").trim()) errors.push(`${at} disclosed without a basis rationale`);
     if (row.status === "reject" && !String(row.reason ?? "").trim()) errors.push(`${at} rejected without a reason`);
+    if (currentAudit) {
+      if (!Array.isArray(row.claims)) {
+        errors.push(`${at}.claims must be an array`);
+      } else {
+        if (row.claims.length > 10) errors.push(`${at}.claims may contain at most 10 entries`);
+        if (row.status === "disclose" && row.claims.length === 0) errors.push(`${at} disclose needs at least one claim`);
+        if (row.status !== "disclose" && row.claims.length) errors.push(`${at} ${row.status} cannot carry claims`);
+        for (const [claimIndex, claim] of row.claims.entries()) {
+          const cat = `${at}.claims[${claimIndex}]`;
+          const fields = ["claim", "evidence", "kind", "verification_question"];
+          if (!isObject(claim) || !exactKeys(claim, fields)) {
+            errors.push(`${cat} must carry exactly ${fields.join(", ")}`);
+            continue;
+          }
+          for (const field of ["claim", "evidence", "verification_question"]) {
+            if (typeof claim[field] !== "string" || !claim[field].trim()) {
+              errors.push(`${cat}.${field} must be a non-empty string`);
+            }
+          }
+          if (!["bounded-fact", "broad-generalization"].includes(claim.kind)) {
+            errors.push(`${cat}.kind is invalid`);
+          }
+          if (expected && typeof claim.evidence === "string" && !String(expected.text ?? "").includes(claim.evidence)) {
+            errors.push(`${cat}.evidence is not an exact span of ${row.id ?? at}`);
+          }
+          const key = String(claim.claim ?? "").normalize("NFKC").replace(/\s+/g, " ").trim().toLowerCase();
+          if (key && ledgerClaims.has(key)) errors.push(`${cat}.claim duplicates the closed ledger`);
+          if (key && disclosedKeys.has(key)) errors.push(`${cat}.claim duplicates an earlier audit disclosure`);
+          if (key) disclosedKeys.add(key);
+          if (row.status === "disclose" && expected && isObject(claim)) {
+            const paragraph = /^p([1-9][0-9]*)s/.exec(row.id)?.[1];
+            disclosures.push({
+              claim: String(claim.claim ?? "").trim(),
+              where: `paragraph ${paragraph}`,
+              sentence_id: row.id,
+              evidence: String(claim.evidence ?? ""),
+              kind: claim.kind,
+              verification_question: String(claim.verification_question ?? "").trim(),
+            });
+          }
+        }
+      }
+    }
     if (row.status === "reject") errors.push(`${row.id ?? at} rejected: ${String(row.reason).trim()}`);
     decisions.push(row);
   }
+  if (disclosures.length > 50) errors.push("claim audit may disclose at most 50 claims");
   if (errors.length) return { ok: false, errors, source: null };
 
-  if (ledgerFirst) return { ok: true, errors: [], source };
+  if (ledgerFirst) return { ok: true, errors: [], source, claims: disclosures };
 
   let cursor = 0;
   const auditedSource = {
@@ -120,5 +192,5 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     errors: validation.errors.map((error) => `audited source: ${error}`),
     source: null,
   };
-  return { ok: true, errors: [], source: auditedSource };
+  return { ok: true, errors: [], source: auditedSource, claims: [] };
 }

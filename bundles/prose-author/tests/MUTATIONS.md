@@ -22,12 +22,16 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let reasoning sentences carry hidden factual claims | 1 | derived public claims cannot be hidden under a non-factual sentence label |
 | let external facts masquerade as request-supported claims | 1 | the public audit distinguishes supplied facts from model-memory assertions |
 | allow a sentence to cite a claim outside the closed ledger | 1 | every factual sentence is restricted to the pre-writing claim ledger |
-| allow an unused retrospective claim into the ledger | 1 | the claim ledger is a closed pre-writing plan rather than a post-hoc dump |
+| allow an unused retrospective claim into the ledger | 3 | the claim ledger is a closed pre-writing plan rather than a post-hoc dump |
 | allow prose to be emitted before its supposed pre-writing ledger | 1 | source/3 mechanically proves the claim ledger precedes expressive prose |
 | stop reconciling independent audit sentence ids | 1 | an audit decision cannot drift onto a different sentence |
 | assemble a sentence the independent auditor rejected | 4 | fabricated quotations, citations, and biographies cannot pass through as claims |
 | accept opaque independent labels with no rationale | 1 | every independent basis decision remains inspectable clause by clause |
+| let a disclosure cite words absent from its sentence | 1 | an audit-owned claim is anchored to exact prose rather than invented during review |
+| let a keep row smuggle claims into the audit overlay | 1 | only an explicit disclose decision may append to the verification queue |
+| drop audit-owned claims from the public verification record | 1 | an independently discovered premise cannot disappear between audit and publication |
 | let the independent auditor trust the drafter's labels | 1 | the factual audit is independent rather than the same self-report twice |
+| let hard factual failures become ordinary disclosures | 1 | fabricated citations, attributed wording, biography, and leakage remain fatal |
 | hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |
@@ -37,7 +41,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let more than two rejected units enter claim repair | 1 | a low percentage cannot conceal more than two rewritten sentence units |
 | let claim repair alter bytes under its hypothetical wrapper | 5 | the only prose edit is one fixed prefix before otherwise byte-identical rejected text |
 | let a hypothetical wrapper keep a nonhypothetical basis | 1 | the fixed wrapper changes epistemic status rather than laundering factual prose |
-| publish a repair after its second audit rejects it | 2 | one bounded repair still requires a fresh independent audit to clear |
+| publish a repair after its second audit rejects it | 1 | one bounded repair still requires a fresh independent audit to clear |
 | resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
 | score the handwritten tally instead of rebuilding raw critic evidence | 1 | a passing TALLY.json cannot conceal failing raw critic draws |
@@ -66,7 +70,6 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | treat profile examples as reusable topic facts | 2 | corpus-derived profile examples cannot cross the factual firewall |
 | let unverifiable generalizations enter the claims queue | 2 | claims remain finite propositions a publisher can actually check |
 | let argumentative prose decorate itself with external-memory facts | 2 | a source-free argument stays within request evidence instead of inventing vivid cases |
-| let the auditor keep unbounded external claims | 1 | the independent pass rejects rather than launders unfalsifiable generalizations |
 | let a listed claim license an invented attributed quotation | 2 | an invented quotation cannot be laundered through the verification list |
 | collapse multiple named-actor assertions into one topic claim | 2 | each checkable action and consequence remains independently auditable |
 | dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |

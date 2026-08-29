@@ -129,24 +129,23 @@ and run the same local validator and assembler with the original request.
 
 Before assembly, the shipped blank-page path runs the independent claim-audit prompt over
 the request, closed ledger, and sentence units only. That pass does not see the profile
-and may not revise the prose or ledger; it rejects any factual clause that escaped the
-closed set, any insufficient request basis, any unbounded external claim, or an
-unrecoverable fabricated quotation, citation, or biography. Deterministic code reconciles
-every audit decision to one sentence ID.
+and may not revise the prose or ledger. It returns one of three decisions per sentence.
+`keep` accounts for every clause from the closed ledger or a non-factual basis. `disclose`
+quotes an exact span and appends each missed proposition to an audit-owned verification
+overlay, classified as a bounded fact or broad generalization. `reject` is reserved for
+fabricated citations, unsupported attributed wording, invented author biography, leakage,
+or a proposition too unclear for a human to verify. Deterministic code reconciles every
+decision to one sentence ID and rejects an overlay whose evidence is not an exact span of
+that sentence.
 
-One rejected audit may trigger one bounded repair, never a redraw. The repair sees the
-request, original proof-carrying source, and rejection reasons, but no profile or corpus.
-It must preserve every accepted sentence, every retained ledger entry, the paragraph and
-sentence counts, and the omission record byte-for-byte. It may minimally rewrite rejected
-sentence units only when at most two and at most 20 percent of all sentence units were
-rejected. The only allowed sentence edit prefixes the original bytes with the exact fixed
-marker `Hypothetically: `, changes its basis to `hypothetical`, and clears claim references;
-all original words, order, punctuation, capitalization, Markdown, and spacing remain
-byte-identical. It may instead delete an unused ledger suffix, and it may not add facts. A fresh
-independent audit then reviews the complete repaired source. A second rejection stops the
-cell; there is no further repair or favorable variant selection. The original source,
-initial audit, repair, and final audit remain separate evidence. A human claims audit
-remains necessary before publication or release scoring.
+The audit overlay never edits the prose or pretends the drafter planned a claim it missed.
+The pre-writing ledger remains immutable evidence; the public claim record is the union of
+its cited entries and the independent overlay, with paragraph locations derived by code.
+An unused contiguous ledger suffix is pruned deterministically before audit without
+renumbering an ID or touching prose. No production model repair or redraw follows the
+audit. Every disclosed claim still requires a human to verify, scope, or remove it before
+publication or release scoring, and critic dispatch remains locked until that audit is
+complete.
 
 Read the draft first and ask the question the tests cannot: **does this sound like them?**
 Then, specifically:
@@ -182,8 +181,8 @@ Then, specifically:
   but that is evidence, not enforcement.
 
 - **One draft, no variants.** It does not offer three and let you pick. Whether that is
-  right is an open question for S4. The conditional claim repair is not a variant: it is
-  restricted to independently rejected sentence units and cannot alter accepted prose.
+  right is an open question for S4. The independent factual audit adds disclosure evidence;
+  it does not create a second prose candidate.
 
 - **Never claims the draft sounds like the author**, that it is good, or that it would
   pass a detector. The first is the author's judgement; the third is refused on principle
