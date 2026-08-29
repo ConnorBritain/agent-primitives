@@ -360,6 +360,27 @@ export const MUTATIONS = [
     guards: "editing any recorded acceptance artifact invalidates its evidence",
   },
   {
+    name: "advertise legacy claim-repair evidence in a current artifact record",
+    file: ACCEPTANCE_RUNNER,
+    find: "    if (entry[key] !== null && entry[key] !== undefined) {",
+    with: "    if (false) {",
+    guards: "current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash",
+  },
+  {
+    name: "check only case-shaped files in retired repair trees",
+    file: ACCEPTANCE_RUNNER,
+    find: "    const files = filesUnder(root);",
+    with: "    const files = filesUnder(root).filter((file) => /^[dm]\\d+\\.json$/.test(file));",
+    guards: "orphan repair results and prompts invalidate a current run regardless of their names",
+  },
+  {
+    name: "ignore Codex companion files in retired repair trees",
+    file: ACCEPTANCE_RUNNER,
+    find: "    for (const file of files) {",
+    with: '    for (const file of files.filter((entry) => !entry.endsWith(".codex-events.jsonl"))) {',
+    guards: "an extra repair-model invocation cannot hide in an unindexed Codex event stream",
+  },
+  {
     name: "score the handwritten tally instead of rebuilding raw critic evidence",
     file: ACCEPTANCE_RUNNER,
     find: "    const evidence = deriveAcceptanceEvidence(runDir, manifest, cases);",

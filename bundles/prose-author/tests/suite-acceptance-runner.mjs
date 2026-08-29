@@ -9,8 +9,9 @@ import { dirname, join } from "node:path";
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt, invocationInput,
-  localModuleClosure, lockedImplementationErrors, manifestDispatch, prepareConfig, profileRenderPrompt,
-  quotationAudit, resolveDraftChain, stagePrompt, validateCases,
+  legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
+  manifestDispatch, prepareConfig, profileRenderPrompt,
+  quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, stagePrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -295,6 +296,30 @@ export async function run(t, { HERE }) {
       }
       t.check("current checking rejects stale model-repair evidence without exposing a repair stage",
         staleRejected);
+      rmSync(staleRepairPath);
+      const orphanRepairPath = join(chainRoot, "raw", "claim-repairs", "orphan.json");
+      writeFileSync(orphanRepairPath, "{}\n");
+      t.check("current checking rejects an orphan repair result regardless of case naming",
+        retiredRepairEvidenceErrors(chainRoot).some((error) => error.includes("raw/claim-repairs/orphan.json")));
+      rmSync(orphanRepairPath);
+      const companionPath = join(chainRoot, "raw", "claim-repairs", "probe.codex-events.jsonl");
+      writeFileSync(companionPath, "{}\n");
+      t.check("current checking rejects a retired Codex repair companion file",
+        retiredRepairEvidenceErrors(chainRoot)
+          .some((error) => error.includes("raw/claim-repairs/probe.codex-events.jsonl")));
+      rmSync(companionPath);
+      const orphanPromptPath = join(chainRoot, "prompts", "claim-repairs", "orphan.md");
+      mkdirSync(dirname(orphanPromptPath), { recursive: true });
+      writeFileSync(orphanPromptPath, "obsolete\n");
+      t.check("current checking rejects an orphan repair prompt",
+        retiredRepairEvidenceErrors(chainRoot).some((error) => error.includes("prompts/claim-repairs/orphan.md")));
+      rmSync(orphanPromptPath);
+      const repairedSourcePath = join(chainRoot, "inputs", "sources", "drafts", "orphan.repaired.json");
+      mkdirSync(dirname(repairedSourcePath), { recursive: true });
+      writeFileSync(repairedSourcePath, "{}\n");
+      t.check("current checking rejects an orphan canonical repaired source",
+        retiredRepairEvidenceErrors(chainRoot)
+          .some((error) => error.includes("inputs/sources/drafts/orphan.repaired.json")));
     } finally {
       rmSync(chainRoot, { recursive: true, force: true });
     }
@@ -564,6 +589,10 @@ export async function run(t, { HERE }) {
         && artifactEntryHashErrors({ ...recovery, recovered_from_sha256: null },
           ["recovered_from"], "fixture", HERE, ["recovered_from"])
           .some((error) => /no valid recorded hash/.test(error)));
+    t.check("current artifacts cannot advertise legacy repair evidence even with a valid hash",
+      legacyRepairArtifactErrors({ repair_source: entry.raw, repair_source_sha256: hash }, "fixture")
+        .some((error) => /repair_source is forbidden/.test(error))
+        && legacyRepairArtifactErrors({}, "fixture").length === 0);
   }
   t.check("profile render hashes and k=3 stability are independently reproducible",
     /render_sha256: SHA\(text\(rawRender\)\)/.test(source)

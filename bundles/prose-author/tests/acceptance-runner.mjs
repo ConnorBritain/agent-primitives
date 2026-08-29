@@ -61,7 +61,7 @@ const TESTS = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/3";
-const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/2";
+const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/3";
 const CLAIM_PIPELINE = "audit-disclosure/1";
 const STAGES = ["profile", "draft", "claim_audit", "critic"];
 const TRANSPORTS = new Set(["native-structured", "json-fence"]);
@@ -361,6 +361,30 @@ function filesUnder(root, prefix = "") {
     const relativePath = join(prefix, name);
     return statSync(absolute).isDirectory() ? filesUnder(absolute, relativePath) : [relativePath];
   });
+}
+
+const RETIRED_REPAIR_TREES = [
+  join("raw", "claim-repairs"),
+  join("raw", "claim-reaudits"),
+  join("prompts", "claim-repairs"),
+  join("prompts", "claim-reaudits"),
+];
+
+function retiredRepairEvidenceErrors(runDir) {
+  const errors = [];
+  for (const relativeRoot of RETIRED_REPAIR_TREES) {
+    const root = join(runDir, relativeRoot);
+    const files = filesUnder(root);
+    for (const file of files) {
+      errors.push(`stale model-repair evidence under ${CLAIM_PIPELINE}: ${join(relativeRoot, file)}`);
+    }
+  }
+  for (const file of filesUnder(join(runDir, "inputs", "sources", "drafts"))) {
+    if (file.endsWith(".repaired.json")) {
+      errors.push(`stale canonical repair source under ${CLAIM_PIPELINE}: ${join("inputs", "sources", "drafts", file)}`);
+    }
+  }
+  return errors;
 }
 
 function profilePromptFiles(manifest, profileId) {
@@ -1176,6 +1200,8 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
   const sources = new Map();
   const auditJobs = [];
+  const retiredErrors = retiredRepairEvidenceErrors(runDir);
+  if (retiredErrors.length) die(retiredErrors.join("; "));
 
   for (const c of cases.cases) {
     const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
@@ -1215,14 +1241,12 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
     const source = sources.get(c.id).normalized.source;
     const applied = applyVoiceDraftClaimAudit(source, decodedAudit.audit, { request: c.prompt });
     if (!applied.ok) die(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
-    for (const stale of ["claim-repairs", "claim-reaudits"]) {
-      const path = join(runDir, "raw", stale, `${c.id}.json`);
-      if (existsSync(path)) die(`${c.id} has stale model-repair evidence under the disclosure pipeline`);
-    }
   }
 }
 
 function resolveDraftChain(runDir, manifest, c) {
+  const retiredErrors = retiredRepairEvidenceErrors(runDir);
+  if (retiredErrors.length) throw new Error(retiredErrors.join("; "));
   const draftDispatch = manifestDispatch(manifest, "draft");
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
@@ -1231,8 +1255,6 @@ function resolveDraftChain(runDir, manifest, c) {
   const decoded = semanticDraftSource(record);
   if (!decoded.source) throw new Error(`${c.id} invalid semantic draft source: ${decoded.error}`);
   const initialAuditRawPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
-  const repairRawPath = join(runDir, "raw", "claim-repairs", `${c.id}.json`);
-  const reauditRawPath = join(runDir, "raw", "claim-reaudits", `${c.id}.json`);
   const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
   const pipeline = manifest.claim_pipeline;
   if (pipeline !== CLAIM_PIPELINE) throw new Error(`${c.id} unknown claim pipeline ${pipeline ?? "(missing)"}`);
@@ -1250,9 +1272,6 @@ function resolveDraftChain(runDir, manifest, c) {
   }
   const applied = applyVoiceDraftClaimAudit(normalized.source, decodedAudit.audit, { request: c.prompt });
   if (!applied.ok) throw new Error(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
-  if (existsSync(repairRawPath) || existsSync(reauditRawPath)) {
-    throw new Error(`${c.id} has stale model-repair evidence under the disclosure pipeline`);
-  }
   return {
     record, originalSource: decoded.source,
     normalized: normalized.changed, normalizedSource: normalized.source,
@@ -1318,9 +1337,6 @@ function collectDrafts(runDir) {
       initial_audit_raw_sha256: chain.initialAudit ? SHA(text(join(runDir, "raw", "claim-audits", `${c.id}.json`))) : null,
       initial_audit: chain.initialAudit ? rel(initialAuditPath) : null,
       initial_audit_sha256: chain.initialAudit ? SHA(text(initialAuditPath)) : null,
-      repair_prompt: null, repair_prompt_sha256: null,
-      repair_raw: null, repair_raw_sha256: null,
-      repair_source: null, repair_source_sha256: null,
       audit_prompt: rel(auditPromptPath), audit_prompt_sha256: SHA(text(auditPromptPath)),
       audit_raw: rel(auditRawPath), audit_raw_sha256: SHA(text(auditRawPath)),
       audit: rel(auditPath), audit_sha256: SHA(text(auditPath)),
@@ -1335,9 +1351,6 @@ function collectDrafts(runDir) {
       raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
       raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
       recovered_from_sha256: record.recovered_from ? SHA(text(resolve(REPO, record.recovered_from))) : null,
-      repair_raw_events: null, repair_raw_output: null, repair_recovered_from: null,
-      repair_raw_events_sha256: null, repair_raw_output_sha256: null,
-      repair_recovered_from_sha256: null,
     };
   }
   for (const c of cases.refusals) {
@@ -1469,15 +1482,32 @@ const ARTIFACT_PATH_KEYS = {
   draft: [
     "prompt", "raw", "original_source", "normalized_source",
     "initial_audit_prompt", "initial_audit_raw", "initial_audit",
-    "repair_prompt", "repair_raw", "repair_source",
     "audit_prompt", "audit_raw", "audit", "source", "render_output", "draft", "disclosure",
     "raw_events", "raw_output", "recovered_from",
-    "repair_raw_events", "repair_raw_output", "repair_recovered_from",
   ],
   refusal: ["prompt", "raw", "source", "render_output", "raw_events", "raw_output", "recovered_from"],
   critic: ["prompt", "raw", "source", "render"],
   evidence: ["claims_audit", "structural", "tally", "score"],
 };
+
+const LEGACY_REPAIR_ARTIFACT_KEYS = [
+  "repair_prompt", "repair_raw", "repair_source",
+  "repair_raw_events", "repair_raw_output", "repair_recovered_from",
+];
+
+function legacyRepairArtifactErrors(entry, label = "draft") {
+  if (!entry || typeof entry !== "object" || Array.isArray(entry)) return [];
+  const errors = [];
+  for (const key of LEGACY_REPAIR_ARTIFACT_KEYS) {
+    if (entry[key] !== null && entry[key] !== undefined) {
+      errors.push(`${label}.${key} is forbidden under ${CLAIM_PIPELINE}`);
+    }
+    if (entry[`${key}_sha256`] !== null && entry[`${key}_sha256`] !== undefined) {
+      errors.push(`${label}.${key}_sha256 is forbidden under ${CLAIM_PIPELINE}`);
+    }
+  }
+  return errors;
+}
 
 function artifactEntryHashErrors(entry, keys, label, runDir, optionalKeys = []) {
   const errors = [];
@@ -1556,16 +1586,11 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
     try { chain = resolveDraftChain(runDir, manifest, c); } catch (error) {
       errors.push(`${c.id} draft chain cannot be resolved for artifact checking: ${error.message}`);
     }
-    const optional = ["disclosure", "recovered_from", "repair_recovered_from"];
+    const optional = ["disclosure", "recovered_from"];
     if (!chain?.normalized) optional.push("normalized_source");
     if (!chain?.initialAudit) optional.push("initial_audit_prompt", "initial_audit_raw", "initial_audit");
-    if (!chain?.repaired) {
-      optional.push(
-        "repair_prompt", "repair_raw", "repair_source",
-        "repair_raw_events", "repair_raw_output", "repair_recovered_from",
-      );
-    }
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
+    errors.push(...legacyRepairArtifactErrors(draft, `drafts.${c.id}`));
     errors.push(...artifactEntryHashErrors(
       draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
     ));
@@ -1811,9 +1836,6 @@ function deriveDraftEvidence(runDir, manifest, cases) {
       );
     } else if (existsSync(join(runDir, "inputs", "audits", "initial", `${c.id}.json`))) {
       throw new Error(`${c.id} has a stale canonical initial audit`);
-    }
-    if (existsSync(join(runDir, "inputs", "sources", "drafts", `${c.id}.repaired.json`))) {
-      throw new Error(`${c.id} has a stale canonical repair source`);
     }
     requireCanonical(
       join(runDir, "inputs", "audits", `${c.id}.json`),
@@ -2116,10 +2138,6 @@ function promptDerivationErrors(runDir, manifest, cases) {
       } else if (existsSync(initialAuditPromptPath)) {
         errors.push(`${c.id} has a stale initial claim-audit prompt`);
       }
-      if (existsSync(join(runDir, "prompts", "claim-repairs", `${c.id}.md`))
-        || existsSync(join(runDir, "prompts", "claim-reaudits", `${c.id}.md`))) {
-        errors.push(`${c.id} has stale model-repair prompts`);
-      }
       const inputDir = join(runDir, "critics", "inputs", c.id);
       const expectedDraft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
       if (!existsSync(join(inputDir, "draft.txt")) || text(join(inputDir, "draft.txt")) !== expectedDraft) {
@@ -2311,6 +2329,7 @@ export {
   codexRecordErrors, committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, invocationInput,
-  localModuleClosure, lockedImplementationErrors,
-  manifestDispatch, prepareConfig, quotationAudit, resolveDraftChain, stagePrompt, structuralGates, validateCases,
+  legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
+  manifestDispatch, prepareConfig, quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors,
+  stagePrompt, structuralGates, validateCases,
 };
