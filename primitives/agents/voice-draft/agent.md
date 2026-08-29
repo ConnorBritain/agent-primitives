@@ -252,6 +252,11 @@ applied to the initial source if it validates.
   exactly match those rules. Patch mode may change only dashes, parenthesis marks, or a
   meaning-equivalent contraction form. Otherwise preserve the exact structural stream:
   case, words, unnamed punctuation, Markdown, line breaks, and paragraph boundaries.
+  A punctuation correction may move at most one ordinary ASCII separator immediately
+  around the named mark. Preserve indentation, tabs, repeated or trailing spaces,
+  Markdown links/code, and every other byte. Use only closed or locally unambiguous
+  contractions. Do not patch an ambiguous `'d` or `'s` form whose tense or auxiliary
+  cannot be determined from the immediately following word.
   Question-mark, pronoun-family, profanity, and other semantic-bearing counts must already
   be in range in the initial draft; patch mode cannot certify them by changing prose. A
   measured fix cannot rewrite the argument, request stance, recommendation, facts, or a

@@ -285,6 +285,49 @@ export async function run(t, { HERE }) {
     t.check("a named dash correction cannot alter unnamed punctuation",
       !commaReversal.ok
         && commaReversal.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    for (const attack of [{
+      label: "four-space indentation", before: "Alpha sentence.", after: "    Alpha – sentence.",
+    }, {
+      label: "tab indentation", before: "Alpha sentence.", after: "\tAlpha – sentence.",
+    }, {
+      label: "a Markdown hard break", before: "Alpha sentence.\nBeta sentence.", after: "Alpha – sentence.  \nBeta sentence.",
+    }, {
+      label: "arbitrary internal spacing", before: "Alpha sentence.", after: "Alpha –  sentence.",
+    }, {
+      label: "a Markdown link", before: "[the source](https://example.com) explains this.", after: "[the source] https://example.com – explains this.",
+    }]) {
+      const structuralAttack = applyDraftConformancePatch({
+        ...initialSource, draft: attack.before,
+      }, {
+        ...conformingPatch,
+        edits: [{ ...conformingPatch.edits[0], before: attack.before, after: attack.after }],
+      }, { request: "Preserve the exact source structure.", profile: targetProfile, card: targetCard });
+      t.check(`a named punctuation correction cannot create ${attack.label}`,
+        !structuralAttack.ok && structuralAttack.errors.some((error) =>
+          /changes lexical content|Markdown code or links/.test(error)));
+    }
+    const roundCard = {
+      schema: "voice-draft-target-card/1",
+      measurements: [{
+        measurement_id: "round-parenthetical-spans", observation_id: "o01",
+        dimensions: ["interruption-punctuation"], aim_count: 0, gate_minimum: 0, gate_maximum: 0,
+      }],
+    };
+    const markdownLinkRemoval = applyDraftConformancePatch({
+      ...initialSource, draft: "[the source](https://example.com) explains this.",
+    }, {
+      ...conformingPatch,
+      edits: [{
+        before: "[the source](https://example.com) explains this.",
+        after: "[the source] https://example.com explains this.",
+        reason: "Removes the excess measured parenthetical span.",
+        coverage_dimensions: ["interruption-punctuation"],
+        measurement_ids: ["round-parenthetical-spans"],
+      }],
+    }, { request: "Preserve the source link.", profile: targetProfile, card: roundCard });
+    t.check("a measured parenthesis correction cannot destroy Markdown link syntax",
+      !markdownLinkRemoval.ok
+        && markdownLinkRemoval.errors.some((error) => /Markdown code or links/.test(error)));
     const borrowedProfile = structuredClone(targetProfile);
     const borrowedOpening = borrowedProfile.coverage.find((row) => row.dimension === "openings-endings-closure");
     borrowedOpening.status = "described";
@@ -362,6 +405,89 @@ export async function run(t, { HERE }) {
     }, { request: "State that the review had been completed.", profile: contractionProfile, card: contractionCard });
     t.check("an ambiguous 'd contraction passes when one valid expansion preserves exact meaning",
       ambiguousContraction.ok && ambiguousContraction.report.pass);
+    const wrongDCard = structuredClone(contractionCard);
+    const wrongDContractions = wrongDCard.measurements.find((row) => row.measurement_id === "contractions");
+    wrongDContractions.aim_count = 0;
+    wrongDContractions.gate_minimum = 0;
+    wrongDContractions.gate_maximum = 0;
+    const wrongDExpansion = applyDraftConformancePatch({
+      ...initialSource, draft: "Yesterday, he'd read the report before lunch.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "Yesterday, he'd read the report before lunch.",
+        after: "Yesterday, he would read the report before lunch.",
+        reason: "Expands the measured contraction.",
+        coverage_dimensions: ["contraction-negation"], measurement_ids: ["contractions"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, {
+      request: "State that yesterday he had already read the report before lunch.",
+      profile: contractionProfile, card: wrongDCard,
+    });
+    t.check("a lexically ambiguous 'd contraction cannot fail open to the wrong expansion",
+      !wrongDExpansion.ok
+        && wrongDExpansion.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const letsProfile = structuredClone(contractionProfile);
+    const letsPerson = letsProfile.coverage.find((row) => row.dimension === "person-reader-stance");
+    letsPerson.status = "described";
+    letsPerson.observation_ids = ["o02"];
+    delete letsPerson.unresolved_reason;
+    const letsCoverage = letsProfile.coverage.map((row) => ({
+      dimension: row.dimension,
+      observation_ids: [...(row.observation_ids ?? [])],
+      disposition: ["contraction-negation", "person-reader-stance"].includes(row.dimension)
+        ? "revised" : row.dimension === "interruption-punctuation" ? "preserved" : "unresolved",
+      reason: ["contraction-negation", "person-reader-stance"].includes(row.dimension)
+        ? "The edit uses the measured closed let-us contraction without changing its meaning."
+        : row.dimension === "interruption-punctuation"
+          ? "The punctuation instruction is preserved." : row.unresolved_reason,
+    }));
+    const letsCard = {
+      schema: "voice-draft-target-card/1",
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 1, gate_maximum: 2,
+      }, {
+        measurement_id: "first-person-plural-family", observation_id: "o02",
+        dimensions: ["person-reader-stance"], aim_count: 0, gate_minimum: 0, gate_maximum: 1,
+      }],
+    };
+    const letsContraction = applyDraftConformancePatch({
+      ...initialSource, draft: "Let us complete the review.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "Let us complete the review.", after: "Let's complete the review.",
+        reason: "Uses the measured closed contraction without changing meaning.",
+        coverage_dimensions: ["contraction-negation", "person-reader-stance"],
+        measurement_ids: ["contractions", "first-person-plural-family"],
+      }],
+      coverage: letsCoverage, omitted: [],
+    }, { request: "Complete the review.", profile: letsProfile, card: letsCard });
+    t.check("the closed let-us contraction remains a valid meaning-equivalent correction",
+      letsContraction.ok && letsContraction.report.pass);
+    const manyContractionsCard = structuredClone(contractionCard);
+    const manyContractionsRow = manyContractionsCard.measurements.find((row) => row.measurement_id === "contractions");
+    manyContractionsRow.aim_count = 7;
+    manyContractionsRow.gate_minimum = 7;
+    manyContractionsRow.gate_maximum = 8;
+    const ordinalWords = ["one", "two", "three", "four", "five", "six", "seven"];
+    const contractionSentences = ordinalWords.map((word) => `She had completed review ${word}.`);
+    const contractedSentences = ordinalWords.map((word) => `She'd completed review ${word}.`);
+    const manyContractions = applyDraftConformancePatch({
+      ...initialSource, draft: `${"context ".repeat(670)}${contractionSentences.join(" ")}`,
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: contractionSentences.map((before, index) => ({
+        before, after: contractedSentences[index],
+        reason: "Uses the measured had contraction without changing tense.",
+        coverage_dimensions: ["contraction-negation"], measurement_ids: ["contractions"],
+      })),
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write 700 words.", profile: contractionProfile, card: manyContractionsCard });
+    t.check("multiple unambiguous 'd contractions do not fail through variant explosion",
+      manyContractions.ok && manyContractions.report.pass);
     const pronounProfile = structuredClone(targetProfile);
     const pronounRow = pronounProfile.coverage.find((row) => row.dimension === "person-reader-stance");
     pronounRow.status = "described";

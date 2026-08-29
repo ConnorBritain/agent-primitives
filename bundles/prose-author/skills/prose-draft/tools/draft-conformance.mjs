@@ -171,40 +171,76 @@ const sameArray = (left, right) => JSON.stringify(left) === JSON.stringify(right
 const words = (value) => String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
 
 function expandMeasuredContractions(value) {
-  return String(value ?? "")
-    .replace(/\bwon['’]t\b/gi, "will not")
-    .replace(/\bcan['’]t\b/gi, "cannot")
-    .replace(/\bshan['’]t\b/gi, "shall not")
-    .replace(/\bain['’]t\b/gi, "is not")
+  const preserveCase = (source, replacement) => {
+    if (source === source.toUpperCase()) return replacement.toUpperCase();
+    if (/^[A-Z]/.test(source)) return `${replacement[0].toUpperCase()}${replacement.slice(1)}`;
+    return replacement;
+  };
+  const expanded = String(value ?? "")
+    .replace(/\bwon['’]t\b/gi, (match) => preserveCase(match, "will not"))
+    .replace(/\bcan['’]t\b/gi, (match) => preserveCase(match, "cannot"))
+    .replace(/\bshan['’]t\b/gi, (match) => preserveCase(match, "shall not"))
     .replace(/\b([A-Za-z]+)n['’]t\b/gi, "$1 not")
     .replace(/\b([A-Za-z]+)['’]re\b/gi, "$1 are")
     .replace(/\b([A-Za-z]+)['’]ve\b/gi, "$1 have")
     .replace(/\b([A-Za-z]+)['’]ll\b/gi, "$1 will")
-    .replace(/\b([A-Za-z]+)['’]m\b/gi, "$1 am");
+    .replace(/\b([A-Za-z]+)['’]m\b/gi, "$1 am")
+    .replace(/\b(let)['’]s\b/gi, "$1 us");
+  return expanded.replace(
+    /\b([A-Za-z]+)['’]d\b(?=[ \t]+([A-Za-z]+))/gi,
+    (match, host, next) => {
+      const expansion = inferDExpansion(next);
+      return expansion ? `${host} ${expansion}` : match;
+    },
+  );
 }
 
-function expandAmbiguousContractionVariants(value) {
-  let variants = [value];
-  for (const [pattern, expansions] of [[
-    /\b([A-Za-z]+)['’]d\b/i, ["had", "would"],
-  ], [
-    /\b(it|that|there|here|who|what|where|when|how|why|he|she|let|one|nothing|everything|something|somebody|nobody|this)['’]s\b/i,
-    ["is", "has"],
-  ]]) {
-    while (variants.some((variant) => pattern.test(variant))) {
-      const next = [];
-      for (const variant of variants) {
-        const match = pattern.exec(variant);
-        if (!match) { next.push(variant); continue; }
-        for (const expansion of expansions) {
-          next.push(`${variant.slice(0, match.index)}${match[1]} ${expansion}${variant.slice(match.index + match[0].length)}`);
-        }
-      }
-      variants = next;
-      if (variants.length > 64) return [];
-    }
+const D_AMBIGUOUS_FOLLOWERS = new Set([
+  "bet", "bid", "burst", "cast", "cost", "cut", "fit", "hit", "hurt", "let", "put",
+  "quit", "read", "rid", "set", "shed", "shut", "slit", "split", "spread", "thrust",
+]);
+const D_IRREGULAR_PARTICIPLES = new Set([
+  "been", "become", "begun", "bent", "bitten", "bled", "blown", "broken", "brought",
+  "built", "bought", "caught", "chosen", "come", "dealt", "done", "drawn", "driven",
+  "drunk", "eaten", "fallen", "fed", "felt", "flown", "forbidden", "forgotten", "forgiven",
+  "found", "frozen", "given", "gone", "grown", "had", "heard", "held", "hidden", "kept",
+  "known", "laid", "led", "left", "lost", "made", "meant", "met", "paid", "ridden",
+  "risen", "run", "said", "seen", "sent", "shown", "sung", "sunk", "sold", "spoken",
+  "spent", "stood", "stolen", "sworn", "swum", "taken", "taught", "thought", "told",
+  "torn", "understood", "woken", "won", "worn", "written",
+]);
+
+function inferDExpansion(nextWord) {
+  const next = String(nextWord ?? "").toLowerCase();
+  if (!next || D_AMBIGUOUS_FOLLOWERS.has(next)) return null;
+  if (next === "better" || /(?:ed|en)$/.test(next) || D_IRREGULAR_PARTICIPLES.has(next)) {
+    return "had";
   }
-  return variants;
+  return "would";
+}
+
+function normalizeNamedPunctuation(value, ids) {
+  let normalized = value.normalize("NFC").replace(/\r\n?/g, "\n");
+  // One ordinary space may move around a named mark because inserting or removing
+  // that mark necessarily changes its immediate separator. Tabs, repeated spaces,
+  // indentation, trailing hard-break spaces, and all other whitespace remain exact.
+  const sequence = (mark) => `(?:${mark} ?)+`;
+  const betweenWords = (mark) => new RegExp(`(\\S) ?${sequence(mark)}(?=\\S)`, "g");
+  const beforePunctuation = (mark) => new RegExp(`(\\S) ?${sequence(mark)}(?=[.,;:!?])`, "g");
+  const beforeLineEnd = (mark) => new RegExp(`(\\S) ?${sequence(mark)}(?=$|\\n)`, "gm");
+  const removeNamedMark = (mark) => {
+    normalized = normalized
+      .replace(beforePunctuation(mark), "$1")
+      .replace(beforeLineEnd(mark), "$1")
+      .replace(betweenWords(mark), "$1 ");
+  };
+  if (ids.has("round-parenthetical-spans")) {
+    removeNamedMark("\\(");
+    removeNamedMark("\\)");
+  }
+  if (ids.has("em-dashes")) removeNamedMark("—");
+  if (ids.has("en-dashes")) removeNamedMark("–");
+  return normalized;
 }
 
 function measurementEditSkeletons(value, measurementIds) {
@@ -212,20 +248,7 @@ function measurementEditSkeletons(value, measurementIds) {
   const expanded = ids.has("contractions") || ids.has("uncontracted-negatives")
     ? expandMeasuredContractions(value)
     : String(value ?? "");
-  const variants = ids.has("contractions") || ids.has("uncontracted-negatives")
-    ? expandAmbiguousContractionVariants(expanded)
-    : [expanded];
-  return new Set(variants.map((variant) => {
-    let normalized = variant;
-    if (ids.has("round-parenthetical-spans")) normalized = normalized.replace(/[()]/g, " ");
-    if (ids.has("em-dashes")) normalized = normalized.replace(/—/g, " ");
-    if (ids.has("en-dashes")) normalized = normalized.replace(/–/g, " ");
-    return normalized.normalize("NFC")
-      .replace(/\r\n?/g, "\n")
-      .replace(/[ \t]+/g, " ")
-      .replace(/ *\n */g, "\n")
-      .trim();
-  }));
+  return new Set([normalizeNamedPunctuation(expanded, ids)]);
 }
 
 export function replacementWordAllowance(initialWords) {
@@ -328,6 +351,11 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     const expectedDimensions = [...new Set(namedRows.flatMap((row) => row.dimensions))].sort();
     if (!sameArray([...edit.coverage_dimensions].sort(), expectedDimensions)) {
       errors.push(`patch.edits[${index}].coverage_dimensions must exactly match its improved measurements (${expectedDimensions.join(", ")})`);
+    }
+    const changesMeasuredPunctuation = edit.measurement_ids.some((id) =>
+      ["round-parenthetical-spans", "em-dashes", "en-dashes"].includes(id));
+    if (changesMeasuredPunctuation && /`|\]\(/.test(`${edit.before}\n${edit.after}`)) {
+      errors.push(`patch.edits[${index}] cannot alter measured punctuation inside Markdown code or links`);
     }
     const beforeSkeletons = measurementEditSkeletons(edit.before, edit.measurement_ids);
     const afterSkeletons = measurementEditSkeletons(edit.after, edit.measurement_ids);

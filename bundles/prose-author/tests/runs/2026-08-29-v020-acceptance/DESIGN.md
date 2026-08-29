@@ -45,8 +45,12 @@ to this result.
   structural change outside safe dash, parenthesis, and meaning-equivalent contraction-form
   transformations, or any final measured habit outside its unchanged profile-derived band.
   The comparison preserves case, words, unnamed punctuation, Markdown, line breaks, and
-  paragraph boundaries. Ambiguous `'d` and `'s` contractions pass only when at least one
-  valid expansion is byte-equivalent after normalization. Question-mark, pronoun-family,
+  paragraph boundaries. A named punctuation form may move at most one adjacent ordinary
+  ASCII separator; indentation, tabs, repeated or trailing spaces, Markdown links/code,
+  and all other structure remain exact. Closed contractions such as `let us`/`let's` and
+  locally unambiguous `'d` forms may be normalized without a branching cap. Lexically
+  ambiguous forms such as `he'd read`, and other unresolved `'d`/`'s` forms, fail closed
+  rather than choosing a convenient auxiliary. Question-mark, pronoun-family,
   profanity, and other semantic-bearing count changes are not patchable. The
   initial draft and patch remain separate immutable evidence; there is no candidate selection.
 - A separate model claim audit reads the request and immutable sentence units but no voice
