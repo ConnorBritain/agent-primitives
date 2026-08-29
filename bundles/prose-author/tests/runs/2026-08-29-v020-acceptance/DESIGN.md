@@ -39,9 +39,9 @@ to this result.
   finite verification claim or reject a hard factual failure; it never rewrites prose.
 - `CLAIMS-AUDIT.json` uses `prose-author-claims-audit/5`. A named human reviewer must decide
   every immutable sentence as `request-supported`, `listed-for-verification`, `non-factual`,
-  or `requires-change`, using canonical request-ledger evidence, exact per-sentence public
-  claims, or an exact sentence span plus independent rationale. Any `requires-change` blocks
-  critics and invalidates the run.
+  or `requires-change`, using independently selected exact request evidence, exact
+  per-sentence public claims, or the complete canonical sentence plus an independent closed
+  semantic basis and rationale. Any `requires-change` blocks critics and invalidates the run.
 - The completed human review and attestation must be committed as their immutable first-add
   version before any critic call. Every critic invocation records that exact audit hash and
   commit. Final checking requires every immutable critic record to have been first committed
