@@ -1,0 +1,72 @@
+{
+  "schema": "prose-author-claim-reaudit-diagnostic-manifest/1",
+  "acceptance_evidence": false,
+  "prepared_commit": "39a6e4e7140da9ad8908d85df4dd3a1ece3a84b6",
+  "design_sha256": "673300b6e9c7839f52504ccbe1eb61825cb91965882d6d05562321a392da5b2c",
+  "locked_files": {
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-reaudit-diagnostic/DESIGN.json": "673300b6e9c7839f52504ccbe1eb61825cb91965882d6d05562321a392da5b2c",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-reaudit-diagnostic/run.mjs": "d456c7e50deb44185d68dec15c5f4fb0692db362ab43d24abc508c6f5f79f72a",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/DESIGN.json": "99c2ddcca61e43a98185be0c78aa4d668cb64e1bdc55b24d8b81564a504c291d",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/DESIGN.json": "55c5629a815a4f0cdc7c7fb4a25a3ac128d7f39a93d639de9918afa3a9a0256f",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/MANIFEST.json": "4fb4a2735720f1605e1f100b5b6e4db220953ca0713e90bf6034f408644a4a88",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d01.json": "61bc20650dc43c5c62b2ad6d1698cb4935478d488091487320cea20c0595f6e0",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d01.codex-events.jsonl": "5f69e0d5fd6774a074651bffe1bd5c8b95efdc6582333cdcf2d5df69d6ffa242",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d01.codex-output.json": "7574b9d95694a610d67b47ac8c3d33786d3a9868652379781e1fa22abd0f64e2",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d01.json": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/audits/d01.json": "7fdaeff5f04696bcad6e5e34a48ee1f59c044afbd783c3668ace14d61753316d",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/m05.json": "7838f1420507e430b9bc06e7ca8df36faa8c74f26f3603314efa8f830680e327",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/m05.codex-events.jsonl": "759eb9095ebef201929b45cb622e8532c814c28db94a6052c0f9ada4acf26389",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/m05.codex-output.json": "d743c85e4004ab5b6bdf647eb05c5ec3171c7123e67f3a1dbef54ef40b498600",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/m05.json": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/audits/m05.json": "9aa0c718c7e34e4acc497081ed7b913c9c1c45a6fde24e4194b61fed8dc0581e",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d05.json": "b95fe1e8d3869cd756c2139854c1c746ab910421b1d2d00e0cde489f3aec848f",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d05.codex-events.jsonl": "8820882537c56e905064390ca256f508c11b488b18d397dc7325c185a7f66c3b",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d05.codex-output.json": "53e93b238ef6ddffa34c55773840873c95bac15f121940af4025235ba8028405",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d05.json": "a7dbfc4f57be84cf270bf6f46be4bd5977a575c41312426eeee0af701c984938",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "7421983a2efecfaf01e4f228d73531abac77dd14c353159a100a4accc9af66e5",
+    "bundles/prose-author/skills/prose-draft/references/claim-audit.md": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "0bebab0c5e81b323f712cf07872f519a5c769131fc2e3f42add83f3197156a89",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "c3a4f4a8ec41ce7891e8ae1101319faafe22b55d2ac420ec4b358b093033a44e",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-repair.mjs": "19cafc73432558cfe23e5ed43abdac04c4cb0962a913d3c44bd71b7fb1a19961"
+  },
+  "dispatch": {
+    "reaudit": {
+      "harness": "claude-code",
+      "model": "sonnet",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "system": {
+    "path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-reaudit-diagnostic/prompts/agents/audit.md",
+    "sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87"
+  },
+  "audit_schema": {
+    "path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-reaudit-diagnostic/schemas/audit.json",
+    "sha256": "e56ccc9209bd8d71156e26f4821a692d95677e3f1d4dc0293b68f0e94c37507d"
+  },
+  "inputs": {
+    "d01": {
+      "repaired": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-reaudit-diagnostic/inputs/repaired/d01.json",
+      "repaired_sha256": "2bc5031c8df33f7460a806f4f7e7534276650a289cdd897e061b65f8425558a8",
+      "raw_repair": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d01.json",
+      "raw_repair_sha256": "61bc20650dc43c5c62b2ad6d1698cb4935478d488091487320cea20c0595f6e0",
+      "request_sha256": "a7e8fc8f4fa870ada28d5c8a8152eb1418dbf699374b69977e25af1937bab3a9"
+    },
+    "m05": {
+      "repaired": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-reaudit-diagnostic/inputs/repaired/m05.json",
+      "repaired_sha256": "8d7fe71a07b5e904637e0d39d22e5298a999cf73c9b15485b4c60e7473554c13",
+      "raw_repair": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/m05.json",
+      "raw_repair_sha256": "7838f1420507e430b9bc06e7ca8df36faa8c74f26f3603314efa8f830680e327",
+      "request_sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553"
+    },
+    "d05": {
+      "repaired": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-reaudit-diagnostic/inputs/repaired/d05.json",
+      "repaired_sha256": "bb4fbfd9d6ed6a2884c90efb0493fd5f64ee907895f58a29821a0bd8d1b16cad",
+      "raw_repair": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/raw/repairs/d05.json",
+      "raw_repair_sha256": "b95fe1e8d3869cd756c2139854c1c746ab910421b1d2d00e0cde489f3aec848f",
+      "request_sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553"
+    }
+  }
+}
