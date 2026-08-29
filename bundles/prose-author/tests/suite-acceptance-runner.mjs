@@ -8,10 +8,11 @@ import { dirname, join } from "node:path";
 
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
-  codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt, invocationInput,
+  codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt,
+  factualCandidateReasons, invocationInput,
   legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, prepareConfig, profileRenderPrompt,
-  quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, stagePrompt, validateCases,
+  quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -197,7 +198,7 @@ export async function run(t, { HERE }) {
       && source.includes('dispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null')
       && source.includes("assembleVoiceCritic(decoded.source"));
   t.check("critic dispatch is blocked until the independent claims audit is complete",
-    /const auditFailures = claimsAuditFailures\(json\(join\(runDir, "CLAIMS-AUDIT\.json"\)\), cases\);[\s\S]*no critic calls were made/.test(source));
+    /const auditFailures = claimsAuditFailures\([\s\S]*"CLAIMS-AUDIT\.json"[\s\S]*cases, artifacts, runDir[\s\S]*no critic calls were made/.test(source));
   t.check("the human completeness gate treats only the request as supplied factual evidence",
     source.includes("the profile is voice evidence, never a factual packet")
       && !source.includes("supplied by the request/profile"));
@@ -523,18 +524,22 @@ export async function run(t, { HERE }) {
       rows[0].present_in_request === true
         && rows[1].present_in_request === false
         && rows[2].present_in_request === false);
-    const casesForAudit = { cases: [{ id: "x" }] };
-    const incomplete = {
-      schema: "prose-author-claims-audit/2",
-      drafts: { x: { claims_verified: true, disclosure_complete: null, quotations_verified: true } },
+    t.check("the candidate prepass surfaces the diagnostic's conditional and rhetorical misses",
+      factualCandidateReasons("A choice screen is often presented as power in your hands.")
+        .includes("frequency-or-quantity")
+        && factualCandidateReasons("Developers feel this gap when access still depends on approval.")
+          .includes("population-or-institution")
+        && factualCandidateReasons("A crude prohibition attracts attention.")
+          .includes("empirical-causation"));
+    const candidateSource = {
+      schema: "voice-draft-source/3",
+      paragraphs: [{ sentences: [{ text: "Developers feel this gap when access still depends on approval." }] }],
     };
-    t.check("a self-reported claims list cannot replace the independent completeness audit",
-      claimsAuditFailures(incomplete, casesForAudit).includes("x: disclosure_complete"));
-    t.check("all three explicit audit decisions are required before scoring",
-      claimsAuditFailures({
-        schema: "prose-author-claims-audit/2",
-        drafts: { x: { claims_verified: true, disclosure_complete: true, quotations_verified: true } },
-      }, casesForAudit).length === 0);
+    t.check("the human review template carries deterministic candidates rather than a blank checklist",
+      sentenceReviewTemplate(candidateSource)[0].candidate_reasons.includes("population-or-institution")
+        && sentenceReviewTemplate(candidateSource)[0].candidate_reasons.includes("capability-or-dependence"));
+    t.check("a plainly normative sentence is not promoted into a factual candidate",
+      factualCandidateReasons("We should require the advertised core functions to remain usable.").length === 0);
   }
   t.check("model dispatch has a hard timeout instead of waiting indefinitely",
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
@@ -626,18 +631,72 @@ export async function run(t, { HERE }) {
       writeFileSync(draftPath, draft);
       const draftHash = createHash("sha256").update(draft).digest("hex");
       const auditCases = { cases: [{ id: "x", prompt: "Use the supplied phrase." }] };
-      const audit = { schema: "prose-author-claims-audit/2", drafts: { x: {
+      const sourcePath = join(auditRoot, "inputs", "sources", "x.json");
+      const sourceRecord = {
+        schema: "voice-draft-source/3", kind: "draft",
+        ledger: [{
+          id: "c1", basis: "request-supported", claim: "The supplied phrase appears.",
+          request_basis: "supplied phrase",
+        }],
+        paragraphs: [{ sentences: [{
+          text: "The supplied phrase appears.", basis: "request-supported", claim_ids: ["c1"],
+        }] }],
+        omitted: [], refused: "",
+      };
+      mkdirSync(dirname(sourcePath), { recursive: true });
+      writeFileSync(sourcePath, `${JSON.stringify(sourceRecord, null, 2)}\n`);
+      const review = {
+        ...sentenceReviewTemplate(sourceRecord)[0],
+        decision: "request-supported", request_evidence: "supplied phrase",
+      };
+      const audit = { schema: "prose-author-claims-audit/3", instructions: [], drafts: { x: {
         draft_sha256: draftHash, claims: [],
         quoted_spans: quotationAudit(draft, auditCases.cases[0].prompt),
-        claims_verified: true, disclosure_complete: true, quotations_verified: true,
+        sentence_reviews: [review], claims_verified: true, quotations_verified: true, note: "",
       } } };
-      const artifacts = { drafts: { x: { draft_sha256: draftHash, disclosure: null } } };
-      t.check("claim-audit linkage is rederived from the canonical draft and disclosure",
+      const artifacts = { drafts: { x: {
+        draft_sha256: draftHash, disclosure: null, source: sourcePath,
+      } } };
+      t.check("human sentence review linkage is rederived from the canonical source and disclosure",
         claimsAuditFailures(audit, auditCases, artifacts, auditRoot).length === 0
           && claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
             draft_sha256: "0".repeat(64),
           } } }, auditCases, artifacts, auditRoot).some((error) => /audited draft hash drifted/.test(error))
           && /claimsAuditFailures\(json\(p\.audit\), cases, artifacts, runDir\)/.test(source));
+      t.check("a scalar completeness assertion cannot replace a sentence decision",
+        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+          sentence_reviews: [{ ...review, decision: null }],
+        } } }, auditCases, artifacts, auditRoot)
+          .some((error) => /has no completed human decision/.test(error)));
+      t.check("omitting one sentence review cannot assert completeness by omission",
+        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+          sentence_reviews: [],
+        } } }, auditCases, artifacts, auditRoot)
+          .some((error) => /sentence review covers 0 of 1 sentence units/.test(error)));
+      t.check("candidate reasons and sentence hashes are immutable source-derived evidence",
+        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+          sentence_reviews: [{ ...review, candidate_reasons: ["frequency-or-quantity"] }],
+        } } }, auditCases, artifacts, auditRoot)
+          .some((error) => /does not reproduce from the immutable source sentence/.test(error)));
+      const riskySource = clone(sourceRecord);
+      riskySource.paragraphs[0].sentences[0].text = "Developers often feel this gap.";
+      const riskyReview = {
+        ...sentenceReviewTemplate(riskySource)[0], decision: "non-factual", note: "too short",
+      };
+      t.check("clearing a flagged sentence as non-factual requires a substantive human rationale",
+        claimsAuditFailures({ schema: "prose-author-claims-audit/3", instructions: [], drafts: { x: {
+          ...audit.drafts.x, sentence_reviews: [riskyReview],
+        } } }, auditCases).some((error) => /substantive human rationale/.test(error)));
+      const neighborReview = {
+        ...review, decision: "listed-for-verification", request_evidence: "",
+        claim_refs: ["External premise"],
+      };
+      t.check("a public claim in a neighboring paragraph cannot cover the reviewed sentence",
+        claimsAuditFailures({ schema: "prose-author-claims-audit/3", instructions: [], drafts: { x: {
+          ...audit.drafts.x,
+          claims: [{ claim: "External premise", where: "paragraph 2" }],
+          sentence_reviews: [neighborReview],
+        } } }, auditCases).some((error) => /not public and located in the same paragraph/.test(error)));
     } finally {
       rmSync(auditRoot, { recursive: true, force: true });
     }

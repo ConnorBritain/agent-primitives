@@ -78,7 +78,11 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | collapse multiple named-actor assertions into one topic claim | 2 | each checkable action and consequence remains independently auditable |
 | dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
 | let the human factual audit treat the profile as a fact packet | 1 | profile examples, biography, and source facts cannot bypass the public verification queue |
-| stop requiring the independent disclosure-completeness decision | 1 | the drafter cannot certify completeness merely by returning a claims list |
+| stop requiring a sentence-by-sentence human decision | 1 | a scalar or model-authored claim list cannot substitute for human review of every sentence |
+| erase deterministic factual candidates from the human review ledger | 1 | the known conditional and rhetorical misses are surfaced without relying on the model auditor |
+| trust handwritten candidate reasons instead of rederiving them | 1 | candidate flags and sentence hashes reproduce from the immutable semantic source |
+| let a neighboring paragraph claim cover a reviewed sentence | 1 | a public verification claim must cover the exact paragraph under human review |
+| accept a token rationale for clearing a flagged sentence | 1 | a human clearing a possible factual premise records an inspectable rationale |
 | let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
 | let the requested container override the profile's register | 2 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
