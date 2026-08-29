@@ -1,0 +1,291 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"draft\",\"ledger\":[{\"id\":\"c1\",\"basis\":\"request-supported\",\"claim\":\"Owning a device should include control over whether its maker can disable features after sale.\",\"request_basis\":\"owning a device should include control over whether its maker can disable features after sale\"},{\"id\":\"c2\",\"basis\":\"request-supported\",\"claim\":\"A maker can disable features after sale.\",\"request_basis\":\"its maker can disable features after sale\"}],\"paragraphs\":[{\"sentences\":[{\"text\":\"Ownership that ends when the maker presses a button isn't ownership; it's a rental with better packaging.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"If you buy a device, you should control whether its maker can disable features after sale.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\",\"c2\"]},{\"text\":\"That's the whole argument, and we can make it more complicated only by pretending the obvious distinction isn't there.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"When you purchase something, you expect to decide how it behaves within the ordinary limits of using it safely and lawfully.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You might accept updates, repairs, restrictions, or a warranty that expires (those are terms about the thing you bought).\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"But a feature that works today and vanishes tomorrow because the maker changed its mind is a different arrangement.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Who owns the device then?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You do, in the thin ceremonial sense; the maker does, whenever control matters.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Of course, no one is saying that a maker must preserve every feature forever under every circumstance.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"A feature might be unsafe, defective, or incompatible with something else, and we should be able to discuss those cases without handing over the entire principle.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"The question is who gets the final say after the sale: you, who paid for the device, or the maker, who wants to retain a remote hand on the controls?\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Those aren't equivalent powers.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Think of the device as a small house with a control panel on the wall.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"You bought the house, moved your stuff in, and arranged the rooms around what the panel does.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"Then the builder keeps a key and announces that one room is closed because the builder has decided the room's future is more convenient elsewhere.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"You'd call that a remarkable property dispute, not a routine maintenance decision.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"The remote hand has turned your purchase into an escrow arrangement, with the thing you paid for held hostage behind a menu.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"I know the reply: the maker created the device, so the maker should be allowed to decide what it does.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Sure, creation matters when we're talking about the maker's own tools, designs, and services.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"It doesn't follow that creation grants permanent authority over an object after someone else has bought it.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"If I make a chair and sell it to you, I don't retain the right to remove a leg because I suddenly prefer stools.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"That would be bullshit, and adding software doesn't make the underlying claim magically respectable.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Technically curious readers will notice that software makes the boundary less visible.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A feature may be implemented in code, connected to a service, or exposed through an account (the implementation can be complicated).\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"But complexity doesn't dissolve the user's interest in control; it merely gives the maker more ways to exercise power without touching the physical object.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"We should be suspicious when an engineering detail is used as a moral escape hatch.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"The question isn't whether the maker can technically disable the feature.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The question is whether it should be entitled to do so after the sale.\",\"basis\":\"normative\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"There are practical reasons to care about this besides the insult.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"When a feature can disappear, your plans inherit a risk you didn't choose.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You may have learned a workflow, built a habit, or depended on a device's behavior, only to discover that the product includes a silent trapdoor.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The maker has shifted the risk onto you while keeping the power to change the bargain.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That's not a technicality; it's a damn bad deal.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We don't need to ban improvement, updates, or honest change.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"We need a clear rule: buying a device should buy meaningful control over the features represented as part of that device.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"If a maker wants continuing authority, it should say so plainly before the sale, and you should be able to reject that arrangement without losing the basic use of what you bought.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Otherwise, the product is a subscription wearing a plastic costume.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"And if we let every disappearing feature pass as ordinary, we'll teach makers that ownership is something they can revoke whenever it suits them.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"That isn't ownership.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"It's a permission slip, and you paid for it.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named people, institutions, linked articles, quoted formulations, or recurring interlocutors\",\"why\":\"The request supplies no sources, named opponents, allies, or quotations, and introducing them would add unsupported material.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "draft",
+    "ledger": [
+      {
+        "id": "c1",
+        "basis": "request-supported",
+        "claim": "Owning a device should include control over whether its maker can disable features after sale.",
+        "request_basis": "owning a device should include control over whether its maker can disable features after sale"
+      },
+      {
+        "id": "c2",
+        "basis": "request-supported",
+        "claim": "A maker can disable features after sale.",
+        "request_basis": "its maker can disable features after sale"
+      }
+    ],
+    "paragraphs": [
+      {
+        "sentences": [
+          {
+            "text": "Ownership that ends when the maker presses a button isn't ownership; it's a rental with better packaging.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "If you buy a device, you should control whether its maker can disable features after sale.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1",
+              "c2"
+            ]
+          },
+          {
+            "text": "That's the whole argument, and we can make it more complicated only by pretending the obvious distinction isn't there.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "When you purchase something, you expect to decide how it behaves within the ordinary limits of using it safely and lawfully.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You might accept updates, repairs, restrictions, or a warranty that expires (those are terms about the thing you bought).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "But a feature that works today and vanishes tomorrow because the maker changed its mind is a different arrangement.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Who owns the device then?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You do, in the thin ceremonial sense; the maker does, whenever control matters.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Of course, no one is saying that a maker must preserve every feature forever under every circumstance.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "A feature might be unsafe, defective, or incompatible with something else, and we should be able to discuss those cases without handing over the entire principle.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "The question is who gets the final say after the sale: you, who paid for the device, or the maker, who wants to retain a remote hand on the controls?",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Those aren't equivalent powers.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Think of the device as a small house with a control panel on the wall.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "You bought the house, moved your stuff in, and arranged the rooms around what the panel does.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "Then the builder keeps a key and announces that one room is closed because the builder has decided the room's future is more convenient elsewhere.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "You'd call that a remarkable property dispute, not a routine maintenance decision.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "The remote hand has turned your purchase into an escrow arrangement, with the thing you paid for held hostage behind a menu.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "I know the reply: the maker created the device, so the maker should be allowed to decide what it does.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Sure, creation matters when we're talking about the maker's own tools, designs, and services.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "It doesn't follow that creation grants permanent authority over an object after someone else has bought it.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "If I make a chair and sell it to you, I don't retain the right to remove a leg because I suddenly prefer stools.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "That would be bullshit, and adding software doesn't make the underlying claim magically respectable.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Technically curious readers will notice that software makes the boundary less visible.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A feature may be implemented in code, connected to a service, or exposed through an account (the implementation can be complicated).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "But complexity doesn't dissolve the user's interest in control; it merely gives the maker more ways to exercise power without touching the physical object.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We should be suspicious when an engineering detail is used as a moral escape hatch.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "The question isn't whether the maker can technically disable the feature.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The question is whether it should be entitled to do so after the sale.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "There are practical reasons to care about this besides the insult.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "When a feature can disappear, your plans inherit a risk you didn't choose.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You may have learned a workflow, built a habit, or depended on a device's behavior, only to discover that the product includes a silent trapdoor.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The maker has shifted the risk onto you while keeping the power to change the bargain.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That's not a technicality; it's a damn bad deal.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We don't need to ban improvement, updates, or honest change.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "We need a clear rule: buying a device should buy meaningful control over the features represented as part of that device.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If a maker wants continuing authority, it should say so plainly before the sale, and you should be able to reject that arrangement without losing the basic use of what you bought.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Otherwise, the product is a subscription wearing a plastic costume.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "And if we let every disappearing feature pass as ordinary, we'll teach makers that ownership is something they can revoke whenever it suits them.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "That isn't ownership.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "It's a permission slip, and you paid for it.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named people, institutions, linked articles, quoted formulations, or recurring interlocutors",
+        "why": "The request supplies no sources, named opponents, allies, or quotations, and introducing them would add unsupported material."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-4/raw/draft.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-4/raw/draft.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "28d20a20d34efe4d9242f7898f0e7d458f4356e14ecb0f62610b2d6f0741d96d"
+  },
+  "acceptance_input": {
+    "system_sha256": "7f6fbb237e1980326ebe28bf55545dd3cf01861c03343ef00178731ecbd2a2cc",
+    "prompt_sha256": "e003a4143ebec6024cd79d32f9a2c5234d870b36fe5a11fccc05eef3a611375c",
+    "schema_sha256": "02851f9440276a6a519f711ab0709288daf04b9b713e589fce3a51b92e053d7d",
+    "prerequisites": {
+      "profile_raw_sha256": "acc5c0826a4a15f7c915ed0e530b39903c98598662551772b87258d3904572f7"
+    }
+  }
+}

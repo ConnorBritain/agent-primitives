@@ -1,0 +1,48 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[{\"location\":\"Lines 1-35, especially: \\\"Those aren't equivalent powers.\\\" through \\\"That isn't ownership. It's a permission slip, and you paid for it.\\\"\",\"what\":\"The draft sustains a calm, concession-heavy, legalistic register that is markedly more measured and abstract than the corpus's conversational, satirical, aggressively colloquial argumentation.\",\"corpus_evidence\":\"The corpus repeatedly uses direct polemic, comic vulgarity, and sharp tonal pivots—for example, 2026-07-09-wilhoitian.txt says \\\"Horseshoe theory\\\" is \\\"bullshit,\\\" while 2026-07-11-your-risk.txt calls a corporate site \\\"Clinton-era antitrust evidence\\\"—whereas this draft repeatedly qualifies claims with formulations such as \\\"Of course, no one is saying\\\" and \\\"We don't need to ban.\\\"\",\"confidence\":\"high\"}],\"clean_categories\":[\"unfamiliar-constructions\",\"out-of-register-vocabulary\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"REVISE\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [
+      {
+        "location": "Lines 1-35, especially: \"Those aren't equivalent powers.\" through \"That isn't ownership. It's a permission slip, and you paid for it.\"",
+        "what": "The draft sustains a calm, concession-heavy, legalistic register that is markedly more measured and abstract than the corpus's conversational, satirical, aggressively colloquial argumentation.",
+        "corpus_evidence": "The corpus repeatedly uses direct polemic, comic vulgarity, and sharp tonal pivots—for example, 2026-07-09-wilhoitian.txt says \"Horseshoe theory\" is \"bullshit,\" while 2026-07-11-your-risk.txt calls a corporate site \"Clinton-era antitrust evidence\"—whereas this draft repeatedly qualifies claims with formulations such as \"Of course, no one is saying\" and \"We don't need to ban.\"",
+        "confidence": "high"
+      }
+    ],
+    "clean_categories": [
+      "unfamiliar-constructions",
+      "out-of-register-vocabulary"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "Category 4 was not assessed because no deterministic rhythm scan was supplied.",
+    "verdict": "REVISE"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-4/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-4/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "28d20a20d34efe4d9242f7898f0e7d458f4356e14ecb0f62610b2d6f0741d96d"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "51cdd20d0df65146146d1266fe70737bd9e0aa41246d8a23c76d8ff72ad28e85",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "draft_raw_sha256": "bbf8f0340f1d00d56f12392cacd208c413d08ff101adae92dbc547057194d542",
+      "audit_raw_sha256": "0fd417333df2520686c470785c7d90bc9d611184fac1547e43a938854c9b3b3e"
+    }
+  }
+}
