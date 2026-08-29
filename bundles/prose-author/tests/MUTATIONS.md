@@ -81,8 +81,18 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | stop requiring a sentence-by-sentence human decision | 1 | a scalar or model-authored claim list cannot substitute for human review of every sentence |
 | erase deterministic factual candidates from the human review ledger | 1 | the known conditional and rhetorical misses are surfaced without relying on the model auditor |
 | trust handwritten candidate reasons instead of rederiving them | 1 | candidate flags and sentence hashes reproduce from the immutable semantic source |
-| let a neighboring paragraph claim cover a reviewed sentence | 1 | a public verification claim must cover the exact paragraph under human review |
+| let an unrelated same-paragraph claim cover a reviewed sentence | 1 | a public verification claim must belong to the exact sentence under human review |
 | accept a token rationale for clearing a flagged sentence | 1 | a human clearing a possible factual premise records an inspectable rationale |
+| accept a generic request fragment instead of canonical request evidence | 1 | request-supported decisions reproduce every exact basis from the immutable source ledger |
+| accept non-factual evidence from a different sentence | 1 | a non-factual decision cites an exact inspectable span of its own canonical sentence |
+| let a human rationale defer to model authority | 1 | the human completeness boundary supplies independent semantic judgment |
+| accept an empty human reviewer identity | 1 | critic-unlocking sentence review carries an explicit human attestation |
+| follow a mutable alternate draft source pointer during human audit checking | 1 | human decisions remain bound to the canonical source derived from raw model evidence |
+| hide a canonical disclosure behind a mutable artifact pointer | 1 | human review cannot suppress or substitute the canonical public disclosure |
+| let the completed human audit change after its first commit | 1 | the exact human audit and critic raw evidence stay immutable after first commit |
+| dispatch critics before committing the completed human audit | 1 | critic calls cannot precede the immutable human-audit anchor |
+| omit the human audit anchor from critic invocation provenance | 1 | every critic raw record names the exact audit hash and pre-critic commit |
+| stop checking that critic evidence was committed after the human audit | 1 | repository history proves the reviewed audit predates every critic result |
 | let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
 | let the requested container override the profile's register | 2 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |

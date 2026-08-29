@@ -197,12 +197,16 @@ function resultDispatch(config) {
   };
 }
 
-function invocationInput(system, prompt, { schema = null, schemaPath = null } = {}) {
-  return {
+function invocationInput(system, prompt, {
+  schema = null, schemaPath = null, prerequisites = null,
+} = {}) {
+  const input = {
     system_sha256: SHA(text(system)),
     prompt_sha256: SHA(prompt),
     schema_sha256: schemaPath ? SHA(text(schemaPath)) : (schema ? SHA(JSON.stringify(schema)) : null),
   };
+  if (prerequisites) input.prerequisites = prerequisites;
+  return input;
 }
 
 function die(message, code = 1) {
@@ -256,6 +260,43 @@ function committedManifestError(path, preparedCommit, repo = REPO) {
     if (committed !== text(path)) return "manifest differs from its immutable first-add version";
   } catch {
     return "manifest first-add commit is not resolvable from HEAD";
+  }
+  return null;
+}
+
+function immutableFirstAddAnchor(path, repo = REPO) {
+  const relativePath = relative(repo, resolve(path));
+  if (relativePath.startsWith("..")) return { error: "file is outside the repository" };
+  try {
+    const additions = execFileSync(
+      "git", ["log", "--diff-filter=A", "--format=%H", "--reverse", "--", relativePath],
+      { cwd: repo, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+    ).trim().split("\n").filter(Boolean);
+    if (additions.length !== 1) return { error: "file must have exactly one first-add commit" };
+    const commit = additions[0];
+    execFileSync("git", ["merge-base", "--is-ancestor", commit, "HEAD"], {
+      cwd: repo, stdio: "ignore",
+    });
+    const committed = execFileSync("git", ["show", `${commit}:${relativePath}`], {
+      cwd: repo, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"],
+    });
+    if (committed !== text(path)) return { error: "file differs from its immutable first-add version" };
+    return { error: null, commit, sha256: SHA(committed) };
+  } catch {
+    return { error: "file first-add commit is not resolvable from HEAD" };
+  }
+}
+
+function strictlyCommittedAfter(path, ancestor, repo = REPO) {
+  const anchor = immutableFirstAddAnchor(path, repo);
+  if (anchor.error) return anchor.error;
+  if (anchor.commit === ancestor) return "file was first committed in the prerequisite commit";
+  try {
+    execFileSync("git", ["merge-base", "--is-ancestor", ancestor, anchor.commit], {
+      cwd: repo, stdio: "ignore",
+    });
+  } catch {
+    return "file was not committed after its prerequisite";
   }
   return null;
 }
@@ -684,8 +725,10 @@ function semanticCriticSource(record) {
   return parseVoiceCriticSource(record.result);
 }
 
-async function claude({ system, prompt, cwd, tools, allowed, output, schema = null, dispatch }) {
-  const input = invocationInput(system, prompt, { schema });
+async function claude({
+  system, prompt, cwd, tools, allowed, output, schema = null, prerequisites = null, dispatch,
+}) {
+  const input = invocationInput(system, prompt, { schema, prerequisites });
   if (dispatch.harness !== "claude-code") throw new Error("Claude adapter received a non-Claude dispatch");
   if (completedResult(output, dispatch, input)) return { skipped: true, output };
   const args = [
@@ -1385,10 +1428,12 @@ function collectDrafts(runDir) {
   }
   write(artifactsPath, artifacts);
   prepareClaimsAudit(runDir, cases, artifacts);
-  process.stdout.write("\n  collected twenty drafts and two valid underdetermined refusals\n\n");
+  process.stdout.write("\n  collected twenty drafts and two valid underdetermined refusals\n");
+  process.stdout.write("  complete and commit the human CLAIMS-AUDIT.json before dispatching critics\n\n");
 }
 
-const CLAIMS_AUDIT_SCHEMA = "prose-author-claims-audit/3";
+const CLAIMS_AUDIT_SCHEMA = "prose-author-claims-audit/4";
+const CLAIMS_AUDIT_ATTESTATION = "I personally reviewed every immutable sentence and recorded every unsupported descriptive premise as requires-change or listed-for-verification before any critic call.";
 const SENTENCE_REVIEW_DECISIONS = [
   "request-supported", "listed-for-verification", "non-factual", "requires-change",
 ];
@@ -1429,22 +1474,62 @@ function sentenceReviewTemplate(source) {
     candidate_reasons: factualCandidateReasons(ref.text),
     decision: null,
     claim_refs: [],
-    request_evidence: "",
+    request_evidence: [],
+    sentence_evidence: "",
     note: "",
+  }));
+}
+
+function sentenceRequestInventory(source) {
+  const ledger = new Map((source.ledger ?? []).map((entry) => [entry.id, entry]));
+  return Object.fromEntries(sentenceRefs(source).map((ref) => {
+    const match = /^p([1-9][0-9]*)s([1-9][0-9]*)$/.exec(ref.id);
+    const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
+    const requestBases = sentence.basis === "request-supported"
+      ? (sentence.claim_ids ?? []).map((id) => ledger.get(id)?.request_basis).filter(Boolean)
+      : [];
+    return [ref.id, [...new Set(requestBases)]];
+  }));
+}
+
+function sentenceClaimInventory(source, audit, request) {
+  const applied = applyVoiceDraftClaimAudit(source, audit, { request });
+  if (!applied.ok) throw new Error(`canonical claim audit is invalid: ${applied.errors.join("; ")}`);
+  const ledger = new Map((source.ledger ?? []).map((entry) => [entry.id, entry.claim]));
+  const overlays = new Map();
+  for (const claim of applied.claims ?? []) {
+    const claims = overlays.get(claim.sentence_id) ?? [];
+    claims.push(claim.claim);
+    overlays.set(claim.sentence_id, claims);
+  }
+  return Object.fromEntries(sentenceRefs(source).map((ref) => {
+    const match = /^p([1-9][0-9]*)s([1-9][0-9]*)$/.exec(ref.id);
+    const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
+    const claims = [
+      ...(sentence.claim_ids ?? []).map((id) => ledger.get(id)).filter(Boolean),
+      ...(overlays.get(ref.id) ?? []),
+    ];
+    return [ref.id, [...new Set(claims)]];
   }));
 }
 
 function prepareClaimsAudit(runDir, cases, artifacts) {
   const auditPath = join(runDir, "CLAIMS-AUDIT.json");
   const prior = existsSync(auditPath) ? json(auditPath) : null;
+  let preserveAttestation = prior?.schema === CLAIMS_AUDIT_SCHEMA;
   const next = {
     schema: CLAIMS_AUDIT_SCHEMA,
+    attestation: preserveAttestation ? prior.attestation : {
+      reviewer: "",
+      completed_at: "",
+      statement: CLAIMS_AUDIT_ATTESTATION,
+    },
     instructions: [
       "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
       "sentence_reviews: review every immutable sentence; the model audit and candidate reasons are aids, never completeness authority",
-      "request-supported: copy an exact non-empty request span into request_evidence that supplies every descriptive premise",
+      "request-supported: retain every canonical request-ledger basis in request_evidence; each exact span must supply the sentence",
       "listed-for-verification: put every public claim covering the sentence into claim_refs; each claim must be located in the same paragraph",
-      "non-factual: explain why the whole sentence is normative, hypothetical, or reasoning without an external descriptive premise",
+      "non-factual: cite the clause under review in sentence_evidence and independently explain why the whole sentence has no external descriptive premise",
       "requires-change: use when any premise is missing, overbroad, fabricated, or otherwise cannot pass; critics remain blocked",
       "the profile is voice evidence, never a factual packet; model memory and generic plausibility are not supplied facts",
       "quotations_verified: inspect every quoted span and use true only when every attributed quotation is verbatim in the request or independently verified; scare quotes may be marked reviewed",
@@ -1452,11 +1537,12 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     drafts: {},
   };
   for (const c of cases.cases) {
-    const disclosure = artifacts.drafts[c.id].disclosure ? json(resolve(REPO, artifacts.drafts[c.id].disclosure)) : null;
+    const disclosurePath = join(runDir, "inputs", "records", `${c.id}.json`);
+    const disclosure = existsSync(disclosurePath) ? json(disclosurePath) : null;
     const claims = disclosure?.claims ?? [];
     const draft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
     const quotedSpans = quotationAudit(draft, c.prompt);
-    const source = json(resolve(REPO, artifacts.drafts[c.id].source));
+    const source = json(join(runDir, "inputs", "sources", "drafts", `${c.id}.json`));
     const reviewTemplate = sentenceReviewTemplate(source);
     const previous = prior?.schema === CLAIMS_AUDIT_SCHEMA ? prior.drafts?.[c.id] : null;
     const unchanged = previous?.draft_sha256 === artifacts.drafts[c.id].draft_sha256
@@ -1467,6 +1553,7 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
       }))) === JSON.stringify(reviewTemplate.map((review) => ({
         id: review.id, text_sha256: review.text_sha256, candidate_reasons: review.candidate_reasons,
       })));
+    preserveAttestation &&= unchanged;
     next.drafts[c.id] = {
       draft_sha256: artifacts.drafts[c.id].draft_sha256,
       claims,
@@ -1475,6 +1562,11 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
       claims_verified: unchanged ? previous.claims_verified : (claims.length === 0 ? true : null),
       quotations_verified: unchanged ? previous.quotations_verified : (quotedSpans.length === 0 ? true : null),
       note: unchanged ? (previous.note ?? "") : "",
+    };
+  }
+  if (!preserveAttestation) {
+    next.attestation = {
+      reviewer: "", completed_at: "", statement: CLAIMS_AUDIT_ATTESTATION,
     };
   }
   write(auditPath, next);
@@ -1499,12 +1591,36 @@ function quotationAudit(draft, request, profile = "") {
 }
 
 function normalizeAuditText(value) {
-  return value.normalize("NFKC").replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim();
+  return String(value ?? "").normalize("NFKC").replace(/[‘’]/g, "'").replace(/\s+/g, " ").trim();
 }
 
 function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
   const failures = [];
   if (audit?.schema !== CLAIMS_AUDIT_SCHEMA) return ["CLAIMS-AUDIT.json has the wrong schema"];
+  if (JSON.stringify(Object.keys(audit).sort())
+    !== JSON.stringify(["attestation", "drafts", "instructions", "schema"].sort())) {
+    failures.push("CLAIMS-AUDIT.json top-level fields drifted");
+  }
+  const attestation = audit.attestation;
+  if (!attestation || typeof attestation !== "object" || Array.isArray(attestation)
+    || JSON.stringify(Object.keys(attestation).sort())
+      !== JSON.stringify(["completed_at", "reviewer", "statement"].sort())) {
+    failures.push("CLAIMS-AUDIT.json has no exact human attestation");
+  } else {
+    if (typeof attestation.reviewer !== "string"
+      || normalizeAuditText(attestation.reviewer).length < 2
+      || normalizeAuditText(attestation.reviewer).length > 120) {
+      failures.push("CLAIMS-AUDIT.json reviewer identity is incomplete");
+    }
+    if (typeof attestation.completed_at !== "string"
+      || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(attestation.completed_at)
+      || Number.isNaN(Date.parse(attestation.completed_at))) {
+      failures.push("CLAIMS-AUDIT.json completion time is not an exact UTC timestamp");
+    }
+    if (attestation.statement !== CLAIMS_AUDIT_ATTESTATION) {
+      failures.push("CLAIMS-AUDIT.json human attestation statement drifted");
+    }
+  }
   const expectedIds = new Set(cases.cases.map((c) => c.id));
   for (const id of Object.keys(audit.drafts ?? {})) {
     if (!expectedIds.has(id)) failures.push(`${id}: unexpected audit row`);
@@ -1520,13 +1636,29 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
       failures.push(`${c.id}: audit row fields drifted`);
     }
     let expectedReviews = null;
+    let expectedClaimsBySentence = null;
+    let expectedRequestEvidenceBySentence = null;
+    let sourceTextBySentence = null;
     if (artifacts && runDir) {
       const artifact = artifacts.drafts?.[c.id];
       if (!artifact) {
         failures.push(`${c.id}: missing draft artifact for audit`);
       } else {
         if (row.draft_sha256 !== artifact.draft_sha256) failures.push(`${c.id}: audited draft hash drifted`);
-        const disclosure = artifact.disclosure ? json(resolve(REPO, artifact.disclosure)) : null;
+        const canonicalSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
+        const canonicalDisclosurePath = join(runDir, "inputs", "records", `${c.id}.json`);
+        const canonicalAuditPath = join(runDir, "inputs", "audits", `${c.id}.json`);
+        const expectedSourcePath = rel(canonicalSourcePath);
+        const expectedDisclosurePath = existsSync(canonicalDisclosurePath) ? rel(canonicalDisclosurePath) : null;
+        if (artifact.source !== expectedSourcePath
+          || artifact.source_sha256 !== (existsSync(canonicalSourcePath) ? SHA(text(canonicalSourcePath)) : null)) {
+          failures.push(`${c.id}: artifact source is not the canonical raw-derived source`);
+        }
+        if (artifact.disclosure !== expectedDisclosurePath
+          || artifact.disclosure_sha256 !== (expectedDisclosurePath ? SHA(text(canonicalDisclosurePath)) : null)) {
+          failures.push(`${c.id}: artifact disclosure is not the canonical raw-derived record`);
+        }
+        const disclosure = expectedDisclosurePath ? json(canonicalDisclosurePath) : null;
         const expectedClaims = disclosure?.claims ?? [];
         if (JSON.stringify(row.claims) !== JSON.stringify(expectedClaims)) failures.push(`${c.id}: audited claims drifted`);
         const draft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
@@ -1535,7 +1667,15 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
           failures.push(`${c.id}: audited quotations drifted`);
         }
         try {
-          expectedReviews = sentenceReviewTemplate(json(resolve(REPO, artifact.source)));
+          const canonicalSource = json(canonicalSourcePath);
+          expectedReviews = sentenceReviewTemplate(canonicalSource);
+          expectedRequestEvidenceBySentence = sentenceRequestInventory(canonicalSource);
+          sourceTextBySentence = Object.fromEntries(
+            sentenceRefs(canonicalSource).map((ref) => [ref.id, String(ref.text ?? "")]),
+          );
+          expectedClaimsBySentence = sentenceClaimInventory(
+            canonicalSource, json(canonicalAuditPath), c.prompt,
+          );
         } catch (error) {
           failures.push(`${c.id}: sentence review source cannot be reconstructed: ${error.message}`);
         }
@@ -1555,7 +1695,7 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
       const at = `${c.id}: sentence_reviews[${index}]`;
       const reviewFields = [
         "id", "text_sha256", "candidate_reasons", "decision",
-        "claim_refs", "request_evidence", "note",
+        "claim_refs", "request_evidence", "sentence_evidence", "note",
       ];
       if (!review || typeof review !== "object" || Array.isArray(review)
         || JSON.stringify(Object.keys(review).sort()) !== JSON.stringify([...reviewFields].sort())) {
@@ -1591,32 +1731,60 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
         failures.push(`${at} claim_refs must be unique non-empty strings`);
       }
       const claimRefs = Array.isArray(review.claim_refs) ? review.claim_refs : [];
-      if (typeof review.request_evidence !== "string" || typeof review.note !== "string") {
-        failures.push(`${at} evidence and note must be strings`);
+      if (!Array.isArray(review.request_evidence)
+        || review.request_evidence.some((evidence) => typeof evidence !== "string" || !evidence.trim())
+        || new Set(review.request_evidence).size !== review.request_evidence.length
+        || typeof review.sentence_evidence !== "string" || typeof review.note !== "string") {
+        failures.push(`${at} evidence and note fields are invalid`);
         continue;
       }
+      const requestEvidence = review.request_evidence;
+      const sentenceEvidence = normalizeAuditText(review.sentence_evidence);
       if (review.decision === "request-supported") {
         if (claimRefs.length) failures.push(`${at} request-supported cannot cite public claims`);
-        if (normalizeAuditText(review.request_evidence).length < 4
-          || !normalizeAuditText(c.prompt).includes(normalizeAuditText(review.request_evidence))) {
+        if (sentenceEvidence) failures.push(`${at} request-supported cannot cite sentence evidence`);
+        const expectedEvidence = expectedRequestEvidenceBySentence?.[review.id] ?? null;
+        if (expectedEvidence
+          && JSON.stringify([...requestEvidence].sort()) !== JSON.stringify([...expectedEvidence].sort())) {
+          failures.push(`${at} request evidence does not match the canonical request ledger`);
+        }
+        if (!requestEvidence.length || requestEvidence.some((evidence) =>
+          normalizeAuditText(evidence).length < 4
+            || !normalizeAuditText(c.prompt).includes(normalizeAuditText(evidence)))) {
           failures.push(`${at} request evidence is not an exact supplied request span`);
         }
       } else if (review.decision === "listed-for-verification") {
-        if (review.request_evidence) failures.push(`${at} listed-for-verification cannot cite request evidence`);
+        if (requestEvidence.length) failures.push(`${at} listed-for-verification cannot cite request evidence`);
+        if (sentenceEvidence) failures.push(`${at} listed-for-verification cannot cite sentence evidence`);
         if (!claimRefs.length) failures.push(`${at} listed-for-verification needs at least one claim ref`);
-        const paragraph = /^p([1-9][0-9]*)s/.exec(review.id)?.[1];
-        for (const claimRef of claimRefs) {
-          if (!(row.claims ?? []).some((claim) =>
-            claim?.claim === claimRef && claim?.where === `paragraph ${paragraph}`)) {
-            failures.push(`${at} claim ref is not public and located in the same paragraph: ${claimRef}`);
+        if (expectedClaimsBySentence) {
+          const expectedClaimRefs = expectedClaimsBySentence[review.id] ?? [];
+          if (JSON.stringify([...claimRefs].sort()) !== JSON.stringify([...expectedClaimRefs].sort())) {
+            failures.push(`${at} claim refs do not match the exact canonical sentence inventory`);
+          }
+        } else {
+          const paragraph = /^p([1-9][0-9]*)s/.exec(review.id)?.[1];
+          for (const claimRef of claimRefs) {
+            if (!(row.claims ?? []).some((claim) =>
+              claim?.claim === claimRef && claim?.where === `paragraph ${paragraph}`)) {
+              failures.push(`${at} claim ref is not public and located in the same paragraph: ${claimRef}`);
+            }
           }
         }
       } else if (review.decision === "non-factual") {
-        if (claimRefs.length || review.request_evidence) {
+        if (claimRefs.length || requestEvidence.length) {
           failures.push(`${at} non-factual cannot cite request evidence or public claims`);
         }
-        if (normalizeAuditText(review.note).length < 12) {
+        const canonicalSentence = normalizeAuditText(sourceTextBySentence?.[review.id] ?? "");
+        if (sentenceEvidence.length < 8
+          || (canonicalSentence && !canonicalSentence.includes(sentenceEvidence))) {
+          failures.push(`${at} non-factual sentence evidence is not an exact canonical span`);
+        }
+        if (normalizeAuditText(review.note).length < 32) {
           failures.push(`${at} non-factual needs a substantive human rationale`);
+        }
+        if (/\b(?:model|audit|auditor|drafter|ledger|label|classifier|prompt)\b/i.test(review.note)) {
+          failures.push(`${at} non-factual rationale defers to pipeline authority`);
         }
       } else if (review.decision === "requires-change") {
         failures.push(`${at} requires a draft or disclosure change`);
@@ -1814,16 +1982,25 @@ function criticPrompt(caseId, corpus, draft) {
 }
 
 async function dispatchCritics(runDir) {
-  const { manifest, cases } = loadPrepared(runDir);
+  const { p, manifest, cases } = loadPrepared(runDir);
   const dispatch = manifestDispatch(manifest, "critic");
   collectDrafts(runDir);
   const artifacts = json(join(runDir, "ARTIFACTS.json"));
+  const claimsAudit = json(p.audit);
   const auditFailures = claimsAuditFailures(
-    json(join(runDir, "CLAIMS-AUDIT.json")), cases, artifacts, runDir,
+    claimsAudit, cases, artifacts, runDir,
   );
   if (auditFailures.length) {
     die(`claims audit incomplete; no critic calls were made:\n    ${auditFailures.join("\n    ")}`);
   }
+  const auditAnchor = immutableFirstAddAnchor(p.audit);
+  if (auditAnchor.error) {
+    die(`completed claims audit must be committed unchanged before critic calls: ${auditAnchor.error}`);
+  }
+  const prerequisites = {
+    claims_audit_sha256: auditAnchor.sha256,
+    claims_audit_commit: auditAnchor.commit,
+  };
   const system = resolve(REPO, manifest.agents.critic.snapshot);
   const jobs = [];
   for (const c of cases.cases) {
@@ -1847,13 +2024,14 @@ async function dispatchCritics(runDir) {
           system, cwd: inputDir, prompt, tools: "", allowed: [],
           dispatch,
           schema: dispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null,
+          prerequisites,
           output: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`),
         }),
       });
     }
   }
   await pool("critic", jobs, manifest.concurrency);
-  process.stdout.write("\n  dispatched sixty fresh critic draws; run collect after the claims audit is complete\n\n");
+  process.stdout.write("\n  dispatched sixty fresh critic draws bound to the committed human audit; run collect\n\n");
 }
 
 function deriveCritic(body) {
@@ -2207,6 +2385,12 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   }
   const criticDispatch = manifestDispatch(manifest, "critic");
   const criticSystem = resolve(REPO, manifest.agents.critic.snapshot);
+  const auditAnchor = immutableFirstAddAnchor(join(runDir, "CLAIMS-AUDIT.json"));
+  if (auditAnchor.error) errors.push(`claims audit is not an immutable pre-critic anchor: ${auditAnchor.error}`);
+  const criticPrerequisites = auditAnchor.error ? null : {
+    claims_audit_sha256: auditAnchor.sha256,
+    claims_audit_commit: auditAnchor.commit,
+  };
   for (const c of cases.cases) {
     for (let draw = 1; draw <= 3; draw += 1) {
       const promptPath = join(runDir, "critics", "prompts", `${c.id}-d${draw}.md`);
@@ -2214,13 +2398,19 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
         path: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`), dispatch: criticDispatch,
         input: invocationInput(criticSystem, text(promptPath), {
           schema: criticDispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null,
+          prerequisites: criticPrerequisites,
         }),
+        prerequisiteCommit: auditAnchor.error ? null : auditAnchor.commit,
       });
     }
   }
   for (const item of expected) {
     try {
       if (!completedResult(item.path, item.dispatch, item.input)) errors.push(`missing model result ${rel(item.path)}`);
+      if (item.prerequisiteCommit) {
+        const orderError = strictlyCommittedAfter(item.path, item.prerequisiteCommit);
+        if (orderError) errors.push(`${rel(item.path)} is not immutable evidence after its claims audit: ${orderError}`);
+      }
     } catch (error) {
       errors.push(error.message);
     }
@@ -2492,7 +2682,7 @@ export {
   codexRecordErrors, committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, factualCandidateReasons, invocationInput,
-  legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
+  immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, prepareConfig, quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors,
-  sentenceReviewTemplate, stagePrompt, structuralGates, validateCases,
+  sentenceReviewTemplate, stagePrompt, strictlyCommittedAfter, structuralGates, validateCases,
 };
