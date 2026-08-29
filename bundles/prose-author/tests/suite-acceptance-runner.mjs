@@ -685,6 +685,66 @@ export async function run(t, { HERE }) {
         && cancellation.word_control.minimum_required_contraction_changes === 1
         && cancellation.word_control.contraction_rows_at_nearest_boundary === true
         && cancellation.errors.some((error) => /moves farther from the requested 12-word target/.test(error)));
+    const zeroNetCancellationCard = {
+      schema: "voice-draft-target-card/1", word_target: 20,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 2, gate_maximum: 3,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 0, gate_maximum: 2,
+      }],
+    };
+    const zeroNetCancellation = applyDraftConformancePatch({
+      ...initialSource, draft: "It cannot wait. It is not ready. It isn't done.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It cannot wait. It is not ready. It isn't done.",
+        after: "It can't wait. It isn't ready. It is not done.",
+        reason: "Adds two contractions and expands one without changing whitespace length.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write twenty words.", profile: contractionProfile, card: zeroNetCancellationCard });
+    t.check("zero-net opposing form changes fail even without target movement",
+      !zeroNetCancellation.ok
+        && zeroNetCancellation.word_control.initial_words === 10
+        && zeroNetCancellation.word_control.final_words === 10
+        && zeroNetCancellation.word_control.contraction_form_changes === 3
+        && zeroNetCancellation.word_control.minimum_required_contraction_changes === 1
+        && zeroNetCancellation.word_control.contraction_rows_at_nearest_boundary === true
+        && zeroNetCancellation.errors.some((error) => /makes 3 contraction-form changes; minimum is 1/.test(error)));
+    const contractedAliasCard = {
+      schema: "voice-draft-target-card/1", word_target: 8,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 2, gate_maximum: 3,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 0, gate_minimum: 0, gate_maximum: 0,
+      }],
+    };
+    const contractedAlias = applyDraftConformancePatch({
+      ...initialSource, draft: "It should not wait. It won’t stop.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It should not wait. It won’t stop.",
+        after: "It shouldn’t wait. It willn’t stop.",
+        reason: "Adds one required contraction while rewriting another contracted surface.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write eight words.", profile: contractionProfile, card: contractedAliasCard });
+    t.check("a contracted spelling cannot alias another surface at zero cost",
+      contractionFormChangeCount("won’t", "willn’t") === null
+        && contractionFormChangeCount("don't", "don’t") === null
+        && !contractedAlias.ok
+        && contractedAlias.word_control.contraction_form_changes === 0
+        && contractedAlias.errors.some((error) => /unrecountable contraction-form changes/.test(error)));
     const coupledBoundaryCard = {
       schema: "voice-draft-target-card/1", word_target: 13,
       measurements: [{

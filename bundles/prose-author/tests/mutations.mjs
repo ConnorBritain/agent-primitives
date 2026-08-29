@@ -504,11 +504,25 @@ export const MUTATIONS = [
     guards: "zero-word and opposing form changes cannot hide behind a small net whitespace delta",
   },
   {
+    name: "enforce contraction minimality only when length changes",
+    file: DRAFT_CONFORMANCE,
+    find: "  if (contractionEdits.length > 0 && !contractionCorrectionIsMinimal) {",
+    with: "  if (false) {",
+    guards: "zero-net extra contraction changes fail independently of target-distance movement",
+  },
+  {
     name: "let a coupled correction cross one row's nearest boundary",
     file: DRAFT_CONFORMANCE,
     find: "    && contractionRowsReachNearestBoundary;",
     with: "    && true;",
     guards: "every initially failing contraction row stops at its nearest permitted count",
+  },
+  {
+    name: "treat two contracted aliases as the same preserved surface",
+    file: DRAFT_CONFORMANCE,
+    find: "    // Identical contracted spellings advance through the exact-character path above.\n    // Do not equate two different contracted surfaces merely because they share one\n    // expansion: that would let an extra apostrophe rewrite or a malformed alias such\n    // as won't → willn't hitchhike beside one required correction at zero cost.\n    const result = Number.isFinite(best) ? best : null;",
+    with: "    if (beforeContracted && afterContracted\n      && beforeContracted.expansions.some((expansion) => afterContracted.expansions.includes(expansion))) {\n      const continuation = visit(left + beforeContracted.raw.length, right + afterContracted.raw.length);\n      if (Number.isInteger(continuation)) best = Math.min(best, continuation);\n    }\n    const result = Number.isFinite(best) ? best : null;",
+    guards: "an apostrophe glyph rewrite or malformed contracted alias cannot hitchhike at zero cost",
   },
   {
     name: "invite the conformer to replace the whole draft",

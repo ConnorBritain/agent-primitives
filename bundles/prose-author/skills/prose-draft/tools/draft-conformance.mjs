@@ -271,14 +271,10 @@ export function contractionFormChangeCount(beforeValue, afterValue) {
         if (Number.isInteger(continuation)) best = Math.min(best, 1 + continuation);
       }
     }
-    if (beforeContracted && afterContracted
-      && beforeContracted.expansions.some((expansion) => afterContracted.expansions.includes(expansion))) {
-      const continuation = visit(
-        left + beforeContracted.raw.length,
-        right + afterContracted.raw.length,
-      );
-      if (Number.isInteger(continuation)) best = Math.min(best, continuation);
-    }
+    // Identical contracted spellings advance through the exact-character path above.
+    // Do not equate two different contracted surfaces merely because they share one
+    // expansion: that would let an extra apostrophe rewrite or a malformed alias such
+    // as won't → willn't hitchhike beside one required correction at zero cost.
     const result = Number.isFinite(best) ? best : null;
     memo.set(key, result);
     return result;
@@ -578,15 +574,20 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
   // preserving every lexical unit. Treat only the minimum unavoidable form correction as
   // content-length neutral. Bind that exception to exact form transformations and every
   // initially failing row's nearest boundary; net whitespace delta is not a safe proxy.
-  const contractionCorrectionIsMinimal = wordChangingEdits.length > 0
-    && wordChangingEdits.every((edit) =>
-      edit.measurement_ids.every((id) => contractionMeasurements.has(id)))
+  const contractionCorrectionIsMinimal = contractionEdits.length > 0
     && contractionFormChanges === minimumRequiredContractionChanges
     && contractionRowsReachNearestBoundary;
+  if (contractionEdits.length > 0 && !contractionCorrectionIsMinimal) {
+    errors.push(`conformance patch makes ${contractionFormChanges ?? "unrecountable"} contraction-form changes; minimum is ${minimumRequiredContractionChanges} and every failing contraction row must stop at its nearest boundary`);
+  }
   const movedFartherFromTarget = Number.isInteger(card?.word_target)
     && Math.abs(finalWords - card.word_target) > Math.abs(initialWords - card.word_target);
   const targetDistanceException = movedFartherFromTarget
-    && report?.pass === true && contractionCorrectionIsMinimal;
+    && report?.pass === true
+    && wordChangingEdits.length > 0
+    && wordChangingEdits.every((edit) =>
+      edit.measurement_ids.every((id) => contractionMeasurements.has(id)))
+    && contractionCorrectionIsMinimal;
   if (movedFartherFromTarget && !targetDistanceException) {
     errors.push(`conformance patch moves farther from the requested ${card.word_target}-word target (${initialWords} to ${finalWords})`);
   }
