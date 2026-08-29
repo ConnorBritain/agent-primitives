@@ -254,6 +254,16 @@ function measurementEditEquivalent(before, after, measurementIds) {
   return ambiguousContractionPattern(afterSkeleton).test(beforeSkeleton);
 }
 
+function containsMarkdownCodeOrLinkSyntax(value) {
+  const source = String(value ?? "");
+  // A local punctuation edit cannot know whether a bracketed span is an inline,
+  // full-reference, collapsed-reference, shortcut-reference, or image link, nor
+  // whether an angle-bracketed span is an autolink or HTML. Fail closed on every
+  // such span. The patcher can choose a smaller prose-only anchor or disclose the
+  // omission instead of changing syntax whose document-wide target it cannot see.
+  return /`/.test(source) || /[\[\]]/.test(source) || /[<>]/.test(source);
+}
+
 export function replacementWordAllowance(initialWords) {
   if (!Number.isInteger(initialWords) || initialWords < 0) {
     throw new TypeError("replacement allowance requires a nonnegative integer word count");
@@ -357,7 +367,8 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     }
     const changesMeasuredPunctuation = edit.measurement_ids.some((id) =>
       ["round-parenthetical-spans", "em-dashes", "en-dashes"].includes(id));
-    if (changesMeasuredPunctuation && /`|\]\(/.test(`${edit.before}\n${edit.after}`)) {
+    if (changesMeasuredPunctuation
+      && containsMarkdownCodeOrLinkSyntax(`${edit.before}\n${edit.after}`)) {
       errors.push(`patch.edits[${index}] cannot alter measured punctuation inside Markdown code or links`);
     }
     if (!measurementEditEquivalent(edit.before, edit.after, edit.measurement_ids)) {

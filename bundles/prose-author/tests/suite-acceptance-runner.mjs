@@ -295,6 +295,10 @@ export async function run(t, { HERE }) {
       label: "arbitrary internal spacing", before: "Alpha sentence.", after: "Alpha –  sentence.",
     }, {
       label: "a Markdown link", before: "[the source](https://example.com) explains this.", after: "[the source] https://example.com – explains this.",
+    }, {
+      label: "a Markdown reference-link label", before: "[Policy][ref?] explains the rule.", after: "[Policy][ref–?] explains the rule.",
+    }, {
+      label: "a Markdown autolink destination", before: "<https://example.com/policy?> explains the rule.", after: "<https://example.com/policy–?> explains the rule.",
     }]) {
       const structuralAttack = applyDraftConformancePatch({
         ...initialSource, draft: attack.before,

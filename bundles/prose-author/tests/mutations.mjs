@@ -436,9 +436,23 @@ export const MUTATIONS = [
   {
     name: "let measured punctuation destroy Markdown links",
     file: DRAFT_CONFORMANCE,
-    find: "    if (changesMeasuredPunctuation && /`|\\]\\(/.test(`${edit.before}\\n${edit.after}`)) {",
-    with: "    if (false) {",
+    find: "  return /`/.test(source) || /[\\[\\]]/.test(source) || /[<>]/.test(source);",
+    with: "  return false;",
     guards: "parenthesis counts cannot be repaired by turning a Markdown link into plain text",
+  },
+  {
+    name: "let measured punctuation rewrite Markdown reference labels",
+    file: DRAFT_CONFORMANCE,
+    find: "  return /`/.test(source) || /[\\[\\]]/.test(source) || /[<>]/.test(source);",
+    with: "  return /`/.test(source) || /[<>]/.test(source);",
+    guards: "reference-link labels remain exact even when a measured dash could be normalized away",
+  },
+  {
+    name: "let measured punctuation rewrite Markdown autolink destinations",
+    file: DRAFT_CONFORMANCE,
+    find: "  return /`/.test(source) || /[\\[\\]]/.test(source) || /[<>]/.test(source);",
+    with: "  return /`/.test(source) || /[\\[\\]]/.test(source);",
+    guards: "autolink destinations remain exact even when a measured dash could be normalized away",
   },
   {
     name: "let a failing measurement revise an unrelated coverage dimension",
