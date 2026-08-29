@@ -9,57 +9,7 @@ const exactKeys = (value, expected) => JSON.stringify(Object.keys(value).sort())
   === JSON.stringify([...expected].sort());
 const MAX_REJECTED_SENTENCES = 2;
 const MAX_REJECTED_SHARE = 0.2;
-const MIN_RETAINED_TOKEN_SHARE = 0.8;
-const ALLOWED_NEW_TOKENS = new Set([
-  "a", "an", "as", "could", "hypothetical", "hypothetically", "if", "imagine",
-  "imagined", "may", "might", "one", "perhaps", "possible", "possibly", "some",
-  "someone", "something", "suppose", "supposed", "were", "would",
-]);
-const POLARITY_TOKENS = new Set([
-  "against", "must", "neither", "never", "no", "nor", "not", "oppose", "opposed",
-  "opposition", "should", "support", "supported", "supports", "welcome",
-]);
-
-function lexicalTokens(value) {
-  return String(value ?? "").toLowerCase()
-    .match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) ?? [];
-}
-
-function tokenCounts(tokens) {
-  const counts = new Map();
-  for (const token of tokens) counts.set(token, (counts.get(token) ?? 0) + 1);
-  return counts;
-}
-
-function introducedTokens(before, after) {
-  const available = tokenCounts(before);
-  const introduced = [];
-  for (const token of after) {
-    const remaining = available.get(token) ?? 0;
-    if (remaining) available.set(token, remaining - 1);
-    else introduced.push(token);
-  }
-  return introduced;
-}
-
-function retainedTokenShare(before, after) {
-  if (!before.length) return 0;
-  const lengths = Array(after.length + 1).fill(0);
-  for (const beforeToken of before) {
-    let diagonal = 0;
-    for (let index = 1; index <= after.length; index += 1) {
-      const above = lengths[index];
-      if (beforeToken === after[index - 1]) lengths[index] = diagonal + 1;
-      else lengths[index] = Math.max(lengths[index], lengths[index - 1]);
-      diagonal = above;
-    }
-  }
-  return lengths[after.length] / before.length;
-}
-
-function countToken(tokens, target) {
-  return tokens.reduce((count, token) => count + (token === target ? 1 : 0), 0);
-}
+const HYPOTHETICAL_PREFIX = "Hypothetically: ";
 
 function auditShapeErrors(source, audit) {
   const errors = [];
@@ -98,28 +48,12 @@ export function claimRepairEligibilityErrors(source, audit) {
 
 function rejectedSentenceErrors(before, after, id) {
   const errors = [];
-  if (before.text === after.text) errors.push(`repair did not rewrite rejected sentence ${id}`);
-  const beforeTokens = lexicalTokens(before.text);
-  const afterTokens = lexicalTokens(after.text);
-  if (retainedTokenShare(beforeTokens, afterTokens) < MIN_RETAINED_TOKEN_SHARE) {
-    errors.push(`repair replaced rather than minimally edited rejected sentence ${id}`);
+  if (after.text !== `${HYPOTHETICAL_PREFIX}${before.text}`) {
+    errors.push(`repair must preserve ${id} byte-for-byte under the fixed hypothetical wrapper`);
   }
-  const unsupported = introducedTokens(beforeTokens, afterTokens)
-    .filter((token) => !ALLOWED_NEW_TOKENS.has(token));
-  if (unsupported.length) {
-    errors.push(`repair introduced unsupported lexical content in ${id}: ${[...new Set(unsupported)].join(", ")}`);
-  }
-  for (const token of POLARITY_TOKENS) {
-    if (countToken(beforeTokens, token) !== countToken(afterTokens, token)) {
-      errors.push(`repair changed protected polarity token ${token} in ${id}`);
-    }
-  }
-  const originalClaims = new Set(before.claim_ids ?? []);
-  const addedClaims = (after.claim_ids ?? []).filter((claimId) => !originalClaims.has(claimId));
-  if (addedClaims.length) errors.push(`repair added claim references in ${id}: ${addedClaims.join(", ")}`);
-  if (["request-supported", "external-verification"].includes(after.basis)
-    && after.basis !== before.basis) {
-    errors.push(`repair promoted ${id} to factual basis ${after.basis}`);
+  if (after.basis !== "hypothetical") errors.push(`repair must mark ${id} hypothetical`);
+  if (!Array.isArray(after.claim_ids) || after.claim_ids.length) {
+    errors.push(`repair must clear claim references from hypothetical sentence ${id}`);
   }
   return errors;
 }

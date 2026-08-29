@@ -236,7 +236,7 @@ export async function run(t, { HERE }) {
         ...original,
         paragraphs: [{ sentences: [
           original.paragraphs[0].sentences[0],
-          { text: "Perhaps many buyers never notice.", basis: "hypothetical", claim_ids: [] },
+          { text: "Hypothetically: Many buyers never notice.", basis: "hypothetical", claim_ids: [] },
           ...original.paragraphs[0].sentences.slice(2),
         ] }],
       };
@@ -264,7 +264,7 @@ export async function run(t, { HERE }) {
       let resolved = null;
       try { resolved = resolveDraftChain(chainRoot, manifest, c); } catch {}
       t.check("final checking composes rejected draft, bounded repair, and fresh reaudit from raw records",
-        resolved?.repaired && resolved.finalSource.paragraphs[0].sentences[1].text === "Perhaps many buyers never notice."
+        resolved?.repaired && resolved.finalSource.paragraphs[0].sentences[1].text === "Hypothetically: Many buyers never notice."
           && JSON.stringify(resolved.finalAudit) === JSON.stringify(finalAudit));
       put("claim-reaudits", c.id, initialAudit, "claim_reaudit");
       let reauditRejected = false;

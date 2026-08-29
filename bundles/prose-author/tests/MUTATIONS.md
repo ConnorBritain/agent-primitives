@@ -34,9 +34,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let claim repair alter a retained factual ledger entry | 1 | a repair cannot rewrite the provenance of a retained factual premise |
 | let a malformed audit authorize claim repair | 1 | only a complete independently auditable decision set can authorize sentence changes |
 | let a broad rejection set become a second draft | 1 | a repair cannot rewrite more than one fifth of a draft even when every row says reject |
-| let rejected prose introduce new factual vocabulary | 1 | a repair removes or hypotheticalizes rejected content instead of adding a new proposition |
-| let allowed markers replace an entire rejected sentence | 1 | a repair preserves at least four fifths of the original lexical sequence |
-| let claim repair reverse sentence polarity | 1 | deleting negation cannot reverse the argument under cover of factual repair |
+| let more than two rejected units enter claim repair | 1 | a low percentage cannot conceal more than two rewritten sentence units |
+| let claim repair alter bytes under its hypothetical wrapper | 5 | the only prose edit is one fixed prefix before otherwise byte-identical rejected text |
+| let a hypothetical wrapper keep a nonhypothetical basis | 1 | the fixed wrapper changes epistemic status rather than laundering factual prose |
 | publish a repair after its second audit rejects it | 2 | one bounded repair still requires a fresh independent audit to clear |
 | resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |

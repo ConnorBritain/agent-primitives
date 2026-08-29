@@ -14,18 +14,15 @@ only delete unchanged ledger entries that validation identified as unused. Retai
 ledger entries keep their IDs and every field exactly.
 
 For an audit repair, preserve every `keep` sentence object byte-for-byte. Rewrite every
-`reject` sentence minimally so the rejected descriptive clause is removed or becomes an
-unmistakably imagined hypothetical. A bounded repair covers at most two sentence units
-and at most 20 percent of the draft; otherwise the cell must fail instead of becoming a
-second draft. Retain at least 80 percent of each rejected sentence's lexical tokens in
-their original order. New words
-may only be grammatical or explicit hypothetical markers such as `could`, `might`, `if`,
-or `imagine`; do not add new content words. Preserve negation, normative polarity, and
-existing claim direction. Do not merely relabel unchanged prose or add a claim reference
-that the original sentence did not carry. You may delete an unchanged ledger entry only
-when the repaired source no longer cites it. Retained ledger entries keep their IDs and
-every field exactly. If deletion would make the IDs non-contiguous, return no invented
-workaround: the bounded repair cannot succeed.
+`reject` sentence only by prefixing its original text with the exact bytes
+`Hypothetically: `. Preserve every original byte after that one prefix: words, order,
+capitalization, punctuation, Markdown, quotations, and spacing do not change. Set its
+`basis` to `hypothetical` and its `claim_ids` to `[]`. No other sentence transformation is
+allowed. A bounded repair covers at most two sentence units and at most 20 percent of the
+draft; otherwise the cell must fail instead of becoming a second draft. You may delete an
+unchanged ledger entry only when the hypothetical sentence no longer cites it. Retained
+ledger entries keep their IDs and every field exactly. If deletion would make the IDs
+non-contiguous, return no invented workaround: the bounded repair cannot succeed.
 
 The repaired object must independently validate under the original request. A later,
 fresh claim audit will inspect every sentence again. The repair does not receive credit

@@ -16,7 +16,7 @@ import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import {
-  claimRepairRejectedIds, validateVoiceDraftClaimRepair,
+  claimRepairEligibilityErrors, claimRepairRejectedIds, validateVoiceDraftClaimRepair,
 } from "../skills/prose-draft/tools/draft-claim-repair.mjs";
 import { validateDraft, parseDraft, loadRun, corpusLeakage, findFabricatedCitations } from "./voice-draft.mjs";
 import { fixtureGuards, staleExemptions } from "./fixture-guard.mjs";
@@ -503,7 +503,7 @@ export async function run(t, { HERE }) {
     const repaired = {
       ...repairSource,
       paragraphs: [{ sentences: repairSource.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
-        text: "Perhaps that leaves ownership hollow.", basis: "hypothetical", claim_ids: [],
+        text: "Hypothetically: That leaves ownership hollow.", basis: "hypothetical", claim_ids: [],
       } : sentence) }],
     };
     t.check("a bounded repair may rewrite only independently rejected sentence units",
@@ -516,9 +516,10 @@ export async function run(t, { HERE }) {
     };
     const allRewritten = {
       ...source,
+      ledger: [],
       paragraphs: [{ sentences: [
-        { ...source.paragraphs[0].sentences[0], text: "A maker could disable features after sale." },
-        { text: "Perhaps that leaves ownership hollow.", basis: "hypothetical", claim_ids: [] },
+        { text: "Hypothetically: A maker can disable features after sale.", basis: "hypothetical", claim_ids: [] },
+        { text: "Hypothetically: That leaves ownership hollow.", basis: "hypothetical", claim_ids: [] },
       ] }],
     };
     const broadRepair = validateVoiceDraftClaimRepair(source, allRewritten, { request, audit: allRejected });
@@ -532,7 +533,7 @@ export async function run(t, { HERE }) {
     }, { request, audit: rejectedAudit });
     t.check("a rejected sentence cannot inject new factual content under a clean relabel",
       !injectedContent.ok
-        && injectedContent.errors.some((error) => /unsupported lexical content/.test(error)));
+        && injectedContent.errors.some((error) => /fixed hypothetical wrapper/.test(error)));
     const wholesaleMarkers = validateVoiceDraftClaimRepair(repairSource, {
       ...repaired,
       paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
@@ -541,7 +542,7 @@ export async function run(t, { HERE }) {
     }, { request, audit: rejectedAudit });
     t.check("allowed hypothetical markers cannot replace rather than minimally edit a rejected sentence",
       !wholesaleMarkers.ok
-        && wholesaleMarkers.errors.some((error) => /replaced rather than minimally edited/.test(error)));
+        && wholesaleMarkers.errors.some((error) => /fixed hypothetical wrapper/.test(error)));
     const polaritySource = {
       ...repairSource,
       paragraphs: [{ sentences: repairSource.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
@@ -551,14 +552,42 @@ export async function run(t, { HERE }) {
     const polarityRepair = {
       ...polaritySource,
       paragraphs: [{ sentences: polaritySource.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
-        ...sentence, text: "That does leave ownership hollow.",
+        ...sentence, text: "Hypothetically: That does leave ownership hollow.", basis: "hypothetical",
       } : sentence) }],
     };
     const reversed = validateVoiceDraftClaimRepair(
       polaritySource, polarityRepair, { request, audit: rejectedAudit },
     );
     t.check("a bounded repair cannot reverse argument polarity by deleting negation",
-      !reversed.ok && reversed.errors.some((error) => /protected polarity token not/.test(error)));
+      !reversed.ok && reversed.errors.some((error) => /fixed hypothetical wrapper/.test(error)));
+    const roleSwap = validateVoiceDraftClaimRepair(repairSource, {
+      ...repaired,
+      paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        ...sentence, text: "Hypothetically: Ownership leaves that hollow.",
+      } : sentence) }],
+    }, { request, audit: rejectedAudit });
+    const punctuationRewrite = validateVoiceDraftClaimRepair(repairSource, {
+      ...repaired,
+      paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        ...sentence, text: "Hypothetically: That. Leaves. Ownership. Hollow.",
+      } : sentence) }],
+    }, { request, audit: rejectedAudit });
+    const repeatedPrefix = validateVoiceDraftClaimRepair(repairSource, {
+      ...repaired,
+      paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        ...sentence, text: "Hypothetically: Hypothetically: That leaves ownership hollow.",
+      } : sentence) }],
+    }, { request, audit: rejectedAudit });
+    t.check("the fixed wrapper preserves actor order, punctuation, and bounded length exactly",
+      [roleSwap, punctuationRewrite, repeatedPrefix].every((result) => !result.ok
+        && result.errors.some((error) => /fixed hypothetical wrapper/.test(error))));
+    t.check("the fixed wrapper must carry hypothetical basis rather than a factual or reasoning relabel",
+      !validateVoiceDraftClaimRepair(repairSource, {
+        ...repaired,
+        paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1
+          ? { ...sentence, basis: "reasoning" }
+          : sentence) }],
+      }, { request, audit: rejectedAudit }).ok);
     t.check("a bounded repair cannot edit an accepted sentence or add a claim",
       !validateVoiceDraftClaimRepair(repairSource, {
         ...repaired,
@@ -606,6 +635,21 @@ export async function run(t, { HERE }) {
             ? { ...row, reason: "" }
             : row),
         }).length === 0);
+    const twentySentenceSource = {
+      ...repairSource,
+      paragraphs: [{ sentences: Array.from({ length: 20 }, (_, index) => index === 0
+        ? repairSource.paragraphs[0].sentences[0]
+        : { text: `Normative sentence ${index}.`, basis: "normative", claim_ids: [] }) }],
+    };
+    const threeRejected = {
+      schema: "voice-draft-claim-audit/2",
+      sentences: sentenceRefs(twentySentenceSource).map((ref, index) => ({
+        id: ref.id, status: index < 3 ? "reject" : "keep", reason: "Complete rationale.",
+      })),
+    };
+    t.check("bounded repair rejects more than two units even when their share is below 20 percent",
+      claimRepairEligibilityErrors(twentySentenceSource, threeRejected)
+        .some((error) => /maximum is 2/.test(error)));
     const invalidUnused = {
       ...source,
       ledger: [...source.ledger, {
@@ -623,6 +667,7 @@ export async function run(t, { HERE }) {
       /not writing a new draft/.test(repairInstructions)
         && /preserve every `keep` sentence object byte-for-byte/i.test(repairInstructions)
         && /Never add a ledger\s+entry/.test(repairInstructions)
+        && /prefixing its original text with the exact bytes\s+`Hypothetically: `/.test(repairInstructions)
         && /later,\s+fresh claim audit/i.test(repairInstructions));
   }
 
