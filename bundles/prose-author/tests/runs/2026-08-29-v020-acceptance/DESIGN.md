@@ -47,7 +47,11 @@ to this result.
   The comparison preserves case, words, unnamed punctuation, Markdown, line breaks, and
   paragraph boundaries. A named punctuation form may move at most one adjacent ordinary
   ASCII separator; indentation, tabs, repeated or trailing spaces, Markdown links/code,
-  and all other structure remain exact. Closed contractions such as `let us`/`let's` are
+  and all other structure remain exact. A draft containing any Markdown link or code signal
+  is immutable as a whole in patch mode; the conformer returns no edits, and the initial
+  draft must already satisfy every measured target. This fail-closed boundary avoids a
+  partial Markdown parser whose local anchors could miss multiline or nested syntax.
+  Closed contractions such as `let us`/`let's` are
   bidirectional. An ambiguous `'d` or `'s` form may be introduced only when the exact
   source spells out `had`, `would`, `is`, or `has`; the explicit source fixes the meaning
   without branching. An already ambiguous source contraction is never expanded by patch

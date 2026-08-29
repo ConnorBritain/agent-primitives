@@ -125,6 +125,12 @@ empty source arrays. Claude can enforce the schema while decoding; Codex exposes
 `--output-schema`; generic harnesses can emit ordinary JSON and run the same local validator
 and assembler.
 
+The mandatory conformance stage treats any draft containing a Markdown link or code signal
+as immutable as a whole. It applies no local corrections inside or outside that syntax; the
+initial draft must already satisfy its measured bands. This conservative boundary is
+intentional: link targets, reference definitions, nested fences, tab-expanded code, and
+multiline spans cannot be made safe by inspecting a model-selected local anchor.
+
 Before public assembly, the blank-page path runs the independent claim-audit prompt over
 the request and deterministic sentence units only. That pass does not see the profile and
 may not revise the prose. It returns one of three decisions per sentence. `keep` accounts

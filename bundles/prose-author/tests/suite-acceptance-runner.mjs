@@ -209,6 +209,7 @@ export async function run(t, { HERE }) {
         && /anchor[\s\S]*no larger than one paragraph/.test(conformancePrompt)
         && /before anchors may replace at most 24 of the initial 12 words/.test(conformancePrompt)
         && /replacement must retain the exact structural/.test(conformancePrompt)
+        && /draft contains any Markdown link or code signal anywhere, return no edits/.test(conformancePrompt)
         && /Return exactly ten coverage rows/.test(conformancePrompt));
     const patchCoverage = targetProfile.coverage.map((row) => ({
       dimension: row.dimension,
@@ -234,6 +235,14 @@ export async function run(t, { HERE }) {
     t.check("the deterministic patch assembler applies exact anchors and remeasures final prose",
       applied.ok && applied.source.draft.includes("turn – and gets one")
         && applied.report.pass && applied.word_control.final_words >= applied.word_control.initial_words);
+    const afterClosedFence = applyDraftConformancePatch({
+      ...initialSource, draft: "~~~text\ncode sample\n~~~~\n\nIt needs a turn and gets one.",
+    }, conformingPatch, {
+      request: "Write a 700-word post.", profile: targetProfile, card: targetCard,
+    });
+    t.check("a conformer makes no edits anywhere in a Markdown-bearing draft",
+      !afterClosedFence.ok
+        && afterClosedFence.errors.some((error) => /Markdown code or links/.test(error)));
     const missed = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
       edits: [{
@@ -315,6 +324,20 @@ export async function run(t, { HERE }) {
       label: "a narrow fenced-code anchor", source: "~~~text\nalpha?\n~~~", before: "alpha?", after: "alpha–?",
     }, {
       label: "a narrow indented-code anchor", source: "    alpha?", before: "alpha?", after: "alpha–?",
+    }, {
+      label: "a tab-expanded indented-code anchor", source: " \talpha?", before: "alpha?", after: "alpha–?",
+    }, {
+      label: "a three-space tab-expanded code anchor", source: "   \talpha?", before: "alpha?", after: "alpha–?",
+    }, {
+      label: "a tilde-fence info-string anchor", source: "~~~lang?\nalpha\n~~~", before: "lang?", after: "lang–?",
+    }, {
+      label: "a list-nested tilde-fence anchor", source: "- ~~~text\n  alpha?\n  ~~~", before: "alpha?", after: "alpha–?",
+    }, {
+      label: "a multiline inline-code anchor", source: "Use `alpha\nbeta?` as the token.", before: "beta?", after: "beta–?",
+    }, {
+      label: "a multiline link-text anchor", source: "[alpha\nbeta?](https://example.com)", before: "beta?", after: "beta–?",
+    }, {
+      label: "an HTML-block interior anchor", source: "<div>\nalpha?\n</div>", before: "alpha?", after: "alpha–?",
     }]) {
       const structuralAttack = applyDraftConformancePatch({
         ...initialSource, draft: attack.source ?? attack.before,

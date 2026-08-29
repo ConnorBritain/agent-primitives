@@ -254,7 +254,10 @@ applied to the initial source if it validates.
   case, words, unnamed punctuation, Markdown, line breaks, and paragraph boundaries.
   A punctuation correction may move at most one ordinary ASCII separator immediately
   around the named mark. Preserve indentation, tabs, repeated or trailing spaces,
-  Markdown links/code, and every other byte. Closed contractions are bidirectional.
+  Markdown links/code, and every other byte. If the initial draft contains any Markdown
+  link or code signal anywhere, return no edits: the complete draft is immutable in patch
+  mode. The initial drafting pass must already satisfy every measured target in that case;
+  do not attempt a local repair inside or outside the Markdown span. Closed contractions are bidirectional.
   An ambiguous `'d` or `'s` contraction may be introduced only when the exact source
   spells out its auxiliary; never expand an ambiguous source contraction.
   Question-mark, pronoun-family, profanity, and other semantic-bearing counts must already
