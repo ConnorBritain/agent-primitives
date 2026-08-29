@@ -1,0 +1,141 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This is a recommendation for the meeting, with stated conditions for any later use; it does not assert that a review or contract currently exists.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"The sentence asserts a practical benefit of AI summarization that the request does not supply; the remaining question identifies data-control issues to investigate rather than asserting who actually has those powers.\",\"claims\":[{\"claim\":\"Using an AI service to summarize intake notes can make case review faster.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that the contemplated AI summarization service would make this nonprofit’s case review faster?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This is a procedural recommendation about which vendor documents to examine and adds no claim about the vendor’s current terms.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"Each clause directs the nonprofit to confirm or require specific data-use, access, retention, subprocessor, and breach-notice conditions; none claims that those conditions currently hold.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"This is a list of recommended technical, access-control, accountability, and correction requirements, not a description of existing safeguards.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"This is a proposed decision rule: absent written commitments, the nonprofit should withhold the notes.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This recommends limiting tests to invented or fully de-identified records even if safeguards are obtained; it reports no actual test or external practice.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes independently checkable claims about errors AI-generated summaries can produce; the wrong-drawer comparison is an analogy derived from those claims.\",\"claims\":[{\"claim\":\"AI-generated summaries can remove or understate uncertainty present in source notes.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that AI summarization can flatten uncertainty in confidential or comparable notes?\"},{\"claim\":\"AI-generated summaries can omit safety-relevant details from source notes.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that AI summarization can omit safety-relevant details?\"},{\"claim\":\"AI-generated summaries can present tentative source statements as established facts.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that AI summarization can convert tentative statements into apparently factual assertions?\"}]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"All clauses are recommendations governing record retention, labeling, metadata, and staff review before action; they do not describe current organizational practice.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"This states the proposed allocation of authority between an assisting tool and human decision-makers, rather than claiming how a real tool or organization currently operates.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"The entire sentence proposes a narrow resolution and future workflow for review, approval, a de-identified pilot, and reporting; it does not claim those steps or roles are currently in place.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"This characterizes the proposed pause-and-review resolution as conditional rather than a permanent prohibition, which follows from the proposal itself.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This is a metaphorical characterization of the proposed controlled, reversible pilot and adds no external descriptive premise.\",\"claims\":[]},{\"id\":\"p4s4\",\"status\":\"keep\",\"reason\":\"This is a collective value judgment and approval rule prioritizing confidentiality, enforceable vendor limits, and human review; it does not assert present facts about the organization or vendor.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This is a recommendation for the meeting, with stated conditions for any later use; it does not assert that a review or contract currently exists.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "The sentence asserts a practical benefit of AI summarization that the request does not supply; the remaining question identifies data-control issues to investigate rather than asserting who actually has those powers.",
+        "claims": [
+          {
+            "claim": "Using an AI service to summarize intake notes can make case review faster.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that the contemplated AI summarization service would make this nonprofit’s case review faster?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This is a procedural recommendation about which vendor documents to examine and adds no claim about the vendor’s current terms.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Each clause directs the nonprofit to confirm or require specific data-use, access, retention, subprocessor, and breach-notice conditions; none claims that those conditions currently hold.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "This is a list of recommended technical, access-control, accountability, and correction requirements, not a description of existing safeguards.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "This is a proposed decision rule: absent written commitments, the nonprofit should withhold the notes.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This recommends limiting tests to invented or fully de-identified records even if safeguards are obtained; it reports no actual test or external practice.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The sentence makes independently checkable claims about errors AI-generated summaries can produce; the wrong-drawer comparison is an analogy derived from those claims.",
+        "claims": [
+          {
+            "claim": "AI-generated summaries can remove or understate uncertainty present in source notes.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that AI summarization can flatten uncertainty in confidential or comparable notes?"
+          },
+          {
+            "claim": "AI-generated summaries can omit safety-relevant details from source notes.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that AI summarization can omit safety-relevant details?"
+          },
+          {
+            "claim": "AI-generated summaries can present tentative source statements as established facts.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that AI summarization can convert tentative statements into apparently factual assertions?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "All clauses are recommendations governing record retention, labeling, metadata, and staff review before action; they do not describe current organizational practice.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "This states the proposed allocation of authority between an assisting tool and human decision-makers, rather than claiming how a real tool or organization currently operates.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "The entire sentence proposes a narrow resolution and future workflow for review, approval, a de-identified pilot, and reporting; it does not claim those steps or roles are currently in place.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "This characterizes the proposed pause-and-review resolution as conditional rather than a permanent prohibition, which follows from the proposal itself.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This is a metaphorical characterization of the proposed controlled, reversible pilot and adds no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "This is a collective value judgment and approval rule prioritizing confidentiality, enforceable vendor limits, and human review; it does not assert present facts about the organization or vendor.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-14/raw/claim-audit.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-14/raw/claim-audit.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "0ec9d0ad40ec70e37080c90fed7bfc24920abbf8e7f37e85909d7868b39428f3"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "e2349b92ed4fe937f88fa0637e8d9a7a2b9ba99ee2644be7e4fb319bc44a4241",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "4cff0ef075b41e74bae44a11180560f64d352e0353a971a1b0861ae9419acb3c",
+      "conformance_raw_sha256": "d3a4eef05a6af8965cdc6b87e896a5e2399dae98acbc85563ab6eb4a0cd7b9e0"
+    }
+  }
+}

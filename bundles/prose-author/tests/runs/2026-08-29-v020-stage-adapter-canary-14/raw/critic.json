@@ -1,0 +1,44 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[],\"clean_categories\":[\"register-breaks\",\"unfamiliar-constructions\",\"out-of-register-vocabulary\",\"unvarying-voice\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"CLEAN\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [],
+    "clean_categories": [
+      "register-breaks",
+      "unfamiliar-constructions",
+      "out-of-register-vocabulary",
+      "unvarying-voice"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "Category 4 was not assessed because no deterministic rhythm scan was supplied.",
+    "verdict": "CLEAN"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-14/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-14/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "0ec9d0ad40ec70e37080c90fed7bfc24920abbf8e7f37e85909d7868b39428f3"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "b7dcc6a405f1fa0275051a306c68ffe51d6bb990a9989e6a4dc8f458f5567108",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "4cff0ef075b41e74bae44a11180560f64d352e0353a971a1b0861ae9419acb3c",
+      "conformance_raw_sha256": "d3a4eef05a6af8965cdc6b87e896a5e2399dae98acbc85563ab6eb4a0cd7b9e0",
+      "audit_raw_sha256": "619949c5575935b6738f88a339846c59a4b48acd5a9f5514c00a31b0d6962c86"
+    }
+  }
+}

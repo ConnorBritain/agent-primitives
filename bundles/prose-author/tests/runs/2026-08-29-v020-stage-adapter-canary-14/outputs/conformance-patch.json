@@ -1,0 +1,95 @@
+{
+  "schema": "voice-draft-conformance-patch/1",
+  "edits": [],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ],
+      "disposition": "preserved",
+      "reason": "Both measured person and reader stance rules are already within their required ranges."
+    },
+    {
+      "dimension": "contraction-negation",
+      "observation_ids": [
+        "o03",
+        "o04"
+      ],
+      "disposition": "preserved",
+      "reason": "Contractions and uncontracted negatives are already within their required ranges."
+    },
+    {
+      "dimension": "qualification-hedging",
+      "observation_ids": [
+        "o10"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft concedes the legitimate benefit before stating the remaining privacy defect and uses bounded conditions for approval."
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "observation_ids": [
+        "o06"
+      ],
+      "disposition": "preserved",
+      "reason": "The practical stress-test question is already within its required range."
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "observation_ids": [
+        "o11"
+      ],
+      "disposition": "omitted",
+      "reason": "No provider or source materials were supplied, so the supported naming and source-testing habit cannot be applied truthfully."
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "observation_ids": [],
+      "disposition": "unresolved",
+      "reason": "The profile supplies no supported instruction for this dimension."
+    },
+    {
+      "dimension": "self-reference-biography",
+      "observation_ids": [
+        "o02",
+        "o05"
+      ],
+      "disposition": "preserved",
+      "reason": "Organizational plural voice and the absence of individual biography are already within their required ranges."
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "observation_ids": [
+        "o07",
+        "o08",
+        "o09"
+      ],
+      "disposition": "preserved",
+      "reason": "Parenthetical spans, em dashes, and en dashes are all already within their required ranges."
+    },
+    {
+      "dimension": "figures-analogy",
+      "observation_ids": [
+        "o12"
+      ],
+      "disposition": "preserved",
+      "reason": "The compact wrong-drawer comparison clarifies the mechanism and immediately returns to the practical safeguard."
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "observation_ids": [
+        "o13"
+      ],
+      "disposition": "preserved",
+      "reason": "The reply opens with the live decision, pivots to the central defect, and closes with a specific organizational choice."
+    }
+  ],
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o11: name the company and test its outside claims against source materials",
+      "why": "The request identifies no AI provider and supplies no vendor terms, reports, quotations, or other source materials to name or assess."
+    }
+  ]
+}
