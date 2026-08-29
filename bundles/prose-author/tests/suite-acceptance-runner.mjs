@@ -7,7 +7,7 @@ import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
 
 import {
-  ARTIFACT_PATH_KEYS, artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures,
+  ARTIFACT_PATH_KEYS, artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
   CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
   criticPrompt, deriveCritic, draftPrompt,
@@ -612,15 +612,27 @@ export async function run(t, { HERE }) {
             && codexRecordErrors({ ...record, structured_output: { ok: false } }, eventRoot)
               .some((error) => /structure diverges/.test(error)));
         const wrapperPath = join(eventRoot, "wrapper.json");
+        const wrapperEvents = join(eventRoot, "wrapper.codex-events.jsonl");
+        const wrapperOutput = join(eventRoot, "wrapper.codex-output.json");
+        writeFileSync(wrapperEvents, readFileSync(join(eventRoot, "events.jsonl"), "utf8"));
+        writeFileSync(wrapperOutput, readFileSync(join(eventRoot, "output.json"), "utf8"));
+        const repoRoot = resolve(HERE, "..", "..", "..");
         const wrapperRecord = {
           ...record,
-          raw_events: join(eventRoot, "events.jsonl"),
-          raw_output: join(eventRoot, "output.json"),
+          raw_events: relative(repoRoot, wrapperEvents),
+          raw_output: relative(repoRoot, wrapperOutput),
         };
         writeFileSync(wrapperPath, `${JSON.stringify({
           type: "result", is_error: false, ...wrapperRecord,
         })}\n`);
         const lockedWrapperPasses = completedResult(wrapperPath, acceptanceDispatch, acceptanceInput) !== null;
+        writeFileSync(wrapperPath, `${JSON.stringify({
+          type: "result", is_error: false, ...wrapperRecord, raw_events: wrapperRecord.raw_output,
+        })}\n`);
+        let companionSwapRejected = false;
+        try { completedResult(wrapperPath, acceptanceDispatch, acceptanceInput); } catch (error) {
+          companionSwapRejected = /does not name its canonical companion/.test(error.message);
+        }
         writeFileSync(wrapperPath, `${JSON.stringify({
           type: "result", is_error: false, ...wrapperRecord, harness: undefined,
         })}\n`);
@@ -629,7 +641,7 @@ export async function run(t, { HERE }) {
           relabelRejected = /missing or divergent harness label/.test(error.message);
         }
         t.check("locked Codex reconstruction cannot be skipped by relabelling its wrapper",
-          lockedWrapperPasses && relabelRejected);
+          lockedWrapperPasses && companionSwapRejected && relabelRejected);
         const recovery = {
           type: "result", is_error: true, error: "codex emitted no final structured output",
           structured_output: null, raw_events: "events.jsonl",
@@ -727,6 +739,53 @@ export async function run(t, { HERE }) {
       && /critic prompt does not reproduce from locked inputs/.test(source)
       && /errors\.push\(\.\.\.stagedInputErrors\(runDir, manifest, cases\)\)/.test(source)
       && /errors\.push\(\.\.\.promptDerivationErrors\(runDir, manifest, cases\)\)/.test(source));
+  {
+    const namespaceRoot = mkdtempSync(join(tmpdir(), "prose-author-raw-namespace-"));
+    try {
+      const cell = (folder, name) => {
+        const wrapper = join(namespaceRoot, folder, `${name}.json`);
+        mkdirSync(dirname(wrapper), { recursive: true });
+        writeFileSync(wrapper, '{"recovered_from":null}\n');
+        writeFileSync(wrapper.replace(/\.json$/, ".codex-events.jsonl"), "{}\n");
+        writeFileSync(wrapper.replace(/\.json$/, ".codex-output.json"), "{}\n");
+      };
+      const stage = {
+        harness: "codex", model: "fixture", effort: "low",
+        transport: "native-structured", timeout_ms: 1,
+      };
+      const namespaceManifest = {
+        concurrency: 1,
+        dispatch: Object.fromEntries(["profile", "draft", "claim_audit", "critic"]
+          .map((name) => [name, stage])),
+      };
+      const namespaceCases = {
+        profiles: [{ id: "p", renders: 1 }], cases: [{ id: "d" }], refusals: [{ id: "r" }],
+      };
+      mkdirSync(join(namespaceRoot, "raw"), { recursive: true });
+      writeFileSync(join(namespaceRoot, "raw", "p-r1.md"), "canonical profile\n");
+      cell(join("raw", "profiles"), "p-r1");
+      cell(join("raw", "drafts"), "d");
+      cell(join("raw", "refusals"), "r");
+      cell(join("raw", "claim-audits"), "d");
+      for (let draw = 1; draw <= 3; draw += 1) cell(join("critics", "raw"), `d-d${draw}`);
+      const cleanNamespace = artifactHashErrors(
+        null, namespaceRoot, namespaceCases, namespaceManifest,
+      ).filter((error) => error.startsWith("raw namespace"));
+      writeFileSync(join(namespaceRoot, "raw", "profiles", "unindexed-redraw.codex-events.jsonl"), "{}\n");
+      writeFileSync(join(namespaceRoot, "critics", "raw", "d-d4.json"), "{}\n");
+      rmSync(join(namespaceRoot, "critics", "raw", "d-d3.codex-output.json"));
+      const tamperedNamespace = artifactHashErrors(
+        null, namespaceRoot, namespaceCases, namespaceManifest,
+      ).filter((error) => error.startsWith("raw namespace"));
+      t.check("raw namespaces reject orphan redraws, extra critic draws, and missing companions",
+        cleanNamespace.length === 0
+          && tamperedNamespace.some((error) => /unindexed-redraw\.codex-events\.jsonl/.test(error))
+          && tamperedNamespace.some((error) => /d-d4\.json/.test(error))
+          && tamperedNamespace.some((error) => /missing expected file d-d3\.codex-output\.json/.test(error)));
+    } finally {
+      rmSync(namespaceRoot, { recursive: true, force: true });
+    }
+  }
   {
     const body = readFileSync(join(HERE, "acceptance-runner.mjs"), "utf8");
     const hash = createHash("sha256").update(body).digest("hex");

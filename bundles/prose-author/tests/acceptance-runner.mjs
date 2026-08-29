@@ -731,7 +731,10 @@ function completedResult(path, expectedDispatch = null, expectedInput = null) {
     if (record.harness !== "codex") {
       throw new Error(`${rel(path)} Codex result wrapper has a missing or divergent harness label`);
     }
-    const eventErrors = codexRecordErrors(record);
+    const eventErrors = [
+      ...codexCompanionPathErrors(record, path),
+      ...codexRecordErrors(record),
+    ];
     if (eventErrors.length) throw new Error(`${rel(path)} ${eventErrors.join("; ")}`);
   }
   return record;
@@ -1937,6 +1940,80 @@ const ARTIFACT_PATH_KEYS = {
   evidence: ["claims_audit", "structural", "tally", "score"],
 };
 
+function expectedCellEvidenceFiles(output, dispatch) {
+  const paths = [resolve(output)];
+  if (dispatch.harness !== "codex") return paths;
+  paths.push(codexCompanion(output, "events.jsonl"), codexCompanion(output, "output.json"));
+  if (existsSync(output)) {
+    try {
+      if (json(output).recovered_from !== null && json(output).recovered_from !== undefined) {
+        paths.push(codexCompanion(output, "adapter-failure.json"));
+      }
+    } catch {
+      // The result parser reports the malformed wrapper independently. Do not infer
+      // an optional recovery file from bytes that are not a result object.
+    }
+  }
+  return paths.map((path) => resolve(path));
+}
+
+function codexCompanionPathErrors(record, output) {
+  if (record?.harness !== "codex") return [];
+  const expected = {
+    raw_events: rel(codexCompanion(output, "events.jsonl")),
+    raw_output: rel(codexCompanion(output, "output.json")),
+    recovered_from: record.recovered_from === null || record.recovered_from === undefined
+      ? null : rel(codexCompanion(output, "adapter-failure.json")),
+  };
+  return CODEX_COMPANION_KEYS.flatMap((key) =>
+    record[key] === expected[key]
+      ? [] : [`${rel(output)} ${key} does not name its canonical companion`]);
+}
+
+function exactNamespaceErrors(root, expectedPaths, label) {
+  const expected = new Set(expectedPaths.map((path) => relative(root, resolve(path))));
+  const actual = new Set(filesUnder(root));
+  return [
+    ...[...expected].filter((file) => !actual.has(file))
+      .map((file) => `raw namespace ${label} is missing expected file ${file}`),
+    ...[...actual].filter((file) => !expected.has(file))
+      .map((file) => `raw namespace ${label} has unexpected file ${file}`),
+  ];
+}
+
+function rawNamespaceErrors(runDir, manifest, cases) {
+  const rawRoot = join(runDir, "raw");
+  const expectedRaw = [];
+  const profileDispatch = manifestDispatch(manifest, "profile");
+  for (const profile of cases.profiles) {
+    for (let render = 1; render <= profile.renders; render += 1) {
+      const name = `${profile.id}-r${render}`;
+      expectedRaw.push(join(rawRoot, `${name}.md`));
+      expectedRaw.push(...expectedCellEvidenceFiles(join(rawRoot, "profiles", `${name}.json`), profileDispatch));
+    }
+  }
+  const draftDispatch = manifestDispatch(manifest, "draft");
+  for (const c of cases.cases) {
+    expectedRaw.push(...expectedCellEvidenceFiles(join(rawRoot, "drafts", `${c.id}.json`), draftDispatch));
+  }
+  for (const c of cases.refusals) {
+    expectedRaw.push(...expectedCellEvidenceFiles(join(rawRoot, "refusals", `${c.id}.json`), draftDispatch));
+  }
+  const auditDispatch = manifestDispatch(manifest, "claim_audit");
+  for (const c of cases.cases) {
+    expectedRaw.push(...expectedCellEvidenceFiles(join(rawRoot, "claim-audits", `${c.id}.json`), auditDispatch));
+  }
+  const criticRoot = join(runDir, "critics", "raw");
+  const criticDispatch = manifestDispatch(manifest, "critic");
+  const expectedCritics = cases.cases.flatMap((c) =>
+    Array.from({ length: 3 }, (_, index) =>
+      expectedCellEvidenceFiles(join(criticRoot, `${c.id}-d${index + 1}.json`), criticDispatch)).flat());
+  return [
+    ...exactNamespaceErrors(rawRoot, expectedRaw, "raw"),
+    ...exactNamespaceErrors(criticRoot, expectedCritics, "critics/raw"),
+  ];
+}
+
 const LEGACY_REPAIR_ARTIFACT_KEYS = [
   "repair_prompt", "repair_raw", "repair_source",
   "repair_raw_events", "repair_raw_output", "repair_recovered_from",
@@ -2004,9 +2081,9 @@ function sameIds(actual, expected) {
 }
 
 function artifactHashErrors(artifacts, runDir, cases, manifest) {
-  const errors = [];
+  const errors = [...rawNamespaceErrors(runDir, manifest, cases)];
   if (artifacts?.schema !== ARTIFACTS_SCHEMA) {
-    return ["ARTIFACTS.json has the wrong schema"];
+    return [...errors, "ARTIFACTS.json has the wrong schema"];
   }
   errors.push(...legacyRepairArtifactErrors(artifacts, "ARTIFACTS"));
   const profileIds = cases.profiles.map((p) => p.id);
@@ -2843,11 +2920,12 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
 export {
   ARTIFACT_PATH_KEYS, artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
-  codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
+  codexCompanionArtifactFields, codexCompanionPathErrors, codexRecordErrors,
+  committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, factualCandidateReasons, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, manifestStageSchema, modelAdapterName, prepareConfig, quotationAudit,
-  resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,
+  rawNamespaceErrors, resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,
   sentenceReviewTemplate, stagePrompt, strictlyCommittedAfter, structuralGates, validateCases,
 };

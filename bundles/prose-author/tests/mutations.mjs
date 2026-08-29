@@ -409,6 +409,27 @@ export const MUTATIONS = [
     guards: "a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper",
   },
   {
+    name: "skip the exact raw-result namespace inventory",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const errors = [...rawNamespaceErrors(runDir, manifest, cases)];",
+    with: "  const errors = [];",
+    guards: "an orphan failed call, redraw, or extra critic draw cannot survive outside the artifact index",
+  },
+  {
+    name: "allow extra files in a locked raw-result namespace",
+    file: ACCEPTANCE_RUNNER,
+    find: "    ...[...actual].filter((file) => !expected.has(file))",
+    with: "    ...[...actual].filter(() => false)",
+    guards: "renaming an earlier failed call cannot make a redrawn expected cell look unique",
+  },
+  {
+    name: "let a Codex wrapper point at another cell's companions",
+    file: ACCEPTANCE_RUNNER,
+    find: "    record[key] === expected[key]",
+    with: "    true",
+    guards: "each Codex wrapper is bound to its own canonical event, output, and recovery filenames",
+  },
+  {
     name: "trust a recorded artifact hash without reading its file",
     file: ACCEPTANCE_RUNNER,
     find: "    } else if (SHA(text(target)) !== expected) {",
