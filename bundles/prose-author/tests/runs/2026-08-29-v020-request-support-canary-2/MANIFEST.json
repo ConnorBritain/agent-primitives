@@ -1,0 +1,75 @@
+{
+  "schema": "prose-author-request-support-canary-manifest/1",
+  "prepared_commit": "2226d0e123faf6f8b42320ec328229b001534a80",
+  "design_sha256": "7d2459f86eceffe53ed965e25cf1a4afcd285484b330a27e3b12120412d780ef",
+  "concurrency": 1,
+  "locked_files": {
+    "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/DESIGN.json": "7d2459f86eceffe53ed965e25cf1a4afcd285484b330a27e3b12120412d780ef",
+    "bundles/prose-author/tests/request-support-canary.mjs": "33dcefb617e7f4c1066065691ddc912f90ea6e8d3844fef5f17ab0f80cae1448",
+    "primitives/agents/voice-draft/agent.md": "26295f36860eb0f45caac17c2920c9a62fe7ed6240b693c64113303d1ea58acb",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "96d784e52ee2c5e155873793eadd42c15a859ce30cea3fe0628079cf883b98b8",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "eb848348d0cf12c77446f30857d84f591993a98f1482982fe91f0bf11650dcf8",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912"
+  },
+  "agent": {
+    "source": "primitives/agents/voice-draft/agent.md",
+    "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/prompts/agents/draft.md",
+    "sha256": "7f6fbb237e1980326ebe28bf55545dd3cf01861c03343ef00178731ecbd2a2cc"
+  },
+  "schema_path": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/schemas/draft.json",
+  "schema_sha256": "02851f9440276a6a519f711ab0709288daf04b9b713e589fce3a51b92e053d7d",
+  "profile": {
+    "markdown": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/inputs/profiles/doctorow-blog/r1.md",
+    "markdown_sha256": "74cdab8ff82056f3d7006487bf8e6cd8e088e388067a9d1f67d0f1a5a1d99673",
+    "json": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/inputs/profiles/doctorow-blog/r1.json",
+    "json_sha256": "ca751fdac218345da5d3bae609e2bf58487bbbad7efbbd1925750d54d40836bf"
+  },
+  "prompts": {
+    "codex": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/prompts/drafts/codex.md",
+      "sha256": "8a1e0768e17bab838e63f92946d1c22d7a0d6de32982e31dd6aa5314f1461fc3"
+    },
+    "claude": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/prompts/drafts/claude.md",
+      "sha256": "8a1e0768e17bab838e63f92946d1c22d7a0d6de32982e31dd6aa5314f1461fc3"
+    }
+  },
+  "dispatches": {
+    "codex": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "claude": {
+      "harness": "claude-code",
+      "model": "sonnet",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "codex_no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ]
+}
