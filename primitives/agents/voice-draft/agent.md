@@ -247,18 +247,23 @@ applied to the initial source if it validates.
   named measured count; do not replace the whole draft. If only a qualitative instruction
   is missing, disclose that omission instead of using patch mode as an unmeasured rewrite.
 - `after` is the complete replacement for that anchor. It may be empty only for a deletion.
-- Name only measured rules that initially failed, and independently move every named rule
-  toward its allowed range. The coverage dimensions must exactly match those rules. Outside
-  the named measured forms, preserve the anchor's lexical content: a measured fix cannot
-  rewrite the argument, request stance, recommendation, facts, or a qualitative dimension.
-  Do not borrow a failing rule's ID for an unrelated rewrite.
+- Name every measured rule whose count the edit changes. At least one must initially fail,
+  and every named failing rule must move toward its allowed range. Coverage dimensions must
+  exactly match those rules. Patch mode may change only dashes, parenthesis marks, or a
+  meaning-equivalent contraction form. Otherwise preserve the exact structural stream:
+  case, words, unnamed punctuation, Markdown, line breaks, and paragraph boundaries.
+  Question-mark, pronoun-family, profanity, and other semantic-bearing counts must already
+  be in range in the initial draft; patch mode cannot certify them by changing prose. A
+  measured fix cannot rewrite the argument, request stance, recommendation, facts, or a
+  qualitative dimension. Do not borrow a failing rule's ID for an unrelated rewrite.
 - Return exactly ten coverage rows. A supported row is `preserved`, `revised`, or
   `omitted`; an unresolved row stays `unresolved`. A `revised` row must be named by an
   edit. An `omitted` row needs a matching `habit`/`why` record containing its dimension
   and observation IDs.
 - The local assembler rejects non-unique or overlapping anchors, out-of-range final
-  counts, any lexical change outside the exact measured forms, a dimension/rule mismatch,
-  an anchor crossing a paragraph boundary, cumulative replacement beyond the
+  counts, an unnamed measurement delta, any structural change outside the exact safe
+  measured forms, a dimension/rule mismatch, an anchor or replacement crossing a paragraph
+  boundary, cumulative replacement beyond the
   caller's stated retained-text budget, material expansion, movement farther from the
   requested word target, silent coverage omission, and any malformed final source. You do
   not estimate whether it passes.

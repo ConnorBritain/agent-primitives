@@ -208,7 +208,7 @@ export async function run(t, { HERE }) {
         && /exact, unique before\/after source replacements/.test(conformancePrompt)
         && /anchor[\s\S]*no larger than one paragraph/.test(conformancePrompt)
         && /before anchors may replace at most 24 of the initial 12 words/.test(conformancePrompt)
-        && /replacement must retain the same lexical content/.test(conformancePrompt)
+        && /replacement must retain the exact structural/.test(conformancePrompt)
         && /Return exactly ten coverage rows/.test(conformancePrompt));
     const patchCoverage = targetProfile.coverage.map((row) => ({
       dimension: row.dimension,
@@ -236,17 +236,26 @@ export async function run(t, { HERE }) {
         && applied.report.pass && applied.word_control.final_words >= applied.word_control.initial_words);
     const missed = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
-      edits: [{ ...conformingPatch.edits[0], after: "It needs a turn – and — gets — one." }],
+      edits: [{
+        ...conformingPatch.edits[0], after: "It needs a turn – and — gets — one.",
+        measurement_ids: ["en-dashes", "em-dashes"],
+      }],
     }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
     t.check("an exact patch that leaves a measured row out of range cannot pass", !missed.ok
       && missed.errors.some((error) => /final em-dashes count 2 is excess/.test(error)));
-    const unrelated = applyDraftConformancePatch(initialSource, {
+    const causalitySource = {
+      ...initialSource, draft: "We can fix – this sentence. It needs a turn and gets one.",
+    };
+    const causalityCard = structuredClone(targetCard);
+    const causalityEnDash = causalityCard.measurements.find((row) => row.measurement_id === "en-dashes");
+    causalityEnDash.gate_minimum = 2;
+    const unrelated = applyDraftConformancePatch(causalitySource, {
       ...conformingPatch,
       edits: [{
         ...conformingPatch.edits[0],
-        before: "We can fix this sentence.", after: "We can fix this sentence,",
+        before: "We can fix – this sentence.", after: "We can – fix this sentence.",
       }, conformingPatch.edits[0]],
-    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: causalityCard });
     t.check("an edit must itself improve one named failing measurement", !unrelated.ok
       && unrelated.errors.some((error) => /does not move every named failing measurement toward range/.test(error)));
     const semanticReversal = applyDraftConformancePatch({
@@ -265,6 +274,17 @@ export async function run(t, { HERE }) {
     t.check("a measured punctuation correction cannot reverse unrelated request semantics",
       !semanticReversal.ok
         && semanticReversal.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const commaReversal = applyDraftConformancePatch({
+      ...initialSource, draft: "Let's eat, Grandma.",
+    }, {
+      ...conformingPatch,
+      edits: [{
+        ...conformingPatch.edits[0], before: "Let's eat, Grandma.", after: "Let's eat Grandma –.",
+      }],
+    }, { request: "Invite Grandma to eat.", profile: targetProfile, card: targetCard });
+    t.check("a named dash correction cannot alter unnamed punctuation",
+      !commaReversal.ok
+        && commaReversal.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
     const borrowedProfile = structuredClone(targetProfile);
     const borrowedOpening = borrowedProfile.coverage.find((row) => row.dimension === "openings-endings-closure");
     borrowedOpening.status = "described";
@@ -289,13 +309,105 @@ export async function run(t, { HERE }) {
     t.check("an edit cannot borrow a failing measurement from another coverage dimension",
       !borrowedDimension.ok
         && borrowedDimension.errors.some((error) => /coverage_dimensions must exactly match/.test(error)));
+    const contractionProfile = structuredClone(targetProfile);
+    const contractionRow = contractionProfile.coverage.find((row) => row.dimension === "contraction-negation");
+    contractionRow.status = "described";
+    contractionRow.observation_ids = ["o01"];
+    delete contractionRow.unresolved_reason;
+    const contractionCoverage = contractionProfile.coverage.map((row) => ({
+      dimension: row.dimension,
+      observation_ids: [...(row.observation_ids ?? [])],
+      disposition: row.dimension === "contraction-negation" ? "revised"
+        : row.dimension === "interruption-punctuation" ? "preserved" : "unresolved",
+      reason: row.dimension === "contraction-negation"
+        ? "The edit changes only the measured negative form."
+        : row.dimension === "interruption-punctuation"
+          ? "The punctuation instruction is preserved."
+          : row.unresolved_reason,
+    }));
+    const contractionCard = {
+      schema: "voice-draft-target-card/1",
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 1, gate_maximum: 2,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 0, gate_minimum: 0, gate_maximum: 2,
+      }],
+    };
+    const unnamedCollateral = applyDraftConformancePatch({
+      ...initialSource, draft: "The service does not retain data.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "The service does not retain data.", after: "The service doesn't retain data.",
+        reason: "Uses the measured contraction form.",
+        coverage_dimensions: ["contraction-negation"], measurement_ids: ["contractions"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Reject retention.", profile: contractionProfile, card: contractionCard });
+    t.check("an edit must name an in-range measurement whose count it also changes",
+      !unnamedCollateral.ok
+        && unnamedCollateral.errors.some((error) => /measurement_ids must name every and only changed measurement/.test(error)));
+    const ambiguousContraction = applyDraftConformancePatch({
+      ...initialSource, draft: "I had completed the review.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "I had completed the review.", after: "I’d completed the review.",
+        reason: "Uses the measured contraction form without changing tense.",
+        coverage_dimensions: ["contraction-negation"], measurement_ids: ["contractions"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "State that the review had been completed.", profile: contractionProfile, card: contractionCard });
+    t.check("an ambiguous 'd contraction passes when one valid expansion preserves exact meaning",
+      ambiguousContraction.ok && ambiguousContraction.report.pass);
+    const pronounProfile = structuredClone(targetProfile);
+    const pronounRow = pronounProfile.coverage.find((row) => row.dimension === "person-reader-stance");
+    pronounRow.status = "described";
+    pronounRow.observation_ids = ["o01"];
+    delete pronounRow.unresolved_reason;
+    const pronounCoverage = pronounProfile.coverage.map((row) => ({
+      dimension: row.dimension,
+      observation_ids: [...(row.observation_ids ?? [])],
+      disposition: row.dimension === "person-reader-stance" ? "revised"
+        : row.dimension === "interruption-punctuation" ? "preserved" : "unresolved",
+      reason: row.dimension === "person-reader-stance"
+        ? "The edit claims to reduce collective self-reference."
+        : row.dimension === "interruption-punctuation"
+          ? "The punctuation instruction is preserved."
+          : row.unresolved_reason,
+    }));
+    const pronounCard = {
+      schema: "voice-draft-target-card/1",
+      measurements: [{
+        measurement_id: "first-person-plural-family", observation_id: "o01",
+        dimensions: ["person-reader-stance"], aim_count: 1, gate_minimum: 0, gate_maximum: 1,
+      }],
+    };
+    const moodShift = applyDraftConformancePatch({
+      ...initialSource, draft: "We reject the service. We retain the notes.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "We reject the service.", after: "Reject the service.",
+        reason: "Reduces excess collective self-reference.",
+        coverage_dimensions: ["person-reader-stance"], measurement_ids: ["first-person-plural-family"],
+      }],
+      coverage: pronounCoverage, omitted: [],
+    }, { request: "State that the organization rejects the service and retains the notes.", profile: pronounProfile, card: pronounCard });
+    t.check("a counted pronoun correction cannot turn a request stance into an imperative",
+      !moodShift.ok
+        && moodShift.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const expandedCard = structuredClone(targetCard);
+    expandedCard.measurements.find((row) => row.measurement_id === "en-dashes").gate_maximum = 30;
     const expanded = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
       edits: [{
         ...conformingPatch.edits[0],
-        after: `It needs a turn – ${", ".repeat(20).trim()} and gets one.`,
+        after: `It needs a turn ${"– ".repeat(20).trim()} and gets one.`,
       }],
-    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: expandedCard });
     t.check("a patch cannot satisfy counts by materially expanding the draft", !expanded.ok
       && expanded.errors.some((error) => /conformance patch expands/.test(error)));
     const duplicateSource = {
@@ -320,6 +432,14 @@ export async function run(t, { HERE }) {
     }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
     t.check("an exact patch anchor cannot span multiple paragraphs", !paragraphSpanning.ok
       && paragraphSpanning.errors.some((error) => /before spans more than one paragraph/.test(error)));
+    const paragraphCreating = applyDraftConformancePatch(initialSource, {
+      ...conformingPatch,
+      edits: [{
+        ...conformingPatch.edits[0], after: "It needs a turn –\n\nand gets one.",
+      }],
+    }, { request: "Write one paragraph.", profile: targetProfile, card: targetCard });
+    t.check("an exact patch replacement cannot create a new paragraph", !paragraphCreating.ok
+      && paragraphCreating.errors.some((error) => /after creates more than one paragraph/.test(error)));
     const equalLengthRewrite = applyDraftConformancePatch(wholesaleSource, {
       ...conformingPatch,
       edits: [{

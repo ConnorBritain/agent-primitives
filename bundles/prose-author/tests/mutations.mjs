@@ -394,9 +394,23 @@ export const MUTATIONS = [
   {
     name: "let measured punctuation edits rewrite unrelated semantics",
     file: DRAFT_CONFORMANCE,
-    find: "    if (measurementEditSkeleton(edit.before, edit.measurement_ids)",
-    with: "    if (false && measurementEditSkeleton(edit.before, edit.measurement_ids)",
+    find: "    if (![...beforeSkeletons].some((skeleton) => afterSkeletons.has(skeleton))) {",
+    with: "    if (false) {",
     guards: "a bounded measured correction cannot reverse the request stance or rewrite qualitative content",
+  },
+  {
+    name: "let an edit hide a collateral measurement delta",
+    file: DRAFT_CONFORMANCE,
+    find: "    if (!sameArray([...edit.measurement_ids].sort(), changedMeasurementIds)) {",
+    with: "    if (false) {",
+    guards: "every actual per-edit measurement change is named before coverage dimensions are derived",
+  },
+  {
+    name: "force ambiguous d contractions to mean would",
+    file: DRAFT_CONFORMANCE,
+    find: '/\\b([A-Za-z]+)[\'’]d\\b/i, ["had", "would"],',
+    with: '/\\b([A-Za-z]+)[\'’]d\\b/i, ["would"],',
+    guards: "a meaning-preserving had contraction is not rejected by an arbitrary ambiguity choice",
   },
   {
     name: "let a failing measurement revise an unrelated coverage dimension",

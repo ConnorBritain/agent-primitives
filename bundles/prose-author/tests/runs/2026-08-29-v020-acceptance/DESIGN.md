@@ -41,10 +41,13 @@ to this result.
   code rejects ambiguous or overlapping anchors, material expansion, movement away from the
   requested word target, any anchor spanning a paragraph boundary, cumulative replacement of
   more than 20% of source words (with a 24-word floor and 120-word ceiling), a silent coverage
-  omission, a measurement/coverage-dimension mismatch, any lexical change outside the exact
-  named measured forms, or any final measured habit outside its unchanged profile-derived
-  band. Contraction-form changes are normalized before lexical comparison; punctuation and
-  parenthetical corrections may change only the named marks. The
+  omission, an unnamed measurement delta, a measurement/coverage-dimension mismatch, any
+  structural change outside safe dash, parenthesis, and meaning-equivalent contraction-form
+  transformations, or any final measured habit outside its unchanged profile-derived band.
+  The comparison preserves case, words, unnamed punctuation, Markdown, line breaks, and
+  paragraph boundaries. Ambiguous `'d` and `'s` contractions pass only when at least one
+  valid expansion is byte-equivalent after normalization. Question-mark, pronoun-family,
+  profanity, and other semantic-bearing count changes are not patchable. The
   initial draft and patch remain separate immutable evidence; there is no candidate selection.
 - A separate model claim audit reads the request and immutable sentence units but no voice
   profile. It runs only after deterministic patch application and audits the conformed

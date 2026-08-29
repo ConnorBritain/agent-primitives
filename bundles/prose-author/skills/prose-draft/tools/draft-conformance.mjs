@@ -180,26 +180,52 @@ function expandMeasuredContractions(value) {
     .replace(/\b([A-Za-z]+)['’]re\b/gi, "$1 are")
     .replace(/\b([A-Za-z]+)['’]ve\b/gi, "$1 have")
     .replace(/\b([A-Za-z]+)['’]ll\b/gi, "$1 will")
-    .replace(/\b([A-Za-z]+)['’]d\b/gi, "$1 would")
-    .replace(/\b([A-Za-z]+)['’]m\b/gi, "$1 am")
-    .replace(/\b(it|that|there|here|who|what|where|when|how|why|he|she|let|one|nothing|everything|something|somebody|nobody|this)['’]s\b/gi, "$1 is");
+    .replace(/\b([A-Za-z]+)['’]m\b/gi, "$1 am");
 }
 
-function measurementEditSkeleton(value, measurementIds) {
+function expandAmbiguousContractionVariants(value) {
+  let variants = [value];
+  for (const [pattern, expansions] of [[
+    /\b([A-Za-z]+)['’]d\b/i, ["had", "would"],
+  ], [
+    /\b(it|that|there|here|who|what|where|when|how|why|he|she|let|one|nothing|everything|something|somebody|nobody|this)['’]s\b/i,
+    ["is", "has"],
+  ]]) {
+    while (variants.some((variant) => pattern.test(variant))) {
+      const next = [];
+      for (const variant of variants) {
+        const match = pattern.exec(variant);
+        if (!match) { next.push(variant); continue; }
+        for (const expansion of expansions) {
+          next.push(`${variant.slice(0, match.index)}${match[1]} ${expansion}${variant.slice(match.index + match[0].length)}`);
+        }
+      }
+      variants = next;
+      if (variants.length > 64) return [];
+    }
+  }
+  return variants;
+}
+
+function measurementEditSkeletons(value, measurementIds) {
   const ids = new Set(measurementIds);
-  let normalized = ids.has("contractions") || ids.has("uncontracted-negatives")
+  const expanded = ids.has("contractions") || ids.has("uncontracted-negatives")
     ? expandMeasuredContractions(value)
     : String(value ?? "");
-  for (const id of ids) {
-    if (["contractions", "uncontracted-negatives", "question-marks", "round-parenthetical-spans", "em-dashes", "en-dashes"].includes(id)) continue;
-    const rule = rules.get(id);
-    if (rule) normalized = normalized.replace(new RegExp(rule.pattern.source, rule.pattern.flags), " ");
-  }
-  if (ids.has("question-marks")) normalized = normalized.replace(/[?.]/g, " ");
-  if (ids.has("round-parenthetical-spans")) normalized = normalized.replace(/[()]/g, " ");
-  if (ids.has("em-dashes")) normalized = normalized.replace(/—/g, " ");
-  if (ids.has("en-dashes")) normalized = normalized.replace(/–/g, " ");
-  return (normalized.toLowerCase().match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) ?? []).join(" ");
+  const variants = ids.has("contractions") || ids.has("uncontracted-negatives")
+    ? expandAmbiguousContractionVariants(expanded)
+    : [expanded];
+  return new Set(variants.map((variant) => {
+    let normalized = variant;
+    if (ids.has("round-parenthetical-spans")) normalized = normalized.replace(/[()]/g, " ");
+    if (ids.has("em-dashes")) normalized = normalized.replace(/—/g, " ");
+    if (ids.has("en-dashes")) normalized = normalized.replace(/–/g, " ");
+    return normalized.normalize("NFC")
+      .replace(/\r\n?/g, "\n")
+      .replace(/[ \t]+/g, " ")
+      .replace(/ *\n */g, "\n")
+      .trim();
+  }));
 }
 
 export function replacementWordAllowance(initialWords) {
@@ -246,6 +272,7 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     if (edit.before === edit.after) errors.push(`${at} does not change its anchor`);
     if (/```/.test(edit.before) || /```/.test(edit.after)) errors.push(`${at} cannot introduce or address output fences`);
     if (/\n\s*\n/.test(edit.before)) errors.push(`${at}.before spans more than one paragraph`);
+    if (/\n\s*\n/.test(edit.after)) errors.push(`${at}.after creates more than one paragraph`);
     if (!Array.isArray(edit.coverage_dimensions) || edit.coverage_dimensions.length < 1
       || new Set(edit.coverage_dimensions).size !== edit.coverage_dimensions.length
       || edit.coverage_dimensions.some((id) => !COVERAGE_DIMENSIONS.includes(id))) {
@@ -288,18 +315,23 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     );
     const improved = relevant.filter((row) =>
       distanceFromRange(afterByMeasurement.get(row.measurement_id)) < distanceFromRange(row));
-    if (relevant.length !== namedRows.length) {
-      errors.push(`patch.edits[${index}] names a measurement that was not initially failing`);
+    const changedMeasurementIds = initialReport.measurements
+      .filter((row) => afterByMeasurement.get(row.measurement_id)?.actual_count !== row.actual_count)
+      .map((row) => row.measurement_id)
+      .sort();
+    if (!sameArray([...edit.measurement_ids].sort(), changedMeasurementIds)) {
+      errors.push(`patch.edits[${index}].measurement_ids must name every and only changed measurement (${changedMeasurementIds.join(", ")})`);
     }
     if (improved.length !== relevant.length || improved.length === 0) {
       errors.push(`patch.edits[${index}] does not move every named failing measurement toward range`);
     }
-    const expectedDimensions = [...new Set(relevant.flatMap((row) => row.dimensions))].sort();
+    const expectedDimensions = [...new Set(namedRows.flatMap((row) => row.dimensions))].sort();
     if (!sameArray([...edit.coverage_dimensions].sort(), expectedDimensions)) {
       errors.push(`patch.edits[${index}].coverage_dimensions must exactly match its improved measurements (${expectedDimensions.join(", ")})`);
     }
-    if (measurementEditSkeleton(edit.before, edit.measurement_ids)
-      !== measurementEditSkeleton(edit.after, edit.measurement_ids)) {
+    const beforeSkeletons = measurementEditSkeletons(edit.before, edit.measurement_ids);
+    const afterSkeletons = measurementEditSkeletons(edit.after, edit.measurement_ids);
+    if (![...beforeSkeletons].some((skeleton) => afterSkeletons.has(skeleton))) {
       errors.push(`patch.edits[${index}] changes lexical content outside its named measurement forms`);
     }
   }
