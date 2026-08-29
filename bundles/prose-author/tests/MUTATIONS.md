@@ -33,6 +33,19 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
 | score the handwritten tally instead of rebuilding raw critic evidence | 1 | a passing TALLY.json cannot conceal failing raw critic draws |
+| leave transitive scoring dependencies outside the prepare lock | 1 | the immutable run locks the full local scoring and structural dependency closure |
+| resume from an uncommitted mutable manifest | 1 | the prepared manifest is committed unchanged before its first dispatch |
+| relabel recoverable Codex events under a new manifest | 1 | Codex recovery preserves the dispatch provenance of the original event stream |
+| let required artifact path and hash pairs disappear together | 1 | a missing required artifact cannot pass merely because its hash was also removed |
+| omit concurrency from raw dispatch provenance | 2 | every raw result records the manifest's actual locked concurrency |
+| omit the exact prompt from raw invocation provenance | 1 | each raw result is bound to the exact prompt bytes sent to its model |
+| stop checking invocation provenance on final evidence | 1 | final verification matches every raw result to its system prompt, user prompt, and schema |
+| skip staged input reconstruction during final check | 1 | final acceptance rederives every staged corpus input from the locked fixture |
+| skip prompt reconstruction during final check | 1 | final acceptance rederives every model prompt from locked inputs and raw predecessors |
+| skip raw profile reconstruction during final check | 1 | canonical profile files and stability reproduce from raw profile responses |
+| score canonical drafts without reconstructing raw draft evidence | 1 | structural gates score drafts reconstructed from raw draft and audit responses |
+| skip claims audit linkage during final check | 1 | manual claims decisions stay linked to the exact draft, disclosure, and quotations |
+| trust canonical critic sources instead of comparing them to raw | 1 | critic canonical sources reproduce byte-for-byte from raw model results |
 | drop the explicit type from context-specific profile dimensions | 1 | the generated profile schema remains valid in strict structured-output harnesses |
 | derive the critic verdict from its finding count | 1 | the model-owned verdict remains independent from the findings-rate instrument |
 | drop the drafter's sentence-by-sentence claim inventory | 2 | a nearby disclosed fact cannot hide a second checkable assertion |

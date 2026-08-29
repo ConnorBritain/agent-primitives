@@ -1,12 +1,15 @@
 /** Acceptance harness integrity — the scorer may not grade its own handwritten tally. */
 
-import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
+import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
-import { join } from "node:path";
+import { tmpdir } from "node:os";
+import { dirname, join } from "node:path";
 
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
-  criticPrompt, deriveCritic, draftPrompt, manifestDispatch, profileRenderPrompt, quotationAudit, validateCases,
+  committedFileError, criticPrompt, deriveCritic, draftPrompt, invocationInput, localModuleClosure, manifestDispatch,
+  prepareConfig, profileRenderPrompt, quotationAudit, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -113,7 +116,7 @@ export async function run(t, { HERE }) {
   }
   t.check("completed responses are immutable rather than overwritten",
     /exists but is not a completed successful response; do not redraw it/.test(source)
-      && /if \(completedResult\(output, dispatch\)\) return \{ skipped: true/.test(source));
+      && /if \(completedResult\(output, dispatch, input\)\) return \{ skipped: true/.test(source));
   t.check("acceptance requires source JSON to parse without transport repair",
     /source required \$\{decoded\.repairs\} transport quote repair/.test(source));
   t.check("a locked native transport cannot silently fall back to fenced text",
@@ -131,10 +134,9 @@ export async function run(t, { HERE }) {
     ["--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "--no-chrome"]
       .every((flag) => source.includes(`\"${flag}\"`)));
   t.check("Codex is the default draft harness with an independently pinned model",
-    /ACCEPTANCE_DRAFT_HARNESS \|\| "codex"/.test(source)
-      && /ACCEPTANCE_DRAFT_MODEL[\s\S]*"gpt-5\.6-luna"/.test(source)
-      && /harness: DRAFT_HARNESS === "codex" \? "codex" : "claude-code"/.test(source)
-      && /model: DRAFT_MODEL, effort: DRAFT_EFFORT/.test(source));
+    prepareConfig({}).draftHarness === "codex"
+      && prepareConfig({}).draftModel === "gpt-5.6-luna"
+      && /harness: config\.draftHarness === "codex" \? "codex" : "claude-code"/.test(source));
   t.check("Codex draft calls disable every local, network, connector, and collaboration tool class",
     ["features.shell_tool=false", "features.unified_exec=false", "features.apps=false",
       "features.browser_use=false", "features.computer_use=false", "features.multi_agent=false",
@@ -162,25 +164,24 @@ export async function run(t, { HERE }) {
       && /recovered_from/.test(source)
       && /preserveFailure: true/.test(source));
   t.check("the model effort is pinned in the manifest rather than inherited",
-    /model: DRAFT_MODEL, effort: DRAFT_EFFORT/.test(source)
-      && /model: MODEL, effort: CRITIC_EFFORT/.test(source)
-      && /model: MODEL, effort: CLAIM_AUDIT_EFFORT/.test(source)
-      && /model: MODEL, effort: PROFILE_EFFORT/.test(source)
+    /model: config\.draftModel, effort: config\.draftEffort/.test(source)
+      && /model: config\.model, effort: config\.criticEffort/.test(source)
+      && /model: config\.model, effort: config\.claimAuditEffort/.test(source)
+      && /model: config\.model, effort: config\.profileEffort/.test(source)
       && /"--effort", dispatch\.effort/.test(source));
   t.check("acceptance defaults to one model process and native structured profile transport",
-    /ACCEPTANCE_CONCURRENCY \|\| "1"/.test(source)
-      && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0"/.test(source)
-      && /transport: PROFILE_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+    prepareConfig({}).concurrency === 1 && prepareConfig({}).profileNative
+      && /transport: config\.profileNative \? "native-structured" : "json-fence"/.test(source));
   t.check("acceptance defaults to native structured draft transport and records it in the manifest",
-    /ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0"/.test(source)
-      && /transport: DRAFT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+    prepareConfig({}).draftNative
+      && /transport: config\.draftNative \? "native-structured" : "json-fence"/.test(source));
   t.check("acceptance defaults to a native independent claim-audit transport",
-    /ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0"/.test(source)
-      && /transport: CLAIM_AUDIT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
+    prepareConfig({}).claimAuditNative
+      && /transport: config\.claimAuditNative \? "native-structured" : "json-fence"/.test(source)
       && source.includes('dispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null'));
   t.check("acceptance defaults to native structured critic transport and validates assembly",
-    /ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0"/.test(source)
-      && /transport: CRITIC_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
+    prepareConfig({}).criticNative
+      && /transport: config\.criticNative \? "native-structured" : "json-fence"/.test(source)
       && source.includes('dispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null')
       && source.includes("assembleVoiceCritic(decoded.source"));
   t.check("critic dispatch is blocked until the independent claims audit is complete",
@@ -188,25 +189,84 @@ export async function run(t, { HERE }) {
 
   t.group("v0.2 acceptance harness — prepared configuration is the only dispatch authority");
   {
-    const config = manifestDispatch({ dispatch: { draft: {
+    const lockedManifest = { concurrency: 2, dispatch: { draft: {
       harness: "codex", model: "locked-model", effort: "high",
       transport: "native-structured", timeout_ms: 1234,
-    } } }, "draft");
+    } } };
+    const config = manifestDispatch(lockedManifest, "draft");
     t.check("a prepared stage resolves all runtime choices from one locked manifest record",
-      JSON.stringify(config) === JSON.stringify({
-        harness: "codex", model: "locked-model", effort: "high",
-        transport: "native-structured", timeout_ms: 1234,
-      }));
+      config.stage === "draft" && config.harness === "codex" && config.model === "locked-model"
+        && config.effort === "high" && config.transport === "native-structured"
+        && config.timeout_ms === 1234 && config.concurrency === 2
+        && /^[a-f0-9]{64}$/.test(config.manifest_sha256));
     t.check("Codex cannot be resumed under an unlocked fence transport",
       (() => {
         try {
-          manifestDispatch({ dispatch: { draft: { ...config, transport: "json-fence" } } }, "draft");
+          manifestDispatch({ concurrency: 2, dispatch: { draft: {
+            harness: "codex", model: "locked-model", effort: "high",
+            transport: "json-fence", timeout_ms: 1234,
+          } } }, "draft");
           return false;
         } catch { return true; }
       })());
+    t.check("dispatch provenance fingerprints concurrency and the complete manifest",
+      /manifest_sha256: manifestFingerprint\(manifest\)/.test(source)
+        && /concurrency: manifest\.concurrency/.test(source));
+    {
+      const systemPath = join(HERE, "bar.mjs");
+      const one = invocationInput(systemPath, "first", { schema: { type: "object" } });
+      const two = invocationInput(systemPath, "second", { schema: { type: "object" } });
+      const three = invocationInput(systemPath, "first", { schema: { type: "string" } });
+      t.check("raw invocation provenance binds exact system, prompt, and schema bytes",
+        /^[a-f0-9]{64}$/.test(one.system_sha256)
+          && one.prompt_sha256 !== two.prompt_sha256
+          && one.schema_sha256 !== three.schema_sha256
+          && /completedResult\(item\.path, item\.dispatch, item\.input\)/.test(source));
+    }
+    {
+      const anchorRoot = mkdtempSync(join(tmpdir(), "prose-author-manifest-anchor-"));
+      try {
+        const anchorFile = join(anchorRoot, "MANIFEST.json");
+        writeFileSync(anchorFile, "{}\n");
+        execFileSync("git", ["init", "-q"], { cwd: anchorRoot, stdio: "ignore" });
+        execFileSync("git", ["add", "MANIFEST.json"], { cwd: anchorRoot, stdio: "ignore" });
+        execFileSync("git", ["-c", "user.name=Test", "-c", "user.email=test@example.invalid",
+          "commit", "-qm", "lock"], { cwd: anchorRoot, stdio: "ignore" });
+        const committed = committedFileError(anchorFile, anchorRoot) === null;
+        writeFileSync(anchorFile, "{\"changed\":true}\n");
+        t.check("a prepared manifest must be committed unchanged before any stage resumes",
+          committed && /differs from its committed HEAD version/.test(committedFileError(anchorFile, anchorRoot))
+            && /const anchorError = committedFileError\(p\.manifest\)/.test(source)
+            && /MANIFEST\.json must be committed unchanged before dispatch/.test(source));
+      } finally {
+        rmSync(anchorRoot, { recursive: true, force: true });
+      }
+    }
+    const closure = localModuleClosure(["bundles/prose-author/tests/acceptance-runner.mjs"]);
+    t.check("the prepare lock contains the transitive scoring and structural dependency closure",
+      ["bundles/prose-author/tests/bar.mjs", "bundles/prose-author/tests/loop.mjs",
+        "bundles/prose-author/tests/cross-count.mjs", "bundles/prose-author/tests/corpus-rates.mjs",
+        "bundles/prose-author/tests/run-gates.mjs"]
+        .every((file) => closure.includes(file))
+        && /\.\.\.localModuleClosure\(\["bundles\/prose-author\/tests\/acceptance-runner\.mjs"\]\)/.test(source));
     t.check("every model result is checked against its locked stage provenance",
-      /acceptance_dispatch[\s\S]*dispatch provenance does not match its locked manifest stage/.test(source)
+      /resultMatchesDispatch\(record, expectedDispatch\)/.test(source)
+        && /dispatch provenance does not match its locked manifest stage/.test(source)
         && /completedResult\(rawPath, dispatch\)/.test(source));
+    t.check("a recoverable Codex failure cannot be relabelled under a new manifest",
+      /recoverable failure dispatch does not match its locked manifest stage/.test(source)
+        && /if \(!resultMatchesDispatch\(existing, dispatch\)/.test(source)
+        && /existing\.acceptance_input/.test(source));
+    t.check("invalid prepare-only environment does not break a read-only import",
+      (() => {
+        try {
+          execFileSync(process.execPath, ["--input-type=module", "-e",
+            `await import(${JSON.stringify(join(HERE, "acceptance-runner.mjs"))})`], {
+            env: { ...process.env, ACCEPTANCE_CONCURRENCY: "not-an-integer" }, stdio: "ignore",
+          });
+          return true;
+        } catch { return false; }
+      })());
   }
 
   t.group("v0.2 acceptance harness — claim and quotation audit");
@@ -268,15 +328,19 @@ export async function run(t, { HERE }) {
       && /profile prompt does not reproduce from locked inputs/.test(source)
       && /draft prompt does not reproduce from its locked request and profile/.test(source)
       && /claim-audit prompt does not reproduce from the raw draft/.test(source)
-      && /critic prompt does not reproduce from locked inputs/.test(source));
+      && /critic prompt does not reproduce from locked inputs/.test(source)
+      && /errors\.push\(\.\.\.stagedInputErrors\(runDir, manifest, cases\)\)/.test(source)
+      && /errors\.push\(\.\.\.promptDerivationErrors\(runDir, manifest, cases\)\)/.test(source));
   {
     const body = readFileSync(join(HERE, "acceptance-runner.mjs"), "utf8");
     const hash = createHash("sha256").update(body).digest("hex");
     const entry = { raw: "bundles/prose-author/tests/acceptance-runner.mjs", raw_sha256: hash };
-  t.check("recorded artifact hashes are verified against their files",
+    t.check("recorded artifact hashes are verified against their files",
       artifactEntryHashErrors(entry, ["raw"], "fixture", HERE).length === 0
         && artifactEntryHashErrors({ ...entry, raw_sha256: "0".repeat(64) }, ["raw"], "fixture", HERE)
-          .some((error) => /hash mismatch/.test(error)));
+          .some((error) => /hash mismatch/.test(error))
+        && artifactEntryHashErrors({}, ["raw"], "fixture", HERE)
+          .some((error) => /required path\/hash pair is missing/.test(error)));
   }
   t.check("profile render hashes and k=3 stability are independently reproducible",
     /render_sha256: SHA\(text\(rawRender\)\)/.test(source)
@@ -285,10 +349,43 @@ export async function run(t, { HERE }) {
   t.check("TALLY, structural gates, and score are rederived from raw critic results during check",
     /function deriveAcceptanceEvidence/.test(source)
       && /const evidence = deriveAcceptanceEvidence\(runDir, manifest, cases\);/.test(source)
+      && /if \(!existsSync\(sourcePath\) \|\| text\(sourcePath\) !== sourceBody\)/.test(source)
       && /\[p\.structural, evidence\.structural, "STRUCTURAL\.json"\]/.test(source)
       && /\[p\.tally, evidence\.tally, "TALLY\.json"\]/.test(source)
       && /\[p\.score, evidence\.score, "SCORE\.json"\]/.test(source)
       && /\$\{label\} does not reproduce from immutable raw results/.test(source));
+  t.check("profiles, audited drafts, disclosures, refusals, and structural gates reconstruct from raw",
+    /function deriveProfileEvidence/.test(source)
+      && /const profiles = deriveProfileEvidence\(runDir, manifest, cases\)/.test(source)
+      && /profile evidence cannot be rederived/.test(source)
+      && /function deriveDraftEvidence/.test(source)
+      && /const draftEvidence = deriveDraftEvidence\(runDir, manifest, cases\)/.test(source)
+      && /does not reproduce from immutable raw results/.test(source));
+  {
+    const auditRoot = mkdtempSync(join(tmpdir(), "prose-author-audit-link-"));
+    try {
+      const draftPath = join(auditRoot, "inputs", "drafts", "x.txt");
+      mkdirSync(dirname(draftPath), { recursive: true });
+      const draft = "The supplied phrase appears.\n";
+      writeFileSync(draftPath, draft);
+      const draftHash = createHash("sha256").update(draft).digest("hex");
+      const auditCases = { cases: [{ id: "x", prompt: "Use the supplied phrase." }] };
+      const audit = { schema: "prose-author-claims-audit/2", drafts: { x: {
+        draft_sha256: draftHash, claims: [],
+        quoted_spans: quotationAudit(draft, auditCases.cases[0].prompt),
+        claims_verified: true, disclosure_complete: true, quotations_verified: true,
+      } } };
+      const artifacts = { drafts: { x: { draft_sha256: draftHash, disclosure: null } } };
+      t.check("claim-audit linkage is rederived from the canonical draft and disclosure",
+        claimsAuditFailures(audit, auditCases, artifacts, auditRoot).length === 0
+          && claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+            draft_sha256: "0".repeat(64),
+          } } }, auditCases, artifacts, auditRoot).some((error) => /audited draft hash drifted/.test(error))
+          && /claimsAuditFailures\(json\(p\.audit\), cases, artifacts, runDir\)/.test(source));
+    } finally {
+      rmSync(auditRoot, { recursive: true, force: true });
+    }
+  }
 
   t.group("v0.2 acceptance harness — critic contracts are derived from raw bodies");
   {

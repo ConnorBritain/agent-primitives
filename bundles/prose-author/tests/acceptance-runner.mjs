@@ -7,6 +7,7 @@
  * manifest and must preserve the renderer -> drafter -> critic provenance chain.
  *
  *   node tests/acceptance-runner.mjs prepare  tests/runs/<run>
+ *   git add tests/runs/<run> && git commit  # anchor MANIFEST.json before any dispatch
  *   node tests/acceptance-runner.mjs profiles tests/runs/<run>
  *   node tests/acceptance-runner.mjs drafts   tests/runs/<run>
  *   node tests/acceptance-runner.mjs critics  tests/runs/<run>
@@ -60,23 +61,6 @@ const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/2";
 const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/2";
-const MODEL = process.env.ACCEPTANCE_MODEL || "sonnet";
-const DRAFT_HARNESS = process.env.ACCEPTANCE_DRAFT_HARNESS || "codex";
-if (!["claude", "codex"].includes(DRAFT_HARNESS)) {
-  throw new Error("ACCEPTANCE_DRAFT_HARNESS must be claude or codex");
-}
-const DRAFT_MODEL = process.env.ACCEPTANCE_DRAFT_MODEL
-  || (DRAFT_HARNESS === "codex" ? "gpt-5.6-luna" : MODEL);
-const DRAFT_EFFORT = process.env.ACCEPTANCE_DRAFT_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
-const CLAIM_AUDIT_EFFORT = process.env.ACCEPTANCE_CLAIM_AUDIT_EFFORT || "low";
-const CRITIC_EFFORT = process.env.ACCEPTANCE_CRITIC_EFFORT || process.env.ACCEPTANCE_EFFORT || "medium";
-const PROFILE_EFFORT = process.env.ACCEPTANCE_PROFILE_EFFORT || "low";
-const CONCURRENCY = positiveInt(process.env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY");
-const MODEL_TIMEOUT_MS = positiveInt(process.env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS");
-const PROFILE_NATIVE_SCHEMA = process.env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0";
-const DRAFT_NATIVE_SCHEMA = process.env.ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0";
-const CLAIM_AUDIT_NATIVE_SCHEMA = process.env.ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0";
-const CRITIC_NATIVE_SCHEMA = process.env.ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0";
 const STAGES = ["profile", "draft", "claim_audit", "critic"];
 const TRANSPORTS = new Set(["native-structured", "json-fence"]);
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
@@ -135,8 +119,39 @@ function positiveInt(value, name) {
   return n;
 }
 
+function prepareConfig(env = process.env) {
+  const model = env.ACCEPTANCE_MODEL || "sonnet";
+  const draftHarness = env.ACCEPTANCE_DRAFT_HARNESS || "codex";
+  if (!["claude", "codex"].includes(draftHarness)) {
+    throw new Error("ACCEPTANCE_DRAFT_HARNESS must be claude or codex");
+  }
+  return {
+    model,
+    draftHarness,
+    draftModel: env.ACCEPTANCE_DRAFT_MODEL
+      || (draftHarness === "codex" ? "gpt-5.6-luna" : model),
+    draftEffort: env.ACCEPTANCE_DRAFT_EFFORT || env.ACCEPTANCE_EFFORT || "medium",
+    claimAuditEffort: env.ACCEPTANCE_CLAIM_AUDIT_EFFORT || "low",
+    criticEffort: env.ACCEPTANCE_CRITIC_EFFORT || env.ACCEPTANCE_EFFORT || "medium",
+    profileEffort: env.ACCEPTANCE_PROFILE_EFFORT || "low",
+    concurrency: positiveInt(env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY"),
+    timeoutMs: positiveInt(env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS"),
+    profileNative: env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0",
+    draftNative: env.ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0",
+    claimAuditNative: env.ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0",
+    criticNative: env.ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0",
+  };
+}
+
+function manifestFingerprint(manifest) {
+  return SHA(JSON.stringify(manifest));
+}
+
 function manifestDispatch(manifest, stage) {
   if (!STAGES.includes(stage)) throw new Error(`unknown acceptance stage ${stage}`);
+  if (!Number.isInteger(manifest?.concurrency) || manifest.concurrency < 1) {
+    throw new Error("manifest concurrency is invalid");
+  }
   const config = manifest?.dispatch?.[stage];
   if (!config || typeof config !== "object" || Array.isArray(config)) {
     throw new Error(`manifest has no locked ${stage} dispatch configuration`);
@@ -151,21 +166,35 @@ function manifestDispatch(manifest, stage) {
     throw new Error(`manifest ${stage} Codex dispatch requires native-structured transport`);
   }
   return {
+    stage,
     harness: config.harness,
     model: config.model,
     effort: config.effort,
     transport: config.transport,
     timeout_ms: config.timeout_ms,
+    concurrency: manifest.concurrency,
+    manifest_sha256: manifestFingerprint(manifest),
   };
 }
 
 function resultDispatch(config) {
   return {
+    stage: config.stage,
     harness: config.harness,
     model: config.model,
     effort: config.effort,
     transport: config.transport,
     timeout_ms: config.timeout_ms,
+    concurrency: config.concurrency,
+    manifest_sha256: config.manifest_sha256,
+  };
+}
+
+function invocationInput(system, prompt, { schema = null, schemaPath = null } = {}) {
+  return {
+    system_sha256: SHA(text(system)),
+    prompt_sha256: SHA(prompt),
+    schema_sha256: schemaPath ? SHA(text(schemaPath)) : (schema ? SHA(JSON.stringify(schema)) : null),
   };
 }
 
@@ -175,6 +204,41 @@ function die(message, code = 1) {
 }
 
 function rel(path) { return relative(REPO, path); }
+
+function localModuleClosure(entries, repo = REPO) {
+  const seen = new Set();
+  const queue = entries.map((entry) => resolve(repo, entry));
+  while (queue.length) {
+    const file = queue.shift();
+    const relativeFile = relative(repo, file);
+    if (relativeFile.startsWith("..") || seen.has(relativeFile)) continue;
+    if (!existsSync(file)) throw new Error(`locked module is missing: ${relativeFile}`);
+    seen.add(relativeFile);
+    const source = text(file);
+    const imports = source.matchAll(/(?:import|export)\s+(?:[^"'`;]*?\s+from\s+)?["'](\.[^"']+)["']/g);
+    for (const match of imports) {
+      let dependency = resolve(dirname(file), match[1]);
+      if (!existsSync(dependency) && existsSync(`${dependency}.mjs`)) dependency = `${dependency}.mjs`;
+      if (!existsSync(dependency)) throw new Error(`cannot resolve locked import ${match[1]} from ${relativeFile}`);
+      queue.push(dependency);
+    }
+  }
+  return [...seen].sort();
+}
+
+function committedFileError(path, repo = REPO) {
+  const relativePath = relative(repo, resolve(path));
+  if (relativePath.startsWith("..")) return "file is outside the repository";
+  try {
+    const committed = execFileSync("git", ["show", `HEAD:${relativePath}`], {
+      cwd: repo, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"],
+    });
+    if (committed !== text(path)) return "file differs from its committed HEAD version";
+  } catch {
+    return "file is not committed at HEAD";
+  }
+  return null;
+}
 
 function runPath(arg) {
   if (!arg) die("usage: acceptance-runner.mjs <prepare|profiles|drafts|critics|collect|check> <run-dir>", 2);
@@ -318,27 +382,17 @@ function prepare(runDir) {
   const cases = json(p.cases);
   const problems = validateCases(cases);
   if (problems.length) die(problems.join("; "));
+  const config = prepareConfig();
 
   // The acceptance design explicitly locks implementation before the first acceptance
   // draft. Make that a mechanism: every file capable of changing the pipeline must be
   // tracked and byte-identical to HEAD before a manifest can be prepared.
-  const locked = [
+  const locked = [...new Set([
     rel(p.design), rel(p.cases),
     ...Object.values(AGENTS),
-    "bundles/prose-author/tests/voice-profile.mjs",
-    "bundles/prose-author/tests/voice-draft.mjs",
-    "bundles/prose-author/tests/voice-critic-source.mjs",
-    "bundles/prose-author/tests/coverage-analysis.mjs",
-    "bundles/prose-author/tests/profile-stability.mjs",
-    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs",
-    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs",
-    "bundles/prose-author/skills/prose-draft/tools/profile-assemble.mjs",
-    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs",
-    "bundles/prose-author/skills/prose-draft/tools/draft-assemble.mjs",
-    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs",
-    "bundles/prose-author/tests/acceptance-runner.mjs",
+    ...localModuleClosure(["bundles/prose-author/tests/acceptance-runner.mjs"]),
     "bundles/prose-author/tests/fixtures/voice-draft-regressions/safeguards.json",
-  ];
+  ])].sort();
   try {
     execFileSync("git", ["ls-files", "--error-unmatch", ...locked], { cwd: REPO, stdio: "ignore" });
     execFileSync("git", ["diff", "--quiet", "HEAD", "--", ...locked], { cwd: REPO, stdio: "ignore" });
@@ -401,29 +455,29 @@ function prepare(runDir) {
     prepared_commit: preparedCommit,
     dispatch: {
       profile: {
-        harness: "claude-code", model: MODEL, effort: PROFILE_EFFORT,
-        transport: PROFILE_NATIVE_SCHEMA ? "native-structured" : "json-fence",
-        timeout_ms: MODEL_TIMEOUT_MS,
+        harness: "claude-code", model: config.model, effort: config.profileEffort,
+        transport: config.profileNative ? "native-structured" : "json-fence",
+        timeout_ms: config.timeoutMs,
       },
       draft: {
-        harness: DRAFT_HARNESS === "codex" ? "codex" : "claude-code",
-        model: DRAFT_MODEL, effort: DRAFT_EFFORT,
-        transport: DRAFT_NATIVE_SCHEMA ? "native-structured" : "json-fence",
-        timeout_ms: MODEL_TIMEOUT_MS,
+        harness: config.draftHarness === "codex" ? "codex" : "claude-code",
+        model: config.draftModel, effort: config.draftEffort,
+        transport: config.draftNative ? "native-structured" : "json-fence",
+        timeout_ms: config.timeoutMs,
       },
       claim_audit: {
-        harness: "claude-code", model: MODEL, effort: CLAIM_AUDIT_EFFORT,
-        transport: CLAIM_AUDIT_NATIVE_SCHEMA ? "native-structured" : "json-fence",
-        timeout_ms: MODEL_TIMEOUT_MS,
+        harness: "claude-code", model: config.model, effort: config.claimAuditEffort,
+        transport: config.claimAuditNative ? "native-structured" : "json-fence",
+        timeout_ms: config.timeoutMs,
       },
       critic: {
-        harness: "claude-code", model: MODEL, effort: CRITIC_EFFORT,
-        transport: CRITIC_NATIVE_SCHEMA ? "native-structured" : "json-fence",
-        timeout_ms: MODEL_TIMEOUT_MS,
+        harness: "claude-code", model: config.model, effort: config.criticEffort,
+        transport: config.criticNative ? "native-structured" : "json-fence",
+        timeout_ms: config.timeoutMs,
       },
     },
-    concurrency: CONCURRENCY,
-    codex_no_tools_config: DRAFT_HARNESS === "codex" ? CODEX_NO_TOOLS_CONFIG : [],
+    concurrency: config.concurrency,
+    codex_no_tools_config: config.draftHarness === "codex" ? CODEX_NO_TOOLS_CONFIG : [],
     schemas: {
       draft: { path: rel(draftSchemaPath), sha256: SHA(text(draftSchemaPath)) },
     },
@@ -449,6 +503,7 @@ function prepare(runDir) {
     }
   }
   process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 independent claim audits, 60 critic draws\n\n`);
+  process.stdout.write("  commit the prepared run, including MANIFEST.json, before dispatching profiles\n\n");
 }
 
 function loadPrepared(runDir) {
@@ -461,10 +516,12 @@ function loadPrepared(runDir) {
     die("MANIFEST.json has invalid locked concurrency");
   }
   for (const stage of STAGES) manifestDispatch(manifest, stage);
+  const anchorError = committedFileError(p.manifest);
+  if (anchorError) die(`MANIFEST.json must be committed unchanged before dispatch: ${anchorError}`);
   return { p, manifest, cases };
 }
 
-function completedResult(path, expectedDispatch = null) {
+function completedResult(path, expectedDispatch = null, expectedInput = null) {
   if (!existsSync(path)) return null;
   const record = json(path);
   const hasText = typeof record.result === "string" && record.result.trim();
@@ -479,11 +536,17 @@ function completedResult(path, expectedDispatch = null) {
   if (expectedDispatch?.transport === "json-fence" && hasStructured) {
     throw new Error(`${rel(path)} returned native structure under its locked json-fence transport`);
   }
-  if (expectedDispatch
-    && JSON.stringify(record.acceptance_dispatch) !== JSON.stringify(resultDispatch(expectedDispatch))) {
+  if (expectedDispatch && !resultMatchesDispatch(record, expectedDispatch)) {
     throw new Error(`${rel(path)} dispatch provenance does not match its locked manifest stage`);
   }
+  if (expectedInput && JSON.stringify(record.acceptance_input) !== JSON.stringify(expectedInput)) {
+    throw new Error(`${rel(path)} invocation provenance does not match its locked prompts and schema`);
+  }
   return record;
+}
+
+function resultMatchesDispatch(record, expectedDispatch) {
+  return JSON.stringify(record?.acceptance_dispatch) === JSON.stringify(resultDispatch(expectedDispatch));
 }
 
 function semanticSource(record) {
@@ -515,8 +578,9 @@ function semanticCriticSource(record) {
 }
 
 async function claude({ system, prompt, cwd, tools, allowed, output, schema = null, dispatch }) {
+  const input = invocationInput(system, prompt, { schema });
   if (dispatch.harness !== "claude-code") throw new Error("Claude adapter received a non-Claude dispatch");
-  if (completedResult(output, dispatch)) return { skipped: true, output };
+  if (completedResult(output, dispatch, input)) return { skipped: true, output };
   const args = [
     "-p", "--output-format", "json", "--no-session-persistence", "--model", dispatch.model,
     "--effort", dispatch.effort, "--system-prompt-file", system,
@@ -555,7 +619,7 @@ async function claude({ system, prompt, cwd, tools, allowed, output, schema = nu
       if (record.type !== "result" || record.is_error || (!hasText && !hasStructured)) {
         return reject(new Error(`claude emitted no successful result: ${stdout.slice(0, 1000)}`));
       }
-      write(output, { ...record, acceptance_dispatch: resultDispatch(dispatch) });
+      write(output, { ...record, acceptance_dispatch: resultDispatch(dispatch), acceptance_input: input });
       resolvePromise({ skipped: false, output });
     });
     child.stdin.end(prompt);
@@ -571,7 +635,7 @@ export function codexToolEvents(events) {
   return events.filter((event) => event.item && !allowedItems.has(event.item.type));
 }
 
-function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, preserveFailure = false }) {
+function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, input, preserveFailure = false }) {
   const lines = text(eventsOutput).trim().split("\n");
   const events = lines.map((line, index) => {
     try { return JSON.parse(line); } catch {
@@ -615,28 +679,34 @@ function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, pres
     result, structured_output: structured, raw_events: rel(eventsOutput),
     raw_output: rel(finalOutput), recovered_from: recoveredFrom ? rel(recoveredFrom) : null,
     acceptance_dispatch: resultDispatch(dispatch),
+    acceptance_input: input,
   });
   return { skipped: false, recovered: preserveFailure, output };
 }
 
 async function codex({ system, prompt, output, schemaPath, noToolsConfig, dispatch }) {
+  const input = invocationInput(system, prompt, { schemaPath });
   if (dispatch.harness !== "codex") throw new Error("Codex adapter received a non-Codex dispatch");
   const eventsOutput = codexCompanion(output, "events.jsonl");
   const finalOutput = codexCompanion(output, "output.json");
   if (existsSync(output)) {
     const existing = json(output);
     if (existing.type === "result" && !existing.is_error && existing.structured_output) {
-      completedResult(output, dispatch);
+      completedResult(output, dispatch, input);
       return { skipped: true, output };
     }
     if (existing.type === "result" && existing.is_error
       && existing.error === "codex emitted no final structured output"
       && existsSync(eventsOutput)) {
+      if (!resultMatchesDispatch(existing, dispatch)
+        || JSON.stringify(existing.acceptance_input) !== JSON.stringify(input)) {
+        throw new Error(`${rel(output)} recoverable failure dispatch does not match its locked manifest stage`);
+      }
       return finalizeCodexEvents({
-        eventsOutput, finalOutput, output, dispatch, preserveFailure: true,
+        eventsOutput, finalOutput, output, dispatch, input, preserveFailure: true,
       });
     }
-    completedResult(output, dispatch);
+    completedResult(output, dispatch, input);
   }
   if (existsSync(eventsOutput) || existsSync(finalOutput)) {
     die(`${rel(eventsOutput)} or its final output already exists without a successful record; do not redraw it`);
@@ -685,13 +755,14 @@ async function codex({ system, prompt, output, schemaPath, noToolsConfig, dispat
           type: "result", is_error: true, harness: "codex", result: "",
           structured_output: null, raw_events: rel(eventsOutput), error: message,
           acceptance_dispatch: resultDispatch(dispatch),
+          acceptance_input: input,
         });
         reject(new Error(message));
       };
       if (timedOut) return fail(`codex exceeded ${dispatch.timeout_ms}ms; no redraw was made`);
       if (code !== 0) return fail(`codex exited ${code}: ${stderr.slice(0, 2000)}`);
       try {
-        resolvePromise(finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch }));
+        resolvePromise(finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, input }));
       } catch (error) {
         fail(error.message);
       }
@@ -1165,14 +1236,16 @@ const ARTIFACT_PATH_KEYS = {
   evidence: ["claims_audit", "structural", "tally", "score"],
 };
 
-function artifactEntryHashErrors(entry, keys, label, runDir) {
+function artifactEntryHashErrors(entry, keys, label, runDir, optionalKeys = []) {
   const errors = [];
+  const optional = new Set(optionalKeys);
   if (!entry || typeof entry !== "object" || Array.isArray(entry)) return [`missing artifact record ${label}`];
   for (const key of keys) {
     const path = entry[key];
     const expected = entry[`${key}_sha256`];
     if (path === null || path === undefined) {
       if (expected !== null && expected !== undefined) errors.push(`${label}.${key} has a hash without a path`);
+      else if (!optional.has(key)) errors.push(`${label}.${key} required path/hash pair is missing`);
       continue;
     }
     if (typeof path !== "string" || !path) {
@@ -1202,7 +1275,7 @@ function sameIds(actual, expected) {
   return JSON.stringify(Object.keys(actual ?? {}).sort()) === JSON.stringify([...expected].sort());
 }
 
-function artifactHashErrors(artifacts, runDir, cases) {
+function artifactHashErrors(artifacts, runDir, cases, manifest) {
   const errors = [];
   if (artifacts?.schema !== ARTIFACTS_SCHEMA) {
     return ["ARTIFACTS.json has the wrong schema"];
@@ -1236,7 +1309,11 @@ function artifactHashErrors(artifacts, runDir, cases) {
   }
   for (const c of cases.cases) {
     const draft = artifacts.drafts?.[c.id];
-    errors.push(...artifactEntryHashErrors(draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir));
+    const optional = ["disclosure"];
+    if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
+    errors.push(...artifactEntryHashErrors(
+      draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
+    ));
     if (draft && (draft.profile !== c.profile || draft.render !== c.render || draft.request_sha256 !== SHA(c.prompt))) {
       errors.push(`drafts.${c.id} case provenance mismatch`);
     }
@@ -1251,8 +1328,9 @@ function artifactHashErrors(artifacts, runDir, cases) {
     }
   }
   for (const c of cases.refusals) {
+    const optional = manifestDispatch(manifest, "draft").harness === "codex" ? [] : ["raw_events", "raw_output"];
     errors.push(...artifactEntryHashErrors(
-      artifacts.refusals?.[c.id], ARTIFACT_PATH_KEYS.refusal, `refusals.${c.id}`, runDir,
+      artifacts.refusals?.[c.id], ARTIFACT_PATH_KEYS.refusal, `refusals.${c.id}`, runDir, optional,
     ));
   }
   return errors;
@@ -1366,10 +1444,154 @@ function refusalGatePasses(runDir, manifest, cases) {
   });
 }
 
-function structuralGates(runDir, manifest, cases) {
+function requireCanonical(path, expected, label) {
+  if (!existsSync(path)) throw new Error(`${label} is missing`);
+  if (text(path) !== expected) throw new Error(`${label} does not reproduce from immutable raw results`);
+}
+
+function deriveProfileEvidence(runDir, manifest, cases) {
+  const dispatch = manifestDispatch(manifest, "profile");
+  const profileMeta = {};
+  const stability = {};
+  for (const profile of cases.profiles) {
+    const measurements = manifest.corpora[profile.id].measurements;
+    const byId = new Map(measurements.measurements.map((m) => [m.id, m]));
+    const expectedSamples = manifest.corpora[profile.id].lock.files.map((f) => f.file).sort();
+    const stabilityRenders = [];
+    profileMeta[profile.id] = {};
+    for (let render = 1; render <= profile.renders; render += 1) {
+      const id = `${profile.id}-r${render}`;
+      const rawPath = join(runDir, "raw", "profiles", `${id}.json`);
+      const record = completedResult(rawPath, dispatch);
+      if (!record) throw new Error(`missing profile result ${id}`);
+      const decoded = semanticSource(record);
+      if (!decoded.source) throw new Error(`${id} source transport failed: ${decoded.error}`);
+      if (decoded.repairs !== 0) throw new Error(`${id} source required transport repair`);
+      const assembled = assembleVoiceProfile(decoded.source, {
+        profile: profile.id,
+        measurements,
+        samples_used: expectedSamples,
+        samples_excluded: measurements.samples_excluded ?? [],
+      });
+      if (!assembled.ok || assembled.refusal) {
+        throw new Error(`${id} source assembly failed: ${assembled.errors.join("; ")}`);
+      }
+      const parsed = { json: assembled.profile, markdown: assembled.profile.profile_markdown };
+      const validation = validateVoiceProfile(parsed.json, parsed.markdown);
+      if (!validation.ok || validation.refusal) throw new Error(`${id} invalid: ${validation.errors.join("; ")}`);
+      const bandFindings = checkFrequencyAgainstRate(
+        parsed.markdown, parsed.json, measurements.corpus_words / expectedSamples.length,
+      );
+      if (bandFindings.length) throw new Error(`${id} measured frequency diverges`);
+      if (parsed.json.schema !== PROFILE_SCHEMA || parsed.json.corpus_words !== measurements.corpus_words) {
+        throw new Error(`${id} deterministic profile identity diverges`);
+      }
+      for (const observation of parsed.json.observations) {
+        if (!observation.rate) continue;
+        const measurementId = observation.rate.counting_rule.match(/\[measurement:([a-z0-9-]+)\]/)?.[1];
+        const measured = byId.get(measurementId);
+        if (!measured || measured.count !== observation.rate.count
+          || Math.abs(measured.per_1000_words - observation.rate.per_1000_words) > 0.01) {
+          throw new Error(`${id} independently measured rate diverges`);
+        }
+      }
+      if (JSON.stringify([...parsed.json.samples_used].sort()) !== JSON.stringify(expectedSamples)) {
+        throw new Error(`${id} samples_used differs from its corpus lock`);
+      }
+      const coverage = analyzeParagraphCoverage(parsed.markdown);
+      if (coverage.some((row) => row.status === "absent")) throw new Error(`${id} silently omits coverage`);
+      const recount = crossCount(sourceProfile(profile), parsed.markdown);
+      if (recount.some((row) => row.status === "DIVERGES")) throw new Error(`${id} independent recount diverges`);
+      const outDir = join(runDir, "inputs", "profiles", profile.id);
+      requireCanonical(join(outDir, `r${render}.source.json`), `${JSON.stringify(decoded.source, null, 2)}\n`, `${id} source`);
+      requireCanonical(join(outDir, `r${render}.md`), `${parsed.markdown.trim()}\n`, `${id} markdown`);
+      requireCanonical(join(outDir, `r${render}.json`), `${JSON.stringify(parsed.json, null, 2)}\n`, `${id} profile JSON`);
+      requireCanonical(
+        join(runDir, "raw", `${id}.md`),
+        `\`\`\`json\n${JSON.stringify(parsed.json, null, 2)}\n\`\`\`\n`,
+        `${id} canonical render`,
+      );
+      profileMeta[profile.id][`r${render}`] = { transport_repairs: decoded.repairs, coverage, recount };
+      stabilityRenders.push(parsed.json);
+    }
+    stability[profile.id] = analyzeProfileStability(stabilityRenders);
+    if (!stability[profile.id].ok) throw new Error(`${profile.id} k=3 stability failed`);
+  }
+  return { profileMeta, stability };
+}
+
+function deriveDraftEvidence(runDir, manifest, cases) {
+  const draftDispatch = manifestDispatch(manifest, "draft");
+  const auditDispatch = manifestDispatch(manifest, "claim_audit");
+  const drafts = {};
+  const refusals = {};
+  for (const c of cases.cases) {
+    const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
+    const record = completedResult(rawPath, draftDispatch);
+    if (!record) throw new Error(`missing draft result ${c.id}`);
+    const decoded = semanticDraftSource(record);
+    if (!decoded.source) throw new Error(`${c.id} invalid raw draft source: ${decoded.error}`);
+    const auditRawPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
+    const auditRecord = completedResult(auditRawPath, auditDispatch);
+    if (!auditRecord) throw new Error(`missing claim audit ${c.id}`);
+    const decodedAudit = semanticClaimAudit(auditRecord);
+    if (!decodedAudit.audit) throw new Error(`${c.id} invalid raw claim audit: ${decodedAudit.error}`);
+    const applied = applyVoiceDraftClaimAudit(decoded.source, decodedAudit.audit, { request: c.prompt });
+    if (!applied.ok) throw new Error(`${c.id} raw claim audit failed: ${applied.errors.join("; ")}`);
+    const assembled = assembleVoiceDraft(applied.source, { request: c.prompt });
+    if (!assembled.ok) throw new Error(`${c.id} raw draft assembly failed: ${assembled.errors.join("; ")}`);
+    const parsed = parseDraft(assembled.output);
+    const validation = validateDraft(parsed);
+    if (!validation.ok || validation.refusal) throw new Error(`${c.id} reconstructed draft is invalid`);
+    requireCanonical(
+      join(runDir, "inputs", "sources", "drafts", `${c.id}.original.json`),
+      `${JSON.stringify(decoded.source, null, 2)}\n`, `${c.id} original source`,
+    );
+    requireCanonical(
+      join(runDir, "inputs", "audits", `${c.id}.json`),
+      `${JSON.stringify(decodedAudit.audit, null, 2)}\n`, `${c.id} applied audit`,
+    );
+    requireCanonical(
+      join(runDir, "inputs", "sources", "drafts", `${c.id}.json`),
+      `${JSON.stringify(applied.source, null, 2)}\n`, `${c.id} audited source`,
+    );
+    requireCanonical(join(runDir, "outputs", "drafts", `${c.id}.md`), assembled.output, `${c.id} assembled output`);
+    const draftBody = `${parsed.draft.trim()}\n`;
+    requireCanonical(join(runDir, "inputs", "drafts", `${c.id}.txt`), draftBody, `${c.id} critic draft`);
+    const disclosurePath = join(runDir, "inputs", "records", `${c.id}.json`);
+    if (parsed.hadJsonFence) {
+      requireCanonical(disclosurePath, `${JSON.stringify(parsed.json, null, 2)}\n`, `${c.id} disclosure`);
+    } else if (existsSync(disclosurePath)) {
+      throw new Error(`${c.id} has a stale disclosure absent from raw assembly`);
+    }
+    drafts[c.id] = draftBody;
+  }
+  for (const c of cases.refusals) {
+    const rawPath = join(runDir, "raw", "refusals", `${c.id}.json`);
+    const record = completedResult(rawPath, draftDispatch);
+    if (!record) throw new Error(`missing refusal result ${c.id}`);
+    const decoded = semanticDraftSource(record);
+    if (!decoded.source) throw new Error(`${c.id} invalid raw refusal source: ${decoded.error}`);
+    const assembled = assembleVoiceDraft(decoded.source, { request: c.prompt });
+    if (!assembled.ok) throw new Error(`${c.id} raw refusal assembly failed: ${assembled.errors.join("; ")}`);
+    const parsed = parseDraft(assembled.output);
+    const validation = validateDraft(parsed);
+    if (!validation.ok || !validation.refusal) throw new Error(`${c.id} reconstructed refusal is invalid`);
+    requireCanonical(
+      join(runDir, "inputs", "sources", "refusals", `${c.id}.json`),
+      `${JSON.stringify(decoded.source, null, 2)}\n`, `${c.id} refusal source`,
+    );
+    requireCanonical(join(runDir, "outputs", "refusals", `${c.id}.md`), assembled.output, `${c.id} refusal output`);
+    refusals[c.id] = parsed.json.refused;
+  }
+  return { drafts, refusals };
+}
+
+function structuralGates(runDir, manifest, cases, draftEvidence = null) {
   const rows = [];
   for (const c of cases.cases) {
-    const draft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
+    const draft = draftEvidence?.drafts?.[c.id]
+      ?? text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
     const profileText = text(join(runDir, "inputs", "profiles", c.profile, `r${c.render}.md`));
     const corpusDir = resolve(REPO, manifest.corpora[c.profile].staged, "corpus", "human");
     const leakage = corpusLeakage({ draft, corpusDir, profileText });
@@ -1380,7 +1602,9 @@ function structuralGates(runDir, manifest, cases) {
       forbidden_claims: FORBIDDEN_DRAFT_CLAIMS.filter((pattern) => pattern.test(draft)).map(String),
     });
   }
-  const refusals = refusalGatePasses(runDir, manifest, cases);
+  const refusals = draftEvidence
+    ? cases.refusals.every((c) => typeof draftEvidence.refusals[c.id] === "string" && draftEvidence.refusals[c.id])
+    : refusalGatePasses(runDir, manifest, cases);
   return {
     rows,
     gates: {
@@ -1449,7 +1673,8 @@ function deriveCriticEvidence(runDir, manifest, cases, { writeCanonical = false 
 
 function deriveAcceptanceEvidence(runDir, manifest, cases, options = {}) {
   const critic = deriveCriticEvidence(runDir, manifest, cases, options);
-  const structural = structuralGates(runDir, manifest, cases);
+  const draftEvidence = deriveDraftEvidence(runDir, manifest, cases);
+  const structural = structuralGates(runDir, manifest, cases, draftEvidence);
   const tally = {
     schema: "prose-author-generator-tally/1",
     run: basename(runDir),
@@ -1463,34 +1688,72 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   const errors = [];
   const expected = [];
   const profileDispatch = manifestDispatch(manifest, "profile");
+  const profileSystem = resolve(REPO, manifest.agents.profile.snapshot);
   for (const profile of cases.profiles) {
     for (let render = 1; render <= profile.renders; render += 1) {
+      const promptPath = join(runDir, "prompts", "profiles", `${profile.id}-r${render}.md`);
       expected.push({
         path: join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`),
         dispatch: profileDispatch,
+        input: invocationInput(profileSystem, text(promptPath), {
+          schema: profileDispatch.transport === "native-structured"
+            ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null,
+        }),
       });
     }
   }
   const draftDispatch = manifestDispatch(manifest, "draft");
+  const draftSystem = resolve(REPO, manifest.agents.draft.snapshot);
+  const draftSchemaPath = resolve(REPO, manifest.schemas.draft.path);
   for (const c of cases.cases) {
-    expected.push({ path: join(runDir, "raw", "drafts", `${c.id}.json`), dispatch: draftDispatch });
+    const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+    expected.push({
+      path: join(runDir, "raw", "drafts", `${c.id}.json`), dispatch: draftDispatch,
+      input: invocationInput(draftSystem, text(promptPath), {
+        schemaPath: draftDispatch.harness === "codex" ? draftSchemaPath : null,
+        schema: draftDispatch.harness !== "codex" && draftDispatch.transport === "native-structured"
+          ? DRAFT_SOURCE_SCHEMA : null,
+      }),
+    });
   }
   for (const c of cases.refusals) {
-    expected.push({ path: join(runDir, "raw", "refusals", `${c.id}.json`), dispatch: draftDispatch });
+    const promptPath = join(runDir, "prompts", "refusals", `${c.id}.md`);
+    expected.push({
+      path: join(runDir, "raw", "refusals", `${c.id}.json`), dispatch: draftDispatch,
+      input: invocationInput(draftSystem, text(promptPath), {
+        schemaPath: draftDispatch.harness === "codex" ? draftSchemaPath : null,
+        schema: draftDispatch.harness !== "codex" && draftDispatch.transport === "native-structured"
+          ? DRAFT_SOURCE_SCHEMA : null,
+      }),
+    });
   }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
+  const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
   for (const c of cases.cases) {
-    expected.push({ path: join(runDir, "raw", "claim-audits", `${c.id}.json`), dispatch: auditDispatch });
+    const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
+    expected.push({
+      path: join(runDir, "raw", "claim-audits", `${c.id}.json`), dispatch: auditDispatch,
+      input: invocationInput(auditSystem, text(promptPath), {
+        schema: auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+      }),
+    });
   }
   const criticDispatch = manifestDispatch(manifest, "critic");
+  const criticSystem = resolve(REPO, manifest.agents.critic.snapshot);
   for (const c of cases.cases) {
     for (let draw = 1; draw <= 3; draw += 1) {
-      expected.push({ path: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`), dispatch: criticDispatch });
+      const promptPath = join(runDir, "critics", "prompts", `${c.id}-d${draw}.md`);
+      expected.push({
+        path: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`), dispatch: criticDispatch,
+        input: invocationInput(criticSystem, text(promptPath), {
+          schema: criticDispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null,
+        }),
+      });
     }
   }
   for (const item of expected) {
     try {
-      if (!completedResult(item.path, item.dispatch)) errors.push(`missing model result ${rel(item.path)}`);
+      if (!completedResult(item.path, item.dispatch, item.input)) errors.push(`missing model result ${rel(item.path)}`);
     } catch (error) {
       errors.push(error.message);
     }
@@ -1693,8 +1956,29 @@ function check(runDir) {
   let artifacts = null;
   if (existsSync(p.artifacts)) {
     artifacts = json(p.artifacts);
-    errors.push(...artifactHashErrors(artifacts, runDir, cases));
+    errors.push(...artifactHashErrors(artifacts, runDir, cases, manifest));
     if (existsSync(p.audit)) errors.push(...claimsAuditFailures(json(p.audit), cases, artifacts, runDir));
+  }
+  try {
+    const profiles = deriveProfileEvidence(runDir, manifest, cases);
+    if (artifacts && JSON.stringify(artifacts.profile_stability) !== JSON.stringify(profiles.stability)) {
+      errors.push("ARTIFACTS.json profile stability does not reproduce from raw profile results");
+    }
+    if (artifacts) {
+      for (const profile of cases.profiles) {
+        for (let render = 1; render <= profile.renders; render += 1) {
+          const stored = artifacts.profiles?.[profile.id]?.[`r${render}`];
+          const derived = profiles.profileMeta[profile.id][`r${render}`];
+          if (stored && (stored.transport_repairs !== derived.transport_repairs
+            || JSON.stringify(stored.coverage) !== JSON.stringify(derived.coverage)
+            || JSON.stringify(stored.recount) !== JSON.stringify(derived.recount))) {
+            errors.push(`${profile.id}-r${render} profile evidence metadata does not reproduce from raw`);
+          }
+        }
+      }
+    }
+  } catch (error) {
+    errors.push(`profile evidence cannot be rederived: ${error.message}`);
   }
   try {
     const evidence = deriveAcceptanceEvidence(runDir, manifest, cases);
@@ -1742,7 +2026,8 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
 export {
   artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
+  committedFileError,
   claude as dispatchClaude, codex as dispatchCodex,
-  criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, manifestDispatch,
-  quotationAudit, structuralGates, validateCases,
+  criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, invocationInput, localModuleClosure,
+  manifestDispatch, prepareConfig, quotationAudit, structuralGates, validateCases,
 };
