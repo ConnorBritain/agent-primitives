@@ -1,0 +1,11 @@
+{
+  "schema": "prose-author-stage-adapter-canary-design/1",
+  "profile": "doctorow-blog",
+  "fixture": "doctorow-blog",
+  "prompt": "Write a contemporary informal blog post of about 700 words arguing that owning a device should include control over whether its maker can disable features after sale. Address technically curious general readers. Do not use citations or introduce facts beyond this request.",
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "stages": ["profile", "draft", "claim_audit", "critic"],
+  "acceptance_evidence": false,
+  "redraws": 0
+}
