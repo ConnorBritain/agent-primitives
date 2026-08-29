@@ -1,0 +1,26 @@
+{
+  "schema": "prose-author-request-support-canary-artifacts/1",
+  "drafts": {
+    "codex": {
+      "harness": "codex",
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/raw/drafts/codex.json",
+      "source": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/inputs/sources/codex.json",
+      "output": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary-2/outputs/drafts/codex.md",
+      "source_errors": [],
+      "external_claims": [],
+      "fabricated_citations": [],
+      "corpus_leakage": {
+        "leaked": [],
+        "count": 0
+      },
+      "structural": {
+        "source_valid": true,
+        "public_draft_valid": true,
+        "no_external_verification": true,
+        "no_fabricated_citations": true,
+        "no_corpus_leakage": false
+      },
+      "pass": false
+    }
+  }
+}
