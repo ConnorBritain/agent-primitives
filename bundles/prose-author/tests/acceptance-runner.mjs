@@ -48,6 +48,9 @@ import {
 import {
   draftTargetCard, renderDraftTargetCard,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
+import {
+  measureDraftConformance, renderDraftConformanceReport,
+} from "../skills/prose-draft/tools/draft-conformance.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
   ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, sourceMeasurementPlan,
@@ -1280,6 +1283,52 @@ function draftPrompt(c, profileMarkdown, profileJson) {
     "The portable deterministic boundary segments the immutable prose for an independent",
     "claim audit, derives the public verification record, owns draft/refusal fences, and",
     "removes empty disclosure arrays from voice-draft/1.",
+  ].join("\n");
+}
+
+function draftConformancePrompt(c, profileMarkdown, profileJson, initialSource) {
+  if (initialSource?.schema !== "voice-draft-source/4" || initialSource.kind !== "draft") {
+    throw new TypeError("draft conformance requires one valid direct-prose initial source");
+  }
+  const card = draftTargetCard(profileJson, c.prompt);
+  const report = measureDraftConformance(initialSource.draft, card);
+  return [
+    "Perform the mandatory final conformance pass on the initial draft below.",
+    "This is one fixed pipeline stage, not a redraw or a choice between candidates: the",
+    "source you return always replaces the initial source. Preserve its truthful argument",
+    "and requested form while correcting the measured report and applying every supported",
+    "coverage dimension. Do not mention this pass in the prose.",
+    "",
+    "## Request",
+    "",
+    c.prompt,
+    "",
+    "## Rendered voice profile",
+    "",
+    "```markdown",
+    profileMarkdown.trim(),
+    "```",
+    "",
+    "```json",
+    JSON.stringify(profileJson, null, 2),
+    "```",
+    "",
+    renderDraftTargetCard(card),
+    "",
+    renderDraftConformanceReport(report),
+    "",
+    "## Initial immutable source",
+    "",
+    "```json",
+    JSON.stringify(initialSource, null, 2),
+    "```",
+    "",
+    "Return voice-draft-source/4 exactly. Recount the final prose, not the initial prose.",
+    "Every measured actual must be inside its stated range. Process all ten coverage rows:",
+    "apply each rated, described, or absent-paired instruction, or name its dimension and",
+    "observation ID in omitted with a concrete reason. Unresolved rows create no habit.",
+    "The independent factual audit runs after this pass, so preserve no invented citation,",
+    "attributed wording, biography, or uncertain fact merely to satisfy a voice instruction.",
   ].join("\n");
 }
 
@@ -3218,7 +3267,8 @@ export {
   codexCompanionArtifactFields, codexCompanionPathErrors, codexRecordErrors,
   committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
-  criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, factualCandidateReasons, invocationInput,
+  criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftConformancePrompt, draftPrompt,
+  factualCandidateReasons, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, manifestStageSchema, modelAdapterName, prepareConfig, quotationAudit,
   dispatchPreflightErrors, rawNamespaceErrors, resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,

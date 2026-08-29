@@ -10,7 +10,7 @@ import {
   ARTIFACT_PATH_KEYS, artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
   CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
-  criticPrompt, deriveCritic, draftPrompt,
+  criticPrompt, deriveCritic, draftConformancePrompt, draftPrompt,
   dispatchCodex, dispatchPreflightErrors,
   factualCandidateReasons, HARNESS_CAPABILITIES, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
@@ -30,6 +30,7 @@ import {
 import {
   countRange, draftTargetCard, requestedWordTarget, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
+import { measureDraftConformance } from "../skills/prose-draft/tools/draft-conformance.mjs";
 import { DEFAULT_RATIO_BAND, MIN_ABSOLUTE_DEVIATION } from "./corpus-rates.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -155,6 +156,25 @@ export async function run(t, { HERE }) {
         && targetCard.measurements[0].aim_count === 0
         && targetCard.measurements[0].gate_minimum === 0
         && targetCard.measurements[0].gate_maximum === 1);
+    const initialSource = {
+      schema: "voice-draft-source/4", kind: "draft", draft: "We should not wait.",
+      omitted: [], refused: "",
+    };
+    const conformance = measureDraftConformance(initialSource.draft, targetCard);
+    const conformancePrompt = draftConformancePrompt(
+      { prompt: "Write a 700-word post." }, "Rendered profile.", targetProfile, initialSource,
+    );
+    t.check("the mandatory conformance pass receives deterministic actual counts rather than estimating them",
+      conformance.measurements[0].actual_count === 0
+        && conformance.measurements[0].status === "in-range"
+        && /fixed pipeline stage, not a redraw or a choice between candidates/.test(conformancePrompt)
+        && /Deterministic conformance report for the initial draft/.test(conformancePrompt)
+        && /actual 0; aim 0; range 0–1; in-range/.test(conformancePrompt));
+    t.check("the conformance pass always returns the final source and accounts for all coverage rows",
+      /source you return always replaces the initial source/.test(conformancePrompt)
+        && /Recount the final prose, not the initial prose/.test(conformancePrompt)
+        && /Process all ten coverage rows/.test(conformancePrompt)
+        && /name its dimension and[\s\S]*observation ID in omitted/.test(conformancePrompt));
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
       /Return voice-draft-source\/4[\s\S]*finished prose directly in draft[\s\S]*do not split it into sentence objects[\s\S]*segments the immutable prose[\s\S]*derives the public verification record/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",

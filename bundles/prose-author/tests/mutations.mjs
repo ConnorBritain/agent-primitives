@@ -313,6 +313,13 @@ export const MUTATIONS = [
     guards: "semantic audit does not inflate request-derived rhetoric into unsupported external claims",
   },
   {
+    name: "reject figurative agency as a literal factual contradiction",
+    file: DRAFT_CLAIM_AUDIT_PROMPT,
+    find: "Do not reject it merely because its literal reading would be impossible or hard to verify;",
+    with: "Reject it whenever its literal reading would be impossible or hard to verify;",
+    guards: "coherent request-derived metaphors survive an auditor's deliberately literal reading",
+  },
+  {
     name: "restore a model-owned quota for qualitative profile evidence",
     file: PROFILE_CONTRACT,
     find: '      : "qualitative placement only; no within-piece rate inferred";',

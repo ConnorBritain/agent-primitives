@@ -32,6 +32,11 @@ Use `status: "keep"` only when the complete sentence is accounted for by one or 
   real institutions or people currently do;
 - a metaphor, analogy, tautology, or rhetorical label derived from the supplied premise.
 
+Read figurative agency as figurative. A coherent metaphor may give literal agency or
+location to an abstract arrangement in order to restate who controls the supplied premise.
+Do not reject it merely because its literal reading would be impossible or hard to verify;
+keep it when the mapping adds no external descriptive premise.
+
 For every keep row, use `reason` to account briefly for every clause. An empty,
 style-based, or merely conclusory rationale is invalid.
 

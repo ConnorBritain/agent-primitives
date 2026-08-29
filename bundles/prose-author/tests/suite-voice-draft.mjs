@@ -569,6 +569,7 @@ export async function run(t, { HERE }) {
         && /status: "reject"[\s\S]*fabricated or placeholder citation[\s\S]*invented first-person author biography/.test(claimAuditInstructions));
     t.check("the independent auditor separates semantic judgment from mechanical evidence anchoring",
       /- a metaphor, analogy, tautology, or rhetorical label derived from the supplied premise/.test(claimAuditInstructions)
+        && /Read figurative agency as figurative[\s\S]*Do not reject it merely because its literal reading would be[\s\S]*impossible/.test(claimAuditInstructions)
         && /independently checkable external proposition/.test(claimAuditInstructions)
         && /Extract every such proposition[\s\S]*do not hide a second assertion behind a[\s\S]*nearby one/.test(claimAuditInstructions)
         && /Do not copy an evidence span[\s\S]*deterministic assembly binds/.test(claimAuditInstructions));
