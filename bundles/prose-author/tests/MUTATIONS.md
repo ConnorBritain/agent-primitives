@@ -34,6 +34,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let hard factual failures become ordinary disclosures | 1 | fabricated citations, attributed wording, biography, and leakage remain fatal |
 | hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
+| let model output downgrade the prepared claim-audit schema | 1 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |
 | let claim repair alter a retained factual ledger entry | 1 | a repair cannot rewrite the provenance of a retained factual premise |
 | let a malformed audit authorize claim repair | 1 | only a complete independently auditable decision set can authorize sentence changes |
@@ -73,6 +74,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let a listed claim license an invented attributed quotation | 2 | an invented quotation cannot be laundered through the verification list |
 | collapse multiple named-actor assertions into one topic claim | 2 | each checkable action and consequence remains independently auditable |
 | dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
+| let the human factual audit treat the profile as a fact packet | 1 | profile examples, biography, and source facts cannot bypass the public verification queue |
 | stop requiring the independent disclosure-completeness decision | 1 | the drafter cannot certify completeness merely by returning a claims list |
 | let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
 | let the requested container override the profile's register | 2 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |

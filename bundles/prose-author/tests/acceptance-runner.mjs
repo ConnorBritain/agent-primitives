@@ -42,6 +42,8 @@ import {
 import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA,
   AUDIT_SCHEMA_ID as DRAFT_AUDIT_SCHEMA_ID,
+  PREVIOUS_AUDIT_SCHEMA as PREVIOUS_DRAFT_AUDIT_SCHEMA,
+  PREVIOUS_AUDIT_SCHEMA_ID as PREVIOUS_DRAFT_AUDIT_SCHEMA_ID,
   parseVoiceDraftClaimAudit, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import {
@@ -63,8 +65,10 @@ import { RESEMBLANCE_CLAIMS } from "./run-gates.mjs";
 const TESTS = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
-const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/2";
+const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/3";
 const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/2";
+const CLAIM_PIPELINE = "audit-disclosure/1";
+const PREVIOUS_CLAIM_PIPELINE = "bounded-repair/1";
 const STAGES = ["profile", "draft", "claim_audit", "claim_repair", "claim_reaudit", "critic"];
 const TRANSPORTS = new Set(["native-structured", "json-fence"]);
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
@@ -472,6 +476,8 @@ function prepare(runDir) {
 
   const draftSchemaPath = join(runDir, "schemas", "voice-draft-source-3.json");
   write(draftSchemaPath, DRAFT_SOURCE_SCHEMA);
+  const claimAuditSchemaPath = join(runDir, "schemas", "voice-draft-claim-audit-3.json");
+  write(claimAuditSchemaPath, DRAFT_AUDIT_SCHEMA);
 
   const corpusEntries = {};
   const currencyLocks = {};
@@ -514,6 +520,7 @@ function prepare(runDir) {
     run_id: basename(runDir),
     prepared: today(),
     prepared_commit: preparedCommit,
+    claim_pipeline: CLAIM_PIPELINE,
     dispatch: {
       profile: {
         harness: "claude-code", model: config.model, effort: config.profileEffort,
@@ -552,6 +559,11 @@ function prepare(runDir) {
     codex_no_tools_config: config.draftHarness === "codex" ? CODEX_NO_TOOLS_CONFIG : [],
     schemas: {
       draft: { path: rel(draftSchemaPath), sha256: SHA(text(draftSchemaPath)) },
+      claim_audit: {
+        id: DRAFT_AUDIT_SCHEMA_ID,
+        path: rel(claimAuditSchemaPath),
+        sha256: SHA(text(claimAuditSchemaPath)),
+      },
     },
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
@@ -574,7 +586,7 @@ function prepare(runDir) {
       );
     }
   }
-  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 initial claim audits, up to 20 bounded repairs and independent reaudits, 60 critic draws\n\n`);
+  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 independent disclosure audits, no model repairs or redraws, 60 critic draws\n\n`);
   process.stdout.write("  commit the prepared run, including MANIFEST.json, before dispatching profiles\n\n");
 }
 
@@ -584,6 +596,14 @@ function loadPrepared(runDir) {
   const manifest = json(p.manifest);
   const cases = json(p.cases);
   if (manifest.schema !== MANIFEST_SCHEMA) die(`MANIFEST.json must use ${MANIFEST_SCHEMA}`);
+  if (manifest.claim_pipeline !== CLAIM_PIPELINE) {
+    die(`MANIFEST.json claim_pipeline must be ${CLAIM_PIPELINE}`);
+  }
+  try {
+    manifestClaimAuditSchema(manifest);
+  } catch (error) {
+    die(`MANIFEST.json claim-audit schema is invalid: ${error.message}`);
+  }
   if (!Number.isInteger(manifest.concurrency) || manifest.concurrency < 1) {
     die("MANIFEST.json has invalid locked concurrency");
   }
@@ -1070,7 +1090,34 @@ function draftPrompt(c, profileMarkdown, profileJson) {
   ].join("\n");
 }
 
-function claimAuditPrompt(c, source) {
+function claimAuditContract(manifest) {
+  if (manifest?.claim_pipeline === CLAIM_PIPELINE) {
+    return { id: DRAFT_AUDIT_SCHEMA_ID, schema: DRAFT_AUDIT_SCHEMA };
+  }
+  if (manifest?.claim_pipeline === PREVIOUS_CLAIM_PIPELINE) {
+    return { id: PREVIOUS_DRAFT_AUDIT_SCHEMA_ID, schema: PREVIOUS_DRAFT_AUDIT_SCHEMA };
+  }
+  throw new Error(`unknown claim pipeline ${manifest?.claim_pipeline ?? "(missing)"}`);
+}
+
+function manifestClaimAuditSchema(manifest) {
+  const contract = claimAuditContract(manifest);
+  const entry = manifest?.schemas?.claim_audit;
+  if (!entry || entry.id !== contract.id || typeof entry.path !== "string") {
+    throw new Error(`claim pipeline ${manifest?.claim_pipeline} has no pinned ${contract.id} schema`);
+  }
+  const path = resolve(REPO, entry.path);
+  if (!existsSync(path) || SHA(text(path)) !== entry.sha256) {
+    throw new Error(`locked ${contract.id} schema is missing or drifted`);
+  }
+  const schema = json(path);
+  if (JSON.stringify(schema) !== JSON.stringify(contract.schema)) {
+    throw new Error(`locked ${contract.id} schema bytes do not match the pipeline contract`);
+  }
+  return schema;
+}
+
+function claimAuditPrompt(c, source, auditSchemaId = DRAFT_AUDIT_SCHEMA_ID) {
   const units = sentenceRefs(source).map((ref) => {
     const match = /^p(\d+)s(\d+)$/.exec(ref.id);
     const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
@@ -1098,10 +1145,14 @@ function claimAuditPrompt(c, source) {
     JSON.stringify(units, null, 2),
     "```",
     "",
-    "Return voice-draft-claim-audit/3 as the strict object only. Preserve every ID",
-    "exactly once and in order. Every row carries id, status, reason, and claims.",
-    "Keep/reject rows carry claims: []; disclose rows quote exact sentence evidence and",
-    "extract every unsupported proposition for the later mandatory verification audit.",
+    `Return ${auditSchemaId} as the strict object only. Preserve every ID`,
+    ...(auditSchemaId === DRAFT_AUDIT_SCHEMA_ID ? [
+      "exactly once and in order. Every row carries id, status, reason, and claims.",
+      "Keep/reject rows carry claims: []; disclose rows quote exact sentence evidence and",
+      "extract every unsupported proposition for the later mandatory verification audit.",
+    ] : [
+      "exactly once and in order. A keep decision must account for every clause without adding claims.",
+    ]),
   ].join("\n");
 }
 
@@ -1185,7 +1236,11 @@ async function dispatchDrafts(runDir) {
 }
 
 async function dispatchClaimPipeline(runDir, manifest, cases) {
+  if (manifest.claim_pipeline !== CLAIM_PIPELINE) {
+    die(`new claim dispatch requires ${CLAIM_PIPELINE}`);
+  }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
+  const auditSchema = manifestClaimAuditSchema(manifest);
   const draftDispatch = manifestDispatch(manifest, "draft");
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
   const sources = new Map();
@@ -1210,7 +1265,7 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
       run: () => claude({
         system: auditSystem, cwd: runDir, prompt, tools: "", allowed: [],
         dispatch: auditDispatch,
-        schema: auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+        schema: auditDispatch.transport === "native-structured" ? auditSchema : null,
         output: join(runDir, "raw", "claim-audits", `${c.id}.json`),
       }),
     });
@@ -1223,6 +1278,9 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
     if (!auditRecord) die(`missing ${rel(auditPath)}`);
     const decodedAudit = semanticClaimAudit(auditRecord);
     if (!decodedAudit.audit) die(`${c.id} invalid independent claim audit: ${decodedAudit.error}`);
+    if (decodedAudit.audit.schema !== DRAFT_AUDIT_SCHEMA_ID) {
+      die(`${c.id} current claim pipeline requires ${DRAFT_AUDIT_SCHEMA_ID}`);
+    }
     const source = sources.get(c.id).normalized.source;
     const applied = applyVoiceDraftClaimAudit(source, decodedAudit.audit, { request: c.prompt });
     if (!applied.ok) die(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
@@ -1247,27 +1305,37 @@ function resolveDraftChain(runDir, manifest, c) {
   const repairRawPath = join(runDir, "raw", "claim-repairs", `${c.id}.json`);
   const reauditRawPath = join(runDir, "raw", "claim-reaudits", `${c.id}.json`);
   const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
-  if (normalized.ok && !normalized.refusal && existsSync(initialAuditRawPath)) {
+  const pipeline = manifest.claim_pipeline;
+  if (pipeline === CLAIM_PIPELINE) {
+    if (!normalized.ok || normalized.refusal) {
+      throw new Error(normalized.refusal
+        ? `${c.id} unexpectedly refused`
+        : `${c.id} invalid source before claim audit: ${normalized.errors.join("; ")}`);
+    }
     const auditRecord = completedResult(initialAuditRawPath, auditDispatch);
     if (!auditRecord) throw new Error(`missing ${rel(initialAuditRawPath)}`);
     const decodedAudit = semanticClaimAudit(auditRecord);
     if (!decodedAudit.audit) throw new Error(`${c.id} invalid independent claim audit: ${decodedAudit.error}`);
-    if (decodedAudit.audit.schema === DRAFT_AUDIT_SCHEMA_ID) {
-      const applied = applyVoiceDraftClaimAudit(normalized.source, decodedAudit.audit, { request: c.prompt });
-      if (!applied.ok) throw new Error(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
-      if (existsSync(repairRawPath) || existsSync(reauditRawPath)) {
-        throw new Error(`${c.id} has stale model-repair evidence under the disclosure pipeline`);
-      }
-      return {
-        record, originalSource: decoded.source,
-        normalized: normalized.changed, normalizedSource: normalized.source,
-        removedLedgerIds: normalized.removed_ledger_ids ?? [],
-        initialAudit: decodedAudit.audit, repaired: false,
-        repairRecord: null, repairSource: null, finalSource: normalized.source,
-        finalAudit: decodedAudit.audit, finalAuditRawPath: initialAuditRawPath,
-        repairNeed: null, auditClaims: applied.claims,
-      };
+    if (decodedAudit.audit.schema !== DRAFT_AUDIT_SCHEMA_ID) {
+      throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);
     }
+    const applied = applyVoiceDraftClaimAudit(normalized.source, decodedAudit.audit, { request: c.prompt });
+    if (!applied.ok) throw new Error(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
+    if (existsSync(repairRawPath) || existsSync(reauditRawPath)) {
+      throw new Error(`${c.id} has stale model-repair evidence under the disclosure pipeline`);
+    }
+    return {
+      record, originalSource: decoded.source,
+      normalized: normalized.changed, normalizedSource: normalized.source,
+      removedLedgerIds: normalized.removed_ledger_ids ?? [],
+      initialAudit: decodedAudit.audit, repaired: false,
+      repairRecord: null, repairSource: null, finalSource: normalized.source,
+      finalAudit: decodedAudit.audit, finalAuditRawPath: initialAuditRawPath,
+      repairNeed: null, auditClaims: applied.claims,
+    };
+  }
+  if (pipeline !== PREVIOUS_CLAIM_PIPELINE) {
+    throw new Error(`${c.id} unknown claim pipeline ${pipeline ?? "(missing)"}`);
   }
   const initialValidation = validateVoiceDraftSource(decoded.source, { request: c.prompt });
   if (initialValidation.refusal) throw new Error(`${c.id} unexpectedly refused`);
@@ -1281,6 +1349,9 @@ function resolveDraftChain(runDir, manifest, c) {
     if (!auditRecord) throw new Error(`missing ${rel(initialAuditRawPath)}`);
     const decodedAudit = semanticClaimAudit(auditRecord);
     if (!decodedAudit.audit) throw new Error(`${c.id} invalid independent claim audit: ${decodedAudit.error}`);
+    if (decodedAudit.audit.schema !== PREVIOUS_DRAFT_AUDIT_SCHEMA_ID) {
+      throw new Error(`${c.id} ${PREVIOUS_CLAIM_PIPELINE} requires ${PREVIOUS_DRAFT_AUDIT_SCHEMA_ID}`);
+    }
     initialAudit = decodedAudit.audit;
     const applied = applyVoiceDraftClaimAudit(decoded.source, initialAudit, { request: c.prompt });
     if (!applied.ok) {
@@ -1319,6 +1390,9 @@ function resolveDraftChain(runDir, manifest, c) {
   if (!reauditRecord) throw new Error(`missing ${rel(reauditRawPath)}`);
   const decodedReaudit = semanticClaimAudit(reauditRecord);
   if (!decodedReaudit.audit) throw new Error(`${c.id} invalid independent claim reaudit: ${decodedReaudit.error}`);
+  if (decodedReaudit.audit.schema !== PREVIOUS_DRAFT_AUDIT_SCHEMA_ID) {
+    throw new Error(`${c.id} ${PREVIOUS_CLAIM_PIPELINE} requires ${PREVIOUS_DRAFT_AUDIT_SCHEMA_ID}`);
+  }
   const applied = applyVoiceDraftClaimAudit(repaired.source, decodedReaudit.audit, { request: c.prompt });
   if (!applied.ok) throw new Error(`${c.id} independent claim reaudit failed: ${applied.errors.join("; ")}`);
   return {
@@ -1460,7 +1534,7 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     schema: "prose-author-claims-audit/2",
     instructions: [
       "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
-      "disclosure_complete: read the draft sentence by sentence and use true only when every checkable assertion is listed or supplied by the request/profile",
+      "disclosure_complete: read the draft sentence by sentence and use true only when every checkable assertion is listed or supplied by the request; the profile is voice evidence, never a factual packet",
       "quotations_verified: inspect every quoted span and use true only when every attributed quotation is verbatim in the request or independently verified; scare quotes may be marked reviewed",
     ],
     drafts: {},
@@ -2082,6 +2156,13 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
+  let auditSchema;
+  try {
+    auditSchema = manifestClaimAuditSchema(manifest);
+  } catch (error) {
+    errors.push(error.message);
+    auditSchema = null;
+  }
   const repairDispatch = manifestDispatch(manifest, "claim_repair");
   const repairSystem = resolve(REPO, manifest.agents.claim_repair.snapshot);
   const reauditDispatch = manifestDispatch(manifest, "claim_reaudit");
@@ -2093,7 +2174,7 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
         expected.push({
           path: join(runDir, "raw", "claim-audits", `${c.id}.json`), dispatch: auditDispatch,
           input: invocationInput(auditSystem, text(promptPath), {
-            schema: auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+            schema: auditDispatch.transport === "native-structured" ? auditSchema : null,
           }),
         });
       }
@@ -2111,7 +2192,7 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
         expected.push({
           path: join(runDir, "raw", "claim-reaudits", `${c.id}.json`), dispatch: reauditDispatch,
           input: invocationInput(auditSystem, text(reauditPromptPath), {
-            schema: reauditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+            schema: reauditDispatch.transport === "native-structured" ? auditSchema : null,
           }),
         });
       }
@@ -2188,6 +2269,7 @@ function stagedInputErrors(runDir, manifest, cases) {
 
 function promptDerivationErrors(runDir, manifest, cases) {
   const errors = [];
+  const auditSchemaId = claimAuditContract(manifest).id;
   const draftDispatch = manifestDispatch(manifest, "draft");
   for (const c of [...cases.cases, ...cases.refusals.map((row) => ({ ...row, refusal: true }))]) {
     const profileDir = join(runDir, "inputs", "profiles", c.profile);
@@ -2208,7 +2290,7 @@ function promptDerivationErrors(runDir, manifest, cases) {
       const chain = resolveDraftChain(runDir, manifest, c);
       const initialAuditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
       if (chain.initialAudit) {
-        const expectedAudit = `${claimAuditPrompt(c, chain.normalizedSource)}\n`;
+        const expectedAudit = `${claimAuditPrompt(c, chain.normalizedSource, auditSchemaId)}\n`;
         if (!existsSync(initialAuditPromptPath) || text(initialAuditPromptPath) !== expectedAudit) {
           errors.push(`${c.id} initial claim-audit prompt does not reproduce from the raw draft`);
         }
@@ -2222,7 +2304,7 @@ function promptDerivationErrors(runDir, manifest, cases) {
           errors.push(`${c.id} claim-repair prompt does not reproduce from its rejected source and audit`);
         }
         const reauditPromptPath = join(runDir, "prompts", "claim-reaudits", `${c.id}.md`);
-        const expectedReaudit = `${claimAuditPrompt(c, chain.repairSource)}\n`;
+        const expectedReaudit = `${claimAuditPrompt(c, chain.repairSource, auditSchemaId)}\n`;
         if (!existsSync(reauditPromptPath) || text(reauditPromptPath) !== expectedReaudit) {
           errors.push(`${c.id} claim-reaudit prompt does not reproduce from the bounded repair`);
         }

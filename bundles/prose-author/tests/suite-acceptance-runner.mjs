@@ -183,8 +183,10 @@ export async function run(t, { HERE }) {
   t.check("acceptance defaults to a native independent claim-audit transport",
     prepareConfig({}).claimAuditNative
       && /transport: config\.claimAuditNative \? "native-structured" : "json-fence"/.test(source)
-      && source.includes('auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null')
-      && source.includes('reauditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null'));
+      && source.includes("claim_pipeline: CLAIM_PIPELINE")
+      && source.includes("voice-draft-claim-audit-3.json")
+      && source.includes('auditDispatch.transport === "native-structured" ? auditSchema : null')
+      && source.includes('reauditDispatch.transport === "native-structured" ? auditSchema : null'));
   t.check("historical bounded-repair transport stays pinned but new dispatch makes no repair call",
     prepareConfig({}).claimRepairNative
       && /transport: config\.claimRepairNative \? "native-structured" : "json-fence"/.test(source)
@@ -197,6 +199,9 @@ export async function run(t, { HERE }) {
       && source.includes("assembleVoiceCritic(decoded.source"));
   t.check("critic dispatch is blocked until the independent claims audit is complete",
     /const auditFailures = claimsAuditFailures\(json\(join\(runDir, "CLAIMS-AUDIT\.json"\)\), cases\);[\s\S]*no critic calls were made/.test(source));
+  t.check("the human completeness gate treats only the request as supplied factual evidence",
+    source.includes("the profile is voice evidence, never a factual packet")
+      && !source.includes("supplied by the request/profile"));
 
   {
     const chainRoot = mkdtempSync(join(tmpdir(), "prose-author-claim-chain-"));
@@ -206,6 +211,7 @@ export async function run(t, { HERE }) {
       });
       const manifest = {
         concurrency: 1,
+        claim_pipeline: "audit-disclosure/1",
         dispatch: {
           draft: stage(), claim_audit: stage(), claim_repair: stage(), claim_reaudit: stage(),
         },
@@ -291,6 +297,14 @@ export async function run(t, { HERE }) {
           && disclosed.finalSource.paragraphs === disclosed.normalizedSource.paragraphs
           && disclosed.auditClaims.length === 1
           && disclosed.auditClaims[0].sentence_id === "p1s2");
+      put("claim-audits", c.id, initialAudit, "claim_audit");
+      let downgradeRejected = false;
+      try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
+        downgradeRejected = /audit-disclosure\/1 requires voice-draft-claim-audit\/3/.test(error.message);
+      }
+      t.check("a model-authored audit schema cannot downgrade the prepared current claim pipeline",
+        downgradeRejected);
+      manifest.claim_pipeline = "bounded-repair/1";
       put("drafts", c.id, original, "draft");
       put("claim-audits", c.id, initialAudit, "claim_audit");
       put("claim-repairs", c.id, repaired, "claim_repair");

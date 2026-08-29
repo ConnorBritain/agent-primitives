@@ -290,6 +290,13 @@ export const MUTATIONS = [
     guards: "acceptance cannot assemble the drafter's correlated self-audit directly",
   },
   {
+    name: "let model output downgrade the prepared claim-audit schema",
+    file: ACCEPTANCE_RUNNER,
+    find: "    if (decodedAudit.audit.schema !== DRAFT_AUDIT_SCHEMA_ID) {\n      throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);\n    }",
+    with: "    if (false) {\n      throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);\n    }",
+    guards: "the immutable prepared pipeline, not model-authored output, selects the accepted audit schema",
+  },
+  {
     name: "let claim repair alter independently accepted prose",
     file: DRAFT_CLAIM_REPAIR,
     find: "        if (!same(before[sIndex], after[sIndex])) errors.push(`repair changed protected sentence ${id}`);",
@@ -561,6 +568,13 @@ export const MUTATIONS = [
     find: 'const auditFailures = claimsAuditFailures(json(join(runDir, "CLAIMS-AUDIT.json")), cases);',
     with: "const auditFailures = [];",
     guards: "an incomplete disclosure audit cannot spend or score sixty critic calls",
+  },
+  {
+    name: "let the human factual audit treat the profile as a fact packet",
+    file: ACCEPTANCE_RUNNER,
+    find: "listed or supplied by the request; the profile is voice evidence, never a factual packet",
+    with: "listed or supplied by the request/profile",
+    guards: "profile examples, biography, and source facts cannot bypass the public verification queue",
   },
   {
     name: "stop requiring the independent disclosure-completeness decision",

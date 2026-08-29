@@ -43,6 +43,28 @@ export const AUDIT_SCHEMA = {
   required: ["schema", "sentences"],
 };
 
+export const PREVIOUS_AUDIT_SCHEMA = {
+  type: "object",
+  additionalProperties: false,
+  properties: {
+    schema: { type: "string", const: PREVIOUS_AUDIT_SCHEMA_ID },
+    sentences: {
+      type: "array", maxItems: 500,
+      items: {
+        type: "object",
+        additionalProperties: false,
+        properties: {
+          id: { type: "string", pattern: "^p[1-9][0-9]*s[1-9][0-9]*$" },
+          status: { type: "string", enum: ["keep", "reject"] },
+          reason: { type: "string" },
+        },
+        required: ["id", "status", "reason"],
+      },
+    },
+  },
+  required: ["schema", "sentences"],
+};
+
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 const exactKeys = (value, expected) => JSON.stringify(Object.keys(value).sort())
   === JSON.stringify([...expected].sort());
