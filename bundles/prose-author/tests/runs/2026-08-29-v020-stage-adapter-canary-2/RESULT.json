@@ -1,0 +1,22 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "status": "HOLD",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "failed_at": "2026-08-29T10:29:12.832Z",
+  "error": "codex exited 1: 2026-08-29T10:29:10.426453Z ERROR codex_models_manager::cache: failed to load models cache: missing field `base_instructions` at line 97 column 5\n2026-08-29T10:29:10.801340Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n",
+  "stages": {
+    "profile": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-2/raw/profile.json",
+      "raw_sha256": "e26c6df7a30e98140155a2b63ce6a714c2943b4cc30511f909e294d859342cb5",
+      "harness": "codex",
+      "is_error": true,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-2/raw/profile.codex-events.jsonl",
+      "raw_events_sha256": "21000ca170b2bdec7b42acd7ab39f223ee218b2b7d5219f3a719214acb8e584d",
+      "raw_output": null,
+      "raw_output_sha256": null,
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    }
+  }
+}
