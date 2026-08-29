@@ -1,0 +1,48 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "model": "gpt-5.6-sol",
+  "stage_completion": "PASS",
+  "diagnostic_assessment": "PASS",
+  "draft_words": {
+    "initial": 642,
+    "conformed": 642,
+    "requested": 650
+  },
+  "conformance": {
+    "initial_rows_in_range": 10,
+    "final_rows_in_range": 10,
+    "initial_pass": true,
+    "final_pass": true,
+    "patch_edits": 0,
+    "material_expansion": false
+  },
+  "coverage": {
+    "preserved": 9,
+    "revised": 0,
+    "omitted": 1,
+    "unresolved": 0,
+    "omitted_dimension": "opponents-allies-sources",
+    "omitted_observation_ids": ["o12"],
+    "silent_omissions": 0
+  },
+  "claim_audit": {
+    "schema_valid": true,
+    "semantic_pass": true,
+    "hard_rejects": 0,
+    "keep_sentences": 34,
+    "disclose_sentences": 7,
+    "claims_disclosed": 19
+  },
+  "critic": {
+    "verdict": "CLEAN",
+    "findings": 0
+  },
+  "structural_checks": {
+    "public_contract_valid": true,
+    "fabricated_citations": 0,
+    "corpus_leakage_ngrams": 0
+  },
+  "conclusion": "The compact ID-bound control card plus exact-anchor patch boundary cleared this one locked Doctorow diagnostic end to end. The initial draft already met all measured bands; the mandatory zero-edit patch explicitly preserved nine supported dimensions and disclosed the one source-dependent omission. The critic returned CLEAN, with no fabricated citation or corpus leakage finding. This is diagnostic evidence only, not k=3 stability or 20-draft acceptance evidence."
+}
