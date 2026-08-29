@@ -387,9 +387,23 @@ export const MUTATIONS = [
   {
     name: "let unrelated edits borrow a failing measurement id",
     file: DRAFT_CONFORMANCE,
-    find: "    if (!improves) {",
+    find: "    if (improved.length !== relevant.length || improved.length === 0) {",
     with: "    if (false) {",
     guards: "every exact edit must independently move one named failing measurement toward its range",
+  },
+  {
+    name: "let measured punctuation edits rewrite unrelated semantics",
+    file: DRAFT_CONFORMANCE,
+    find: "    if (measurementEditSkeleton(edit.before, edit.measurement_ids)",
+    with: "    if (false && measurementEditSkeleton(edit.before, edit.measurement_ids)",
+    guards: "a bounded measured correction cannot reverse the request stance or rewrite qualitative content",
+  },
+  {
+    name: "let a failing measurement revise an unrelated coverage dimension",
+    file: DRAFT_CONFORMANCE,
+    find: "    if (!sameArray([...edit.coverage_dimensions].sort(), expectedDimensions)) {",
+    with: "    if (false) {",
+    guards: "every conformance edit binds its changed measured rules to their exact coverage dimensions",
   },
   {
     name: "invite the conformer to replace the whole draft",

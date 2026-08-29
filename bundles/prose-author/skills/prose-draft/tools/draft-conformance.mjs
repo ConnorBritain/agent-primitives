@@ -170,6 +170,38 @@ const exactKeys = (value, keys) => isObject(value)
 const sameArray = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const words = (value) => String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
 
+function expandMeasuredContractions(value) {
+  return String(value ?? "")
+    .replace(/\bwon['’]t\b/gi, "will not")
+    .replace(/\bcan['’]t\b/gi, "cannot")
+    .replace(/\bshan['’]t\b/gi, "shall not")
+    .replace(/\bain['’]t\b/gi, "is not")
+    .replace(/\b([A-Za-z]+)n['’]t\b/gi, "$1 not")
+    .replace(/\b([A-Za-z]+)['’]re\b/gi, "$1 are")
+    .replace(/\b([A-Za-z]+)['’]ve\b/gi, "$1 have")
+    .replace(/\b([A-Za-z]+)['’]ll\b/gi, "$1 will")
+    .replace(/\b([A-Za-z]+)['’]d\b/gi, "$1 would")
+    .replace(/\b([A-Za-z]+)['’]m\b/gi, "$1 am")
+    .replace(/\b(it|that|there|here|who|what|where|when|how|why|he|she|let|one|nothing|everything|something|somebody|nobody|this)['’]s\b/gi, "$1 is");
+}
+
+function measurementEditSkeleton(value, measurementIds) {
+  const ids = new Set(measurementIds);
+  let normalized = ids.has("contractions") || ids.has("uncontracted-negatives")
+    ? expandMeasuredContractions(value)
+    : String(value ?? "");
+  for (const id of ids) {
+    if (["contractions", "uncontracted-negatives", "question-marks", "round-parenthetical-spans", "em-dashes", "en-dashes"].includes(id)) continue;
+    const rule = rules.get(id);
+    if (rule) normalized = normalized.replace(new RegExp(rule.pattern.source, rule.pattern.flags), " ");
+  }
+  if (ids.has("question-marks")) normalized = normalized.replace(/[?.]/g, " ");
+  if (ids.has("round-parenthetical-spans")) normalized = normalized.replace(/[()]/g, " ");
+  if (ids.has("em-dashes")) normalized = normalized.replace(/—/g, " ");
+  if (ids.has("en-dashes")) normalized = normalized.replace(/–/g, " ");
+  return (normalized.toLowerCase().match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) ?? []).join(" ");
+}
+
 export function replacementWordAllowance(initialWords) {
   if (!Number.isInteger(initialWords) || initialWords < 0) {
     throw new TypeError("replacement allowance requires a nonnegative integer word count");
@@ -219,7 +251,7 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
       || edit.coverage_dimensions.some((id) => !COVERAGE_DIMENSIONS.includes(id))) {
       errors.push(`${at}.coverage_dimensions is invalid`);
     }
-    if (!Array.isArray(edit.measurement_ids)
+    if (!Array.isArray(edit.measurement_ids) || edit.measurement_ids.length < 1
       || new Set(edit.measurement_ids).size !== edit.measurement_ids.length
       || edit.measurement_ids.some((id) => !measurementIds.has(id))) {
       errors.push(`${at}.measurement_ids is invalid`);
@@ -247,18 +279,28 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     : row.status === "deficit" ? row.minimum - row.actual_count
       : row.actual_count - row.maximum;
   for (const [index, edit] of edits.entries()) {
-    const relevant = edit.measurement_ids
-      .map((id) => initialByMeasurement.get(id))
-      .filter((row) => row?.status !== "in-range");
+    const namedRows = edit.measurement_ids.map((id) => initialByMeasurement.get(id));
+    const relevant = namedRows.filter((row) => row?.status !== "in-range");
     const singlyPatched = `${sourceText.slice(0, edit.start)}${edit.after}${sourceText.slice(edit.end)}`;
     const afterByMeasurement = new Map(
       measureDraftConformance(singlyPatched, card).measurements
         .map((row) => [row.measurement_id, row]),
     );
-    const improves = relevant.some((row) =>
+    const improved = relevant.filter((row) =>
       distanceFromRange(afterByMeasurement.get(row.measurement_id)) < distanceFromRange(row));
-    if (!improves) {
-      errors.push(`patch.edits[${index}] does not move any named failing measurement toward range`);
+    if (relevant.length !== namedRows.length) {
+      errors.push(`patch.edits[${index}] names a measurement that was not initially failing`);
+    }
+    if (improved.length !== relevant.length || improved.length === 0) {
+      errors.push(`patch.edits[${index}] does not move every named failing measurement toward range`);
+    }
+    const expectedDimensions = [...new Set(improved.flatMap((row) => row.dimensions))].sort();
+    if (!sameArray([...edit.coverage_dimensions].sort(), expectedDimensions)) {
+      errors.push(`patch.edits[${index}].coverage_dimensions must exactly match its improved measurements (${expectedDimensions.join(", ")})`);
+    }
+    if (measurementEditSkeleton(edit.before, edit.measurement_ids)
+      !== measurementEditSkeleton(edit.after, edit.measurement_ids)) {
+      errors.push(`patch.edits[${index}] changes lexical content outside its named measurement forms`);
     }
   }
 

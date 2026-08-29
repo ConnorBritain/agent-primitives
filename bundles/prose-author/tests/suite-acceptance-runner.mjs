@@ -188,7 +188,7 @@ export async function run(t, { HERE }) {
         && targetCard.measurements[1].gate_maximum === 1);
     const initialSource = {
       schema: "voice-draft-source/4", kind: "draft",
-      draft: "We can fix this sentence. It needs a turn.",
+      draft: "We can fix this sentence. It needs a turn and gets one.",
       omitted: [], refused: "",
     };
     const conformance = measureDraftConformance(initialSource.draft, targetCard);
@@ -207,7 +207,8 @@ export async function run(t, { HERE }) {
         && /Return voice-draft-conformance-patch\/1 exactly; do not return a rewritten draft/.test(conformancePrompt)
         && /exact, unique before\/after source replacements/.test(conformancePrompt)
         && /anchor[\s\S]*no larger than one paragraph/.test(conformancePrompt)
-        && /before anchors may replace at most 24 of the initial 9 words/.test(conformancePrompt)
+        && /before anchors may replace at most 24 of the initial 12 words/.test(conformancePrompt)
+        && /replacement must retain the same lexical content/.test(conformancePrompt)
         && /Return exactly ten coverage rows/.test(conformancePrompt));
     const patchCoverage = targetProfile.coverage.map((row) => ({
       dimension: row.dimension,
@@ -220,9 +221,9 @@ export async function run(t, { HERE }) {
     const conformingPatch = {
       schema: "voice-draft-conformance-patch/1",
       edits: [{
-        before: "It needs a turn.", after: "It needs a turn – and gets one.",
+        before: "It needs a turn and gets one.", after: "It needs a turn – and gets one.",
         reason: "Adds the missing en-dash pivot without adding an em dash.",
-        coverage_dimensions: ["interruption-punctuation"], measurement_ids: ["en-dashes", "em-dashes"],
+        coverage_dimensions: ["interruption-punctuation"], measurement_ids: ["en-dashes"],
       }],
       coverage: patchCoverage,
       omitted: [],
@@ -235,27 +236,50 @@ export async function run(t, { HERE }) {
         && applied.report.pass && applied.word_control.final_words >= applied.word_control.initial_words);
     const missed = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
-      edits: [{ ...conformingPatch.edits[0], after: "It needs a turn – but not — or —." }],
+      edits: [{ ...conformingPatch.edits[0], after: "It needs a turn – and — gets — one." }],
     }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
     t.check("an exact patch that leaves a measured row out of range cannot pass", !missed.ok
       && missed.errors.some((error) => /final em-dashes count 2 is excess/.test(error)));
     const unrelated = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
-      edits: [{ ...conformingPatch.edits[0], after: "It still needs a turn." }],
+      edits: [{ ...conformingPatch.edits[0], after: "It still needs a turn and gets one." }],
     }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
     t.check("an edit must itself improve one named failing measurement", !unrelated.ok
-      && unrelated.errors.some((error) => /does not move any named failing measurement toward range/.test(error)));
+      && unrelated.errors.some((error) => /does not move every named failing measurement toward range/.test(error)));
+    const semanticReversal = applyDraftConformancePatch({
+      ...initialSource,
+      draft: "The organization must reject the service and keep confidential notes inside systems it controls.",
+    }, {
+      ...conformingPatch,
+      edits: [{
+        before: "The organization must reject the service and keep confidential notes inside systems it controls.",
+        after: "The organization should adopt the service – and send confidential notes outside systems it controls.",
+        reason: "Adds the missing en dash.",
+        coverage_dimensions: ["interruption-punctuation"],
+        measurement_ids: ["en-dashes"],
+      }],
+    }, { request: "The organization must reject the service and keep confidential notes inside systems it controls.", profile: targetProfile, card: targetCard });
+    t.check("a measured punctuation correction cannot reverse unrelated request semantics",
+      !semanticReversal.ok
+        && semanticReversal.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const borrowedDimension = applyDraftConformancePatch(initialSource, {
+      ...conformingPatch,
+      edits: [{ ...conformingPatch.edits[0], coverage_dimensions: ["openings-endings-closure"] }],
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    t.check("an edit cannot borrow a failing measurement from another coverage dimension",
+      !borrowedDimension.ok
+        && borrowedDimension.errors.some((error) => /coverage_dimensions must exactly match/.test(error)));
     const expanded = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
       edits: [{
         ...conformingPatch.edits[0],
-        after: `It needs a turn – ${"added filler ".repeat(20).trim()}.`,
+        after: `It needs a turn – ${", ".repeat(20).trim()} and gets one.`,
       }],
     }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
     t.check("a patch cannot satisfy counts by materially expanding the draft", !expanded.ok
       && expanded.errors.some((error) => /conformance patch expands/.test(error)));
     const duplicateSource = {
-      ...initialSource, draft: "It needs a turn. It needs a turn.",
+      ...initialSource, draft: "It needs a turn and gets one. It needs a turn and gets one.",
     };
     const ambiguous = applyDraftConformancePatch(duplicateSource, conformingPatch, {
       request: "Write a 700-word post.", profile: targetProfile, card: targetCard,

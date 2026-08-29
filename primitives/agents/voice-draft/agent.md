@@ -247,15 +247,18 @@ applied to the initial source if it validates.
   named measured count; do not replace the whole draft. If only a qualitative instruction
   is missing, disclose that omission instead of using patch mode as an unmeasured rewrite.
 - `after` is the complete replacement for that anchor. It may be empty only for a deletion.
-- Name every affected coverage dimension and at least one measured rule on the edit. Every
-  edit must independently move one named rule that initially failed toward its allowed range;
-  do not borrow a failing rule's ID for an unrelated rewrite.
+- Name only measured rules that initially failed, and independently move every named rule
+  toward its allowed range. The coverage dimensions must exactly match those rules. Outside
+  the named measured forms, preserve the anchor's lexical content: a measured fix cannot
+  rewrite the argument, request stance, recommendation, facts, or a qualitative dimension.
+  Do not borrow a failing rule's ID for an unrelated rewrite.
 - Return exactly ten coverage rows. A supported row is `preserved`, `revised`, or
   `omitted`; an unresolved row stays `unresolved`. A `revised` row must be named by an
   edit. An `omitted` row needs a matching `habit`/`why` record containing its dimension
   and observation IDs.
 - The local assembler rejects non-unique or overlapping anchors, out-of-range final
-  counts, an anchor crossing a paragraph boundary, cumulative replacement beyond the
+  counts, any lexical change outside the exact measured forms, a dimension/rule mismatch,
+  an anchor crossing a paragraph boundary, cumulative replacement beyond the
   caller's stated retained-text budget, material expansion, movement farther from the
   requested word target, silent coverage omission, and any malformed final source. You do
   not estimate whether it passes.
