@@ -48,6 +48,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | skip claims audit linkage during final check | 1 | manual claims decisions stay linked to the exact draft, disclosure, and quotations |
 | trust canonical critic sources instead of comparing them to raw | 1 | critic canonical sources reproduce byte-for-byte from raw model results |
 | trust a Codex wrapper that diverges from its primary event stream | 1 | final verification reconstructs Codex structured output from immutable JSONL events |
+| select Codex reconstruction from the mutable wrapper label | 1 | a Codex wrapper cannot skip primary-event reconstruction by relabelling itself |
 | drop the explicit type from context-specific profile dimensions | 1 | the generated profile schema remains valid in strict structured-output harnesses |
 | derive the critic verdict from its finding count | 1 | the model-owned verdict remains independent from the findings-rate instrument |
 | drop the drafter's sentence-by-sentence claim inventory | 2 | a nearby disclosed fact cannot hide a second checkable assertion |

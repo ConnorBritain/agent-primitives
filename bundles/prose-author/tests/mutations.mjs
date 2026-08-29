@@ -387,6 +387,13 @@ export const MUTATIONS = [
     guards: "final verification reconstructs Codex structured output from immutable JSONL events",
   },
   {
+    name: "select Codex reconstruction from the mutable wrapper label",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const lockedHarness = expectedDispatch?.harness ?? record.acceptance_dispatch?.harness;",
+    with: "  const lockedHarness = record.harness;",
+    guards: "a Codex wrapper cannot skip primary-event reconstruction by relabelling itself",
+  },
+  {
     name: "drop the explicit type from context-specific profile dimensions",
     file: PROFILE_CONTRACT,
     find: '          items: { type: "string", enum: plan.qualitativeDimensions },',

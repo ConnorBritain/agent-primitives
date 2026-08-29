@@ -560,7 +560,11 @@ function completedResult(path, expectedDispatch = null, expectedInput = null) {
   if (expectedInput && JSON.stringify(record.acceptance_input) !== JSON.stringify(expectedInput)) {
     throw new Error(`${rel(path)} invocation provenance does not match its locked prompts and schema`);
   }
-  if (record.harness === "codex") {
+  const lockedHarness = expectedDispatch?.harness ?? record.acceptance_dispatch?.harness;
+  if (lockedHarness === "codex") {
+    if (record.harness !== "codex") {
+      throw new Error(`${rel(path)} Codex result wrapper has a missing or divergent harness label`);
+    }
     const eventErrors = codexRecordErrors(record);
     if (eventErrors.length) throw new Error(`${rel(path)} ${eventErrors.join("; ")}`);
   }
@@ -2095,7 +2099,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
 
 export {
   artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
-  codexRecordErrors, committedManifestError,
+  codexRecordErrors, committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, invocationInput, localModuleClosure,
   manifestDispatch, prepareConfig, quotationAudit, stagePrompt, structuralGates, validateCases,

@@ -8,7 +8,7 @@ import { dirname, join } from "node:path";
 
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
-  codexRecordErrors, committedManifestError, criticPrompt, deriveCritic, draftPrompt, invocationInput,
+  codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt, invocationInput,
   localModuleClosure, manifestDispatch, prepareConfig, profileRenderPrompt, quotationAudit, stagePrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
@@ -309,6 +309,25 @@ export async function run(t, { HERE }) {
           codexRecordErrors(record, eventRoot).length === 0
             && codexRecordErrors({ ...record, structured_output: { ok: false } }, eventRoot)
               .some((error) => /structure diverges/.test(error)));
+        const wrapperPath = join(eventRoot, "wrapper.json");
+        const wrapperRecord = {
+          ...record,
+          raw_events: join(eventRoot, "events.jsonl"),
+          raw_output: join(eventRoot, "output.json"),
+        };
+        writeFileSync(wrapperPath, `${JSON.stringify({
+          type: "result", is_error: false, ...wrapperRecord,
+        })}\n`);
+        const lockedWrapperPasses = completedResult(wrapperPath, acceptanceDispatch, acceptanceInput) !== null;
+        writeFileSync(wrapperPath, `${JSON.stringify({
+          type: "result", is_error: false, ...wrapperRecord, harness: undefined,
+        })}\n`);
+        let relabelRejected = false;
+        try { completedResult(wrapperPath, acceptanceDispatch, acceptanceInput); } catch (error) {
+          relabelRejected = /missing or divergent harness label/.test(error.message);
+        }
+        t.check("locked Codex reconstruction cannot be skipped by relabelling its wrapper",
+          lockedWrapperPasses && relabelRejected);
         const recovery = {
           type: "result", is_error: true, error: "codex emitted no final structured output",
           structured_output: null, raw_events: "events.jsonl",
