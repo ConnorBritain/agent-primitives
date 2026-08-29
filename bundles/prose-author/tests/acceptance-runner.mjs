@@ -32,6 +32,7 @@ import { analyzeParagraphCoverage } from "./coverage-analysis.mjs";
 import { crossCount } from "./cross-count.mjs";
 import { bodyOf } from "./corpus-rates.mjs";
 import { analyzeProfileStability } from "./profile-stability.mjs";
+import { assertStrictOutputSchema, strictOutputSchemaErrors } from "./strict-output-schema.mjs";
 import {
   assembleVoiceCritic, CRITIC_CATEGORIES, CRITIC_SOURCE_SCHEMA, parseVoiceCriticSource,
 } from "./voice-critic-source.mjs";
@@ -536,6 +537,8 @@ export function profileRenderPrompt(profileId, inputs, measurements = null) {
     `Qualitative dimensions: ${sourcePlan.qualitativeDimensions.join(", ") || "none"}.`,
     `Return ${sourcePlan.qualitativeMin}–${sourcePlan.qualitativeMax} qualitative observations.`,
     `Required unresolved dimensions: ${sourcePlan.unresolvedDimensions.join(", ") || "none"}.`,
+    "The strict unresolved object requires every listed qualitative and unresolved key:",
+    "use null when a qualitative observation covers that dimension, otherwise give the unresolved reason.",
     ...(absenceGuidance.length ? ["", "Mechanical absence availability:", ...absenceGuidance] : []),
   ].join("\n");
 }
@@ -575,11 +578,11 @@ function prepare(runDir) {
   }
 
   const draftSchemaPath = join(runDir, "schemas", "voice-draft-source-3.json");
-  write(draftSchemaPath, DRAFT_SOURCE_SCHEMA);
+  write(draftSchemaPath, assertStrictOutputSchema(DRAFT_SOURCE_SCHEMA, "draft schema"));
   const claimAuditSchemaPath = join(runDir, "schemas", "voice-draft-claim-audit-3.json");
-  write(claimAuditSchemaPath, DRAFT_AUDIT_SCHEMA);
+  write(claimAuditSchemaPath, assertStrictOutputSchema(DRAFT_AUDIT_SCHEMA, "claim-audit schema"));
   const criticSchemaPath = join(runDir, "schemas", "voice-critic-source-1.json");
-  write(criticSchemaPath, CRITIC_SOURCE_SCHEMA);
+  write(criticSchemaPath, assertStrictOutputSchema(CRITIC_SOURCE_SCHEMA, "critic schema"));
 
   const corpusEntries = {};
   const currencyLocks = {};
@@ -604,7 +607,9 @@ function prepare(runDir) {
     const measurements = measureProfile(source);
     write(join(staged, "measurements.json"), measurements);
     const profileSchemaPath = join(runDir, "schemas", `voice-profile-source-3-${profile.id}.json`);
-    write(profileSchemaPath, sourceRenderSchema(measurements));
+    write(profileSchemaPath, assertStrictOutputSchema(
+      sourceRenderSchema(measurements), `${profile.id} profile schema`,
+    ));
     profileSchemaEntries[profile.id] = {
       path: rel(profileSchemaPath), sha256: SHA(text(profileSchemaPath)),
     };
@@ -1293,6 +1298,7 @@ function manifestStageSchema(manifest, stage, expected, { profileId = null, id =
   if (JSON.stringify(schema) !== JSON.stringify(expected)) {
     throw new Error(`locked ${stage}${profileId ? ` ${profileId}` : ""} schema bytes do not match the contract`);
   }
+  assertStrictOutputSchema(schema, `${stage}${profileId ? ` ${profileId}` : ""} schema`);
   return { schema, path };
 }
 
@@ -3211,4 +3217,5 @@ export {
   manifestDispatch, manifestStageSchema, modelAdapterName, prepareConfig, quotationAudit,
   dispatchPreflightErrors, rawNamespaceErrors, resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,
   sentenceReviewTemplate, stagePrompt, strictlyCommittedAfter, structuralGates, validateCases,
+  assertStrictOutputSchema, strictOutputSchemaErrors,
 };

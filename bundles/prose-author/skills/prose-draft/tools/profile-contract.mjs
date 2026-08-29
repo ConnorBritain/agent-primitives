@@ -120,14 +120,14 @@ const qualitativeObservationSchema = {
   additionalProperties: false,
   properties: {
     dimensions: {
-      type: "array", minItems: 1, maxItems: 3, uniqueItems: true,
+      type: "array", minItems: 1, maxItems: 3,
       items: { type: "string", enum: COVERAGE_DIMENSIONS },
     },
     section: { type: "string", enum: SECTIONS },
     prose: { type: "string", minLength: 100, maxLength: 450 },
     frequency: { type: "string", enum: FREQUENCIES },
     support_files: {
-      type: "array", minItems: 2, uniqueItems: true,
+      type: "array", minItems: 2,
       items: { type: "string", minLength: 1 },
     },
   },
@@ -210,9 +210,10 @@ export function sourceRenderSchema(measurements) {
         properties: Object.fromEntries([
           ...plan.qualitativeDimensions, ...plan.unresolvedDimensions,
         ].map((id) => [id, {
-          type: "string", minLength: 20, maxLength: 500,
+          type: plan.unresolvedDimensions.includes(id) ? "string" : ["string", "null"],
+          minLength: 20, maxLength: 500,
         }])),
-        ...(plan.unresolvedDimensions.length ? { required: plan.unresolvedDimensions } : {}),
+        required: [...plan.qualitativeDimensions, ...plan.unresolvedDimensions],
       },
       gaps: { type: "string", minLength: 40, maxLength: 900 },
       observations_dropped: { type: "integer", minimum: 0 },
@@ -515,6 +516,17 @@ function normalizeMeasuredDensityLanguage(prose) {
  * Returns all errors at once; it never repairs structure or guesses evidence.
  */
 export function assembleVoiceProfile(source, context) {
+  // Strict structured-output transports require every object key. Optional
+  // unresolved reasons therefore arrive as explicit nulls; the semantic source
+  // contract remains sparse and the deterministic validator stays authoritative.
+  if (isObject(source) && !Object.hasOwn(source, "refused") && isObject(source.unresolved)) {
+    source = {
+      ...source,
+      unresolved: Object.fromEntries(
+        Object.entries(source.unresolved).filter(([, reason]) => reason !== null),
+      ),
+    };
+  }
   const errors = sourceErrors(source, context?.measurements);
   const profile = context?.profile;
   if (!isText(profile)) errors.push("context.profile must be non-empty");

@@ -12,6 +12,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 
 | mutation | tests failed | what it guards |
 |---|---|---|
+| allow full JSON Schema keywords into strict model transport | 1 | provider-specific schema subsets are checked before a model call can be spent |
 | stop noticing dominance claims | 2 | a profile calling a habit the engine of a voice must state the rate that backs it |
 | accept a profile that states no frequency at all | 1 | a count without a rate cannot tell a drafter how often to use a habit |
 | stop recognising placeholder hosts | 3 | an invented citation is caught before it reaches a reader |

@@ -23,8 +23,9 @@ import { readSamples } from "../skills/prose-draft/tools/exemplars.mjs";
 import { measureProfile } from "./profile-measurements.mjs";
 import {
   assembleVoiceProfile, COVERAGE_DIMENSIONS as SOURCE_DIMENSIONS, parseVoiceProfileSource,
-  frequencyForPerPiece, sourceMeasurementPlan,
+  frequencyForPerPiece, sourceMeasurementPlan, sourceRenderSchema,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
+import { strictOutputSchemaErrors } from "./strict-output-schema.mjs";
 import {
   fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
 } from "./fixture-guard.mjs";
@@ -547,6 +548,34 @@ export async function run(t, { tmp, HERE }) {
     const context = {
       profile: "doctorow-blog", measurements: measured, samples_used: files, samples_excluded: [],
     };
+    {
+      const strictSchema = sourceRenderSchema(measured);
+      const unresolved = strictSchema.properties.unresolved;
+      t.check("the context-specific profile schema fits strict harnesses before dispatch",
+        strictOutputSchemaErrors(strictSchema).length === 0
+          && unresolved.required.length === Object.keys(unresolved.properties).length);
+      const strictSource = source();
+      for (const dimension of Object.keys(unresolved.properties)) {
+        if (!Object.hasOwn(strictSource.unresolved, dimension)) strictSource.unresolved[dimension] = null;
+      }
+      t.check("strict nullable unresolved slots normalize before semantic assembly",
+        assembleVoiceProfile(strictSource, context).ok);
+    }
+    {
+      const duplicateDimension = source();
+      duplicateDimension.qualitative[0].dimensions = [
+        duplicateDimension.qualitative[0].dimensions[0],
+        duplicateDimension.qualitative[0].dimensions[0],
+      ];
+      t.check("duplicate qualitative dimensions remain a deterministic semantic failure",
+        assembleVoiceProfile(duplicateDimension, context).errors
+          .some((error) => /one to three unique qualitative/.test(error)));
+      const duplicateSupport = source();
+      duplicateSupport.qualitative[0].support_files = [files[0], files[0]];
+      t.check("duplicate qualitative support files remain a deterministic semantic failure",
+        assembleVoiceProfile(duplicateSupport, context).errors
+          .some((error) => /at least two unique filenames/.test(error)));
+    }
     {
       const plan = sourceMeasurementPlan(measured);
       t.check("the locked measurement plan creates one unique slot per relevant counter",

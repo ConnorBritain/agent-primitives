@@ -37,7 +37,6 @@ export const CRITIC_SOURCE_SCHEMA = {
     },
     clean_categories: {
       type: "array",
-      uniqueItems: true,
       items: { type: "string", enum: CRITIC_CATEGORIES },
     },
     rhythm_assessed: { type: "boolean" },

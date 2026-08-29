@@ -94,6 +94,7 @@ const DRAFT_CLAIM_AUDIT_PROMPT = "bundles/prose-author/skills/prose-draft/refere
 const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
 const ACCEPTANCE_RUNNER = "bundles/prose-author/tests/acceptance-runner.mjs";
+const STRICT_OUTPUT_SCHEMA = "bundles/prose-author/tests/strict-output-schema.mjs";
 const VOICE_DRAFT_PROMPT = "primitives/agents/voice-draft/agent.md";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
@@ -132,6 +133,13 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  {
+    name: "allow full JSON Schema keywords into strict model transport",
+    file: STRICT_OUTPUT_SCHEMA,
+    find: '  "patternProperties", "then", "uniqueItems",',
+    with: '  "patternProperties", "then",',
+    guards: "provider-specific schema subsets are checked before a model call can be spent",
+  },
   // --- frequency discipline and fabricated citations (PI-02 FU-16) ---
   // Both guard failures are invisible in the artefact: an overclaimed profile reads
   // like a confident one, and a fabricated URL reads like a real one.

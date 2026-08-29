@@ -17,12 +17,16 @@ import {
   manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
   quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt,
   strictlyCommittedAfter, schemaInvocation, validateCases,
+  assertStrictOutputSchema, strictOutputSchemaErrors,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
   assembleVoiceCritic, CRITIC_SOURCE_SCHEMA, validateVoiceCriticSource,
 } from "./voice-critic-source.mjs";
-import { sentenceRefs } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
+import { SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA } from "../skills/prose-draft/tools/draft-contract.mjs";
+import {
+  AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA, sentenceRefs,
+} from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 const humanAttestation = () => ({
@@ -67,6 +71,23 @@ export async function run(t, { HERE }) {
 
   t.group("v0.2 acceptance harness — dispatch boundaries");
   {
+    t.check("portable structured-output schemas reject unsupported JSON Schema keywords",
+      strictOutputSchemaErrors({
+        type: "object", additionalProperties: false,
+        properties: { values: { type: "array", uniqueItems: true, items: { type: "string" } } },
+        required: ["values"],
+      }).some((error) => /uniqueItems is not portable/.test(error)));
+    t.check("portable structured-output schemas require every closed-object field",
+      strictOutputSchemaErrors({
+        type: "object", additionalProperties: false,
+        properties: { required_value: { type: "string" }, optional_value: { type: "string" } },
+        required: ["required_value"],
+      }).some((error) => /required must name every property/.test(error)));
+    t.check("all fixed acceptance source schemas fit the portable strict subset",
+      [DRAFT_SOURCE_SCHEMA, DRAFT_AUDIT_SCHEMA, CRITIC_SOURCE_SCHEMA]
+        .every((schema) => assertStrictOutputSchema(schema)));
+  }
+  {
     const measurements = measureProfile(join(HERE, "fixtures", "profiles", "eff-mullin"));
     const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }], measurements);
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
@@ -85,6 +106,8 @@ export async function run(t, { HERE }) {
     t.check("profile prompts pin every measured ID to a unique semantic slot",
       /first-person-singular-family -> self-reference-biography; section absences; counted absence/.test(prompt)
         && /Required unresolved dimensions: profanity-vulgarity/.test(prompt));
+    t.check("profile prompts explain strict nullable unresolved placeholders",
+      /strict unresolved object requires every listed qualitative and unresolved key[\s\S]*use null when a qualitative observation covers/.test(prompt));
     t.check("profile dispatch can request native structure without making assembly depend on it",
       source.includes('manifest, "profile", sourceRenderSchema(manifest.corpora[profile.id].measurements)')
         && source.includes("run: () => dispatchModel({")
@@ -1115,6 +1138,10 @@ export async function run(t, { HERE }) {
         && CRITIC_SOURCE_SCHEMA.properties.verdict.type === "string");
     t.check("a clean semantic critic source validates",
       validateVoiceCriticSource(sourceRecord, { rhythmScanSupplied: false }).ok);
+    t.check("duplicate critic categories remain a deterministic semantic failure",
+      !validateVoiceCriticSource({
+        ...sourceRecord, clean_categories: ["register-breaks", "register-breaks"],
+      }, { rhythmScanSupplied: false }).ok);
     const cleanOutput = assembleVoiceCritic(sourceRecord, { rhythmScanSupplied: false });
     t.check("critic assembly owns one exact closing token",
       cleanOutput.ok && cleanOutput.output.trim().endsWith("**CLEAN**")
