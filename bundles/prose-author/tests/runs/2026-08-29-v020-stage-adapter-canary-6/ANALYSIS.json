@@ -1,0 +1,37 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "draft_words": 640,
+  "critic": {
+    "verdict": "REVISE",
+    "findings": 1,
+    "summary": "The critic found the whole draft too restrained and abstract relative to the corpus's conversational, polemical, aggressively colloquial register."
+  },
+  "claim_audit": {
+    "keep_sentences": 30,
+    "disclose_sentences": 10,
+    "reject_sentences": 0,
+    "disclosed_claims": 10
+  },
+  "targets": [
+    { "measurement": "second-person-family", "aim": 14, "minimum": 8, "maximum": 28, "actual": 24, "pass": true },
+    { "measurement": "first-person-plural-family", "aim": 5, "minimum": 3, "maximum": 9, "actual": 6, "pass": true },
+    { "measurement": "contractions", "aim": 11, "minimum": 6, "maximum": 22, "actual": 11, "pass": true },
+    { "measurement": "uncontracted-negatives", "aim": 0, "minimum": 0, "maximum": 2, "actual": 0, "pass": true },
+    { "measurement": "profanity-vulgarity", "aim": 1, "minimum": 0, "maximum": 2, "actual": 1, "pass": true },
+    { "measurement": "first-person-singular-family", "aim": 4, "minimum": 3, "maximum": 8, "actual": 4, "pass": true },
+    { "measurement": "question-marks", "aim": 1, "minimum": 0, "maximum": 3, "actual": 5, "pass": false },
+    { "measurement": "round-parenthetical-spans", "aim": 4, "minimum": 2, "maximum": 7, "actual": 2, "pass": true },
+    { "measurement": "em-dashes", "aim": 0, "minimum": 0, "maximum": 1, "actual": 0, "pass": true },
+    { "measurement": "en-dashes", "aim": 3, "minimum": 1, "maximum": 5, "actual": 1, "pass": true }
+  ],
+  "structural_target_pass": false,
+  "silent_omission": {
+    "dimension": "opponents-allies-sources",
+    "observation_id": "o12",
+    "profile_status": "described",
+    "draft_omitted_recorded": false
+  },
+  "conclusion": "Direct prose removed most count drift and restored some polemical energy, but it did not clear the critic, exceeded the question band, and still needs explicit qualitative coverage accounting."
+}
