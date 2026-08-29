@@ -34,8 +34,17 @@ to this result.
 - `voice-draft` receives only the request and assigned profile. It receives no corpus,
   filesystem, network, connector, collaboration, or shell access. Native harness events are
   preserved and reconstructed where the adapter exposes them.
+- Every non-refusal draft then receives one mandatory `voice-draft-conformance-patch/1`
+  call against that same request and profile. This is a fixed pipeline stage, not a redraw:
+  it emits at most twelve exact, uniquely anchored local replacements, accounts for all ten
+  coverage dimensions, and is always applied to the initial draft when valid. Deterministic
+  code rejects ambiguous or overlapping anchors, material expansion, movement away from the
+  requested word target, a silent coverage omission, or any final measured habit outside its
+  unchanged profile-derived band. The initial draft and patch remain separate immutable
+  evidence; there is no candidate selection.
 - A separate model claim audit reads the request and immutable sentence units but no voice
-  profile. It is assistive evidence, not the completeness authority. It may disclose a
+  profile. It runs only after deterministic patch application and audits the conformed
+  immutable sentence units. It is assistive evidence, not the completeness authority. It may disclose a
   finite verification claim or reject a hard factual failure; it never rewrites prose.
 - `CLAIMS-AUDIT.json` uses `prose-author-claims-audit/5`. A named human reviewer must decide
   every immutable sentence as `request-supported`, `listed-for-verification`, `non-factual`,
@@ -80,7 +89,8 @@ Before scoring, final checking must:
 - reconstruct all six profiles from raw responses and deterministic measurements;
 - verify all ten coverage dimensions, rate arithmetic, locators, independent recounts, and
   k=3 mechanical stability;
-- reconstruct every draft, refusal, audit overlay, disclosure, prompt, and critic result;
+- reconstruct every initial draft, exact conformance patch, conformed source, refusal, audit
+  overlay, disclosure, prompt, and critic result;
 - bind each human sentence decision to its canonical source, request evidence, exact public
   claim inventory, quotation inventory, and immutable draft hash;
 - prove repository commit ordering from the human audit anchor through critic evidence;

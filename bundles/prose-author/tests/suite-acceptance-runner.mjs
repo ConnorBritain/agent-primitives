@@ -383,7 +383,7 @@ export async function run(t, { HERE }) {
   t.check("adapter selection is stage-neutral and rejects undeclared harnesses",
     (() => {
       try {
-        return ["profile", "draft", "claim_audit", "critic"].every((stage) =>
+        return ["profile", "draft", "conformance", "claim_audit", "critic"].every((stage) =>
           modelAdapterName({ stage, harness: "codex" }) === "codex"
             && modelAdapterName({ stage, harness: "claude-code" }) === "claude-code");
       } catch { return false; }
@@ -393,7 +393,7 @@ export async function run(t, { HERE }) {
         catch (error) { return /no adapter/.test(error.message); }
       })());
   t.check("schema provenance follows the selected adapter for every stage",
-    ["profile", "draft", "claim_audit", "critic"].every((stage) => {
+    ["profile", "draft", "conformance", "claim_audit", "critic"].every((stage) => {
       const pinned = { schema: { type: "object" }, path: `/locked/${stage}.json` };
       const codex = schemaInvocation({ stage, harness: "codex", transport: "native-structured" }, pinned);
       const claude = schemaInvocation({ stage, harness: "claude-code", transport: "native-structured" }, pinned);
@@ -440,7 +440,8 @@ export async function run(t, { HERE }) {
     ["raw_events", "raw_output", "recovered_from"].every((key) =>
       ARTIFACT_PATH_KEYS.profile.includes(key) && ARTIFACT_PATH_KEYS.critic.includes(key))
       && ["initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
-        "audit_raw_events", "audit_raw_output", "audit_recovered_from"]
+        "audit_raw_events", "audit_raw_output", "audit_recovered_from",
+        "conformance_raw_events", "conformance_raw_output", "conformance_recovered_from"]
         .every((key) => ARTIFACT_PATH_KEYS.draft.includes(key))
       && (source.match(/\.\.\.codexCompanionArtifactFields\(record\),/g) ?? []).length === 4
       && /codexCompanionArtifactFields\(auditRecord, "audit_"\)/.test(source));
@@ -464,6 +465,11 @@ export async function run(t, { HERE }) {
   t.check("acceptance defaults to native structured draft transport and records it in the manifest",
     prepareConfig({}).stages.draft.transport === "native-structured"
       && /Object\.fromEntries\(STAGES\.map/.test(source));
+  t.check("acceptance locks exact conformance as a required stage rather than an optional canary",
+    prepareConfig({}).stages.conformance.transport === "native-structured"
+      && /STAGES = \["profile", "draft", "conformance", "claim_audit", "critic"\]/.test(source)
+      && /await dispatchConformancePipeline\(runDir, manifest, cases\)/.test(source)
+      && /resolveConformedDraft\(runDir, manifest, c\)/.test(source));
   t.check("acceptance defaults to a native independent claim-audit transport",
     prepareConfig({}).stages.claim_audit.transport === "native-structured"
       && source.includes("claim_pipeline: CLAIM_PIPELINE")

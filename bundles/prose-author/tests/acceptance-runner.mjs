@@ -49,6 +49,7 @@ import {
   draftTargetCard, renderDraftTargetCard,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
+  applyDraftConformancePatch, CONFORMANCE_PATCH_SCHEMA,
   measureDraftConformance, renderDraftConformanceReport,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
 import {
@@ -70,11 +71,13 @@ import { RESEMBLANCE_CLAIMS } from "./run-gates.mjs";
 const TESTS = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
-const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/3";
-const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/3";
+const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/4";
+const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/4";
+const LEGACY_MANIFEST_SCHEMA = "prose-author-acceptance-manifest/3";
+const LEGACY_ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/3";
 const CLAIM_PIPELINE = "audit-disclosure/1";
-const STAGES = ["profile", "draft", "claim_audit", "critic"];
-const DISPATCH_STAGES = [...STAGES, "conformance"];
+const STAGES = ["profile", "draft", "conformance", "claim_audit", "critic"];
+const DISPATCH_STAGES = [...STAGES];
 const TRANSPORTS = new Set(["native-structured", "json-fence"]);
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
@@ -121,6 +124,7 @@ export const CODEX_NO_TOOLS_CONFIG = [
 const AGENTS = {
   profile: "primitives/agents/voice-profile-render/agent.md",
   draft: "primitives/agents/voice-draft/agent.md",
+  conformance: "primitives/agents/voice-draft/agent.md",
   claim_audit: "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
   critic: "primitives/agents/prose-voice-critic/agent.md",
 };
@@ -176,6 +180,7 @@ function prepareConfig(env = process.env) {
     stages: {
       profile: stage("profile", { effort: "low" }),
       draft: stage("draft"),
+      conformance: stage("conformance"),
       claim_audit: stage("claim_audit", { effort: "low" }),
       critic: stage("critic"),
     },
@@ -590,6 +595,10 @@ function prepare(runDir) {
 
   const draftSchemaPath = join(runDir, "schemas", "voice-draft-source-3.json");
   write(draftSchemaPath, assertStrictOutputSchema(DRAFT_SOURCE_SCHEMA, "draft schema"));
+  const conformanceSchemaPath = join(runDir, "schemas", "voice-draft-conformance-patch-1.json");
+  write(conformanceSchemaPath, assertStrictOutputSchema(
+    CONFORMANCE_PATCH_SCHEMA, "conformance patch schema",
+  ));
   const claimAuditSchemaPath = join(runDir, "schemas", "voice-draft-claim-audit-3.json");
   write(claimAuditSchemaPath, assertStrictOutputSchema(DRAFT_AUDIT_SCHEMA, "claim-audit schema"));
   const criticSchemaPath = join(runDir, "schemas", "voice-critic-source-1.json");
@@ -654,6 +663,9 @@ function prepare(runDir) {
     schemas: {
       profile: profileSchemaEntries,
       draft: { path: rel(draftSchemaPath), sha256: SHA(text(draftSchemaPath)) },
+      conformance: {
+        path: rel(conformanceSchemaPath), sha256: SHA(text(conformanceSchemaPath)),
+      },
       claim_audit: {
         id: DRAFT_AUDIT_SCHEMA_ID,
         path: rel(claimAuditSchemaPath),
@@ -682,7 +694,7 @@ function prepare(runDir) {
       );
     }
   }
-  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 independent disclosure audits, no model repairs or redraws, 60 critic draws\n\n`);
+  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 mandatory exact conformance patches, 20 independent disclosure audits, no redraws, 60 critic draws\n\n`);
   process.stdout.write("  commit the prepared run, including MANIFEST.json, before dispatching profiles\n\n");
 }
 
@@ -698,6 +710,7 @@ function loadPrepared(runDir) {
   try {
     manifestClaimAuditSchema(manifest);
     manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
+    manifestStageSchema(manifest, "conformance", CONFORMANCE_PATCH_SCHEMA);
     manifestStageSchema(manifest, "critic", CRITIC_SOURCE_SCHEMA);
     for (const profile of cases.profiles) {
       manifestStageSchema(
@@ -772,6 +785,18 @@ function semanticDraftSource(record) {
     return { source: record.structured_output, error: null };
   }
   return parseVoiceDraftSource(record.result);
+}
+
+function semanticConformancePatch(record) {
+  if (record.structured_output !== null && typeof record.structured_output === "object") {
+    return { patch: record.structured_output, error: null };
+  }
+  const match = String(record.result ?? "").match(/```(?:json)?\s*([\s\S]*?)```/i);
+  try {
+    return { patch: JSON.parse(match ? match[1] : record.result), error: null };
+  } catch (error) {
+    return { patch: null, error: `invalid conformance patch JSON: ${error.message}` };
+  }
 }
 
 function semanticClaimAudit(record) {
@@ -1413,8 +1438,103 @@ async function dispatchDrafts(runDir) {
     };
   });
   await pool("draft", jobs, manifest.concurrency);
+  await dispatchConformancePipeline(runDir, manifest, cases);
   await dispatchClaimPipeline(runDir, manifest, cases);
   collectDrafts(runDir);
+}
+
+function selectedProfileInputs(runDir, c) {
+  const profileDir = join(runDir, "inputs", "profiles", c.profile);
+  const markdownPath = join(profileDir, `r${c.render}.md`);
+  const jsonPath = join(profileDir, `r${c.render}.json`);
+  const markdown = text(markdownPath);
+  const profile = json(jsonPath);
+  return {
+    markdown, profile, markdownPath, jsonPath,
+    card: draftTargetCard(profile, c.prompt),
+  };
+}
+
+function initialDraftSource(runDir, manifest, c) {
+  const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
+  const record = completedResult(rawPath, manifestDispatch(manifest, "draft"));
+  if (!record) throw new Error(`missing ${rel(rawPath)}`);
+  const decoded = semanticDraftSource(record);
+  if (!decoded.source) throw new Error(`${c.id} invalid semantic draft source: ${decoded.error}`);
+  const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
+  if (!normalized.ok || normalized.refusal) {
+    throw new Error(normalized.refusal
+      ? `${c.id} unexpectedly refused before conformance`
+      : `${c.id} invalid source before conformance: ${normalized.errors.join("; ")}`);
+  }
+  return { rawPath, record, decoded, normalized };
+}
+
+function conformancePrerequisites(initial, selected) {
+  return {
+    initial_draft_raw_sha256: SHA(text(initial.rawPath)),
+    profile_markdown_sha256: SHA(selected.markdown),
+    profile_json_sha256: SHA(text(selected.jsonPath)),
+  };
+}
+
+function resolveConformedDraft(runDir, manifest, c) {
+  const initial = initialDraftSource(runDir, manifest, c);
+  const selected = selectedProfileInputs(runDir, c);
+  const patchRawPath = join(runDir, "raw", "conformance", `${c.id}.json`);
+  const patchRecord = completedResult(
+    patchRawPath,
+    manifestDispatch(manifest, "conformance"),
+    invocationInput(
+      resolve(REPO, manifest.agents.conformance.snapshot),
+      text(join(runDir, "prompts", "conformance", `${c.id}.md`)),
+      {
+        ...schemaInvocation(
+          manifestDispatch(manifest, "conformance"),
+          manifestStageSchema(manifest, "conformance", CONFORMANCE_PATCH_SCHEMA),
+        ),
+        prerequisites: conformancePrerequisites(initial, selected),
+      },
+    ),
+  );
+  if (!patchRecord) throw new Error(`missing ${rel(patchRawPath)}`);
+  const decodedPatch = semanticConformancePatch(patchRecord);
+  if (!decodedPatch.patch) throw new Error(`${c.id} invalid conformance patch: ${decodedPatch.error}`);
+  const applied = applyDraftConformancePatch(initial.normalized.source, decodedPatch.patch, {
+    request: c.prompt, profile: selected.profile, card: selected.card,
+  });
+  if (!applied.ok) {
+    throw new Error(`${c.id} conformance patch failed: ${applied.errors.join("; ")}`);
+  }
+  return { initial, selected, patchRawPath, patchRecord, patch: decodedPatch.patch, applied };
+}
+
+async function dispatchConformancePipeline(runDir, manifest, cases) {
+  const dispatch = manifestDispatch(manifest, "conformance");
+  const pinnedSchema = manifestStageSchema(manifest, "conformance", CONFORMANCE_PATCH_SCHEMA);
+  const system = resolve(REPO, manifest.agents.conformance.snapshot);
+  const jobs = cases.cases.map((c) => {
+    const initial = initialDraftSource(runDir, manifest, c);
+    const selected = selectedProfileInputs(runDir, c);
+    const promptPath = join(runDir, "prompts", "conformance", `${c.id}.md`);
+    const prompt = stagePrompt(promptPath, draftConformancePrompt(
+      c, selected.markdown, selected.profile, initial.normalized.source,
+    ));
+    return {
+      id: c.id,
+      run: () => dispatchModel({
+        system, cwd: runDir, prompt, dispatch,
+        schema: pinnedSchema.schema, schemaPath: pinnedSchema.path,
+        noToolsConfig: manifest.codex_no_tools_config,
+        prerequisites: conformancePrerequisites(initial, selected),
+        output: join(runDir, "raw", "conformance", `${c.id}.json`),
+      }),
+    };
+  });
+  await pool("exact conformance patch", jobs, manifest.concurrency);
+  for (const c of cases.cases) {
+    try { resolveConformedDraft(runDir, manifest, c); } catch (error) { die(error.message); }
+  }
 }
 
 async function dispatchClaimPipeline(runDir, manifest, cases) {
@@ -1426,7 +1546,6 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
   const auditSchemaPath = manifestStageSchema(
     manifest, "claim_audit", auditSchema, { id: DRAFT_AUDIT_SCHEMA_ID },
   ).path;
-  const draftDispatch = manifestDispatch(manifest, "draft");
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
   const sources = new Map();
   const auditJobs = [];
@@ -1434,19 +1553,11 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
   if (retiredErrors.length) die(retiredErrors.join("; "));
 
   for (const c of cases.cases) {
-    const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
-    const record = completedResult(rawPath, draftDispatch);
-    if (!record) die(`missing ${rel(rawPath)}`);
-    const decoded = semanticDraftSource(record);
-    if (!decoded.source) die(`${c.id} invalid semantic draft source before audit: ${decoded.error}`);
-    const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
-    if (!normalized.ok || normalized.refusal) {
-      if (normalized.refusal) die(`${c.id} unexpectedly refused before claim audit`);
-      die(`${c.id} invalid source before claim audit: ${normalized.errors.join("; ")}`);
-    }
-    sources.set(c.id, { original: decoded.source, normalized });
+    let conformed;
+    try { conformed = resolveConformedDraft(runDir, manifest, c); } catch (error) { die(error.message); }
+    sources.set(c.id, conformed.applied.source);
     const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
-    const prompt = stagePrompt(promptPath, claimAuditPrompt(c, normalized.source));
+    const prompt = stagePrompt(promptPath, claimAuditPrompt(c, conformed.applied.source));
     auditJobs.push({
       id: c.id,
       run: () => dispatchModel({
@@ -1468,7 +1579,7 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
     if (decodedAudit.audit.schema !== DRAFT_AUDIT_SCHEMA_ID) {
       die(`${c.id} current claim pipeline requires ${DRAFT_AUDIT_SCHEMA_ID}`);
     }
-    const source = sources.get(c.id).normalized.source;
+    const source = sources.get(c.id);
     const applied = applyVoiceDraftClaimAudit(source, decodedAudit.audit, { request: c.prompt });
     if (!applied.ok) die(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
   }
@@ -1477,22 +1588,22 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
 function resolveDraftChain(runDir, manifest, c) {
   const retiredErrors = retiredRepairEvidenceErrors(runDir);
   if (retiredErrors.length) throw new Error(retiredErrors.join("; "));
-  const draftDispatch = manifestDispatch(manifest, "draft");
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
-  const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
-  const record = completedResult(rawPath, draftDispatch);
-  if (!record) throw new Error(`missing ${rel(rawPath)}`);
-  const decoded = semanticDraftSource(record);
-  if (!decoded.source) throw new Error(`${c.id} invalid semantic draft source: ${decoded.error}`);
+  const conformed = manifest.dispatch?.conformance
+    ? resolveConformedDraft(runDir, manifest, c)
+    : (() => {
+      const initial = initialDraftSource(runDir, manifest, c);
+      return {
+        initial, patchRawPath: null, patchRecord: null, patch: null,
+        applied: {
+          source: initial.normalized.source, report: null, word_control: null,
+        },
+      };
+    })();
+  const { initial, patchRawPath, patchRecord, patch, applied: conformance } = conformed;
   const initialAuditRawPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
-  const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
   const pipeline = manifest.claim_pipeline;
   if (pipeline !== CLAIM_PIPELINE) throw new Error(`${c.id} unknown claim pipeline ${pipeline ?? "(missing)"}`);
-  if (!normalized.ok || normalized.refusal) {
-    throw new Error(normalized.refusal
-      ? `${c.id} unexpectedly refused`
-      : `${c.id} invalid source before claim audit: ${normalized.errors.join("; ")}`);
-  }
   const auditRecord = completedResult(initialAuditRawPath, auditDispatch);
   if (!auditRecord) throw new Error(`missing ${rel(initialAuditRawPath)}`);
   const decodedAudit = semanticClaimAudit(auditRecord);
@@ -1500,14 +1611,17 @@ function resolveDraftChain(runDir, manifest, c) {
   if (decodedAudit.audit.schema !== DRAFT_AUDIT_SCHEMA_ID) {
     throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);
   }
-  const applied = applyVoiceDraftClaimAudit(normalized.source, decodedAudit.audit, { request: c.prompt });
+  const applied = applyVoiceDraftClaimAudit(conformance.source, decodedAudit.audit, { request: c.prompt });
   if (!applied.ok) throw new Error(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
   return {
-    record, originalSource: decoded.source,
-    normalized: normalized.changed, normalizedSource: normalized.source,
-    removedLedgerIds: normalized.removed_ledger_ids ?? [],
+    record: initial.record, originalSource: initial.decoded.source,
+    normalized: initial.normalized.changed, normalizedSource: initial.normalized.source,
+    removedLedgerIds: initial.normalized.removed_ledger_ids ?? [],
+    conformanceRecord: patchRecord, conformanceRawPath: patchRawPath,
+    conformancePatch: patch, conformedSource: conformance.source,
+    conformanceReport: conformance.report, conformanceWordControl: conformance.word_control,
     initialAudit: decodedAudit.audit, repaired: false,
-    repairRecord: null, repairSource: null, finalSource: normalized.source,
+    repairRecord: null, repairSource: null, finalSource: conformance.source,
     finalAudit: decodedAudit.audit, finalAuditRawPath: initialAuditRawPath,
     repairNeed: null, auditClaims: applied.claims,
   };
@@ -1535,11 +1649,19 @@ function collectDrafts(runDir) {
     const sourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
     const originalSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.original.json`);
     const normalizedSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.normalized.json`);
+    const conformedSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.conformed.json`);
+    const conformancePatchPath = join(runDir, "inputs", "patches", `${c.id}.json`);
+    const conformanceReportPath = join(runDir, "inputs", "conformance", `${c.id}.json`);
     const auditPath = join(runDir, "inputs", "audits", `${c.id}.json`);
     const initialAuditPath = join(runDir, "inputs", "audits", "initial", `${c.id}.json`);
     const renderPath = join(runDir, "outputs", "drafts", `${c.id}.md`);
     write(originalSourcePath, chain.originalSource);
     if (chain.normalized) write(normalizedSourcePath, chain.normalizedSource);
+    write(conformedSourcePath, chain.conformedSource);
+    write(conformancePatchPath, chain.conformancePatch);
+    write(conformanceReportPath, {
+      report: chain.conformanceReport, word_control: chain.conformanceWordControl,
+    });
     if (chain.initialAudit) write(initialAuditPath, chain.initialAudit);
     write(auditPath, chain.finalAudit);
     write(sourcePath, chain.finalSource);
@@ -1553,6 +1675,7 @@ function collectDrafts(runDir) {
     const disclosurePath = join(runDir, "inputs", "records", `${c.id}.json`);
     if (disclosure) write(disclosurePath, disclosure);
     const dispatchPrompt = join(runDir, "prompts", "drafts", `${c.id}.md`);
+    const conformancePromptPath = join(runDir, "prompts", "conformance", `${c.id}.md`);
     const initialAuditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
     const auditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
     artifacts.drafts[c.id] = {
@@ -1563,6 +1686,16 @@ function collectDrafts(runDir) {
       normalized_source: chain.normalized ? rel(normalizedSourcePath) : null,
       normalized_source_sha256: chain.normalized ? SHA(text(normalizedSourcePath)) : null,
       removed_ledger_ids: chain.removedLedgerIds,
+      conformance_prompt: rel(conformancePromptPath),
+      conformance_prompt_sha256: SHA(text(conformancePromptPath)),
+      conformance_raw: rel(chain.conformanceRawPath),
+      conformance_raw_sha256: SHA(text(chain.conformanceRawPath)),
+      conformance_patch: rel(conformancePatchPath),
+      conformance_patch_sha256: SHA(text(conformancePatchPath)),
+      conformed_source: rel(conformedSourcePath),
+      conformed_source_sha256: SHA(text(conformedSourcePath)),
+      conformance_report: rel(conformanceReportPath),
+      conformance_report_sha256: SHA(text(conformanceReportPath)),
       initial_audit_prompt: chain.initialAudit ? rel(initialAuditPromptPath) : null,
       initial_audit_prompt_sha256: chain.initialAudit ? SHA(text(initialAuditPromptPath)) : null,
       initial_audit_raw: chain.initialAudit ? rel(join(runDir, "raw", "claim-audits", `${c.id}.json`)) : null,
@@ -1578,6 +1711,7 @@ function collectDrafts(runDir) {
       disclosure: disclosure ? rel(disclosurePath) : null,
       disclosure_sha256: disclosure ? SHA(text(disclosurePath)) : null,
       ...codexCompanionArtifactFields(record),
+      ...codexCompanionArtifactFields(chain.conformanceRecord, "conformance_"),
       ...codexCompanionArtifactFields(auditRecord, "initial_audit_"),
       ...codexCompanionArtifactFields(auditRecord, "audit_"),
     };
@@ -1995,6 +2129,9 @@ const ARTIFACT_PATH_KEYS = {
   ],
   draft: [
     "prompt", "raw", "original_source", "normalized_source",
+    "conformance_prompt", "conformance_raw", "conformance_patch", "conformed_source",
+    "conformance_report", "conformance_raw_events", "conformance_raw_output",
+    "conformance_recovered_from",
     "initial_audit_prompt", "initial_audit_raw", "initial_audit",
     "initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
     "audit_prompt", "audit_raw", "audit", "source", "render_output", "draft", "disclosure",
@@ -2005,6 +2142,13 @@ const ARTIFACT_PATH_KEYS = {
   critic: ["prompt", "raw", "source", "render", "raw_events", "raw_output", "recovered_from"],
   evidence: ["claims_audit", "structural", "tally", "score"],
 };
+const CONFORMANCE_ARTIFACT_KEYS = new Set([
+  "conformance_prompt", "conformance_raw", "conformance_patch", "conformed_source",
+  "conformance_report", "conformance_raw_events", "conformance_raw_output",
+  "conformance_recovered_from",
+]);
+const LEGACY_DRAFT_ARTIFACT_PATH_KEYS = ARTIFACT_PATH_KEYS.draft
+  .filter((key) => !CONFORMANCE_ARTIFACT_KEYS.has(key));
 
 function expectedCellEvidenceFiles(output, dispatch) {
   const paths = [resolve(output)];
@@ -2057,6 +2201,9 @@ function acceptanceModelCells(runDir, manifest, cases) {
   }
   for (const c of cases.cases) {
     add(join(runDir, "raw", "drafts", `${c.id}.json`), "draft");
+    if (manifest.dispatch?.conformance) {
+      add(join(runDir, "raw", "conformance", `${c.id}.json`), "conformance");
+    }
     add(join(runDir, "raw", "claim-audits", `${c.id}.json`), "claim_audit");
     for (let draw = 1; draw <= 3; draw += 1) {
       add(join(runDir, "critics", "raw", `${c.id}-d${draw}.json`), "critic");
@@ -2079,7 +2226,7 @@ function allowedRunFiles(runDir, manifest, cases, phase = "final") {
   const add = (path) => allowed.add(relative(runDir, resolve(path)));
   for (const agent of Object.values(manifest.agents ?? {})) add(resolve(REPO, agent.snapshot));
   for (const entry of Object.values(manifest.schemas?.profile ?? {})) add(resolve(REPO, entry.path));
-  for (const stage of ["draft", "claim_audit", "critic"]) {
+  for (const stage of ["draft", "conformance", "claim_audit", "critic"]) {
     if (manifest.schemas?.[stage]?.path) add(resolve(REPO, manifest.schemas[stage].path));
   }
   for (const profile of cases.profiles) {
@@ -2108,16 +2255,31 @@ function allowedRunFiles(runDir, manifest, cases, phase = "final") {
   }
   if (duringDrafts) for (const c of cases.cases) {
     add(join(runDir, "prompts", "drafts", `${c.id}.md`));
+    if (manifest.dispatch?.conformance) {
+      add(join(runDir, "prompts", "conformance", `${c.id}.md`));
+    }
     add(join(runDir, "prompts", "claim-audits", `${c.id}.md`));
     for (const path of expectedCellEvidenceFiles(
       join(runDir, "raw", "drafts", `${c.id}.json`), manifestDispatch(manifest, "draft"),
     )) add(path);
+    if (manifest.dispatch?.conformance) {
+      for (const path of expectedCellEvidenceFiles(
+        join(runDir, "raw", "conformance", `${c.id}.json`), manifestDispatch(manifest, "conformance"),
+      )) add(path);
+    }
     for (const path of expectedCellEvidenceFiles(
       join(runDir, "raw", "claim-audits", `${c.id}.json`), manifestDispatch(manifest, "claim_audit"),
     )) add(path);
     if (afterDrafts) {
-      for (const suffix of ["json", "original.json", "normalized.json"]) {
+      const sourceSuffixes = manifest.dispatch?.conformance
+        ? ["json", "original.json", "normalized.json", "conformed.json"]
+        : ["json", "original.json", "normalized.json"];
+      for (const suffix of sourceSuffixes) {
         add(join(runDir, "inputs", "sources", "drafts", `${c.id}.${suffix}`));
+      }
+      if (manifest.dispatch?.conformance) {
+        add(join(runDir, "inputs", "patches", `${c.id}.json`));
+        add(join(runDir, "inputs", "conformance", `${c.id}.json`));
       }
       add(join(runDir, "inputs", "audits", `${c.id}.json`));
       add(join(runDir, "inputs", "audits", "initial", `${c.id}.json`));
@@ -2176,7 +2338,6 @@ function committedCurrentError(path) {
 
 function existingDraftStageInputErrors(runDir, manifest, cases) {
   const errors = [];
-  const dispatch = manifestDispatch(manifest, "draft");
   for (const c of [...cases.cases, ...cases.refusals.map((row) => ({ ...row, refusal: true }))]) {
     const promptPath = join(runDir, "prompts", c.refusal ? "refusals" : "drafts", `${c.id}.md`);
     if (existsSync(promptPath)) {
@@ -2187,15 +2348,26 @@ function existingDraftStageInputErrors(runDir, manifest, cases) {
       if (text(promptPath) !== expected) errors.push(`${c.id} existing draft prompt is not canonical`);
     }
     if (c.refusal) continue;
+    const conformancePromptPath = join(runDir, "prompts", "conformance", `${c.id}.md`);
+    if (existsSync(conformancePromptPath)) {
+      try {
+        const initial = initialDraftSource(runDir, manifest, c);
+        const selected = selectedProfileInputs(runDir, c);
+        const expected = `${draftConformancePrompt(
+          c, selected.markdown, selected.profile, initial.normalized.source,
+        )}\n`;
+        if (text(conformancePromptPath) !== expected) {
+          errors.push(`${c.id} existing conformance prompt is not canonical`);
+        }
+      } catch (error) {
+        errors.push(`${c.id} existing conformance prompt cannot be verified: ${error.message}`);
+      }
+    }
     const auditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
     if (!existsSync(auditPromptPath)) continue;
     try {
-      const record = completedResult(join(runDir, "raw", "drafts", `${c.id}.json`), dispatch);
-      const decoded = record ? semanticDraftSource(record) : { source: null };
-      if (!decoded.source) throw new Error("draft source unavailable");
-      const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
-      if (!normalized.ok || normalized.refusal) throw new Error("draft source cannot produce an audit prompt");
-      const expected = `${claimAuditPrompt(c, normalized.source)}\n`;
+      const conformed = resolveConformedDraft(runDir, manifest, c);
+      const expected = `${claimAuditPrompt(c, conformed.applied.source)}\n`;
       if (text(auditPromptPath) !== expected) errors.push(`${c.id} existing claim-audit prompt is not canonical`);
     } catch (error) {
       errors.push(`${c.id} existing claim-audit prompt cannot be verified: ${error.message}`);
@@ -2323,6 +2495,14 @@ function rawNamespaceErrors(runDir, manifest, cases) {
   for (const c of cases.refusals) {
     expectedRaw.push(...expectedCellEvidenceFiles(join(rawRoot, "refusals", `${c.id}.json`), draftDispatch));
   }
+  if (manifest.dispatch?.conformance) {
+    const conformanceDispatch = manifestDispatch(manifest, "conformance");
+    for (const c of cases.cases) {
+      expectedRaw.push(...expectedCellEvidenceFiles(
+        join(rawRoot, "conformance", `${c.id}.json`), conformanceDispatch,
+      ));
+    }
+  }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
   for (const c of cases.cases) {
     expectedRaw.push(...expectedCellEvidenceFiles(join(rawRoot, "claim-audits", `${c.id}.json`), auditDispatch));
@@ -2407,7 +2587,11 @@ function sameIds(actual, expected) {
 
 function artifactHashErrors(artifacts, runDir, cases, manifest) {
   const errors = [...rawNamespaceErrors(runDir, manifest, cases)];
-  if (artifacts?.schema !== ARTIFACTS_SCHEMA) {
+  const currentGraph = manifest?.schema === MANIFEST_SCHEMA;
+  const legacyGraph = manifest?.schema === LEGACY_MANIFEST_SCHEMA;
+  const expectedArtifactsSchema = currentGraph ? ARTIFACTS_SCHEMA
+    : legacyGraph ? LEGACY_ARTIFACTS_SCHEMA : null;
+  if (expectedArtifactsSchema === null || artifacts?.schema !== expectedArtifactsSchema) {
     return [...errors, "ARTIFACTS.json has the wrong schema"];
   }
   errors.push(...legacyRepairArtifactErrors(artifacts, "ARTIFACTS"));
@@ -2452,6 +2636,7 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
     }
     const optional = [
       "disclosure", "recovered_from",
+      ...(currentGraph ? ["conformance_recovered_from"] : []),
       "initial_audit_recovered_from", "audit_recovered_from",
     ];
     if (!chain?.normalized) optional.push("normalized_source");
@@ -2460,12 +2645,16 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
       "initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
     );
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
+    if (currentGraph && manifestDispatch(manifest, "conformance").harness !== "codex") optional.push(
+      "conformance_raw_events", "conformance_raw_output",
+    );
     if (manifestDispatch(manifest, "claim_audit").harness !== "codex") optional.push(
       "initial_audit_raw_events", "initial_audit_raw_output",
       "audit_raw_events", "audit_raw_output",
     );
     errors.push(...artifactEntryHashErrors(
-      draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
+      draft, currentGraph ? ARTIFACT_PATH_KEYS.draft : LEGACY_DRAFT_ARTIFACT_PATH_KEYS,
+      `drafts.${c.id}`, runDir, optional,
     ));
     if (draft && (draft.profile !== c.profile || draft.render !== c.render || draft.request_sha256 !== SHA(c.prompt))) {
       errors.push(`drafts.${c.id} case provenance mismatch`);
@@ -2725,6 +2914,21 @@ function deriveDraftEvidence(runDir, manifest, cases) {
     } else if (existsSync(normalizedPath)) {
       throw new Error(`${c.id} has a stale canonical normalized source`);
     }
+    requireCanonical(
+      join(runDir, "inputs", "patches", `${c.id}.json`),
+      `${JSON.stringify(chain.conformancePatch, null, 2)}\n`, `${c.id} conformance patch`,
+    );
+    requireCanonical(
+      join(runDir, "inputs", "sources", "drafts", `${c.id}.conformed.json`),
+      `${JSON.stringify(chain.conformedSource, null, 2)}\n`, `${c.id} conformed source`,
+    );
+    requireCanonical(
+      join(runDir, "inputs", "conformance", `${c.id}.json`),
+      `${JSON.stringify({
+        report: chain.conformanceReport, word_control: chain.conformanceWordControl,
+      }, null, 2)}\n`,
+      `${c.id} conformance report`,
+    );
     if (chain.initialAudit) {
       requireCanonical(
         join(runDir, "inputs", "audits", "initial", `${c.id}.json`),
@@ -2909,6 +3113,28 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
       input: invocationInput(draftSystem, text(promptPath), schemaInvocation(draftDispatch, draftSchema)),
     });
   }
+  const conformanceDispatch = manifestDispatch(manifest, "conformance");
+  const conformanceSystem = resolve(REPO, manifest.agents.conformance.snapshot);
+  const conformanceSchema = manifestStageSchema(
+    manifest, "conformance", CONFORMANCE_PATCH_SCHEMA,
+  );
+  for (const c of cases.cases) {
+    try {
+      const initial = initialDraftSource(runDir, manifest, c);
+      const selected = selectedProfileInputs(runDir, c);
+      const promptPath = join(runDir, "prompts", "conformance", `${c.id}.md`);
+      expected.push({
+        path: join(runDir, "raw", "conformance", `${c.id}.json`),
+        dispatch: conformanceDispatch,
+        input: invocationInput(conformanceSystem, text(promptPath), {
+          ...schemaInvocation(conformanceDispatch, conformanceSchema),
+          prerequisites: conformancePrerequisites(initial, selected),
+        }),
+      });
+    } catch (error) {
+      errors.push(`${c.id} conformance provenance cannot be resolved: ${error.message}`);
+    }
+  }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
   let auditSchema;
@@ -3046,10 +3272,19 @@ function promptDerivationErrors(runDir, manifest, cases) {
       const record = completedResult(rawPath, draftDispatch);
       const decoded = record ? semanticDraftSource(record) : { source: null };
       if (!decoded.source) throw new Error("draft source unavailable");
+      const initial = initialDraftSource(runDir, manifest, c);
+      const selected = selectedProfileInputs(runDir, c);
+      const conformancePromptPath = join(runDir, "prompts", "conformance", `${c.id}.md`);
+      const expectedConformance = `${draftConformancePrompt(
+        c, selected.markdown, selected.profile, initial.normalized.source,
+      )}\n`;
+      if (!existsSync(conformancePromptPath) || text(conformancePromptPath) !== expectedConformance) {
+        errors.push(`${c.id} conformance prompt does not reproduce from the raw draft and locked profile`);
+      }
       const chain = resolveDraftChain(runDir, manifest, c);
       const initialAuditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
       if (chain.initialAudit) {
-        const expectedAudit = `${claimAuditPrompt(c, chain.normalizedSource)}\n`;
+        const expectedAudit = `${claimAuditPrompt(c, chain.conformedSource)}\n`;
         if (!existsSync(initialAuditPromptPath) || text(initialAuditPromptPath) !== expectedAudit) {
           errors.push(`${c.id} initial claim-audit prompt does not reproduce from the raw draft`);
         }
