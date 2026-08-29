@@ -51,6 +51,9 @@ import {
 import {
   measureDraftConformance, renderDraftConformanceReport,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
+import {
+  draftControlCard, renderDraftControlCard,
+} from "../skills/prose-draft/tools/draft-controls.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
   ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, sourceMeasurementPlan,
@@ -1259,23 +1262,16 @@ function collectProfiles(runDir) {
 
 function draftPrompt(c, profileMarkdown, profileJson) {
   const targetCard = renderDraftTargetCard(draftTargetCard(profileJson, c.prompt));
+  const controlCard = renderDraftControlCard(draftControlCard(profileMarkdown, profileJson));
   return [
-    "Write the requested draft using only the request and rendered voice profile below.",
+    "Write the requested draft using only the request and compiled voice-profile controls below.",
     "Follow the system prompt and its output contract exactly. You have no corpus access.",
     "",
     "## Request",
     "",
     c.prompt,
     "",
-    "## Rendered voice profile",
-    "",
-    "```markdown",
-    profileMarkdown.trim(),
-    "```",
-    "",
-    "```json",
-    JSON.stringify(profileJson, null, 2),
-    "```",
+    controlCard,
     "",
     targetCard,
     "",
@@ -1293,28 +1289,19 @@ function draftConformancePrompt(c, profileMarkdown, profileJson, initialSource) 
   }
   const card = draftTargetCard(profileJson, c.prompt);
   const report = measureDraftConformance(initialSource.draft, card);
+  const controls = renderDraftControlCard(draftControlCard(profileMarkdown, profileJson));
   return [
-    "Perform the mandatory final conformance pass on the initial draft below.",
-    "This is one fixed pipeline stage, not a redraw or a choice between candidates: the",
-    "source you return always replaces the initial source. Preserve its truthful argument",
-    "and requested form while correcting the measured report and applying every supported",
-    "coverage dimension. Do not mention this pass in the prose.",
+    "Produce the mandatory minimal conformance patch for the initial draft below.",
+    "This is one fixed pipeline stage, not a redraw or a choice between candidates: local",
+    "code always applies the valid patch to the initial source. Preserve its truthful argument",
+    "and requested form while correcting the measured report and every supported coverage",
+    "dimension. Do not mention this pass in the prose.",
     "",
     "## Request",
     "",
     c.prompt,
     "",
-    "## Rendered voice profile",
-    "",
-    "```markdown",
-    profileMarkdown.trim(),
-    "```",
-    "",
-    "```json",
-    JSON.stringify(profileJson, null, 2),
-    "```",
-    "",
-    renderDraftTargetCard(card),
+    controls,
     "",
     renderDraftConformanceReport(report),
     "",
@@ -1324,11 +1311,17 @@ function draftConformancePrompt(c, profileMarkdown, profileJson, initialSource) 
     JSON.stringify(initialSource, null, 2),
     "```",
     "",
-    "Return voice-draft-source/4 exactly. Recount the final prose, not the initial prose.",
-    "Every measured actual must be inside its stated range. Process all ten coverage rows:",
-    "apply each rated, described, or absent-paired instruction, or name its dimension and",
-    "observation ID in omitted with a concrete reason. Unresolved rows create no habit.",
-    "The independent factual audit runs after this pass, so preserve no invented citation,",
+    "Return voice-draft-conformance-patch/1 exactly; do not return a rewritten draft.",
+    "Use the fewest exact, unique before/after source replacements that will pass. An anchor",
+    "must be no larger than one paragraph. Prefer local recasting over expansion; the local",
+    "assembler rejects a patch that expands materially or moves farther from requested length.",
+    "For an excess, use the listed occurrences and satisfy at least the explicit removal quota.",
+    "For a deficit, alter existing sentences where possible. Do not disturb in-range habits.",
+    "Every measured actual in the patched prose must be inside its stated range.",
+    "Return exactly ten coverage rows with the profile's observation IDs. Mark each supported",
+    "row preserved, revised, or omitted; revised rows must be named by an edit, and omitted",
+    "rows must have a matching habit/why record. Keep unresolved rows unresolved.",
+    "The independent factual audit runs after patch application. Do not introduce a citation,",
     "attributed wording, biography, or uncertain fact merely to satisfy a voice instruction.",
   ].join("\n");
 }

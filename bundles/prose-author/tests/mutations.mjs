@@ -93,6 +93,8 @@ const DRAFT_CLAIM_REPAIR = `${TOOLS}/draft-claim-repair.mjs`;
 const DRAFT_CLAIM_AUDIT_PROMPT = "bundles/prose-author/skills/prose-draft/references/claim-audit.md";
 const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
 const DRAFT_TARGETS = `${TOOLS}/draft-targets.mjs`;
+const DRAFT_CONFORMANCE = `${TOOLS}/draft-conformance.mjs`;
+const DRAFT_CONTROLS = `${TOOLS}/draft-controls.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
 const ACCEPTANCE_RUNNER = "bundles/prose-author/tests/acceptance-runner.mjs";
 const STRICT_OUTPUT_SCHEMA = "bundles/prose-author/tests/strict-output-schema.mjs";
@@ -339,6 +341,41 @@ export const MUTATIONS = [
     find: "Before returning the source, count the finished draft and revise it until every measured actual is inside its stated min/max range.",
     with: "Before returning the source, ignore measured actuals that fall outside the stated min/max range.",
     guards: "a measured target is an enforced final check rather than an informational card",
+  },
+  {
+    name: "detach compiled voice instructions from their observation ids",
+    file: DRAFT_CONTROLS,
+    find: "      observation_id: observation.id,",
+    with: '      observation_id: "detached",',
+    guards: "the compact control card preserves the profile's exact instruction-to-ID binding",
+  },
+  {
+    name: "accept a conformance patch whose final count remains out of range",
+    file: DRAFT_CONFORMANCE,
+    find: "  if (report && !report.pass) {",
+    with: "  if (false && report && !report.pass) {",
+    guards: "local remeasurement, not the patch author's confidence, gates the final prose",
+  },
+  {
+    name: "let a conformance patch expand the draft without bound",
+    file: DRAFT_CONFORMANCE,
+    find: "  if (finalWords > initialWords + growthAllowance) {",
+    with: "  if (false) {",
+    guards: "the correction stage remains a minimal patch rather than a second unconstrained draft",
+  },
+  {
+    name: "let a conformance patch address a non-unique source span",
+    file: DRAFT_CONFORMANCE,
+    find: "    else if (sourceText.indexOf(edit.before, start + 1) !== -1) errors.push(`${at}.before is not unique in the source`);",
+    with: "    else if (false) errors.push(`${at}.before is not unique in the source`);",
+    guards: "patch application cannot silently choose among repeated anchors",
+  },
+  {
+    name: "invite the conformer to replace the whole draft",
+    file: ACCEPTANCE_RUNNER,
+    find: '    "must be no larger than one paragraph. Prefer local recasting over expansion; the local",',
+    with: '    "may replace the whole draft. Prefer broad rewriting over local correction; the local",',
+    guards: "the model returns bounded edits rather than another candidate draft",
   },
   {
     name: "tell the drafter to recalculate a locked target card",

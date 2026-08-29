@@ -102,6 +102,11 @@ export async function run(t, { HERE }) {
         /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
       t.check("voice-draft: deterministic target cards own measured arithmetic while described habits stay qualitative",
         /deterministic draft target card[\s\S]*aim at its stated count[\s\S]*min\/max range[\s\S]*qualitative `described` observation has no numeric quota/.test(prompt));
+      t.check("voice-draft: conformance mode emits exact minimal patches rather than another candidate draft",
+        /explicitly requests `voice-draft-conformance-patch\/1`[\s\S]*not another candidate draft/.test(prompt)
+          && /Every `before` value must copy one exact, unique[\s\S]*one paragraph or less/.test(src)
+          && /Return exactly ten coverage rows[\s\S]*`revised` row must be named by an[\s\S]*edit/.test(src)
+          && /rejects non-unique or overlapping anchors[\s\S]*out-of-range final[\s\S]*counts/.test(src));
 
       if (shipped && fsExists(rendered)) {
         const strip = (s) => s.replace(/^---\n[\s\S]*?\n---\n/, "");

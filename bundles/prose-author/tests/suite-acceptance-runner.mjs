@@ -30,7 +30,11 @@ import {
 import {
   countRange, draftTargetCard, requestedWordTarget, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
-import { measureDraftConformance } from "../skills/prose-draft/tools/draft-conformance.mjs";
+import {
+  applyDraftConformancePatch, CONFORMANCE_PATCH_SCHEMA, measureDraftConformance,
+} from "../skills/prose-draft/tools/draft-conformance.mjs";
+import { draftControlCard } from "../skills/prose-draft/tools/draft-controls.mjs";
+import { COVERAGE_DIMENSIONS } from "../skills/prose-draft/tools/profile-contract.mjs";
 import { DEFAULT_RATIO_BAND, MIN_ABSOLUTE_DEVIATION } from "./corpus-rates.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
@@ -120,14 +124,44 @@ export async function run(t, { HERE }) {
         && source.includes("assembleVoiceProfile(source"));
   }
   {
-    const prompt = draftPrompt({ prompt: "Write a 700-word post." }, "Profile prose", {
-      schema: "voice-profile/2", corpus_words: 2404, observations: [{
+    const profileMarkdown = [
+      "# Voice profile — test-profile", "", "## 1. Cadence", "",
+      "**Interruption punctuation.** Use en dashes for a compact pivot inside an existing sentence without inflating the paragraph or changing its factual content.",
+      "_Evidence: 5/5 samples; several times per piece. [measurement:en-dashes] Count: 10 instances; 4.16 per 1,000 words. Representative locked source: `one.txt`._",
+      "", "## 7. What the corpus never does", "",
+      "**Interruption punctuation.** Em dashes are absent; use the measured en-dash replacement instead whenever an interrupting pivot is supported by the sentence.",
+      "_Evidence: 5/5 samples establish the absence or sparse exception. [measurement:em-dashes] Count: 0 instances; 0.00 per 1,000 words. Representative locked source: `one.txt`._",
+    ].join("\n");
+    const unresolvedCoverage = COVERAGE_DIMENSIONS
+      .filter((dimension) => dimension !== "interruption-punctuation")
+      .map((dimension) => ({
+        dimension, status: "unresolved",
+        unresolved_reason: `The test fixture intentionally supplies no instruction for ${dimension}.`,
+      }));
+    const targetProfile = {
+      schema: "voice-profile/2", profile: "test-profile", confidence: "thin", voice_card: "empty",
+      corpus_words: 2404, observations: [{
         id: "o01", section: "cadence", support: 5, of: 5,
         rate: { count: 10, per_1000_words: 4.16, counting_rule: "[measurement:en-dashes] Count en dashes." },
+      }, {
+        id: "o02", section: "absences", support: 5, of: 5,
+        rate: { count: 0, per_1000_words: 0, counting_rule: "[measurement:em-dashes] Count em dashes." },
       }],
-      coverage: [{ dimension: "interruption-punctuation", status: "rated", observation_ids: ["o01"] }],
-    });
-    t.check("the drafter prompt contains the request and rendered profile", /Write a 700-word post\./.test(prompt) && /Profile prose/.test(prompt));
+      coverage: [
+        ...unresolvedCoverage,
+        {
+          dimension: "interruption-punctuation", status: "absent-paired",
+          observation_ids: ["o01", "o02"], positive_observation_id: "o01", absence_observation_id: "o02",
+        },
+      ],
+    };
+    const prompt = draftPrompt({ prompt: "Write a 700-word post." }, profileMarkdown, targetProfile);
+    const controls = draftControlCard(profileMarkdown, targetProfile);
+    t.check("the drafter prompt contains the request and compiled profile instructions",
+      /Write a 700-word post\./.test(prompt)
+        && /Compiled rhetorical control card/.test(prompt)
+        && /o01 \[interruption-punctuation; section:cadence; measurement:en-dashes\]/.test(prompt)
+        && controls.instructions.length === 2 && controls.coverage.length === 10);
     t.check("the drafter prompt states that corpus access is unavailable", /no corpus access/i.test(prompt));
     t.check("the drafter receives deterministic length-scaled count aims under the unchanged gate",
       /Deterministic draft target card/.test(prompt)
@@ -143,38 +177,83 @@ export async function run(t, { HERE }) {
         && JSON.stringify(countRange(4.16, 700)) === JSON.stringify({
           aim: 3, minimum: 1, maximum: 5, expected: 2.91,
         }));
-    const targetProfile = {
-      schema: "voice-profile/2", corpus_words: 10000, observations: [{
-        id: "o01", section: "absences", support: 10, of: 10,
-        rate: { count: 0, per_1000_words: 0, counting_rule: "[measurement:em-dashes] Count em dashes." },
-      }],
-      coverage: [{ dimension: "interruption-punctuation", status: "absent-paired", observation_ids: ["o01"] }],
-    };
     const targetCard = draftTargetCard(targetProfile, "Write a 700-word post.");
     t.check("counted absences aim at zero without silently tightening the unchanged bar",
-      targetCard.measurements[0].status === "counted-absence"
-        && targetCard.measurements[0].aim_count === 0
-        && targetCard.measurements[0].gate_minimum === 0
-        && targetCard.measurements[0].gate_maximum === 1);
+      targetCard.measurements[1].status === "counted-absence"
+        && targetCard.measurements[1].aim_count === 0
+        && targetCard.measurements[1].gate_minimum === 0
+        && targetCard.measurements[1].gate_maximum === 1);
     const initialSource = {
-      schema: "voice-draft-source/4", kind: "draft", draft: "We should not wait.",
+      schema: "voice-draft-source/4", kind: "draft",
+      draft: "We can fix this sentence. It needs a turn.",
       omitted: [], refused: "",
     };
     const conformance = measureDraftConformance(initialSource.draft, targetCard);
     const conformancePrompt = draftConformancePrompt(
-      { prompt: "Write a 700-word post." }, "Rendered profile.", targetProfile, initialSource,
+      { prompt: "Write a 700-word post." }, profileMarkdown, targetProfile, initialSource,
     );
     t.check("the mandatory conformance pass receives deterministic actual counts rather than estimating them",
       conformance.measurements[0].actual_count === 0
-        && conformance.measurements[0].status === "in-range"
+        && conformance.measurements[0].status === "deficit"
+        && conformance.measurements[0].correction.minimum_change === 1
         && /fixed pipeline stage, not a redraw or a choice between candidates/.test(conformancePrompt)
         && /Deterministic conformance report for the initial draft/.test(conformancePrompt)
-        && /actual 0; aim 0; range 0–1; in-range/.test(conformancePrompt));
-    t.check("the conformance pass always returns the final source and accounts for all coverage rows",
-      /source you return always replaces the initial source/.test(conformancePrompt)
-        && /Recount the final prose, not the initial prose/.test(conformancePrompt)
-        && /Process all ten coverage rows/.test(conformancePrompt)
-        && /name its dimension and[\s\S]*observation ID in omitted/.test(conformancePrompt));
+        && /actual 0; aim 3; range 1–5; deficit; add-or-recast at least 1/.test(conformancePrompt));
+    t.check("the conformance pass returns bounded patches and accounts for all coverage rows",
+      /local[\s\S]*code always applies the valid patch/.test(conformancePrompt)
+        && /Return voice-draft-conformance-patch\/1 exactly; do not return a rewritten draft/.test(conformancePrompt)
+        && /exact, unique before\/after source replacements/.test(conformancePrompt)
+        && /anchor[\s\S]*no larger than one paragraph/.test(conformancePrompt)
+        && /Return exactly ten coverage rows/.test(conformancePrompt));
+    const patchCoverage = targetProfile.coverage.map((row) => ({
+      dimension: row.dimension,
+      observation_ids: [...(row.observation_ids ?? [])],
+      disposition: row.dimension === "interruption-punctuation" ? "revised" : "unresolved",
+      reason: row.dimension === "interruption-punctuation"
+        ? "The exact edit adds the measured positive replacement while preserving the counted absence."
+        : row.unresolved_reason,
+    }));
+    const conformingPatch = {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It needs a turn.", after: "It needs a turn – and gets one.",
+        reason: "Adds the missing en-dash pivot without adding an em dash.",
+        coverage_dimensions: ["interruption-punctuation"], measurement_ids: ["en-dashes", "em-dashes"],
+      }],
+      coverage: patchCoverage,
+      omitted: [],
+    };
+    const applied = applyDraftConformancePatch(initialSource, conformingPatch, {
+      request: "Write a 700-word post.", profile: targetProfile, card: targetCard,
+    });
+    t.check("the deterministic patch assembler applies exact anchors and remeasures final prose",
+      applied.ok && applied.source.draft.includes("turn – and gets one")
+        && applied.report.pass && applied.word_control.final_words >= applied.word_control.initial_words);
+    const missed = applyDraftConformancePatch(initialSource, {
+      ...conformingPatch,
+      edits: [{ ...conformingPatch.edits[0], after: "It still needs a turn." }],
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    t.check("an exact patch that leaves a measured deficit cannot pass", !missed.ok
+      && missed.errors.some((error) => /final en-dashes count 0 is deficit/.test(error)));
+    const expanded = applyDraftConformancePatch(initialSource, {
+      ...conformingPatch,
+      edits: [{
+        ...conformingPatch.edits[0],
+        after: `It needs a turn – ${"added filler ".repeat(20).trim()}.`,
+      }],
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    t.check("a patch cannot satisfy counts by materially expanding the draft", !expanded.ok
+      && expanded.errors.some((error) => /conformance patch expands/.test(error)));
+    const duplicateSource = {
+      ...initialSource, draft: "It needs a turn. It needs a turn.",
+    };
+    const ambiguous = applyDraftConformancePatch(duplicateSource, conformingPatch, {
+      request: "Write a 700-word post.", profile: targetProfile, card: targetCard,
+    });
+    t.check("a patch cannot address an ambiguous repeated anchor", !ambiguous.ok
+      && ambiguous.errors.some((error) => /before is not unique/.test(error)));
+    t.check("the conformance patch schema remains strict-harness compatible",
+      assertStrictOutputSchema(CONFORMANCE_PATCH_SCHEMA, "conformance patch schema") === CONFORMANCE_PATCH_SCHEMA);
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
       /Return voice-draft-source\/4[\s\S]*finished prose directly in draft[\s\S]*do not split it into sentence objects[\s\S]*segments the immutable prose[\s\S]*derives the public verification record/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",
