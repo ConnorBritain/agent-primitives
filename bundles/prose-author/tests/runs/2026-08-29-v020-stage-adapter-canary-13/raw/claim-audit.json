@@ -1,0 +1,166 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This is a direct recommendation for the meeting and does not assert an external descriptive premise.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"The sentence asserts both actual operational benefits from AI summarization and the nonprofit’s lack of control over the service handling client histories; neither is supplied by the request.\",\"claims\":[{\"claim\":\"Using an AI summarization service for intake notes provides faster review and cleaner handoffs.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that the contemplated service would make review faster and handoffs cleaner in this nonprofit’s workflow?\"},{\"claim\":\"The nonprofit does not control the system into which confidential client histories would be submitted.\",\"kind\":\"bounded-fact\",\"verification_question\":\"What system is being considered, and what contractual, technical, or administrative control would the nonprofit have over submitted data?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This proposes a condition for changing the recommended decision and makes no claim that an approval or documented review currently exists.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"This is a checklist recommendation; the parentheticals define the subjects to examine without asserting what the contemplated service actually does.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"The modal wording presents a hypothetical vendor representation, while the conclusion that the label alone is insufficient is an evaluative judgment.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"These rhetorical questions specify safeguards to investigate and do not assert that any particular contract, deadline, or remedy exists.\",\"claims\":[]},{\"id\":\"p2s5\",\"status\":\"disclose\",\"reason\":\"The sentence makes a causal claim that the listed contractual and operational details determine whether confidentiality is preserved after data is uploaded.\",\"claims\":[{\"claim\":\"Contract terms, deletion deadlines, and breach remedies determine whether confidential information remains confidential after it is uploaded to an AI service.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How does each listed safeguard affect confidentiality after upload, and under what technical, contractual, or legal conditions is the asserted relationship valid?\"}]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is a proposed temporary rule for tomorrow’s meeting, including its stated condition for permitted use.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"keep\",\"reason\":\"This is a recommendation about how to conduct quality testing and adds no descriptive claim about current practice.\",\"claims\":[]},{\"id\":\"p3s3\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that redaction can be inadequate because contextual details can identify a person even when a name is removed.\",\"claims\":[{\"claim\":\"An unusual event, location, or family detail in redacted notes can identify a client without the client’s name.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence establishes that these contextual details can reidentify clients in notes of the kind handled by this nonprofit?\"}]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"This is a categorical proposed prohibition covering raw notes, personal accounts, free tools, and unapproved services; it does not claim that staff currently use them.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This is a recommendation to require a review before a pilot and contains no external factual premise.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"The sentence proposes a set of written, technical, and procedural requirements; it does not assert that these safeguards currently exist or are legally mandated.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This recommends testing summaries for specified failure types and sensitive content categories without asserting that any tested summary has exhibited those failures.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This states the proposed meeting decision and its three components: pausing real-note use, allowing supervised sanitized testing, and requiring vendor vetting and written safeguards.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This is an evaluative judgment about convenience rather than an independently checkable descriptive proposition.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This is a value judgment ranking client trust above convenience.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This endorses the previously stated recommendation as the position to maintain at the meeting and adds no external factual premise.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This is a direct recommendation for the meeting and does not assert an external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "The sentence asserts both actual operational benefits from AI summarization and the nonprofit’s lack of control over the service handling client histories; neither is supplied by the request.",
+        "claims": [
+          {
+            "claim": "Using an AI summarization service for intake notes provides faster review and cleaner handoffs.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that the contemplated service would make review faster and handoffs cleaner in this nonprofit’s workflow?"
+          },
+          {
+            "claim": "The nonprofit does not control the system into which confidential client histories would be submitted.",
+            "kind": "bounded-fact",
+            "verification_question": "What system is being considered, and what contractual, technical, or administrative control would the nonprofit have over submitted data?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This proposes a condition for changing the recommended decision and makes no claim that an approval or documented review currently exists.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "This is a checklist recommendation; the parentheticals define the subjects to examine without asserting what the contemplated service actually does.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "The modal wording presents a hypothetical vendor representation, while the conclusion that the label alone is insufficient is an evaluative judgment.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "These rhetorical questions specify safeguards to investigate and do not assert that any particular contract, deadline, or remedy exists.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "disclose",
+        "reason": "The sentence makes a causal claim that the listed contractual and operational details determine whether confidentiality is preserved after data is uploaded.",
+        "claims": [
+          {
+            "claim": "Contract terms, deletion deadlines, and breach remedies determine whether confidential information remains confidential after it is uploaded to an AI service.",
+            "kind": "broad-generalization",
+            "verification_question": "How does each listed safeguard affect confidentiality after upload, and under what technical, contractual, or legal conditions is the asserted relationship valid?"
+          }
+        ]
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is a proposed temporary rule for tomorrow’s meeting, including its stated condition for permitted use.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "This is a recommendation about how to conduct quality testing and adds no descriptive claim about current practice.",
+        "claims": []
+      },
+      {
+        "id": "p3s3",
+        "status": "disclose",
+        "reason": "The sentence asserts that redaction can be inadequate because contextual details can identify a person even when a name is removed.",
+        "claims": [
+          {
+            "claim": "An unusual event, location, or family detail in redacted notes can identify a client without the client’s name.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence establishes that these contextual details can reidentify clients in notes of the kind handled by this nonprofit?"
+          }
+        ]
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "This is a categorical proposed prohibition covering raw notes, personal accounts, free tools, and unapproved services; it does not claim that staff currently use them.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This is a recommendation to require a review before a pilot and contains no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "The sentence proposes a set of written, technical, and procedural requirements; it does not assert that these safeguards currently exist or are legally mandated.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This recommends testing summaries for specified failure types and sensitive content categories without asserting that any tested summary has exhibited those failures.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This states the proposed meeting decision and its three components: pausing real-note use, allowing supervised sanitized testing, and requiring vendor vetting and written safeguards.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This is an evaluative judgment about convenience rather than an independently checkable descriptive proposition.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This is a value judgment ranking client trust above convenience.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This endorses the previously stated recommendation as the position to maintain at the meeting and adds no external factual premise.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-13/raw/claim-audit.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-13/raw/claim-audit.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "cdb6fcd1b1b746479ec27ce108e792803a026b55ef0e0e74ea8669a205c24d8e"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "e73ac79d3aaf766b29de4e0cb46cf8fea148d9ec73760ff12ba0805295eab366",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "a47b06cabc2ddb1aef3329b6a6b71186d63cd9cc580656bba4371b4f44e7a6ad",
+      "conformance_raw_sha256": "72c9aaf0ab6fbd15b9414778ffba7b6e84693d18170f6633d5f968cf6555d85a"
+    }
+  }
+}

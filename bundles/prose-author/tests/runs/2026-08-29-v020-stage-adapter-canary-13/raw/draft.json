@@ -1,0 +1,36 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"For tomorrow’s meeting, the practical answer is no: do not put confidential intake notes into a general AI summarization service. The promised benefit is real—faster review and cleaner handoffs—but the organization would be moving sensitive client histories into a system it doesn’t control.\\n\\nThat decision should change only if the service is approved for this use after a documented review. Check the contract (not the marketing page), data-retention terms (including backups), training policy (whether prompts or outputs improve models), and access controls (who inside the vendor can see content). A vendor may call the service “private,” but that word isn’t enough. Private under what contract, with what deletion deadline, and with what remedy after a breach? Those aren’t abstract details; they determine whether confidentiality survives the upload.\\n\\nFor tomorrow, recommend a temporary rule: staff may use AI only on notes stripped of names and every detail that could identify a client. Even then, use invented or composite text when testing quality. Redaction can fail—an unusual event, location, or family detail may identify someone without a name. Staff must never paste raw notes into personal accounts, free tools, or any service the nonprofit hasn’t formally approved.\\n\\nThen assign a short review before any pilot. We should require a written data-processing agreement, no model training on submitted material, a defined retention and deletion schedule, role-based access, audit logs, breach notice, and confirmation that applicable confidentiality obligations are covered. Someone should also test summaries for omissions and distortions (especially risk factors, consent limits, and requested services).\\n\\nThe meeting decision is therefore specific: pause use with real intake notes, permit only sanitized testing under supervision, and return with a vetted vendor and written safeguards. Convenience is useful. It doesn’t outrank client trust. That is exactly the firm line to hold tomorrow.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "For tomorrow’s meeting, the practical answer is no: do not put confidential intake notes into a general AI summarization service. The promised benefit is real—faster review and cleaner handoffs—but the organization would be moving sensitive client histories into a system it doesn’t control.\n\nThat decision should change only if the service is approved for this use after a documented review. Check the contract (not the marketing page), data-retention terms (including backups), training policy (whether prompts or outputs improve models), and access controls (who inside the vendor can see content). A vendor may call the service “private,” but that word isn’t enough. Private under what contract, with what deletion deadline, and with what remedy after a breach? Those aren’t abstract details; they determine whether confidentiality survives the upload.\n\nFor tomorrow, recommend a temporary rule: staff may use AI only on notes stripped of names and every detail that could identify a client. Even then, use invented or composite text when testing quality. Redaction can fail—an unusual event, location, or family detail may identify someone without a name. Staff must never paste raw notes into personal accounts, free tools, or any service the nonprofit hasn’t formally approved.\n\nThen assign a short review before any pilot. We should require a written data-processing agreement, no model training on submitted material, a defined retention and deletion schedule, role-based access, audit logs, breach notice, and confirmation that applicable confidentiality obligations are covered. Someone should also test summaries for omissions and distortions (especially risk factors, consent limits, and requested services).\n\nThe meeting decision is therefore specific: pause use with real intake notes, permit only sanitized testing under supervision, and return with a vetted vendor and written safeguards. Convenience is useful. It doesn’t outrank client trust. That is exactly the firm line to hold tomorrow.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-13/raw/draft.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-13/raw/draft.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "cdb6fcd1b1b746479ec27ce108e792803a026b55ef0e0e74ea8669a205c24d8e"
+  },
+  "acceptance_input": {
+    "system_sha256": "00c8f08640fd1acd81f10453f72c710c0903e77960ea3199930c891df9de8704",
+    "prompt_sha256": "51f5583aa7ccaba76e11ee000fef2c5fe50370f5dc77c599189563acb73ef0bc",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+    "prerequisites": {
+      "profile_raw_sha256": "ef429f2e8f25bf6d6d965c0188bd5134d3d1526167cc89d954510815d6685841"
+    }
+  }
+}

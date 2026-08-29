@@ -1,0 +1,120 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft keeps both measured person families within their allowed ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Contractions and expanded negatives are already within their allowed ranges.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The draft concedes the practical benefit before redirecting to confidentiality risks and qualifies predictions with modals.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The compact practical stress test is within the measured question-mark range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The vendor privacy claim is credited and then tested against concrete contractual consequences without inventing a source.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile provides no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"Institutional plural voice remains within range, and no unsupported individual biography or singular self-reference appears.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans, em dashes, and the absence of en-dash interruptions all remain within their measured ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The draft uses a brief control-based comparison to make the institutional risk tangible.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The opening states the live decision and hidden cost, while the ending returns to a direct recommendation for tomorrow's meeting.\"}],\"omitted\":[]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft keeps both measured person families within their allowed ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Contractions and expanded negatives are already within their allowed ranges."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft concedes the practical benefit before redirecting to confidentiality risks and qualifies predictions with modals."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The compact practical stress test is within the measured question-mark range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The vendor privacy claim is credited and then tested against concrete contractual consequences without inventing a source."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile provides no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "Institutional plural voice remains within range, and no unsupported individual biography or singular self-reference appears."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans, em dashes, and the absence of en-dash interruptions all remain within their measured ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft uses a brief control-based comparison to make the institutional risk tangible."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening states the live decision and hidden cost, while the ending returns to a direct recommendation for tomorrow's meeting."
+      }
+    ],
+    "omitted": []
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-13/raw/conformance.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-13/raw/conformance.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "cdb6fcd1b1b746479ec27ce108e792803a026b55ef0e0e74ea8669a205c24d8e"
+  },
+  "acceptance_input": {
+    "system_sha256": "00c8f08640fd1acd81f10453f72c710c0903e77960ea3199930c891df9de8704",
+    "prompt_sha256": "edf3380a9e1609f0a391edde1e5fbfb120928f14db1e442079f74e98bfba24d4",
+    "schema_sha256": "2d0b1db4b095987bacef943229c5d18258dbd1b9ff0e43813640691b95ad89d9",
+    "prerequisites": {
+      "profile_raw_sha256": "ef429f2e8f25bf6d6d965c0188bd5134d3d1526167cc89d954510815d6685841",
+      "initial_draft_raw_sha256": "a47b06cabc2ddb1aef3329b6a6b71186d63cd9cc580656bba4371b4f44e7a6ad"
+    }
+  }
+}
