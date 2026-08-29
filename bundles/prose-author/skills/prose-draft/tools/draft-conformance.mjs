@@ -193,6 +193,99 @@ function expandMeasuredContractions(value) {
 const AMBIGUOUS_S_HOSTS = "it|that|there|here|who|what|where|when|how|why|he|she|one|nothing|everything|something|somebody|nobody|this";
 const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
+function contractedFormAt(value, index) {
+  if (index > 0 && /[A-Za-z0-9_]/.test(value[index - 1])) return null;
+  const source = value.slice(index);
+  const preserveCase = (match, replacement) => {
+    if (match === match.toUpperCase()) return replacement.toUpperCase();
+    if (/^[A-Z]/.test(match)) return `${replacement[0].toUpperCase()}${replacement.slice(1)}`;
+    return replacement;
+  };
+  let match = /^(won['’]t)\b/i.exec(source);
+  if (match) return { raw: match[0], expansions: [preserveCase(match[0], "will not")] };
+  match = /^(can['’]t)\b/i.exec(source);
+  if (match) return { raw: match[0], expansions: [preserveCase(match[0], "cannot")] };
+  match = /^(shan['’]t)\b/i.exec(source);
+  if (match) return { raw: match[0], expansions: [preserveCase(match[0], "shall not")] };
+  match = /^([A-Za-z]+)n['’]t\b/i.exec(source);
+  if (match && !/^ai$/i.test(match[1])) {
+    return { raw: match[0], expansions: [`${match[1]} not`] };
+  }
+  for (const [suffix, auxiliary] of [["re", "are"], ["ve", "have"], ["ll", "will"], ["m", "am"]]) {
+    match = new RegExp(`^([A-Za-z]+)['’]${suffix}\\b`, "i").exec(source);
+    if (match) return { raw: match[0], expansions: [`${match[1]} ${auxiliary}`] };
+  }
+  match = /^(let)['’]s\b/i.exec(source);
+  if (match) return { raw: match[0], expansions: [`${match[1]} us`] };
+  match = /^([A-Za-z]+)['’]d\b/i.exec(source);
+  if (match) {
+    const auxiliaries = match[0] === match[0].toUpperCase() ? ["HAD", "WOULD"] : ["had", "would"];
+    return { raw: match[0], expansions: auxiliaries.map((word) => `${match[1]} ${word}`) };
+  }
+  match = new RegExp(`^(${AMBIGUOUS_S_HOSTS})['’]s\\b`, "i").exec(source);
+  if (match) {
+    const auxiliaries = match[0] === match[0].toUpperCase() ? ["IS", "HAS"] : ["is", "has"];
+    return { raw: match[0], expansions: auxiliaries.map((word) => `${match[1]} ${word}`) };
+  }
+  return null;
+}
+
+function exactWholePhraseAt(value, index, phrase) {
+  if (index > 0 && /[A-Za-z0-9_]/.test(value[index - 1])) return false;
+  if (!value.startsWith(phrase, index)) return false;
+  const end = index + phrase.length;
+  return end === value.length || !/[A-Za-z0-9_]/.test(value[end]);
+}
+
+// Count surface-form transformations, not their net whitespace effect. `cannot` →
+// `can't` changes zero whitespace words while `does not` → `doesn't` changes one;
+// both are one contraction correction. The acyclic matcher also catches an added and
+// removed contraction that cancel in the aggregate counter, without enumerating every
+// ambiguous 'd/'s expansion combination.
+export function contractionFormChangeCount(beforeValue, afterValue) {
+  const before = String(beforeValue ?? "");
+  const after = String(afterValue ?? "");
+  const memo = new Map();
+  const visit = (left, right) => {
+    const key = `${left}:${right}`;
+    if (memo.has(key)) return memo.get(key);
+    if (left === before.length && right === after.length) return 0;
+    let best = Number.POSITIVE_INFINITY;
+    if (left < before.length && right < after.length && before[left] === after[right]) {
+      const continuation = visit(left + 1, right + 1);
+      if (Number.isInteger(continuation)) best = continuation;
+    }
+    const beforeContracted = contractedFormAt(before, left);
+    const afterContracted = contractedFormAt(after, right);
+    if (beforeContracted) {
+      for (const expansion of beforeContracted.expansions) {
+        if (!exactWholePhraseAt(after, right, expansion)) continue;
+        const continuation = visit(left + beforeContracted.raw.length, right + expansion.length);
+        if (Number.isInteger(continuation)) best = Math.min(best, 1 + continuation);
+      }
+    }
+    if (afterContracted) {
+      for (const expansion of afterContracted.expansions) {
+        if (!exactWholePhraseAt(before, left, expansion)) continue;
+        const continuation = visit(left + expansion.length, right + afterContracted.raw.length);
+        if (Number.isInteger(continuation)) best = Math.min(best, 1 + continuation);
+      }
+    }
+    if (beforeContracted && afterContracted
+      && beforeContracted.expansions.some((expansion) => afterContracted.expansions.includes(expansion))) {
+      const continuation = visit(
+        left + beforeContracted.raw.length,
+        right + afterContracted.raw.length,
+      );
+      if (Number.isInteger(continuation)) best = Math.min(best, continuation);
+    }
+    const result = Number.isFinite(best) ? best : null;
+    memo.set(key, result);
+    return result;
+  };
+  return visit(0, 0);
+}
+
 function ambiguousContractionPattern(value) {
   const pattern = new RegExp(`\\b([A-Za-z]+)(['’])d\\b|\\b(${AMBIGUOUS_S_HOSTS})(['’])s\\b`, "gi");
   let source = "";
@@ -463,21 +556,37 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
   const wordDelta = finalWords - initialWords;
   const wordChangingEdits = edits.filter((edit) => words(edit.before) !== words(edit.after));
   const contractionMeasurements = new Set(["contractions", "uncontracted-negatives"]);
-  const minimumRequiredContractionChanges = Math.max(0, ...initialReport.measurements
-    .filter((row) => row.status !== "in-range" && contractionMeasurements.has(row.measurement_id))
+  const failingContractionRows = initialReport.measurements
+    .filter((row) => row.status !== "in-range" && contractionMeasurements.has(row.measurement_id));
+  const minimumRequiredContractionChanges = Math.max(0, ...failingContractionRows
     .map((row) => row.correction.minimum_change));
+  const finalByMeasurement = new Map(
+    (report?.measurements ?? []).map((row) => [row.measurement_id, row]),
+  );
+  const contractionRowsReachNearestBoundary = failingContractionRows.length > 0
+    && failingContractionRows.every((row) =>
+      Math.abs(finalByMeasurement.get(row.measurement_id)?.actual_count - row.actual_count)
+        === row.correction.minimum_change);
+  const contractionEdits = edits.filter((edit) =>
+    edit.measurement_ids.some((id) => contractionMeasurements.has(id)));
+  const perEditContractionChanges = contractionEdits.map((edit) =>
+    contractionFormChangeCount(edit.before, edit.after));
+  const contractionFormChanges = perEditContractionChanges.every(Number.isInteger)
+    ? perEditContractionChanges.reduce((sum, count) => sum + count, 0)
+    : null;
   // A validated contraction spelling changes conventional whitespace word count while
   // preserving every lexical unit. Treat only the minimum unavoidable form correction as
-  // content-length neutral. Extra contractions, mixed word-changing edits, or any lexical
-  // rewrite still fail the ordinary distance guard.
-  const contractionWordDeltaIsMinimal = wordChangingEdits.length > 0
+  // content-length neutral. Bind that exception to exact form transformations and every
+  // initially failing row's nearest boundary; net whitespace delta is not a safe proxy.
+  const contractionCorrectionIsMinimal = wordChangingEdits.length > 0
     && wordChangingEdits.every((edit) =>
       edit.measurement_ids.every((id) => contractionMeasurements.has(id)))
-    && Math.abs(wordDelta) <= minimumRequiredContractionChanges;
+    && contractionFormChanges === minimumRequiredContractionChanges
+    && contractionRowsReachNearestBoundary;
   const movedFartherFromTarget = Number.isInteger(card?.word_target)
     && Math.abs(finalWords - card.word_target) > Math.abs(initialWords - card.word_target);
   const targetDistanceException = movedFartherFromTarget
-    && report?.pass === true && contractionWordDeltaIsMinimal;
+    && report?.pass === true && contractionCorrectionIsMinimal;
   if (movedFartherFromTarget && !targetDistanceException) {
     errors.push(`conformance patch moves farther from the requested ${card.word_target}-word target (${initialWords} to ${finalWords})`);
   }
@@ -489,7 +598,10 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     word_control: {
       initial_words: initialWords,
       final_words: finalWords,
-      contraction_word_delta: contractionWordDeltaIsMinimal ? wordDelta : 0,
+      contraction_word_delta: contractionCorrectionIsMinimal ? wordDelta : 0,
+      contraction_form_changes: contractionFormChanges ?? 0,
+      minimum_required_contraction_changes: minimumRequiredContractionChanges,
+      contraction_rows_at_nearest_boundary: contractionRowsReachNearestBoundary,
       target_distance_exception: targetDistanceException,
       growth_allowance: growthAllowance,
       replaced_words: replacedWords,

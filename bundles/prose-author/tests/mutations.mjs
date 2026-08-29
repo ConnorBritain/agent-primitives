@@ -497,11 +497,18 @@ export const MUTATIONS = [
     guards: "the minimum required meaning-equivalent contraction correction is content-length neutral",
   },
   {
-    name: "let extra contractions borrow the length exception",
+    name: "use net whitespace delta as the contraction-change count",
     file: DRAFT_CONFORMANCE,
-    find: "    && Math.abs(wordDelta) <= minimumRequiredContractionChanges;",
-    with: "    && Math.abs(wordDelta) >= 0;",
-    guards: "only the minimum required contraction spelling delta can move away from target length",
+    find: "    && contractionFormChanges === minimumRequiredContractionChanges",
+    with: "    && Math.abs(wordDelta) <= minimumRequiredContractionChanges",
+    guards: "zero-word and opposing form changes cannot hide behind a small net whitespace delta",
+  },
+  {
+    name: "let a coupled correction cross one row's nearest boundary",
+    file: DRAFT_CONFORMANCE,
+    find: "    && contractionRowsReachNearestBoundary;",
+    with: "    && true;",
+    guards: "every initially failing contraction row stops at its nearest permitted count",
   },
   {
     name: "invite the conformer to replace the whole draft",

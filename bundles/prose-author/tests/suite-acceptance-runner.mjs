@@ -32,7 +32,7 @@ import {
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
   applyDraftConformancePatch, CONFORMANCE_MEASUREMENT_IDS, CONFORMANCE_PATCH_SCHEMA,
-  measureDraftConformance,
+  contractionFormChangeCount, measureDraftConformance,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
 import { draftControlCard } from "../skills/prose-draft/tools/draft-controls.mjs";
 import { COVERAGE_DIMENSIONS } from "../skills/prose-draft/tools/profile-contract.mjs";
@@ -593,6 +593,9 @@ export async function run(t, { HERE }) {
         && minimalContraction.word_control.initial_words === 3
         && minimalContraction.word_control.final_words === 2
         && minimalContraction.word_control.contraction_word_delta === -1
+        && minimalContraction.word_control.contraction_form_changes === 1
+        && minimalContraction.word_control.minimum_required_contraction_changes === 1
+        && minimalContraction.word_control.contraction_rows_at_nearest_boundary === true
         && minimalContraction.word_control.target_distance_exception === true);
     const excessiveContractionCard = {
       schema: "voice-draft-target-card/1", word_target: 20,
@@ -620,6 +623,97 @@ export async function run(t, { HERE }) {
     t.check("an extra contraction cannot borrow the content-neutral word exception",
       !excessiveContraction.ok
         && excessiveContraction.errors.some((error) => /moves farther from the requested 20-word target/.test(error)));
+    const mixedDeltaCard = {
+      schema: "voice-draft-target-card/1", word_target: 120,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 1, gate_maximum: 3,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 0, gate_maximum: 2,
+      }],
+    };
+    const mixedDelta = applyDraftConformancePatch({
+      ...initialSource, draft: `${"context ".repeat(100)}It cannot wait. It does not stop.`,
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It cannot wait. It does not stop.",
+        after: "It can't wait. It doesn't stop.",
+        reason: "Introduces two contractions although only one is required.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write one hundred twenty words.", profile: contractionProfile, card: mixedDeltaCard });
+    t.check("a zero-word contraction cannot hide beside a one-word contraction",
+      contractionFormChangeCount("It cannot wait. It does not stop.", "It can't wait. It doesn't stop.") === 2
+        && !mixedDelta.ok
+        && mixedDelta.word_control.contraction_form_changes === 2
+        && mixedDelta.word_control.minimum_required_contraction_changes === 1
+        && mixedDelta.errors.some((error) => /moves farther from the requested 120-word target/.test(error)));
+    const cancellationCard = {
+      schema: "voice-draft-target-card/1", word_target: 12,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 2, gate_maximum: 3,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 1, gate_maximum: 1,
+      }],
+    };
+    const cancellation = applyDraftConformancePatch({
+      ...initialSource, draft: "It should not wait. It is not ready. It isn't done.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It should not wait. It is not ready. It isn't done.",
+        after: "It shouldn't wait. It isn't ready. It is not done.",
+        reason: "Adds two contractions and expands one while net counts move by one.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write twelve words.", profile: contractionProfile, card: cancellationCard });
+    t.check("opposing contraction changes cannot cancel inside the length exception",
+      contractionFormChangeCount(
+        "It should not wait. It is not ready. It isn't done.",
+        "It shouldn't wait. It isn't ready. It is not done.",
+      ) === 3
+        && !cancellation.ok
+        && cancellation.word_control.contraction_form_changes === 3
+        && cancellation.word_control.minimum_required_contraction_changes === 1
+        && cancellation.word_control.contraction_rows_at_nearest_boundary === true
+        && cancellation.errors.some((error) => /moves farther from the requested 12-word target/.test(error)));
+    const coupledBoundaryCard = {
+      schema: "voice-draft-target-card/1", word_target: 13,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 2, gate_maximum: 3,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 0, gate_maximum: 2,
+      }],
+    };
+    const coupledBoundary = applyDraftConformancePatch({
+      ...initialSource, draft: "It should not wait. It is not ready. It does not stop.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It should not wait. It is not ready.",
+        after: "It shouldn't wait. It isn't ready.",
+        reason: "Reaches one band but crosses another row's nearest boundary.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write thirteen words.", profile: contractionProfile, card: coupledBoundaryCard });
+    t.check("a coupled contraction correction must stop at every nearest boundary",
+      !coupledBoundary.ok
+        && coupledBoundary.word_control.contraction_form_changes === 2
+        && coupledBoundary.word_control.minimum_required_contraction_changes === 2
+        && coupledBoundary.word_control.contraction_rows_at_nearest_boundary === false
+        && coupledBoundary.errors.some((error) => /moves farther from the requested 13-word target/.test(error)));
     const manyContractionsCard = structuredClone(contractionCard);
     const manyContractionsRow = manyContractionsCard.measurements.find((row) => row.measurement_id === "contractions");
     manyContractionsRow.aim_count = 7;
