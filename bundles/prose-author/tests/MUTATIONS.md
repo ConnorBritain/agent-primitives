@@ -45,6 +45,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | accept a conformance patch whose final count remains out of range | 1 | local remeasurement, not the patch author's confidence, gates the final prose |
 | let a conformance patch expand the draft without bound | 1 | the correction stage remains a minimal patch rather than a second unconstrained draft |
 | let a conformance patch address a non-unique source span | 1 | patch application cannot silently choose among repeated anchors |
+| let one conformance anchor span multiple paragraphs | 1 | an exact patch cannot hide a whole-draft replacement in one anchor |
+| let equal-length paragraph replacements become a second draft | 1 | minimal conformance retains at least four fifths of the initial draft rather than only its length |
+| let unrelated edits borrow a failing measurement id | 1 | every exact edit must independently move one named failing measurement toward its range |
 | invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
 | tell the drafter to recalculate a locked target card | 1 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
