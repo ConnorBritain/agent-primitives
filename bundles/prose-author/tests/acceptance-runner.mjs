@@ -801,6 +801,7 @@ async function claude({
     const fail = (message) => {
       if (settled) return;
       settled = true;
+      clearTimeout(timeout);
       const stdoutPath = output.replace(/\.json$/, ".claude-stdout.txt");
       const stderrPath = output.replace(/\.json$/, ".claude-stderr.txt");
       write(stdoutPath, stdout);
@@ -820,6 +821,7 @@ async function claude({
     }, dispatch.timeout_ms);
     child.stdout.on("data", (chunk) => { stdout += chunk; });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
+    child.stdin.on("error", (error) => { fail(`claude stdin failed: ${error.message}`); });
     child.on("error", (error) => { clearTimeout(timeout); fail(error.message); });
     child.on("close", (code) => {
       if (settled) return;
@@ -1044,6 +1046,7 @@ async function codex({
     };
     child.stdout.on("data", (chunk) => { stdout += chunk; });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
+    child.stdin.on("error", (error) => { fail(`codex stdin failed: ${error.message}`); });
     child.on("error", (error) => {
       fail(`codex spawn failed: ${error.message}`);
     });
@@ -2209,7 +2212,9 @@ function dispatchPreflightErrors(runDir, manifest, cases, phase) {
       errors.push(`profile producer state is not canonical: ${error.message}`);
     }
   }
-  if (phase === "draft") errors.push(...existingDraftStageInputErrors(runDir, manifest, cases));
+  if (["draft", "critic"].includes(phase)) {
+    errors.push(...existingDraftStageInputErrors(runDir, manifest, cases));
+  }
   if (phase === "critic") {
     try { deriveDraftEvidence(runDir, manifest, cases); } catch (error) {
       errors.push(`draft producer state is not canonical: ${error.message}`);
@@ -2742,7 +2747,9 @@ function structuralGates(runDir, manifest, cases, draftEvidence = null) {
   };
 }
 
-function deriveCriticEvidence(runDir, manifest, cases, { writeCanonical = false } = {}) {
+function deriveCriticEvidence(runDir, manifest, cases, {
+  writeCanonical = false, deferCanonical = false,
+} = {}) {
   const dispatch = manifestDispatch(manifest, "critic");
   const drafts = [];
   const critics = {};
@@ -2767,7 +2774,7 @@ function deriveCriticEvidence(runDir, manifest, cases, { writeCanonical = false 
       if (writeCanonical) {
         write(sourcePath, decoded.source);
         write(renderPath, assembled.output);
-      } else {
+      } else if (!deferCanonical) {
         if (!existsSync(sourcePath) || text(sourcePath) !== sourceBody) {
           throw new Error(`${id} canonical critic source does not reproduce from raw`);
         }
@@ -2786,8 +2793,8 @@ function deriveCriticEvidence(runDir, manifest, cases, { writeCanonical = false 
       critics[c.id][`d${draw}`] = {
         prompt: rel(promptPath), prompt_sha256: SHA(text(promptPath)),
         raw: rel(rawPath), raw_sha256: SHA(text(rawPath)),
-        source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
-        render: rel(renderPath), render_sha256: SHA(text(renderPath)),
+        source: rel(sourcePath), source_sha256: SHA(sourceBody),
+        render: rel(renderPath), render_sha256: SHA(assembled.output),
         ...codexCompanionArtifactFields(record),
         ...derived,
       };
@@ -3030,12 +3037,19 @@ function promptDerivationErrors(runDir, manifest, cases) {
 
 function collect(runDir) {
   const { manifest, cases, p } = loadPrepared(runDir);
-  collectDrafts(runDir);
+  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases, "critic");
+  if (preflightErrors.length) {
+    die(`acceptance finalization preflight failed; no files were written:\n    ${preflightErrors.join("\n    ")}`);
+  }
   const audit = json(p.audit);
   const artifacts = json(p.artifacts);
   const auditFailures = claimsAuditFailures(audit, cases, artifacts, runDir);
   if (auditFailures.length) die(`claims audit incomplete:\n    ${auditFailures.join("\n    ")}`);
-  const evidence = deriveAcceptanceEvidence(runDir, manifest, cases, { writeCanonical: true });
+  const evidence = deriveAcceptanceEvidence(runDir, manifest, cases, { deferCanonical: true });
+  const materializedCritics = deriveCriticEvidence(runDir, manifest, cases, { writeCanonical: true });
+  if (JSON.stringify(materializedCritics) !== JSON.stringify({
+    drafts: evidence.drafts, critics: evidence.critics,
+  })) die("critic evidence changed between read-only finalization and materialization");
   artifacts.critics = evidence.critics;
   write(p.structural, evidence.structural);
   write(p.tally, evidence.tally);

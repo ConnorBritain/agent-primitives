@@ -48,13 +48,17 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | accept an adapter that cannot enforce the gated runtime boundary | 1 | a new harness cannot claim gated acceptance without clean context, no-tools, and immutable failures |
 | drop the hash of Claude failure output | 1 | a Claude timeout preserves inspectable raw output instead of disappearing before evidence collection |
 | reject a Codex spawn error without persisting its failed cell | 1 | a missing Codex executable records one immutable failed call and cannot be retried as a redraw |
+| let an early Claude exit raise an unhandled stdin EPIPE | 1 | an early Claude CLI exit is persisted as one immutable failed cell before retry is possible |
 | omit Codex companions from profile artifact hashes | 1 | profile evidence binds the primary Codex event stream and final structured output |
 | omit Codex companions from claim-audit artifact hashes | 1 | independent claim audits bind their primary Codex evidence rather than only a mutable wrapper |
 | order only the critic wrapper after the human audit | 1 | a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper |
 | skip the exact raw-result namespace inventory | 1 | an orphan failed call, redraw, or extra critic draw cannot survive outside the artifact index |
 | allow undeclared files during acceptance dispatch preflight | 2 | an archived failed cell cannot be moved elsewhere in the run before a canonical redraw |
 | allow profile-derived files before profile collection | 1 | a profile failure cannot be laundered into an assembled profile path before rendering resumes |
+| stop revalidating draft prompts at critic dispatch | 1 | failed evidence cannot be laundered into an earlier prompt before critic dispatch |
 | allow final critic outputs before critic collection | 1 | a critic failure cannot be laundered into a future critic source or score path before dispatch |
+| let final collection write before its evidence preflight | 2 | collect cannot erase relocated failed evidence before validating the complete critic graph |
+| require canonical critic outputs before read-only finalization finishes | 1 | finalization derives all critic evidence in memory before it materializes any canonical output |
 | allow undeclared files during final acceptance evidence checking | 1 | the final evidence check rejects every undeclared run file without guessing its content |
 | let a Codex wrapper point at another cell's companions | 1 | each Codex wrapper is bound to its own canonical event, output, and recovery filenames |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |

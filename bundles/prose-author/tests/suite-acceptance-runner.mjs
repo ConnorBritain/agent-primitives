@@ -1,7 +1,7 @@
 /** Acceptance harness integrity — the scorer may not grade its own handwritten tally. */
 
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { chmodSync, existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
@@ -177,6 +177,23 @@ export async function run(t, { HERE }) {
           && failure?.type === "result" && failure?.is_error === true
           && /spawn codex ENOENT/.test(failure?.error ?? "")
           && /do not redraw/.test(secondError));
+
+      const fakeCodex = join(failureRoot, "codex");
+      const earlyOutput = join(failureRoot, "early-exit.json");
+      writeFileSync(fakeCodex, "#!/bin/sh\nexit 91\n");
+      chmodSync(fakeCodex, 0o755);
+      process.env.PATH = failureRoot;
+      let earlyError = "";
+      try {
+        await dispatchCodex({
+          system, prompt: "x".repeat(8 * 1024 * 1024), output: earlyOutput,
+          schemaPath, noToolsConfig: [], dispatch,
+        });
+      } catch (error) { earlyError = error.message; }
+      const earlyFailure = existsSync(earlyOutput) ? JSON.parse(readFileSync(earlyOutput, "utf8")) : null;
+      t.check("an early Codex exit persists stdin EPIPE instead of escaping without a wrapper",
+        /codex (?:stdin failed|exited 91)/.test(earlyError)
+          && earlyFailure?.type === "result" && earlyFailure?.is_error === true);
     } finally {
       process.env.PATH = originalPath;
       rmSync(failureRoot, { recursive: true, force: true });
@@ -707,8 +724,12 @@ export async function run(t, { HERE }) {
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
       && /child\.kill\("SIGTERM"\)/.test(source)
       && /exceeded \$\{dispatch\.timeout_ms\}ms/.test(source));
+  t.check("every subprocess stdin failure is persisted instead of escaping as an unhandled EPIPE",
+    (source.match(/child\.stdin\.on\("error", \(error\) => \{ fail\(`/g) ?? []).length === 2
+      && /codex stdin failed: \$\{error\.message\}/.test(source)
+      && /claude stdin failed: \$\{error\.message\}/.test(source));
   t.check("every acceptance dispatch performs the closed-world evidence preflight before pooling calls",
-    (source.match(/const preflightErrors = dispatchPreflightErrors\(runDir, manifest, cases, "(?:profile|draft|critic)"\);/g) ?? []).length === 3
+    (source.match(/const preflightErrors = dispatchPreflightErrors\(runDir, manifest, cases, "(?:profile|draft|critic)"\);/g) ?? []).length === 4
       && (source.match(/acceptance evidence preflight failed; no (?:profile|draft|critic) calls were made/g) ?? []).length === 3);
   t.check("dispatch preflight rederives every prior producer phase before permitting its consumer",
     /deriveProfileEvidence\(runDir, manifest, cases\)/.test(source)
@@ -716,6 +737,12 @@ export async function run(t, { HERE }) {
       && /existingDraftStageInputErrors\(runDir, manifest, cases\)/.test(source)
       && /existingCriticStageInputErrors\(runDir, manifest, cases\)/.test(source)
       && /committedCurrentError\(join\(runDir, "ARTIFACTS\.json"\)\)/.test(source));
+  t.check("critic preflight revalidates earlier draft and audit prompts before any critic call",
+    /if \(\["draft", "critic"\]\.includes\(phase\)\) \{[\s\S]{0,120}errors\.push\(\.\.\.existingDraftStageInputErrors\(runDir, manifest, cases\)\)/.test(source));
+  t.check("final collection validates the complete graph read-only before writing any canonical output",
+    /function collect\(runDir\) \{[\s\S]*dispatchPreflightErrors\(runDir, manifest, cases, "critic"\)[\s\S]*deferCanonical: true[\s\S]*writeCanonical: true/.test(source)
+      && !/function collect\(runDir\) \{[\s\S]{0,240}collectDrafts\(runDir\)/.test(source)
+      && /acceptance finalization preflight failed; no files were written/.test(source));
   t.check("the deterministic profile prepass covers the major countable dimensions",
     ["second-person-family", "contractions", "uncontracted-negatives", "profanity-vulgarity",
       "first-person-singular-family", "question-marks", "round-parenthetical-spans", "em-dashes"]

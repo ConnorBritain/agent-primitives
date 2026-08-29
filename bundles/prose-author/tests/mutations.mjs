@@ -388,6 +388,13 @@ export const MUTATIONS = [
     guards: "a missing Codex executable records one immutable failed call and cannot be retried as a redraw",
   },
   {
+    name: "let an early Claude exit raise an unhandled stdin EPIPE",
+    file: ACCEPTANCE_RUNNER,
+    find: "    child.stdin.on(\"error\", (error) => { fail(`claude stdin failed: ${error.message}`); });",
+    with: "    // stdin failures ignored",
+    guards: "an early Claude CLI exit is persisted as one immutable failed cell before retry is possible",
+  },
+  {
     name: "omit Codex companions from profile artifact hashes",
     file: ACCEPTANCE_RUNNER,
     find: "  profile: [\n    \"prompt\", \"raw\", \"source\", \"render\", \"markdown\", \"json\",\n    \"raw_events\", \"raw_output\", \"recovered_from\",\n  ],",
@@ -430,11 +437,32 @@ export const MUTATIONS = [
     guards: "a profile failure cannot be laundered into an assembled profile path before rendering resumes",
   },
   {
+    name: "stop revalidating draft prompts at critic dispatch",
+    file: ACCEPTANCE_RUNNER,
+    find: "  if ([\"draft\", \"critic\"].includes(phase)) {\n    errors.push(...existingDraftStageInputErrors(runDir, manifest, cases));\n  }",
+    with: "  if (phase === \"draft\") errors.push(...existingDraftStageInputErrors(runDir, manifest, cases));",
+    guards: "failed evidence cannot be laundered into an earlier prompt before critic dispatch",
+  },
+  {
     name: "allow final critic outputs before critic collection",
     file: ACCEPTANCE_RUNNER,
     find: "  const final = phase === \"final\";",
     with: "  const final = true;",
     guards: "a critic failure cannot be laundered into a future critic source or score path before dispatch",
+  },
+  {
+    name: "let final collection write before its evidence preflight",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases, \"critic\");\n  if (preflightErrors.length) {\n    die(`acceptance finalization preflight failed; no files were written:\\n    ${preflightErrors.join(\"\\n    \")}`);\n  }\n  const audit = json(p.audit);",
+    with: "  const audit = json(p.audit);",
+    guards: "collect cannot erase relocated failed evidence before validating the complete critic graph",
+  },
+  {
+    name: "require canonical critic outputs before read-only finalization finishes",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const evidence = deriveAcceptanceEvidence(runDir, manifest, cases, { deferCanonical: true });",
+    with: "  const evidence = deriveAcceptanceEvidence(runDir, manifest, cases);",
+    guards: "finalization derives all critic evidence in memory before it materializes any canonical output",
   },
   {
     name: "allow undeclared files during final acceptance evidence checking",
