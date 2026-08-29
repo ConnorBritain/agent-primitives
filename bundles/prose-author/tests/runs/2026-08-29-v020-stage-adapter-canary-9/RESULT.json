@@ -1,0 +1,330 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "status": "PASS",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "prepared_commit": "bd32370eb01476a0e9d848494d314408e1cdebaa",
+  "stages": {
+    "profile": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/profile.json",
+      "raw_sha256": "4232c8643dd196319e4530de2dd2a5b1075338281dfa25be50775705512eab32",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/profile.codex-events.jsonl",
+      "raw_events_sha256": "0dc28d830a15df218aac0e3ac68bf153e5932af88e257a3e75be5771508b521e",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/profile.codex-output.json",
+      "raw_output_sha256": "e8650872806650613ba99f452517181393feca07178500c9e68ea9bad1ad77f7",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "draft": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/draft.json",
+      "raw_sha256": "217b57b245c59c962958de7bbc893031f35615171e4b37ab5a15912c1ac2f84c",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/draft.codex-events.jsonl",
+      "raw_events_sha256": "a449fe9b85996e68cfca2937a1ccea9965e23d15b0d22c5f99d0129e55126897",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/draft.codex-output.json",
+      "raw_output_sha256": "00414df6aa06f7d5c111db181ed9b9727784b35770271dc78c5219bdc90ae3cf",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "conformance": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/conformance.json",
+      "raw_sha256": "ade95ab4a5714a35ca90a2afd5ed6ac4c7b353a1bfea2fb024fc584e74f055ea",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/conformance.codex-events.jsonl",
+      "raw_events_sha256": "24cd7ffe25296e7e39a33b440945e5e4e06e3b08ca8e6e69b7b6955c54092889",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/conformance.codex-output.json",
+      "raw_output_sha256": "814c0e648a0f959da0995eeb6f81487f2fbc05bd11cdd76a64b410e56ecdee00",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "claim_audit": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/claim-audit.json",
+      "raw_sha256": "a1294aae7e3a0c4ab64b35798ffe4f5f13e0bec1a0e5462476ea7a32cea7890a",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/claim-audit.codex-events.jsonl",
+      "raw_events_sha256": "911937df4398b516660e4f160ec571501f81ca9538f77e2626189f3c7cc0dd5e",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/claim-audit.codex-output.json",
+      "raw_output_sha256": "ffda8c6f7f46ec9c07066e11d03e3f48660d2ab04f01f9c05fc3a15020738739",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "critic": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/critic.json",
+      "raw_sha256": "9fc2a1374863868921f0bc93704f4cdb01725635cb534088b55141c37dff4a70",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/critic.codex-events.jsonl",
+      "raw_events_sha256": "dd135c6ce47f045c79c6f6b1f869d64600f3b94bdd8924fac8970a695c6b6102",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/critic.codex-output.json",
+      "raw_output_sha256": "1f8e2664d0492424e8b510dbbaf4f5492ca648e9ce45a2d1e585e03e12c2d170",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    }
+  },
+  "profile_assembled": true,
+  "draft_assembled": true,
+  "conformance_assembled": true,
+  "conformance_initial": {
+    "schema": "voice-draft-conformance-report/1",
+    "draft_words": 694,
+    "measurements": [
+      {
+        "measurement_id": "second-person-family",
+        "observation_id": "o01",
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "aim_count": 14,
+        "minimum": 8,
+        "maximum": 28,
+        "actual_count": 30,
+        "status": "excess"
+      },
+      {
+        "measurement_id": "first-person-plural-family",
+        "observation_id": "o02",
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "aim_count": 5,
+        "minimum": 3,
+        "maximum": 9,
+        "actual_count": 7,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "contractions",
+        "observation_id": "o03",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 11,
+        "minimum": 6,
+        "maximum": 22,
+        "actual_count": 18,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "uncontracted-negatives",
+        "observation_id": "o04",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 1,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "profanity-vulgarity",
+        "observation_id": "o05",
+        "dimensions": [
+          "profanity-vulgarity"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 1,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "first-person-singular-family",
+        "observation_id": "o06",
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "aim_count": 4,
+        "minimum": 3,
+        "maximum": 8,
+        "actual_count": 3,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "question-marks",
+        "observation_id": "o07",
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 3,
+        "actual_count": 2,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "round-parenthetical-spans",
+        "observation_id": "o08",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 4,
+        "minimum": 2,
+        "maximum": 7,
+        "actual_count": 2,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "em-dashes",
+        "observation_id": "o09",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 1,
+        "actual_count": 1,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "en-dashes",
+        "observation_id": "o10",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 3,
+        "minimum": 1,
+        "maximum": 5,
+        "actual_count": 0,
+        "status": "deficit"
+      }
+    ],
+    "pass": false
+  },
+  "conformance_final": {
+    "schema": "voice-draft-conformance-report/1",
+    "draft_words": 747,
+    "measurements": [
+      {
+        "measurement_id": "second-person-family",
+        "observation_id": "o01",
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "aim_count": 14,
+        "minimum": 8,
+        "maximum": 28,
+        "actual_count": 31,
+        "status": "excess"
+      },
+      {
+        "measurement_id": "first-person-plural-family",
+        "observation_id": "o02",
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "aim_count": 5,
+        "minimum": 3,
+        "maximum": 9,
+        "actual_count": 7,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "contractions",
+        "observation_id": "o03",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 11,
+        "minimum": 6,
+        "maximum": 22,
+        "actual_count": 18,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "uncontracted-negatives",
+        "observation_id": "o04",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 0,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "profanity-vulgarity",
+        "observation_id": "o05",
+        "dimensions": [
+          "profanity-vulgarity"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 1,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "first-person-singular-family",
+        "observation_id": "o06",
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "aim_count": 4,
+        "minimum": 3,
+        "maximum": 8,
+        "actual_count": 4,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "question-marks",
+        "observation_id": "o07",
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 3,
+        "actual_count": 2,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "round-parenthetical-spans",
+        "observation_id": "o08",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 4,
+        "minimum": 2,
+        "maximum": 7,
+        "actual_count": 5,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "em-dashes",
+        "observation_id": "o09",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 1,
+        "actual_count": 0,
+        "status": "in-range"
+      },
+      {
+        "measurement_id": "en-dashes",
+        "observation_id": "o10",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 3,
+        "minimum": 1,
+        "maximum": 5,
+        "actual_count": 3,
+        "status": "in-range"
+      }
+    ],
+    "pass": false
+  },
+  "audit_schema_valid": true,
+  "audit_semantic_pass": true,
+  "audit_findings": [],
+  "critic_assembled": true
+}

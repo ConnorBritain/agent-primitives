@@ -1,0 +1,55 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[{\"location\":\"Line 13: \\\"You should also be able to keep using a device when its maker abandons it...\\\"\",\"what\":\"This paragraph shifts into a restrained, institutional policy-memo register, with cautious prescriptions and abstract legal terminology unlike the corpus's more direct, colloquial advocacy.\",\"corpus_evidence\":\"The corpus states prescriptions in blunt, conversational language: \\\"The answer to the problem of data brokers is banning data brokers\\\" (2026-07-23-drop-a-dime.txt), and \\\"Stop using Chrome, switch to Firefox\\\" (2026-07-21-dickovers.txt).\",\"confidence\":\"high\"},{\"location\":\"Whole draft, Lines 1–19\",\"what\":\"The draft sustains one measured policy-explainer tone throughout, whereas the corpus visibly shifts among polemic, personal disclosure, satire, and procedural instruction.\",\"corpus_evidence\":\"The corpus moves from personal disclosure—\\\"I'm 55... now I lose a couple every year\\\" (2026-07-14-designated-survivor.txt)—to direct how-to instruction—\\\"Just click the 'Kill Sticky' bookmarklet\\\" (2026-07-21-dickovers.txt)—and sharp satire—\\\"Step one: Exist. Step two: There is no step two\\\" (2026-07-23-drop-a-dime.txt).\",\"confidence\":\"low\"}],\"clean_categories\":[\"unfamiliar-constructions\",\"out-of-register-vocabulary\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"REVISE\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [
+      {
+        "location": "Line 13: \"You should also be able to keep using a device when its maker abandons it...\"",
+        "what": "This paragraph shifts into a restrained, institutional policy-memo register, with cautious prescriptions and abstract legal terminology unlike the corpus's more direct, colloquial advocacy.",
+        "corpus_evidence": "The corpus states prescriptions in blunt, conversational language: \"The answer to the problem of data brokers is banning data brokers\" (2026-07-23-drop-a-dime.txt), and \"Stop using Chrome, switch to Firefox\" (2026-07-21-dickovers.txt).",
+        "confidence": "high"
+      },
+      {
+        "location": "Whole draft, Lines 1–19",
+        "what": "The draft sustains one measured policy-explainer tone throughout, whereas the corpus visibly shifts among polemic, personal disclosure, satire, and procedural instruction.",
+        "corpus_evidence": "The corpus moves from personal disclosure—\"I'm 55... now I lose a couple every year\" (2026-07-14-designated-survivor.txt)—to direct how-to instruction—\"Just click the 'Kill Sticky' bookmarklet\" (2026-07-21-dickovers.txt)—and sharp satire—\"Step one: Exist. Step two: There is no step two\" (2026-07-23-drop-a-dime.txt).",
+        "confidence": "low"
+      }
+    ],
+    "clean_categories": [
+      "unfamiliar-constructions",
+      "out-of-register-vocabulary"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "Category 4 was not assessed because no deterministic rhythm scan was supplied.",
+    "verdict": "REVISE"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "89f3c78418d9438d314c36b9633750193b86ca5ddc6cf3e966464859e7a4b6af"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "88a71f9ac18a5f29335d00fc514bb9ce0b7360694105c7f87bdef9667bbb12aa",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "217b57b245c59c962958de7bbc893031f35615171e4b37ab5a15912c1ac2f84c",
+      "conformance_raw_sha256": "ade95ab4a5714a35ca90a2afd5ed6ac4c7b353a1bfea2fb024fc584e74f055ea",
+      "audit_raw_sha256": "a1294aae7e3a0c4ab64b35798ffe4f5f13e0bec1a0e5462476ea7a32cea7890a"
+    }
+  }
+}

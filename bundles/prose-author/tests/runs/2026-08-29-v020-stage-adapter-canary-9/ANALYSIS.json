@@ -1,0 +1,56 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "stage_completion": "PASS",
+  "ship_assessment": "HOLD",
+  "draft_words": {
+    "initial": 694,
+    "conformed": 747
+  },
+  "conformance": {
+    "initial_rows_in_range": 8,
+    "final_rows_in_range": 9,
+    "repaired": [
+      {
+        "measurement": "en-dashes",
+        "initial": 0,
+        "final": 3,
+        "minimum": 1,
+        "maximum": 5
+      }
+    ],
+    "unrepaired": [
+      {
+        "measurement": "second-person-family",
+        "initial": 30,
+        "final": 31,
+        "minimum": 8,
+        "maximum": 28,
+        "assessment": "The mandatory revision was told the exact excess but expanded the draft and increased the count."
+      }
+    ],
+    "final_pass": false
+  },
+  "claim_audit": {
+    "schema_valid": true,
+    "semantic_pass": true,
+    "hard_rejects": 0,
+    "keep_sentences": 29,
+    "disclose_sentences": 15,
+    "claims_disclosed": 19
+  },
+  "critic": {
+    "verdict": "REVISE",
+    "findings": 2,
+    "high_confidence_findings": 1,
+    "low_confidence_findings": 1,
+    "assessment": "The critic found a restrained institutional policy-memo paragraph and a whole-draft lack of the corpus's register shifts."
+  },
+  "silent_omission": {
+    "dimension": "opponents-allies-sources",
+    "profile_status": "described",
+    "draft_omitted_recorded": false
+  },
+  "conclusion": "The fixed conformance stage is operational and improves deterministic coverage, but a count-only report plus one unconstrained full-prose revision is not reliable enough: it left one measured excess, silently omitted a qualitative dimension, expanded the draft, and did not clear the critic. Stop prompt-only iteration and redesign the conformance interface around located occurrences, explicit edit quotas, minimal patches, and a separate compact rhetorical control plan before another render."
+}
