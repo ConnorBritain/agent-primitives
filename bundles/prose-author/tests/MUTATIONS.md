@@ -28,6 +28,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | stop reconciling independent audit sentence ids | 1 | an audit decision cannot drift onto a different sentence |
 | assemble a sentence the independent auditor rejected | 1 | fabricated quotations, citations, and biographies cannot pass through as claims |
 | accept opaque independent labels with no rationale | 1 | every independent basis decision remains inspectable clause by clause |
+| turn ordinary request entailments back into external claims | 1 | buying and ownership roles remain usable reasoning without licensing contingent facts |
 | let a historical disclosure cite words absent from its sentence | 1 | historical audit evidence remains bound to exact prose |
 | detach a current disclosure from its deterministic sentence evidence | 1 | a current audit-owned claim is mechanically anchored to the complete immutable sentence |
 | let a keep row smuggle claims into the audit overlay | 1 | only an explicit disclose decision may append to the verification queue |
@@ -36,6 +37,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let hard factual failures become ordinary disclosures | 1 | fabricated citations, attributed wording, biography, and leakage remain fatal |
 | hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
 | treat request-derived metaphors as external facts | 1 | semantic audit does not inflate request-derived rhetoric into unsupported external claims |
+| restore a model-owned quota for qualitative profile evidence | 1 | support prevalence across files cannot masquerade as a within-piece frequency |
+| erase the deterministic center aim from draft target cards | 2 | every harness receives the same length-scaled center target instead of model arithmetic |
+| tell the drafter to recalculate a locked target card | 1 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
 | let model output downgrade the prepared claim-audit schema | 1 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |
