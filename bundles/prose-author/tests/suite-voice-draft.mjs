@@ -170,9 +170,9 @@ export async function run(t, { HERE }) {
       ["ordinary request entailments do not license contingent predicates",
         /ordinary lexical entailments[\s\S]*does not supply a contingent[\s\S]*industry practice/],
       ["external claims must be finite rather than unverifiable generalizations",
-        /keep each proposition bounded[\s\S]*named actor's[\s\S]*particular law or case[\s\S]*finite figure/],
-      ["argumentative pieces do not acquire decorative external-memory facts",
-        /pretrained memory is not verified evidence[\s\S]*rhetorical decoration[\s\S]*argumentative essay[\s\S]*normally needs none/],
+        /one to three bounded specifics[\s\S]*named actor's concrete action[\s\S]*particular[\s\S]*law or case[\s\S]*finite figure/],
+      ["argumentative pieces prefer a few bounded specifics over broad remembered claims",
+        /pretrained memory is not verified evidence[\s\S]*small number of[\s\S]*one to three bounded specifics[\s\S]*cloud of unsupported generalization/],
       ["named-source voice habits cannot authorize invented topical examples",
         /frequency tells you how often[\s\S]*never licenses inventing the material[\s\S]*leave the habit out[\s\S]*record it/],
       ["the final pronoun pass checks ownership and inclusive groups",
@@ -568,8 +568,9 @@ export async function run(t, { HERE }) {
         && /status: "disclose"[\s\S]*mandatory human audit/.test(claimAuditInstructions)
         && /status: "reject"[\s\S]*fabricated or placeholder citation[\s\S]*invented first-person author biography/.test(claimAuditInstructions));
     t.check("the independent auditor separates semantic judgment from mechanical evidence anchoring",
-      /metaphor, analogy, tautology, or rhetorical label/.test(claimAuditInstructions)
+      /- a metaphor, analogy, tautology, or rhetorical label derived from the supplied premise/.test(claimAuditInstructions)
         && /independently checkable external proposition/.test(claimAuditInstructions)
+        && /Extract every such proposition[\s\S]*do not hide a second assertion behind a[\s\S]*nearby one/.test(claimAuditInstructions)
         && /Do not copy an evidence span[\s\S]*deterministic assembly binds/.test(claimAuditInstructions));
     t.check("the independent auditor accepts ordinary request entailments without laundering contingent facts",
       /ordinary lexical[\s\S]{0,12}entailments and role presuppositions/.test(claimAuditInstructions)

@@ -131,7 +131,9 @@ export async function run(t, { HERE }) {
     t.check("the drafter receives deterministic length-scaled count aims under the unchanged gate",
       /Deterministic draft target card/.test(prompt)
         && /\[measurement:en-dashes\][\s\S]*aim 3; unchanged gate range 1–5/.test(prompt)
-        && /Described observations have restrained placement but no numeric quota/.test(prompt));
+        && /Described observations have restrained placement but no numeric quota/.test(prompt)
+        && /revise it until every measured actual is inside its stated min\/max range/.test(prompt)
+        && /omitted record[\s\S]*does not excuse an out-of-range measured habit/.test(prompt));
     t.check("target-card arithmetic reproduces the canary's en-dash deficit boundary",
       requestedWordTarget("Write about 700 words.") === 700
         && requestedWordTarget("Write a 650-word essay.") === 650

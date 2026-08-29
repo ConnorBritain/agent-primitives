@@ -113,6 +113,8 @@ export function renderDraftTargetCard(card) {
     lines.push(`- ${row.observation_id} [measurement:${row.measurement_id}] (${dimensions}; ${row.status}): ${target}.`);
   }
   lines.push("", card.qualitative_rule);
+  lines.push("Before returning the source, count the finished draft and revise it until every measured actual is inside its stated min/max range.");
+  lines.push("An omitted record explains an unsupported qualitative instruction; it does not excuse an out-of-range measured habit.");
   lines.push("If a supported target cannot be applied, name its coverage dimension and observation ID in omitted; never drop it silently.");
   return lines.join("\n");
 }
