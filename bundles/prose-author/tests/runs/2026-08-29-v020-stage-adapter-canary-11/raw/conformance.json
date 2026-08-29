@@ -1,0 +1,125 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The draft preserves direct practical address and a clear organizational plural stance within the measured ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Contractions and deliberate full negative forms remain within their measured ranges.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The opening grants the service's practical appeal before redirecting to control and confidentiality consequences.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The absence of question marks remains within the measured range, while direct instructions provide the practical response.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"No named provider, provider terms, or verified source material was supplied for a source-backed correction.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile provides no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The organizational plural remains clear, and the draft introduces no first-person singular claim or biography.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans and em dashes remain within range, with no en-dash interruption.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The compact map-and-vault comparison clarifies the difference between a useful summary and duplicative sensitive storage.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The draft opens with the live institutional decision, grants its appeal, identifies the central defect, and closes with specific action for tomorrow.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11\",\"why\":\"No named AI provider, provider terms, or verified source material was supplied, so a source-backed named-company correction could not be included.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft preserves direct practical address and a clear organizational plural stance within the measured ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Contractions and deliberate full negative forms remain within their measured ranges."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening grants the service's practical appeal before redirecting to control and confidentiality consequences."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The absence of question marks remains within the measured range, while direct instructions provide the practical response."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "No named provider, provider terms, or verified source material was supplied for a source-backed correction."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile provides no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The organizational plural remains clear, and the draft introduces no first-person singular claim or biography."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans and em dashes remain within range, with no en-dash interruption."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The compact map-and-vault comparison clarifies the difference between a useful summary and duplicative sensitive storage."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft opens with the live institutional decision, grants its appeal, identifies the central defect, and closes with specific action for tomorrow."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11",
+        "why": "No named AI provider, provider terms, or verified source material was supplied, so a source-backed named-company correction could not be included."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/raw/conformance.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/raw/conformance.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "6742b10967d81820ad6c4525bae3069f4560026ef7a16c30f0df5b573755c408"
+  },
+  "acceptance_input": {
+    "system_sha256": "7332090eb0b85f633e7a3d36b16460ee18bdd5632f19d50259c133420781ec33",
+    "prompt_sha256": "072f59e5027ebb1eca9723c0581b54454b1462186aa5644b585aaed1f13c49f8",
+    "schema_sha256": "8c246e4765a4032aac4e23038062396d338ecac11e39fb771403194d2ca8732b",
+    "prerequisites": {
+      "profile_raw_sha256": "ac4b1244004fd22897307bc29eef63f4ccf8c522eae2b8d5013157657f08555f",
+      "initial_draft_raw_sha256": "3f376c5b2d3680ba542784a8d902155597655abef490cd117dc276309198cd5f"
+    }
+  }
+}
