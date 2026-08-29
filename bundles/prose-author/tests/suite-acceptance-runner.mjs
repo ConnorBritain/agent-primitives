@@ -137,6 +137,7 @@ export async function run(t, { HERE }) {
       /Discuss a bill\./.test(prompt) && /"id": "p1s1"/.test(prompt)
         && /closed claim ledger/i.test(prompt)
         && /ledger and sentence labels are untrusted/i.test(prompt)
+        && /Do not copy evidence; deterministic assembly binds the complete/.test(prompt)
         && !/voice profile/i.test(prompt));
     t.check("draft dispatch normalizes bookkeeping and requires independent disclosure before collection",
       source.includes("await dispatchClaimPipeline(runDir, manifest, cases)")
@@ -403,12 +404,11 @@ export async function run(t, { HERE }) {
         }],
       };
       const currentAudit = {
-        schema: "voice-draft-claim-audit/3",
+        schema: "voice-draft-claim-audit/4",
         sentences: sentenceRefs(original).map((ref, index) => index === 1 ? {
           id: ref.id, status: "disclose", reason: "Unledgered population claim.",
           claims: [{
             claim: "Many buyers do not notice the condition.",
-            evidence: "Many buyers never notice",
             kind: "broad-generalization",
             verification_question: "What evidence establishes how many buyers notice?",
           }],
@@ -430,7 +430,7 @@ export async function run(t, { HERE }) {
       put("claim-audits", c.id, initialAudit, "claim_audit");
       let downgradeRejected = false;
       try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
-        downgradeRejected = /audit-disclosure\/1 requires voice-draft-claim-audit\/3/.test(error.message);
+        downgradeRejected = /audit-disclosure\/1 requires voice-draft-claim-audit\/4/.test(error.message);
       }
       t.check("a model-authored audit schema cannot downgrade the prepared current claim pipeline",
         downgradeRejected);
@@ -942,7 +942,7 @@ export async function run(t, { HERE }) {
       writeFileSync(sourcePath, `${JSON.stringify(sourceRecord, null, 2)}\n`);
       mkdirSync(dirname(canonicalAuditPath), { recursive: true });
       writeFileSync(canonicalAuditPath, `${JSON.stringify({
-        schema: "voice-draft-claim-audit/3",
+        schema: "voice-draft-claim-audit/4",
         sentences: [{
           id: "p1s1", status: "keep", reason: "The request supplies the complete assertion.", claims: [],
         }],
@@ -1068,7 +1068,7 @@ export async function run(t, { HERE }) {
         omitted: [], refused: "",
       };
       const sharedParagraphAudit = {
-        schema: "voice-draft-claim-audit/3", sentences: [
+        schema: "voice-draft-claim-audit/4", sentences: [
           { id: "p1s1", status: "keep", reason: "Finite claim is in the ledger.", claims: [] },
           { id: "p1s2", status: "keep", reason: "Auditor incorrectly calls this reasoning.", claims: [] },
         ],

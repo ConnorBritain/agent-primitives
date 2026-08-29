@@ -4,7 +4,8 @@ import {
   PREVIOUS_SOURCE_SCHEMA_ID, SOURCE_SCHEMA_ID as DRAFT_SOURCE_SCHEMA_ID, validateVoiceDraftSource,
 } from "./draft-contract.mjs";
 
-export const AUDIT_SCHEMA_ID = "voice-draft-claim-audit/3";
+export const AUDIT_SCHEMA_ID = "voice-draft-claim-audit/4";
+export const PREVIOUS_DISCLOSURE_AUDIT_SCHEMA_ID = "voice-draft-claim-audit/3";
 export const PREVIOUS_AUDIT_SCHEMA_ID = "voice-draft-claim-audit/2";
 export const LEGACY_AUDIT_SCHEMA_ID = "voice-draft-claim-audit/1";
 
@@ -13,11 +14,10 @@ const disclosedClaim = {
   additionalProperties: false,
   properties: {
     claim: { type: "string", minLength: 1 },
-    evidence: { type: "string", minLength: 1 },
     kind: { type: "string", enum: ["bounded-fact", "broad-generalization"] },
     verification_question: { type: "string", minLength: 1 },
   },
-  required: ["claim", "evidence", "kind", "verification_question"],
+  required: ["claim", "kind", "verification_question"],
 };
 
 export const AUDIT_SCHEMA = {
@@ -101,9 +101,11 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
   if (!exactKeys(audit, ["schema", "sentences"])) errors.push("claim audit must carry exactly schema and sentences");
   const ledgerFirst = source?.schema === DRAFT_SOURCE_SCHEMA_ID;
   const currentAudit = ledgerFirst && audit.schema === AUDIT_SCHEMA_ID;
+  const previousDisclosureAudit = ledgerFirst
+    && audit.schema === PREVIOUS_DISCLOSURE_AUDIT_SCHEMA_ID;
   const historicalLedgerAudit = ledgerFirst && audit.schema === PREVIOUS_AUDIT_SCHEMA_ID;
-  if (ledgerFirst && !currentAudit && !historicalLedgerAudit) {
-    errors.push(`claim audit schema must be ${AUDIT_SCHEMA_ID} or historical ${PREVIOUS_AUDIT_SCHEMA_ID}`);
+  if (ledgerFirst && !currentAudit && !previousDisclosureAudit && !historicalLedgerAudit) {
+    errors.push(`claim audit schema must be ${AUDIT_SCHEMA_ID} or historical ${PREVIOUS_DISCLOSURE_AUDIT_SCHEMA_ID} or ${PREVIOUS_AUDIT_SCHEMA_ID}`);
   } else if (!ledgerFirst && audit.schema !== LEGACY_AUDIT_SCHEMA_ID) {
     errors.push(`claim audit schema must be ${LEGACY_AUDIT_SCHEMA_ID}`);
   }
@@ -127,7 +129,8 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     const row = audit.sentences[index];
     const at = `claim audit sentences[${index}]`;
     if (!isObject(row)) { errors.push(`${at} must be an object`); continue; }
-    const rowFields = currentAudit
+    const disclosureAudit = currentAudit || previousDisclosureAudit;
+    const rowFields = disclosureAudit
       ? ["id", "status", "reason", "claims"]
       : ledgerFirst ? ["id", "status", "reason"] : ["id", "status", "basis", "claims", "reason"];
     if (!exactKeys(row, rowFields)) {
@@ -135,7 +138,7 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     }
     if (expected && row.id !== expected.id) errors.push(`${at}.id must be ${expected.id}`);
     if (!expected) errors.push(`${at} has no draft sentence`);
-    const allowedStatuses = currentAudit ? ["keep", "disclose", "reject"] : ["keep", "reject"];
+    const allowedStatuses = disclosureAudit ? ["keep", "disclose", "reject"] : ["keep", "reject"];
     if (!allowedStatuses.includes(row.status)) errors.push(`${at}.status is invalid`);
     if (!ledgerFirst) {
       if (!["request-supported", "external-verification", "reasoning", "hypothetical", "normative"].includes(row.basis)) {
@@ -147,7 +150,7 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
     if (row.status === "keep" && !String(row.reason ?? "").trim()) errors.push(`${at} kept without a basis rationale`);
     if (row.status === "disclose" && !String(row.reason ?? "").trim()) errors.push(`${at} disclosed without a basis rationale`);
     if (row.status === "reject" && !String(row.reason ?? "").trim()) errors.push(`${at} rejected without a reason`);
-    if (currentAudit) {
+    if (disclosureAudit) {
       if (!Array.isArray(row.claims)) {
         errors.push(`${at}.claims must be an array`);
       } else {
@@ -156,12 +159,17 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
         if (row.status !== "disclose" && row.claims.length) errors.push(`${at} ${row.status} cannot carry claims`);
         for (const [claimIndex, claim] of row.claims.entries()) {
           const cat = `${at}.claims[${claimIndex}]`;
-          const fields = ["claim", "evidence", "kind", "verification_question"];
+          const fields = currentAudit
+            ? ["claim", "kind", "verification_question"]
+            : ["claim", "evidence", "kind", "verification_question"];
           if (!isObject(claim) || !exactKeys(claim, fields)) {
             errors.push(`${cat} must carry exactly ${fields.join(", ")}`);
             continue;
           }
-          for (const field of ["claim", "evidence", "verification_question"]) {
+          const textualFields = currentAudit
+            ? ["claim", "verification_question"]
+            : ["claim", "evidence", "verification_question"];
+          for (const field of textualFields) {
             if (typeof claim[field] !== "string" || !claim[field].trim()) {
               errors.push(`${cat}.${field} must be a non-empty string`);
             }
@@ -169,7 +177,8 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
           if (!["bounded-fact", "broad-generalization"].includes(claim.kind)) {
             errors.push(`${cat}.kind is invalid`);
           }
-          if (expected && typeof claim.evidence === "string" && !String(expected.text ?? "").includes(claim.evidence)) {
+          if (previousDisclosureAudit && expected && typeof claim.evidence === "string"
+            && !String(expected.text ?? "").includes(claim.evidence)) {
             errors.push(`${cat}.evidence is not an exact span of ${row.id ?? at}`);
           }
           const key = String(claim.claim ?? "").normalize("NFKC").replace(/\s+/g, " ").trim().toLowerCase();
@@ -182,7 +191,9 @@ export function applyVoiceDraftClaimAudit(source, audit, { request = null } = {}
               claim: String(claim.claim ?? "").trim(),
               where: `paragraph ${paragraph}`,
               sentence_id: row.id,
-              evidence: String(claim.evidence ?? ""),
+              evidence: currentAudit
+                ? String(expected.text ?? "")
+                : String(claim.evidence ?? ""),
               kind: claim.kind,
               verification_question: String(claim.verification_question ?? "").trim(),
             });

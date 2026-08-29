@@ -1337,8 +1337,9 @@ function claimAuditPrompt(c, source) {
     "",
     `Return ${DRAFT_AUDIT_SCHEMA_ID} as the strict object only. Preserve every ID`,
     "exactly once and in order. Every row carries id, status, reason, and claims.",
-    "Keep/reject rows carry claims: []; disclose rows quote exact sentence evidence and",
-    "extract every unsupported proposition for the later mandatory verification audit.",
+    "Keep/reject rows carry claims: []; disclose rows extract every unsupported",
+    "proposition. Do not copy evidence; deterministic assembly binds the complete",
+    "immutable sentence for the later mandatory verification audit.",
   ].join("\n");
 }
 

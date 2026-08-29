@@ -516,8 +516,12 @@ export async function run(t, { HERE }) {
       /For every `keep`[\s\S]*`reason`[\s\S]*every[\s\S]*clause/.test(claimAuditInstructions)
         && /status: "disclose"[\s\S]*later human[\s\S]*verify, scope, or remove/.test(claimAuditInstructions)
         && /status: "reject"[\s\S]*fabricated or placeholder citation[\s\S]*invented first-person author biography/.test(claimAuditInstructions));
+    t.check("the independent auditor separates semantic judgment from mechanical evidence anchoring",
+      /Do not disclose a metaphor, analogy, tautology, definition, or logical consequence/.test(claimAuditInstructions)
+        && /independently checkable external predicate/.test(claimAuditInstructions)
+        && /Do not copy an evidence span[\s\S]*deterministic assembly binds/.test(claimAuditInstructions));
     const audit = {
-      schema: "voice-draft-claim-audit/3",
+      schema: "voice-draft-claim-audit/4",
       sentences: refs.map((ref, index) => ({
         id: ref.id, status: "keep",
         reason: index === 0
@@ -529,7 +533,9 @@ export async function run(t, { HERE }) {
     t.check("the independent audit schema is fixed and strict-harness compatible",
       DRAFT_AUDIT_SCHEMA.additionalProperties === false
         && DRAFT_AUDIT_SCHEMA.properties.schema.type === "string"
-        && DRAFT_AUDIT_SCHEMA.properties.sentences.items.properties.status.type === "string");
+        && DRAFT_AUDIT_SCHEMA.properties.sentences.items.properties.status.type === "string"
+        && !Object.hasOwn(DRAFT_AUDIT_SCHEMA.properties.sentences.items
+          .properties.claims.items.properties, "evidence"));
     const applied = applyVoiceDraftClaimAudit(source, audit, { request });
     t.check("an independent audit approves without rewriting the closed ledger or prose",
       applied.ok && applied.source === source && applied.claims.length === 0
@@ -543,14 +549,13 @@ export async function run(t, { HERE }) {
       ] }],
     };
     const disclosureAudit = {
-      schema: "voice-draft-claim-audit/3",
+      schema: "voice-draft-claim-audit/4",
       sentences: sentenceRefs(disclosureSource).map((ref, index) => index === 0 ? {
         id: ref.id, status: "keep", reason: "The request supplies the complete assertion.", claims: [],
       } : {
         id: ref.id, status: "disclose", reason: "This is an unledgered population claim.",
         claims: [{
           claim: "Many buyers do not notice the setting.",
-          evidence: "Many buyers never notice the setting",
           kind: "broad-generalization",
           verification_question: "What evidence establishes how often buyers notice this setting?",
         }],
@@ -564,12 +569,29 @@ export async function run(t, { HERE }) {
       disclosedAudit.ok && disclosedAudit.source === disclosureSource
         && disclosedAudit.claims[0].sentence_id === "p1s2"
         && disclosedAudit.claims[0].where === "paragraph 1"
+        && disclosedAudit.claims[0].evidence === "Many buyers never notice the setting."
         && disclosedOutput.ok
         && disclosedOutput.output.includes('"claim": "Many buyers do not notice the setting."'));
-    t.check("audit disclosure evidence must be an exact span of its own sentence",
+    t.check("the current audit rejects model-authored evidence instead of trusting it",
       !applyVoiceDraftClaimAudit(disclosureSource, {
         ...disclosureAudit,
         sentences: disclosureAudit.sentences.map((row, index) => index === 1 ? {
+          ...row, claims: [{ ...row.claims[0], evidence: "Many buyers never notice" }],
+        } : row),
+      }, { request }).ok);
+    const historicalDisclosureAudit = {
+      ...disclosureAudit,
+      schema: "voice-draft-claim-audit/3",
+      sentences: disclosureAudit.sentences.map((row, index) => index === 1 ? {
+        ...row, claims: [{ ...row.claims[0], evidence: "Many buyers never notice" }],
+      } : row),
+    };
+    t.check("historical source/3 claim-audit/3 disclosure evidence remains readable",
+      applyVoiceDraftClaimAudit(disclosureSource, historicalDisclosureAudit, { request }).ok);
+    t.check("historical claim-audit/3 disclosure evidence must remain an exact sentence span",
+      !applyVoiceDraftClaimAudit(disclosureSource, {
+        ...historicalDisclosureAudit,
+        sentences: historicalDisclosureAudit.sentences.map((row, index) => index === 1 ? {
           ...row, claims: [{ ...row.claims[0], evidence: "buyers usually ignore settings" }],
         } : row),
       }, { request }).ok);

@@ -28,12 +28,14 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | stop reconciling independent audit sentence ids | 1 | an audit decision cannot drift onto a different sentence |
 | assemble a sentence the independent auditor rejected | 1 | fabricated quotations, citations, and biographies cannot pass through as claims |
 | accept opaque independent labels with no rationale | 1 | every independent basis decision remains inspectable clause by clause |
-| let a disclosure cite words absent from its sentence | 1 | an audit-owned claim is anchored to exact prose rather than invented during review |
+| let a historical disclosure cite words absent from its sentence | 1 | historical audit evidence remains bound to exact prose |
+| detach a current disclosure from its deterministic sentence evidence | 1 | a current audit-owned claim is mechanically anchored to the complete immutable sentence |
 | let a keep row smuggle claims into the audit overlay | 1 | only an explicit disclose decision may append to the verification queue |
 | drop audit-owned claims from the public verification record | 1 | an independently discovered premise cannot disappear between audit and publication |
 | let the independent auditor trust the drafter's labels | 1 | the factual audit is independent rather than the same self-report twice |
 | let hard factual failures become ordinary disclosures | 1 | fabricated citations, attributed wording, biography, and leakage remain fatal |
 | hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
+| treat request-derived metaphors as external facts | 1 | semantic audit does not inflate request-derived rhetoric into unsupported external claims |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
 | let model output downgrade the prepared claim-audit schema | 1 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |

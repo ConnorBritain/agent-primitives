@@ -46,14 +46,22 @@ claims audit must verify, scope, or remove it before critics run. Classify a fin
 as `bounded-fact`; classify an industry, population, causal, or other scope-dependent
 assertion as `broad-generalization`.
 
+Do not disclose a metaphor, analogy, tautology, definition, or logical consequence of a
+premise supplied by the request merely because it describes the imagined arrangement.
+Disclose it only when it adds an independently checkable external predicate: for example,
+an actual actor or practice, prevalence, current law, institutional behavior, historical
+event, or causal generalization.
+
 Every disclosed claim carries:
 
 - `claim`: a complete proposition whose verification would account for the descriptive
   clause;
-- `evidence`: an exact non-empty byte span from this sentence, never a paraphrase or text
-  from another sentence;
 - `kind`: `bounded-fact` or `broad-generalization`;
 - `verification_question`: a concrete question for the later source audit.
+
+Do not copy an evidence span. The sentence ID already identifies immutable source text;
+deterministic assembly binds each disclosure to that complete sentence as its exact
+evidence. Your task is semantic classification, not byte copying.
 
 Use `status: "reject"` rather than disclosure for a fabricated or placeholder citation,
 attributed wording absent from the request, invented first-person author biography,
@@ -72,6 +80,6 @@ overlay is not a repaired pre-writing ledger and grants no retroactive permissio
 drafter: it is independent, append-only disclosure evidence. Do not change the ledger,
 change a basis, or rewrite a sentence.
 
-Return `voice-draft-claim-audit/3` as the supplied strict structured object and nothing
+Return `voice-draft-claim-audit/4` as the supplied strict structured object and nothing
 else. Each row carries exactly `id`, `status`, `reason`, and `claims`. Preserve sentence
 IDs exactly. Never make an authorship, resemblance, quality, or detector judgment.

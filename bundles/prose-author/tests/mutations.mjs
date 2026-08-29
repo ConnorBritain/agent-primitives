@@ -249,11 +249,18 @@ export const MUTATIONS = [
     guards: "every independent basis decision remains inspectable clause by clause",
   },
   {
-    name: "let a disclosure cite words absent from its sentence",
+    name: "let a historical disclosure cite words absent from its sentence",
     file: DRAFT_CLAIM_AUDIT,
-    find: '          if (expected && typeof claim.evidence === "string" && !String(expected.text ?? "").includes(claim.evidence)) {',
+    find: '          if (previousDisclosureAudit && expected && typeof claim.evidence === "string"\n            && !String(expected.text ?? "").includes(claim.evidence)) {',
     with: '          if (false) {',
-    guards: "an audit-owned claim is anchored to exact prose rather than invented during review",
+    guards: "historical audit evidence remains bound to exact prose",
+  },
+  {
+    name: "detach a current disclosure from its deterministic sentence evidence",
+    file: DRAFT_CLAIM_AUDIT,
+    find: '              evidence: currentAudit\n                ? String(expected.text ?? "")\n                : String(claim.evidence ?? ""),',
+    with: '              evidence: "",',
+    guards: "a current audit-owned claim is mechanically anchored to the complete immutable sentence",
   },
   {
     name: "let a keep row smuggle claims into the audit overlay",
@@ -289,6 +296,13 @@ export const MUTATIONS = [
     find: "Generic wording does not turn a claim about law, industry, markets,\ninstitutions, products, or common behavior into reasoning.",
     with: "Generic wording turns a claim about law, industry, markets,\ninstitutions, products, or common behavior into reasoning.",
     guards: "broad legal, historical, and industry claims enter the verification queue",
+  },
+  {
+    name: "treat request-derived metaphors as external facts",
+    file: DRAFT_CLAIM_AUDIT_PROMPT,
+    find: "Do not disclose a metaphor, analogy, tautology, definition, or logical consequence of a\npremise supplied by the request merely because it describes the imagined arrangement.",
+    with: "Disclose a metaphor, analogy, tautology, definition, or logical consequence of a\npremise supplied by the request whenever it describes the imagined arrangement.",
+    guards: "semantic audit does not inflate request-derived rhetoric into unsupported external claims",
   },
   {
     name: "skip the independent claim-audit dispatch",
