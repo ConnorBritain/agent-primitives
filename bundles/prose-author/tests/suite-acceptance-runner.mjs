@@ -597,6 +597,77 @@ export async function run(t, { HERE }) {
         && minimalContraction.word_control.minimum_required_contraction_changes === 1
         && minimalContraction.word_control.contraction_rows_at_nearest_boundary === true
         && minimalContraction.word_control.target_distance_exception === true);
+    const dualDeficitCard = {
+      schema: "voice-draft-target-card/1", word_target: 8,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 2, gate_maximum: 3,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 1, gate_maximum: 2,
+      }],
+    };
+    const dualDeficit = applyDraftConformancePatch({
+      ...initialSource, draft: "It isn't ready. It is stable. He would wait.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It isn't ready. It is stable. He would wait.",
+        after: "It is not ready. It's stable. He'd wait.",
+        reason: "Raises both deficient counters to their nearest boundaries with three coupled changes.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write eight words.", profile: contractionProfile, card: dualDeficitCard });
+    t.check("same-direction contraction deficits use the coupled minimum",
+      contractionFormChangeCount(
+        "It isn't ready. It is stable. He would wait.",
+        "It is not ready. It's stable. He'd wait.",
+      ) === 3
+        && dualDeficit.ok
+        && dualDeficit.report.pass
+        && dualDeficit.word_control.initial_words === 9
+        && dualDeficit.word_control.final_words === 8
+        && dualDeficit.word_control.contraction_form_changes === 3
+        && dualDeficit.word_control.minimum_required_contraction_changes === 3
+        && dualDeficit.word_control.contraction_rows_at_nearest_boundary === true);
+    const dualExcessCard = {
+      schema: "voice-draft-target-card/1", word_target: 16,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 1, gate_maximum: 2,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 0, gate_maximum: 1,
+      }],
+    };
+    const dualExcess = applyDraftConformancePatch({
+      ...initialSource,
+      draft: "It isn't ready. They're stable. We'll wait. She is not late. They do not leave.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It isn't ready. They're stable. We'll wait. She is not late.",
+        after: "It isn't ready. They are stable. We will wait. She isn't late.",
+        reason: "Lowers both excessive counters to their nearest boundaries with three coupled changes.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write sixteen words.", profile: contractionProfile, card: dualExcessCard });
+    t.check("same-direction contraction excesses use the coupled minimum",
+      contractionFormChangeCount(
+        "It isn't ready. They're stable. We'll wait. She is not late.",
+        "It isn't ready. They are stable. We will wait. She isn't late.",
+      ) === 3
+        && dualExcess.ok
+        && dualExcess.report.pass
+        && dualExcess.word_control.initial_words === 15
+        && dualExcess.word_control.final_words === 16
+        && dualExcess.word_control.contraction_form_changes === 3
+        && dualExcess.word_control.minimum_required_contraction_changes === 3
+        && dualExcess.word_control.contraction_rows_at_nearest_boundary === true);
     const excessiveContractionCard = {
       schema: "voice-draft-target-card/1", word_target: 20,
       measurements: [{

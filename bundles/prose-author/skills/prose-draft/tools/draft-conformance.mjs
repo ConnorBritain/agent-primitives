@@ -171,6 +171,48 @@ const exactKeys = (value, keys) => isObject(value)
 const sameArray = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const words = (value) => String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
 
+function requiredCountRange(row) {
+  if (row.status === "deficit") return [row.minimum, row.minimum];
+  if (row.status === "excess") return [row.maximum, row.maximum];
+  if (Number.isInteger(row.minimum) && Number.isInteger(row.maximum)) {
+    return [row.minimum, row.maximum];
+  }
+  return [row.actual_count, row.actual_count];
+}
+
+function minimumCoupledContractionChanges(report) {
+  const byMeasurement = new Map(
+    report.measurements.map((row) => [row.measurement_id, row]),
+  );
+  const contraction = byMeasurement.get("contractions");
+  const negative = byMeasurement.get("uncontracted-negatives");
+  const failing = [contraction, negative].filter((row) => row && row.status !== "in-range");
+  if (failing.length === 0) return 0;
+  if (!contraction || !negative) {
+    return Math.max(...failing.map((row) => row.correction.minimum_change));
+  }
+
+  const [contractionMinimum, contractionMaximum] = requiredCountRange(contraction);
+  const [negativeMinimum, negativeMaximum] = requiredCountRange(negative);
+  let minimum = Number.POSITIVE_INFINITY;
+  for (let finalContractions = contractionMinimum;
+    finalContractions <= contractionMaximum; finalContractions += 1) {
+    for (let finalNegatives = negativeMinimum;
+      finalNegatives <= negativeMaximum; finalNegatives += 1) {
+      const contractionDelta = finalContractions - contraction.actual_count;
+      const negativeDelta = finalNegatives - negative.actual_count;
+      // Expanding or contracting a negative changes these counters in opposite
+      // directions. The remaining contraction delta must come from a positive
+      // auxiliary. Their absolute transition counts therefore add; treating the
+      // rows independently undercounts when both must rise or both must fall.
+      const changes = Math.abs(negativeDelta)
+        + Math.abs(contractionDelta + negativeDelta);
+      minimum = Math.min(minimum, changes);
+    }
+  }
+  return minimum;
+}
+
 function expandMeasuredContractions(value) {
   const preserveCase = (source, replacement) => {
     if (source === source.toUpperCase()) return replacement.toUpperCase();
@@ -554,8 +596,7 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
   const contractionMeasurements = new Set(["contractions", "uncontracted-negatives"]);
   const failingContractionRows = initialReport.measurements
     .filter((row) => row.status !== "in-range" && contractionMeasurements.has(row.measurement_id));
-  const minimumRequiredContractionChanges = Math.max(0, ...failingContractionRows
-    .map((row) => row.correction.minimum_change));
+  const minimumRequiredContractionChanges = minimumCoupledContractionChanges(initialReport);
   const finalByMeasurement = new Map(
     (report?.measurements ?? []).map((row) => [row.measurement_id, row]),
   );

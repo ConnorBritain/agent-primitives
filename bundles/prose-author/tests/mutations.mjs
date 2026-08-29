@@ -504,6 +504,13 @@ export const MUTATIONS = [
     guards: "zero-word and opposing form changes cannot hide behind a small net whitespace delta",
   },
   {
+    name: "treat coupled contraction counters as independent distances",
+    file: DRAFT_CONFORMANCE,
+    find: "      const changes = Math.abs(negativeDelta)\n        + Math.abs(contractionDelta + negativeDelta);",
+    with: "      const changes = Math.max(Math.abs(negativeDelta), Math.abs(contractionDelta));",
+    guards: "same-direction contraction and uncontracted-negative failures use the true coupled transition minimum",
+  },
+  {
     name: "enforce contraction minimality only when length changes",
     file: DRAFT_CONFORMANCE,
     find: "  if (contractionEdits.length > 0 && !contractionCorrectionIsMinimal) {",
