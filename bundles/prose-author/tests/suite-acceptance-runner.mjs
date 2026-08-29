@@ -428,6 +428,59 @@ export async function run(t, { HERE }) {
     t.check("a lexically ambiguous 'd contraction cannot fail open to the wrong expansion",
       !wrongDExpansion.ok
         && wrongDExpansion.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const wrongRunExpansion = applyDraftConformancePatch({
+      ...initialSource, draft: "Tomorrow, he'd run the race.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "Tomorrow, he'd run the race.", after: "Tomorrow, he had run the race.",
+        reason: "Expands the measured contraction.",
+        coverage_dimensions: ["contraction-negation"], measurement_ids: ["contractions"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, {
+      request: "State that tomorrow he would run the race.",
+      profile: contractionProfile, card: wrongDCard,
+    });
+    t.check("an ambiguous source 'd contraction cannot be expanded by guessing from run",
+      !wrongRunExpansion.ok
+        && wrongRunExpansion.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const malformedAintExpansion = applyDraftConformancePatch({
+      ...initialSource, draft: "I ain't ready.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "I ain't ready.", after: "I ai not ready.",
+        reason: "Expands the measured negative contraction.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, {
+      request: "State that I am not ready.", profile: contractionProfile, card: wrongDCard,
+    });
+    t.check("the unresolved ain't contraction cannot be normalized into ai not",
+      !malformedAintExpansion.ok
+        && malformedAintExpansion.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    for (const safe of [{
+      label: "would-need 'd", before: "He would need help.", after: "He'd need help.",
+    }, {
+      label: "is-stable 's", before: "It is stable.", after: "It's stable.",
+    }]) {
+      const safeContraction = applyDraftConformancePatch({
+        ...initialSource, draft: safe.before,
+      }, {
+        schema: "voice-draft-conformance-patch/1",
+        edits: [{
+          before: safe.before, after: safe.after,
+          reason: "Contracts the explicit source auxiliary without changing meaning.",
+          coverage_dimensions: ["contraction-negation"], measurement_ids: ["contractions"],
+        }],
+        coverage: contractionCoverage, omitted: [],
+      }, { request: safe.before, profile: contractionProfile, card: contractionCard });
+      t.check(`an explicit source auxiliary safely licenses the ${safe.label} contraction`,
+        safeContraction.ok && safeContraction.report.pass);
+    }
     const letsProfile = structuredClone(contractionProfile);
     const letsPerson = letsProfile.coverage.find((row) => row.dimension === "person-reader-stance");
     letsPerson.status = "described";

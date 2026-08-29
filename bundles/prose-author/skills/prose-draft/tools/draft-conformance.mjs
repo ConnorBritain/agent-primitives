@@ -176,47 +176,38 @@ function expandMeasuredContractions(value) {
     if (/^[A-Z]/.test(source)) return `${replacement[0].toUpperCase()}${replacement.slice(1)}`;
     return replacement;
   };
-  const expanded = String(value ?? "")
+  return String(value ?? "")
     .replace(/\bwon['’]t\b/gi, (match) => preserveCase(match, "will not"))
     .replace(/\bcan['’]t\b/gi, (match) => preserveCase(match, "cannot"))
     .replace(/\bshan['’]t\b/gi, (match) => preserveCase(match, "shall not"))
-    .replace(/\b([A-Za-z]+)n['’]t\b/gi, "$1 not")
+    .replace(/\b([A-Za-z]+)n['’]t\b/gi, (match, host) =>
+      /^ai$/i.test(host) ? match : `${host} not`)
     .replace(/\b([A-Za-z]+)['’]re\b/gi, "$1 are")
     .replace(/\b([A-Za-z]+)['’]ve\b/gi, "$1 have")
     .replace(/\b([A-Za-z]+)['’]ll\b/gi, "$1 will")
     .replace(/\b([A-Za-z]+)['’]m\b/gi, "$1 am")
     .replace(/\b(let)['’]s\b/gi, "$1 us");
-  return expanded.replace(
-    /\b([A-Za-z]+)['’]d\b(?=[ \t]+([A-Za-z]+))/gi,
-    (match, host, next) => {
-      const expansion = inferDExpansion(next);
-      return expansion ? `${host} ${expansion}` : match;
-    },
-  );
 }
 
-const D_AMBIGUOUS_FOLLOWERS = new Set([
-  "bet", "bid", "burst", "cast", "cost", "cut", "fit", "hit", "hurt", "let", "put",
-  "quit", "read", "rid", "set", "shed", "shut", "slit", "split", "spread", "thrust",
-]);
-const D_IRREGULAR_PARTICIPLES = new Set([
-  "been", "become", "begun", "bent", "bitten", "bled", "blown", "broken", "brought",
-  "built", "bought", "caught", "chosen", "come", "dealt", "done", "drawn", "driven",
-  "drunk", "eaten", "fallen", "fed", "felt", "flown", "forbidden", "forgotten", "forgiven",
-  "found", "frozen", "given", "gone", "grown", "had", "heard", "held", "hidden", "kept",
-  "known", "laid", "led", "left", "lost", "made", "meant", "met", "paid", "ridden",
-  "risen", "run", "said", "seen", "sent", "shown", "sung", "sunk", "sold", "spoken",
-  "spent", "stood", "stolen", "sworn", "swum", "taken", "taught", "thought", "told",
-  "torn", "understood", "woken", "won", "worn", "written",
-]);
+const AMBIGUOUS_S_HOSTS = "it|that|there|here|who|what|where|when|how|why|he|she|one|nothing|everything|something|somebody|nobody|this";
+const escapeRegex = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
-function inferDExpansion(nextWord) {
-  const next = String(nextWord ?? "").toLowerCase();
-  if (!next || D_AMBIGUOUS_FOLLOWERS.has(next)) return null;
-  if (next === "better" || /(?:ed|en)$/.test(next) || D_IRREGULAR_PARTICIPLES.has(next)) {
-    return "had";
+function ambiguousContractionPattern(value) {
+  const pattern = new RegExp(`\\b([A-Za-z]+)(['’])d\\b|\\b(${AMBIGUOUS_S_HOSTS})(['’])s\\b`, "gi");
+  let source = "";
+  let offset = 0;
+  for (const match of value.matchAll(pattern)) {
+    source += escapeRegex(value.slice(offset, match.index));
+    const host = match[1] ?? match[3];
+    const suffix = match[1] ? "d" : "s";
+    const upper = match[0] === match[0].toUpperCase();
+    const expansions = (suffix === "d" ? ["had", "would"] : ["is", "has"])
+      .map((word) => upper ? word.toUpperCase() : word);
+    source += `(?:${escapeRegex(match[0])}|${escapeRegex(host)} (?:${expansions.join("|")}))`;
+    offset = match.index + match[0].length;
   }
-  return "would";
+  source += escapeRegex(value.slice(offset));
+  return new RegExp(`^${source}$`, "u");
 }
 
 function normalizeNamedPunctuation(value, ids) {
@@ -243,12 +234,24 @@ function normalizeNamedPunctuation(value, ids) {
   return normalized;
 }
 
-function measurementEditSkeletons(value, measurementIds) {
+function measurementEditSkeleton(value, measurementIds) {
   const ids = new Set(measurementIds);
   const expanded = ids.has("contractions") || ids.has("uncontracted-negatives")
     ? expandMeasuredContractions(value)
     : String(value ?? "");
-  return new Set([normalizeNamedPunctuation(expanded, ids)]);
+  return normalizeNamedPunctuation(expanded, ids);
+}
+
+function measurementEditEquivalent(before, after, measurementIds) {
+  const beforeSkeleton = measurementEditSkeleton(before, measurementIds);
+  const afterSkeleton = measurementEditSkeleton(after, measurementIds);
+  if (beforeSkeleton === afterSkeleton) return true;
+  const ids = new Set(measurementIds);
+  if (!ids.has("contractions") && !ids.has("uncontracted-negatives")) return false;
+  // Direction is load-bearing. The patch may contract an explicit source auxiliary,
+  // because the source fixes its meaning. It may not expand an already ambiguous
+  // source contraction and choose whichever auxiliary makes the edit appear equal.
+  return ambiguousContractionPattern(afterSkeleton).test(beforeSkeleton);
 }
 
 export function replacementWordAllowance(initialWords) {
@@ -357,9 +360,7 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     if (changesMeasuredPunctuation && /`|\]\(/.test(`${edit.before}\n${edit.after}`)) {
       errors.push(`patch.edits[${index}] cannot alter measured punctuation inside Markdown code or links`);
     }
-    const beforeSkeletons = measurementEditSkeletons(edit.before, edit.measurement_ids);
-    const afterSkeletons = measurementEditSkeletons(edit.after, edit.measurement_ids);
-    if (![...beforeSkeletons].some((skeleton) => afterSkeletons.has(skeleton))) {
+    if (!measurementEditEquivalent(edit.before, edit.after, edit.measurement_ids)) {
       errors.push(`patch.edits[${index}] changes lexical content outside its named measurement forms`);
     }
   }

@@ -47,10 +47,12 @@ to this result.
   The comparison preserves case, words, unnamed punctuation, Markdown, line breaks, and
   paragraph boundaries. A named punctuation form may move at most one adjacent ordinary
   ASCII separator; indentation, tabs, repeated or trailing spaces, Markdown links/code,
-  and all other structure remain exact. Closed contractions such as `let us`/`let's` and
-  locally unambiguous `'d` forms may be normalized without a branching cap. Lexically
-  ambiguous forms such as `he'd read`, and other unresolved `'d`/`'s` forms, fail closed
-  rather than choosing a convenient auxiliary. Question-mark, pronoun-family,
+  and all other structure remain exact. Closed contractions such as `let us`/`let's` are
+  bidirectional. An ambiguous `'d` or `'s` form may be introduced only when the exact
+  source spells out `had`, `would`, `is`, or `has`; the explicit source fixes the meaning
+  without branching. An already ambiguous source contraction is never expanded by patch
+  mode, so forms such as `he'd read` and `he'd run` fail closed rather than choosing a
+  convenient auxiliary. Question-mark, pronoun-family,
   profanity, and other semantic-bearing count changes are not patchable. The
   initial draft and patch remain separate immutable evidence; there is no candidate selection.
 - A separate model claim audit reads the request and immutable sentence units but no voice
