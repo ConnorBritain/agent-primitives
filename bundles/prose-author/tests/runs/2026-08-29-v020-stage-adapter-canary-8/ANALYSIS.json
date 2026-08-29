@@ -1,0 +1,31 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "run_id": "2026-08-29-v020-stage-adapter-canary-8",
+  "status": "HOLD",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "conclusion": "Infrastructure hold before conformance dispatch: the locked manifest declared the new stage, but the shared dispatcher still enforced the historical four-stage allowlist.",
+  "completed_stages": ["profile", "draft"],
+  "undispatched_stages": ["conformance", "claim_audit", "critic"],
+  "initial_conformance": {
+    "rows_in_range": 8,
+    "rows_out_of_range": 2,
+    "failures": [
+      {
+        "measurement_id": "question-marks",
+        "actual": 4,
+        "minimum": 0,
+        "maximum": 3,
+        "status": "excess"
+      },
+      {
+        "measurement_id": "round-parenthetical-spans",
+        "actual": 1,
+        "minimum": 2,
+        "maximum": 7,
+        "status": "deficit"
+      }
+    ]
+  },
+  "next_action": "Permit conformance as an optional native dispatch stage without changing the four stages required by the historical acceptance manifest, then run a new immutable canary from profile generation onward."
+}
