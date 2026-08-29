@@ -110,6 +110,8 @@ export async function run(t, { HERE }) {
         /explicitly requests `voice-draft-conformance-patch\/1`[\s\S]*not another candidate draft/.test(prompt)
           && /Every `before` value must copy one exact, unique[\s\S]*one paragraph or less/.test(src)
           && /Return exactly ten coverage rows[\s\S]*`revised` row must be named by an[\s\S]*edit/.test(src)
+          && /measurement_ids[\s\S]*exact token printed inside `\[measurement:\.\.\.\]`[\s\S]*never an observation id/.test(prompt)
+          && /minimum unavoidable whitespace-word delta[\s\S]*content-length[\s\S]*neutral[\s\S]*extra form change still fails/.test(prompt)
           && /rejects non-unique or overlapping anchors[\s\S]*out-of-range final[\s\S]*counts/.test(src));
 
       if (shipped && fsExists(rendered)) {

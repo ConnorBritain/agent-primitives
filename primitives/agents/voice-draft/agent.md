@@ -267,14 +267,18 @@ applied to the initial source if it validates.
 - Return exactly ten coverage rows. A supported row is `preserved`, `revised`, or
   `omitted`; an unresolved row stays `unresolved`. A `revised` row must be named by an
   edit. An `omitted` row needs a matching `habit`/`why` record containing its dimension
-  and observation IDs.
+  and every observation ID from that coverage row. In each edit's `measurement_ids`, use
+  the exact token printed inside `[measurement:...]` (for example, `contractions` or
+  `uncontracted-negatives`), never an observation ID such as `o03`.
 - The local assembler rejects non-unique or overlapping anchors, out-of-range final
   counts, an unnamed measurement delta, any structural change outside the exact safe
   measured forms, a dimension/rule mismatch, an anchor or replacement crossing a paragraph
   boundary, cumulative replacement beyond the
-  caller's stated retained-text budget, material expansion, movement farther from the
-  requested word target, silent coverage omission, and any malformed final source. You do
-  not estimate whether it passes.
+  caller's stated retained-text budget, material expansion, silent coverage omission, and
+  any malformed final source. It rejects movement farther from the requested word target
+  except for the minimum unavoidable whitespace-word delta of a validated,
+  meaning-equivalent contraction correction; that spelling-only delta is content-length
+  neutral, while any extra form change still fails. You do not estimate whether it passes.
 
 ```json
 {

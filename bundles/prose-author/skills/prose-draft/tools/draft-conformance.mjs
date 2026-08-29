@@ -13,6 +13,7 @@ export const MAX_WORD_GROWTH_ABSOLUTE = 12;
 export const MAX_REPLACED_WORD_RATIO = 0.20;
 export const MIN_REPLACED_WORD_ALLOWANCE = 24;
 export const MAX_REPLACED_WORD_ALLOWANCE = 120;
+export const CONFORMANCE_MEASUREMENT_IDS = PROFILE_MEASUREMENT_RULES.map((rule) => rule.id);
 
 const omissionEntry = {
   type: "object", additionalProperties: false,
@@ -39,7 +40,7 @@ export const CONFORMANCE_PATCH_SCHEMA = {
           },
           measurement_ids: {
             type: "array", minItems: 1, maxItems: 10,
-            items: { type: "string", minLength: 1 },
+            items: { type: "string", enum: CONFORMANCE_MEASUREMENT_IDS },
           },
         },
         required: ["before", "after", "reason", "coverage_dimensions", "measurement_ids"],
@@ -459,8 +460,25 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
   if (finalWords > initialWords + growthAllowance) {
     errors.push(`conformance patch expands ${initialWords} words to ${finalWords}; maximum is ${initialWords + growthAllowance}`);
   }
-  if (Number.isInteger(card?.word_target)
-    && Math.abs(finalWords - card.word_target) > Math.abs(initialWords - card.word_target)) {
+  const wordDelta = finalWords - initialWords;
+  const wordChangingEdits = edits.filter((edit) => words(edit.before) !== words(edit.after));
+  const contractionMeasurements = new Set(["contractions", "uncontracted-negatives"]);
+  const minimumRequiredContractionChanges = Math.max(0, ...initialReport.measurements
+    .filter((row) => row.status !== "in-range" && contractionMeasurements.has(row.measurement_id))
+    .map((row) => row.correction.minimum_change));
+  // A validated contraction spelling changes conventional whitespace word count while
+  // preserving every lexical unit. Treat only the minimum unavoidable form correction as
+  // content-length neutral. Extra contractions, mixed word-changing edits, or any lexical
+  // rewrite still fail the ordinary distance guard.
+  const contractionWordDeltaIsMinimal = wordChangingEdits.length > 0
+    && wordChangingEdits.every((edit) =>
+      edit.measurement_ids.every((id) => contractionMeasurements.has(id)))
+    && Math.abs(wordDelta) <= minimumRequiredContractionChanges;
+  const movedFartherFromTarget = Number.isInteger(card?.word_target)
+    && Math.abs(finalWords - card.word_target) > Math.abs(initialWords - card.word_target);
+  const targetDistanceException = movedFartherFromTarget
+    && report?.pass === true && contractionWordDeltaIsMinimal;
+  if (movedFartherFromTarget && !targetDistanceException) {
     errors.push(`conformance patch moves farther from the requested ${card.word_target}-word target (${initialWords} to ${finalWords})`);
   }
   return {
@@ -471,6 +489,8 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     word_control: {
       initial_words: initialWords,
       final_words: finalWords,
+      contraction_word_delta: contractionWordDeltaIsMinimal ? wordDelta : 0,
+      target_distance_exception: targetDistanceException,
       growth_allowance: growthAllowance,
       replaced_words: replacedWords,
       replacement_allowance: replacementAllowance,

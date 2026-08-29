@@ -31,7 +31,8 @@ import {
   countRange, draftTargetCard, requestedWordTarget, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
-  applyDraftConformancePatch, CONFORMANCE_PATCH_SCHEMA, measureDraftConformance,
+  applyDraftConformancePatch, CONFORMANCE_MEASUREMENT_IDS, CONFORMANCE_PATCH_SCHEMA,
+  measureDraftConformance,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
 import { draftControlCard } from "../skills/prose-draft/tools/draft-controls.mjs";
 import { COVERAGE_DIMENSIONS } from "../skills/prose-draft/tools/profile-contract.mjs";
@@ -210,6 +211,8 @@ export async function run(t, { HERE }) {
         && /before anchors may replace at most 24 of the initial 12 words/.test(conformancePrompt)
         && /replacement must retain the exact structural/.test(conformancePrompt)
         && /draft contains any Markdown link or code signal anywhere, return no edits/.test(conformancePrompt)
+        && /measurement_ids[\s\S]*token inside \[measurement:\.\.\.\][\s\S]*never put an observation ID such as o03/.test(conformancePrompt)
+        && /habit string must literally include the[\s\S]*dimension and every observation ID/.test(conformancePrompt)
         && /Return exactly ten coverage rows/.test(conformancePrompt));
     const patchCoverage = targetProfile.coverage.map((row) => ({
       dimension: row.dimension,
@@ -563,6 +566,60 @@ export async function run(t, { HERE }) {
     }, { request: "Complete the review.", profile: letsProfile, card: letsCard });
     t.check("the closed let-us contraction remains a valid meaning-equivalent correction",
       letsContraction.ok && letsContraction.report.pass);
+    const minimalContractionCard = {
+      schema: "voice-draft-target-card/1", word_target: 4,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 1, gate_maximum: 2,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 0, gate_minimum: 0, gate_maximum: 0,
+      }],
+    };
+    const minimalContraction = applyDraftConformancePatch({
+      ...initialSource, draft: "It should not.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It should not.", after: "It shouldn't.",
+        reason: "Uses the minimum measured negative contraction without changing meaning.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write four words.", profile: contractionProfile, card: minimalContractionCard });
+    t.check("a minimum required contraction delta is content-length neutral",
+      minimalContraction.ok && minimalContraction.report.pass
+        && minimalContraction.word_control.initial_words === 3
+        && minimalContraction.word_control.final_words === 2
+        && minimalContraction.word_control.contraction_word_delta === -1
+        && minimalContraction.word_control.target_distance_exception === true);
+    const excessiveContractionCard = {
+      schema: "voice-draft-target-card/1", word_target: 20,
+      measurements: [{
+        measurement_id: "contractions", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 1, gate_minimum: 0, gate_maximum: 3,
+      }, {
+        measurement_id: "uncontracted-negatives", observation_id: "o01",
+        dimensions: ["contraction-negation"], aim_count: 2, gate_minimum: 0, gate_maximum: 2,
+      }],
+    };
+    const excessiveContraction = applyDraftConformancePatch({
+      ...initialSource, draft: "It does not wait. It does not stop. It does not fail.",
+    }, {
+      schema: "voice-draft-conformance-patch/1",
+      edits: [{
+        before: "It does not wait. It does not stop.",
+        after: "It doesn't wait. It doesn't stop.",
+        reason: "Contracts more negatives than the minimum required correction.",
+        coverage_dimensions: ["contraction-negation"],
+        measurement_ids: ["contractions", "uncontracted-negatives"],
+      }],
+      coverage: contractionCoverage, omitted: [],
+    }, { request: "Write twenty words.", profile: contractionProfile, card: excessiveContractionCard });
+    t.check("an extra contraction cannot borrow the content-neutral word exception",
+      !excessiveContraction.ok
+        && excessiveContraction.errors.some((error) => /moves farther from the requested 20-word target/.test(error)));
     const manyContractionsCard = structuredClone(contractionCard);
     const manyContractionsRow = manyContractionsCard.measurements.find((row) => row.measurement_id === "contractions");
     manyContractionsRow.aim_count = 7;
@@ -676,7 +733,11 @@ export async function run(t, { HERE }) {
       !equalLengthRewrite.ok
         && equalLengthRewrite.errors.some((error) => /replaces 60 source words; maximum is 24/.test(error)));
     t.check("the conformance patch schema remains strict-harness compatible",
-      assertStrictOutputSchema(CONFORMANCE_PATCH_SCHEMA, "conformance patch schema") === CONFORMANCE_PATCH_SCHEMA);
+      assertStrictOutputSchema(CONFORMANCE_PATCH_SCHEMA, "conformance patch schema") === CONFORMANCE_PATCH_SCHEMA
+        && JSON.stringify(CONFORMANCE_MEASUREMENT_IDS)
+          === JSON.stringify(PROFILE_MEASUREMENT_RULES.map((rule) => rule.id))
+        && JSON.stringify(CONFORMANCE_PATCH_SCHEMA.properties.edits.items.properties.measurement_ids.items.enum)
+          === JSON.stringify(CONFORMANCE_MEASUREMENT_IDS));
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
       /Return voice-draft-source\/4[\s\S]*finished prose directly in draft[\s\S]*do not split it into sentence objects[\s\S]*segments the immutable prose[\s\S]*derives the public verification record/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",

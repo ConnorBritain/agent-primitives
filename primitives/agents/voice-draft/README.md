@@ -131,6 +131,15 @@ initial draft must already satisfy its measured bands. This conservative boundar
 intentional: link targets, reference definitions, nested fences, tab-expanded code, and
 multiline spans cannot be made safe by inspecting a model-selected local anchor.
 
+For ordinary prose, each edit must name the exact deterministic measurement tokens printed
+in the target card, never profile observation IDs. An omitted coverage row must likewise
+name its dimension and every supporting observation ID, so neither namespace can disappear
+inside free text. Meaning-equivalent contraction spelling is the one narrow exception to
+the requested-length distance guard: only the minimum correction needed to enter the
+measured band is treated as content-length neutral when it changes whitespace word count.
+Extra contractions, lexical rewriting, and every other move away from the requested target
+still fail closed.
+
 Before public assembly, the blank-page path runs the independent claim-audit prompt over
 the request and deterministic sentence units only. That pass does not see the profile and
 may not revise the prose. It returns one of three decisions per sentence. `keep` accounts
