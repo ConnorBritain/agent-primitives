@@ -85,7 +85,7 @@ const isObject = (value) => value !== null && typeof value === "object" && !Arra
 const isText = (value) => typeof value === "string" && value.trim().length > 0;
 const SUPPORT_STOPWORDS = new Set([
   "about", "after", "again", "also", "answer", "argue", "because", "before", "being",
-  "blog", "cover", "direct", "essay", "explain", "from", "have", "into", "keep", "make",
+  "blog", "concern", "cover", "decision", "direct", "essay", "explain", "from", "have", "into", "keep", "make",
   "post", "reply", "should", "something", "that", "their", "there", "these", "they", "this",
   "those", "through", "using", "what", "when", "where", "which", "while", "with", "word",
   "words", "write", "would", "your",
@@ -100,10 +100,21 @@ const supportTerms = (value) => new Set(
   String(value ?? "").normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}]+/gu)
     ?.map(supportStem).filter((token) => token.length >= 4 && !SUPPORT_STOPWORDS.has(token)) ?? [],
 );
-export const sharedRequestSupportTerms = (left, right) => {
-  const a = supportTerms(left);
-  const b = supportTerms(right);
-  return [...a].filter((term) => b.has(term));
+export const requestSupportCoverage = (claim, evidence) => {
+  const claimTerms = [...supportTerms(claim)];
+  const evidenceTerms = supportTerms(evidence);
+  const matched = claimTerms.filter((term) => evidenceTerms.has(term));
+  return {
+    total: claimTerms.length,
+    matched: matched.length,
+    missing: claimTerms.filter((term) => !evidenceTerms.has(term)),
+    ratio: claimTerms.length ? matched.length / claimTerms.length : 0,
+  };
+};
+export const hasSufficientRequestSupport = (claim, evidence) => {
+  const coverage = requestSupportCoverage(claim, evidence);
+  if (coverage.total === 0) return false;
+  return coverage.total < 5 ? coverage.matched === coverage.total : coverage.ratio >= 0.8;
 };
 const exactKeys = (value, expected) => {
   const actual = Object.keys(value).sort();
@@ -270,8 +281,11 @@ function validateLedger(source, request) {
         errors.push(`${at}.request_basis is not locatable in the request`);
       }
       if (isText(entry.claim) && isText(entry.request_basis)
-        && sharedRequestSupportTerms(entry.claim, entry.request_basis).length === 0) {
-        errors.push(`${at}.request_basis has no substantive lexical support for its claim`);
+        && !hasSufficientRequestSupport(entry.claim, entry.request_basis)) {
+        const coverage = requestSupportCoverage(entry.claim, entry.request_basis);
+        errors.push(coverage.matched === 0
+          ? `${at}.request_basis has no substantive lexical support for its claim`
+          : `${at}.request_basis does not substantively cover its claim (${coverage.matched}/${coverage.total} terms)`);
       }
     } else if (typeof entry.request_basis === "string" && entry.request_basis.length !== 0) {
       errors.push(`${at}.request_basis must be empty for external verification`);
@@ -341,8 +355,11 @@ function validateLedgerSentenceUnits(source, request) {
       }
       if (sentence.basis === "request-supported" && isText(sentence.text)) {
         const citedClaims = sentence.claim_ids.map((claimId) => ledger.get(claimId)?.claim).filter(Boolean);
-        if (citedClaims.length && sharedRequestSupportTerms(sentence.text, citedClaims.join(" ")).length === 0) {
-          errors.push(`${sat} has no substantive lexical support from its cited request claims`);
+        if (citedClaims.length && !hasSufficientRequestSupport(sentence.text, citedClaims.join(" "))) {
+          const coverage = requestSupportCoverage(sentence.text, citedClaims.join(" "));
+          errors.push(coverage.matched === 0
+            ? `${sat} has no substantive lexical support from its cited request claims`
+            : `${sat} is not substantively covered by its cited request claims (${coverage.matched}/${coverage.total} terms)`);
         }
       }
     }

@@ -679,7 +679,7 @@ export async function run(t, { HERE }) {
       writeFileSync(draftPath, draft);
       const draftHash = createHash("sha256").update(draft).digest("hex");
       const auditCases = { cases: [{
-        id: "x", prompt: "Write about ownership choices. Use the supplied phrase.",
+        id: "x", prompt: "Write about ownership choices. Include this exact sentence: The supplied phrase appears.",
       }] };
       const sourcePath = join(auditRoot, "inputs", "sources", "drafts", "x.json");
       const canonicalAuditPath = join(auditRoot, "inputs", "audits", "x.json");
@@ -687,7 +687,7 @@ export async function run(t, { HERE }) {
         schema: "voice-draft-source/3", kind: "draft",
         ledger: [{
           id: "c1", basis: "request-supported", claim: "The supplied phrase appears.",
-          request_basis: "supplied phrase",
+          request_basis: "The supplied phrase appears.",
         }],
         paragraphs: [{ sentences: [{
           text: "The supplied phrase appears.", basis: "request-supported", claim_ids: ["c1"],
@@ -705,7 +705,8 @@ export async function run(t, { HERE }) {
       }, null, 2)}\n`);
       const review = {
         ...sentenceReviewTemplate(sourceRecord)[0],
-        decision: "request-supported", request_evidence: ["supplied phrase"],
+        decision: "request-supported", request_evidence: ["The supplied phrase appears."],
+        note: "The exact supplied sentence supports every descriptive term in this sentence.",
       };
       const audit = {
         schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
@@ -745,7 +746,19 @@ export async function run(t, { HERE }) {
         claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
           sentence_reviews: [{ ...review, request_evidence: ["ownership choices"] }],
         } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /no substantive lexical support for the sentence/.test(error)));
+          .some((error) => /does not substantively cover the sentence/.test(error)));
+      t.check("request-supported human clearance needs an independent rationale",
+        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+          sentence_reviews: [{ ...review, note: "" }],
+        } } }, auditCases, artifacts, auditRoot)
+          .some((error) => /needs a substantive independent rationale/.test(error)));
+      t.check("request-supported rationale cannot delegate judgment to model authority",
+        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+          sentence_reviews: [{ ...review,
+            note: "The automated reviewer classified this as supplied, so no independent check is needed.",
+          }],
+        } } }, auditCases, artifacts, auditRoot)
+          .some((error) => /delegates semantic judgment to pipeline authority/.test(error)));
       t.check("critic-unlocking review requires an explicit human attestation",
         claimsAuditFailures({ ...audit, attestation: {
           ...humanAttestation(), reviewer: "",
@@ -790,6 +803,15 @@ export async function run(t, { HERE }) {
             }],
           } },
         }, auditCases).some((error) => /needs one closed semantic basis/.test(error)));
+      t.check("a non-factual rationale cannot delegate judgment to model authority",
+        claimsAuditFailures({
+          schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
+            ...audit.drafts.x,
+            sentence_reviews: [{ ...riskyReview,
+              note: "The model audit says this is normative, so no independent factual review is required.",
+            }],
+          } },
+        }, auditCases).some((error) => /delegates semantic judgment to pipeline authority/.test(error)));
       const sharedParagraphSource = {
         schema: "voice-draft-source/3", kind: "draft",
         ledger: [{

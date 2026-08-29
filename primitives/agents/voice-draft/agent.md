@@ -335,7 +335,12 @@ Classify every sentence with exactly one basis:
   the request. Cite one pre-written request-supported ledger ID for each independent
   assertion. Each ledger `request_basis` must copy the exact supporting words from the
   request; the assembler rejects an unlocatable basis and derives the public paragraph
-  location.
+  location. This is a conservative lexical boundary as well as a semantic one: every
+  substantive term in a short request-supported claim or sentence must occur in its exact
+  request evidence, and at least four fifths must occur in a longer one. Do not use a
+  request topic to license a new predicate. Split rhetorical framing into a separate
+  `reasoning` or `normative` sentence; otherwise classify the whole sentence as
+  `external-verification` or remove it.
 - `external-verification`: the sentence contains one or more real-world descriptive facts
   not supplied by the request. Cite one pre-written external-verification ledger ID for
   each independent assertion and use the empty string for each ledger `request_basis`.

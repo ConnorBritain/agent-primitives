@@ -41,7 +41,11 @@ to this result.
   every immutable sentence as `request-supported`, `listed-for-verification`, `non-factual`,
   or `requires-change`, using independently selected exact request evidence, exact
   per-sentence public claims, or the complete canonical sentence plus an independent closed
-  semantic basis and rationale. Any `requires-change` blocks critics and invalidates the run.
+  semantic basis and rationale. Request-supported claims and sentences must also clear the
+  conservative substantive-term coverage guard; a shared topic cannot license an appended
+  predicate. Every human clearance rationale must be substantive and may not delegate its
+  semantic judgment to a model, audit, ledger, classifier, or automated reviewer. Any
+  `requires-change` blocks critics and invalidates the run.
 - The completed human review and attestation must be committed as their immutable first-add
   version before any critic call. Every critic invocation records that exact audit hash and
   commit. Final checking requires every immutable critic record to have been first committed
@@ -94,5 +98,8 @@ review, or a model's assertion that its own claim list is complete are not accep
   register supported by either corpus.
 - Human reviewer identity is an operational attestation rather than cryptographic identity.
   Git proves evidence commit order, not the provider's wall-clock execution time.
+- Substantive-term coverage and anti-deference checks catch gross or explicit mismatches;
+  they are English-specific inspection guards, not a mechanical proof of entailment or of a
+  human reviewer's honesty.
 - The run validates the pinned harness adapters and models used here. It does not establish
   equivalent behavior for every coding-agent harness, model, or subscription plan.

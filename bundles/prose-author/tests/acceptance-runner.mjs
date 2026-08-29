@@ -37,7 +37,7 @@ import {
 } from "./voice-critic-source.mjs";
 import {
   assembleVoiceDraft, normalizeVoiceDraftSource, parseVoiceDraftSource,
-  sharedRequestSupportTerms, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
+  hasSufficientRequestSupport, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
 } from "../skills/prose-draft/tools/draft-contract.mjs";
 import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA,
@@ -1438,6 +1438,12 @@ const SENTENCE_REVIEW_DECISIONS = [
   "request-supported", "listed-for-verification", "non-factual", "requires-change",
 ];
 const NON_FACTUAL_BASES = ["normative", "hypothetical", "logical", "rhetorical", "procedural"];
+const SEMANTIC_AUTHORITY = String.raw`(?:model(?:-authored)?|audit(?:or)?|ledger|classifier|automated[ -]reviewer)`;
+const SEMANTIC_VERDICT = String.raw`(?:says?|said|marks?|marked|labels?|labelled|classifies?|classified|calls?|called|treats?|treated|decides?|decided|finds?|found)`;
+const SEMANTIC_DEFERENCE = new RegExp(
+  String.raw`(?:\b${SEMANTIC_AUTHORITY}\b.{0,48}\b${SEMANTIC_VERDICT}\b|\b(?:according to|because of|relying on)\b.{0,32}\b${SEMANTIC_AUTHORITY}\b)`,
+  "i",
+);
 const FACTUAL_CANDIDATE_RULES = [
   {
     id: "frequency-or-quantity",
@@ -1517,7 +1523,7 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     instructions: [
       "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
       "sentence_reviews: review every immutable sentence; the model audit and candidate reasons are aids, never completeness authority",
-      "request-supported: independently cite exact substantive request spans in request_evidence; do not trust the model-authored ledger label",
+      "request-supported: independently cite exact substantive request spans in request_evidence and explain how they support the complete sentence; do not trust the model-authored ledger label",
       "listed-for-verification: put every public claim covering the sentence into claim_refs; each claim must be located in the same paragraph",
       "non-factual: copy the complete sentence into sentence_evidence, select one closed non_factual_basis, and independently explain why the whole sentence has no external descriptive premise",
       "requires-change: use when any premise is missing, overbroad, fabricated, or otherwise cannot pass; critics remain blocked",
@@ -1739,8 +1745,13 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
         }
         const canonicalSentence = sourceTextBySentence?.[review.id] ?? "";
         if (canonicalSentence
-          && sharedRequestSupportTerms(canonicalSentence, requestEvidence.join(" ")).length === 0) {
-          failures.push(`${at} request evidence has no substantive lexical support for the sentence`);
+          && !hasSufficientRequestSupport(canonicalSentence, requestEvidence.join(" "))) {
+          failures.push(`${at} request evidence does not substantively cover the sentence`);
+        }
+        if (normalizeAuditText(review.note).length < 32) {
+          failures.push(`${at} request-supported needs a substantive independent rationale`);
+        } else if (SEMANTIC_DEFERENCE.test(review.note)) {
+          failures.push(`${at} request-supported rationale delegates semantic judgment to pipeline authority`);
         }
       } else if (review.decision === "listed-for-verification") {
         if (requestEvidence.length) failures.push(`${at} listed-for-verification cannot cite request evidence`);
@@ -1774,6 +1785,8 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
         }
         if (normalizeAuditText(review.note).length < 32) {
           failures.push(`${at} non-factual needs a substantive human rationale`);
+        } else if (SEMANTIC_DEFERENCE.test(review.note)) {
+          failures.push(`${at} non-factual rationale delegates semantic judgment to pipeline authority`);
         }
       } else if (review.decision === "requires-change") {
         failures.push(`${at} requires a draft or disclosure change`);

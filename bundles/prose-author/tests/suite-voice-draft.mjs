@@ -169,6 +169,8 @@ export async function run(t, { HERE }) {
         /claim ledger comes before the prose[\s\S]*before writing the first prose sentence[\s\S]*then close the ledger/],
       ["external descriptive facts require a verification label",
         /external factual assertion[\s\S]*classify it as[\s\S]*external-verification[\s\S]*do not mislabel remembered history/],
+      ["request support cannot license an appended predicate through topical overlap",
+        /conservative lexical boundary[\s\S]*four fifths[\s\S]*do not use a[\s\S]*request topic to license a new predicate/],
       ["external claims must be finite rather than unverifiable generalizations",
         /external claim must be finite[\s\S]*authoritative record[\s\S]*entire industry[\s\S]*not made safe by adding them to a queue/],
       ["argumentative pieces do not acquire decorative external-memory facts",
@@ -375,6 +377,30 @@ export async function run(t, { HERE }) {
             text: "Many buyers never notice.", basis: "request-supported", claim_ids: ["c1"],
           }] }],
         }, { request: "Write about ownership choices." }).ok);
+    const appendedPredicateClaim = validateVoiceDraftSource({
+      ...source,
+      ledger: [{
+        id: "c1", basis: "request-supported",
+        claim: "Device ownership causes cancer.", request_basis: "device ownership",
+      }],
+      paragraphs: [{ sentences: [{
+        text: "Device ownership causes cancer.", basis: "request-supported", claim_ids: ["c1"],
+      }] }],
+    }, { request: "Write about device ownership." });
+    const appendedPredicateSentence = validateVoiceDraftSource({
+      ...source,
+      ledger: [{
+        id: "c1", basis: "request-supported", claim: "Device ownership", request_basis: "device ownership",
+      }],
+      paragraphs: [{ sentences: [{
+        text: "Device ownership causes cancer.", basis: "request-supported", claim_ids: ["c1"],
+      }] }],
+    }, { request: "Write about device ownership." });
+    t.check("topical overlap cannot license an unsupported appended predicate",
+      !appendedPredicateClaim.ok
+        && appendedPredicateClaim.errors.some((error) => /does not substantively cover its claim/.test(error))
+        && !appendedPredicateSentence.ok
+        && appendedPredicateSentence.errors.some((error) => /not substantively covered by its cited request claims/.test(error)));
     const mismatchedRequestSentence = validateVoiceDraftSource({
       ...source,
       paragraphs: [{ sentences: [{
