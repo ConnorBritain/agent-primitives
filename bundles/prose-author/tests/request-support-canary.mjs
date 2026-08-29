@@ -127,6 +127,14 @@ async function dispatch() {
       }
       process.stdout.write(`${Math.round((Date.now() - started) / 1000)}s\n`);
     } catch (error) {
+      write(join(RUN, "raw", "drafts", `${id}.failure.json`), {
+        schema: "prose-author-request-support-canary-failure/1",
+        id, attempted_at: new Date().toISOString(), error: error.message,
+        dispatch: config,
+        agent_sha256: manifest.agent.sha256,
+        prompt_sha256: manifest.prompts[id].sha256,
+        schema_sha256: manifest.schema_sha256,
+      });
       failures.push(`${id}: ${error.message}`);
       process.stdout.write("FAILED\n");
     }
@@ -142,7 +150,17 @@ function collect() {
   const profileText = text(resolve(REPO, manifest.profile.markdown));
   for (const id of ["codex", "claude"]) {
     const rawPath = join(RUN, "raw", "drafts", `${id}.json`);
-    if (!existsSync(rawPath)) { failures.push(`${id}: missing raw result`); continue; }
+    if (!existsSync(rawPath)) {
+      const failurePath = join(RUN, "raw", "drafts", `${id}.failure.json`);
+      const failure = existsSync(failurePath) ? json(failurePath) : null;
+      artifacts.drafts[id] = {
+        harness: manifest.dispatches[id].harness, raw: null, source: null, output: null,
+        failure: failure ? rel(failurePath) : null,
+        error: failure?.error ?? "missing raw result and failure record", pass: false,
+      };
+      failures.push(`${id}: ${artifacts.drafts[id].error}`);
+      continue;
+    }
     const record = json(rawPath);
     const source = record.structured_output;
     const sourceValidation = validateVoiceDraftSource(source, { request: DESIGN.prompt });
@@ -150,7 +168,8 @@ function collect() {
       ? assembleVoiceDraft(source, { request: DESIGN.prompt }) : { ok: false, errors: sourceValidation.errors };
     const parsed = assembled.ok ? parseDraft(assembled.output) : null;
     const publicValidation = parsed ? validateDraft(parsed) : { ok: false, refusal: false, errors: assembled.errors };
-    const leakage = parsed ? corpusLeakage({ draft: parsed.draft, corpusDir, profileText }) : [];
+    const leakage = parsed
+      ? corpusLeakage({ draft: parsed.draft, corpusDir, profileText }) : { leaked: [], count: 0 };
     const citations = parsed ? findFabricatedCitations(parsed.draft) : [];
     const externalClaims = Array.isArray(source?.ledger)
       ? source.ledger.filter((entry) => entry.basis === "external-verification") : [];
@@ -159,7 +178,7 @@ function collect() {
       public_draft_valid: publicValidation.ok && !publicValidation.refusal,
       no_external_verification: externalClaims.length === 0,
       no_fabricated_citations: citations.length === 0,
-      no_corpus_leakage: leakage.length === 0,
+      no_corpus_leakage: leakage.count === 0,
     };
     const sourcePath = join(RUN, "inputs", "sources", `${id}.json`);
     const outputPath = join(RUN, "outputs", "drafts", `${id}.md`);

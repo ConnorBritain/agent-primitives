@@ -764,7 +764,7 @@ export async function run(t, { HERE }) {
       !validateVoiceDraftClaimRepair(repairSource, {
         ...repaired,
         ledger: repaired.ledger.map((entry) => ({
-          ...entry, request_basis: "can disable features after sale",
+          ...entry, request_basis: "A maker can disable features after sale",
         })),
       }, { request, audit: rejectedAudit }).ok);
     t.check("an audit repair must change the rejected prose rather than relabel it",

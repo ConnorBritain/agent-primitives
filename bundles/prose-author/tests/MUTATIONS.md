@@ -74,6 +74,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | treat profile examples as reusable topic facts | 2 | corpus-derived profile examples cannot cross the factual firewall |
 | let unverifiable generalizations enter the claims queue | 2 | claims remain finite propositions a publisher can actually check |
 | let argumentative prose decorate itself with external-memory facts | 2 | a source-free argument stays within request evidence instead of inventing vivid cases |
+| tell the drafter topical request overlap can license a new predicate | 2 | the model prompt matches the conservative request-support contract |
 | let a listed claim license an invented attributed quotation | 2 | an invented quotation cannot be laundered through the verification list |
 | collapse multiple named-actor assertions into one topic claim | 2 | each checkable action and consequence remains independently auditable |
 | dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
@@ -82,10 +83,13 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | erase deterministic factual candidates from the human review ledger | 1 | the known conditional and rhetorical misses are surfaced without relying on the model auditor |
 | trust handwritten candidate reasons instead of rederiving them | 1 | candidate flags and sentence hashes reproduce from the immutable semantic source |
 | let an unrelated same-paragraph claim cover a reviewed sentence | 1 | a public verification claim must belong to the exact sentence under human review |
-| accept a token rationale for clearing a flagged sentence | 1 | a human clearing a possible factual premise records an inspectable rationale |
-| accept a request ledger claim unrelated to its supplied basis | 1 | a generic instruction token cannot become model-authored semantic request support |
+| accept a token rationale for clearing a flagged non-factual sentence | 1 | a human clearing a possible factual premise records an inspectable rationale |
+| accept a request ledger claim only topically related to its supplied basis | 2 | a shared topic cannot become model-authored support for an appended predicate |
 | let a request-backed claim license unrelated prose | 1 | request support remains linked from supplied basis through claim to exact sentence |
 | accept human request evidence unrelated to the reviewed sentence | 1 | human request evidence is independently checked instead of trusting the model-authored ledger |
+| accept request-supported human clearance without a rationale | 1 | a human explains how exact request evidence supports the complete sentence |
+| let request-supported clearance defer to pipeline authority | 1 | human request support is an independent semantic judgment rather than a model label |
+| let non-factual clearance defer to pipeline authority | 1 | human non-factual classification cannot cite the model or audit as its authority |
 | accept a fragment as evidence that a whole sentence is non-factual | 1 | a non-factual decision accounts for the complete sentence rather than one convenient clause |
 | let free-form prose replace a closed non-factual classification | 1 | the human completeness boundary records an explicit normative, hypothetical, logical, rhetorical, or procedural basis |
 | accept an empty human reviewer identity | 1 | critic-unlocking sentence review carries an explicit human attestation |

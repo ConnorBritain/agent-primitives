@@ -32,8 +32,13 @@ export async function run(t, { HERE }) {
   const runDir = join(HERE, "runs", "2026-08-27-v020-acceptance");
   const cases = JSON.parse(readFileSync(join(runDir, "CASES.json"), "utf8"));
   const source = readFileSync(join(HERE, "acceptance-runner.mjs"), "utf8");
+  const canarySource = readFileSync(join(HERE, "request-support-canary.mjs"), "utf8");
 
   t.group("v0.2 acceptance harness — the locked design is executable");
+  t.check("request-support canaries persist harness failures before refusing a redraw",
+    /`\$\{id\}\.failure\.json`[\s\S]*prompt_sha256[\s\S]*schema_sha256/.test(canarySource));
+  t.check("request-support canaries read the structured leakage result rather than an array length",
+    /no_corpus_leakage: leakage\.count === 0/.test(canarySource));
   t.check("the committed twenty-case design validates", validateCases(cases).length === 0);
   {
     const missing = clone(cases);
