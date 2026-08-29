@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04f3d-367e-7841-a40f-8ea640725b30"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The requested subject is missing: “the problem we discussed” does not identify the problem in the supplied request. Please state the problem and, because the profile spans different registers, identify the intended reader or occasion so the draft does not invent either.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":18131,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":121,"reasoning_output_tokens":35}}

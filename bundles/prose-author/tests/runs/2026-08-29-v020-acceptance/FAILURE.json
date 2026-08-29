@@ -1,0 +1,44 @@
+{
+  "schema": "prose-author-acceptance-failure/1",
+  "status": "HOLD",
+  "clears": false,
+  "failed_phase": "conformance-assembly",
+  "prepared_commit": "7bfc3ef026613a5cde56528d3ebaeeef7fc2529c",
+  "manifest_commit": "ef6fa14d43188f99081e454f15e5f14ae7839ca9",
+  "profile_evidence_commit": "058b562f88cd821792b143df0ab35925fa3c08ba",
+  "redraws": 0,
+  "completed_calls": {
+    "profiles": 6,
+    "drafts": 20,
+    "refusals": 2,
+    "conformance": 20,
+    "claim_audits": 0,
+    "critics": 0
+  },
+  "first_reported_error": "m01 conformance patch failed: conformance patch moves farther from the requested 650-word target (575 to 574)",
+  "offline_conformance_replay": {
+    "passed": 16,
+    "failed": 4,
+    "failures": {
+      "m01": [
+        "conformance patch moves farther from the requested 650-word target (575 to 574)"
+      ],
+      "m03": [
+        "patch.coverage[0] is omitted without a matching omission record"
+      ],
+      "m05": [
+        "patch.edits[0].measurement_ids is invalid",
+        "patch.coverage[1] claims revision but no edit names the dimension"
+      ],
+      "m07": [
+        "conformance patch moves farther from the requested 700-word target (690 to 688)"
+      ]
+    }
+  },
+  "interpretation": [
+    "m01 and m07 expose a contradiction between mandatory meaning-equivalent contraction corrections and a conventional word-count distance guard on an already-short draft.",
+    "m03 names only the failing observation in free-form omission text instead of every observation supporting the omitted coverage row.",
+    "m05 confuses observation IDs with measurement IDs because the transport schema accepts arbitrary strings."
+  ],
+  "disposition": "This run is invalid. No cell may be reused after an implementation change; a new locked six-profile, twenty-draft, two-refusal, sixty-critic run is required."
+}
