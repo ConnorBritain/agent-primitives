@@ -132,7 +132,16 @@ the request, closed ledger, and sentence units only. That pass does not see the 
 and may not revise the prose or ledger; it rejects any factual clause that escaped the
 closed set, any insufficient request basis, any unbounded external claim, or an
 unrecoverable fabricated quotation, citation, or biography. Deterministic code reconciles
-every audit decision to one sentence ID. A separate human claims audit
+every audit decision to one sentence ID.
+
+One rejected audit may trigger one bounded repair, never a redraw. The repair sees the
+request, original proof-carrying source, and rejection reasons, but no profile or corpus.
+It must preserve every accepted sentence, every retained ledger entry, the paragraph and
+sentence counts, and the omission record byte-for-byte. It may minimally rewrite rejected
+sentence units or delete an unused ledger suffix, and it may not add facts. A fresh
+independent audit then reviews the complete repaired source. A second rejection stops the
+cell; there is no further repair or favorable variant selection. The original source,
+initial audit, repair, and final audit remain separate evidence. A human claims audit
 remains necessary before publication or release scoring.
 
 Read the draft first and ask the question the tests cannot: **does this sound like them?**
@@ -169,7 +178,8 @@ Then, specifically:
   but that is evidence, not enforcement.
 
 - **One draft, no variants.** It does not offer three and let you pick. Whether that is
-  right is an open question for S4.
+  right is an open question for S4. The conditional claim repair is not a variant: it is
+  restricted to independently rejected sentence units and cannot alter accepted prose.
 
 - **Never claims the draft sounds like the author**, that it is good, or that it would
   pass a detector. The first is the author's judgement; the third is refused on principle

@@ -43,6 +43,9 @@ import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA,
   parseVoiceDraftClaimAudit, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
+import {
+  claimRepairRejectedIds, validateVoiceDraftClaimRepair,
+} from "../skills/prose-draft/tools/draft-claim-repair.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
   ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, sourceMeasurementPlan,
@@ -61,7 +64,7 @@ const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/2";
 const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/2";
-const STAGES = ["profile", "draft", "claim_audit", "critic"];
+const STAGES = ["profile", "draft", "claim_audit", "claim_repair", "claim_reaudit", "critic"];
 const TRANSPORTS = new Set(["native-structured", "json-fence"]);
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
@@ -109,6 +112,7 @@ const AGENTS = {
   profile: "primitives/agents/voice-profile-render/agent.md",
   draft: "primitives/agents/voice-draft/agent.md",
   claim_audit: "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
+  claim_repair: "bundles/prose-author/skills/prose-draft/references/claim-repair.md",
   critic: "primitives/agents/prose-voice-critic/agent.md",
 };
 
@@ -137,6 +141,8 @@ function prepareConfig(env = process.env) {
       || (draftHarness === "codex" ? "gpt-5.6-luna" : model),
     draftEffort: env.ACCEPTANCE_DRAFT_EFFORT || env.ACCEPTANCE_EFFORT || "medium",
     claimAuditEffort: env.ACCEPTANCE_CLAIM_AUDIT_EFFORT || "low",
+    claimRepairEffort: env.ACCEPTANCE_CLAIM_REPAIR_EFFORT || env.ACCEPTANCE_DRAFT_EFFORT
+      || env.ACCEPTANCE_EFFORT || "medium",
     criticEffort: env.ACCEPTANCE_CRITIC_EFFORT || env.ACCEPTANCE_EFFORT || "medium",
     profileEffort: env.ACCEPTANCE_PROFILE_EFFORT || "low",
     concurrency: positiveInt(env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY"),
@@ -144,6 +150,7 @@ function prepareConfig(env = process.env) {
     profileNative: env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0",
     draftNative: env.ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0",
     claimAuditNative: env.ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0",
+    claimRepairNative: env.ACCEPTANCE_CLAIM_REPAIR_NATIVE_SCHEMA !== "0",
     criticNative: env.ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0",
   };
 }
@@ -161,7 +168,7 @@ function manifestDispatch(manifest, stage) {
   if (!config || typeof config !== "object" || Array.isArray(config)) {
     throw new Error(`manifest has no locked ${stage} dispatch configuration`);
   }
-  const harnesses = stage === "draft" ? ["claude-code", "codex"] : ["claude-code"];
+  const harnesses = ["draft", "claim_repair"].includes(stage) ? ["claude-code", "codex"] : ["claude-code"];
   if (!harnesses.includes(config.harness)) throw new Error(`manifest ${stage} harness is invalid`);
   if (typeof config.model !== "string" || !config.model.trim()) throw new Error(`manifest ${stage} model is invalid`);
   if (typeof config.effort !== "string" || !config.effort.trim()) throw new Error(`manifest ${stage} effort is invalid`);
@@ -488,6 +495,17 @@ function prepare(runDir) {
         transport: config.claimAuditNative ? "native-structured" : "json-fence",
         timeout_ms: config.timeoutMs,
       },
+      claim_repair: {
+        harness: config.draftHarness === "codex" ? "codex" : "claude-code",
+        model: config.draftModel, effort: config.claimRepairEffort,
+        transport: config.claimRepairNative ? "native-structured" : "json-fence",
+        timeout_ms: config.timeoutMs,
+      },
+      claim_reaudit: {
+        harness: "claude-code", model: config.model, effort: config.claimAuditEffort,
+        transport: config.claimAuditNative ? "native-structured" : "json-fence",
+        timeout_ms: config.timeoutMs,
+      },
       critic: {
         harness: "claude-code", model: config.model, effort: config.criticEffort,
         transport: config.criticNative ? "native-structured" : "json-fence",
@@ -520,7 +538,7 @@ function prepare(runDir) {
       );
     }
   }
-  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 independent claim audits, 60 critic draws\n\n`);
+  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 initial claim audits, up to 20 bounded repairs and independent reaudits, 60 critic draws\n\n`);
   process.stdout.write("  commit the prepared run, including MANIFEST.json, before dispatching profiles\n\n");
 }
 
@@ -1045,6 +1063,47 @@ function claimAuditPrompt(c, source) {
   ].join("\n");
 }
 
+function claimRepairPrompt(c, source, { audit = null, sourceErrors = [] } = {}) {
+  const rejectedIds = audit ? claimRepairRejectedIds(source, audit) : [];
+  return [
+    `# Bounded draft claim repair — ${c.id}`,
+    "",
+    "Repair the supplied source exactly once under the system prompt. This is not a redraw.",
+    "The request is the only factual packet; the voice profile and corpus are unavailable.",
+    "",
+    "## Request",
+    "",
+    c.prompt,
+    "",
+    "## Original source",
+    "",
+    "```json",
+    JSON.stringify(source, null, 2),
+    "```",
+    "",
+    ...(sourceErrors.length ? [
+      "## Source-validation issues",
+      "",
+      ...sourceErrors.map((error) => `- ${error}`),
+      "",
+      "Preserve every sentence object byte-for-byte. Delete only unchanged unused ledger entries.",
+    ] : [
+      "## Independent audit",
+      "",
+      "```json",
+      JSON.stringify(audit, null, 2),
+      "```",
+      "",
+      `Protected keep sentence IDs: ${audit.sentences.filter((row) => row.status === "keep").map((row) => row.id).join(", ") || "none"}.`,
+      `Rejected sentence IDs to rewrite: ${rejectedIds.join(", ") || "none"}.`,
+      "Preserve every keep sentence object byte-for-byte. Rewrite every rejected sentence minimally.",
+    ]),
+    "",
+    "Return one complete voice-draft-source/3 object and nothing else.",
+    "Do not add ledger entries or factual premises. A fresh independent audit follows this repair.",
+  ].join("\n");
+}
+
 async function dispatchDrafts(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
   const dispatch = manifestDispatch(manifest, "draft");
@@ -1079,15 +1138,23 @@ async function dispatchDrafts(runDir) {
     };
   });
   await pool("draft", jobs, manifest.concurrency);
-  await dispatchClaimAudits(runDir, manifest, cases);
+  await dispatchClaimPipeline(runDir, manifest, cases);
   collectDrafts(runDir);
 }
 
-async function dispatchClaimAudits(runDir, manifest, cases) {
-  const dispatch = manifestDispatch(manifest, "claim_audit");
+async function dispatchClaimPipeline(runDir, manifest, cases) {
+  const auditDispatch = manifestDispatch(manifest, "claim_audit");
+  const repairDispatch = manifestDispatch(manifest, "claim_repair");
+  const reauditDispatch = manifestDispatch(manifest, "claim_reaudit");
   const draftDispatch = manifestDispatch(manifest, "draft");
-  const system = resolve(REPO, manifest.agents.claim_audit.snapshot);
-  const jobs = cases.cases.map((c) => {
+  const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
+  const repairSystem = resolve(REPO, manifest.agents.claim_repair.snapshot);
+  const draftSchemaPath = resolve(REPO, manifest.schemas.draft.path);
+  const sources = new Map();
+  const initialAuditJobs = [];
+  const repairNeeds = new Map();
+
+  for (const c of cases.cases) {
     const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
     const record = completedResult(rawPath, draftDispatch);
     if (!record) die(`missing ${rel(rawPath)}`);
@@ -1095,21 +1162,155 @@ async function dispatchClaimAudits(runDir, manifest, cases) {
     if (!decoded.source) die(`${c.id} invalid semantic draft source before audit: ${decoded.error}`);
     const validation = validateVoiceDraftSource(decoded.source, { request: c.prompt });
     if (!validation.ok || validation.refusal) {
-      die(`${c.id} invalid semantic draft source before audit: ${validation.errors.join("; ")}`);
+      if (validation.refusal) die(`${c.id} unexpectedly refused before claim audit`);
+      repairNeeds.set(c.id, { c, source: decoded.source, sourceErrors: validation.errors, audit: null });
+      sources.set(c.id, decoded.source);
+      continue;
     }
+    sources.set(c.id, decoded.source);
     const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
     const prompt = stagePrompt(promptPath, claimAuditPrompt(c, decoded.source));
-    return {
+    initialAuditJobs.push({
       id: c.id,
       run: () => claude({
-        system, cwd: runDir, prompt, tools: "", allowed: [],
-        dispatch,
-        schema: dispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+        system: auditSystem, cwd: runDir, prompt, tools: "", allowed: [],
+        dispatch: auditDispatch,
+        schema: auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
         output: join(runDir, "raw", "claim-audits", `${c.id}.json`),
+      }),
+    });
+  }
+  await pool("initial claim audit", initialAuditJobs, manifest.concurrency);
+
+  for (const c of cases.cases) {
+    if (repairNeeds.has(c.id)) continue;
+    const auditPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
+    const auditRecord = completedResult(auditPath, auditDispatch);
+    if (!auditRecord) die(`missing ${rel(auditPath)}`);
+    const decodedAudit = semanticClaimAudit(auditRecord);
+    if (!decodedAudit.audit) die(`${c.id} invalid independent claim audit: ${decodedAudit.error}`);
+    const source = sources.get(c.id);
+    const applied = applyVoiceDraftClaimAudit(source, decodedAudit.audit, { request: c.prompt });
+    if (!applied.ok) {
+      if (!claimRepairRejectedIds(source, decodedAudit.audit).length) {
+        die(`${c.id} malformed independent claim audit cannot trigger repair: ${applied.errors.join("; ")}`);
+      }
+      repairNeeds.set(c.id, { c, source, sourceErrors: [], audit: decodedAudit.audit });
+    }
+  }
+
+  const repairJobs = [...repairNeeds.values()].map((need) => {
+    const promptPath = join(runDir, "prompts", "claim-repairs", `${need.c.id}.md`);
+    const prompt = stagePrompt(promptPath, claimRepairPrompt(need.c, need.source, need));
+    const output = join(runDir, "raw", "claim-repairs", `${need.c.id}.json`);
+    return {
+      id: need.c.id,
+      run: () => repairDispatch.harness === "codex" ? codex({
+        system: repairSystem, prompt, output, dispatch: repairDispatch,
+        schemaPath: draftSchemaPath, noToolsConfig: manifest.codex_no_tools_config,
+      }) : claude({
+        system: repairSystem, cwd: runDir, prompt, tools: "", allowed: [],
+        dispatch: repairDispatch,
+        schema: repairDispatch.transport === "native-structured" ? DRAFT_SOURCE_SCHEMA : null,
+        output,
       }),
     };
   });
-  await pool("claim audit", jobs, manifest.concurrency);
+  await pool("bounded claim repair", repairJobs, manifest.concurrency);
+
+  const reauditJobs = [...repairNeeds.values()].map((need) => {
+    const repairPath = join(runDir, "raw", "claim-repairs", `${need.c.id}.json`);
+    const repairRecord = completedResult(repairPath, repairDispatch);
+    if (!repairRecord) die(`missing ${rel(repairPath)}`);
+    const decoded = semanticDraftSource(repairRecord);
+    if (!decoded.source) die(`${need.c.id} invalid repaired draft source: ${decoded.error}`);
+    const bounded = validateVoiceDraftClaimRepair(need.source, decoded.source, {
+      request: need.c.prompt, audit: need.audit, sourceErrors: need.sourceErrors,
+    });
+    if (!bounded.ok) die(`${need.c.id} bounded repair failed: ${bounded.errors.join("; ")}`);
+    const promptPath = join(runDir, "prompts", "claim-reaudits", `${need.c.id}.md`);
+    const prompt = stagePrompt(promptPath, claimAuditPrompt(need.c, decoded.source));
+    return {
+      id: need.c.id,
+      run: () => claude({
+        system: auditSystem, cwd: runDir, prompt, tools: "", allowed: [],
+        dispatch: reauditDispatch,
+        schema: reauditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+        output: join(runDir, "raw", "claim-reaudits", `${need.c.id}.json`),
+      }),
+    };
+  });
+  await pool("independent claim reaudit", reauditJobs, manifest.concurrency);
+}
+
+function resolveDraftChain(runDir, manifest, c) {
+  const draftDispatch = manifestDispatch(manifest, "draft");
+  const auditDispatch = manifestDispatch(manifest, "claim_audit");
+  const repairDispatch = manifestDispatch(manifest, "claim_repair");
+  const reauditDispatch = manifestDispatch(manifest, "claim_reaudit");
+  const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
+  const record = completedResult(rawPath, draftDispatch);
+  if (!record) throw new Error(`missing ${rel(rawPath)}`);
+  const decoded = semanticDraftSource(record);
+  if (!decoded.source) throw new Error(`${c.id} invalid semantic draft source: ${decoded.error}`);
+  const initialValidation = validateVoiceDraftSource(decoded.source, { request: c.prompt });
+  if (initialValidation.refusal) throw new Error(`${c.id} unexpectedly refused`);
+
+  let initialAudit = null;
+  let repairNeed = initialValidation.ok ? null : {
+    sourceErrors: initialValidation.errors, audit: null,
+  };
+  const initialAuditRawPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
+  if (initialValidation.ok) {
+    const auditRecord = completedResult(initialAuditRawPath, auditDispatch);
+    if (!auditRecord) throw new Error(`missing ${rel(initialAuditRawPath)}`);
+    const decodedAudit = semanticClaimAudit(auditRecord);
+    if (!decodedAudit.audit) throw new Error(`${c.id} invalid independent claim audit: ${decodedAudit.error}`);
+    initialAudit = decodedAudit.audit;
+    const applied = applyVoiceDraftClaimAudit(decoded.source, initialAudit, { request: c.prompt });
+    if (!applied.ok) {
+      if (!claimRepairRejectedIds(decoded.source, initialAudit).length) {
+        throw new Error(`${c.id} malformed independent claim audit: ${applied.errors.join("; ")}`);
+      }
+      repairNeed = { sourceErrors: [], audit: initialAudit };
+    }
+  } else if (existsSync(initialAuditRawPath)) {
+    throw new Error(`${c.id} has an initial audit for a structurally invalid source`);
+  }
+
+  const repairRawPath = join(runDir, "raw", "claim-repairs", `${c.id}.json`);
+  const reauditRawPath = join(runDir, "raw", "claim-reaudits", `${c.id}.json`);
+  if (!repairNeed) {
+    if (existsSync(repairRawPath) || existsSync(reauditRawPath)) {
+      throw new Error(`${c.id} has stale conditional repair evidence after a clean initial audit`);
+    }
+    return {
+      record, originalSource: decoded.source, initialAudit, repaired: false,
+      repairRecord: null, repairSource: null, finalSource: decoded.source,
+      finalAudit: initialAudit, finalAuditRawPath: initialAuditRawPath,
+      repairNeed: null,
+    };
+  }
+
+  const repairRecord = completedResult(repairRawPath, repairDispatch);
+  if (!repairRecord) throw new Error(`missing ${rel(repairRawPath)}`);
+  const repaired = semanticDraftSource(repairRecord);
+  if (!repaired.source) throw new Error(`${c.id} invalid repaired draft source: ${repaired.error}`);
+  const bounded = validateVoiceDraftClaimRepair(decoded.source, repaired.source, {
+    request: c.prompt, audit: repairNeed.audit, sourceErrors: repairNeed.sourceErrors,
+  });
+  if (!bounded.ok) throw new Error(`${c.id} bounded repair failed: ${bounded.errors.join("; ")}`);
+  const reauditRecord = completedResult(reauditRawPath, reauditDispatch);
+  if (!reauditRecord) throw new Error(`missing ${rel(reauditRawPath)}`);
+  const decodedReaudit = semanticClaimAudit(reauditRecord);
+  if (!decodedReaudit.audit) throw new Error(`${c.id} invalid independent claim reaudit: ${decodedReaudit.error}`);
+  const applied = applyVoiceDraftClaimAudit(repaired.source, decodedReaudit.audit, { request: c.prompt });
+  if (!applied.ok) throw new Error(`${c.id} independent claim reaudit failed: ${applied.errors.join("; ")}`);
+  return {
+    record, originalSource: decoded.source, initialAudit, repaired: true,
+    repairRecord, repairSource: repaired.source, finalSource: applied.source,
+    finalAudit: decodedReaudit.audit, finalAuditRawPath: reauditRawPath, repairNeed,
+  };
 }
 
 function collectDrafts(runDir) {
@@ -1120,27 +1321,24 @@ function collectDrafts(runDir) {
   if (!existsSync(artifactsPath)) die("profiles must be collected first");
   const artifacts = json(artifactsPath);
   for (const c of cases.cases) {
+    let chain;
+    try { chain = resolveDraftChain(runDir, manifest, c); } catch (error) { die(error.message); }
     const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
-    const record = completedResult(rawPath, draftDispatch);
-    if (!record) die(`missing ${rel(rawPath)}`);
-    const decoded = semanticDraftSource(record);
-    if (!decoded.source) die(`${c.id} invalid semantic draft source: ${decoded.error}`);
-    const auditRawPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
-    const auditRecord = completedResult(auditRawPath, auditDispatch);
-    if (!auditRecord) die(`missing ${rel(auditRawPath)}`);
-    const decodedAudit = semanticClaimAudit(auditRecord);
-    if (!decodedAudit.audit) die(`${c.id} invalid independent claim audit: ${decodedAudit.error}`);
-    const applied = applyVoiceDraftClaimAudit(decoded.source, decodedAudit.audit, { request: c.prompt });
-    if (!applied.ok) die(`${c.id} independent claim audit failed: ${applied.errors.join("; ")}`);
-    const assembled = assembleVoiceDraft(applied.source, { request: c.prompt });
+    const record = chain.record;
+    const auditRawPath = chain.finalAuditRawPath;
+    const assembled = assembleVoiceDraft(chain.finalSource, { request: c.prompt });
     if (!assembled.ok) die(`${c.id} invalid semantic draft source: ${assembled.errors.join("; ")}`);
     const sourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
     const originalSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.original.json`);
     const auditPath = join(runDir, "inputs", "audits", `${c.id}.json`);
+    const initialAuditPath = join(runDir, "inputs", "audits", "initial", `${c.id}.json`);
+    const repairSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.repaired.json`);
     const renderPath = join(runDir, "outputs", "drafts", `${c.id}.md`);
-    write(originalSourcePath, decoded.source);
-    write(auditPath, decodedAudit.audit);
-    write(sourcePath, applied.source);
+    write(originalSourcePath, chain.originalSource);
+    if (chain.initialAudit) write(initialAuditPath, chain.initialAudit);
+    if (chain.repaired) write(repairSourcePath, chain.repairSource);
+    write(auditPath, chain.finalAudit);
+    write(sourcePath, chain.finalSource);
     write(renderPath, assembled.output);
     const parsed = parseDraft(assembled.output);
     const validation = validateDraft(parsed);
@@ -1151,12 +1349,27 @@ function collectDrafts(runDir) {
     const disclosurePath = join(runDir, "inputs", "records", `${c.id}.json`);
     if (disclosure) write(disclosurePath, disclosure);
     const dispatchPrompt = join(runDir, "prompts", "drafts", `${c.id}.md`);
-    const auditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
+    const initialAuditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
+    const repairPromptPath = join(runDir, "prompts", "claim-repairs", `${c.id}.md`);
+    const repairRawPath = join(runDir, "raw", "claim-repairs", `${c.id}.json`);
+    const auditPromptPath = join(runDir, "prompts", chain.repaired ? "claim-reaudits" : "claim-audits", `${c.id}.md`);
     artifacts.drafts[c.id] = {
       profile: c.profile, render: c.render, request_sha256: SHA(c.prompt),
       prompt: rel(dispatchPrompt), prompt_sha256: SHA(text(dispatchPrompt)), raw: rel(rawPath),
       raw_sha256: SHA(text(rawPath)),
       original_source: rel(originalSourcePath), original_source_sha256: SHA(text(originalSourcePath)),
+      initial_audit_prompt: chain.initialAudit ? rel(initialAuditPromptPath) : null,
+      initial_audit_prompt_sha256: chain.initialAudit ? SHA(text(initialAuditPromptPath)) : null,
+      initial_audit_raw: chain.initialAudit ? rel(join(runDir, "raw", "claim-audits", `${c.id}.json`)) : null,
+      initial_audit_raw_sha256: chain.initialAudit ? SHA(text(join(runDir, "raw", "claim-audits", `${c.id}.json`))) : null,
+      initial_audit: chain.initialAudit ? rel(initialAuditPath) : null,
+      initial_audit_sha256: chain.initialAudit ? SHA(text(initialAuditPath)) : null,
+      repair_prompt: chain.repaired ? rel(repairPromptPath) : null,
+      repair_prompt_sha256: chain.repaired ? SHA(text(repairPromptPath)) : null,
+      repair_raw: chain.repaired ? rel(repairRawPath) : null,
+      repair_raw_sha256: chain.repaired ? SHA(text(repairRawPath)) : null,
+      repair_source: chain.repaired ? rel(repairSourcePath) : null,
+      repair_source_sha256: chain.repaired ? SHA(text(repairSourcePath)) : null,
       audit_prompt: rel(auditPromptPath), audit_prompt_sha256: SHA(text(auditPromptPath)),
       audit_raw: rel(auditRawPath), audit_raw_sha256: SHA(text(auditRawPath)),
       audit: rel(auditPath), audit_sha256: SHA(text(auditPath)),
@@ -1171,6 +1384,15 @@ function collectDrafts(runDir) {
       raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
       raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
       recovered_from_sha256: record.recovered_from ? SHA(text(resolve(REPO, record.recovered_from))) : null,
+      repair_raw_events: chain.repairRecord?.raw_events ?? null,
+      repair_raw_output: chain.repairRecord?.raw_output ?? null,
+      repair_recovered_from: chain.repairRecord?.recovered_from ?? null,
+      repair_raw_events_sha256: chain.repairRecord?.raw_events
+        ? SHA(text(resolve(REPO, chain.repairRecord.raw_events))) : null,
+      repair_raw_output_sha256: chain.repairRecord?.raw_output
+        ? SHA(text(resolve(REPO, chain.repairRecord.raw_output))) : null,
+      repair_recovered_from_sha256: chain.repairRecord?.recovered_from
+        ? SHA(text(resolve(REPO, chain.repairRecord.recovered_from))) : null,
     };
   }
   for (const c of cases.refusals) {
@@ -1300,9 +1522,12 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
 const ARTIFACT_PATH_KEYS = {
   profile: ["prompt", "raw", "source", "render", "markdown", "json"],
   draft: [
-    "prompt", "raw", "original_source", "audit_prompt", "audit_raw", "audit",
-    "source", "render_output", "draft", "disclosure", "raw_events", "raw_output",
-    "recovered_from",
+    "prompt", "raw", "original_source",
+    "initial_audit_prompt", "initial_audit_raw", "initial_audit",
+    "repair_prompt", "repair_raw", "repair_source",
+    "audit_prompt", "audit_raw", "audit", "source", "render_output", "draft", "disclosure",
+    "raw_events", "raw_output", "recovered_from",
+    "repair_raw_events", "repair_raw_output", "repair_recovered_from",
   ],
   refusal: ["prompt", "raw", "source", "render_output", "raw_events", "raw_output", "recovered_from"],
   critic: ["prompt", "raw", "source", "render"],
@@ -1382,7 +1607,20 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
   }
   for (const c of cases.cases) {
     const draft = artifacts.drafts?.[c.id];
-    const optional = ["disclosure", "recovered_from"];
+    let chain = null;
+    try { chain = resolveDraftChain(runDir, manifest, c); } catch (error) {
+      errors.push(`${c.id} draft chain cannot be resolved for artifact checking: ${error.message}`);
+    }
+    const optional = ["disclosure", "recovered_from", "repair_recovered_from"];
+    if (!chain?.initialAudit) optional.push("initial_audit_prompt", "initial_audit_raw", "initial_audit");
+    if (!chain?.repaired) {
+      optional.push(
+        "repair_prompt", "repair_raw", "repair_source",
+        "repair_raw_events", "repair_raw_output", "repair_recovered_from",
+      );
+    } else if (manifestDispatch(manifest, "claim_repair").harness !== "codex") {
+      optional.push("repair_raw_events", "repair_raw_output");
+    }
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
     errors.push(...artifactEntryHashErrors(
       draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
@@ -1595,38 +1833,42 @@ function deriveProfileEvidence(runDir, manifest, cases) {
 
 function deriveDraftEvidence(runDir, manifest, cases) {
   const draftDispatch = manifestDispatch(manifest, "draft");
-  const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const drafts = {};
   const refusals = {};
   for (const c of cases.cases) {
-    const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
-    const record = completedResult(rawPath, draftDispatch);
-    if (!record) throw new Error(`missing draft result ${c.id}`);
-    const decoded = semanticDraftSource(record);
-    if (!decoded.source) throw new Error(`${c.id} invalid raw draft source: ${decoded.error}`);
-    const auditRawPath = join(runDir, "raw", "claim-audits", `${c.id}.json`);
-    const auditRecord = completedResult(auditRawPath, auditDispatch);
-    if (!auditRecord) throw new Error(`missing claim audit ${c.id}`);
-    const decodedAudit = semanticClaimAudit(auditRecord);
-    if (!decodedAudit.audit) throw new Error(`${c.id} invalid raw claim audit: ${decodedAudit.error}`);
-    const applied = applyVoiceDraftClaimAudit(decoded.source, decodedAudit.audit, { request: c.prompt });
-    if (!applied.ok) throw new Error(`${c.id} raw claim audit failed: ${applied.errors.join("; ")}`);
-    const assembled = assembleVoiceDraft(applied.source, { request: c.prompt });
+    const chain = resolveDraftChain(runDir, manifest, c);
+    const assembled = assembleVoiceDraft(chain.finalSource, { request: c.prompt });
     if (!assembled.ok) throw new Error(`${c.id} raw draft assembly failed: ${assembled.errors.join("; ")}`);
     const parsed = parseDraft(assembled.output);
     const validation = validateDraft(parsed);
     if (!validation.ok || validation.refusal) throw new Error(`${c.id} reconstructed draft is invalid`);
     requireCanonical(
       join(runDir, "inputs", "sources", "drafts", `${c.id}.original.json`),
-      `${JSON.stringify(decoded.source, null, 2)}\n`, `${c.id} original source`,
+      `${JSON.stringify(chain.originalSource, null, 2)}\n`, `${c.id} original source`,
     );
+    if (chain.initialAudit) {
+      requireCanonical(
+        join(runDir, "inputs", "audits", "initial", `${c.id}.json`),
+        `${JSON.stringify(chain.initialAudit, null, 2)}\n`, `${c.id} initial audit`,
+      );
+    } else if (existsSync(join(runDir, "inputs", "audits", "initial", `${c.id}.json`))) {
+      throw new Error(`${c.id} has a stale canonical initial audit`);
+    }
+    if (chain.repaired) {
+      requireCanonical(
+        join(runDir, "inputs", "sources", "drafts", `${c.id}.repaired.json`),
+        `${JSON.stringify(chain.repairSource, null, 2)}\n`, `${c.id} repaired source`,
+      );
+    } else if (existsSync(join(runDir, "inputs", "sources", "drafts", `${c.id}.repaired.json`))) {
+      throw new Error(`${c.id} has a stale canonical repair source`);
+    }
     requireCanonical(
       join(runDir, "inputs", "audits", `${c.id}.json`),
-      `${JSON.stringify(decodedAudit.audit, null, 2)}\n`, `${c.id} applied audit`,
+      `${JSON.stringify(chain.finalAudit, null, 2)}\n`, `${c.id} applied audit`,
     );
     requireCanonical(
       join(runDir, "inputs", "sources", "drafts", `${c.id}.json`),
-      `${JSON.stringify(applied.source, null, 2)}\n`, `${c.id} audited source`,
+      `${JSON.stringify(chain.finalSource, null, 2)}\n`, `${c.id} audited source`,
     );
     requireCanonical(join(runDir, "outputs", "drafts", `${c.id}.md`), assembled.output, `${c.id} assembled output`);
     const draftBody = `${parsed.draft.trim()}\n`;
@@ -1802,14 +2044,42 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
+  const repairDispatch = manifestDispatch(manifest, "claim_repair");
+  const repairSystem = resolve(REPO, manifest.agents.claim_repair.snapshot);
+  const reauditDispatch = manifestDispatch(manifest, "claim_reaudit");
   for (const c of cases.cases) {
-    const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
-    expected.push({
-      path: join(runDir, "raw", "claim-audits", `${c.id}.json`), dispatch: auditDispatch,
-      input: invocationInput(auditSystem, text(promptPath), {
-        schema: auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
-      }),
-    });
+    try {
+      const chain = resolveDraftChain(runDir, manifest, c);
+      if (chain.initialAudit) {
+        const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
+        expected.push({
+          path: join(runDir, "raw", "claim-audits", `${c.id}.json`), dispatch: auditDispatch,
+          input: invocationInput(auditSystem, text(promptPath), {
+            schema: auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+          }),
+        });
+      }
+      if (chain.repaired) {
+        const repairPromptPath = join(runDir, "prompts", "claim-repairs", `${c.id}.md`);
+        expected.push({
+          path: join(runDir, "raw", "claim-repairs", `${c.id}.json`), dispatch: repairDispatch,
+          input: invocationInput(repairSystem, text(repairPromptPath), {
+            schemaPath: repairDispatch.harness === "codex" ? draftSchemaPath : null,
+            schema: repairDispatch.harness !== "codex" && repairDispatch.transport === "native-structured"
+              ? DRAFT_SOURCE_SCHEMA : null,
+          }),
+        });
+        const reauditPromptPath = join(runDir, "prompts", "claim-reaudits", `${c.id}.md`);
+        expected.push({
+          path: join(runDir, "raw", "claim-reaudits", `${c.id}.json`), dispatch: reauditDispatch,
+          input: invocationInput(auditSystem, text(reauditPromptPath), {
+            schema: reauditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null,
+          }),
+        });
+      }
+    } catch (error) {
+      errors.push(`${c.id} conditional claim provenance cannot be resolved: ${error.message}`);
+    }
   }
   const criticDispatch = manifestDispatch(manifest, "critic");
   const criticSystem = resolve(REPO, manifest.agents.critic.snapshot);
@@ -1897,10 +2167,30 @@ function promptDerivationErrors(runDir, manifest, cases) {
       const record = completedResult(rawPath, draftDispatch);
       const decoded = record ? semanticDraftSource(record) : { source: null };
       if (!decoded.source) throw new Error("draft source unavailable");
-      const expectedAudit = `${claimAuditPrompt(c, decoded.source)}\n`;
-      const auditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
-      if (!existsSync(auditPromptPath) || text(auditPromptPath) !== expectedAudit) {
-        errors.push(`${c.id} claim-audit prompt does not reproduce from the raw draft`);
+      const chain = resolveDraftChain(runDir, manifest, c);
+      const initialAuditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
+      if (chain.initialAudit) {
+        const expectedAudit = `${claimAuditPrompt(c, decoded.source)}\n`;
+        if (!existsSync(initialAuditPromptPath) || text(initialAuditPromptPath) !== expectedAudit) {
+          errors.push(`${c.id} initial claim-audit prompt does not reproduce from the raw draft`);
+        }
+      } else if (existsSync(initialAuditPromptPath)) {
+        errors.push(`${c.id} has a stale initial claim-audit prompt`);
+      }
+      if (chain.repaired) {
+        const repairPromptPath = join(runDir, "prompts", "claim-repairs", `${c.id}.md`);
+        const expectedRepair = `${claimRepairPrompt(c, decoded.source, chain.repairNeed)}\n`;
+        if (!existsSync(repairPromptPath) || text(repairPromptPath) !== expectedRepair) {
+          errors.push(`${c.id} claim-repair prompt does not reproduce from its rejected source and audit`);
+        }
+        const reauditPromptPath = join(runDir, "prompts", "claim-reaudits", `${c.id}.md`);
+        const expectedReaudit = `${claimAuditPrompt(c, chain.repairSource)}\n`;
+        if (!existsSync(reauditPromptPath) || text(reauditPromptPath) !== expectedReaudit) {
+          errors.push(`${c.id} claim-reaudit prompt does not reproduce from the bounded repair`);
+        }
+      } else if (existsSync(join(runDir, "prompts", "claim-repairs", `${c.id}.md`))
+        || existsSync(join(runDir, "prompts", "claim-reaudits", `${c.id}.md`))) {
+        errors.push(`${c.id} has stale conditional claim-repair prompts`);
       }
       const inputDir = join(runDir, "critics", "inputs", c.id);
       const expectedDraft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
@@ -1997,7 +2287,7 @@ function check(runDir) {
   } catch (error) {
     errors.push(`staged inputs cannot be verified: ${error.message}`);
   }
-  if (manifestDispatch(manifest, "draft").harness === "codex") {
+  if (["draft", "claim_repair"].some((stage) => manifestDispatch(manifest, stage).harness === "codex")) {
     if (JSON.stringify(manifest.codex_no_tools_config) !== JSON.stringify(CODEX_NO_TOOLS_CONFIG)) {
       errors.push("Codex no-tools configuration changed after prepare");
     }
@@ -2098,9 +2388,9 @@ async function main() {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 
 export {
-  artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
+  artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimRepairPrompt, claimsAuditFailures,
   codexRecordErrors, committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, invocationInput, localModuleClosure,
-  manifestDispatch, prepareConfig, quotationAudit, stagePrompt, structuralGates, validateCases,
+  manifestDispatch, prepareConfig, quotationAudit, resolveDraftChain, stagePrompt, structuralGates, validateCases,
 };

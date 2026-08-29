@@ -15,6 +15,9 @@ import {
 import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
+import {
+  claimRepairRejectedIds, validateVoiceDraftClaimRepair,
+} from "../skills/prose-draft/tools/draft-claim-repair.mjs";
 import { validateDraft, parseDraft, loadRun, corpusLeakage, findFabricatedCitations } from "./voice-draft.mjs";
 import { fixtureGuards, staleExemptions } from "./fixture-guard.mjs";
 
@@ -477,6 +480,83 @@ export async function run(t, { HERE }) {
           ...row, status: "reject", reason: "attributed wording is absent from the request",
         }),
       }, { request }).ok);
+
+    const rejectedAudit = {
+      ...audit,
+      sentences: audit.sentences.map((row, index) => index ? {
+        ...row, status: "reject", reason: "The sentence adds an unbounded population claim.",
+      } : row),
+    };
+    const repaired = {
+      ...source,
+      paragraphs: [{ sentences: [
+        source.paragraphs[0].sentences[0],
+        { text: "That could leave ownership hollow.", basis: "reasoning", claim_ids: [] },
+      ] }],
+    };
+    t.check("a bounded repair may rewrite only independently rejected sentence units",
+      validateVoiceDraftClaimRepair(source, repaired, { request, audit: rejectedAudit }).ok);
+    t.check("a bounded repair cannot edit an accepted sentence or add a claim",
+      !validateVoiceDraftClaimRepair(source, {
+        ...repaired,
+        ledger: [...repaired.ledger, {
+          id: "c2", basis: "external-verification", claim: "A new remembered fact.", request_basis: "",
+        }],
+        paragraphs: [{ sentences: [
+          { ...repaired.paragraphs[0].sentences[0], text: "Changed accepted prose." },
+          { ...repaired.paragraphs[0].sentences[1], basis: "external-verification", claim_ids: ["c2"] },
+        ] }],
+      }, { request, audit: rejectedAudit }).ok);
+    t.check("a bounded repair cannot add a new factual ledger entry even inside a rejected sentence",
+      !validateVoiceDraftClaimRepair(source, {
+        ...repaired,
+        ledger: [...repaired.ledger, {
+          id: "c2", basis: "external-verification", claim: "A new remembered fact.", request_basis: "",
+        }],
+        paragraphs: [{ sentences: [
+          repaired.paragraphs[0].sentences[0],
+          { text: "A new remembered fact.", basis: "external-verification", claim_ids: ["c2"] },
+        ] }],
+      }, { request, audit: rejectedAudit }).ok);
+    t.check("an audit repair must change the rejected prose rather than relabel it",
+      !validateVoiceDraftClaimRepair(source, {
+        ...source,
+        paragraphs: [{ sentences: [
+          source.paragraphs[0].sentences[0],
+          { ...source.paragraphs[0].sentences[1], basis: "hypothetical" },
+        ] }],
+      }, { request, audit: rejectedAudit }).ok);
+    t.check("a malformed initial audit cannot authorize a repair boundary",
+      claimRepairRejectedIds(source, {
+        ...rejectedAudit,
+        sentences: rejectedAudit.sentences.map((row, index) => index
+          ? { ...row, unexpected: "repair authority" }
+          : row),
+      }).length === 0
+        && claimRepairRejectedIds(source, {
+          ...rejectedAudit,
+          sentences: rejectedAudit.sentences.map((row, index) => index
+            ? { ...row, reason: "" }
+            : row),
+        }).length === 0);
+    const invalidUnused = {
+      ...source,
+      ledger: [...source.ledger, {
+        id: "c2", basis: "external-verification", claim: "Unused remembered fact.", request_basis: "",
+      }],
+    };
+    t.check("a bounded source repair may prune an unused ledger suffix without touching prose",
+      validateVoiceDraftClaimRepair(invalidUnused, source, {
+        request, sourceErrors: ["source.ledger c2 is not cited by any sentence"],
+      }).ok);
+    const repairInstructions = fsRead(
+      join(HERE, "..", "skills", "prose-draft", "references", "claim-repair.md"), "utf8",
+    );
+    t.check("the repair prompt forbids a redraw and requires a fresh independent audit",
+      /not writing a new draft/.test(repairInstructions)
+        && /preserve every `keep` sentence object byte-for-byte/i.test(repairInstructions)
+        && /Never add a ledger\s+entry/.test(repairInstructions)
+        && /later,\s+fresh claim audit/i.test(repairInstructions));
   }
 
   t.group("voice-draft — a missed habit is a worse imitation; an invented citation is a lie");

@@ -89,6 +89,7 @@ const VPROFILE = "bundles/prose-author/tests/voice-profile.mjs";
 const VDRAFT = "bundles/prose-author/tests/voice-draft.mjs";
 const DRAFT_CONTRACT = `${TOOLS}/draft-contract.mjs`;
 const DRAFT_CLAIM_AUDIT = `${TOOLS}/draft-claim-audit.mjs`;
+const DRAFT_CLAIM_REPAIR = `${TOOLS}/draft-claim-repair.mjs`;
 const DRAFT_CLAIM_AUDIT_PROMPT = "bundles/prose-author/skills/prose-draft/references/claim-audit.md";
 const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
@@ -256,9 +257,37 @@ export const MUTATIONS = [
   {
     name: "skip the independent claim-audit dispatch",
     file: ACCEPTANCE_RUNNER,
-    find: "  await dispatchClaimAudits(runDir, manifest, cases);",
-    with: "  // independent claim audit skipped",
+    find: "  await dispatchClaimPipeline(runDir, manifest, cases);",
+    with: "  // independent claim pipeline skipped",
     guards: "acceptance cannot assemble the drafter's correlated self-audit directly",
+  },
+  {
+    name: "let claim repair alter independently accepted prose",
+    file: DRAFT_CLAIM_REPAIR,
+    find: "        if (!same(before[sIndex], after[sIndex])) errors.push(`repair changed protected sentence ${id}`);",
+    with: "        if (false) errors.push(`repair changed protected sentence ${id}`);",
+    guards: "bounded repair changes only sentence units the independent audit rejected",
+  },
+  {
+    name: "let claim repair add a new factual ledger entry",
+    file: DRAFT_CLAIM_REPAIR,
+    find: "    if (!originalLedger.has(entry.id) || !same(originalLedger.get(entry.id), entry)) {",
+    with: "    if (false) {",
+    guards: "a repair cannot introduce new factual premises under cover of fixing one clause",
+  },
+  {
+    name: "let a malformed audit authorize claim repair",
+    file: DRAFT_CLAIM_REPAIR,
+    find: '    if (!isObject(row) || !exactKeys(row, ["id", "status", "reason"])',
+    with: "    if (!isObject(row) || false",
+    guards: "only a complete independently auditable decision set can authorize sentence changes",
+  },
+  {
+    name: "publish a repair after its second audit rejects it",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const applied = applyVoiceDraftClaimAudit(repaired.source, decodedReaudit.audit, { request: c.prompt });",
+    with: "  const applied = { ok: true, errors: [], source: repaired.source };",
+    guards: "one bounded repair still requires a fresh independent audit to clear",
   },
   {
     name: "resume a prepared run under the current environment model",

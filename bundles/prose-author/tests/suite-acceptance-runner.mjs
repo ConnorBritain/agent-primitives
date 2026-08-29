@@ -9,7 +9,8 @@ import { dirname, join } from "node:path";
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt, invocationInput,
-  localModuleClosure, manifestDispatch, prepareConfig, profileRenderPrompt, quotationAudit, stagePrompt, validateCases,
+  localModuleClosure, manifestDispatch, prepareConfig, profileRenderPrompt, quotationAudit, resolveDraftChain,
+  stagePrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -95,10 +96,11 @@ export async function run(t, { HERE }) {
         && /closed claim ledger/i.test(prompt)
         && /ledger and sentence labels are untrusted/i.test(prompt)
         && !/voice profile/i.test(prompt));
-    t.check("draft dispatch runs the independent audit before public collection",
-      source.includes("await dispatchClaimAudits(runDir, manifest, cases)")
-        && source.includes("applyVoiceDraftClaimAudit(decoded.source, decodedAudit.audit")
-        && source.includes("assembleVoiceDraft(applied.source"));
+    t.check("draft dispatch bounds repair and requires a fresh independent audit before collection",
+      source.includes("await dispatchClaimPipeline(runDir, manifest, cases)")
+        && source.includes("validateVoiceDraftClaimRepair(need.source, decoded.source")
+        && source.includes('await pool("independent claim reaudit"')
+        && source.includes("applyVoiceDraftClaimAudit(repaired.source, decodedReaudit.audit"));
   }
   {
     const prompt = criticPrompt("opaque-01", [
@@ -167,6 +169,7 @@ export async function run(t, { HERE }) {
     /model: config\.draftModel, effort: config\.draftEffort/.test(source)
       && /model: config\.model, effort: config\.criticEffort/.test(source)
       && /model: config\.model, effort: config\.claimAuditEffort/.test(source)
+      && /model: config\.draftModel, effort: config\.claimRepairEffort/.test(source)
       && /model: config\.model, effort: config\.profileEffort/.test(source)
       && /"--effort", dispatch\.effort/.test(source));
   t.check("acceptance defaults to one model process and native structured profile transport",
@@ -178,7 +181,12 @@ export async function run(t, { HERE }) {
   t.check("acceptance defaults to a native independent claim-audit transport",
     prepareConfig({}).claimAuditNative
       && /transport: config\.claimAuditNative \? "native-structured" : "json-fence"/.test(source)
-      && source.includes('dispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null'));
+      && source.includes('auditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null')
+      && source.includes('reauditDispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null'));
+  t.check("acceptance defaults to a native bounded claim-repair transport",
+    prepareConfig({}).claimRepairNative
+      && /transport: config\.claimRepairNative \? "native-structured" : "json-fence"/.test(source)
+      && source.includes('repairDispatch.transport === "native-structured" ? DRAFT_SOURCE_SCHEMA : null'));
   t.check("acceptance defaults to native structured critic transport and validates assembly",
     prepareConfig({}).criticNative
       && /transport: config\.criticNative \? "native-structured" : "json-fence"/.test(source)
@@ -186,6 +194,98 @@ export async function run(t, { HERE }) {
       && source.includes("assembleVoiceCritic(decoded.source"));
   t.check("critic dispatch is blocked until the independent claims audit is complete",
     /const auditFailures = claimsAuditFailures\(json\(join\(runDir, "CLAIMS-AUDIT\.json"\)\), cases\);[\s\S]*no critic calls were made/.test(source));
+
+  {
+    const chainRoot = mkdtempSync(join(tmpdir(), "prose-author-claim-chain-"));
+    try {
+      const stage = (harness = "claude-code") => ({
+        harness, model: "locked", effort: "low", transport: "native-structured", timeout_ms: 100,
+      });
+      const manifest = {
+        concurrency: 1,
+        dispatch: {
+          draft: stage(), claim_audit: stage(), claim_repair: stage(), claim_reaudit: stage(),
+        },
+      };
+      const request = "A maker can disable features after sale.";
+      const c = { id: "chain01", prompt: request };
+      const original = {
+        schema: "voice-draft-source/3", kind: "draft", ledger: [{
+          id: "c1", basis: "request-supported", claim: request,
+          request_basis: "maker can disable features after sale",
+        }],
+        paragraphs: [{ sentences: [
+          { text: request, basis: "request-supported", claim_ids: ["c1"] },
+          { text: "Many buyers never notice.", basis: "reasoning", claim_ids: [] },
+        ] }],
+        omitted: [], refused: "",
+      };
+      const initialAudit = {
+        schema: "voice-draft-claim-audit/2", sentences: [
+          { id: "p1s1", status: "keep", reason: "The request supplies the complete assertion." },
+          { id: "p1s2", status: "reject", reason: "Unledgered population claim." },
+        ],
+      };
+      const repaired = {
+        ...original,
+        paragraphs: [{ sentences: [
+          original.paragraphs[0].sentences[0],
+          { text: "A buyer might never notice.", basis: "hypothetical", claim_ids: [] },
+        ] }],
+      };
+      const finalAudit = {
+        schema: "voice-draft-claim-audit/2", sentences: [
+          { id: "p1s1", status: "keep", reason: "The request supplies the complete assertion." },
+          { id: "p1s2", status: "keep", reason: "This is explicitly hypothetical." },
+        ],
+      };
+      const put = (folder, id, payload, stageName) => {
+        const path = join(chainRoot, "raw", folder, `${id}.json`);
+        mkdirSync(dirname(path), { recursive: true });
+        writeFileSync(path, `${JSON.stringify({
+          type: "result", is_error: false, result: JSON.stringify(payload), structured_output: payload,
+          acceptance_dispatch: manifestDispatch(manifest, stageName),
+        })}\n`);
+      };
+      put("drafts", c.id, original, "draft");
+      put("claim-audits", c.id, initialAudit, "claim_audit");
+      put("claim-repairs", c.id, repaired, "claim_repair");
+      put("claim-reaudits", c.id, finalAudit, "claim_reaudit");
+      let resolved = null;
+      try { resolved = resolveDraftChain(chainRoot, manifest, c); } catch {}
+      t.check("final checking composes rejected draft, bounded repair, and fresh reaudit from raw records",
+        resolved?.repaired && resolved.finalSource.paragraphs[0].sentences[1].text === "A buyer might never notice."
+          && JSON.stringify(resolved.finalAudit) === JSON.stringify(finalAudit));
+      put("claim-reaudits", c.id, initialAudit, "claim_reaudit");
+      let reauditRejected = false;
+      try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
+        reauditRejected = /independent claim reaudit failed/.test(error.message);
+      }
+      t.check("a second independent rejection ends the cell without another repair", reauditRejected);
+      put("claim-reaudits", c.id, finalAudit, "claim_reaudit");
+      put("claim-repairs", c.id, {
+        ...repaired,
+        paragraphs: [{ sentences: [
+          { ...repaired.paragraphs[0].sentences[0], text: "Protected prose changed." },
+          repaired.paragraphs[0].sentences[1],
+        ] }],
+      }, "claim_repair");
+      let protectedRejected = false;
+      try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
+        protectedRejected = /protected sentence p1s1/.test(error.message);
+      }
+      t.check("final checking rejects a repair that edits an audit-kept sentence", protectedRejected);
+      put("claim-repairs", c.id, repaired, "claim_repair");
+      put("claim-audits", c.id, finalAudit, "claim_audit");
+      let staleRejected = false;
+      try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
+        staleRejected = /stale conditional repair evidence/.test(error.message);
+      }
+      t.check("a clean initial audit cannot retain a conditional repair branch", staleRejected);
+    } finally {
+      rmSync(chainRoot, { recursive: true, force: true });
+    }
+  }
 
   t.group("v0.2 acceptance harness — prepared configuration is the only dispatch authority");
   {
