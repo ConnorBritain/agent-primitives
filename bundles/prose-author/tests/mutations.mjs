@@ -261,6 +261,27 @@ export const MUTATIONS = [
     guards: "acceptance cannot assemble the drafter's correlated self-audit directly",
   },
   {
+    name: "resume a prepared run under the current environment model",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const config = manifest?.dispatch?.[stage];",
+    with: "  const config = { ...manifest?.dispatch?.[stage], model: MODEL };",
+    guards: "a prepared run uses only the model recorded before its first dispatch",
+  },
+  {
+    name: "trust a recorded artifact hash without reading its file",
+    file: ACCEPTANCE_RUNNER,
+    find: "    } else if (SHA(text(target)) !== expected) {",
+    with: "    } else if (false) {",
+    guards: "editing any recorded acceptance artifact invalidates its evidence",
+  },
+  {
+    name: "score the handwritten tally instead of rebuilding raw critic evidence",
+    file: ACCEPTANCE_RUNNER,
+    find: "    const evidence = deriveAcceptanceEvidence(runDir, manifest, cases);",
+    with: "    const evidence = { ...deriveAcceptanceEvidence(runDir, manifest, cases), tally: json(p.tally), score: scoreRun(json(p.tally)) };",
+    guards: "a passing TALLY.json cannot conceal failing raw critic draws",
+  },
+  {
     name: "drop the explicit type from context-specific profile dimensions",
     file: PROFILE_CONTRACT,
     find: '          items: { type: "string", enum: plan.qualitativeDimensions },',

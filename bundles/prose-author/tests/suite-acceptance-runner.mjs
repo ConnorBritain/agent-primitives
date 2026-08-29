@@ -1,11 +1,12 @@
 /** Acceptance harness integrity — the scorer may not grade its own handwritten tally. */
 
 import { readFileSync } from "node:fs";
+import { createHash } from "node:crypto";
 import { join } from "node:path";
 
 import {
-  claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
-  criticPrompt, deriveCritic, draftPrompt, profileRenderPrompt, quotationAudit, validateCases,
+  artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
+  criticPrompt, deriveCritic, draftPrompt, manifestDispatch, profileRenderPrompt, quotationAudit, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -64,7 +65,7 @@ export async function run(t, { HERE }) {
       /first-person-singular-family -> self-reference-biography; section absences; counted absence/.test(prompt)
         && /Required unresolved dimensions: profanity-vulgarity/.test(prompt));
     t.check("profile dispatch can request native structure without making assembly depend on it",
-      source.includes("PROFILE_NATIVE_SCHEMA ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null")
+      source.includes('dispatch.transport === "native-structured"\n            ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null')
         && source.includes('"--json-schema"')
         && source.includes("assembleVoiceProfile(source"));
   }
@@ -75,7 +76,7 @@ export async function run(t, { HERE }) {
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
       /Return voice-draft-source\/3[\s\S]*Finalize the ledger before the paragraphs[\s\S]*proof-carrying sentence objects[\s\S]*validates request bases and closed-ledger references[\s\S]*derives claims/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",
-      source.includes("DRAFT_NATIVE_SCHEMA ? DRAFT_SOURCE_SCHEMA : null")
+      source.includes('dispatch.transport === "native-structured" ? DRAFT_SOURCE_SCHEMA : null')
         && source.includes("assembleVoiceDraft(decoded.source, { request: c.prompt })")
         && source.includes("parseDraft(assembled.output)"));
   }
@@ -112,9 +113,12 @@ export async function run(t, { HERE }) {
   }
   t.check("completed responses are immutable rather than overwritten",
     /exists but is not a completed successful response; do not redraw it/.test(source)
-      && /if \(completedResult\(output\)\) return \{ skipped: true/.test(source));
+      && /if \(completedResult\(output, dispatch\)\) return \{ skipped: true/.test(source));
   t.check("acceptance requires source JSON to parse without transport repair",
     /source required \$\{decoded\.repairs\} transport quote repair/.test(source));
+  t.check("a locked native transport cannot silently fall back to fenced text",
+    /did not honor its locked native-structured transport/.test(source)
+      && /returned native structure under its locked json-fence transport/.test(source));
   t.check("acceptance rejects any measured frequency that diverges from its deterministic band",
     /checkFrequencyAgainstRate/.test(source) && /measured frequency diverges/.test(source));
   t.check("acceptance records k=3 mechanical stability and exposes qualitative variation",
@@ -129,8 +133,8 @@ export async function run(t, { HERE }) {
   t.check("Codex is the default draft harness with an independently pinned model",
     /ACCEPTANCE_DRAFT_HARNESS \|\| "codex"/.test(source)
       && /ACCEPTANCE_DRAFT_MODEL[\s\S]*"gpt-5\.6-luna"/.test(source)
-      && /draft_harness: DRAFT_HARNESS/.test(source)
-      && /draft_model: DRAFT_MODEL/.test(source));
+      && /harness: DRAFT_HARNESS === "codex" \? "codex" : "claude-code"/.test(source)
+      && /model: DRAFT_MODEL, effort: DRAFT_EFFORT/.test(source));
   t.check("Codex draft calls disable every local, network, connector, and collaboration tool class",
     ["features.shell_tool=false", "features.unified_exec=false", "features.apps=false",
       "features.browser_use=false", "features.computer_use=false", "features.multi_agent=false",
@@ -158,29 +162,52 @@ export async function run(t, { HERE }) {
       && /recovered_from/.test(source)
       && /preserveFailure: true/.test(source));
   t.check("the model effort is pinned in the manifest rather than inherited",
-    /draft_effort: DRAFT_EFFORT/.test(source) && /critic_effort: CRITIC_EFFORT/.test(source)
-      && /claim_audit_effort: CLAIM_AUDIT_EFFORT/.test(source)
-      && /profile_effort: PROFILE_EFFORT/.test(source) && /"--effort", effort/.test(source)
-      && /effort: DRAFT_EFFORT/.test(source) && /effort: CRITIC_EFFORT/.test(source)
-      && /effort: CLAIM_AUDIT_EFFORT/.test(source) && /effort: PROFILE_EFFORT/.test(source));
+    /model: DRAFT_MODEL, effort: DRAFT_EFFORT/.test(source)
+      && /model: MODEL, effort: CRITIC_EFFORT/.test(source)
+      && /model: MODEL, effort: CLAIM_AUDIT_EFFORT/.test(source)
+      && /model: MODEL, effort: PROFILE_EFFORT/.test(source)
+      && /"--effort", dispatch\.effort/.test(source));
   t.check("acceptance defaults to one model process and native structured profile transport",
     /ACCEPTANCE_CONCURRENCY \|\| "1"/.test(source)
       && /ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0"/.test(source)
-      && /profile_transport: PROFILE_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+      && /transport: PROFILE_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
   t.check("acceptance defaults to native structured draft transport and records it in the manifest",
     /ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0"/.test(source)
-      && /draft_transport: DRAFT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
+      && /transport: DRAFT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source));
   t.check("acceptance defaults to a native independent claim-audit transport",
     /ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0"/.test(source)
-      && /claim_audit_transport: CLAIM_AUDIT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
-      && source.includes("CLAIM_AUDIT_NATIVE_SCHEMA ? DRAFT_AUDIT_SCHEMA : null"));
+      && /transport: CLAIM_AUDIT_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
+      && source.includes('dispatch.transport === "native-structured" ? DRAFT_AUDIT_SCHEMA : null'));
   t.check("acceptance defaults to native structured critic transport and validates assembly",
     /ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0"/.test(source)
-      && /critic_transport: CRITIC_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
-      && source.includes("CRITIC_NATIVE_SCHEMA ? CRITIC_SOURCE_SCHEMA : null")
+      && /transport: CRITIC_NATIVE_SCHEMA \? "native-structured" : "json-fence"/.test(source)
+      && source.includes('dispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null')
       && source.includes("assembleVoiceCritic(decoded.source"));
   t.check("critic dispatch is blocked until the independent claims audit is complete",
     /const auditFailures = claimsAuditFailures\(json\(join\(runDir, "CLAIMS-AUDIT\.json"\)\), cases\);[\s\S]*no critic calls were made/.test(source));
+
+  t.group("v0.2 acceptance harness — prepared configuration is the only dispatch authority");
+  {
+    const config = manifestDispatch({ dispatch: { draft: {
+      harness: "codex", model: "locked-model", effort: "high",
+      transport: "native-structured", timeout_ms: 1234,
+    } } }, "draft");
+    t.check("a prepared stage resolves all runtime choices from one locked manifest record",
+      JSON.stringify(config) === JSON.stringify({
+        harness: "codex", model: "locked-model", effort: "high",
+        transport: "native-structured", timeout_ms: 1234,
+      }));
+    t.check("Codex cannot be resumed under an unlocked fence transport",
+      (() => {
+        try {
+          manifestDispatch({ dispatch: { draft: { ...config, transport: "json-fence" } } }, "draft");
+          return false;
+        } catch { return true; }
+      })());
+    t.check("every model result is checked against its locked stage provenance",
+      /acceptance_dispatch[\s\S]*dispatch provenance does not match its locked manifest stage/.test(source)
+        && /completedResult\(rawPath, dispatch\)/.test(source));
+  }
 
   t.group("v0.2 acceptance harness — claim and quotation audit");
   {
@@ -211,7 +238,7 @@ export async function run(t, { HERE }) {
   t.check("model dispatch has a hard timeout instead of waiting indefinitely",
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
       && /child\.kill\("SIGTERM"\)/.test(source)
-      && /exceeded \$\{MODEL_TIMEOUT_MS\}ms/.test(source));
+      && /exceeded \$\{dispatch\.timeout_ms\}ms/.test(source));
   t.check("the deterministic profile prepass covers the major countable dimensions",
     ["second-person-family", "contractions", "uncontracted-negatives", "profanity-vulgarity",
       "first-person-singular-family", "question-marks", "round-parenthetical-spans", "em-dashes"]
@@ -234,8 +261,34 @@ export async function run(t, { HERE }) {
     ["design_sha256", "cases_sha256", "locked_files", "locked implementation changed after prepare",
       "agent snapshot hash mismatch", "corpus lock drifted", "prompt hash mismatch", "missing artifact"]
       .every((phrase) => source.includes(phrase)));
-  t.check("TALLY.json is derived by collect rather than accepted as an input",
-    /const tally = \{[\s\S]*drafts,[\s\S]*structural_gates: structural\.gates/.test(source));
+  t.check("the checker reconstructs staged corpora and every model prompt from locked inputs",
+    /function stagedInputErrors/.test(source)
+      && /staged file set drifted/.test(source)
+      && /function promptDerivationErrors/.test(source)
+      && /profile prompt does not reproduce from locked inputs/.test(source)
+      && /draft prompt does not reproduce from its locked request and profile/.test(source)
+      && /claim-audit prompt does not reproduce from the raw draft/.test(source)
+      && /critic prompt does not reproduce from locked inputs/.test(source));
+  {
+    const body = readFileSync(join(HERE, "acceptance-runner.mjs"), "utf8");
+    const hash = createHash("sha256").update(body).digest("hex");
+    const entry = { raw: "bundles/prose-author/tests/acceptance-runner.mjs", raw_sha256: hash };
+  t.check("recorded artifact hashes are verified against their files",
+      artifactEntryHashErrors(entry, ["raw"], "fixture", HERE).length === 0
+        && artifactEntryHashErrors({ ...entry, raw_sha256: "0".repeat(64) }, ["raw"], "fixture", HERE)
+          .some((error) => /hash mismatch/.test(error)));
+  }
+  t.check("profile render hashes and k=3 stability are independently reproducible",
+    /render_sha256: SHA\(text\(rawRender\)\)/.test(source)
+      && /analyzeProfileStability\(renderIds\.map/.test(source)
+      && /stability evidence does not reproduce from its canonical profiles/.test(source));
+  t.check("TALLY, structural gates, and score are rederived from raw critic results during check",
+    /function deriveAcceptanceEvidence/.test(source)
+      && /const evidence = deriveAcceptanceEvidence\(runDir, manifest, cases\);/.test(source)
+      && /\[p\.structural, evidence\.structural, "STRUCTURAL\.json"\]/.test(source)
+      && /\[p\.tally, evidence\.tally, "TALLY\.json"\]/.test(source)
+      && /\[p\.score, evidence\.score, "SCORE\.json"\]/.test(source)
+      && /\$\{label\} does not reproduce from immutable raw results/.test(source));
 
   t.group("v0.2 acceptance harness — critic contracts are derived from raw bodies");
   {

@@ -30,6 +30,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let the independent auditor trust the drafter's labels | 1 | the factual audit is independent rather than the same self-report twice |
 | hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
+| resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
+| trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
+| score the handwritten tally instead of rebuilding raw critic evidence | 1 | a passing TALLY.json cannot conceal failing raw critic draws |
 | drop the explicit type from context-specific profile dimensions | 1 | the generated profile schema remains valid in strict structured-output harnesses |
 | derive the critic verdict from its finding count | 1 | the model-owned verdict remains independent from the findings-rate instrument |
 | drop the drafter's sentence-by-sentence claim inventory | 2 | a nearby disclosed fact cannot hide a second checkable assertion |
