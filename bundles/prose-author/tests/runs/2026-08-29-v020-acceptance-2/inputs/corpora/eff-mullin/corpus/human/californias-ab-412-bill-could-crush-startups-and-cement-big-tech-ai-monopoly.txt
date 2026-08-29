@@ -1,0 +1,38 @@
+---
+source: EFF Deeplinks (eff.org)
+title: California’s A.B. 412: A Bill That Could Crush Startups and Cement A Big Tech AI Monopoly
+author: Joe Mullin
+date: 2025-03-01
+human_authored: true
+license: CC-BY-4.0
+link_targets: stripped
+extraction: field--name-body node only
+permalink: https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly
+---
+California legislators have begun debating a bill (A.B. 412) that would require AI developers to track and disclose every registered copyrighted work used in AI training. At first glance, this might sound like a reasonable step toward transparency. But it’s an impossible standard that could crush small AI startups and developers while giving big tech firms even more power.
+
+A Burden That Small Developers Can’t Bear
+
+The AI landscape is in danger of being dominated by large companies with deep pockets. These big names are in the news almost daily. But they’re far from the only ones – there are [dozens of AI companies](https://explodingtopics.com/blog/ai-startups) with [fewer than 10 employees](https://www.ycombinator.com/companies/industry/ai) trying to build something new in a particular niche.
+
+This bill demands that creators of any AI model–even a two-person company or a hobbyist tinkering with a small software build– identify copyrighted materials used in training.  That requirement will be incredibly onerous, even if limited just to works registered with the U.S. Copyright Office. The registration system is a cumbersome beast at best–neither machine-readable nor accessible, it’s more like a card catalog than a database–that doesn’t offer information sufficient to identify all authors of a work,  much less help developers to reliably match works in a training set to works in the system.
+
+Even for major tech companies, meeting these new obligations  would be a daunting task. For a small startup, throwing on such an impossible requirement could be a death sentence. If A.B. 412 becomes law, these smaller players will be forced to devote scarce resources to an unworkable compliance regime instead of focusing on development and innovation. The risk of lawsuits—potentially from copyright trolls—would discourage new startups from even attempting to enter the field.
+
+A.I. Training Is Like Reading And It’s Very Likely Fair Use
+
+A.B. 412 starts from a premise that’s both untrue and harmful to the public interest: that reading, scraping or searching of open web content shouldn’t be allowed without payment. In reality, courts should, and we believe will, find that the great majority of this activity is fair use.
+
+It’s now bedrock internet law principle that some forms of copying content online are transformative, and thus legal fair use. That includes reproducing [thumbnail images for image search](https://www.eff.org/deeplinks/2007/05/p10-v-google-public-interest-prevails-digital-copyright-showdown), or [snippets of text to search books](https://www.authorsalliance.org/2023/02/24/fair-use-week-2023-looking-back-at-google-books-eight-years-later/).
+
+The U.S. copyright system is meant to balance innovation with creator rights, and courts are still working through how copyright applies to AI training. In most of the AI cases, [courts have yet to consider](https://www.eff.org/deeplinks/2025/02/copyright-and-ai-cases-and-consequences)—let alone decide—how fair use applies. A.B. 412 jumps the gun, preempting this process and imposing a vague, overly broad standard that will do more harm than good.
+
+Importantly, those key court cases are all federal. The U.S. Constitution makes it clear that copyright is governed by federal law, and A.B. 412 improperly attempts to impose state-level copyright regulations on an issue still in flux.
+
+A.B. 412 Is A Gift to Big Tech
+
+The irony of A.B. 412 is that it won’t stop AI development—it will simply consolidate it in the hands of the largest corporations. Big tech firms already have the resources to navigate complex legal and regulatory environments, and they can afford to comply (or at least appear to comply) with A.B. 412’s burdensome requirements. Small developers, on the other hand, will either be forced out of the market or driven into partnerships where they lose their independence. The result will be less competition, fewer innovations, and a tech landscape even more dominated by a handful of massive companies.
+
+If lawmakers are able to iron out some of the practical problems with A.B. 412 and pass some version of it, they may be able to force programmers to research–and effectively, pay off–copyright owners before they even write a line of code. If that’s the outcome in California, Big Tech will not despair. They’ll celebrate. Only a few companies own large content libraries or can afford to license enough material to build a deep learning model. The possibilities for startups and small programmers will be so meager, and competition will be so limited, that profits for big incumbent companies will be locked in for a generation.
+
+If you are a California resident and want to speak out about A.B. 412, you can find and contact your legislators [through this website](https://findyourrep.legislature.ca.gov/).
