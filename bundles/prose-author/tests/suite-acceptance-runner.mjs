@@ -541,6 +541,13 @@ export async function run(t, { HERE }) {
         && config.effort === "high" && config.transport === "native-structured"
         && config.timeout_ms === 1234 && config.concurrency === 2
         && /^[a-f0-9]{64}$/.test(config.manifest_sha256));
+    const conformanceConfig = manifestDispatch({ concurrency: 1, dispatch: { conformance: {
+      harness: "codex", model: "locked-model", effort: "medium",
+      transport: "native-structured", timeout_ms: 1234,
+    } } }, "conformance");
+    t.check("a locked canary can dispatch the optional deterministic conformance stage",
+      conformanceConfig.stage === "conformance" && conformanceConfig.harness === "codex"
+        && conformanceConfig.concurrency === 1);
     t.check("Codex cannot be resumed under an unlocked fence transport",
       (() => {
         try {

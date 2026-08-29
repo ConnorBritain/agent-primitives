@@ -71,6 +71,7 @@ const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/3";
 const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/3";
 const CLAIM_PIPELINE = "audit-disclosure/1";
 const STAGES = ["profile", "draft", "claim_audit", "critic"];
+const DISPATCH_STAGES = [...STAGES, "conformance"];
 const TRANSPORTS = new Set(["native-structured", "json-fence"]);
 const SHA = (value) => createHash("sha256").update(value).digest("hex");
 const today = () => new Date().toISOString().slice(0, 10);
@@ -185,7 +186,7 @@ function manifestFingerprint(manifest) {
 }
 
 function manifestDispatch(manifest, stage) {
-  if (!STAGES.includes(stage)) throw new Error(`unknown acceptance stage ${stage}`);
+  if (!DISPATCH_STAGES.includes(stage)) throw new Error(`unknown acceptance stage ${stage}`);
   if (!Number.isInteger(manifest?.concurrency) || manifest.concurrency < 1) {
     throw new Error("manifest concurrency is invalid");
   }
