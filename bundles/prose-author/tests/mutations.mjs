@@ -418,9 +418,23 @@ export const MUTATIONS = [
   {
     name: "allow undeclared files during acceptance dispatch preflight",
     file: ACCEPTANCE_RUNNER,
-    find: "    ...runNamespaceErrors(runDir, manifest, cases),\n    ...retiredRepairEvidenceErrors(runDir),",
+    find: "    ...runNamespaceErrors(runDir, manifest, cases, phase),\n    ...retiredRepairEvidenceErrors(runDir),",
     with: "    ...retiredRepairEvidenceErrors(runDir),",
     guards: "an archived failed cell cannot be moved elsewhere in the run before a canonical redraw",
+  },
+  {
+    name: "allow profile-derived files before profile collection",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const afterProfiles = [\"draft\", \"critic\", \"final\"].includes(phase);",
+    with: "  const afterProfiles = true;",
+    guards: "a profile failure cannot be laundered into an assembled profile path before rendering resumes",
+  },
+  {
+    name: "allow final critic outputs before critic collection",
+    file: ACCEPTANCE_RUNNER,
+    find: "  const final = phase === \"final\";",
+    with: "  const final = true;",
+    guards: "a critic failure cannot be laundered into a future critic source or score path before dispatch",
   },
   {
     name: "allow undeclared files during final acceptance evidence checking",

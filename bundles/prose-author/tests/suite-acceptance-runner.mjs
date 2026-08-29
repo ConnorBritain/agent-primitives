@@ -708,8 +708,14 @@ export async function run(t, { HERE }) {
       && /child\.kill\("SIGTERM"\)/.test(source)
       && /exceeded \$\{dispatch\.timeout_ms\}ms/.test(source));
   t.check("every acceptance dispatch performs the closed-world evidence preflight before pooling calls",
-    (source.match(/const preflightErrors = dispatchPreflightErrors\(runDir, manifest, cases\);/g) ?? []).length === 3
+    (source.match(/const preflightErrors = dispatchPreflightErrors\(runDir, manifest, cases, "(?:profile|draft|critic)"\);/g) ?? []).length === 3
       && (source.match(/acceptance evidence preflight failed; no (?:profile|draft|critic) calls were made/g) ?? []).length === 3);
+  t.check("dispatch preflight rederives every prior producer phase before permitting its consumer",
+    /deriveProfileEvidence\(runDir, manifest, cases\)/.test(source)
+      && /deriveDraftEvidence\(runDir, manifest, cases\)/.test(source)
+      && /existingDraftStageInputErrors\(runDir, manifest, cases\)/.test(source)
+      && /existingCriticStageInputErrors\(runDir, manifest, cases\)/.test(source)
+      && /committedCurrentError\(join\(runDir, "ARTIFACTS\.json"\)\)/.test(source));
   t.check("the deterministic profile prepass covers the major countable dimensions",
     ["second-person-family", "contractions", "uncontracted-negatives", "profanity-vulgarity",
       "first-person-singular-family", "question-marks", "round-parenthetical-spans", "em-dashes"]
@@ -740,7 +746,7 @@ export async function run(t, { HERE }) {
       && /draft prompt does not reproduce from its locked request and profile/.test(source)
       && /claim-audit prompt does not reproduce from the raw draft/.test(source)
       && /critic prompt does not reproduce from locked inputs/.test(source)
-      && /errors\.push\(\.\.\.stagedInputErrors\(runDir, manifest, cases\)\)/.test(source)
+      && (source.match(/errors\.push\(\.\.\.stagedInputErrors\(runDir, manifest, cases\)\)/g) ?? []).length === 2
       && /errors\.push\(\.\.\.promptDerivationErrors\(runDir, manifest, cases\)\)/.test(source));
   {
     const namespaceRoot = mkdtempSync(join(tmpdir(), "prose-author-raw-namespace-"));
@@ -785,10 +791,16 @@ export async function run(t, { HERE }) {
       const disguisedWrapper = join(namespaceRoot, "outputs", "moved-call.archive");
       mkdirSync(dirname(disguisedWrapper), { recursive: true });
       writeFileSync(disguisedWrapper, "arbitrary archived bytes that do not identify their source\n");
+      const futureCriticSource = join(namespaceRoot, "critics", "sources", "d-d1.json");
+      mkdirSync(dirname(futureCriticSource), { recursive: true });
+      writeFileSync(futureCriticSource, "archived failed wrapper bytes\n");
       const tamperedNamespace = artifactHashErrors(
         null, namespaceRoot, namespaceCases, namespaceManifest,
       ).filter((error) => error.startsWith("raw namespace"));
-      const preflight = dispatchPreflightErrors(namespaceRoot, namespaceManifest, namespaceCases);
+      const preflight = dispatchPreflightErrors(namespaceRoot, namespaceManifest, namespaceCases, "critic");
+      const profilePreflight = dispatchPreflightErrors(
+        namespaceRoot, namespaceManifest, namespaceCases, "profile",
+      );
       t.check("raw namespaces reject orphan redraws, extra critic draws, and missing companions",
         cleanNamespace.length === 0
           && tamperedNamespace.some((error) => /unindexed-redraw\.codex-events\.jsonl/.test(error))
@@ -798,7 +810,11 @@ export async function run(t, { HERE }) {
           && tamperedNamespace.some((error) => /outputs[/\\]moved-call\.archive/.test(error)));
       t.check("dispatch preflight rejects undeclared archived evidence before any model adapter runs",
         preflight.some((error) => /critics[/\\]failures[/\\]d-d1\.failed\.json/.test(error))
-          && preflight.some((error) => /outputs[/\\]moved-call\.archive/.test(error)));
+          && preflight.some((error) => /outputs[/\\]moved-call\.archive/.test(error))
+          && preflight.some((error) => /critics[/\\]sources[/\\]d-d1\.json/.test(error)));
+      t.check("dispatch preflight rejects files owned by a future producer phase",
+        profilePreflight.some((error) => /raw[/\\]p-r1\.md/.test(error))
+          && profilePreflight.some((error) => /critics[/\\]raw[/\\]d-d1\.json/.test(error)));
     } finally {
       rmSync(namespaceRoot, { recursive: true, force: true });
     }

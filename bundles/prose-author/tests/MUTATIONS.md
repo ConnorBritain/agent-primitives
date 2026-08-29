@@ -52,7 +52,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | omit Codex companions from claim-audit artifact hashes | 1 | independent claim audits bind their primary Codex evidence rather than only a mutable wrapper |
 | order only the critic wrapper after the human audit | 1 | a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper |
 | skip the exact raw-result namespace inventory | 1 | an orphan failed call, redraw, or extra critic draw cannot survive outside the artifact index |
-| allow undeclared files during acceptance dispatch preflight | 1 | an archived failed cell cannot be moved elsewhere in the run before a canonical redraw |
+| allow undeclared files during acceptance dispatch preflight | 2 | an archived failed cell cannot be moved elsewhere in the run before a canonical redraw |
+| allow profile-derived files before profile collection | 1 | a profile failure cannot be laundered into an assembled profile path before rendering resumes |
+| allow final critic outputs before critic collection | 1 | a critic failure cannot be laundered into a future critic source or score path before dispatch |
 | allow undeclared files during final acceptance evidence checking | 1 | the final evidence check rejects every undeclared run file without guessing its content |
 | let a Codex wrapper point at another cell's companions | 1 | each Codex wrapper is bound to its own canonical event, output, and recovery filenames |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |

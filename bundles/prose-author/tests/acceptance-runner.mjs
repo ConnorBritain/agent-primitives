@@ -1112,7 +1112,7 @@ async function pool(label, jobs, concurrency) {
 
 async function dispatchProfiles(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
-  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases);
+  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases, "profile");
   if (preflightErrors.length) {
     die(`acceptance evidence preflight failed; no profile calls were made:\n    ${preflightErrors.join("\n    ")}`);
   }
@@ -1335,7 +1335,7 @@ function claimAuditPrompt(c, source) {
 
 async function dispatchDrafts(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
-  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases);
+  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases, "draft");
   if (preflightErrors.length) {
     die(`acceptance evidence preflight failed; no draft calls were made:\n    ${preflightErrors.join("\n    ")}`);
   }
@@ -2008,11 +2008,16 @@ function acceptanceModelCells(runDir, manifest, cases) {
   return cells;
 }
 
-function allowedRunFiles(runDir, manifest, cases) {
-  const allowed = new Set([
-    "ARTIFACTS.json", "CASES.json", "CLAIMS-AUDIT.json", "DESIGN.md", "MANIFEST.json",
-    "SCORE.json", "STRUCTURAL.json", "TALLY.json", "corpus.lock.json",
-  ]);
+function allowedRunFiles(runDir, manifest, cases, phase = "final") {
+  const afterProfiles = ["draft", "critic", "final"].includes(phase);
+  const duringDrafts = ["draft", "critic", "final"].includes(phase);
+  const afterDrafts = ["critic", "final"].includes(phase);
+  const duringCritics = ["critic", "final"].includes(phase);
+  const final = phase === "final";
+  const allowed = new Set(["CASES.json", "DESIGN.md", "MANIFEST.json", "corpus.lock.json"]);
+  if (afterProfiles) allowed.add("ARTIFACTS.json");
+  if (afterDrafts) allowed.add("CLAIMS-AUDIT.json");
+  if (final) for (const file of ["SCORE.json", "STRUCTURAL.json", "TALLY.json"]) allowed.add(file);
   const add = (path) => allowed.add(relative(runDir, resolve(path)));
   for (const agent of Object.values(manifest.agents ?? {})) add(resolve(REPO, agent.snapshot));
   for (const entry of Object.values(manifest.schemas?.profile ?? {})) add(resolve(REPO, entry.path));
@@ -2032,16 +2037,18 @@ function allowedRunFiles(runDir, manifest, cases) {
     for (let render = 1; render <= profile.renders; render += 1) {
       const id = `${profile.id}-r${render}`;
       add(join(runDir, "prompts", "profiles", `${id}.md`));
-      add(join(runDir, "raw", `${id}.md`));
       for (const path of expectedCellEvidenceFiles(
         join(runDir, "raw", "profiles", `${id}.json`), manifestDispatch(manifest, "profile"),
       )) add(path);
-      for (const suffix of ["json", "md", "source.json"]) {
-        add(join(runDir, "inputs", "profiles", profile.id, `r${render}.${suffix}`));
+      if (afterProfiles) {
+        add(join(runDir, "raw", `${id}.md`));
+        for (const suffix of ["json", "md", "source.json"]) {
+          add(join(runDir, "inputs", "profiles", profile.id, `r${render}.${suffix}`));
+        }
       }
     }
   }
-  for (const c of cases.cases) {
+  if (duringDrafts) for (const c of cases.cases) {
     add(join(runDir, "prompts", "drafts", `${c.id}.md`));
     add(join(runDir, "prompts", "claim-audits", `${c.id}.md`));
     for (const path of expectedCellEvidenceFiles(
@@ -2050,52 +2057,173 @@ function allowedRunFiles(runDir, manifest, cases) {
     for (const path of expectedCellEvidenceFiles(
       join(runDir, "raw", "claim-audits", `${c.id}.json`), manifestDispatch(manifest, "claim_audit"),
     )) add(path);
-    for (const suffix of ["json", "original.json", "normalized.json"]) {
-      add(join(runDir, "inputs", "sources", "drafts", `${c.id}.${suffix}`));
+    if (afterDrafts) {
+      for (const suffix of ["json", "original.json", "normalized.json"]) {
+        add(join(runDir, "inputs", "sources", "drafts", `${c.id}.${suffix}`));
+      }
+      add(join(runDir, "inputs", "audits", `${c.id}.json`));
+      add(join(runDir, "inputs", "audits", "initial", `${c.id}.json`));
+      add(join(runDir, "inputs", "drafts", `${c.id}.txt`));
+      add(join(runDir, "inputs", "records", `${c.id}.json`));
+      add(join(runDir, "outputs", "drafts", `${c.id}.md`));
     }
-    add(join(runDir, "inputs", "audits", `${c.id}.json`));
-    add(join(runDir, "inputs", "audits", "initial", `${c.id}.json`));
-    add(join(runDir, "inputs", "drafts", `${c.id}.txt`));
-    add(join(runDir, "inputs", "records", `${c.id}.json`));
-    add(join(runDir, "outputs", "drafts", `${c.id}.md`));
-    const criticInput = join(runDir, "critics", "inputs", c.id);
-    add(join(criticInput, "draft.txt"));
-    const corpus = manifest.corpora[c.profile];
-    for (const sample of corpus.lock.files) {
-      add(join(criticInput, "corpus", ...(sample.group ? [sample.group] : []), sample.file));
-    }
-    for (let draw = 1; draw <= 3; draw += 1) {
-      const id = `${c.id}-d${draw}`;
-      add(join(runDir, "critics", "prompts", `${id}.md`));
-      add(join(runDir, "critics", "sources", `${id}.json`));
-      add(join(runDir, "critics", "outputs", `${id}.md`));
-      for (const path of expectedCellEvidenceFiles(
-        join(runDir, "critics", "raw", `${id}.json`), manifestDispatch(manifest, "critic"),
-      )) add(path);
+    if (duringCritics) {
+      const criticInput = join(runDir, "critics", "inputs", c.id);
+      add(join(criticInput, "draft.txt"));
+      const corpus = manifest.corpora[c.profile];
+      for (const sample of corpus.lock.files) {
+        add(join(criticInput, "corpus", ...(sample.group ? [sample.group] : []), sample.file));
+      }
+      for (let draw = 1; draw <= 3; draw += 1) {
+        const id = `${c.id}-d${draw}`;
+        add(join(runDir, "critics", "prompts", `${id}.md`));
+        if (final) {
+          add(join(runDir, "critics", "sources", `${id}.json`));
+          add(join(runDir, "critics", "outputs", `${id}.md`));
+        }
+        for (const path of expectedCellEvidenceFiles(
+          join(runDir, "critics", "raw", `${id}.json`), manifestDispatch(manifest, "critic"),
+        )) add(path);
+      }
     }
   }
-  for (const c of cases.refusals) {
+  if (duringDrafts) for (const c of cases.refusals) {
     add(join(runDir, "prompts", "refusals", `${c.id}.md`));
     for (const path of expectedCellEvidenceFiles(
       join(runDir, "raw", "refusals", `${c.id}.json`), manifestDispatch(manifest, "draft"),
     )) add(path);
-    add(join(runDir, "inputs", "sources", "refusals", `${c.id}.json`));
-    add(join(runDir, "outputs", "refusals", `${c.id}.md`));
+    if (afterDrafts) {
+      add(join(runDir, "inputs", "sources", "refusals", `${c.id}.json`));
+      add(join(runDir, "outputs", "refusals", `${c.id}.md`));
+    }
   }
   return allowed;
 }
 
-function runNamespaceErrors(runDir, manifest, cases) {
-  const allowed = allowedRunFiles(runDir, manifest, cases);
+function runNamespaceErrors(runDir, manifest, cases, phase = "final") {
+  const allowed = allowedRunFiles(runDir, manifest, cases, phase);
   return filesUnder(runDir).filter((file) => !allowed.has(file))
     .map((file) => `raw namespace run has undeclared file ${file}`);
 }
 
-function dispatchPreflightErrors(runDir, manifest, cases) {
+function committedCurrentError(path) {
+  try {
+    execFileSync("git", ["ls-files", "--error-unmatch", rel(path)], { cwd: REPO, stdio: "ignore" });
+    execFileSync("git", ["diff", "--quiet", "HEAD", "--", rel(path)], { cwd: REPO, stdio: "ignore" });
+    return null;
+  } catch {
+    return `${rel(path)} must be committed unchanged before the next producer phase`;
+  }
+}
+
+function existingDraftStageInputErrors(runDir, manifest, cases) {
+  const errors = [];
+  const dispatch = manifestDispatch(manifest, "draft");
+  for (const c of [...cases.cases, ...cases.refusals.map((row) => ({ ...row, refusal: true }))]) {
+    const promptPath = join(runDir, "prompts", c.refusal ? "refusals" : "drafts", `${c.id}.md`);
+    if (existsSync(promptPath)) {
+      const profileDir = join(runDir, "inputs", "profiles", c.profile);
+      const expected = `${draftPrompt(
+        c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)),
+      )}\n`;
+      if (text(promptPath) !== expected) errors.push(`${c.id} existing draft prompt is not canonical`);
+    }
+    if (c.refusal) continue;
+    const auditPromptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
+    if (!existsSync(auditPromptPath)) continue;
+    try {
+      const record = completedResult(join(runDir, "raw", "drafts", `${c.id}.json`), dispatch);
+      const decoded = record ? semanticDraftSource(record) : { source: null };
+      if (!decoded.source) throw new Error("draft source unavailable");
+      const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
+      if (!normalized.ok || normalized.refusal) throw new Error("draft source cannot produce an audit prompt");
+      const expected = `${claimAuditPrompt(c, normalized.source)}\n`;
+      if (text(auditPromptPath) !== expected) errors.push(`${c.id} existing claim-audit prompt is not canonical`);
+    } catch (error) {
+      errors.push(`${c.id} existing claim-audit prompt cannot be verified: ${error.message}`);
+    }
+  }
+  return errors;
+}
+
+function existingCriticStageInputErrors(runDir, manifest, cases) {
+  const errors = [];
+  for (const c of cases.cases) {
+    const inputDir = join(runDir, "critics", "inputs", c.id);
+    const promptPaths = Array.from({ length: 3 }, (_, index) =>
+      join(runDir, "critics", "prompts", `${c.id}-d${index + 1}.md`));
+    const rawPaths = Array.from({ length: 3 }, (_, index) =>
+      join(runDir, "critics", "raw", `${c.id}-d${index + 1}.json`));
+    const started = existsSync(inputDir)
+      || promptPaths.some((path) => existsSync(path))
+      || rawPaths.some((path) => expectedCellEvidenceFiles(
+        path, manifestDispatch(manifest, "critic"),
+      ).some((evidence) => existsSync(evidence)));
+    if (!started) continue;
+    try {
+      const expectedDraft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
+      const stagedCorpus = resolve(REPO, manifest.corpora[c.profile].staged, "corpus", "human");
+      const corpusFiles = filesUnder(stagedCorpus);
+      const actualCorpusFiles = filesUnder(join(inputDir, "corpus"));
+      if (JSON.stringify(actualCorpusFiles) !== JSON.stringify(corpusFiles)) {
+        errors.push(`${c.id} existing critic corpus file set is not canonical`);
+      }
+      for (const file of corpusFiles) {
+        const actual = join(inputDir, "corpus", file);
+        if (!existsSync(actual) || text(actual) !== text(join(stagedCorpus, file))) {
+          errors.push(`${c.id} existing critic corpus input drifted: ${file}`);
+        }
+      }
+      const draftPath = join(inputDir, "draft.txt");
+      if (!existsSync(draftPath) || text(draftPath) !== expectedDraft) {
+        errors.push(`${c.id} existing critic draft input is not canonical`);
+      }
+      const corpus = corpusFiles.map((file) => ({
+        file, body: stripFrontmatter(text(join(stagedCorpus, file))),
+      }));
+      const expectedPrompt = `${criticPrompt(c.id, corpus, expectedDraft)}\n`;
+      for (const promptPath of promptPaths) {
+        if (!existsSync(promptPath) || text(promptPath) !== expectedPrompt) {
+          errors.push(`${basename(promptPath)} existing critic prompt is not canonical`);
+        }
+      }
+    } catch (error) {
+      errors.push(`${c.id} existing critic inputs cannot be verified: ${error.message}`);
+    }
+  }
+  return errors;
+}
+
+function dispatchPreflightErrors(runDir, manifest, cases, phase) {
   const errors = [
-    ...runNamespaceErrors(runDir, manifest, cases),
+    ...runNamespaceErrors(runDir, manifest, cases, phase),
     ...retiredRepairEvidenceErrors(runDir),
   ];
+  try { errors.push(...stagedInputErrors(runDir, manifest, cases)); } catch (error) {
+    errors.push(`prepared input verification failed: ${error.message}`);
+  }
+  if (["draft", "critic"].includes(phase)) {
+    const artifactCommitError = committedCurrentError(join(runDir, "ARTIFACTS.json"));
+    if (artifactCommitError) errors.push(artifactCommitError);
+    try { deriveProfileEvidence(runDir, manifest, cases); } catch (error) {
+      errors.push(`profile producer state is not canonical: ${error.message}`);
+    }
+  }
+  if (phase === "draft") errors.push(...existingDraftStageInputErrors(runDir, manifest, cases));
+  if (phase === "critic") {
+    try { deriveDraftEvidence(runDir, manifest, cases); } catch (error) {
+      errors.push(`draft producer state is not canonical: ${error.message}`);
+    }
+    const auditPath = join(runDir, "CLAIMS-AUDIT.json");
+    const auditCommitError = committedCurrentError(auditPath);
+    if (auditCommitError) errors.push(auditCommitError);
+    try {
+      errors.push(...claimsAuditFailures(json(auditPath), cases, json(join(runDir, "ARTIFACTS.json")), runDir));
+    } catch (error) {
+      errors.push(`claims audit producer state is not canonical: ${error.message}`);
+    }
+    errors.push(...existingCriticStageInputErrors(runDir, manifest, cases));
+  }
   for (const { output, dispatch } of acceptanceModelCells(runDir, manifest, cases)) {
     const evidence = expectedCellEvidenceFiles(output, dispatch).filter((path) => existsSync(path));
     if (!evidence.length) continue;
@@ -2346,7 +2474,7 @@ function criticPrompt(caseId, corpus, draft) {
 
 async function dispatchCritics(runDir) {
   const { p, manifest, cases } = loadPrepared(runDir);
-  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases);
+  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases, "critic");
   if (preflightErrors.length) {
     die(`acceptance evidence preflight failed; no critic calls were made:\n    ${preflightErrors.join("\n    ")}`);
   }
