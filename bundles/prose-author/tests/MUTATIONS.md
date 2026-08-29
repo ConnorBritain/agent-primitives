@@ -61,8 +61,15 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | treat fenced code contents as ordinary prose | 4 | tilde-fenced blocks remain protected regardless of nesting, info strings, or anchor size |
 | treat CommonMark-indented code as ordinary prose | 3 | tab-expanded and space-indented code cannot be changed by a conformance edit |
 | let a failing measurement revise an unrelated coverage dimension | 1 | every conformance edit binds its changed measured rules to their exact coverage dimensions |
+| let structured conformance confuse observations with measurements | 1 | strict decoding cannot put profile observation IDs into the measurement namespace |
+| count required contraction spelling as lost content | 1 | the minimum required meaning-equivalent contraction correction is content-length neutral |
+| let extra contractions borrow the length exception | 1 | only the minimum required contraction spelling delta can move away from target length |
 | invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
+| invite observation IDs into conformance measurement IDs | 1 | the conformer is explicitly told to use deterministic measurement tokens |
+| let one observation hide inside a multi-observation omission | 1 | a free-text omission remains accountable to every supported observation it drops |
 | tell the drafter to recalculate a locked target card | 1 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
+| teach conformance to use profile observation IDs as measurements | 2 | the portable agent prompt keeps observation and measurement namespaces distinct |
+| make every contraction delta content-length neutral | 2 | the portable agent prompt limits the word-count exception to the minimum required correction |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
 | let model output downgrade the prepared claim-audit schema | 1 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |
