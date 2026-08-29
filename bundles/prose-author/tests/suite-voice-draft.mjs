@@ -678,6 +678,13 @@ export async function run(t, { HERE }) {
           ? { ...sentence, text: "Changed accepted prose." }
           : index === 1 ? { ...sentence, basis: "external-verification", claim_ids: ["c2"] } : sentence) }],
       }, { request, audit: rejectedAudit }).ok);
+    t.check("a bounded repair cannot edit an accepted sentence even when everything else is valid",
+      !validateVoiceDraftClaimRepair(repairSource, {
+        ...repaired,
+        paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 0
+          ? { ...sentence, text: "Changed accepted prose." }
+          : sentence) }],
+      }, { request, audit: rejectedAudit }).ok);
     t.check("a bounded repair cannot add a new factual ledger entry even inside a rejected sentence",
       !validateVoiceDraftClaimRepair(repairSource, {
         ...repaired,

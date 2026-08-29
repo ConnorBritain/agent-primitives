@@ -25,7 +25,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | allow an unused retrospective claim into the ledger | 3 | the claim ledger is a closed pre-writing plan rather than a post-hoc dump |
 | allow prose to be emitted before its supposed pre-writing ledger | 1 | source/3 mechanically proves the claim ledger precedes expressive prose |
 | stop reconciling independent audit sentence ids | 1 | an audit decision cannot drift onto a different sentence |
-| assemble a sentence the independent auditor rejected | 4 | fabricated quotations, citations, and biographies cannot pass through as claims |
+| assemble a sentence the independent auditor rejected | 1 | fabricated quotations, citations, and biographies cannot pass through as claims |
 | accept opaque independent labels with no rationale | 1 | every independent basis decision remains inspectable clause by clause |
 | let a disclosure cite words absent from its sentence | 1 | an audit-owned claim is anchored to exact prose rather than invented during review |
 | let a keep row smuggle claims into the audit overlay | 1 | only an explicit disclose decision may append to the verification queue |
@@ -42,7 +42,6 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let more than two rejected units enter claim repair | 1 | a low percentage cannot conceal more than two rewritten sentence units |
 | let claim repair alter bytes under its hypothetical wrapper | 5 | the only prose edit is one fixed prefix before otherwise byte-identical rejected text |
 | let a hypothetical wrapper keep a nonhypothetical basis | 1 | the fixed wrapper changes epistemic status rather than laundering factual prose |
-| publish a repair after its second audit rejects it | 1 | one bounded repair still requires a fresh independent audit to clear |
 | resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
 | score the handwritten tally instead of rebuilding raw critic evidence | 1 | a passing TALLY.json cannot conceal failing raw critic draws |

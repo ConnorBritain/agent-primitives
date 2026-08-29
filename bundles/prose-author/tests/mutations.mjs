@@ -292,8 +292,8 @@ export const MUTATIONS = [
   {
     name: "let model output downgrade the prepared claim-audit schema",
     file: ACCEPTANCE_RUNNER,
-    find: "    if (decodedAudit.audit.schema !== DRAFT_AUDIT_SCHEMA_ID) {\n      throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);\n    }",
-    with: "    if (false) {\n      throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);\n    }",
+    find: "  if (decodedAudit.audit.schema !== DRAFT_AUDIT_SCHEMA_ID) {\n    throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);\n  }",
+    with: "  if (false) {\n    throw new Error(`${c.id} ${CLAIM_PIPELINE} requires ${DRAFT_AUDIT_SCHEMA_ID}`);\n  }",
     guards: "the immutable prepared pipeline, not model-authored output, selects the accepted audit schema",
   },
   {
@@ -344,13 +344,6 @@ export const MUTATIONS = [
     find: '  if (after.basis !== "hypothetical") errors.push(`repair must mark ${id} hypothetical`);',
     with: '  if (false) errors.push(`repair must mark ${id} hypothetical`);',
     guards: "the fixed wrapper changes epistemic status rather than laundering factual prose",
-  },
-  {
-    name: "publish a repair after its second audit rejects it",
-    file: ACCEPTANCE_RUNNER,
-    find: "  const applied = applyVoiceDraftClaimAudit(repaired.source, decodedReaudit.audit, { request: c.prompt });",
-    with: "  const applied = { ok: true, errors: [], source: repaired.source };",
-    guards: "one bounded repair still requires a fresh independent audit to clear",
   },
   {
     name: "resume a prepared run under the current environment model",

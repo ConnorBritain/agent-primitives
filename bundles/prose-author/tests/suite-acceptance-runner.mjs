@@ -171,7 +171,6 @@ export async function run(t, { HERE }) {
     /model: config\.draftModel, effort: config\.draftEffort/.test(source)
       && /model: config\.model, effort: config\.criticEffort/.test(source)
       && /model: config\.model, effort: config\.claimAuditEffort/.test(source)
-      && /model: config\.draftModel, effort: config\.claimRepairEffort/.test(source)
       && /model: config\.model, effort: config\.profileEffort/.test(source)
       && /"--effort", dispatch\.effort/.test(source));
   t.check("acceptance defaults to one model process and native structured profile transport",
@@ -185,13 +184,12 @@ export async function run(t, { HERE }) {
       && /transport: config\.claimAuditNative \? "native-structured" : "json-fence"/.test(source)
       && source.includes("claim_pipeline: CLAIM_PIPELINE")
       && source.includes("voice-draft-claim-audit-3.json")
-      && source.includes('auditDispatch.transport === "native-structured" ? auditSchema : null')
-      && source.includes('reauditDispatch.transport === "native-structured" ? auditSchema : null'));
-  t.check("historical bounded-repair transport stays pinned but new dispatch makes no repair call",
-    prepareConfig({}).claimRepairNative
-      && /transport: config\.claimRepairNative \? "native-structured" : "json-fence"/.test(source)
-      && !source.includes('await pool("bounded claim repair"')
-      && !source.includes('await pool("independent claim reaudit"'));
+      && source.includes('auditDispatch.transport === "native-structured" ? auditSchema : null'));
+  t.check("the current manifest exposes no model repair or reaudit stage",
+    !source.includes("claimRepairEffort")
+      && !source.includes("claimRepairNative")
+      && !source.includes('manifestDispatch(manifest, "claim_repair")')
+      && !source.includes('manifestDispatch(manifest, "claim_reaudit")'));
   t.check("acceptance defaults to native structured critic transport and validates assembly",
     prepareConfig({}).criticNative
       && /transport: config\.criticNative \? "native-structured" : "json-fence"/.test(source)
@@ -213,7 +211,7 @@ export async function run(t, { HERE }) {
         concurrency: 1,
         claim_pipeline: "audit-disclosure/1",
         dispatch: {
-          draft: stage(), claim_audit: stage(), claim_repair: stage(), claim_reaudit: stage(),
+          draft: stage(), claim_audit: stage(),
         },
       };
       const request = "A maker can disable features after sale.";
@@ -236,23 +234,6 @@ export async function run(t, { HERE }) {
         schema: "voice-draft-claim-audit/2", sentences: [
           { id: "p1s1", status: "keep", reason: "The request supplies the complete assertion." },
           { id: "p1s2", status: "reject", reason: "Unledgered population claim." },
-          { id: "p1s3", status: "keep", reason: "This is a normative conclusion." },
-          { id: "p1s4", status: "keep", reason: "This is explicitly hypothetical." },
-          { id: "p1s5", status: "keep", reason: "This is a nonfactual conclusion." },
-        ],
-      };
-      const repaired = {
-        ...original,
-        paragraphs: [{ sentences: [
-          original.paragraphs[0].sentences[0],
-          { text: "Hypothetically: Many buyers never notice.", basis: "hypothetical", claim_ids: [] },
-          ...original.paragraphs[0].sentences.slice(2),
-        ] }],
-      };
-      const finalAudit = {
-        schema: "voice-draft-claim-audit/2", sentences: [
-          { id: "p1s1", status: "keep", reason: "The request supplies the complete assertion." },
-          { id: "p1s2", status: "keep", reason: "This is explicitly hypothetical." },
           { id: "p1s3", status: "keep", reason: "This is a normative conclusion." },
           { id: "p1s4", status: "keep", reason: "This is explicitly hypothetical." },
           { id: "p1s5", status: "keep", reason: "This is a nonfactual conclusion." },
@@ -304,41 +285,16 @@ export async function run(t, { HERE }) {
       }
       t.check("a model-authored audit schema cannot downgrade the prepared current claim pipeline",
         downgradeRejected);
-      manifest.claim_pipeline = "bounded-repair/1";
-      put("drafts", c.id, original, "draft");
-      put("claim-audits", c.id, initialAudit, "claim_audit");
-      put("claim-repairs", c.id, repaired, "claim_repair");
-      put("claim-reaudits", c.id, finalAudit, "claim_reaudit");
-      let resolved = null;
-      try { resolved = resolveDraftChain(chainRoot, manifest, c); } catch {}
-      t.check("final checking composes rejected draft, bounded repair, and fresh reaudit from raw records",
-        resolved?.repaired && resolved.finalSource.paragraphs[0].sentences[1].text === "Hypothetically: Many buyers never notice."
-          && JSON.stringify(resolved.finalAudit) === JSON.stringify(finalAudit));
-      put("claim-reaudits", c.id, initialAudit, "claim_reaudit");
-      let reauditRejected = false;
-      try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
-        reauditRejected = /independent claim reaudit failed/.test(error.message);
-      }
-      t.check("a second independent rejection ends the cell without another repair", reauditRejected);
-      put("claim-reaudits", c.id, finalAudit, "claim_reaudit");
-      put("claim-repairs", c.id, {
-        ...repaired,
-        paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 0
-          ? { ...sentence, text: "Protected prose changed." }
-          : sentence) }],
-      }, "claim_repair");
-      let protectedRejected = false;
-      try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
-        protectedRejected = /protected sentence p1s1/.test(error.message);
-      }
-      t.check("final checking rejects a repair that edits an audit-kept sentence", protectedRejected);
-      put("claim-repairs", c.id, repaired, "claim_repair");
-      put("claim-audits", c.id, finalAudit, "claim_audit");
+      put("claim-audits", c.id, currentAudit, "claim_audit");
+      const staleRepairPath = join(chainRoot, "raw", "claim-repairs", `${c.id}.json`);
+      mkdirSync(dirname(staleRepairPath), { recursive: true });
+      writeFileSync(staleRepairPath, "{}\n");
       let staleRejected = false;
       try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
-        staleRejected = /stale conditional repair evidence/.test(error.message);
+        staleRejected = /stale model-repair evidence/.test(error.message);
       }
-      t.check("a clean initial audit cannot retain a conditional repair branch", staleRejected);
+      t.check("current checking rejects stale model-repair evidence without exposing a repair stage",
+        staleRejected);
     } finally {
       rmSync(chainRoot, { recursive: true, force: true });
     }
