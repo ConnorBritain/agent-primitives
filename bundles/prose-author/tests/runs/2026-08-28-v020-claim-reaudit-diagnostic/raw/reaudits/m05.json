@@ -1,0 +1,247 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 35090,
+  "duration_api_ms": 35075,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "0cd7ccc6-d1a3-4c72-b88f-59e6dbf153ee",
+  "total_cost_usd": 0.04816365,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 5003,
+    "cache_read_input_tokens": 5618,
+    "output_tokens": 1847,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5003,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 1847,
+      "cacheReadInputTokens": 5618,
+      "cacheCreationInputTokens": 5003,
+      "webSearchRequests": 0,
+      "costUSD": 0.04816365,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/2",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Title restated as heading; reasoning basis with no factual premise required."
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Reasoning sentence defining the conceptual distinction between a choice screen and market control; no external descriptive premise introduced."
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Reasoning sentence explaining why the distinction is relevant to developers; all clauses are inferential and definitional, no claim about real actors or events."
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "Rhetorical subheading framing the next section; reasoning with no factual premise."
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Reasoning clarification qualifying the framing question; no external descriptive claim."
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Reasoning sentence enumerating categories of gatekeepers as a definitional taxonomy; no claim about any specific named actor or real-world event."
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Reasoning sentence listing what the selector controls; all clauses are inferential descriptions of the defined concept, no external premise."
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "Reasoning sentence posing an architectural question for developers; no external descriptive premise added."
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Reasoning transition; no factual premise."
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "Reasoning sentence defining what a default is not; purely conceptual, no external claim."
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Reasoning sentence defining what a default is through examples (preselected browser, first-listed provider, etc.) as illustrative categories, not claims about named products or events."
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "Hypothetical basis with explicit 'Hypothetically:' prefix; the scenario of users not changing defaults is framed as imagined, not as a report about real user behavior, satisfying the unmistakably imagined test."
+      },
+      {
+        "id": "p3s5",
+        "status": "keep",
+        "reason": "Reasoning sentence drawing an inference from the hypothetical about uneven effort distribution; no new external premise."
+      },
+      {
+        "id": "p3s6",
+        "status": "keep",
+        "reason": "Reasoning inference about defaults shaping behaviour; no external descriptive premise beyond the reasoning chain established above."
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Normative/reasoning sentence asserting a standard for market choice; no claim about what real courts or laws currently require."
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Reasoning sentence specifying criteria for market choice; all clauses are definitional conditions, not claims about real actors or current law."
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Reasoning sentence illustrating how structural advantage persists; purely conceptual with no named actor or event."
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Reasoning inference summarising the conceptual point; no external premise."
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Reasoning sentence drawing a conclusion from the preceding argument; no new descriptive premise."
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Reasoning sentence explaining the mechanism of nominal choice preserving gatekeeper power; all clauses are inferential and definitional, no claim about a specific real actor."
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Reasoning sentence distinguishing offered decision from system control; no external premise."
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Hypothetical basis with explicit 'Hypothetically:' prefix; scenario of developers encountering controlled interfaces is framed as imagined, satisfying the unmistakably imagined test."
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Reasoning sentence anticipating a counterargument; no external descriptive claim."
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Reasoning rebuttal drawing a conceptual distinction; no external premise."
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Reasoning sentence elaborating the distinction between formal and usable availability; all clauses are definitional, no claim about a specific product or actor."
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Reasoning sentence critiquing the objection; no external premise."
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "Reasoning aphorism about friction and interface design; definitional in form, no claim about what any specific company or law does."
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Normative sentence recommending structural change; no claim about what current law or courts require."
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Normative recommendation about disclosure; no claim about existing legal obligations or current company practice."
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Normative recommendation about defaults; no descriptive claim about what real systems currently do."
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Normative recommendation about interoperability and portability; no claim about existing law or current industry practice."
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "Reasoning inference about what an incomplete remedy would produce; no external premise, follows from the normative conditions just stated."
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Reasoning characterisation of the standard; no external premise."
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative sentence posing evaluative questions; no claim about what real law or courts currently require."
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Reasoning conditional conclusion following from the prior questions; no external premise."
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Normative sentence directing product teams and policymakers; no claim about what existing regulations or companies currently do."
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "Reasoning concluding definition of when a choice screen becomes market choice; purely inferential, no external descriptive premise."
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "8d5433c8-c2c8-4426-a4dd-fd21ebc964bd",
+  "acceptance_dispatch": {
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000
+  },
+  "acceptance_input": {
+    "system_sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "prompt_sha256": "d47d3272957f02c030017c4327efd95d692383b3ede949da345f8cfcd405d106",
+    "schema_sha256": "90adb601d45eb440fccec69d35a6d709e11d33cb60b103e8022cf085d10d4d50"
+  }
+}

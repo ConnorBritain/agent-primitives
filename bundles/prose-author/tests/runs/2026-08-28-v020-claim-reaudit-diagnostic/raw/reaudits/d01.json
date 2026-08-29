@@ -1,0 +1,237 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 31391,
+  "duration_api_ms": 31380,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "3fff05dc-6ecd-47c0-a723-4cbd8ca580f0",
+  "total_cost_usd": 0.0517404,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 6044,
+    "cache_read_input_tokens": 4228,
+    "output_tokens": 1853,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6044,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 1853,
+      "cacheReadInputTokens": 4228,
+      "cacheCreationInputTokens": 6044,
+      "webSearchRequests": 0,
+      "costUSD": 0.0517404,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/2",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Restates the request premise (c1) that a maker can disable features after sale and that this limits ownership. The request_basis directly supplies this claim."
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Reasoning sentence: draws a rhetorical analogy about the nature of the ownership described in p1s1. No external descriptive premise added."
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Reasoning sentence: extends the argument metaphorically from p1s1. No external descriptive premise added."
+      },
+      {
+        "id": "p2s1",
+        "status": "reject",
+        "reason": "Labeled hypothetical but describes a real, widely practiced industry arrangement (hardware/software split in terms of service, accepted during unboxing). This is a descriptive claim about how sellers actually structure sales and what buyers actually agree to — not an unmistakably imagined scenario. The ledger contains no entry covering it."
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Reasoning sentence: expresses the author's disagreement with the position stated in p2s1. No external claim added."
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Reasoning sentence: argues conceptually that hardware and software are not separable in the relevant sense. No external descriptive premise added."
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Reasoning sentence: defines the functional relationship between software and hardware. No external descriptive premise added."
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "Reasoning sentence: draws a logical inference from c1 about what a post-sale revocation implies for the nature of the transaction. No external premise added."
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Reasoning sentence: rhetorical question elaborating the argument. No external descriptive premise added."
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "Labeled hypothetical but the landlord/seller analogy is presented as a general normative/logical comparison, not a report about a real actor or event. The sentence is unmistakably an illustrative analogy rather than a factual report. Acceptable as reasoning/hypothetical contrast with no external descriptive premise."
+      },
+      {
+        "id": "p3s3",
+        "status": "reject",
+        "reason": "Labeled hypothetical but makes a descriptive claim about how 'the digital version of that arrangement is treated as ordinary' — a claim about general public or industry behavior. This is not an unmistakably imagined scenario; it asserts a real-world social/market reality. No ledger entry covers it."
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "Reasoning sentence: brief aphoristic inference. No external descriptive premise added."
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Reasoning sentence: notes that various legal labels can be applied to the arrangement. No external descriptive premise about what any real actor does."
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Reasoning sentence: logical inference that labeling does not change the underlying relationship. No external premise."
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Reasoning sentence: reframes the arrangement as functional renting. Draws from c1 (maker can disable features). No external premise added beyond what c1 supplies."
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Normative sentence: recommends skepticism of an arrangement. No claim about what real courts, companies, or people currently do."
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Hypothetical sentence: explicitly imagined scenario ('Imagine buying…'). Unmistakably presented as imagined."
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Hypothetical sentence: explicitly imagined scenarios ('Imagine a refrigerator…'). Unmistakably presented as imagined."
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Hypothetical sentence: follows from p5s1/p5s2 imagined scenarios. Unmistakably imagined."
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Reasoning sentence: draws a conceptual distinction between possession and control. No external descriptive premise added."
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "Reasoning sentence: extends the escrow metaphor from the hypothetical. No external descriptive premise added."
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Reasoning sentence: characterizes the policy question as straightforward relative to the engineering. No external premise."
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Normative sentence: proposes a policy rule. No claim about what real laws or institutions currently do."
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Reasoning sentence: clarifies the scope of the normative claim. No external premise added."
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Reasoning sentence: restates the normative argument in plain terms. No external premise added."
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "Normative sentence: proposes disclosure and transition requirements. No claim about what real actors currently do."
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Reasoning sentence: anticipates a counterargument. No external descriptive premise — framed as 'the objection will be,' introducing a position to rebut, not asserting a fact about the world."
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Reasoning sentence: brief acknowledgment. No external premise."
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Normative sentence: proposes policy responses. No claim about what real laws or institutions currently do."
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Reasoning sentence: characterizes the problems as design and policy matters. No external descriptive premise."
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "Reasoning sentence: rhetorical question about the allocation of risk and power. No external premise added."
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Normative sentence: proposes a limited goal. No claim about what real law currently does."
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative sentence: argues against treating the license as nullifying the sale. No external descriptive premise."
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Normative sentence: states what ownership should mean. No claim about what real actors currently do."
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Reasoning sentence: draws the essay's conclusion from c1 and the preceding argument. No external premise added."
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "8c47b65c-c801-4d71-82bb-ddcac22be186",
+  "acceptance_dispatch": {
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000
+  },
+  "acceptance_input": {
+    "system_sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "prompt_sha256": "aa2beb38da433d03e242845e92beb0fa33c8c6815e1b218deb610f93662427db",
+    "schema_sha256": "90adb601d45eb440fccec69d35a6d709e11d33cb60b103e8022cf085d10d4d50"
+  }
+}
