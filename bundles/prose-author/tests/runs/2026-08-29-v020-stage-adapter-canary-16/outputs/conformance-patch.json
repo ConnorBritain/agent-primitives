@@ -1,0 +1,95 @@
+{
+  "schema": "voice-draft-conformance-patch/1",
+  "edits": [],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ],
+      "disposition": "preserved",
+      "reason": "Both measured person and reader stance rules are already within their allowed ranges."
+    },
+    {
+      "dimension": "contraction-negation",
+      "observation_ids": [
+        "o03",
+        "o04"
+      ],
+      "disposition": "preserved",
+      "reason": "Both contraction and uncontracted-negative counts are already within their allowed ranges."
+    },
+    {
+      "dimension": "qualification-hedging",
+      "observation_ids": [
+        "o10"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft acknowledges the legitimate efficiency goal and qualifies later use through concrete conditions and modal language."
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "observation_ids": [
+        "o06"
+      ],
+      "disposition": "preserved",
+      "reason": "The question-mark count is already within its allowed range."
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "observation_ids": [
+        "o11"
+      ],
+      "disposition": "omitted",
+      "reason": "No specific AI service, vendor, institutional source, or verified source material was supplied to name or summarize."
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "observation_ids": [],
+      "disposition": "unresolved",
+      "reason": "The profile supplies no supported instruction for this dimension."
+    },
+    {
+      "dimension": "self-reference-biography",
+      "observation_ids": [
+        "o02",
+        "o05"
+      ],
+      "disposition": "preserved",
+      "reason": "Organizational plural voice and absent individual self-reference both remain within their allowed ranges."
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "observation_ids": [
+        "o07",
+        "o08",
+        "o09"
+      ],
+      "disposition": "preserved",
+      "reason": "Parenthetical spans, em dashes, and en dashes are all already within their allowed ranges."
+    },
+    {
+      "dimension": "figures-analogy",
+      "observation_ids": [
+        "o12"
+      ],
+      "disposition": "preserved",
+      "reason": "The brief bureaucratic-vault comparison clarifies the operational confidentiality burden."
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "observation_ids": [
+        "o13"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft opens with a direct decision and legitimate concession, then closes with a specific governing recommendation and meeting action."
+    }
+  ],
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o11",
+      "why": "No specific AI service, vendor, institutional source, or verified source material was supplied to name or summarize."
+    }
+  ]
+}
