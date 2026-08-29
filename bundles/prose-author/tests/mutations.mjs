@@ -345,8 +345,8 @@ export const MUTATIONS = [
   {
     name: "detach compiled voice instructions from their observation ids",
     file: DRAFT_CONTROLS,
-    find: "      observation_id: observation.id,",
-    with: '      observation_id: "detached",',
+    find: "    lines.push(`- ${row.observation_id} [${dimensions}; section:${row.section}${measurement}]: ${row.instruction}`);",
+    with: "    lines.push(`- detached [${dimensions}; section:${row.section}${measurement}]: ${row.instruction}`);",
     guards: "the compact control card preserves the profile's exact instruction-to-ID binding",
   },
   {

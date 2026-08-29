@@ -49,6 +49,9 @@ export async function run(t, { HERE }) {
   const cases = JSON.parse(readFileSync(join(runDir, "CASES.json"), "utf8"));
   const source = readFileSync(join(HERE, "acceptance-runner.mjs"), "utf8");
   const canarySource = readFileSync(join(HERE, "request-support-canary.mjs"), "utf8");
+  const claimAuditSource = readFileSync(
+    join(HERE, "..", "skills", "prose-draft", "references", "claim-audit.md"), "utf8",
+  );
 
   t.group("v0.2 acceptance harness — the locked design is executable");
   t.check("request-support canaries persist harness failures before refusing a redraw",
@@ -274,6 +277,9 @@ export async function run(t, { HERE }) {
         && /Audit every deterministic sentence unit/i.test(prompt)
         && /Do not copy evidence; deterministic assembly binds the complete/.test(prompt)
         && !/voice profile/i.test(prompt));
+    t.check("the independent auditor must account for every sentence rather than sample the draft",
+      /inspect every deterministically supplied sentence unit in[\s\S]*order/.test(claimAuditSource)
+        && /one decision for every supplied sentence ID, with no omissions, additions,[\s\S]*or reordering/.test(claimAuditSource));
     t.check("draft dispatch normalizes bookkeeping and requires independent disclosure before collection",
       source.includes("await dispatchClaimPipeline(runDir, manifest, cases)")
         && source.includes("normalizeVoiceDraftSource(decoded.source")

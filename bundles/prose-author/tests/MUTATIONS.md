@@ -26,19 +26,26 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | allow an unused retrospective claim into the ledger | 3 | the claim ledger is a closed pre-writing plan rather than a post-hoc dump |
 | allow prose to be emitted before its supposed pre-writing ledger | 1 | source/3 mechanically proves the claim ledger precedes expressive prose |
 | stop reconciling independent audit sentence ids | 1 | an audit decision cannot drift onto a different sentence |
-| assemble a sentence the independent auditor rejected | 1 | fabricated quotations, citations, and biographies cannot pass through as claims |
+| assemble a sentence the independent auditor rejected | 2 | fabricated quotations, citations, and biographies cannot pass through as claims |
 | accept opaque independent labels with no rationale | 1 | every independent basis decision remains inspectable clause by clause |
 | turn ordinary request entailments back into external claims | 1 | buying and ownership roles remain usable reasoning without licensing contingent facts |
 | let a historical disclosure cite words absent from its sentence | 1 | historical audit evidence remains bound to exact prose |
-| detach a current disclosure from its deterministic sentence evidence | 1 | a current audit-owned claim is mechanically anchored to the complete immutable sentence |
+| detach a current disclosure from its deterministic sentence evidence | 2 | a current audit-owned claim is mechanically anchored to the complete immutable sentence |
 | let a keep row smuggle claims into the audit overlay | 1 | only an explicit disclose decision may append to the verification queue |
-| drop audit-owned claims from the public verification record | 1 | an independently discovered premise cannot disappear between audit and publication |
+| drop audit-owned claims from the public verification record | 2 | an independently discovered premise cannot disappear between audit and publication |
 | let the independent auditor trust the drafter's labels | 1 | the factual audit is independent rather than the same self-report twice |
 | let hard factual failures become ordinary disclosures | 1 | fabricated citations, attributed wording, biography, and leakage remain fatal |
 | hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
 | treat request-derived metaphors as external facts | 1 | semantic audit does not inflate request-derived rhetoric into unsupported external claims |
+| reject figurative agency as a literal factual contradiction | 1 | coherent request-derived metaphors survive an auditor's deliberately literal reading |
 | restore a model-owned quota for qualitative profile evidence | 1 | support prevalence across files cannot masquerade as a within-piece frequency |
-| erase the deterministic center aim from draft target cards | 2 | every harness receives the same length-scaled center target instead of model arithmetic |
+| erase the deterministic center aim from draft target cards | 3 | every harness receives the same length-scaled center target instead of model arithmetic |
+| let the drafter return an out-of-range measured habit | 1 | a measured target is an enforced final check rather than an informational card |
+| detach compiled voice instructions from their observation ids | 1 | the compact control card preserves the profile's exact instruction-to-ID binding |
+| accept a conformance patch whose final count remains out of range | 1 | local remeasurement, not the patch author's confidence, gates the final prose |
+| let a conformance patch expand the draft without bound | 1 | the correction stage remains a minimal patch rather than a second unconstrained draft |
+| let a conformance patch address a non-unique source span | 1 | patch application cannot silently choose among repeated anchors |
+| invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
 | tell the drafter to recalculate a locked target card | 1 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
 | let model output downgrade the prepared claim-audit schema | 1 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
@@ -94,14 +101,14 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | select Codex reconstruction from the mutable wrapper label | 1 | a Codex wrapper cannot skip primary-event reconstruction by relabelling itself |
 | drop the explicit type from context-specific profile dimensions | 1 | the generated profile schema remains valid in strict structured-output harnesses |
 | derive the critic verdict from its finding count | 1 | the model-owned verdict remains independent from the findings-rate instrument |
-| drop the drafter's sentence-by-sentence claim inventory | 2 | a nearby disclosed fact cannot hide a second checkable assertion |
-| treat model memory as verified evidence | 2 | remembered examples remain explicitly queued for verification |
+| drop the independent sentence-by-sentence claim inventory | 1 | a nearby disclosed fact cannot hide a second checkable assertion |
+| treat model memory as verified evidence | 3 | remembered examples remain explicitly queued for verification |
 | treat profile examples as reusable topic facts | 2 | corpus-derived profile examples cannot cross the factual firewall |
 | let unverifiable generalizations enter the claims queue | 2 | claims remain finite propositions a publisher can actually check |
-| let argumentative prose decorate itself with external-memory facts | 2 | a source-free argument stays within request evidence instead of inventing vivid cases |
-| tell the drafter topical request overlap can license a new predicate | 2 | the model prompt matches the conservative request-support contract |
+| let argumentative prose decorate itself with external-memory facts | 2 | an argument uses a restrained number of relevant facts instead of decorative memory |
+| tell the drafter topical request overlap can license a new predicate | 1 | the model prompt matches the conservative request-support contract |
 | let a listed claim license an invented attributed quotation | 2 | an invented quotation cannot be laundered through the verification list |
-| collapse multiple named-actor assertions into one topic claim | 2 | each checkable action and consequence remains independently auditable |
+| collapse multiple named-actor assertions into one topic claim | 1 | each checkable action and consequence remains independently auditable |
 | dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
 | let the human factual audit treat the profile as a fact packet | 1 | profile examples, biography, and source facts cannot bypass the public verification queue |
 | stop requiring a sentence-by-sentence human decision | 1 | a scalar or model-authored claim list cannot substitute for human review of every sentence |
