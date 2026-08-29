@@ -54,9 +54,11 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | expand an ambiguous source contraction by convenient symmetry | 2 | an ambiguous source contraction cannot choose whichever expansion makes a patch pass |
 | expand ain't as the malformed phrase ai not | 1 | an unresolved negative contraction fails closed instead of inventing a stem |
 | collapse structural whitespace around measured punctuation | 1 | tabs and repeated spaces remain structural evidence rather than punctuation trivia |
-| let measured punctuation destroy Markdown links | 3 | parenthesis counts cannot be repaired by turning a Markdown link into plain text |
-| let measured punctuation rewrite Markdown reference labels | 2 | reference-link labels remain exact even when a measured dash could be normalized away |
+| let measured punctuation destroy Markdown links | 9 | parenthesis counts cannot be repaired by turning a Markdown link into plain text |
+| let measured punctuation rewrite Markdown reference labels | 3 | reference-link labels remain exact even when a measured dash could be normalized away |
 | let measured punctuation rewrite Markdown autolink destinations | 1 | autolink destinations remain exact even when a measured dash could be normalized away |
+| inspect the edit anchor without its Markdown source context | 8 | the smallest exact anchor cannot hide the surrounding link, code, or bracket syntax |
+| treat fenced code contents as ordinary prose | 1 | a narrow anchor inside a fenced block remains protected even when its line has no fence marker |
 | let a failing measurement revise an unrelated coverage dimension | 1 | every conformance edit binds its changed measured rules to their exact coverage dimensions |
 | invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
 | tell the drafter to recalculate a locked target card | 1 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |

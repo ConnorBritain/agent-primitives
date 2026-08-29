@@ -261,7 +261,34 @@ function containsMarkdownCodeOrLinkSyntax(value) {
   // whether an angle-bracketed span is an autolink or HTML. Fail closed on every
   // such span. The patcher can choose a smaller prose-only anchor or disclose the
   // omission instead of changing syntax whose document-wide target it cannot see.
-  return /`/.test(source) || /[\[\]]/.test(source) || /[<>]/.test(source);
+  return /`/.test(source) || /[\[\]]/.test(source) || /[<>]/.test(source)
+    || /\b(?:https?|mailto):/i.test(source);
+}
+
+function fenceOpenAt(source, offset) {
+  let open = null;
+  for (const line of source.slice(0, offset).split("\n")) {
+    const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)$/);
+    if (!match) continue;
+    const marker = match[1];
+    if (!open) {
+      open = { character: marker[0], length: marker.length };
+      continue;
+    }
+    if (marker[0] === open.character && marker.length >= open.length
+      && match[2].trim() === "") open = null;
+  }
+  return open !== null;
+}
+
+function sourceSpanTouchesMarkdownCodeOrLink(source, start, end) {
+  const lineStart = source.lastIndexOf("\n", start - 1) + 1;
+  const nextBreak = source.indexOf("\n", Math.max(start, end));
+  const lineEnd = nextBreak === -1 ? source.length : nextBreak;
+  const touchedLines = source.slice(lineStart, lineEnd);
+  return containsMarkdownCodeOrLinkSyntax(touchedLines)
+    || touchedLines.split("\n").some((line) => /^(?: {4}|\t)/.test(line))
+    || fenceOpenAt(source, lineStart);
 }
 
 export function replacementWordAllowance(initialWords) {
@@ -368,7 +395,8 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     const changesMeasuredPunctuation = edit.measurement_ids.some((id) =>
       ["round-parenthetical-spans", "em-dashes", "en-dashes"].includes(id));
     if (changesMeasuredPunctuation
-      && containsMarkdownCodeOrLinkSyntax(`${edit.before}\n${edit.after}`)) {
+      && (containsMarkdownCodeOrLinkSyntax(`${edit.before}\n${edit.after}`)
+        || sourceSpanTouchesMarkdownCodeOrLink(sourceText, edit.start, edit.end))) {
       errors.push(`patch.edits[${index}] cannot alter measured punctuation inside Markdown code or links`);
     }
     if (!measurementEditEquivalent(edit.before, edit.after, edit.measurement_ids)) {

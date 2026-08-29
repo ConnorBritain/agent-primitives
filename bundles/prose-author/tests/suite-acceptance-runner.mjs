@@ -299,9 +299,25 @@ export async function run(t, { HERE }) {
       label: "a Markdown reference-link label", before: "[Policy][ref?] explains the rule.", after: "[Policy][ref–?] explains the rule.",
     }, {
       label: "a Markdown autolink destination", before: "<https://example.com/policy?> explains the rule.", after: "<https://example.com/policy–?> explains the rule.",
+    }, {
+      label: "a narrow Markdown reference-label anchor", source: "[Policy][ref?] explains the rule.", before: "ref?", after: "ref–?",
+    }, {
+      label: "a narrow inline-link destination anchor", source: "[Policy](https://example.com/ref?) explains the rule.", before: "ref?", after: "ref–?",
+    }, {
+      label: "a narrow autolink destination anchor", source: "<https://example.com/ref?> explains the rule.", before: "ref?", after: "ref–?",
+    }, {
+      label: "a narrow email-autolink anchor", source: "Contact <user@example.com> for the rule.", before: "example.com", after: "example–.com",
+    }, {
+      label: "a narrow inline-code anchor", source: "Use `alpha?` as the token.", before: "alpha?", after: "alpha–?",
+    }, {
+      label: "a narrow bracketed-text anchor", source: "Use [alpha?] as the label.", before: "alpha?", after: "alpha–?",
+    }, {
+      label: "a narrow fenced-code anchor", source: "~~~text\nalpha?\n~~~", before: "alpha?", after: "alpha–?",
+    }, {
+      label: "a narrow indented-code anchor", source: "    alpha?", before: "alpha?", after: "alpha–?",
     }]) {
       const structuralAttack = applyDraftConformancePatch({
-        ...initialSource, draft: attack.before,
+        ...initialSource, draft: attack.source ?? attack.before,
       }, {
         ...conformingPatch,
         edits: [{ ...conformingPatch.edits[0], before: attack.before, after: attack.after }],
