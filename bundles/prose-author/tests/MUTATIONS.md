@@ -50,7 +50,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let unrelated edits borrow a failing measurement id | 1 | every exact edit must independently move one named failing measurement toward its range |
 | let measured punctuation edits rewrite unrelated semantics | 10 | a bounded measured correction cannot reverse the request stance or rewrite qualitative content |
 | let an edit hide a collateral measurement delta | 1 | every actual per-edit measurement change is named before coverage dimensions are derived |
-| reject contractions licensed by an explicit source auxiliary | 4 | an explicit had, would, is, or has source can be contracted without lexical guesswork |
+| reject contractions licensed by an explicit source auxiliary | 5 | an explicit had, would, is, or has source can be contracted without lexical guesswork |
 | expand an ambiguous source contraction by convenient symmetry | 2 | an ambiguous source contraction cannot choose whichever expansion makes a patch pass |
 | expand ain't as the malformed phrase ai not | 1 | an unresolved negative contraction fails closed instead of inventing a stem |
 | collapse structural whitespace around measured punctuation | 1 | tabs and repeated spaces remain structural evidence rather than punctuation trivia |
@@ -64,6 +64,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let structured conformance confuse observations with measurements | 1 | strict decoding cannot put profile observation IDs into the measurement namespace |
 | count required contraction spelling as lost content | 1 | the minimum required meaning-equivalent contraction correction is content-length neutral |
 | use net whitespace delta as the contraction-change count | 3 | zero-word and opposing form changes cannot hide behind a small net whitespace delta |
+| treat coupled contraction counters as independent distances | 2 | same-direction contraction and uncontracted-negative failures use the true coupled transition minimum |
 | enforce contraction minimality only when length changes | 2 | zero-net extra contraction changes fail independently of target-distance movement |
 | let a coupled correction cross one row's nearest boundary | 1 | every initially failing contraction row stops at its nearest permitted count |
 | treat two contracted aliases as the same preserved surface | 1 | an apostrophe glyph rewrite or malformed contracted alias cannot hitchhike at zero cost |
