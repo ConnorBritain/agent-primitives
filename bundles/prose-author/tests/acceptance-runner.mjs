@@ -126,27 +126,50 @@ function positiveInt(value, name) {
   return n;
 }
 
+const HARNESS_ALIASES = new Map([
+  ["claude", "claude-code"], ["claude-code", "claude-code"], ["codex", "codex"],
+]);
+export const HARNESS_CAPABILITIES = Object.freeze({
+  "claude-code": Object.freeze({
+    native_structured: true, json_fence: true, clean_context: true,
+    no_tools: true, immutable_failure: true,
+  }),
+  codex: Object.freeze({
+    native_structured: true, json_fence: false, clean_context: true,
+    no_tools: true, immutable_failure: true, raw_event_audit: true,
+  }),
+});
+
+function configuredHarness(value, name) {
+  const harness = HARNESS_ALIASES.get(value);
+  if (!harness) throw new Error(`${name} must be claude, claude-code, or codex`);
+  return harness;
+}
+
 function prepareConfig(env = process.env) {
-  const model = env.ACCEPTANCE_MODEL || "sonnet";
-  const draftHarness = env.ACCEPTANCE_DRAFT_HARNESS || "codex";
-  if (!["claude", "codex"].includes(draftHarness)) {
-    throw new Error("ACCEPTANCE_DRAFT_HARNESS must be claude or codex");
-  }
+  const sharedHarness = env.ACCEPTANCE_HARNESS || "codex";
+  const sharedEffort = env.ACCEPTANCE_EFFORT || "medium";
+  const claudeModel = env.ACCEPTANCE_MODEL || "sonnet";
+  const codexModel = env.ACCEPTANCE_CODEX_MODEL || "gpt-5.6-luna";
+  const stage = (id, { effort = sharedEffort } = {}) => {
+    const prefix = `ACCEPTANCE_${id.toUpperCase()}`;
+    const harness = configuredHarness(env[`${prefix}_HARNESS`] || sharedHarness, `${prefix}_HARNESS`);
+    const model = env[`${prefix}_MODEL`] || (harness === "codex" ? codexModel : claudeModel);
+    const transport = env[`${prefix}_NATIVE_SCHEMA`] === "0" ? "json-fence" : "native-structured";
+    if (harness === "codex" && transport !== "native-structured") {
+      throw new Error(`${prefix}_NATIVE_SCHEMA cannot be 0 for Codex`);
+    }
+    return { harness, model, effort: env[`${prefix}_EFFORT`] || effort, transport };
+  };
   return {
-    model,
-    draftHarness,
-    draftModel: env.ACCEPTANCE_DRAFT_MODEL
-      || (draftHarness === "codex" ? "gpt-5.6-luna" : model),
-    draftEffort: env.ACCEPTANCE_DRAFT_EFFORT || env.ACCEPTANCE_EFFORT || "medium",
-    claimAuditEffort: env.ACCEPTANCE_CLAIM_AUDIT_EFFORT || "low",
-    criticEffort: env.ACCEPTANCE_CRITIC_EFFORT || env.ACCEPTANCE_EFFORT || "medium",
-    profileEffort: env.ACCEPTANCE_PROFILE_EFFORT || "low",
+    stages: {
+      profile: stage("profile", { effort: "low" }),
+      draft: stage("draft"),
+      claim_audit: stage("claim_audit", { effort: "low" }),
+      critic: stage("critic"),
+    },
     concurrency: positiveInt(env.ACCEPTANCE_CONCURRENCY || "1", "ACCEPTANCE_CONCURRENCY"),
     timeoutMs: positiveInt(env.ACCEPTANCE_MODEL_TIMEOUT_MS || "720000", "ACCEPTANCE_MODEL_TIMEOUT_MS"),
-    profileNative: env.ACCEPTANCE_PROFILE_NATIVE_SCHEMA !== "0",
-    draftNative: env.ACCEPTANCE_DRAFT_NATIVE_SCHEMA !== "0",
-    claimAuditNative: env.ACCEPTANCE_CLAIM_AUDIT_NATIVE_SCHEMA !== "0",
-    criticNative: env.ACCEPTANCE_CRITIC_NATIVE_SCHEMA !== "0",
   };
 }
 
@@ -163,14 +186,22 @@ function manifestDispatch(manifest, stage) {
   if (!config || typeof config !== "object" || Array.isArray(config)) {
     throw new Error(`manifest has no locked ${stage} dispatch configuration`);
   }
-  const harnesses = stage === "draft" ? ["claude-code", "codex"] : ["claude-code"];
-  if (!harnesses.includes(config.harness)) throw new Error(`manifest ${stage} harness is invalid`);
+  const capabilities = HARNESS_CAPABILITIES[config.harness];
+  if (!capabilities) {
+    throw new Error(`manifest ${stage} harness is invalid`);
+  }
   if (typeof config.model !== "string" || !config.model.trim()) throw new Error(`manifest ${stage} model is invalid`);
   if (typeof config.effort !== "string" || !config.effort.trim()) throw new Error(`manifest ${stage} effort is invalid`);
   if (!TRANSPORTS.has(config.transport)) throw new Error(`manifest ${stage} transport is invalid`);
   if (!Number.isInteger(config.timeout_ms) || config.timeout_ms < 1) throw new Error(`manifest ${stage} timeout is invalid`);
-  if (config.harness === "codex" && config.transport !== "native-structured") {
-    throw new Error(`manifest ${stage} Codex dispatch requires native-structured transport`);
+  if (config.transport === "native-structured" && !capabilities.native_structured) {
+    throw new Error(`manifest ${stage} harness cannot enforce native-structured transport`);
+  }
+  if (config.transport === "json-fence" && !capabilities.json_fence) {
+    throw new Error(`manifest ${stage} harness cannot enforce json-fence transport`);
+  }
+  if (!capabilities.clean_context || !capabilities.no_tools || !capabilities.immutable_failure) {
+    throw new Error(`manifest ${stage} harness lacks required acceptance capabilities`);
   }
   return {
     stage,
@@ -182,6 +213,13 @@ function manifestDispatch(manifest, stage) {
     concurrency: manifest.concurrency,
     manifest_sha256: manifestFingerprint(manifest),
   };
+}
+
+function modelAdapterName(dispatch) {
+  if (!STAGES.includes(dispatch?.stage)) throw new Error(`unknown adapter stage ${dispatch?.stage}`);
+  if (dispatch.harness === "codex") return "codex";
+  if (dispatch.harness === "claude-code") return "claude-code";
+  throw new Error(`no adapter for locked harness ${dispatch?.harness}`);
 }
 
 function resultDispatch(config) {
@@ -207,6 +245,13 @@ function invocationInput(system, prompt, {
   };
   if (prerequisites) input.prerequisites = prerequisites;
   return input;
+}
+
+function schemaInvocation(dispatch, pinned) {
+  if (!pinned?.schema || !pinned?.path) throw new Error(`${dispatch.stage} has no pinned invocation schema`);
+  return dispatch.harness === "codex"
+    ? { schemaPath: pinned.path }
+    : { schema: dispatch.transport === "native-structured" ? pinned.schema : null };
 }
 
 function die(message, code = 1) {
@@ -533,9 +578,12 @@ function prepare(runDir) {
   write(draftSchemaPath, DRAFT_SOURCE_SCHEMA);
   const claimAuditSchemaPath = join(runDir, "schemas", "voice-draft-claim-audit-3.json");
   write(claimAuditSchemaPath, DRAFT_AUDIT_SCHEMA);
+  const criticSchemaPath = join(runDir, "schemas", "voice-critic-source-1.json");
+  write(criticSchemaPath, CRITIC_SOURCE_SCHEMA);
 
   const corpusEntries = {};
   const currencyLocks = {};
+  const profileSchemaEntries = {};
   for (const profile of cases.profiles) {
     const source = sourceProfile(profile);
     const lock = corpusLock(source, { agentPath: join(REPO, AGENTS.profile) });
@@ -555,6 +603,11 @@ function prepare(runDir) {
     }
     const measurements = measureProfile(source);
     write(join(staged, "measurements.json"), measurements);
+    const profileSchemaPath = join(runDir, "schemas", `voice-profile-source-3-${profile.id}.json`);
+    write(profileSchemaPath, sourceRenderSchema(measurements));
+    profileSchemaEntries[profile.id] = {
+      path: rel(profileSchemaPath), sha256: SHA(text(profileSchemaPath)),
+    };
     corpusEntries[profile.id] = {
       fixture: profile.fixture,
       source: rel(source),
@@ -576,38 +629,21 @@ function prepare(runDir) {
     prepared: today(),
     prepared_commit: preparedCommit,
     claim_pipeline: CLAIM_PIPELINE,
-    dispatch: {
-      profile: {
-        harness: "claude-code", model: config.model, effort: config.profileEffort,
-        transport: config.profileNative ? "native-structured" : "json-fence",
-        timeout_ms: config.timeoutMs,
-      },
-      draft: {
-        harness: config.draftHarness === "codex" ? "codex" : "claude-code",
-        model: config.draftModel, effort: config.draftEffort,
-        transport: config.draftNative ? "native-structured" : "json-fence",
-        timeout_ms: config.timeoutMs,
-      },
-      claim_audit: {
-        harness: "claude-code", model: config.model, effort: config.claimAuditEffort,
-        transport: config.claimAuditNative ? "native-structured" : "json-fence",
-        timeout_ms: config.timeoutMs,
-      },
-      critic: {
-        harness: "claude-code", model: config.model, effort: config.criticEffort,
-        transport: config.criticNative ? "native-structured" : "json-fence",
-        timeout_ms: config.timeoutMs,
-      },
-    },
+    dispatch: Object.fromEntries(STAGES.map((stage) => [stage, {
+      ...config.stages[stage], timeout_ms: config.timeoutMs,
+    }])),
     concurrency: config.concurrency,
-    codex_no_tools_config: config.draftHarness === "codex" ? CODEX_NO_TOOLS_CONFIG : [],
+    codex_no_tools_config: Object.values(config.stages).some((stage) => stage.harness === "codex")
+      ? CODEX_NO_TOOLS_CONFIG : [],
     schemas: {
+      profile: profileSchemaEntries,
       draft: { path: rel(draftSchemaPath), sha256: SHA(text(draftSchemaPath)) },
       claim_audit: {
         id: DRAFT_AUDIT_SCHEMA_ID,
         path: rel(claimAuditSchemaPath),
         sha256: SHA(text(claimAuditSchemaPath)),
       },
+      critic: { path: rel(criticSchemaPath), sha256: SHA(text(criticSchemaPath)) },
     },
     draws_per_draft: 3,
     design_sha256: SHA(text(p.design)),
@@ -645,8 +681,16 @@ function loadPrepared(runDir) {
   }
   try {
     manifestClaimAuditSchema(manifest);
+    manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
+    manifestStageSchema(manifest, "critic", CRITIC_SOURCE_SCHEMA);
+    for (const profile of cases.profiles) {
+      manifestStageSchema(
+        manifest, "profile", sourceRenderSchema(manifest.corpora[profile.id].measurements),
+        { profileId: profile.id },
+      );
+    }
   } catch (error) {
-    die(`MANIFEST.json claim-audit schema is invalid: ${error.message}`);
+    die(`MANIFEST.json stage schema is invalid: ${error.message}`);
   }
   if (!Number.isInteger(manifest.concurrency) || manifest.concurrency < 1) {
     die("MANIFEST.json has invalid locked concurrency");
@@ -750,25 +794,44 @@ async function claude({
     let stdout = "";
     let stderr = "";
     let timedOut = false;
+    let settled = false;
+    const fail = (message) => {
+      if (settled) return;
+      settled = true;
+      const stdoutPath = output.replace(/\.json$/, ".claude-stdout.txt");
+      const stderrPath = output.replace(/\.json$/, ".claude-stderr.txt");
+      write(stdoutPath, stdout);
+      write(stderrPath, stderr);
+      write(output, {
+        type: "result", is_error: true, harness: "claude-code", result: "",
+        structured_output: null, error: message,
+        raw_stdout: rel(stdoutPath), raw_stdout_sha256: SHA(stdout),
+        raw_stderr: rel(stderrPath), raw_stderr_sha256: SHA(stderr),
+        acceptance_dispatch: resultDispatch(dispatch), acceptance_input: input,
+      });
+      reject(new Error(message));
+    };
     const timeout = setTimeout(() => {
       timedOut = true;
       child.kill("SIGTERM");
     }, dispatch.timeout_ms);
     child.stdout.on("data", (chunk) => { stdout += chunk; });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
-    child.on("error", (error) => { clearTimeout(timeout); reject(error); });
+    child.on("error", (error) => { clearTimeout(timeout); fail(error.message); });
     child.on("close", (code) => {
+      if (settled) return;
       clearTimeout(timeout);
-      if (timedOut) return reject(new Error(`claude exceeded ${dispatch.timeout_ms}ms; no redraw was made`));
-      if (code !== 0) return reject(new Error(`claude exited ${code}: ${stderr.slice(0, 2000)}`));
+      if (timedOut) return fail(`claude exceeded ${dispatch.timeout_ms}ms; no redraw was made`);
+      if (code !== 0) return fail(`claude exited ${code}: ${stderr.slice(0, 2000)}`);
       let record;
-      try { record = JSON.parse(stdout); } catch { return reject(new Error(`claude emitted invalid JSON: ${stdout.slice(0, 500)}`)); }
+      try { record = JSON.parse(stdout); } catch { return fail(`claude emitted invalid JSON: ${stdout.slice(0, 500)}`); }
       const hasText = typeof record.result === "string" && record.result.trim();
       const hasStructured = record.structured_output !== null
         && typeof record.structured_output === "object";
       if (record.type !== "result" || record.is_error || (!hasText && !hasStructured)) {
-        return reject(new Error(`claude emitted no successful result: ${stdout.slice(0, 1000)}`));
+        return fail(`claude emitted no successful result: ${stdout.slice(0, 1000)}`);
       }
+      settled = true;
       write(output, { ...record, acceptance_dispatch: resultDispatch(dispatch), acceptance_input: input });
       resolvePromise({ skipped: false, output });
     });
@@ -876,8 +939,10 @@ function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, inpu
   return { skipped: false, recovered: preserveFailure, output };
 }
 
-async function codex({ system, prompt, output, schemaPath, noToolsConfig, dispatch }) {
-  const input = invocationInput(system, prompt, { schemaPath });
+async function codex({
+  system, prompt, output, schemaPath, noToolsConfig, prerequisites = null, dispatch,
+}) {
+  const input = invocationInput(system, prompt, { schemaPath, prerequisites });
   if (dispatch.harness !== "codex") throw new Error("Codex adapter received a non-Codex dispatch");
   const eventsOutput = codexCompanion(output, "events.jsonl");
   const finalOutput = codexCompanion(output, "output.json");
@@ -903,7 +968,7 @@ async function codex({ system, prompt, output, schemaPath, noToolsConfig, dispat
   if (existsSync(eventsOutput) || existsSync(finalOutput)) {
     die(`${rel(eventsOutput)} or its final output already exists without a successful record; do not redraw it`);
   }
-  const isolationDir = mkdtempSync(join(tmpdir(), "prose-author-codex-draft-"));
+  const isolationDir = mkdtempSync(join(tmpdir(), `prose-author-codex-${dispatch.stage}-`));
   const args = [
     "exec", "--json", "--ephemeral", "--ignore-user-config", "--ignore-rules",
     "--skip-git-repo-check", "-C", isolationDir, "-s", "read-only", "-m", dispatch.model,
@@ -963,6 +1028,28 @@ async function codex({ system, prompt, output, schemaPath, noToolsConfig, dispat
   });
 }
 
+async function dispatchModel({
+  dispatch, system, prompt, cwd, output, schema, schemaPath, noToolsConfig,
+  prerequisites = null,
+}) {
+  const adapter = modelAdapterName(dispatch);
+  if (adapter === "codex") {
+    if (dispatch.transport !== "native-structured" || !schemaPath) {
+      throw new Error(`${dispatch.stage} Codex dispatch requires a pinned native schema path`);
+    }
+    return codex({
+      system, prompt, output, schemaPath, noToolsConfig, prerequisites, dispatch,
+    });
+  }
+  if (adapter === "claude-code") {
+    return claude({
+      system, prompt, cwd, output, tools: "", allowed: [], prerequisites, dispatch,
+      schema: dispatch.transport === "native-structured" ? schema : null,
+    });
+  }
+  throw new Error(`adapter ${adapter} is declared but not implemented`);
+}
+
 async function pool(label, jobs, concurrency) {
   let next = 0;
   let failed = null;
@@ -995,13 +1082,16 @@ async function dispatchProfiles(runDir) {
       const render = i + 1;
       const cwd = resolve(REPO, manifest.corpora[profile.id].staged);
       const promptPath = join(runDir, "prompts", "profiles", `${profile.id}-r${render}.md`);
+      const pinnedSchema = manifestStageSchema(
+        manifest, "profile", sourceRenderSchema(manifest.corpora[profile.id].measurements),
+        { profileId: profile.id },
+      );
       return {
         id: `${profile.id}-r${render}`,
-        run: () => claude({
-          system, cwd, prompt: text(promptPath), tools: "", allowed: [],
-          dispatch,
-          schema: dispatch.transport === "native-structured"
-            ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null,
+        run: () => dispatchModel({
+          system, cwd, prompt: text(promptPath), dispatch,
+          schema: pinnedSchema.schema, schemaPath: pinnedSchema.path,
+          noToolsConfig: manifest.codex_no_tools_config,
           output: join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`),
         }),
       };
@@ -1143,21 +1233,27 @@ function claimAuditContract(manifest) {
   throw new Error(`unknown claim pipeline ${manifest?.claim_pipeline ?? "(missing)"}`);
 }
 
-function manifestClaimAuditSchema(manifest) {
-  const contract = claimAuditContract(manifest);
-  const entry = manifest?.schemas?.claim_audit;
-  if (!entry || entry.id !== contract.id || typeof entry.path !== "string") {
-    throw new Error(`claim pipeline ${manifest?.claim_pipeline} has no pinned ${contract.id} schema`);
+function manifestStageSchema(manifest, stage, expected, { profileId = null, id = null } = {}) {
+  const entry = stage === "profile"
+    ? manifest?.schemas?.profile?.[profileId]
+    : manifest?.schemas?.[stage];
+  if (!entry || typeof entry.path !== "string" || (id !== null && entry.id !== id)) {
+    throw new Error(`${stage}${profileId ? ` ${profileId}` : ""} has no pinned schema`);
   }
   const path = resolve(REPO, entry.path);
   if (!existsSync(path) || SHA(text(path)) !== entry.sha256) {
-    throw new Error(`locked ${contract.id} schema is missing or drifted`);
+    throw new Error(`locked ${stage}${profileId ? ` ${profileId}` : ""} schema is missing or drifted`);
   }
   const schema = json(path);
-  if (JSON.stringify(schema) !== JSON.stringify(contract.schema)) {
-    throw new Error(`locked ${contract.id} schema bytes do not match the pipeline contract`);
+  if (JSON.stringify(schema) !== JSON.stringify(expected)) {
+    throw new Error(`locked ${stage}${profileId ? ` ${profileId}` : ""} schema bytes do not match the contract`);
   }
-  return schema;
+  return { schema, path };
+}
+
+function manifestClaimAuditSchema(manifest) {
+  const contract = claimAuditContract(manifest);
+  return manifestStageSchema(manifest, "claim_audit", contract.schema, { id: contract.id }).schema;
 }
 
 function claimAuditPrompt(c, source) {
@@ -1211,19 +1307,11 @@ async function dispatchDrafts(runDir) {
       id: c.id,
       run: () => {
         const output = join(runDir, "raw", c.refusal ? "refusals" : "drafts", `${c.id}.json`);
-        if (dispatch.harness === "codex") {
-          return codex({
-            system, prompt, output,
-            dispatch,
-            schemaPath: resolve(REPO, manifest.schemas.draft.path),
-            noToolsConfig: manifest.codex_no_tools_config,
-          });
-        }
-        return claude({
-          system, cwd: runDir, prompt, tools: "", allowed: [],
-          dispatch,
-          schema: dispatch.transport === "native-structured" ? DRAFT_SOURCE_SCHEMA : null,
-          output,
+        const pinnedSchema = manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
+        return dispatchModel({
+          system, cwd: runDir, prompt, output, dispatch,
+          schema: pinnedSchema.schema, schemaPath: pinnedSchema.path,
+          noToolsConfig: manifest.codex_no_tools_config,
         });
       },
     };
@@ -1239,6 +1327,9 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
   }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const auditSchema = manifestClaimAuditSchema(manifest);
+  const auditSchemaPath = manifestStageSchema(
+    manifest, "claim_audit", auditSchema, { id: DRAFT_AUDIT_SCHEMA_ID },
+  ).path;
   const draftDispatch = manifestDispatch(manifest, "draft");
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
   const sources = new Map();
@@ -1262,10 +1353,10 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
     const prompt = stagePrompt(promptPath, claimAuditPrompt(c, normalized.source));
     auditJobs.push({
       id: c.id,
-      run: () => claude({
-        system: auditSystem, cwd: runDir, prompt, tools: "", allowed: [],
-        dispatch: auditDispatch,
-        schema: auditDispatch.transport === "native-structured" ? auditSchema : null,
+      run: () => dispatchModel({
+        system: auditSystem, cwd: runDir, prompt, dispatch: auditDispatch,
+        schema: auditSchema, schemaPath: auditSchemaPath,
+        noToolsConfig: manifest.codex_no_tools_config,
         output: join(runDir, "raw", "claim-audits", `${c.id}.json`),
       }),
     });
@@ -2004,6 +2095,7 @@ async function dispatchCritics(runDir) {
     claims_audit_commit: auditAnchor.commit,
   };
   const system = resolve(REPO, manifest.agents.critic.snapshot);
+  const criticSchema = manifestStageSchema(manifest, "critic", CRITIC_SOURCE_SCHEMA);
   const jobs = [];
   for (const c of cases.cases) {
     const inputDir = join(runDir, "critics", "inputs", c.id);
@@ -2022,11 +2114,10 @@ async function dispatchCritics(runDir) {
       const prompt = stagePrompt(promptPath, criticPrompt(c.id, corpus, text(join(inputDir, "draft.txt"))));
       jobs.push({
         id: `${c.id}-d${draw}`,
-        run: () => claude({
-          system, cwd: inputDir, prompt, tools: "", allowed: [],
-          dispatch,
-          schema: dispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null,
-          prerequisites,
+        run: () => dispatchModel({
+          system, cwd: inputDir, prompt, dispatch,
+          schema: criticSchema.schema, schemaPath: criticSchema.path,
+          noToolsConfig: manifest.codex_no_tools_config, prerequisites,
           output: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`),
         }),
       });
@@ -2323,48 +2414,44 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   const profileDispatch = manifestDispatch(manifest, "profile");
   const profileSystem = resolve(REPO, manifest.agents.profile.snapshot);
   for (const profile of cases.profiles) {
+    const profileSchema = manifestStageSchema(
+      manifest, "profile", sourceRenderSchema(manifest.corpora[profile.id].measurements),
+      { profileId: profile.id },
+    );
     for (let render = 1; render <= profile.renders; render += 1) {
       const promptPath = join(runDir, "prompts", "profiles", `${profile.id}-r${render}.md`);
       expected.push({
         path: join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`),
         dispatch: profileDispatch,
-        input: invocationInput(profileSystem, text(promptPath), {
-          schema: profileDispatch.transport === "native-structured"
-            ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null,
-        }),
+        input: invocationInput(profileSystem, text(promptPath), schemaInvocation(profileDispatch, profileSchema)),
       });
     }
   }
   const draftDispatch = manifestDispatch(manifest, "draft");
   const draftSystem = resolve(REPO, manifest.agents.draft.snapshot);
-  const draftSchemaPath = resolve(REPO, manifest.schemas.draft.path);
+  const draftSchema = manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
   for (const c of cases.cases) {
     const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
     expected.push({
       path: join(runDir, "raw", "drafts", `${c.id}.json`), dispatch: draftDispatch,
-      input: invocationInput(draftSystem, text(promptPath), {
-        schemaPath: draftDispatch.harness === "codex" ? draftSchemaPath : null,
-        schema: draftDispatch.harness !== "codex" && draftDispatch.transport === "native-structured"
-          ? DRAFT_SOURCE_SCHEMA : null,
-      }),
+      input: invocationInput(draftSystem, text(promptPath), schemaInvocation(draftDispatch, draftSchema)),
     });
   }
   for (const c of cases.refusals) {
     const promptPath = join(runDir, "prompts", "refusals", `${c.id}.md`);
     expected.push({
       path: join(runDir, "raw", "refusals", `${c.id}.json`), dispatch: draftDispatch,
-      input: invocationInput(draftSystem, text(promptPath), {
-        schemaPath: draftDispatch.harness === "codex" ? draftSchemaPath : null,
-        schema: draftDispatch.harness !== "codex" && draftDispatch.transport === "native-structured"
-          ? DRAFT_SOURCE_SCHEMA : null,
-      }),
+      input: invocationInput(draftSystem, text(promptPath), schemaInvocation(draftDispatch, draftSchema)),
     });
   }
   const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const auditSystem = resolve(REPO, manifest.agents.claim_audit.snapshot);
   let auditSchema;
   try {
-    auditSchema = manifestClaimAuditSchema(manifest);
+    const schema = manifestClaimAuditSchema(manifest);
+    auditSchema = manifestStageSchema(
+      manifest, "claim_audit", schema, { id: DRAFT_AUDIT_SCHEMA_ID },
+    );
   } catch (error) {
     errors.push(error.message);
     auditSchema = null;
@@ -2376,9 +2463,7 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
         const promptPath = join(runDir, "prompts", "claim-audits", `${c.id}.md`);
         expected.push({
           path: join(runDir, "raw", "claim-audits", `${c.id}.json`), dispatch: auditDispatch,
-          input: invocationInput(auditSystem, text(promptPath), {
-            schema: auditDispatch.transport === "native-structured" ? auditSchema : null,
-          }),
+          input: invocationInput(auditSystem, text(promptPath), schemaInvocation(auditDispatch, auditSchema)),
         });
       }
     } catch (error) {
@@ -2387,6 +2472,7 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   }
   const criticDispatch = manifestDispatch(manifest, "critic");
   const criticSystem = resolve(REPO, manifest.agents.critic.snapshot);
+  const criticSchema = manifestStageSchema(manifest, "critic", CRITIC_SOURCE_SCHEMA);
   const auditAnchor = immutableFirstAddAnchor(join(runDir, "CLAIMS-AUDIT.json"));
   if (auditAnchor.error) errors.push(`claims audit is not an immutable pre-critic anchor: ${auditAnchor.error}`);
   const criticPrerequisites = auditAnchor.error ? null : {
@@ -2399,7 +2485,7 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
       expected.push({
         path: join(runDir, "critics", "raw", `${c.id}-d${draw}.json`), dispatch: criticDispatch,
         input: invocationInput(criticSystem, text(promptPath), {
-          schema: criticDispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null,
+          ...schemaInvocation(criticDispatch, criticSchema),
           prerequisites: criticPrerequisites,
         }),
         prerequisiteCommit: auditAnchor.error ? null : auditAnchor.commit,
@@ -2579,15 +2665,22 @@ function check(runDir) {
   } catch (error) {
     errors.push(`staged inputs cannot be verified: ${error.message}`);
   }
-  if (manifestDispatch(manifest, "draft").harness === "codex") {
+  if (STAGES.some((stage) => manifestDispatch(manifest, stage).harness === "codex")) {
     if (JSON.stringify(manifest.codex_no_tools_config) !== JSON.stringify(CODEX_NO_TOOLS_CONFIG)) {
       errors.push("Codex no-tools configuration changed after prepare");
     }
-    const draftSchema = manifest.schemas?.draft;
-    if (!draftSchema || !existsSync(resolve(REPO, draftSchema.path))) {
-      errors.push("locked Codex draft schema is missing");
-    } else if (SHA(text(resolve(REPO, draftSchema.path))) !== draftSchema.sha256) {
-      errors.push("locked Codex draft schema hash mismatch");
+    try {
+      manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
+      manifestStageSchema(manifest, "critic", CRITIC_SOURCE_SCHEMA);
+      manifestClaimAuditSchema(manifest);
+      for (const profile of cases.profiles) {
+        manifestStageSchema(
+          manifest, "profile", sourceRenderSchema(manifest.corpora[profile.id].measurements),
+          { profileId: profile.id },
+        );
+      }
+    } catch (error) {
+      errors.push(`locked Codex stage schema is invalid: ${error.message}`);
     }
   }
   try {
@@ -2685,6 +2778,7 @@ export {
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, factualCandidateReasons, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
-  manifestDispatch, prepareConfig, quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors,
+  manifestDispatch, manifestStageSchema, modelAdapterName, prepareConfig, quotationAudit,
+  resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,
   sentenceReviewTemplate, stagePrompt, strictlyCommittedAfter, structuralGates, validateCases,
 };

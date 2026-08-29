@@ -43,6 +43,10 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let claim repair alter bytes under its hypothetical wrapper | 5 | the only prose edit is one fixed prefix before otherwise byte-identical rejected text |
 | let a hypothetical wrapper keep a nonhypothetical basis | 1 | the fixed wrapper changes epistemic status rather than laundering factual prose |
 | resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
+| route Codex only for drafts instead of every locked stage | 1 | profile, audit, and critic stages use the same manifest-selected adapter contract as drafts |
+| hash committed schemas only for Codex drafts | 1 | profile, audit, and critic provenance hashes the exact schema file Codex received |
+| accept an adapter that cannot enforce the gated runtime boundary | 1 | a new harness cannot claim gated acceptance without clean context, no-tools, and immutable failures |
+| drop the hash of Claude failure output | 1 | a Claude timeout preserves inspectable raw output instead of disappearing before evidence collection |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
 | advertise legacy claim-repair evidence in a current artifact record | 2 | current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash |
 | scan only the top-level artifact record for legacy repair fields | 1 | legacy repair fields are forbidden in every profile, draft, refusal, critic, and evidence record |

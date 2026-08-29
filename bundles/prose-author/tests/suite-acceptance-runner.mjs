@@ -9,11 +9,11 @@ import { dirname, join, relative, resolve } from "node:path";
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt,
-  factualCandidateReasons, invocationInput,
+  factualCandidateReasons, HARNESS_CAPABILITIES, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
-  manifestDispatch, prepareConfig, profileRenderPrompt,
+  manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
   quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt,
-  strictlyCommittedAfter, validateCases,
+  strictlyCommittedAfter, schemaInvocation, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -83,7 +83,8 @@ export async function run(t, { HERE }) {
       /first-person-singular-family -> self-reference-biography; section absences; counted absence/.test(prompt)
         && /Required unresolved dimensions: profanity-vulgarity/.test(prompt));
     t.check("profile dispatch can request native structure without making assembly depend on it",
-      source.includes('dispatch.transport === "native-structured"\n            ? sourceRenderSchema(manifest.corpora[profile.id].measurements) : null')
+      source.includes('manifest, "profile", sourceRenderSchema(manifest.corpora[profile.id].measurements)')
+        && source.includes("run: () => dispatchModel({")
         && source.includes('"--json-schema"')
         && source.includes("assembleVoiceProfile(source"));
   }
@@ -94,7 +95,8 @@ export async function run(t, { HERE }) {
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
       /Return voice-draft-source\/3[\s\S]*Finalize the ledger before the paragraphs[\s\S]*proof-carrying sentence objects[\s\S]*validates request bases and closed-ledger references[\s\S]*derives claims/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",
-      source.includes('dispatch.transport === "native-structured" ? DRAFT_SOURCE_SCHEMA : null')
+      source.includes('manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA)')
+        && source.includes("return dispatchModel({")
         && source.includes("assembleVoiceDraft(decoded.source, { request: c.prompt })")
         && source.includes("parseDraft(assembled.output)"));
   }
@@ -134,6 +136,11 @@ export async function run(t, { HERE }) {
   t.check("completed responses are immutable rather than overwritten",
     /exists but is not a completed successful response; do not redraw it/.test(source)
       && /if \(completedResult\(output, dispatch, input\)\) return \{ skipped: true/.test(source));
+  t.check("every adapter must preserve failed calls as immutable provenance",
+    Object.values(HARNESS_CAPABILITIES).every((capability) => capability.immutable_failure)
+      && /\.claude-stdout\.txt/.test(source) && /raw_stdout_sha256: SHA\(stdout\)/.test(source)
+      && /raw_stderr_sha256: SHA\(stderr\)/.test(source)
+      && /type: "result", is_error: true, harness: "codex"/.test(source));
   t.check("acceptance requires source JSON to parse without transport repair",
     /source required \$\{decoded\.repairs\} transport quote repair/.test(source));
   t.check("a locked native transport cannot silently fall back to fenced text",
@@ -150,11 +157,41 @@ export async function run(t, { HERE }) {
   t.check("clean-context calls exclude user plugins, MCP servers, settings, and Chrome",
     ["--disable-slash-commands", "--strict-mcp-config", "--setting-sources", "--no-chrome"]
       .every((flag) => source.includes(`\"${flag}\"`)));
-  t.check("Codex is the default draft harness with an independently pinned model",
-    prepareConfig({}).draftHarness === "codex"
-      && prepareConfig({}).draftModel === "gpt-5.6-luna"
-      && /harness: config\.draftHarness === "codex" \? "codex" : "claude-code"/.test(source));
-  t.check("Codex draft calls disable every local, network, connector, and collaboration tool class",
+  t.check("Codex is the default for every stage while each stage remains independently selectable",
+    Object.values(prepareConfig({}).stages).every((stage) => stage.harness === "codex"
+      && stage.model === "gpt-5.6-luna")
+      && prepareConfig({ ACCEPTANCE_CRITIC_HARNESS: "claude", ACCEPTANCE_MODEL: "sonnet" })
+        .stages.critic.harness === "claude-code"
+      && /Object\.fromEntries\(STAGES\.map\(\(stage\)/.test(source));
+  t.check("adapter selection is stage-neutral and rejects undeclared harnesses",
+    (() => {
+      try {
+        return ["profile", "draft", "claim_audit", "critic"].every((stage) =>
+          modelAdapterName({ stage, harness: "codex" }) === "codex"
+            && modelAdapterName({ stage, harness: "claude-code" }) === "claude-code");
+      } catch { return false; }
+    })()
+      && (() => {
+        try { modelAdapterName({ stage: "profile", harness: "unknown" }); return false; }
+        catch (error) { return /no adapter/.test(error.message); }
+      })());
+  t.check("schema provenance follows the selected adapter for every stage",
+    ["profile", "draft", "claim_audit", "critic"].every((stage) => {
+      const pinned = { schema: { type: "object" }, path: `/locked/${stage}.json` };
+      const codex = schemaInvocation({ stage, harness: "codex", transport: "native-structured" }, pinned);
+      const claude = schemaInvocation({ stage, harness: "claude-code", transport: "native-structured" }, pinned);
+      return codex.schemaPath === pinned.path && !("schema" in codex)
+        && claude.schema === pinned.schema && !("schemaPath" in claude);
+    }) && schemaInvocation(
+      { stage: "critic", harness: "claude-code", transport: "json-fence" },
+      { schema: { type: "object" }, path: "/locked/critic.json" },
+    ).schema === null);
+  t.check("manifest validation refuses adapters without the full gated capability set",
+    Object.values(HARNESS_CAPABILITIES).every((capability) =>
+      capability.clean_context && capability.no_tools && capability.immutable_failure)
+      && /if \(!capabilities\.clean_context \|\| !capabilities\.no_tools \|\| !capabilities\.immutable_failure\)/.test(source)
+      && /lacks required acceptance capabilities/.test(source));
+  t.check("Codex calls disable every local, network, connector, and collaboration tool class",
     ["features.shell_tool=false", "features.unified_exec=false", "features.apps=false",
       "features.browser_use=false", "features.computer_use=false", "features.multi_agent=false",
       "agents.enabled=false", "features.plugins=false", "features.hooks=false",
@@ -162,7 +199,7 @@ export async function run(t, { HERE }) {
       "tools.view_image=false", "tools.web_search=false", 'web_search="disabled"']
       .every((setting) => CODEX_NO_TOOLS_CONFIG.includes(setting)));
   t.check("Codex runs outside the repository with user config and rules ignored",
-    /mkdtempSync\(join\(tmpdir\(\), "prose-author-codex-draft-"\)\)/.test(source)
+    /mkdtempSync\(join\(tmpdir\(\), `prose-author-codex-\$\{dispatch\.stage\}-`\)\)/.test(source)
       && /"--ignore-user-config", "--ignore-rules"/.test(source)
       && /"-C", isolationDir, "-s", "read-only"/.test(source));
   t.check("Codex event auditing fails closed on any non-language-model item",
@@ -174,39 +211,36 @@ export async function run(t, { HERE }) {
       && /codex no-tools boundary rejected item types/.test(source));
   t.check("Codex raw events, final output, schema, and deny-list are pinned as evidence",
     /raw_events_sha256/.test(source) && /raw_output_sha256/.test(source)
-      && /codex_no_tools_config/.test(source) && /locked Codex draft schema hash mismatch/.test(source));
+      && /codex_no_tools_config/.test(source) && /locked Codex stage schema is invalid/.test(source));
   t.check("Codex output-last-message loss is recovered from the immutable event without a redraw",
     /The JSONL agent_message is the primary raw response/.test(source)
       && /final output file diverges from its immutable event stream/.test(source)
       && /recovered_from/.test(source)
       && /preserveFailure: true/.test(source));
   t.check("the model effort is pinned in the manifest rather than inherited",
-    /model: config\.draftModel, effort: config\.draftEffort/.test(source)
-      && /model: config\.model, effort: config\.criticEffort/.test(source)
-      && /model: config\.model, effort: config\.claimAuditEffort/.test(source)
-      && /model: config\.model, effort: config\.profileEffort/.test(source)
+    /\.\.\.config\.stages\[stage\], timeout_ms: config\.timeoutMs/.test(source)
       && /"--effort", dispatch\.effort/.test(source));
   t.check("acceptance defaults to one model process and native structured profile transport",
-    prepareConfig({}).concurrency === 1 && prepareConfig({}).profileNative
-      && /transport: config\.profileNative \? "native-structured" : "json-fence"/.test(source));
+    prepareConfig({}).concurrency === 1
+      && prepareConfig({}).stages.profile.transport === "native-structured"
+      && /profileSchemaEntries/.test(source));
   t.check("acceptance defaults to native structured draft transport and records it in the manifest",
-    prepareConfig({}).draftNative
-      && /transport: config\.draftNative \? "native-structured" : "json-fence"/.test(source));
+    prepareConfig({}).stages.draft.transport === "native-structured"
+      && /Object\.fromEntries\(STAGES\.map/.test(source));
   t.check("acceptance defaults to a native independent claim-audit transport",
-    prepareConfig({}).claimAuditNative
-      && /transport: config\.claimAuditNative \? "native-structured" : "json-fence"/.test(source)
+    prepareConfig({}).stages.claim_audit.transport === "native-structured"
       && source.includes("claim_pipeline: CLAIM_PIPELINE")
       && source.includes("voice-draft-claim-audit-3.json")
-      && source.includes('auditDispatch.transport === "native-structured" ? auditSchema : null'));
+      && source.includes("schema: auditSchema, schemaPath: auditSchemaPath"));
   t.check("the current manifest exposes no model repair or reaudit stage",
     !source.includes("claimRepairEffort")
       && !source.includes("claimRepairNative")
       && !source.includes('manifestDispatch(manifest, "claim_repair")')
       && !source.includes('manifestDispatch(manifest, "claim_reaudit")'));
   t.check("acceptance defaults to native structured critic transport and validates assembly",
-    prepareConfig({}).criticNative
-      && /transport: config\.criticNative \? "native-structured" : "json-fence"/.test(source)
-      && source.includes('dispatch.transport === "native-structured" ? CRITIC_SOURCE_SCHEMA : null')
+    prepareConfig({}).stages.critic.transport === "native-structured"
+      && source.includes('manifestStageSchema(manifest, "critic", CRITIC_SOURCE_SCHEMA)')
+      && source.includes("schema: criticSchema.schema, schemaPath: criticSchema.path")
       && source.includes("assembleVoiceCritic(decoded.source"));
   t.check("critic dispatch is blocked until the independent claims audit is complete",
     /const claimsAudit = json\(p\.audit\);[\s\S]*const auditFailures = claimsAuditFailures\(\s*claimsAudit, cases, artifacts, runDir[\s\S]*no critic calls were made/.test(source)
