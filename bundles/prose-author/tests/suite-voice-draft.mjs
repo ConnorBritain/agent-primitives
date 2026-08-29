@@ -95,9 +95,9 @@ export async function run(t, { HERE }) {
       t.check("voice-draft: silently dropping any supported instruction requires an omission record",
         /whether its status is `rated`, `described`, or `absent-paired`[\s\S]*put it in `omitted`/.test(prompt));
       t.check("voice-draft: audits each named actor action and consequence independently",
-        /every factual verb attached to it[\s\S]*Inventory each actor-action and actor-consequence[\s\S]*separately in the ledger/.test(src));
+        /every proper name and quotation[\s\S]*every factual verb and consequence attached to it/.test(src));
       t.check("voice-draft: an attributed quotation must be supplied verbatim",
-        /exact quoted words must already appear in[\s\S]*user's request[\s\S]*quotation in the ledger does not make invented wording permissible/.test(src));
+        /attributed quoted words must appear[\s\S]*in the request or in real source material[\s\S]*remove the[\s\S]{0,24}attribution and quotation marks/i.test(src));
       t.check("voice-draft: v2 omissions identify the dimension and every observation",
         /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
       t.check("voice-draft: deterministic target cards own measured arithmetic while described habits stay qualitative",
@@ -160,29 +160,23 @@ export async function run(t, { HERE }) {
       ["first-person grammar does not invent biography",
         /first person is grammar, not biography[\s\S]*never invent an employer/],
       ["unsupported author facts are removed rather than laundered through claims",
-        /request does not supply the fact, remove or recast it[\s\S]*does not license making one up/],
+        /request does not supply the fact, remove or recast it[\s\S]*independent audit will reject invented author biography/],
       ["the request is the factual packet while the profile remains voice evidence",
         /request as the only supplied factual packet[\s\S]*profile is[\s\S]*not a research packet[\s\S]*pretrained memory is not verified evidence/],
       ["materials that cannot be truthfully reconstructed become omissions",
-        /requires an exact quotation, citation, link, figure, or[\s\S]*do not have[\s\S]*record it in `omitted`/],
-      ["every emitted sentence must carry an explicit factual basis",
-        /voice-draft-source\/3[\s\S]*every prose[\s\S]*sentence in exactly one sentence unit[\s\S]*classify every sentence with exactly one basis/],
-      ["the factual claim set closes before prose generation",
-        /claim ledger comes before the prose[\s\S]*before writing the first prose sentence[\s\S]*then close the ledger/],
-      ["external descriptive facts require a verification label",
-        /external factual assertion[\s\S]*classify it as[\s\S]*external-verification[\s\S]*do not mislabel remembered history/],
-      ["request support cannot license an appended predicate through topical overlap",
-        /conservative lexical boundary[\s\S]*four fifths[\s\S]*may not use a shared[\s\S]*request topic to license a new[\s\S]*predicate/],
+        /says this author cites sources, quotes named people, gives exact figures[\s\S]*do not have a real source[\s\S]*leave the habit out[\s\S]*record it/i],
+      ["the expressive pass emits direct prose for later independent certification",
+        /voice-draft-source\/4[\s\S]*finished piece directly in the[\s\S]*`draft` string[\s\S]*segments the immutable prose/],
+      ["ordinary request entailments do not license contingent predicates",
+        /ordinary lexical entailments[\s\S]*does not supply a contingent[\s\S]*industry practice/],
       ["external claims must be finite rather than unverifiable generalizations",
-        /external claim must be finite[\s\S]*authoritative record[\s\S]*entire industry[\s\S]*not made safe by adding them to a queue/],
+        /keep each proposition bounded[\s\S]*named actor's[\s\S]*particular law or case[\s\S]*finite figure/],
       ["argumentative pieces do not acquire decorative external-memory facts",
-        /external memory is for required substance, not rhetorical decoration[\s\S]*argumentative essay[\s\S]*external-verification[\s\S]*must be empty[\s\S]*vividness is not necessity/],
+        /pretrained memory is not verified evidence[\s\S]*rhetorical decoration[\s\S]*argumentative essay[\s\S]*normally needs none/],
       ["named-source voice habits cannot authorize invented topical examples",
-        /never add a real-world example merely to satisfy a profile habit[\s\S]*otherwise record the supported habit in `omitted`/],
+        /frequency tells you how often[\s\S]*never licenses inventing the material[\s\S]*leave the habit out[\s\S]*record it/],
       ["the final pronoun pass checks ownership and inclusive groups",
         /final pronoun and referent check[\s\S]*person, number, ownership, or inclusive group/],
-      ["the final claim inventory catches separate assertions rather than nearby topics",
-        /final closed-ledger audit[\s\S]*sentence by sentence[\s\S]*nearby listed fact does not cover a second assertion/],
       ["the requested form cannot override the profile's lexical register",
         /final register check[\s\S]*requested container[\s\S]*selects form and[\s\S]*does not authorize[\s\S]*abstract nominalizations/],
       ["rated parentheticals are counted rather than remembered",
@@ -280,13 +274,68 @@ export async function run(t, { HERE }) {
 
   t.group("voice-draft portable source — models own prose, deterministic code owns fences");
   {
-    const required = ["schema", "kind", "ledger", "paragraphs", "omitted", "refused"];
+    const required = ["schema", "kind", "draft", "omitted", "refused"];
     t.check("the provider-neutral draft schema requires one fixed shape",
       JSON.stringify([...DRAFT_SOURCE_SCHEMA.required].sort()) === JSON.stringify([...required].sort())
         && DRAFT_SOURCE_SCHEMA.additionalProperties === false
         && DRAFT_SOURCE_SCHEMA.properties.schema.type === "string"
         && DRAFT_SOURCE_SCHEMA.properties.kind.type === "string");
     const request = "A maker can disable features after sale.";
+    const direct = {
+      schema: "voice-draft-source/4", kind: "draft",
+      draft: "A maker can disable features after sale. That leaves ownership hollow.\n\nThe rule should be simple.",
+      omitted: [], refused: "",
+    };
+    t.check("the current semantic source preserves direct Markdown prose",
+      validateVoiceDraftSource(direct, { request }).ok
+        && sentenceRefs(direct).map((row) => row.id).join(",") === "p1s1,p1s2,p2s1");
+    const directAudit = {
+      schema: "voice-draft-claim-audit/4",
+      sentences: sentenceRefs(direct).map((row) => ({
+        id: row.id, status: "keep", reason: "request premise, inference, or normative rule", claims: [],
+      })),
+    };
+    const directApplied = applyVoiceDraftClaimAudit(direct, directAudit, { request });
+    const directOutput = assembleVoiceDraft(direct, { request, auditClaims: directApplied.claims });
+    t.check("current direct prose cannot assemble before its independent audit",
+      !assembleVoiceDraft(direct, { request }).ok);
+    t.check("direct prose is independently sentence-audited before canonical assembly",
+      directApplied.ok && directOutput.ok
+        && directOutput.output.includes("That leaves ownership hollow.\n\nThe rule should be simple."));
+    const factualDirect = { ...direct, draft: "Acme released version 2. The change should be reversible." };
+    const factualAudit = {
+      schema: "voice-draft-claim-audit/4",
+      sentences: [{
+        id: "p1s1", status: "disclose", reason: "Named actor and release are external facts.",
+        claims: [{
+          claim: "Acme released version 2.", kind: "bounded-fact",
+          verification_question: "Did Acme release version 2?",
+        }],
+      }, {
+        id: "p1s2", status: "keep", reason: "Normative recommendation.", claims: [],
+      }],
+    };
+    const factualApplied = applyVoiceDraftClaimAudit(factualDirect, factualAudit, { request });
+    const factualOutput = assembleVoiceDraft(factualDirect, {
+      request, auditClaims: factualApplied.claims,
+    });
+    t.check("the independent audit derives a public claim from direct prose without editing it",
+      factualApplied.ok && factualApplied.source === factualDirect
+        && factualOutput.ok && factualOutput.output.includes('"claim": "Acme released version 2."')
+        && factualOutput.output.includes('"where": "paragraph 1"'));
+    t.check("a hard-failure reject still prevents direct prose assembly",
+      !applyVoiceDraftClaimAudit(factualDirect, {
+        ...factualAudit,
+        sentences: [{ id: "p1s1", status: "reject", reason: "Invented quotation.", claims: [] },
+          factualAudit.sentences[1]],
+      }, { request }).ok);
+    t.check("current source rejects prose fences, draft-plus-refusal, and refusal omissions",
+      !validateVoiceDraftSource({ ...direct, draft: "```markdown\nNo.\n```" }).ok
+        && !validateVoiceDraftSource({ ...direct, refused: "also refuse" }).ok
+        && !validateVoiceDraftSource({ ...direct, kind: "refusal", draft: "", refused: "missing register",
+          omitted: [{ habit: "x", why: "y" }] }).ok);
+
+    // Historical ledger-first source/3 remains readable and fully checked.
     const source = {
       schema: "voice-draft-source/3", kind: "draft",
       ledger: [{
@@ -302,7 +351,7 @@ export async function run(t, { HERE }) {
       ] }],
       omitted: [], refused: "",
     };
-    t.check("a proof-carrying semantic draft validates against its request",
+    t.check("historical proof-carrying source/3 validates against its request",
       validateVoiceDraftSource(source, { request }).ok);
     const plain = assembleVoiceDraft(source, { request });
     t.check("sentence units assemble to prose and a derived public claim record",
@@ -512,20 +561,20 @@ export async function run(t, { HERE }) {
     const refs = sentenceRefs(source);
     const claimAuditInstructions = fsRead(join(HERE, "..", "skills", "prose-draft", "references", "claim-audit.md"), "utf8");
     t.check("the independent auditor distrusts the drafter and catches generic institutional claims",
-      /Sentence basis[\s\S]*ledger references are evidence to inspect, never conclusions to trust/.test(claimAuditInstructions)
-        && /Generic wording does not turn[\s\S]*into reasoning/.test(claimAuditInstructions));
+      /drafter deliberately supplied no factual labels or[\s\S]*semantic certification is your independent job/.test(claimAuditInstructions)
+        && /Generic wording does not turn[\s\S]*into logic/.test(claimAuditInstructions));
     t.check("the independent auditor exposes unsupported propositions without laundering hard failures",
-      /For every `keep`[\s\S]*`reason`[\s\S]*every[\s\S]*clause/.test(claimAuditInstructions)
-        && /status: "disclose"[\s\S]*later human[\s\S]*verify, scope, or remove/.test(claimAuditInstructions)
+      /For every keep row[\s\S]*`reason`[\s\S]*every clause/.test(claimAuditInstructions)
+        && /status: "disclose"[\s\S]*mandatory human audit/.test(claimAuditInstructions)
         && /status: "reject"[\s\S]*fabricated or placeholder citation[\s\S]*invented first-person author biography/.test(claimAuditInstructions));
     t.check("the independent auditor separates semantic judgment from mechanical evidence anchoring",
-      /Do not disclose a metaphor, analogy, tautology, definition, or logical consequence/.test(claimAuditInstructions)
-        && /independently checkable external predicate/.test(claimAuditInstructions)
+      /metaphor, analogy, tautology, or rhetorical label/.test(claimAuditInstructions)
+        && /independently checkable external proposition/.test(claimAuditInstructions)
         && /Do not copy an evidence span[\s\S]*deterministic assembly binds/.test(claimAuditInstructions));
     t.check("the independent auditor accepts ordinary request entailments without laundering contingent facts",
-      /ordinary lexical entailments and role presuppositions/.test(claimAuditInstructions)
+      /ordinary lexical[\s\S]{0,12}entailments and role presuppositions/.test(claimAuditInstructions)
         && /buys or owns a device[\s\S]*buyer[\s\S]*acquired in a sale/.test(claimAuditInstructions)
-        && /Do not extend this rule to a contingent motive, prevalence,[\s\S]*industry practice/.test(claimAuditInstructions));
+        && /Do not extend this rule[\s\S]*contingent motive, prevalence,[\s\S]*industry practice/.test(claimAuditInstructions));
     const audit = {
       schema: "voice-draft-claim-audit/4",
       sentences: refs.map((ref, index) => ({

@@ -2,14 +2,15 @@
 /**
  * Portable semantic boundary for blank-page voice drafting.
  *
- * voice-draft-source/3 is ledger-first and proof-carrying. The model must emit a closed
- * claim ledger before its prose; sentence units can cite only ledger IDs. Deterministic
- * code validates the ledger against the request, rejects unreferenced or dangling claims,
- * derives the public claims list, and owns the canonical voice-draft/1 envelope.
- * Historical source/1 and source/2 artifacts remain readable.
+ * voice-draft-source/4 keeps the expressive pass direct: the model emits prose plus its
+ * omission record, while the independent claim-audit stage inventories every sentence
+ * before the public artifact can be assembled. This keeps factual certification out of
+ * the prose-generation representation without weakening the later closed-world audit.
+ * Historical source/1, source/2, and ledger-first source/3 artifacts remain readable.
  */
 
-export const SOURCE_SCHEMA_ID = "voice-draft-source/3";
+export const SOURCE_SCHEMA_ID = "voice-draft-source/4";
+export const LEDGER_SOURCE_SCHEMA_ID = "voice-draft-source/3";
 export const PREVIOUS_SOURCE_SCHEMA_ID = "voice-draft-source/2";
 export const LEGACY_SOURCE_SCHEMA_ID = "voice-draft-source/1";
 export const DRAFT_SCHEMA_ID = "voice-draft/1";
@@ -60,25 +61,14 @@ export const SOURCE_SCHEMA = {
   properties: {
     schema: { type: "string", const: SOURCE_SCHEMA_ID },
     kind: { type: "string", enum: ["draft", "refusal"] },
-    ledger: { type: "array", maxItems: 50, items: ledgerEntry },
-    paragraphs: {
-      type: "array", maxItems: 50,
-      items: {
-        type: "object",
-        additionalProperties: false,
-        properties: {
-          sentences: { type: "array", minItems: 1, maxItems: 30, items: sentenceUnit },
-        },
-        required: ["sentences"],
-      },
-    },
+    draft: { type: "string" },
     omitted: {
       type: "array", maxItems: 50,
       items: disclosureEntry("habit", "why"),
     },
     refused: { type: "string" },
   },
-  required: ["schema", "kind", "ledger", "paragraphs", "omitted", "refused"],
+  required: ["schema", "kind", "draft", "omitted", "refused"],
 };
 
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
@@ -374,9 +364,52 @@ function validateLedgerSentenceUnits(source, request) {
   return errors;
 }
 
+/** Stable sentence addresses consumed by the independent factual audit. */
+export function sentenceUnits(source) {
+  if (!isObject(source)) return [];
+  if (source.schema === SOURCE_SCHEMA_ID && typeof source.draft === "string") {
+    const blocks = source.draft.trim().split(/\r?\n[ \t]*\r?\n+/).map((block) => block.trim()).filter(Boolean);
+    const segmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+    return blocks.flatMap((block, pIndex) => [...segmenter.segment(block)]
+      .map(({ segment }) => segment.trim()).filter(Boolean)
+      .map((text, sIndex) => ({ id: `p${pIndex + 1}s${sIndex + 1}`, text })));
+  }
+  if ([LEDGER_SOURCE_SCHEMA_ID, PREVIOUS_SOURCE_SCHEMA_ID].includes(source.schema)
+    && Array.isArray(source.paragraphs)) {
+    return source.paragraphs.flatMap((paragraph, pIndex) =>
+      (Array.isArray(paragraph?.sentences) ? paragraph.sentences : []).map((sentence, sIndex) => ({
+        id: `p${pIndex + 1}s${sIndex + 1}`,
+        text: sentence?.text,
+      })));
+  }
+  return [];
+}
+
 /** @returns {{ok: boolean, refusal: boolean, errors: string[]}} */
 export function validateVoiceDraftSource(source, { request = null } = {}) {
   if (!isObject(source)) return { ok: false, refusal: false, errors: ["source is not an object"] };
+  if (source.schema === SOURCE_SCHEMA_ID) {
+    const errors = [];
+    const fields = ["schema", "kind", "draft", "omitted", "refused"];
+    if (!exactKeys(source, fields)) errors.push(`source/4 must carry exactly: ${fields.join(", ")}`);
+    if (!['draft', 'refusal'].includes(source.kind)) errors.push("source.kind must be draft or refusal");
+    if (typeof source.draft !== "string") errors.push("source.draft must be a string");
+    if (typeof source.refused !== "string") errors.push("source.refused must be a string");
+    errors.push(...disclosureErrors(source.omitted, "omitted", ["habit", "why"]));
+    const refusal = source.kind === "refusal";
+    if (source.kind === "draft") {
+      if (!isText(source.draft)) errors.push("a draft source needs non-empty draft prose");
+      if (/```/.test(String(source.draft ?? ""))) errors.push("a draft source cannot carry output fences inside its prose");
+      if (String(source.draft ?? "").length > 100000) errors.push("a draft source may contain at most 100000 characters");
+      if (sentenceUnits(source).length > 500) errors.push("a draft source may contain at most 500 sentence units");
+      if (String(source.refused ?? "").length !== 0) errors.push("a draft source cannot carry a refusal reason");
+    } else if (refusal) {
+      if (!isText(source.refused)) errors.push("a refusal source needs a non-empty reason");
+      if (String(source.draft ?? "").length !== 0) errors.push("a refusal source cannot carry draft prose");
+      if (Array.isArray(source.omitted) && source.omitted.length) errors.push("a refusal source cannot carry omissions");
+    }
+    return { ok: errors.length === 0, refusal, errors };
+  }
   if (source.schema === LEGACY_SOURCE_SCHEMA_ID) return validateLegacy(source);
   if (source.schema === PREVIOUS_SOURCE_SCHEMA_ID) {
     const errors = [];
@@ -403,7 +436,9 @@ export function validateVoiceDraftSource(source, { request = null } = {}) {
   else if (JSON.stringify(Object.keys(source)) !== JSON.stringify(fields)) {
     errors.push("source/3 keys must place the closed ledger before paragraphs");
   }
-  if (source.schema !== SOURCE_SCHEMA_ID) errors.push(`source.schema must be ${SOURCE_SCHEMA_ID}`);
+  if (source.schema !== LEDGER_SOURCE_SCHEMA_ID) {
+    errors.push(`source.schema must be ${SOURCE_SCHEMA_ID} or a readable historical schema`);
+  }
   if (!['draft', 'refusal'].includes(source.kind)) errors.push("source.kind must be draft or refusal");
   if (typeof source.refused !== "string") errors.push("source.refused must be a string");
   errors.push(...disclosureErrors(source.omitted, "omitted", ["habit", "why"]));
@@ -434,7 +469,7 @@ export function normalizeVoiceDraftSource(source, { request = null } = {}) {
   if (initial.ok || initial.refusal) {
     return { ok: initial.ok, refusal: initial.refusal, changed: false, errors: initial.errors, source };
   }
-  if (source?.schema !== SOURCE_SCHEMA_ID || !Array.isArray(source.ledger)
+  if (source?.schema !== LEDGER_SOURCE_SCHEMA_ID || !Array.isArray(source.ledger)
     || !Array.isArray(source.paragraphs)) {
     return { ok: false, refusal: false, changed: false, errors: initial.errors, source: null };
   }
@@ -466,6 +501,9 @@ function jsonFence(value) {
 }
 
 function materialize(source) {
+  if (source.schema === SOURCE_SCHEMA_ID) {
+    return { draft: source.draft.trim(), claims: [] };
+  }
   if (source.schema === LEGACY_SOURCE_SCHEMA_ID) {
     return { draft: source.draft.trim(), claims: source.claims };
   }
@@ -493,11 +531,10 @@ function auditClaimErrors(source, claims) {
   if (!Array.isArray(claims)) return ["auditClaims must be an array"];
   if (claims.length > 50) errors.push("auditClaims may contain at most 50 entries");
   const sentences = new Map();
-  if (source?.schema === SOURCE_SCHEMA_ID) {
-    for (const [pIndex, paragraph] of source.paragraphs.entries()) {
-      for (const [sIndex, sentence] of paragraph.sentences.entries()) {
-        sentences.set(`p${pIndex + 1}s${sIndex + 1}`, { text: sentence.text, where: `paragraph ${pIndex + 1}` });
-      }
+  if ([SOURCE_SCHEMA_ID, LEDGER_SOURCE_SCHEMA_ID].includes(source?.schema)) {
+    for (const sentence of sentenceUnits(source)) {
+      const paragraph = /^p([1-9][0-9]*)s/.exec(sentence.id)?.[1];
+      sentences.set(sentence.id, { text: sentence.text, where: `paragraph ${paragraph}` });
     }
   }
   const seen = new Set();
@@ -530,6 +567,14 @@ function auditClaimErrors(source, claims) {
 export function assembleVoiceDraft(source, context = {}) {
   const validation = validateVoiceDraftSource(source, context);
   if (!validation.ok) return { ...validation, output: null };
+  if (!validation.refusal && source.schema === SOURCE_SCHEMA_ID
+    && !Object.hasOwn(context, "auditClaims")) {
+    return {
+      ok: false, refusal: false,
+      errors: ["voice-draft-source/4 requires a completed independent claim audit before assembly"],
+      output: null,
+    };
+  }
   const auditClaims = context.auditClaims ?? [];
   const auditErrors = auditClaimErrors(source, auditClaims);
   if (auditErrors.length) return { ok: false, refusal: validation.refusal, errors: auditErrors, output: null };

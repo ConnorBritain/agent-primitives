@@ -2,8 +2,8 @@
 /**
  * Provider-neutral voice draft assembly CLI.
  *
- *   node draft-assemble.mjs --source source.json --request request.txt
- *   node draft-assemble.mjs --source - --request request.txt --output draft.md
+ *   node draft-assemble.mjs --source source.json --request request.txt --audit audit.json
+ *   node draft-assemble.mjs --source - --request request.txt --audit audit.json --output draft.md
  *   node draft-assemble.mjs --schema
  */
 
@@ -14,6 +14,7 @@ import { fileURLToPath } from "node:url";
 import {
   assembleVoiceDraft, parseVoiceDraftSource, SOURCE_SCHEMA,
 } from "./draft-contract.mjs";
+import { applyVoiceDraftClaimAudit, parseVoiceDraftClaimAudit } from "./draft-claim-audit.mjs";
 
 function die(message) {
   process.stderr.write(`draft-assemble: ${message}\n`);
@@ -32,7 +33,7 @@ export function main() {
   }
   const sourceArg = flag("--source");
   if (!sourceArg) {
-    die("usage: --source <source.json|-> [--request request.txt] [--output draft.md]");
+    die("usage: --source <source.json|-> [--request request.txt] [--audit audit.json] [--output draft.md]");
     return;
   }
   try {
@@ -41,7 +42,17 @@ export function main() {
     if (!decoded.source) throw new Error(decoded.error);
     const requestArg = flag("--request");
     const request = requestArg ? readFileSync(resolve(requestArg), "utf8") : null;
-    const assembled = assembleVoiceDraft(decoded.source, { request });
+    const auditArg = flag("--audit");
+    let auditClaims;
+    if (auditArg) {
+      const parsedAudit = parseVoiceDraftClaimAudit(readFileSync(resolve(auditArg), "utf8"));
+      if (!parsedAudit.audit) throw new Error(parsedAudit.error);
+      const applied = applyVoiceDraftClaimAudit(decoded.source, parsedAudit.audit, { request });
+      if (!applied.ok) throw new Error(applied.errors.join("; "));
+      auditClaims = applied.claims;
+    }
+    const context = auditArg ? { request, auditClaims } : { request };
+    const assembled = assembleVoiceDraft(decoded.source, context);
     if (!assembled.ok) throw new Error(assembled.errors.join("; "));
     const output = flag("--output");
     if (output) writeFileSync(resolve(output), assembled.output);

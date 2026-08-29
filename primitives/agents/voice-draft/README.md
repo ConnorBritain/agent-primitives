@@ -51,7 +51,7 @@ profile, exactly as `prose-reviser` receives its plan. A promise in a prompt wou
 worth less.
 
 For argumentative essays and practical replies whose premise is already supplied, the
-closed ledger defaults to request evidence only. External-memory facts remain available
+draft should normally stay within request evidence. External-memory facts remain available
 when the requested substance genuinely requires a real event, law, actor, figure, or
 current state of affairs; they are not allowed merely to make an argument more vivid or
 to imitate a named-source habit. Required facts that cannot be stated responsibly cause a
@@ -111,41 +111,34 @@ form-level habits do not.
 
 ## Reading the output
 
-The semantic agent returns one fixed-shape `voice-draft-source/3` object. It emits a closed
-claim ledger before its paragraphs, and every sentence may cite only those pre-written
-claim IDs or declare a non-factual basis. The portable assembler validates the ledger and
-sentence certificate against the request, derives claims and paragraph
-locations, and turns it into the public artifact: a draft in a `markdown` fence with a
-non-empty disclosure record when needed, or a `json` refusal, never both. Historical
-`voice-draft-source/1` and `voice-draft-source/2` artifacts remain readable.
+The semantic agent returns one fixed-shape `voice-draft-source/4` object with the finished
+Markdown prose in one `draft` string and a separate omission record. The portable boundary
+validates that source, assigns stable sentence IDs after generation, and turns it into the
+public artifact: a draft in a `markdown` fence with a non-empty disclosure record when
+needed, or a `json` refusal, never both. Historical `voice-draft-source/1`, `/2`, and the
+ledger-first `/3` artifacts remain readable.
 
-This split is mechanical, not editorial. The model still owns every word of prose, the
-pre-writing ledger, every sentence classification, and every omission. Deterministic code
-owns the envelope, requires every sentence to be represented, rejects request evidence it
-cannot locate, rejects dangling, unused, or cross-basis ledger references,
-derives the claim record, and removes empty source arrays. Claude can enforce the schema
-while decoding; Codex exposes `--output-schema`; generic harnesses can emit ordinary JSON
-and run the same local validator and assembler with the original request.
+This split is mechanical, not editorial. The model owns every word of prose and every
+omission. Deterministic code owns the envelope, preserves the draft bytes and paragraph
+breaks, segments the immutable prose for audit, derives paragraph locations, and removes
+empty source arrays. Claude can enforce the schema while decoding; Codex exposes
+`--output-schema`; generic harnesses can emit ordinary JSON and run the same local validator
+and assembler.
 
-Before assembly, the shipped blank-page path runs the independent claim-audit prompt over
-the request, closed ledger, and sentence units only. That pass does not see the profile
-and may not revise the prose or ledger. It returns one of three decisions per sentence.
-`keep` accounts for every clause from the closed ledger or a non-factual basis. `disclose`
-quotes an exact span and appends each missed proposition to an audit-owned verification
-overlay, classified as a bounded fact or broad generalization. `reject` is reserved for
-fabricated citations, unsupported attributed wording, invented author biography, leakage,
-or a proposition too unclear for a human to verify. Deterministic code reconciles every
-decision to one sentence ID and rejects an overlay whose evidence is not an exact span of
-that sentence.
+Before public assembly, the blank-page path runs the independent claim-audit prompt over
+the request and deterministic sentence units only. That pass does not see the profile and
+may not revise the prose. It returns one of three decisions per sentence. `keep` accounts
+for every clause from request evidence, ordinary entailment, or a non-factual basis.
+`disclose` appends every unsupported proposition to an audit-owned verification overlay,
+classified as a bounded fact or broad generalization. `reject` is reserved for fabricated
+citations, unsupported attributed wording, invented author biography, leakage, or a
+proposition too unclear for a human to verify. Deterministic code binds each disclosure to
+the complete immutable sentence as its exact evidence.
 
-The audit overlay never edits the prose or pretends the drafter planned a claim it missed.
-The pre-writing ledger remains immutable evidence; the public claim record is the union of
-its cited entries and the independent overlay, with paragraph locations derived by code.
-An unused contiguous ledger suffix is pruned deterministically before audit without
-renumbering an ID or touching prose. No production model repair or redraw follows the
-audit. Every disclosed claim still requires a human to verify, scope, or remove it before
-publication or release scoring, and critic dispatch remains locked until that audit is
-complete.
+The audit overlay never edits the prose or pretends the drafter certified its own claims.
+No production model repair or redraw follows the audit. Every disclosed claim still
+requires a human to verify, scope, or remove it before publication or release scoring, and
+critic dispatch remains locked until that audit is complete.
 
 Read the draft first and ask the question the tests cannot: **does this sound like them?**
 Then, specifically:

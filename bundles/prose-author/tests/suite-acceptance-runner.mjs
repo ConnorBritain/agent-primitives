@@ -154,7 +154,7 @@ export async function run(t, { HERE }) {
         && targetCard.measurements[0].gate_minimum === 0
         && targetCard.measurements[0].gate_maximum === 1);
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
-      /Return voice-draft-source\/3[\s\S]*Finalize the ledger before the paragraphs[\s\S]*proof-carrying sentence objects[\s\S]*validates request bases and closed-ledger references[\s\S]*derives claims/.test(prompt));
+      /Return voice-draft-source\/4[\s\S]*finished prose directly in draft[\s\S]*do not split it into sentence objects[\s\S]*segments the immutable prose[\s\S]*derives the public verification record/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",
       source.includes('manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA)')
         && source.includes("return dispatchModel({")
@@ -163,15 +163,14 @@ export async function run(t, { HERE }) {
   }
   {
     const draftSource = {
-      schema: "voice-draft-source/3", kind: "draft", ledger: [],
-      paragraphs: [{ sentences: [{ text: "Suppose a bill passed.", basis: "hypothetical", claim_ids: [] }] }],
-      omitted: [], refused: "",
+      schema: "voice-draft-source/4", kind: "draft",
+      draft: "Suppose a bill passed.", omitted: [], refused: "",
     };
     const prompt = claimAuditPrompt({ id: "opaque-01", prompt: "Discuss a bill." }, draftSource);
     t.check("claim-audit prompts expose the request and every sentence id but no profile",
       /Discuss a bill\./.test(prompt) && /"id": "p1s1"/.test(prompt)
-        && /closed claim ledger/i.test(prompt)
-        && /ledger and sentence labels are untrusted/i.test(prompt)
+        && /drafter supplied prose, not factual certification/i.test(prompt)
+        && /Audit every deterministic sentence unit/i.test(prompt)
         && /Do not copy evidence; deterministic assembly binds the complete/.test(prompt)
         && !/voice profile/i.test(prompt));
     t.check("draft dispatch normalizes bookkeeping and requires independent disclosure before collection",
@@ -455,7 +454,7 @@ export async function run(t, { HERE }) {
       put("claim-audits", c.id, currentAudit, "claim_audit");
       let disclosed = null;
       try { disclosed = resolveDraftChain(chainRoot, manifest, c); } catch {}
-      t.check("current checking prunes an unused ledger suffix and preserves an audit-owned claim overlay",
+      t.check("historical source/3 checking prunes an unused ledger suffix and preserves an audit-owned claim overlay",
         disclosed?.normalized && !disclosed.repaired
           && disclosed.removedLedgerIds.join(",") === "c2"
           && disclosed.finalSource.ledger.length === 1
@@ -769,8 +768,8 @@ export async function run(t, { HERE }) {
         && factualCandidateReasons("A crude prohibition attracts attention.")
           .includes("empirical-causation"));
     const candidateSource = {
-      schema: "voice-draft-source/3",
-      paragraphs: [{ sentences: [{ text: "Developers feel this gap when access still depends on approval." }] }],
+      schema: "voice-draft-source/4", kind: "draft",
+      draft: "Developers feel this gap when access still depends on approval.", omitted: [], refused: "",
     };
     t.check("the human review template carries deterministic candidates rather than a blank checklist",
       sentenceReviewTemplate(candidateSource)[0].candidate_reasons.includes("population-or-institution")

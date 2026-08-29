@@ -1,7 +1,7 @@
 /** Bounded repair contract for a rejected proof-carrying voice draft. */
 
 import { sentenceRefs } from "./draft-claim-audit.mjs";
-import { SOURCE_SCHEMA_ID, validateVoiceDraftSource } from "./draft-contract.mjs";
+import { LEDGER_SOURCE_SCHEMA_ID, validateVoiceDraftSource } from "./draft-contract.mjs";
 
 const same = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
@@ -67,14 +67,14 @@ export function validateVoiceDraftClaimRepair(original, repaired, {
   request = null, audit = null, sourceErrors = [],
 } = {}) {
   const errors = [];
-  if (!isObject(original) || original.schema !== SOURCE_SCHEMA_ID || original.kind !== "draft") {
+  if (!isObject(original) || original.schema !== LEDGER_SOURCE_SCHEMA_ID || original.kind !== "draft") {
     return { ok: false, errors: ["claim repair requires an original voice-draft-source/3 draft"] };
   }
   const repairedValidation = validateVoiceDraftSource(repaired, { request });
   if (!repairedValidation.ok || repairedValidation.refusal) {
     errors.push(...repairedValidation.errors.map((error) => `repaired source: ${error}`));
   }
-  if (!isObject(repaired) || repaired.schema !== SOURCE_SCHEMA_ID || repaired.kind !== "draft") {
+  if (!isObject(repaired) || repaired.schema !== LEDGER_SOURCE_SCHEMA_ID || repaired.kind !== "draft") {
     return { ok: false, errors: [...errors, "repair must return a voice-draft-source/3 draft"] };
   }
   if (!same(original.omitted, repaired.omitted)) errors.push("repair changed the omission record");

@@ -1275,11 +1275,11 @@ function draftPrompt(c, profileMarkdown, profileJson) {
     "",
     targetCard,
     "",
-    "Return voice-draft-source/3 exactly as described by the system prompt.",
-    "Finalize the ledger before the paragraphs, then fill the proof-carrying sentence objects.",
-    "The portable deterministic assembler validates request bases and closed-ledger references,",
-    "derives claims, owns draft/refusal fences, and removes empty",
-    "disclosure arrays from voice-draft/1.",
+    "Return voice-draft-source/4 exactly as described by the system prompt.",
+    "Put the finished prose directly in draft; do not split it into sentence objects.",
+    "The portable deterministic boundary segments the immutable prose for an independent",
+    "claim audit, derives the public verification record, owns draft/refusal fences, and",
+    "removes empty disclosure arrays from voice-draft/1.",
   ].join("\n");
 }
 
@@ -1315,26 +1315,16 @@ function manifestClaimAuditSchema(manifest) {
 }
 
 function claimAuditPrompt(c, source) {
-  const units = sentenceRefs(source).map((ref) => {
-    const match = /^p(\d+)s(\d+)$/.exec(ref.id);
-    const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
-    return { id: ref.id, text: ref.text, drafter_basis: sentence.basis, claim_ids: sentence.claim_ids };
-  });
+  const units = sentenceRefs(source);
   return [
     `# Independent draft claim audit — ${c.id}`,
     "",
-    "The request is the only supplied factual packet. The ledger and sentence labels are untrusted.",
-    "Audit every sentence against the closed ledger under the system prompt. Do not revise the prose or ledger.",
+    "The request is the only supplied factual packet. The drafter supplied prose, not factual certification.",
+    "Audit every deterministic sentence unit under the system prompt. Do not revise the prose.",
     "",
     "## Request",
     "",
     c.prompt,
-    "",
-    "## Closed claim ledger",
-    "",
-    "```json",
-    JSON.stringify(source.ledger, null, 2),
-    "```",
     "",
     "## Sentence units",
     "",
@@ -1640,6 +1630,16 @@ function sentenceClaimInventory(source, audit, request) {
   const applied = applyVoiceDraftClaimAudit(source, audit, { request });
   if (!applied.ok) throw new Error(`canonical claim audit is invalid: ${applied.errors.join("; ")}`);
   const ledger = new Map((source.ledger ?? []).map((entry) => [entry.id, entry.claim]));
+  const planned = new Map();
+  for (const ref of sentenceRefs(source)) planned.set(ref.id, []);
+  if (Array.isArray(source.paragraphs)) {
+    for (const [pIndex, paragraph] of source.paragraphs.entries()) {
+      for (const [sIndex, sentence] of (paragraph.sentences ?? []).entries()) {
+        planned.set(`p${pIndex + 1}s${sIndex + 1}`,
+          (sentence.claim_ids ?? []).map((id) => ledger.get(id)).filter(Boolean));
+      }
+    }
+  }
   const overlays = new Map();
   for (const claim of applied.claims ?? []) {
     const claims = overlays.get(claim.sentence_id) ?? [];
@@ -1647,10 +1647,8 @@ function sentenceClaimInventory(source, audit, request) {
     overlays.set(claim.sentence_id, claims);
   }
   return Object.fromEntries(sentenceRefs(source).map((ref) => {
-    const match = /^p([1-9][0-9]*)s([1-9][0-9]*)$/.exec(ref.id);
-    const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
     const claims = [
-      ...(sentence.claim_ids ?? []).map((id) => ledger.get(id)).filter(Boolean),
+      ...(planned.get(ref.id) ?? []),
       ...(overlays.get(ref.id) ?? []),
     ];
     return [ref.id, [...new Set(claims)]];
@@ -1671,7 +1669,7 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     instructions: [
       "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
       "sentence_reviews: review every immutable sentence; the model audit and candidate reasons are aids, never completeness authority",
-      "request-supported: independently cite exact substantive request spans in request_evidence and explain how they support the complete sentence; do not trust the model-authored ledger label",
+      "request-supported: independently cite exact substantive request spans in request_evidence and explain how they support the complete sentence; do not delegate to a model label",
       "listed-for-verification: put every public claim covering the sentence into claim_refs; each claim must be located in the same paragraph",
       "non-factual: copy the complete sentence into sentence_evidence, select one closed non_factual_basis, and independently explain why the whole sentence has no external descriptive premise",
       "requires-change: use when any premise is missing, overbroad, fabricated, or otherwise cannot pass; critics remain blocked",
