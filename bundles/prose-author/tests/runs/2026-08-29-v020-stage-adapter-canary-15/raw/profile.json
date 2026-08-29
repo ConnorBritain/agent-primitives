@@ -1,0 +1,123 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-profile-source/4\",\"voice_card\":\"empty\",\"measured\":{\"second-person-family\":{\"prose\":\"Direct address enters chiefly when turning analysis into practical consequences or a concrete civic action. Use “you” to place the reader inside a compliance scenario, expose what a rule would demand of them, or deliver a closing route to contact lawmakers.\"},\"first-person-plural-family\":{\"prose\":\"First-person plural usually speaks for the advocacy organization or joins it with the public interest, rather than narrating a private experience. Use “we” when stating an institutional judgment, reporting advocacy work, or defining rights and risks shared with readers.\"},\"contractions\":{\"prose\":\"Contractions keep policy explanation conversational even when the subject is statutory language, litigation, or technical infrastructure. Use them in plain rebuttals, transitions, and consequence statements—especially when puncturing an official assurance—while leaving quoted legal language and deliberately formal propositions intact.\"},\"uncontracted-negatives\":{\"prose\":\"Full negative forms give categorical denials and legal distinctions extra weight: a bill “does not” solve its stated problem, or a protection “is not” enough. Reserve them for correcting premises, defining limits, and stating firm conclusions rather than ordinary conversational movement.\"},\"first-person-singular-family\":{\"prose\":\"The individual speaker recedes behind institutional evidence and collective judgment; personal anecdote does not carry the case. Build authority through “EFF,” sourced findings, and the inclusive or organizational “we,” using individual self-reference only when an explicitly personal perspective is indispensable.\"},\"question-marks\":{\"prose\":\"Questions usually expose a bill’s unanswered practical consequences or test broad statutory language against ordinary situations. Place a short sequence after explaining the rule, then answer it through examples or consequences; direct commands are better delivered as closing declarative appeals than as vocatives.\"},\"round-parenthetical-spans\":{\"prose\":\"Parentheses compactly supply bill abbreviations, definitions, examples, institutional details, and narrow legal qualifications without derailing the main claim. Place them immediately after the term they clarify, keeping the central sentence readable if the parenthetical material is removed.\"},\"em-dashes\":{\"prose\":\"Em dashes create sharp pivots from an official description to the concealed consequence, or frame an example that intensifies the surrounding claim. Use them inside argumentative sentences for correction, compression, and emphasis, especially when plain-language reality undercuts statutory reassurance.\"},\"en-dashes\":{\"prose\":\"En dashes do not establish a dependable interruptive pattern here. For pivots, embedded examples, and pointed qualifications, use the supported em dash or a compact parenthetical instead; reserve an en dash for ordinary editorial range or compound conventions, if required.\"}},\"qualitative\":[{\"dimensions\":[\"qualification-hedging\"],\"section\":\"register-range\",\"prose\":\"Concessions acknowledge a legitimate goal or a partial legislative improvement before separating it from the defective mechanism: the concern may be real, “but” the proposed answer remains overbroad, invasive, or unworkable. Put the concession near the opening or before renewed criticism.\",\"support_files\":[\"california-ab-412-stalls-out-win-innovation-and-fair-use.txt\",\"congress-narrowed-guard-act-serious-problems-remain.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"kids-act-would-require-age-checks-get-online.txt\"]},{\"dimensions\":[\"opponents-allies-sources\"],\"section\":\"address\",\"prose\":\"Name lawmakers, agencies, companies, supporters, and coalition partners precisely, then distinguish their stated rationale from the policy’s operational effect. Introduce outside material as evidence—bill text, court decisions, studies, letters, or reported practices—and quote short terms before interpreting or correcting them.\",\"support_files\":[\"congress-just-rushed-through-disastrous-copyright-office-overhaul.txt\",\"congress-narrowed-guard-act-serious-problems-remain.txt\",\"no-fakes-act-could-silence-satire-commentary-and-news.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]},{\"dimensions\":[\"figures-analogy\"],\"section\":\"figures\",\"prose\":\"Figures come from familiar systems and physical consequences: a registry becomes a card catalog, accumulated conversations a valuable vault, and repeated regulatory failure a movie already seen. Keep the comparison brief, concrete, and explanatory, landing it just before the legal or practical consequence.\",\"support_files\":[\"californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"kids-act-would-require-age-checks-get-online.txt\"]},{\"dimensions\":[\"openings-endings-closure\"],\"section\":\"closings\",\"prose\":\"Open with the live legislative event or a blunt public-interest premise, identify the proposal, then state the hidden cost through an early adversative turn. Close by restating the governing value and converting analysis into a specific demand: reject, revise, investigate, contact representatives, or adopt a safer alternative.\",\"support_files\":[\"california-ab-412-stalls-out-win-innovation-and-fair-use.txt\",\"congress-just-rushed-through-disastrous-copyright-office-overhaul.txt\",\"court-records-should-be-free.txt\",\"kids-online-safety-act-will-make-internet-worse-everyone.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]}],\"unresolved\":{\"qualification-hedging\":null,\"opponents-allies-sources\":null,\"figures-analogy\":null,\"openings-endings-closure\":null,\"profanity-vulgarity\":\"The corpus contains no measured positive form and supplies no supported rhetorical substitute, so it cannot establish a reusable instruction about profanity or vulgarity.\"},\"gaps\":\"The corpus is contemporary, single-author, and aligned with the declared advocacy-blog register, but it represents a narrow run of technology-policy and legislative posts rather than the writer’s broader range. The unfilled voice card supplies no intent to corroborate. Publication extraction may preserve house editing in capitalization, headings, quotation style, and punctuation; the isolated en-dash usage is especially unsafe to attribute as a deliberate habit. No supported instruction can be drawn about profanity or vulgarity, and exceptional personal self-reference is too slight to characterize beyond its measured contrast with collective address.\",\"observations_dropped\":1,\"multiple_voices_suspected\":false}",
+  "structured_output": {
+    "schema": "voice-profile-source/4",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct address enters chiefly when turning analysis into practical consequences or a concrete civic action. Use “you” to place the reader inside a compliance scenario, expose what a rule would demand of them, or deliver a closing route to contact lawmakers."
+      },
+      "first-person-plural-family": {
+        "prose": "First-person plural usually speaks for the advocacy organization or joins it with the public interest, rather than narrating a private experience. Use “we” when stating an institutional judgment, reporting advocacy work, or defining rights and risks shared with readers."
+      },
+      "contractions": {
+        "prose": "Contractions keep policy explanation conversational even when the subject is statutory language, litigation, or technical infrastructure. Use them in plain rebuttals, transitions, and consequence statements—especially when puncturing an official assurance—while leaving quoted legal language and deliberately formal propositions intact."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negative forms give categorical denials and legal distinctions extra weight: a bill “does not” solve its stated problem, or a protection “is not” enough. Reserve them for correcting premises, defining limits, and stating firm conclusions rather than ordinary conversational movement."
+      },
+      "first-person-singular-family": {
+        "prose": "The individual speaker recedes behind institutional evidence and collective judgment; personal anecdote does not carry the case. Build authority through “EFF,” sourced findings, and the inclusive or organizational “we,” using individual self-reference only when an explicitly personal perspective is indispensable."
+      },
+      "question-marks": {
+        "prose": "Questions usually expose a bill’s unanswered practical consequences or test broad statutory language against ordinary situations. Place a short sequence after explaining the rule, then answer it through examples or consequences; direct commands are better delivered as closing declarative appeals than as vocatives."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses compactly supply bill abbreviations, definitions, examples, institutional details, and narrow legal qualifications without derailing the main claim. Place them immediately after the term they clarify, keeping the central sentence readable if the parenthetical material is removed."
+      },
+      "em-dashes": {
+        "prose": "Em dashes create sharp pivots from an official description to the concealed consequence, or frame an example that intensifies the surrounding claim. Use them inside argumentative sentences for correction, compression, and emphasis, especially when plain-language reality undercuts statutory reassurance."
+      },
+      "en-dashes": {
+        "prose": "En dashes do not establish a dependable interruptive pattern here. For pivots, embedded examples, and pointed qualifications, use the supported em dash or a compact parenthetical instead; reserve an en dash for ordinary editorial range or compound conventions, if required."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Concessions acknowledge a legitimate goal or a partial legislative improvement before separating it from the defective mechanism: the concern may be real, “but” the proposed answer remains overbroad, invasive, or unworkable. Put the concession near the opening or before renewed criticism.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-act-would-require-age-checks-get-online.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "address",
+        "prose": "Name lawmakers, agencies, companies, supporters, and coalition partners precisely, then distinguish their stated rationale from the policy’s operational effect. Introduce outside material as evidence—bill text, court decisions, studies, letters, or reported practices—and quote short terms before interpreting or correcting them.",
+        "support_files": [
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures come from familiar systems and physical consequences: a registry becomes a card catalog, accumulated conversations a valuable vault, and repeated regulatory failure a movie already seen. Keep the comparison brief, concrete, and explanatory, landing it just before the legal or practical consequence.",
+        "support_files": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-act-would-require-age-checks-get-online.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "closings",
+        "prose": "Open with the live legislative event or a blunt public-interest premise, identify the proposal, then state the hidden cost through an early adversative turn. Close by restating the governing value and converting analysis into a specific demand: reject, revise, investigate, contact representatives, or adopt a safer alternative.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "court-records-should-be-free.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      }
+    ],
+    "unresolved": {
+      "qualification-hedging": null,
+      "opponents-allies-sources": null,
+      "figures-analogy": null,
+      "openings-endings-closure": null,
+      "profanity-vulgarity": "The corpus contains no measured positive form and supplies no supported rhetorical substitute, so it cannot establish a reusable instruction about profanity or vulgarity."
+    },
+    "gaps": "The corpus is contemporary, single-author, and aligned with the declared advocacy-blog register, but it represents a narrow run of technology-policy and legislative posts rather than the writer’s broader range. The unfilled voice card supplies no intent to corroborate. Publication extraction may preserve house editing in capitalization, headings, quotation style, and punctuation; the isolated en-dash usage is especially unsafe to attribute as a deliberate habit. No supported instruction can be drawn about profanity or vulgarity, and exceptional personal self-reference is too slight to characterize beyond its measured contrast with collective address.",
+    "observations_dropped": 1,
+    "multiple_voices_suspected": false
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-15/raw/profile.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-15/raw/profile.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "d1d18e559fe7d88ac50df422028717a4cc89dd6c1f36753e2d03edc5f46575c9"
+  },
+  "acceptance_input": {
+    "system_sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93",
+    "prompt_sha256": "b8130ba80954c7de3cc607c8a70d2e17c5aa8fdd4312a702bd114ee5baeef93e",
+    "schema_sha256": "a70c7895dd56c354644ef84b30f9d9a327324242c91f8b3ffb3042343c6dd973"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Confidential intake notes should not go into a general-purpose AI summariser. The time saved is real, but the proposed shortcut creates a second problem: the service may receive sensitive information the nonprofit holds—names, histories, risks, and requests for help.\\n\\nFor tomorrow’s meeting, the recommendation is simple: pause any upload unless the service has passed a written privacy and security review (not a salesperson’s assurance). That review should confirm a contract covering data use (including model training), retention and deletion (including backups), and access controls (including subcontractors). It should also identify breach-notification duties, where the data is processed, and who can retrieve it. If those answers aren’t documented, the answer isn’t “probably safe.” It is no.\\n\\nA confidentiality promise does not settle the issue. A vendor can promise discretion while keeping copies, permitting staff access, or using content in ways the organization hasn’t approved. Intake files are a vault, not spare office paper. Once duplicated outside the case system, control gets harder—and a later deletion request may not reach every copy.\\n\\nThere is a workable path. First, check whether an approved case-management system already offers a suitable summarisation tool. If summarisation is necessary, test de-identified sample notes, require approval from whoever owns privacy and security (and legal counsel if available), and limit the pilot to the minimum data and staff. Human review remains mandatory; a summary can omit context that matters for safety or services.\\n\\nThe meeting decision should therefore be: no confidential notes in an unapproved AI service; authorize a vendor review and a sample-data pilot instead. We can adopt useful automation without making clients pay for convenience with their privacy. Until the contract, settings, and deletion process are verified, keep intake notes in the approved system. Protect the relationship first, then test the tool with care.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11\",\"why\":\"No named service, vendor materials, contract terms, or verified outside sources were supplied for precise attribution or quotation.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Confidential intake notes should not go into a general-purpose AI summariser. The time saved is real, but the proposed shortcut creates a second problem: the service may receive sensitive information the nonprofit holds—names, histories, risks, and requests for help.\n\nFor tomorrow’s meeting, the recommendation is simple: pause any upload unless the service has passed a written privacy and security review (not a salesperson’s assurance). That review should confirm a contract covering data use (including model training), retention and deletion (including backups), and access controls (including subcontractors). It should also identify breach-notification duties, where the data is processed, and who can retrieve it. If those answers aren’t documented, the answer isn’t “probably safe.” It is no.\n\nA confidentiality promise does not settle the issue. A vendor can promise discretion while keeping copies, permitting staff access, or using content in ways the organization hasn’t approved. Intake files are a vault, not spare office paper. Once duplicated outside the case system, control gets harder—and a later deletion request may not reach every copy.\n\nThere is a workable path. First, check whether an approved case-management system already offers a suitable summarisation tool. If summarisation is necessary, test de-identified sample notes, require approval from whoever owns privacy and security (and legal counsel if available), and limit the pilot to the minimum data and staff. Human review remains mandatory; a summary can omit context that matters for safety or services.\n\nThe meeting decision should therefore be: no confidential notes in an unapproved AI service; authorize a vendor review and a sample-data pilot instead. We can adopt useful automation without making clients pay for convenience with their privacy. Until the contract, settings, and deletion process are verified, keep intake notes in the approved system. Protect the relationship first, then test the tool with care.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11",
+        "why": "No named service, vendor materials, contract terms, or verified outside sources were supplied for precise attribution or quotation."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-15/raw/draft.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-15/raw/draft.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "d1d18e559fe7d88ac50df422028717a4cc89dd6c1f36753e2d03edc5f46575c9"
+  },
+  "acceptance_input": {
+    "system_sha256": "2ba0a7a7a007e8a7bbb3554da75f66b7232a207da96ea37cb401dfe97f40a148",
+    "prompt_sha256": "5c31d2f8612c408b485845a41da9844046bef03c8b95468cd43cddc3de319f4b",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+    "prerequisites": {
+      "profile_raw_sha256": "abfc58a453878b02d896dfdb5ea1dc2bd886b8da04dfd6433dd0dba8600d3d8b"
+    }
+  }
+}

@@ -1,0 +1,193 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This is a direct recommendation about how confidential notes should be handled, based on the decision requested.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"Uploading the notes entails that the service may receive them, but the claimed time savings and the specified categories of information in the nonprofit’s notes are not supplied by the request.\",\"claims\":[{\"claim\":\"Using the proposed AI summariser would save the nonprofit time.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that this AI summarisation workflow would save the nonprofit time?\"},{\"claim\":\"The nonprofit’s confidential intake notes may contain names, histories, risks, and requests for help.\",\"kind\":\"bounded-fact\",\"verification_question\":\"Do this nonprofit’s intake notes contain each of the listed categories of sensitive information?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This states a proposed decision rule and distinguishes written review from an assurance; it does not claim that a review or assurance has occurred.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"This recommends the subjects that a review should cover and makes no assertion about the service’s current contract or practices.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"This continues the recommendation by listing questions the review should resolve, without asserting any present duties, processing location, or access arrangement.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"This is a proposed decision standard for undocumented answers, expressed as a judgment rather than a claim about current conditions.\",\"claims\":[]},{\"id\":\"p2s5\",\"status\":\"keep\",\"reason\":\"This completes the preceding recommendation by stating the proposed answer.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is a judgment that one promise alone is insufficient to decide the broader privacy and security question; it adds no specific external fact.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that vendor confidentiality promises can coexist with several specified data-handling practices, none of which the request supplies.\",\"claims\":[{\"claim\":\"An AI vendor may promise confidentiality while retaining copies of submitted content.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can the relevant vendor retain copies of submitted content despite its confidentiality promise, and under what terms?\"},{\"claim\":\"An AI vendor may promise confidentiality while allowing its staff to access submitted content.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can the relevant vendor’s staff access submitted content despite its confidentiality promise, and under what controls?\"},{\"claim\":\"An AI vendor may promise confidentiality while using submitted content in ways the submitting organization has not approved.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can the relevant vendor use submitted content beyond purposes approved by the nonprofit despite its confidentiality promise?\"}]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"This is a metaphorical value judgment emphasizing the sensitivity of intake files, which the request identifies as confidential.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"disclose\",\"reason\":\"The sentence makes unsupported causal and technical generalizations about loss of control after duplication and the reach of deletion requests.\",\"claims\":[{\"claim\":\"Duplicating intake files outside the case system makes organizational control over them harder.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How does duplication outside the case system reduce or complicate the nonprofit’s control over the files?\"},{\"claim\":\"A later deletion request may fail to delete every copy of intake files submitted to an external service.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can the relevant service ensure that a deletion request reaches all copies, including retained or backup copies?\"}]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This is an evaluative transition introducing the proposed course of action, not a specific claim about an existing product or institution.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"This recommends checking whether an approved system has a feature; it does not assert that such a system or feature exists.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"Every clause is a proposed safeguard for a conditional pilot, including sample data, internal approval, optional counsel, and limits on data and staff.\",\"claims\":[]},{\"id\":\"p4s4\",\"status\":\"disclose\",\"reason\":\"The human-review requirement is a recommendation, but its justification asserts an unsupported general capability of summaries to omit operationally important context.\",\"claims\":[{\"claim\":\"An AI-generated summary can omit context that matters for client safety or service delivery.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that the contemplated summarisation tool can omit context relevant to safety or services?\"}]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This states the proposed meeting decision and alternative actions; it does not assert that a service has already been approved or reviewed.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This is an aspirational judgment, with paying for convenience used metaphorically to contrast automation with client privacy.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This is a conditional recommendation to retain notes in the approved system until specified safeguards are verified.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This is a priority judgment and recommendation to protect confidentiality before testing the tool.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This is a direct recommendation about how confidential notes should be handled, based on the decision requested.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "Uploading the notes entails that the service may receive them, but the claimed time savings and the specified categories of information in the nonprofit’s notes are not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Using the proposed AI summariser would save the nonprofit time.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that this AI summarisation workflow would save the nonprofit time?"
+          },
+          {
+            "claim": "The nonprofit’s confidential intake notes may contain names, histories, risks, and requests for help.",
+            "kind": "bounded-fact",
+            "verification_question": "Do this nonprofit’s intake notes contain each of the listed categories of sensitive information?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This states a proposed decision rule and distinguishes written review from an assurance; it does not claim that a review or assurance has occurred.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "This recommends the subjects that a review should cover and makes no assertion about the service’s current contract or practices.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "This continues the recommendation by listing questions the review should resolve, without asserting any present duties, processing location, or access arrangement.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "This is a proposed decision standard for undocumented answers, expressed as a judgment rather than a claim about current conditions.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "This completes the preceding recommendation by stating the proposed answer.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is a judgment that one promise alone is insufficient to decide the broader privacy and security question; it adds no specific external fact.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The sentence asserts that vendor confidentiality promises can coexist with several specified data-handling practices, none of which the request supplies.",
+        "claims": [
+          {
+            "claim": "An AI vendor may promise confidentiality while retaining copies of submitted content.",
+            "kind": "broad-generalization",
+            "verification_question": "Can the relevant vendor retain copies of submitted content despite its confidentiality promise, and under what terms?"
+          },
+          {
+            "claim": "An AI vendor may promise confidentiality while allowing its staff to access submitted content.",
+            "kind": "broad-generalization",
+            "verification_question": "Can the relevant vendor’s staff access submitted content despite its confidentiality promise, and under what controls?"
+          },
+          {
+            "claim": "An AI vendor may promise confidentiality while using submitted content in ways the submitting organization has not approved.",
+            "kind": "broad-generalization",
+            "verification_question": "Can the relevant vendor use submitted content beyond purposes approved by the nonprofit despite its confidentiality promise?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "This is a metaphorical value judgment emphasizing the sensitivity of intake files, which the request identifies as confidential.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "disclose",
+        "reason": "The sentence makes unsupported causal and technical generalizations about loss of control after duplication and the reach of deletion requests.",
+        "claims": [
+          {
+            "claim": "Duplicating intake files outside the case system makes organizational control over them harder.",
+            "kind": "broad-generalization",
+            "verification_question": "How does duplication outside the case system reduce or complicate the nonprofit’s control over the files?"
+          },
+          {
+            "claim": "A later deletion request may fail to delete every copy of intake files submitted to an external service.",
+            "kind": "broad-generalization",
+            "verification_question": "Can the relevant service ensure that a deletion request reaches all copies, including retained or backup copies?"
+          }
+        ]
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This is an evaluative transition introducing the proposed course of action, not a specific claim about an existing product or institution.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "This recommends checking whether an approved system has a feature; it does not assert that such a system or feature exists.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Every clause is a proposed safeguard for a conditional pilot, including sample data, internal approval, optional counsel, and limits on data and staff.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "disclose",
+        "reason": "The human-review requirement is a recommendation, but its justification asserts an unsupported general capability of summaries to omit operationally important context.",
+        "claims": [
+          {
+            "claim": "An AI-generated summary can omit context that matters for client safety or service delivery.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that the contemplated summarisation tool can omit context relevant to safety or services?"
+          }
+        ]
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This states the proposed meeting decision and alternative actions; it does not assert that a service has already been approved or reviewed.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This is an aspirational judgment, with paying for convenience used metaphorically to contrast automation with client privacy.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This is a conditional recommendation to retain notes in the approved system until specified safeguards are verified.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This is a priority judgment and recommendation to protect confidentiality before testing the tool.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-15/raw/claim-audit.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-15/raw/claim-audit.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "d1d18e559fe7d88ac50df422028717a4cc89dd6c1f36753e2d03edc5f46575c9"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "fdf82f2a0dc702dfd681673fb50067123990486db0c1ed6725052c40d67dd3ad",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "4753ed3390bc84e90654ee67fe2cfe5cfc334787ebe65bf31997658fbb4ca535",
+      "conformance_raw_sha256": "c11ad53fea205061999c263bd4757573d95f955533e3af46f7f4df7762582cae"
+    }
+  }
+}
