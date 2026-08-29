@@ -1496,7 +1496,10 @@ const LEGACY_REPAIR_ARTIFACT_KEYS = [
 ];
 
 function legacyRepairArtifactErrors(entry, label = "draft") {
-  if (!entry || typeof entry !== "object" || Array.isArray(entry)) return [];
+  if (!entry || typeof entry !== "object") return [];
+  if (Array.isArray(entry)) {
+    return entry.flatMap((child, index) => legacyRepairArtifactErrors(child, `${label}[${index}]`));
+  }
   const errors = [];
   for (const key of LEGACY_REPAIR_ARTIFACT_KEYS) {
     if (entry[key] !== null && entry[key] !== undefined) {
@@ -1504,6 +1507,11 @@ function legacyRepairArtifactErrors(entry, label = "draft") {
     }
     if (entry[`${key}_sha256`] !== null && entry[`${key}_sha256`] !== undefined) {
       errors.push(`${label}.${key}_sha256 is forbidden under ${CLAIM_PIPELINE}`);
+    }
+  }
+  for (const [childKey, child] of Object.entries(entry)) {
+    if (child && typeof child === "object") {
+      errors.push(...legacyRepairArtifactErrors(child, `${label}.${childKey}`));
     }
   }
   return errors;
@@ -1553,6 +1561,7 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
   if (artifacts?.schema !== ARTIFACTS_SCHEMA) {
     return ["ARTIFACTS.json has the wrong schema"];
   }
+  errors.push(...legacyRepairArtifactErrors(artifacts, "ARTIFACTS"));
   const profileIds = cases.profiles.map((p) => p.id);
   if (!sameIds(artifacts.profiles, profileIds)) errors.push("ARTIFACTS.json profile ids do not match CASES.json");
   if (!sameIds(artifacts.profile_stability, profileIds)) errors.push("ARTIFACTS.json stability ids do not match CASES.json");
@@ -1590,7 +1599,6 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
     if (!chain?.normalized) optional.push("normalized_source");
     if (!chain?.initialAudit) optional.push("initial_audit_prompt", "initial_audit_raw", "initial_audit");
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
-    errors.push(...legacyRepairArtifactErrors(draft, `drafts.${c.id}`));
     errors.push(...artifactEntryHashErrors(
       draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
     ));

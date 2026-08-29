@@ -367,6 +367,13 @@ export const MUTATIONS = [
     guards: "current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash",
   },
   {
+    name: "scan only the top-level artifact record for legacy repair fields",
+    file: ACCEPTANCE_RUNNER,
+    find: "  for (const [childKey, child] of Object.entries(entry)) {",
+    with: "  for (const [childKey, child] of []) {",
+    guards: "legacy repair fields are forbidden in every profile, draft, refusal, critic, and evidence record",
+  },
+  {
     name: "check only case-shaped files in retired repair trees",
     file: ACCEPTANCE_RUNNER,
     find: "    const files = filesUnder(root);",

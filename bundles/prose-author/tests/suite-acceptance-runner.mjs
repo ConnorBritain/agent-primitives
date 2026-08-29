@@ -593,6 +593,10 @@ export async function run(t, { HERE }) {
       legacyRepairArtifactErrors({ repair_source: entry.raw, repair_source_sha256: hash }, "fixture")
         .some((error) => /repair_source is forbidden/.test(error))
         && legacyRepairArtifactErrors({}, "fixture").length === 0);
+    t.check("legacy repair evidence is forbidden in every nested artifact record",
+      legacyRepairArtifactErrors({ evidence: {
+        repair_source: entry.raw, repair_source_sha256: hash,
+      } }, "ARTIFACTS").some((error) => /ARTIFACTS\.evidence\.repair_source is forbidden/.test(error)));
   }
   t.check("profile render hashes and k=3 stability are independently reproducible",
     /render_sha256: SHA\(text\(rawRender\)\)/.test(source)

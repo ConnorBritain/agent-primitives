@@ -44,7 +44,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let a hypothetical wrapper keep a nonhypothetical basis | 1 | the fixed wrapper changes epistemic status rather than laundering factual prose |
 | resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
-| advertise legacy claim-repair evidence in a current artifact record | 1 | current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash |
+| advertise legacy claim-repair evidence in a current artifact record | 2 | current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash |
+| scan only the top-level artifact record for legacy repair fields | 1 | legacy repair fields are forbidden in every profile, draft, refusal, critic, and evidence record |
 | check only case-shaped files in retired repair trees | 4 | orphan repair results and prompts invalidate a current run regardless of their names |
 | ignore Codex companion files in retired repair trees | 1 | an extra repair-model invocation cannot hide in an unindexed Codex event stream |
 | score the handwritten tally instead of rebuilding raw critic evidence | 1 | a passing TALLY.json cannot conceal failing raw critic draws |
