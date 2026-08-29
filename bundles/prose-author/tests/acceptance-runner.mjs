@@ -37,7 +37,7 @@ import {
 } from "./voice-critic-source.mjs";
 import {
   assembleVoiceDraft, normalizeVoiceDraftSource, parseVoiceDraftSource,
-  hasSufficientRequestSupport, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
+  sharedRequestSupportTerms, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
 } from "../skills/prose-draft/tools/draft-contract.mjs";
 import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA,
@@ -1745,8 +1745,8 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
         }
         const canonicalSentence = sourceTextBySentence?.[review.id] ?? "";
         if (canonicalSentence
-          && !hasSufficientRequestSupport(canonicalSentence, requestEvidence.join(" "))) {
-          failures.push(`${at} request evidence does not substantively cover the sentence`);
+          && sharedRequestSupportTerms(canonicalSentence, requestEvidence.join(" ")).length === 0) {
+          failures.push(`${at} request evidence has no substantive lexical support for the sentence`);
         }
         if (normalizeAuditText(review.note).length < 32) {
           failures.push(`${at} request-supported needs a substantive independent rationale`);

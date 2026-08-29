@@ -746,7 +746,7 @@ export async function run(t, { HERE }) {
         claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
           sentence_reviews: [{ ...review, request_evidence: ["ownership choices"] }],
         } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /does not substantively cover the sentence/.test(error)));
+          .some((error) => /no substantive lexical support for the sentence/.test(error)));
       t.check("request-supported human clearance needs an independent rationale",
         claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
           sentence_reviews: [{ ...review, note: "" }],

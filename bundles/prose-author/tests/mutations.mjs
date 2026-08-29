@@ -572,8 +572,8 @@ export const MUTATIONS = [
   {
     name: "tell the drafter topical request overlap can license a new predicate",
     file: VOICE_DRAFT_PROMPT,
-    find: "Do not use a\n  request topic to license a new predicate.",
-    with: "A shared\n  request topic may license a new predicate.",
+    find: "may\n  paraphrase that closed claim, but it may not use a shared request topic to license a new\n  predicate.",
+    with: "may\n  paraphrase that closed claim, and it may use a shared request topic to license a new\n  predicate.",
     guards: "the model prompt matches the conservative request-support contract",
   },
   {
@@ -647,16 +647,16 @@ export const MUTATIONS = [
     guards: "a shared topic cannot become model-authored support for an appended predicate",
   },
   {
-    name: "let a request-backed claim license a topically related appended predicate",
+    name: "let a request-backed claim license unrelated prose",
     file: DRAFT_CONTRACT,
-    find: "        if (citedClaims.length && !hasSufficientRequestSupport(sentence.text, citedClaims.join(\" \"))) {",
+    find: "        if (citedClaims.length && sharedRequestSupportTerms(sentence.text, citedClaims.join(\" \")).length === 0) {",
     with: "        if (false) {",
-    guards: "request support covers the sentence rather than merely sharing its topic",
+    guards: "request support remains linked from supplied basis through claim to exact sentence",
   },
   {
     name: "accept human request evidence unrelated to the reviewed sentence",
     file: ACCEPTANCE_RUNNER,
-    find: "        if (canonicalSentence\n          && !hasSufficientRequestSupport(canonicalSentence, requestEvidence.join(\" \"))) {",
+    find: "        if (canonicalSentence\n          && sharedRequestSupportTerms(canonicalSentence, requestEvidence.join(\" \")).length === 0) {",
     with: "        if (false) {",
     guards: "human request evidence is independently checked instead of trusting the model-authored ledger",
   },

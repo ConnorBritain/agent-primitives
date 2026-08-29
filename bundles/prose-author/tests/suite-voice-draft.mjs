@@ -170,7 +170,7 @@ export async function run(t, { HERE }) {
       ["external descriptive facts require a verification label",
         /external factual assertion[\s\S]*classify it as[\s\S]*external-verification[\s\S]*do not mislabel remembered history/],
       ["request support cannot license an appended predicate through topical overlap",
-        /conservative lexical boundary[\s\S]*four fifths[\s\S]*do not use a[\s\S]*request topic to license a new predicate/],
+        /conservative lexical boundary[\s\S]*four fifths[\s\S]*may not use a shared[\s\S]*request topic to license a new[\s\S]*predicate/],
       ["external claims must be finite rather than unverifiable generalizations",
         /external claim must be finite[\s\S]*authoritative record[\s\S]*entire industry[\s\S]*not made safe by adding them to a queue/],
       ["argumentative pieces do not acquire decorative external-memory facts",
@@ -390,17 +390,20 @@ export async function run(t, { HERE }) {
     const appendedPredicateSentence = validateVoiceDraftSource({
       ...source,
       ledger: [{
-        id: "c1", basis: "request-supported", claim: "Device ownership", request_basis: "device ownership",
+        id: "c1", basis: "request-supported",
+        claim: "A device is not fully owned when its maker can disable features after sale.",
+        request_basis: "a device is not fully owned when its maker can disable features after sale",
       }],
       paragraphs: [{ sentences: [{
-        text: "Device ownership causes cancer.", basis: "request-supported", claim_ids: ["c1"],
+        text: "The maker's remote off switch makes full device ownership impossible.",
+        basis: "request-supported", claim_ids: ["c1"],
       }] }],
-    }, { request: "Write about device ownership." });
-    t.check("topical overlap cannot license an unsupported appended predicate",
+    }, { request: "Argue that a device is not fully owned when its maker can disable features after sale." });
+    t.check("topical overlap cannot license an appended predicate in the request ledger",
       !appendedPredicateClaim.ok
-        && appendedPredicateClaim.errors.some((error) => /does not substantively cover its claim/.test(error))
-        && !appendedPredicateSentence.ok
-        && appendedPredicateSentence.errors.some((error) => /not substantively covered by its cited request claims/.test(error)));
+        && appendedPredicateClaim.errors.some((error) => /does not substantively cover its claim/.test(error)));
+    t.check("sentence-level paraphrase remains possible after the ledger claim is closed",
+      appendedPredicateSentence.ok);
     const mismatchedRequestSentence = validateVoiceDraftSource({
       ...source,
       paragraphs: [{ sentences: [{

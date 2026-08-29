@@ -100,6 +100,11 @@ const supportTerms = (value) => new Set(
   String(value ?? "").normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}]+/gu)
     ?.map(supportStem).filter((token) => token.length >= 4 && !SUPPORT_STOPWORDS.has(token)) ?? [],
 );
+export const sharedRequestSupportTerms = (left, right) => {
+  const a = supportTerms(left);
+  const b = supportTerms(right);
+  return [...a].filter((term) => b.has(term));
+};
 export const requestSupportCoverage = (claim, evidence) => {
   const claimTerms = [...supportTerms(claim)];
   const evidenceTerms = supportTerms(evidence);
@@ -355,11 +360,8 @@ function validateLedgerSentenceUnits(source, request) {
       }
       if (sentence.basis === "request-supported" && isText(sentence.text)) {
         const citedClaims = sentence.claim_ids.map((claimId) => ledger.get(claimId)?.claim).filter(Boolean);
-        if (citedClaims.length && !hasSufficientRequestSupport(sentence.text, citedClaims.join(" "))) {
-          const coverage = requestSupportCoverage(sentence.text, citedClaims.join(" "));
-          errors.push(coverage.matched === 0
-            ? `${sat} has no substantive lexical support from its cited request claims`
-            : `${sat} is not substantively covered by its cited request claims (${coverage.matched}/${coverage.total} terms)`);
+        if (citedClaims.length && sharedRequestSupportTerms(sentence.text, citedClaims.join(" ")).length === 0) {
+          errors.push(`${sat} has no substantive lexical support from its cited request claims`);
         }
       }
     }

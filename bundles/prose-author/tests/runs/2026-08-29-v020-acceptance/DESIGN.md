@@ -41,9 +41,10 @@ to this result.
   every immutable sentence as `request-supported`, `listed-for-verification`, `non-factual`,
   or `requires-change`, using independently selected exact request evidence, exact
   per-sentence public claims, or the complete canonical sentence plus an independent closed
-  semantic basis and rationale. Request-supported claims and sentences must also clear the
-  conservative substantive-term coverage guard; a shared topic cannot license an appended
-  predicate. Every human clearance rationale must be substantive and may not delegate its
+  semantic basis and rationale. Model-authored request-supported ledger claims must also
+  clear the conservative substantive-term coverage guard; a shared topic cannot license an
+  appended predicate. Sentence-level paraphrase remains the named human reviewer's semantic
+  responsibility. Every human clearance rationale must be substantive and may not delegate its
   semantic judgment to a model, audit, ledger, classifier, or automated reviewer. Any
   `requires-change` blocks critics and invalidates the run.
 - The completed human review and attestation must be committed as their immutable first-add
