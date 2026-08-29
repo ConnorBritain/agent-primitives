@@ -1,0 +1,17 @@
+{
+  "schema": "prose-author-stage-adapter-canary-design/1",
+  "profile": "eff-mullin",
+  "fixture": "eff-mullin",
+  "prompt": "Write a 650-word essay for a technology-policy newsletter arguing that a device is not fully owned when its maker can disable features after sale. The readers already follow digital-rights issues. Use no headline or signoff.",
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "stages": [
+    "profile",
+    "draft",
+    "conformance",
+    "claim_audit",
+    "critic"
+  ],
+  "acceptance_evidence": false,
+  "redraws": 0
+}
