@@ -242,7 +242,10 @@ export async function run(t, { HERE }) {
       && missed.errors.some((error) => /final em-dashes count 2 is excess/.test(error)));
     const unrelated = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
-      edits: [{ ...conformingPatch.edits[0], after: "It still needs a turn and gets one." }],
+      edits: [{
+        ...conformingPatch.edits[0],
+        before: "We can fix this sentence.", after: "We can fix this sentence,",
+      }, conformingPatch.edits[0]],
     }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
     t.check("an edit must itself improve one named failing measurement", !unrelated.ok
       && unrelated.errors.some((error) => /does not move every named failing measurement toward range/.test(error)));
@@ -262,10 +265,27 @@ export async function run(t, { HERE }) {
     t.check("a measured punctuation correction cannot reverse unrelated request semantics",
       !semanticReversal.ok
         && semanticReversal.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const borrowedProfile = structuredClone(targetProfile);
+    const borrowedOpening = borrowedProfile.coverage.find((row) => row.dimension === "openings-endings-closure");
+    borrowedOpening.status = "described";
+    borrowedOpening.observation_ids = ["o01"];
+    delete borrowedOpening.unresolved_reason;
+    const borrowedCoverage = borrowedProfile.coverage.map((row) => ({
+      dimension: row.dimension,
+      observation_ids: [...(row.observation_ids ?? [])],
+      disposition: row.dimension === "openings-endings-closure" ? "revised"
+        : row.dimension === "interruption-punctuation" ? "preserved" : "unresolved",
+      reason: row.dimension === "openings-endings-closure"
+        ? "The edit claims a closing correction."
+        : row.dimension === "interruption-punctuation"
+          ? "The measured punctuation row is falsely claimed as preserved."
+          : row.unresolved_reason,
+    }));
     const borrowedDimension = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
       edits: [{ ...conformingPatch.edits[0], coverage_dimensions: ["openings-endings-closure"] }],
-    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+      coverage: borrowedCoverage,
+    }, { request: "Write a 700-word post.", profile: borrowedProfile, card: targetCard });
     t.check("an edit cannot borrow a failing measurement from another coverage dimension",
       !borrowedDimension.ok
         && borrowedDimension.errors.some((error) => /coverage_dimensions must exactly match/.test(error)));

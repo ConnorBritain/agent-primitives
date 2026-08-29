@@ -294,7 +294,7 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     if (improved.length !== relevant.length || improved.length === 0) {
       errors.push(`patch.edits[${index}] does not move every named failing measurement toward range`);
     }
-    const expectedDimensions = [...new Set(improved.flatMap((row) => row.dimensions))].sort();
+    const expectedDimensions = [...new Set(relevant.flatMap((row) => row.dimensions))].sort();
     if (!sameArray([...edit.coverage_dimensions].sort(), expectedDimensions)) {
       errors.push(`patch.edits[${index}].coverage_dimensions must exactly match its improved measurements (${expectedDimensions.join(", ")})`);
     }
