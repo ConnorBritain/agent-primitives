@@ -26,6 +26,7 @@ import {
   frequencyForPerPiece, sourceMeasurementPlan, sourceRenderSchema,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
 import { strictOutputSchemaErrors } from "./strict-output-schema.mjs";
+import { parseDraft, validateDraft } from "./voice-draft.mjs";
 import {
   fixtureGuards, staleExemptions, corpusMeasurements, NOT_AUTHOR_NAMED,
 } from "./fixture-guard.mjs";
@@ -1018,11 +1019,29 @@ export async function run(t, { tmp, HERE }) {
     // voice-profile-render AND voice-draft in the same directory. Returning a SET rather
     // than a single owner is what lets such a run declare both honestly instead of
     // picking one and under-reporting the other.
-    const ownersOf = (name) => {
+    const evidenceLocksOf = (name) => {
       const lockPath = join(runs, name, "corpus.lock.json");
-      if (!fsExists(lockPath)) return [];
-      return [...new Set(Object.values(JSON.parse(fsRead(lockPath, "utf8")))
-        .map((l) => l.agent).filter(Boolean))];
+      if (fsExists(lockPath)) return Object.values(JSON.parse(fsRead(lockPath, "utf8")));
+
+      // Stage-adapter canaries use a single manifest instead of the acceptance
+      // runner's two compatibility indexes. The manifest pins the full prompt files
+      // in locked_files; agents.* separately pins their rendered bodies. Read the
+      // former here because currency is explicitly about the complete agent.md.
+      const manifestPath = join(runs, name, "MANIFEST.json");
+      if (!fsExists(manifestPath)) return [];
+      const manifest = JSON.parse(fsRead(manifestPath, "utf8"));
+      if (manifest.schema !== "prose-author-stage-adapter-canary-manifest/1") return [];
+      return Object.values(manifest.agents ?? {}).flatMap((agent) => {
+        const match = /primitives\/agents\/([^/]+)\/agent\.md$/.exec(agent?.source ?? "");
+        const agentSha256 = manifest.locked_files?.[agent?.source];
+        const isOwnedHere = match && ["voice-profile-render", "voice-draft"].includes(match[1]);
+        return isOwnedHere && typeof agentSha256 === "string"
+          ? [{ agent: match[1], agent_sha256: agentSha256 }]
+          : [];
+      });
+    };
+    const ownersOf = (name) => {
+      return [...new Set(evidenceLocksOf(name).map((l) => l.agent).filter(Boolean))];
     };
     const profileRuns = runDirs.filter((n) => ownersOf(n).includes("voice-profile-render"));
 
@@ -1057,11 +1076,9 @@ export async function run(t, { tmp, HERE }) {
     // can be fully green against a prompt the run doc never saw.
     const currency = new Map();
     for (const name of runDirs) {
-      const lockPath = join(runs, name, "corpus.lock.json");
-      if (!fsExists(lockPath)) continue;
       const owners = ownersOf(name);
       if (owners.length === 0) continue;
-      const locks = Object.values(JSON.parse(fsRead(lockPath, "utf8")));
+      const locks = evidenceLocksOf(name);
       for (const owner of owners) {
       const agentSrc = resolve(HERE, "..", "..", "..", "primitives", "agents", owner, "agent.md");
       if (!fsExists(agentSrc)) { t.check(`${name}: its declared agent ${owner} exists`, false); continue; }
@@ -1090,6 +1107,30 @@ export async function run(t, { tmp, HERE }) {
             .some((renders) => Object.keys(renders ?? {}).length > 0);
         } else if (owner === "voice-draft") {
           hasValidatedArtifact = Object.keys(artifacts.drafts ?? {}).length > 0;
+        }
+      } else {
+        const manifestPath = join(runs, name, "MANIFEST.json");
+        const resultPath = join(runs, name, "RESULT.json");
+        if (fsExists(manifestPath) && fsExists(resultPath)) {
+          const manifest = JSON.parse(fsRead(manifestPath, "utf8"));
+          const result = JSON.parse(fsRead(resultPath, "utf8"));
+          const isPassingCanary = manifest.schema === "prose-author-stage-adapter-canary-manifest/1"
+            && result.schema === "prose-author-stage-adapter-canary-result/1"
+            && result.status === "PASS";
+          if (isPassingCanary && owner === "voice-profile-render" && result.profile_assembled === true) {
+            const jsonPath = join(runs, name, "outputs", "profile.json");
+            const markdownPath = join(runs, name, "outputs", "profile.md");
+            if (fsExists(jsonPath) && fsExists(markdownPath)) {
+              hasValidatedArtifact = validateVoiceProfile(
+                JSON.parse(fsRead(jsonPath, "utf8")), fsRead(markdownPath, "utf8"),
+              ).ok;
+            }
+          } else if (isPassingCanary && owner === "voice-draft" && result.draft_assembled === true) {
+            const draftPath = join(runs, name, "outputs", "draft.md");
+            if (fsExists(draftPath)) {
+              hasValidatedArtifact = validateDraft(parseDraft(fsRead(draftPath, "utf8"))).ok;
+            }
+          }
         }
       }
       currency.set(owner, (currency.get(owner) ?? false) || (isCurrent && hasValidatedArtifact));
