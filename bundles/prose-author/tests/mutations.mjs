@@ -381,6 +381,34 @@ export const MUTATIONS = [
     guards: "a Claude timeout preserves inspectable raw output instead of disappearing before evidence collection",
   },
   {
+    name: "reject a Codex spawn error without persisting its failed cell",
+    file: ACCEPTANCE_RUNNER,
+    find: "      fail(`codex spawn failed: ${error.message}`);",
+    with: "      reject(error);",
+    guards: "a missing Codex executable records one immutable failed call and cannot be retried as a redraw",
+  },
+  {
+    name: "omit Codex companions from profile artifact hashes",
+    file: ACCEPTANCE_RUNNER,
+    find: "  profile: [\n    \"prompt\", \"raw\", \"source\", \"render\", \"markdown\", \"json\",\n    \"raw_events\", \"raw_output\", \"recovered_from\",\n  ],",
+    with: "  profile: [\"prompt\", \"raw\", \"source\", \"render\", \"markdown\", \"json\"],",
+    guards: "profile evidence binds the primary Codex event stream and final structured output",
+  },
+  {
+    name: "omit Codex companions from claim-audit artifact hashes",
+    file: ACCEPTANCE_RUNNER,
+    find: "    \"initial_audit_prompt\", \"initial_audit_raw\", \"initial_audit\",\n    \"initial_audit_raw_events\", \"initial_audit_raw_output\", \"initial_audit_recovered_from\",",
+    with: "    \"initial_audit_prompt\", \"initial_audit_raw\", \"initial_audit\",\n    // independent audit companions omitted",
+    guards: "independent claim audits bind their primary Codex evidence rather than only a mutable wrapper",
+  },
+  {
+    name: "order only the critic wrapper after the human audit",
+    file: ACCEPTANCE_RUNNER,
+    find: "      const evidencePaths = [resolve(item.path), ...codexCompanionEvidencePaths(record)];",
+    with: "      const evidencePaths = [resolve(item.path)];",
+    guards: "a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper",
+  },
+  {
     name: "trust a recorded artifact hash without reading its file",
     file: ACCEPTANCE_RUNNER,
     find: "    } else if (SHA(text(target)) !== expected) {",
@@ -488,8 +516,8 @@ export const MUTATIONS = [
   {
     name: "stop checking invocation provenance on final evidence",
     file: ACCEPTANCE_RUNNER,
-    find: "      if (!completedResult(item.path, item.dispatch, item.input)) errors.push(`missing model result ${rel(item.path)}`);",
-    with: "      if (!completedResult(item.path, item.dispatch)) errors.push(`missing model result ${rel(item.path)}`);",
+    find: "      const record = completedResult(item.path, item.dispatch, item.input);",
+    with: "      const record = completedResult(item.path, item.dispatch);",
     guards: "final verification matches every raw result to its system prompt, user prompt, and schema",
   },
   {
@@ -768,8 +796,8 @@ export const MUTATIONS = [
   {
     name: "stop checking that critic evidence was committed after the human audit",
     file: ACCEPTANCE_RUNNER,
-    find: "        const orderError = strictlyCommittedAfter(item.path, item.prerequisiteCommit);",
-    with: "        const orderError = null;",
+    find: "          const orderError = strictlyCommittedAfter(evidencePath, item.prerequisiteCommit);",
+    with: "          const orderError = null;",
     guards: "repository history proves the reviewed audit predates every critic result",
   },
   {

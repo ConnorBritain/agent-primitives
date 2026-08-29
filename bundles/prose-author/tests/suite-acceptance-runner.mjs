@@ -1,14 +1,17 @@
 /** Acceptance harness integrity — the scorer may not grade its own handwritten tally. */
 
 import { execFileSync } from "node:child_process";
-import { mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdtempSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve } from "node:path";
 
 import {
-  artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
-  codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt,
+  ARTIFACT_PATH_KEYS, artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures,
+  CODEX_NO_TOOLS_CONFIG, codexToolEvents,
+  codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
+  criticPrompt, deriveCritic, draftPrompt,
+  dispatchCodex,
   factualCandidateReasons, HARNESS_CAPABILITIES, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
@@ -141,6 +144,44 @@ export async function run(t, { HERE }) {
       && /\.claude-stdout\.txt/.test(source) && /raw_stdout_sha256: SHA\(stdout\)/.test(source)
       && /raw_stderr_sha256: SHA\(stderr\)/.test(source)
       && /type: "result", is_error: true, harness: "codex"/.test(source));
+  {
+    const failureRoot = mkdtempSync(join(tmpdir(), "prose-author-codex-spawn-failure-"));
+    const originalPath = process.env.PATH;
+    try {
+      const system = join(failureRoot, "system.md");
+      const schemaPath = join(failureRoot, "schema.json");
+      const output = join(failureRoot, "result.json");
+      writeFileSync(system, "Return an object.\n");
+      writeFileSync(schemaPath, '{"type":"object","additionalProperties":false}\n');
+      const dispatch = {
+        stage: "draft", harness: "codex", model: "unavailable-model", effort: "low",
+        transport: "native-structured", timeout_ms: 1000, concurrency: 1,
+        manifest_sha256: "0".repeat(64),
+      };
+      process.env.PATH = join(failureRoot, "missing-bin");
+      let firstError = "";
+      let secondError = "";
+      try {
+        await dispatchCodex({
+          system, prompt: "Return {}.", output, schemaPath, noToolsConfig: [], dispatch,
+        });
+      } catch (error) { firstError = error.message; }
+      const failure = existsSync(output) ? JSON.parse(readFileSync(output, "utf8")) : null;
+      try {
+        await dispatchCodex({
+          system, prompt: "Return {}.", output, schemaPath, noToolsConfig: [], dispatch,
+        });
+      } catch (error) { secondError = error.message; }
+      t.check("a Codex spawn error is persisted before rejection and forbids a redraw",
+        /spawn codex ENOENT/.test(firstError)
+          && failure?.type === "result" && failure?.is_error === true
+          && /spawn codex ENOENT/.test(failure?.error ?? "")
+          && /do not redraw/.test(secondError));
+    } finally {
+      process.env.PATH = originalPath;
+      rmSync(failureRoot, { recursive: true, force: true });
+    }
+  }
   t.check("acceptance requires source JSON to parse without transport repair",
     /source required \$\{decoded\.repairs\} transport quote repair/.test(source));
   t.check("a locked native transport cannot silently fall back to fenced text",
@@ -209,9 +250,29 @@ export async function run(t, { HERE }) {
       && codexToolEvents([{ item: { type: "command_execution" } }]).length === 1
       && codexToolEvents([{ item: { type: "mcp_tool_call" } }]).length === 1
       && /codex no-tools boundary rejected item types/.test(source));
-  t.check("Codex raw events, final output, schema, and deny-list are pinned as evidence",
-    /raw_events_sha256/.test(source) && /raw_output_sha256/.test(source)
-      && /codex_no_tools_config/.test(source) && /locked Codex stage schema is invalid/.test(source));
+  {
+    const companionPath = "bundles/prose-author/tests/acceptance-runner.mjs";
+    const fields = codexCompanionArtifactFields({
+      raw_events: companionPath, raw_output: companionPath, recovered_from: companionPath,
+    });
+    t.check("Codex raw events, final output, schema, and deny-list are pinned as evidence",
+      ["raw_events", "raw_output", "recovered_from"].every((key) =>
+        fields[key] === companionPath && /^[a-f0-9]{64}$/.test(fields[`${key}_sha256`]))
+        && /codex_no_tools_config/.test(source) && /locked Codex stage schema is invalid/.test(source));
+  }
+  t.check("every Codex-routable stage hash-binds its raw companion evidence",
+    ["raw_events", "raw_output", "recovered_from"].every((key) =>
+      ARTIFACT_PATH_KEYS.profile.includes(key) && ARTIFACT_PATH_KEYS.critic.includes(key))
+      && ["initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
+        "audit_raw_events", "audit_raw_output", "audit_recovered_from"]
+        .every((key) => ARTIFACT_PATH_KEYS.draft.includes(key))
+      && (source.match(/\.\.\.codexCompanionArtifactFields\(record\),/g) ?? []).length === 4
+      && /codexCompanionArtifactFields\(auditRecord, "audit_"\)/.test(source));
+  t.check("final provenance makes every model record immutable and orders all critic companions after human review",
+    /const evidencePaths = \[resolve\(item\.path\), \.\.\.codexCompanionEvidencePaths\(record\)\]/.test(source)
+      && /for \(const evidencePath of evidencePaths\)/.test(source)
+      && /strictlyCommittedAfter\(evidencePath, item\.prerequisiteCommit\)/.test(source)
+      && /immutableFirstAddAnchor\(evidencePath\)/.test(source));
   t.check("Codex output-last-message loss is recovered from the immutable event without a redraw",
     /The JSONL agent_message is the primary raw response/.test(source)
       && /final output file diverges from its immutable event stream/.test(source)
@@ -504,7 +565,7 @@ export async function run(t, { HERE }) {
           !auditAnchor.error && ordered && /differs from its immutable first-add version/.test(auditDrift)
             && /if \(auditAnchor\.error\) \{/.test(source)
             && /completed claims audit must be committed unchanged before critic calls/.test(source)
-            && /strictlyCommittedAfter\(item\.path, item\.prerequisiteCommit\)/.test(source));
+            && /strictlyCommittedAfter\(evidencePath, item\.prerequisiteCommit\)/.test(source));
       } finally {
         rmSync(anchorRoot, { recursive: true, force: true });
       }
@@ -578,7 +639,9 @@ export async function run(t, { HERE }) {
         const recovered = { ...record, recovered_from: "failure.json" };
         t.check("a recovered Codex wrapper requires its preserved failure companion",
           codexRecordErrors(recovered, eventRoot).length === 0
-            && /recovered_from_sha256/.test(source));
+            && /^[a-f0-9]{64}$/.test(codexCompanionArtifactFields({
+              recovered_from: "bundles/prose-author/tests/acceptance-runner.mjs",
+            }).recovered_from_sha256));
         writeFileSync(join(eventRoot, "failure.json"), "{}\n");
         t.check("tampered recovery provenance fails reconstruction",
           codexRecordErrors(recovered, eventRoot).some((error) => /does not preserve/.test(error)));

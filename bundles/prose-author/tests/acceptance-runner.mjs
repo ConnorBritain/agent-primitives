@@ -939,6 +939,26 @@ function finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, inpu
   return { skipped: false, recovered: preserveFailure, output };
 }
 
+const CODEX_COMPANION_KEYS = ["raw_events", "raw_output", "recovered_from"];
+
+function codexCompanionArtifactFields(record, prefix = "") {
+  return Object.fromEntries(CODEX_COMPANION_KEYS.flatMap((key) => {
+    const path = record?.[key] ?? null;
+    return [
+      [`${prefix}${key}`, path],
+      [`${prefix}${key}_sha256`, path ? SHA(text(resolve(REPO, path))) : null],
+    ];
+  }));
+}
+
+function codexCompanionEvidencePaths(record) {
+  if (record?.harness !== "codex") return [];
+  return CODEX_COMPANION_KEYS
+    .map((key) => record[key])
+    .filter((path) => typeof path === "string" && path)
+    .map((path) => resolve(REPO, path));
+}
+
 async function codex({
   system, prompt, output, schemaPath, noToolsConfig, prerequisites = null, dispatch,
 }) {
@@ -993,33 +1013,47 @@ async function codex({
       timedOut = true;
       child.kill("SIGTERM");
     }, dispatch.timeout_ms);
+    const cleanUp = () => {
+      clearTimeout(timeout);
+      rmSync(isolationDir, { recursive: true, force: true });
+    };
+    const preserveRawOutput = () => {
+      if (stdout && !existsSync(eventsOutput)) {
+        write(eventsOutput, stdout.endsWith("\n") ? stdout : `${stdout}\n`);
+      }
+    };
+    const fail = (message) => {
+      if (settled) return;
+      settled = true;
+      preserveRawOutput();
+      cleanUp();
+      write(output, {
+        type: "result", is_error: true, harness: "codex", result: "",
+        structured_output: null,
+        raw_events: existsSync(eventsOutput) ? rel(eventsOutput) : null,
+        raw_output: existsSync(finalOutput) ? rel(finalOutput) : null,
+        recovered_from: null,
+        error: message,
+        acceptance_dispatch: resultDispatch(dispatch),
+        acceptance_input: input,
+      });
+      reject(new Error(message));
+    };
     child.stdout.on("data", (chunk) => { stdout += chunk; });
     child.stderr.on("data", (chunk) => { stderr += chunk; });
     child.on("error", (error) => {
-      settled = true;
-      clearTimeout(timeout);
-      rmSync(isolationDir, { recursive: true, force: true });
-      reject(error);
+      fail(`codex spawn failed: ${error.message}`);
     });
     child.on("close", (code) => {
       if (settled) return;
-      settled = true;
-      clearTimeout(timeout);
-      rmSync(isolationDir, { recursive: true, force: true });
-      if (stdout) write(eventsOutput, stdout.endsWith("\n") ? stdout : `${stdout}\n`);
-      const fail = (message) => {
-        write(output, {
-          type: "result", is_error: true, harness: "codex", result: "",
-          structured_output: null, raw_events: rel(eventsOutput), error: message,
-          acceptance_dispatch: resultDispatch(dispatch),
-          acceptance_input: input,
-        });
-        reject(new Error(message));
-      };
       if (timedOut) return fail(`codex exceeded ${dispatch.timeout_ms}ms; no redraw was made`);
       if (code !== 0) return fail(`codex exited ${code}: ${stderr.slice(0, 2000)}`);
+      preserveRawOutput();
+      cleanUp();
       try {
-        resolvePromise(finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, input }));
+        const finalized = finalizeCodexEvents({ eventsOutput, finalOutput, output, dispatch, input });
+        settled = true;
+        resolvePromise(finalized);
       } catch (error) {
         fail(error.message);
       }
@@ -1186,6 +1220,7 @@ function collectProfiles(runDir) {
         raw_sha256: SHA(text(rawPath)), source_sha256: SHA(text(sourcePath)),
         render_sha256: SHA(text(rawRender)),
         markdown_sha256: SHA(text(md)), json_sha256: SHA(text(js)),
+        ...codexCompanionArtifactFields(record),
         transport_repairs: decoded.repairs, coverage, recount,
       };
     }
@@ -1430,6 +1465,8 @@ function collectDrafts(runDir) {
     const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
     const record = chain.record;
     const auditRawPath = chain.finalAuditRawPath;
+    const auditRecord = completedResult(auditRawPath, auditDispatch);
+    if (!auditRecord) die(`missing ${rel(auditRawPath)}`);
     const assembled = assembleVoiceDraft(chain.finalSource, {
       request: c.prompt, auditClaims: chain.auditClaims,
     });
@@ -1479,12 +1516,9 @@ function collectDrafts(runDir) {
       draft: rel(out), draft_sha256: SHA(text(out)),
       disclosure: disclosure ? rel(disclosurePath) : null,
       disclosure_sha256: disclosure ? SHA(text(disclosurePath)) : null,
-      raw_events: record.raw_events ?? null,
-      raw_output: record.raw_output ?? null,
-      recovered_from: record.recovered_from ?? null,
-      raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
-      raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
-      recovered_from_sha256: record.recovered_from ? SHA(text(resolve(REPO, record.recovered_from))) : null,
+      ...codexCompanionArtifactFields(record),
+      ...codexCompanionArtifactFields(auditRecord, "initial_audit_"),
+      ...codexCompanionArtifactFields(auditRecord, "audit_"),
     };
   }
   for (const c of cases.refusals) {
@@ -1509,12 +1543,7 @@ function collectDrafts(runDir) {
       source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
       render_output: rel(renderPath), render_output_sha256: SHA(text(renderPath)),
       reason: parsed.json.refused,
-      raw_events: record.raw_events ?? null,
-      raw_output: record.raw_output ?? null,
-      recovered_from: record.recovered_from ?? null,
-      raw_events_sha256: record.raw_events ? SHA(text(resolve(REPO, record.raw_events))) : null,
-      raw_output_sha256: record.raw_output ? SHA(text(resolve(REPO, record.raw_output))) : null,
-      recovered_from_sha256: record.recovered_from ? SHA(text(resolve(REPO, record.recovered_from))) : null,
+      ...codexCompanionArtifactFields(record),
     };
   }
   write(artifactsPath, artifacts);
@@ -1891,15 +1920,20 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
 }
 
 const ARTIFACT_PATH_KEYS = {
-  profile: ["prompt", "raw", "source", "render", "markdown", "json"],
+  profile: [
+    "prompt", "raw", "source", "render", "markdown", "json",
+    "raw_events", "raw_output", "recovered_from",
+  ],
   draft: [
     "prompt", "raw", "original_source", "normalized_source",
     "initial_audit_prompt", "initial_audit_raw", "initial_audit",
+    "initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
     "audit_prompt", "audit_raw", "audit", "source", "render_output", "draft", "disclosure",
+    "audit_raw_events", "audit_raw_output", "audit_recovered_from",
     "raw_events", "raw_output", "recovered_from",
   ],
   refusal: ["prompt", "raw", "source", "render_output", "raw_events", "raw_output", "recovered_from"],
-  critic: ["prompt", "raw", "source", "render"],
+  critic: ["prompt", "raw", "source", "render", "raw_events", "raw_output", "recovered_from"],
   evidence: ["claims_audit", "structural", "tally", "score"],
 };
 
@@ -1990,7 +2024,13 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
       continue;
     }
     for (const id of renderIds) {
-      errors.push(...artifactEntryHashErrors(renders[id], ARTIFACT_PATH_KEYS.profile, `profiles.${profile.id}.${id}`, runDir));
+      const optional = ["recovered_from"];
+      if (manifestDispatch(manifest, "profile").harness !== "codex") {
+        optional.push("raw_events", "raw_output");
+      }
+      errors.push(...artifactEntryHashErrors(
+        renders[id], ARTIFACT_PATH_KEYS.profile, `profiles.${profile.id}.${id}`, runDir, optional,
+      ));
     }
     try {
       const stability = analyzeProfileStability(renderIds.map((id) =>
@@ -2008,10 +2048,20 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
     try { chain = resolveDraftChain(runDir, manifest, c); } catch (error) {
       errors.push(`${c.id} draft chain cannot be resolved for artifact checking: ${error.message}`);
     }
-    const optional = ["disclosure", "recovered_from"];
+    const optional = [
+      "disclosure", "recovered_from",
+      "initial_audit_recovered_from", "audit_recovered_from",
+    ];
     if (!chain?.normalized) optional.push("normalized_source");
-    if (!chain?.initialAudit) optional.push("initial_audit_prompt", "initial_audit_raw", "initial_audit");
+    if (!chain?.initialAudit) optional.push(
+      "initial_audit_prompt", "initial_audit_raw", "initial_audit",
+      "initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
+    );
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
+    if (manifestDispatch(manifest, "claim_audit").harness !== "codex") optional.push(
+      "initial_audit_raw_events", "initial_audit_raw_output",
+      "audit_raw_events", "audit_raw_output",
+    );
     errors.push(...artifactEntryHashErrors(
       draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
     ));
@@ -2028,7 +2078,13 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
       continue;
     }
     for (const id of drawIds) {
-      errors.push(...artifactEntryHashErrors(draws[id], ARTIFACT_PATH_KEYS.critic, `critics.${c.id}.${id}`, runDir));
+      const optional = ["recovered_from"];
+      if (manifestDispatch(manifest, "critic").harness !== "codex") {
+        optional.push("raw_events", "raw_output");
+      }
+      errors.push(...artifactEntryHashErrors(
+        draws[id], ARTIFACT_PATH_KEYS.critic, `critics.${c.id}.${id}`, runDir, optional,
+      ));
     }
   }
   for (const c of cases.refusals) {
@@ -2386,6 +2442,7 @@ function deriveCriticEvidence(runDir, manifest, cases, { writeCanonical = false 
         raw: rel(rawPath), raw_sha256: SHA(text(rawPath)),
         source: rel(sourcePath), source_sha256: SHA(text(sourcePath)),
         render: rel(renderPath), render_sha256: SHA(text(renderPath)),
+        ...codexCompanionArtifactFields(record),
         ...derived,
       };
     }
@@ -2494,10 +2551,22 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   }
   for (const item of expected) {
     try {
-      if (!completedResult(item.path, item.dispatch, item.input)) errors.push(`missing model result ${rel(item.path)}`);
-      if (item.prerequisiteCommit) {
-        const orderError = strictlyCommittedAfter(item.path, item.prerequisiteCommit);
-        if (orderError) errors.push(`${rel(item.path)} is not immutable evidence after its claims audit: ${orderError}`);
+      const record = completedResult(item.path, item.dispatch, item.input);
+      if (!record) {
+        errors.push(`missing model result ${rel(item.path)}`);
+        continue;
+      }
+      const evidencePaths = [resolve(item.path), ...codexCompanionEvidencePaths(record)];
+      for (const evidencePath of evidencePaths) {
+        if (item.prerequisiteCommit) {
+          const orderError = strictlyCommittedAfter(evidencePath, item.prerequisiteCommit);
+          if (orderError) {
+            errors.push(`${rel(evidencePath)} is not immutable evidence after its claims audit: ${orderError}`);
+          }
+        } else {
+          const anchor = immutableFirstAddAnchor(evidencePath);
+          if (anchor.error) errors.push(`${rel(evidencePath)} is not immutable model evidence: ${anchor.error}`);
+        }
       }
     } catch (error) {
       errors.push(error.message);
@@ -2773,8 +2842,8 @@ async function main() {
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) await main();
 
 export {
-  artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
-  codexRecordErrors, committedManifestError, completedResult,
+  ARTIFACT_PATH_KEYS, artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
+  codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, factualCandidateReasons, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,

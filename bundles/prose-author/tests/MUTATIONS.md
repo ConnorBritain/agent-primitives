@@ -47,6 +47,10 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | hash committed schemas only for Codex drafts | 1 | profile, audit, and critic provenance hashes the exact schema file Codex received |
 | accept an adapter that cannot enforce the gated runtime boundary | 1 | a new harness cannot claim gated acceptance without clean context, no-tools, and immutable failures |
 | drop the hash of Claude failure output | 1 | a Claude timeout preserves inspectable raw output instead of disappearing before evidence collection |
+| reject a Codex spawn error without persisting its failed cell | 1 | a missing Codex executable records one immutable failed call and cannot be retried as a redraw |
+| omit Codex companions from profile artifact hashes | 1 | profile evidence binds the primary Codex event stream and final structured output |
+| omit Codex companions from claim-audit artifact hashes | 1 | independent claim audits bind their primary Codex evidence rather than only a mutable wrapper |
+| order only the critic wrapper after the human audit | 1 | a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
 | advertise legacy claim-repair evidence in a current artifact record | 2 | current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash |
 | scan only the top-level artifact record for legacy repair fields | 1 | legacy repair fields are forbidden in every profile, draft, refusal, critic, and evidence record |
@@ -102,7 +106,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let the completed human audit change after its first commit | 1 | the exact human audit and critic raw evidence stay immutable after first commit |
 | dispatch critics before committing the completed human audit | 1 | critic calls cannot precede the immutable human-audit anchor |
 | omit the human audit anchor from critic invocation provenance | 1 | every critic raw record names the exact audit hash and pre-critic commit |
-| stop checking that critic evidence was committed after the human audit | 1 | repository history proves the reviewed audit predates every critic result |
+| stop checking that critic evidence was committed after the human audit | 2 | repository history proves the reviewed audit predates every critic result |
 | let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
 | let the requested container override the profile's register | 2 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
