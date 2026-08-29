@@ -481,59 +481,126 @@ export async function run(t, { HERE }) {
         }),
       }, { request }).ok);
 
-    const rejectedAudit = {
-      ...audit,
-      sentences: audit.sentences.map((row, index) => index ? {
-        ...row, status: "reject", reason: "The sentence adds an unbounded population claim.",
-      } : row),
-    };
-    const repaired = {
+    const repairSource = {
       ...source,
       paragraphs: [{ sentences: [
         source.paragraphs[0].sentences[0],
-        { text: "That could leave ownership hollow.", basis: "reasoning", claim_ids: [] },
+        source.paragraphs[0].sentences[1],
+        { text: "Ownership should mean control.", basis: "normative", claim_ids: [] },
+        { text: "A buyer could reasonably object.", basis: "hypothetical", claim_ids: [] },
+        { text: "The distinction matters.", basis: "reasoning", claim_ids: [] },
       ] }],
     };
+    const repairRefs = sentenceRefs(repairSource);
+    const rejectedAudit = {
+      schema: "voice-draft-claim-audit/2",
+      sentences: repairRefs.map((ref, index) => index === 1 ? {
+        id: ref.id, status: "reject", reason: "The sentence adds an unbounded population claim.",
+      } : {
+        id: ref.id, status: "keep", reason: "The sentence adds no unsupported descriptive fact.",
+      }),
+    };
+    const repaired = {
+      ...repairSource,
+      paragraphs: [{ sentences: repairSource.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        text: "Perhaps that leaves ownership hollow.", basis: "hypothetical", claim_ids: [],
+      } : sentence) }],
+    };
     t.check("a bounded repair may rewrite only independently rejected sentence units",
-      validateVoiceDraftClaimRepair(source, repaired, { request, audit: rejectedAudit }).ok);
+      validateVoiceDraftClaimRepair(repairSource, repaired, { request, audit: rejectedAudit }).ok);
+    const allRejected = {
+      ...audit,
+      sentences: audit.sentences.map((row) => ({
+        ...row, status: "reject", reason: "The sentence adds an unbounded population claim.",
+      })),
+    };
+    const allRewritten = {
+      ...source,
+      paragraphs: [{ sentences: [
+        { ...source.paragraphs[0].sentences[0], text: "A maker could disable features after sale." },
+        { text: "Perhaps that leaves ownership hollow.", basis: "hypothetical", claim_ids: [] },
+      ] }],
+    };
+    const broadRepair = validateVoiceDraftClaimRepair(source, allRewritten, { request, audit: allRejected });
+    t.check("an all-rejected audit cannot turn bounded repair into a second draft",
+      !broadRepair.ok && broadRepair.errors.some((error) => /more than 20%/.test(error)));
+    const injectedContent = validateVoiceDraftClaimRepair(repairSource, {
+      ...repaired,
+      paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        ...sentence, text: "That leaves ownership hollow while moon cheese exists.",
+      } : sentence) }],
+    }, { request, audit: rejectedAudit });
+    t.check("a rejected sentence cannot inject new factual content under a clean relabel",
+      !injectedContent.ok
+        && injectedContent.errors.some((error) => /unsupported lexical content/.test(error)));
+    const wholesaleMarkers = validateVoiceDraftClaimRepair(repairSource, {
+      ...repaired,
+      paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        ...sentence, text: "Perhaps someone could imagine something possible.",
+      } : sentence) }],
+    }, { request, audit: rejectedAudit });
+    t.check("allowed hypothetical markers cannot replace rather than minimally edit a rejected sentence",
+      !wholesaleMarkers.ok
+        && wholesaleMarkers.errors.some((error) => /replaced rather than minimally edited/.test(error)));
+    const polaritySource = {
+      ...repairSource,
+      paragraphs: [{ sentences: repairSource.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        ...sentence, text: "That does not leave ownership hollow.",
+      } : sentence) }],
+    };
+    const polarityRepair = {
+      ...polaritySource,
+      paragraphs: [{ sentences: polaritySource.paragraphs[0].sentences.map((sentence, index) => index === 1 ? {
+        ...sentence, text: "That does leave ownership hollow.",
+      } : sentence) }],
+    };
+    const reversed = validateVoiceDraftClaimRepair(
+      polaritySource, polarityRepair, { request, audit: rejectedAudit },
+    );
+    t.check("a bounded repair cannot reverse argument polarity by deleting negation",
+      !reversed.ok && reversed.errors.some((error) => /protected polarity token not/.test(error)));
     t.check("a bounded repair cannot edit an accepted sentence or add a claim",
-      !validateVoiceDraftClaimRepair(source, {
+      !validateVoiceDraftClaimRepair(repairSource, {
         ...repaired,
         ledger: [...repaired.ledger, {
           id: "c2", basis: "external-verification", claim: "A new remembered fact.", request_basis: "",
         }],
-        paragraphs: [{ sentences: [
-          { ...repaired.paragraphs[0].sentences[0], text: "Changed accepted prose." },
-          { ...repaired.paragraphs[0].sentences[1], basis: "external-verification", claim_ids: ["c2"] },
-        ] }],
+        paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 0
+          ? { ...sentence, text: "Changed accepted prose." }
+          : index === 1 ? { ...sentence, basis: "external-verification", claim_ids: ["c2"] } : sentence) }],
       }, { request, audit: rejectedAudit }).ok);
     t.check("a bounded repair cannot add a new factual ledger entry even inside a rejected sentence",
-      !validateVoiceDraftClaimRepair(source, {
+      !validateVoiceDraftClaimRepair(repairSource, {
         ...repaired,
         ledger: [...repaired.ledger, {
           id: "c2", basis: "external-verification", claim: "A new remembered fact.", request_basis: "",
         }],
-        paragraphs: [{ sentences: [
-          repaired.paragraphs[0].sentences[0],
-          { text: "A new remembered fact.", basis: "external-verification", claim_ids: ["c2"] },
-        ] }],
+        paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 1
+          ? { text: "A new remembered fact.", basis: "external-verification", claim_ids: ["c2"] }
+          : sentence) }],
+      }, { request, audit: rejectedAudit }).ok);
+    t.check("a bounded repair cannot alter a retained ledger entry's provenance",
+      !validateVoiceDraftClaimRepair(repairSource, {
+        ...repaired,
+        ledger: repaired.ledger.map((entry) => ({
+          ...entry, request_basis: "can disable features after sale",
+        })),
       }, { request, audit: rejectedAudit }).ok);
     t.check("an audit repair must change the rejected prose rather than relabel it",
-      !validateVoiceDraftClaimRepair(source, {
-        ...source,
-        paragraphs: [{ sentences: [
-          source.paragraphs[0].sentences[0],
-          { ...source.paragraphs[0].sentences[1], basis: "hypothetical" },
-        ] }],
+      !validateVoiceDraftClaimRepair(repairSource, {
+        ...repairSource,
+        paragraphs: [{ sentences: repairSource.paragraphs[0].sentences.map((sentence, index) => index === 1
+          ? { ...sentence, basis: "hypothetical" }
+          : sentence) }],
       }, { request, audit: rejectedAudit }).ok);
     t.check("a malformed initial audit cannot authorize a repair boundary",
-      claimRepairRejectedIds(source, {
+      claimRepairRejectedIds(repairSource, {
         ...rejectedAudit,
         sentences: rejectedAudit.sentences.map((row, index) => index
           ? { ...row, unexpected: "repair authority" }
           : row),
       }).length === 0
-        && claimRepairRejectedIds(source, {
+        && claimRepairRejectedIds(repairSource, {
           ...rejectedAudit,
           sentences: rejectedAudit.sentences.map((row, index) => index
             ? { ...row, reason: "" }

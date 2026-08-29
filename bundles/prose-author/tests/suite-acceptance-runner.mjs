@@ -9,8 +9,8 @@ import { dirname, join } from "node:path";
 import {
   artifactEntryHashErrors, claimAuditPrompt, claimsAuditFailures, CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexRecordErrors, committedManifestError, completedResult, criticPrompt, deriveCritic, draftPrompt, invocationInput,
-  localModuleClosure, manifestDispatch, prepareConfig, profileRenderPrompt, quotationAudit, resolveDraftChain,
-  stagePrompt, validateCases,
+  localModuleClosure, lockedImplementationErrors, manifestDispatch, prepareConfig, profileRenderPrompt,
+  quotationAudit, resolveDraftChain, stagePrompt, validateCases,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
 import {
@@ -217,6 +217,9 @@ export async function run(t, { HERE }) {
         paragraphs: [{ sentences: [
           { text: request, basis: "request-supported", claim_ids: ["c1"] },
           { text: "Many buyers never notice.", basis: "reasoning", claim_ids: [] },
+          { text: "Ownership should mean control.", basis: "normative", claim_ids: [] },
+          { text: "A buyer could reasonably object.", basis: "hypothetical", claim_ids: [] },
+          { text: "The distinction matters.", basis: "reasoning", claim_ids: [] },
         ] }],
         omitted: [], refused: "",
       };
@@ -224,19 +227,26 @@ export async function run(t, { HERE }) {
         schema: "voice-draft-claim-audit/2", sentences: [
           { id: "p1s1", status: "keep", reason: "The request supplies the complete assertion." },
           { id: "p1s2", status: "reject", reason: "Unledgered population claim." },
+          { id: "p1s3", status: "keep", reason: "This is a normative conclusion." },
+          { id: "p1s4", status: "keep", reason: "This is explicitly hypothetical." },
+          { id: "p1s5", status: "keep", reason: "This is a nonfactual conclusion." },
         ],
       };
       const repaired = {
         ...original,
         paragraphs: [{ sentences: [
           original.paragraphs[0].sentences[0],
-          { text: "A buyer might never notice.", basis: "hypothetical", claim_ids: [] },
+          { text: "Perhaps many buyers never notice.", basis: "hypothetical", claim_ids: [] },
+          ...original.paragraphs[0].sentences.slice(2),
         ] }],
       };
       const finalAudit = {
         schema: "voice-draft-claim-audit/2", sentences: [
           { id: "p1s1", status: "keep", reason: "The request supplies the complete assertion." },
           { id: "p1s2", status: "keep", reason: "This is explicitly hypothetical." },
+          { id: "p1s3", status: "keep", reason: "This is a normative conclusion." },
+          { id: "p1s4", status: "keep", reason: "This is explicitly hypothetical." },
+          { id: "p1s5", status: "keep", reason: "This is a nonfactual conclusion." },
         ],
       };
       const put = (folder, id, payload, stageName) => {
@@ -254,7 +264,7 @@ export async function run(t, { HERE }) {
       let resolved = null;
       try { resolved = resolveDraftChain(chainRoot, manifest, c); } catch {}
       t.check("final checking composes rejected draft, bounded repair, and fresh reaudit from raw records",
-        resolved?.repaired && resolved.finalSource.paragraphs[0].sentences[1].text === "A buyer might never notice."
+        resolved?.repaired && resolved.finalSource.paragraphs[0].sentences[1].text === "Perhaps many buyers never notice."
           && JSON.stringify(resolved.finalAudit) === JSON.stringify(finalAudit));
       put("claim-reaudits", c.id, initialAudit, "claim_reaudit");
       let reauditRejected = false;
@@ -265,10 +275,9 @@ export async function run(t, { HERE }) {
       put("claim-reaudits", c.id, finalAudit, "claim_reaudit");
       put("claim-repairs", c.id, {
         ...repaired,
-        paragraphs: [{ sentences: [
-          { ...repaired.paragraphs[0].sentences[0], text: "Protected prose changed." },
-          repaired.paragraphs[0].sentences[1],
-        ] }],
+        paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 0
+          ? { ...sentence, text: "Protected prose changed." }
+          : sentence) }],
       }, "claim_repair");
       let protectedRejected = false;
       try { resolveDraftChain(chainRoot, manifest, c); } catch (error) {
@@ -349,6 +358,21 @@ export async function run(t, { HERE }) {
         const preparedCommit = execFileSync("git", ["rev-parse", "HEAD"], {
           cwd: anchorRoot, encoding: "utf8",
         }).trim();
+        const baseHash = createHash("sha256").update("base\n").digest("hex");
+        const lockedManifest = { prepared_commit: preparedCommit, locked_files: { "base.txt": baseHash } };
+        const cleanLock = lockedImplementationErrors(lockedManifest, anchorRoot).length === 0;
+        writeFileSync(join(anchorRoot, "base.txt"), "transient mutation\n");
+        const currentDrift = lockedImplementationErrors(lockedManifest, anchorRoot)
+          .some((error) => /changed after prepare/.test(error));
+        const transientHash = createHash("sha256").update("transient mutation\n").digest("hex");
+        const parentDrift = lockedImplementationErrors({
+          prepared_commit: preparedCommit, locked_files: { "base.txt": transientHash },
+        }, anchorRoot).some((error) => /not anchored in prepared_commit/.test(error));
+        writeFileSync(join(anchorRoot, "base.txt"), "base\n");
+        t.check("locked implementation bytes are verified against current files and the prepared commit before dispatch",
+          cleanLock && currentDrift && parentDrift
+            && /const implementationErrors = lockedImplementationErrors\(manifest\)/.test(source)
+            && /locked implementation failed pre-dispatch verification/.test(source));
         writeFileSync(anchorFile, "{}\n");
         execFileSync("git", ["add", "MANIFEST.json"], { cwd: anchorRoot, stdio: "ignore" });
         execFileSync("git", ["-c", "user.name=Test", "-c", "user.email=test@example.invalid",

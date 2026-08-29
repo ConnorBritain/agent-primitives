@@ -7,6 +7,59 @@ const same = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 const exactKeys = (value, expected) => JSON.stringify(Object.keys(value).sort())
   === JSON.stringify([...expected].sort());
+const MAX_REJECTED_SENTENCES = 2;
+const MAX_REJECTED_SHARE = 0.2;
+const MIN_RETAINED_TOKEN_SHARE = 0.8;
+const ALLOWED_NEW_TOKENS = new Set([
+  "a", "an", "as", "could", "hypothetical", "hypothetically", "if", "imagine",
+  "imagined", "may", "might", "one", "perhaps", "possible", "possibly", "some",
+  "someone", "something", "suppose", "supposed", "were", "would",
+]);
+const POLARITY_TOKENS = new Set([
+  "against", "must", "neither", "never", "no", "nor", "not", "oppose", "opposed",
+  "opposition", "should", "support", "supported", "supports", "welcome",
+]);
+
+function lexicalTokens(value) {
+  return String(value ?? "").toLowerCase()
+    .match(/[\p{L}\p{N}]+(?:['’][\p{L}\p{N}]+)*/gu) ?? [];
+}
+
+function tokenCounts(tokens) {
+  const counts = new Map();
+  for (const token of tokens) counts.set(token, (counts.get(token) ?? 0) + 1);
+  return counts;
+}
+
+function introducedTokens(before, after) {
+  const available = tokenCounts(before);
+  const introduced = [];
+  for (const token of after) {
+    const remaining = available.get(token) ?? 0;
+    if (remaining) available.set(token, remaining - 1);
+    else introduced.push(token);
+  }
+  return introduced;
+}
+
+function retainedTokenShare(before, after) {
+  if (!before.length) return 0;
+  const lengths = Array(after.length + 1).fill(0);
+  for (const beforeToken of before) {
+    let diagonal = 0;
+    for (let index = 1; index <= after.length; index += 1) {
+      const above = lengths[index];
+      if (beforeToken === after[index - 1]) lengths[index] = diagonal + 1;
+      else lengths[index] = Math.max(lengths[index], lengths[index - 1]);
+      diagonal = above;
+    }
+  }
+  return lengths[after.length] / before.length;
+}
+
+function countToken(tokens, target) {
+  return tokens.reduce((count, token) => count + (token === target ? 1 : 0), 0);
+}
 
 function auditShapeErrors(source, audit) {
   const errors = [];
@@ -24,6 +77,49 @@ function auditShapeErrors(source, audit) {
       || typeof row.reason !== "string" || !row.reason.trim()) {
       errors.push(`repair audit row ${index + 1} does not match the original sentence order`);
     }
+  }
+  return errors;
+}
+
+export function claimRepairEligibilityErrors(source, audit) {
+  const errors = auditShapeErrors(source, audit);
+  if (errors.length) return errors;
+  const sentenceCount = sentenceRefs(source).length;
+  const rejectedCount = audit.sentences.filter((row) => row.status === "reject").length;
+  if (rejectedCount === 0) errors.push("repair requires at least one rejected sentence");
+  if (rejectedCount > MAX_REJECTED_SENTENCES) {
+    errors.push(`repair covers ${rejectedCount} rejected sentences; maximum is ${MAX_REJECTED_SENTENCES}`);
+  }
+  if (sentenceCount && rejectedCount / sentenceCount > MAX_REJECTED_SHARE) {
+    errors.push(`repair covers more than ${MAX_REJECTED_SHARE * 100}% of the draft`);
+  }
+  return errors;
+}
+
+function rejectedSentenceErrors(before, after, id) {
+  const errors = [];
+  if (before.text === after.text) errors.push(`repair did not rewrite rejected sentence ${id}`);
+  const beforeTokens = lexicalTokens(before.text);
+  const afterTokens = lexicalTokens(after.text);
+  if (retainedTokenShare(beforeTokens, afterTokens) < MIN_RETAINED_TOKEN_SHARE) {
+    errors.push(`repair replaced rather than minimally edited rejected sentence ${id}`);
+  }
+  const unsupported = introducedTokens(beforeTokens, afterTokens)
+    .filter((token) => !ALLOWED_NEW_TOKENS.has(token));
+  if (unsupported.length) {
+    errors.push(`repair introduced unsupported lexical content in ${id}: ${[...new Set(unsupported)].join(", ")}`);
+  }
+  for (const token of POLARITY_TOKENS) {
+    if (countToken(beforeTokens, token) !== countToken(afterTokens, token)) {
+      errors.push(`repair changed protected polarity token ${token} in ${id}`);
+    }
+  }
+  const originalClaims = new Set(before.claim_ids ?? []);
+  const addedClaims = (after.claim_ids ?? []).filter((claimId) => !originalClaims.has(claimId));
+  if (addedClaims.length) errors.push(`repair added claim references in ${id}: ${addedClaims.join(", ")}`);
+  if (["request-supported", "external-verification"].includes(after.basis)
+    && after.basis !== before.basis) {
+    errors.push(`repair promoted ${id} to factual basis ${after.basis}`);
   }
   return errors;
 }
@@ -53,13 +149,12 @@ export function validateVoiceDraftClaimRepair(original, repaired, {
 
   const structuralRepair = Array.isArray(sourceErrors) && sourceErrors.length > 0;
   if (structuralRepair && audit) errors.push("repair cannot mix source-validation and audit issues");
-  if (!structuralRepair) errors.push(...auditShapeErrors(original, audit));
+  if (!structuralRepair) errors.push(...claimRepairEligibilityErrors(original, audit));
   const rejected = new Set(
     !structuralRepair && Array.isArray(audit?.sentences)
       ? audit.sentences.filter((row) => row?.status === "reject").map((row) => row.id)
       : [],
   );
-  if (!structuralRepair && rejected.size === 0) errors.push("repair requires at least one rejected sentence");
 
   for (let pIndex = 0; pIndex < Math.max(original.paragraphs?.length ?? 0, repaired.paragraphs?.length ?? 0); pIndex += 1) {
     const before = original.paragraphs?.[pIndex]?.sentences;
@@ -72,9 +167,7 @@ export function validateVoiceDraftClaimRepair(original, repaired, {
       const id = `p${pIndex + 1}s${sIndex + 1}`;
       if (structuralRepair || !rejected.has(id)) {
         if (!same(before[sIndex], after[sIndex])) errors.push(`repair changed protected sentence ${id}`);
-      } else if (before[sIndex].text === after[sIndex].text) {
-        errors.push(`repair did not rewrite rejected sentence ${id}`);
-      }
+      } else errors.push(...rejectedSentenceErrors(before[sIndex], after[sIndex], id));
     }
   }
 
@@ -89,6 +182,6 @@ export function validateVoiceDraftClaimRepair(original, repaired, {
 }
 
 export function claimRepairRejectedIds(source, audit) {
-  if (auditShapeErrors(source, audit).length) return [];
+  if (claimRepairEligibilityErrors(source, audit).length) return [];
   return audit.sentences.filter((row) => row.status === "reject").map((row) => row.id);
 }

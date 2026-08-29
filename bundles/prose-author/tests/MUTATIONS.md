@@ -31,14 +31,20 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | hide broad institutional assertions under reasoning | 1 | broad legal, historical, and industry claims enter the verification queue |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |
-| let claim repair add a new factual ledger entry | 1 | a repair cannot introduce new factual premises under cover of fixing one clause |
+| let claim repair alter a retained factual ledger entry | 1 | a repair cannot rewrite the provenance of a retained factual premise |
 | let a malformed audit authorize claim repair | 1 | only a complete independently auditable decision set can authorize sentence changes |
+| let a broad rejection set become a second draft | 1 | a repair cannot rewrite more than one fifth of a draft even when every row says reject |
+| let rejected prose introduce new factual vocabulary | 1 | a repair removes or hypotheticalizes rejected content instead of adding a new proposition |
+| let allowed markers replace an entire rejected sentence | 1 | a repair preserves at least four fifths of the original lexical sequence |
+| let claim repair reverse sentence polarity | 1 | deleting negation cannot reverse the argument under cover of factual repair |
 | publish a repair after its second audit rejects it | 2 | one bounded repair still requires a fresh independent audit to clear |
 | resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
 | score the handwritten tally instead of rebuilding raw critic evidence | 1 | a passing TALLY.json cannot conceal failing raw critic draws |
 | leave transitive scoring dependencies outside the prepare lock | 1 | the immutable run locks the full local scoring and structural dependency closure |
 | resume from an uncommitted mutable manifest | 1 | the prepared manifest is committed unchanged before its first dispatch |
+| skip locked implementation verification before dispatch | 1 | a prepared run refuses transient implementation changes before any model process starts |
+| let the manifest lock bytes absent from its prepared parent | 1 | manifest hashes are anchored to implementation bytes in prepared_commit, not merely current files |
 | relabel recoverable Codex events under a new manifest | 1 | Codex recovery preserves the dispatch provenance of the original event stream |
 | let required artifact path and hash pairs disappear together | 1 | a missing required artifact cannot pass merely because its hash was also removed |
 | omit concurrency from raw dispatch provenance | 2 | every raw result records the manifest's actual locked concurrency |

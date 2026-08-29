@@ -138,7 +138,11 @@ One rejected audit may trigger one bounded repair, never a redraw. The repair se
 request, original proof-carrying source, and rejection reasons, but no profile or corpus.
 It must preserve every accepted sentence, every retained ledger entry, the paragraph and
 sentence counts, and the omission record byte-for-byte. It may minimally rewrite rejected
-sentence units or delete an unused ledger suffix, and it may not add facts. A fresh
+sentence units only when at most two and at most 20 percent of all sentence units were
+rejected. Each edit must retain at least 80 percent of the original lexical tokens in
+their original order, may introduce
+only fixed grammatical or hypothetical markers, must preserve polarity, and cannot add a
+claim reference. It may instead delete an unused ledger suffix, and it may not add facts. A fresh
 independent audit then reviews the complete repaired source. A second rejection stops the
 cell; there is no further repair or favorable variant selection. The original source,
 initial audit, repair, and final audit remain separate evidence. A human claims audit

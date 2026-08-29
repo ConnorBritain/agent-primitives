@@ -44,7 +44,7 @@ import {
   parseVoiceDraftClaimAudit, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import {
-  claimRepairRejectedIds, validateVoiceDraftClaimRepair,
+  claimRepairEligibilityErrors, claimRepairRejectedIds, validateVoiceDraftClaimRepair,
 } from "../skills/prose-draft/tools/draft-claim-repair.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
@@ -263,6 +263,41 @@ function committedManifestError(path, preparedCommit, repo = REPO) {
     return "manifest first-add commit is not resolvable from HEAD";
   }
   return null;
+}
+
+function lockedImplementationErrors(manifest, repo = REPO) {
+  const errors = [];
+  if (!manifest?.locked_files || typeof manifest.locked_files !== "object"
+    || Array.isArray(manifest.locked_files)) {
+    return ["manifest has no locked implementation hashes"];
+  }
+  for (const [file, expected] of Object.entries(manifest.locked_files)) {
+    const target = resolve(repo, file);
+    const within = relative(repo, target);
+    if (!file || within === "" || within.startsWith("..") || resolve(repo, within) !== target) {
+      errors.push(`locked implementation path is invalid: ${file}`);
+      continue;
+    }
+    if (typeof expected !== "string" || !/^[a-f0-9]{64}$/.test(expected)) {
+      errors.push(`locked implementation hash is invalid: ${file}`);
+      continue;
+    }
+    if (!existsSync(target) || SHA(text(target)) !== expected) {
+      errors.push(`locked implementation changed after prepare: ${file}`);
+    }
+    try {
+      const prepared = execFileSync(
+        "git", ["show", `${manifest.prepared_commit}:${file}`],
+        { cwd: repo, encoding: "utf8", stdio: ["ignore", "pipe", "ignore"] },
+      );
+      if (SHA(prepared) !== expected) {
+        errors.push(`locked implementation was not anchored in prepared_commit: ${file}`);
+      }
+    } catch {
+      errors.push(`locked implementation is absent from prepared_commit: ${file}`);
+    }
+  }
+  return errors;
 }
 
 function runPath(arg) {
@@ -554,6 +589,10 @@ function loadPrepared(runDir) {
   for (const stage of STAGES) manifestDispatch(manifest, stage);
   const anchorError = committedManifestError(p.manifest, manifest.prepared_commit);
   if (anchorError) die(`MANIFEST.json must be committed unchanged before dispatch: ${anchorError}`);
+  const implementationErrors = lockedImplementationErrors(manifest);
+  if (implementationErrors.length) {
+    die(`locked implementation failed pre-dispatch verification:\n    ${implementationErrors.join("\n    ")}`);
+  }
   return { p, manifest, cases };
 }
 
@@ -1192,8 +1231,9 @@ async function dispatchClaimPipeline(runDir, manifest, cases) {
     const source = sources.get(c.id);
     const applied = applyVoiceDraftClaimAudit(source, decodedAudit.audit, { request: c.prompt });
     if (!applied.ok) {
-      if (!claimRepairRejectedIds(source, decodedAudit.audit).length) {
-        die(`${c.id} malformed independent claim audit cannot trigger repair: ${applied.errors.join("; ")}`);
+      const eligibilityErrors = claimRepairEligibilityErrors(source, decodedAudit.audit);
+      if (eligibilityErrors.length) {
+        die(`${c.id} independent claim audit cannot trigger bounded repair: ${eligibilityErrors.join("; ")}`);
       }
       repairNeeds.set(c.id, { c, source, sourceErrors: [], audit: decodedAudit.audit });
     }
@@ -1269,8 +1309,9 @@ function resolveDraftChain(runDir, manifest, c) {
     initialAudit = decodedAudit.audit;
     const applied = applyVoiceDraftClaimAudit(decoded.source, initialAudit, { request: c.prompt });
     if (!applied.ok) {
-      if (!claimRepairRejectedIds(decoded.source, initialAudit).length) {
-        throw new Error(`${c.id} malformed independent claim audit: ${applied.errors.join("; ")}`);
+      const eligibilityErrors = claimRepairEligibilityErrors(decoded.source, initialAudit);
+      if (eligibilityErrors.length) {
+        throw new Error(`${c.id} independent claim audit cannot trigger bounded repair: ${eligibilityErrors.join("; ")}`);
       }
       repairNeed = { sourceErrors: [], audit: initialAudit };
     }
@@ -2255,16 +2296,7 @@ function check(runDir) {
   const errors = [];
   if (SHA(text(p.design)) !== manifest.design_sha256) errors.push("DESIGN.md changed after prepare");
   if (SHA(text(p.cases)) !== manifest.cases_sha256) errors.push("CASES.json changed after prepare");
-  if (!manifest.locked_files || typeof manifest.locked_files !== "object") {
-    errors.push("manifest has no locked implementation hashes");
-  } else {
-    for (const [file, expected] of Object.entries(manifest.locked_files)) {
-      const target = join(REPO, file);
-      if (!existsSync(target) || SHA(text(target)) !== expected) {
-        errors.push(`locked implementation changed after prepare: ${file}`);
-      }
-    }
-  }
+  errors.push(...lockedImplementationErrors(manifest));
   errors.push(...validateCases(cases));
   for (const [kind, entry] of Object.entries(manifest.agents)) {
     const sourceBody = stripFrontmatter(text(join(REPO, entry.source)));
@@ -2391,6 +2423,7 @@ export {
   artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimRepairPrompt, claimsAuditFailures,
   codexRecordErrors, committedManifestError, completedResult,
   claude as dispatchClaude, codex as dispatchCodex,
-  criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, invocationInput, localModuleClosure,
+  criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, invocationInput,
+  localModuleClosure, lockedImplementationErrors,
   manifestDispatch, prepareConfig, quotationAudit, resolveDraftChain, stagePrompt, structuralGates, validateCases,
 };
