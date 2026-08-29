@@ -81,7 +81,7 @@ with its own narrow allowlist makes that a boundary rather than a promise.
 
 The production path deterministically measures `corpus/human/**`, then gives those
 measurements, the corpus, `voice.md`, and `profile.json` to one clean semantic render. The
-model emits `voice-profile-source/3`. The portable assembler turns that source into one
+model emits `voice-profile-source/4`. The portable assembler turns that source into one
 self-contained `voice-profile/2` whose `profile_markdown` is what the drafter reads and
 whose structured fields are what the harness verifies.
 
@@ -93,6 +93,11 @@ validator requires every dimension to be supported or explicitly unresolved. Pro
 with native structured output enforce the context-specific slot schema while decoding.
 Other harnesses receive the same slot plan, emit ordinary JSON, and pass it through the
 identical validator.
+
+Qualitative support establishes where a move appears across samples, not how often it
+should recur inside a new piece. Qualitative observations therefore carry restrained
+placement guidance but no model-authored frequency. Only deterministic measured slots
+produce drafting frequency bands.
 The Claude acceptance harness uses native structure by default; setting
 `ACCEPTANCE_PROFILE_NATIVE_SCHEMA=0` exists only to exercise the JSON-fence fallback.
 

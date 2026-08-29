@@ -45,6 +45,9 @@ import {
   AUDIT_SCHEMA_ID as DRAFT_AUDIT_SCHEMA_ID,
   parseVoiceDraftClaimAudit, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
+import {
+  draftTargetCard, renderDraftTargetCard,
+} from "../skills/prose-draft/tools/draft-targets.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
 import {
   ABSENCE_REPLACEMENTS, assembleVoiceProfile, parseVoiceProfileSource, sourceMeasurementPlan,
@@ -523,9 +526,10 @@ export function profileRenderPrompt(profileId, inputs, measurements = null) {
     "Complete the renderer's refusal checks now.",
     "This locked corpus is expected to be renderable; if it is not, state the refusal",
     "rather than inventing evidence.",
-    "Otherwise emit voice-profile-source/3 exactly as described by the system prompt.",
+    "Otherwise emit voice-profile-source/4 exactly as described by the system prompt.",
     "Fill every deterministic measured slot below with semantic prose. Supply supporting",
-    "filenames and qualitative frequencies for the remaining qualitative dimensions, and",
+    "filenames for the remaining qualitative dimensions, with restrained placement but no",
+    "within-piece frequency, and",
     "fill every required unresolved reason. Do not copy counts, rates, support",
     "fractions, rules, observation IDs, coverage statuses, or final profile fields; the",
     "portable deterministic assembler owns those. Return the structured object only.",
@@ -1250,6 +1254,7 @@ function collectProfiles(runDir) {
 }
 
 function draftPrompt(c, profileMarkdown, profileJson) {
+  const targetCard = renderDraftTargetCard(draftTargetCard(profileJson, c.prompt));
   return [
     "Write the requested draft using only the request and rendered voice profile below.",
     "Follow the system prompt and its output contract exactly. You have no corpus access.",
@@ -1267,6 +1272,8 @@ function draftPrompt(c, profileMarkdown, profileJson) {
     "```json",
     JSON.stringify(profileJson, null, 2),
     "```",
+    "",
+    targetCard,
     "",
     "Return voice-draft-source/3 exactly as described by the system prompt.",
     "Finalize the ledger before the paragraphs, then fill the proof-carrying sentence objects.",

@@ -92,6 +92,7 @@ const DRAFT_CLAIM_AUDIT = `${TOOLS}/draft-claim-audit.mjs`;
 const DRAFT_CLAIM_REPAIR = `${TOOLS}/draft-claim-repair.mjs`;
 const DRAFT_CLAIM_AUDIT_PROMPT = "bundles/prose-author/skills/prose-draft/references/claim-audit.md";
 const PROFILE_CONTRACT = `${TOOLS}/profile-contract.mjs`;
+const DRAFT_TARGETS = `${TOOLS}/draft-targets.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
 const ACCEPTANCE_RUNNER = "bundles/prose-author/tests/acceptance-runner.mjs";
 const STRICT_OUTPUT_SCHEMA = "bundles/prose-author/tests/strict-output-schema.mjs";
@@ -249,6 +250,13 @@ export const MUTATIONS = [
     guards: "every independent basis decision remains inspectable clause by clause",
   },
   {
+    name: "turn ordinary request entailments back into external claims",
+    file: DRAFT_CLAIM_AUDIT_PROMPT,
+    find: "The request also supplies ordinary lexical entailments and role presuppositions needed to\nreason from its wording.",
+    with: "The request supplies no ordinary lexical entailments or role presuppositions needed to\nreason from its wording.",
+    guards: "buying and ownership roles remain usable reasoning without licensing contingent facts",
+  },
+  {
     name: "let a historical disclosure cite words absent from its sentence",
     file: DRAFT_CLAIM_AUDIT,
     find: '          if (previousDisclosureAudit && expected && typeof claim.evidence === "string"\n            && !String(expected.text ?? "").includes(claim.evidence)) {',
@@ -303,6 +311,27 @@ export const MUTATIONS = [
     find: "Do not disclose a metaphor, analogy, tautology, definition, or logical consequence of a\npremise supplied by the request merely because it describes the imagined arrangement.",
     with: "Disclose a metaphor, analogy, tautology, definition, or logical consequence of a\npremise supplied by the request whenever it describes the imagined arrangement.",
     guards: "semantic audit does not inflate request-derived rhetoric into unsupported external claims",
+  },
+  {
+    name: "restore a model-owned quota for qualitative profile evidence",
+    file: PROFILE_CONTRACT,
+    find: '      : "qualitative placement only; no within-piece rate inferred";',
+    with: '      : "several times per piece";',
+    guards: "support prevalence across files cannot masquerade as a within-piece frequency",
+  },
+  {
+    name: "erase the deterministic center aim from draft target cards",
+    file: DRAFT_TARGETS,
+    find: "    aim: Math.round(expected),",
+    with: "    aim: 0,",
+    guards: "every harness receives the same length-scaled center target instead of model arithmetic",
+  },
+  {
+    name: "tell the drafter to recalculate a locked target card",
+    file: VOICE_DRAFT_PROMPT,
+    find: "Do not recalculate those ranges from\nthe prose frequency phrase.",
+    with: "Recalculate those ranges from\nthe prose frequency phrase.",
+    guards: "the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping",
   },
   {
     name: "skip the independent claim-audit dispatch",

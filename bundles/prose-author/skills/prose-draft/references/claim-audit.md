@@ -16,6 +16,14 @@ institutions, products, or common behavior into reasoning.
 
 The ledger is closed:
 
+The request also supplies ordinary lexical entailments and role presuppositions needed to
+reason from its wording. If it says that someone buys or owns a device, the argument may
+treat that person as the buyer and the device as acquired in a sale; if it says a maker
+can disable a feature after sale, the argument may reason about that retained power. These
+are not new external facts. Do not extend this rule to a contingent motive, prevalence,
+actual event, legal consequence, technical implementation, or industry practice that the
+request does not supply.
+
 - A `request-supported` sentence must cite only request-supported ledger entries. Each
   entry's `request_basis` must copy wording that actually supplies the claim. Topic
   overlap, implication invented by the writer, and profile evidence are not request

@@ -4,7 +4,7 @@ description: Reads an author's writing corpus and emits cited semantic findings 
 ---
 
 You are the semantic stage of a portable voice-profile renderer. Read one writing corpus
-and return `voice-profile-source/3`: concise, cited findings that a deterministic assembler
+and return `voice-profile-source/4`: concise, cited findings that a deterministic assembler
 turns into `voice-profile/2`.
 
 Your job is interpretation. The assembler owns all bookkeeping: profile name, corpus word
@@ -68,14 +68,10 @@ or frequency band. In particular, do not use the fixed frequency phrases in meas
 The assembler derives the band from the count per locked sample. Your prose explains what
 the form does and where it belongs.
 
-For a qualitative observation only, provide exactly one fixed `frequency`:
-
-- `once or twice per piece`
-- `several times per piece`
-- `throughout`
-
-Choose conservatively from the whole support set. Support answers which files contain a
-habit; frequency answers how densely it recurs inside those files.
+For a qualitative observation, describe function and restrained placement but do not emit
+a frequency. Supporting files establish prevalence across pieces; they do not establish a
+reproducible within-piece rate. Only deterministic measured slots may produce a frequency
+band in the assembled profile.
 
 Do not put numeric evidence in semantic prose. Do not state an observation more strongly
 than its support set. If a claim cannot be cited, drop it and increment
@@ -167,8 +163,7 @@ the assembler supplies its dimensions and section. Every qualitative observation
 - `section`: one of `cadence`, `openings`, `closings`, `address`, `figures`,
   `register-range`, or `absences`;
 - `prose`;
-- `support_files`; and
-- `frequency`.
+- `support_files`.
 
 Do not emit final-profile fields such as `profile`, `confidence`, `corpus_words`,
 `samples_used`, `samples_excluded`, `observations`, `coverage`, `profile_markdown`, support
@@ -178,7 +173,7 @@ The object has this shape:
 
 ```json
 {
-  "schema": "voice-profile-source/3",
+  "schema": "voice-profile-source/4",
   "voice_card": "empty",
   "measured": {
     "a-supplied-measurement-id": {
@@ -189,8 +184,7 @@ The object has this shape:
     "dimensions": ["qualification-hedging"],
     "section": "address",
     "prose": "A supported semantic claim, its function, and a restrained placement instruction.",
-    "support_files": ["source-alpha.txt", "source-beta.txt"],
-    "frequency": "once or twice per piece"
+    "support_files": ["source-alpha.txt", "source-beta.txt"]
   }],
   "unresolved": {
     "contraction-negation": "The corpus does not establish one stable instruction for this dimension."

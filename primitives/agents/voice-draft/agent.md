@@ -39,6 +39,11 @@ Follow each entry according to its status:
 
 Resolve each supported entry through its `observation_ids`; the short coverage label is an index, not the evidence itself. A `rated`, `described`, or `absent-paired` entry that cannot be resolved is a supported instruction you could not apply, so record it in `omitted`. An `unresolved` entry has no instruction to omit.
 
+If the caller supplies a deterministic draft target card, use it as the arithmetic view of
+every rated observation. Aim at its stated count; the min/max range reproduces the locked
+structural gate and is not permission to hug an edge. Do not recalculate those ranges from
+the prose frequency phrase. A qualitative `described` observation has no numeric quota.
+
 Older `voice-profile/1` profiles have no coverage table. They remain usable: read all eight sections and apply the same status logic from the prose — measured habits as rated, supported qualitative habits as described, paired absences as absent-paired, and gaps as unresolved. Never manufacture a coverage table that the profile did not provide.
 
 ### The counts are frequencies, not rules

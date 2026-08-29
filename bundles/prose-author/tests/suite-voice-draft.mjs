@@ -100,6 +100,8 @@ export async function run(t, { HERE }) {
         /exact quoted words must already appear in[\s\S]*user's request[\s\S]*quotation in the ledger does not make invented wording permissible/.test(src));
       t.check("voice-draft: v2 omissions identify the dimension and every observation",
         /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
+      t.check("voice-draft: deterministic target cards own measured arithmetic while described habits stay qualitative",
+        /deterministic draft target card[\s\S]*aim at its stated count[\s\S]*min\/max range[\s\S]*qualitative `described` observation has no numeric quota/.test(prompt));
 
       if (shipped && fsExists(rendered)) {
         const strip = (s) => s.replace(/^---\n[\s\S]*?\n---\n/, "");
@@ -520,6 +522,10 @@ export async function run(t, { HERE }) {
       /Do not disclose a metaphor, analogy, tautology, definition, or logical consequence/.test(claimAuditInstructions)
         && /independently checkable external predicate/.test(claimAuditInstructions)
         && /Do not copy an evidence span[\s\S]*deterministic assembly binds/.test(claimAuditInstructions));
+    t.check("the independent auditor accepts ordinary request entailments without laundering contingent facts",
+      /ordinary lexical entailments and role presuppositions/.test(claimAuditInstructions)
+        && /buys or owns a device[\s\S]*buyer[\s\S]*acquired in a sale/.test(claimAuditInstructions)
+        && /Do not extend this rule to a contingent motive, prevalence,[\s\S]*industry practice/.test(claimAuditInstructions));
     const audit = {
       schema: "voice-draft-claim-audit/4",
       sentences: refs.map((ref, index) => ({

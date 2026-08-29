@@ -27,6 +27,10 @@ import { SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA } from "../skills/prose-draft/tool
 import {
   AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
+import {
+  countRange, draftTargetCard, requestedWordTarget, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND,
+} from "../skills/prose-draft/tools/draft-targets.mjs";
+import { DEFAULT_RATIO_BAND, MIN_ABSOLUTE_DEVIATION } from "./corpus-rates.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
 const humanAttestation = () => ({
@@ -92,7 +96,7 @@ export async function run(t, { HERE }) {
     const prompt = profileRenderPrompt("fixture", [{ file: "sample.txt", body: "Sample body." }], measurements);
     t.check("profile prompts inline their staged inputs", /Input file: sample\.txt/.test(prompt) && /Sample body\./.test(prompt));
     t.check("profile prompts end on the provider-neutral semantic source contract",
-      /emit voice-profile-source\/3[\s\S]*deterministic measured slot[\s\S]*supporting[\s\S]*qualitative dimensions[\s\S]*unresolved reason/.test(prompt));
+      /emit voice-profile-source\/4[\s\S]*deterministic measured slot[\s\S]*supporting[\s\S]*qualitative dimensions[\s\S]*unresolved reason/.test(prompt));
     t.check("profile prompts assign all duplicate bookkeeping to deterministic code",
       /Do not copy counts, rates, support[\s\S]*observation IDs, coverage statuses, or final profile fields[\s\S]*deterministic assembler owns/.test(prompt));
     t.check("profile prompts require refusal instead of invented evidence",
@@ -101,7 +105,7 @@ export async function run(t, { HERE }) {
       /first-person-singular-family is a sparse counterpart and will be an absence with measured replacement first-person-plural-family/.test(prompt)
         && /profanity-vulgarity has no measured positive replacement; do not emit it as an absence/.test(prompt));
     t.check("profile prompts leave measured frequency bands to deterministic assembly",
-      /qualitative frequencies/.test(prompt)
+      /restrained placement but no[\s\S]*within-piece frequency/.test(prompt)
         && /not sparse relative to an allowed measured replacement; it is positive and the assembler derives its fixed frequency/.test(prompt));
     t.check("profile prompts pin every measured ID to a unique semantic slot",
       /first-person-singular-family -> self-reference-biography; section absences; counted absence/.test(prompt)
@@ -115,9 +119,40 @@ export async function run(t, { HERE }) {
         && source.includes("assembleVoiceProfile(source"));
   }
   {
-    const prompt = draftPrompt({ prompt: "Write X." }, "Profile prose", { schema: "voice-profile/2" });
-    t.check("the drafter prompt contains the request and rendered profile", /Write X\./.test(prompt) && /Profile prose/.test(prompt));
+    const prompt = draftPrompt({ prompt: "Write a 700-word post." }, "Profile prose", {
+      schema: "voice-profile/2", corpus_words: 2404, observations: [{
+        id: "o01", section: "cadence", support: 5, of: 5,
+        rate: { count: 10, per_1000_words: 4.16, counting_rule: "[measurement:en-dashes] Count en dashes." },
+      }],
+      coverage: [{ dimension: "interruption-punctuation", status: "rated", observation_ids: ["o01"] }],
+    });
+    t.check("the drafter prompt contains the request and rendered profile", /Write a 700-word post\./.test(prompt) && /Profile prose/.test(prompt));
     t.check("the drafter prompt states that corpus access is unavailable", /no corpus access/i.test(prompt));
+    t.check("the drafter receives deterministic length-scaled count aims under the unchanged gate",
+      /Deterministic draft target card/.test(prompt)
+        && /\[measurement:en-dashes\][\s\S]*aim 3; unchanged gate range 1–5/.test(prompt)
+        && /Described observations have restrained placement but no numeric quota/.test(prompt));
+    t.check("target-card arithmetic reproduces the canary's en-dash deficit boundary",
+      requestedWordTarget("Write about 700 words.") === 700
+        && requestedWordTarget("Write a 650-word essay.") === 650
+        && TARGET_RATIO_BAND === DEFAULT_RATIO_BAND
+        && TARGET_ABSOLUTE_FLOOR === MIN_ABSOLUTE_DEVIATION
+        && JSON.stringify(countRange(4.16, 700)) === JSON.stringify({
+          aim: 3, minimum: 1, maximum: 5, expected: 2.91,
+        }));
+    const targetProfile = {
+      schema: "voice-profile/2", corpus_words: 10000, observations: [{
+        id: "o01", section: "absences", support: 10, of: 10,
+        rate: { count: 0, per_1000_words: 0, counting_rule: "[measurement:em-dashes] Count em dashes." },
+      }],
+      coverage: [{ dimension: "interruption-punctuation", status: "absent-paired", observation_ids: ["o01"] }],
+    };
+    const targetCard = draftTargetCard(targetProfile, "Write a 700-word post.");
+    t.check("counted absences aim at zero without silently tightening the unchanged bar",
+      targetCard.measurements[0].status === "counted-absence"
+        && targetCard.measurements[0].aim_count === 0
+        && targetCard.measurements[0].gate_minimum === 0
+        && targetCard.measurements[0].gate_maximum === 1);
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",
       /Return voice-draft-source\/3[\s\S]*Finalize the ledger before the paragraphs[\s\S]*proof-carrying sentence objects[\s\S]*validates request bases and closed-ledger references[\s\S]*derives claims/.test(prompt));
     t.check("draft dispatch uses native structure but validates deterministic assembly",

@@ -512,7 +512,7 @@ export async function run(t, { tmp, HERE }) {
   t.group("voice-profile source assembly — models interpret, code keeps the books");
   {
     {
-      const decoded = parseVoiceProfileSource('```json\n{"schema":"voice-profile-source/3","prose":"They call it "theft" and move on."}\n```');
+      const decoded = parseVoiceProfileSource('```json\n{"schema":"voice-profile-source/4","prose":"They call it "theft" and move on."}\n```');
       t.check("transport decoding repairs only structurally internal bare prose quotes",
         decoded.repairs === 2 && decoded.source?.prose === 'They call it "theft" and move on.');
     }
@@ -523,13 +523,13 @@ export async function run(t, { tmp, HERE }) {
     const placement = "Treat this as a placement rule rather than a quota: preserve it when the requested register gives it the same rhetorical job, and otherwise leave it out instead of forcing a surface tic.";
     const qualitative = (dimensions, section, prose, support = files.slice(0, 6)) => ({
       dimensions, section, prose: `${prose} Evidence appears in ${cited}. ${placement}`,
-      support_files: support, frequency: "several times per piece",
+      support_files: support,
     });
     const measuredProse = (measurementId) => ({
       prose: `The counted ${measurementId} form has a stable rhetorical job in the locked register. A representative use establishes its function without restating arithmetic. ${placement}`,
     });
     const source = () => ({
-      schema: "voice-profile-source/3",
+      schema: "voice-profile-source/4",
       voice_card: "empty",
       measured: Object.fromEntries(measured.measurements.map((row) => [row.id, measuredProse(row.id)])),
       qualitative: [
@@ -553,7 +553,8 @@ export async function run(t, { tmp, HERE }) {
       const unresolved = strictSchema.properties.unresolved;
       t.check("the context-specific profile schema fits strict harnesses before dispatch",
         strictOutputSchemaErrors(strictSchema).length === 0
-          && unresolved.required.length === Object.keys(unresolved.properties).length);
+          && unresolved.required.length === Object.keys(unresolved.properties).length
+          && !Object.hasOwn(strictSchema.$defs.qualitativeObservation.properties, "frequency"));
       const strictSource = source();
       for (const dimension of Object.keys(unresolved.properties)) {
         if (!Object.hasOwn(strictSource.unresolved, dimension)) strictSource.unresolved[dimension] = null;
@@ -606,6 +607,23 @@ export async function run(t, { tmp, HERE }) {
       assembled.profile?.observations.every((observation, i) => observation.id === `o${String(i + 1).padStart(2, "0")}`)
         && assembled.profile?.observations.some((observation) => observation.rate?.count === 385)
         && assembled.profile?.profile_markdown.includes("[measurement:second-person-family]"));
+    t.check("qualitative prevalence does not become a within-piece drafting quota",
+      assembled.profile?.profile_markdown.includes("qualitative placement only; no within-piece rate inferred")
+        && !source().qualitative.some((observation) => Object.hasOwn(observation, "frequency")));
+    {
+      const modelOwnedFrequency = source();
+      modelOwnedFrequency.qualitative[0].frequency = "several times per piece";
+      t.check("current qualitative source rejects a model-owned frequency",
+        assembleVoiceProfile(modelOwnedFrequency, context).errors
+          .some((error) => /qualitative\[0\] carries unknown key: frequency/.test(error)));
+      const historical = source();
+      historical.schema = "voice-profile-source/3";
+      historical.qualitative = historical.qualitative.map((observation) => ({
+        ...observation, frequency: "once or twice per piece",
+      }));
+      t.check("historical voice-profile-source/3 qualitative frequencies remain readable",
+        assembleVoiceProfile(historical, context).ok);
+    }
     t.check("measured frequency bands are deterministic rather than model-owned",
       frequencyForPerPiece(2.49) === "once or twice per piece"
         && frequencyForPerPiece(2.5) === "several times per piece"

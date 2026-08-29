@@ -8,7 +8,8 @@
  * while decoding; Codex and other harnesses may write ordinary JSON and call assemble.
  */
 
-export const SOURCE_SCHEMA_ID = "voice-profile-source/3";
+export const SOURCE_SCHEMA_ID = "voice-profile-source/4";
+export const PREVIOUS_SOURCE_SCHEMA_ID = "voice-profile-source/3";
 export const PROFILE_SCHEMA_ID = "voice-profile/2";
 
 export const COVERAGE_DIMENSIONS = [
@@ -125,13 +126,12 @@ const qualitativeObservationSchema = {
     },
     section: { type: "string", enum: SECTIONS },
     prose: { type: "string", minLength: 100, maxLength: 450 },
-    frequency: { type: "string", enum: FREQUENCIES },
     support_files: {
       type: "array", minItems: 2,
       items: { type: "string", minLength: 1 },
     },
   },
-  required: ["dimensions", "section", "prose", "support_files", "frequency"],
+  required: ["dimensions", "section", "prose", "support_files"],
 };
 
 function positiveReplacement(row, byId) {
@@ -344,7 +344,11 @@ function sourceErrors(source, measurements = null) {
   const errors = [];
   const err = (message) => errors.push(message);
   if (!isObject(source)) return ["source is not an object"];
-  if (source.schema !== SOURCE_SCHEMA_ID) err(`source.schema must be ${SOURCE_SCHEMA_ID}`);
+  const currentSource = source.schema === SOURCE_SCHEMA_ID;
+  const previousSource = source.schema === PREVIOUS_SOURCE_SCHEMA_ID;
+  if (!currentSource && !previousSource) {
+    err(`source.schema must be ${SOURCE_SCHEMA_ID} or historical ${PREVIOUS_SOURCE_SCHEMA_ID}`);
+  }
   for (const key of exactKeys(source, [
     "schema", "voice_card", "measured", "qualitative", "unresolved", "gaps", "observations_dropped",
     "multiple_voices_suspected", "refused",
@@ -411,9 +415,10 @@ function sourceErrors(source, measurements = null) {
   for (const [i, observation] of (Array.isArray(source.qualitative) ? source.qualitative : []).entries()) {
     const at = `qualitative[${i}]`;
     if (!isObject(observation)) { err(`${at} is not an object`); continue; }
-    for (const extra of exactKeys(observation, [
-      "dimensions", "section", "prose", "frequency", "support_files",
-    ])) err(`${at} carries unknown key: ${extra}`);
+    const qualitativeFields = currentSource
+      ? ["dimensions", "section", "prose", "support_files"]
+      : ["dimensions", "section", "prose", "frequency", "support_files"];
+    for (const extra of exactKeys(observation, qualitativeFields)) err(`${at} carries unknown key: ${extra}`);
     const allowedDimensions = plan?.qualitativeDimensions ?? COVERAGE_DIMENSIONS;
     if (!Array.isArray(observation.dimensions) || observation.dimensions.length < 1
       || observation.dimensions.length > 3 || new Set(observation.dimensions).size !== observation.dimensions.length
@@ -427,11 +432,8 @@ function sourceErrors(source, measurements = null) {
       || observation.prose.trim().length > 450) {
       err(`${at}.prose must contain 100–450 characters of actionable evidence`);
     }
-    if (observation.frequency !== undefined && !FREQUENCIES.includes(observation.frequency)) {
-      err(`${at}.frequency is invalid`);
-    }
-    if (!FREQUENCIES.includes(observation.frequency)) {
-      err(`${at} is qualitative and must carry one fixed frequency`);
+    if (previousSource && !FREQUENCIES.includes(observation.frequency)) {
+      err(`${at} historical qualitative observation must carry one fixed frequency`);
     }
     if (!Array.isArray(observation.support_files) || observation.support_files.length < 2
       || !observation.support_files.every(isText)
@@ -486,7 +488,12 @@ function sourceErrors(source, measurements = null) {
 
 function evidenceLine({ support, of, frequency, measurement, citationFile, absence }) {
   const citation = ` Representative locked source: \`${citationFile}\`.`;
-  if (!measurement) return `_Evidence: ${support}/${of} samples; ${frequency}.${citation}_`;
+  if (!measurement) {
+    const placement = FREQUENCIES.includes(frequency)
+      ? frequency
+      : "qualitative placement only; no within-piece rate inferred";
+    return `_Evidence: ${support}/${of} samples; ${placement}.${citation}_`;
+  }
   const rate = Number(measurement.per_1000_words).toFixed(2);
   const locator = measurement.counting_rule.match(/\[measurement:[a-z0-9-]+\]/)?.[0]
     ?? measurement.counting_rule;
@@ -634,9 +641,8 @@ export function assembleVoiceProfile(source, context) {
       }
       usedMeasurementIds.add(item.measurement_id);
       const replacement = replacementFor(item.measurement_id);
-      // Polarity is arithmetic, not a side channel encoded by whether the model
-      // happened to emit `frequency`. Zero and genuinely sparse counterparts are
-      // absences; every other measured row is positive.
+      // Polarity is arithmetic, not a semantic side channel. Zero and genuinely
+      // sparse counterparts are absences; every other measured row is positive.
       absence = measurement.count === 0
         || Boolean(replacement && measurement.count <= replacement.count * 0.2);
       supportFiles = absence ? [...(measurement.files_without ?? [])] : [...(measurement.files_with ?? [])];
@@ -651,8 +657,10 @@ export function assembleVoiceProfile(source, context) {
 
     const frequency = measurement && !absence
       ? frequencyForPerPiece(measurement.count / samplesUsed.length)
-      : item.frequency;
-    if (!absence && !FREQUENCIES.includes(frequency)) errors.push(`${at} must carry one fixed frequency`);
+      : source.schema === PREVIOUS_SOURCE_SCHEMA_ID ? item.frequency : null;
+    if (measurement && !absence && !FREQUENCIES.includes(frequency)) {
+      errors.push(`${at} measured positive must carry one fixed frequency`);
+    }
 
     const id = `o${String(observations.length + 1).padStart(2, "0")}`;
     const observation = {
