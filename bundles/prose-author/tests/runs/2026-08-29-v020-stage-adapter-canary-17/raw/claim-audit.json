@@ -1,0 +1,155 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This is a direct recommendation for tomorrow’s meeting, with a proposed condition for reconsidering use; it does not assert that any review has occurred or describe current external practice.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"The judgment that convenience does not justify disclosure is normative, but the sentence also makes an unsupported general claim that summarising notes may save time.\",\"claims\":[{\"claim\":\"Using an AI service to summarise intake notes may save staff time.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that AI summarisation can save time in the relevant nonprofit intake-note workflow?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This is a recommendation to prioritize examination of the data over vendor marketing and adds no external descriptive premise.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"This is a proposed precaution identifying categories of information to remove before testing; it does not claim that the notes actually contain those categories.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"disclose\",\"reason\":\"This asserts an unsupported general possibility that combining unusual facts can identify a person despite de-identification.\",\"claims\":[{\"claim\":\"Combining unusual facts in de-identified notes may expose the identity of the person described.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence establishes that combinations of unusual facts can permit re-identification of people in de-identified notes?\"}]},{\"id\":\"p2s4\",\"status\":\"disclose\",\"reason\":\"Calling the shortcut unacceptable is a value judgment, but the explanation asserts an unsupported general difference between consumer-chatbot and approved organizational-account defaults and contracts.\",\"claims\":[{\"claim\":\"The default settings and contractual promises of free consumer chatbots may differ from those of approved organizational accounts.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For the services under consideration, how do the free consumer offering’s defaults and contractual promises differ from those of an organizational account?\"}]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This proposes explicit approval requirements, including contractual terms, model-training restrictions, retention and deletion terms, security controls, notification, and subprocessor disclosure; it does not claim these are currently required by law or supplied by a vendor.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"keep\",\"reason\":\"This recommends questions the vendor should answer about storage location and staff access without asserting what any vendor currently does.\",\"claims\":[]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"This is a proposed stop condition tied to failure to obtain written answers and adds no external factual premise.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This recommends a narrowly scoped pilot using imagined test material, and the parenthetical defines an example of such material.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"The first clause recommends comparison criteria; the second is a normative characterization of a risk-distorting summary as broken, not a claim that a real tool has distorted risk.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This proposes staff ownership, universal human review, and a prohibition on automatic record entry; it makes no claim about current staffing or system behavior.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This offers a simple proposed policy with two conditions and does not describe an existing policy or external requirement.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This is a proposal to reconsider the decision if the vendor later satisfies the stated conditions, not a claim that the vendor has done so.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This recommends who should decide and that the decision should be recorded; the role labels do not assert that the nonprofit has both positions.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This states a governing value and a normative demand that the tool conform to the organization’s duty to clients; it adds no descriptive claim about current conduct.\",\"claims\":[]},{\"id\":\"p5s5\",\"status\":\"keep\",\"reason\":\"This is an inference about the function of the proposed policy: its explicit stop and review conditions constitute a practical boundary and an approval process; “defensible” is an evaluative characterization rather than a claim of legal validity.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This is a direct recommendation for tomorrow’s meeting, with a proposed condition for reconsidering use; it does not assert that any review has occurred or describe current external practice.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "The judgment that convenience does not justify disclosure is normative, but the sentence also makes an unsupported general claim that summarising notes may save time.",
+        "claims": [
+          {
+            "claim": "Using an AI service to summarise intake notes may save staff time.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that AI summarisation can save time in the relevant nonprofit intake-note workflow?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This is a recommendation to prioritize examination of the data over vendor marketing and adds no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "This is a proposed precaution identifying categories of information to remove before testing; it does not claim that the notes actually contain those categories.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "disclose",
+        "reason": "This asserts an unsupported general possibility that combining unusual facts can identify a person despite de-identification.",
+        "claims": [
+          {
+            "claim": "Combining unusual facts in de-identified notes may expose the identity of the person described.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence establishes that combinations of unusual facts can permit re-identification of people in de-identified notes?"
+          }
+        ]
+      },
+      {
+        "id": "p2s4",
+        "status": "disclose",
+        "reason": "Calling the shortcut unacceptable is a value judgment, but the explanation asserts an unsupported general difference between consumer-chatbot and approved organizational-account defaults and contracts.",
+        "claims": [
+          {
+            "claim": "The default settings and contractual promises of free consumer chatbots may differ from those of approved organizational accounts.",
+            "kind": "broad-generalization",
+            "verification_question": "For the services under consideration, how do the free consumer offering’s defaults and contractual promises differ from those of an organizational account?"
+          }
+        ]
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This proposes explicit approval requirements, including contractual terms, model-training restrictions, retention and deletion terms, security controls, notification, and subprocessor disclosure; it does not claim these are currently required by law or supplied by a vendor.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "This recommends questions the vendor should answer about storage location and staff access without asserting what any vendor currently does.",
+        "claims": []
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "This is a proposed stop condition tied to failure to obtain written answers and adds no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This recommends a narrowly scoped pilot using imagined test material, and the parenthetical defines an example of such material.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "The first clause recommends comparison criteria; the second is a normative characterization of a risk-distorting summary as broken, not a claim that a real tool has distorted risk.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This proposes staff ownership, universal human review, and a prohibition on automatic record entry; it makes no claim about current staffing or system behavior.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This offers a simple proposed policy with two conditions and does not describe an existing policy or external requirement.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This is a proposal to reconsider the decision if the vendor later satisfies the stated conditions, not a claim that the vendor has done so.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This recommends who should decide and that the decision should be recorded; the role labels do not assert that the nonprofit has both positions.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This states a governing value and a normative demand that the tool conform to the organization’s duty to clients; it adds no descriptive claim about current conduct.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "This is an inference about the function of the proposed policy: its explicit stop and review conditions constitute a practical boundary and an approval process; “defensible” is an evaluative characterization rather than a claim of legal validity.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-17/raw/claim-audit.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-17/raw/claim-audit.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "1c21692a785e64a6b87472d26acb32cb069320530b71ccfae3d68ff11a0f53f5"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "74c3223754b22205e177f79d7e43006a2d87e0527cdf466ca94b5f3254ca2c8e",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "3cc51f72e8837902992a74ad50dab59d95214a57c6b039dd1123f84ff767de5d",
+      "conformance_raw_sha256": "edc76855ddbb6e372d8a313338dee5f8d73a772b08038df1625a162aca590ec1"
+    }
+  }
+}
