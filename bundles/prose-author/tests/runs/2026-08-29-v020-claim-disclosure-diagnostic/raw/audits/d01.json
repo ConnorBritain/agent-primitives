@@ -1,0 +1,308 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 74355,
+  "duration_api_ms": 74344,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "eb7beefb-531a-40c8-a6d2-d850ae048870",
+  "total_cost_usd": 0.10260855,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 8687,
+    "cache_read_input_tokens": 4611,
+    "output_tokens": 4576,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 8687,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 4576,
+      "cacheReadInputTokens": 4611,
+      "cacheCreationInputTokens": 8687,
+      "webSearchRequests": 0,
+      "costUSD": 0.10260855,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/3",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Restates the request premise covered by c1 ('a device is not fully owned when its maker can disable features after sale'). Every clause is accounted for by the cited ledger entry.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Pure rhetorical commentary on the ownership-with-asterisk characterisation; no independent factual premise is introduced. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Metaphorical restatement of the argument's core premise drawn from c1/request; no new factual clause is added. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "disclose",
+        "reason": "Labelled reasoning, but 'the usual answer is that you bought the hardware, while the software remains subject to terms you accepted' asserts a prevailing industry/legal framing of device transactions. That is a descriptive claim about how sellers, courts, or industry practice commonly characterise hardware/software splits — not a logical inference from the request. No ledger entry covers it.",
+        "claims": [
+          {
+            "claim": "It is the standard or common position in device transactions that the buyer owns the hardware while the software remains subject to licence terms accepted at setup.",
+            "evidence": "The usual answer is that you bought the hardware, while the software remains subject to terms you accepted somewhere between the unboxing and the first tap.",
+            "kind": "broad-generalization",
+            "verification_question": "Is it a standard or widely documented industry/legal position that device buyers own the hardware while software remains under a licence accepted during setup, such that this can fairly be called 'the usual answer'?"
+          }
+        ]
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "First-person authorial opinion signal; introduces no independent factual premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Analytical/rhetorical denial of the hardware/software split framing; no new factual premise about real actors or legal rules is added. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Definitional claim about the functional relationship between software and hardware; serves as an analytical premise in the argument with no independent external fact that requires verification. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "Logical inference drawn from the conditional established by c1 and p2s4; no new external premise is introduced. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Rhetorical question advancing the argument; no independent factual claim. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "Labelled hypothetical, but the sentence opens with two factual legal premises about real-world arrangements — what landlords can do and what sellers ordinarily cannot do — before introducing the analogy. Those premises are descriptive claims about law and commercial practice, not imagined scenarios. No ledger entry covers them.",
+        "claims": [
+          {
+            "claim": "A landlord has the legal right to evict a tenant under terms the tenant agreed to.",
+            "evidence": "A landlord can evict you under rules you agreed to",
+            "kind": "broad-generalization",
+            "verification_question": "Is it accurate as a general legal matter that landlords may evict tenants under contractually agreed terms, across the relevant jurisdiction(s) this essay addresses?"
+          },
+          {
+            "claim": "A seller of physical goods does not ordinarily have the legal right to re-enter a buyer's home and remove purchased items.",
+            "evidence": "a seller doesn't ordinarily get to walk into your house and remove the kitchen because the appliance company changed its mind",
+            "kind": "broad-generalization",
+            "verification_question": "Is it accurate as a general legal/commercial matter that sellers of physical goods have no ordinary right to reclaim items after a completed sale by entering the buyer's property?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "disclose",
+        "reason": "Labelled reasoning, but 'the digital version of that arrangement is treated as ordinary' is a descriptive societal/industry claim about how remote-disable practices are perceived and accepted, and 'the contract is longer than anyone can reasonably read' is a generalisation about real-world device licence length. Neither is a logical inference from the request alone, and no ledger entry covers them.",
+        "claims": [
+          {
+            "claim": "Remote or post-sale disabling of device features is widely treated as normal or ordinary practice by consumers and/or the industry.",
+            "evidence": "the digital version of that arrangement is treated as ordinary",
+            "kind": "broad-generalization",
+            "verification_question": "Is there evidence that post-sale remote disabling of device features is broadly accepted or treated as ordinary by consumers, industry, or regulators rather than being contested?"
+          },
+          {
+            "claim": "Device software licence agreements are typically too long for a consumer to reasonably read.",
+            "evidence": "the contract is longer than anyone can reasonably read",
+            "kind": "broad-generalization",
+            "verification_question": "Is there documented evidence (e.g., studies on EULA length or reading time) that device software licence agreements are generally too lengthy for a consumer to read in a reasonable time?"
+          }
+        ]
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "Aphoristic conclusion of the preceding argument; no independent factual premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Identifies labels that may be applied to the arrangement being argued about; functions as a rhetorical concession with no independent factual assertion about real companies or legal outcomes. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Draws a logical conclusion from p4s1; no new external premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Conditional analytical inference restating the request-grounded premise (c1) in different terms; no independent external claim. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Normative judgment recommending suspicion of described arrangements; no claim about what real courts, companies, or laws currently do. Correctly labelled normative.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Explicitly imagined scenario introduced with 'Imagine'; no real actor, product, or event is named. Correctly labelled hypothetical.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Continues the explicitly imagined scenario; no real actor or event is identified. Correctly labelled hypothetical.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Continuation of the hypothetical; describes what a buyer would still possess in the imagined scenario. Correctly labelled hypothetical.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Analytical distinction between possession and control drawn from the hypothetical; no new external premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "Extended metaphor applying escrow terminology to the argument's core premise; no independent factual claim about a real institution or actor. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Authorial transition characterising the policy question; no external factual premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Normative policy recommendation; does not assert what current law or courts do. Correctly labelled normative.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Clarification of the normative proposal's scope; no claim about what real actors currently do. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Restatement of the normative boundary derived from the argument; no new external factual premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "Normative recommendation about disclosure and remediation obligations; no claim about current law or company behaviour. Correctly labelled normative.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Introduces a predictable counterargument for the purpose of rebuttal; no assertion that any named actor has actually made this objection. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Single-word concession; no factual premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Normative proposal distinguishing safety updates from commercial leverage; no claim about what current law or industry actually does. Correctly labelled normative.",
+        "claims": []
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Characterisation of the policy problem as one of design rather than an insurmountable objection; no new external factual premise. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "Rhetorical question pressing the normative argument; no independent factual claim. Correctly labelled reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Normative position on software licences; no claim about current law or practice. Correctly labelled normative.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative call to action; no claim about what real actors currently do. Correctly labelled normative.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Normative statement of what ownership should mean; no claim about current legal status or company behaviour. Correctly labelled normative.",
+        "claims": []
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Final analytical inference restating the core argument drawn from c1/request; no new external premise. Correctly labelled reasoning.",
+        "claims": []
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "c9f92a81-2824-4d08-a970-04c4b14278a0",
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "674e3fe141ade25d4c990bcaef2d075ea8256859a33cd9ec53e81fceead79552"
+  },
+  "acceptance_input": {
+    "system_sha256": "345f1aee0589898cd7357d3850370e678f36c696cf48e24b5d416d3d544992a6",
+    "prompt_sha256": "f8d352cf57e4976a85ba228a730a8e108b99de506b6ae1a4e7d6ee427bd69d56",
+    "schema_sha256": "67587e09fc9fd9751164e9a1b9e59cd962417dc3c5a191147a1eba095e1b1c44"
+  }
+}

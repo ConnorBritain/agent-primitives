@@ -1,0 +1,139 @@
+{
+  "schema": "prose-author-claim-disclosure-diagnostic-result/1",
+  "acceptance_evidence": false,
+  "clears": false,
+  "model_calls": 3,
+  "redraws": 0,
+  "interpretation": "Stop before acceptance and reconsider the audit-disclosure boundary.",
+  "cases": {
+    "d01": {
+      "clear": true,
+      "expected_disclosures": [
+        "p2s1",
+        "p3s3"
+      ],
+      "actual_disclosures": [
+        "p2s1",
+        "p3s2",
+        "p3s3"
+      ],
+      "reject_ids": [],
+      "claim_count": 5,
+      "claims": [
+        {
+          "claim": "It is the standard or common position in device transactions that the buyer owns the hardware while the software remains subject to licence terms accepted at setup.",
+          "where": "paragraph 2",
+          "sentence_id": "p2s1",
+          "evidence": "The usual answer is that you bought the hardware, while the software remains subject to terms you accepted somewhere between the unboxing and the first tap.",
+          "kind": "broad-generalization",
+          "verification_question": "Is it a standard or widely documented industry/legal position that device buyers own the hardware while software remains under a licence accepted during setup, such that this can fairly be called 'the usual answer'?"
+        },
+        {
+          "claim": "A landlord has the legal right to evict a tenant under terms the tenant agreed to.",
+          "where": "paragraph 3",
+          "sentence_id": "p3s2",
+          "evidence": "A landlord can evict you under rules you agreed to",
+          "kind": "broad-generalization",
+          "verification_question": "Is it accurate as a general legal matter that landlords may evict tenants under contractually agreed terms, across the relevant jurisdiction(s) this essay addresses?"
+        },
+        {
+          "claim": "A seller of physical goods does not ordinarily have the legal right to re-enter a buyer's home and remove purchased items.",
+          "where": "paragraph 3",
+          "sentence_id": "p3s2",
+          "evidence": "a seller doesn't ordinarily get to walk into your house and remove the kitchen because the appliance company changed its mind",
+          "kind": "broad-generalization",
+          "verification_question": "Is it accurate as a general legal/commercial matter that sellers of physical goods have no ordinary right to reclaim items after a completed sale by entering the buyer's property?"
+        },
+        {
+          "claim": "Remote or post-sale disabling of device features is widely treated as normal or ordinary practice by consumers and/or the industry.",
+          "where": "paragraph 3",
+          "sentence_id": "p3s3",
+          "evidence": "the digital version of that arrangement is treated as ordinary",
+          "kind": "broad-generalization",
+          "verification_question": "Is there evidence that post-sale remote disabling of device features is broadly accepted or treated as ordinary by consumers, industry, or regulators rather than being contested?"
+        },
+        {
+          "claim": "Device software licence agreements are typically too long for a consumer to reasonably read.",
+          "where": "paragraph 3",
+          "sentence_id": "p3s3",
+          "evidence": "the contract is longer than anyone can reasonably read",
+          "kind": "broad-generalization",
+          "verification_question": "Is there documented evidence (e.g., studies on EULA length or reading time) that device software licence agreements are generally too lengthy for a consumer to read in a reasonable time?"
+        }
+      ],
+      "audit_errors": [],
+      "prose_unchanged": true,
+      "disclosures_public": true,
+      "source_sha256": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+      "prompt_sha256": "f8d352cf57e4976a85ba228a730a8e108b99de506b6ae1a4e7d6ee427bd69d56",
+      "raw_audit_sha256": "7fe0ac1996e5940ed0bacb0faac31723dd28b34cf55e51685de58e0082b64319",
+      "audit_sha256": "7d26f4bac5d16027b8ccad096d50d1e3cbf379bb14842ad8b68789e7d6485982"
+    },
+    "m05": {
+      "clear": false,
+      "expected_disclosures": [
+        "p3s4",
+        "p5s4"
+      ],
+      "actual_disclosures": [
+        "p3s4"
+      ],
+      "reject_ids": [],
+      "claim_count": 2,
+      "claims": [
+        {
+          "claim": "Many users who encounter a default setting will not change it.",
+          "where": "paragraph 3",
+          "sentence_id": "p3s4",
+          "evidence": "many will not",
+          "kind": "broad-generalization",
+          "verification_question": "Is there empirical evidence (e.g., studies on default persistence) showing that a substantial majority or large share of users leave defaults unchanged?"
+        },
+        {
+          "claim": "Users fail to change defaults primarily because doing so requires attention, time, and confidence that the alternative will work as well.",
+          "where": "paragraph 3",
+          "sentence_id": "p3s4",
+          "evidence": "changing it takes attention, time, and confidence that the alternative will work as well",
+          "kind": "broad-generalization",
+          "verification_question": "What research or evidence identifies attention cost, time cost, and performance uncertainty as the principal reasons users do not change defaults?"
+        }
+      ],
+      "audit_errors": [],
+      "prose_unchanged": true,
+      "disclosures_public": true,
+      "source_sha256": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+      "prompt_sha256": "6695d3e84ba1a26739103aa42519d03c0dc194d6d7a548b7c599d639fb79cafd",
+      "raw_audit_sha256": "87e79ac587fd3f9875e8ac2aa49439c73da9a96dceb2cdba2c3d058184ebdfdf",
+      "audit_sha256": "61cbcacdc5c5d59701208f2ef3885e4543b963d20be7b678a6591587bafd1f16"
+    },
+    "d05": {
+      "clear": false,
+      "expected_disclosures": [
+        "p1s2",
+        "p3s2"
+      ],
+      "actual_disclosures": [
+        "p3s2"
+      ],
+      "reject_ids": [],
+      "claim_count": 1,
+      "claims": [
+        {
+          "claim": "Most users leave a preselected software setting unchanged rather than switching to an alternative.",
+          "where": "paragraph 3",
+          "sentence_id": "p3s2",
+          "evidence": "most people will leave the setting alone",
+          "kind": "broad-generalization",
+          "verification_question": "Is there empirical evidence (e.g., behavioral-economics research or platform usage data) showing that most users do not change preselected software defaults when given a choice screen?"
+        }
+      ],
+      "audit_errors": [],
+      "prose_unchanged": true,
+      "disclosures_public": true,
+      "source_sha256": "bb4fbfd9d6ed6a2884c90efb0493fd5f64ee907895f58a29821a0bd8d1b16cad",
+      "prompt_sha256": "2aad3330c31798709f24035568c61daedd55a1ed95f215ee60c8cc4c586e04ea",
+      "raw_audit_sha256": "0776ea2f5ca8bd51a94e432760900addb30c421f97b57763890640a705b82d8c",
+      "audit_sha256": "68528b16c46dbf91d3e018e1ff85b8e98418b9e232f6714c710a01ea53787873"
+    }
+  }
+}

@@ -1,0 +1,288 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 65576,
+  "duration_api_ms": 65566,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "88b62d85-13d7-4483-809a-e9d8594fc18e",
+  "total_cost_usd": 0.07817295,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6215,
+    "cache_read_input_tokens": 6459,
+    "output_tokens": 3528,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6215,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 3528,
+      "cacheReadInputTokens": 6459,
+      "cacheCreationInputTokens": 6215,
+      "webSearchRequests": 0,
+      "costUSD": 0.07817295,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/3",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Title sentence. Reproduces the requested title verbatim, covered by c1 (request_basis: 'Title: Choice screens are not market choice.').",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Reasoning. The sentence defines what a choice screen silently contains (builder, selector, arranger, labeller, default-setter). No external factual premise is added; the sentence analyses the logical structure of any such mechanism. No ledger entry needed.",
+        "claims": []
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Reasoning. Rhetorical question following p1s2's analysis. Introduces no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p1s4",
+        "status": "keep",
+        "reason": "Reasoning. Answers the rhetorical question by implication from the prior analysis; first-person 'we' is the author and reader as a pair, not a third-party factual claim.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "Reasoning. A conceptual assertion about the argumentative nature of any curated menu; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Reasoning. Enumerates categories that might appear on such a screen (browsers, payment systems, etc.) as illustrative examples within an argument about curation; does not assert that any specific actor has done so.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Reasoning. Extended metaphor (tollbooth) analysing the structural logic of gatekeeper curation. No external factual premise about real actors or empirical rates.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Reasoning. Restates the conceptual argument about implicit constraints; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Reasoning. Topic-transition claim that defaults obscure the curation structure; flows from prior argument without adding an external premise.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The drafter labels this reasoning, but 'most people will leave the setting alone' is a descriptive behavioral claim about how people generally act, not a logical inference. It is a broad-generalization about population behavior that a reasonable reader would ask 'how do you know that?' The remainder of the sentence (conditions that raise the cost of switching) follows as reasoning once that premise is established, but the premise itself is unsupported by any ledger entry.",
+        "claims": [
+          {
+            "claim": "Most users leave a preselected software setting unchanged rather than switching to an alternative.",
+            "evidence": "most people will leave the setting alone",
+            "kind": "broad-generalization",
+            "verification_question": "Is there empirical evidence (e.g., behavioral-economics research or platform usage data) showing that most users do not change preselected software defaults when given a choice screen?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Reasoning. Notes that the platform can reframe the default as 'convenience'; this is a logical observation about rhetorical framing, not a factual claim about what any specific platform has said.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "Normative/rhetorical. Defines how power characterises itself; a normative interpretive claim, not a statement about what any real actor currently does.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Reasoning. Road metaphor extending the prior argument; no external factual premise about real actors or systems.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Reasoning. Draws an inference from the metaphor; no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Reasoning. Defines and distinguishes 'nominal choice' from 'meaningful choice' conceptually. This is a definitional/analytical move, not a factual claim about institutions or markets.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Normative/rhetorical. Evaluative judgment on conflating the two definitions; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Reasoning. Topic-sentence conclusion from prior argument; no new external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Reasoning. Describes the logical mechanics by which a gatekeeper could sustain power (listing, placement, friction); framed as a general mechanism, not an assertion about a named actor's documented conduct. The parenthetical 'a crude prohibition attracts attention' is an intra-argument causal observation supporting the logic of the described strategy, not a sourced empirical claim about regulatory outcomes.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Reasoning. Metaphorical summary of the described mechanism; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Reasoning. Extends the analysis to a second-order frame effect; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Reasoning. Transition question; no factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Normative. Rejects three inadequate remedies ('decorative screen', 'longer paragraph', 'compliance ritual'); these are normative rejections of remedy categories, not claims that any specific institution adopted or failed to adopt them.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Normative. Proposes what a meaningful remedy would do (move control upstream, make the menu contestable); a prescriptive proposal, not a claim about what any law or company currently does.",
+        "claims": []
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Normative. Lists specific capabilities users should have; prescriptive, not descriptive of current practice.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Reasoning. Introduces the next analytical point (economics of refusal); no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Reasoning. Conditional ('if … then') analysis of lock-in mechanics; explicitly hypothetical framing means no assertion about what a named actor currently does.",
+        "claims": []
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Normative. States that interoperability, portability, and durable user control matter for a specific reason; prescriptive/evaluative, not a claim about current law or industry practice.",
+        "claims": []
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Reasoning/rhetorical. Conclusion of the conditional argument; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Request-supported. Addresses software developers as the target audience, covered by c2 (request_basis: 'Write a 700-word blog post for software developers.'). The 'therefore' is a logical connector, not a new factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative. Prescribes a set of questions developers should ask; no factual claim about what developers currently do or what law requires.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Normative. Adds a further prescriptive question about access without tribute; no factual premise about current market conditions.",
+        "claims": []
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Reasoning. Draws an inference from the 'no' answer to p8s3's question; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "Normative. Prescribes a change in how we treat choice screens; no factual premise about what courts, regulators, or industries currently do.",
+        "claims": []
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "Normative. Specifies four properties a real remedy would have; prescriptive, not descriptive of current conditions.",
+        "claims": []
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "Normative. Continues the normative description of the desired remedy; no external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p9s4",
+        "status": "keep",
+        "reason": "Reasoning. Conditional conclusion tying back to the title's thesis; no external factual premise about any named actor or institution.",
+        "claims": []
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "ae660ada-9b5c-49ec-98ab-953ed83899a6",
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "674e3fe141ade25d4c990bcaef2d075ea8256859a33cd9ec53e81fceead79552"
+  },
+  "acceptance_input": {
+    "system_sha256": "345f1aee0589898cd7357d3850370e678f36c696cf48e24b5d416d3d544992a6",
+    "prompt_sha256": "2aad3330c31798709f24035568c61daedd55a1ed95f215ee60c8cc4c586e04ea",
+    "schema_sha256": "67587e09fc9fd9751164e9a1b9e59cd962417dc3c5a191147a1eba095e1b1c44"
+  }
+}
