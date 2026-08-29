@@ -1,0 +1,15 @@
+{
+  "schema": "prose-author-claim-reaudit-diagnostic-design/1",
+  "acceptance_evidence": false,
+  "purpose": "Continue the locked three-cell diagnostic without redrawing successful repairs after its first runner caught a staged-versus-dispatched trailing-newline mismatch.",
+  "repair_run": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic",
+  "source_design": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/DESIGN.json",
+  "reaudit": {
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000
+  },
+  "cases": ["d01", "m05", "d05"]
+}
