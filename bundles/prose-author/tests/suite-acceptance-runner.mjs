@@ -207,6 +207,7 @@ export async function run(t, { HERE }) {
         && /Return voice-draft-conformance-patch\/1 exactly; do not return a rewritten draft/.test(conformancePrompt)
         && /exact, unique before\/after source replacements/.test(conformancePrompt)
         && /anchor[\s\S]*no larger than one paragraph/.test(conformancePrompt)
+        && /before anchors may replace at most 24 of the initial 9 words/.test(conformancePrompt)
         && /Return exactly ten coverage rows/.test(conformancePrompt));
     const patchCoverage = targetProfile.coverage.map((row) => ({
       dimension: row.dimension,
@@ -234,10 +235,16 @@ export async function run(t, { HERE }) {
         && applied.report.pass && applied.word_control.final_words >= applied.word_control.initial_words);
     const missed = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
+      edits: [{ ...conformingPatch.edits[0], after: "It needs a turn – but not — or —." }],
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    t.check("an exact patch that leaves a measured row out of range cannot pass", !missed.ok
+      && missed.errors.some((error) => /final em-dashes count 2 is excess/.test(error)));
+    const unrelated = applyDraftConformancePatch(initialSource, {
+      ...conformingPatch,
       edits: [{ ...conformingPatch.edits[0], after: "It still needs a turn." }],
     }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
-    t.check("an exact patch that leaves a measured deficit cannot pass", !missed.ok
-      && missed.errors.some((error) => /final en-dashes count 0 is deficit/.test(error)));
+    t.check("an edit must itself improve one named failing measurement", !unrelated.ok
+      && unrelated.errors.some((error) => /does not move any named failing measurement toward range/.test(error)));
     const expanded = applyDraftConformancePatch(initialSource, {
       ...conformingPatch,
       edits: [{
@@ -255,6 +262,33 @@ export async function run(t, { HERE }) {
     });
     t.check("a patch cannot address an ambiguous repeated anchor", !ambiguous.ok
       && ambiguous.errors.some((error) => /before is not unique/.test(error)));
+    const firstParagraph = `${"alpha ".repeat(30).trim()}.`;
+    const secondParagraph = `${"beta ".repeat(30).trim()}.`;
+    const wholesaleSource = {
+      ...initialSource, draft: `${firstParagraph}\n\n${secondParagraph}`,
+    };
+    const paragraphSpanning = applyDraftConformancePatch(wholesaleSource, {
+      ...conformingPatch,
+      edits: [{
+        ...conformingPatch.edits[0], before: wholesaleSource.draft,
+        after: `${"gamma ".repeat(30).trim()}.\n\n${"delta–pivot ".repeat(30).trim()}.`,
+      }],
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    t.check("an exact patch anchor cannot span multiple paragraphs", !paragraphSpanning.ok
+      && paragraphSpanning.errors.some((error) => /before spans more than one paragraph/.test(error)));
+    const equalLengthRewrite = applyDraftConformancePatch(wholesaleSource, {
+      ...conformingPatch,
+      edits: [{
+        ...conformingPatch.edits[0], before: firstParagraph,
+        after: `${"gamma–pivot ".repeat(30).trim()}.`,
+      }, {
+        ...conformingPatch.edits[0], before: secondParagraph,
+        after: `${"delta ".repeat(30).trim()}.`,
+      }],
+    }, { request: "Write a 700-word post.", profile: targetProfile, card: targetCard });
+    t.check("same-length paragraph replacements cannot turn conformance into a second draft",
+      !equalLengthRewrite.ok
+        && equalLengthRewrite.errors.some((error) => /replaces 60 source words; maximum is 24/.test(error)));
     t.check("the conformance patch schema remains strict-harness compatible",
       assertStrictOutputSchema(CONFORMANCE_PATCH_SCHEMA, "conformance patch schema") === CONFORMANCE_PATCH_SCHEMA);
     t.check("the drafter prompt ends on the provider-neutral semantic source contract",

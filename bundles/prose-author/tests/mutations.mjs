@@ -371,6 +371,27 @@ export const MUTATIONS = [
     guards: "patch application cannot silently choose among repeated anchors",
   },
   {
+    name: "let one conformance anchor span multiple paragraphs",
+    file: DRAFT_CONFORMANCE,
+    find: "    if (/\\n\\s*\\n/.test(edit.before)) errors.push(`${at}.before spans more than one paragraph`);",
+    with: "    if (false) errors.push(`${at}.before spans more than one paragraph`);",
+    guards: "an exact patch cannot hide a whole-draft replacement in one anchor",
+  },
+  {
+    name: "let equal-length paragraph replacements become a second draft",
+    file: DRAFT_CONFORMANCE,
+    find: "  if (replacedWords > replacementAllowance) {",
+    with: "  if (false) {",
+    guards: "minimal conformance retains at least four fifths of the initial draft rather than only its length",
+  },
+  {
+    name: "let unrelated edits borrow a failing measurement id",
+    file: DRAFT_CONFORMANCE,
+    find: "    if (!improves) {",
+    with: "    if (false) {",
+    guards: "every exact edit must independently move one named failing measurement toward its range",
+  },
+  {
     name: "invite the conformer to replace the whole draft",
     file: ACCEPTANCE_RUNNER,
     find: '    "must be no larger than one paragraph. Prefer local recasting over expansion; the local",',

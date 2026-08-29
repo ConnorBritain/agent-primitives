@@ -47,6 +47,10 @@ export async function run(t, { HERE }) {
     t.check("voice-draft: declares reads_catalog: false", /^\s*reads_catalog:\s*false\b/m.test(meta));
     t.check("voice-draft: the claude-code tool allowlist is empty — the firewall is structural",
       /^\s*tools:\s*\[\s*\]\s*$/m.test(meta));
+    t.check("voice-draft: Codex metadata names the current source and conformance contracts",
+      /use the voice-draft-source\/4 schema/.test(meta)
+        && /voice-draft-conformance-patch\/1 stage/.test(meta)
+        && /Historical source\/1, source\/2, and source\/3 artifacts[\s\S]*remain readable/.test(meta));
 
     const agentPath = join(dir, "agent.md");
     if (fsExists(agentPath)) {

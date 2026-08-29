@@ -244,16 +244,21 @@ applied to the initial source if it validates.
 
 - Every `before` value must copy one exact, unique, non-empty span from the initial draft.
 - Keep an anchor to one paragraph or less. Use the smallest replacement that fixes the
-  named count or rhetorical instruction; do not replace the whole draft.
+  named measured count; do not replace the whole draft. If only a qualitative instruction
+  is missing, disclose that omission instead of using patch mode as an unmeasured rewrite.
 - `after` is the complete replacement for that anchor. It may be empty only for a deletion.
-- Name every affected coverage dimension and measured rule on the edit.
+- Name every affected coverage dimension and at least one measured rule on the edit. Every
+  edit must independently move one named rule that initially failed toward its allowed range;
+  do not borrow a failing rule's ID for an unrelated rewrite.
 - Return exactly ten coverage rows. A supported row is `preserved`, `revised`, or
   `omitted`; an unresolved row stays `unresolved`. A `revised` row must be named by an
   edit. An `omitted` row needs a matching `habit`/`why` record containing its dimension
   and observation IDs.
 - The local assembler rejects non-unique or overlapping anchors, out-of-range final
-  counts, material expansion, movement farther from the requested word target, silent
-  coverage omission, and any malformed final source. You do not estimate whether it passes.
+  counts, an anchor crossing a paragraph boundary, cumulative replacement beyond the
+  caller's stated retained-text budget, material expansion, movement farther from the
+  requested word target, silent coverage omission, and any malformed final source. You do
+  not estimate whether it passes.
 
 ```json
 {

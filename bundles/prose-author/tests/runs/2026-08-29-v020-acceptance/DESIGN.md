@@ -39,9 +39,10 @@ to this result.
   it emits at most twelve exact, uniquely anchored local replacements, accounts for all ten
   coverage dimensions, and is always applied to the initial draft when valid. Deterministic
   code rejects ambiguous or overlapping anchors, material expansion, movement away from the
-  requested word target, a silent coverage omission, or any final measured habit outside its
-  unchanged profile-derived band. The initial draft and patch remain separate immutable
-  evidence; there is no candidate selection.
+  requested word target, any anchor spanning a paragraph boundary, cumulative replacement of
+  more than 20% of source words (with a 24-word floor and 120-word ceiling), a silent coverage
+  omission, or any final measured habit outside its unchanged profile-derived band. The
+  initial draft and patch remain separate immutable evidence; there is no candidate selection.
 - A separate model claim audit reads the request and immutable sentence units but no voice
   profile. It runs only after deterministic patch application and audits the conformed
   immutable sentence units. It is assistive evidence, not the completeness authority. It may disclose a

@@ -50,7 +50,7 @@ import {
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
   applyDraftConformancePatch, CONFORMANCE_PATCH_SCHEMA,
-  measureDraftConformance, renderDraftConformanceReport,
+  measureDraftConformance, renderDraftConformanceReport, replacementWordAllowance,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
 import {
   draftControlCard, renderDraftControlCard,
@@ -73,8 +73,6 @@ const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
 const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/4";
 const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/4";
-const LEGACY_MANIFEST_SCHEMA = "prose-author-acceptance-manifest/3";
-const LEGACY_ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/3";
 const CLAIM_PIPELINE = "audit-disclosure/1";
 const STAGES = ["profile", "draft", "conformance", "claim_audit", "critic"];
 const DISPATCH_STAGES = [...STAGES];
@@ -1314,6 +1312,7 @@ function draftConformancePrompt(c, profileMarkdown, profileJson, initialSource) 
   }
   const card = draftTargetCard(profileJson, c.prompt);
   const report = measureDraftConformance(initialSource.draft, card);
+  const replacementAllowance = replacementWordAllowance(report.draft_words);
   const controls = renderDraftControlCard(draftControlCard(profileMarkdown, profileJson));
   return [
     "Produce the mandatory minimal conformance patch for the initial draft below.",
@@ -1340,6 +1339,8 @@ function draftConformancePrompt(c, profileMarkdown, profileJson, initialSource) 
     "Use the fewest exact, unique before/after source replacements that will pass. An anchor",
     "must be no larger than one paragraph. Prefer local recasting over expansion; the local",
     "assembler rejects a patch that expands materially or moves farther from requested length.",
+    `Across all edits, before anchors may replace at most ${replacementAllowance} of the initial ${report.draft_words} words.`,
+    "Every edit must name and independently move at least one initially failing measurement toward range.",
     "For an excess, use the listed occurrences and satisfy at least the explicit removal quota.",
     "For a deficit, alter existing sentences where possible. Do not disturb in-range habits.",
     "Every measured actual in the patched prose must be inside its stated range.",
@@ -2142,13 +2143,6 @@ const ARTIFACT_PATH_KEYS = {
   critic: ["prompt", "raw", "source", "render", "raw_events", "raw_output", "recovered_from"],
   evidence: ["claims_audit", "structural", "tally", "score"],
 };
-const CONFORMANCE_ARTIFACT_KEYS = new Set([
-  "conformance_prompt", "conformance_raw", "conformance_patch", "conformed_source",
-  "conformance_report", "conformance_raw_events", "conformance_raw_output",
-  "conformance_recovered_from",
-]);
-const LEGACY_DRAFT_ARTIFACT_PATH_KEYS = ARTIFACT_PATH_KEYS.draft
-  .filter((key) => !CONFORMANCE_ARTIFACT_KEYS.has(key));
 
 function expectedCellEvidenceFiles(output, dispatch) {
   const paths = [resolve(output)];
@@ -2587,11 +2581,7 @@ function sameIds(actual, expected) {
 
 function artifactHashErrors(artifacts, runDir, cases, manifest) {
   const errors = [...rawNamespaceErrors(runDir, manifest, cases)];
-  const currentGraph = manifest?.schema === MANIFEST_SCHEMA;
-  const legacyGraph = manifest?.schema === LEGACY_MANIFEST_SCHEMA;
-  const expectedArtifactsSchema = currentGraph ? ARTIFACTS_SCHEMA
-    : legacyGraph ? LEGACY_ARTIFACTS_SCHEMA : null;
-  if (expectedArtifactsSchema === null || artifacts?.schema !== expectedArtifactsSchema) {
+  if (artifacts?.schema !== ARTIFACTS_SCHEMA) {
     return [...errors, "ARTIFACTS.json has the wrong schema"];
   }
   errors.push(...legacyRepairArtifactErrors(artifacts, "ARTIFACTS"));
@@ -2636,7 +2626,7 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
     }
     const optional = [
       "disclosure", "recovered_from",
-      ...(currentGraph ? ["conformance_recovered_from"] : []),
+      "conformance_recovered_from",
       "initial_audit_recovered_from", "audit_recovered_from",
     ];
     if (!chain?.normalized) optional.push("normalized_source");
@@ -2645,7 +2635,7 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
       "initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
     );
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
-    if (currentGraph && manifestDispatch(manifest, "conformance").harness !== "codex") optional.push(
+    if (manifestDispatch(manifest, "conformance").harness !== "codex") optional.push(
       "conformance_raw_events", "conformance_raw_output",
     );
     if (manifestDispatch(manifest, "claim_audit").harness !== "codex") optional.push(
@@ -2653,8 +2643,7 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
       "audit_raw_events", "audit_raw_output",
     );
     errors.push(...artifactEntryHashErrors(
-      draft, currentGraph ? ARTIFACT_PATH_KEYS.draft : LEGACY_DRAFT_ARTIFACT_PATH_KEYS,
-      `drafts.${c.id}`, runDir, optional,
+      draft, ARTIFACT_PATH_KEYS.draft, `drafts.${c.id}`, runDir, optional,
     ));
     if (draft && (draft.profile !== c.profile || draft.render !== c.render || draft.request_sha256 !== SHA(c.prompt))) {
       errors.push(`drafts.${c.id} case provenance mismatch`);

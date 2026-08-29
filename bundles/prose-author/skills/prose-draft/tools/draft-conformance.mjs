@@ -10,6 +10,9 @@ export const CONFORMANCE_PATCH_SCHEMA_ID = "voice-draft-conformance-patch/1";
 export const MAX_CONFORMANCE_EDITS = 12;
 export const MAX_WORD_GROWTH_RATIO = 0.03;
 export const MAX_WORD_GROWTH_ABSOLUTE = 12;
+export const MAX_REPLACED_WORD_RATIO = 0.20;
+export const MIN_REPLACED_WORD_ALLOWANCE = 24;
+export const MAX_REPLACED_WORD_ALLOWANCE = 120;
 
 const omissionEntry = {
   type: "object", additionalProperties: false,
@@ -35,7 +38,7 @@ export const CONFORMANCE_PATCH_SCHEMA = {
             items: { type: "string", enum: COVERAGE_DIMENSIONS },
           },
           measurement_ids: {
-            type: "array", maxItems: 10,
+            type: "array", minItems: 1, maxItems: 10,
             items: { type: "string", minLength: 1 },
           },
         },
@@ -167,6 +170,16 @@ const exactKeys = (value, keys) => isObject(value)
 const sameArray = (left, right) => JSON.stringify(left) === JSON.stringify(right);
 const words = (value) => String(value ?? "").trim().split(/\s+/).filter(Boolean).length;
 
+export function replacementWordAllowance(initialWords) {
+  if (!Number.isInteger(initialWords) || initialWords < 0) {
+    throw new TypeError("replacement allowance requires a nonnegative integer word count");
+  }
+  return Math.max(
+    MIN_REPLACED_WORD_ALLOWANCE,
+    Math.min(MAX_REPLACED_WORD_ALLOWANCE, Math.ceil(initialWords * MAX_REPLACED_WORD_RATIO)),
+  );
+}
+
 export function applyDraftConformancePatch(initialSource, patch, { request, profile, card }) {
   const errors = [];
   const initial = normalizeVoiceDraftSource(initialSource, { request });
@@ -200,6 +213,7 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     }
     if (edit.before === edit.after) errors.push(`${at} does not change its anchor`);
     if (/```/.test(edit.before) || /```/.test(edit.after)) errors.push(`${at} cannot introduce or address output fences`);
+    if (/\n\s*\n/.test(edit.before)) errors.push(`${at}.before spans more than one paragraph`);
     if (!Array.isArray(edit.coverage_dimensions) || edit.coverage_dimensions.length < 1
       || new Set(edit.coverage_dimensions).size !== edit.coverage_dimensions.length
       || edit.coverage_dimensions.some((id) => !COVERAGE_DIMENSIONS.includes(id))) {
@@ -218,6 +232,34 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
   edits.sort((left, right) => left.start - right.start);
   for (let index = 1; index < edits.length; index += 1) {
     if (edits[index].start < edits[index - 1].end) errors.push("patch edit anchors overlap");
+  }
+  const initialWords = words(sourceText);
+  const replacedWords = edits.reduce((total, edit) => total + words(edit.before), 0);
+  const replacementAllowance = replacementWordAllowance(initialWords);
+  if (replacedWords > replacementAllowance) {
+    errors.push(`conformance patch replaces ${replacedWords} source words; maximum is ${replacementAllowance}`);
+  }
+  const initialReport = measureDraftConformance(sourceText, card);
+  const initialByMeasurement = new Map(
+    initialReport.measurements.map((row) => [row.measurement_id, row]),
+  );
+  const distanceFromRange = (row) => row.status === "in-range" ? 0
+    : row.status === "deficit" ? row.minimum - row.actual_count
+      : row.actual_count - row.maximum;
+  for (const [index, edit] of edits.entries()) {
+    const relevant = edit.measurement_ids
+      .map((id) => initialByMeasurement.get(id))
+      .filter((row) => row?.status !== "in-range");
+    const singlyPatched = `${sourceText.slice(0, edit.start)}${edit.after}${sourceText.slice(edit.end)}`;
+    const afterByMeasurement = new Map(
+      measureDraftConformance(singlyPatched, card).measurements
+        .map((row) => [row.measurement_id, row]),
+    );
+    const improves = relevant.some((row) =>
+      distanceFromRange(afterByMeasurement.get(row.measurement_id)) < distanceFromRange(row));
+    if (!improves) {
+      errors.push(`patch.edits[${index}] does not move any named failing measurement toward range`);
+    }
   }
 
   const expectedCoverage = new Map((profile?.coverage ?? []).map((row) => [row.dimension, row]));
@@ -291,7 +333,6 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
       errors.push(`final ${row.measurement_id} count ${row.actual_count} is ${row.status}; required ${row.minimum}–${row.maximum}`);
     }
   }
-  const initialWords = words(sourceText);
   const finalWords = words(normalized.source?.draft ?? "");
   const growthAllowance = Math.max(MAX_WORD_GROWTH_ABSOLUTE, Math.ceil(initialWords * MAX_WORD_GROWTH_RATIO));
   if (finalWords > initialWords + growthAllowance) {
@@ -306,6 +347,12 @@ export function applyDraftConformancePatch(initialSource, patch, { request, prof
     errors,
     source: normalized.source,
     report,
-    word_control: { initial_words: initialWords, final_words: finalWords, growth_allowance: growthAllowance },
+    word_control: {
+      initial_words: initialWords,
+      final_words: finalWords,
+      growth_allowance: growthAllowance,
+      replaced_words: replacedWords,
+      replacement_allowance: replacementAllowance,
+    },
   };
 }
