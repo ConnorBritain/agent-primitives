@@ -48,10 +48,11 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let one conformance anchor span multiple paragraphs | 1 | an exact patch cannot hide a whole-draft replacement in one anchor |
 | let equal-length paragraph replacements become a second draft | 1 | minimal conformance retains at least four fifths of the initial draft rather than only its length |
 | let unrelated edits borrow a failing measurement id | 1 | every exact edit must independently move one named failing measurement toward its range |
-| let measured punctuation edits rewrite unrelated semantics | 8 | a bounded measured correction cannot reverse the request stance or rewrite qualitative content |
+| let measured punctuation edits rewrite unrelated semantics | 10 | a bounded measured correction cannot reverse the request stance or rewrite qualitative content |
 | let an edit hide a collateral measurement delta | 1 | every actual per-edit measurement change is named before coverage dimensions are derived |
-| force participial d contractions to mean would | 2 | a meaning-preserving had contraction is not rejected by an arbitrary ambiguity choice |
-| guess would for a lexically ambiguous d contraction | 1 | an ambiguous contraction cannot change completed past into a different modality |
+| reject contractions licensed by an explicit source auxiliary | 4 | an explicit had, would, is, or has source can be contracted without lexical guesswork |
+| expand an ambiguous source contraction by convenient symmetry | 2 | an ambiguous source contraction cannot choose whichever expansion makes a patch pass |
+| expand ain't as the malformed phrase ai not | 1 | an unresolved negative contraction fails closed instead of inventing a stem |
 | collapse structural whitespace around measured punctuation | 1 | tabs and repeated spaces remain structural evidence rather than punctuation trivia |
 | let measured punctuation destroy Markdown links | 1 | parenthesis counts cannot be repaired by turning a Markdown link into plain text |
 | let a failing measurement revise an unrelated coverage dimension | 1 | every conformance edit binds its changed measured rules to their exact coverage dimensions |

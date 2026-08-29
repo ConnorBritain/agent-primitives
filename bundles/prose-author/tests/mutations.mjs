@@ -394,7 +394,7 @@ export const MUTATIONS = [
   {
     name: "let measured punctuation edits rewrite unrelated semantics",
     file: DRAFT_CONFORMANCE,
-    find: "    if (![...beforeSkeletons].some((skeleton) => afterSkeletons.has(skeleton))) {",
+    find: "    if (!measurementEditEquivalent(edit.before, edit.after, edit.measurement_ids)) {",
     with: "    if (false) {",
     guards: "a bounded measured correction cannot reverse the request stance or rewrite qualitative content",
   },
