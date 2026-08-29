@@ -63,8 +63,10 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let a failing measurement revise an unrelated coverage dimension | 1 | every conformance edit binds its changed measured rules to their exact coverage dimensions |
 | let structured conformance confuse observations with measurements | 1 | strict decoding cannot put profile observation IDs into the measurement namespace |
 | count required contraction spelling as lost content | 1 | the minimum required meaning-equivalent contraction correction is content-length neutral |
-| use net whitespace delta as the contraction-change count | 1 | zero-word and opposing form changes cannot hide behind a small net whitespace delta |
+| use net whitespace delta as the contraction-change count | 3 | zero-word and opposing form changes cannot hide behind a small net whitespace delta |
+| enforce contraction minimality only when length changes | 2 | zero-net extra contraction changes fail independently of target-distance movement |
 | let a coupled correction cross one row's nearest boundary | 1 | every initially failing contraction row stops at its nearest permitted count |
+| treat two contracted aliases as the same preserved surface | 1 | an apostrophe glyph rewrite or malformed contracted alias cannot hitchhike at zero cost |
 | invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
 | invite observation IDs into conformance measurement IDs | 1 | the conformer is explicitly told to use deterministic measurement tokens |
 | let one observation hide inside a multi-observation omission | 1 | a free-text omission remains accountable to every supported observation it drops |
