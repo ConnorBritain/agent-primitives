@@ -774,6 +774,13 @@ export async function run(t, { HERE }) {
       writeFileSync(join(namespaceRoot, "raw", "profiles", "unindexed-redraw.codex-events.jsonl"), "{}\n");
       writeFileSync(join(namespaceRoot, "critics", "raw", "d-d4.json"), "{}\n");
       rmSync(join(namespaceRoot, "critics", "raw", "d-d3.codex-output.json"));
+      cell(join("critics", "failures"), "d-d1.failed");
+      const disguisedWrapper = join(namespaceRoot, "outputs", "moved-call.bin");
+      mkdirSync(dirname(disguisedWrapper), { recursive: true });
+      writeFileSync(disguisedWrapper, `${JSON.stringify({
+        type: "result", is_error: true,
+        acceptance_dispatch: { stage: "critic" }, acceptance_input: { prompt_sha256: "x" },
+      })}\n`);
       const tamperedNamespace = artifactHashErrors(
         null, namespaceRoot, namespaceCases, namespaceManifest,
       ).filter((error) => error.startsWith("raw namespace"));
@@ -781,7 +788,9 @@ export async function run(t, { HERE }) {
         cleanNamespace.length === 0
           && tamperedNamespace.some((error) => /unindexed-redraw\.codex-events\.jsonl/.test(error))
           && tamperedNamespace.some((error) => /d-d4\.json/.test(error))
-          && tamperedNamespace.some((error) => /missing expected file d-d3\.codex-output\.json/.test(error)));
+          && tamperedNamespace.some((error) => /missing expected file d-d3\.codex-output\.json/.test(error))
+          && tamperedNamespace.some((error) => /critics[/\\]failures[/\\]d-d1\.failed\.codex-events\.jsonl/.test(error))
+          && tamperedNamespace.some((error) => /outputs[/\\]moved-call\.bin/.test(error)));
     } finally {
       rmSync(namespaceRoot, { recursive: true, force: true });
     }

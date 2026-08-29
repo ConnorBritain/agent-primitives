@@ -24,7 +24,7 @@ import {
   cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, dirname, join, relative, resolve } from "node:path";
+import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { scoreRun } from "./bar.mjs";
@@ -1981,6 +1981,45 @@ function exactNamespaceErrors(root, expectedPaths, label) {
   ];
 }
 
+const MODEL_EVIDENCE_SUFFIXES = [
+  ".codex-events.jsonl", ".codex-output.json", ".codex-adapter-failure.json",
+  ".claude-stdout.txt", ".claude-stderr.txt",
+];
+
+function isWithin(root, path) {
+  const within = relative(resolve(root), resolve(path));
+  return within === "" || (within !== ".." && !within.startsWith(`..${sep}`) && !isAbsolute(within));
+}
+
+function recognizableModelEvidence(path) {
+  if (MODEL_EVIDENCE_SUFFIXES.some((suffix) => path.endsWith(suffix))) return true;
+  const body = text(path);
+  try {
+    const value = JSON.parse(body);
+    if (value?.type === "result" && value.acceptance_dispatch && value.acceptance_input) return true;
+  } catch {
+    // A Codex JSONL stream is not one JSON document.
+  }
+  const lines = body.trim().split("\n").filter(Boolean);
+  if (!lines.length) return false;
+  try {
+    const events = lines.map((line) => JSON.parse(line));
+    return events.some((event) => event?.type === "thread.started")
+      && events.some((event) => ["item.completed", "turn.completed", "turn.failed"].includes(event?.type));
+  } catch {
+    return false;
+  }
+}
+
+function offNamespaceModelEvidenceErrors(runDir, canonicalRoots) {
+  return filesUnder(runDir).flatMap((file) => {
+    const path = join(runDir, file);
+    if (canonicalRoots.some((root) => isWithin(root, path))) return [];
+    return recognizableModelEvidence(path)
+      ? [`raw namespace run has unexpected model evidence ${file}`] : [];
+  });
+}
+
 function rawNamespaceErrors(runDir, manifest, cases) {
   const rawRoot = join(runDir, "raw");
   const expectedRaw = [];
@@ -2011,6 +2050,7 @@ function rawNamespaceErrors(runDir, manifest, cases) {
   return [
     ...exactNamespaceErrors(rawRoot, expectedRaw, "raw"),
     ...exactNamespaceErrors(criticRoot, expectedCritics, "critics/raw"),
+    ...offNamespaceModelEvidenceErrors(runDir, [rawRoot, criticRoot]),
   ];
 }
 

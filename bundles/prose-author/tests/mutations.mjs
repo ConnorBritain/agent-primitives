@@ -423,6 +423,13 @@ export const MUTATIONS = [
     guards: "renaming an earlier failed call cannot make a redrawn expected cell look unique",
   },
   {
+    name: "ignore model evidence moved outside canonical raw directories",
+    file: ACCEPTANCE_RUNNER,
+    find: "    ...offNamespaceModelEvidenceErrors(runDir, [rawRoot, criticRoot]),",
+    with: "    // off-namespace model evidence ignored",
+    guards: "a failed cell cannot be moved under another run subdirectory before redrawing it",
+  },
+  {
     name: "let a Codex wrapper point at another cell's companions",
     file: ACCEPTANCE_RUNNER,
     find: "    record[key] === expected[key]",
