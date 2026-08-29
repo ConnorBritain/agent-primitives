@@ -132,7 +132,7 @@ function prepare() {
     locked_files: Object.fromEntries(lockedFiles.map((path) => [path, SHA(text(resolve(REPO, path)))])),
     dispatch: { reaudit: d.reaudit },
     system: { path: rel(join(RUN, "prompts", "agents", "audit.md")), sha256: SHA(auditSystem) },
-    schema: { path: rel(join(RUN, "schemas", "audit.json")), sha256: SHA(text(join(RUN, "schemas", "audit.json"))) },
+    audit_schema: { path: rel(join(RUN, "schemas", "audit.json")), sha256: SHA(text(join(RUN, "schemas", "audit.json"))) },
     inputs,
   });
   process.stdout.write("prepared locked reaudit continuation; commit it before dispatch\n");
@@ -164,7 +164,7 @@ function loadLocked() {
     if (SHA(sourceCase(id).prompt) !== input.request_sha256) throw new Error(`${id} request drifted`);
   }
   if (SHA(text(resolve(REPO, manifest.system.path))) !== manifest.system.sha256) throw new Error("audit system drifted");
-  if (SHA(text(resolve(REPO, manifest.schema.path))) !== manifest.schema.sha256) throw new Error("audit schema drifted");
+  if (SHA(text(resolve(REPO, manifest.audit_schema.path))) !== manifest.audit_schema.sha256) throw new Error("audit schema drifted");
   return { d, manifest };
 }
 
