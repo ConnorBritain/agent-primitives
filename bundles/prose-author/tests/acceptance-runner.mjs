@@ -24,7 +24,7 @@ import {
   cpSync, existsSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync,
 } from "node:fs";
 import { tmpdir } from "node:os";
-import { basename, dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
+import { basename, dirname, join, relative, resolve } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 
 import { scoreRun } from "./bar.mjs";
@@ -1112,6 +1112,10 @@ async function pool(label, jobs, concurrency) {
 
 async function dispatchProfiles(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
+  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases);
+  if (preflightErrors.length) {
+    die(`acceptance evidence preflight failed; no profile calls were made:\n    ${preflightErrors.join("\n    ")}`);
+  }
   const dispatch = manifestDispatch(manifest, "profile");
   const system = resolve(REPO, manifest.agents.profile.snapshot);
   const jobs = cases.profiles.flatMap((profile) =>
@@ -1331,6 +1335,10 @@ function claimAuditPrompt(c, source) {
 
 async function dispatchDrafts(runDir) {
   const { manifest, cases } = loadPrepared(runDir);
+  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases);
+  if (preflightErrors.length) {
+    die(`acceptance evidence preflight failed; no draft calls were made:\n    ${preflightErrors.join("\n    ")}`);
+  }
   const dispatch = manifestDispatch(manifest, "draft");
   collectProfiles(runDir);
   const system = resolve(REPO, manifest.agents.draft.snapshot);
@@ -1981,43 +1989,132 @@ function exactNamespaceErrors(root, expectedPaths, label) {
   ];
 }
 
-const MODEL_EVIDENCE_SUFFIXES = [
-  ".codex-events.jsonl", ".codex-output.json", ".codex-adapter-failure.json",
-  ".claude-stdout.txt", ".claude-stderr.txt",
-];
-
-function isWithin(root, path) {
-  const within = relative(resolve(root), resolve(path));
-  return within === "" || (within !== ".." && !within.startsWith(`..${sep}`) && !isAbsolute(within));
+function acceptanceModelCells(runDir, manifest, cases) {
+  const cells = [];
+  const add = (output, stage) => cells.push({ output, dispatch: manifestDispatch(manifest, stage) });
+  for (const profile of cases.profiles) {
+    for (let render = 1; render <= profile.renders; render += 1) {
+      add(join(runDir, "raw", "profiles", `${profile.id}-r${render}.json`), "profile");
+    }
+  }
+  for (const c of cases.cases) {
+    add(join(runDir, "raw", "drafts", `${c.id}.json`), "draft");
+    add(join(runDir, "raw", "claim-audits", `${c.id}.json`), "claim_audit");
+    for (let draw = 1; draw <= 3; draw += 1) {
+      add(join(runDir, "critics", "raw", `${c.id}-d${draw}.json`), "critic");
+    }
+  }
+  for (const c of cases.refusals) add(join(runDir, "raw", "refusals", `${c.id}.json`), "draft");
+  return cells;
 }
 
-function recognizableModelEvidence(path) {
-  if (MODEL_EVIDENCE_SUFFIXES.some((suffix) => path.endsWith(suffix))) return true;
-  const body = text(path);
-  try {
-    const value = JSON.parse(body);
-    if (value?.type === "result" && value.acceptance_dispatch && value.acceptance_input) return true;
-  } catch {
-    // A Codex JSONL stream is not one JSON document.
+function allowedRunFiles(runDir, manifest, cases) {
+  const allowed = new Set([
+    "ARTIFACTS.json", "CASES.json", "CLAIMS-AUDIT.json", "DESIGN.md", "MANIFEST.json",
+    "SCORE.json", "STRUCTURAL.json", "TALLY.json", "corpus.lock.json",
+  ]);
+  const add = (path) => allowed.add(relative(runDir, resolve(path)));
+  for (const agent of Object.values(manifest.agents ?? {})) add(resolve(REPO, agent.snapshot));
+  for (const entry of Object.values(manifest.schemas?.profile ?? {})) add(resolve(REPO, entry.path));
+  for (const stage of ["draft", "claim_audit", "critic"]) {
+    if (manifest.schemas?.[stage]?.path) add(resolve(REPO, manifest.schemas[stage].path));
   }
-  const lines = body.trim().split("\n").filter(Boolean);
-  if (!lines.length) return false;
-  try {
-    const events = lines.map((line) => JSON.parse(line));
-    return events.some((event) => event?.type === "thread.started")
-      && events.some((event) => ["item.completed", "turn.completed", "turn.failed"].includes(event?.type));
-  } catch {
-    return false;
+  for (const profile of cases.profiles) {
+    const corpus = manifest.corpora[profile.id];
+    const staged = resolve(REPO, corpus.staged);
+    add(join(staged, "measurements.json"));
+    for (const name of ["profile.json", "voice.md"]) {
+      if (existsSync(join(resolve(REPO, corpus.source), name))) add(join(staged, name));
+    }
+    for (const sample of corpus.lock.files) {
+      add(join(staged, "corpus", "human", ...(sample.group ? [sample.group] : []), sample.file));
+    }
+    for (let render = 1; render <= profile.renders; render += 1) {
+      const id = `${profile.id}-r${render}`;
+      add(join(runDir, "prompts", "profiles", `${id}.md`));
+      add(join(runDir, "raw", `${id}.md`));
+      for (const path of expectedCellEvidenceFiles(
+        join(runDir, "raw", "profiles", `${id}.json`), manifestDispatch(manifest, "profile"),
+      )) add(path);
+      for (const suffix of ["json", "md", "source.json"]) {
+        add(join(runDir, "inputs", "profiles", profile.id, `r${render}.${suffix}`));
+      }
+    }
   }
+  for (const c of cases.cases) {
+    add(join(runDir, "prompts", "drafts", `${c.id}.md`));
+    add(join(runDir, "prompts", "claim-audits", `${c.id}.md`));
+    for (const path of expectedCellEvidenceFiles(
+      join(runDir, "raw", "drafts", `${c.id}.json`), manifestDispatch(manifest, "draft"),
+    )) add(path);
+    for (const path of expectedCellEvidenceFiles(
+      join(runDir, "raw", "claim-audits", `${c.id}.json`), manifestDispatch(manifest, "claim_audit"),
+    )) add(path);
+    for (const suffix of ["json", "original.json", "normalized.json"]) {
+      add(join(runDir, "inputs", "sources", "drafts", `${c.id}.${suffix}`));
+    }
+    add(join(runDir, "inputs", "audits", `${c.id}.json`));
+    add(join(runDir, "inputs", "audits", "initial", `${c.id}.json`));
+    add(join(runDir, "inputs", "drafts", `${c.id}.txt`));
+    add(join(runDir, "inputs", "records", `${c.id}.json`));
+    add(join(runDir, "outputs", "drafts", `${c.id}.md`));
+    const criticInput = join(runDir, "critics", "inputs", c.id);
+    add(join(criticInput, "draft.txt"));
+    const corpus = manifest.corpora[c.profile];
+    for (const sample of corpus.lock.files) {
+      add(join(criticInput, "corpus", ...(sample.group ? [sample.group] : []), sample.file));
+    }
+    for (let draw = 1; draw <= 3; draw += 1) {
+      const id = `${c.id}-d${draw}`;
+      add(join(runDir, "critics", "prompts", `${id}.md`));
+      add(join(runDir, "critics", "sources", `${id}.json`));
+      add(join(runDir, "critics", "outputs", `${id}.md`));
+      for (const path of expectedCellEvidenceFiles(
+        join(runDir, "critics", "raw", `${id}.json`), manifestDispatch(manifest, "critic"),
+      )) add(path);
+    }
+  }
+  for (const c of cases.refusals) {
+    add(join(runDir, "prompts", "refusals", `${c.id}.md`));
+    for (const path of expectedCellEvidenceFiles(
+      join(runDir, "raw", "refusals", `${c.id}.json`), manifestDispatch(manifest, "draft"),
+    )) add(path);
+    add(join(runDir, "inputs", "sources", "refusals", `${c.id}.json`));
+    add(join(runDir, "outputs", "refusals", `${c.id}.md`));
+  }
+  return allowed;
 }
 
-function offNamespaceModelEvidenceErrors(runDir, canonicalRoots) {
-  return filesUnder(runDir).flatMap((file) => {
-    const path = join(runDir, file);
-    if (canonicalRoots.some((root) => isWithin(root, path))) return [];
-    return recognizableModelEvidence(path)
-      ? [`raw namespace run has unexpected model evidence ${file}`] : [];
-  });
+function runNamespaceErrors(runDir, manifest, cases) {
+  const allowed = allowedRunFiles(runDir, manifest, cases);
+  return filesUnder(runDir).filter((file) => !allowed.has(file))
+    .map((file) => `raw namespace run has undeclared file ${file}`);
+}
+
+function dispatchPreflightErrors(runDir, manifest, cases) {
+  const errors = [
+    ...runNamespaceErrors(runDir, manifest, cases),
+    ...retiredRepairEvidenceErrors(runDir),
+  ];
+  for (const { output, dispatch } of acceptanceModelCells(runDir, manifest, cases)) {
+    const evidence = expectedCellEvidenceFiles(output, dispatch).filter((path) => existsSync(path));
+    if (!evidence.length) continue;
+    if (!existsSync(output)) {
+      errors.push(`${rel(output)} has companion evidence without its canonical result; do not dispatch`);
+      continue;
+    }
+    try {
+      const record = json(output);
+      const recoverable = dispatch.harness === "codex"
+        && record.type === "result" && record.is_error === true
+        && record.error === "codex emitted no final structured output"
+        && existsSync(codexCompanion(output, "events.jsonl"));
+      if (!recoverable) completedResult(output, dispatch);
+    } catch (error) {
+      errors.push(error.message);
+    }
+  }
+  return errors;
 }
 
 function rawNamespaceErrors(runDir, manifest, cases) {
@@ -2050,7 +2147,7 @@ function rawNamespaceErrors(runDir, manifest, cases) {
   return [
     ...exactNamespaceErrors(rawRoot, expectedRaw, "raw"),
     ...exactNamespaceErrors(criticRoot, expectedCritics, "critics/raw"),
-    ...offNamespaceModelEvidenceErrors(runDir, [rawRoot, criticRoot]),
+    ...runNamespaceErrors(runDir, manifest, cases),
   ];
 }
 
@@ -2249,6 +2346,10 @@ function criticPrompt(caseId, corpus, draft) {
 
 async function dispatchCritics(runDir) {
   const { p, manifest, cases } = loadPrepared(runDir);
+  const preflightErrors = dispatchPreflightErrors(runDir, manifest, cases);
+  if (preflightErrors.length) {
+    die(`acceptance evidence preflight failed; no critic calls were made:\n    ${preflightErrors.join("\n    ")}`);
+  }
   const dispatch = manifestDispatch(manifest, "critic");
   collectDrafts(runDir);
   const artifacts = json(join(runDir, "ARTIFACTS.json"));
@@ -2966,6 +3067,6 @@ export {
   criticPrompt, deriveAcceptanceEvidence, deriveCritic, draftPrompt, factualCandidateReasons, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, manifestStageSchema, modelAdapterName, prepareConfig, quotationAudit,
-  rawNamespaceErrors, resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,
+  dispatchPreflightErrors, rawNamespaceErrors, resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,
   sentenceReviewTemplate, stagePrompt, strictlyCommittedAfter, structuralGates, validateCases,
 };

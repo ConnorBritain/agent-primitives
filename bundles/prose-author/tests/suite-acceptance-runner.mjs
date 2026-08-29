@@ -11,7 +11,7 @@ import {
   CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
   criticPrompt, deriveCritic, draftPrompt,
-  dispatchCodex,
+  dispatchCodex, dispatchPreflightErrors,
   factualCandidateReasons, HARNESS_CAPABILITIES, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
@@ -707,6 +707,9 @@ export async function run(t, { HERE }) {
     /ACCEPTANCE_MODEL_TIMEOUT_MS/.test(source)
       && /child\.kill\("SIGTERM"\)/.test(source)
       && /exceeded \$\{dispatch\.timeout_ms\}ms/.test(source));
+  t.check("every acceptance dispatch performs the closed-world evidence preflight before pooling calls",
+    (source.match(/const preflightErrors = dispatchPreflightErrors\(runDir, manifest, cases\);/g) ?? []).length === 3
+      && (source.match(/acceptance evidence preflight failed; no (?:profile|draft|critic) calls were made/g) ?? []).length === 3);
   t.check("the deterministic profile prepass covers the major countable dimensions",
     ["second-person-family", "contractions", "uncontracted-negatives", "profanity-vulgarity",
       "first-person-singular-family", "question-marks", "round-parenthetical-spans", "em-dashes"]
@@ -757,9 +760,13 @@ export async function run(t, { HERE }) {
         concurrency: 1,
         dispatch: Object.fromEntries(["profile", "draft", "claim_audit", "critic"]
           .map((name) => [name, stage])),
+        corpora: { p: {
+          staged: namespaceRoot, source: namespaceRoot, lock: { files: [] },
+        } },
       };
       const namespaceCases = {
-        profiles: [{ id: "p", renders: 1 }], cases: [{ id: "d" }], refusals: [{ id: "r" }],
+        profiles: [{ id: "p", renders: 1 }],
+        cases: [{ id: "d", profile: "p" }], refusals: [{ id: "r", profile: "p" }],
       };
       mkdirSync(join(namespaceRoot, "raw"), { recursive: true });
       writeFileSync(join(namespaceRoot, "raw", "p-r1.md"), "canonical profile\n");
@@ -775,22 +782,23 @@ export async function run(t, { HERE }) {
       writeFileSync(join(namespaceRoot, "critics", "raw", "d-d4.json"), "{}\n");
       rmSync(join(namespaceRoot, "critics", "raw", "d-d3.codex-output.json"));
       cell(join("critics", "failures"), "d-d1.failed");
-      const disguisedWrapper = join(namespaceRoot, "outputs", "moved-call.bin");
+      const disguisedWrapper = join(namespaceRoot, "outputs", "moved-call.archive");
       mkdirSync(dirname(disguisedWrapper), { recursive: true });
-      writeFileSync(disguisedWrapper, `${JSON.stringify({
-        type: "result", is_error: true,
-        acceptance_dispatch: { stage: "critic" }, acceptance_input: { prompt_sha256: "x" },
-      })}\n`);
+      writeFileSync(disguisedWrapper, "arbitrary archived bytes that do not identify their source\n");
       const tamperedNamespace = artifactHashErrors(
         null, namespaceRoot, namespaceCases, namespaceManifest,
       ).filter((error) => error.startsWith("raw namespace"));
+      const preflight = dispatchPreflightErrors(namespaceRoot, namespaceManifest, namespaceCases);
       t.check("raw namespaces reject orphan redraws, extra critic draws, and missing companions",
         cleanNamespace.length === 0
           && tamperedNamespace.some((error) => /unindexed-redraw\.codex-events\.jsonl/.test(error))
           && tamperedNamespace.some((error) => /d-d4\.json/.test(error))
           && tamperedNamespace.some((error) => /missing expected file d-d3\.codex-output\.json/.test(error))
           && tamperedNamespace.some((error) => /critics[/\\]failures[/\\]d-d1\.failed\.codex-events\.jsonl/.test(error))
-          && tamperedNamespace.some((error) => /outputs[/\\]moved-call\.bin/.test(error)));
+          && tamperedNamespace.some((error) => /outputs[/\\]moved-call\.archive/.test(error)));
+      t.check("dispatch preflight rejects undeclared archived evidence before any model adapter runs",
+        preflight.some((error) => /critics[/\\]failures[/\\]d-d1\.failed\.json/.test(error))
+          && preflight.some((error) => /outputs[/\\]moved-call\.archive/.test(error)));
     } finally {
       rmSync(namespaceRoot, { recursive: true, force: true });
     }
