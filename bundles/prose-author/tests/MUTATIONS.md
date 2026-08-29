@@ -48,9 +48,12 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let one conformance anchor span multiple paragraphs | 1 | an exact patch cannot hide a whole-draft replacement in one anchor |
 | let equal-length paragraph replacements become a second draft | 1 | minimal conformance retains at least four fifths of the initial draft rather than only its length |
 | let unrelated edits borrow a failing measurement id | 1 | every exact edit must independently move one named failing measurement toward its range |
-| let measured punctuation edits rewrite unrelated semantics | 3 | a bounded measured correction cannot reverse the request stance or rewrite qualitative content |
+| let measured punctuation edits rewrite unrelated semantics | 8 | a bounded measured correction cannot reverse the request stance or rewrite qualitative content |
 | let an edit hide a collateral measurement delta | 1 | every actual per-edit measurement change is named before coverage dimensions are derived |
-| force ambiguous d contractions to mean would | 1 | a meaning-preserving had contraction is not rejected by an arbitrary ambiguity choice |
+| force participial d contractions to mean would | 2 | a meaning-preserving had contraction is not rejected by an arbitrary ambiguity choice |
+| guess would for a lexically ambiguous d contraction | 1 | an ambiguous contraction cannot change completed past into a different modality |
+| collapse structural whitespace around measured punctuation | 1 | tabs and repeated spaces remain structural evidence rather than punctuation trivia |
+| let measured punctuation destroy Markdown links | 1 | parenthesis counts cannot be repaired by turning a Markdown link into plain text |
 | let a failing measurement revise an unrelated coverage dimension | 1 | every conformance edit binds its changed measured rules to their exact coverage dimensions |
 | invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
 | tell the drafter to recalculate a locked target card | 1 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
