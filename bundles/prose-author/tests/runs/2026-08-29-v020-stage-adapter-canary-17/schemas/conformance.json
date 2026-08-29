@@ -1,0 +1,152 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "voice-draft-conformance-patch/1"
+    },
+    "edits": {
+      "type": "array",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "before": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "after": {
+            "type": "string",
+            "maxLength": 4000
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          },
+          "coverage_dimensions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "enum": [
+                "person-reader-stance",
+                "contraction-negation",
+                "qualification-hedging",
+                "questions-imperatives-vocatives",
+                "opponents-allies-sources",
+                "profanity-vulgarity",
+                "self-reference-biography",
+                "interruption-punctuation",
+                "figures-analogy",
+                "openings-endings-closure"
+              ]
+            }
+          },
+          "measurement_ids": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 10,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "required": [
+          "before",
+          "after",
+          "reason",
+          "coverage_dimensions",
+          "measurement_ids"
+        ]
+      }
+    },
+    "coverage": {
+      "type": "array",
+      "minItems": 10,
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dimension": {
+            "type": "string",
+            "enum": [
+              "person-reader-stance",
+              "contraction-negation",
+              "qualification-hedging",
+              "questions-imperatives-vocatives",
+              "opponents-allies-sources",
+              "profanity-vulgarity",
+              "self-reference-biography",
+              "interruption-punctuation",
+              "figures-analogy",
+              "openings-endings-closure"
+            ]
+          },
+          "observation_ids": {
+            "type": "array",
+            "maxItems": 20,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "disposition": {
+            "type": "string",
+            "enum": [
+              "preserved",
+              "revised",
+              "omitted",
+              "unresolved"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500
+          }
+        },
+        "required": [
+          "dimension",
+          "observation_ids",
+          "disposition",
+          "reason"
+        ]
+      }
+    },
+    "omitted": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "habit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "why": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "habit",
+          "why"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "edits",
+    "coverage",
+    "omitted"
+  ]
+}
