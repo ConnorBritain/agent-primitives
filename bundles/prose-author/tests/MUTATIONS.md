@@ -83,9 +83,11 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | trust handwritten candidate reasons instead of rederiving them | 1 | candidate flags and sentence hashes reproduce from the immutable semantic source |
 | let an unrelated same-paragraph claim cover a reviewed sentence | 1 | a public verification claim must belong to the exact sentence under human review |
 | accept a token rationale for clearing a flagged sentence | 1 | a human clearing a possible factual premise records an inspectable rationale |
-| accept a generic request fragment instead of canonical request evidence | 1 | request-supported decisions reproduce every exact basis from the immutable source ledger |
-| accept non-factual evidence from a different sentence | 1 | a non-factual decision cites an exact inspectable span of its own canonical sentence |
-| let a human rationale defer to model authority | 1 | the human completeness boundary supplies independent semantic judgment |
+| accept a request ledger claim unrelated to its supplied basis | 1 | a generic instruction token cannot become model-authored semantic request support |
+| let a request-backed claim license unrelated prose | 1 | request support remains linked from supplied basis through claim to exact sentence |
+| accept human request evidence unrelated to the reviewed sentence | 1 | human request evidence is independently checked instead of trusting the model-authored ledger |
+| accept a fragment as evidence that a whole sentence is non-factual | 1 | a non-factual decision accounts for the complete sentence rather than one convenient clause |
+| let free-form prose replace a closed non-factual classification | 1 | the human completeness boundary records an explicit normative, hypothetical, logical, rhetorical, or procedural basis |
 | accept an empty human reviewer identity | 1 | critic-unlocking sentence review carries an explicit human attestation |
 | follow a mutable alternate draft source pointer during human audit checking | 1 | human decisions remain bound to the canonical source derived from raw model evidence |
 | hide a canonical disclosure behind a mutable artifact pointer | 1 | human review cannot suppress or substitute the canonical public disclosure |

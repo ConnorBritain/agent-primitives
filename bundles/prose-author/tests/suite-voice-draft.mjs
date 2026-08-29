@@ -346,8 +346,44 @@ export async function run(t, { HERE }) {
       }, { request }).ok
         && !validateVoiceDraftSource({
           ...source,
-          ledger: [{ id: "c1", basis: "request-supported", claim: "x", request_basis: "not in the request" }],
+          ledger: [{
+            id: "c1", basis: "request-supported",
+            claim: "A premise is not in the request.", request_basis: "premise not in the request",
+          }],
+          paragraphs: [{ sentences: [{
+            text: "A premise is not in the request.", basis: "request-supported", claim_ids: ["c1"],
+          }] }],
       }, { request }).ok);
+    const poisonedRequestSupport = validateVoiceDraftSource({
+      ...source,
+      ledger: [{
+        id: "c1", basis: "request-supported", claim: "Many buyers never notice.", request_basis: "Write",
+      }],
+      paragraphs: [{ sentences: [{
+        text: "Many buyers never notice.", basis: "request-supported", claim_ids: ["c1"],
+      }] }],
+    }, { request: "Write about ownership choices." });
+    t.check("a generic instruction token cannot become semantic request support",
+      !poisonedRequestSupport.ok
+        && poisonedRequestSupport.errors.some((error) => /no substantive lexical support/.test(error))
+        && !normalizeVoiceDraftSource({
+          ...source,
+          ledger: [{
+            id: "c1", basis: "request-supported", claim: "Many buyers never notice.", request_basis: "Write",
+          }],
+          paragraphs: [{ sentences: [{
+            text: "Many buyers never notice.", basis: "request-supported", claim_ids: ["c1"],
+          }] }],
+        }, { request: "Write about ownership choices." }).ok);
+    const mismatchedRequestSentence = validateVoiceDraftSource({
+      ...source,
+      paragraphs: [{ sentences: [{
+        text: "Many buyers never notice.", basis: "request-supported", claim_ids: ["c1"],
+      }] }],
+    }, { request });
+    t.check("a request-backed claim cannot license unrelated prose",
+      !mismatchedRequestSentence.ok
+        && mismatchedRequestSentence.errors.some((error) => /no substantive lexical support from its cited request claims/.test(error)));
     t.check("proof-carrying drafts cannot validate without the original request",
       !validateVoiceDraftSource(source).ok && !assembleVoiceDraft(source).ok);
     const reasoningWithClaim = validateVoiceDraftSource({
@@ -682,7 +718,7 @@ export async function run(t, { HERE }) {
       !validateVoiceDraftClaimRepair(repairSource, {
         ...repaired,
         paragraphs: [{ sentences: repaired.paragraphs[0].sentences.map((sentence, index) => index === 0
-          ? { ...sentence, text: "Changed accepted prose." }
+          ? { ...sentence, text: "A maker may disable features even after sale." }
           : sentence) }],
       }, { request, audit: rejectedAudit }).ok);
     t.check("a bounded repair cannot add a new factual ledger entry even inside a rejected sentence",

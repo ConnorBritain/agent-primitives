@@ -678,7 +678,9 @@ export async function run(t, { HERE }) {
       const draft = "The supplied phrase appears.\n";
       writeFileSync(draftPath, draft);
       const draftHash = createHash("sha256").update(draft).digest("hex");
-      const auditCases = { cases: [{ id: "x", prompt: "Use the supplied phrase." }] };
+      const auditCases = { cases: [{
+        id: "x", prompt: "Write about ownership choices. Use the supplied phrase.",
+      }] };
       const sourcePath = join(auditRoot, "inputs", "sources", "drafts", "x.json");
       const canonicalAuditPath = join(auditRoot, "inputs", "audits", "x.json");
       const sourceRecord = {
@@ -706,7 +708,7 @@ export async function run(t, { HERE }) {
         decision: "request-supported", request_evidence: ["supplied phrase"],
       };
       const audit = {
-        schema: "prose-author-claims-audit/4", attestation: humanAttestation(), instructions: [], drafts: { x: {
+        schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
         draft_sha256: draftHash, claims: [],
         quoted_spans: quotationAudit(draft, auditCases.cases[0].prompt),
         sentence_reviews: [review], claims_verified: true, quotations_verified: true, note: "",
@@ -739,11 +741,11 @@ export async function run(t, { HERE }) {
           sentence_reviews: [{ ...review, candidate_reasons: ["frequency-or-quantity"] }],
         } } }, auditCases, artifacts, auditRoot)
           .some((error) => /does not reproduce from the immutable source sentence/.test(error)));
-      t.check("request-supported review must reproduce the complete canonical request ledger",
+      t.check("request-supported review is checked independently of the model-authored request ledger",
         claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
-          sentence_reviews: [{ ...review, request_evidence: ["Use the supplied"] }],
+          sentence_reviews: [{ ...review, request_evidence: ["ownership choices"] }],
         } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /request evidence does not match the canonical request ledger/.test(error)));
+          .some((error) => /no substantive lexical support for the sentence/.test(error)));
       t.check("critic-unlocking review requires an explicit human attestation",
         claimsAuditFailures({ ...audit, attestation: {
           ...humanAttestation(), reviewer: "",
@@ -769,23 +771,25 @@ export async function run(t, { HERE }) {
       riskySource.paragraphs[0].sentences[0].text = "Developers often feel this gap.";
       const riskyReview = {
         ...sentenceReviewTemplate(riskySource)[0], decision: "non-factual",
-        sentence_evidence: "Developers often", note: "too short",
+        sentence_evidence: "Developers often feel this gap.", non_factual_basis: "normative",
+        note: "too short",
       };
       t.check("clearing a flagged sentence as non-factual requires a substantive human rationale",
         claimsAuditFailures({
-          schema: "prose-author-claims-audit/4", attestation: humanAttestation(), instructions: [], drafts: { x: {
+          schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
           ...audit.drafts.x, sentence_reviews: [riskyReview],
         } },
         }, auditCases).some((error) => /substantive human rationale/.test(error)));
-      t.check("a human non-factual decision cannot defer to model or audit authority",
+      t.check("a non-factual decision needs an explicit closed semantic basis",
         claimsAuditFailures({
-          schema: "prose-author-claims-audit/4", attestation: humanAttestation(), instructions: [], drafts: { x: {
+          schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
             ...audit.drafts.x,
             sentence_reviews: [{ ...riskyReview,
+              non_factual_basis: null,
               note: "The model audit says keep, so this sentence needs no independent semantic explanation.",
             }],
           } },
-        }, auditCases).some((error) => /defers to pipeline authority/.test(error)));
+        }, auditCases).some((error) => /needs one closed semantic basis/.test(error)));
       const sharedParagraphSource = {
         schema: "voice-draft-source/3", kind: "draft",
         ledger: [{
@@ -815,7 +819,7 @@ export async function run(t, { HERE }) {
       writeFileSync(disclosurePath, `${JSON.stringify(sharedDisclosure, null, 2)}\n`);
       const templates = sentenceReviewTemplate(sharedParagraphSource);
       const sharedHumanAudit = {
-        schema: "prose-author-claims-audit/4", attestation: humanAttestation(), instructions: [], drafts: { x: {
+        schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
         draft_sha256: createHash("sha256").update(sharedDraft).digest("hex"),
         claims: sharedDisclosure.claims, quoted_spans: [],
         sentence_reviews: [
@@ -838,11 +842,12 @@ export async function run(t, { HERE }) {
       t.check("non-factual sentence evidence must be an exact span of that canonical sentence",
         claimsAuditFailures({ ...sharedHumanAudit, drafts: { x: { ...sharedHumanAudit.drafts.x,
           sentence_reviews: [sharedHumanAudit.drafts.x.sentence_reviews[0], {
-            ...templates[1], decision: "non-factual", sentence_evidence: "A different sentence",
+            ...templates[1], decision: "non-factual", sentence_evidence: "Most users",
+            non_factual_basis: "normative",
             note: "This is presented as argumentative framing without any independently checkable premise.",
           }],
         } } }, auditCases, sharedArtifacts, auditRoot)
-          .some((error) => /sentence evidence is not an exact canonical span/.test(error)));
+          .some((error) => /must reproduce the complete canonical sentence/.test(error)));
       t.check("a canonical disclosure cannot be hidden behind a null artifact pointer",
         claimsAuditFailures(sharedHumanAudit, auditCases, { drafts: { x: {
           ...sharedArtifacts.drafts.x, disclosure: null, disclosure_sha256: null,

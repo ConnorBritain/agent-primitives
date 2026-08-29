@@ -37,7 +37,7 @@ import {
 } from "./voice-critic-source.mjs";
 import {
   assembleVoiceDraft, normalizeVoiceDraftSource, parseVoiceDraftSource,
-  SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
+  sharedRequestSupportTerms, SOURCE_SCHEMA as DRAFT_SOURCE_SCHEMA, validateVoiceDraftSource,
 } from "../skills/prose-draft/tools/draft-contract.mjs";
 import {
   applyVoiceDraftClaimAudit, AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA,
@@ -1432,11 +1432,12 @@ function collectDrafts(runDir) {
   process.stdout.write("  complete and commit the human CLAIMS-AUDIT.json before dispatching critics\n\n");
 }
 
-const CLAIMS_AUDIT_SCHEMA = "prose-author-claims-audit/4";
+const CLAIMS_AUDIT_SCHEMA = "prose-author-claims-audit/5";
 const CLAIMS_AUDIT_ATTESTATION = "I personally reviewed every immutable sentence and recorded every unsupported descriptive premise as requires-change or listed-for-verification before any critic call.";
 const SENTENCE_REVIEW_DECISIONS = [
   "request-supported", "listed-for-verification", "non-factual", "requires-change",
 ];
+const NON_FACTUAL_BASES = ["normative", "hypothetical", "logical", "rhetorical", "procedural"];
 const FACTUAL_CANDIDATE_RULES = [
   {
     id: "frequency-or-quantity",
@@ -1476,19 +1477,8 @@ function sentenceReviewTemplate(source) {
     claim_refs: [],
     request_evidence: [],
     sentence_evidence: "",
+    non_factual_basis: null,
     note: "",
-  }));
-}
-
-function sentenceRequestInventory(source) {
-  const ledger = new Map((source.ledger ?? []).map((entry) => [entry.id, entry]));
-  return Object.fromEntries(sentenceRefs(source).map((ref) => {
-    const match = /^p([1-9][0-9]*)s([1-9][0-9]*)$/.exec(ref.id);
-    const sentence = source.paragraphs[Number(match[1]) - 1].sentences[Number(match[2]) - 1];
-    const requestBases = sentence.basis === "request-supported"
-      ? (sentence.claim_ids ?? []).map((id) => ledger.get(id)?.request_basis).filter(Boolean)
-      : [];
-    return [ref.id, [...new Set(requestBases)]];
   }));
 }
 
@@ -1527,9 +1517,9 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     instructions: [
       "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
       "sentence_reviews: review every immutable sentence; the model audit and candidate reasons are aids, never completeness authority",
-      "request-supported: retain every canonical request-ledger basis in request_evidence; each exact span must supply the sentence",
+      "request-supported: independently cite exact substantive request spans in request_evidence; do not trust the model-authored ledger label",
       "listed-for-verification: put every public claim covering the sentence into claim_refs; each claim must be located in the same paragraph",
-      "non-factual: cite the clause under review in sentence_evidence and independently explain why the whole sentence has no external descriptive premise",
+      "non-factual: copy the complete sentence into sentence_evidence, select one closed non_factual_basis, and independently explain why the whole sentence has no external descriptive premise",
       "requires-change: use when any premise is missing, overbroad, fabricated, or otherwise cannot pass; critics remain blocked",
       "the profile is voice evidence, never a factual packet; model memory and generic plausibility are not supplied facts",
       "quotations_verified: inspect every quoted span and use true only when every attributed quotation is verbatim in the request or independently verified; scare quotes may be marked reviewed",
@@ -1637,7 +1627,6 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
     }
     let expectedReviews = null;
     let expectedClaimsBySentence = null;
-    let expectedRequestEvidenceBySentence = null;
     let sourceTextBySentence = null;
     if (artifacts && runDir) {
       const artifact = artifacts.drafts?.[c.id];
@@ -1669,7 +1658,6 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
         try {
           const canonicalSource = json(canonicalSourcePath);
           expectedReviews = sentenceReviewTemplate(canonicalSource);
-          expectedRequestEvidenceBySentence = sentenceRequestInventory(canonicalSource);
           sourceTextBySentence = Object.fromEntries(
             sentenceRefs(canonicalSource).map((ref) => [ref.id, String(ref.text ?? "")]),
           );
@@ -1695,7 +1683,7 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
       const at = `${c.id}: sentence_reviews[${index}]`;
       const reviewFields = [
         "id", "text_sha256", "candidate_reasons", "decision",
-        "claim_refs", "request_evidence", "sentence_evidence", "note",
+        "claim_refs", "request_evidence", "sentence_evidence", "non_factual_basis", "note",
       ];
       if (!review || typeof review !== "object" || Array.isArray(review)
         || JSON.stringify(Object.keys(review).sort()) !== JSON.stringify([...reviewFields].sort())) {
@@ -1743,19 +1731,21 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
       if (review.decision === "request-supported") {
         if (claimRefs.length) failures.push(`${at} request-supported cannot cite public claims`);
         if (sentenceEvidence) failures.push(`${at} request-supported cannot cite sentence evidence`);
-        const expectedEvidence = expectedRequestEvidenceBySentence?.[review.id] ?? null;
-        if (expectedEvidence
-          && JSON.stringify([...requestEvidence].sort()) !== JSON.stringify([...expectedEvidence].sort())) {
-          failures.push(`${at} request evidence does not match the canonical request ledger`);
-        }
+        if (review.non_factual_basis !== null) failures.push(`${at} request-supported cannot carry a non-factual basis`);
         if (!requestEvidence.length || requestEvidence.some((evidence) =>
-          normalizeAuditText(evidence).length < 4
+          normalizeAuditText(evidence).length < 8
             || !normalizeAuditText(c.prompt).includes(normalizeAuditText(evidence)))) {
           failures.push(`${at} request evidence is not an exact supplied request span`);
+        }
+        const canonicalSentence = sourceTextBySentence?.[review.id] ?? "";
+        if (canonicalSentence
+          && sharedRequestSupportTerms(canonicalSentence, requestEvidence.join(" ")).length === 0) {
+          failures.push(`${at} request evidence has no substantive lexical support for the sentence`);
         }
       } else if (review.decision === "listed-for-verification") {
         if (requestEvidence.length) failures.push(`${at} listed-for-verification cannot cite request evidence`);
         if (sentenceEvidence) failures.push(`${at} listed-for-verification cannot cite sentence evidence`);
+        if (review.non_factual_basis !== null) failures.push(`${at} listed-for-verification cannot carry a non-factual basis`);
         if (!claimRefs.length) failures.push(`${at} listed-for-verification needs at least one claim ref`);
         if (expectedClaimsBySentence) {
           const expectedClaimRefs = expectedClaimsBySentence[review.id] ?? [];
@@ -1776,15 +1766,14 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
           failures.push(`${at} non-factual cannot cite request evidence or public claims`);
         }
         const canonicalSentence = normalizeAuditText(sourceTextBySentence?.[review.id] ?? "");
-        if (sentenceEvidence.length < 8
-          || (canonicalSentence && !canonicalSentence.includes(sentenceEvidence))) {
-          failures.push(`${at} non-factual sentence evidence is not an exact canonical span`);
+        if (!canonicalSentence || sentenceEvidence !== canonicalSentence) {
+          failures.push(`${at} non-factual evidence must reproduce the complete canonical sentence`);
+        }
+        if (!NON_FACTUAL_BASES.includes(review.non_factual_basis)) {
+          failures.push(`${at} non-factual decision needs one closed semantic basis`);
         }
         if (normalizeAuditText(review.note).length < 32) {
           failures.push(`${at} non-factual needs a substantive human rationale`);
-        }
-        if (/\b(?:model|audit|auditor|drafter|ledger|label|classifier|prompt)\b/i.test(review.note)) {
-          failures.push(`${at} non-factual rationale defers to pipeline authority`);
         }
       } else if (review.decision === "requires-change") {
         failures.push(`${at} requires a draft or disclosure change`);

@@ -83,6 +83,28 @@ export const SOURCE_SCHEMA = {
 
 const isObject = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
 const isText = (value) => typeof value === "string" && value.trim().length > 0;
+const SUPPORT_STOPWORDS = new Set([
+  "about", "after", "again", "also", "answer", "argue", "because", "before", "being",
+  "blog", "cover", "direct", "essay", "explain", "from", "have", "into", "keep", "make",
+  "post", "reply", "should", "something", "that", "their", "there", "these", "they", "this",
+  "those", "through", "using", "what", "when", "where", "which", "while", "with", "word",
+  "words", "write", "would", "your",
+]);
+const supportStem = (token) => {
+  if (token.length > 6 && token.endsWith("ing")) return token.slice(0, -3);
+  if (token.length > 5 && token.endsWith("ed")) return token.slice(0, -2);
+  if (token.length > 4 && token.endsWith("s")) return token.slice(0, -1);
+  return token;
+};
+const supportTerms = (value) => new Set(
+  String(value ?? "").normalize("NFKC").toLowerCase().match(/[\p{L}\p{N}]+/gu)
+    ?.map(supportStem).filter((token) => token.length >= 4 && !SUPPORT_STOPWORDS.has(token)) ?? [],
+);
+export const sharedRequestSupportTerms = (left, right) => {
+  const a = supportTerms(left);
+  const b = supportTerms(right);
+  return [...a].filter((term) => b.has(term));
+};
 const exactKeys = (value, expected) => {
   const actual = Object.keys(value).sort();
   const wanted = [...expected].sort();
@@ -247,6 +269,10 @@ function validateLedger(source, request) {
       } else if (normalizedRequest && !normalizedRequest.includes(normalize(entry.request_basis))) {
         errors.push(`${at}.request_basis is not locatable in the request`);
       }
+      if (isText(entry.claim) && isText(entry.request_basis)
+        && sharedRequestSupportTerms(entry.claim, entry.request_basis).length === 0) {
+        errors.push(`${at}.request_basis has no substantive lexical support for its claim`);
+      }
     } else if (typeof entry.request_basis === "string" && entry.request_basis.length !== 0) {
       errors.push(`${at}.request_basis must be empty for external verification`);
     }
@@ -312,6 +338,12 @@ function validateLedgerSentenceUnits(source, request) {
           errors.push(`${sat} basis ${sentence.basis} cannot cite ${claimId} with basis ${claim.basis}`);
         }
         references.set(claimId, (references.get(claimId) ?? 0) + 1);
+      }
+      if (sentence.basis === "request-supported" && isText(sentence.text)) {
+        const citedClaims = sentence.claim_ids.map((claimId) => ledger.get(claimId)?.claim).filter(Boolean);
+        if (citedClaims.length && sharedRequestSupportTerms(sentence.text, citedClaims.join(" ")).length === 0) {
+          errors.push(`${sat} has no substantive lexical support from its cited request claims`);
+        }
       }
     }
   }
