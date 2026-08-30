@@ -229,6 +229,9 @@ export async function run(t, { HERE }) {
     t.check("an overlong candidate receives its exact hard interval and minimum required cut",
       /candidate has 838 measured words; the accepted interval is 552–748, with target 650/.test(overlongSemanticPrompt)
         && /It is 90 words above the maximum\. Remove at least 90 measured words; aim for 650/.test(overlongSemanticPrompt)
+        && /Do not edit this overlong candidate sentence by sentence/.test(overlongSemanticPrompt)
+        && /rebuild it to the target from[\s\S]*semantic outline/.test(overlongSemanticPrompt)
+        && /length correction supersedes the usual smallest-change/.test(overlongSemanticPrompt)
         && /Preserving the candidate's exact wording is subordinate to this hard bound/.test(overlongSemanticPrompt));
     const semanticCard = {
       schema: "voice-draft-target-card/1", word_target: null,

@@ -1363,12 +1363,15 @@ export function draftSemanticRevisionPrompt(c, profileMarkdown, profileJson, can
   const card = draftTargetCard(profileJson, c.prompt);
   const report = measureDraftConformance(candidateSource.draft, card);
   const length = Number.isInteger(card.word_target) ? wordTargetBounds(card.word_target) : null;
+  const lengthOutOfRange = length
+    && (report.draft_words < length.minimum || report.draft_words > length.maximum);
   const lengthDirective = !length ? [] : report.draft_words > length.maximum ? [
     "## Hard length correction",
     "",
     `The candidate has ${report.draft_words} measured words; the accepted interval is ${length.minimum}–${length.maximum}, with target ${length.target}.`,
     `It is ${report.draft_words - length.maximum} words above the maximum. Remove at least ${report.draft_words - length.maximum} measured words; aim for ${length.target}.`,
-    "Compress or remove redundant sentences and paragraphs as needed. Preserving the candidate's exact wording is subordinate to this hard bound; preserve its requested meaning and useful substance instead.",
+    "Do not edit this overlong candidate sentence by sentence. Rebuild the complete draft at the target from the request and the candidate's semantic outline; remove whole paragraphs or combine their distinct points as needed.",
+    "Preserving the candidate's exact wording is subordinate to this hard bound. Preserve the requested meaning, audience, form, recommendations, and supplied facts—not its sentence inventory.",
     "Recount the complete revision before returning it. A result outside the interval is rejected.",
     "",
   ] : report.draft_words < length.minimum ? [
@@ -1389,7 +1392,7 @@ export function draftSemanticRevisionPrompt(c, profileMarkdown, profileJson, can
     "Produce the one mandatory semantic conformance revision of the candidate below.",
     "This is a fixed pipeline stage, not a redraw and not a choice between candidates: the",
     "candidate can never ship, and this revision is always the source passed forward. Preserve",
-    "its truthful argument, requested form, and useful language while correcting meaning-bearing",
+    "its truthful argument and requested form while correcting hard length and meaning-bearing",
     "counts that an exact punctuation patch cannot safely change. Do not mention the revision.",
     "",
     "## Request",
@@ -1408,8 +1411,17 @@ export function draftSemanticRevisionPrompt(c, profileMarkdown, profileJson, can
     "```",
     "",
     "Return voice-draft-source/4 exactly; return the complete revised draft, not a patch.",
-    "Correct every out-of-range question-mark, pronoun-family, self-reference, or profanity row",
-    "with the smallest coherent revision available. Preserve every semantic-bearing row already",
+    ...(lengthOutOfRange ? [
+      "Because the candidate is outside its hard length interval, rebuild it to the target from",
+      "the request and semantic outline. This length correction supersedes the usual smallest-change",
+      "rule; do not preserve its paragraph or sentence inventory merely because each passage is usable.",
+      "During that rebuild, correct every out-of-range question-mark, pronoun-family, self-reference,",
+      "or profanity row.",
+    ] : [
+      "Correct every out-of-range question-mark, pronoun-family, self-reference, or profanity row",
+      "with the smallest coherent revision available.",
+    ]),
+    "Preserve every semantic-bearing row already",
     "inside its locked band. The local boundary recounts these rows and rejects the result if any",
     "remain outside the unchanged min/max range.",
     "Mechanical contraction and interruption-punctuation rows are shown for context. Improve them",
