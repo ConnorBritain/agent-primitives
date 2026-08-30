@@ -1,0 +1,108 @@
+{
+  "schema": "voice-profile-source/4",
+  "voice_card": "empty",
+  "measured": {
+    "second-person-family": {
+      "prose": "Direct address appears when the post turns analysis into a practical civic or reader-facing implication, especially in closing instructions to contact representatives or consider a choice. Use “you” sparingly for action-oriented transitions and concrete consequences, rather than as a continuous conversational frame."
+    },
+    "first-person-plural-family": {
+      "prose": "The plural first person presents EFF’s institutional position and occasionally gathers writer, organization, allies, or readers into a shared public-interest project. Use “we” to credit advocacy, explain continuity, or issue a collective invitation; keep the institutional referent clear from context."
+    },
+    "contractions": {
+      "prose": "Contractions are part of the accessible advocacy register, keeping sentences direct and readable while preserving policy precision. Use ordinary contractions in explanatory passages, transitions, and calls to action; allow the surrounding syntax and vocabulary—not formal expansion alone—to carry seriousness."
+    },
+    "uncontracted-negatives": {
+      "prose": "Full negative forms provide deliberate emphasis when rejecting a bill’s premise, narrowing an apparent safeguard, or stating what legislation fails to do. Place them at argumentative pivots and in concise corrective sentences, especially where a plain “not” sharpens the contrast with supporters’ claims."
+    },
+    "first-person-singular-family": {
+      "prose": "The individual writer is largely absent as a speaking subject; authority is assigned to EFF’s institutional position, public-interest reasoning, and cited record instead. Avoid autobiographical framing and personal testimony unless the surrounding argument specifically requires an individual perspective."
+    },
+    "question-marks": {
+      "prose": "Questions function mainly as rhetorical tests of a law’s practical consequences, often presenting an ordinary user’s or family’s dilemma before the post answers it. Use occasional questions to expose a gap, contradiction, or overlooked consequence, then resolve their argumentative pressure in the following prose."
+    },
+    "round-parenthetical-spans": {
+      "prose": "Parenthetical material supplies compact qualifications, definitions, examples, legal context, or source-oriented clarifications without fully interrupting the main claim. Use parentheses for brief supplementary information that can remain subordinate; keep the governing sentence readable if the aside is removed."
+    },
+    "em-dashes": {
+      "prose": "Em dashes mark sharp pivots, appositives, compressed qualifications, and emphatic afterthoughts. They help the prose move from a broad claim to its consequence or exception while retaining an energetic cadence. Use them at argumentative turns, not as decoration in every long sentence."
+    },
+    "en-dashes": {
+      "prose": "The en dash is not a stable part of the punctuation system in this corpus; its occasional appearance is better treated as incidental than as a drafting habit. Prefer the established punctuation patterns for ranges or compounds only when ordinary usage requires them."
+    }
+  },
+  "qualitative": [
+    {
+      "dimensions": [
+        "qualification-hedging"
+      ],
+      "section": "register-range",
+      "prose": "Qualification usually concedes a legitimate goal or acknowledges uncertainty before identifying a concrete defect: a bill may sound reasonable, address some concerns, or pursue a laudable aim, yet remain unworkable or dangerous. Use brief concessions to establish fairness, then pivot to evidence and practical consequences.",
+      "support_files": [
+        "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "kids-act-would-require-age-checks-get-online.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "opponents-allies-sources"
+      ],
+      "section": "register-range",
+      "prose": "Opponents are usually represented through bills, supporters, lawmakers, agencies, or industry positions, then tested against statutory language and likely effects. Allies and sources are named specifically through coalition letters, court decisions, legislative analyses, and linked records. Credit external material before extending or correcting its implications.",
+      "support_files": [
+        "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "court-records-should-be-free.txt",
+        "kids-act-would-require-age-checks-get-online.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "figures-analogy"
+      ],
+      "section": "figures",
+      "prose": "Figures are concrete and explanatory rather than ornamental: burdens become a “death sentence,” a database becomes a “vault,” or a legal disclaimer becomes a “smokescreen.” Comparisons translate technical or institutional mechanisms into familiar stakes. Use one vivid analogy near the consequence or takeaway, then return to literal policy language.",
+      "support_files": [
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "openings-endings-closure"
+      ],
+      "section": "openings",
+      "prose": "Posts open with the bill, event, or institutional action in plain terms, often followed immediately by the central problem and its public-interest consequence. Sections use descriptive claim headings, while endings restate the harm or principle and convert it into a demand, recommendation, or reader action. Build toward that explicit closure.",
+      "support_files": [
+        "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "court-records-should-be-free.txt",
+        "kids-act-would-require-age-checks-get-online.txt",
+        "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    }
+  ],
+  "unresolved": {
+    "qualification-hedging": null,
+    "opponents-allies-sources": null,
+    "figures-analogy": null,
+    "openings-endings-closure": null,
+    "profanity-vulgarity": "The corpus does not establish a rhetorical role or placement for profanity or vulgarity; no supported positive replacement is available."
+  },
+  "gaps": "All usable samples are single-author EFF Deeplinks posts from 2025–2026, and their dates and declared medium establish a contemporary advocacy-blog register for the requested technology-policy purpose. The voice card is explicitly unfilled, so no intent claim can corroborate or conflict with corpus evidence. Extracted bodies retain prose and punctuation but strip link targets; typographic conventions may therefore reflect publication formatting in places, especially around links and headings. The corpus supports institutional advocacy, legal-policy analysis, and reader-facing calls to action, but does not establish a broader register outside this genre.",
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}
