@@ -10,14 +10,16 @@ import {
   ARTIFACT_PATH_KEYS, artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
   CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
-  criticPrompt, deriveCritic, draftConformancePrompt, draftPrompt, draftSemanticRevisionPrompt,
+  criticPrompt, deriveCritic, draftConformancePrompt, draftPrompt,
+  draftResidualSemanticCorrectionPrompt, draftSemanticRevisionPrompt,
   dispatchCodex, dispatchPreflightErrors,
   factualCandidateReasons, HARNESS_CAPABILITIES, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
   profileEvidenceMetadataErrors,
   quotationAudit, recountValidationErrors, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt,
-  strictlyCommittedAfter, schemaInvocation, validateCases, validateSemanticRevision,
+  requestedExactTitle, semanticResidualStatus, strictlyCommittedAfter, schemaInvocation, validateCases,
+  validateResidualSemanticCorrection, validateSemanticRevision,
   assertStrictOutputSchema, strictOutputSchemaErrors,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
@@ -36,6 +38,10 @@ import {
   applyDraftConformancePatch, CONFORMANCE_MEASUREMENT_IDS, CONFORMANCE_PATCH_SCHEMA,
   contractionFormChangeCount, measureDraftConformance,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
+import {
+  applyResidualPrunePlan, normalizeSafeResidual, RESIDUAL_PRUNE_SCHEMA,
+  residualPrunePrompt,
+} from "../skills/prose-draft/tools/draft-residual-prune.mjs";
 import { draftControlCard } from "../skills/prose-draft/tools/draft-controls.mjs";
 import { COVERAGE_DIMENSIONS } from "../skills/prose-draft/tools/profile-contract.mjs";
 import { DEFAULT_RATIO_BAND, MIN_ABSOLUTE_DEVIATION } from "./corpus-rates.mjs";
@@ -268,6 +274,106 @@ export async function run(t, { HERE }) {
     );
     t.check("request length remains operational rather than becoming an unregistered ship gate",
       operationalLengthResult.ok && operationalLengthResult.report.draft_words > 748);
+    const residualRun = join(HERE, "runs", "2026-08-30-v020-acceptance-7");
+    const residualProfile = JSON.parse(readFileSync(
+      join(residualRun, "inputs", "profiles", "eff-mullin", "r2.json"), "utf8",
+    ));
+    const residualProfileMarkdown = readFileSync(
+      join(residualRun, "inputs", "profiles", "eff-mullin", "r2.md"), "utf8",
+    );
+    const residualCase = cases.cases.find((row) => row.id === "m05");
+    const residualCard = draftTargetCard(residualProfile, residualCase.prompt);
+    const rejectedResidual = {
+      ...initialSource,
+      draft: `# Choice screens aren't market choice\n\n${"word ".repeat(842)}A? B? C?`,
+    };
+    const residualStatus = semanticResidualStatus(rejectedResidual, {
+      request: residualCase.prompt, card: residualCard,
+    });
+    t.check("deterministic residual detection binds both the observed question miss and length overage",
+      residualStatus.needs_correction === true
+        && residualStatus.semantic_failures.some((row) => row.measurement_id === "question-marks"
+          && row.actual_count === 3 && row.maximum === 2)
+        && residualStatus.length.actual === 851
+        && residualStatus.length.status === "excess"
+        && residualStatus.title.status === "mismatch");
+    const stillRejected = validateResidualSemanticCorrection(
+      rejectedResidual, rejectedResidual, { request: residualCase.prompt, card: residualCard },
+    );
+    const correctedResidual = {
+      ...initialSource,
+      draft: `# Choice screens are not market choice\n\n${"word ".repeat(692)}word?`,
+    };
+    const acceptedResidual = validateResidualSemanticCorrection(
+      rejectedResidual, correctedResidual, { request: residualCase.prompt, card: residualCard },
+    );
+    t.check("a residual correction cannot continue with the same semantic or length failure",
+      !stillRejected.ok
+        && stillRejected.errors.some((error) => /question-marks count 3 excess/.test(error))
+        && stillRejected.errors.some((error) => /851 words; required 595–805/.test(error)));
+    t.check("a corrected residual may continue only after semantic recount and length validation",
+      acceptedResidual.ok
+        && acceptedResidual.report.draft_words === 700
+        && acceptedResidual.source.draft.startsWith("# Choice screens are not market choice\n")
+        && acceptedResidual.report.measurements.find((row) => row.measurement_id === "question-marks")?.actual_count === 1);
+    t.check("only an explicitly locked title becomes a deterministic exact-title constraint",
+      requestedExactTitle(residualCase.prompt) === "Choice screens are not market choice"
+        && requestedExactTitle("Title: A useful suggestion. Write a post.") === null);
+    const residualPrompt = draftResidualSemanticCorrectionPrompt(
+      residualCase, residualProfileMarkdown, residualProfile, rejectedResidual,
+    );
+    t.check("the conditional correction is one provenance-bound continuation, not another candidate draw",
+      /conditional second and final semantic correction/.test(residualPrompt)
+        && /not a redraw, candidate selection, or request for a variant/.test(residualPrompt)
+        && /prior revision[\s\S]*can never ship/.test(residualPrompt)
+        && /only source that[\s\S]*may continue to exact conformance, independent claim audit, and criticism/.test(residualPrompt));
+    t.check("residual correction gets center targets and a deterministic recount margin",
+      /\[measurement:question-marks\] current 3; final target exactly 1; accepted range 0–2/.test(residualPrompt)
+        && /current revision has 851 measured words/.test(residualPrompt)
+        && /hard accepted interval is 595–805; target 700/.test(residualPrompt)
+        && /narrower 647–753 working band/.test(residualPrompt)
+        && /Remove at least 98 measured words/.test(residualPrompt)
+        && /first nonblank line must be exactly `# Choice screens are not market choice`/.test(residualPrompt)
+        && /Privately recount every residual target and the complete word count/.test(residualPrompt));
+    const actualResidualSource = JSON.parse(readFileSync(
+      join(residualRun, "raw", "drafts", "m05.json"), "utf8",
+    )).structured_output;
+    const normalizedResidual = normalizeSafeResidual(actualResidualSource, {
+      request: residualCase.prompt, card: residualCard,
+    });
+    t.check("safe residual normalization restores only the locked title and an excess question heading",
+      normalizedResidual.ok
+        && normalizedResidual.status.report.draft_words === 852
+        && normalizedResidual.status.semantic_failures.length === 0
+        && normalizedResidual.changes.map((row) => row.kind).join(",")
+          === "restore-exact-title,remove-heading-question-mark");
+    const narrowPrune = applyResidualPrunePlan(actualResidualSource, {
+      schema: "voice-draft-residual-prune/1", delete_paragraphs: [14, 15],
+      reason: "Remove a secondary institutional example and the recap after the gatekeeper section.",
+    }, { request: residualCase.prompt, card: residualCard });
+    const insufficientPrune = applyResidualPrunePlan(actualResidualSource, {
+      schema: "voice-draft-residual-prune/1", delete_paragraphs: [12], reason: "Too little.",
+    }, { request: residualCase.prompt, card: residualCard });
+    t.check("a whole-paragraph residual plan passes only after deterministic application and full recount",
+      narrowPrune.ok
+        && narrowPrune.length.actual === 753
+        && narrowPrune.report.measurements.find((row) => row.measurement_id === "question-marks")?.actual_count === 1
+        && narrowPrune.source.draft.startsWith("# Choice screens are not market choice\n"));
+    t.check("a plausible deletion that leaves even a one-word excess is rejected",
+      !insufficientPrune.ok
+        && insufficientPrune.errors.some((error) => /806 words; required 595–805/.test(error)));
+    const prunePrompt = residualPrunePrompt(actualResidualSource, {
+      request: residualCase.prompt, card: residualCard,
+    });
+    t.check("the prune planner sees local paragraph budgets instead of being asked to recount a rewritten essay",
+      /normalized draft has 852 words/.test(prunePrompt)
+        && /Delete at least 47 words/.test(prunePrompt)
+        && /Prefer deleting at least 99 words/.test(prunePrompt)
+        && /Paragraph 14 — 63 words/.test(prunePrompt)
+        && /LOCKED HEADING/.test(prunePrompt)
+        && /do not return prose/.test(prunePrompt));
+    t.check("the residual prune schema stays inside the portable strict-output subset",
+      strictOutputSchemaErrors(RESIDUAL_PRUNE_SCHEMA).length === 0);
     const conformance = measureDraftConformance(initialSource.draft, targetCard);
     const conformancePrompt = draftConformancePrompt(
       { prompt: "Write a 700-word post." }, profileMarkdown, targetProfile, initialSource,

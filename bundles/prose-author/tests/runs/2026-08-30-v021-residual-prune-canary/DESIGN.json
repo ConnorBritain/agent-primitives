@@ -1,0 +1,13 @@
+{
+  "schema": "prose-author-residual-prune-canary-design/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "case_id": "m05",
+  "cases": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/CASES.json",
+  "prior_record": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/drafts/m05.json",
+  "profile_json": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/inputs/profiles/eff-mullin/r2.json",
+  "purpose": "Test a model-selected, deterministically applied whole-paragraph prune plan against the immutable rerun-7 m05 length residual. This is diagnostic evidence, not a redraw, and cannot count toward acceptance."
+}

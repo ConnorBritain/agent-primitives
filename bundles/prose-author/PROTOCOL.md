@@ -15,7 +15,7 @@ request. Its order is:
   2  render        voice-profile-render reads the single-author corpus
   3  assemble      profile-assemble.mjs emits voice-profile/2 + voice.md
   4  draft         voice-draft receives REQUEST + PROFILE ONLY
-  5  conform       measured semantic revision; bounded exact patch if necessary
+  5  conform       semantic revision; narrow residual prune; bounded exact patch
   6  claim audit   fresh context; disclose or reject unsupported factual material
   7  scan          prose-tell-scan against this author's calibrated profile
   8  voice review  prose-voice-critic in a separate fresh context
@@ -32,6 +32,7 @@ evidence, never a union that production depends on.
 |---|---|---|
 | renderer | corpus, deterministic measurement context | tell catalog, drafting history |
 | drafter | request, assembled profile | corpus, exemplars, tell catalog, earlier generated prose |
+| residual pruner | rejected same-request revision, numbered paragraph budgets | corpus, exemplars, tell catalog, freeform rewriting |
 | claim audit | exact request and exact draft | corpus as an excuse to infer facts |
 | voice critic | exact draft, author corpus, scan result | the writer's reasoning/history |
 
@@ -40,6 +41,14 @@ use fresh subprocesses or contexts and report the isolation as advisory.
 
 The claim audit is a disclosure/rejection mechanism, not a proof of truth. It
 can miss a hallucination. Never turn a clean audit into a factual-accuracy claim.
+
+The residual pruner is conditional. Use it only when a semantic revision remains
+overlength and deterministic safe normalization can resolve an exact-title miss
+or excess question mark on a Markdown heading. It selects whole body paragraphs;
+local code applies the plan and rejects any result that remains out of range,
+empties a section, removes the closing paragraph, or moves a semantic-bearing
+counter outside its band. Underlength and arbitrary semantic failures do not
+enter this path.
 
 ## Presenting a result
 
@@ -79,6 +88,7 @@ will widen the band that flagged it. Do not argue.
 | the author's edits to earlier drafts | its own prior prose, summarised |
 | the verification result | its own prior prose, "just for rhythm" |
 | an assembled voice profile | the corpus in the blank-page drafting context |
+| a rejected same-request revision inside the bounded conformance chain | that revision reused as style evidence in a later request |
 
 Content and style travel on separate channels and **the only style evidence is
 human**. The rewrite path selects human exemplars; the blank-page path compiles

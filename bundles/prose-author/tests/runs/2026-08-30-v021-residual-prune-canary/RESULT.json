@@ -1,0 +1,23 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "status": "PASS",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "prepared_commit": "8c30164a08a2d113e7dc7732c024fde81b8a0fc0",
+  "residual_prune_validated": true,
+  "deleted_paragraphs": [
+    10,
+    14
+  ],
+  "final_words": 737,
+  "raw": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-prune-canary/raw/plan.json",
+  "raw_sha256": "821f7d600057ff4c612143b3152f758a2080afb6a1a0122b8e5385fa7f05916c",
+  "plan": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-prune-canary/outputs/plan.json",
+  "plan_sha256": "4317bf0c6155bd588a56c020844c23ce3b6c9325c902bb63ac7415c6afefb3bd",
+  "source": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-prune-canary/outputs/source.json",
+  "source_sha256": "dd0b6dff30553a28f538100b10eacb4a952e15265090bb06a0c537b57a68fbe9",
+  "draft": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-prune-canary/outputs/draft.md",
+  "draft_sha256": "c2a507bbcdc2872bd474c28bcd2a4d425c6661e1f3d9e854e2396bfa1f71c350",
+  "report": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-prune-canary/outputs/semantic-report.json",
+  "report_sha256": "7adc7b9cb69bbe0f10bdc00f7fbc63daa7ea52379bf79a3daddc6f4fe98fd865"
+}

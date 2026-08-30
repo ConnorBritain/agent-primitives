@@ -1,6 +1,6 @@
 {
   "name": "prose-author",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Blank-page drafting and passage rewriting in a specific person's measured voice. Renders a cited profile from their corpus, drafts without corpus access, and reports the checks and limits honestly.",
   "author": {
     "name": "Connor England",

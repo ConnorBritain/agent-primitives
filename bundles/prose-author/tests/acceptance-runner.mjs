@@ -53,6 +53,9 @@ import {
   measureDraftConformance, renderDraftConformanceReport, replacementWordAllowance,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
 import {
+  requestedExactTitle, semanticResidualStatus,
+} from "../skills/prose-draft/tools/draft-residual-prune.mjs";
+import {
   draftControlCard, renderDraftControlCard,
 } from "../skills/prose-draft/tools/draft-controls.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
@@ -1348,6 +1351,96 @@ export function validateSemanticRevision(candidateSource, revisionSource, { requ
     }
   }
   return { ok: errors.length === 0, errors, source: revision.source, report };
+}
+
+export { requestedExactTitle, semanticResidualStatus };
+
+export function validateResidualSemanticCorrection(priorSource, correctionSource, { request, card }) {
+  const errors = [];
+  const prior = semanticResidualStatus(priorSource, { request, card });
+  if (!prior.ok || !prior.needs_correction) {
+    errors.push(!prior.ok
+      ? "residual correction requires one valid prior semantic revision"
+      : "residual correction may run only when deterministic feedback remains unresolved");
+  }
+  const corrected = semanticResidualStatus(correctionSource, { request, card });
+  if (!corrected.ok) {
+    errors.push("residual correction must return one valid direct-prose source", ...corrected.errors);
+    return { ok: false, errors, source: null, report: null, length: null };
+  }
+  for (const row of corrected.semantic_failures) {
+    errors.push(`residual correction leaves ${row.measurement_id} count ${row.actual_count} ${row.status}; required ${row.minimum}–${row.maximum}`);
+  }
+  if (corrected.length && corrected.length.status !== "in-range") {
+    errors.push(`residual correction has ${corrected.length.actual} words; required ${corrected.length.minimum}–${corrected.length.maximum}`);
+  }
+  if (corrected.title && corrected.title.status !== "exact") {
+    errors.push(`residual correction changed requested title ${JSON.stringify(corrected.title.expected)} to ${JSON.stringify(corrected.title.actual)}`);
+  }
+  return {
+    ok: errors.length === 0, errors, source: corrected.source,
+    report: corrected.report, length: corrected.length,
+  };
+}
+
+export function draftResidualSemanticCorrectionPrompt(c, profileMarkdown, profileJson, priorSource) {
+  const card = draftTargetCard(profileJson, c.prompt);
+  const residual = semanticResidualStatus(priorSource, { request: c.prompt, card });
+  if (!residual.ok || !residual.needs_correction) {
+    throw new TypeError("residual correction requires a valid semantic revision with deterministic residuals");
+  }
+  const controls = renderDraftControlCard(draftControlCard(profileMarkdown, profileJson));
+  const lengthLines = [];
+  if (residual.length) {
+    const preferredTolerance = Math.max(25, Math.ceil(residual.length.target * 0.075));
+    const preferredMinimum = residual.length.target - preferredTolerance;
+    const preferredMaximum = residual.length.target + preferredTolerance;
+    lengthLines.push(
+      "## Residual length budget",
+      "",
+      `The current revision has ${residual.length.actual} measured words. The hard accepted interval is ${residual.length.minimum}–${residual.length.maximum}; target ${residual.length.target}.`,
+      `For recount margin, rebuild into the narrower ${preferredMinimum}–${preferredMaximum} working band. Do not return more than ${preferredMaximum} words.`,
+    );
+    if (residual.length.actual > preferredMaximum) {
+      lengthLines.push(`Remove at least ${residual.length.actual - preferredMaximum} measured words. Remove duplicated setup and examples before cutting a requested point.`);
+    } else if (residual.length.actual < preferredMinimum) {
+      lengthLines.push(`Add at least ${preferredMinimum - residual.length.actual} measured words, using only implications of the supplied request.`);
+    } else {
+      lengthLines.push("Keep the correction inside this narrower working band while fixing the semantic residuals.");
+    }
+    lengthLines.push("");
+  }
+  const exactSemanticTargets = residual.semantic_failures.map((row) =>
+    `- [measurement:${row.measurement_id}] current ${row.actual_count}; final target exactly ${row.aim_count}; accepted range ${row.minimum}–${row.maximum}.`);
+  const titleLines = residual.title?.status === "mismatch" ? [
+    "## Exact requested title", "",
+    `The first nonblank line must be exactly \`# ${residual.title.expected}\`. The rejected revision changed it to \`${residual.title.actual}\`; restore it verbatim.`,
+    "",
+  ] : [];
+  return [
+    "Produce the conditional second and final semantic correction of the rejected revision below.",
+    "This is not a redraw, candidate selection, or request for a variant. The prior revision",
+    "failed deterministic recount and can never ship. This correction is the only source that",
+    "may continue to exact conformance, independent claim audit, and criticism.",
+    "",
+    "You may rebuild sentences and paragraph boundaries when necessary. Preserve the request's",
+    "subject, audience, position, required points, recommendations, and supplied facts, but do",
+    "not preserve redundant wording at the expense of the hard budgets below.",
+    "",
+    "## Request", "", c.prompt, "", controls, "",
+    renderDraftConformanceReport(residual.report), "",
+    ...(exactSemanticTargets.length ? ["## Residual semantic targets", "", ...exactSemanticTargets, ""] : []),
+    ...titleLines,
+    ...lengthLines,
+    "## Rejected prior revision", "", "```json", JSON.stringify(residual.source, null, 2), "```", "",
+    "Return voice-draft-source/4 exactly with the complete corrected draft, not a patch.",
+    "Privately recount every residual target and the complete word count after the final edit.",
+    "Hit the exact semantic aims above, not merely an accepted boundary. Preserve every semantic",
+    "row already in range. A later byte-safe patch owns only contraction and interruption forms.",
+    "Do not invent a citation, attributed wording, author biography, employer, event, statistic,",
+    "or outside fact. The independent audit will bind every sentence after this correction.",
+    "Carry forward valid omissions and rerun the final pronoun and referent consistency check.",
+  ].join("\n");
 }
 
 export function draftSemanticRevisionPrompt(c, profileMarkdown, profileJson, candidateSource) {

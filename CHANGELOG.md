@@ -64,6 +64,19 @@ No unreleased prose-author changes.
 
 ## prose-author
 
+### [0.2.1]
+
+- **Added** a conditional whole-paragraph residual-prune boundary for an overlong
+  semantic revision. A corpus-blind planner selects paragraph IDs; deterministic
+  code restores an explicitly locked title, normalizes an excess question mark
+  on a Markdown heading, applies deletions, and recounts the complete result.
+- **Added** a portable `schema` / `prompt` / `apply` CLI and routed the shipped
+  `prose-draft` blank-page workflow through it only for the narrow supported case.
+- **Verified** the exact immutable v0.2.0 m05 failure: the first two full-rewrite
+  correction canaries remained overlong, while the bounded prune canary passed
+  at 737 words with every semantic-bearing count in range. This targeted evidence
+  is not represented as a fresh 20-draft acceptance run.
+
 ### [0.2.0]
 
 - **Added** `voice-profile-render`, which converts a single-author corpus into cited

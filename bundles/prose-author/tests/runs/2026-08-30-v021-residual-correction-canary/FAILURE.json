@@ -1,0 +1,219 @@
+{
+  "schema": "prose-author-stage-adapter-canary-failure/1",
+  "status": "FAIL",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "case_id": "m05",
+  "errors": [
+    "residual correction leaves question-marks count 3 excess; required 0–2",
+    "residual correction has 857 words; required 595–805"
+  ],
+  "report": {
+    "schema": "voice-draft-conformance-report/1",
+    "draft_words": 857,
+    "measurements": [
+      {
+        "measurement_id": "second-person-family",
+        "observation_id": "o01",
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 2,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "first-person-plural-family",
+        "observation_id": "o02",
+        "dimensions": [
+          "person-reader-stance",
+          "self-reference-biography"
+        ],
+        "aim_count": 2,
+        "minimum": 0,
+        "maximum": 3,
+        "actual_count": 2,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "contractions",
+        "observation_id": "o03",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 7,
+        "minimum": 4,
+        "maximum": 14,
+        "actual_count": 5,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "uncontracted-negatives",
+        "observation_id": "o04",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 3,
+        "minimum": 1,
+        "maximum": 5,
+        "actual_count": 4,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "first-person-singular-family",
+        "observation_id": "o05",
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 0,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "question-marks",
+        "observation_id": "o06",
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 3,
+        "status": "excess",
+        "correction": {
+          "action": "remove-or-recast",
+          "minimum_change": 1,
+          "change_to_aim": 2
+        },
+        "occurrences": [
+          {
+            "ordinal": 1,
+            "text": "?",
+            "start": 443,
+            "end": 444,
+            "paragraph": 3,
+            "offset_in_paragraph": 21,
+            "context": "## Who makes the list⟦?⟧"
+          },
+          {
+            "ordinal": 2,
+            "text": "?",
+            "start": 3612,
+            "end": 3613,
+            "paragraph": 15,
+            "offset_in_paragraph": 39,
+            "context": "So what does the screen actually change⟦?⟧ If the answer is only that a person may sele"
+          },
+          {
+            "ordinal": 3,
+            "text": "?",
+            "start": 5387,
+            "end": 5388,
+            "paragraph": 21,
+            "offset_in_paragraph": 200,
+            "context": "hat promises choice: who still holds the keys⟦?⟧ Then demand a remedy that changes the struct"
+          }
+        ]
+      },
+      {
+        "measurement_id": "round-parenthetical-spans",
+        "observation_id": "o07",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 8,
+        "minimum": 5,
+        "maximum": 16,
+        "actual_count": 7,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "em-dashes",
+        "observation_id": "o08",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 5,
+        "minimum": 3,
+        "maximum": 9,
+        "actual_count": 4,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "en-dashes",
+        "observation_id": "o09",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 0,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      }
+    ],
+    "pass": false
+  },
+  "length": {
+    "target": 700,
+    "tolerance": 105,
+    "minimum": 595,
+    "maximum": 805,
+    "actual": 857,
+    "status": "excess"
+  },
+  "raw": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary/raw/correction.json",
+  "raw_sha256": "a89d97d32c70fd6bf83945ec4cfb26c353ca8887b0123d5e86c3844a11194497"
+}

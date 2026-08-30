@@ -1,0 +1,115 @@
+{
+  "schema": "prose-author-stage-adapter-canary-manifest/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "prepared_commit": "530998c8880f344b7bc7d491701d53f45c345421",
+  "concurrency": 1,
+  "dispatch": {
+    "draft": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "codex_no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ],
+  "agents": {
+    "draft": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/prompts/agents/draft.md",
+      "sha256": "e61487d27cd726f62aed55c30a6b980b0918878e84cf3bdfe4ab1afee482dc94"
+    }
+  },
+  "schema_path": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/schemas/draft.json",
+  "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+  "prompt_path": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/prompts/residual-correction.md",
+  "prompt_sha256": "a0834b99a91658f3e212e67cfa900a6fce22b7daa06563af20abf7ba21461829",
+  "prior_status": {
+    "draft_words": 851,
+    "semantic_failures": [
+      {
+        "measurement_id": "question-marks",
+        "actual_count": 3,
+        "minimum": 0,
+        "maximum": 2,
+        "aim_count": 1
+      }
+    ],
+    "length": {
+      "target": 700,
+      "tolerance": 105,
+      "minimum": 595,
+      "maximum": 805,
+      "actual": 851,
+      "status": "excess"
+    },
+    "title": {
+      "expected": "Choice screens are not market choice",
+      "actual": "Choice screens aren't market choice",
+      "status": "mismatch"
+    }
+  },
+  "inputs": {
+    "prior": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/inputs/prior.json",
+    "prior_sha256": "bba0c10af022ce2043cc0a15e15161f1e4463b4921dd6c64d2783de8b6783ce5",
+    "prior_record_sha256": "0d0343303aa3de81b8e87fd2e551fc7edbe040f81dc758218be9698c8883b242",
+    "profile_markdown": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/inputs/profile.md",
+    "profile_markdown_sha256": "d1bda63c6d237777b491adba7c0284aae338c7660db05ac54fac0888815020b8",
+    "profile_json": "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/inputs/profile.json",
+    "profile_json_sha256": "c717c7ecff7493aac42f324ff6f41c2886af92adc05cbf908924928af31c2bc8",
+    "case_request_sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553"
+  },
+  "locked_files": {
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "142bf99dd37933a45035e481af64c83fbe49aba11131b17b915195d2040e45ff",
+    "bundles/prose-author/skills/prose-draft/tools/draft-conformance.mjs": "4ee2ee33cd099e2a4a09716f991faccbe569a26aeb1261847fae8533871e1fee",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "782b05df72c782fe9caf17e4cd00e7bd1601a92581b8f4728b04843e6e200e3f",
+    "bundles/prose-author/skills/prose-draft/tools/draft-controls.mjs": "3636762bb2fbabff358d04e96cb553e54caba355d4967d0e405fcd9c36214e25",
+    "bundles/prose-author/skills/prose-draft/tools/draft-targets.mjs": "8e5c5d2181fa1a35535b7558dd6bcc9bc50572ce5a1c76b8c55b1d342b40e262",
+    "bundles/prose-author/skills/prose-draft/tools/exemplars.mjs": "3480c86a70fc89a64f4d1333ad3839daa5cfe68d37e883d0cb636c37a0b8dccb",
+    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs": "aa686e70f1a9d2a637f32085e89de4130c3f5b9a7c467135029659bf9ead8784",
+    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs": "c4a59b41da0fbbc7892eea5b7456c2843934935d491634135659d0d78283671f",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "bd22f7c94e85e30a58272948548779984dcdb3fe9352b0db94a31db465ad5fe4",
+    "bundles/prose-author/tests/bar.mjs": "394f6d4fb219da4378cb9c25a9583dee85188770d530edb919a9009251d94a70",
+    "bundles/prose-author/tests/corpus-rates.mjs": "e620b433ab32b36592d23f426ffcae90d357a2fd447925506ec00144e63a9a89",
+    "bundles/prose-author/tests/coverage-analysis.mjs": "18684c425fa53a0b36a767e0244e4323f4140dda0d88472f87c101840f108ed1",
+    "bundles/prose-author/tests/cross-count.mjs": "168bde25d6672d71ea6b2c7c34e87552a6a6c1c381d156f89a58c732c9d9059c",
+    "bundles/prose-author/tests/fences.mjs": "205e938b0b0104fe3f7c7468aedb62c480d2f66c8d7a3de6488bc26a8c2b786f",
+    "bundles/prose-author/tests/loop.mjs": "ea52d35e1711ab4d89e4128e6f1850e749c35ec3887578e610872e870eee28e5",
+    "bundles/prose-author/tests/profile-stability.mjs": "f9572ca74a96e44002272e8752397d2ae164052f734c0d4d464c43c903c40977",
+    "bundles/prose-author/tests/residual-correction-canary.mjs": "b59b29ed2cfd421e5869da075fc4f97d59d91a59fa925080b0b9213d03dfc4e9",
+    "bundles/prose-author/tests/run-gates.mjs": "c689c682a597bf4296ed39546bb98252a2efa9f8196be004961a1ef32644f59f",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/CASES.json": "9a6716652be7faf27ee36f1120106f611f7af906a0f35a2abdec194bb4413bca",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/inputs/profiles/eff-mullin/r2.json": "c717c7ecff7493aac42f324ff6f41c2886af92adc05cbf908924928af31c2bc8",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/inputs/profiles/eff-mullin/r2.md": "d1bda63c6d237777b491adba7c0284aae338c7660db05ac54fac0888815020b8",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/drafts/m05.json": "0d0343303aa3de81b8e87fd2e551fc7edbe040f81dc758218be9698c8883b242",
+    "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/DESIGN.json": "bb6b5ce896462df81ceb5b3b9d04fe57ee735e43013904b2207c858528946402",
+    "bundles/prose-author/tests/runs/2026-08-30-v021-residual-correction-canary-2/run.mjs": "1b565b29b7b2a67649d7eb84a6e7ce77cd5a417e364d2e91d0fa10e6406655d7",
+    "bundles/prose-author/tests/strict-output-schema.mjs": "c426816816fece8b220413fc3ff363ff0c0295c8fa4cf73266257330daf9ef3c",
+    "bundles/prose-author/tests/voice-critic-source.mjs": "ce61780da9681550c2a5bb6c37957fa90b4673aceafb2392892ff61884d82b78",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912",
+    "bundles/prose-author/tests/voice-profile.mjs": "9059a9e373a2fcfd443cc174cbd6103317f6d64ccfae4db33f0f6b905e2ae5dd",
+    "primitives/agents/voice-draft/agent.md": "27e3319f7eb9ff24fc2f88a58061c4a4e2b5024fec1ec4ef569117270c89f548"
+  }
+}
