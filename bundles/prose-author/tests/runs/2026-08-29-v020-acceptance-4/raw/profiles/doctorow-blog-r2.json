@@ -1,0 +1,140 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-profile-source/4\",\"voice_card\":\"empty\",\"measured\":{\"second-person-family\":{\"prose\":\"Direct address turns political and technical systems into consequences the reader can picture in their own work, devices, home, or community. Use “you” when walking through a mechanism, testing a proposition, or converting institutional conduct into a concrete personal stake.\"},\"first-person-plural-family\":{\"prose\":\"The plural voice usually gathers writer and readership into a public exposed to shared institutions, markets, and risks; at times it narrows to a political constituency. Use “we,” “us,” and “our” to establish collective stakes, then clarify the group through context.\"},\"contractions\":{\"prose\":\"Contracted forms keep dense explanation conversational and let blunt judgments land without bureaucratic stiffness. Use them in exposition, direct address, and quick rebuttal, especially when moving from a source’s claim to its practical meaning; reserve fuller constructions for deliberate emphasis or formal quotation.\"},\"uncontracted-negatives\":{\"prose\":\"Full negative forms yield their ordinary explanatory role to contractions, appearing mainly when syntax, quotation, or emphasis benefits from extra weight. Prefer the contracted counterpart in the running argument; retain an uncontracted negative only when the denial itself needs to sound categorical or carefully delimited.\"},\"profanity-vulgarity\":{\"prose\":\"Profanity supplies compressed moral judgment, ridicules euphemism, and marks the point where a technical explanation cashes out as abuse or absurdity. Place it at a reveal, punch line, or quoted characterization; keep it semantically pointed rather than using it as ambient intensification.\"},\"first-person-singular-family\":{\"prose\":\"The individual voice appears as witness, reader, practitioner, or arguer: it recalls an encounter, discloses a relevant stake, and states where an interpretation diverges from a source. Use first-person material to establish argumentative standing or bridge abstraction to experience, not as detached autobiography.\"},\"question-marks\":{\"prose\":\"Questions usually organize the argument rather than solicit answers: they expose a sales pitch’s missing premise, introduce the next causal step, or stage a skeptical reader’s objection. Ask a compact question near a pivot, then answer it promptly with mechanism, example, or escalating parallel cases.\"},\"round-parenthetical-spans\":{\"prose\":\"Parentheses insert definitions, caveats, sardonic glosses, and compact technical particulars without surrendering the sentence’s forward drive. Place them beside the term they qualify, especially for acronym expansions or a quick corrective; keep the main causal claim intelligible if the aside is removed.\"},\"em-dashes\":{\"prose\":\"Interruption does not rely on the em dash; its work is assigned to parentheses and the en dash, which separate qualifications and pivots while preserving a clipped visual rhythm. Use those established marks for inserted explanation or reversal instead of introducing an em-dash cadence.\"},\"en-dashes\":{\"prose\":\"The en dash carries pivots, appositional clarifications, compressed contrasts, and interruptions that sharpen the clause on either side. Place it where a sentence turns from a public claim to its concealed consequence, or where an inserted phrase intensifies the judgment without becoming a separate sentence.\"}},\"qualitative\":[{\"dimensions\":[\"qualification-hedging\"],\"section\":\"register-range\",\"prose\":\"Qualification distinguishes empirical limits from rhetorical certainty: concessions such as “of course,” conditional if-then sequences, and explicit scope markers grant a premise before narrowing or reversing it. Place the caveat just before the stronger causal claim so restraint strengthens, rather than blurs, the conclusion.\",\"support_files\":[\"2026-07-10-posthuman-as-in-no-humans.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-14-designated-survivor.txt\",\"2026-07-21-dickovers.txt\",\"2026-07-22-table-flipper.txt\",\"2026-07-23-drop-a-dime.txt\",\"2026-07-24-supplemental-income.txt\"]},{\"dimensions\":[\"opponents-allies-sources\"],\"section\":\"address\",\"prose\":\"Sources enter by name with a concise statement of what they contribute, then the argument extends, tests, or corrects them. Opponents are named through institutions, executives, doctrines, and their quoted euphemisms. Credit the useful premise first; expose its contradiction through consequences rather than generic dismissal.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-13-go-meta-meta.txt\",\"2026-07-16-lucky-orifices.txt\",\"2026-07-22-table-flipper.txt\",\"2026-07-24-supplemental-income.txt\"]},{\"dimensions\":[\"figures-analogy\"],\"section\":\"figures\",\"prose\":\"Figures draw from markets, machinery, bodily vulnerability, scams, games, and familiar stories, translating institutional abstractions into physical arrangements with winners and victims. Extend one comparison across several consequences, then return to the policy or economic mechanism; land the sharpest image near the argumentative payoff.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-10-posthuman-as-in-no-humans.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-13-go-meta-meta.txt\",\"2026-07-16-lucky-orifices.txt\",\"2026-07-22-table-flipper.txt\",\"2026-07-23-drop-a-dime.txt\",\"2026-07-24-supplemental-income.txt\"]},{\"dimensions\":[\"openings-endings-closure\"],\"section\":\"closings\",\"prose\":\"Openings state a paradox, arresting quotation, definition, or apparently reasonable premise, then reveal the concealed distribution of power. Paragraphs often close on a compressed consequence or sting. End the piece by restating the opening distinction in harder terms, converting accumulated explanation into judgment, demand, or warning.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-10-posthuman-as-in-no-humans.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-13-go-meta-meta.txt\",\"2026-07-14-designated-survivor.txt\",\"2026-07-16-lucky-orifices.txt\",\"2026-07-21-dickovers.txt\",\"2026-07-22-table-flipper.txt\",\"2026-07-23-drop-a-dime.txt\",\"2026-07-24-supplemental-income.txt\"]}],\"unresolved\":{\"qualification-hedging\":null,\"opponents-allies-sources\":null,\"figures-analogy\":null,\"openings-endings-closure\":null},\"gaps\":\"The corpus establishes a contemporary polemical blog register, including both explanatory essays and practical technical guidance, but it does not show quieter personal correspondence, fiction, academic prose, or neutral reporting. Links and displayed quotations shape pacing, so instructions about transitions may not transfer intact to link-free formats. The provenance supports attributing punctuation and paragraphing to the writer, though quoted passages retain their sources’ wording. The unfilled voice card supplies no stated intentions to corroborate or challenge.\",\"observations_dropped\":0,\"multiple_voices_suspected\":false}",
+  "structured_output": {
+    "schema": "voice-profile-source/4",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct address turns political and technical systems into consequences the reader can picture in their own work, devices, home, or community. Use “you” when walking through a mechanism, testing a proposition, or converting institutional conduct into a concrete personal stake."
+      },
+      "first-person-plural-family": {
+        "prose": "The plural voice usually gathers writer and readership into a public exposed to shared institutions, markets, and risks; at times it narrows to a political constituency. Use “we,” “us,” and “our” to establish collective stakes, then clarify the group through context."
+      },
+      "contractions": {
+        "prose": "Contracted forms keep dense explanation conversational and let blunt judgments land without bureaucratic stiffness. Use them in exposition, direct address, and quick rebuttal, especially when moving from a source’s claim to its practical meaning; reserve fuller constructions for deliberate emphasis or formal quotation."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negative forms yield their ordinary explanatory role to contractions, appearing mainly when syntax, quotation, or emphasis benefits from extra weight. Prefer the contracted counterpart in the running argument; retain an uncontracted negative only when the denial itself needs to sound categorical or carefully delimited."
+      },
+      "profanity-vulgarity": {
+        "prose": "Profanity supplies compressed moral judgment, ridicules euphemism, and marks the point where a technical explanation cashes out as abuse or absurdity. Place it at a reveal, punch line, or quoted characterization; keep it semantically pointed rather than using it as ambient intensification."
+      },
+      "first-person-singular-family": {
+        "prose": "The individual voice appears as witness, reader, practitioner, or arguer: it recalls an encounter, discloses a relevant stake, and states where an interpretation diverges from a source. Use first-person material to establish argumentative standing or bridge abstraction to experience, not as detached autobiography."
+      },
+      "question-marks": {
+        "prose": "Questions usually organize the argument rather than solicit answers: they expose a sales pitch’s missing premise, introduce the next causal step, or stage a skeptical reader’s objection. Ask a compact question near a pivot, then answer it promptly with mechanism, example, or escalating parallel cases."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses insert definitions, caveats, sardonic glosses, and compact technical particulars without surrendering the sentence’s forward drive. Place them beside the term they qualify, especially for acronym expansions or a quick corrective; keep the main causal claim intelligible if the aside is removed."
+      },
+      "em-dashes": {
+        "prose": "Interruption does not rely on the em dash; its work is assigned to parentheses and the en dash, which separate qualifications and pivots while preserving a clipped visual rhythm. Use those established marks for inserted explanation or reversal instead of introducing an em-dash cadence."
+      },
+      "en-dashes": {
+        "prose": "The en dash carries pivots, appositional clarifications, compressed contrasts, and interruptions that sharpen the clause on either side. Place it where a sentence turns from a public claim to its concealed consequence, or where an inserted phrase intensifies the judgment without becoming a separate sentence."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Qualification distinguishes empirical limits from rhetorical certainty: concessions such as “of course,” conditional if-then sequences, and explicit scope markers grant a premise before narrowing or reversing it. Place the caveat just before the stronger causal claim so restraint strengthens, rather than blurs, the conclusion.",
+        "support_files": [
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "address",
+        "prose": "Sources enter by name with a concise statement of what they contribute, then the argument extends, tests, or corrects them. Opponents are named through institutions, executives, doctrines, and their quoted euphemisms. Credit the useful premise first; expose its contradiction through consequences rather than generic dismissal.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-24-supplemental-income.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures draw from markets, machinery, bodily vulnerability, scams, games, and familiar stories, translating institutional abstractions into physical arrangements with winners and victims. Extend one comparison across several consequences, then return to the policy or economic mechanism; land the sharpest image near the argumentative payoff.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "closings",
+        "prose": "Openings state a paradox, arresting quotation, definition, or apparently reasonable premise, then reveal the concealed distribution of power. Paragraphs often close on a compressed consequence or sting. End the piece by restating the opening distinction in harder terms, converting accumulated explanation into judgment, demand, or warning.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ]
+      }
+    ],
+    "unresolved": {
+      "qualification-hedging": null,
+      "opponents-allies-sources": null,
+      "figures-analogy": null,
+      "openings-endings-closure": null
+    },
+    "gaps": "The corpus establishes a contemporary polemical blog register, including both explanatory essays and practical technical guidance, but it does not show quieter personal correspondence, fiction, academic prose, or neutral reporting. Links and displayed quotations shape pacing, so instructions about transitions may not transfer intact to link-free formats. The provenance supports attributing punctuation and paragraphing to the writer, though quoted passages retain their sources’ wording. The unfilled voice card supplies no stated intentions to corroborate or challenge.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/profiles/doctorow-blog-r2.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/profiles/doctorow-blog-r2.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93",
+    "prompt_sha256": "e6a4231440c61bb802c808eb20adf6ffe1e888f81edd912ae82507dfbc187ef8",
+    "schema_sha256": "adfaf23dc10502c423333170341f76dd3774b79d0d2cf3989a89b3502e159d12"
+  }
+}

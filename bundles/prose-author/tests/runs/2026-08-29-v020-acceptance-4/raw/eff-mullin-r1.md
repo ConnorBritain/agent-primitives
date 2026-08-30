@@ -1,0 +1,230 @@
+```json
+{
+  "schema": "voice-profile/2",
+  "profile": "eff-mullin",
+  "profile_markdown": "# Voice profile — eff-mullin\n\n## 1. Cadence\n\n**Contraction and negation.** Contracted forms keep technical policy analysis conversational and sharpen compact rebuttals such as “it isn’t true.” Use them in plain-language explanations, transitions, and emphatic corrections, especially where statutory detail might otherwise sound bureaucratic; retain a more formal cadence when stating institutional or legal propositions.\n_Evidence: 11/11 samples; several times per piece. [measurement:contractions] Count: 86 instances; 10.66 per 1,000 words. Representative locked source: `california-ab-412-stalls-out-win-innovation-and-fair-use.txt`._\n\n**Contraction and negation.** Full negative forms give categorical legal, factual, or prescriptive claims extra weight: a bill does not solve a problem, Congress should not act, or a safeguard will not work. Place them at decisive rebuttals and conclusions, where explicit negation clarifies the position rather than merely loosening the cadence.\n_Evidence: 9/11 samples; several times per piece. [measurement:uncontracted-negatives] Count: 32 instances; 3.97 per 1,000 words. Representative locked source: `californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt`._\n\n**Interruption punctuation.** Parentheses insert compact identifiers, age definitions, examples, or clarifying equivalents without diverting the main claim. Use them for information a general reader needs to decode legislation or institutions, keeping the sentence’s argumentative spine outside the aside and avoiding any parenthetical that must carry the conclusion.\n_Evidence: 11/11 samples; several times per piece. [measurement:round-parenthetical-spans] Count: 97 instances; 12.03 per 1,000 words. Representative locked source: `california-ab-412-stalls-out-win-innovation-and-fair-use.txt`._\n\n**Interruption punctuation.** Em dashes create forceful pivots from an official description to its consequence, isolate a compressed qualification, or append a pointed correction. Place them inside explanatory sentences when the interruption sharpens contrast—especially between what a bill claims and what its incentives produce—without allowing the mark to replace logical transitions.\n_Evidence: 10/11 samples; several times per piece. [measurement:em-dashes] Count: 53 instances; 6.57 per 1,000 words. Representative locked source: `california-ab-412-stalls-out-win-innovation-and-fair-use.txt`._\n\n## 2. How a piece opens\n\nNo independently supported instruction was established for this section.\n\n## 3. How a piece closes\n\n**Openings, paragraph endings, and closure.** Openings name the measure or event, summarize its stated purpose, and quickly pivot to the concealed cost. Section endings often compress the causal consequence into a blunt sentence. Close by restating the public-interest principle and attaching a specific institutional demand, sometimes followed by a narrowly practical action or source link.\n_Evidence: 11/11 samples; qualitative placement only; no within-piece rate inferred. Representative locked source: `california-ab-412-stalls-out-win-innovation-and-fair-use.txt`._\n\n## 4. Who is being addressed, and how\n\n**Person, number, and reader stance.** Direct address appears chiefly when converting analysis into civic action or placing the reader inside a practical scenario. Use it near a closing call to contact representatives, or briefly to test how a rule works in practice, rather than as the argument’s default grammatical stance.\n_Evidence: 5/11 samples; once or twice per piece. [measurement:second-person-family] Count: 11 instances; 1.36 per 1,000 words. Representative locked source: `californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt`._\n\n**Person, number, and reader stance.** The plural voice usually names EFF’s institutional position, actions, or shared public interest; at times it broadens to people collectively affected by regulation. Use it to disclose advocacy, establish organizational continuity, or include readers in a concrete civil-liberties stake without blurring who acted.\n_Evidence: 10/11 samples; once or twice per piece. [measurement:first-person-plural-family] Count: 19 instances; 2.36 per 1,000 words. Representative locked source: `californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt`._\n\n**Questions, imperatives, and vocatives.** Questions function mainly as stress tests for legislation: a sequence of concrete cases exposes ambiguity, while an occasional framing question opens an investigation. Use them after explaining a vague rule, directing the reader toward consequences the text has not answered; recommendations themselves remain declarative rather than interrogative.\n_Evidence: 4/11 samples; once or twice per piece. [measurement:question-marks] Count: 9 instances; 1.12 per 1,000 words. Representative locked source: `californias-ab-412-still-demands-developers-do-impossible.txt`._\n\n**Named opponents, allies, and sources.** Opponents are identified by institutional role—lawmakers, supporters, agencies, companies—or by the claim they advance, then answered through bill text, court rulings, research, or observed incentives. Credit allied organizations and quoted sources explicitly; introduce their evidence before extending it into the piece’s own policy conclusion.\n_Evidence: 10/11 samples; qualitative placement only; no within-piece rate inferred. Representative locked source: `californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt`._\n\n## 5. Figures\n\n**Figures and analogy vocabulary.** Figures draw from ordinary systems and physical consequences: a card catalog instead of a database, a valuable vault, a dragnet, a smokescreen, or having “seen this movie before.” Use a short comparison after technical explanation to make administrative failure or legal incentives tangible, then return promptly to literal consequences.\n_Evidence: 4/11 samples; qualitative placement only; no within-piece rate inferred. Representative locked source: `californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt`._\n\n## 6. Register range\n\n**Qualification and hedging.** Concessions acknowledge a legitimate goal, a narrowed definition, or a real underlying concern before showing why the remedy still fails. Predictions are tied to incentives with modals such as “may,” “could,” and “will likely.” Place qualification before the rebuttal so criticism appears bounded by evidence rather than indiscriminate.\n_Evidence: 8/11 samples; qualitative placement only; no within-piece rate inferred. Representative locked source: `california-ab-412-stalls-out-win-innovation-and-fair-use.txt`._\n\n## 7. What the corpus never does\n\n**Self-reference and biography.** The argument is carried by the organization, affected groups, evidence, and public consequences rather than by an individual narrator. Build credibility through institutional actions and sourced analysis; reserve personal singular reference for an unusually necessary illustrative aside, with the plural institutional stance serving as the normal replacement.\n_Evidence: 9/11 samples establish the absence or sparse exception. [measurement:first-person-singular-family] Count: 2 instances; 0.25 per 1,000 words. Representative locked source: `california-ab-412-stalls-out-win-innovation-and-fair-use.txt`._\n\n**Interruption punctuation.** Range-like or interruptive work is normally handled by words, parentheses, or em dashes rather than this mark. Use the established alternatives for pivots and qualifications, and reserve an en dash only for a genuinely conventional range or relation where editorial house style clearly calls for it.\n_Evidence: 10/11 samples establish the absence or sparse exception. [measurement:en-dashes] Count: 7 instances; 0.87 per 1,000 words. Representative locked source: `california-ab-412-stalls-out-win-innovation-and-fair-use.txt`._\n\n## 8. What this profile could not determine\n\n**Profanity and vulgarity — unresolved.** The corpus supplies no positive form or measured replacement from which to infer a stable rhetorical function or drafting instruction for profanity or vulgarity.\n\nThe corpus is coherent and current for technology-policy advocacy, but it covers a narrow run of legislative and regulatory posts, so it cannot establish behavior in personal essays, reporting, or less urgent analysis. The voice card is unfilled and contributes no account of intent. Extracted web copy preserves Markdown link syntax and may reflect publication-house typography; consequently, the measured parenthetical total is not clean evidence of authored asides, and punctuation findings should be applied only to visibly rhetorical uses. Updates, link prompts, and heading capitalization may also reflect editorial conventions.\n\n_Observations dropped: 0. Voice card: empty._",
+  "confidence": "full",
+  "corpus_words": 8066,
+  "samples_used": [
+    "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+    "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+    "californias-ab-412-still-demands-developers-do-impossible.txt",
+    "chatbot-act-forces-one-parenting-model-every-family.txt",
+    "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+    "congress-narrowed-guard-act-serious-problems-remain.txt",
+    "court-records-should-be-free.txt",
+    "kids-act-would-require-age-checks-get-online.txt",
+    "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+    "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+    "why-are-gay-bars-building-databases-their-patrons.txt"
+  ],
+  "samples_excluded": [],
+  "voice_card": "empty",
+  "observations": [
+    {
+      "id": "o01",
+      "section": "address",
+      "support": 5,
+      "of": 11,
+      "rate": {
+        "count": 11,
+        "per_1000_words": 1.36,
+        "counting_rule": "[measurement:second-person-family] Count case-insensitive whole-word tokens you, your, yours, you're, you've, you'd, and you'll in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o02",
+      "section": "address",
+      "support": 10,
+      "of": 11,
+      "rate": {
+        "count": 19,
+        "per_1000_words": 2.36,
+        "counting_rule": "[measurement:first-person-plural-family] Count case-sensitive whole-word tokens we, We, us, our, Our, ours, Ours, and the listed contracted we forms in the extracted sample bodies; uppercase US is excluded."
+      }
+    },
+    {
+      "id": "o03",
+      "section": "cadence",
+      "support": 11,
+      "of": 11,
+      "rate": {
+        "count": 86,
+        "per_1000_words": 10.66,
+        "counting_rule": "[measurement:contractions] Count whole-word n't, 're, 've, 'll, 'd, and 'm forms plus 's only for the closed elision hosts it, that, there, here, who, what, where, when, how, why, he, she, let, one, nothing, everything, something, somebody, nobody, and this; possessive 's is excluded."
+      }
+    },
+    {
+      "id": "o04",
+      "section": "cadence",
+      "support": 9,
+      "of": 11,
+      "rate": {
+        "count": 32,
+        "per_1000_words": 3.97,
+        "counting_rule": "[measurement:uncontracted-negatives] Count case-insensitive whole phrases do not, does not, did not, is not, are not, was not, were not, cannot, could not, would not, should not, will not, have not, has not, and had not in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o05",
+      "section": "absences",
+      "support": 9,
+      "of": 11,
+      "rate": {
+        "count": 2,
+        "per_1000_words": 0.25,
+        "counting_rule": "[measurement:first-person-singular-family] Count case-insensitive whole-word tokens I, me, my, mine, and myself in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o06",
+      "section": "address",
+      "support": 4,
+      "of": 11,
+      "rate": {
+        "count": 9,
+        "per_1000_words": 1.12,
+        "counting_rule": "[measurement:question-marks] Count every literal question-mark character in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o07",
+      "section": "cadence",
+      "support": 11,
+      "of": 11,
+      "rate": {
+        "count": 97,
+        "per_1000_words": 12.03,
+        "counting_rule": "[measurement:round-parenthetical-spans] Count each non-nested pair of round brackets whose contents stay on one line in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o08",
+      "section": "cadence",
+      "support": 10,
+      "of": 11,
+      "rate": {
+        "count": 53,
+        "per_1000_words": 6.57,
+        "counting_rule": "[measurement:em-dashes] Count every literal em-dash character in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o09",
+      "section": "absences",
+      "support": 10,
+      "of": 11,
+      "rate": {
+        "count": 7,
+        "per_1000_words": 0.87,
+        "counting_rule": "[measurement:en-dashes] Count every literal en-dash character in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o10",
+      "section": "register-range",
+      "support": 8,
+      "of": 11
+    },
+    {
+      "id": "o11",
+      "section": "address",
+      "support": 10,
+      "of": 11
+    },
+    {
+      "id": "o12",
+      "section": "figures",
+      "support": 4,
+      "of": 11
+    },
+    {
+      "id": "o13",
+      "section": "closings",
+      "support": 11,
+      "of": 11
+    }
+  ],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "status": "rated",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ]
+    },
+    {
+      "dimension": "contraction-negation",
+      "status": "rated",
+      "observation_ids": [
+        "o03",
+        "o04"
+      ]
+    },
+    {
+      "dimension": "qualification-hedging",
+      "status": "described",
+      "observation_ids": [
+        "o10"
+      ]
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "status": "rated",
+      "observation_ids": [
+        "o06"
+      ]
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "status": "described",
+      "observation_ids": [
+        "o11"
+      ]
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "status": "unresolved",
+      "unresolved_reason": "The corpus supplies no positive form or measured replacement from which to infer a stable rhetorical function or drafting instruction for profanity or vulgarity."
+    },
+    {
+      "dimension": "self-reference-biography",
+      "status": "absent-paired",
+      "observation_ids": [
+        "o02",
+        "o05"
+      ],
+      "positive_observation_id": "o02",
+      "absence_observation_id": "o05"
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "status": "absent-paired",
+      "observation_ids": [
+        "o07",
+        "o08",
+        "o09"
+      ],
+      "positive_observation_id": "o07",
+      "absence_observation_id": "o09"
+    },
+    {
+      "dimension": "figures-analogy",
+      "status": "described",
+      "observation_ids": [
+        "o12"
+      ]
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "status": "described",
+      "observation_ids": [
+        "o13"
+      ]
+    }
+  ],
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}
+```
