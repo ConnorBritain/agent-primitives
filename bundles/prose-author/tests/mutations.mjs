@@ -329,6 +329,13 @@ export const MUTATIONS = [
     guards: "support prevalence across files cannot masquerade as a within-piece frequency",
   },
   {
+    name: "stop deduplicating redundant qualitative support bookkeeping",
+    file: PROFILE_CONTRACT,
+    find: "        const uniqueSupport = [...new Set(observation.support_files)];",
+    with: "        const uniqueSupport = observation.support_files;",
+    guards: "a repeated support filename is normalized only when at least two distinct evidence files remain",
+  },
+  {
     name: "erase the deterministic center aim from draft target cards",
     file: DRAFT_TARGETS,
     find: "    aim: Math.round(expected),",

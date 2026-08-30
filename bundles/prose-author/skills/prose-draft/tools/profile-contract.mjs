@@ -523,6 +523,20 @@ function normalizeMeasuredDensityLanguage(prose) {
  * Returns all errors at once; it never repairs structure or guesses evidence.
  */
 export function assembleVoiceProfile(source, context) {
+  let duplicateSupportFilesRemoved = 0;
+  if (isObject(source) && source.schema === SOURCE_SCHEMA_ID && Array.isArray(source.qualitative)) {
+    source = {
+      ...source,
+      qualitative: source.qualitative.map((observation) => {
+        if (!isObject(observation) || !Array.isArray(observation.support_files)) return observation;
+        const uniqueSupport = [...new Set(observation.support_files)];
+        duplicateSupportFilesRemoved += observation.support_files.length - uniqueSupport.length;
+        return uniqueSupport.length === observation.support_files.length
+          ? observation
+          : { ...observation, support_files: uniqueSupport };
+      }),
+    };
+  }
   // Strict structured-output transports require every object key. Optional
   // unresolved reasons therefore arrive as explicit nulls; the semantic source
   // contract remains sparse and the deterministic validator stays authoritative.
@@ -772,5 +786,8 @@ export function assembleVoiceProfile(source, context) {
     observations_dropped: source.observations_dropped,
     multiple_voices_suspected: source.multiple_voices_suspected,
   };
-  return { ok: true, refusal: false, errors: [], profile: assembled };
+  return {
+    ok: true, refusal: false, errors: [], profile: assembled,
+    normalizations: { duplicate_support_files_removed: duplicateSupportFilesRemoved },
+  };
 }

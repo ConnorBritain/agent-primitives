@@ -1270,7 +1270,8 @@ function collectProfiles(runDir) {
         render_sha256: SHA(text(rawRender)),
         markdown_sha256: SHA(text(md)), json_sha256: SHA(text(js)),
         ...codexCompanionArtifactFields(record),
-        transport_repairs: decoded.repairs, coverage, recount,
+        transport_repairs: decoded.repairs, source_normalizations: assembled.normalizations,
+        coverage, recount,
       };
     }
     const stability = analyzeProfileStability(stabilityRenders);
@@ -2885,7 +2886,10 @@ function deriveProfileEvidence(runDir, manifest, cases) {
         `\`\`\`json\n${JSON.stringify(parsed.json, null, 2)}\n\`\`\`\n`,
         `${id} canonical render`,
       );
-      profileMeta[profile.id][`r${render}`] = { transport_repairs: decoded.repairs, coverage, recount };
+      profileMeta[profile.id][`r${render}`] = {
+        transport_repairs: decoded.repairs, source_normalizations: assembled.normalizations,
+        coverage, recount,
+      };
       stabilityRenders.push(parsed.json);
     }
     stability[profile.id] = analyzeProfileStability(stabilityRenders);

@@ -574,9 +574,16 @@ export async function run(t, { tmp, HERE }) {
           .some((error) => /one to three unique qualitative/.test(error)));
       const duplicateSupport = source();
       duplicateSupport.qualitative[0].support_files = [files[0], files[0]];
-      t.check("duplicate qualitative support files remain a deterministic semantic failure",
+      t.check("one unique qualitative support file remains a deterministic semantic failure after deduplication",
         assembleVoiceProfile(duplicateSupport, context).errors
           .some((error) => /at least two unique filenames/.test(error)));
+      const redundantSupport = source();
+      redundantSupport.qualitative[0].support_files = [files[0], files[1], files[1]];
+      const normalizedSupport = assembleVoiceProfile(redundantSupport, context);
+      t.check("redundant qualitative support is normalized when two unique evidence files remain",
+        normalizedSupport.ok
+          && normalizedSupport.normalizations?.duplicate_support_files_removed === 1
+          && redundantSupport.qualitative[0].support_files.length === 3);
     }
     {
       const plan = sourceMeasurementPlan(measured);
