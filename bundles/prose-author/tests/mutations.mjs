@@ -350,6 +350,13 @@ export const MUTATIONS = [
     guards: "question-mark ceilings are literal pre-return budgets because conformance cannot repair them",
   },
   {
+    name: "let semantic-bearing generation target the outer checker boundary",
+    file: DRAFT_TARGETS,
+    find: "operational target EXACTLY ${row.aim_count}; unchanged checker range ${row.gate_minimum}–${row.gate_maximum}",
+    with: "operational target at most ${row.gate_maximum}; unchanged checker range ${row.gate_minimum}–${row.gate_maximum}",
+    guards: "unpatchable semantic counters target the exact center rather than an outer acceptance boundary",
+  },
+  {
     name: "tell the drafter conformance can repair semantic-bearing counts",
     file: VOICE_DRAFT_PROMPT,
     find: "that the later exact conformance patch is forbidden from repairing because",

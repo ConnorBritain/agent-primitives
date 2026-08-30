@@ -128,12 +128,12 @@ export function renderDraftTargetCard(card) {
       "",
       "### Hard pre-return limits — conformance cannot repair these",
       "These counters change grammatical stance or meaning. The later exact patch is forbidden from changing them.",
-      "Keep a private final integer count for every row below. Revise now until each count is inside its allowed range; one out-of-range value invalidates the result.",
+      "Keep a private final integer count for every row below. Hit the exact operational target, not an outer checker boundary; the narrower generation target is a deliberate safety margin.",
     );
     for (const row of hardRows) {
-      lines.push(`- HARD ${row.observation_id} [measurement:${row.measurement_id}]: aim ${row.aim_count}; allowed ${row.gate_minimum}–${row.gate_maximum}.`);
+      lines.push(`- HARD ${row.observation_id} [measurement:${row.measurement_id}]: operational target EXACTLY ${row.aim_count}; unchanged checker range ${row.gate_minimum}–${row.gate_maximum}.`);
     }
-    lines.push("For question-marks, do not write a question sequence above the ceiling. Recast excess questions as statements before returning the source.");
+    lines.push("For question-marks, stop at the exact operational target even when the checker would accept one more. Recast excess questions as statements before returning the source.");
     lines.push("Do not emit these private counts.");
   }
   lines.push("Before returning the source, count the finished draft and revise it until every measured actual is inside its stated min/max range.");

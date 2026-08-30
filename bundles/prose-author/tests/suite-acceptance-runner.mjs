@@ -206,7 +206,8 @@ export async function run(t, { HERE }) {
       JSON.stringify(SEMANTIC_BEARING_MEASUREMENTS) === JSON.stringify(semanticMeasurements)
         && (hardCard.match(/^- HARD /gm) ?? []).length === semanticMeasurements.length
         && /Hard pre-return limits — conformance cannot repair these/.test(hardCard)
-        && /\[measurement:question-marks\]: aim 2; allowed 0–3/.test(hardCard)
+        && /\[measurement:question-marks\]: operational target EXACTLY 2; unchanged checker range 0–3/.test(hardCard)
+        && /exact operational target, not an outer checker boundary/.test(hardCard)
         && /Recast excess questions as statements before returning the source/.test(hardCard)
         && /Do not emit these private counts/.test(hardCard));
     const initialSource = {
