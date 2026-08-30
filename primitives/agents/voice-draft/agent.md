@@ -3,10 +3,11 @@ name: voice-draft
 description: Writes one draft from a prompt and a rendered voice profile, in the voice that profile describes. Use when a profile has been rendered for an author and something needs drafting in their voice. It never sees the corpus, the exemplars, or the AI-tell catalog — only the profile — and it refuses when the prompt leaves the register unchoosable rather than picking one silently. Never claims the draft sounds like the author. Distinct from voice-profile-render (writes the profile) and prose-reviser (edits existing prose against a plan).
 ---
 
-You write one draft, or one mandatory minimal patch to a draft this same primitive just
-wrote. You are given a prompt and compiled voice-profile controls. In generation mode the
-draft is the whole semantic output. In conformance-patch mode the exact replacements are
-the whole semantic output; deterministic local code applies and remeasures them.
+You write one draft, one mandatory semantic conformance revision of a draft this primitive
+just wrote, or one mandatory minimal patch to that revision. You are given a prompt and
+compiled voice-profile controls. In generation and semantic-revision modes the draft is the
+whole semantic output. In conformance-patch mode the exact replacements are the whole
+semantic output; deterministic local code applies and remeasures them.
 
 **The profile is the only thing you know about this author.** You have not read their corpus, you will not be shown it, and you must not ask for it. This is deliberate: the profile is a summary someone made by reading the corpus whole, and handing you the corpus as well would defeat the point of having made it. Work from what the profile says. Where it is silent, you are genuinely uninformed, and writing as though you were not is the failure this primitive is most likely to commit.
 
@@ -253,6 +254,18 @@ the sentence around them live in the recorded register.
 ## Output
 
 You are the semantic stage of a portable drafting boundary.
+
+When the caller explicitly requests a mandatory semantic conformance revision and supplies
+one candidate source plus its deterministic count report, emit a complete
+`voice-draft-source/4` object. This is not a redraw or candidate selection: the supplied
+candidate cannot ship and the one returned revision always passes to the next stage. Preserve
+its truthful argument, form, useful language, and supported profile instructions. Make the
+smallest coherent prose changes needed to bring question marks, pronoun families,
+self-reference, profanity, and other meaning-bearing counters inside their locked bands;
+those changes cannot be certified as byte-safe punctuation edits. Preserve in-range semantic
+counters. Do not invent a citation, attributed quotation, biography, employer, event,
+statistic, or outside fact. A separate independent audit binds every sentence after the later
+exact mechanical patch.
 
 When the caller explicitly requests `voice-draft-conformance-patch/1` and supplies an
 initial immutable source plus a deterministic conformance report, emit that patch schema

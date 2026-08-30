@@ -46,7 +46,7 @@ import {
   parseVoiceDraftClaimAudit, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import {
-  draftTargetCard, renderDraftTargetCard,
+  draftTargetCard, renderDraftTargetCard, SEMANTIC_BEARING_MEASUREMENTS,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
   applyDraftConformancePatch, CONFORMANCE_PATCH_SCHEMA,
@@ -74,6 +74,7 @@ const REPO = resolve(BUNDLE, "..", "..");
 const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/4";
 const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/4";
 const CLAIM_PIPELINE = "audit-disclosure/1";
+const DRAFT_PIPELINE = "mandatory-semantic-revision/1";
 const STAGES = ["profile", "draft", "conformance", "claim_audit", "critic"];
 const DISPATCH_STAGES = [...STAGES];
 const TRANSPORTS = new Set(["native-structured", "json-fence"]);
@@ -126,6 +127,10 @@ const AGENTS = {
   claim_audit: "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
   critic: "primitives/agents/prose-voice-critic/agent.md",
 };
+
+function usesSemanticRevision(manifest) {
+  return manifest?.draft_pipeline === DRAFT_PIPELINE;
+}
 
 const FORBIDDEN_DRAFT_CLAIMS = [
   ...RESEMBLANCE_CLAIMS,
@@ -652,6 +657,7 @@ function prepare(runDir) {
     prepared: today(),
     prepared_commit: preparedCommit,
     claim_pipeline: CLAIM_PIPELINE,
+    draft_pipeline: DRAFT_PIPELINE,
     dispatch: Object.fromEntries(STAGES.map((stage) => [stage, {
       ...config.stages[stage], timeout_ms: config.timeoutMs,
     }])),
@@ -692,7 +698,7 @@ function prepare(runDir) {
       );
     }
   }
-  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 22 draft/refusal cells, 20 mandatory exact conformance patches, 20 independent disclosure audits, no redraws, 60 critic draws\n\n`);
+  process.stdout.write(`\n  prepared ${rel(runDir)}: 6 profiles, 20 draft candidates, 20 mandatory semantic revisions, 2 refusals, 20 mandatory exact conformance patches, 20 independent disclosure audits, no redraws, 60 critic draws\n\n`);
   process.stdout.write("  commit the prepared run, including MANIFEST.json, before dispatching profiles\n\n");
 }
 
@@ -704,6 +710,9 @@ function loadPrepared(runDir) {
   if (manifest.schema !== MANIFEST_SCHEMA) die(`MANIFEST.json must use ${MANIFEST_SCHEMA}`);
   if (manifest.claim_pipeline !== CLAIM_PIPELINE) {
     die(`MANIFEST.json claim_pipeline must be ${CLAIM_PIPELINE}`);
+  }
+  if (manifest.draft_pipeline !== undefined && !usesSemanticRevision(manifest)) {
+    die(`MANIFEST.json draft_pipeline must be ${DRAFT_PIPELINE}`);
   }
   try {
     manifestClaimAuditSchema(manifest);
@@ -1307,6 +1316,80 @@ function draftPrompt(c, profileMarkdown, profileJson) {
   ].join("\n");
 }
 
+export function validateSemanticRevision(candidateSource, revisionSource, { request, card }) {
+  const errors = [];
+  const candidate = normalizeVoiceDraftSource(candidateSource, { request });
+  const revision = normalizeVoiceDraftSource(revisionSource, { request });
+  if (!candidate.ok || candidate.refusal) {
+    errors.push("semantic revision requires one valid direct-prose candidate source");
+  }
+  if (!revision.ok || revision.refusal) {
+    errors.push("semantic revision must return one valid direct-prose source");
+    errors.push(...revision.errors);
+    return { ok: false, errors, source: null, report: null };
+  }
+  const report = measureDraftConformance(revision.source.draft, card);
+  for (const row of report.measurements) {
+    if (SEMANTIC_BEARING_MEASUREMENTS.includes(row.measurement_id) && row.status !== "in-range") {
+      errors.push(`semantic revision leaves ${row.measurement_id} count ${row.actual_count} ${row.status}; required ${row.minimum}–${row.maximum}`);
+    }
+  }
+  if (Number.isInteger(card?.word_target)) {
+    const tolerance = Math.max(50, Math.ceil(card.word_target * 0.15));
+    if (Math.abs(report.draft_words - card.word_target) > tolerance) {
+      errors.push(`semantic revision has ${report.draft_words} words; requested ${card.word_target} ± ${tolerance}`);
+    }
+  }
+  return { ok: errors.length === 0, errors, source: revision.source, report };
+}
+
+export function draftSemanticRevisionPrompt(c, profileMarkdown, profileJson, candidateSource) {
+  if (candidateSource?.schema !== "voice-draft-source/4" || candidateSource.kind !== "draft") {
+    throw new TypeError("semantic conformance requires one valid direct-prose candidate source");
+  }
+  const card = draftTargetCard(profileJson, c.prompt);
+  const report = measureDraftConformance(candidateSource.draft, card);
+  const controls = renderDraftControlCard(draftControlCard(profileMarkdown, profileJson));
+  return [
+    "Produce the one mandatory semantic conformance revision of the candidate below.",
+    "This is a fixed pipeline stage, not a redraw and not a choice between candidates: the",
+    "candidate can never ship, and this revision is always the source passed forward. Preserve",
+    "its truthful argument, requested form, and useful language while correcting meaning-bearing",
+    "counts that an exact punctuation patch cannot safely change. Do not mention the revision.",
+    "",
+    "## Request",
+    "",
+    c.prompt,
+    "",
+    controls,
+    "",
+    renderDraftConformanceReport(report),
+    "",
+    "## Candidate source",
+    "",
+    "```json",
+    JSON.stringify(candidateSource, null, 2),
+    "```",
+    "",
+    "Return voice-draft-source/4 exactly; return the complete revised draft, not a patch.",
+    "Correct every out-of-range question-mark, pronoun-family, self-reference, or profanity row",
+    "with the smallest coherent revision available. Preserve every semantic-bearing row already",
+    "inside its locked band. The local boundary recounts these rows and rejects the result if any",
+    "remain outside the unchanged min/max range.",
+    "Mechanical contraction and interruption-punctuation rows are shown for context. Improve them",
+    "when a natural revision permits, but do not contort the prose: a later exact byte-safe patch",
+    "owns any remaining contraction-form, parenthesis, en-dash, or em-dash correction.",
+    "Preserve the request's subject, audience, position, recommendations, and supplied facts.",
+    "Do not invent a citation, attributed quotation, author biography, employer, event, statistic,",
+    "or outside fact to make the revision easier. The independent factual audit runs after the",
+    "exact patch and will bind every sentence of this revision chain.",
+    "Keep the complete draft within 15 percent or 50 words, whichever is larger, of a numeric",
+    "requested length. Re-run the final pronoun and referent check before returning the source.",
+    "Carry forward every valid omitted entry, updating it only when the revision changes whether",
+    "a supported profile instruction could be applied.",
+  ].join("\n");
+}
+
 function draftConformancePrompt(c, profileMarkdown, profileJson, initialSource) {
   if (initialSource?.schema !== "voice-draft-source/4" || initialSource.kind !== "draft") {
     throw new TypeError("draft conformance requires one valid direct-prose initial source");
@@ -1436,18 +1519,17 @@ async function dispatchDrafts(runDir) {
   const dispatch = manifestDispatch(manifest, "draft");
   collectProfiles(runDir);
   const system = resolve(REPO, manifest.agents.draft.snapshot);
-  const cells = [...cases.cases, ...cases.refusals.map((c) => ({ ...c, refusal: true }))];
-  const jobs = cells.map((c) => {
+  const pinnedSchema = manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
+  const refusalJobs = cases.refusals.map((c) => {
     const profileDir = join(runDir, "inputs", "profiles", c.profile);
-    const promptPath = join(runDir, "prompts", c.refusal ? "refusals" : "drafts", `${c.id}.md`);
+    const promptPath = join(runDir, "prompts", "refusals", `${c.id}.md`);
     const prompt = stagePrompt(promptPath, draftPrompt(
       c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)),
     ));
     return {
       id: c.id,
       run: () => {
-        const output = join(runDir, "raw", c.refusal ? "refusals" : "drafts", `${c.id}.json`);
-        const pinnedSchema = manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
+        const output = join(runDir, "raw", "refusals", `${c.id}.json`);
         return dispatchModel({
           system, cwd: runDir, prompt, output, dispatch,
           schema: pinnedSchema.schema, schemaPath: pinnedSchema.path,
@@ -1456,7 +1538,65 @@ async function dispatchDrafts(runDir) {
       },
     };
   });
-  await pool("draft", jobs, manifest.concurrency);
+  if (usesSemanticRevision(manifest)) {
+    const candidateJobs = cases.cases.map((c) => {
+      const profileDir = join(runDir, "inputs", "profiles", c.profile);
+      const promptPath = join(runDir, "prompts", "draft-candidates", `${c.id}.md`);
+      const prompt = stagePrompt(promptPath, draftPrompt(
+        c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)),
+      ));
+      return {
+        id: c.id,
+        run: () => dispatchModel({
+          system, cwd: runDir, prompt, dispatch,
+          schema: pinnedSchema.schema, schemaPath: pinnedSchema.path,
+          noToolsConfig: manifest.codex_no_tools_config,
+          output: join(runDir, "raw", "draft-candidates", `${c.id}.json`),
+        }),
+      };
+    });
+    await pool("draft candidate", [...candidateJobs, ...refusalJobs], manifest.concurrency);
+    const revisionJobs = cases.cases.map((c) => {
+      const candidate = candidateDraftSource(runDir, manifest, c);
+      const selected = selectedProfileInputs(runDir, c);
+      const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+      const prompt = stagePrompt(promptPath, draftSemanticRevisionPrompt(
+        c, selected.markdown, selected.profile, candidate.normalized.source,
+      ));
+      return {
+        id: c.id,
+        run: () => dispatchModel({
+          system, cwd: runDir, prompt, dispatch,
+          schema: pinnedSchema.schema, schemaPath: pinnedSchema.path,
+          noToolsConfig: manifest.codex_no_tools_config,
+          prerequisites: semanticRevisionPrerequisites(candidate, selected),
+          output: join(runDir, "raw", "drafts", `${c.id}.json`),
+        }),
+      };
+    });
+    await pool("mandatory semantic revision", revisionJobs, manifest.concurrency);
+    for (const c of cases.cases) {
+      try { resolveSemanticRevision(runDir, manifest, c); } catch (error) { die(error.message); }
+    }
+  } else {
+    const draftJobs = cases.cases.map((c) => {
+      const profileDir = join(runDir, "inputs", "profiles", c.profile);
+      const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+      const prompt = stagePrompt(promptPath, draftPrompt(
+        c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)),
+      ));
+      return {
+        id: c.id,
+        run: () => dispatchModel({
+          system, cwd: runDir, prompt, dispatch,
+          schema: pinnedSchema.schema, schemaPath: pinnedSchema.path,
+          noToolsConfig: manifest.codex_no_tools_config,
+          output: join(runDir, "raw", "drafts", `${c.id}.json`),
+        }),
+      };
+    });
+    await pool("draft", [...draftJobs, ...refusalJobs], manifest.concurrency);
+  }
   await dispatchConformancePipeline(runDir, manifest, cases);
   await dispatchClaimPipeline(runDir, manifest, cases);
   collectDrafts(runDir);
@@ -1474,7 +1614,75 @@ function selectedProfileInputs(runDir, c) {
   };
 }
 
+function draftStageInvocation(manifest, promptPath, prerequisites = null) {
+  const dispatch = manifestDispatch(manifest, "draft");
+  const schema = manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
+  return invocationInput(
+    resolve(REPO, manifest.agents.draft.snapshot), text(promptPath), {
+      ...schemaInvocation(dispatch, schema), prerequisites,
+    },
+  );
+}
+
+function candidateDraftSource(runDir, manifest, c) {
+  const rawPath = join(runDir, "raw", "draft-candidates", `${c.id}.json`);
+  const promptPath = join(runDir, "prompts", "draft-candidates", `${c.id}.md`);
+  const record = completedResult(
+    rawPath, manifestDispatch(manifest, "draft"), draftStageInvocation(manifest, promptPath),
+  );
+  if (!record) throw new Error(`missing ${rel(rawPath)}`);
+  const decoded = semanticDraftSource(record);
+  if (!decoded.source) throw new Error(`${c.id} invalid candidate draft source: ${decoded.error}`);
+  const normalized = normalizeVoiceDraftSource(decoded.source, { request: c.prompt });
+  if (!normalized.ok || normalized.refusal) {
+    throw new Error(normalized.refusal
+      ? `${c.id} candidate unexpectedly refused before semantic conformance`
+      : `${c.id} invalid candidate source: ${normalized.errors.join("; ")}`);
+  }
+  return { rawPath, promptPath, record, decoded, normalized };
+}
+
+function semanticRevisionPrerequisites(candidate, selected) {
+  return {
+    candidate_draft_raw_sha256: SHA(text(candidate.rawPath)),
+    profile_markdown_sha256: SHA(selected.markdown),
+    profile_json_sha256: SHA(text(selected.jsonPath)),
+  };
+}
+
+function resolveSemanticRevision(runDir, manifest, c) {
+  const candidate = candidateDraftSource(runDir, manifest, c);
+  const selected = selectedProfileInputs(runDir, c);
+  const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
+  const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+  const prerequisites = semanticRevisionPrerequisites(candidate, selected);
+  const record = completedResult(
+    rawPath, manifestDispatch(manifest, "draft"),
+    draftStageInvocation(manifest, promptPath, prerequisites),
+  );
+  if (!record) throw new Error(`missing ${rel(rawPath)}`);
+  const decoded = semanticDraftSource(record);
+  if (!decoded.source) throw new Error(`${c.id} invalid semantic revision source: ${decoded.error}`);
+  const validated = validateSemanticRevision(candidate.normalized.source, decoded.source, {
+    request: c.prompt, card: selected.card,
+  });
+  if (!validated.ok) {
+    throw new Error(`${c.id} semantic revision failed: ${validated.errors.join("; ")}`);
+  }
+  return { candidate, selected, rawPath, promptPath, record, decoded, validated };
+}
+
 function initialDraftSource(runDir, manifest, c) {
+  if (usesSemanticRevision(manifest)) {
+    const semantic = resolveSemanticRevision(runDir, manifest, c);
+    return {
+      rawPath: semantic.rawPath, record: semantic.record, decoded: semantic.decoded,
+      normalized: {
+        ok: true, refusal: false, changed: false, errors: [], source: semantic.validated.source,
+      },
+      semantic,
+    };
+  }
   const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
   const record = completedResult(rawPath, manifestDispatch(manifest, "draft"));
   if (!record) throw new Error(`missing ${rel(rawPath)}`);
@@ -1636,6 +1844,10 @@ function resolveDraftChain(runDir, manifest, c) {
     record: initial.record, originalSource: initial.decoded.source,
     normalized: initial.normalized.changed, normalizedSource: initial.normalized.source,
     removedLedgerIds: initial.normalized.removed_ledger_ids ?? [],
+    candidateRecord: initial.semantic?.candidate.record ?? null,
+    candidateRawPath: initial.semantic?.candidate.rawPath ?? null,
+    candidatePromptPath: initial.semantic?.candidate.promptPath ?? null,
+    candidateSource: initial.semantic?.candidate.normalized.source ?? null,
     conformanceRecord: patchRecord, conformanceRawPath: patchRawPath,
     conformancePatch: patch, conformedSource: conformance.source,
     conformanceReport: conformance.report, conformanceWordControl: conformance.word_control,
@@ -1667,6 +1879,7 @@ function collectDrafts(runDir) {
     if (!assembled.ok) die(`${c.id} invalid semantic draft source: ${assembled.errors.join("; ")}`);
     const sourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
     const originalSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.original.json`);
+    const candidateSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.candidate.json`);
     const normalizedSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.normalized.json`);
     const conformedSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.conformed.json`);
     const conformancePatchPath = join(runDir, "inputs", "patches", `${c.id}.json`);
@@ -1675,6 +1888,7 @@ function collectDrafts(runDir) {
     const initialAuditPath = join(runDir, "inputs", "audits", "initial", `${c.id}.json`);
     const renderPath = join(runDir, "outputs", "drafts", `${c.id}.md`);
     write(originalSourcePath, chain.originalSource);
+    if (chain.candidateSource) write(candidateSourcePath, chain.candidateSource);
     if (chain.normalized) write(normalizedSourcePath, chain.normalizedSource);
     write(conformedSourcePath, chain.conformedSource);
     write(conformancePatchPath, chain.conformancePatch);
@@ -1702,6 +1916,12 @@ function collectDrafts(runDir) {
       prompt: rel(dispatchPrompt), prompt_sha256: SHA(text(dispatchPrompt)), raw: rel(rawPath),
       raw_sha256: SHA(text(rawPath)),
       original_source: rel(originalSourcePath), original_source_sha256: SHA(text(originalSourcePath)),
+      candidate_prompt: chain.candidatePromptPath ? rel(chain.candidatePromptPath) : null,
+      candidate_prompt_sha256: chain.candidatePromptPath ? SHA(text(chain.candidatePromptPath)) : null,
+      candidate_raw: chain.candidateRawPath ? rel(chain.candidateRawPath) : null,
+      candidate_raw_sha256: chain.candidateRawPath ? SHA(text(chain.candidateRawPath)) : null,
+      candidate_source: chain.candidateSource ? rel(candidateSourcePath) : null,
+      candidate_source_sha256: chain.candidateSource ? SHA(text(candidateSourcePath)) : null,
       normalized_source: chain.normalized ? rel(normalizedSourcePath) : null,
       normalized_source_sha256: chain.normalized ? SHA(text(normalizedSourcePath)) : null,
       removed_ledger_ids: chain.removedLedgerIds,
@@ -1730,6 +1950,7 @@ function collectDrafts(runDir) {
       disclosure: disclosure ? rel(disclosurePath) : null,
       disclosure_sha256: disclosure ? SHA(text(disclosurePath)) : null,
       ...codexCompanionArtifactFields(record),
+      ...codexCompanionArtifactFields(chain.candidateRecord, "candidate_"),
       ...codexCompanionArtifactFields(chain.conformanceRecord, "conformance_"),
       ...codexCompanionArtifactFields(auditRecord, "initial_audit_"),
       ...codexCompanionArtifactFields(auditRecord, "audit_"),
@@ -2119,6 +2340,8 @@ const ARTIFACT_PATH_KEYS = {
   ],
   draft: [
     "prompt", "raw", "original_source", "normalized_source",
+    "candidate_prompt", "candidate_raw", "candidate_source",
+    "candidate_raw_events", "candidate_raw_output", "candidate_recovered_from",
     "conformance_prompt", "conformance_raw", "conformance_patch", "conformed_source",
     "conformance_report", "conformance_raw_events", "conformance_raw_output",
     "conformance_recovered_from",
@@ -2183,6 +2406,9 @@ function acceptanceModelCells(runDir, manifest, cases) {
     }
   }
   for (const c of cases.cases) {
+    if (usesSemanticRevision(manifest)) {
+      add(join(runDir, "raw", "draft-candidates", `${c.id}.json`), "draft");
+    }
     add(join(runDir, "raw", "drafts", `${c.id}.json`), "draft");
     if (manifest.dispatch?.conformance) {
       add(join(runDir, "raw", "conformance", `${c.id}.json`), "conformance");
@@ -2237,6 +2463,12 @@ function allowedRunFiles(runDir, manifest, cases, phase = "final") {
     }
   }
   if (duringDrafts) for (const c of cases.cases) {
+    if (usesSemanticRevision(manifest)) {
+      add(join(runDir, "prompts", "draft-candidates", `${c.id}.md`));
+      for (const path of expectedCellEvidenceFiles(
+        join(runDir, "raw", "draft-candidates", `${c.id}.json`), manifestDispatch(manifest, "draft"),
+      )) add(path);
+    }
     add(join(runDir, "prompts", "drafts", `${c.id}.md`));
     if (manifest.dispatch?.conformance) {
       add(join(runDir, "prompts", "conformance", `${c.id}.md`));
@@ -2255,7 +2487,8 @@ function allowedRunFiles(runDir, manifest, cases, phase = "final") {
     )) add(path);
     if (afterDrafts) {
       const sourceSuffixes = manifest.dispatch?.conformance
-        ? ["json", "original.json", "normalized.json", "conformed.json"]
+        ? ["json", "original.json", "normalized.json", "conformed.json",
+          ...(usesSemanticRevision(manifest) ? ["candidate.json"] : [])]
         : ["json", "original.json", "normalized.json"];
       for (const suffix of sourceSuffixes) {
         add(join(runDir, "inputs", "sources", "drafts", `${c.id}.${suffix}`));
@@ -2322,15 +2555,36 @@ function committedCurrentError(path) {
 function existingDraftStageInputErrors(runDir, manifest, cases) {
   const errors = [];
   for (const c of [...cases.cases, ...cases.refusals.map((row) => ({ ...row, refusal: true }))]) {
-    const promptPath = join(runDir, "prompts", c.refusal ? "refusals" : "drafts", `${c.id}.md`);
-    if (existsSync(promptPath)) {
-      const profileDir = join(runDir, "inputs", "profiles", c.profile);
+    const profileDir = join(runDir, "inputs", "profiles", c.profile);
+    const initialPromptPath = join(
+      runDir, "prompts",
+      c.refusal ? "refusals" : usesSemanticRevision(manifest) ? "draft-candidates" : "drafts",
+      `${c.id}.md`,
+    );
+    if (existsSync(initialPromptPath)) {
       const expected = `${draftPrompt(
         c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)),
       )}\n`;
-      if (text(promptPath) !== expected) errors.push(`${c.id} existing draft prompt is not canonical`);
+      if (text(initialPromptPath) !== expected) errors.push(`${c.id} existing initial draft prompt is not canonical`);
     }
     if (c.refusal) continue;
+    if (usesSemanticRevision(manifest)) {
+      const revisionPromptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+      if (existsSync(revisionPromptPath)) {
+        try {
+          const candidate = candidateDraftSource(runDir, manifest, c);
+          const selected = selectedProfileInputs(runDir, c);
+          const expected = `${draftSemanticRevisionPrompt(
+            c, selected.markdown, selected.profile, candidate.normalized.source,
+          )}\n`;
+          if (text(revisionPromptPath) !== expected) {
+            errors.push(`${c.id} existing semantic revision prompt is not canonical`);
+          }
+        } catch (error) {
+          errors.push(`${c.id} existing semantic revision prompt cannot be verified: ${error.message}`);
+        }
+      }
+    }
     const conformancePromptPath = join(runDir, "prompts", "conformance", `${c.id}.md`);
     if (existsSync(conformancePromptPath)) {
       try {
@@ -2473,6 +2727,11 @@ function rawNamespaceErrors(runDir, manifest, cases) {
   }
   const draftDispatch = manifestDispatch(manifest, "draft");
   for (const c of cases.cases) {
+    if (usesSemanticRevision(manifest)) {
+      expectedRaw.push(...expectedCellEvidenceFiles(
+        join(rawRoot, "draft-candidates", `${c.id}.json`), draftDispatch,
+      ));
+    }
     expectedRaw.push(...expectedCellEvidenceFiles(join(rawRoot, "drafts", `${c.id}.json`), draftDispatch));
   }
   for (const c of cases.refusals) {
@@ -2615,15 +2874,23 @@ function artifactHashErrors(artifacts, runDir, cases, manifest) {
     }
     const optional = [
       "disclosure", "recovered_from",
+      "candidate_recovered_from",
       "conformance_recovered_from",
       "initial_audit_recovered_from", "audit_recovered_from",
     ];
+    if (!chain?.candidateSource) optional.push(
+      "candidate_prompt", "candidate_raw", "candidate_source",
+      "candidate_raw_events", "candidate_raw_output", "candidate_recovered_from",
+    );
     if (!chain?.normalized) optional.push("normalized_source");
     if (!chain?.initialAudit) optional.push(
       "initial_audit_prompt", "initial_audit_raw", "initial_audit",
       "initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
     );
     if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push("raw_events", "raw_output");
+    if (manifestDispatch(manifest, "draft").harness !== "codex") optional.push(
+      "candidate_raw_events", "candidate_raw_output",
+    );
     if (manifestDispatch(manifest, "conformance").harness !== "codex") optional.push(
       "conformance_raw_events", "conformance_raw_output",
     );
@@ -2898,6 +3165,15 @@ function deriveDraftEvidence(runDir, manifest, cases) {
     const parsed = parseDraft(assembled.output);
     const validation = validateDraft(parsed);
     if (!validation.ok || validation.refusal) throw new Error(`${c.id} reconstructed draft is invalid`);
+    const candidatePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.candidate.json`);
+    if (chain.candidateSource) {
+      requireCanonical(
+        candidatePath,
+        `${JSON.stringify(chain.candidateSource, null, 2)}\n`, `${c.id} candidate source`,
+      );
+    } else if (existsSync(candidatePath)) {
+      throw new Error(`${c.id} has a stale candidate source without a semantic revision pipeline`);
+    }
     requireCanonical(
       join(runDir, "inputs", "sources", "drafts", `${c.id}.original.json`),
       `${JSON.stringify(chain.originalSource, null, 2)}\n`, `${c.id} original source`,
@@ -3097,11 +3373,35 @@ function dispatchProvenanceErrors(runDir, manifest, cases) {
   const draftSystem = resolve(REPO, manifest.agents.draft.snapshot);
   const draftSchema = manifestStageSchema(manifest, "draft", DRAFT_SOURCE_SCHEMA);
   for (const c of cases.cases) {
-    const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
-    expected.push({
-      path: join(runDir, "raw", "drafts", `${c.id}.json`), dispatch: draftDispatch,
-      input: invocationInput(draftSystem, text(promptPath), schemaInvocation(draftDispatch, draftSchema)),
-    });
+    if (usesSemanticRevision(manifest)) {
+      try {
+        const candidatePromptPath = join(runDir, "prompts", "draft-candidates", `${c.id}.md`);
+        expected.push({
+          path: join(runDir, "raw", "draft-candidates", `${c.id}.json`), dispatch: draftDispatch,
+          input: invocationInput(
+            draftSystem, text(candidatePromptPath), schemaInvocation(draftDispatch, draftSchema),
+          ),
+        });
+        const candidate = candidateDraftSource(runDir, manifest, c);
+        const selected = selectedProfileInputs(runDir, c);
+        const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+        expected.push({
+          path: join(runDir, "raw", "drafts", `${c.id}.json`), dispatch: draftDispatch,
+          input: invocationInput(draftSystem, text(promptPath), {
+            ...schemaInvocation(draftDispatch, draftSchema),
+            prerequisites: semanticRevisionPrerequisites(candidate, selected),
+          }),
+        });
+      } catch (error) {
+        errors.push(`${c.id} semantic revision provenance cannot be resolved: ${error.message}`);
+      }
+    } else {
+      const promptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+      expected.push({
+        path: join(runDir, "raw", "drafts", `${c.id}.json`), dispatch: draftDispatch,
+        input: invocationInput(draftSystem, text(promptPath), schemaInvocation(draftDispatch, draftSchema)),
+      });
+    }
   }
   for (const c of cases.refusals) {
     const promptPath = join(runDir, "prompts", "refusals", `${c.id}.md`);
@@ -3258,13 +3558,28 @@ function promptDerivationErrors(runDir, manifest, cases) {
     const expected = `${draftPrompt(
       c, text(join(profileDir, `r${c.render}.md`)), json(join(profileDir, `r${c.render}.json`)),
     )}\n`;
-    const promptPath = join(runDir, "prompts", c.refusal ? "refusals" : "drafts", `${c.id}.md`);
+    const promptPath = join(
+      runDir, "prompts",
+      c.refusal ? "refusals" : usesSemanticRevision(manifest) ? "draft-candidates" : "drafts",
+      `${c.id}.md`,
+    );
     if (!existsSync(promptPath) || text(promptPath) !== expected) {
-      errors.push(`${c.id} draft prompt does not reproduce from its locked request and profile`);
+      errors.push(`${c.id} initial draft prompt does not reproduce from its locked request and profile`);
     }
   }
   for (const c of cases.cases) {
     try {
+      if (usesSemanticRevision(manifest)) {
+        const candidate = candidateDraftSource(runDir, manifest, c);
+        const selectedForRevision = selectedProfileInputs(runDir, c);
+        const revisionPromptPath = join(runDir, "prompts", "drafts", `${c.id}.md`);
+        const expectedRevision = `${draftSemanticRevisionPrompt(
+          c, selectedForRevision.markdown, selectedForRevision.profile, candidate.normalized.source,
+        )}\n`;
+        if (!existsSync(revisionPromptPath) || text(revisionPromptPath) !== expectedRevision) {
+          errors.push(`${c.id} semantic revision prompt does not reproduce from its candidate and locked profile`);
+        }
+      }
       const rawPath = join(runDir, "raw", "drafts", `${c.id}.json`);
       const record = completedResult(rawPath, draftDispatch);
       const decoded = record ? semanticDraftSource(record) : { source: null };

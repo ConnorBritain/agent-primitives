@@ -10,14 +10,14 @@ import {
   ARTIFACT_PATH_KEYS, artifactEntryHashErrors, artifactHashErrors, claimAuditPrompt, claimsAuditFailures,
   CODEX_NO_TOOLS_CONFIG, codexToolEvents,
   codexCompanionArtifactFields, codexRecordErrors, committedManifestError, completedResult,
-  criticPrompt, deriveCritic, draftConformancePrompt, draftPrompt,
+  criticPrompt, deriveCritic, draftConformancePrompt, draftPrompt, draftSemanticRevisionPrompt,
   dispatchCodex, dispatchPreflightErrors,
   factualCandidateReasons, HARNESS_CAPABILITIES, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
   profileEvidenceMetadataErrors,
   quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt,
-  strictlyCommittedAfter, schemaInvocation, validateCases,
+  strictlyCommittedAfter, schemaInvocation, validateCases, validateSemanticRevision,
   assertStrictOutputSchema, strictOutputSchemaErrors,
 } from "./acceptance-runner.mjs";
 import { measureProfile, PROFILE_MEASUREMENT_RULES } from "./profile-measurements.mjs";
@@ -210,6 +210,42 @@ export async function run(t, { HERE }) {
       draft: "We can fix this sentence. It needs a turn and gets one.",
       omitted: [], refused: "",
     };
+    const semanticPrompt = draftSemanticRevisionPrompt(
+      { prompt: "Write a 700-word post." }, profileMarkdown, targetProfile, initialSource,
+    );
+    t.check("semantic conformance is one mandatory revision rather than candidate selection",
+      /one mandatory semantic conformance revision/.test(semanticPrompt)
+        && /not a redraw and not a choice between candidates/.test(semanticPrompt)
+        && /candidate can never ship/.test(semanticPrompt)
+        && /Return voice-draft-source\/4 exactly; return the complete revised draft, not a patch/.test(semanticPrompt)
+        && /independent factual audit/.test(semanticPrompt));
+    const semanticCard = {
+      schema: "voice-draft-target-card/1", word_target: null,
+      ratio_band: TARGET_RATIO_BAND, absolute_floor: TARGET_ABSOLUTE_FLOOR,
+      qualitative_rule: "test",
+      measurements: [{
+        observation_id: "o01", measurement_id: "first-person-plural-family",
+        dimensions: ["person-reader-stance"], status: "measured-positive",
+        corpus_per_1000_words: 1, target_words: 20, aim_count: 0,
+        gate_minimum: 0, gate_maximum: 1,
+      }],
+    };
+    const semanticCandidate = {
+      ...initialSource, draft: "We can fix this sentence because we control the schedule.",
+    };
+    const badSemanticRevision = validateSemanticRevision(
+      semanticCandidate, semanticCandidate, { request: "Write a short post.", card: semanticCard },
+    );
+    const goodSemanticRevision = validateSemanticRevision(
+      semanticCandidate,
+      { ...semanticCandidate, draft: "Workers can fix this sentence because they control the schedule." },
+      { request: "Write a short post.", card: semanticCard },
+    );
+    t.check("semantic conformance deterministically rejects a still-out-of-range meaning-bearing count",
+      !badSemanticRevision.ok
+        && badSemanticRevision.errors.some((error) => /first-person-plural-family count 2 excess/.test(error)));
+    t.check("semantic conformance may make a meaning-bearing revision before the exact byte-safe patch",
+      goodSemanticRevision.ok && goodSemanticRevision.report.measurements[0].actual_count === 0);
     const conformance = measureDraftConformance(initialSource.draft, targetCard);
     const conformancePrompt = draftConformancePrompt(
       { prompt: "Write a 700-word post." }, profileMarkdown, targetProfile, initialSource,
@@ -1171,7 +1207,8 @@ export async function run(t, { HERE }) {
       ARTIFACT_PATH_KEYS.profile.includes(key) && ARTIFACT_PATH_KEYS.critic.includes(key))
       && ["initial_audit_raw_events", "initial_audit_raw_output", "initial_audit_recovered_from",
         "audit_raw_events", "audit_raw_output", "audit_recovered_from",
-        "conformance_raw_events", "conformance_raw_output", "conformance_recovered_from"]
+        "conformance_raw_events", "conformance_raw_output", "conformance_recovered_from",
+        "candidate_raw_events", "candidate_raw_output", "candidate_recovered_from"]
         .every((key) => ARTIFACT_PATH_KEYS.draft.includes(key))
       && (source.match(/\.\.\.codexCompanionArtifactFields\(record\),/g) ?? []).length === 4
       && /codexCompanionArtifactFields\(auditRecord, "audit_"\)/.test(source));
@@ -1200,6 +1237,13 @@ export async function run(t, { HERE }) {
       && /STAGES = \["profile", "draft", "conformance", "claim_audit", "critic"\]/.test(source)
       && /await dispatchConformancePipeline\(runDir, manifest, cases\)/.test(source)
       && /resolveConformedDraft\(runDir, manifest, c\)/.test(source));
+  t.check("acceptance locks one semantic revision before the unchanged exact patch",
+    source.includes('const DRAFT_PIPELINE = "mandatory-semantic-revision/1"')
+      && source.includes("draft_pipeline: DRAFT_PIPELINE")
+      && /await pool\("draft candidate"/.test(source)
+      && /await pool\("mandatory semantic revision"/.test(source)
+      && /candidate_draft_raw_sha256/.test(source)
+      && /resolveSemanticRevision\(runDir, manifest, c\)/.test(source));
   t.check("acceptance defaults to a native independent claim-audit transport",
     prepareConfig({}).stages.claim_audit.transport === "native-structured"
       && source.includes("claim_pipeline: CLAIM_PIPELINE")
