@@ -201,8 +201,9 @@ export async function run(t, { HERE }) {
       JSON.stringify(SEMANTIC_BEARING_MEASUREMENTS) === JSON.stringify(semanticMeasurements)
         && JSON.stringify(wordTargetBounds(700))
           === JSON.stringify({ target: 700, tolerance: 105, minimum: 595, maximum: 805 })
-        && /HARD LENGTH: 595–805 words inclusive; aim 700/.test(hardCard)
-        && (hardCard.match(/^- HARD /gm) ?? []).length === semanticMeasurements.length + 1
+        && /OPERATIONAL LENGTH: aim 700; working interval 595–805 words inclusive/.test(hardCard)
+        && /Outside this interval is a request-length deviation/.test(hardCard)
+        && (hardCard.match(/^- HARD /gm) ?? []).length === semanticMeasurements.length
         && /Hard pre-return limits — conformance cannot repair these/.test(hardCard)
         && /\[measurement:question-marks\]: operational target EXACTLY 2; unchanged checker range 0–3/.test(hardCard)
         && /exact operational target, not an outer checker boundary/.test(hardCard)
@@ -226,13 +227,10 @@ export async function run(t, { HERE }) {
       { prompt: "Write a 650-word post." }, profileMarkdown, targetProfile,
       { ...initialSource, draft: `${"word ".repeat(838).trim()}.` },
     );
-    t.check("an overlong candidate receives its exact hard interval and minimum required cut",
+    t.check("an overlong candidate receives its exact operational interval and minimum suggested cut",
       /candidate has 838 measured words; the accepted interval is 552–748, with target 650/.test(overlongSemanticPrompt)
         && /It is 90 words above the maximum\. Remove at least 90 measured words; aim for 650/.test(overlongSemanticPrompt)
-        && /Do not edit this overlong candidate sentence by sentence/.test(overlongSemanticPrompt)
-        && /rebuild it to the target from[\s\S]*semantic outline/.test(overlongSemanticPrompt)
-        && /length correction supersedes the usual smallest-change/.test(overlongSemanticPrompt)
-        && /Preserving the candidate's exact wording is subordinate to this hard bound/.test(overlongSemanticPrompt));
+        && /operational request target, not a substitute for the locked voice and structural gates/.test(overlongSemanticPrompt));
     const semanticCard = {
       schema: "voice-draft-target-card/1", word_target: null,
       ratio_band: TARGET_RATIO_BAND, absolute_floor: TARGET_ABSOLUTE_FLOOR,
@@ -260,6 +258,16 @@ export async function run(t, { HERE }) {
         && badSemanticRevision.errors.some((error) => /first-person-plural-family count 2 excess/.test(error)));
     t.check("semantic conformance may make a meaning-bearing revision before the exact byte-safe patch",
       goodSemanticRevision.ok && goodSemanticRevision.report.measurements[0].actual_count === 0);
+    const operationalLengthCard = { ...semanticCard, word_target: 650 };
+    const overlongButSemanticallyConformant = {
+      ...initialSource, draft: `${"Workers can plan the schedule. ".repeat(170).trim()}`,
+    };
+    const operationalLengthResult = validateSemanticRevision(
+      overlongButSemanticallyConformant, overlongButSemanticallyConformant,
+      { request: "Write a 650-word post.", card: operationalLengthCard },
+    );
+    t.check("request length remains operational rather than becoming an unregistered ship gate",
+      operationalLengthResult.ok && operationalLengthResult.report.draft_words > 748);
     const conformance = measureDraftConformance(initialSource.draft, targetCard);
     const conformancePrompt = draftConformancePrompt(
       { prompt: "Write a 700-word post." }, profileMarkdown, targetProfile, initialSource,

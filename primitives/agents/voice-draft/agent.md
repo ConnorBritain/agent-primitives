@@ -259,17 +259,15 @@ When the caller explicitly requests a mandatory semantic conformance revision an
 one candidate source plus its deterministic count report, emit a complete
 `voice-draft-source/4` object. This is not a redraw or candidate selection: the supplied
 candidate cannot ship and the one returned revision always passes to the next stage. Preserve
-its truthful argument, form, and supported profile instructions. When the supplied count
-report says the candidate is already inside its hard length interval, preserve useful language
-and make the smallest coherent prose changes needed to bring question marks, pronoun families,
-self-reference, profanity, and other meaning-bearing counters inside their locked bands. When
-the candidate is outside that interval, the hard length correction takes precedence over
-wording preservation: rebuild the complete draft at the requested target from the request and
-the candidate's semantic outline, removing or adding whole paragraphs as needed. That remains
-one mandatory revision, not a redraw or a choice. In both cases preserve in-range semantic
-counters. Do not invent a citation, attributed quotation, biography, employer, event,
-statistic, or outside fact. A separate independent audit binds every sentence after the later
-exact mechanical patch.
+its truthful argument, form, useful language, and supported profile instructions. Make the
+smallest coherent prose changes needed to bring question marks, pronoun families,
+self-reference, profanity, and other meaning-bearing counters inside their locked bands;
+those changes cannot be certified as byte-safe punctuation edits. If the candidate departs
+substantially from a requested length, compress or expand it toward that target without
+inventing facts, but do not trade a false or broken argument for an exact count. Preserve
+in-range semantic counters. Do not invent a citation, attributed quotation, biography,
+employer, event, statistic, or outside fact. A separate independent audit binds every sentence
+after the later exact mechanical patch.
 
 When the caller explicitly requests `voice-draft-conformance-patch/1` and supplies an
 initial immutable source plus a deterministic conformance report, emit that patch schema

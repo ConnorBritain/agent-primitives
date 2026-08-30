@@ -128,8 +128,8 @@ export function renderDraftTargetCard(card) {
   if (card.word_target) {
     const length = wordTargetBounds(card.word_target);
     lines.push(
-      `- HARD LENGTH: ${length.minimum}–${length.maximum} words inclusive; aim ${length.target}.`,
-      "  Count the complete finished draft before returning it. Output outside this interval is rejected and cannot be repaired by the later exact patch.",
+      `- OPERATIONAL LENGTH: aim ${length.target}; working interval ${length.minimum}–${length.maximum} words inclusive.`,
+      "  Count the complete finished draft before returning it. Outside this interval is a request-length deviation; the later exact patch cannot repair it.",
     );
   }
   for (const row of card.measurements) {
