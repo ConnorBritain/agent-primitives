@@ -28,7 +28,8 @@ import {
   AUDIT_SCHEMA as DRAFT_AUDIT_SCHEMA, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import {
-  countRange, draftTargetCard, requestedWordTarget, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND,
+  countRange, draftTargetCard, renderDraftTargetCard, requestedWordTarget,
+  SEMANTIC_BEARING_MEASUREMENTS, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
   applyDraftConformancePatch, CONFORMANCE_MEASUREMENT_IDS, CONFORMANCE_PATCH_SCHEMA,
@@ -187,6 +188,27 @@ export async function run(t, { HERE }) {
         && targetCard.measurements[1].aim_count === 0
         && targetCard.measurements[1].gate_minimum === 0
         && targetCard.measurements[1].gate_maximum === 1);
+    const semanticMeasurements = [
+      "second-person-family", "first-person-plural-family", "profanity-vulgarity",
+      "first-person-singular-family", "question-marks",
+    ];
+    const hardCard = renderDraftTargetCard({
+      schema: "voice-draft-target-card/1", word_target: 700,
+      ratio_band: TARGET_RATIO_BAND, absolute_floor: TARGET_ABSOLUTE_FLOOR,
+      qualitative_rule: "Described observations have restrained placement but no numeric quota.",
+      measurements: semanticMeasurements.map((measurement_id, index) => ({
+        observation_id: `o${index + 10}`, measurement_id, dimensions: ["test"],
+        status: "measured-positive", corpus_per_1000_words: 2,
+        target_words: 700, aim_count: 2, gate_minimum: 0, gate_maximum: 3,
+      })),
+    });
+    t.check("semantic-bearing target bands are literal pre-return budgets",
+      JSON.stringify(SEMANTIC_BEARING_MEASUREMENTS) === JSON.stringify(semanticMeasurements)
+        && (hardCard.match(/^- HARD /gm) ?? []).length === semanticMeasurements.length
+        && /Hard pre-return limits — conformance cannot repair these/.test(hardCard)
+        && /\[measurement:question-marks\]: aim 2; allowed 0–3/.test(hardCard)
+        && /Recast excess questions as statements before returning the source/.test(hardCard)
+        && /Do not emit these private counts/.test(hardCard));
     const initialSource = {
       schema: "voice-draft-source/4", kind: "draft",
       draft: "We can fix this sentence. It needs a turn and gets one.",

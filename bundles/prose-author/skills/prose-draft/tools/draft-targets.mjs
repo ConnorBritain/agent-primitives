@@ -8,6 +8,13 @@ import { fileURLToPath } from "node:url";
 export const TARGET_CARD_SCHEMA_ID = "voice-draft-target-card/1";
 export const TARGET_RATIO_BAND = 2;
 export const TARGET_ABSOLUTE_FLOOR = 2;
+export const SEMANTIC_BEARING_MEASUREMENTS = Object.freeze([
+  "second-person-family",
+  "first-person-plural-family",
+  "profanity-vulgarity",
+  "first-person-singular-family",
+  "question-marks",
+]);
 
 export function requestedWordTarget(request) {
   const text = String(request ?? "");
@@ -113,6 +120,22 @@ export function renderDraftTargetCard(card) {
     lines.push(`- ${row.observation_id} [measurement:${row.measurement_id}] (${dimensions}; ${row.status}): ${target}.`);
   }
   lines.push("", card.qualitative_rule);
+  const hardRows = card.word_target
+    ? card.measurements.filter((row) => SEMANTIC_BEARING_MEASUREMENTS.includes(row.measurement_id))
+    : [];
+  if (hardRows.length) {
+    lines.push(
+      "",
+      "### Hard pre-return limits — conformance cannot repair these",
+      "These counters change grammatical stance or meaning. The later exact patch is forbidden from changing them.",
+      "Keep a private final integer count for every row below. Revise now until each count is inside its allowed range; one out-of-range value invalidates the result.",
+    );
+    for (const row of hardRows) {
+      lines.push(`- HARD ${row.observation_id} [measurement:${row.measurement_id}]: aim ${row.aim_count}; allowed ${row.gate_minimum}–${row.gate_maximum}.`);
+    }
+    lines.push("For question-marks, do not write a question sequence above the ceiling. Recast excess questions as statements before returning the source.");
+    lines.push("Do not emit these private counts.");
+  }
   lines.push("Before returning the source, count the finished draft and revise it until every measured actual is inside its stated min/max range.");
   lines.push("An omitted record explains an unsupported qualitative instruction; it does not excuse an out-of-range measured habit.");
   lines.push("If a supported target cannot be applied, name its coverage dimension and observation ID in omitted; never drop it silently.");

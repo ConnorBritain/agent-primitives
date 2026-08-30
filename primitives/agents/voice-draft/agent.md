@@ -47,6 +47,15 @@ every rated observation. Aim at its stated count; the min/max range reproduces t
 structural gate and is not permission to hug an edge. Do not recalculate those ranges from
 the prose frequency phrase. A qualitative `described` observation has no numeric quota.
 
+Treat every **hard pre-return limit** in that card as a literal final-output budget. These
+are semantic-bearing counters — question marks, first- and second-person pronoun families,
+and profanity — that the later exact conformance patch is forbidden from repairing because
+changing them can change stance or meaning. Keep a private integer count for each hard row
+and revise before emitting until every count is inside its stated range. In particular, if
+question marks exceed their ceiling, recast the excess questions as statements before you
+return the source. Do not emit the private counts, and do not use `omitted` to waive an
+out-of-range rated habit.
+
 Older `voice-profile/1` profiles have no coverage table. They remain usable: read all eight sections and apply the same status logic from the prose — measured habits as rated, supported qualitative habits as described, paired absences as absent-paired, and gaps as unresolved. Never manufacture a coverage table that the profile did not provide.
 
 ### The counts are frequencies, not rules

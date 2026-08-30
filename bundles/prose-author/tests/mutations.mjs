@@ -343,6 +343,20 @@ export const MUTATIONS = [
     guards: "a measured target is an enforced final check rather than an informational card",
   },
   {
+    name: "hide question marks from the semantic-bearing hard limits",
+    file: DRAFT_TARGETS,
+    find: '  "question-marks",',
+    with: '  "question-marks-disabled",',
+    guards: "question-mark ceilings are literal pre-return budgets because conformance cannot repair them",
+  },
+  {
+    name: "tell the drafter conformance can repair semantic-bearing counts",
+    file: VOICE_DRAFT_PROMPT,
+    find: "that the later exact conformance patch is forbidden from repairing because",
+    with: "that the later exact conformance patch is expected to repair because",
+    guards: "the portable prompt assigns semantic-bearing count correction to generation, not conformance",
+  },
+  {
     name: "detach compiled voice instructions from their observation ids",
     file: DRAFT_CONTROLS,
     find: "    lines.push(`- ${row.observation_id} [${dimensions}; section:${row.section}${measurement}]: ${row.instruction}`);",
