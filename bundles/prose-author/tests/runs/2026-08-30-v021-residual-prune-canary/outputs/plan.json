@@ -1,0 +1,8 @@
+{
+  "schema": "voice-draft-residual-prune/1",
+  "delete_paragraphs": [
+    10,
+    14
+  ],
+  "reason": "Removes redundant examples and recap while preserving the required coverage of defaults, gatekeeper power, switching costs, and remedies."
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a054dc-d721-7cc1-998f-f14a87b8a9c4"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-residual-prune/1\",\"delete_paragraphs\":[10,14],\"reason\":\"Removes redundant examples and recap while preserving the required coverage of defaults, gatekeeper power, switching costs, and remedies.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":11156,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":577,"reasoning_output_tokens":516}}
