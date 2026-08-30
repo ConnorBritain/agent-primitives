@@ -1,0 +1,125 @@
+{
+  "schema": "prose-author-stage-adapter-canary-manifest/1",
+  "canary_schema": "prose-author-semantic-budget-canary-manifest/1",
+  "run_id": "2026-08-29-v020-semantic-budget-canary-2",
+  "prepared_commit": "a468561fa978810bf9bca3078b78e203f6ea82ee",
+  "concurrency": 1,
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "dispatch": {
+    "draft": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "conformance": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "claim_audit": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "codex_no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ],
+  "locked_files": {
+    "bundles/prose-author/skills/prose-draft/references/claim-audit.md": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "142bf99dd37933a45035e481af64c83fbe49aba11131b17b915195d2040e45ff",
+    "bundles/prose-author/skills/prose-draft/tools/draft-conformance.mjs": "112d6101d729f8eb5080df9f9696566403bd92f5278a6bacdb54e54c3f01bfe4",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "782b05df72c782fe9caf17e4cd00e7bd1601a92581b8f4728b04843e6e200e3f",
+    "bundles/prose-author/skills/prose-draft/tools/draft-controls.mjs": "3636762bb2fbabff358d04e96cb553e54caba355d4967d0e405fcd9c36214e25",
+    "bundles/prose-author/skills/prose-draft/tools/draft-targets.mjs": "678d5ed36ac1c61e6cd68a0ad2f34e7be50c7650a421502c9afd8fad5484869d",
+    "bundles/prose-author/skills/prose-draft/tools/exemplars.mjs": "3480c86a70fc89a64f4d1333ad3839daa5cfe68d37e883d0cb636c37a0b8dccb",
+    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs": "94f52e9ab660b75d2bf137b1058b52c54df598590fddbff6014b3b5d514a86e4",
+    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs": "c4a59b41da0fbbc7892eea5b7456c2843934935d491634135659d0d78283671f",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "534713d4fcceccac5d647dbb5d82da666b41cc6b12a3adcab01d69ddeb417e93",
+    "bundles/prose-author/tests/bar.mjs": "394f6d4fb219da4378cb9c25a9583dee85188770d530edb919a9009251d94a70",
+    "bundles/prose-author/tests/corpus-rates.mjs": "e620b433ab32b36592d23f426ffcae90d357a2fd447925506ec00144e63a9a89",
+    "bundles/prose-author/tests/coverage-analysis.mjs": "18684c425fa53a0b36a767e0244e4323f4140dda0d88472f87c101840f108ed1",
+    "bundles/prose-author/tests/cross-count.mjs": "168bde25d6672d71ea6b2c7c34e87552a6a6c1c381d156f89a58c732c9d9059c",
+    "bundles/prose-author/tests/fences.mjs": "205e938b0b0104fe3f7c7468aedb62c480d2f66c8d7a3de6488bc26a8c2b786f",
+    "bundles/prose-author/tests/loop.mjs": "ea52d35e1711ab4d89e4128e6f1850e749c35ec3887578e610872e870eee28e5",
+    "bundles/prose-author/tests/profile-stability.mjs": "f9572ca74a96e44002272e8752397d2ae164052f734c0d4d464c43c903c40977",
+    "bundles/prose-author/tests/run-gates.mjs": "c689c682a597bf4296ed39546bb98252a2efa9f8196be004961a1ef32644f59f",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/inputs/profiles/doctorow-blog/r3.json": "c16f1eba28677439f1a896bbdf5bf0e07fa6b26ec1ecc3e162b5694677f246fb",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/inputs/profiles/doctorow-blog/r3.md": "40d09600d4d3f55c718db9b817ec0ba2177f95a8dbdbcfefbc3ab3531e46e014",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/DESIGN.json": "05f488f8303174e01b77b8fadcad728360e2d02a9701c977bd1a9dd346fc5b3d",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/run.mjs": "24d5eec5a336671c149e75dd4fca8359f52c306d96657537f894890bcd5c996b",
+    "bundles/prose-author/tests/strict-output-schema.mjs": "c426816816fece8b220413fc3ff363ff0c0295c8fa4cf73266257330daf9ef3c",
+    "bundles/prose-author/tests/voice-critic-source.mjs": "ce61780da9681550c2a5bb6c37957fa90b4673aceafb2392892ff61884d82b78",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912",
+    "bundles/prose-author/tests/voice-profile.mjs": "9059a9e373a2fcfd443cc174cbd6103317f6d64ccfae4db33f0f6b905e2ae5dd",
+    "primitives/agents/voice-draft/agent.md": "c0918e671a7feb7cfc55bee45f134cf17b9d13b1be4bd90707af478bd9612895"
+  },
+  "agents": {
+    "draft": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/prompts/agents/draft.md",
+      "sha256": "05119790e4c50d7861654ba25c0fec3bcca43f07e40cbb0d43e474344daa626d"
+    },
+    "conformance": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/prompts/agents/conformance.md",
+      "sha256": "05119790e4c50d7861654ba25c0fec3bcca43f07e40cbb0d43e474344daa626d"
+    },
+    "claim_audit": {
+      "source": "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/prompts/agents/claim_audit.md",
+      "sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07"
+    }
+  },
+  "profile": {
+    "json": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/inputs/profiles/doctorow-blog/r3.json",
+    "json_sha256": "c16f1eba28677439f1a896bbdf5bf0e07fa6b26ec1ecc3e162b5694677f246fb",
+    "markdown": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/inputs/profiles/doctorow-blog/r3.md",
+    "markdown_sha256": "40d09600d4d3f55c718db9b817ec0ba2177f95a8dbdbcfefbc3ab3531e46e014"
+  },
+  "prompt": "Write a 700-word blog post for owners of connected home devices. Title: The server was part of the appliance. Cover: a vendor closing its cloud service; which features stop working; why the shutdown changes the original bargain; and what local operation would protect. Keep the title.",
+  "required_initial_question_mark_range": [
+    0,
+    3
+  ],
+  "schemas": {
+    "draft": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/schemas/draft.json",
+      "sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+    },
+    "conformance": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/schemas/conformance.json",
+      "sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e"
+    },
+    "claim_audit": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/schemas/claim-audit.json",
+      "sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+    }
+  }
+}
