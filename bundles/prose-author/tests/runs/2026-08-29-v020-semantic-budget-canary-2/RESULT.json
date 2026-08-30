@@ -1,0 +1,23 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "canary_schema": "prose-author-semantic-budget-canary-result/1",
+  "status": "HOLD",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "failed_at": "2026-08-30T00:21:07.141Z",
+  "error": "initial question-marks count 4 is outside 0–3",
+  "stages": {
+    "draft": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/raw/draft.json",
+      "raw_sha256": "42fc72668f45de758697451d705cac90c58afac7a1cc5c25594a68bed11581f5",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/raw/draft.codex-events.jsonl",
+      "raw_events_sha256": "f3650dfa4b010b113fa63bd99317f74e08c05e0fe2a73206d0389e3320e68842",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-2/raw/draft.codex-output.json",
+      "raw_output_sha256": "572c6a4be422bc995252adb2863032501e70ec8a0405cdbb6cb94fef3cdf1780",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    }
+  }
+}
