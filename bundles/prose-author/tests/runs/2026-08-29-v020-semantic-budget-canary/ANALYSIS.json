@@ -1,0 +1,24 @@
+{
+  "schema": "prose-author-semantic-budget-canary-analysis/1",
+  "status": "HOLD",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "semantic_budget_result": "PASS",
+  "initial_draft_sha256": "5dfde87915767bcfe8c7d37fa44a1c1e8ab62df693b05c0569126377b224b225",
+  "initial_words": 710,
+  "initial_conformance_pass": true,
+  "initial_question_marks": 2,
+  "required_initial_question_mark_range": [
+    0,
+    3
+  ],
+  "conformance_edits": 0,
+  "conformed_source_sha256": "5dfde87915767bcfe8c7d37fa44a1c1e8ab62df693b05c0569126377b224b225",
+  "downstream_hold": {
+    "stage": "claim_audit",
+    "sentence_id": "p4s2",
+    "reason": "This presents attributed vendor wording or a vendor position that is absent from the request and is not explicitly framed as invented dialogue.",
+    "raw_sha256": "1bc1ca75e9af209b89463087d7af6e364c1e037fb5f6a9148323da4db4efd338"
+  },
+  "conclusion": "The current hard pre-return budget corrected the exact d06 question-mark failure: the fresh initial draft hit 2 inside the locked 0-3 range and every deterministic conformance row passed. The canary remains HOLD because a separate factual-firewall regression was caught before public draft assembly. No redraw is permitted or attempted."
+}
