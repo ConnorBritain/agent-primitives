@@ -199,7 +199,13 @@ industry practice.
 
 Keep each external proposition bounded and make no claim about a whole industry's hidden
 motives, standard practice, or prevalence when one concrete example would do. Do not invent
-citations or attributed wording. The next stage will independently audit
+citations or attributed wording. **Do not invent an opponent's position, likely response,
+motive, excuse, or defence either.** A paraphrase such as *"the vendor will say ..."* is
+still attribution even without quotation marks. If the request or its supplied sources give
+no real opponent position, argue directly from the supplied premise or label a genuinely
+invented possibility as hypothetical without assigning it to a real or generic actor. If
+you omit `opponents-allies-sources` for lack of material, the prose must not synthesize an
+unnamed position as a substitute. The next stage will independently audit
 every immutable sentence and publish all checkable external claims for verification; it
 will reject fabricated citations, invented quotations, author biography, or corpus leakage.
 That safety stage is not permission to write something you do not believe. If you are

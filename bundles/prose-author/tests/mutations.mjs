@@ -357,6 +357,13 @@ export const MUTATIONS = [
     guards: "the portable prompt assigns semantic-bearing count correction to generation, not conformance",
   },
   {
+    name: "let the drafter invent an opponent's paraphrased position",
+    file: VOICE_DRAFT_PROMPT,
+    find: "**Do not invent an opponent's position, likely response,\nmotive, excuse, or defence either.**",
+    with: "**You may invent an opponent's position, likely response,\nmotive, excuse, or defence.**",
+    guards: "paraphrased opponent positions remain attribution even without quotation marks",
+  },
+  {
     name: "detach compiled voice instructions from their observation ids",
     file: DRAFT_CONTROLS,
     find: "    lines.push(`- ${row.observation_id} [${dimensions}; section:${row.section}${measurement}]: ${row.instruction}`);",
