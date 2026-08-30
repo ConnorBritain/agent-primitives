@@ -1,0 +1,151 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"our\",\"after\":\"the\",\"reason\":\"Recast one first-person-plural possessive to remove the reported excess while preserving the reference to lawmakers.\",\"coverage_dimensions\":[\"person-reader-stance\"],\"measurement_ids\":[\"first-person-plural-family\"]},{\"before\":\"does not\",\"after\":\"doesn't\",\"reason\":\"Convert one categorical negative to the established contraction form, removing one excess uncontracted negative.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"revised\",\"reason\":\"One listed first-person-plural occurrence is recast; direct reader address remains unchanged.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"revised\",\"reason\":\"One uncontracted negative is converted to a meaning-equivalent contraction.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"Existing controlled concessions are preserved.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"The existing argumentative question is preserved.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"omitted\",\"reason\":\"No verified named opponent position, quotation, source, or link is supplied.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The measured range permits the existing level.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"Existing first-person singular argumentation is preserved.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans and dash usage remain within range.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The existing wristband analogy is preserved.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The existing blunt opening and practical closing are preserved.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named attribution, embedded quotations, linked authorities, or brief attributed summaries\",\"why\":\"The request supplies no verified named opponent position, quotation, source, or link to attribute.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "our",
+        "after": "the",
+        "reason": "Recast one first-person-plural possessive to remove the reported excess while preserving the reference to lawmakers.",
+        "coverage_dimensions": [
+          "person-reader-stance"
+        ],
+        "measurement_ids": [
+          "first-person-plural-family"
+        ]
+      },
+      {
+        "before": "does not",
+        "after": "doesn't",
+        "reason": "Convert one categorical negative to the established contraction form, removing one excess uncontracted negative.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "revised",
+        "reason": "One listed first-person-plural occurrence is recast; direct reader address remains unchanged."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "revised",
+        "reason": "One uncontracted negative is converted to a meaning-equivalent contraction."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing controlled concessions are preserved."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing argumentative question is preserved."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified named opponent position, quotation, source, or link is supplied."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured range permits the existing level."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing first-person singular argumentation is preserved."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans and dash usage remain within range."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing wristband analogy is preserved."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing blunt opening and practical closing are preserved."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named attribution, embedded quotations, linked authorities, or brief attributed summaries",
+        "why": "The request supplies no verified named opponent position, quotation, source, or link to attribute."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d04.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d04.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "3e2fa731265c45a9425a665950864b06c173a41864f3bc2b4f8172fe331866c8",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "c0742c02196e731edcef3df7b4ae482e8b6dd0da1fb68dbdc6175916dce5a37c",
+      "profile_markdown_sha256": "634e37d1858c21407db45eee8facc1820e29e6647533df5adddd86c3a34c20c0",
+      "profile_json_sha256": "63beed3ee19708679e2660558eb71ecb9d50c9a72e186bf98b2d51e7de83252c"
+    }
+  }
+}

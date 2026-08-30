@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"A public library ebook disappearing during a loan is not quite the digital version of returning a book. In an ordinary loan, the library gets the physical copy back, but the copy still exists. A withdrawn ebook can vanish from the borrower’s device and from the library’s collection at once (even when the loan period has not ended).\\n\\nThat difference matters. A physical book is an object that can circulate under rules set by the library. An ebook is access mediated by software, licensing terms, and a publisher’s continuing permission (the digital equivalent of a landlord keeping a key). The library may have paid for a defined lending term, yet the reader receives something that looks like a book while the publisher retains a switch that can turn it off.\\n\\nIt’s understandable that publishers want control over distribution. But control after a library has made a lawful loan creates a problem the language of “returning” tends to hide. The reader doesn’t simply hand a book back; the reader loses access because another institution changed the conditions of the loan. That can affect research, accessibility, book clubs, and anyone who reasonably expected the loan to last until its stated end.\\n\\nA disclaimer does not make that arrangement equivalent to a physical return. It may explain the contract, but it can’t erase the practical fact that ownership, custody, and access have been separated. The result is less like returning a book than borrowing one from a vault whose door can be closed remotely (and whose rules may change after the book leaves the shelf).\\n\\nWe should expect libraries to disclose these limits plainly and demand lending terms that protect an active loan from unilateral withdrawal. The governing principle is simple: when a library lends access for a stated period, that access should remain available for the period promised—unless a genuine legal emergency requires otherwise. A digital loan is still a loan, and the institution that sells it should be held to that promise.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "A public library ebook disappearing during a loan is not quite the digital version of returning a book. In an ordinary loan, the library gets the physical copy back, but the copy still exists. A withdrawn ebook can vanish from the borrower’s device and from the library’s collection at once (even when the loan period has not ended).\n\nThat difference matters. A physical book is an object that can circulate under rules set by the library. An ebook is access mediated by software, licensing terms, and a publisher’s continuing permission (the digital equivalent of a landlord keeping a key). The library may have paid for a defined lending term, yet the reader receives something that looks like a book while the publisher retains a switch that can turn it off.\n\nIt’s understandable that publishers want control over distribution. But control after a library has made a lawful loan creates a problem the language of “returning” tends to hide. The reader doesn’t simply hand a book back; the reader loses access because another institution changed the conditions of the loan. That can affect research, accessibility, book clubs, and anyone who reasonably expected the loan to last until its stated end.\n\nA disclaimer does not make that arrangement equivalent to a physical return. It may explain the contract, but it can’t erase the practical fact that ownership, custody, and access have been separated. The result is less like returning a book than borrowing one from a vault whose door can be closed remotely (and whose rules may change after the book leaves the shelf).\n\nWe should expect libraries to disclose these limits plainly and demand lending terms that protect an active loan from unilateral withdrawal. The governing principle is simple: when a library lends access for a stated period, that access should remain available for the period promised—unless a genuine legal emergency requires otherwise. A digital loan is still a loan, and the institution that sells it should be held to that promise.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/drafts/m08.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/drafts/m08.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "55e58374f55a0ddade9dd8c53969be6f02f35f1c7aa9275a1300959573af80fc",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

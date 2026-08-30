@@ -1,0 +1,33 @@
+{
+  "schema": "prose-author-acceptance-failure/1",
+  "status": "HOLD",
+  "clears": false,
+  "failed_phase": "conformance-assembly",
+  "prepared_commit": "21d0563df060e2b14bf45c969b1e3ecf42dd3670",
+  "manifest_commit": "00bd570",
+  "profile_evidence_commit": "c9333f7",
+  "redraws": 0,
+  "completed_calls": {
+    "profiles": 6,
+    "drafts": 20,
+    "refusals": 2,
+    "conformance": 20,
+    "claim_audits": 0,
+    "critics": 0
+  },
+  "first_reported_error": "d02 conformance patch failed: four edits changed lexical content outside their named measurement forms",
+  "semantic_bearing_initial_failures": {
+    "d02": "first-person-plural-family actual 10; required 3-9",
+    "d04": "first-person-plural-family actual 10; required 3-9",
+    "m01": "first-person-plural-family actual 4; required 0-3",
+    "m02": "question-marks actual 3; required 0-2"
+  },
+  "interpretation": [
+    "All twenty draft calls, two refusal calls, and twenty exact-conformance calls completed sequentially with no redraw before deterministic assembly stopped at d02.",
+    "The initial drafter exceeded a locked semantic-bearing band in four of twenty cells despite receiving an exact operational target and a mandatory recount instruction.",
+    "The d02 conformer attempted to change 'We can refuse a change' to 'Workers can refuse a change'. The exact patch boundary correctly rejected that meaning-bearing lexical substitution.",
+    "The same architecture previously failed acceptance rerun 2 when an initial draft exceeded its question-mark band. Repeated evidence now rejects the assumption that prompt-only self-counting can reliably protect semantic-bearing bands across twenty cells.",
+    "The exact mechanical patch assertion remains necessary for punctuation and contraction-form changes; it must not be weakened into an unverifiable semantic rewriter."
+  ],
+  "disposition": "This run is invalid. No profile, draft, refusal, patch, or other cell may be reused after an implementation change; a complete new locked six-profile, twenty-draft, two-refusal, sixty-critic run is required."
+}

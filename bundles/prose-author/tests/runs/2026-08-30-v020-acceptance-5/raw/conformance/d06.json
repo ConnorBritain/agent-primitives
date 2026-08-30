@@ -1,0 +1,164 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"running—authentication, schedules, recordings, controls—even if the remote service vanished.\",\"after\":\"running–authentication, schedules, recordings, controls–even if the remote service vanished.\",\"reason\":\"Recast both em-dash interruptions as en-dash interruptions, removing two em dashes and adding two en dashes.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\",\"en-dashes\"]},{\"before\":\"protect repair—because a device that can function on its own can be understood, modified, and maintained.\",\"after\":\"protect repair–because a device that can function on its own can be understood, modified, and maintained.\",\"reason\":\"Recast the interruption as an en-dash interruption, removing one em dash and adding one en dash.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\",\"en-dashes\"]},{\"before\":\"hosted extra—provided the purchased machine still performs the promised basics.\",\"after\":\"hosted extra–provided the purchased machine still performs the promised basics.\",\"reason\":\"Recast the interruption as an en-dash interruption, removing one em dash and adding one en dash.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\",\"en-dashes\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The measured second-person and first-person-plural forms remain unchanged and in range.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"The measured contraction and uncontracted-negative forms remain unchanged and in range.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The qualifying concessions and distinctions remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"The question-mark count remains unchanged and in range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"omitted\",\"reason\":\"No verified named source, quotation, link, or opponent formulation is supplied.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The measured profanity remains unchanged and in range.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The measured first-person-singular forms remain unchanged and in range.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"revised\",\"reason\":\"The edits recast all four em-dash interruptions as en-dash interruptions while leaving parenthetical spans unchanged.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The existing analogies remain unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The title, opening, paragraph closures, and final demand remain unchanged.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12\",\"why\":\"No verified named source, quotation, link, or opponent formulation is supplied in the request.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "running—authentication, schedules, recordings, controls—even if the remote service vanished.",
+        "after": "running–authentication, schedules, recordings, controls–even if the remote service vanished.",
+        "reason": "Recast both em-dash interruptions as en-dash interruptions, removing two em dashes and adding two en dashes.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes",
+          "en-dashes"
+        ]
+      },
+      {
+        "before": "protect repair—because a device that can function on its own can be understood, modified, and maintained.",
+        "after": "protect repair–because a device that can function on its own can be understood, modified, and maintained.",
+        "reason": "Recast the interruption as an en-dash interruption, removing one em dash and adding one en dash.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes",
+          "en-dashes"
+        ]
+      },
+      {
+        "before": "hosted extra—provided the purchased machine still performs the promised basics.",
+        "after": "hosted extra–provided the purchased machine still performs the promised basics.",
+        "reason": "Recast the interruption as an en-dash interruption, removing one em dash and adding one en dash.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes",
+          "en-dashes"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured second-person and first-person-plural forms remain unchanged and in range."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured contraction and uncontracted-negative forms remain unchanged and in range."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The qualifying concessions and distinctions remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "The question-mark count remains unchanged and in range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified named source, quotation, link, or opponent formulation is supplied."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured profanity remains unchanged and in range."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured first-person-singular forms remain unchanged and in range."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "revised",
+        "reason": "The edits recast all four em-dash interruptions as en-dash interruptions while leaving parenthetical spans unchanged."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing analogies remain unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The title, opening, paragraph closures, and final demand remain unchanged."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12",
+        "why": "No verified named source, quotation, link, or opponent formulation is supplied in the request."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d06.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d06.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "1f89a0125757a15c3755a7e757d37b51f5352a64d70f7d678e77ad9d1551fb60",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "91105106d25028f29e8cf1c99528f506878d704b3a6fe9132851ecd359bbc7af",
+      "profile_markdown_sha256": "ee6769763ea7bad037807b123b14cb506fe39b02d5056c51ab6d4fb3ca3164a2",
+      "profile_json_sha256": "38917eb5c10d299a43973ac499faf9c32af83d69fc2a7dd05347535fa0f221bd"
+    }
+  }
+}

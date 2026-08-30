@@ -1,0 +1,183 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"We can refuse a change\",\"after\":\"Workers can refuse a change\",\"reason\":\"Removes one excess first-person-plural occurrence while preserving the collective workplace claim.\",\"coverage_dimensions\":[\"person-reader-stance\"],\"measurement_ids\":[\"first-person-plural-family\"]},{\"before\":\"You open the screen expecting the hours you thought were yours, and your schedule has become a moving target.\",\"after\":\"You open the screen expecting the hours you thought were yours (and your schedule has become a moving target).\",\"reason\":\"Adds one compact parenthetical aside.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"Emergencies happen, demand changes, and a workplace sometimes needs a quick adjustment.\",\"after\":\"Emergencies happen (demand changes), and a workplace sometimes needs a quick adjustment.\",\"reason\":\"Adds one compact parenthetical qualification.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"They are ordinary conditions for making a job compatible with a life.\",\"after\":\"They are ordinary conditions (for making a job compatible with a life).\",\"reason\":\"Adds one compact parenthetical clarification.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"a shift, a cancellation, a new start time, a demand to stay\",\"after\":\"a shift – a cancellation – a new start time – a demand to stay\",\"reason\":\"Adds three selective en-dash turns within the existing list.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"en-dashes\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"revised\",\"reason\":\"The edit removes one excess first-person-plural occurrence while retaining direct second-person address.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Both measured contraction and uncontracted-negative counts remain unchanged and in range.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The existing concession and conditional framing remain intact.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"The question-mark count remains unchanged and in range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"omitted\",\"reason\":\"No verified opponent position, quotation, source, or reporting is available.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The profanity count remains unchanged and in range.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The first-person-singular count remains unchanged and in range.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"revised\",\"reason\":\"The edits add the required parenthetical spans and en dashes while preserving the em-dash absence.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The controlling slot-machine analogy remains unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The opening claim and closing governing distinction remain unchanged.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named or credited outside voices, quotations, or linked reporting\",\"why\":\"No verified opponent position, quotation, source, or reporting is available.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "We can refuse a change",
+        "after": "Workers can refuse a change",
+        "reason": "Removes one excess first-person-plural occurrence while preserving the collective workplace claim.",
+        "coverage_dimensions": [
+          "person-reader-stance"
+        ],
+        "measurement_ids": [
+          "first-person-plural-family"
+        ]
+      },
+      {
+        "before": "You open the screen expecting the hours you thought were yours, and your schedule has become a moving target.",
+        "after": "You open the screen expecting the hours you thought were yours (and your schedule has become a moving target).",
+        "reason": "Adds one compact parenthetical aside.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "Emergencies happen, demand changes, and a workplace sometimes needs a quick adjustment.",
+        "after": "Emergencies happen (demand changes), and a workplace sometimes needs a quick adjustment.",
+        "reason": "Adds one compact parenthetical qualification.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "They are ordinary conditions for making a job compatible with a life.",
+        "after": "They are ordinary conditions (for making a job compatible with a life).",
+        "reason": "Adds one compact parenthetical clarification.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "a shift, a cancellation, a new start time, a demand to stay",
+        "after": "a shift – a cancellation – a new start time – a demand to stay",
+        "reason": "Adds three selective en-dash turns within the existing list.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "en-dashes"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "revised",
+        "reason": "The edit removes one excess first-person-plural occurrence while retaining direct second-person address."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Both measured contraction and uncontracted-negative counts remain unchanged and in range."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing concession and conditional framing remain intact."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "The question-mark count remains unchanged and in range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified opponent position, quotation, source, or reporting is available."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The profanity count remains unchanged and in range."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The first-person-singular count remains unchanged and in range."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "revised",
+        "reason": "The edits add the required parenthetical spans and en dashes while preserving the em-dash absence."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The controlling slot-machine analogy remains unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening claim and closing governing distinction remain unchanged."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named or credited outside voices, quotations, or linked reporting",
+        "why": "No verified opponent position, quotation, source, or reporting is available."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d02.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d02.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "6ae68af677412d9512de31987fcc58e068dcbd40626a7739a4671b45574c089c",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "ed76e5193d8c285836559c0e5b8adc44a0f48e3e7d43958b2c0f9b1049a90ce7",
+      "profile_markdown_sha256": "e3d97c12daae3577cbc6b925f9a7e26c206d56096961fcd23facddec54d744ac",
+      "profile_json_sha256": "f8c412f1729d5e034ae8a455feb080b797250a6f5ccbe0a688aa2c929d7b5089"
+    }
+  }
+}

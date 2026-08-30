@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a05421-037e-7811-b053-6850d4d707b6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The subject of the previously discussed problem is not present in the request. Provide the topic and intended audience or purpose so I can draft it.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":18442,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":133,"reasoning_output_tokens":68}}

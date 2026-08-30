@@ -1,0 +1,166 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"threshold, but they also create\",\"after\":\"threshold—but they also create\",\"reason\":\"Adds a supported sharp pivot without changing the argument.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"component in house; a first release\",\"after\":\"component in house—a first release\",\"reason\":\"Adds a supported interruptive qualification at an implementation pivot.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"where weaker signals would expose people to serious harm.\",\"after\":\"(where weaker signals would expose people to serious harm).\",\"reason\":\"Adds a compact qualifying parenthetical.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"but it isn't a universal proof.\",\"after\":\"(but it isn't a universal proof).\",\"reason\":\"Adds a compact parenthetical qualification around the stated limit.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The existing second-person and first-person-plural forms remain unchanged.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Existing contraction and full-negative counts remain unchanged.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"Existing bounded qualifications remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The existing zero question-mark count remains unchanged.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"No source or attributed position is altered.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile supplies no drafting instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"Institutional and singular first-person usage remain unchanged.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"revised\",\"reason\":\"The edits add two parenthetical spans and two em dashes; en-dash usage remains absent.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"Existing concrete policy analogies remain unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The existing reply structure and closing demand remain unchanged.\"}],\"omitted\":[]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "threshold, but they also create",
+        "after": "threshold—but they also create",
+        "reason": "Adds a supported sharp pivot without changing the argument.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "component in house; a first release",
+        "after": "component in house—a first release",
+        "reason": "Adds a supported interruptive qualification at an implementation pivot.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "where weaker signals would expose people to serious harm.",
+        "after": "(where weaker signals would expose people to serious harm).",
+        "reason": "Adds a compact qualifying parenthetical.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "but it isn't a universal proof.",
+        "after": "(but it isn't a universal proof).",
+        "reason": "Adds a compact parenthetical qualification around the stated limit.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing second-person and first-person-plural forms remain unchanged."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing contraction and full-negative counts remain unchanged."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing bounded qualifications remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing zero question-mark count remains unchanged."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "No source or attributed position is altered."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile supplies no drafting instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "Institutional and singular first-person usage remain unchanged."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "revised",
+        "reason": "The edits add two parenthetical spans and two em dashes; en-dash usage remains absent."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing concrete policy analogies remain unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing reply structure and closing demand remain unchanged."
+      }
+    ],
+    "omitted": []
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "c8d9b9bad16f2ec0bfd291d36008336109d77eed59b4c311e5434ce7c133fb4d",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "f49e7ebe4efcf832fac690007ae47889f102d38aafdf9e9d55360c09e956cdc2",
+      "profile_markdown_sha256": "0483be2361aa8a2c989b996815971f697260b72a83e391b2051aeb07b5bb60cc",
+      "profile_json_sha256": "9d5a996583a160ed98c4cb12bf3f9e3e509b698fb6f783166fafee39d271bf2b"
+    }
+  }
+}

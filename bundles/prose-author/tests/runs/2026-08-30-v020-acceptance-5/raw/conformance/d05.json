@@ -1,0 +1,150 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"quietly, but decisively\",\"after\":\"(quietly, but decisively)\",\"reason\":\"Adds the missing compact parenthetical qualification toward the stated target.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"warning, the cost\",\"after\":\"warning – the cost\",\"reason\":\"Adds the missing selective en-dash turn toward the stated target.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"en-dashes\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The existing second-person and first-person-plural stance remains unchanged.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Existing contraction and uncontracted-negative counts remain unchanged.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"Existing concessions and conditional qualifications remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"Existing argumentative questions remain unchanged.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"omitted\",\"reason\":\"No verified sources, quotations, or concrete opponent positions are supplied.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"Existing selective vulgar punctuation remains unchanged.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"Existing brief first-person singular reference remains unchanged.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"revised\",\"reason\":\"The edits add one parenthetical span and one en dash while preserving the em-dash absence.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The controlling physical-room and menu analogy remains unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The title, opening claim, paragraph conversions, and closing demand remain unchanged.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12\",\"why\":\"The request supplies no verified sources, quotations, or concrete opponent positions to introduce.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "quietly, but decisively",
+        "after": "(quietly, but decisively)",
+        "reason": "Adds the missing compact parenthetical qualification toward the stated target.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "warning, the cost",
+        "after": "warning – the cost",
+        "reason": "Adds the missing selective en-dash turn toward the stated target.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "en-dashes"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing second-person and first-person-plural stance remains unchanged."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing contraction and uncontracted-negative counts remain unchanged."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing concessions and conditional qualifications remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing argumentative questions remain unchanged."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified sources, quotations, or concrete opponent positions are supplied."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing selective vulgar punctuation remains unchanged."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing brief first-person singular reference remains unchanged."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "revised",
+        "reason": "The edits add one parenthetical span and one en dash while preserving the em-dash absence."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The controlling physical-room and menu analogy remains unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The title, opening claim, paragraph conversions, and closing demand remain unchanged."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12",
+        "why": "The request supplies no verified sources, quotations, or concrete opponent positions to introduce."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d05.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/d05.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "0eb7e58edd784530be6746640fc55fc9764a57c6553c7eca6fe9f7b63315a2d6",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "7407610a6b99bc0d29ca6c28daf7799a6fefb483a8a7f56ba0d0a905bd97a3ab",
+      "profile_markdown_sha256": "e3d97c12daae3577cbc6b925f9a7e26c206d56096961fcd23facddec54d744ac",
+      "profile_json_sha256": "f8c412f1729d5e034ae8a455feb080b797250a6f5ccbe0a688aa2c929d7b5089"
+    }
+  }
+}
