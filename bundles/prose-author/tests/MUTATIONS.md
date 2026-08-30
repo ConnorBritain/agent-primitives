@@ -39,6 +39,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | treat request-derived metaphors as external facts | 1 | semantic audit does not inflate request-derived rhetoric into unsupported external claims |
 | reject figurative agency as a literal factual contradiction | 1 | coherent request-derived metaphors survive an auditor's deliberately literal reading |
 | restore a model-owned quota for qualitative profile evidence | 1 | support prevalence across files cannot masquerade as a within-piece frequency |
+| stop deduplicating redundant qualitative support bookkeeping | 1 | a repeated support filename is normalized only when at least two distinct evidence files remain |
 | erase the deterministic center aim from draft target cards | 3 | every harness receives the same length-scaled center target instead of model arithmetic |
 | let the drafter return an out-of-range measured habit | 1 | a measured target is an enforced final check rather than an informational card |
 | hide question marks from the semantic-bearing hard limits | 1 | question-mark ceilings are literal pre-return budgets because conformance cannot repair them |
