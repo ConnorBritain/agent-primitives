@@ -108,6 +108,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | allow undeclared files during final acceptance evidence checking | 1 | the final evidence check rejects every undeclared run file without guessing its content |
 | let a Codex wrapper point at another cell's companions | 1 | each Codex wrapper is bound to its own canonical event, output, and recovery filenames |
 | trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
+| stop comparing profile source normalizations to raw evidence | 1 | profile support deduplication metadata reproduces exactly from immutable raw source |
 | advertise legacy claim-repair evidence in a current artifact record | 2 | current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash |
 | scan only the top-level artifact record for legacy repair fields | 1 | legacy repair fields are forbidden in every profile, draft, refusal, critic, and evidence record |
 | check only case-shaped files in retired repair trees | 4 | orphan repair results and prompts invalidate a current run regardless of their names |
