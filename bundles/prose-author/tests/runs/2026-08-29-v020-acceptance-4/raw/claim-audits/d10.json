@@ -1,0 +1,184 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"Identity documents ordinarily reveal identity and more information than a binary age property; “sledgehammer” and “smashing a larger hole in privacy” are value-laden metaphors derived from that lexical contrast.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes unsupported operational and comparative risk assertions about collecting passports, including database creation and liability or breach impact beyond the age decision.\",\"claims\":[{\"claim\":\"Collecting passports for an age decision creates a database of passport information.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Does collecting a passport necessarily create or require a database containing passport information in the contemplated implementation?\"},{\"claim\":\"A database created by collecting passports has liability and potential harm from compromise that exceed those associated with making an adult-or-minor decision.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what legal, security, and implementation assumptions do the liability and potential breach impact of passport collection exceed those of the binary age decision?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This restates the question supplied in the request and adds no descriptive proposition.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"disclose\",\"reason\":\"The categorical answer asserts that at least one safe age-assurance option exists besides collecting identity documents, which the request does not establish.\",\"claims\":[{\"claim\":\"Collecting identity documents is not the only safe option for age assurance.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What non-document age-assurance methods can qualify as safe, and under which threat model, legal regime, and implementation conditions?\"}]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"This defines safety as an end-to-end system property and enumerates the stages included in that framing; it does not report a particular system, practice, or outcome.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"This is a tautological metaphor: describing the overall system as leaky already entails that even one perfect component does not make the whole system non-leaky.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"Both clauses are recommendations to minimize the required claim and separate age proof from identity; neither describes current external practice.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"The sentence asserts the availability and capabilities of three technical approaches, including that some third-party tokens disclose only an age band and withhold underlying evidence.\",\"claims\":[{\"claim\":\"Operating systems or account stores can provide an age signal usable for age assurance.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which operating systems or account stores provide an age signal, through what interface, and with what eligibility and reliability constraints?\"},{\"claim\":\"Credentials suitable for age assurance can be evaluated locally.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which locally evaluated credentials can establish an age property, and what implementation and trust requirements apply?\"},{\"claim\":\"Third-party age-assurance tokens can return only an age band while keeping the underlying evidence from the app developer.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which third-party token systems disclose only an age band, and do their documented data flows keep the underlying evidence from the relying developer?\"}]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"Given the proposed reliance on operating systems, credentials, or third parties, shifting rather than eliminating trust is an inference from the arrangement; choosing the smallest failure is a recommendation.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"The conditional setup presents the author's proposed design, and every following clause is a recommendation about disclosure, session binding, retention, logs, and deletion rather than a report of existing facts.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"This is a recommendation not to repurpose age-check information into a reusable identity system and adds no assertion about present practice.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"disclose\",\"reason\":\"Beyond its rhetorical wording, the sentence predicts that a reusable identity layer created for convenience becomes an attractive repository or target, a causal risk claim not supplied by the request.\",\"claims\":[{\"claim\":\"Turning an age check into a reusable identity layer makes the resulting data store an attractive target for misuse or attack.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence or threat analysis supports the claim that a reusable identity layer materially increases its attractiveness as a target for misuse or attack?\"}]},{\"id\":\"p5s1\",\"status\":\"disclose\",\"reason\":\"The sentence makes an external proposition about the possible contents of applicable laws and platform policies.\",\"claims\":[{\"claim\":\"Applicable legal rules or platform policies may prescribe age-assurance methods, evidence, audits, or fallback handling.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which jurisdictions, laws, or platform policies prescribe any of these age-assurance requirements, and to which apps do they apply?\"}]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"Both mapping requirements and documenting the mechanism's compliance are recommendations, not assertions that particular requirements exist or are satisfied.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This explicitly states the author's preferred response to uncertainty—less collection and a narrower feature—and uses “permanent dossier” as a rhetorical label for the disfavored design.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"keep\",\"reason\":\"The sentence states a conditional decision rule and recommendations to prefer identity-minimizing proof or, failing that, minimize fields, retention, access, and reuse; it does not claim a particular method can meet the condition.\",\"claims\":[]},{\"id\":\"p6s2\",\"status\":\"keep\",\"reason\":\"“We need” expresses a normative demand for eligibility proofs that avoid repeated identity-document presentation; the doorway language is metaphorical and adds no current-practice claim.\",\"claims\":[]},{\"id\":\"p6s3\",\"status\":\"keep\",\"reason\":\"This states a proposed goal and uses a checkpoint, forgetting, photocopier, and locks as metaphors for transient proof without persistent document collection.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Identity documents ordinarily reveal identity and more information than a binary age property; “sledgehammer” and “smashing a larger hole in privacy” are value-laden metaphors derived from that lexical contrast.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "The sentence makes unsupported operational and comparative risk assertions about collecting passports, including database creation and liability or breach impact beyond the age decision.",
+        "claims": [
+          {
+            "claim": "Collecting passports for an age decision creates a database of passport information.",
+            "kind": "broad-generalization",
+            "verification_question": "Does collecting a passport necessarily create or require a database containing passport information in the contemplated implementation?"
+          },
+          {
+            "claim": "A database created by collecting passports has liability and potential harm from compromise that exceed those associated with making an adult-or-minor decision.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what legal, security, and implementation assumptions do the liability and potential breach impact of passport collection exceed those of the binary age decision?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This restates the question supplied in the request and adds no descriptive proposition.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "disclose",
+        "reason": "The categorical answer asserts that at least one safe age-assurance option exists besides collecting identity documents, which the request does not establish.",
+        "claims": [
+          {
+            "claim": "Collecting identity documents is not the only safe option for age assurance.",
+            "kind": "broad-generalization",
+            "verification_question": "What non-document age-assurance methods can qualify as safe, and under which threat model, legal regime, and implementation conditions?"
+          }
+        ]
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "This defines safety as an end-to-end system property and enumerates the stages included in that framing; it does not report a particular system, practice, or outcome.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "This is a tautological metaphor: describing the overall system as leaky already entails that even one perfect component does not make the whole system non-leaky.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Both clauses are recommendations to minimize the required claim and separate age proof from identity; neither describes current external practice.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The sentence asserts the availability and capabilities of three technical approaches, including that some third-party tokens disclose only an age band and withhold underlying evidence.",
+        "claims": [
+          {
+            "claim": "Operating systems or account stores can provide an age signal usable for age assurance.",
+            "kind": "broad-generalization",
+            "verification_question": "Which operating systems or account stores provide an age signal, through what interface, and with what eligibility and reliability constraints?"
+          },
+          {
+            "claim": "Credentials suitable for age assurance can be evaluated locally.",
+            "kind": "broad-generalization",
+            "verification_question": "Which locally evaluated credentials can establish an age property, and what implementation and trust requirements apply?"
+          },
+          {
+            "claim": "Third-party age-assurance tokens can return only an age band while keeping the underlying evidence from the app developer.",
+            "kind": "broad-generalization",
+            "verification_question": "Which third-party token systems disclose only an age band, and do their documented data flows keep the underlying evidence from the relying developer?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Given the proposed reliance on operating systems, credentials, or third parties, shifting rather than eliminating trust is an inference from the arrangement; choosing the smallest failure is a recommendation.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "The conditional setup presents the author's proposed design, and every following clause is a recommendation about disclosure, session binding, retention, logs, and deletion rather than a report of existing facts.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "This is a recommendation not to repurpose age-check information into a reusable identity system and adds no assertion about present practice.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "disclose",
+        "reason": "Beyond its rhetorical wording, the sentence predicts that a reusable identity layer created for convenience becomes an attractive repository or target, a causal risk claim not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Turning an age check into a reusable identity layer makes the resulting data store an attractive target for misuse or attack.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence or threat analysis supports the claim that a reusable identity layer materially increases its attractiveness as a target for misuse or attack?"
+          }
+        ]
+      },
+      {
+        "id": "p5s1",
+        "status": "disclose",
+        "reason": "The sentence makes an external proposition about the possible contents of applicable laws and platform policies.",
+        "claims": [
+          {
+            "claim": "Applicable legal rules or platform policies may prescribe age-assurance methods, evidence, audits, or fallback handling.",
+            "kind": "broad-generalization",
+            "verification_question": "Which jurisdictions, laws, or platform policies prescribe any of these age-assurance requirements, and to which apps do they apply?"
+          }
+        ]
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Both mapping requirements and documenting the mechanism's compliance are recommendations, not assertions that particular requirements exist or are satisfied.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This explicitly states the author's preferred response to uncertainty—less collection and a narrower feature—and uses “permanent dossier” as a rhetorical label for the disfavored design.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "The sentence states a conditional decision rule and recommendations to prefer identity-minimizing proof or, failing that, minimize fields, retention, access, and reuse; it does not claim a particular method can meet the condition.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "“We need” expresses a normative demand for eligibility proofs that avoid repeated identity-document presentation; the doorway language is metaphorical and adds no current-practice claim.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "This states a proposed goal and uses a checkpoint, forgetting, photocopier, and locks as metaphors for transient proof without persistent document collection.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "a1358e2117fb14afb2828fa5ab370f1d019ddc501a8ee6c974dd900a7766b52a",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

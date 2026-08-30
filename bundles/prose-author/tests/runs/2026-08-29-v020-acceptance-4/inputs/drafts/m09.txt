@@ -1,0 +1,9 @@
+For tomorrow’s meeting, the decision should be no: never put confidential intake notes into a general AI summarisation service. The promise is real (faster case review), but the default risk is wrong for sensitive material. A summary tool needs the full notes to work, which turns a convenience into another vault of personal information.
+
+That doesn’t mean the idea is dead. It means the organisation should require a controlled pilot before live use. Start with invented records (not altered client files), assign one accountable owner, not an informal volunteer, and document the purpose, data flow, retention period, deletion process, and people with access. The service must not use submissions to train models, and those terms need to be contractual rather than tucked into a settings page.
+
+The pilot should test accuracy as well as privacy. Intake notes contain context, uncertainty, and safety details; a fluent summary can still omit the fact that changes the case. Staff should compare every output with its source and record omissions, distortions, and invented details (including small ones). Automation may save minutes—then quietly move hours into checking and correction.
+
+Our recommendation is therefore conditional, not vague. No confidential notes go into the system until the provider answers the security and data-handling questions in writing, counsel or a qualified privacy reviewer approves the arrangement, access controls are configured, and staff have a deletion and incident plan (with named responsibility). If those conditions can’t be met, stop the project.
+
+For the meeting, approve only a time-limited test using synthetic notes, for example, ten fictional cases. Set pass criteria before testing: no material omissions, no fabricated facts, acceptable staff review time, confirmed deletion, and a clear exit process. A small nonprofit doesn’t need a grand AI policy tomorrow—it needs a firm boundary and a reversible next step.

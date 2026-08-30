@@ -1,0 +1,23 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12: named source or attributed adversary",
+      "why": "No specific AI service, verified source, or attributable vendor statement was supplied."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Using an AI summariser for confidential intake notes provides genuine convenience.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "AI systems can compress or summarise language.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "AI systems cannot determine which omitted information could hurt a person.",
+      "where": "paragraph 4"
+    }
+  ]
+}

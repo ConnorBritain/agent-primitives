@@ -1,0 +1,194 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"disclose\",\"reason\":\"The characterization of age assurance as a goal rather than one technology and the assertion that implementing it can turn an app into an identity-data collector are unsupported general propositions.\",\"claims\":[{\"claim\":\"Age assurance is a goal that can be implemented through more than one technology.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do authoritative sources define age assurance as an objective achievable through multiple technologies?\"},{\"claim\":\"A requirement to implement age assurance can result in an independent app collecting identity data.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what age-assurance implementations would an independent app become a collector of identity data?\"}]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"Both the capability of documents to establish age and the availability of other safe options require external support.\",\"claims\":[{\"claim\":\"Identity documents can establish a person's age.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which identity documents can establish age, and under what assurance standard?\"},{\"claim\":\"Collecting identity documents is not the only safe method of age assurance.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What non-document age-assurance methods are recognized as safe, and by which standard?\"}]},{\"id\":\"p1s3\",\"status\":\"disclose\",\"reason\":\"The comparative claim that document collection is often the riskiest option is an unsupported broad assessment.\",\"claims\":[{\"claim\":\"In many cases, collecting identity documents is riskier than other age-assurance options.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Across which use cases and risk measures is collecting identity documents the riskiest age-assurance option?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This is a recommendation to clarify the requirement, with the parenthetical listing proposed dimensions rather than asserting current external facts.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"This is a design recommendation based on the stated requirement and adds no claim about existing practice or effectiveness.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"The sentence clearly presents imagined implementation options an app could use; it does not report that a real app, platform, credential, or account system currently provides them.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that both the proposed alternatives and passport uploads have shortcomings, which are externally assessable claims.\",\"claims\":[{\"claim\":\"The proposed non-document age-assurance methods are imperfect.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What documented limitations affect operating-system or app-store age bands, device-held credentials, and account declarations?\"},{\"claim\":\"Passport uploads are imperfect as an age-assurance method.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What documented limitations prevent passport uploads from providing perfect age assurance?\"}]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is a conceptual distinction between proving an age-related attribute and identifying a person; it adds no contingent external premise.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes unsupported claims about what services may need and how rarely they need specific identifying data.\",\"claims\":[{\"claim\":\"A service may need confidence that a person belongs to an age range such as under 13, 13 to 15, or adult.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which service requirements or regulatory regimes call for confidence in these age ranges?\"},{\"claim\":\"Services rarely need a person's legal name, address, document number, and photograph for age assurance.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How often, and in which contexts, is this full set of identity data actually necessary for age assurance?\"}]},{\"id\":\"p3s3\",\"status\":\"disclose\",\"reason\":\"The value and exposure consequences attributed to collecting the data bundle are unsupported security and privacy generalizations.\",\"claims\":[{\"claim\":\"A collection of legal names, addresses, document numbers, and photographs constitutes a valuable data repository.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that repositories containing this identity-data bundle have significant value to attackers or other actors?\"},{\"claim\":\"A breach, subpoena, or internal misuse of such a repository can expose substantially more personal information than age alone.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What information could each identified event expose, and how does that exposure compare with disclosure of age alone?\"}]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"The entire sentence proposes privacy-oriented design requirements and an example of minimal records; it does not claim that existing systems follow them.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"disclose\",\"reason\":\"The recommendation itself is permissible, but its supporting premise about document-based exclusion is an unsupported population-level claim.\",\"claims\":[{\"claim\":\"Document-based age assurance can exclude people who lack qualifying credentials or cannot safely present them.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which populations lack qualifying documents or face safety barriers to presenting them, and how often does this cause exclusion?\"}]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This is a proposed constraint on specialist services, contrasting a reusable profile with a narrow assertion without claiming current vendor behavior.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This is conditional practical advice for handling a vague mandate and adds no assertion that a particular mandate, regulator, or platform has acted in a stated way.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This is an explicit normative position about rules and developer roles, not a description of current institutional practice.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"The sentence states a proposed privacy principle and corresponding demands concerning collection, retention, attribute proof, and institutional compliance paths; it does not assert that institutions currently satisfy them.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "disclose",
+        "reason": "The characterization of age assurance as a goal rather than one technology and the assertion that implementing it can turn an app into an identity-data collector are unsupported general propositions.",
+        "claims": [
+          {
+            "claim": "Age assurance is a goal that can be implemented through more than one technology.",
+            "kind": "broad-generalization",
+            "verification_question": "Do authoritative sources define age assurance as an objective achievable through multiple technologies?"
+          },
+          {
+            "claim": "A requirement to implement age assurance can result in an independent app collecting identity data.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what age-assurance implementations would an independent app become a collector of identity data?"
+          }
+        ]
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "Both the capability of documents to establish age and the availability of other safe options require external support.",
+        "claims": [
+          {
+            "claim": "Identity documents can establish a person's age.",
+            "kind": "broad-generalization",
+            "verification_question": "Which identity documents can establish age, and under what assurance standard?"
+          },
+          {
+            "claim": "Collecting identity documents is not the only safe method of age assurance.",
+            "kind": "broad-generalization",
+            "verification_question": "What non-document age-assurance methods are recognized as safe, and by which standard?"
+          }
+        ]
+      },
+      {
+        "id": "p1s3",
+        "status": "disclose",
+        "reason": "The comparative claim that document collection is often the riskiest option is an unsupported broad assessment.",
+        "claims": [
+          {
+            "claim": "In many cases, collecting identity documents is riskier than other age-assurance options.",
+            "kind": "broad-generalization",
+            "verification_question": "Across which use cases and risk measures is collecting identity documents the riskiest age-assurance option?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This is a recommendation to clarify the requirement, with the parenthetical listing proposed dimensions rather than asserting current external facts.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "This is a design recommendation based on the stated requirement and adds no claim about existing practice or effectiveness.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "The sentence clearly presents imagined implementation options an app could use; it does not report that a real app, platform, credential, or account system currently provides them.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "disclose",
+        "reason": "The sentence asserts that both the proposed alternatives and passport uploads have shortcomings, which are externally assessable claims.",
+        "claims": [
+          {
+            "claim": "The proposed non-document age-assurance methods are imperfect.",
+            "kind": "broad-generalization",
+            "verification_question": "What documented limitations affect operating-system or app-store age bands, device-held credentials, and account declarations?"
+          },
+          {
+            "claim": "Passport uploads are imperfect as an age-assurance method.",
+            "kind": "broad-generalization",
+            "verification_question": "What documented limitations prevent passport uploads from providing perfect age assurance?"
+          }
+        ]
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is a conceptual distinction between proving an age-related attribute and identifying a person; it adds no contingent external premise.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The sentence makes unsupported claims about what services may need and how rarely they need specific identifying data.",
+        "claims": [
+          {
+            "claim": "A service may need confidence that a person belongs to an age range such as under 13, 13 to 15, or adult.",
+            "kind": "broad-generalization",
+            "verification_question": "Which service requirements or regulatory regimes call for confidence in these age ranges?"
+          },
+          {
+            "claim": "Services rarely need a person's legal name, address, document number, and photograph for age assurance.",
+            "kind": "broad-generalization",
+            "verification_question": "How often, and in which contexts, is this full set of identity data actually necessary for age assurance?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "disclose",
+        "reason": "The value and exposure consequences attributed to collecting the data bundle are unsupported security and privacy generalizations.",
+        "claims": [
+          {
+            "claim": "A collection of legal names, addresses, document numbers, and photographs constitutes a valuable data repository.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that repositories containing this identity-data bundle have significant value to attackers or other actors?"
+          },
+          {
+            "claim": "A breach, subpoena, or internal misuse of such a repository can expose substantially more personal information than age alone.",
+            "kind": "broad-generalization",
+            "verification_question": "What information could each identified event expose, and how does that exposure compare with disclosure of age alone?"
+          }
+        ]
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "The entire sentence proposes privacy-oriented design requirements and an example of minimal records; it does not claim that existing systems follow them.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "disclose",
+        "reason": "The recommendation itself is permissible, but its supporting premise about document-based exclusion is an unsupported population-level claim.",
+        "claims": [
+          {
+            "claim": "Document-based age assurance can exclude people who lack qualifying credentials or cannot safely present them.",
+            "kind": "broad-generalization",
+            "verification_question": "Which populations lack qualifying documents or face safety barriers to presenting them, and how often does this cause exclusion?"
+          }
+        ]
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This is a proposed constraint on specialist services, contrasting a reusable profile with a narrow assertion without claiming current vendor behavior.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This is conditional practical advice for handling a vague mandate and adds no assertion that a particular mandate, regulator, or platform has acted in a stated way.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This is an explicit normative position about rules and developer roles, not a description of current institutional practice.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "The sentence states a proposed privacy principle and corresponding demands concerning collection, retention, attribute proof, and institutional compliance paths; it does not assert that institutions currently satisfy them.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "d48cae7728c5161209b42fb29e9a986025565f58af955ac91191655dc9747026",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

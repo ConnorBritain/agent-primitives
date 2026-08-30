@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The problem is not identified in the supplied request, and no earlier discussion is available in the factual packet. Please state the problem, along with any essential facts or position the piece should advance.\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "refusal",
+    "draft": "",
+    "omitted": [],
+    "refused": "The problem is not identified in the supplied request, and no earlier discussion is available in the factual packet. Please state the problem, along with any essential facts or position the piece should advance."
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/refusals/dr01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/refusals/dr01.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "d14f25e11c9c298d253ad515bb128ad7b37678a58a44772c775f09e211d6a403",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

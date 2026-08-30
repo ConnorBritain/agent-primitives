@@ -1,0 +1,423 @@
+{
+  "schema": "voice-draft-claim-audit/4",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "This is a constructed comparison between two possible shifts; the matching hours, wage, and job are stipulated features of the comparison.",
+      "claims": []
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "This is the essay's evaluative conclusion about the two stipulated arrangements, not a new external fact.",
+      "claims": []
+    },
+    {
+      "id": "p1s3",
+      "status": "disclose",
+      "reason": "The conditional first clause is an imagined case, but the sentence also generalizes that workplace bargaining concerns control.",
+      "claims": [
+        {
+          "claim": "Control over working arrangements is an object of workplace bargaining.",
+          "kind": "broad-generalization",
+          "verification_question": "Across which workplaces or bargaining systems is control over working arrangements an established subject of bargaining?"
+        }
+      ]
+    },
+    {
+      "id": "p1s4",
+      "status": "keep",
+      "reason": "This is an evaluative characterization of the stipulated inconvenience and loss of control.",
+      "claims": []
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "reason": "This question introduces a hypothetical case in which a worker cannot refuse a last-minute change.",
+      "claims": []
+    },
+    {
+      "id": "p2s2",
+      "status": "disclose",
+      "reason": "It asserts that workers unable to refuse last-minute changes must reserve unpaid personal time.",
+      "claims": [
+        {
+          "claim": "Workers who cannot refuse last-minute schedule changes must keep personal time available without compensation for that availability.",
+          "kind": "broad-generalization",
+          "verification_question": "Do workers subject to nonrefusable last-minute schedule changes have to reserve otherwise personal time, and are they uncompensated for doing so?"
+        }
+      ]
+    },
+    {
+      "id": "p2s3",
+      "status": "disclose",
+      "reason": "The shock-absorber metaphor rests on unsupported claims that unpredictable scheduling disrupts several specific parts of workers' lives and removes their control over timing.",
+      "claims": [
+        {
+          "claim": "Short-notice shift changes can disrupt workers' child care, second jobs, classes, sleep, and transport connections.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that short-notice shift changes disrupt each of these aspects of workers' lives?"
+        },
+        {
+          "claim": "Workers affected by short-notice scheduling lack control over the timetable governing their travel and personal arrangements.",
+          "kind": "broad-generalization",
+          "verification_question": "Under what scheduling arrangements do workers lack meaningful control over the timing of travel and personal commitments?"
+        }
+      ]
+    },
+    {
+      "id": "p2s4",
+      "status": "disclose",
+      "reason": "It makes a causal and distributive claim about scheduling systems shifting uncertainty costs from firms to workers.",
+      "claims": [
+        {
+          "claim": "Short-notice scheduling systems transfer the costs of uncertainty from firms to workers.",
+          "kind": "broad-generalization",
+          "verification_question": "What costs are transferred by short-notice scheduling, and what evidence shows they move from firms to workers?"
+        }
+      ]
+    },
+    {
+      "id": "p3s1",
+      "status": "disclose",
+      "reason": "It claims that the asserted transfer changes worker behavior even before a schedule is altered.",
+      "claims": [
+        {
+          "claim": "Transferring scheduling uncertainty to workers changes their conduct before any actual shift change occurs.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows anticipatory behavioral changes caused by scheduling uncertainty before shifts change?"
+        }
+      ]
+    },
+    {
+      "id": "p3s2",
+      "status": "disclose",
+      "reason": "It generalizes that possible schedule disruption makes every personal plan provisional.",
+      "claims": [
+        {
+          "claim": "Workers who know their hours may change unpredictably treat their plans as provisional.",
+          "kind": "broad-generalization",
+          "verification_question": "Do workers facing unpredictable hours generally treat personal plans as provisional, and under what conditions?"
+        }
+      ]
+    },
+    {
+      "id": "p3s3",
+      "status": "disclose",
+      "reason": "It reports a behavioral consequence without presenting it as a merely imagined example.",
+      "claims": [
+        {
+          "claim": "Workers decline invitations because of unpredictable scheduling.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence links unpredictable work schedules to workers declining invitations?"
+        }
+      ]
+    },
+    {
+      "id": "p3s4",
+      "status": "disclose",
+      "reason": "It reports a behavioral consequence without presenting it as a merely imagined example.",
+      "claims": [
+        {
+          "claim": "Workers postpone appointments because of unpredictable scheduling.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence links unpredictable work schedules to postponed appointments?"
+        }
+      ]
+    },
+    {
+      "id": "p3s5",
+      "status": "disclose",
+      "reason": "It asserts both a barrier to seeking better work and the practical premise that interviews require dependable free time.",
+      "claims": [
+        {
+          "claim": "Unpredictable scheduling makes it harder for workers to seek better employment.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that unpredictable scheduling impedes workers from seeking better jobs?"
+        },
+        {
+          "claim": "Attending job interviews requires workers to have dependable gaps in their schedules.",
+          "kind": "broad-generalization",
+          "verification_question": "To what extent do job interviews require dependable free periods that workers with unstable schedules cannot secure?"
+        }
+      ]
+    },
+    {
+      "id": "p3s6",
+      "status": "disclose",
+      "reason": "The option metaphor depends on unsupported assertions that employers obtain control over off-hours availability and do so without compensating workers.",
+      "claims": [
+        {
+          "claim": "Employers using unpredictable schedules obtain practical claims on workers' time outside scheduled work.",
+          "kind": "broad-generalization",
+          "verification_question": "Under what scheduling practices do employers obtain practical control over workers' off-hours time?"
+        },
+        {
+          "claim": "Workers are not compensated for keeping that off-hours time available to employers.",
+          "kind": "broad-generalization",
+          "verification_question": "Are affected workers uncompensated for the off-hours availability demanded by unpredictable scheduling?"
+        }
+      ]
+    },
+    {
+      "id": "p3s7",
+      "status": "keep",
+      "reason": "This is a rhetorical classification of the arrangement already under discussion.",
+      "claims": []
+    },
+    {
+      "id": "p3s8",
+      "status": "keep",
+      "reason": "This is a metaphorical value judgment describing employer control over workers' otherwise personal time.",
+      "claims": []
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "It explicitly asks readers to imagine a casino with stipulated rules.",
+      "claims": []
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "reason": "This is an inference within the stipulated casino analogy: unilateral rule changes undermine the player's apparent choice.",
+      "claims": []
+    },
+    {
+      "id": "p4s3",
+      "status": "disclose",
+      "reason": "It claims scheduling software gives management particular operational advantages while workers receive a particular notification-based experience.",
+      "claims": [
+        {
+          "claim": "Scheduling software gives management increased information, speed, and discretion over schedules.",
+          "kind": "broad-generalization",
+          "verification_question": "Which scheduling products or implementations give management increased information, speed, and discretion, and how?"
+        },
+        {
+          "claim": "Workers using scheduling software receive shift changes through time-sensitive digital notifications.",
+          "kind": "broad-generalization",
+          "verification_question": "Which scheduling systems notify workers of changes through digital alerts and impose a response countdown or deadline?"
+        }
+      ]
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "reason": "The consequences of refusal are explicitly stipulated by the conditional, and the moving-rulebook language is an analogy derived from that imbalance.",
+      "claims": []
+    },
+    {
+      "id": "p4s5",
+      "status": "disclose",
+      "reason": "It asserts that the managerial power at issue exists independently of and predates the software.",
+      "claims": [
+        {
+          "claim": "Managerial power to impose short-notice scheduling changes exists independently of scheduling software.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that this managerial scheduling power exists without software?"
+        }
+      ]
+    },
+    {
+      "id": "p4s6",
+      "status": "disclose",
+      "reason": "It claims software automates a preexisting practice and characterizes that practice as historically coercive.",
+      "claims": [
+        {
+          "claim": "Scheduling software automates a preexisting managerial power over workers' schedules.",
+          "kind": "broad-generalization",
+          "verification_question": "Which preexisting scheduling powers are automated by current scheduling software?"
+        },
+        {
+          "claim": "Managerial short-notice scheduling was coercive before it was implemented through software.",
+          "kind": "broad-generalization",
+          "verification_question": "What historical or workplace evidence supports characterizing pre-software short-notice scheduling as coercive?"
+        }
+      ]
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "This states the essay's present evaluative stance, not an invented biographical event or experience.",
+      "claims": []
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "reason": "This is a proposed criterion for judging software and adds no claim about current products or institutions.",
+      "claims": []
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "This explicitly defines the speaker's evaluative use of the word useful.",
+      "claims": []
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "reason": "This is an explicitly signalled value judgment and proposed rhetorical classification of a stipulated kind of tool.",
+      "claims": []
+    },
+    {
+      "id": "p5s5",
+      "status": "keep",
+      "reason": "This is a general possibility expressed as an analogy-driven evaluative warning: interface polish does not logically guarantee a fair arrangement.",
+      "claims": []
+    },
+    {
+      "id": "p6s1",
+      "status": "disclose",
+      "reason": "It asserts that some real schedule changes cannot be avoided.",
+      "claims": [
+        {
+          "claim": "Some short-notice workplace schedule changes are unavoidable.",
+          "kind": "broad-generalization",
+          "verification_question": "What circumstances make short-notice workplace schedule changes genuinely unavoidable?"
+        }
+      ]
+    },
+    {
+      "id": "p6s2",
+      "status": "disclose",
+      "reason": "It presents sickness, equipment failure, and unexpected demand as real causes of schedule changes.",
+      "claims": [
+        {
+          "claim": "Worker illness can necessitate workplace schedule changes.",
+          "kind": "broad-generalization",
+          "verification_question": "How often and under what conditions does worker illness necessitate short-notice schedule changes?"
+        },
+        {
+          "claim": "Equipment failure can necessitate workplace schedule changes.",
+          "kind": "broad-generalization",
+          "verification_question": "How does equipment failure lead to short-notice schedule changes in the relevant workplaces?"
+        },
+        {
+          "claim": "Unexpected demand can necessitate workplace schedule changes.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that genuinely unexpected demand necessitates short-notice schedule changes?"
+        }
+      ]
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "reason": "This is a normative inference: the existence of exceptional emergencies does not by itself justify adopting emergency conditions as a routine rule.",
+      "claims": []
+    },
+    {
+      "id": "p6s4",
+      "status": "keep",
+      "reason": "This proposes features of a fair scheduling system and protection against a specified possible form of retaliation; it does not claim those rules currently exist.",
+      "claims": []
+    },
+    {
+      "id": "p6s5",
+      "status": "disclose",
+      "reason": "It predicts that imposing costs will change firm behavior, while the statement that software cannot erase an imposed charge is a logical consequence of the proposal.",
+      "claims": [
+        {
+          "claim": "Making firms bear a cost for short-notice scheduling will cause them to stop treating scheduling uncertainty as free.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that premium pay, notice rules, guaranteed hours, or refusal rights change firms' treatment of scheduling uncertainty?"
+        }
+      ]
+    },
+    {
+      "id": "p7s1",
+      "status": "keep",
+      "reason": "This is the essay's evaluative conclusion that individual coping does not resolve the underlying allocation of control.",
+      "claims": []
+    },
+    {
+      "id": "p7s2",
+      "status": "disclose",
+      "reason": "The steering-wheel metaphor restates unchanged control, but the sentence also claims calendars and faster notifications can reduce practical harm.",
+      "claims": [
+        {
+          "claim": "Better calendars or faster schedule notifications can lessen the disruption caused by short-notice scheduling.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that improved calendars or faster notifications lessen disruption from schedule changes?"
+        }
+      ]
+    },
+    {
+      "id": "p7s3",
+      "status": "keep",
+      "reason": "This is a recommendation identifying protections and forms of collective control that workers should have.",
+      "claims": []
+    },
+    {
+      "id": "p7s4",
+      "status": "keep",
+      "reason": "This characterizes the meaning of the proposed organizing demand, rather than reporting an external event or practice.",
+      "claims": []
+    },
+    {
+      "id": "p7s5",
+      "status": "keep",
+      "reason": "This explains the normative questions embodied in the proposed demand without asserting current legal ownership or payment rules.",
+      "claims": []
+    },
+    {
+      "id": "p7s6",
+      "status": "keep",
+      "reason": "This is a rhetorical claim of solidarity arising from the shared normative question.",
+      "claims": []
+    },
+    {
+      "id": "p8s1",
+      "status": "disclose",
+      "reason": "It reports that predictability is described by unspecified real speakers as an employment benefit.",
+      "claims": [
+        {
+          "claim": "Work-schedule predictability is sometimes described as an employment benefit.",
+          "kind": "broad-generalization",
+          "verification_question": "Who describes schedule predictability as a benefit, and in what workplace, policy, or industry contexts?"
+        }
+      ]
+    },
+    {
+      "id": "p8s2",
+      "status": "keep",
+      "reason": "This is a metaphorical value judgment presenting predictability as a boundary protecting personal life.",
+      "claims": []
+    },
+    {
+      "id": "p8s3",
+      "status": "keep",
+      "reason": "The inventory language is a metaphorical inference from the essay's stipulated absence of a boundary around off-hours time.",
+      "claims": []
+    },
+    {
+      "id": "p8s4",
+      "status": "disclose",
+      "reason": "The recommendation and control framing are evaluative, but the sentence also asserts that short-notice scheduling shifts costs toward workers and produces upward obedience.",
+      "claims": [
+        {
+          "claim": "Short-notice scheduling pushes the costs of uncertainty downward from management or firms to workers.",
+          "kind": "broad-generalization",
+          "verification_question": "Which costs of short-notice scheduling are borne by workers rather than firms, and what evidence establishes that distribution?"
+        },
+        {
+          "claim": "Short-notice scheduling increases worker obedience to management.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that uncertainty created by short-notice scheduling increases worker obedience?"
+        }
+      ]
+    },
+    {
+      "id": "p8s5",
+      "status": "keep",
+      "reason": "This is an evaluative conclusion that schedule stability has significance beyond convenience.",
+      "claims": []
+    },
+    {
+      "id": "p8s6",
+      "status": "keep",
+      "reason": "This is a metaphorical normative conclusion that a stable schedule restores workers' control over their nonwork time.",
+      "claims": []
+    }
+  ]
+}

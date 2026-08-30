@@ -1,0 +1,127 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12: named source, opponent, or verified quotation",
+      "why": "The request supplies no vendor identity, attributed statement, or source material to name or quote."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Owners of connected home devices bought devices containing chips.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Owners of connected home devices place those devices beside their routers.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Owners of connected home devices supply the electricity used by those devices.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "The server component of connected appliances is undocumented for owners.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Owners cannot inspect the server component on which their connected appliances depend.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Owners cannot replace the server component on which their connected appliances depend.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Closing a connected-doorbell cloud service can disable alerts, stored clips, or account login.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Closing a connected-thermostat cloud service can disable schedules and automation.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Closing a connected-lighting cloud service can disable shared scenes.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "After a connected-appliance cloud shutdown, owners can still operate the appliance by pressing a physical button.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Owners chose affected connected appliances because of functionality provided through their apps.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Connected-home routines, integrations, voice commands, and access rules commonly depend on remote databases.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Some remote-database-dependent connected-home features were included in capabilities customers paid for.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Some connected sensors continue sensing after a cloud shutdown but can no longer report their results.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Vendors may disclose connected appliances’ cloud-service requirements in small print.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Cloud services can provide outside alerts for connected appliances.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Cloud services can coordinate connected devices.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Cloud services can perform computational work that is demanding for connected appliances.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Cloud services can deliver updates to connected appliances.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Small connected appliances can rely on larger servers for computational or operational capacity.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Connected-appliance commands can be transmitted across a home network without depending on the vendor cloud.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Connected appliances can store and execute schedules locally on the device.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Connected-appliance accounts and cryptographic keys can remain under household control.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "A documented local interface usable without vendor approval can allow independent software to replace a discontinued connected-appliance app.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "With local operation, connected heating, lighting, lock, camera, sensor, and switch products can retain their basic functions after cloud features disappear.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Connected-home hardware eventually fails.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Compatibility support for connected-home devices eventually ends.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Local operation can separate an appliance’s useful life from a vendor’s willingness to continue service, acquisition, or bankruptcy.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Homes are increasingly filling with connected property whose operation is governed as a service.",
+      "where": "paragraph 9"
+    }
+  ]
+}

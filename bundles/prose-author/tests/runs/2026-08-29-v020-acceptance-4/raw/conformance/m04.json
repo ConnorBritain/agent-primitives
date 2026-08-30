@@ -1,0 +1,126 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies the measured second-person and first-person-plural ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies the measured contraction and uncontracted-negative ranges.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The draft preserves bounded concessions and incentive-based predictions.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies the measured question-mark range and uses its question as a legislative stress test.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"The request provides no verified source material needed to support source-based rebuttal or explicit credit.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile supplies no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft preserves the plural public-interest stance and contains no first-person-singular reference.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies all measured parenthetical, em-dash, and en-dash ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The draft uses brief physical and system analogies before returning to literal consequences.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The opening pivots from the measure's stated purpose to its concealed cost, and the close states a public-interest principle with a specific institutional demand and practical action.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: source-based rebuttal and explicit credit to opponents, allies, or evidence\",\"why\":\"The request supplies no specific law, bill text, opponent statement, allied organization, research, or other verified source to quote or credit.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies the measured second-person and first-person-plural ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies the measured contraction and uncontracted-negative ranges."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft preserves bounded concessions and incentive-based predictions."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies the measured question-mark range and uses its question as a legislative stress test."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "The request provides no verified source material needed to support source-based rebuttal or explicit credit."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile supplies no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft preserves the plural public-interest stance and contains no first-person-singular reference."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies all measured parenthetical, em-dash, and en-dash ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft uses brief physical and system analogies before returning to literal consequences."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening pivots from the measure's stated purpose to its concealed cost, and the close states a public-interest principle with a specific institutional demand and practical action."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: source-based rebuttal and explicit credit to opponents, allies, or evidence",
+        "why": "The request supplies no specific law, bill text, opponent statement, allied organization, research, or other verified source to quote or credit."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/conformance/m04.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/conformance/m04.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "ed7b3f73d80f4b3db41f0f8fc14c3491e18125a49ece81cef2c9ed60106c1011",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "ed1e1b08e9f667b7526a5059769cc242eb7d9273666746f04628ef536e9e40c5",
+      "profile_markdown_sha256": "5301b6d2371ec5cd46d4cf6e0a3a80ef0848e9a7dbb1085a703466b5f44cfdda",
+      "profile_json_sha256": "172343ac6e29029d9fc9ab8d7d1fef239b40d821576932d5e6740b5371c46194"
+    }
+  }
+}

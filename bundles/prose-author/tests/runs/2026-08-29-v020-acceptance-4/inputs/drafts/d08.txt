@@ -1,0 +1,9 @@
+A library loan looks like a borrowed book, but this one came with a trapdoor. The publisher could pull the title, and your library’s copy fell through it while you were reading.
+
+So, is that merely the digital version of returning a book? No. When you return a paper book, the loan ends on the agreed date (or earlier, if returned early), and the book remains in the library’s collection for another reader. Here, the publisher ended your access from outside the transaction. You didn’t return anything; someone else reached into the loan and took it.
+
+Of course, an ebook loan isn’t ownership. Libraries license access under terms set by publishers and platforms (the machinery behind the friendly “Borrow” button). But “licensed” can’t be a magic word that erases every ordinary expectation attached to lending. If a loan lasts two weeks, you should be able to rely on those two weeks unless the library clearly warned otherwise before checkout.
+
+The useful distinction is between expiration and revocation. Expiration is the clock running out. Revocation is a hand entering the clock and moving its hands. The first is part of borrowing; the second is remote control – a power held by the seller, exercised against the library and its reader. A loan that can be cancelled invisibly is less like a book on a due-date system and more like a hotel key deactivated halfway through a paid night without warning.
+
+That matters beyond one vanished title. Readers increasingly encounter culture through systems that can rewrite the deal after it begins. I want libraries to demand terms that protect active loans, and I want publishers to honor them even when they withdraw future access. Otherwise, we haven’t digitized returning a book. We’ve digitized somebody else’s right to snatch it from your hands.

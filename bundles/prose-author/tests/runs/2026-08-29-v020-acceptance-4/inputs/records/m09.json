@@ -1,0 +1,39 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o11",
+      "why": "No specific AI service, provider response, contract, or verified source material was supplied to name or cite."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "AI summarisation services can make case review faster.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "An AI summary tool requires access to the full intake notes in order to produce a summary.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Using an AI summary tool creates an additional store of the personal information contained in the notes.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Intake notes generally contain contextual information, uncertainty, and safety-related details.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "An AI-generated summary can read fluently while omitting information that materially changes a case.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "AI summarisation automation may save staff time during the initial review task.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Checking and correcting AI-generated summaries may consume hours of staff time and offset initial time savings.",
+      "where": "paragraph 3"
+    }
+  ]
+}

@@ -1,0 +1,400 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"The title is a metaphorical thesis equating repair documentation with a tool and adds no external premise.\",\"claims\":[]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This is a normative metaphor about where service information belongs.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"The conditional supplies its own imagined premise, and the locked-toolbox description is an analogy for withholding information stipulated as necessary for repair.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"This continues the preceding toolbox metaphor without asserting a separate real event or practice.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"The sentence reasons from the stipulated labeling and withholding: changing the label does not change the transaction, while the lock and hinge language is figurative.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"disclose\",\"reason\":\"This asserts generally that missing service information consumes labor that independent shops cannot bill.\",\"claims\":[{\"claim\":\"Missing service information causes independent repair shops to incur labor time that they cannot honestly bill to customers.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that missing service information generally creates unbillable labor time for independent repair shops?\"}]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"This describes technicians' typical responses to unavailable repair information, including relinquishing jobs.\",\"claims\":[{\"claim\":\"When repair information is missing, independent technicians search for information, perform additional disassembly and testing, guess at procedures, and sometimes send jobs elsewhere.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence documents these technician behaviors and how commonly each occurs when repair information is unavailable?\"}]},{\"id\":\"p3s3\",\"status\":\"disclose\",\"reason\":\"Each clause asserts a real consequence of restricted repair information for a different participant.\",\"claims\":[{\"claim\":\"Restricted repair information causes customers to lose time.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that restricted repair information causes customer delays?\"},{\"claim\":\"Restricted repair information reduces the productive capacity of independent repair shops.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that restricted repair information reduces independent-shop capacity?\"},{\"claim\":\"Restricted repair information gives authorized repair channels greater leverage.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that information restrictions increase the leverage of authorized repair channels, and what form does that leverage take?\"}]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"This is a clearly signaled hypothetical question; the two-hour and ten-minute figures belong to the imagined case rather than reporting measured times.\",\"claims\":[]},{\"id\":\"p3s5\",\"status\":\"keep\",\"reason\":\"Given the preceding imagined uncompensated delay, allocating its cost to margin, schedule, or both is an accounting inference; wishing is rhetorical.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"disclose\",\"reason\":\"The sentence characterizes the previously alleged burdens as concrete overhead, which depends on their real occurrence.\",\"claims\":[{\"claim\":\"The burdens caused by missing service information constitute concrete overhead for independent repair shops.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What cost or operational evidence establishes that missing service information creates concrete overhead for independent shops?\"}]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"The conditional supplies its premise, and calling an uncertain estimate a wager is a metaphorical inference.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that brand-specific access regimes may impose additional fees, credentials, tools, or approvals.\",\"claims\":[{\"claim\":\"After a shop purchases access to one manufacturer's service portal, repairing another brand may require a separate fee, login, tool, or approval.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which manufacturers impose separate service-information fees, logins, tools, or approvals, and under what repair programs?\"}]},{\"id\":\"p4s4\",\"status\":\"disclose\",\"reason\":\"The casino language is figurative, but it rests on a generalized claim that every access gate shifts time and decision-making power against small shops.\",\"claims\":[{\"claim\":\"Each service-information access gate consumes independent-shop time and gives the party controlling access authority over the repair conditions.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What kinds of access gates exist, and what evidence shows that each consumes shop time and transfers control over repair conditions?\"}]},{\"id\":\"p4s5\",\"status\":\"disclose\",\"reason\":\"This asserts that shops pay merely to determine repair feasibility.\",\"claims\":[{\"claim\":\"Independent repair shops pay access costs before they can determine whether a repair can be completed.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which access programs charge independent shops before repair feasibility can be determined, and how often does this occur?\"}]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This defines how the draft itself uses the word “manual” and is not an external biographical claim.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This further clarifies the draft's own definition and makes no external assertion.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This enumerates what the author includes within the expressly broad working definition of “manual.”\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This states the essay's practical thesis by defining necessary information as job equipment; it adds no separate external premise.\",\"claims\":[]},{\"id\":\"p5s5\",\"status\":\"keep\",\"reason\":\"The claimed equivalence is an analogy derived from defining the withheld information as a necessary tool; the bench example is illustrative, not a reported event.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"disclose\",\"reason\":\"The lock metaphor rests on an unsupported generalized equivalence between documentation restrictions and parts-pairing restrictions.\",\"claims\":[{\"claim\":\"Documentation restrictions and parts-pairing restrictions are two mechanisms of the same form of repair control.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that documentation restrictions and parts pairing operate as linked mechanisms of repair control?\"}]},{\"id\":\"p6s2\",\"status\":\"keep\",\"reason\":\"This supplies a functional definition of “pairing” by naming the kinds of authorization or setup connections the term encompasses.\",\"claims\":[]},{\"id\":\"p6s3\",\"status\":\"disclose\",\"reason\":\"This asserts a technical capability of paired devices: rejection or impaired operation despite physical and electrical compatibility.\",\"claims\":[{\"claim\":\"Parts-paired devices can reject or impair the operation of a replacement component that is physically correct and electrically sound.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which devices exhibit this behavior, and what testing or technical documentation shows rejection or impaired operation of otherwise compatible parts?\"}]},{\"id\":\"p6s4\",\"status\":\"keep\",\"reason\":\"Given the stated definition of pairing and the conditional lack of access to its required procedure, the conclusion that the part is not functionally accessible is an inference; “prop” is metaphorical.\",\"claims\":[]},{\"id\":\"p6s5\",\"status\":\"keep\",\"reason\":\"This is a metaphorical restatement that procedural information connects installation to operation under the preceding defined scenario.\",\"claims\":[]},{\"id\":\"p7s1\",\"status\":\"keep\",\"reason\":\"This is a rhetorical question and contains no descriptive answer of its own.\",\"claims\":[]},{\"id\":\"p7s2\",\"status\":\"disclose\",\"reason\":\"The sentence attributes five distinct real costs to independent shops.\",\"claims\":[{\"claim\":\"Independent repair shops incur subscription costs because of restricted repair access.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What subscription costs do independent shops incur for repair access, and how substantial are they?\"},{\"claim\":\"Restricted repair access causes independent shops to have idle service bays.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence links repair-access restrictions to idle service bays at independent shops?\"},{\"claim\":\"Restricted repair access increases training time for independent shops.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that repair-access restrictions create additional training time?\"},{\"claim\":\"Restricted repair access requires independent shops to acquire duplicated equipment.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which equipment must shops duplicate because of access restrictions, and how commonly does this happen?\"},{\"claim\":\"Restricted repair access causes independent shops to turn away work.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that shops reject jobs because of restricted repair access?\"}]},{\"id\":\"p7s3\",\"status\":\"disclose\",\"reason\":\"The sentence attributes three distinct consequences of the arrangement to customers.\",\"claims\":[{\"claim\":\"Restricted repair access delays customers' repairs.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that restricted repair access causes customer delays?\"},{\"claim\":\"Restricted repair access reduces customers' repair choices.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that restricted access reduces the number or type of repair options available to customers?\"},{\"claim\":\"Restricted repair access causes equipment to be discarded before the end of its useful life.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence links restricted repair access to premature equipment disposal?\"}]},{\"id\":\"p7s4\",\"status\":\"disclose\",\"reason\":\"This asserts a public material-waste consequence of the arrangement.\",\"claims\":[{\"claim\":\"Restricted repair access increases material waste borne by the public.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that restricted repair access increases material waste, and how is the public burden measured?\"}]},{\"id\":\"p7s5\",\"status\":\"disclose\",\"reason\":\"The profanity is a value judgment, but the sentence also asserts that repair restrictions are described as intellectual-property protection and that information ownership enables control over others' hardware.\",\"claims\":[{\"claim\":\"Restrictions that impose the described repair costs are justified as protection for intellectual property.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which manufacturers or institutions justify these repair restrictions as intellectual-property protection, and in what policies or statements?\"},{\"claim\":\"Control over repair information enables information owners to control how other people use or repair their physical property.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What documented mechanisms and examples show information owners exercising control over others' physical property through repair-information restrictions?\"}]},{\"id\":\"p8s1\",\"status\":\"keep\",\"reason\":\"This is a recommendation for how a proposed disclosure rule should be organized.\",\"claims\":[]},{\"id\":\"p8s2\",\"status\":\"keep\",\"reason\":\"This proposes the substantive coverage of a rule and does not claim that such a rule currently exists.\",\"claims\":[]},{\"id\":\"p8s3\",\"status\":\"keep\",\"reason\":\"The timing, form, terms, and equal-access language are proposed requirements; preferring open searchable documentation to screenshots is a value judgment.\",\"claims\":[]},{\"id\":\"p9s1\",\"status\":\"keep\",\"reason\":\"“Needs teeth” is a metaphorical demand that the proposed rule be enforceable.\",\"claims\":[]},{\"id\":\"p9s2\",\"status\":\"keep\",\"reason\":\"All three clauses are proposed requirements for access duration, revisions, and functional parity.\",\"claims\":[]},{\"id\":\"p9s3\",\"status\":\"keep\",\"reason\":\"Within the proposed rule, this permits continued protection of unrelated trade secrets and recommends warnings for safety procedures; it does not describe current law.\",\"claims\":[]},{\"id\":\"p9s4\",\"status\":\"keep\",\"reason\":\"This proposes specificity and regulatory review requirements for secrecy claims rather than asserting existing legal practice.\",\"claims\":[]},{\"id\":\"p10s1\",\"status\":\"keep\",\"reason\":\"This predicts the normative effect of adopting the proposed rule, with “recognizable” functioning as a value judgment.\",\"claims\":[]},{\"id\":\"p10s2\",\"status\":\"keep\",\"reason\":\"This describes the desired allocation under the proposed rule; the tollbooth is a metaphor for continuing charges rather than a claim about a literal or existing event.\",\"claims\":[]},{\"id\":\"p10s3\",\"status\":\"keep\",\"reason\":\"This is a policy recommendation conditioned on hardware ownership, expressed through the established toolbox metaphor.\",\"claims\":[]},{\"id\":\"p10s4\",\"status\":\"keep\",\"reason\":\"This concludes with the essay's defining metaphor and figuratively describes withholding the defined tool as depriving the collective audience of it.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "The title is a metaphorical thesis equating repair documentation with a tool and adds no external premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This is a normative metaphor about where service information belongs.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "The conditional supplies its own imagined premise, and the locked-toolbox description is an analogy for withholding information stipulated as necessary for repair.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "This continues the preceding toolbox metaphor without asserting a separate real event or practice.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "The sentence reasons from the stipulated labeling and withholding: changing the label does not change the transaction, while the lock and hinge language is figurative.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "disclose",
+        "reason": "This asserts generally that missing service information consumes labor that independent shops cannot bill.",
+        "claims": [
+          {
+            "claim": "Missing service information causes independent repair shops to incur labor time that they cannot honestly bill to customers.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that missing service information generally creates unbillable labor time for independent repair shops?"
+          }
+        ]
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "This describes technicians' typical responses to unavailable repair information, including relinquishing jobs.",
+        "claims": [
+          {
+            "claim": "When repair information is missing, independent technicians search for information, perform additional disassembly and testing, guess at procedures, and sometimes send jobs elsewhere.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence documents these technician behaviors and how commonly each occurs when repair information is unavailable?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "disclose",
+        "reason": "Each clause asserts a real consequence of restricted repair information for a different participant.",
+        "claims": [
+          {
+            "claim": "Restricted repair information causes customers to lose time.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that restricted repair information causes customer delays?"
+          },
+          {
+            "claim": "Restricted repair information reduces the productive capacity of independent repair shops.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that restricted repair information reduces independent-shop capacity?"
+          },
+          {
+            "claim": "Restricted repair information gives authorized repair channels greater leverage.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that information restrictions increase the leverage of authorized repair channels, and what form does that leverage take?"
+          }
+        ]
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "This is a clearly signaled hypothetical question; the two-hour and ten-minute figures belong to the imagined case rather than reporting measured times.",
+        "claims": []
+      },
+      {
+        "id": "p3s5",
+        "status": "keep",
+        "reason": "Given the preceding imagined uncompensated delay, allocating its cost to margin, schedule, or both is an accounting inference; wishing is rhetorical.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "disclose",
+        "reason": "The sentence characterizes the previously alleged burdens as concrete overhead, which depends on their real occurrence.",
+        "claims": [
+          {
+            "claim": "The burdens caused by missing service information constitute concrete overhead for independent repair shops.",
+            "kind": "broad-generalization",
+            "verification_question": "What cost or operational evidence establishes that missing service information creates concrete overhead for independent shops?"
+          }
+        ]
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "The conditional supplies its premise, and calling an uncertain estimate a wager is a metaphorical inference.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "disclose",
+        "reason": "The sentence asserts that brand-specific access regimes may impose additional fees, credentials, tools, or approvals.",
+        "claims": [
+          {
+            "claim": "After a shop purchases access to one manufacturer's service portal, repairing another brand may require a separate fee, login, tool, or approval.",
+            "kind": "broad-generalization",
+            "verification_question": "Which manufacturers impose separate service-information fees, logins, tools, or approvals, and under what repair programs?"
+          }
+        ]
+      },
+      {
+        "id": "p4s4",
+        "status": "disclose",
+        "reason": "The casino language is figurative, but it rests on a generalized claim that every access gate shifts time and decision-making power against small shops.",
+        "claims": [
+          {
+            "claim": "Each service-information access gate consumes independent-shop time and gives the party controlling access authority over the repair conditions.",
+            "kind": "broad-generalization",
+            "verification_question": "What kinds of access gates exist, and what evidence shows that each consumes shop time and transfers control over repair conditions?"
+          }
+        ]
+      },
+      {
+        "id": "p4s5",
+        "status": "disclose",
+        "reason": "This asserts that shops pay merely to determine repair feasibility.",
+        "claims": [
+          {
+            "claim": "Independent repair shops pay access costs before they can determine whether a repair can be completed.",
+            "kind": "broad-generalization",
+            "verification_question": "Which access programs charge independent shops before repair feasibility can be determined, and how often does this occur?"
+          }
+        ]
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This defines how the draft itself uses the word “manual” and is not an external biographical claim.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This further clarifies the draft's own definition and makes no external assertion.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This enumerates what the author includes within the expressly broad working definition of “manual.”",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This states the essay's practical thesis by defining necessary information as job equipment; it adds no separate external premise.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "The claimed equivalence is an analogy derived from defining the withheld information as a necessary tool; the bench example is illustrative, not a reported event.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "disclose",
+        "reason": "The lock metaphor rests on an unsupported generalized equivalence between documentation restrictions and parts-pairing restrictions.",
+        "claims": [
+          {
+            "claim": "Documentation restrictions and parts-pairing restrictions are two mechanisms of the same form of repair control.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that documentation restrictions and parts pairing operate as linked mechanisms of repair control?"
+          }
+        ]
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "This supplies a functional definition of “pairing” by naming the kinds of authorization or setup connections the term encompasses.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "disclose",
+        "reason": "This asserts a technical capability of paired devices: rejection or impaired operation despite physical and electrical compatibility.",
+        "claims": [
+          {
+            "claim": "Parts-paired devices can reject or impair the operation of a replacement component that is physically correct and electrically sound.",
+            "kind": "broad-generalization",
+            "verification_question": "Which devices exhibit this behavior, and what testing or technical documentation shows rejection or impaired operation of otherwise compatible parts?"
+          }
+        ]
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Given the stated definition of pairing and the conditional lack of access to its required procedure, the conclusion that the part is not functionally accessible is an inference; “prop” is metaphorical.",
+        "claims": []
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "This is a metaphorical restatement that procedural information connects installation to operation under the preceding defined scenario.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "This is a rhetorical question and contains no descriptive answer of its own.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "disclose",
+        "reason": "The sentence attributes five distinct real costs to independent shops.",
+        "claims": [
+          {
+            "claim": "Independent repair shops incur subscription costs because of restricted repair access.",
+            "kind": "broad-generalization",
+            "verification_question": "What subscription costs do independent shops incur for repair access, and how substantial are they?"
+          },
+          {
+            "claim": "Restricted repair access causes independent shops to have idle service bays.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence links repair-access restrictions to idle service bays at independent shops?"
+          },
+          {
+            "claim": "Restricted repair access increases training time for independent shops.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that repair-access restrictions create additional training time?"
+          },
+          {
+            "claim": "Restricted repair access requires independent shops to acquire duplicated equipment.",
+            "kind": "broad-generalization",
+            "verification_question": "Which equipment must shops duplicate because of access restrictions, and how commonly does this happen?"
+          },
+          {
+            "claim": "Restricted repair access causes independent shops to turn away work.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that shops reject jobs because of restricted repair access?"
+          }
+        ]
+      },
+      {
+        "id": "p7s3",
+        "status": "disclose",
+        "reason": "The sentence attributes three distinct consequences of the arrangement to customers.",
+        "claims": [
+          {
+            "claim": "Restricted repair access delays customers' repairs.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that restricted repair access causes customer delays?"
+          },
+          {
+            "claim": "Restricted repair access reduces customers' repair choices.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that restricted access reduces the number or type of repair options available to customers?"
+          },
+          {
+            "claim": "Restricted repair access causes equipment to be discarded before the end of its useful life.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence links restricted repair access to premature equipment disposal?"
+          }
+        ]
+      },
+      {
+        "id": "p7s4",
+        "status": "disclose",
+        "reason": "This asserts a public material-waste consequence of the arrangement.",
+        "claims": [
+          {
+            "claim": "Restricted repair access increases material waste borne by the public.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that restricted repair access increases material waste, and how is the public burden measured?"
+          }
+        ]
+      },
+      {
+        "id": "p7s5",
+        "status": "disclose",
+        "reason": "The profanity is a value judgment, but the sentence also asserts that repair restrictions are described as intellectual-property protection and that information ownership enables control over others' hardware.",
+        "claims": [
+          {
+            "claim": "Restrictions that impose the described repair costs are justified as protection for intellectual property.",
+            "kind": "broad-generalization",
+            "verification_question": "Which manufacturers or institutions justify these repair restrictions as intellectual-property protection, and in what policies or statements?"
+          },
+          {
+            "claim": "Control over repair information enables information owners to control how other people use or repair their physical property.",
+            "kind": "broad-generalization",
+            "verification_question": "What documented mechanisms and examples show information owners exercising control over others' physical property through repair-information restrictions?"
+          }
+        ]
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "This is a recommendation for how a proposed disclosure rule should be organized.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "This proposes the substantive coverage of a rule and does not claim that such a rule currently exists.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "The timing, form, terms, and equal-access language are proposed requirements; preferring open searchable documentation to screenshots is a value judgment.",
+        "claims": []
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "“Needs teeth” is a metaphorical demand that the proposed rule be enforceable.",
+        "claims": []
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "All three clauses are proposed requirements for access duration, revisions, and functional parity.",
+        "claims": []
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "Within the proposed rule, this permits continued protection of unrelated trade secrets and recommends warnings for safety procedures; it does not describe current law.",
+        "claims": []
+      },
+      {
+        "id": "p9s4",
+        "status": "keep",
+        "reason": "This proposes specificity and regulatory review requirements for secrecy claims rather than asserting existing legal practice.",
+        "claims": []
+      },
+      {
+        "id": "p10s1",
+        "status": "keep",
+        "reason": "This predicts the normative effect of adopting the proposed rule, with “recognizable” functioning as a value judgment.",
+        "claims": []
+      },
+      {
+        "id": "p10s2",
+        "status": "keep",
+        "reason": "This describes the desired allocation under the proposed rule; the tollbooth is a metaphor for continuing charges rather than a claim about a literal or existing event.",
+        "claims": []
+      },
+      {
+        "id": "p10s3",
+        "status": "keep",
+        "reason": "This is a policy recommendation conditioned on hardware ownership, expressed through the established toolbox metaphor.",
+        "claims": []
+      },
+      {
+        "id": "p10s4",
+        "status": "keep",
+        "reason": "This concludes with the essay's defining metaphor and figuratively describes withholding the defined tool as depriving the collective audience of it.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d07.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d07.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "7cc5d89b14159b4e07b491c05ebbbc910e0ac2b6b2046fa2b556a1bc184c9a64",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

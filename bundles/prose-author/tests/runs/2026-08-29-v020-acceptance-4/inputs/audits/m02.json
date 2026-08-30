@@ -1,0 +1,408 @@
+{
+  "schema": "voice-draft-claim-audit/4",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "disclose",
+      "reason": "The sentence makes an unsupported claim about how this software is marketed and the operational benefits attributed to it.",
+      "claims": [
+        {
+          "claim": "Software that changes shifts at short notice is often marketed as improving staffing efficiency by reducing gaps, responding faster to demand, and producing cleaner staffing numbers.",
+          "kind": "broad-generalization",
+          "verification_question": "How commonly is short-notice scheduling software marketed with these efficiency claims?"
+        }
+      ]
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "This is the essay’s interpretive thesis, characterizing retained scheduling power as control without adding an external premise.",
+      "claims": []
+    },
+    {
+      "id": "p1s3",
+      "status": "disclose",
+      "reason": "The sentence asserts real effects on workers’ prior arrangements and a causal transfer of uncertainty costs to them.",
+      "claims": [
+        {
+          "claim": "Short-notice schedule revisions can disrupt workers’ arrangements for sleep, care, transport, study, and second jobs and transfer the resulting costs of uncertainty from employers to workers.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that short-notice shift revisions disrupt these arrangements and shift uncertainty costs onto workers?"
+        }
+      ]
+    },
+    {
+      "id": "p1s4",
+      "status": "disclose",
+      "reason": "The metaphor rests on unsupported descriptive claims about orderly employer dashboards and workers absorbing operational disorder.",
+      "claims": [
+        {
+          "claim": "Scheduling dashboards can appear orderly because workers absorb the disruption produced by schedule changes.",
+          "kind": "broad-generalization",
+          "verification_question": "Do scheduling systems produce apparent operational order by shifting disruption onto workers?"
+        }
+      ]
+    },
+    {
+      "id": "p2s1",
+      "status": "disclose",
+      "reason": "This asserts technical and economic effects of scheduling software beyond the request.",
+      "claims": [
+        {
+          "claim": "Scheduling software makes repeated shift revisions inexpensive and immediate rather than merely reporting decisions.",
+          "kind": "broad-generalization",
+          "verification_question": "Which scheduling systems enable immediate revisions, and what evidence establishes that they reduce the cost or friction of making them?"
+        }
+      ]
+    },
+    {
+      "id": "p2s2",
+      "status": "disclose",
+      "reason": "The sentence claims specific managerial functions, alert wording, and reduced conversational friction.",
+      "claims": [
+        {
+          "claim": "Managers can use scheduling software to move start times, shorten shifts, and summon staff through alerts without a direct conversation.",
+          "kind": "broad-generalization",
+          "verification_question": "Which scheduling products provide these functions, and can managers use them without directly contacting workers?"
+        },
+        {
+          "claim": "Some scheduling alerts asking staff to report promptly are marked “ASAP.”",
+          "kind": "broad-generalization",
+          "verification_question": "Which scheduling systems use “ASAP” in staff alerts, and how commonly?"
+        }
+      ]
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "This is a value judgment about the importance of interpersonal friction and adds no external fact.",
+      "claims": []
+    },
+    {
+      "id": "p2s4",
+      "status": "keep",
+      "reason": "Calling a schedule a promise is a normative characterization, and saying a change reaches beyond work follows conceptually from workers arranging nonwork time around shifts.",
+      "claims": []
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "This is a clearly signalled hypothetical question whose assumed risk is confined to the imagined case.",
+      "claims": []
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "reason": "This evaluates the option within the immediately preceding hypothetical and adds no real-world premise.",
+      "claims": []
+    },
+    {
+      "id": "p3s3",
+      "status": "disclose",
+      "reason": "The sentence generalizes about workers’ formal ability to decline, practical pressure, and uneven allocation of hours.",
+      "claims": [
+        {
+          "claim": "Workers may formally be allowed to decline scheduling updates while nevertheless experiencing practical pressure to accept them.",
+          "kind": "broad-generalization",
+          "verification_question": "Under what workplace policies may workers decline scheduling updates, and what evidence shows practical pressure to accept?"
+        },
+        {
+          "claim": "Work hours are assigned unevenly in some workplaces.",
+          "kind": "broad-generalization",
+          "verification_question": "How commonly are hours distributed unevenly among workers in workplaces using short-notice scheduling?"
+        }
+      ]
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "reason": "This states a logical possibility within the argument: control can operate without an explicit threat.",
+      "claims": []
+    },
+    {
+      "id": "p3s5",
+      "status": "disclose",
+      "reason": "The sentence asserts that shift allocation and reputational labeling can communicate pressure without an explicit threat.",
+      "claims": [
+        {
+          "claim": "Employers or scheduling systems can pressure workers through fewer shifts, worse shift times, or a reputation for being unavailable rather than through explicit threats.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that declined availability can lead to fewer shifts, worse times, or an “unavailable” reputation?"
+        }
+      ]
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "This is the argumentative conclusion that unpredictability constitutes control, not a separate descriptive fact.",
+      "claims": []
+    },
+    {
+      "id": "p4s2",
+      "status": "disclose",
+      "reason": "The sentence makes a broad causal claim that unpredictability changes behavior before explicit instructions are given.",
+      "claims": [
+        {
+          "claim": "Schedule unpredictability can govern workers’ conduct before an employer gives an explicit command.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that anticipated schedule changes alter workers’ conduct without explicit commands?"
+        }
+      ]
+    },
+    {
+      "id": "p4s3",
+      "status": "disclose",
+      "reason": "The sentence asserts a behavioral consequence and identifies a real-world term for the shift sequence.",
+      "claims": [
+        {
+          "claim": "Workers assigned a closing shift followed by an opening shift plan their evenings around anticipated exhaustion.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows how workers alter evening plans when assigned consecutive closing and opening shifts?"
+        },
+        {
+          "claim": "A closing shift followed by an opening shift is called a “clopening.”",
+          "kind": "broad-generalization",
+          "verification_question": "Is “clopening” an established term for a closing shift followed by an opening shift, and in what contexts?"
+        }
+      ]
+    },
+    {
+      "id": "p4s4",
+      "status": "disclose",
+      "reason": "This is a generalized behavioral claim about parents responding to expected schedule changes.",
+      "claims": [
+        {
+          "claim": "Parents who expect late schedule changes may avoid booking appointments.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that anticipated late shift changes cause working parents to avoid booking appointments?"
+        }
+      ]
+    },
+    {
+      "id": "p4s5",
+      "status": "disclose",
+      "reason": "This is a generalized behavioral claim about students responding to scheduling uncertainty.",
+      "claims": [
+        {
+          "claim": "Student workers may stop enrolling in classes scheduled near their possible work hours because of scheduling uncertainty.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that unpredictable work schedules affect student workers’ course enrollment?"
+        }
+      ]
+    },
+    {
+      "id": "p4s6",
+      "status": "keep",
+      "reason": "The moving fence is a coherent metaphor for boundaries repeatedly altered by the party controlling the schedule.",
+      "claims": []
+    },
+    {
+      "id": "p5s1",
+      "status": "disclose",
+      "reason": "The sentence asserts that employers encounter genuine staffing problems; calling some legitimate is evaluative, but their existence is descriptive.",
+      "claims": [
+        {
+          "claim": "Employers face genuine staffing problems that can justify some schedule changes.",
+          "kind": "broad-generalization",
+          "verification_question": "What staffing problems commonly require employers to change already published schedules?"
+        }
+      ]
+    },
+    {
+      "id": "p5s2",
+      "status": "disclose",
+      "reason": "Each clause states a real-world occurrence not supplied by the request.",
+      "claims": [
+        {
+          "claim": "Employer demand changes over time.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence establishes meaningful demand fluctuations in the workplaces under discussion?"
+        },
+        {
+          "claim": "Workers sometimes become ill and cannot work as scheduled.",
+          "kind": "broad-generalization",
+          "verification_question": "How often does worker illness necessitate schedule changes in the relevant workplaces?"
+        },
+        {
+          "claim": "Emergencies sometimes require staffing schedules to change.",
+          "kind": "broad-generalization",
+          "verification_question": "What types of emergencies require short-notice staffing changes, and how frequently do they occur?"
+        }
+      ]
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "This proposes how a fair rule should distinguish narrowly defined emergencies from routine volatility; it does not claim such a rule currently exists.",
+      "claims": []
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "reason": "This is a normative demand that an exception not undermine the proposed protection.",
+      "claims": []
+    },
+    {
+      "id": "p5s5",
+      "status": "keep",
+      "reason": "This is conditional reasoning: defining every ordinary fluctuation as urgent would nullify a notice requirement, while the timestamp phrase is rhetorical.",
+      "claims": []
+    },
+    {
+      "id": "p6s1",
+      "status": "disclose",
+      "reason": "The sentence asserts that short-notice scheduling causes harms in addition to lost time.",
+      "claims": [
+        {
+          "claim": "The harms caused by short-notice scheduling extend beyond workers losing time.",
+          "kind": "broad-generalization",
+          "verification_question": "What harms beyond lost time have been documented as consequences of short-notice scheduling?"
+        }
+      ]
+    },
+    {
+      "id": "p6s2",
+      "status": "disclose",
+      "reason": "The sentence makes causal claims about transport, care, and income, including income instability despite a fixed hourly rate.",
+      "claims": [
+        {
+          "claim": "Short-notice scheduling can cause additional transport costs, missed care arrangements, and unstable income even when hourly pay rates remain fixed.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence links short-notice scheduling to transport costs, disrupted care, and income instability at fixed hourly rates?"
+        }
+      ]
+    },
+    {
+      "id": "p6s3",
+      "status": "disclose",
+      "reason": "This asserts a causal effect on competition and worker behavior.",
+      "claims": [
+        {
+          "claim": "Unpredictable scheduling can make workers compete for predictable hours by displaying obedience to employer requests.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows that workers compete for predictable schedules through greater compliance or displayed obedience?"
+        }
+      ]
+    },
+    {
+      "id": "p6s4",
+      "status": "disclose",
+      "reason": "The sentence asserts that allocation systems can reward faster responses and thereby produce discipline without universal punishment.",
+      "claims": [
+        {
+          "claim": "Shift-allocation systems can reward workers who respond fastest, allowing employers to discipline behavior without punishing every worker.",
+          "kind": "broad-generalization",
+          "verification_question": "Do scheduling or allocation systems favor faster responders, and does that influence worker behavior without direct punishment?"
+        }
+      ]
+    },
+    {
+      "id": "p6s5",
+      "status": "keep",
+      "reason": "This is an interpretive possibility and rhetorical label derived from the argued use of allocation power, not a claim that a particular system currently operates this way.",
+      "claims": []
+    },
+    {
+      "id": "p7s1",
+      "status": "disclose",
+      "reason": "The sentence makes an unsupported effectiveness claim about transparency.",
+      "claims": [
+        {
+          "claim": "Transparency about scheduling changes helps protect workers but is insufficient by itself.",
+          "kind": "broad-generalization",
+          "verification_question": "What evidence shows both the benefits and limitations of transparency in short-notice scheduling?"
+        }
+      ]
+    },
+    {
+      "id": "p7s2",
+      "status": "keep",
+      "reason": "Recording who changed a shift and when definitionally creates a record, while that information alone logically does not confer decision-making power on workers.",
+      "claims": []
+    },
+    {
+      "id": "p7s3",
+      "status": "keep",
+      "reason": "This is a conditional evaluative inference: an appeal lacks substance under the posited condition that declining affects future hours.",
+      "claims": []
+    },
+    {
+      "id": "p7s4",
+      "status": "keep",
+      "reason": "This is a normative proposal specifying advance notice, refusal protection, and additional pay as meaningful safeguards.",
+      "claims": []
+    },
+    {
+      "id": "p8s1",
+      "status": "keep",
+      "reason": "This is a recommendation that proposed rules govern both software and supervisors.",
+      "claims": []
+    },
+    {
+      "id": "p8s2",
+      "status": "keep",
+      "reason": "This is a proposal for system design and worker protections, not a description of current systems.",
+      "claims": []
+    },
+    {
+      "id": "p8s3",
+      "status": "keep",
+      "reason": "This is a normative demand for collective access, with the stated purpose of evaluating patterns across individual records.",
+      "claims": []
+    },
+    {
+      "id": "p8s4",
+      "status": "keep",
+      "reason": "This is an information-aggregation inference expressed rhetorically: isolated records can be combined into evidence of a pattern.",
+      "claims": []
+    },
+    {
+      "id": "p9s1",
+      "status": "keep",
+      "reason": "This is a proposed enforcement principle rejecting requirements to prove intent or identify a human decision-maker.",
+      "claims": []
+    },
+    {
+      "id": "p9s2",
+      "status": "keep",
+      "reason": "This normatively identifies the factual questions that the proposed enforcement regime should treat as relevant.",
+      "claims": []
+    },
+    {
+      "id": "p9s3",
+      "status": "disclose",
+      "reason": "The sentence asserts institutional capacity to examine the listed questions.",
+      "claims": [
+        {
+          "claim": "Regulators, unions, and arbitrators can examine notice, consent, pay, and later opportunities when assessing automated scheduling decisions.",
+          "kind": "broad-generalization",
+          "verification_question": "What legal authority, access, and practical capacity do regulators, unions, and arbitrators have to examine these scheduling facts?"
+        }
+      ]
+    },
+    {
+      "id": "p10s1",
+      "status": "keep",
+      "reason": "This is an explicit demand that employers treat published schedules as commitments.",
+      "claims": []
+    },
+    {
+      "id": "p10s2",
+      "status": "keep",
+      "reason": "This consists of recommendations to lawmakers and labour agencies and does not assert that the proposed duties currently exist.",
+      "claims": []
+    },
+    {
+      "id": "p10s3",
+      "status": "keep",
+      "reason": "This is the essay’s evaluative characterization of unilateral flexibility as authority that imposes an uncompensated burden.",
+      "claims": []
+    },
+    {
+      "id": "p10s4",
+      "status": "keep",
+      "reason": "This is a concise value judgment defining predictability as a basic form of worker control.",
+      "claims": []
+    }
+  ]
+}

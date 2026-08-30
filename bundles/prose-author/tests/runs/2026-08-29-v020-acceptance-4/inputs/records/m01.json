@@ -1,0 +1,61 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "A longstanding ownership rule exists that software complicates but does not eliminate.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Ownership has historically been limited by safety rules, nuisance laws, and other people's rights.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "The established limits on ownership arise from law and coexistence rather than a former owner's continuing command.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "A device's sale price reflects the bundle of functions offered with it at the time of sale.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Contract law can support a rule barring sellers from unilaterally removing device functionality after sale.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "A party that preserves remote power over a sold device generally designs the relevant system.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "A party that preserves remote power over a sold device generally writes the governing terms.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "A party that preserves remote power over a sold device generally controls the servers on which the power depends.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Buyers generally lack realistic means to inspect every dependency of a device at checkout.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Clear legal defaults cause ownership to operate as a durable allocation of authority rather than a stack of revocable permissions.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Without effective remedies, disclosure of remote disabling power functions as a smokescreen rather than meaningful buyer protection.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Disclosures of maker-held remote power are generally dense notices that leave buyers with no practical alternative.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Regulators may tend to regard advance notice of remote disabling power as sufficient protection.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Advance notice alone does not rebalance the parties' positions after a device sale is completed.",
+      "where": "paragraph 8"
+    }
+  ]
+}

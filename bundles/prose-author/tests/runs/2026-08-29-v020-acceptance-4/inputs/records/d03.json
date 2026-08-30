@@ -1,0 +1,77 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "Courthouses permit inspection of public court files while usable digital copies of those files are available only through private paid services.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Court records include complaints, motions, orders, and judgments that document exercises of state power.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "In some jurisdictions, a court-record room open only during business hours can satisfy the applicable public-access rules.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Business-hours, in-person court-record access is practically inadequate for people working those hours, living far from the courthouse, or relying on screen readers.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Courts create court records through the exercise of public authority.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Court clerks organize court records.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Taxpayers financially support court institutions.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Private database companies gather public court-record material and improve its searchability.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Private court-record databases sell access to the resulting product at professional-market rates.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "The search layer is the valuable component of private court-record database products.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "The public supplies or funds the raw court-record material used by private databases.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "People must pay separately for effective tools to find publicly produced court records.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Private court-record services clean court data, link dockets, and build powerful research tools.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Dependence on expensive private databases compounds inequality in access to court information.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Employers, landlords, reporters, researchers, and large firms can purchase broad visibility into court records.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Ordinary defendants may receive only narrow court-record access through confusing interfaces.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Paid or limited court-record access can leave formal legal rights unchanged while reducing a person's practical ability to exercise those rights.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Privacy redaction, security, system maintenance, and careful indexing of court records require meaningful work and resources.",
+      "where": "paragraph 6"
+    }
+  ]
+}

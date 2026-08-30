@@ -1,0 +1,362 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This restates the request's imagined scenario: a system described by law as a narrow child-safety measure.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"The hypothetical legal description is consistent with the request, but the parenthetical asserts a usual statutory threshold not supplied there.\",\"claims\":[{\"claim\":\"Online age-checking laws usually use eighteen or another legislatively specified age as the threshold.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Across the relevant online age-checking laws, what age thresholds are specified, and is eighteen usually the threshold?\"}]},{\"id\":\"p1s3\",\"status\":\"keep\",\"reason\":\"This states the essay's requested thesis as a possibility: machinery answering an age question can function more broadly as identity infrastructure.\",\"claims\":[]},{\"id\":\"p1s4\",\"status\":\"keep\",\"reason\":\"This is a concise conceptual distinction between a system's legal label and its functional design.\",\"claims\":[]},{\"id\":\"p1s5\",\"status\":\"disclose\",\"reason\":\"The building metaphor restates possible expansion, but the final clause asserts a contingent pattern of institutional discovery and adoption.\",\"claims\":[{\"claim\":\"Institutions are especially likely to expand an existing access-control mechanism once they discover that it exists.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that institutional awareness of an existing access-control mechanism increases the likelihood that it will be adopted for additional uses?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This characterizes the narrow age-checking concept through an illustrative transaction rather than reporting an actual implementation.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"Each listed decision is logically required to define an age-checking process: requester, acceptable evidence, verifier, and record handling.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"The conditional premise is explicit, and the conclusion follows conceptually because accounts, credentials, or recurring checks create functions beyond a one-time age determination.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"This defines the reusable person-authority connection implied by the preceding conditional mechanisms.\",\"claims\":[]},{\"id\":\"p2s5\",\"status\":\"keep\",\"reason\":\"This applies the essay's functional definition of identity infrastructure and correctly notes that storing an age category would not negate the reusable relationship.\",\"claims\":[]},{\"id\":\"p2s6\",\"status\":\"disclose\",\"reason\":\"This makes a causal generalization about how system expansion occurs and excludes deliberate planning as a necessary cause.\",\"claims\":[{\"claim\":\"Age-checking systems can expand into identity infrastructure through institutional incentives without a coordinated plan.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence or documented cases show age-checking systems expanding through incentives rather than coordinated planning?\"}]},{\"id\":\"p2s7\",\"status\":\"keep\",\"reason\":\"This is a statement of technical and institutional possibility: a verifier capable of answering one attribute query may be tasked with another.\",\"claims\":[]},{\"id\":\"p2s8\",\"status\":\"disclose\",\"reason\":\"The capability to reuse a token is hypothetical, but its attractiveness to other services is a contingent claim about institutional preferences.\",\"claims\":[{\"claim\":\"Services may find a token already accepted by another service attractive for adoption.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that services are attracted to adopting identity or attribute tokens because other services already accept them?\"}]},{\"id\":\"p2s9\",\"status\":\"disclose\",\"reason\":\"The sentence predicts a contingent agency preference for more detailed compliance records.\",\"claims\":[{\"claim\":\"An agency overseeing age-check compliance may seek audit trails that more clearly record whether checks occurred.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do agencies overseeing comparable compliance systems seek clearer records of completed checks, and under what conditions?\"}]},{\"id\":\"p2s10\",\"status\":\"disclose\",\"reason\":\"The listed rationales are contingent practical effects, and the sentence makes a causal claim that their combination produces a shared credential layer.\",\"claims\":[{\"claim\":\"Reusing age-checking infrastructure can reduce integration costs.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what implementations does reuse of age-checking infrastructure make integration cheaper?\"},{\"claim\":\"More extensive age-checking records or shared infrastructure can make enforcement easier.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that shared age-checking infrastructure or clearer records make enforcement easier?\"},{\"claim\":\"Shared age-checking infrastructure can reduce duplication among systems.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Does shared age-checking infrastructure reduce duplicate systems, and in which architectures?\"},{\"claim\":\"A series of individually practical expansions of age checking can collectively produce a common credential layer.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence or architectural analysis establishes that these incremental expansions produce a common credential layer?\"}]},{\"id\":\"p2s11\",\"status\":\"disclose\",\"reason\":\"The vault-and-doors metaphor contains two causal generalizations: dependence increases system value and additional uses increase the consequences of error.\",\"claims\":[{\"claim\":\"A credential repository or verification system becomes more valuable as more services depend on it.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How does adoption by additional services affect the value of a shared credential repository or verification system?\"},{\"claim\":\"The consequences of credential-system errors increase as the credential is used for more purposes or services.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that adding uses to a credential system increases the severity or reach of errors?\"}]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is an argumentative conclusion that broader use changes the relevant risks and consequences.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"keep\",\"reason\":\"These are clearly signalled hypothetical failure and exposure cases posed for analysis, not reports that such events occurred.\",\"claims\":[]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"This contrasts a hypothetically narrow law with operational cases that any implemented infrastructure would need either to handle or exclude.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"An operating system necessarily has policies, explicit or implicit, governing the listed decisions; the sentence does not claim what those policies currently are.\",\"claims\":[]},{\"id\":\"p3s5\",\"status\":\"keep\",\"reason\":\"Within the posited access system, eligibility and appeal rules logically determine who passes its gate; the activities listed describe the access at stake rather than an observed population outcome.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"disclose\",\"reason\":\"This asserts a causal effect of privacy-preserving design on risk without support in the request.\",\"claims\":[{\"claim\":\"Privacy-preserving design can reduce some risks created by online age-checking systems.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which privacy-preserving designs reduce which age-checking risks, and what evidence demonstrates those reductions?\"}]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"This presents a possible minimization architecture and possible data-handling choices, not a claim that existing services implement them.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This is a value judgment endorsing the proposed safeguards.\",\"claims\":[]},{\"id\":\"p4s4\",\"status\":\"disclose\",\"reason\":\"The conceptual point that safeguards do not answer the institutional question is inferential, but the embedded proposition predicts that ordinary online access will likely depend on an approved credential.\",\"claims\":[{\"claim\":\"Access to ordinary online life is likely to become conditioned on carrying an approved credential when age-checking systems are deployed.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence supports the prediction that age-checking deployments will likely make approved credentials a condition of ordinary online access?\"}]},{\"id\":\"p4s5\",\"status\":\"disclose\",\"reason\":\"Both halves assert general effects and limitations of technical minimization that require support beyond the request.\",\"claims\":[{\"claim\":\"Technical data minimization limits the information revealed by an individual age check.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which minimization techniques limit what an age check reveals, and to what extent?\"},{\"claim\":\"Technical data minimization does not prevent an age-checking mechanism from being adopted for additional uses or services.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence or architectural analysis shows that minimization does not prevent broader adoption of the checking mechanism?\"}]},{\"id\":\"p4s6\",\"status\":\"keep\",\"reason\":\"This is an analogy expressing that a less detailed credential system can still control eligibility; it adds no claim about an actual catalog or system.\",\"claims\":[]},{\"id\":\"p4s7\",\"status\":\"keep\",\"reason\":\"This is a policy recommendation derived from the possibility that the system can expand beyond its initial use.\",\"claims\":[]},{\"id\":\"p4s8\",\"status\":\"keep\",\"reason\":\"This is a proposed purpose-limitation rule and lists prohibited secondary uses without claiming that they currently occur.\",\"claims\":[]},{\"id\":\"p4s9\",\"status\":\"keep\",\"reason\":\"This is a normative requirement favoring optional credentials when less intrusive evidence is adequate.\",\"claims\":[]},{\"id\":\"p4s10\",\"status\":\"keep\",\"reason\":\"This proposes audit scope and deletion-rule coverage; it makes no claim about present audit or vendor practices.\",\"claims\":[]},{\"id\":\"p4s11\",\"status\":\"keep\",\"reason\":\"This is a recommendation about the proper scope of enforcement.\",\"claims\":[]},{\"id\":\"p4s12\",\"status\":\"keep\",\"reason\":\"This expresses a normative requirement for a privacy-preserving challenge process.\",\"claims\":[]},{\"id\":\"p4s13\",\"status\":\"keep\",\"reason\":\"This is a rhetorical warning that derives the dragnet metaphor from the absence of the proposed limits.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This rejects a normative either-or choice and asserts compatibility between two policy goals, without adding an external descriptive premise.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This is a value judgment labeling the preceding either-or framing as false.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This is a collective demand for two compatible policy objectives, not a report about existing conditions.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This is a recommendation to lawmakers listing conditions that should accompany authorization.\",\"claims\":[]},{\"id\":\"p5s5\",\"status\":\"keep\",\"reason\":\"This is a call to action asking readers to seek the proposed statutory protections.\",\"claims\":[]},{\"id\":\"p5s6\",\"status\":\"disclose\",\"reason\":\"The conditional setup supports concern about normalization, but the categorical prediction that a credential will not remain narrow is an unsupported causal generalization.\",\"claims\":[{\"claim\":\"Once a credential is normalized as a condition for access to ordinary online speech, its use will expand beyond the narrow scope stated in its authorizing statute.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What historical, institutional, or empirical evidence supports the claim that normalized access credentials expand beyond their original statutory scope?\"}]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This restates the request's imagined scenario: a system described by law as a narrow child-safety measure.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "The hypothetical legal description is consistent with the request, but the parenthetical asserts a usual statutory threshold not supplied there.",
+        "claims": [
+          {
+            "claim": "Online age-checking laws usually use eighteen or another legislatively specified age as the threshold.",
+            "kind": "broad-generalization",
+            "verification_question": "Across the relevant online age-checking laws, what age thresholds are specified, and is eighteen usually the threshold?"
+          }
+        ]
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "This states the essay's requested thesis as a possibility: machinery answering an age question can function more broadly as identity infrastructure.",
+        "claims": []
+      },
+      {
+        "id": "p1s4",
+        "status": "keep",
+        "reason": "This is a concise conceptual distinction between a system's legal label and its functional design.",
+        "claims": []
+      },
+      {
+        "id": "p1s5",
+        "status": "disclose",
+        "reason": "The building metaphor restates possible expansion, but the final clause asserts a contingent pattern of institutional discovery and adoption.",
+        "claims": [
+          {
+            "claim": "Institutions are especially likely to expand an existing access-control mechanism once they discover that it exists.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that institutional awareness of an existing access-control mechanism increases the likelihood that it will be adopted for additional uses?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This characterizes the narrow age-checking concept through an illustrative transaction rather than reporting an actual implementation.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Each listed decision is logically required to define an age-checking process: requester, acceptable evidence, verifier, and record handling.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "The conditional premise is explicit, and the conclusion follows conceptually because accounts, credentials, or recurring checks create functions beyond a one-time age determination.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "This defines the reusable person-authority connection implied by the preceding conditional mechanisms.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "This applies the essay's functional definition of identity infrastructure and correctly notes that storing an age category would not negate the reusable relationship.",
+        "claims": []
+      },
+      {
+        "id": "p2s6",
+        "status": "disclose",
+        "reason": "This makes a causal generalization about how system expansion occurs and excludes deliberate planning as a necessary cause.",
+        "claims": [
+          {
+            "claim": "Age-checking systems can expand into identity infrastructure through institutional incentives without a coordinated plan.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence or documented cases show age-checking systems expanding through incentives rather than coordinated planning?"
+          }
+        ]
+      },
+      {
+        "id": "p2s7",
+        "status": "keep",
+        "reason": "This is a statement of technical and institutional possibility: a verifier capable of answering one attribute query may be tasked with another.",
+        "claims": []
+      },
+      {
+        "id": "p2s8",
+        "status": "disclose",
+        "reason": "The capability to reuse a token is hypothetical, but its attractiveness to other services is a contingent claim about institutional preferences.",
+        "claims": [
+          {
+            "claim": "Services may find a token already accepted by another service attractive for adoption.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that services are attracted to adopting identity or attribute tokens because other services already accept them?"
+          }
+        ]
+      },
+      {
+        "id": "p2s9",
+        "status": "disclose",
+        "reason": "The sentence predicts a contingent agency preference for more detailed compliance records.",
+        "claims": [
+          {
+            "claim": "An agency overseeing age-check compliance may seek audit trails that more clearly record whether checks occurred.",
+            "kind": "broad-generalization",
+            "verification_question": "Do agencies overseeing comparable compliance systems seek clearer records of completed checks, and under what conditions?"
+          }
+        ]
+      },
+      {
+        "id": "p2s10",
+        "status": "disclose",
+        "reason": "The listed rationales are contingent practical effects, and the sentence makes a causal claim that their combination produces a shared credential layer.",
+        "claims": [
+          {
+            "claim": "Reusing age-checking infrastructure can reduce integration costs.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what implementations does reuse of age-checking infrastructure make integration cheaper?"
+          },
+          {
+            "claim": "More extensive age-checking records or shared infrastructure can make enforcement easier.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that shared age-checking infrastructure or clearer records make enforcement easier?"
+          },
+          {
+            "claim": "Shared age-checking infrastructure can reduce duplication among systems.",
+            "kind": "broad-generalization",
+            "verification_question": "Does shared age-checking infrastructure reduce duplicate systems, and in which architectures?"
+          },
+          {
+            "claim": "A series of individually practical expansions of age checking can collectively produce a common credential layer.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence or architectural analysis establishes that these incremental expansions produce a common credential layer?"
+          }
+        ]
+      },
+      {
+        "id": "p2s11",
+        "status": "disclose",
+        "reason": "The vault-and-doors metaphor contains two causal generalizations: dependence increases system value and additional uses increase the consequences of error.",
+        "claims": [
+          {
+            "claim": "A credential repository or verification system becomes more valuable as more services depend on it.",
+            "kind": "broad-generalization",
+            "verification_question": "How does adoption by additional services affect the value of a shared credential repository or verification system?"
+          },
+          {
+            "claim": "The consequences of credential-system errors increase as the credential is used for more purposes or services.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that adding uses to a credential system increases the severity or reach of errors?"
+          }
+        ]
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is an argumentative conclusion that broader use changes the relevant risks and consequences.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "These are clearly signalled hypothetical failure and exposure cases posed for analysis, not reports that such events occurred.",
+        "claims": []
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "This contrasts a hypothetically narrow law with operational cases that any implemented infrastructure would need either to handle or exclude.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "An operating system necessarily has policies, explicit or implicit, governing the listed decisions; the sentence does not claim what those policies currently are.",
+        "claims": []
+      },
+      {
+        "id": "p3s5",
+        "status": "keep",
+        "reason": "Within the posited access system, eligibility and appeal rules logically determine who passes its gate; the activities listed describe the access at stake rather than an observed population outcome.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "disclose",
+        "reason": "This asserts a causal effect of privacy-preserving design on risk without support in the request.",
+        "claims": [
+          {
+            "claim": "Privacy-preserving design can reduce some risks created by online age-checking systems.",
+            "kind": "broad-generalization",
+            "verification_question": "Which privacy-preserving designs reduce which age-checking risks, and what evidence demonstrates those reductions?"
+          }
+        ]
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "This presents a possible minimization architecture and possible data-handling choices, not a claim that existing services implement them.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This is a value judgment endorsing the proposed safeguards.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "disclose",
+        "reason": "The conceptual point that safeguards do not answer the institutional question is inferential, but the embedded proposition predicts that ordinary online access will likely depend on an approved credential.",
+        "claims": [
+          {
+            "claim": "Access to ordinary online life is likely to become conditioned on carrying an approved credential when age-checking systems are deployed.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence supports the prediction that age-checking deployments will likely make approved credentials a condition of ordinary online access?"
+          }
+        ]
+      },
+      {
+        "id": "p4s5",
+        "status": "disclose",
+        "reason": "Both halves assert general effects and limitations of technical minimization that require support beyond the request.",
+        "claims": [
+          {
+            "claim": "Technical data minimization limits the information revealed by an individual age check.",
+            "kind": "broad-generalization",
+            "verification_question": "Which minimization techniques limit what an age check reveals, and to what extent?"
+          },
+          {
+            "claim": "Technical data minimization does not prevent an age-checking mechanism from being adopted for additional uses or services.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence or architectural analysis shows that minimization does not prevent broader adoption of the checking mechanism?"
+          }
+        ]
+      },
+      {
+        "id": "p4s6",
+        "status": "keep",
+        "reason": "This is an analogy expressing that a less detailed credential system can still control eligibility; it adds no claim about an actual catalog or system.",
+        "claims": []
+      },
+      {
+        "id": "p4s7",
+        "status": "keep",
+        "reason": "This is a policy recommendation derived from the possibility that the system can expand beyond its initial use.",
+        "claims": []
+      },
+      {
+        "id": "p4s8",
+        "status": "keep",
+        "reason": "This is a proposed purpose-limitation rule and lists prohibited secondary uses without claiming that they currently occur.",
+        "claims": []
+      },
+      {
+        "id": "p4s9",
+        "status": "keep",
+        "reason": "This is a normative requirement favoring optional credentials when less intrusive evidence is adequate.",
+        "claims": []
+      },
+      {
+        "id": "p4s10",
+        "status": "keep",
+        "reason": "This proposes audit scope and deletion-rule coverage; it makes no claim about present audit or vendor practices.",
+        "claims": []
+      },
+      {
+        "id": "p4s11",
+        "status": "keep",
+        "reason": "This is a recommendation about the proper scope of enforcement.",
+        "claims": []
+      },
+      {
+        "id": "p4s12",
+        "status": "keep",
+        "reason": "This expresses a normative requirement for a privacy-preserving challenge process.",
+        "claims": []
+      },
+      {
+        "id": "p4s13",
+        "status": "keep",
+        "reason": "This is a rhetorical warning that derives the dragnet metaphor from the absence of the proposed limits.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This rejects a normative either-or choice and asserts compatibility between two policy goals, without adding an external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This is a value judgment labeling the preceding either-or framing as false.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This is a collective demand for two compatible policy objectives, not a report about existing conditions.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This is a recommendation to lawmakers listing conditions that should accompany authorization.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "This is a call to action asking readers to seek the proposed statutory protections.",
+        "claims": []
+      },
+      {
+        "id": "p5s6",
+        "status": "disclose",
+        "reason": "The conditional setup supports concern about normalization, but the categorical prediction that a credential will not remain narrow is an unsupported causal generalization.",
+        "claims": [
+          {
+            "claim": "Once a credential is normalized as a condition for access to ordinary online speech, its use will expand beyond the narrow scope stated in its authorizing statute.",
+            "kind": "broad-generalization",
+            "verification_question": "What historical, institutional, or empirical evidence supports the claim that normalized access credentials expand beyond their original statutory scope?"
+          }
+        ]
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m04.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m04.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "dca795e39d64b7d86264d45bda390de84b4491dca8ef4bd8298628d6b35f9cbc",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

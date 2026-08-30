@@ -1,0 +1,73 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "The right-to-repair debate is often framed primarily as a dispute over access to parts.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Manufacturers that withhold service information as intellectual property state that protecting creative work is a reason for doing so.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Intellectual-property protections can protect a repair manual's original expression without treating every useful fact about the machine as a protected company secret.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Repair manuals may contain expressive writing.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Connector locations, error codes, and test values commonly form the practical core of repair manuals and describe how purchased devices function.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A technician cannot reliably replace a missing voltage specification through skill or ingenuity alone.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Diagnostic guesswork caused by missing specifications increases repair time and can damage equipment.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "The costs caused by withheld service information fall more heavily on small repair shops than on larger repair organizations.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Large service networks can distribute diagnostic-subscription, specialized-equipment, and training expenses across many locations.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Independent repair operations generally have fewer repairs over which to recover diagnostic-subscription, equipment, and training charges than large service networks do.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Uncertainty about labor and the possibility of a second teardown makes shops less able to offer repairs at prices customers will accept.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Some economically or technically viable repair jobs are not accepted because of the costs or uncertainty created by unavailable service information.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Access to documentation determines whether replacement parts are usable in at least some repairs.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Some devices reject physically compatible replacement parts, limit their functions, or display persistent warnings because of parts-pairing controls.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Manufacturers and large service chains hold advantages over independent repair shops that a service-information disclosure rule would not eliminate.",
+      "where": "paragraph 10"
+    },
+    {
+      "claim": "Providing the proposed disclosures would improve independent shops' ability to compete on skill, price, and service.",
+      "where": "paragraph 10"
+    },
+    {
+      "claim": "Manufacturers or authorized service organizations possess privileged access to repair information or tools unavailable to independent shops.",
+      "where": "paragraph 10"
+    }
+  ]
+}

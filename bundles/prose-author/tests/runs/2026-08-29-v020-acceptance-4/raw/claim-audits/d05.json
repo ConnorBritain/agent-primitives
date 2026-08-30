@@ -1,0 +1,504 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"The title states the requested argumentative thesis and adds no external descriptive premise.\",\"claims\":[]},{\"id\":\"p2s1\",\"status\":\"disclose\",\"reason\":\"The sentence generalizes about the visual contents and prompt used by choice screens.\",\"claims\":[{\"claim\":\"Choice screens typically present several logos or listed options and prompt users to select one.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What choice-screen implementations show several logos or options and explicitly prompt users to pick?\"}]},{\"id\":\"p2s2\",\"status\":\"disclose\",\"reason\":\"It asserts that the consequential selection occurred before the user's interaction, which the request asks the post to discuss but does not establish.\",\"claims\":[{\"claim\":\"For choice screens, a consequential selection of available options occurs before users see the screen.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Who selects choice-screen options before display, and what evidence shows that this prior selection is consequential?\"}]},{\"id\":\"p2s3\",\"status\":\"disclose\",\"reason\":\"Each clause describes unsupported selection and exclusion practices, including a contingent judgment about troublesome options.\",\"claims\":[{\"claim\":\"Choice-screen operators select which candidates appear.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Who selects the candidates appearing on documented choice screens?\"},{\"claim\":\"Choice-screen operators establish eligibility rules for listed candidates.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Who writes the eligibility rules for documented choice screens?\"},{\"claim\":\"Choice-screen operators determine the ordering of listed candidates.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Who determines option ordering on documented choice screens?\"},{\"claim\":\"Choice-screen operators exclude options they regard as troublesome.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Is there evidence that operators exclude options because they consider them troublesome, and in which implementations?\"}]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"This is the author's rhetorical classification of the described arrangement, not an externally checkable factual assertion.\",\"claims\":[]},{\"id\":\"p2s5\",\"status\":\"keep\",\"reason\":\"The restaurant is a clearly figurative analogy illustrating bounded selection; it does not report a real restaurant or event.\",\"claims\":[]},{\"id\":\"p2s6\",\"status\":\"keep\",\"reason\":\"The first clause restates displayed alternatives, while the second figuratively describes the selector's control over which alternatives constitute the field.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"disclose\",\"reason\":\"It relies on unsupported general propositions about human attention and the effort required by interfaces.\",\"claims\":[{\"claim\":\"Human attention is scarce in choice-screen interactions.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What research establishes attention scarcity in the relevant interface-selection context?\"},{\"claim\":\"Using interfaces imposes cognitive or practical work on users.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence quantifies or demonstrates the work imposed by interfaces in this context?\"}]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"Calling a preselected mark non-neutral implies that it influences selection rather than merely displaying state.\",\"claims\":[{\"claim\":\"Preselecting an option on a choice screen influences user selection.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What studies or implementation data show that a preselected option affects users' choices?\"}]},{\"id\":\"p3s3\",\"status\":\"disclose\",\"reason\":\"The sentence attributes specific behavioral mechanisms and interaction advantages to a default.\",\"claims\":[{\"claim\":\"A preselected default requires fewer clicks than selecting an alternative.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Across which choice-screen designs does accepting the default require fewer clicks than choosing an alternative?\"},{\"claim\":\"A preselected default reduces how much users read.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that preselection causes users to read less?\"},{\"claim\":\"A preselected default reduces user uncertainty.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that preselection reduces uncertainty in this setting?\"}]},{\"id\":\"p3s4\",\"status\":\"disclose\",\"reason\":\"Although framed in the second person, it predicts a general behavioral response to time pressure.\",\"claims\":[{\"claim\":\"Users under time pressure tend to accept a prearranged default rather than investigate the competitive implications of their options.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What behavioral evidence shows that time-pressured users accept defaults instead of examining alternatives?\"}]},{\"id\":\"p3s5\",\"status\":\"disclose\",\"reason\":\"It asserts causal links from default placement to distribution and from distribution to revenue.\",\"claims\":[{\"claim\":\"Default placement increases an option's distribution.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that default placement increases distribution in the relevant software markets?\"},{\"claim\":\"Increased distribution produces increased revenue for the selected provider.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence links increased distribution from choice-screen placement to provider revenue?\"}]},{\"id\":\"p3s6\",\"status\":\"disclose\",\"reason\":\"It asserts that users retain the ability to change the default, a product-dependent fact not supplied by the request.\",\"claims\":[{\"claim\":\"Users can change the preselected option on the choice screens under discussion.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which relevant choice screens allow users to change the preselected option, and under what conditions?\"}]},{\"id\":\"p3s7\",\"status\":\"keep\",\"reason\":\"The rhetorical question advances a value judgment about accumulated obstacles and uses a hypothetical threshold without asserting a measured real-world prevalence.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This rhetorical question refers back to the figurative paved path and introduces no descriptive answer.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"disclose\",\"reason\":\"It attributes benefit and several forms of operational control to the same real-world class of gatekeepers.\",\"claims\":[{\"claim\":\"Choice-screen gatekeepers benefit from steering user traffic.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How do relevant gatekeepers benefit from steering traffic through their choice screens?\"},{\"claim\":\"Choice-screen gatekeepers can define option categories and admission prices.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which gatekeepers control categories and admission prices for participation?\"},{\"claim\":\"Choice-screen gatekeepers can require providers to complete technical integrations.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which documented choice-screen regimes impose gatekeeper-defined technical-integration requirements?\"},{\"claim\":\"Choice-screen gatekeepers can reserve the most advantageous position for themselves or a favored option.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which gatekeepers control and reserve preferred placement, and what evidence identifies that placement as advantageous?\"}]},{\"id\":\"p4s3\",\"status\":\"disclose\",\"reason\":\"The recommendation is supported by an unsupported claim that the identified levers compound one another.\",\"claims\":[{\"claim\":\"The gatekeeper controls described in the preceding discussion compound one another's effects.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that these controls interact cumulatively rather than independently?\"}]},{\"id\":\"p4s4\",\"status\":\"disclose\",\"reason\":\"The sentence generalizes that listed rivals may face disadvantages in placement, burden, and customer communication.\",\"claims\":[{\"claim\":\"A rival listed on a choice screen may be placed where users are unlikely to notice it.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which choice-screen designs bury listed rivals, and how is reduced visibility established?\"},{\"claim\":\"An admitted rival may be subjected to burdens not captured by its nominal admission.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What additional burdens have admitted rivals faced in documented choice-screen regimes?\"},{\"claim\":\"A visible rival may be prevented from communicating directly with customers.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which rules prevent visible rivals from communicating directly with customers?\"}]},{\"id\":\"p4s5\",\"status\":\"disclose\",\"reason\":\"It makes comparative claims about the exclusionary effect, subtlety, and public appearance of listing criteria.\",\"claims\":[{\"claim\":\"Listing criteria can exclude providers as effectively as an outright ban.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what documented conditions have listing criteria produced exclusion comparable to a ban?\"},{\"claim\":\"Exclusion through listing criteria is less conspicuous and appears more favorable than an outright ban.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence supports the claim that criteria-based exclusion is quieter and receives better public or regulatory perception than a ban?\"}]},{\"id\":\"p4s6\",\"status\":\"keep\",\"reason\":\"This is a statement about the author's reasoning: the structural argument does not logically require a conspiracy premise.\",\"claims\":[]},{\"id\":\"p4s7\",\"status\":\"disclose\",\"reason\":\"The election language is an analogy, but the final clause asserts that relevant choice mechanisms are embedded in products people already use.\",\"claims\":[{\"claim\":\"Choice screens controlled by gatekeepers are embedded in products with an existing user base.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which relevant choice screens appear inside already-used products, and how large or established are their user bases?\"}]},{\"id\":\"p5s1\",\"status\":\"disclose\",\"reason\":\"The conclusion asserts a general causal capacity for nominal choice to preserve gatekeeper power.\",\"claims\":[{\"claim\":\"Providing nominal choice can preserve the gatekeeper power that the measure is intended to reduce.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that nominal-choice remedies have preserved gatekeeper power, and through which mechanisms?\"}]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This is a hypothetical definition of how a narrowly scoped remedy could operate, with the untouched mechanisms serving as conceptual examples rather than reports of an enacted remedy.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"The imperative constructs an imagined remedy in which one firm controls qualification, warnings, and settings; it does not report an existing implementation.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This is the stated conceptual consequence of the immediately preceding imagined arrangement: alternatives exist while selection control remains centralized.\",\"claims\":[]},{\"id\":\"p5s5\",\"status\":\"disclose\",\"reason\":\"The pressure-valve and machine language is metaphorical, but the parenthetical asserts that visible movement quiets criticism.\",\"claims\":[{\"claim\":\"Offering limited visible choice can reduce criticism of a gatekeeper without changing its underlying power structure.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that visible choice measures reduce criticism while leaving the underlying power structure intact?\"}]},{\"id\":\"p5s6\",\"status\":\"disclose\",\"reason\":\"The first-person framing does not remove the generalized assertion about what technical debates focus on.\",\"claims\":[{\"claim\":\"Technical debates about choice screens tend to focus excessively on the number of interface buttons.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which technical debates exhibit this focus, and how can its prevalence be established?\"}]},{\"id\":\"p5s7\",\"status\":\"keep\",\"reason\":\"It rejects the proposition that adding interface buttons necessarily redistributes authority; denying necessity requires no external descriptive premise.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"keep\",\"reason\":\"The casino is an explicitly introduced imagined analogy whose allocation of control illustrates the argument without reporting a real actor or event.\",\"claims\":[]},{\"id\":\"p6s2\",\"status\":\"keep\",\"reason\":\"Within the imagined casino analogy, selecting among tables is distinguished definitionally from controlling market conditions.\",\"claims\":[]},{\"id\":\"p6s3\",\"status\":\"keep\",\"reason\":\"This remains within the hypothetical casino analogy and describes logical compliance with an underspecified choice rule, not an actual legal event.\",\"claims\":[]},{\"id\":\"p6s4\",\"status\":\"keep\",\"reason\":\"The cage, painted doors, and onboarding flow form a coherent metaphor for nominal alternatives under retained control.\",\"claims\":[]},{\"id\":\"p6s5\",\"status\":\"keep\",\"reason\":\"This clarifies the author's argument and does not assert that any particular screen has produced an effect.\",\"claims\":[]},{\"id\":\"p6s6\",\"status\":\"disclose\",\"reason\":\"It asserts that choice screens can produce beneficial effects without identifying or supplying those effects.\",\"claims\":[{\"claim\":\"Choice screens can produce beneficial outcomes.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What beneficial outcomes have choice screens produced, and what evidence attributes those outcomes to the screens?\"}]},{\"id\":\"p6s7\",\"status\":\"keep\",\"reason\":\"This is the author's conceptual distinction between multiple interface options and distributed structural authority.\",\"claims\":[]},{\"id\":\"p7s1\",\"status\":\"keep\",\"reason\":\"It proposes a normative definition of a meaningful remedy in terms of entry control and viable switching.\",\"claims\":[]},{\"id\":\"p7s2\",\"status\":\"keep\",\"reason\":\"Every clause specifies a proposed remedy: independent access rules, neutral ordering, portability, and protection against retaliation, without claiming these protections currently exist.\",\"claims\":[]},{\"id\":\"p7s3\",\"status\":\"keep\",\"reason\":\"This is a rhetorical characterization of the proposed details, not a proposition about measurable public opinion.\",\"claims\":[]},{\"id\":\"p7s4\",\"status\":\"keep\",\"reason\":\"The gate and sign are a metaphor contrasting substantive access with merely visible claims of openness.\",\"claims\":[]},{\"id\":\"p7s5\",\"status\":\"keep\",\"reason\":\"The first clause is a normative demand for oversight and enforcement; the second is a rhetorical value judgment that delayed, unusable rights are not meaningful rights.\",\"claims\":[]},{\"id\":\"p8s1\",\"status\":\"keep\",\"reason\":\"This limits the preceding argument and does not claim that a particular listing decision is unavoidable.\",\"claims\":[]},{\"id\":\"p8s2\",\"status\":\"keep\",\"reason\":\"Calling the listed checks legitimate is a value judgment, and the second clause states the author's proposed constraint on a remedy.\",\"claims\":[]},{\"id\":\"p8s3\",\"status\":\"keep\",\"reason\":\"The sentence poses evaluative questions about governance, contestability, and incentives without supplying factual answers.\",\"claims\":[]},{\"id\":\"p8s4\",\"status\":\"disclose\",\"reason\":\"The conditional predicts that incumbent control over checks, contests, and delay will preserve an existing business model despite presentation regulation.\",\"claims\":[{\"claim\":\"Leaving rulemaking, contest, and delay powers with an incumbent causes presentation-focused regulation to preserve the incumbent's business model.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that incumbent retention of these powers preserves its business model under presentation-focused regulation?\"}]},{\"id\":\"p8s5\",\"status\":\"keep\",\"reason\":\"This is a hypothetical and rhetorically qualified possible outcome, not a report that a specific picker became prettier.\",\"claims\":[]},{\"id\":\"p8s6\",\"status\":\"disclose\",\"reason\":\"It asserts that legal and engineering changes moving control beyond the interface are necessary before a choice screen can display market choice.\",\"claims\":[{\"claim\":\"Choice screens display genuine market choice only when legal and engineering measures transfer relevant control beyond the screen.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence establishes these legal and engineering transfers as necessary conditions for genuine market choice?\"}]},{\"id\":\"p8s7\",\"status\":\"keep\",\"reason\":\"This is the author's evaluative conclusion that a screen lacking the proposed structural conditions does not qualify as a remedy.\",\"claims\":[]},{\"id\":\"p8s8\",\"status\":\"keep\",\"reason\":\"The showroom, landlord, stock, and tenants form a coherent metaphor restating selector control and the distinction between displayed alternatives and substantive freedom.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "The title states the requested argumentative thesis and adds no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "disclose",
+        "reason": "The sentence generalizes about the visual contents and prompt used by choice screens.",
+        "claims": [
+          {
+            "claim": "Choice screens typically present several logos or listed options and prompt users to select one.",
+            "kind": "broad-generalization",
+            "verification_question": "What choice-screen implementations show several logos or options and explicitly prompt users to pick?"
+          }
+        ]
+      },
+      {
+        "id": "p2s2",
+        "status": "disclose",
+        "reason": "It asserts that the consequential selection occurred before the user's interaction, which the request asks the post to discuss but does not establish.",
+        "claims": [
+          {
+            "claim": "For choice screens, a consequential selection of available options occurs before users see the screen.",
+            "kind": "broad-generalization",
+            "verification_question": "Who selects choice-screen options before display, and what evidence shows that this prior selection is consequential?"
+          }
+        ]
+      },
+      {
+        "id": "p2s3",
+        "status": "disclose",
+        "reason": "Each clause describes unsupported selection and exclusion practices, including a contingent judgment about troublesome options.",
+        "claims": [
+          {
+            "claim": "Choice-screen operators select which candidates appear.",
+            "kind": "broad-generalization",
+            "verification_question": "Who selects the candidates appearing on documented choice screens?"
+          },
+          {
+            "claim": "Choice-screen operators establish eligibility rules for listed candidates.",
+            "kind": "broad-generalization",
+            "verification_question": "Who writes the eligibility rules for documented choice screens?"
+          },
+          {
+            "claim": "Choice-screen operators determine the ordering of listed candidates.",
+            "kind": "broad-generalization",
+            "verification_question": "Who determines option ordering on documented choice screens?"
+          },
+          {
+            "claim": "Choice-screen operators exclude options they regard as troublesome.",
+            "kind": "broad-generalization",
+            "verification_question": "Is there evidence that operators exclude options because they consider them troublesome, and in which implementations?"
+          }
+        ]
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "This is the author's rhetorical classification of the described arrangement, not an externally checkable factual assertion.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "The restaurant is a clearly figurative analogy illustrating bounded selection; it does not report a real restaurant or event.",
+        "claims": []
+      },
+      {
+        "id": "p2s6",
+        "status": "keep",
+        "reason": "The first clause restates displayed alternatives, while the second figuratively describes the selector's control over which alternatives constitute the field.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "disclose",
+        "reason": "It relies on unsupported general propositions about human attention and the effort required by interfaces.",
+        "claims": [
+          {
+            "claim": "Human attention is scarce in choice-screen interactions.",
+            "kind": "broad-generalization",
+            "verification_question": "What research establishes attention scarcity in the relevant interface-selection context?"
+          },
+          {
+            "claim": "Using interfaces imposes cognitive or practical work on users.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence quantifies or demonstrates the work imposed by interfaces in this context?"
+          }
+        ]
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "Calling a preselected mark non-neutral implies that it influences selection rather than merely displaying state.",
+        "claims": [
+          {
+            "claim": "Preselecting an option on a choice screen influences user selection.",
+            "kind": "broad-generalization",
+            "verification_question": "What studies or implementation data show that a preselected option affects users' choices?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "disclose",
+        "reason": "The sentence attributes specific behavioral mechanisms and interaction advantages to a default.",
+        "claims": [
+          {
+            "claim": "A preselected default requires fewer clicks than selecting an alternative.",
+            "kind": "broad-generalization",
+            "verification_question": "Across which choice-screen designs does accepting the default require fewer clicks than choosing an alternative?"
+          },
+          {
+            "claim": "A preselected default reduces how much users read.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that preselection causes users to read less?"
+          },
+          {
+            "claim": "A preselected default reduces user uncertainty.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that preselection reduces uncertainty in this setting?"
+          }
+        ]
+      },
+      {
+        "id": "p3s4",
+        "status": "disclose",
+        "reason": "Although framed in the second person, it predicts a general behavioral response to time pressure.",
+        "claims": [
+          {
+            "claim": "Users under time pressure tend to accept a prearranged default rather than investigate the competitive implications of their options.",
+            "kind": "broad-generalization",
+            "verification_question": "What behavioral evidence shows that time-pressured users accept defaults instead of examining alternatives?"
+          }
+        ]
+      },
+      {
+        "id": "p3s5",
+        "status": "disclose",
+        "reason": "It asserts causal links from default placement to distribution and from distribution to revenue.",
+        "claims": [
+          {
+            "claim": "Default placement increases an option's distribution.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that default placement increases distribution in the relevant software markets?"
+          },
+          {
+            "claim": "Increased distribution produces increased revenue for the selected provider.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence links increased distribution from choice-screen placement to provider revenue?"
+          }
+        ]
+      },
+      {
+        "id": "p3s6",
+        "status": "disclose",
+        "reason": "It asserts that users retain the ability to change the default, a product-dependent fact not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Users can change the preselected option on the choice screens under discussion.",
+            "kind": "broad-generalization",
+            "verification_question": "Which relevant choice screens allow users to change the preselected option, and under what conditions?"
+          }
+        ]
+      },
+      {
+        "id": "p3s7",
+        "status": "keep",
+        "reason": "The rhetorical question advances a value judgment about accumulated obstacles and uses a hypothetical threshold without asserting a measured real-world prevalence.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This rhetorical question refers back to the figurative paved path and introduces no descriptive answer.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "disclose",
+        "reason": "It attributes benefit and several forms of operational control to the same real-world class of gatekeepers.",
+        "claims": [
+          {
+            "claim": "Choice-screen gatekeepers benefit from steering user traffic.",
+            "kind": "broad-generalization",
+            "verification_question": "How do relevant gatekeepers benefit from steering traffic through their choice screens?"
+          },
+          {
+            "claim": "Choice-screen gatekeepers can define option categories and admission prices.",
+            "kind": "broad-generalization",
+            "verification_question": "Which gatekeepers control categories and admission prices for participation?"
+          },
+          {
+            "claim": "Choice-screen gatekeepers can require providers to complete technical integrations.",
+            "kind": "broad-generalization",
+            "verification_question": "Which documented choice-screen regimes impose gatekeeper-defined technical-integration requirements?"
+          },
+          {
+            "claim": "Choice-screen gatekeepers can reserve the most advantageous position for themselves or a favored option.",
+            "kind": "broad-generalization",
+            "verification_question": "Which gatekeepers control and reserve preferred placement, and what evidence identifies that placement as advantageous?"
+          }
+        ]
+      },
+      {
+        "id": "p4s3",
+        "status": "disclose",
+        "reason": "The recommendation is supported by an unsupported claim that the identified levers compound one another.",
+        "claims": [
+          {
+            "claim": "The gatekeeper controls described in the preceding discussion compound one another's effects.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that these controls interact cumulatively rather than independently?"
+          }
+        ]
+      },
+      {
+        "id": "p4s4",
+        "status": "disclose",
+        "reason": "The sentence generalizes that listed rivals may face disadvantages in placement, burden, and customer communication.",
+        "claims": [
+          {
+            "claim": "A rival listed on a choice screen may be placed where users are unlikely to notice it.",
+            "kind": "broad-generalization",
+            "verification_question": "Which choice-screen designs bury listed rivals, and how is reduced visibility established?"
+          },
+          {
+            "claim": "An admitted rival may be subjected to burdens not captured by its nominal admission.",
+            "kind": "broad-generalization",
+            "verification_question": "What additional burdens have admitted rivals faced in documented choice-screen regimes?"
+          },
+          {
+            "claim": "A visible rival may be prevented from communicating directly with customers.",
+            "kind": "broad-generalization",
+            "verification_question": "Which rules prevent visible rivals from communicating directly with customers?"
+          }
+        ]
+      },
+      {
+        "id": "p4s5",
+        "status": "disclose",
+        "reason": "It makes comparative claims about the exclusionary effect, subtlety, and public appearance of listing criteria.",
+        "claims": [
+          {
+            "claim": "Listing criteria can exclude providers as effectively as an outright ban.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what documented conditions have listing criteria produced exclusion comparable to a ban?"
+          },
+          {
+            "claim": "Exclusion through listing criteria is less conspicuous and appears more favorable than an outright ban.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence supports the claim that criteria-based exclusion is quieter and receives better public or regulatory perception than a ban?"
+          }
+        ]
+      },
+      {
+        "id": "p4s6",
+        "status": "keep",
+        "reason": "This is a statement about the author's reasoning: the structural argument does not logically require a conspiracy premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s7",
+        "status": "disclose",
+        "reason": "The election language is an analogy, but the final clause asserts that relevant choice mechanisms are embedded in products people already use.",
+        "claims": [
+          {
+            "claim": "Choice screens controlled by gatekeepers are embedded in products with an existing user base.",
+            "kind": "broad-generalization",
+            "verification_question": "Which relevant choice screens appear inside already-used products, and how large or established are their user bases?"
+          }
+        ]
+      },
+      {
+        "id": "p5s1",
+        "status": "disclose",
+        "reason": "The conclusion asserts a general causal capacity for nominal choice to preserve gatekeeper power.",
+        "claims": [
+          {
+            "claim": "Providing nominal choice can preserve the gatekeeper power that the measure is intended to reduce.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that nominal-choice remedies have preserved gatekeeper power, and through which mechanisms?"
+          }
+        ]
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This is a hypothetical definition of how a narrowly scoped remedy could operate, with the untouched mechanisms serving as conceptual examples rather than reports of an enacted remedy.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "The imperative constructs an imagined remedy in which one firm controls qualification, warnings, and settings; it does not report an existing implementation.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This is the stated conceptual consequence of the immediately preceding imagined arrangement: alternatives exist while selection control remains centralized.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "disclose",
+        "reason": "The pressure-valve and machine language is metaphorical, but the parenthetical asserts that visible movement quiets criticism.",
+        "claims": [
+          {
+            "claim": "Offering limited visible choice can reduce criticism of a gatekeeper without changing its underlying power structure.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that visible choice measures reduce criticism while leaving the underlying power structure intact?"
+          }
+        ]
+      },
+      {
+        "id": "p5s6",
+        "status": "disclose",
+        "reason": "The first-person framing does not remove the generalized assertion about what technical debates focus on.",
+        "claims": [
+          {
+            "claim": "Technical debates about choice screens tend to focus excessively on the number of interface buttons.",
+            "kind": "broad-generalization",
+            "verification_question": "Which technical debates exhibit this focus, and how can its prevalence be established?"
+          }
+        ]
+      },
+      {
+        "id": "p5s7",
+        "status": "keep",
+        "reason": "It rejects the proposition that adding interface buttons necessarily redistributes authority; denying necessity requires no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "The casino is an explicitly introduced imagined analogy whose allocation of control illustrates the argument without reporting a real actor or event.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Within the imagined casino analogy, selecting among tables is distinguished definitionally from controlling market conditions.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "This remains within the hypothetical casino analogy and describes logical compliance with an underspecified choice rule, not an actual legal event.",
+        "claims": []
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "The cage, painted doors, and onboarding flow form a coherent metaphor for nominal alternatives under retained control.",
+        "claims": []
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "This clarifies the author's argument and does not assert that any particular screen has produced an effect.",
+        "claims": []
+      },
+      {
+        "id": "p6s6",
+        "status": "disclose",
+        "reason": "It asserts that choice screens can produce beneficial effects without identifying or supplying those effects.",
+        "claims": [
+          {
+            "claim": "Choice screens can produce beneficial outcomes.",
+            "kind": "broad-generalization",
+            "verification_question": "What beneficial outcomes have choice screens produced, and what evidence attributes those outcomes to the screens?"
+          }
+        ]
+      },
+      {
+        "id": "p6s7",
+        "status": "keep",
+        "reason": "This is the author's conceptual distinction between multiple interface options and distributed structural authority.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "It proposes a normative definition of a meaningful remedy in terms of entry control and viable switching.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Every clause specifies a proposed remedy: independent access rules, neutral ordering, portability, and protection against retaliation, without claiming these protections currently exist.",
+        "claims": []
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "This is a rhetorical characterization of the proposed details, not a proposition about measurable public opinion.",
+        "claims": []
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "The gate and sign are a metaphor contrasting substantive access with merely visible claims of openness.",
+        "claims": []
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "The first clause is a normative demand for oversight and enforcement; the second is a rhetorical value judgment that delayed, unusable rights are not meaningful rights.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "This limits the preceding argument and does not claim that a particular listing decision is unavoidable.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Calling the listed checks legitimate is a value judgment, and the second clause states the author's proposed constraint on a remedy.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "The sentence poses evaluative questions about governance, contestability, and incentives without supplying factual answers.",
+        "claims": []
+      },
+      {
+        "id": "p8s4",
+        "status": "disclose",
+        "reason": "The conditional predicts that incumbent control over checks, contests, and delay will preserve an existing business model despite presentation regulation.",
+        "claims": [
+          {
+            "claim": "Leaving rulemaking, contest, and delay powers with an incumbent causes presentation-focused regulation to preserve the incumbent's business model.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that incumbent retention of these powers preserves its business model under presentation-focused regulation?"
+          }
+        ]
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "This is a hypothetical and rhetorically qualified possible outcome, not a report that a specific picker became prettier.",
+        "claims": []
+      },
+      {
+        "id": "p8s6",
+        "status": "disclose",
+        "reason": "It asserts that legal and engineering changes moving control beyond the interface are necessary before a choice screen can display market choice.",
+        "claims": [
+          {
+            "claim": "Choice screens display genuine market choice only when legal and engineering measures transfer relevant control beyond the screen.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence establishes these legal and engineering transfers as necessary conditions for genuine market choice?"
+          }
+        ]
+      },
+      {
+        "id": "p8s7",
+        "status": "keep",
+        "reason": "This is the author's evaluative conclusion that a screen lacking the proposed structural conditions does not qualify as a remedy.",
+        "claims": []
+      },
+      {
+        "id": "p8s8",
+        "status": "keep",
+        "reason": "The showroom, landlord, stock, and tenants form a coherent metaphor restating selector control and the distinction between displayed alternatives and substantive freedom.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d05.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d05.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "e3d19f4dfc5d4e3e4d72197b610519e748787a56e5798e95dfd5e2184231db25",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

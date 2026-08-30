@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Age assurance is a goal, not a single technology, and a demand to add it can conceal a cost: turning an independent app into a collector of identity data. Documents may establish age, but collecting them isn’t the only safe option. (In many cases, it may be the riskiest one.)\\n\\nStart with the requirement (age threshold, confidence level, and covered feature). Then choose the least intrusive signal that meets it. An app could accept an age band from an operating system or app store, use a device-held credential that proves “over 18” without revealing a birth date, or apply an account-based declaration with proportionate follow-up for higher-risk actions. These aren’t perfect—but neither is a passport upload.\\n\\nThe crucial distinction is between assurance and identification. A service may need confidence that a person falls within an age range (under 13, 13 to 15, or adult); it rarely needs a legal name, address, document number, and photograph. Collecting that bundle creates a valuable vault: one breach, subpoena, or internal misuse can expose far more than age.\\n\\nA defensible design should minimize collection, separate the age result from the account, retain no document image, and record only what is necessary (for example, “adult confirmed,” method, and expiry). It should also offer more than one route, because documents can exclude people who lack credentials or can’t safely present them. Any specialist service should not return a reusable identity profile—it should return a narrow assertion.\\n\\nIf the mandate is vague, document assumptions and ask the regulator or platform for its assurance level and methods. We should resist rules that convert developers into an identity provider. The principle is simple: prove the attribute, not the person; collect less, retain less, and require the institution imposing the rule to publish a privacy-preserving compliance path.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Age assurance is a goal, not a single technology, and a demand to add it can conceal a cost: turning an independent app into a collector of identity data. Documents may establish age, but collecting them isn’t the only safe option. (In many cases, it may be the riskiest one.)\n\nStart with the requirement (age threshold, confidence level, and covered feature). Then choose the least intrusive signal that meets it. An app could accept an age band from an operating system or app store, use a device-held credential that proves “over 18” without revealing a birth date, or apply an account-based declaration with proportionate follow-up for higher-risk actions. These aren’t perfect—but neither is a passport upload.\n\nThe crucial distinction is between assurance and identification. A service may need confidence that a person falls within an age range (under 13, 13 to 15, or adult); it rarely needs a legal name, address, document number, and photograph. Collecting that bundle creates a valuable vault: one breach, subpoena, or internal misuse can expose far more than age.\n\nA defensible design should minimize collection, separate the age result from the account, retain no document image, and record only what is necessary (for example, “adult confirmed,” method, and expiry). It should also offer more than one route, because documents can exclude people who lack credentials or can’t safely present them. Any specialist service should not return a reusable identity profile—it should return a narrow assertion.\n\nIf the mandate is vague, document assumptions and ask the regulator or platform for its assurance level and methods. We should resist rules that convert developers into an identity provider. The principle is simple: prove the attribute, not the person; collect less, retain less, and require the institution imposing the rule to publish a privacy-preserving compliance path.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/drafts/m10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/drafts/m10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "a1f6544a6d1631e511f1f208b08b49d6caf3ab735751990a37ad9b06ea185223",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

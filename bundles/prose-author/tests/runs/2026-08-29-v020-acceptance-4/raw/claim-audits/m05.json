@@ -1,0 +1,383 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"The title is supplied verbatim by the request and states the requested argumentative thesis.\",\"claims\":[]},{\"id\":\"p2s1\",\"status\":\"disclose\",\"reason\":\"The sentence describes how choice screens are commonly presented and the market mechanism their proponents purportedly trust; neither proposition is supplied by the request.\",\"claims\":[{\"claim\":\"Choice screens are often presented as modest competition measures.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How commonly, and by which institutions or proponents, are choice screens presented as modest competition measures?\"},{\"claim\":\"Choice-screen proposals are commonly premised on displaying several services, allowing users to select one, and relying on that selection to produce market competition.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which choice-screen proposals or presentations expressly rely on this sequence and expected market effect?\"}]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"This is the essay's analytical judgment that option selection precedes the displayed choice, adding no external descriptive premise.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"A finite list, accompanying information, and screen placement necessarily result from selection and arrangement by some actor; the sentence does not identify an unsupported real actor or practice.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"The sentence uses the gate and field metaphor to restate that displaying options does not itself transfer control over their selection and arrangement.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is an inference from the defined selection power: controlling eligibility, description, or placement is conceptually broader than outright exclusion.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"The sentence attributes several concrete powers and possible eligibility practices to platforms, none of which the request supplies.\",\"claims\":[{\"claim\":\"Platforms can make technical integration, billing support, or safety review conditions of eligibility for a choice screen.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which platforms or choice-screen regimes control eligibility through technical integration, billing support, or safety review?\"},{\"claim\":\"Platforms can determine whether a service qualifies before launch or only after a delay.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which platforms control qualification timing, and what evidence shows qualification occurring before launch or after delay?\"},{\"claim\":\"Platforms can control the labels used to describe services on choice screens.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which platforms control choice-screen labels, and what documentation establishes that authority?\"}]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"This is a possibility inferred from the preceding concept: a visually neutral list can still embody prior choices about eligibility, timing, and labels.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"The expressly conditional case logically characterizes retained rulemaking, application, and display authority as control exercised through interface design.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"disclose\",\"reason\":\"The sentence asserts a general causal effect of defaults on behavior, which is not supplied by the request.\",\"claims\":[{\"claim\":\"Defaults convert the design of a choice screen into corresponding user behavior.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that defaults on choice screens causally shape users' selections or continuation behavior?\"}]},{\"id\":\"p4s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes a general behavioral claim that prominent or preselected options reduce continuation effort.\",\"claims\":[{\"claim\":\"First position, highlighted buttons, and preselected services reduce the effort users need to continue through a choice flow.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What usability or behavioral evidence shows that each of these interface treatments reduces the effort required to continue?\"}]},{\"id\":\"p4s3\",\"status\":\"disclose\",\"reason\":\"The sentence describes additional interactions and possible warnings imposed on alternatives; these are contingent interface practices.\",\"claims\":[{\"claim\":\"Selecting alternatives on choice screens generally requires an additional tap or decision.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Across which choice-screen designs do alternatives require extra taps or decisions compared with the prepared option?\"},{\"claim\":\"Selecting an alternative may trigger an additional warning.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which choice-screen implementations display warnings when users select alternatives?\"}]},{\"id\":\"p4s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that individually small interface frictions accumulate into a meaningful effect.\",\"claims\":[{\"claim\":\"Small interface frictions can accumulate to produce a meaningful behavioral burden.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence establishes the cumulative behavioral effect of small frictions in choice or switching flows?\"}]},{\"id\":\"p4s5\",\"status\":\"keep\",\"reason\":\"The rhetorical question offers a value judgment about whether a prepared path and burdensome alternatives constitute free selection; it reports no real implementation.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"Whether a default is abusive is an evaluative classification, and denying that every instance meets it adds no external fact.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"disclose\",\"reason\":\"The sentence attributes confusion-reducing and immediate-function benefits to defaults, including during setup.\",\"claims\":[{\"claim\":\"Defaults can reduce user confusion.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that defaults reduce confusion, and under what interfaces or user conditions?\"},{\"claim\":\"Defaults can help devices function immediately, especially during setup.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For which devices and setup processes are defaults necessary or helpful for immediate functioning?\"}]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"The sentence uses leverage figuratively to draw the conceptual inference that controlling the starting point confers influence through convenience.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This is a clearly qualified policy inference: a hypothetical remedy that leaves the listed controls unchanged may leave the associated advantage unchanged.\",\"claims\":[]},{\"id\":\"p5s5\",\"status\":\"keep\",\"reason\":\"The card-catalog analogy figuratively restates the distinction between changing visible labels and retaining control over access or retrieval.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"keep\",\"reason\":\"This is the essay's reasoned possibility that displayed options can coexist with retained gatekeeper control.\",\"claims\":[]},{\"id\":\"p6s2\",\"status\":\"disclose\",\"reason\":\"The sentence describes providers as competing and attributes control over contest access, updates, and removal to gatekeepers.\",\"claims\":[{\"claim\":\"Providers listed on choice screens compete to be selected.\",\"kind\":\"broad-generalization\",\"verification_question\":\"In which markets or choice-screen regimes do listed providers compete for user selection?\"},{\"claim\":\"Gatekeepers controlling choice screens also control providers' access to the selection process, including updates and removal.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which gatekeepers possess authority over listing access, provider updates, and removal, and under what rules?\"}]},{\"id\":\"p6s3\",\"status\":\"disclose\",\"reason\":\"The sentence attributes data-collection and adaptive screen-design capabilities to gatekeepers and labels the resulting information as an advantage.\",\"claims\":[{\"claim\":\"Gatekeepers can collect information about which options succeed on a choice screen.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which gatekeepers collect choice-screen performance or selection data, and what data do they receive?\"},{\"claim\":\"Gatekeepers can use option-performance information to revise choice-screen design and thereby obtain a feedback advantage.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that gatekeepers can or do revise choice screens using performance data, and how does that create an advantage?\"}]},{\"id\":\"p6s4\",\"status\":\"keep\",\"reason\":\"This is a conditional logical point that retained authority over visibility, friction, and timing may preserve control without an explicit ban.\",\"claims\":[]},{\"id\":\"p6s5\",\"status\":\"keep\",\"reason\":\"The sentence states an evaluative definition of openness: displaying several names is insufficient when one manager retains the specified control.\",\"claims\":[]},{\"id\":\"p7s1\",\"status\":\"keep\",\"reason\":\"This is a normative thesis defining meaningful relief as a transfer of power.\",\"claims\":[]},{\"id\":\"p7s2\",\"status\":\"keep\",\"reason\":\"Every clause is a recommendation for an independent authority: set criteria, explain rejection, mandate equal presentation, and test the full flow.\",\"claims\":[]},{\"id\":\"p7s3\",\"status\":\"keep\",\"reason\":\"The sentence proposes who should choose or neutrally set a default and rejects commercial inheritance as a proposed rule, without claiming current practice.\",\"claims\":[]},{\"id\":\"p7s4\",\"status\":\"keep\",\"reason\":\"Both clauses are proposed remedy requirements concerning post-setup switching and the effects deletion should be permitted to have.\",\"claims\":[]},{\"id\":\"p7s5\",\"status\":\"keep\",\"reason\":\"This is a proposed restriction on using selection-process data to steer future competition.\",\"claims\":[]},{\"id\":\"p8s1\",\"status\":\"keep\",\"reason\":\"The sentence recommends that a remedy regulate the ordering and recurrence of prompts or choices.\",\"claims\":[]},{\"id\":\"p8s2\",\"status\":\"keep\",\"reason\":\"The sentence presents conditional examples of how later promotion, warnings, or resets could undermine an initially balanced screen; it does not report actual implementations.\",\"claims\":[]},{\"id\":\"p8s3\",\"status\":\"keep\",\"reason\":\"This is an analytical proposal defining the proper regulatory unit as the full platform-buyer relationship across the named stages.\",\"claims\":[]},{\"id\":\"p8s4\",\"status\":\"keep\",\"reason\":\"The sentence consists entirely of recommendations about the subjects rules should cover and the access they should secure.\",\"claims\":[]},{\"id\":\"p8s5\",\"status\":\"keep\",\"reason\":\"This is a conditional inference that regulating only one moment leaves other assumed control mechanisms outside the remedy.\",\"claims\":[]},{\"id\":\"p8s6\",\"status\":\"keep\",\"reason\":\"The sentence states a qualified logical possibility that an intervention limited to appearances need not alter underlying incentives or dependencies.\",\"claims\":[]},{\"id\":\"p9s1\",\"status\":\"keep\",\"reason\":\"This is an evaluative policy judgment comparing the importance of enforcement and screen design.\",\"claims\":[]},{\"id\":\"p9s2\",\"status\":\"keep\",\"reason\":\"The sentence recommends audit access, procedures, correction powers, timely consequences, and timely compliance; its comments about delay and competition explain the proposed standard rather than report current events.\",\"claims\":[]},{\"id\":\"p9s3\",\"status\":\"keep\",\"reason\":\"This is a proposed success criterion contrasting button counts with whether a gatekeeper retains control over access to buyers.\",\"claims\":[]},{\"id\":\"p9s4\",\"status\":\"keep\",\"reason\":\"The reference to what legislators may call a menu is a hypothetical concession, followed by the essay's evaluative definition of a market under retained gatekeeper control.\",\"claims\":[]},{\"id\":\"p9s5\",\"status\":\"keep\",\"reason\":\"All three clauses prescribe what effective oversight should do: publish decisions, track steering, and permit timely challenges.\",\"claims\":[]},{\"id\":\"p9s6\",\"status\":\"disclose\",\"reason\":\"The sentence predicts two protective effects from the proposed safeguards, creating unsupported causal claims about companies and buyers.\",\"claims\":[{\"claim\":\"The proposed oversight safeguards protect rival companies from harmful gatekeeper treatment.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that the specified publication, monitoring, and challenge safeguards protect rival providers?\"},{\"claim\":\"The proposed oversight safeguards protect buyers' ability to choose an alternative service that can function.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that the specified safeguards preserve buyers' ability to choose functional alternatives?\"}]},{\"id\":\"p9s7\",\"status\":\"keep\",\"reason\":\"The first clause is a recommendation that platform-controlling institutions relinquish powers, and the final clause is a rhetorical definition of competition derived from that position.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "The title is supplied verbatim by the request and states the requested argumentative thesis.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "disclose",
+        "reason": "The sentence describes how choice screens are commonly presented and the market mechanism their proponents purportedly trust; neither proposition is supplied by the request.",
+        "claims": [
+          {
+            "claim": "Choice screens are often presented as modest competition measures.",
+            "kind": "broad-generalization",
+            "verification_question": "How commonly, and by which institutions or proponents, are choice screens presented as modest competition measures?"
+          },
+          {
+            "claim": "Choice-screen proposals are commonly premised on displaying several services, allowing users to select one, and relying on that selection to produce market competition.",
+            "kind": "broad-generalization",
+            "verification_question": "Which choice-screen proposals or presentations expressly rely on this sequence and expected market effect?"
+          }
+        ]
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "This is the essay's analytical judgment that option selection precedes the displayed choice, adding no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "A finite list, accompanying information, and screen placement necessarily result from selection and arrangement by some actor; the sentence does not identify an unsupported real actor or practice.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "The sentence uses the gate and field metaphor to restate that displaying options does not itself transfer control over their selection and arrangement.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is an inference from the defined selection power: controlling eligibility, description, or placement is conceptually broader than outright exclusion.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The sentence attributes several concrete powers and possible eligibility practices to platforms, none of which the request supplies.",
+        "claims": [
+          {
+            "claim": "Platforms can make technical integration, billing support, or safety review conditions of eligibility for a choice screen.",
+            "kind": "broad-generalization",
+            "verification_question": "Which platforms or choice-screen regimes control eligibility through technical integration, billing support, or safety review?"
+          },
+          {
+            "claim": "Platforms can determine whether a service qualifies before launch or only after a delay.",
+            "kind": "broad-generalization",
+            "verification_question": "Which platforms control qualification timing, and what evidence shows qualification occurring before launch or after delay?"
+          },
+          {
+            "claim": "Platforms can control the labels used to describe services on choice screens.",
+            "kind": "broad-generalization",
+            "verification_question": "Which platforms control choice-screen labels, and what documentation establishes that authority?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "This is a possibility inferred from the preceding concept: a visually neutral list can still embody prior choices about eligibility, timing, and labels.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "The expressly conditional case logically characterizes retained rulemaking, application, and display authority as control exercised through interface design.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "disclose",
+        "reason": "The sentence asserts a general causal effect of defaults on behavior, which is not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Defaults convert the design of a choice screen into corresponding user behavior.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that defaults on choice screens causally shape users' selections or continuation behavior?"
+          }
+        ]
+      },
+      {
+        "id": "p4s2",
+        "status": "disclose",
+        "reason": "The sentence makes a general behavioral claim that prominent or preselected options reduce continuation effort.",
+        "claims": [
+          {
+            "claim": "First position, highlighted buttons, and preselected services reduce the effort users need to continue through a choice flow.",
+            "kind": "broad-generalization",
+            "verification_question": "What usability or behavioral evidence shows that each of these interface treatments reduces the effort required to continue?"
+          }
+        ]
+      },
+      {
+        "id": "p4s3",
+        "status": "disclose",
+        "reason": "The sentence describes additional interactions and possible warnings imposed on alternatives; these are contingent interface practices.",
+        "claims": [
+          {
+            "claim": "Selecting alternatives on choice screens generally requires an additional tap or decision.",
+            "kind": "broad-generalization",
+            "verification_question": "Across which choice-screen designs do alternatives require extra taps or decisions compared with the prepared option?"
+          },
+          {
+            "claim": "Selecting an alternative may trigger an additional warning.",
+            "kind": "broad-generalization",
+            "verification_question": "Which choice-screen implementations display warnings when users select alternatives?"
+          }
+        ]
+      },
+      {
+        "id": "p4s4",
+        "status": "disclose",
+        "reason": "The sentence asserts that individually small interface frictions accumulate into a meaningful effect.",
+        "claims": [
+          {
+            "claim": "Small interface frictions can accumulate to produce a meaningful behavioral burden.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence establishes the cumulative behavioral effect of small frictions in choice or switching flows?"
+          }
+        ]
+      },
+      {
+        "id": "p4s5",
+        "status": "keep",
+        "reason": "The rhetorical question offers a value judgment about whether a prepared path and burdensome alternatives constitute free selection; it reports no real implementation.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Whether a default is abusive is an evaluative classification, and denying that every instance meets it adds no external fact.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "disclose",
+        "reason": "The sentence attributes confusion-reducing and immediate-function benefits to defaults, including during setup.",
+        "claims": [
+          {
+            "claim": "Defaults can reduce user confusion.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that defaults reduce confusion, and under what interfaces or user conditions?"
+          },
+          {
+            "claim": "Defaults can help devices function immediately, especially during setup.",
+            "kind": "broad-generalization",
+            "verification_question": "For which devices and setup processes are defaults necessary or helpful for immediate functioning?"
+          }
+        ]
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "The sentence uses leverage figuratively to draw the conceptual inference that controlling the starting point confers influence through convenience.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This is a clearly qualified policy inference: a hypothetical remedy that leaves the listed controls unchanged may leave the associated advantage unchanged.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "The card-catalog analogy figuratively restates the distinction between changing visible labels and retaining control over access or retrieval.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "This is the essay's reasoned possibility that displayed options can coexist with retained gatekeeper control.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "disclose",
+        "reason": "The sentence describes providers as competing and attributes control over contest access, updates, and removal to gatekeepers.",
+        "claims": [
+          {
+            "claim": "Providers listed on choice screens compete to be selected.",
+            "kind": "broad-generalization",
+            "verification_question": "In which markets or choice-screen regimes do listed providers compete for user selection?"
+          },
+          {
+            "claim": "Gatekeepers controlling choice screens also control providers' access to the selection process, including updates and removal.",
+            "kind": "broad-generalization",
+            "verification_question": "Which gatekeepers possess authority over listing access, provider updates, and removal, and under what rules?"
+          }
+        ]
+      },
+      {
+        "id": "p6s3",
+        "status": "disclose",
+        "reason": "The sentence attributes data-collection and adaptive screen-design capabilities to gatekeepers and labels the resulting information as an advantage.",
+        "claims": [
+          {
+            "claim": "Gatekeepers can collect information about which options succeed on a choice screen.",
+            "kind": "broad-generalization",
+            "verification_question": "Which gatekeepers collect choice-screen performance or selection data, and what data do they receive?"
+          },
+          {
+            "claim": "Gatekeepers can use option-performance information to revise choice-screen design and thereby obtain a feedback advantage.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that gatekeepers can or do revise choice screens using performance data, and how does that create an advantage?"
+          }
+        ]
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "This is a conditional logical point that retained authority over visibility, friction, and timing may preserve control without an explicit ban.",
+        "claims": []
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "The sentence states an evaluative definition of openness: displaying several names is insufficient when one manager retains the specified control.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "This is a normative thesis defining meaningful relief as a transfer of power.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Every clause is a recommendation for an independent authority: set criteria, explain rejection, mandate equal presentation, and test the full flow.",
+        "claims": []
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "The sentence proposes who should choose or neutrally set a default and rejects commercial inheritance as a proposed rule, without claiming current practice.",
+        "claims": []
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Both clauses are proposed remedy requirements concerning post-setup switching and the effects deletion should be permitted to have.",
+        "claims": []
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "This is a proposed restriction on using selection-process data to steer future competition.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "The sentence recommends that a remedy regulate the ordering and recurrence of prompts or choices.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "The sentence presents conditional examples of how later promotion, warnings, or resets could undermine an initially balanced screen; it does not report actual implementations.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "This is an analytical proposal defining the proper regulatory unit as the full platform-buyer relationship across the named stages.",
+        "claims": []
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "The sentence consists entirely of recommendations about the subjects rules should cover and the access they should secure.",
+        "claims": []
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "This is a conditional inference that regulating only one moment leaves other assumed control mechanisms outside the remedy.",
+        "claims": []
+      },
+      {
+        "id": "p8s6",
+        "status": "keep",
+        "reason": "The sentence states a qualified logical possibility that an intervention limited to appearances need not alter underlying incentives or dependencies.",
+        "claims": []
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "This is an evaluative policy judgment comparing the importance of enforcement and screen design.",
+        "claims": []
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "The sentence recommends audit access, procedures, correction powers, timely consequences, and timely compliance; its comments about delay and competition explain the proposed standard rather than report current events.",
+        "claims": []
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "This is a proposed success criterion contrasting button counts with whether a gatekeeper retains control over access to buyers.",
+        "claims": []
+      },
+      {
+        "id": "p9s4",
+        "status": "keep",
+        "reason": "The reference to what legislators may call a menu is a hypothetical concession, followed by the essay's evaluative definition of a market under retained gatekeeper control.",
+        "claims": []
+      },
+      {
+        "id": "p9s5",
+        "status": "keep",
+        "reason": "All three clauses prescribe what effective oversight should do: publish decisions, track steering, and permit timely challenges.",
+        "claims": []
+      },
+      {
+        "id": "p9s6",
+        "status": "disclose",
+        "reason": "The sentence predicts two protective effects from the proposed safeguards, creating unsupported causal claims about companies and buyers.",
+        "claims": [
+          {
+            "claim": "The proposed oversight safeguards protect rival companies from harmful gatekeeper treatment.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that the specified publication, monitoring, and challenge safeguards protect rival providers?"
+          },
+          {
+            "claim": "The proposed oversight safeguards protect buyers' ability to choose an alternative service that can function.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that the specified safeguards preserve buyers' ability to choose functional alternatives?"
+          }
+        ]
+      },
+      {
+        "id": "p9s7",
+        "status": "keep",
+        "reason": "The first clause is a recommendation that platform-controlling institutions relinquish powers, and the final clause is a rhetorical definition of competition derived from that position.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m05.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m05.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "ead614bbe358ab5d45d8dc94d8b013320fc4ad1e7b1d377de8ae9d360f5f756c",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "A paper-book library loan normally ends on its agreed due date or when the borrower returns the book early.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "After a borrowed paper book is returned, it normally remains in the library’s collection and is available for another reader.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "The publisher’s withdrawal of the ebook caused the reader’s access to end during the active library loan.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "The publisher was outside the library-loan transaction through which the reader received access.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Public libraries generally provide ebook access through licenses rather than ownership-based lending arrangements.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Publishers and ebook platforms generally set the terms governing libraries’ licensed ebook access.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A library ebook’s Borrow button generally operates through publisher- and platform-controlled licensing systems.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "The seller of the ebook arrangement retained the power to revoke an active library loan remotely.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "That seller exercised its revocation power against both the library and the reader in this incident.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Readers are increasingly accessing cultural works through digital systems.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "The digital systems through which readers access cultural works can change access terms after access has begun.",
+      "where": "paragraph 5"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "Software that changes shifts at short notice is often marketed as improving staffing efficiency by reducing gaps, responding faster to demand, and producing cleaner staffing numbers.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Short-notice schedule revisions can disrupt workers’ arrangements for sleep, care, transport, study, and second jobs and transfer the resulting costs of uncertainty from employers to workers.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Scheduling dashboards can appear orderly because workers absorb the disruption produced by schedule changes.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Scheduling software makes repeated shift revisions inexpensive and immediate rather than merely reporting decisions.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Managers can use scheduling software to move start times, shorten shifts, and summon staff through alerts without a direct conversation.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Some scheduling alerts asking staff to report promptly are marked “ASAP.”",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Workers may formally be allowed to decline scheduling updates while nevertheless experiencing practical pressure to accept them.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Work hours are assigned unevenly in some workplaces.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Employers or scheduling systems can pressure workers through fewer shifts, worse shift times, or a reputation for being unavailable rather than through explicit threats.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Schedule unpredictability can govern workers’ conduct before an employer gives an explicit command.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Workers assigned a closing shift followed by an opening shift plan their evenings around anticipated exhaustion.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "A closing shift followed by an opening shift is called a “clopening.”",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Parents who expect late schedule changes may avoid booking appointments.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Student workers may stop enrolling in classes scheduled near their possible work hours because of scheduling uncertainty.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Employers face genuine staffing problems that can justify some schedule changes.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Employer demand changes over time.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Workers sometimes become ill and cannot work as scheduled.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Emergencies sometimes require staffing schedules to change.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "The harms caused by short-notice scheduling extend beyond workers losing time.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Short-notice scheduling can cause additional transport costs, missed care arrangements, and unstable income even when hourly pay rates remain fixed.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Unpredictable scheduling can make workers compete for predictable hours by displaying obedience to employer requests.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Shift-allocation systems can reward workers who respond fastest, allowing employers to discipline behavior without punishing every worker.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Transparency about scheduling changes helps protect workers but is insufficient by itself.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Regulators, unions, and arbitrators can examine notice, consent, pay, and later opportunities when assessing automated scheduling decisions.",
+      "where": "paragraph 9"
+    }
+  ]
+}

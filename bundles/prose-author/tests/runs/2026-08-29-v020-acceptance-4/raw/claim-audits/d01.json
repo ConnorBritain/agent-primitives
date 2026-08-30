@@ -1,0 +1,401 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This directly states the requested argument: retained power to disable a feature after sale limits ownership.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"keep\",\"reason\":\"“Supposed to” signals a normative conception of ownership, not a claim about current law or practice.\",\"claims\":[]},{\"id\":\"p1s3\",\"status\":\"keep\",\"reason\":\"This is a conditional analogy: retained post-sale authority is figuratively compared with a dealer retaining a key; the listed mechanisms illustrate the imagined arrangement rather than report an actual implementation.\",\"claims\":[]},{\"id\":\"p1s4\",\"status\":\"keep\",\"reason\":\"Payment follows from buying the device, while the retained lock metaphorically restates the maker’s supplied power to disable a feature.\",\"claims\":[]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This rhetorical question introduces the conceptual argument and asserts no external fact.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"disclose\",\"reason\":\"The sentence describes what ordinarily happens and what receipts say in this category of transaction, none of which the request supplies.\",\"claims\":[{\"claim\":\"In transactions involving maker-controlled devices, buyers ordinarily pay money across a retail counter.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do purchases of the devices at issue ordinarily involve money crossing a physical retail counter?\"},{\"claim\":\"Devices sold under such arrangements ordinarily arrive as boxed products that buyers take into their homes.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Are the relevant maker-controlled devices ordinarily sold in boxes and taken into buyers’ homes?\"},{\"claim\":\"Receipts for these transactions ordinarily characterize the device as the buyer’s property.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do receipts for the relevant devices characterize them as property rather than licensed or rented goods?\"}]},{\"id\":\"p2s3\",\"status\":\"disclose\",\"reason\":\"The ownership conclusion and rental metaphor are argumentative, but the sentence also asserts specific forms of remotely removable functionality not supplied by the request.\",\"claims\":[{\"claim\":\"Makers can use remote commands to reduce a purchased device’s capacity.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can makers remotely reduce the capacity of the devices within the essay’s intended scope?\"},{\"claim\":\"Makers can use remote commands to reduce a purchased device’s compatibility.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can makers remotely remove or reduce device compatibility after sale?\"},{\"claim\":\"Makers can use remote commands to reduce owners’ repair access.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can makers remotely remove or restrict repair access after a device is sold?\"},{\"claim\":\"Makers can use remote commands to remove a service for which a device buyer has paid.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can makers remotely remove paid services associated with purchased devices?\"}]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"This is a rhetorical label for the preceding ownership argument and adds no descriptive premise.\",\"claims\":[]},{\"id\":\"p2s5\",\"status\":\"keep\",\"reason\":\"The object-in-hand framing is an imagined case, and the revocable-permission language metaphorically restates that control belongs to the party retaining revocation power.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"“Legitimate” is a value judgment, and the modal statement merely concedes that acceptable uses are possible without claiming prevalence or an actual event.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes general technical, operational, and commercial assertions about patches, network controls, and subscription terms.\",\"claims\":[{\"claim\":\"Security patches can protect devices from security risks.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what circumstances, and with what evidence, do security patches protect the relevant devices?\"},{\"claim\":\"Network services may require controls against abusive use.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which network services within scope require abuse controls, and why are those controls necessary?\"},{\"claim\":\"Subscriptions can expire pursuant to terms disclosed before purchase.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do the relevant subscriptions expire under terms that are disclosed to buyers before purchase?\"}]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"This is an argumentative conclusion that the conceded possibilities do not determine the proposed ownership standard.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"The sentence proposes a criterion for evaluating ownership and clearly frames server dependence as a conditional case rather than reporting an actual implementation.\",\"claims\":[]},{\"id\":\"p3s5\",\"status\":\"keep\",\"reason\":\"This is a definitional value judgment: calling a service useful entails that it adds value.\",\"claims\":[]},{\"id\":\"p3s6\",\"status\":\"disclose\",\"reason\":\"The leverage metaphor supports the argument, but the claimed effects on repair, resale, competition, and product disposal are external causal propositions.\",\"claims\":[{\"claim\":\"A maker-controlled kill switch gives the maker leverage over device repair.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How does a maker-controlled kill switch affect owners’ practical ability to repair devices?\"},{\"claim\":\"A maker-controlled kill switch gives the maker leverage over device resale.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How does retained disabling power affect resale of the relevant devices?\"},{\"claim\":\"A maker-controlled kill switch gives the maker leverage over competition.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that retained disabling power affects competition in the relevant markets?\"},{\"claim\":\"A maker-controlled kill switch affects when functioning products become waste.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Does makers’ disabling power cause functioning products to be discarded sooner, and within what product categories?\"}]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This reports the essayist’s present evaluative reaction to an analogy, not an external biography or attributed fact.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"Each clause is part of an explicit car-key analogy for an imagined connected-device arrangement and adds no claim that all real devices use this architecture.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This is a clearly hypothetical first-person resale case followed by a metaphorical judgment about weakened title.\",\"claims\":[]},{\"id\":\"p4s4\",\"status\":\"keep\",\"reason\":\"This is a conditional imagined repair restriction and a metaphorical conclusion about ownership.\",\"claims\":[]},{\"id\":\"p4s5\",\"status\":\"keep\",\"reason\":\"The sentence uses a rhetorical label and contrasts two interpretations of the stipulated dependency; it does not claim that a real actor has used the quoted characterization.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"disclose\",\"reason\":\"The importance judgment is argumentative, but its premise that digital control scales at low cost is an external technological and economic generalization.\",\"claims\":[{\"claim\":\"Digital control over devices can be scaled at low marginal cost.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that vendors can scale digital control across devices cheaply, and for which technologies?\"}]},{\"id\":\"p5s2\",\"status\":\"disclose\",\"reason\":\"Both halves assert comparative operational facts about locksmith work and vendors’ ability to alter many devices through one policy.\",\"claims\":[{\"claim\":\"A locksmith must physically visit an individual car to alter or restore its lock access.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Is an in-person visit ordinarily required for locksmith work on the relevant kinds of car locks?\"},{\"claim\":\"A vendor can change thousands of devices through a single policy action.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can vendors alter thousands of relevant devices through one policy action, and by what mechanism?\"}]},{\"id\":\"p5s3\",\"status\":\"disclose\",\"reason\":\"The bargain conclusion is argumentative, but it relies on unsupported economic assertions about buyers’ sunk costs and the low cost of the maker’s threat.\",\"claims\":[{\"claim\":\"After checkout, buyers of maker-controlled devices bear sunk costs.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which buyer expenditures are unrecoverable after checkout in the transactions within scope?\"},{\"claim\":\"Makers can maintain a credible threat of changing purchased devices at low cost.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What does it cost makers to retain and exercise post-sale control over the relevant devices?\"}]},{\"id\":\"p5s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that refusing updates can create three distinct practical risks, none supplied by the request.\",\"claims\":[{\"claim\":\"Refusing a device update can increase security risk.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For which devices or updates does refusal increase security risk, and what evidence establishes that effect?\"},{\"claim\":\"Refusing a device update can impair compatibility.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For which devices can declining an update impair compatibility, and with what systems?\"},{\"claim\":\"Refusing a device update can cause loss of access.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can users lose access by declining updates, and which products or services exhibit this behavior?\"}]},{\"id\":\"p5s5\",\"status\":\"keep\",\"reason\":\"This is a clearly hypothetical choice under the supplied premise that a maker can disable features after purchase; it does not report actual consumer behavior or prevalence.\",\"claims\":[]},{\"id\":\"p5s6\",\"status\":\"keep\",\"reason\":\"The sentence offers a normative judgment about the quality of consent in the stipulated architecture and distinguishes recorded agreement from fair choice without asserting current institutional practice.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"keep\",\"reason\":\"This is a policy recommendation defining what the proposed response should not prohibit.\",\"claims\":[]},{\"id\":\"p6s2\",\"status\":\"keep\",\"reason\":\"This is a proposed policy principle separating ownership from ongoing service.\",\"claims\":[]},{\"id\":\"p6s3\",\"status\":\"keep\",\"reason\":\"This is a proposed rule for the continued operation of functions promised at sale.\",\"claims\":[]},{\"id\":\"p6s4\",\"status\":\"keep\",\"reason\":\"Every clause states a recommended entitlement for owners rather than describing existing rights or practices.\",\"claims\":[]},{\"id\":\"p6s5\",\"status\":\"keep\",\"reason\":\"The conditional premise defines a possible service dependency, while the remaining clauses prescribe disclosure, understandable language, and service pricing.\",\"claims\":[]},{\"id\":\"p7s1\",\"status\":\"keep\",\"reason\":\"This is a policy demand that remedies track retained power.\",\"claims\":[]},{\"id\":\"p7s2\",\"status\":\"keep\",\"reason\":\"The disabling event is conditional and matches the request’s premise; restoration, refunds, and circumvention tools are proposed remedies.\",\"claims\":[]},{\"id\":\"p7s3\",\"status\":\"disclose\",\"reason\":\"The sentence asserts a general causal effect of interoperability and repair rights on users’ practical ability to exit.\",\"claims\":[{\"claim\":\"Interoperability and repair rights make it practically possible for device owners to leave a maker-controlled product or service arrangement.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that interoperability and repair rights create a practical exit option for owners, and under what market conditions?\"}]},{\"id\":\"p7s4\",\"status\":\"keep\",\"reason\":\"This supplies a normative definition of meaningful competition and expresses exclusive maker control through a coherent room-and-door metaphor.\",\"claims\":[]},{\"id\":\"p7s5\",\"status\":\"keep\",\"reason\":\"This is a normative demand that contracts not reduce product commitments to revocable permissions.\",\"claims\":[]},{\"id\":\"p8s1\",\"status\":\"keep\",\"reason\":\"This evaluates the proposed test as simple and introduces no external fact.\",\"claims\":[]},{\"id\":\"p8s2\",\"status\":\"keep\",\"reason\":\"This is an instruction defining the essay’s proposed post-sale ownership test.\",\"claims\":[]},{\"id\":\"p8s3\",\"status\":\"keep\",\"reason\":\"The conditional conclusion applies the proposed test, and the hostage-with-a-receipt wording is a metaphor for dependence on the maker’s permission.\",\"claims\":[]},{\"id\":\"p8s4\",\"status\":\"keep\",\"reason\":\"This is a normative assertion that useful services and buyer control should be allowed to coexist, not a report about current practice.\",\"claims\":[]},{\"id\":\"p8s5\",\"status\":\"keep\",\"reason\":\"This is a metaphorical policy demand for owner control, repair access, and authority over purchased devices.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This directly states the requested argument: retained power to disable a feature after sale limits ownership.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "“Supposed to” signals a normative conception of ownership, not a claim about current law or practice.",
+        "claims": []
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "This is a conditional analogy: retained post-sale authority is figuratively compared with a dealer retaining a key; the listed mechanisms illustrate the imagined arrangement rather than report an actual implementation.",
+        "claims": []
+      },
+      {
+        "id": "p1s4",
+        "status": "keep",
+        "reason": "Payment follows from buying the device, while the retained lock metaphorically restates the maker’s supplied power to disable a feature.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This rhetorical question introduces the conceptual argument and asserts no external fact.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "disclose",
+        "reason": "The sentence describes what ordinarily happens and what receipts say in this category of transaction, none of which the request supplies.",
+        "claims": [
+          {
+            "claim": "In transactions involving maker-controlled devices, buyers ordinarily pay money across a retail counter.",
+            "kind": "broad-generalization",
+            "verification_question": "Do purchases of the devices at issue ordinarily involve money crossing a physical retail counter?"
+          },
+          {
+            "claim": "Devices sold under such arrangements ordinarily arrive as boxed products that buyers take into their homes.",
+            "kind": "broad-generalization",
+            "verification_question": "Are the relevant maker-controlled devices ordinarily sold in boxes and taken into buyers’ homes?"
+          },
+          {
+            "claim": "Receipts for these transactions ordinarily characterize the device as the buyer’s property.",
+            "kind": "broad-generalization",
+            "verification_question": "Do receipts for the relevant devices characterize them as property rather than licensed or rented goods?"
+          }
+        ]
+      },
+      {
+        "id": "p2s3",
+        "status": "disclose",
+        "reason": "The ownership conclusion and rental metaphor are argumentative, but the sentence also asserts specific forms of remotely removable functionality not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Makers can use remote commands to reduce a purchased device’s capacity.",
+            "kind": "broad-generalization",
+            "verification_question": "Can makers remotely reduce the capacity of the devices within the essay’s intended scope?"
+          },
+          {
+            "claim": "Makers can use remote commands to reduce a purchased device’s compatibility.",
+            "kind": "broad-generalization",
+            "verification_question": "Can makers remotely remove or reduce device compatibility after sale?"
+          },
+          {
+            "claim": "Makers can use remote commands to reduce owners’ repair access.",
+            "kind": "broad-generalization",
+            "verification_question": "Can makers remotely remove or restrict repair access after a device is sold?"
+          },
+          {
+            "claim": "Makers can use remote commands to remove a service for which a device buyer has paid.",
+            "kind": "broad-generalization",
+            "verification_question": "Can makers remotely remove paid services associated with purchased devices?"
+          }
+        ]
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "This is a rhetorical label for the preceding ownership argument and adds no descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "The object-in-hand framing is an imagined case, and the revocable-permission language metaphorically restates that control belongs to the party retaining revocation power.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "“Legitimate” is a value judgment, and the modal statement merely concedes that acceptable uses are possible without claiming prevalence or an actual event.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The sentence makes general technical, operational, and commercial assertions about patches, network controls, and subscription terms.",
+        "claims": [
+          {
+            "claim": "Security patches can protect devices from security risks.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what circumstances, and with what evidence, do security patches protect the relevant devices?"
+          },
+          {
+            "claim": "Network services may require controls against abusive use.",
+            "kind": "broad-generalization",
+            "verification_question": "Which network services within scope require abuse controls, and why are those controls necessary?"
+          },
+          {
+            "claim": "Subscriptions can expire pursuant to terms disclosed before purchase.",
+            "kind": "broad-generalization",
+            "verification_question": "Do the relevant subscriptions expire under terms that are disclosed to buyers before purchase?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "This is an argumentative conclusion that the conceded possibilities do not determine the proposed ownership standard.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "The sentence proposes a criterion for evaluating ownership and clearly frames server dependence as a conditional case rather than reporting an actual implementation.",
+        "claims": []
+      },
+      {
+        "id": "p3s5",
+        "status": "keep",
+        "reason": "This is a definitional value judgment: calling a service useful entails that it adds value.",
+        "claims": []
+      },
+      {
+        "id": "p3s6",
+        "status": "disclose",
+        "reason": "The leverage metaphor supports the argument, but the claimed effects on repair, resale, competition, and product disposal are external causal propositions.",
+        "claims": [
+          {
+            "claim": "A maker-controlled kill switch gives the maker leverage over device repair.",
+            "kind": "broad-generalization",
+            "verification_question": "How does a maker-controlled kill switch affect owners’ practical ability to repair devices?"
+          },
+          {
+            "claim": "A maker-controlled kill switch gives the maker leverage over device resale.",
+            "kind": "broad-generalization",
+            "verification_question": "How does retained disabling power affect resale of the relevant devices?"
+          },
+          {
+            "claim": "A maker-controlled kill switch gives the maker leverage over competition.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that retained disabling power affects competition in the relevant markets?"
+          },
+          {
+            "claim": "A maker-controlled kill switch affects when functioning products become waste.",
+            "kind": "broad-generalization",
+            "verification_question": "Does makers’ disabling power cause functioning products to be discarded sooner, and within what product categories?"
+          }
+        ]
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This reports the essayist’s present evaluative reaction to an analogy, not an external biography or attributed fact.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Each clause is part of an explicit car-key analogy for an imagined connected-device arrangement and adds no claim that all real devices use this architecture.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This is a clearly hypothetical first-person resale case followed by a metaphorical judgment about weakened title.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "This is a conditional imagined repair restriction and a metaphorical conclusion about ownership.",
+        "claims": []
+      },
+      {
+        "id": "p4s5",
+        "status": "keep",
+        "reason": "The sentence uses a rhetorical label and contrasts two interpretations of the stipulated dependency; it does not claim that a real actor has used the quoted characterization.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "disclose",
+        "reason": "The importance judgment is argumentative, but its premise that digital control scales at low cost is an external technological and economic generalization.",
+        "claims": [
+          {
+            "claim": "Digital control over devices can be scaled at low marginal cost.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that vendors can scale digital control across devices cheaply, and for which technologies?"
+          }
+        ]
+      },
+      {
+        "id": "p5s2",
+        "status": "disclose",
+        "reason": "Both halves assert comparative operational facts about locksmith work and vendors’ ability to alter many devices through one policy.",
+        "claims": [
+          {
+            "claim": "A locksmith must physically visit an individual car to alter or restore its lock access.",
+            "kind": "broad-generalization",
+            "verification_question": "Is an in-person visit ordinarily required for locksmith work on the relevant kinds of car locks?"
+          },
+          {
+            "claim": "A vendor can change thousands of devices through a single policy action.",
+            "kind": "broad-generalization",
+            "verification_question": "Can vendors alter thousands of relevant devices through one policy action, and by what mechanism?"
+          }
+        ]
+      },
+      {
+        "id": "p5s3",
+        "status": "disclose",
+        "reason": "The bargain conclusion is argumentative, but it relies on unsupported economic assertions about buyers’ sunk costs and the low cost of the maker’s threat.",
+        "claims": [
+          {
+            "claim": "After checkout, buyers of maker-controlled devices bear sunk costs.",
+            "kind": "broad-generalization",
+            "verification_question": "Which buyer expenditures are unrecoverable after checkout in the transactions within scope?"
+          },
+          {
+            "claim": "Makers can maintain a credible threat of changing purchased devices at low cost.",
+            "kind": "broad-generalization",
+            "verification_question": "What does it cost makers to retain and exercise post-sale control over the relevant devices?"
+          }
+        ]
+      },
+      {
+        "id": "p5s4",
+        "status": "disclose",
+        "reason": "The sentence asserts that refusing updates can create three distinct practical risks, none supplied by the request.",
+        "claims": [
+          {
+            "claim": "Refusing a device update can increase security risk.",
+            "kind": "broad-generalization",
+            "verification_question": "For which devices or updates does refusal increase security risk, and what evidence establishes that effect?"
+          },
+          {
+            "claim": "Refusing a device update can impair compatibility.",
+            "kind": "broad-generalization",
+            "verification_question": "For which devices can declining an update impair compatibility, and with what systems?"
+          },
+          {
+            "claim": "Refusing a device update can cause loss of access.",
+            "kind": "broad-generalization",
+            "verification_question": "Can users lose access by declining updates, and which products or services exhibit this behavior?"
+          }
+        ]
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "This is a clearly hypothetical choice under the supplied premise that a maker can disable features after purchase; it does not report actual consumer behavior or prevalence.",
+        "claims": []
+      },
+      {
+        "id": "p5s6",
+        "status": "keep",
+        "reason": "The sentence offers a normative judgment about the quality of consent in the stipulated architecture and distinguishes recorded agreement from fair choice without asserting current institutional practice.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "This is a policy recommendation defining what the proposed response should not prohibit.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "This is a proposed policy principle separating ownership from ongoing service.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "This is a proposed rule for the continued operation of functions promised at sale.",
+        "claims": []
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Every clause states a recommended entitlement for owners rather than describing existing rights or practices.",
+        "claims": []
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "The conditional premise defines a possible service dependency, while the remaining clauses prescribe disclosure, understandable language, and service pricing.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "This is a policy demand that remedies track retained power.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "The disabling event is conditional and matches the request’s premise; restoration, refunds, and circumvention tools are proposed remedies.",
+        "claims": []
+      },
+      {
+        "id": "p7s3",
+        "status": "disclose",
+        "reason": "The sentence asserts a general causal effect of interoperability and repair rights on users’ practical ability to exit.",
+        "claims": [
+          {
+            "claim": "Interoperability and repair rights make it practically possible for device owners to leave a maker-controlled product or service arrangement.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that interoperability and repair rights create a practical exit option for owners, and under what market conditions?"
+          }
+        ]
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "This supplies a normative definition of meaningful competition and expresses exclusive maker control through a coherent room-and-door metaphor.",
+        "claims": []
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "This is a normative demand that contracts not reduce product commitments to revocable permissions.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "This evaluates the proposed test as simple and introduces no external fact.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "This is an instruction defining the essay’s proposed post-sale ownership test.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "The conditional conclusion applies the proposed test, and the hostage-with-a-receipt wording is a metaphor for dependence on the maker’s permission.",
+        "claims": []
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "This is a normative assertion that useful services and buyer control should be allowed to coexist, not a report about current practice.",
+        "claims": []
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "This is a metaphorical policy demand for owner control, repair access, and authority over purchased devices.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d01.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "05c9650d58477d9e4f6b461231d1c9db0bc82cdf06b324084e1a313df4e9302b",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

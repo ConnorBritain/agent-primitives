@@ -1,0 +1,172 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This is a direct recommendation for tomorrow’s meeting and a proposed categorical rule for handling confidential notes; it makes no claim about current external practice.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"The assessment that the default risk is unsuitable is a value judgment, but the asserted promise of faster case review is an unsupported claim about the service’s practical effect.\",\"claims\":[{\"claim\":\"AI summarisation services can make case review faster.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that using an AI summarisation service makes review of intake cases faster in the contemplated nonprofit workflow?\"}]},{\"id\":\"p1s3\",\"status\":\"disclose\",\"reason\":\"The sentence makes unsupported technical and data-handling assertions about what such tools require and whether their use creates an additional repository of personal information.\",\"claims\":[{\"claim\":\"An AI summary tool requires access to the full intake notes in order to produce a summary.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Does the contemplated service require the complete intake notes, or can it operate on redacted, minimized, or otherwise limited input?\"},{\"claim\":\"Using an AI summary tool creates an additional store of the personal information contained in the notes.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Does the contemplated service retain or otherwise create an additional stored copy of submitted personal information, and under what architecture and retention terms?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This is a figurative transition stating that the proposal need not be abandoned, adding no external descriptive premise.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"This states the proposed organisational requirement of conducting a controlled pilot before live use.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"Every clause is an instruction defining how the proposed pilot should be governed, staffed, and documented.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"This sets proposed requirements concerning model training and contractual terms rather than claiming that a provider currently satisfies them.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is a recommendation about the scope of the proposed pilot.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"The sentence generalizes about the contents of intake notes and asserts that fluent summaries can omit case-changing information; both are independently checkable external propositions.\",\"claims\":[{\"claim\":\"Intake notes generally contain contextual information, uncertainty, and safety-related details.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do the nonprofit’s intake notes, or intake notes in the relevant field, regularly contain context, uncertainty, and safety-related details?\"},{\"claim\":\"An AI-generated summary can read fluently while omitting information that materially changes a case.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What testing or evidence shows that the contemplated summarisation service can produce fluent output while omitting case-material information?\"}]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"This prescribes staff comparison and error recording during the pilot; the named error categories are proposed review criteria, not claims that errors have occurred.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts possible workflow effects: initial time savings followed by substantially increased checking and correction work.\",\"claims\":[{\"claim\":\"AI summarisation automation may save staff time during the initial review task.\",\"kind\":\"broad-generalization\",\"verification_question\":\"In the contemplated workflow, how much initial staff time does AI summarisation save compared with review without it?\"},{\"claim\":\"Checking and correcting AI-generated summaries may consume hours of staff time and offset initial time savings.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How much checking and correction time do staff need for the contemplated service, and does that time offset or exceed its initial savings?\"}]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This accurately characterizes the draft’s own recommendation as dependent on stated conditions rather than reporting an external fact.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"The sentence establishes proposed prerequisites for using confidential notes and does not claim that these safeguards currently exist or are legally mandatory.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This is a recommendation triggered by failure to satisfy the proposed conditions.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This is a specific proposal for the meeting, including an illustrative pilot size, and makes no external descriptive claim.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"All clauses prescribe pass criteria to establish before testing; they do not claim that the system currently meets those criteria.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This is a value judgment about the small nonprofit’s immediate decision-making needs and recommends a firm boundary plus a reversible next step.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This is a direct recommendation for tomorrow’s meeting and a proposed categorical rule for handling confidential notes; it makes no claim about current external practice.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "The assessment that the default risk is unsuitable is a value judgment, but the asserted promise of faster case review is an unsupported claim about the service’s practical effect.",
+        "claims": [
+          {
+            "claim": "AI summarisation services can make case review faster.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that using an AI summarisation service makes review of intake cases faster in the contemplated nonprofit workflow?"
+          }
+        ]
+      },
+      {
+        "id": "p1s3",
+        "status": "disclose",
+        "reason": "The sentence makes unsupported technical and data-handling assertions about what such tools require and whether their use creates an additional repository of personal information.",
+        "claims": [
+          {
+            "claim": "An AI summary tool requires access to the full intake notes in order to produce a summary.",
+            "kind": "broad-generalization",
+            "verification_question": "Does the contemplated service require the complete intake notes, or can it operate on redacted, minimized, or otherwise limited input?"
+          },
+          {
+            "claim": "Using an AI summary tool creates an additional store of the personal information contained in the notes.",
+            "kind": "broad-generalization",
+            "verification_question": "Does the contemplated service retain or otherwise create an additional stored copy of submitted personal information, and under what architecture and retention terms?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This is a figurative transition stating that the proposal need not be abandoned, adding no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "This states the proposed organisational requirement of conducting a controlled pilot before live use.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Every clause is an instruction defining how the proposed pilot should be governed, staffed, and documented.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "This sets proposed requirements concerning model training and contractual terms rather than claiming that a provider currently satisfies them.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is a recommendation about the scope of the proposed pilot.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "The sentence generalizes about the contents of intake notes and asserts that fluent summaries can omit case-changing information; both are independently checkable external propositions.",
+        "claims": [
+          {
+            "claim": "Intake notes generally contain contextual information, uncertainty, and safety-related details.",
+            "kind": "broad-generalization",
+            "verification_question": "Do the nonprofit’s intake notes, or intake notes in the relevant field, regularly contain context, uncertainty, and safety-related details?"
+          },
+          {
+            "claim": "An AI-generated summary can read fluently while omitting information that materially changes a case.",
+            "kind": "broad-generalization",
+            "verification_question": "What testing or evidence shows that the contemplated summarisation service can produce fluent output while omitting case-material information?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "This prescribes staff comparison and error recording during the pilot; the named error categories are proposed review criteria, not claims that errors have occurred.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "disclose",
+        "reason": "The sentence asserts possible workflow effects: initial time savings followed by substantially increased checking and correction work.",
+        "claims": [
+          {
+            "claim": "AI summarisation automation may save staff time during the initial review task.",
+            "kind": "broad-generalization",
+            "verification_question": "In the contemplated workflow, how much initial staff time does AI summarisation save compared with review without it?"
+          },
+          {
+            "claim": "Checking and correcting AI-generated summaries may consume hours of staff time and offset initial time savings.",
+            "kind": "broad-generalization",
+            "verification_question": "How much checking and correction time do staff need for the contemplated service, and does that time offset or exceed its initial savings?"
+          }
+        ]
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This accurately characterizes the draft’s own recommendation as dependent on stated conditions rather than reporting an external fact.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "The sentence establishes proposed prerequisites for using confidential notes and does not claim that these safeguards currently exist or are legally mandatory.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This is a recommendation triggered by failure to satisfy the proposed conditions.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This is a specific proposal for the meeting, including an illustrative pilot size, and makes no external descriptive claim.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "All clauses prescribe pass criteria to establish before testing; they do not claim that the system currently meets those criteria.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This is a value judgment about the small nonprofit’s immediate decision-making needs and recommends a firm boundary plus a reversible next step.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "d5ada0b495e50b2be8e22f05f645982b44205c78807fe16f2cc0d85a90fdae52",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}
