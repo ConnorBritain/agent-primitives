@@ -1,0 +1,97 @@
+{
+  "schema": "voice-profile-source/4",
+  "voice_card": "empty",
+  "measured": {
+    "second-person-family": {
+      "prose": "Direct address places the reader inside the argument as a participant, witness, or person who can act. It turns analysis into practical counsel and makes general claims feel immediate. Use “you” for stakes, examples, and instructions, especially when translating institutional behavior into consequences for ordinary users."
+    },
+    "first-person-plural-family": {
+      "prose": "First-person plural joins writer and reader in a shared civic or technological predicament, usually naming collective exposure, responsibility, or leverage rather than a private group. Use “we” to widen the argument after an example and before a general conclusion, while keeping the collective referent legible."
+    },
+    "contractions": {
+      "prose": "Contractions support the blog’s spoken, brisk argumentative cadence, particularly in transitions, rebuttals, examples, and direct address. They keep technical or political analysis conversational without making it casual throughout. Prefer contracted forms in the moving parts of an argument, reserving fuller forms for deliberate emphasis or formal contrast."
+    },
+    "uncontracted-negatives": {
+      "prose": "Full negative forms appear as occasional points of emphasis within otherwise conversational prose. They slow a sentence and make a denial, correction, or categorical distinction sound deliberate. Use an uncontracted negative sparingly when rebutting a premise or stating a boundary; let surrounding contractions carry the ordinary rhythm."
+    },
+    "profanity-vulgarity": {
+      "prose": "Profanity and vulgarity function as sharpened verdicts, comic deflation, or vivid descriptions of institutional cruelty and technological annoyance. They cluster around rebuttals and punch lines rather than neutral exposition. Use a coarse term only where it intensifies the target or releases pressure after a tightly reasoned passage."
+    },
+    "first-person-singular-family": {
+      "prose": "First-person singular presents the writer as an accountable arguer, reader of sources, and occasional participant whose experience opens into a public claim. It supplies credibility and transitions without turning the piece into memoir. Use “I” for intellectual discovery, judgment, and situated examples, then return promptly to the shared issue."
+    },
+    "question-marks": {
+      "prose": "Questions are chiefly rhetorical and diagnostic: they expose a contradiction, test an incentive, or invite the reader to follow an absurd implication. They often appear at argumentative pivots and before a forceful answer. Use questions to open a pressure point, then resolve or escalate them rather than leaving them decorative."
+    },
+    "round-parenthetical-spans": {
+      "prose": "Parentheses carry compact asides, qualifications, alternate labels, source texture, and comic undercuts inside otherwise linear sentences. They let the prose preserve a side thought without surrendering momentum. Use them for brief local interruptions; place essential reasoning in the main clause and keep the aside subordinate."
+    },
+    "em-dashes": {
+      "prose": "The corpus does not use em dashes as its interruption mark. When an interruption, pivot, or qualification is needed, do not introduce this mark as a default; use the established punctuation patterns that keep the sentence’s argumentative movement and tonal snap intact."
+    },
+    "en-dashes": {
+      "prose": "En dashes carry parenthetical pivots, compressed contrasts, and abrupt qualifications without the visual weight of a full break. They often let a sentence turn from setup to verdict while preserving forward motion. Use them for a short inserted turn or contrast, especially where the aside remains closely tied to the claim."
+    }
+  },
+  "qualitative": [
+    {
+      "dimensions": [
+        "qualification-hedging"
+      ],
+      "section": "register-range",
+      "prose": "Qualification usually appears as controlled concession rather than timid uncertainty: the prose grants a plausible premise, narrows its scope, then redirects it toward a stronger conclusion. Forecasts and limits are marked with phrases such as “of course,” “on its face,” or “the problem is.” Place concessions before the decisive turn.",
+      "support_files": [
+        "2026-07-11-your-risk.txt",
+        "2026-07-16-lucky-orifices.txt",
+        "2026-07-22-table-flipper.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "opponents-allies-sources"
+      ],
+      "section": "register-range",
+      "prose": "Opponents are often named through institutions, executives, ideologies, or quoted formulations, then made legible through an attributed source or a representative claim. Allies and authorities enter as writers, researchers, organizers, or witnesses whose evidence is extended and occasionally corrected. Introduce sources in the movement of the argument, not as detached bibliography.",
+      "support_files": [
+        "2026-07-09-wilhoitian.txt",
+        "2026-07-11-your-risk.txt",
+        "2026-07-22-table-flipper.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "figures-analogy"
+      ],
+      "section": "figures",
+      "prose": "Figures begin with familiar material scenes—escrow agents, poker games, bears, kitchens, browsers, or bodily needs—and then map their logic onto institutions or systems. Comparisons are commonly extended across several sentences until the analogy yields a verdict. Use one concrete image at a conceptual hinge, and return clearly to the subject it clarifies.",
+      "support_files": [
+        "2026-07-10-posthuman-as-in-no-humans.txt",
+        "2026-07-13-go-meta-meta.txt",
+        "2026-07-22-table-flipper.txt",
+        "2026-07-23-drop-a-dime.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "openings-endings-closure"
+      ],
+      "section": "openings",
+      "prose": "Openings commonly begin with a paradox, quotation, vivid object, or plain assertion that immediately names the problem. The body then accumulates examples and sources through repeated turns. Paragraphs often end on a compact consequence or punch line, while the whole piece closes by returning to its governing image or restating the demand in sharper form.",
+      "support_files": [
+        "2026-07-09-wilhoitian.txt",
+        "2026-07-13-go-meta-meta.txt",
+        "2026-07-21-dickovers.txt",
+        "2026-07-23-drop-a-dime.txt"
+      ]
+    }
+  ],
+  "unresolved": {
+    "qualification-hedging": null,
+    "opponents-allies-sources": null,
+    "figures-analogy": null,
+    "openings-endings-closure": null
+  },
+  "gaps": "The corpus is contemporary, same-medium blog prose with consistent provenance and a clearly addressed argumentative purpose. The voice card is explicitly empty, so it contributes no independent account to corroborate or contradict the corpus. The samples establish recurring rhetorical and structural practices, but they do not justify biographical reuse or claims beyond the writing itself. No editing, translation, or reprinting intervention is disclosed, so punctuation findings are treated as writer-supported.",
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}
