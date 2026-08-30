@@ -38,6 +38,10 @@ import {
   applyDraftConformancePatch, CONFORMANCE_MEASUREMENT_IDS, CONFORMANCE_PATCH_SCHEMA,
   contractionFormChangeCount, measureDraftConformance,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
+import {
+  applyResidualPrunePlan, normalizeSafeResidual, RESIDUAL_PRUNE_SCHEMA,
+  residualPrunePrompt,
+} from "../skills/prose-draft/tools/draft-residual-prune.mjs";
 import { draftControlCard } from "../skills/prose-draft/tools/draft-controls.mjs";
 import { COVERAGE_DIMENSIONS } from "../skills/prose-draft/tools/profile-contract.mjs";
 import { DEFAULT_RATIO_BAND, MIN_ABSOLUTE_DEVIATION } from "./corpus-rates.mjs";
@@ -331,6 +335,45 @@ export async function run(t, { HERE }) {
         && /Remove at least 98 measured words/.test(residualPrompt)
         && /first nonblank line must be exactly `# Choice screens are not market choice`/.test(residualPrompt)
         && /Privately recount every residual target and the complete word count/.test(residualPrompt));
+    const actualResidualSource = JSON.parse(readFileSync(
+      join(residualRun, "raw", "drafts", "m05.json"), "utf8",
+    )).structured_output;
+    const normalizedResidual = normalizeSafeResidual(actualResidualSource, {
+      request: residualCase.prompt, card: residualCard,
+    });
+    t.check("safe residual normalization restores only the locked title and an excess question heading",
+      normalizedResidual.ok
+        && normalizedResidual.status.report.draft_words === 852
+        && normalizedResidual.status.semantic_failures.length === 0
+        && normalizedResidual.changes.map((row) => row.kind).join(",")
+          === "restore-exact-title,remove-heading-question-mark");
+    const narrowPrune = applyResidualPrunePlan(actualResidualSource, {
+      schema: "voice-draft-residual-prune/1", delete_paragraphs: [14, 15],
+      reason: "Remove a secondary institutional example and the recap after the gatekeeper section.",
+    }, { request: residualCase.prompt, card: residualCard });
+    const insufficientPrune = applyResidualPrunePlan(actualResidualSource, {
+      schema: "voice-draft-residual-prune/1", delete_paragraphs: [12], reason: "Too little.",
+    }, { request: residualCase.prompt, card: residualCard });
+    t.check("a whole-paragraph residual plan passes only after deterministic application and full recount",
+      narrowPrune.ok
+        && narrowPrune.length.actual === 753
+        && narrowPrune.report.measurements.find((row) => row.measurement_id === "question-marks")?.actual_count === 1
+        && narrowPrune.source.draft.startsWith("# Choice screens are not market choice\n"));
+    t.check("a plausible deletion that leaves even a one-word excess is rejected",
+      !insufficientPrune.ok
+        && insufficientPrune.errors.some((error) => /806 words; required 595–805/.test(error)));
+    const prunePrompt = residualPrunePrompt(actualResidualSource, {
+      request: residualCase.prompt, card: residualCard,
+    });
+    t.check("the prune planner sees local paragraph budgets instead of being asked to recount a rewritten essay",
+      /normalized draft has 852 words/.test(prunePrompt)
+        && /Delete at least 47 words/.test(prunePrompt)
+        && /Prefer deleting at least 99 words/.test(prunePrompt)
+        && /Paragraph 14 — 63 words/.test(prunePrompt)
+        && /LOCKED HEADING/.test(prunePrompt)
+        && /do not return prose/.test(prunePrompt));
+    t.check("the residual prune schema stays inside the portable strict-output subset",
+      strictOutputSchemaErrors(RESIDUAL_PRUNE_SCHEMA).length === 0);
     const conformance = measureDraftConformance(initialSource.draft, targetCard);
     const conformancePrompt = draftConformancePrompt(
       { prompt: "Write a 700-word post." }, profileMarkdown, targetProfile, initialSource,

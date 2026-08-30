@@ -113,12 +113,6 @@ export async function run(t, { HERE }) {
           && /measurement_ids[\s\S]*exact token printed inside `\[measurement:\.\.\.\]`[\s\S]*never an observation id/.test(prompt)
           && /minimum unavoidable whitespace-word delta[\s\S]*content-length[\s\S]*neutral[\s\S]*extra form change still fails/.test(prompt)
           && /rejects non-unique or overlapping anchors[\s\S]*out-of-range final[\s\S]*counts/.test(src));
-      t.check("voice-draft: a failed smallest-change revision enters one explicit rebuild-capable residual mode",
-        /conditional second and final semantic correction[\s\S]*residual-correction[\s\S]*not another candidate, redraw, or optional variant/.test(prompt)
-          && /Do not optimize for the smallest textual change[\s\S]*rebuild whole paragraphs/.test(src)
-          && /exact semantic center targets, locked title, and narrower word-count working[\s\S]*hard output requirements/.test(src)
-          && /never return the rejected text[\s\S]*residual counts remain unresolved/.test(src));
-
       if (shipped && fsExists(rendered)) {
         const strip = (s) => s.replace(/^---\n[\s\S]*?\n---\n/, "");
         t.check("voice-draft: rendered body is byte-identical to primitives/ source (AGENTS.md rule 1)",

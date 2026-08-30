@@ -53,6 +53,9 @@ import {
   measureDraftConformance, renderDraftConformanceReport, replacementWordAllowance,
 } from "../skills/prose-draft/tools/draft-conformance.mjs";
 import {
+  requestedExactTitle, semanticResidualStatus,
+} from "../skills/prose-draft/tools/draft-residual-prune.mjs";
+import {
   draftControlCard, renderDraftControlCard,
 } from "../skills/prose-draft/tools/draft-controls.mjs";
 import { measureProfile } from "../skills/prose-draft/tools/profile-measure.mjs";
@@ -1350,49 +1353,7 @@ export function validateSemanticRevision(candidateSource, revisionSource, { requ
   return { ok: errors.length === 0, errors, source: revision.source, report };
 }
 
-export function requestedExactTitle(request) {
-  if (typeof request !== "string" || !/\bkeep the title\b/i.test(request)) return null;
-  const match = request.match(/\bTitle:\s*(.+?)(?=\.\s+(?:Cover|Include|Discuss|Explain|Argue|Keep)\b|[\r\n]|$)/i);
-  return match?.[1]?.trim() || null;
-}
-
-function draftOpeningTitle(draft) {
-  const first = String(draft).split(/\r?\n/).find((line) => line.trim())?.trim() || "";
-  return first.replace(/^#\s+/, "").trim();
-}
-
-export function semanticResidualStatus(source, { request, card }) {
-  const normalized = normalizeVoiceDraftSource(source, { request });
-  if (!normalized.ok || normalized.refusal) {
-    return {
-      ok: false, needs_correction: true, errors: normalized.errors,
-      source: null, report: null, semantic_failures: [], length: null,
-    };
-  }
-  const report = measureDraftConformance(normalized.source.draft, card);
-  const semanticFailures = report.measurements.filter((row) =>
-    SEMANTIC_BEARING_MEASUREMENTS.includes(row.measurement_id) && row.status !== "in-range");
-  const bounds = Number.isInteger(card?.word_target) ? wordTargetBounds(card.word_target) : null;
-  const length = !bounds ? null : {
-    ...bounds,
-    actual: report.draft_words,
-    status: report.draft_words < bounds.minimum ? "deficit"
-      : report.draft_words > bounds.maximum ? "excess" : "in-range",
-  };
-  const expectedTitle = requestedExactTitle(request);
-  const title = !expectedTitle ? null : {
-    expected: expectedTitle,
-    actual: draftOpeningTitle(normalized.source.draft),
-    status: draftOpeningTitle(normalized.source.draft) === expectedTitle ? "exact" : "mismatch",
-  };
-  return {
-    ok: true,
-    needs_correction: semanticFailures.length > 0
-      || (length && length.status !== "in-range") || (title && title.status !== "exact"),
-    errors: [], source: normalized.source, report,
-    semantic_failures: semanticFailures, length, title,
-  };
-}
+export { requestedExactTitle, semanticResidualStatus };
 
 export function validateResidualSemanticCorrection(priorSource, correctionSource, { request, card }) {
   const errors = [];
