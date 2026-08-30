@@ -1,0 +1,79 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o11",
+      "why": "The request supplies no named vendor, verified shutdown notice, report, decision, statutory language, coalition letter, or attributed response to cite or quote."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Vendors closing connected-home cloud services often describe the decision as the retirement of an online service.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Connected-home cloud servers authenticate devices or users, coordinate operations, and relay commands.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Households commonly encounter or recognize the described connected-device reinstallation scenario.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Sales of connected appliances include nonphysical operational capabilities in addition to the physical hardware and power components.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "The sale of a connected appliance includes a continuing ability to perform its advertised functions.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "For cloud-dependent connected appliances, continuing vendor service is embedded in the product's operation.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Cloud services provide practical benefits for connected-home devices.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Cloud service can make remote access to connected-home devices more convenient.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Cloud service can simplify updates for connected-home devices.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Cloud service can connect devices across different networks, including access from outside the home.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Connected appliances can provide the identified cloud-supported benefits without being permanently dependent on the cloud for core operation.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Connected appliances can use cloud support for added capabilities without making the cloud a single point of failure.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Local operation protects the core functions of connected-home devices when vendor cloud service closes.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Publishing a connected device's protocols enables compatible software to replace a discontinued application.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Export tools preserve a connected device's settings and data after service or application discontinuation.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Releasing software or protocols, transferring service, and providing a long transition period each entail costs and security questions.",
+      "where": "paragraph 9"
+    },
+    {
+      "claim": "Companies and products sometimes fail.",
+      "where": "paragraph 9"
+    }
+  ]
+}

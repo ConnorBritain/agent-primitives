@@ -1,0 +1,408 @@
+---
+source: Project Gutenberg 7150
+title: On Medical Education
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+It has given me sincere pleasure to be here today, at the desire of
+your highly respected President and the Council of the College. In
+looking back upon my own past, I am sorry to say that I have found that
+it is a quarter of a century since I took part in those hopes and in
+those fears by which you have all recently been agitated, and which now
+are at an end. But, although so long a time has elapsed since I was
+moved by the same feelings, I beg leave to assure you that my sympathy
+with both victors and vanquished remains fresh--so fresh, indeed, that
+I could almost try to persuade myself that, after all, it cannot be so
+very long ago. My business during the last hour, however, has been to
+show that sympathy with one side only, and I assure you I have done my
+best to play my part heartily, and to rejoice in the success of those
+who have succeeded. Still, I should like to remind you at the end of it
+all, that success on an occasion of this kind, valuable and important
+as it is, is in reality only putting the foot upon one rung of the
+ladder which leads upwards; and that the rung of a ladder was never
+meant to rest upon, but only to hold a man's foot long enough to enable
+him to put the other somewhat higher. I trust that you will all regard
+these successes as simply reminders that your next business is, having
+enjoyed the success of the day, no longer to look at that success, but
+to look forward to the next difficulty that is to be conquered. And
+now, having had so much to say to the successful candidates, you must
+forgive me if I add that a sort of under-current of sympathy has been
+going on in my mind all the time for those who have not been
+successful, for those valiant knights who have been overthrown in your
+tourney, and have not made their appearance in public. I trust that, in
+accordance with old custom, they, wounded and bleeding, have been
+carried off to their tents, to be carefully tended by the fairest of
+maidens; and in these days, when the chances are that every one of such
+maidens will be a qualified practitioner, I have no doubt that all the
+splinters will have been carefully extracted, and that they are now
+physically healed. But there may remain some little fragment of moral
+or intellectual discouragement, and therefore I will take the liberty
+to remark that your chairman to-day, if he occupied his proper place,
+would be among them. Your chairman, in virtue of his position, and for
+the brief hour that he occupies that position, is a person of
+importance; and it may be some consolation to those who have failed if
+I say, that the quarter of a century which I have been speaking of,
+takes me back to the time when I was up at the University of London, a
+candidate for honours in anatomy and physiology, and when I was
+exceedingly well beaten by my excellent friend, Dr. Ransom, of
+Nottingham. There is a person here who recollects that circumstance
+very well. I refer to your venerated teacher and mine, Dr. Sharpey. He
+was at that time one of the examiners in anatomy and physiology, and
+you may be quite sure that, as he was one of the examiners, there
+remained not the smallest doubt in my mind of the propriety of his
+judgment, and I accepted my defeat with the most comfortable assurance
+that I had thoroughly well earned it. But, gentlemen, the competitor
+having been a worthy one, and the examination a fair one, I cannot say
+that I found in that circumstance anything very discouraging. I said to
+myself, "Never mind; what's the next thing to be done?" And I found
+that policy of "never minding" and going on to the next thing to be
+done, to be the most important of all policies in the conduct of
+practical life. It does not matter how many tumbles you have in this
+life, so long as you do not get dirty when you tumble; it is only the
+people who have to stop to be washed and made clean, who must
+necessarily lose the race. And I can assure you that there is the
+greatest practical benefit in making a few failures early in life. You
+learn that which is of inestimable importance--that there are a great
+many people in the world who are just as clever as you are. You learn
+to put your trust, by and by, in an economy and frugality of the
+exercise of your powers, both moral and intellectual; and you very soon
+find out, if you have not found it out before, that patience and
+tenacity of purpose are worth more than twice their weight of
+cleverness. In fact, if I were to go on discoursing on this subject, I
+should become almost eloquent in praise of non-success; but, lest so
+doing should seem, in any way, to wither well-earned laurels, I
+will turn from that topic, and ask you to accompany me in some
+considerations touching another subject which has a very profound
+interest for me, and which I think ought to have an equally profound
+interest for you.
+
+I presume that the great majority of those whom I address propose to
+devote themselves to the profession of medicine; and I do not doubt,
+from the evidences of ability which have been given to-day, that I have
+before me a number of men who will rise to eminence in that profession,
+and who will exert a great and deserved influence upon its future. That
+in which I am interested, and about which I wish to speak, is the
+subject of medical education, and I venture to speak about it for the
+purpose, if I can, of influencing you, who may have the power of
+influencing the medical education of the future. You may ask, by what
+authority do I venture, being a person not concerned in the practice of
+medicine, to meddle with that subject? I can only tell you it is a
+fact, of which a number of you I dare say are aware by experience (and
+I trust the experience has no painful associations), that I have been
+for a considerable number of years (twelve or thirteen years to the
+best of my recollection) one of the examiners in the University of
+London. You are further aware that the men who come up to the
+University of London are the picked men of the medical schools of
+London, and therefore such observations as I may have to make upon the
+state of knowledge of these gentlemen, if they be justified, in regard
+to any faults I may have to find, cannot be held to indicate defects in
+the capacity, or in the power of application of those gentlemen, but
+must be laid, more or less, to the account of the prevalent system of
+medical education. I will tell you what has struck me--but in speaking
+in this frank way, as one always does about the defects of one's
+friends, I must beg you to disabuse your minds of the notion that I am
+alluding to any particular school, or to any particular college, or to
+any particular person; and to believe that if I am silent when I should
+be glad to speak with high praise, it is because that praise would come
+too close to this locality. What has struck me, then, in this long
+experience of the men best instructed in physiology from the medical
+schools of London is (with the many and brilliant exceptions to which I
+have referred), taking it as a whole, and broadly, the singular
+unreality of their knowledge of physiology. Now, I use that word
+"unreality" advisedly. I do not say "scanty;" on the contrary, there is
+plenty of it--a great deal too much of it--but it is the quality, the
+nature of the knowledge, which I quarrel with. I know I used to have--I
+don't know whether I have now, but I had once upon a time--a bad
+reputation among students for setting up a very high standard of
+acquirement, and I dare say you may think that the standard of this old
+examiner, who happily is now very nearly an extinct examiner, has been
+pitched too high. Nothing of the kind, I assure you. The defects I have
+noticed, and the faults I have to find, arise entirely from the
+circumstance that my standard is pitched too low. This is no paradox,
+gentlemen, but quite simply the fact. The knowledge I have looked for
+was a real, precise, thorough, and practical knowledge of fundamentals;
+whereas that which the best of the candidates, in a large proportion of
+cases, have had to give me was a large, extensive, and inaccurate
+knowledge of superstructure; and that is what I mean by saying that my
+demands went too low and not too high. What I have had to complain of
+is, that a large proportion of the gentlemen who come up for physiology
+to the University of London do not know it as they know their anatomy,
+and have not been taught it as they have been taught their anatomy.
+Now, I should not wonder at all if I heard a great many "No, noes"
+here; but I am not talking about University College; as I have told you
+before, I am talking about the average education of medical schools.
+What I have found, and found so much reason to lament, is, that while
+anatomy has been taught as a science ought to be taught, as a matter of
+autopsy, and observation, and strict discipline; in a very large number
+of cases, physiology has been taught as if it were a mere matter of
+books and of hearsay. I declare to you, gentlemen, that I have often
+expected to be told, when I have asked a question about the circulation
+of the blood, that Professor Breitkopf is of opinion that it
+circulates, but that the whole thing is an open question. I assure you
+that I am hardly exaggerating the state of mind on matters of
+fundamental importance which I have found over and over again to obtain
+among gentlemen coming up to that picked examination of the University
+of London. Now, I do not think that is a desirable state of things. I
+cannot understand why physiology should not be taught--in fact, you
+have here abundant evidence that it can be taught--with the same
+definiteness and the same precision as anatomy is taught. And you may
+depend upon this, that the only physiology which is to be of any good
+whatever in medical practice, or in its application to the study of
+medicine, is that physiology which a man knows of his own knowledge;
+just as the only anatomy which would be of any good to the surgeon is
+the anatomy which he knows of his own knowledge. Another peculiarity I
+have found in the physiology which has been current, and that is, that
+in the minds of a great many gentlemen it has been supplanted by
+histology. They have learnt a great deal of histology, and they have
+fancied that histology and physiology are the same things. I have asked
+for some knowledge of the physics and the mechanics and the chemistry
+of the human body, and I have been met by talk about cells. I declare
+to you I believe it will take me two years, at least, of absolute rest
+from the business of an examiner to hear the word "cell," "germinal
+matter," or "carmine," without a sort of inward shudder.
+
+Well, now, gentlemen, I am sure my colleagues in this examination will
+bear me out in saying that I have not been exaggerating the evils and
+defects which are current--have been current--in a large quantity of
+the physiological teaching the results of which come before examiners.
+And it becomes a very interesting question to know how all this comes
+about, and in what way it can be remedied. How it comes about will be
+perfectly obvious to any one who has considered the growth of medicine.
+I suppose that medicine and surgery first began by some savage more
+intelligent than the rest, discovering that a certain herb was good for
+a certain pain, and that a certain pull, somehow or other, set a
+dislocated joint right. I suppose all things had their humble
+beginnings, and medicine and surgery were in the same condition. People
+who wear watches know nothing about watchmaking. A watch goes wrong and
+it stops; you see the owner giving it a shake, or, if he is very bold,
+he opens the case, and gives the balance-wheel a push. Gentlemen, that
+is empirical practice, and you know what are the results upon the
+watch. I should think you can divine what are the results of analogous
+operations upon the human body. And because men of sense very soon
+found that such were the effects of meddling with very complicated
+machinery they did not understand, I suppose the first thing, as being
+the easiest, was to study the nature of the works of the human watch,
+and the next thing was to study the way the parts worked together, and
+the way the watch worked. Thus, by degrees, we have had growing up our
+body of anatomists, or knowers of the construction of the human watch,
+and our physiologists, who know how the machine works. And just as any
+sensible man, who has a valuable watch, does not meddle with it
+himself, but goes to some one who has studied watchmaking, and
+understands what the effect of doing this or that may be; so, I
+suppose, the man who, having charge of that valuable machine, his own
+body, wants to have it kept in good order, comes to a professor of the
+medical art for the purpose of having it set right, believing that, by
+deduction from the facts of structure and from the facts of function,
+the physician will divine what may be the matter with his bodily watch
+at that particular time, and what may be the best means of setting it
+right. If that may be taken as a just representation of the relation of
+the theoretical branches of medicine--what we may call the institutes
+of medicine, to use an old term--to the practical branches, I think it
+will be obvious to you that they are of prime and fundamental
+importance. Whatever tends to affect the teaching of them injuriously
+must tend to destroy and to disorganise the whole fabric of the medical
+art. I think every sensible man has seen this long ago; but the
+difficulties in the way of attaining good teaching in the different
+branches of the theory, or institutes, of medicine are very serious. It
+is a comparatively easy matter--pray mark that I use the word
+"comparatively "--it is a comparatively easy matter to learn anatomy
+and to teach it; it is a very difficult matter to learn physiology and
+to teach it. It is a very difficult matter to know and to teach those
+branches of physics and those branches of chemistry which bear directly
+upon physiology; and hence it is that, as a matter of fact, the
+teaching of physiology, and the teaching of the physics and the
+chemistry which bear upon it, must necessarily be in a state of
+relative imperfection; and there is nothing to be grumbled at in the
+fact that this relative imperfection exists. But is the relative
+imperfection which exists only such as is necessary, or is it made
+worse by our practical arrangements? I believe--and if I did not so
+believe I should not have troubled you with these observations--I
+believe it is made infinitely worse by our practical arrangements, or
+rather, I ought to say, our very unpractical arrangements. Some very
+wise man long ago affirmed that every question, in the long run, was a
+question of finance; and there is a good deal to be said for that view.
+Most assuredly the question of medical teaching is, in a very large and
+broad sense, a question of finance. What I mean is this: that in London
+the arrangements of the medical schools, and the number of them, are
+such as to render it almost impossible that men who confine themselves
+to the teaching of the theoretical branches of the profession should be
+able to make their bread by that operation; and, you know, if a man
+cannot make his bread he cannot teach--at least his teaching comes to a
+speedy end. That is a matter of physiology. Anatomy is fairly well
+taught, because it lies in the direction of practice, and a man is all
+the better surgeon for being a good anatomist. It does not absolutely
+interfere with the pursuits of a practical surgeon if he should hold a
+Chair of Anatomy--though I do not for one moment say that he would not
+be a better teacher if he did not devote himself to practice.
+(Applause.) Yes, I know exactly what that cheer means, but I am keeping
+as carefully as possible from any sort of allusion to Professor Ellis.
+But the fact is, that even human anatomy has now grown to be so large a
+matter, that it takes the whole devotion of a man's life to put the
+great mass of knowledge upon that subject into such a shape that it can
+be teachable to the mind of the ordinary student. What the student
+wants in a professor is a man who shall stand between him and the
+infinite diversity and variety of human knowledge, and who shall gather
+all that together, and extract from it that which is capable of being
+assimilated by the mind. That function is a vast and an important one,
+and unless, in such subjects as anatomy, a man is wholly free from
+other cares, it is almost impossible that he can perform it thoroughly
+and well. But if it be hardly possible for a man to pursue anatomy
+without actually breaking with his profession, how is it possible for
+him to pursue physiology?
+
+I get every year those very elaborate reports of Henle and
+Meissner--volumes of, I suppose, 400 pages altogether--and they consist
+merely of abstracts of the memoirs and works which have been written on
+Anatomy and Physiology--only abstracts of them! How is a man to keep up
+his acquaintance with all that is doing in the physiological world--in
+a world advancing with enormous strides every day and every hour--if he
+has to be distracted with the cares of practice? You know very well it
+must be impracticable to do so. Our men of ability join our medical
+schools with an eye to the future. They take the Chairs of Anatomy or
+of Physiology; and by and by they leave those Chairs for the more
+profitable pursuits into which they have drifted by professional
+success, and so they become clothed, and physiology is bare. The result
+is, that in those schools in which physiology is thus left to the
+benevolence, so to speak, of those who have no time to look to it, the
+effect of such teaching comes out obviously, and is made manifest in
+what I spoke of just now--the unreality, the bookishness of the
+knowledge of the taught. And if this is the case in physiology, still
+more must it be the case in those branches of physics which are the
+foundation of physiology; although it may be less the case in
+chemistry, because for an able chemist a certain honourable and
+independent career lies in the direction of his work, and he is able,
+like the anatomist, to look upon what he may teach to the student as
+not absolutely taking him away from his bread-winning pursuits.
+
+But it is of no use to grumble about this state of things unless one is
+prepared to indicate some sort of practical remedy. And I believe--and
+I venture to make the statement because I am wholly independent of all
+sorts of medical schools, and may, therefore, say what I believe
+without being supposed to be affected by any personal interest--but I
+say I believe that the remedy for this state of things, for that
+imperfection of our theoretical knowledge which keeps down the ability
+of England at the present time in medical matters, is a mere affair of
+mechanical arrangement; that so long as you have a dozen medical
+schools scattered about in different parts of the metropolis, and
+dividing the students among them, so long, in all the smaller schools
+at any rate, it is impossible that any other state of things than that
+which I have been depicting should obtain. Professors must live; to
+live they must occupy themselves with practice, and if they occupy
+themselves with practice, the pursuit of the abstract branches of
+science must go to the wall. All this is a plain and obvious matter of
+common-sense reasoning. I believe you will never alter this state of
+things until, either by consent or by _force majeure_--and I
+should be very sorry to see the latter applied--but until there is some
+new arrangement, and until all the theoretical branches of the
+profession, the institutes of medicine, are taught in London in not
+more than one or two, or at the outside three, central institutions, no
+good will be effected. If that large body of men, the medical students
+of London, were obliged in the first place to get a knowledge of the
+theoretical branches of their profession in two or three central
+schools, there would be abundant means for maintaining able
+professors--not, indeed, for enriching them, as they would be able to
+enrich themselves by practice--but for enabling them to make that
+choice which such men are so willing to make; namely, the choice
+between wealth and a modest competency, when that modest competency is
+to be combined with a scientific career, and the means of advancing
+knowledge. I do not believe that all the talking about, and tinkering
+of, medical education will do the slightest good until the fact is
+clearly recognised, that men must be thoroughly grounded in the
+theoretical branches of their profession, and that to this end the
+teaching of those theoretical branches must be confined to two or three
+centres.
+
+Now let me add one other word, and that is, that if I were a despot, I
+would cut down these branches to a very considerable extent. The next
+thing to be done beyond that which I mentioned just now, is to go back
+to primary education. The great step towards a thorough medical
+education is to insist upon the teaching of the elements of the
+physical sciences in all schools, so that medical students shall not go
+up to the medical colleges utterly ignorant of that with which they
+have to deal; to insist on the elements of chemistry, the elements of
+botany, and the elements of physics being taught in our ordinary and
+common schools, so that there shall be some preparation for the
+discipline of medical colleges. And, if this reform were once effected,
+you might confine the "Institutes of Medicine" to physics as applied to
+physiology--to chemistry as applied to physiology--to physiology
+itself, and to anatomy. Afterwards, the student, thoroughly grounded in
+these matters, might go to any hospital he pleased for the purpose of
+studying the practical branches of his profession. The practical
+teaching might be made as local as you like; and you might use to
+advantage the opportunities afforded by all these local institutions
+for acquiring a knowledge of the practice of the profession. But you
+may say: "This is abolishing a great deal; you are getting rid of
+botany and zoology to begin with." I have not a doubt that they ought
+to be got rid of, as branches of special medical education; they ought
+to be put back to an earlier stage, and made branches of general
+education. Let me say, by way of self-denying ordinance, for which you
+will, I am sure, give me credit, that I believe that comparative
+anatomy ought to be absolutely abolished. I say so, not without a
+certain fear of the Vice-Chancellor of the University of London who
+sits upon my left. But I do not think the charter gives him very much
+power over me; moreover, I shall soon come to an end of my
+examinership, and therefore I am not afraid, but shall go on to say
+what I was going to say, and that is, that in my belief it is a
+downright cruelty--I have no other word for it--to require from
+gentlemen who are engaged in medical studies, the pretence--for it is
+nothing else, and can be nothing else, than a pretence--of a knowledge
+of comparative anatomy as part of their medical curriculum. Make it
+part of their Arts teaching if you like, make it part of their general
+education if you like, make it part of their qualification for the
+scientific degree by all means--that is its proper place; but to
+require that gentlemen whose whole faculties should be bent upon the
+acquirement of a real knowledge of human physiology should worry
+themselves with getting up hearsay about the alternation of generations
+in the Salpae is really monstrous. I cannot characterise it in any
+other way. And having sacrificed my own pursuit, I am sure I may
+sacrifice other people's; and I make this remark with all the more
+willingness because I discovered, on reading the names of your
+Professors just now, that the Professor of Materia Medica is not
+present. I must confess, if I had my way I should abolish Materia
+Medica  altogether. I recollect, when I was first under examination
+at the University of London, Dr. Pereira was the examiner, and you know
+that Pereira's "Materia Medica" was a book _de omnibus rebus_. I
+recollect my struggles with that book late at night and early in the
+morning (I worked very hard in those days), and I do believe that I got
+that book into my head somehow or other, but then I will undertake to
+say that I forgot it all a week afterwards. Not one trace of a
+knowledge of drugs has remained in my memory from that time to this;
+and really, as a matter of common sense, I cannot understand the
+arguments for obliging a medical man to know all about drugs and where
+they come from. Why not make him belong to the Iron and Steel
+Institute, and learn something about cutlery, because he uses knives?
+
+But do not suppose that, after all these deductions, there would not be
+ample room for your activity. Let us count up what we have left. I
+suppose all the time for medical education that can be hoped for is, at
+the outside, about four years. Well, what have you to master in those
+four years upon my supposition? Physics applied to physiology;
+chemistry applied to physiology; physiology; anatomy; surgery; medicine
+(including therapeutics); obstetrics; hygiene; and medical
+jurisprudence--nine subjects for four years! And when you consider what
+those subjects are, and that the acquisition of anything beyond the
+rudiments of any one of them may tax the energies of a lifetime, I
+think that even those energies which you young gentlemen have been
+displaying for the last hour or two might be taxed to keep you
+thoroughly up to what is wanted for your medical career.
+
+I entertain a very strong conviction that any one who adds to medical
+education one iota or tittle beyond what is absolutely necessary, is
+guilty of a very grave offence. Gentlemen, it will depend upon the
+knowledge that you happen to possess,--upon your means of applying it
+within your own field of action,--whether the bills of mortality of
+your district are increased or diminished; and that, gentlemen, is a
+very serious consideration indeed. And, under those circumstances, the
+subjects with which you have to deal being so difficult, their extent
+so enormous, and the time at your disposal so limited, I could not feel
+my conscience easy if I did not, on such an occasion as this, raise a
+protest against employing your energies upon the acquisition of any
+knowledge which may not be absolutely needed in your future career.
+
+
+       *       *       *       *       *
+
+ It will, I hope, be understood that I do not include Therapeutics
+under this head.

@@ -1,0 +1,16 @@
+{
+  "_comment": "Which profile and prompt produced each artefact in raw/. Recorded as DATA because the firewall check needs to know which corpus to compare a draft against, and that mapping previously lived only in selftest.mjs as a hardcoded literal written by the same author as the run. If the mapping were wrong the leakage check would silently compare against the wrong corpus and be close to vacuous. Now it is checked in, and the test reads it.",
+  "agent": "voice-draft",
+  "profiles_dir": "inputs/profiles",
+  "cases": [
+    { "artefact": "p01-essay-topic.md",            "profile": "chekhov-correspondence", "prompt": "../../fixtures/prompts/p01-essay-topic.md",             "expect": "draft" },
+    { "artefact": "p02-blog-outline.md",           "profile": "chekhov-correspondence", "prompt": "../../fixtures/prompts/p02-blog-outline.md",            "expect": "draft" },
+    { "artefact": "p03-email-reply.md",            "profile": "chekhov-correspondence", "prompt": "../../fixtures/prompts/p03-email-reply.md",             "expect": "draft" },
+    { "artefact": "p04-refuse-ambiguous.md",       "profile": "chekhov-correspondence", "prompt": "../../fixtures/prompts/p04-refuse-ambiguous.md",        "expect": "refuse" },
+    { "artefact": "p05-refuse-out-of-range.md",    "profile": "chekhov-correspondence", "prompt": "../../fixtures/prompts/p05-refuse-out-of-range.md",     "expect": "refuse" },
+    { "artefact": "xr-matched-chekhov.md",         "profile": "chekhov-correspondence", "prompt": "../../fixtures/cross-render/prompts/letter-to-a-friend.md", "expect": "draft" },
+    { "artefact": "xr-matched-bacon.md",           "profile": "bacon-essay",            "prompt": "../../fixtures/cross-render/prompts/short-moral-essay.md",  "expect": "draft" },
+    { "artefact": "xr-crossed-chekhov-on-bacon.md","profile": "chekhov-correspondence", "prompt": "../../fixtures/cross-render/prompts/short-moral-essay.md",  "expect": "draft" },
+    { "artefact": "xr-crossed-bacon-on-chekhov.md","profile": "bacon-essay",            "prompt": "../../fixtures/cross-render/prompts/letter-to-a-friend.md",  "expect": "draft" }
+  ]
+}

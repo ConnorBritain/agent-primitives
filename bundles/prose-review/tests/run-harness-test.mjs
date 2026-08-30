@@ -105,9 +105,13 @@ process.stdout.write("\nrun-harness reproduces a published run, and refuses an u
     differing.length === 0, differing.join(", "));
 
   // The first line of verify-run's report echoes the directory it was given, so the two
-  // runs cannot agree on it. Everything below it is the run's numbers.
+  // runs cannot agree on it. Everything below it is the run's numbers. `collect` also
+  // prints its own header before invoking verify-run — that too varies with the run
+  // directory. Both are stripped as anything mentioning a run-dir path fragment.
   const expected = spawnSync(process.execPath, [join(HERE, "verify-run.mjs"), VOICE_RUN], { encoding: "utf8" });
-  const strip = (s) => s.split("\n").filter((l) => !l.includes("transcripts")).join("\n");
+  const strip = (s) => s.split("\n")
+    .filter((l) => !/bundles\/prose-review\/tests\/runs\//.test(l))
+    .join("\n");
   check("...and verify-run reports the identical numbers over the rebuilt run",
     r.status === 0 && strip(r.stdout).includes(strip(expected.stdout).trim()),
     `exit ${r.status}`);
@@ -232,16 +236,19 @@ function brokenRun(mutate) {
 // ---------------------------------------------------------------------------
 {
   const dir = join(sandbox(), "2026-08-06-probe");
-  const r = run("prepare", "fidelity", dir, "--only", "n-tihonov-reordered,p-tihonov-summarised");
+  // --draws 1 keeps this test focused on the naming invariant (one prompt per case)
+  // without also asserting anything about how many draws prepare defaults to. The
+  // default (3) is covered by its own test below.
+  const r = run("prepare", "fidelity", dir, "--only", "n-tihonov-reordered,p-tihonov-summarised", "--draws", "1");
   const manifest = JSON.parse(readFileSync(join(dir, "MANIFEST.json"), "utf8"));
-  const prompts = readdirSync(join(dir, "prompts")).filter((f) => /^case-\d+\.md$/.test(f));
+  const prompts = readdirSync(join(dir, "prompts")).filter((f) => /^case-\d+-d\d+\.md$/.test(f));
   const promptText = prompts.map((f) => readFileSync(join(dir, "prompts", f), "utf8")).join("\n");
   const stagedText = manifest.cases
     .flatMap((c) => c.inputs.map((i) => readFileSync(join(dir, "inputs", c.case, i.as), "utf8")))
     .join("\n");
 
   check("prepare emits one prompt per fixture under an opaque case id",
-    r.status === 0 && prompts.sort().join(",") === "case-01.md,case-02.md", prompts.join(","));
+    r.status === 0 && prompts.sort().join(",") === "case-01-d1.md,case-02-d1.md", prompts.join(","));
   // The case→fixture mapping has to exist somewhere: it lives in DISPATCH.md and
   // MANIFEST.json, which are the operator's files and are never handed to a critic.
   check("no prompt or staged file names its fixture, whose n-/p- prefix IS the answer",
@@ -304,6 +311,117 @@ function brokenRun(mutate) {
   const r = run("check", join(HERE, "runs", "2026-08-05-runner-smoke"));
   check("the runner's own smoke run still round-trips through the current emitter",
     r.status === 0 && /byte-for-byte from the transcript body: 2 of 2/.test(r.stdout), r.stdout.trim());
+}
+
+// ---------------------------------------------------------------------------
+// 12. Sampling policy — the k>1 mechanic that decides whether the reviser can trust the
+// fidelity gate. WHAT BREAKS IF THIS REGRESSES: a critic that returns opposite verdicts
+// on the same prompt is a coin flip on borderline cases, and the reviser deletes good
+// revisions at random for reasons nobody sees. The whole point of k=3 is a majority + a
+// visible SPLIT; the point of the "single draw" label is that a k=1 run cannot claim to
+// have measured either. See .planning/SAMPLING-POLICY.md.
+// ---------------------------------------------------------------------------
+{
+  const dir = join(sandbox(), "2026-08-06-k3-probe");
+  const r = run("prepare", "fidelity", dir, "--only", "n-tihonov-reordered,p-tihonov-summarised", "--draws", "3");
+  const prompts = readdirSync(join(dir, "prompts")).filter((f) => /^case-\d+-d\d+\.md$/.test(f)).sort();
+  check("prepare --draws 3 emits three prompts per case",
+    r.status === 0 && prompts.length === 6
+      && prompts.join(",") === "case-01-d1.md,case-01-d2.md,case-01-d3.md,case-02-d1.md,case-02-d2.md,case-02-d3.md",
+    prompts.join(","));
+
+  // Draws share a case, and a case shares one inputs directory. Duplicating the inputs
+  // would waste disk and, worse, would let a later edit change the inputs of draw 2
+  // without changing draws 1 and 3 — a hairline mismatch that would silently invalidate
+  // any comparison between them.
+  const inputDirs = readdirSync(join(dir, "inputs")).sort();
+  check("draws share the case's inputs directory",
+    inputDirs.join(",") === "case-01,case-02", inputDirs.join(","));
+
+  // Every draw of one case is byte-identical to every other. The whole point of asking
+  // three times is asking the SAME question three times, and a difference here would
+  // mean the run measures whatever the difference happens to be, not the critic.
+  const d1 = readFileSync(join(dir, "prompts", "case-01-d1.md"), "utf8");
+  const d2 = readFileSync(join(dir, "prompts", "case-01-d2.md"), "utf8");
+  const d3 = readFileSync(join(dir, "prompts", "case-01-d3.md"), "utf8");
+  check("all three draw prompts for a case are byte-identical", d1 === d2 && d2 === d3);
+
+  const manifest = JSON.parse(readFileSync(join(dir, "MANIFEST.json"), "utf8"));
+  check("MANIFEST records draws so verify-run can label the run",
+    manifest.draws === 3, JSON.stringify(manifest.draws));
+
+  // --draws 1 stays legal, must be labelled downstream so a dev iteration cannot be
+  // mistaken for a measurement. The label is asserted separately below.
+  const soloDir = join(sandbox(), "2026-08-06-solo-probe");
+  const s = run("prepare", "fidelity", soloDir, "--only", "n-tihonov-reordered", "--draws", "1");
+  const soloManifest = JSON.parse(readFileSync(join(soloDir, "MANIFEST.json"), "utf8"));
+  check("--draws 1 is legal, and its NOTE names the label", s.status === 0
+    && soloManifest.draws === 1 && /single draw/.test(s.stdout));
+
+  const zero = run("prepare", "fidelity", join(sandbox(), "_zero"), "--only", "n-tihonov-reordered", "--draws", "0");
+  check("--draws 0 is refused", zero.status !== 0 && /positive integer/.test(zero.stderr));
+}
+
+// ---------------------------------------------------------------------------
+// 13. verify-run must group draws by case, take a majority, and count a SPLIT as its
+// own thing. A run that resolved a 2/1 split into REVISE would hide the exact cases
+// worth looking at — see SAMPLING-POLICY.md. Contract counts sum across all draws
+// because a critic is not allowed to make an authorship claim ONCE.
+// ---------------------------------------------------------------------------
+{
+  const dir = sandbox();
+  const RESULT_LINE = (v, uncited = 0, ac = 0) =>
+    `RESULT: ${v} | findings=${v === "REVISE" ? 1 : 0} | uncited=${uncited} | authorship_claims=${ac}`;
+  const wrap = (fixture, dK, verdict, uncited = 0, ac = 0) => {
+    const kind = fixture.startsWith("p-") ? "Positive" : "Negative";
+    const phrase = kind === "Positive" ? "AI-labelled draft" : "leave-one-out";
+    const short = fixture.replace(/^[np]-/, "");
+    writeFileSync(join(dir, `${fixture}-d${dK}.md`),
+      `# ${kind} (${phrase}) — ${short} · ${verdict}\n\nBody.\n\n${RESULT_LINE(verdict, uncited, ac)}\n`);
+  };
+  // Case 1: unanimous CLEAN (rock-solid negative). Case 2: 2/1 split — REVISE majority,
+  // one CLEAN draw. Case 3: unanimous REVISE. And one authorship claim in draw 1 of
+  // case 1 — contract violation, must block regardless of the score.
+  wrap("n-alpha", 1, "CLEAN", 0, 1);
+  wrap("n-alpha", 2, "CLEAN");
+  wrap("n-alpha", 3, "CLEAN");
+  wrap("n-beta", 1, "REVISE");
+  wrap("n-beta", 2, "CLEAN");
+  wrap("n-beta", 3, "REVISE");
+  wrap("p-gamma", 1, "REVISE");
+  wrap("p-gamma", 2, "REVISE");
+  wrap("p-gamma", 3, "REVISE");
+
+  const v = spawnSync(process.execPath, [join(HERE, "verify-run.mjs"), dir], { encoding: "utf8" });
+
+  // 3 cases, 9 transcripts. The two numbers should never be equal on a k>1 run.
+  check("verify-run reports cases separately from transcripts",
+    /3 case\(s\), 9 transcript\(s\)/.test(v.stdout), v.stdout);
+
+  // Case-level tallies use majority, not per-draw counts. Case 2 is REVISE (2/3), so
+  // the negative column shows 1 REVISE of 2 cases (n-alpha CLEAN, n-beta REVISE).
+  check("negative rate counts CASES by majority, not draws by verdict",
+    /negative \([^)]+, n=2\):\s+1 REVISE, 1 CLEAN/.test(v.stdout), v.stdout);
+
+  // SPLIT is its own count — one case out of three did not unanimously agree.
+  check("splits are surfaced as their own count, not resolved into the majority",
+    /cases whose k=\S+ draws did not all agree:\s+1 of 3/.test(v.stdout), v.stdout);
+
+  // Contract counts SUM across draws. One authorship claim in draw 1 of case 1 blocks
+  // the whole run — this is the whole point of the count.
+  check("one authorship claim in one draw is still a contract violation",
+    /any claim about machine authorship: 1/.test(v.stdout) && v.status !== 0,
+    `stdout=${v.stdout}\nstatus=${v.status}`);
+
+  // Same fixture set, k=1 this time — the label must appear.
+  const solo = sandbox();
+  writeFileSync(join(solo, "n-alpha.md"),
+    `# Negative (leave-one-out) — alpha · CLEAN\n\nBody.\n\nRESULT: CLEAN | findings=0 | uncited=0 | authorship_claims=0\n`);
+  const s = spawnSync(process.execPath, [join(HERE, "verify-run.mjs"), solo], { encoding: "utf8" });
+  check("a k=1 run is labelled 'single draw' in the header",
+    /single draw per case \(unreliable on borderlines\)/.test(s.stdout), s.stdout);
+  check("and a k=1 run does NOT print the splits line, which would be meaningless",
+    !/did not all agree/.test(s.stdout));
 }
 
 for (const d of sandboxes) rmSync(d, { recursive: true, force: true });

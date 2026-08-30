@@ -1,11 +1,10 @@
 # Prose system — plan and state
 
-**Snapshot date:** 2026-08-05. This document is a handoff from one session to
+**Snapshot date:** 2026-08-30. This document is a handoff from one session to
 the next, meant to be read by a fresh-context agent before writing any code.
 When something in it goes stale, edit it in the same commit as the change.
 
-**Branch:** `prose-review-design` (PR #10 open).
-**Suites (all green):** prose-tell-scan 240, prose-author 76, prose-review 103.
+**Branch:** `harness-leak-fix` (prose-author v0.2.0 release branch).
 
 ---
 
@@ -61,9 +60,20 @@ Test corpus lives at `bundles/prose-tell-scan/tests/corpus/`:
 - `human-professional/` — EFF Deeplinks (CC-BY 4.0), multi-author by design
 - `human-essays/pluralistic/` — 20 recent Cory Doctorow posts (CC-BY 4.0)
 
-### prose-author (v0.1 + v0.3)
+### prose-author (v0.2.0)
 
-The drafter. Skill `prose-draft` with:
+The drafter. Skill `prose-draft` preserves passage rewriting and now coordinates
+a blank-page pipeline with two shipped agents:
+
+- `voice-profile-render` — reads a single-author corpus in a clean context and
+  emits cited semantic findings; deterministic tools assemble `voice-profile/2`.
+- `voice-draft` — receives only the request and assembled profile, never the
+  corpus, exemplars, tell catalog, or earlier generated prose.
+- deterministic target, conformance, exact-patch, and claim-audit tooling makes
+  measured deviations and unsupported factual material visible without claiming
+  resemblance or factual accuracy.
+
+The original rewrite tooling remains:
 
 - `exemplars.mjs` — picks whole samples for the drafter. Ports rules from
   calibrate.mjs (README exclusion, attestation, word floor, cap clamp). Pinned
@@ -75,7 +85,7 @@ The drafter. Skill `prose-draft` with:
   (word-level LCS diff) into `corpus/approved/`. `--verify` walks all approved
   samples and re-derives their ef against the stored original, catching drift.
 
-**Prompt** (`SKILL.md`): drafter is denied `catalog.json` in every form. The
+**Prompt** (`SKILL.md`): every drafter is denied `catalog.json` in every form. The
 verification prompt refuses three claims: sounds-like-you, is-good, would-pass-
 a-detector. Prints those refusals so absence is reliably communicated.
 
@@ -408,9 +418,12 @@ bands move toward *the pooled corpus including kept edits*, which equals "toward
 the author's voice" only if the kept edits really are theirs. And it has only run
 on synthetic corpora.
 
-**11. `prose-author` v0.2** (blank page from notes) and **v0.4** (voice
-locks). Both specced in `bundles/prose-author/DESIGN.md`. v0.2 is a small
-prompt addition to the drafter; v0.4 is more design.
+**11. `prose-author` v0.2 shipped on the release branch.** Blank-page generation
+is not a small prompt addition: it is a corpus-to-profile renderer, a corpus-blind
+drafter, deterministic conformance, and an independent claim-disclosure stage.
+The final pre-release run validated six profiles and 19/20 semantic revisions;
+one excess question remains recorded for v0.2.1 hardening. **v0.4** voice locks
+remain design work in `bundles/prose-author/DESIGN.md`.
 
 **10b. Fix the four `fidelity-scan` defects the acceptance run found.** All are
 in `bundles/prose-review/tools/fidelity-scan.mjs`, all are real, and none was

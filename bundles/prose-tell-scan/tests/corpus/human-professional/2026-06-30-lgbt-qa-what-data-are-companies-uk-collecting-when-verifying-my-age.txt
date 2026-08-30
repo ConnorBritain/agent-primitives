@@ -6,6 +6,7 @@ date: 2026-06-30
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/06/lgbt-qa-what-data-are-companies-uk-collecting-when-verifying-my-age
 ---
 This Pride, we’re answering all your digital rights questions in season two of our initiative, LGBT Q&A. 

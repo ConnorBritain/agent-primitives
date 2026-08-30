@@ -1,0 +1,63 @@
+{
+  "_comment": "FU-3 reviser pass across seven authors. `expected` is from fixtures.json, recorded before the run.",
+  "f09-surgical-hedge-chesterton": {
+    "expected": "applied",
+    "got": "applied",
+    "edits": 1,
+    "before": "were really what is called reasonable",
+    "after": "were what is called reasonable",
+    "noticed_but_not_edited": [
+      "plan gave line 65; quote appears at line 73 — matched on the verbatim quote, not the line number",
+      "'really' appears again at line 94 — not named by the plan"
+    ]
+  },
+  "f10-surgical-hedge-darwin": {
+    "expected": "applied",
+    "got": "applied",
+    "edits": 1,
+    "before": "considered as very uninteresting",
+    "after": "considered as uninteresting"
+  },
+  "f11-surgical-hedge-huxley": {
+    "expected": "applied",
+    "got": "applied",
+    "edits": 1,
+    "before": "question is a very proper one",
+    "after": "question is a proper one"
+  },
+  "f12-surgical-hedge-chopin": {
+    "expected": "applied",
+    "got": "applied",
+    "edits": 1,
+    "before": "He was very young",
+    "after": "He was young"
+  },
+  "f13-refuse-ambiguous-ohenry": {
+    "expected": "refused",
+    "got": "refused",
+    "edits": 0,
+    "reason": "change is ambiguous — 'tighten the opening' admits multiple distinct edits (cut 'impressively', cut the second sentence, or merge the two); no single smallest edit is determined by the entry"
+  },
+  "f15-surgical-hedge-eff": {
+    "expected": "applied",
+    "got": "applied",
+    "edits": 1,
+    "before": "A handful of companies actually own the games",
+    "after": "A handful of companies own the games"
+  },
+  "f14-overreach-cut-darwin": {
+    "expected": "applied",
+    "got": "applied",
+    "edits": 1,
+    "before": "It had not now rained for an entire year.",
+    "after": "",
+    "note": "First plan authorised cutting a span that was not a self-contained clause; the reviser refused it, correctly, because repairing the break would require editing outside location.quote. Plan re-authored to cut a whole sentence. Both runs recorded."
+  },
+  "f14-overreach-cut-darwin-first-attempt": {
+    "expected": "applied",
+    "got": "refused",
+    "edits": 0,
+    "reason": "quote is not a self-contained clause: it begins after the sentence subject 'It' and ends on 'heavy', which modifies 'torrents' outside the quote. Cutting exactly the named span yields broken text; repairing that would require editing text outside location.quote, which the plan does not authorise",
+    "verdict": "FIXTURE DEFECT, not a reviser defect"
+  }
+}

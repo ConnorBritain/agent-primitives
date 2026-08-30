@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 44,
+        "quote": "considered as very uninteresting, but to anyone accustomed only to an"
+      },
+      "change": "delete the word 'very' — 'considered as uninteresting, but to anyone accustomed only to an'",
+      "reason": "voice-critic: a degree adverb on an evaluative adjective; the contrast that follows supplies the force"
+    }
+  ]
+}

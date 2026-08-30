@@ -6,6 +6,7 @@ date: 2026-08-05
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/08/senate-vote-tomorrow-four-internet-bills-one-wrong-direction
 ---
 The Senate Commerce Committee will vote this week on several censorious and privacy invasive bills: KOSA, the SCREEN Act, Youth AI Privacy Act, and CHATBOT Act. While we appreciate that the Committee is taking the time to look at these bills separately, it’s still impossible to ignore the message Congress is sending to the world: Age-gate the internet and block young people from speaking and accessing lawful speech online. Or else. 

@@ -6,6 +6,7 @@ date: 2026-07-28
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/san-francisco-dont-fall-industry-defense-surveillance-pricing
 ---
 The concept of “surveillance pricing” is just one part of a much larger problem and business model: corporations maximizing their profits by invading our privacy. The all-too-common business model is to systematically harvest, collate, and store as much of our personal data as possible, and then monetize it through use and sale. When it comes to surveillance pricing, that looks like corporations offering the same product to two different people at two different prices, based on harvested personal information. That's why EFF supports A.B. 2654, authored by Assemblymember Chris Ward, which bans this harmful practice. 

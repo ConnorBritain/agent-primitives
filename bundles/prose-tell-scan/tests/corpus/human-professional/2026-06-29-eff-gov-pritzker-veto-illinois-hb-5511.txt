@@ -6,6 +6,7 @@ date: 2026-06-29
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/06/eff-gov-pritzker-veto-illinois-hb-5511
 ---
 The Illinois legislature recently passed House Bill 5511, which imposes a sweeping, device-level age-gating framework across nearly all internet-enabled hardware, operating systems, and online services. This well-intentioned but deeply flawed piece of legislation will harm young people who rely on the internet to access essential information and find community. That’s why we’re urging the Illinois governor to veto the measure. 

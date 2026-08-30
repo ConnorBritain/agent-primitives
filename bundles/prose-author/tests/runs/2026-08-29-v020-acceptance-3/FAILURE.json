@@ -1,0 +1,33 @@
+{
+  "schema": "prose-author-acceptance-failure/1",
+  "status": "HOLD",
+  "clears": false,
+  "failed_phase": "profile-source-assembly",
+  "prepared_commit": "403187ca2088f4f06dde67c4b9382fbc678dda37",
+  "manifest_commit": "3e650f98ca61512f856cb3046c485126ee87630e",
+  "redraws": 0,
+  "completed_calls": {
+    "profiles": 6,
+    "drafts": 0,
+    "refusals": 0,
+    "conformance": 0,
+    "claim_audits": 0,
+    "critics": 0
+  },
+  "first_reported_error": "eff-mullin-r2 source assembly failed: qualitative[3].support_files must contain at least two unique filenames",
+  "offending_source": {
+    "profile": "eff-mullin",
+    "render": 2,
+    "qualitative_index": 3,
+    "support_file_entries": 11,
+    "unique_support_files": 10,
+    "duplicate": "kids-online-safety-act-will-make-internet-worse-everyone.txt"
+  },
+  "interpretation": [
+    "All six fresh profile calls completed sequentially with no redraw before deterministic assembly examined their semantic sources.",
+    "The structured schema enforces a two-entry minimum but the portable strict schema subset does not enforce array uniqueness.",
+    "The failed qualitative claim had ten distinct supporting corpus files; one of those filenames was repeated once. The failure is duplicate bookkeeping, not single-source evidence.",
+    "Deterministic assembly correctly refused the current source under the implementation locked for this run."
+  ],
+  "disposition": "This run is invalid. No profile or other cell may be reused after an implementation change; a complete new locked six-profile, twenty-draft, two-refusal, sixty-critic run is required."
+}

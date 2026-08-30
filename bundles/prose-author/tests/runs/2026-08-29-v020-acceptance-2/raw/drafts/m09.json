@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"The proposed AI service promises faster summaries of confidential intake notes, and that is a legitimate operational goal. But the central problem is control: sending raw notes to an outside system can expose the nonprofit’s most sensitive records to another company, another security process, and another set of retention rules—before anyone has established that the benefit justifies the risk.\\n\\nFor tomorrow’s meeting, the decision should be no for production use, at least for now. Staff shouldn’t paste identifiable notes (names, addresses, case details, or free-text histories) into the service. A vendor’s assurance that its tool is secure isn’t enough—the relevant questions are what data it keeps, where it goes, who can access it, whether it trains models on submissions, and how deletion is verified.\\n\\nThat does not mean abandoning the idea. Run a limited test with invented or thoroughly de-identified material (including altered dates and uncommon circumstances), and compare the summaries against staff work for accuracy, omissions, and time saved. De-identification can’t be treated as a magic eraser; detailed narratives may still point back to a person.\\n\\nBefore any live deployment, require the vendor to answer a short review (retention, training, subcontractors, breach notice, deletion, and account access). Put the answers in the contract, restrict uploads to approved staff, and define which fields must be removed, such as direct identifiers and uniquely revealing details. If the vendor won’t provide clear terms, the pilot stops. Confidential records are not test data.\\n\\nWe recommend a documented pause on real notes, a synthetic-data pilot, and a decision checkpoint after the vendor review. Assign one responsible manager, involve whoever owns privacy and safeguarding (a written review, not an informal nod), and record the approved use. The organization should adopt the service only when confidentiality obligations, measurable value, and enforceable controls line up together.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "The proposed AI service promises faster summaries of confidential intake notes, and that is a legitimate operational goal. But the central problem is control: sending raw notes to an outside system can expose the nonprofit’s most sensitive records to another company, another security process, and another set of retention rules—before anyone has established that the benefit justifies the risk.\n\nFor tomorrow’s meeting, the decision should be no for production use, at least for now. Staff shouldn’t paste identifiable notes (names, addresses, case details, or free-text histories) into the service. A vendor’s assurance that its tool is secure isn’t enough—the relevant questions are what data it keeps, where it goes, who can access it, whether it trains models on submissions, and how deletion is verified.\n\nThat does not mean abandoning the idea. Run a limited test with invented or thoroughly de-identified material (including altered dates and uncommon circumstances), and compare the summaries against staff work for accuracy, omissions, and time saved. De-identification can’t be treated as a magic eraser; detailed narratives may still point back to a person.\n\nBefore any live deployment, require the vendor to answer a short review (retention, training, subcontractors, breach notice, deletion, and account access). Put the answers in the contract, restrict uploads to approved staff, and define which fields must be removed, such as direct identifiers and uniquely revealing details. If the vendor won’t provide clear terms, the pilot stops. Confidential records are not test data.\n\nWe recommend a documented pause on real notes, a synthetic-data pilot, and a decision checkpoint after the vendor review. Assign one responsible manager, involve whoever owns privacy and safeguarding (a written review, not an informal nod), and record the approved use. The organization should adopt the service only when confidentiality obligations, measurable value, and enforceable controls line up together.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/m09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/m09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "f2cabbb5f672b20fc81f9d32fa800a70169997d132cb5eddc175192f4d4f7223",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

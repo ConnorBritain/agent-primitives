@@ -1,0 +1,19 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"refusal\",\"ledger\":[],\"paragraphs\":[],\"omitted\":[],\"refused\":\"The subject of “the problem we discussed” is not present in the request. Provide the problem or topic to proceed.\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "refusal",
+    "ledger": [],
+    "paragraphs": [],
+    "omitted": [],
+    "refused": "The subject of “the problem we discussed” is not present in the request. Provide the problem or topic to proceed."
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/refusals/dr01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/refusals/dr01.codex-output.json",
+  "recovered_from": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/refusals/dr01.codex-adapter-failure.json"
+}

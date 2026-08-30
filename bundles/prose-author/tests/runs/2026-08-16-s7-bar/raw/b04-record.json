@@ -1,0 +1,27 @@
+{
+  "omitted": [
+    {
+      "habit": "attributive clauses handing the floor to a named ally",
+      "why": "no verified quotations or sources available for this topic"
+    },
+    {
+      "habit": "paragraph ending on a colon followed by a bare link line",
+      "why": "no verified URLs available"
+    },
+    {
+      "habit": "bracketed image credit as the final line",
+      "why": "no image accompanies this draft"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Google, Meta, Criteo and The Trade Desk built their businesses on behavioural targeting rather than contextual advertising",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "'signal loss' is current ad-industry terminology for the decline in third-party identifiers",
+      "where": "paragraph 8"
+    }
+  ],
+  "schema": "voice-draft/1"
+}

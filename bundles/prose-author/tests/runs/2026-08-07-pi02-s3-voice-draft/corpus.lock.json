@@ -1,0 +1,146 @@
+{
+  "chekhov-correspondence": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "chekhov-001-to-his-brother-mihail.txt",
+        "group": null,
+        "words": 331,
+        "sha256": "0d4b7c059b24345113ede3625bc97eba231e943e4e43a6f2bb961d961f55cd7b"
+      },
+      {
+        "file": "chekhov-017-to-a-n-pleshtcheyev.txt",
+        "group": null,
+        "words": 327,
+        "sha256": "e0ccff52a85f77346e13ec582abcb91269639c5f2277248385e8ad404f92a235"
+      },
+      {
+        "file": "chekhov-031-to-his-sister.txt",
+        "group": null,
+        "words": 2294,
+        "sha256": "fdafffff8eb1bb4efcd983ea4964c7afa34a44bf99d1a1f07e1c8b90b3913619"
+      },
+      {
+        "file": "chekhov-043-to-a-s-suvorin.txt",
+        "group": null,
+        "words": 512,
+        "sha256": "3aa5268ffa97b2a089491fe5cd17df75327f57a6d8bfcf2c20088d533617ef98"
+      },
+      {
+        "file": "chekhov-056-to-his-sister.txt",
+        "group": null,
+        "words": 1342,
+        "sha256": "fdffa2bbef2df7e8848a068f5490d0a333acc29be2ff097c10f41f4e033f6db4"
+      },
+      {
+        "file": "chekhov-073-to-e-m-s.txt",
+        "group": null,
+        "words": 227,
+        "sha256": "4c66c87ec091dc142bed02850c6df3fc156bc921804a2b38ea065d60a481b6ac"
+      },
+      {
+        "file": "chekhov-087-to-madame-avilov.txt",
+        "group": null,
+        "words": 255,
+        "sha256": "4936a02fb009a1b34ff15d8f542720081df2c425019afc18170654862d81817a"
+      },
+      {
+        "file": "chekhov-115-to-i-i-orlov.txt",
+        "group": null,
+        "words": 321,
+        "sha256": "4faf86283e5bbb35d3206695cec3c3223bea863c4d576d3fd0e73c1262b37328"
+      },
+      {
+        "file": "chekhov-132-to-o-l-knipper.txt",
+        "group": null,
+        "words": 539,
+        "sha256": "61e07560e35cf6a6d599b400b1d9f1b3055c57d0f2692fca05949a24ec97bff7"
+      },
+      {
+        "file": "chekhov-154-to-his-sister.txt",
+        "group": null,
+        "words": 1435,
+        "sha256": "8b297060e07eb2df0a542f810f091ba615265323de19c6182a4fb4588b61bda8"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "c6e26edc80d4443f9824198f5293875ad65fb905f87d8484862554463ae3df4c",
+    "profile_json_sha256": "2e9856d2a9573470c7cb9f6f9dcb0d631538dd1539a4ac82a038357a658ad7c9",
+    "agent": "voice-draft",
+    "agent_sha256": "66d3be9a14f98591305d0e26fe7a12558529f7527a4e0683b33bfdfc95360840",
+    "sample_count": 10,
+    "aggregate_sha256": "c3bea31c57a39da653081c5bce60ff5f086ba3e7c657cb343798720f23c43942"
+  },
+  "bacon-essay": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "bacon-of-adversity.txt",
+        "group": null,
+        "words": 387,
+        "sha256": "3ba5888db2727c9f7e402a1c667896bfa4b44372ceadda47df7af8e89a371f97"
+      },
+      {
+        "file": "bacon-of-building.txt",
+        "group": null,
+        "words": 1520,
+        "sha256": "8c07c974dbb31bd6c2e3b0eae9c01771ed6eb89cc901679c50a458534072d542"
+      },
+      {
+        "file": "bacon-of-deformity.txt",
+        "group": null,
+        "words": 395,
+        "sha256": "916df2f7d8815b707f77d089ea90bbd9f315a83d8b3b3fb5604b9628712d29e6"
+      },
+      {
+        "file": "bacon-of-faction.txt",
+        "group": null,
+        "words": 563,
+        "sha256": "a05438197d20909316a97b9611c1c191c1785dd9fb656b0e82523d7481616152"
+      },
+      {
+        "file": "bacon-of-honor-and-reputation.txt",
+        "group": null,
+        "words": 561,
+        "sha256": "cbd850d88323ea43b6981790523617e76164be89149d5207a4c018eca38a94ac"
+      },
+      {
+        "file": "bacon-of-nature-in-men.txt",
+        "group": null,
+        "words": 521,
+        "sha256": "abf3debf1080bfc7c8817b08c30fd438dbf57b4caaf1566119dfbb7f33958559"
+      },
+      {
+        "file": "bacon-of-prophecies.txt",
+        "group": null,
+        "words": 900,
+        "sha256": "c6f48fa0cd7b5579412d44214d2d9ff422d3eb62048a1a2048b666452c49197a"
+      },
+      {
+        "file": "bacon-of-studies508.txt",
+        "group": null,
+        "words": 503,
+        "sha256": "f64b19ed9017714d46262177b72309fa75007a57f5723670022395d32d6df3a0"
+      },
+      {
+        "file": "bacon-of-truth.txt",
+        "group": null,
+        "words": 838,
+        "sha256": "0572888d8444dc0c02682e58a1c2c257b80b0103d09fcc90bf4189560904e8ed"
+      },
+      {
+        "file": "bacon-of-youth-and-age.txt",
+        "group": null,
+        "words": 631,
+        "sha256": "b5e1e4d45b6cedc2e9d336f7f9b5a5a5528c89f21ef10f173f7a224d8fe48d7c"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "ebf54e0c8034613da950c4c44d6ca4729e427ba7378720980b1dcd8392508eaf",
+    "profile_json_sha256": "322ad7304d2b69aa6cacd66d5126a5236c1ce42291f8248e9ce1448a010943db",
+    "agent": "voice-draft",
+    "agent_sha256": "66d3be9a14f98591305d0e26fe7a12558529f7527a4e0683b33bfdfc95360840",
+    "sample_count": 10,
+    "aggregate_sha256": "70d0824aed548f7b691cb8abec9601c470eee093ef7916777831dc0f8df1dc4d"
+  }
+}

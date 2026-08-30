@@ -1,0 +1,111 @@
+{
+  "_comment": "S5 calibration. Widening the bar's evidence from one draft to three, all on doctorow-blog (modern, untranslated), three prompt shapes. k=3 per SAMPLING-POLICY.md. The bar was pre-registered BEFORE these ran and is not adjusted by them - more evidence changes confidence in the number, not the number.",
+  "bar": {
+    "majority": "CLEAN",
+    "max_findings_per_draw": 1.0,
+    "conjunctive": true
+  },
+  "drafts": [
+    {
+      "id": "v3",
+      "topic": "password managers / private equity",
+      "findings": [
+        3,
+        0,
+        0
+      ],
+      "mean": 1.0,
+      "verdicts": [
+        "REVISE",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "majority": "CLEAN",
+      "passes": true,
+      "note": "the draft the author read and called spot-on; passes at exactly the ceiling"
+    },
+    {
+      "id": "b03",
+      "topic": "parts pairing",
+      "findings": [
+        0,
+        2,
+        2
+      ],
+      "mean": 1.33,
+      "verdicts": [
+        "CLEAN",
+        "REVISE",
+        "REVISE"
+      ],
+      "majority": "REVISE",
+      "passes": false,
+      "dominant_finding": "no proper noun anywhere, against 10/10 samples that name actors continuously"
+    },
+    {
+      "id": "b02",
+      "topic": "open standards / embrace-extend-extinguish",
+      "findings": [
+        1,
+        1,
+        2
+      ],
+      "mean": 1.33,
+      "verdicts": [
+        "REVISE",
+        "REVISE",
+        "REVISE"
+      ],
+      "majority": "REVISE",
+      "passes": false,
+      "dominant_finding": "arbitrary weekday names as manufactured concreteness, 3/3 draws; zero weekday tokens in any corpus essay body"
+    },
+    {
+      "id": "b03-refix",
+      "topic": "parts pairing, after the naming-vs-citing fix",
+      "findings": [
+        0,
+        0,
+        0
+      ],
+      "mean": 0.0,
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "majority": "CLEAN",
+      "passes": true,
+      "note": "unanimous CLEAN, zero findings \u2014 matches the human baseline (18 draws, 0 findings) exactly"
+    }
+  ],
+  "result": {
+    "passed": 2,
+    "of": 4,
+    "note": "b03 went from [0,2,2] REVISE to [0,0,0] unanimous CLEAN after one prompt fix. The failure it exposed was mine and is now closed."
+  },
+  "convergent_findings": {
+    "weekdays": "3 of 3 draws on b02 \u2014 the strongest single signal in the run",
+    "namelessness": "2 of 3 draws on b03, absent from b02 entirely",
+    "epigram_density": "recurs on v3 and b03; third and fourth appearance across the session"
+  },
+  "fu18_check": {
+    "b02_claims_listed": 6,
+    "b02_claims_verified_accurate": 6,
+    "fabricated_citations": 0
+  },
+  "namelessness_fix": {
+    "before": 0,
+    "after": 7,
+    "named": [
+      "Apple",
+      "DMCA",
+      "Face ID",
+      "John Deere",
+      "Lagos",
+      "Section 1201",
+      "pentalobe"
+    ],
+    "rule": "naming a thing is not citing a source \u2014 the test is not 'can I prove this' but 'am I putting words in anyone's mouth'"
+  }
+}

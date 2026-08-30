@@ -1,0 +1,120 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"Both measured pronoun-family rows are already within their allowed ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Contractions and uncontracted negatives already meet their measured targets.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The opening concedes the practical benefit before identifying privacy and implementation limits, and later predictions remain conditional.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The question-mark count is already within its allowed range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The service and vendor are identified by role and assessed through the specific written assurances required at the decision point.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile supplies no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The organizational plural remains within range and no first-person singular biography is introduced.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans, em dashes, and en dashes all already satisfy their measured ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The draft briefly uses the sales-pitch contrast and the broken-tool figure before returning to concrete review requirements.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The opening states the live decision and central defect immediately, while the close names the responsible decision-maker and governing value.\"}],\"omitted\":[]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "Both measured pronoun-family rows are already within their allowed ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Contractions and uncontracted negatives already meet their measured targets."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening concedes the practical benefit before identifying privacy and implementation limits, and later predictions remain conditional."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The question-mark count is already within its allowed range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The service and vendor are identified by role and assessed through the specific written assurances required at the decision point."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile supplies no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The organizational plural remains within range and no first-person singular biography is introduced."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans, em dashes, and en dashes all already satisfy their measured ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft briefly uses the sales-pitch contrast and the broken-tool figure before returning to concrete review requirements."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening states the live decision and central defect immediately, while the close names the responsible decision-maker and governing value."
+      }
+    ],
+    "omitted": []
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-17/raw/conformance.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-17/raw/conformance.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "1c21692a785e64a6b87472d26acb32cb069320530b71ccfae3d68ff11a0f53f5"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "1ae3aefa73f24602b60c0e51aba8aad708196feeac1dd4ce94885d3db8dec38d",
+    "schema_sha256": "2d0b1db4b095987bacef943229c5d18258dbd1b9ff0e43813640691b95ad89d9",
+    "prerequisites": {
+      "profile_raw_sha256": "24f198d663d002bf1077df63e6aa1122ed1a21fe9eec825c8c5e6be5d6bddb5c",
+      "initial_draft_raw_sha256": "3cc51f72e8837902992a74ad50dab59d95214a57c6b039dd1123f84ff767de5d"
+    }
+  }
+}

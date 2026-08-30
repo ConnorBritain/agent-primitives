@@ -6,6 +6,7 @@ date: 2026-07-20
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/what-you-need-know-about-californias-drop-tool
 ---
 Are you a California resident? Then we've got exciting news for you: there's a tool just for you that lets you take a single, relatively easy step to protect your privacy. 

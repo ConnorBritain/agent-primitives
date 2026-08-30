@@ -6,6 +6,7 @@ date: 2026-07-22
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/fourth-circuit-says-border-agents-can-search-your-phone-hand-no-suspicion-required
 ---
 Legal intern Suzanne Castillo was the principal author of this post.

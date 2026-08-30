@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "In 1888 I took the Pushkin prize.",
+      "after": "I took the Pushkin prize in 1888.",
+      "reason": "voice-critic: breaks the 'In YEAR I did X' template repeated in the surrounding sentences without changing who did what — Chekhov remains the one who took the prize"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "1ce09103ae60b97d34cbef4be000ef80c0b0313ec43dfc0acd2c92c41734007e",
+  "revision_sha256": "e4b0af1971e77e62da860d5be34a42f1dee0bbbd2ae735a1a67629fbef718f04",
+  "plan_sha256": "72dbb26418af1e66d1a3f62fa0ae824481bc8345d3d73708f53712ea0cad1f08"
+}

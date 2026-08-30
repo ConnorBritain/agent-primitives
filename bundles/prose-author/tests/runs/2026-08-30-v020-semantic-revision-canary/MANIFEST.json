@@ -1,0 +1,89 @@
+{
+  "schema": "prose-author-stage-adapter-canary-manifest/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "prepared_commit": "64eeab216f0746ef6d0a7ded40a7ca51afc2c23d",
+  "concurrency": 1,
+  "dispatch": {
+    "draft": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "codex_no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ],
+  "agents": {
+    "draft": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/prompts/agents/draft.md",
+      "sha256": "da164fbadd7d8edd87d9863e6b4f93a780b1bc9b158ec99657940c89d93ac1da"
+    }
+  },
+  "schema_path": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/schemas/draft.json",
+  "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+  "prompt_path": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/prompts/semantic-revision.md",
+  "prompt_sha256": "c7720d2cf3a896f0941e5ec96586ea2a498404d192a2b03f8c197b3412261109",
+  "inputs": {
+    "candidate": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/inputs/candidate.json",
+    "candidate_sha256": "27fdf514aede738aa0b23f63a09f400aad5eaf522bf2e1e209fbbae87b2abd6d",
+    "candidate_record_sha256": "ed76e5193d8c285836559c0e5b8adc44a0f48e3e7d43958b2c0f9b1049a90ce7",
+    "profile_markdown": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/inputs/profile.md",
+    "profile_markdown_sha256": "e3d97c12daae3577cbc6b925f9a7e26c206d56096961fcd23facddec54d744ac",
+    "profile_json": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/inputs/profile.json",
+    "profile_json_sha256": "f8c412f1729d5e034ae8a455feb080b797250a6f5ccbe0a688aa2c929d7b5089",
+    "case_request_sha256": "51358b7d41f3bfe73e64898cb2467e2f5a97e0145cf0099ec3b264245a1fc220"
+  },
+  "locked_files": {
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "142bf99dd37933a45035e481af64c83fbe49aba11131b17b915195d2040e45ff",
+    "bundles/prose-author/skills/prose-draft/tools/draft-conformance.mjs": "112d6101d729f8eb5080df9f9696566403bd92f5278a6bacdb54e54c3f01bfe4",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "782b05df72c782fe9caf17e4cd00e7bd1601a92581b8f4728b04843e6e200e3f",
+    "bundles/prose-author/skills/prose-draft/tools/draft-controls.mjs": "3636762bb2fbabff358d04e96cb553e54caba355d4967d0e405fcd9c36214e25",
+    "bundles/prose-author/skills/prose-draft/tools/draft-targets.mjs": "b5765970da1f407c73706d4888ad2278703beec5b51cc2bfe193aae201800890",
+    "bundles/prose-author/skills/prose-draft/tools/exemplars.mjs": "3480c86a70fc89a64f4d1333ad3839daa5cfe68d37e883d0cb636c37a0b8dccb",
+    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs": "aa686e70f1a9d2a637f32085e89de4130c3f5b9a7c467135029659bf9ead8784",
+    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs": "c4a59b41da0fbbc7892eea5b7456c2843934935d491634135659d0d78283671f",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "6d391f627c4ed97f676ea325351fdc81a11d958f73e21b27d83d6bd044132a3b",
+    "bundles/prose-author/tests/bar.mjs": "394f6d4fb219da4378cb9c25a9583dee85188770d530edb919a9009251d94a70",
+    "bundles/prose-author/tests/corpus-rates.mjs": "e620b433ab32b36592d23f426ffcae90d357a2fd447925506ec00144e63a9a89",
+    "bundles/prose-author/tests/coverage-analysis.mjs": "18684c425fa53a0b36a767e0244e4323f4140dda0d88472f87c101840f108ed1",
+    "bundles/prose-author/tests/cross-count.mjs": "168bde25d6672d71ea6b2c7c34e87552a6a6c1c381d156f89a58c732c9d9059c",
+    "bundles/prose-author/tests/fences.mjs": "205e938b0b0104fe3f7c7468aedb62c480d2f66c8d7a3de6488bc26a8c2b786f",
+    "bundles/prose-author/tests/loop.mjs": "ea52d35e1711ab4d89e4128e6f1850e749c35ec3887578e610872e870eee28e5",
+    "bundles/prose-author/tests/profile-stability.mjs": "f9572ca74a96e44002272e8752397d2ae164052f734c0d4d464c43c903c40977",
+    "bundles/prose-author/tests/run-gates.mjs": "c689c682a597bf4296ed39546bb98252a2efa9f8196be004961a1ef32644f59f",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/CASES.json": "9a6716652be7faf27ee36f1120106f611f7af906a0f35a2abdec194bb4413bca",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/inputs/profiles/doctorow-blog/r2.json": "f8c412f1729d5e034ae8a455feb080b797250a6f5ccbe0a688aa2c929d7b5089",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/inputs/profiles/doctorow-blog/r2.md": "e3d97c12daae3577cbc6b925f9a7e26c206d56096961fcd23facddec54d744ac",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/drafts/d02.json": "ed76e5193d8c285836559c0e5b8adc44a0f48e3e7d43958b2c0f9b1049a90ce7",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/DESIGN.json": "5c86794a461b88ba4af4a511e730a8e343e734663d2a10132ec8e7ba3b30400b",
+    "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/run.mjs": "416d4cfde663b0ced5afe6ed284d5147c8bf55b1e1ef1b4251253136d3488f29",
+    "bundles/prose-author/tests/strict-output-schema.mjs": "c426816816fece8b220413fc3ff363ff0c0295c8fa4cf73266257330daf9ef3c",
+    "bundles/prose-author/tests/voice-critic-source.mjs": "ce61780da9681550c2a5bb6c37957fa90b4673aceafb2392892ff61884d82b78",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912",
+    "bundles/prose-author/tests/voice-profile.mjs": "9059a9e373a2fcfd443cc174cbd6103317f6d64ccfae4db33f0f6b905e2ae5dd",
+    "primitives/agents/voice-draft/agent.md": "c8d787b7740d42edaa70b3404b3acdbe2e1c7614bab74769694a7cce8dc6d542"
+  }
+}

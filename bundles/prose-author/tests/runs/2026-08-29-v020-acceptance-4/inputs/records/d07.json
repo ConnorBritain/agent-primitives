@@ -1,0 +1,99 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12",
+      "why": "The request supplies no verified named source, quotation, institution, executive, doctrine, or opponent formulation to introduce or test."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Missing service information causes independent repair shops to incur labor time that they cannot honestly bill to customers.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "When repair information is missing, independent technicians search for information, perform additional disassembly and testing, guess at procedures, and sometimes send jobs elsewhere.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Restricted repair information causes customers to lose time.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Restricted repair information reduces the productive capacity of independent repair shops.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Restricted repair information gives authorized repair channels greater leverage.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "The burdens caused by missing service information constitute concrete overhead for independent repair shops.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "After a shop purchases access to one manufacturer's service portal, repairing another brand may require a separate fee, login, tool, or approval.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Each service-information access gate consumes independent-shop time and gives the party controlling access authority over the repair conditions.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Independent repair shops pay access costs before they can determine whether a repair can be completed.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Documentation restrictions and parts-pairing restrictions are two mechanisms of the same form of repair control.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Parts-paired devices can reject or impair the operation of a replacement component that is physically correct and electrically sound.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Independent repair shops incur subscription costs because of restricted repair access.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access causes independent shops to have idle service bays.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access increases training time for independent shops.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access requires independent shops to acquire duplicated equipment.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access causes independent shops to turn away work.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access delays customers' repairs.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access reduces customers' repair choices.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access causes equipment to be discarded before the end of its useful life.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restricted repair access increases material waste borne by the public.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Restrictions that impose the described repair costs are justified as protection for intellectual property.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Control over repair information enables information owners to control how other people use or repair their physical property.",
+      "where": "paragraph 7"
+    }
+  ]
+}

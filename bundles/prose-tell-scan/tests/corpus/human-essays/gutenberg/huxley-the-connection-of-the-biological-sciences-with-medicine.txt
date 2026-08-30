@@ -1,0 +1,638 @@
+---
+source: Project Gutenberg 7150
+title: The Connection of the Biological Sciences with Medicine
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+The great body of theoretical and practical knowledge which has been
+accumulated by the labours of some eighty generations, since the dawn
+of scientific thought in Europe, has no collective English name to
+which an objection may not be raised; and I use the term "medicine" as
+that which is least likely to be misunderstood; though, as every one
+knows, the name is commonly applied, in a narrower sense, to one of the
+chief divisions of the totality of medical science.
+
+Taken in this broad sense, "medicine" not merely denotes a kind of
+knowledge, but it comprehends the various applications of that
+knowledge to the alleviation of the sufferings, the repair of the
+injuries, and the conservation of the health, of living beings. In
+fact, the practical aspect of medicine so far dominates over every
+other, that the "Healing Art" is one of its most widely-received
+synonyms. It is so difficult to think of medicine otherwise than as
+something which is necessarily connected with curative treatment, that
+we are apt to forget that there must be, and is, such a thing as a pure
+science of medicine--a "pathology" which has no more necessary
+subservience to practical ends than has zoology or botany.
+
+The logical connection between this purely scientific doctrine of
+disease, or pathology, and ordinary biology, is easily traced. Living
+matter is characterised by its innate tendency to exhibit a definite
+series of the morphological and physiological phenomena which
+constitute organisation and life. Given a certain range of conditions,
+and these phenomena remain the same, within narrow limits, for each
+kind of living thing. They furnish the normal and typical character of
+the species, and, as such, they are the subject-matter of ordinary
+biology.
+
+Outside the range of these conditions, the normal course of the cycle
+of vital phenomena is disturbed; abnormal structure makes its
+appearance, or the proper character and mutual adjustment of the
+functions cease to be preserved. The extent and the importance of these
+deviations from the typical life may vary indefinitely. They may have
+no noticeable influence on the general well-being of the economy, or
+they may favour it. On the other hand, they may be of such a nature as
+to impede the activities of the organism, or even to involve its
+destruction.
+
+In the first case, these perturbations are ranged under the wide and
+somewhat vague category of "variations"; in the second, they are called
+lesions, states of poisoning, or diseases; and, as morbid states, they
+lie within the province of pathology. No sharp line of demarcation can
+be drawn between the two classes of phenomena. No one can say where
+anatomical variations end and tumours begin, nor where modification of
+function, which may at first promote health, passes into disease. All
+that can be said is, that whatever change of structure or function is
+hurtful belongs to pathology. Hence it is obvious that pathology is a
+branch of biology; it is the morphology, the physiology, the
+distribution, the aetiology of abnormal life.
+
+However obvious this conclusion may be now, it was nowise apparent in
+the infancy of medicine. For it is a peculiarity of the physical
+sciences that they are independent in proportion as they are imperfect;
+and it is only as they advance that the bonds which really unite them
+all become apparent. Astronomy had no manifest connection with
+terrestrial physics before the publication of the "Principia"; that of
+chemistry with physics is of still more modern revelation; that of
+physics and chemistry with physiology, has been stoutly denied within
+the recollection of most of us, and perhaps still may be.
+
+
+Or, to take a case which affords a closer parallel with that of
+medicine. Agriculture has been cultivated from the earliest times, and,
+from a remote antiquity, men have attained considerable practical skill
+in the cultivation of the useful plants, and have empirically
+established many scientific truths concerning the conditions under
+which they flourish. But, it is within the memory of many of us, that
+chemistry on the one hand, and vegetable physiology on the other,
+attained a stage of development such that they were able to furnish a
+sound basis for scientific agriculture. Similarly, medicine took its
+rise in the practical needs of mankind. At first, studied without
+reference to any other branch of knowledge, it long maintained, indeed
+still to some extent maintains, that independence. Historically, its
+connection with the biological sciences has been slowly established,
+and the full extent and intimacy of that connection are only now
+beginning to be apparent. I trust I have not been mistaken in supposing
+that an attempt to give a brief sketch of the steps by which a
+philosophical necessity has become an historical reality, may not be
+devoid of interest, possibly of instruction, to the members of this
+great Congress, profoundly interested as all are in the scientific
+development of medicine.
+
+The history of medicine is more complete and fuller than that of any
+other science, except, perhaps, astronomy; and, if we follow back the
+long record as far as clear evidence lights us, we find ourselves taken
+to the early stages of the civilisation of Greece. The oldest hospitals
+were the temples of Aesculapius; to these Asclepeia, always erected on
+healthy sites, hard by fresh springs and surrounded by shady groves,
+the sick and the maimed resorted to seek the aid of the god of health.
+Votive tablets or inscriptions recorded the symptoms, no less than the
+gratitude, of those who were healed; and, from these primitive clinical
+records, the half-priestly, half-philosophic caste of the Asclepiads
+compiled the data upon which the earliest generalisations of medicine,
+as an inductive science, were based.
+
+In this state, pathology, like all the inductive sciences at their
+origin, was merely natural history; it registered the phenomena of
+disease, classified them, and ventured upon a prognosis, wherever the
+observation of constant co-existences and sequences suggested a
+rational expectation of the like recurrence under similar
+circumstances.
+
+Further than this it hardly went. In fact, in the then state of
+knowledge, and in the condition of philosophical speculation at that
+time, neither the causes of the morbid state, nor the _rationale_
+of treatment, were likely to be sought for as we seek for them now. The
+anger of a god was a sufficient reason for the existence of a malady,
+and a dream ample warranty for therapeutic measures; that a physical
+phenomenon must needs have a physical cause was not the implied or
+expressed axiom that it is to us moderns.
+
+The great man whose name is inseparably connected with the foundation
+of medicine, Hippocrates, certainly knew very little, indeed
+practically nothing, of anatomy or physiology; and he would, probably,
+have been perplexed even to imagine the possibility of a connection
+between the zoological studies of his contemporary Democritus and
+medicine. Nevertheless, in so far as he, and those who worked before
+and after him, in the same spirit, ascertained, as matters of
+experience, that a wound, or a luxation, or a fever, presented such and
+such symptoms, and that the return of the patient to health was
+facilitated by such and such measures, they established laws of nature,
+and began the construction of the science of pathology. All true
+science begins with empiricism--though all true science is such
+exactly, in so far as it strives to pass out of the empirical stage
+into that of the deduction of empirical from more general truths. Thus,
+it is not wonderful, that the early physicians had little or nothing to
+do with the development of biological science; and, on the other hand,
+that the early biologists did not much concern themselves with
+medicine. There is nothing to show that the Asclepiads took any
+prominent share in the work of founding anatomy, physiology, zoology,
+and botany. Rather do these seem to have sprung from the early
+philosophers, who were essentially natural philosophers, animated by
+the characteristically Greek thirst for knowledge as such. Pythagoras,
+Alcmeon, Democritus, Diogenes of Apollonia, are all credited with
+anatomical and physiological investigations; and, though Aristotle is
+said to have belonged to an Asclepiad family, and not improbably owed
+his taste for anatomical and zoological inquiries to the teachings of
+his father, the physician Nicomachus, the "Historia Animalium," and the
+treatise "De Partibus Animalium," are as free from any allusion to
+medicine as if they had issued from a modern biological laboratory.
+
+It may be added, that it is not easy to see in what way it could have
+benefited a physician of Alexander's time to know all that Aristotle
+knew on these subjects. His human anatomy was too rough to avail much
+in diagnosis; his physiology was too erroneous to supply data for
+pathological reasoning. But when the Alexandrian school, with
+Erasistratus and Herophilus at their head, turned to account the
+opportunities of studying human structure, afforded to them by the
+Ptolemies, the value of the large amount of accurate knowledge thus
+obtained to the surgeon for his operations, and to the physician for
+his diagnosis of internal disorders, became obvious, and a connection
+was established between anatomy and medicine, which has ever become
+closer and closer. Since the revival of learning, surgery, medical
+diagnosis, and anatomy have gone hand in hand. Morgagni called his
+great work, "De sedibus et causis morborum per anatomen indagatis," and
+not only showed the way to search out the localities and the causes of
+disease by anatomy, but himself travelled wonderfully far upon the
+road. Bichat, discriminating the grosser constituents of the organs and
+parts of the body, one from another, pointed out the direction which
+modern research must take; until, at length, histology, a science of
+yesterday, as it seems to many of us, has carried the work of Morgagni
+as far as the microscope can take us, and has extended the realm of
+pathological anatomy to the limits of the invisible world.
+
+Thanks to the intimate alliance of morphology with medicine, the
+natural history of disease has, at the present day, attained a high
+degree of perfection. Accurate regional anatomy has rendered
+practicable the exploration of the most hidden parts of the organism,
+and the determination, during life, of morbid changes in them;
+anatomical and histological post-mortem investigations have supplied
+physicians with a clear basis upon which to rest the classification, of
+diseases, and with unerring tests of the accuracy or inaccuracy of
+their diagnoses.
+
+If men could be satisfied with pure knowledge, the extreme precision
+with which, in these days, a sufferer may be told what is happening,
+and what is likely to happen, even in the most recondite parts of his
+bodily frame, should be as satisfactory to the patient as it is to
+the scientific pathologist who gives him the information. But I am
+afraid it is not; and even the practising physician, while nowise
+under-estimating the regulative value of accurate diagnosis, must often
+lament that so much of his knowledge rather prevents him from doing
+wrong than helps him to do right.
+
+A scorner of physic once said that nature and disease may be compared
+to two men fighting, the doctor to a blind man with a club, who strikes
+into the _mêlée_, sometimes hitting the disease, and sometimes
+hitting nature. The matter is not mended if you suppose the blind man's
+hearing to be so acute that he can register every stage of the
+struggle, and pretty clearly predict how it will end. He had better not
+meddle at all, until his eyes are opened, until he can see the exact
+position of the antagonists, and make sure of the effect of his blows.
+But that which it behoves the physician to see, not, indeed, with his
+bodily eye, but with clear, intellectual vision, is a process, and the
+chain of causation involved in that process. Disease, as we have seen,
+is a perturbation of the normal activities of a living body, and it is,
+and must remain, unintelligible, so long as we are ignorant of the
+nature of these normal activities. In other words, there could be no
+real science of pathology until the science of physiology had reached a
+degree of perfection unattained, and indeed unattainable, until quite
+recent times.
+
+So far as medicine is concerned, I am not sure that physiology, such as
+it was down to the time of Harvey, might as well not have existed. Nay,
+it is perhaps no exaggeration to say that, within the memory of living
+men, justly renowned practitioners of medicine and surgery knew
+less physiology than is now to be learned from the most elementary
+text-book; and, beyond a few broad facts, regarded what they did know
+as of extremely little practical importance. Nor am I disposed to blame
+them for this conclusion; physiology must be useless, or worse than
+useless, to pathology, so long as its fundamental conceptions are
+erroneous.
+
+Harvey is often said to be the founder of modern physiology; and there
+can be no question that the elucidations of the function of the heart,
+of the nature of the pulse, and of the course of the blood, put forth
+in the ever-memorable little essay, "De motu cordis," directly worked a
+revolution in men's views of the nature and of the concatenation of
+some of the most important physiological processes among the higher
+animals; while, indirectly, their influence was perhaps even more
+remarkable.
+
+But, though Harvey made this signal and perennially important
+contribution to the physiology of the moderns, his general conception
+of vital processes was essentially identical with that of the ancients;
+and, in the "Exercitationes de generatione," and notably in the
+singular chapter "De calido innato," he shows himself a true son of
+Galen and of Aristotle.
+
+For Harvey, the blood possesses powers superior to those of the
+elements; it is the seat of a soul which is not only vegetative, but
+also sensitive and motor. The blood maintains and fashions all parts of
+the body, "idque summâ cum providentiâ et intellectu in finem certum
+agens, quasi ratiocinio quodam uteretur."
+
+Here is the doctrine of the "pneuma," the product of the philosophical
+mould into which the animism of primitive men ran in Greece, in full
+force. Nor did its strength abate for long after Harvey's time. The
+same ingrained tendency of the human mind to suppose that a process is
+explained when it is ascribed to a power of which nothing is known
+except that it is the hypothetical agent of the process, gave rise, in
+the next century, to the animism of Stahl; and, later, to the doctrine
+of a vital principle, that "asylum ignorantiae" of physiologists, which
+has so easily accounted for everything and explained nothing, down to
+our own times.
+
+Now the essence of modern, as contrasted with ancient, physiological
+science appears to me to lie in its antagonism to animistic hypotheses
+and animistic phraseology. It offers physical explanations of vital
+phenomena, or frankly confesses that it has none to offer. And, so far
+as I know, the first person who gave expression to this modern view of
+physiology, who was bold enough to enunciate the proposition that vital
+phenomena, like all the other phenomena of the physical world, are, in
+ultimate analysis, resolvable into matter and motion, was René
+Descartes.
+
+The fifty-four years of life of this most original and powerful thinker
+are widely overlapped, on both sides, by the eighty of Harvey, who
+survived his younger contemporary by seven years, and takes pleasure in
+acknowledging the French philosopher's appreciation of his great
+discovery.
+
+In fact, Descartes accepted the doctrine of the circulation as
+propounded by "Harvaeus médecin d'Angleterre," and gave a full account
+of it in his first work, the famous "Discours de la Méthode," which was
+published in 1637, only nine years after the exercitation "De motu
+cordis"; and, though differing from Harvey on some important points (in
+which it may be noted, in passing, Descartes was wrong and Harvey
+right), he always speaks of him with great respect. And so important
+does the subject seem to Descartes, that he returns to it in the
+"Traité des Passions," and in the "Traité de l'Homme."
+
+It is easy to see that Harvey's work must have had a peculiar
+significance for the subtle thinker, to whom we owe both the
+spiritualistic and the materialistic philosophies of modern times. It
+was in the very year of its publication, 1628, that Descartes withdrew
+into that life of solitary investigation and meditation of which his
+philosophy was the fruit. And, as the course of his speculations led
+him to establish an absolute distinction of nature between the material
+and the mental worlds, he was logically compelled to seek for the
+explanation of the phenomena of the material world within itself; and
+having allotted the realm of thought to the soul, to see nothing but
+extension and motion in the rest of nature. Descartes uses "thought" as
+the equivalent of our modern term "consciousness." Thought is the
+function of the soul, and its only function. Our natural heat and all
+the movements of the body, says he, do not depend on the soul. Death
+does not take place from any fault of the soul, but only because some
+of the principal parts of the body become corrupted. The body of a
+living man differs from that of a dead man in the same way as a watch
+or other automaton (that is to say, a machine which moves of itself)
+when it is wound up and has, in itself, the physical principle of the
+movements which the mechanism is adapted to perform, differs from the
+same watch, or other machine, when it is broken, and the physical
+principle of its movement no longer exists. All the actions which are
+common to us and the lower animals depend only on the conformation of
+our organs, and the course which the animal spirits take in the brain,
+the nerves, and the muscles; in the same way as the movement of a watch
+is produced by nothing but the force of its spring and the figure of
+its wheels and other parts.
+
+Descartes' "Treatise on Man" is a sketch of human physiology, in which
+a bold attempt is made to explain all the phenomena of life, except
+those of consciousness, by physical reasonings. To a mind turned in
+this direction, Harvey's exposition of the heart and vessels as a
+hydraulic mechanism must have been supremely welcome.
+
+Descartes was not a mere philosophical theorist, but a hardworking
+dissector and experimenter, and he held the strongest opinion
+respecting the practical value of the new conception which he was
+introducing. He speaks of the importance of preserving health, and of
+the dependence of the mind on the body being so close that, perhaps,
+the only way of making men wiser and better than they are, is to be
+sought in medical science. "It is true," says he, "that as medicine is
+now practised it contains little that is very useful; but without any
+desire to depreciate, I am sure that there is no one, even among
+professional men, who will not declare that all we know is very little
+as compared with that which remains to be known; and that we might
+escape an infinity of diseases of the mind, no less than of the body,
+and even perhaps from the weakness of old age, if we had sufficient
+knowledge of their causes, and of all the remedies with which nature
+has provided us."  So strongly impressed was Descartes with this,
+that he resolved to spend the rest of his life in trying to acquire
+such a knowledge of nature as would lead to the construction of a
+better medical doctrine.  The anti-Cartesians found material for
+cheap ridicule in these aspirations of the philosopher; and it is
+almost needless to say that, in the thirteen years which elapsed
+between the publication of the "Discours" and the death of Descartes,
+he did not contribute much to their realisation. But, for the next
+century, all progress in physiology took place along the lines which
+Descartes laid down.
+
+The greatest physiological and pathological work of the seventeenth
+century, Borelli's treatise "De Motu Animalium," is, to all intents and
+purposes, a development of Descartes' fundamental conception; and the
+same may be said of the physiology and pathology of Boerhaave, whose
+authority dominated in the medical world of the first half of the
+eighteenth century.
+
+With the origin of modern chemistry, and of electrical science, in the
+latter half of the eighteenth century, aids in the analysis of the
+phenomena of life, of which Descartes could not have dreamed, were
+offered to the physiologist. And the greater part of the gigantic
+progress which has been made in the present century is a justification
+of the prevision of Descartes. For it consists, essentially, in a more
+and more complete resolution of the grosser organs of the living body
+into physicochemical mechanisms.
+
+"I shall try to explain our whole bodily machinery in such a way, that
+it will be no more necessary for us to suppose that the soul produces
+such movements as are not voluntary, than it is to think that there is
+in a clock a soul which causes it to show the hours."  These words
+of Descartes might be appropriately taken as a motto by the author of
+any modern treatise on physiology.
+
+But though, as I think, there is no doubt that Descartes was the first
+to propound the fundamental conception of the living body as a physical
+mechanism, which is the distinctive feature of modern, as contrasted
+with ancient physiology, he was misled by the natural temptation to
+carry out, in all its details, a parallel between the machines with
+which he was familiar, such as clocks and pieces of hydraulic
+apparatus, and the living machine. In all such machines there is a
+central source of power, and the parts of the machine are merely
+passive distributors of that power. The Cartesian school conceived of
+the living body as a machine of this kind; and herein they might have
+learned from Galen, who, whatever ill use he may have made of the
+doctrine of "natural faculties," nevertheless had the great merit of
+perceiving that local forces play a great part in physiology.
+
+The same truth was recognised by Glisson, but it was first prominently
+brought forward in the Hallerian doctrine of the "vis insita" of
+muscles. If muscle can contract without nerve, there is an end of the
+Cartesian mechanical explanation of its contraction by the influx of
+animal spirits.
+
+The discoveries of Trembley tended in the same direction. In the
+freshwater _Hydra_, no trace was to be found of that complicated
+machinery upon which the performance of the functions in the higher
+animals was supposed to depend. And yet the hydra moved, fed, grew,
+multiplied, and its fragments exhibited all the powers of the whole.
+And, finally, the work of Caspar F. Wolff,  by demonstrating the
+fact that the growth and development of both plants and animals take
+place antecedently to the existence of their grosser organs, and are,
+in fact, the causes and not the consequences of organisation (as then
+understood), sapped the foundations of the Cartesian physiology as a
+complete expression of vital phenomena.
+
+For Wolff, the physical basis of life is a fluid, possessed of a "vis
+essentialis" and a "solidescibilitas," in virtue of which it gives rise
+to organisation; and, as he points out, this conclusion strikes at the
+root of the whole iatro-mechanical system.
+
+In this country, the great authority of John Hunter exerted a similar
+influence; though it must be admitted that the too sibylline utterances
+which are the outcome of Hunter's struggles to define his conceptions
+are often susceptible of more than one interpretation. Nevertheless, on
+some points Hunter is clear enough. For example, he is of opinion that
+"Spirit is only a property of matter" ("Introduction to Natural
+History," p. 6), he is prepared to renounce animism, (_l.c._ p.
+8), and his conception of life is so completely physical that he thinks
+of it as something which can exist in a state of combination in the
+food. "The aliment we take in has in it, in a fixed state, the real
+life; and this does not become active until it has got into the lungs;
+for there it is freed from its prison" ("Observations on Physiology,"
+p. 113). He also thinks that "It is more in accord with the general
+principles of the animal machine to suppose that none of its effects
+are produced from any mechanical principle whatever; and that every
+effect is produced from an action in the part; which action is produced
+by a stimulus upon the part which acts, or upon some other part with
+which this part sympathises so as to take up the whole action" (_l.c._
+p. 152).
+
+And Hunter is as clear as Wolff, with whose work he was probably
+unacquainted, that "whatever life is, it most certainly does not depend
+upon structure or organisation" (_l.c._ p. 114).
+
+Of course it is impossible that Hunter could have intended to deny the
+existence of purely mechanical operations in the animal body. But
+while, with Borelli and Boerhaave, he looked upon absorption,
+nutrition, and secretion as operations effected by means of the small
+vessels, he differed from the mechanical physiologists, who regarded
+these operations as the result of the mechanical properties of the
+small vessels, such as the size, form, and disposition of their canals
+and apertures. Hunter, on the contrary, considers them to be the effect
+of properties of these vessels which are not mechanical but vital. "The
+vessels," says he, "have more of the polypus in them than any other
+part of the body," and he talks of the "living and sensitive principles
+of the arteries," and even of the "dispositions or feelings of the
+arteries." "When the blood is good and genuine the sensations of the
+arteries, or the dispositions for sensation, are agreeable.... It is
+then they dispose of the blood to the best advantage, increasing the
+growth of the whole, supplying any losses, keeping up a due succession,
+etc." (_l.c._ p. 133).
+
+If we follow Hunter's conceptions to their logical issue, the life of
+one of the higher animals is essentially the sum of the lives of all
+the vessels, each of which is a sort of physiological unit, answering
+to a polype; and, as health is the result of the normal "action of the
+vessels," so is disease an effect of their abnormal action. Hunter thus
+stands in thought, as in time, midway between Borelli on the one hand,
+and Bichat on the other.
+
+The acute founder of general anatomy, in fact, outdoes Hunter in his
+desire to exclude physical reasonings from the realm of life. Except in
+the interpretation of the action of the sense organs, he will not allow
+physics to have anything to do with physiology.
+
+"To apply the physical sciences to physiology is to explain the
+phenomena of living bodies by the laws of inert bodies. Now this is a
+false principle, hence all its consequences are marked with the same
+stamp. Let us leave to chemistry its affinity; to physics, its
+elasticity and its gravity. Let us invoke for physiology only
+sensibility and contractility." 
+
+Of all the unfortunate dicta of men of eminent ability this seems one
+of the most unhappy, when we think of what the application of the
+methods and the data of physics and chemistry has done towards bringing
+physiology into its present state. It is not too much to say that
+one-half of a modern text-book of physiology consists of applied
+physics and chemistry; and that it is exactly in the exploration of the
+phenomena of sensibility and contractility that physics and chemistry
+have exerted the most potent influence.
+
+Nevertheless, Bichat rendered a solid service to physiological progress
+by insisting upon the fact that what we call life, in one of the higher
+animals, is not an indivisible unitary archaeus dominating, from its
+central seat, the parts of the organism, but a compound result of the
+synthesis of the separate lives of those parts.
+
+"All animals," says he, "are assemblages of different organs, each of
+which performs its function and concurs, after its fashion, in the
+preservation of the whole. They are so many special machines in the
+general machine which constitutes the individual. But each of these
+special machines is itself compounded of many tissues of very different
+natures, which in truth constitute the elements of those organs"
+(_l.c._ lxxix.). "The conception of a proper vitality is applicable
+only to these simple tissues, and not to the organs themselves"
+(_l.c._ lxxxiv.).
+
+And Bichat proceeds to make the obvious application of this doctrine of
+synthetic life, if I may so call it, to pathology. Since diseases are
+only alterations of vital properties, and the properties of each tissue
+are distinct from those of the rest, it is evident that the diseases of
+each tissue must be different from those of the rest. Therefore, in any
+organ composed of different tissues, one may be diseased and the other
+remain healthy; and this is what happens in most cases (_l.c._ lxxxv.).
+
+In a spirit of true prophecy, Bichat says, "We have arrived at an epoch
+in which pathological anatomy should start afresh." For, as the
+analysis of the organs had led him to the tissues as the physiological
+units of the organism; so, in a succeeding generation, the analysis of
+the tissues led to the cell as the physiological element of the
+tissues. The contemporaneous study of development brought out the same
+result; and the zoologists and botanists, exploring the simplest and
+the lowest forms of animated beings, confirmed the great induction of
+the cell theory. Thus the apparently opposed views, which have been
+battling with one another ever since the middle of the last century,
+have proved to be each half the truth.
+
+The proposition of Descartes that the body of a living man is a
+machine, the actions of which are explicable by the known laws of
+matter and motion, is unquestionably largely true. But it is also true,
+that the living body is a synthesis of innumerable physiological
+elements, each of which may nearly be described, in Wolff's words, as a
+fluid possessed of a "vis essentialis" and a "solidescibilitas"; or, in
+modern phrase, as protoplasm susceptible of structural metamorphosis
+and functional metabolism: and that the only machinery, in the precise
+sense in which the Cartesian school understood mechanism, is, that
+which co-ordinates and regulates these physiological units into an
+organic whole.
+
+In fact, the body is a machine of the nature of an army, not of that of
+a watch or of a hydraulic apparatus. Of this army each cell is a
+soldier, an organ a brigade, the central nervous system headquarters
+and field telegraph, the alimentary and circulatory system the
+commissariat. Losses are made good by recruits born in camp, and the
+life of the individual is a campaign, conducted successfully for a
+number of years, but with certain defeat in the long run.
+
+The efficacy of an army, at any given moment, depends on the health of
+the individual soldier, and on the perfection of the machinery by which
+he is led and brought into action at the proper time; and, therefore,
+if the analogy holds good, there can be only two kinds of diseases, the
+one dependent on abnormal states of the physiological units, the other
+on perturbations of their co-ordinating and alimentative machinery.
+
+Hence, the establishment of the cell theory, in normal biology, was
+swiftly followed by a "cellular pathology," as its logical counterpart.
+I need not remind you how great an instrument of investigation this
+doctrine has proved in the hands of the man of genius to whom its
+development is due, and who would probably be the last to forget that
+abnormal conditions of the co-ordinative and distributive machinery of
+the body are no less important factors of disease.
+
+Henceforward, as it appears to me, the connection of medicine with the
+biological sciences is clearly indicated. Pure pathology is that branch
+of biology which defines the particular perturbation of cell-life, or
+of the co-ordinating machinery, or of both, on which the phenomena of
+disease depend.
+
+Those who are conversant with the present state of biology will hardly
+hesitate to admit that the conception of the life of one of the higher
+animals as the summation of the lives of a cell aggregate, brought into
+harmonious action by a co-ordinative machinery formed by some of these
+cells, constitutes a permanent acquisition of physiological science.
+But the last form of the battle between the animistic and the physical
+views of life is seen in the contention whether the physical analysis
+of vital phenomena can be carried beyond this point or not.
+
+There are some to whom living protoplasm is a substance, even such as
+Harvey conceived the blood to be, "summâ cum providentiâ et intellectu
+in finem certum agens, quasi ratiocinio quodam;" and who look with as
+little favour as Bichat did, upon any attempt to apply the principles
+and the methods of physics and chemistry to the investigation of the
+vital processes of growth, metabolism, and contractility. They stand
+upon the ancient ways; only, in accordance with that progress towards
+democracy, which a great political writer has declared to be the fatal
+characteristic of modern times, they substitute a republic formed by a
+few billion of "animulae" for the monarchy of the all-pervading
+"anima."
+
+Others, on the contrary, supported by a robust faith in the universal
+applicability of the principles laid down by Descartes, and seeing that
+the actions called "vital" are, so far as we have any means of knowing,
+nothing but changes of place of particles of matter, look to molecular
+physics to achieve the analysis of the living protoplasm itself into a
+molecular mechanism. If there is any truth in the received doctrines of
+physics, that contrast between living and inert matter, on which Bichat
+lays so much stress, does not exist. In nature, nothing is at rest,
+nothing is amorphous; the simplest particle of that which men in their
+blindness are pleased to call "brute matter" is a vast aggregate of
+molecular mechanisms performing complicated movements of immense
+rapidity, and sensitively adjusting themselves to every change in the
+surrounding world. Living matter differs from other matter in degree
+and not in kind; the microcosm repeats the macrocosm; and one chain of
+causation connects the nebulous original of suns and planetary systems
+with the protoplasmic foundation of life and organisation.
+
+From this point of view, pathology is the analogue of the theory of
+perturbations in astronomy; and therapeutics resolves itself into the
+discovery of the means by which a system of forces competent to
+eliminate any given perturbation may be introduced into the economy.
+And, as pathology bases itself upon normal physiology, so therapeutics
+rests upon pharmacology; which is, strictly speaking, a part of the
+great biological topic of the influence of conditions on the living
+organism, and has no scientific foundation apart from physiology.
+
+It appears to me that there is no more hopeful indication of the
+progress of medicine towards the ideal of Descartes than is to be
+derived from a comparison of the state of pharmacology, at the present
+day, with that which existed forty years ago. If we consider the
+knowledge positively acquired, in this short time, of the _modus
+operandi_ of urari, of atropia, of physostigmin, of veratria, of
+casca, of strychnia, of bromide of potassium, of phosphorus, there can
+surely be no ground for doubting that, sooner or later, the
+pharmacologist will supply the physician with the means of affecting,
+in any desired sense, the functions of any physiological element of the
+body. It will, in short, become possible to introduce into the economy
+a molecular mechanism which, like a very cunningly-contrived torpedo,
+shall find its way to some particular group of living elements, and
+cause an explosion among them, leaving the rest untouched.
+
+The search for the explanation of diseased states in modified
+cell-life; the discovery of the important part played by parasitic
+organisms in the aetiology of disease; the elucidation of the action of
+medicaments by the methods and the data of experimental physiology;
+appear to me to be the greatest steps which have ever been made towards
+the establishment of medicine on a scientific basis. I need hardly say
+they could not have been made except for the advance of normal biology.
+
+There can be no question, then, as to the nature or the value of the
+connection between medicine and the biological sciences. There can be
+no doubt that the future of pathology and of therapeutics, and,
+therefore, that of practical medicine, depends upon the extent to which
+those who occupy themselves with these subjects are trained in the
+methods and impregnated with the fundamental truths of biology.
+
+And, in conclusion, I venture to suggest that the collective sagacity
+of this congress could occupy itself with no more important question
+than with this: How is medical education to be arranged, so that,
+without entangling the student in those details of the systematist
+which are valueless to him, he may be enabled to obtain a firm grasp of
+the great truths respecting animal and vegetable life, without which,
+notwithstanding all the progress of scientific medicine, he will still
+find himself an empiric?
+
+       *       *       *       *       *
+
+Footnotes:

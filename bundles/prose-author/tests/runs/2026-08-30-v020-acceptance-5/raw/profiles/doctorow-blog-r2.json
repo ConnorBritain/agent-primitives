@@ -1,0 +1,127 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-profile-source/4\",\"voice_card\":\"empty\",\"measured\":{\"second-person-family\":{\"prose\":\"Direct second-person address places the reader inside the argument as a participant, witness, or person whose choices have consequences. It turns exposition into pressure and makes abstract systems tangible. Use “you” for concrete scenarios, consequences, and challenges to a complacent reader, especially after introducing institutional behavior.\"},\"first-person-plural-family\":{\"prose\":\"First-person plural language gathers writer and reader into a shared civic or technical situation, sometimes naming a collective exposed to the same system. It creates solidarity before shifting blame toward institutions. Use “we” for common stakes and shared responsibilities, while preserving sharper distinctions when assigning responsibility.\"},\"contractions\":{\"prose\":\"Contractions keep argumentative prose conversational and immediate, including in explanations of technical systems and transitions between evidence and judgment. They lower the distance between writer and returning reader without weakening force. Prefer contracted forms in ordinary exposition and direct address; reserve fuller forms for deliberate emphasis or formal contrast.\"},\"uncontracted-negatives\":{\"prose\":\"Full negative forms appear as occasional points of emphasis within otherwise conversational syntax. They slow a sentence and make a denial, correction, or categorical limit feel deliberate. Use an uncontracted negative when rejecting a premise or drawing a firm boundary; do not make formal negation the default cadence.\"},\"profanity-vulgarity\":{\"prose\":\"Vulgar language functions as argumentative punctuation: it punctures euphemism, marks contempt for abusive systems, and supplies comic shock after a technical or institutional description. Place it selectively at a pressure point or vivid example, where bluntness clarifies the judgment rather than decorating every sentence.\"},\"first-person-singular-family\":{\"prose\":\"First-person singular reference presents the writer as an observer, investigator, participant, or accountable chooser rather than as a biographical subject. It grounds general claims in situated experience and makes transitions feel candid. Use “I” briefly to introduce an example, explain a judgment, or connect analysis to an ongoing project.\"},\"question-marks\":{\"prose\":\"Questions are chiefly argumentative: they expose a contradiction, test an advertised premise, or force the reader to follow an implication. They often introduce a paragraph’s challenge before the prose supplies its answer. Use questions sparingly as pivots, especially when interrogating a business claim, policy fiction, or institutional excuse.\"},\"round-parenthetical-spans\":{\"prose\":\"Parentheses carry compact asides, qualifications, comic afterthoughts, and clarifying detail without interrupting the main syntactic line. They let the prose retain a spoken, accumulating feel while preserving the argument’s direction. Use them for brief lateral information or tonal pressure, not for essential premises that belong in the sentence.\"},\"em-dashes\":{\"prose\":\"The corpus does not use em dashes as its interruption mark. When a sentence needs a pivot, aside, or qualification, avoid importing this punctuation pattern; keep the main clause readable through ordinary sentence structure or the other supported devices evident in the corpus.\"},\"en-dashes\":{\"prose\":\"En dashes support parenthetical pressure, contrast, and appositional turns, often joining a compact aside to the surrounding claim without the visual abruptness of an em dash. Use them selectively around a short qualification or sharp contrast, especially where the prose wants simultaneity rather than a full stop.\"}},\"qualitative\":[{\"dimensions\":[\"qualification-hedging\"],\"section\":\"register-range\",\"prose\":\"Qualification usually appears as an explicit concession, conditional frame, or narrowing phrase before the writer states the stronger conclusion. The prose acknowledges exceptions without surrendering its thesis. Place limits near the claim they modify, then return quickly to the material consequence or governing distinction.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-14-designated-survivor.txt\",\"2026-07-16-lucky-orifices.txt\"]},{\"dimensions\":[\"opponents-allies-sources\"],\"section\":\"register-range\",\"prose\":\"Opponents are often named, grouped, or represented through their own slogans, while allies and sources enter through credited quotations, linked reporting, or a stated point of agreement followed by correction. Introduce outside voices concretely, show what work their evidence performs, and distinguish quotation from the writer’s verdict.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-16-lucky-orifices.txt\",\"2026-07-22-table-flipper.txt\"]},{\"dimensions\":[\"figures-analogy\"],\"section\":\"figures\",\"prose\":\"Figures translate institutional or economic mechanisms into physical scenes, familiar transactions, bodily stakes, or comic tableaux. A comparison often begins as explanation, then returns later as a sharpened verdict. Use one controlling analogy long enough to expose the mechanism, landing it at the paragraph’s judgment rather than scattering decorative metaphors.\",\"support_files\":[\"2026-07-10-posthuman-as-in-no-humans.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-13-go-meta-meta.txt\",\"2026-07-22-table-flipper.txt\",\"2026-07-23-drop-a-dime.txt\"]},{\"dimensions\":[\"openings-endings-closure\"],\"section\":\"openings\",\"prose\":\"Openings commonly begin with a quoted sentence, a named object or term, an apparent irony, or a compact claim that immediately presents the problem. Paragraphs often end by converting the example into a broader mechanism. Closings restate the governing distinction or consequence, sometimes returning to the opening image with a final demand.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-10-posthuman-as-in-no-humans.txt\",\"2026-07-13-go-meta-meta.txt\",\"2026-07-14-designated-survivor.txt\",\"2026-07-23-drop-a-dime.txt\"]}],\"unresolved\":{\"qualification-hedging\":null,\"opponents-allies-sources\":null,\"figures-analogy\":null,\"openings-endings-closure\":null},\"gaps\":\"The corpus is contemporary, untranslated, and directly attributed in provenance, so punctuation and paragraph structure can be treated as writer-supported surface evidence. The voice card is explicitly unfilled and therefore contributes no corroboration or conflict. The samples represent a dated run of blog posts and establish the requested polemical, first-person register within that period; they do not establish behavior outside this medium or later register changes. No separate voice split is visible.\",\"observations_dropped\":0,\"multiple_voices_suspected\":false}",
+  "structured_output": {
+    "schema": "voice-profile-source/4",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct second-person address places the reader inside the argument as a participant, witness, or person whose choices have consequences. It turns exposition into pressure and makes abstract systems tangible. Use “you” for concrete scenarios, consequences, and challenges to a complacent reader, especially after introducing institutional behavior."
+      },
+      "first-person-plural-family": {
+        "prose": "First-person plural language gathers writer and reader into a shared civic or technical situation, sometimes naming a collective exposed to the same system. It creates solidarity before shifting blame toward institutions. Use “we” for common stakes and shared responsibilities, while preserving sharper distinctions when assigning responsibility."
+      },
+      "contractions": {
+        "prose": "Contractions keep argumentative prose conversational and immediate, including in explanations of technical systems and transitions between evidence and judgment. They lower the distance between writer and returning reader without weakening force. Prefer contracted forms in ordinary exposition and direct address; reserve fuller forms for deliberate emphasis or formal contrast."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negative forms appear as occasional points of emphasis within otherwise conversational syntax. They slow a sentence and make a denial, correction, or categorical limit feel deliberate. Use an uncontracted negative when rejecting a premise or drawing a firm boundary; do not make formal negation the default cadence."
+      },
+      "profanity-vulgarity": {
+        "prose": "Vulgar language functions as argumentative punctuation: it punctures euphemism, marks contempt for abusive systems, and supplies comic shock after a technical or institutional description. Place it selectively at a pressure point or vivid example, where bluntness clarifies the judgment rather than decorating every sentence."
+      },
+      "first-person-singular-family": {
+        "prose": "First-person singular reference presents the writer as an observer, investigator, participant, or accountable chooser rather than as a biographical subject. It grounds general claims in situated experience and makes transitions feel candid. Use “I” briefly to introduce an example, explain a judgment, or connect analysis to an ongoing project."
+      },
+      "question-marks": {
+        "prose": "Questions are chiefly argumentative: they expose a contradiction, test an advertised premise, or force the reader to follow an implication. They often introduce a paragraph’s challenge before the prose supplies its answer. Use questions sparingly as pivots, especially when interrogating a business claim, policy fiction, or institutional excuse."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses carry compact asides, qualifications, comic afterthoughts, and clarifying detail without interrupting the main syntactic line. They let the prose retain a spoken, accumulating feel while preserving the argument’s direction. Use them for brief lateral information or tonal pressure, not for essential premises that belong in the sentence."
+      },
+      "em-dashes": {
+        "prose": "The corpus does not use em dashes as its interruption mark. When a sentence needs a pivot, aside, or qualification, avoid importing this punctuation pattern; keep the main clause readable through ordinary sentence structure or the other supported devices evident in the corpus."
+      },
+      "en-dashes": {
+        "prose": "En dashes support parenthetical pressure, contrast, and appositional turns, often joining a compact aside to the surrounding claim without the visual abruptness of an em dash. Use them selectively around a short qualification or sharp contrast, especially where the prose wants simultaneity rather than a full stop."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Qualification usually appears as an explicit concession, conditional frame, or narrowing phrase before the writer states the stronger conclusion. The prose acknowledges exceptions without surrendering its thesis. Place limits near the claim they modify, then return quickly to the material consequence or governing distinction.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "register-range",
+        "prose": "Opponents are often named, grouped, or represented through their own slogans, while allies and sources enter through credited quotations, linked reporting, or a stated point of agreement followed by correction. Introduce outside voices concretely, show what work their evidence performs, and distinguish quotation from the writer’s verdict.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-22-table-flipper.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures translate institutional or economic mechanisms into physical scenes, familiar transactions, bodily stakes, or comic tableaux. A comparison often begins as explanation, then returns later as a sharpened verdict. Use one controlling analogy long enough to expose the mechanism, landing it at the paragraph’s judgment rather than scattering decorative metaphors.",
+        "support_files": [
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "prose": "Openings commonly begin with a quoted sentence, a named object or term, an apparent irony, or a compact claim that immediately presents the problem. Paragraphs often end by converting the example into a broader mechanism. Closings restate the governing distinction or consequence, sometimes returning to the opening image with a final demand.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-23-drop-a-dime.txt"
+        ]
+      }
+    ],
+    "unresolved": {
+      "qualification-hedging": null,
+      "opponents-allies-sources": null,
+      "figures-analogy": null,
+      "openings-endings-closure": null
+    },
+    "gaps": "The corpus is contemporary, untranslated, and directly attributed in provenance, so punctuation and paragraph structure can be treated as writer-supported surface evidence. The voice card is explicitly unfilled and therefore contributes no corroboration or conflict. The samples represent a dated run of blog posts and establish the requested polemical, first-person register within that period; they do not establish behavior outside this medium or later register changes. No separate voice split is visible.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/profiles/doctorow-blog-r2.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/profiles/doctorow-blog-r2.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93",
+    "prompt_sha256": "e6a4231440c61bb802c808eb20adf6ffe1e888f81edd912ae82507dfbc187ef8",
+    "schema_sha256": "adfaf23dc10502c423333170341f76dd3774b79d0d2cf3989a89b3502e159d12"
+  }
+}

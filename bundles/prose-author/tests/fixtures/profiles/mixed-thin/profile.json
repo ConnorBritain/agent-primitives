@@ -1,0 +1,12 @@
+{
+  "name": "mixed-thin",
+  "description": "Short reflective prose — essays, sketches and correspondence in a personal register.",
+  "medium": "prose",
+  "register": "reflective, first person, one reader",
+  "notes": [
+    "A small corpus. Pieces are short and were collected over a long period, so",
+    "expect some variation in subject and occasion.",
+    "",
+    "Calibration has not been run against this profile."
+  ]
+}

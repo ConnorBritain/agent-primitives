@@ -1,0 +1,93 @@
+{
+  "schema": "voice-profile-source/4",
+  "voice_card": "empty",
+  "measured": {
+    "second-person-family": {
+      "prose": "Direct address appears when the post turns from analysis toward civic action, especially in concluding invitations to California residents or readers. Use “you” sparingly for a concrete next step, not as a continuous conversational frame; let most explanation proceed through institutions, lawmakers, platforms, and affected users."
+    },
+    "first-person-plural-family": {
+      "prose": "The plural first person primarily names the advocacy organization or a coalition, as in “EFF opposed this bill” and “we criticized PACER’s paywalls.” Use “we” to establish institutional position, shared action, or collective public-interest concern, while keeping the reader distinct unless the sentence clearly addresses the public as a whole."
+    },
+    "contractions": {
+      "prose": "Contractions support an accessible advocacy register, especially in explanatory transitions and direct claims: “it’s,” “won’t,” “doesn’t,” and “shouldn’t” keep sentences brisk without making them casual. Use them through ordinary exposition and calls to action; reserve more formal phrasing for quoted legal language or carefully framed institutional claims."
+    },
+    "uncontracted-negatives": {
+      "prose": "Full negative forms carry emphasis when the prose rejects a legislative premise, distinguishes legal effect from stated intent, or delivers a firm policy conclusion: “does not,” “cannot,” and “will not” often sharpen the corrective. Place them at argumentative pivots and conclusions when the expanded form helps the denial land clearly."
+    },
+    "first-person-singular-family": {
+      "prose": "The singular self is largely absent from the advocacy voice. Argument is attributed to EFF, coalitions, lawmakers, courts, platforms, or the public rather than narrated as personal experience. Avoid autobiographical framing; if a viewpoint must be marked, use the organization’s institutional voice or an explicitly sourced actor."
+    },
+    "question-marks": {
+      "prose": "Questions are used as pointed examples of consequences rather than as requests for information. They appear when testing how a broad rule would affect families, lawful speech, or private communications, often in a short sequence. Place rhetorical questions inside the analysis to expose an unanswered practical or rights-related problem."
+    },
+    "round-parenthetical-spans": {
+      "prose": "Parentheses insert compact qualifications, definitions, age ranges, examples, or procedural clarifications without interrupting the main claim. They are useful after a technical term or institutional reference, where the aside supplies necessary context. Keep the contents brief and factual, then return immediately to the governing argument."
+    },
+    "em-dashes": {
+      "prose": "Em dashes mark sharp pivots, appositives, and consequential contrasts: a sentence states the apparent position, then turns to its practical effect or public-interest cost. Use them to give a qualifying interruption weight within a sentence, particularly when moving from a bill’s promise to the burden it creates."
+    },
+    "en-dashes": {
+      "prose": "The corpus does not establish en dashes as a stable punctuation resource. Prefer the supported interruption devices—especially em dashes or concise parenthetical asides—when joining a qualifying phrase, marking a pivot, or setting off a compact contrast; do not introduce en-dash styling as a recurring signature."
+    }
+  },
+  "qualitative": [
+    {
+      "dimensions": [
+        "qualification-hedging"
+      ],
+      "section": "register-range",
+      "prose": "The prose concedes limited improvements before preserving the central objection: a narrowed bill “does address some of the broadest concerns,” yet serious problems remain. It also marks uncertainty with “may,” “likely,” “could,” and “it’s unclear,” especially for legal consequences. Place concessions before the decisive public-interest conclusion.",
+      "support_files": [
+        "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "opponents-allies-sources"
+      ],
+      "section": "register-range",
+      "prose": "Opponents are usually represented through bills, lawmakers, supporters, agencies, or industry interests, then tested against statutory text, court activity, legislative history, or named coalition positions. Sources are credited with links and specific findings, while allies appear as organizations joining letters or advocacy. Introduce outside claims, then explain their consequence.",
+      "support_files": [
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "court-records-should-be-free.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "figures-analogy"
+      ],
+      "section": "figures",
+      "prose": "Figures make technical policy consequences concrete through familiar comparisons and compressed images: AI training is “like reading,” a data archive becomes a “valuable vault,” and a legal disclaimer is a “smokescreen.” Use one intelligible analogy after the mechanism is explained, then return to the rights, privacy, or competition consequence.",
+      "support_files": [
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "kids-online-safety-act-will-make-internet-worse-everyone.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "openings-endings-closure"
+      ],
+      "section": "openings",
+      "prose": "Openings state the bill, event, or disputed practice immediately, then add the central harm in a compact contrast. Sections use descriptive problem headings, proceed from mechanism to consequence, and often close by naming the proper remedy: reject the bill, preserve oversight, narrow enforcement, or restore a less invasive practice. Place the call to action last.",
+      "support_files": [
+        "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    }
+  ],
+  "unresolved": {
+    "qualification-hedging": null,
+    "opponents-allies-sources": null,
+    "figures-analogy": null,
+    "openings-endings-closure": null,
+    "profanity-vulgarity": "The corpus provides no supported positive rhetorical use for profanity or vulgarity. Keep the advocacy register professional and express urgency through precise consequences, direct criticism, and clear calls to action rather than profane language."
+  },
+  "gaps": "All usable samples are contemporary EFF Deeplinks advocacy posts dated 2025–2026, with the declared medium and purpose consistently represented. The corpus therefore supports a current institutional policy-advocacy register, but does not establish how the voice changes in other media, genres, audiences, or less time-sensitive writing. The unfilled voice card contributes no independent intent claim. Typographic findings are based on extracted body text; no editing or translation disclosure is present, though stripped links and site extraction may remove surrounding presentation.",
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}

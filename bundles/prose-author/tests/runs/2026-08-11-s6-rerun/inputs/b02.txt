@@ -1,0 +1,21 @@
+The theory of open standards goes like this: anybody can join the working group, anybody can file a comment, the minutes are public, the mailing list is archived, the votes are recorded, and so whatever comes out the far end belongs to all of us, because all of us had our chance to shape it. Nobody is excluded. The door is open and it stays open and that openness is the whole guarantee.
+
+That's the theory.
+
+Here's what happens. You show up — you, one person, or the three engineers from a small company that has to ship a product on this standard next year — and the room already holds forty people who are paid to be in it. They're perfectly polite. They file good comments. Every one of them is a legitimate participant under rules the body wrote itself, and nearly every one of them draws a paycheque from the same four companies.
+
+Think of a food co-op. Membership is open: pay your twenty dollars, get your vote, show up on Thursday, decide what goes on the shelves. It's the most democratic grocery store you'll ever shop in, right up until the regional distributor buys four hundred memberships for four hundred of its employees and their spouses, and the co-op votes — freely, transparently, by a count nobody can impeach — to stock what the distributor sells, at the price the distributor names, in the aisle layout that makes the distributor's own trucks cheapest to unload.
+
+Nobody stuffed a ballot. Nobody had to. The sign on the door still says "member-owned", the till still rings your purchases against your member number, and every single thing you were told about the co-op is true and none of it describes the store you're standing in.
+
+That's the shape of standards capture, and it isn't hypothetical. When Microsoft wanted its Office file format blessed, it went through ECMA and then ISO's fast-track, and the national bodies that had sat idle for years suddenly filled with new members who had a view on document formats. The votes were real votes. The process worked exactly as designed, which was the problem.
+
+The second move is subtler and it's the one you should watch for: the incumbents don't just outvote you, they out-complicate you. A standard nobody but a firm with sixty engineers can implement is closed no matter what the license says. Every optional profile, every extension point, every "implementation-defined" corner is a wall you have to pay to climb, and they're the ones with the ladder factory. You get the spec for free. You just can't build from it.
+
+Then there's the endgame, where the standard is open and the thing it standardises is not. The W3C's EME is the honest example: a genuine open standard, developed in the open, published as a Recommendation in 2017, whose actual function is to specify where in your browser the encrypted blob goes that you're not allowed to look at. The EFF quit the W3C over it. The standard was open; the video was not; anyone who tells you those two facts sit comfortably together is selling something, and what they're selling is bullshit.
+
+None of this is detectable by the process, because the process measures participation and participation is precisely what the incumbents have in surplus. Openness counts heads. It has no way to ask who owns them. So the body does its job faithfully, gathers rough consensus among the people who turned up, and produces the pod-person version of a public standard — same name, same face, the wrong thing living inside it. A machine that swallows a commons at one end and excretes a licensing regime out the other, and files the minutes.
+
+We know how to fix this, and it isn't more openness. It's asking who pays. Weight the vote by independence rather than attendance, cap how many seats one payroll can occupy, require an implementation from someone who isn't already dominant before a feature ships, treat a spec no small team can implement as failed on its face. All of that is unpopular with the people currently writing the specs, which is a decent signal it would work.
+
+Until then, be careful what you accept as open. A door that anyone can walk through is not the same as a room where anyone can be heard, and the incumbents figured that out a very long time before we did.

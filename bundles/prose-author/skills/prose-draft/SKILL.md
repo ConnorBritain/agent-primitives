@@ -8,10 +8,101 @@ description: This skill should be used when the user asks to draft or rewrite a 
 Scoped generation in a specific person's voice, verified in that person's own
 measured terms.
 
-**v0.1 does one thing: rewrite one passage, with the original beside it.** Not a
-blank page, not a whole piece, not a continuation. One passage is the unit where
-the author can see immediately whether the result is theirs, and that judgement
-is the only one that counts here.
+**v0.2 has two paths.** Preserve the v0.1 passage-rewrite path when the user gives
+you prose to rewrite. Use the blank-page path when the user gives you a topic,
+brief, notes, outline, or correspondence prompt and asks for new prose. “Blank
+page” means there is no existing passage to transform; it does not mean the tool
+writes without evidence about the voice.
+
+## Choose the path before loading style material
+
+- **Existing passage:** use the passage-rewrite path below. Present original and
+  rewrite side by side.
+- **New prose:** use the blank-page pipeline below. Do not show the corpus to the
+  drafter and do not substitute the old exemplar prompt for a rendered profile.
+- **Ambiguous request:** ask whether the user wants the supplied prose rewritten
+  or wants a new piece built from it as source notes.
+
+## Blank-page pipeline (v0.2)
+
+The boundary is the feature:
+
+```text
+human corpus -> voice-profile-render -> voice-profile/2
+                                      -> voice-draft (prompt + profile only)
+                                      -> conformance + independent claim audit
+                                      -> tell scan + independent voice review
+```
+
+### 1. Require and render a profile
+
+Require a single-author human corpus satisfying the renderer's documented floor.
+If there is no current `voice-profile/2`, or its corpus/prompt lock is stale,
+create deterministic measurement context with `tools/profile-measure.mjs`, run
+`voice-profile-render` in a fresh context over the corpus, and assemble its
+`voice-profile-source/4` with `tools/profile-assemble.mjs`. The assembler—not the
+model—owns counts, rates, observation IDs, coverage rows, and final provenance.
+
+Historical `voice-profile/1` artifacts remain readable, but every new render is
+`voice-profile/2`. Never combine several renders into a production profile.
+
+If the renderer refuses a thin, mixed, stale, oversized, or catalog-contaminated
+corpus, stop. Do not create a generic voice and label it personal.
+
+### 2. Dispatch the corpus-blind drafter
+
+Run `voice-draft` in a fresh context with exactly two semantic inputs:
+
+1. the user's prompt, including reader, purpose, form, and requested length;
+2. the rendered profile (`profile.json`, with its human-readable profile text).
+
+Do not pass corpus files, exemplars, the tell catalog, earlier generated prose,
+or session history. The empty Claude tool allowlist enforces this boundary there;
+on Codex, Cursor, and AGENTS.md-only harnesses, use a clean subprocess/context and
+describe the boundary as advisory rather than enforced.
+
+An underdetermined register is a refusal, not an invitation to guess. The draft
+must disclose unsupported factual claims in `claims` and supported profile
+instructions it could not use in `omitted`; it must never invent first-person
+biography for the author.
+
+### 3. Conform and audit before presenting
+
+Compile the deterministic target card, measure the first draft, and run the
+mandatory semantic-conformance revision. When exact measured counts still fall
+outside their bands, request only the bounded minimal patch and apply it through
+the deterministic conformance tool. Do not keep redrawing complete drafts to
+chase a favorable result.
+
+Then run the factual-basis audit in a separate clean context and assemble the
+public draft only after the audit is linked to the exact prompt and draft. This
+does **not** prove factual accuracy. It makes factual invention visible and
+rejects the hard categories it can identify; users should still verify disclosed
+claims that matter.
+
+### 4. Review independently, or label the result ungated
+
+Run `prose-tell-scan` after drafting. Run `prose-review`'s
+`prose-voice-critic` in a fresh context against the author's corpus; if revision
+is requested, use the review bundle's revise -> fidelity protocol rather than
+letting the drafter silently grade and rewrite itself.
+
+If either `prose-tell-scan` or `prose-review` is unavailable, you may return the
+draft, but label it **UNGATED** and name the missing check. Never imply that an
+unavailable check passed. A gated result means the exact presented bytes were
+scanned and independently reviewed.
+
+### 5. Present only supported claims
+
+Present the draft, its disclosed claims and omissions, the deterministic
+conformance result, and the independent review status. Never claim that the
+draft sounds like the author, is good, is factually accurate, or would pass a
+detector. The author makes the voice judgement.
+
+## Passage rewrite (v0.1, preserved)
+
+One passage is the unit where the author can see immediately whether the result
+is theirs, and that judgement is the only one that counts here.
 
 ## Before anything else: is there a corpus?
 
@@ -149,9 +240,15 @@ calibration will widen the band that flagged it.
 
 ## Known limits
 
-- **One passage.** Blank-page drafting and continuation are v0.2 / v0.4 and
-  are not here. Edit ingestion (v0.3) does ship — see *Recording a kept edit*
-  above.
+- **Blank-page drafting is evidence-constrained generation, not fact checking.**
+  The independent audit can reject or disclose unsupported material, but it can
+  miss a bad claim. Verify consequential claims against real sources.
+- **The profile is a compact map, not the corpus.** It preserves measured and
+  cited habits while deliberately denying the drafter direct corpus access. Very
+  unusual forms or registers may be refused or may need a refreshed corpus.
+- **Passage rewrite remains supported.** Mid-document continuation with the
+  drafter reading its own earlier prose is still excluded because it creates the
+  self-amplification loop this bundle is designed to avoid.
 - **`corpus/approved/` is written by `ingest-edit.mjs` and read by
   `exemplars.mjs`, under the cap in
   [`PROFILES.md`](../../../prose-tell-scan/PROFILES.md).** It never feeds
@@ -166,3 +263,5 @@ calibration will widen the band that flagged it.
   install, a plugin install, or `TELL_SCAN_PATH`. If it cannot be found,
   `verify.mjs` says the draft was **not scanned** and lists where it looked —
   the absence of a check, never a pass.
+- **A gated blank-page result also needs `prose-review`.** Without its independent
+  critic, the result must be labelled UNGATED even if deterministic checks pass.

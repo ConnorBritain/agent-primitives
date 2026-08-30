@@ -1,0 +1,79 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12",
+      "why": "The request supplied no verified named source, attributed quotation, or specific institutional opponent whose position could be introduced without invention."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Online age-checking machinery creates an answer that can be requested repeatedly.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Websites, platforms, payment firms, and governments can request an age-checking answer previously created for another interaction.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Reusing an age credential already in circulation is cheaper than conducting a fresh, isolated age check.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Services seeking the same assurance will reuse credentials already in circulation rather than perform fresh checks.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Age credentials tend to acquire non-age functions soon after entering circulation.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Each additional use of an age credential makes refusing that credential more costly.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Expanded age-credential use causes access to depend on an age-status assertion remaining attached to a person's activities.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A verifier gains value when more access points accept its credential.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "A gatekeeper saves money by reusing a familiar identity or age check.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "An authority gains leverage when access decisions can be audited through a single layer.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "When participants choose the easiest available direction, aligned incentives drive an age-checking system toward broader identity infrastructure.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "When use of a credential becomes customary, consent to present it ceases to be meaningfully voluntary.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "People who decline a customary credential may be denied access to stores, forums, classrooms, or services.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "In shared credential systems, a breach can adversely affect a person across multiple access points rather than only one.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "In shared credential systems, a mistaken denial can follow a person across multiple access points.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Policy promises governing age-checking systems can be withdrawn or cease to constrain later conduct.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Identifiers used in age-checking systems can persist after the policies intended to constrain them have changed or disappeared.",
+      "where": "paragraph 8"
+    }
+  ]
+}

@@ -1,0 +1,540 @@
+---
+source: Project Gutenberg 7150
+title: Scientific Education: Notes of an After-dinner Speech
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+[Mr. Thackeray, talking of after-dinner speeches, has lamented that
+    "one never can recollect the fine things one thought of in the
+    cab," in going to the place of entertainment. I am not aware that
+    there are any "fine things" in the following pages, but such as
+    there are stand to a speech which really did get itself spoken, at
+    the hospitable table of the Liverpool Philomathic Society, more or
+    less in the position of what "one thought of in the cab."]
+
+
+The introduction of scientific training into the general education of
+the country is a topic upon which I could not have spoken, without some
+more or less apologetic introduction, a few years ago. But upon this,
+as upon other matters, public opinion has of late undergone a rapid
+modification. Committees of both Houses of the Legislature have agreed
+that something must be done in this direction, and have even thrown out
+timid and faltering suggestions as to what should be done; while at the
+opposite pole of society, committees of working men have expressed
+their conviction that scientific training is the one thing needful for
+their advancement, whether as men, or as workmen. Only the other day,
+it was my duty to take part in the reception of a deputation of London
+working men, who desired to learn from Sir Roderick Murchison, the
+Director of the Royal School of Mines, whether the organisation of the
+Institution in Jermyn Street could be made available for the supply of
+that scientific instruction the need of which could not have been
+apprehended, or stated, more clearly than it was by them.
+
+The heads of colleges in our great universities (who have not the
+reputation of being the most mobile of persons) have, in several cases,
+thought it well that, out of the great number of honours and rewards at
+their disposal, a few should hereafter be given to the cultivators of
+the physical sciences. Nay, I hear that some colleges have even gone so
+far as to appoint one, or, maybe, two special tutors for the purpose of
+putting the facts and principles of physical science before the
+undergraduate mind. And I say it with gratitude and great respect for
+those eminent persons, that the head masters of our public schools,
+Eton, Harrow, Winchester, have addressed themselves to the problem of
+introducing instruction in physical science among the studies of those
+great educational bodies, with much honesty of purpose and
+enlightenment of understanding; and I live in hope that, before long,
+important changes in this direction will be carried into effect in
+those strongholds of ancient prescription. In fact, such changes have
+already been made, and physical science, even now, constitutes a
+recognised element of the school curriculum in Harrow and Rugby, whilst
+I understand that ample preparations for such studies are being made at
+Eton and elsewhere.
+
+Looking at these facts, I might perhaps spare myself the trouble of
+giving any reasons for the introduction of physical science into
+elementary education; yet I cannot but think that it may be well if I
+place before you some considerations which, perhaps, have hardly
+received full attention.
+
+At other times, and in other places, I have endeavoured to state the
+higher and more abstract arguments, by which the study of physical
+science may be shown to be indispensable to the complete training of
+the human mind; but I do not wish it to be supposed that, because I
+happen to be devoted to more or less abstract and "unpractical"
+pursuits, I am insensible to the weight which ought to be attached
+to that which has been said to be the English conception of
+Paradise--namely, "getting on." I look upon it, that "getting on" is a
+very important matter indeed. I do not mean merely for the sake of the
+coarse and tangible results of success, but because humanity is so
+constituted that a vast number of us would never be impelled to those
+stretches of exertion which make, us wiser and more capable men, if it
+were not for the absolute necessity of putting on our faculties all the
+strain they will bear, for the purpose of "getting on" in the most
+practical sense.
+
+Now the value of a knowledge of physical science as a means of getting
+on is indubitable. There are hardly any of our trades, except the
+merely huckstering ones, in which some knowledge of science may not be
+directly profitable to the pursuer of that occupation. As industry
+attains higher stages of its development, as its processes become more
+complicated and refined, and competition more keen, the sciences are
+dragged in, one by one, to take their share in the fray; and he who can
+best avail himself of their help is the man who will come out uppermost
+in that struggle for existence, which goes on as fiercely beneath the
+smooth surface of modern society, as among the wild inhabitants of the
+woods.
+
+But in addition to the bearing of science on ordinary practical life,
+let me direct your attention to its immense influence on several of the
+professions. I ask any one who has adopted the calling of an engineer,
+how much time he lost when he left school, because he had to devote
+himself to pursuits which were absolutely novel and strange, and of
+which he had not obtained the remotest conception from his instructors?
+He had to familiarise himself with ideas of the course and powers of
+Nature, to which his attention had never been directed during his
+school-life, and to learn, for the first time, that a world of facts
+lies outside and beyond the world of words. I appeal to those who know
+what engineering is, to say how far I am right in respect to that
+profession; but with regard to another, of no less importance, I shall
+venture to speak of my own knowledge. There is no one of us who may not
+at any moment be thrown, bound hand and foot by physical incapacity,
+into the hands of a medical practitioner. The chances of life and death
+for all and each of us may, at any moment, depend on the skill with
+which that practitioner is able to make out what is wrong in our bodily
+frames, and on his ability to apply the proper remedy to the defect.
+
+The necessities of modern life are such, and the class from which the
+medical profession is chiefly recruited is so situated, that few
+medical men can hope to spend more than three or four, or it may be
+five, years in the pursuit of those studies which are immediately
+germane to physic. How is that all too brief period spent at present? I
+speak as an old examiner, having served some eleven or twelve years in
+that capacity in the University of London, and therefore having a
+practical acquaintance with the subject; but I might fortify myself by
+the authority of the President of the College of Surgeons, Mr. Quain,
+whom I heard the other day in an admirable address (the Hunterian
+Oration) deal fully and wisely with this very topic. 
+
+A young man commencing the study of medicine is at once required to
+endeavour to make an acquaintance with a number of sciences, such as
+Physics, as Chemistry, as Botany, as Physiology, which are absolutely
+and entirely strange to him, however excellent his so-called education
+at school may have been. Not only is he devoid of all apprehension of
+scientific conceptions, not only does he fail to attach any meaning to
+the words "matter," "force," or "law" in their scientific senses, but,
+worse still, he has no notion of what it is to come into contact with
+Nature, or to lay his mind alongside of a physical fact, and try to
+conquer it, in the way our great naval hero told his captains to master
+their enemies. His whole mind has been given to books, and I am hardly
+exaggerating if I say that they are more real to him than Nature. He
+imagines that all knowledge can be got out of books, and rests upon the
+authority of some master or other; nor does he entertain any misgiving
+that the method of learning which led to proficiency in the rules of
+grammar will suffice to lead him to a mastery of the laws of Nature.
+The youngster, thus unprepared for serious study, is turned loose among
+his medical studies, with the result, in nine cases out of ten, that
+the first year of his curriculum is spent in learning how to learn.
+Indeed, he is lucky if, at the end of the first year, by the exertions
+of his teachers and his own industry, he has acquired even that art of
+arts. After which there remain not more than three, or perhaps four,
+years for the profitable study of such vast sciences as Anatomy,
+Physiology, Therapeutics, Medicine, Surgery, Obstetrics, and the like,
+upon his knowledge or ignorance of which it depends whether the
+practitioner shall diminish, or increase, the bills of mortality. Now
+what is it but the preposterous condition of ordinary school education
+which prevents a young man of seventeen, destined for the practice of
+medicine, from being fully prepared for the study of Nature; and from
+coming to the medical school, equipped with that preliminary knowledge
+of the principles of Physics, of Chemistry and of Biology, upon which
+he has now to waste one of the precious years, every moment of which
+ought to be given to those studies which bear directly upon the
+knowledge of his profession?
+
+There is another profession, to the members of which, I think, a
+certain preliminary knowledge of physical science might be quite as
+valuable as to the medical man. The practitioner of medicine sets
+before himself the noble object of taking care of man's bodily welfare;
+but the members of this other profession undertake to "minister to
+minds diseased," and, so far as may be, to diminish sin and soften
+sorrow. Like the medical profession, the clerical, of which I now
+speak, rests its power to heal upon its knowledge of the order of the
+universe--upon certain theories of man's relation to that which lies
+outside him. It is not my business to express any opinion about these
+theories. I merely wish to point out that, like all other theories,
+they are professedly based upon matters of fact. Thus the clerical
+profession has to deal with the facts of Nature from a certain point of
+view; and hence it comes into contact with that of the man of science,
+who has to treat the same facts from another point of view. You know
+how often that contact is to be described as collision, or violent
+friction; and how great the heat, how little the light, which commonly
+results from it.
+
+In the interests of fair play, to say nothing of those of mankind, I
+ask, Why do not the clergy as a body acquire, as a part of their
+preliminary education, some such tincture of physical science as will
+put them in a position to understand the difficulties in the way of
+accepting their theories, which are forced upon the mind of every
+thoughtful and intelligent man, who has taken the trouble to instruct
+himself in the elements of natural knowledge?
+
+Some time ago I attended a large meeting of the clergy, for the purpose
+of delivering an address which I had been invited to give. I spoke of
+some of the most elementary facts in physical science, and of the
+manner in which they directly contradict certain of the ordinary
+teachings of the clergy. The result was, that, after I had finished,
+one section of the assembled ecclesiastics attacked me with all the
+intemperance of pious zeal, for stating facts and conclusions which no
+competent judge doubts; while, after the first speakers had subsided,
+amidst the cheers of the great majority of their colleagues, the more
+rational minority rose to tell me that I had taken wholly superfluous
+pains, that they already knew all about what I had told them, and
+perfectly agreed with me. A hard-headed friend of mine, who was
+present, put the not unnatural question, "Then why don't you say so in
+your pulpits?" to which inquiry I heard no reply.
+
+In fact the clergy are at present divisible into three sections: an
+immense body who are ignorant and speak out; a small proportion who
+know and are silent; and a minute minority who know and speak according
+to their knowledge. By the clergy, I mean especially the Protestant
+clergy. Our great antagonist--I speak as a man of science--the Roman
+Catholic Church, the one great spiritual organisation which is able to
+resist, and must, as a matter of life and death, resist, the progress
+of science and modern civilisation, manages her affairs much better.
+
+It was my fortune some time ago to pay a visit to one of the most
+important of the institutions in which the clergy of the Roman Catholic
+Church in these islands are trained; and it seemed to me that the
+difference between these men and the comfortable champions of
+Anglicanism and of Dissent, was comparable to the difference between
+our gallant Volunteers and the trained veterans of Napoleon's Old
+Guard.
+
+The Catholic priest is trained to know his business, and do it
+effectually. The professors of the college in question, learned,
+zealous, and determined men, permitted me to speak frankly with them.
+We talked like outposts of opposed armies during a truce--as friendly
+enemies; and when I ventured to point out the difficulties their
+students would have to encounter from scientific thought, they replied:
+"Our Church has lasted many ages, and has passed safely through many
+storms. The present is but a new gust of the old tempest, and we do not
+turn out our young men less fitted to weather it, than they have been,
+in former times, to cope with the difficulties of those times. The
+heresies of the day are explained to them by their professors of
+philosophy and science, and they are taught how those heresies are to
+be met."
+
+I heartily respect an organisation which faces its enemies in this way;
+and I wish that all ecclesiastical organisations were in as effective a
+condition. I think it would be better, not only for them, but for us.
+The army of liberal thought is, at present, in very loose order; and
+many a spirited free-thinker makes use of his freedom mainly to vent
+nonsense. We should be the better for a vigorous and watchful enemy to
+hammer us into cohesion and discipline; and I, for one, lament that the
+bench of Bishops cannot show a man of the calibre of Butler of the
+"Analogy," who, if he were alive, would make short work of much of the
+current _à priori_ "infidelity."
+
+I hope you will consider that the arguments I have now stated, even if
+there were no better ones, constitute a sufficient apology for urging
+the introduction of science into schools. The next question to which I
+have to address myself is, What sciences ought to be thus taught? And
+this is one of the most important of questions, because my side (I am
+afraid I am a terribly candid friend) sometimes spoils its cause by
+going in for too much. There are other forms of culture beside physical
+science; and I should be profoundly sorry to see the fact forgotten, or
+even to observe a tendency to starve, or cripple, literary, or
+aesthetic, culture for the sake of science. Such a narrow view of the
+nature of education has nothing to do with my firm conviction that a
+complete and thorough scientific culture ought to be introduced into
+all schools. By this, however, I do not mean that every schoolboy
+should be taught everything in science. That would be a very absurd
+thing to conceive, and a very mischievous thing to attempt. What I mean
+is, that no boy nor girl should leave school without possessing a grasp
+of the general character of science, and without having been
+disciplined, more or less, in the methods of all sciences; so that,
+when turned into the world to make their own way, they shall be
+prepared to face scientific problems, not by knowing at once the
+conditions of every problem, or by being able at once to solve it; but
+by being familiar with the general current of scientific thought, and
+by being able to apply the methods of science in the proper way, when
+they have acquainted themselves with the conditions of the special
+problem.
+
+That is what I understand by scientific education. To furnish a boy
+with such an education, it is by no means necessary that he should
+devote his whole school existence to physical science: in fact, no one
+would lament so one-sided a proceeding more than I. Nay more, it is not
+necessary for him to give up more than a moderate share of his time to
+such studies, if they be properly selected and arranged, and if he be
+trained in them in a fitting manner.
+
+I conceive the proper course to be somewhat as follows. To begin with,
+let every child be instructed in those general views of the phaenomena
+of Nature for which we have no exact English name. The nearest
+approximation to a name for what I mean, which we possess, is "physical
+geography." The Germans have a better, "Erdkunde" ("earth knowledge" or
+"geology" in its etymological sense), that is to say, a general
+knowledge of the earth, and what is on it, in it, and about it. If any
+one who has had experience of the ways of young children will call to
+mind their questions, he will find that so far as they can be put into
+any scientific category, they come under this head of "Erdkunde." The
+child asks, "What is the moon, and why does it shine?" "What is this
+water, and where does it run?" "What is the wind?" "What makes this
+waves in the sea?" "Where does this animal live, and what is the use of
+that plant?" And if not snubbed and stunted by being told not to ask
+foolish questions, there is no limit to the intellectual craving of a
+young child; nor any bounds to the slow, but solid, accretion of
+knowledge and development of the thinking faculty in this way. To all
+such questions, answers which are necessarily incomplete, though true
+as far as they go, may be given by any teacher whose ideas represent
+real knowledge and not mere book learning; and a panoramic view of
+Nature, accompanied by a strong infusion of the scientific habit of
+mind, may thus be placed within the reach of every child of nine or
+ten.
+
+After this preliminary opening of the eyes to the great spectacle
+of the daily progress of Nature, as the reasoning faculties of the
+child grow, and he becomes familiar with the use of the tools of
+knowledge--reading, writing, and elementary mathematics--he should pass
+on to what is, in the more strict sense, physical science. Now there
+are two kinds of physical science: the one regards form and the
+relation of forms to one another; the other deals with causes and
+effects. In many of what we term sciences, these two kinds are mixed up
+together; but systematic botany is a pure example of the former kind,
+and physics of the latter kind, of science. Every educational advantage
+which training in physical science can give is obtainable from the
+proper study of these two; and I should be contented, for the present,
+if they, added to our "Erdkunde," furnished the whole of the scientific
+curriculum of school. Indeed, I conceive it would be one of the
+greatest boons which could be conferred upon England, if henceforward
+every child in the country were instructed in the general knowledge of
+the things about it, in the elements of physics, and of botany. But I
+should be still better pleased if there could be added somewhat of
+chemistry, and an elementary acquaintance with human physiology.
+
+So far as school education is concerned, I want to go no further just
+now; and I believe that such instruction would make an excellent
+introduction to that preparatory scientific training which, as I have
+indicated, is so essential for the successful pursuit of our most
+important professions. But this modicum of instruction must be so given
+as to ensure real knowledge and practical discipline. If scientific
+education is to be dealt with as mere bookwork, it will be better not
+to attempt it, but to stick to the Latin Grammar which makes no
+pretence to be anything but bookwork.
+
+If the great benefits of scientific training are sought, it is
+essential that such training should be real: that is to say, that the
+mind of the scholar should be brought into direct relation with fact,
+that he should not merely be told a thing, but made to see by the use
+of his own intellect and ability that the thing is so and no otherwise.
+The great peculiarity of scientific training, that in virtue of which
+it cannot be replaced by any other discipline whatsoever, is this
+bringing of the mind directly into contact with fact, and practising
+the intellect in the completest form of induction; that is to say, in
+drawing conclusions from particular facts made known by immediate
+observation of Nature.
+
+The other studies which enter into ordinary education do not discipline
+the mind in this way. Mathematical training is almost purely deductive.
+The mathematician starts with a few simple propositions, the proof of
+which is so obvious that they are called self-evident, and the rest of
+his work consists of subtle deductions from them. The teaching of
+languages, at any rate as ordinarily practised, is of the same general
+nature,--authority and tradition furnish the data, and the mental
+operations of the scholar are deductive.
+
+Again: if history be the subject of study, the facts are still taken
+upon the evidence of tradition and authority. You cannot make a boy see
+the battle of Thermopylae for himself, or know, of his own knowledge,
+that Cromwell once ruled England. There is no getting into direct
+contact with natural fact by this road; there is no dispensing with
+authority, but rather a resting upon it.
+
+In all these respects, science differs from other educational
+discipline, and prepares the scholar for common life. What have we to
+do in every-day life? Most of the business which demands our attention
+is matter of fact, which needs, in the first place, to be accurately
+observed or apprehended; in the second, to be interpreted by inductive
+and deductive reasonings, which are altogether similar in their nature
+to those employed in science. In the one case, as in the other,
+whatever is taken for granted is so taken at one's own peril; fact and
+reason are the ultimate arbiters, and patience and honesty are the
+great helpers out of difficulty.
+
+But if scientific training is to yield its most eminent results, it
+must, I repeat, be made practical. That is to say, in explaining to a
+child the general phaenomena of Nature, you must, as far as possible,
+give reality to your teaching by object-lessons; in teaching him
+botany, he must handle the plants and dissect the flowers for himself;
+in teaching him physics and chemistry, you must not be solicitous to
+fill him with information, but you must be careful that what he learns
+he knows of his own knowledge. Don't be satisfied with telling him that
+a magnet attracts iron. Let him see that it does; let him feel the pull
+of the one upon the other for himself. And, especially, tell him that
+it is his duty to doubt until he is compelled, by the absolute
+authority of Nature, to believe that which is written in books. Pursue
+this discipline carefully and conscientiously, and you may make sure
+that, however scanty may be the measure of information which you have
+poured into the boy's mind, you have created an intellectual habit of
+priceless value in practical life.
+
+One is constantly asked, When should this scientific education be
+commenced? I should say with the dawn of intelligence. As I have
+already said, a child seeks for information about matters of physical
+science as soon as it begins to talk. The first teaching it wants is an
+object-lesson of one sort or another; and as soon as it is fit for
+systematic instruction of any kind, it is fit for a modicum of science.
+
+People talk of the difficulty of teaching young children such matters,
+and in the same breath insist upon their learning their Catechism,
+which contains propositions far harder to comprehend than anything in
+the educational course I have proposed. Again: I am incessantly told
+that we, who advocate the introduction of science in schools, make no
+allowance for the stupidity of the average boy or girl; but, in my
+belief, that stupidity, in nine cases out of ten, "_fit, non
+nascitur_," and is developed by a long process of parental and
+pedagogic repression of the natural intellectual appetites,
+accompanied by a persistent attempt to create artificial ones for food
+which is not only tasteless, but essentially indigestible.
+
+Those who urge the difficulty of instructing young people in
+science are apt to forget another very important condition of
+success--important in all kinds of teaching, but most essential, I am
+disposed to think, when the scholars are very young. This condition is,
+that the teacher should himself really and practically know his
+subject. If he does, he will be able to speak of it in the easy
+language, and with the completeness of conviction, with which he talks
+of any ordinary every-day matter. If he does not, he will be afraid to
+wander beyond the limits of the technical phraseology which he has got
+up; and a dead dogmatism, which oppresses, or raises opposition, will
+take the place of the lively confidence, born of personal conviction,
+which cheers and encourages the eminently sympathetic mind of
+childhood.
+
+I have already hinted that such scientific training as we seek for may
+be given without making any extravagant claim upon the time now devoted
+to education. We ask only for "a most favoured nation" clause in our
+treaty with the schoolmaster; we demand no more than that science shall
+have as much time given to it as any other single subject--say four
+hours a week in each class of an ordinary school.
+
+For the present, I think men of science would be well content with such
+an arrangement as this: but speaking for myself, I do not pretend to
+believe that such an arrangement can be, or will be, permanent. In
+these times the educational tree seems to me to have its roots in the
+air, its leaves and flowers in the ground; and, I confess, I should
+very much like to turn it upside down, so that its roots might be
+solidly embedded among the facts of Nature, and draw thence a sound
+nutriment for the foliage and fruit of literature and of art. No
+educational system can have a claim to permanence, unless it recognises
+the truth that education has two great ends to which everything else
+must be subordinated. The one of these is to increase knowledge; the
+other is to develop the love of right and the hatred of wrong.
+
+With wisdom and uprightness a nation can make its way worthily, and
+beauty will follow in the footsteps of the two, even if she be not
+specially invited; while there is perhaps no sight in the whole world
+more saddening and revolting than is offered by men sunk in ignorance
+of everything but what other men have written; seemingly devoid of
+moral belief or guidance; but with the sense of beauty so keen, and the
+power of expression so cultivated, that their sensual caterwauling may
+be almost mistaken for the music of the spheres.
+
+At present, education is almost entirely devoted to the cultivation of
+the power of expression, and of the sense of literary beauty. The
+matter of having anything to say, beyond a hash of other people's
+opinions, or of possessing any criterion of beauty, so that we may
+distinguish between the Godlike and the devilish, is left aside as of
+no moment. I think I do not err in saying that if science were made a
+foundation of education, instead of being, at most, stuck on as cornice
+to the edifice, this state of things could not exist.
+
+In advocating the introduction of physical science as a leading element
+in education, I by no means refer only to the higher schools. On the
+contrary, I believe that such a change is even more imperatively called
+for in those primary schools, in which the children of the poor are
+expected to turn to the best account the little time they can devote to
+the acquisition of knowledge. A great step in this direction has
+already been made by the establishment of science-classes under the
+Department of Science and Art,--a measure which came into existence
+unnoticed, but which will, I believe, turn out to be of more importance
+to the welfare of the people than many political changes over which the
+noise of battle has rent the air.
+
+Under the regulations to which I refer, a schoolmaster can set up a
+class in one or more branches of science; his pupils will be examined,
+and the State will pay him, at a certain rate, for all who succeed in
+passing. I have acted as an examiner under this system from the
+beginning of its establishment, and this year I expect to have not
+fewer than a couple of thousand sets of answers to questions in
+Physiology, mainly from young people of the artisan class, who have
+been taught in the schools which are now scattered all over great
+Britain and Ireland. Some of my colleagues, who have to deal with
+subjects such as Geometry, for which the present teaching power is
+better organised, I understand are likely to have three or four times
+as many papers. So far as my own subjects are concerned, I can
+undertake to say that a great deal of the teaching, the results of
+which are before me in these examinations, is very sound and good; and
+I think it is in the power of the examiners, not only to keep up the
+present standard, but to cause an almost unlimited improvement. Now
+what does this mean? It means that by holding out a very moderate
+inducement, the masters of primary schools in many parts of the country
+have been led to convert them into little foci of scientific
+instruction; and that they and their pupils have contrived to find, or
+to make, time enough to carry out this object with a very considerable
+degree of efficiency. That efficiency will, I doubt not, be very much
+increased as the system becomes known and perfected, even with the very
+limited leisure left to masters and teachers on week-days. And this
+leads me to ask, Why should scientific teaching be limited to
+week-days?
+
+Ecclesiastically-minded persons are in the habit of calling things they
+do not like by very hard names, and I should not wonder if they brand
+the proposition I am about to make as blasphemous, and worse. But, not
+minding this, I venture to ask, Would there really be anything wrong in
+using part of Sunday for the purpose of instructing those who have no
+other leisure, in a knowledge of the phaenomena of Nature, and of man's
+relation to Nature?
+
+I should like to see a scientific Sunday-school in every parish, not
+for the purpose of superseding any existing means of teaching the
+people the things that are for their good, but side by side with them.
+I cannot but think that there is room for all of us to work in helping
+to bridge over the great abyss of ignorance which lies at our feet.
+
+And if any of the ecclesiastical persons to whom I have referred,
+object that they find it derogatory to the honour of the God whom they
+worship, to awaken the minds of the young to the infinite wonder and
+majesty of the works which they proclaim His, and to teach them those
+laws which must needs be His laws, and therefore of all things needful
+for man to know--I can only recommend them to be let blood and put on
+low diet. There must be something very wrong going on in the instrument
+of logic if it turns out such conclusions from such premises.
+
+       *       *       *       *       *
+
+Footnotes:
+
+ Mr. Quam's words (_Medical Times and Gazette_, February 20)
+are:--"A few words as to our special Medical course of instruction
+and the influence upon it of such changes in the elementary schools as
+I have mentioned. The student now enters at once upon several
+sciences--physics, chemistry, anatomy, physiology, botany, pharmacy,
+therapeutics--all these, the facts and the language and the laws of
+each, to be mastered in eighteen months. Up to the beginning of the
+Medical course many have learned little. We cannot claim anything
+better than the Examiner of the University of London and the Cambridge
+Lecturer have reported for their Universities. Supposing that at school
+young people had acquired some exact elementary knowledge in physics,
+chemistry, and a branch of natural history--say botany--with the
+physiology connected with it, they would then have gained necessary
+knowledge, with some practice in inductive reasoning. The whole studies
+are processes of observation and induction--the best discipline of the
+mind for the purposes of life--for our purposes not less than any. 'By
+such study (says Dr. Whewell) of one or more departments of inductive
+science the mind may escape from the thraldom of mere words.' By that
+plan the burden of the early Medical course would be much lightened,
+and more time devoted to practical studies, including Sir Thomas
+Watson's 'final and supreme stage' of the knowledge of Medicine."

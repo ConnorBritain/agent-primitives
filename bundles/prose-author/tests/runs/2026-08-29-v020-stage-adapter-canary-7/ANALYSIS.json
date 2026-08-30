@@ -1,0 +1,34 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "draft_words": 635,
+  "critic": {
+    "dispatched": false,
+    "reason": "The independent claim audit hard-rejected one sentence, so the locked safety boundary forbade critic dispatch."
+  },
+  "claim_audit": {
+    "hard_rejects": 1,
+    "rejected_sentence": "p2s4",
+    "rejected_text": "The device has a second owner, invisible and very much alive, sitting in a corporate control room.",
+    "assessment": "The sentence is an intelligible metaphor derived from the supplied retained-control premise; the audit treated its literal reading as an incoherent factual attribution despite the contract's metaphor rule."
+  },
+  "targets": [
+    { "measurement": "second-person-family", "aim": 14, "minimum": 8, "maximum": 28, "actual": 26, "pass": true },
+    { "measurement": "first-person-plural-family", "aim": 5, "minimum": 3, "maximum": 9, "actual": 5, "pass": true },
+    { "measurement": "contractions", "aim": 11, "minimum": 6, "maximum": 22, "actual": 20, "pass": true },
+    { "measurement": "uncontracted-negatives", "aim": 0, "minimum": 0, "maximum": 2, "actual": 0, "pass": true },
+    { "measurement": "profanity-vulgarity", "aim": 1, "minimum": 0, "maximum": 2, "actual": 1, "pass": true },
+    { "measurement": "first-person-singular-family", "aim": 4, "minimum": 3, "maximum": 8, "actual": 3, "pass": true },
+    { "measurement": "question-marks", "aim": 1, "minimum": 0, "maximum": 3, "actual": 2, "pass": true },
+    { "measurement": "round-parenthetical-spans", "aim": 4, "minimum": 2, "maximum": 7, "actual": 0, "pass": false },
+    { "measurement": "em-dashes", "aim": 0, "minimum": 0, "maximum": 1, "actual": 0, "pass": true },
+    { "measurement": "en-dashes", "aim": 3, "minimum": 1, "maximum": 5, "actual": 0, "pass": false }
+  ],
+  "silent_omission": {
+    "dimension": "opponents-allies-sources",
+    "profile_status": "described",
+    "draft_omitted_recorded": false
+  },
+  "conclusion": "Prompt-only self-counting remains unreliable. Use a deterministic measured report followed by one mandatory conformance revision, then perform the independent factual audit."
+}

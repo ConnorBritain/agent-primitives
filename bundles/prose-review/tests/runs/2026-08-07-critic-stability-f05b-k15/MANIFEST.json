@@ -1,0 +1,27 @@
+{
+  "critic": "fidelity",
+  "run_id": "2026-08-07-critic-stability-f05b-k15",
+  "prepared": "2026-08-07",
+  "draws": 15,
+  "agent_prompt": "primitives/agents/prose-fidelity-critic/agent.md",
+  "agent_sha256": "6b1257a8aac9bb09bf2ccd6a6dffe9127f30cd6bbb3bc43981c614afbd2c9921",
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "p-f05b-surgical-cut-restatement-sister",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f05b-surgical-cut-restatement-sister/original.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f05b-surgical-cut-restatement-sister/revision.md",
+          "sha256": "73b3a7c0fcc7207190be3f404c2b0849ef8ed5cd219619b90a0425bd06dba0b4"
+        }
+      ]
+    }
+  ]
+}

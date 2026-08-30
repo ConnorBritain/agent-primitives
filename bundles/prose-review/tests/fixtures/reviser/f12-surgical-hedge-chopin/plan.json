@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 40,
+        "quote": "Robert talked a good deal about himself. He was very young, and did not"
+      },
+      "change": "delete the word 'very' — 'Robert talked a good deal about himself. He was young, and did not'",
+      "reason": "voice-critic: narration states the fact; the intensifier adds emphasis the surrounding free-indirect style does not use"
+    }
+  ]
+}

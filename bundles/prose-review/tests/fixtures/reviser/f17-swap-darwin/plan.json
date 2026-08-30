@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 74,
+        "quote": "Having procured a black"
+      },
+      "change": "replace with 'Having obtained a black'",
+      "reason": "voice-critic: 'procured' is a register the corpus samples do not reach for; 'obtained' names the same act"
+    }
+  ]
+}

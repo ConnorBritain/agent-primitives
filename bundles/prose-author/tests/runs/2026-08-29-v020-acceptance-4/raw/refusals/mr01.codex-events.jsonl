@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a05095-4e47-7c92-aae9-2dfd5398bb85"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The request does not identify the problem, relevant facts, intended reader, occasion, or purpose. Please provide the problem discussed and who the piece is for; otherwise any draft would invent both its subject and register.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":18466,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":121,"reasoning_output_tokens":42}}

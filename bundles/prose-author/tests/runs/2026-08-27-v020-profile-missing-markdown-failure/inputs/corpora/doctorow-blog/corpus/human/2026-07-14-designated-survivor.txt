@@ -1,0 +1,84 @@
+---
+source: pluralistic.net (Cory Doctorow)
+title: Gerontocracy&#039;s failure mode
+author: Cory Doctorow
+date: 2026-07-14
+human_authored: true
+license: CC-BY-4.0
+permalink: https://pluralistic.net/2026/07/14/designated-survivor/
+---
+The "designated survivor" is one of the weirder aspects of America's (very, very weird) political system.
+
+Each year, during the State of the Union address, when both houses of Congress and the President are all under one roof, a single political figure, in the line of succession for the presidency, is spirited away to a hidden bunker, just in case the US legislative and administrative branches are decapitated in a single, spectacular terrorist strike:
+
+https://en.wikipedia.org/wiki/Designated_survivor
+
+Initiated during the 1950s, designated survivors are a paranoid relic of the Cold War, but they're also a relic of an era when America was a less chud-dominated, more technocratic land. It's a longtermist sort of procedure, in stark opposition to vibes-based MAGA chaos in which the Mad King makes daily announcements of new wars, tariffs, monuments, and existential threats to the nation.
+
+America's ruling class have always sought an equilibrium between its pure Id of hatred for labor, autocratic yearnings and apocalyptic fantasies, and its patient, scheming Ego, the author of endless FedSoc judicial nominee listings, Projects 2025, and decades-long schemes to overturn Roe and reverse the New Deal.
+
+(Democrats have their own version of this, of course – the endless contest between the McKinsey wing of the party's right and its infinitely embroidered Machin-Synematic Universe.)
+
+The problem is that once the atavistic, impulsive elements of your project escape containment, the resultant turbulence sucks everyone else into their chaotic vortex. How can you plan for anything when you're buffeted by endless stunts, feints, and distractions?
+
+Nowhere is this failure to plan more vivid than in the age distribution of both chambers of the US legislature, its presidential candidates, and its judicial appointments. What's more, this is equally true of the Democrats and the Republicans.
+
+The equilibrium of all of America's key institutions is brittle: legislative majorities are often just one or two seats wide. Key federal circuits and the Supreme Court are knife-edge balances. We keep getting presidential races between septuagenarians and octogenarians.
+
+The question here isn't whether old people can be good at those jobs. They obviously can be. The problem is actuarial: old people are far more likely to die, or suffer severe medical episodes, than younger people. This is a fact of life that every person understands, and the older you get, the better you understand it.
+
+I'm 55. 20 years ago, it was unusual for just one of my peers to die in a given year; now I lose a couple every year. It could be me next (my doctor just informed me that I am cancer free, following excision, radiotherapy and immunotherapy). Anyone who pretends this isn't true is setting themselves and the people around them up for terrible things.
+
+If you're a writer, this means making plans for the smooth management of your literary estate. For the past couple decades, John Scalzi has been my anointed literary executor. He's a great choice: a fabulous writer with a good head for business and a strong handle on my politics and artistic sensibility, whose personal ethics are above reproach. The only problem is that John is a couple of years older than me, which means that he'd be a great executor if I got hit by a bus tomorrow, but not if I keel over with a heart attack in 20 years.
+
+So this year, I added a second executor, Molly White, who is also a fantastic writer, also extremely ethical and also very attuned to my politics and literary sensibilities. Molly is 20 years younger than me, and she has relevant experience: she's also the executor of the literary estate of her great-grandfather (EB White).
+
+In the unlikely event of my untimely death, Molly and John will do a great job running the estate (which mostly will consist of reviewing my agents' recommendations). And if John keels over right after me, Molly will be fine on her own.
+
+Of course, the only reason I need a literary executor is that my kid is only 18. At 18, she's a remarkable, level-headed, ethical young person, but she's not yet fully formed. Literary history is filled with descendants who take over a literary estate and run it in terrible ways. The most notorious example here is Stephen Joyce, grandson of James Joyce and a colossal asshole:
+
+https://en.wikipedia.org/wiki/Stephen_James_Joyce
+
+The most likely destiny for my literary estate is that I will grow older alongside my daughter, who will mature in ways that make her a perfectly suitable literary executor (in addition to being the beneficiary of my literary estate) and in a few years I'll send a note of thanks to John and Molly and change the paperwork. But in the unlikely, awful event that my kid runs into serious challenges that make me question her judgment and probity, I'll be covered.
+
+That's what planning is all about: thinking through various scenarios, including low-likelihood, high-salience ones that have easy mitigations, and taking appropriate and proportionate steps to avoid disaster.
+
+You know: like squirreling away a designated survivor in a bunker far from DC during the State of the Union.
+
+This is what makes America's political gerontocracy so weird. In their true hearts, the nonagenarian (1), octogenarians (5), septuagenarians (27) and late sexagenarians (7) in the US Senate know that they could keel over at any moment, and that in a 53:47 Senate, this could spell doom for their political project.
+
+Sure, Mitch McConnell might be secretly dead and that's bad and weird. But it wouldn't be exceptional. We're talking about a legislature whose members sometimes disappear for months, only to be discovered in care homes with advanced dementia, while still somehow holding office:
+
+https://www.politico.com/news/magazine/2025/03/14/kay-granger-dementia-dc-media-00210317
+
+It's a legislature whose most prominent grandees cling to power at the very brink of death's door, long after they can be effective leaders, just so they can anoint their successor during the next election:
+
+https://en.wikipedia.org/wiki/Dianne_Feinstein#Personal_life
+
+Elections have consequences, but special elections, called after the sudden death of an elderly lawmaker, have wild consequences.
+
+Of course, anyone can die suddenly. 15 years ago, one of my dearest friends, a contemporary, went to bed in seeming perfect health and never woke up. He was only 44. I still miss him, every day:
+
+https://memex.craphound.com/2012/06/28/eulogy-for-erik-possum-man-stewart/
+
+But the likelihood this happening goes up the older you get, and once you cross a certain age threshold, the odds rise sharply. If you're part of a political project that's laying and executing long-term plans whose outcomes turn on hair-fine majorities, this should factor into your thinking. The failure to do so can throw everything you've worked for into disarray:
+
+https://prospect.org/2026/07/13/budget-consequences-of-lindsey-grahams-sudden-departure/
+
+It's not limited to the legislature, of course. The Supreme Court's slide into its role as handmaiden to totalitarianism began when the dying Ruth Bader Ginsburg refused to step down, because she wanted her successor to be picked by the first woman president:
+
+https://www.nytimes.com/2020/09/21/magazine/ginsburg-successor-obama.html
+
+The amazing thing here is that RBG made her name as a master strategist, but when it came to this incredibly consequential matter, she set strategy aside for hubris:
+
+https://radiolab.org/podcast/more-perfect-sex-appeal
+
+Security practitioners know that anyone can be hacked or scammed, and that the biggest vulnerability of all is to be so confident in your own procedures and discernment that you assume it could never happen to you. If you think you can't get scammed, you are a danger to yourself and others:
+
+https://pluralistic.net/2024/02/05/cyber-dunning-kruger/#swiss-cheese-security
+
+By the same token, any politician in their 70s or 80s who thinks that they can't suffer a stroke or heart attack or the kind of lapse that makes you freeze up during a presidential debate is a danger to their party, their politics and their nation:
+
+https://www.cbsnews.com/news/jill-biden-joe-biden-stroke-2024-debate-sunday-morning-interview/
+
+This isn't about how healthy or robust any given politician is or feels; this is about the cold reality of actuarial tables. The older I get, the more those actuarial tables factor into my own decision-making. The fact that our political classes seem to think that they can choose the time and manner of their passing is baffling.

@@ -1,0 +1,378 @@
+Public university in Zaria, Nigeria
+
+
+Ahmadu Bello University Zaria is a federal government research university in Zaria , Kaduna State , Nigeria . ABU was founded on 4 October 1962, as the pioneer university in Northern Nigeria . It was founded and named after the Sardauna of Sokoto , Alhaji Sir Ahmadu Bello , the first premier of Northern Nigeria.
+
+The university operates two campuses: Samaru (main) and Kongo in Zaria. There is a pre-degree school in Funtua, it is approximately 85 Kilometres from the main campus of the university. The Samaru campus houses the administrative offices and the faculties of physical sciences, life sciences, social sciences, arts and languages, education, environmental design, engineering, medical sciences, agricultural sciences and research centres. The Kongo campus hosts the faculties of Law and Administration. The Faculty of Administration consists of Accounting, Business Administration, Local Government and Development Studies as well as Public Administration. Additionally, the university is responsible for other institutions and programmes at other locations.
+
+The university runs a wide variety of undergraduate and graduate programmes, including affiliate degrees vocational programmes and remedial courses. It has a very robust medical programme that is backed by its own ABU Teaching Hospital, one of the largest teaching hospitals in Nigeria and Africa.
+
+In September 2021, the university moved the departments of Insurance and Actuarial science, Accounting and Business Administration from Kongo to the Business school at its Samaru Campus.
+
+
+Faculties
+
+
+
+The university has thirteen faculties:
+
+Faculty of Environmental design ABU University.
+Faculty of Administration
+
+Faculty of Agriculture
+
+Faculty of Arts
+
+Faculty of Education
+
+Faculty of Engineering
+
+Faculty of Environmental Design
+
+Faculty of Law
+
+Faculty of Life Science
+
+Faculty of pharmaceutical Science
+
+Faculty of Physical Science
+
+Faculty of Social Science
+
+Faculty of Veterinary Medicine
+
+
+Faculty of Medicine
+
+
+
+The Faculty of Medicine was upgraded to the College of Medical Sciences in 2018, with five faculties;
+
+Faculty of Basic Medical Science
+
+Faculty of Basic Clinical Science
+
+Faculty of Clinical Science
+
+Faculty of Dentistry
+
+Faculty of Allied Health Sciences .
+
+
+The university also has a Division of Agricultural Colleges (DAC), a research institution established before the university, but later merged with the university. Apart from faculties, the university also has institutes affiliated to it. They are:
+
+Institute of Education
+
+Institute for Agricultural Research
+
+Institute of Administration
+
+Iya Abubakar Institute of ICT
+
+Institute of Development Research and Training
+
+National Animal Production Research Institute
+
+
+Library
+
+
+
+Kashim Ibrahim Library is an academy library that serves the students and academic staff of Ahmadu Bello University, Zaria, Kaduna. It is located at the main campus of the university with other satellite libraries in different campuses within the university. The library has over 1.2 millions books with over 66000 periodicals titles, online databases, CD-ROM search room, and Learning commons in their collections. Currently, the Library has over ten divisions for effective services to the university community.
+
+Front view of Kashim Ibrahim Library, ABU Zaria
+The genesis of Kashim Ibrahim Library dates back to 1955 when the university came into existence. Then it was a small room which was later converted to a staff club. The small library served until 1963, when a modern library was built at the cost of $39,000. The library was named after the then-governor of the state. The library has a capacity of 70,000 books with 120 users at any time. The library was named after the governor Sir Kashim Ibrahim in 1963. Presently, the library management are working hard to upgrade the information technology skills of its staff to meet the 21st century skills of Librarians. Online databases, off-line, and CD-Rom searches are the features among staff and students of the university.
+
+History
+
+
+
+Foundation and first years
+
+
+
+As Nigeria approached independence on October 1, 1960 , it had only a single university: the University of Ibadan , established in 1948. The important Ashby Commission report (submitted a month before independence) recommended adding new universities in each of Nigeria's then-three regions and the capital, Lagos . Even before the report, the regional governments had begun planning to have universities. In May 1960, the Northern Region had upgraded the School of Arabic Studies in Kano to become the Ahmadu Bello College for Arabic and Islamic Studies. (The college was named after the region's dominant political leader, Alhaji Sir Ahmadu Bello.)
+
+The Ashby Commission report recommendations gave a new impetus and direction. It was ultimately decided to create a University of Northern Nigeria at Zaria (rather than Kano). The university would take over the facilities of the Nigerian College of Arts, Science and Technology at Samaru just outside Zaria , and would incorporate the Ahmadu Bello College in Kano , the Agricultural Research Institute at Samaru, the Institute of Administration at Zaria, and the Veterinary Research Institute at Vom on the Jos Plateau . The law establishing the new university was passed by the Northern Region legislature in 1961. It was decided to name the university after Ahmadu Bello, and the Kano college took the name of Abdullahi Bayero , a past Emir of Kano.
+
+At the opening on 4 October 1962, thanks in part to absorbing existing institutions, ABU claimed four faculties comprising 15 departments. Students in all programmes numbered only 426.
+
+Department of Micro Biology ABU Zaria.
+The challenges were enormous. Over 60 years of British colonial rule, education in the Northern Region had lagged far behind that of the two southern regions. Few students from the north had qualifications for university entrance, and fewer still northerners had qualifications for teaching appointments. Of the original student body, only 147 were from the north.
+
+ABU's first vice chancellor (principal administrator and leader) was British, as were most of the professorial appointments. Only two Nigerians — Dr. Iya Abubakar (Mathematics) and Adamu Baikie (Education) — were among the earliest round of faculty appointments. Facilities on the main Samaru campus were inadequate, and the administration and integration of the physically separated pre-existing institutions was difficult.
+
+Nevertheless, under the vice chancellorship of Dr. Norman Alexander , academic and administrative staffing was developed, new departments and programmes were created, major building plans were undertaken, and student enrollments grew rapidly. By the end of Alexander's tenure (1965–66), almost 1,000 students were enrolled. The New Zealand -born Alexander, from 1966, became a kind of "freelance vice-chancellor", offering his expertise to help in the setting up of other Commonwealth universities in the West Indies , Fiji and Africa.
+
+Development through the middle 1970s
+
+
+
+In 1966, Dr. Alexander was succeeded as ABU vice chancellor by Dr. Ishaya Shuaibu Audu , a pediatrician and associate professor at the University of Lagos . Audu had been born in Wusasa, near Zaria, in 1928. A native Hausa, he was ABU's first Nigerian vice chancellor and a northerner. However, his membership in the Hausa Christian community of Wusasa probably had some later impact on his tenure.
+
+ABU was seriously affected by the coups and the anti-Igbo riots of 1966. But, under Dr. Audu's leadership, ABU was to grow and develop at an even faster pace. Growth in student enrollments had been held hostage to growth and development of A-level training at the secondary school level. So beginning in 1968–69 ABU broke free from the British three-year heritage and established the School of Basic Studies to provide advanced secondary pre-degree training on campus. Students who entered through the School of Basic Studies essentially embarked on a four-year program toward a bachelor's degree.
+
+Opposed initially by some, the school proved a great success and enrollments expanded even more rapidly. By its tenth year ABU total enrollments including non- and pre-degree programs were put at over 7,000 of which more than half were in degree programs. In its first ten years, the University of Ibadan produced 615 graduates. At ABU the corresponding figure after 10 years was 2,333 first degrees, along with several advanced degrees.
+
+
+From the beginning, ABU was remarkable for the breadth of its ambition. In its institutions, but mainly on or close by the main campus by Samaru, ABU was creating a range of programmes that only the very most comprehensive of U.S. state universities could have matched. Ranging far beyond the standard fields of the arts, languages, social sciences and sciences, it included engineering, medicine (the Zaria hospital was an ABU teaching hospital), pharmacy, architecture, and a wide variety of agricultural departments including veterinary medicine.
+
+What was called the Kongo campus just outside the old city in Zaria taught public administration and carried out a programme of in-service training for local government throughout the north. The Faculty of Law was based at the Kongo campus. The Faculty of Education taught education courses and managed the Advanced Teacher's Colleges in the northern states. At the Kano campus (now called Abdullahi Bayero College) ABU taught courses in Hausa, Arabic and Islamic studies.
+
+ABU was likewise remarkable among Nigeria's universities for the breadth and national character of its student recruitment. ABU had been founded to be the University of Northern Nigeria. Yet, more than any other of Nigeria's universities, ABU has served students from every state of the Nigerian federation.
+
+Professorial staffing to serve the burgeoning student enrollments and course offerings was a potential limitation during this period. In the early 1970s relatively abundant funding made it possible to send some senior academic staff to overseas institutions to complete advanced degrees. A small but increasing number of Nigerians with Ph.D.s or other advanced degrees were returning from abroad (but ABU had to compete with other Nigerian universities to recruit them). In the meantime, appointment of expatriate teaching staff was essential and it expanded greatly and diversified in nationalities. Vice chancellor Audu endeavored to balance the goals of Nigerianization (and "northernization") of ABU's professors with the commitment to maintaining all programmes at an international level of academic quality.
+
+By 1975, this balance was strained. The teaching faculty remained more than half expatriate overall; at senior levels still more so. The development of Nigerian staffing (and especially of northern-origin teaching staff) was perceived as too slow. In 1975, ABU turned toward a much heavier emphasis on internal staff development as it adopted the Graduate Assistantship programme. Under this programme, the best graduates from the departments’ undergraduate programmes are recruited to join the department as staff-in-training and undertake advanced training as they gain on-the-job experience. Within a few years, a significant proportion of ABU senior staff were products of the internal training programme. From 1975, the proportion of expatriate teaching staff diminished rapidly.
+
+Later development
+
+
+
+Amina hall of residence ABU By the end of the vice chancellorship of Ishaya Audu (mid-1975), ABU was solidly established as Nigeria's largest university and among Africa's academically strongest university institutions [ citation needed ] . Its strong growth continued But was increasingly buffeted by external events and challenges. No vice-chancellorship has been as long or as successful) as that of Ishaya Audu . Beginning in the early 1980s, ABU was hit with sharply reduced funding as the International Monetary Fund and the World Bank imposed the Structural Adjustment Programme on the country. Accordingly, the value of the national currency plummeted in relation to international currencies. Staff salaries were reduced rapidly in cost-of-living terms, and funding for facilities, library acquisitions, and other necessary resources was abruptly curtailed. Further, ABU increasingly competed for students, staff and funding with all the other institutions in the rapidly expanding Nigerian university system .
+In May 1986 the security forces killed around 20 demonstrators and bystanders at ABU, in order to prevent a peaceful demonstration against the implementation of the Structural Adjustment Programme. Over the years, ABU has been affected by national political instability. The very fact of ABU's strikingly "national character" (in drawing students and staff from an unusually broad range of Nigeria's regional, ethnic and religious communities) might be the reason the institution is inclined to internal instability. Hence, ABU has been among Nigeria's universities that have suffered most from closures.
+
+Ahmadu Bello University Zaria Senate Building, August 2021
+Yet ABU continues to occupy a particularly important place among Nigerian universities. As it approaches its half-century anniversary, ABU can claim to be the largest and the most extensive of universities in Sub-Saharan Africa. It covers a land area of 7,000 hectares (27 mi 2 ) and encompasses 12 academic faculties, a postgraduate school and 82 academic departments. It has five institutes, six specialized centers, a Division of Agricultural Colleges, demonstration secondary and primary schools, as well as extension and consultancy services which provide services to the wider society. The total student enrollment in the university's degree and sub-degree programme is about 35,000, drawn from every state of Nigeria, Africa, and the rest of world. There are about 1,400 academic and research staff and 5,000 support staff.
+
+The university has nurtured two new institutions: Bayero University Kano and the Abubakar Tafawa Balewa University of Technology, Bauchi. Some 27 tertiary institutions made up of colleges of education, polytechnics and schools of basic or preliminary studies are affiliated to it.
+
+Despites the numerous achievements of this reputable institution, there are some challenges that the Institution faces. These challenges vary from one section to another. For instance, in terms of infrastructure, the school does not have enough classrooms for the students from some sections. Based on that, clashes occur on venues especially in the morning when most classes hold. Again, even for sections that have classrooms, those classes tend to be unfit for the number of the students.
+Another challenge that has not yet been checked relating to infrastructure is that of hostels or Hall of residence as it's widely known. The hostels available for students are not capable of accommodating all the students interested in residing within the campus. As a result of that, many new students are stranded on the campus especially at the beginning of the session, and others that are lucky get squatting spaces with friends and family that have already gotten hostels.
+
+Administration
+
+
+
+
+Ahmadu Bello University has a chancellor as its ceremonial head, while the vice-chancellor is the chief executive and academic officer. The vice-chancellor is usually appointed for a five-year, non-renewable term. The 14th and current vice-chancellor, Professor Ibrahim Garba , took office on 1 May 2015. Below is the tabulated list of all ABU vice-chancellors. The number 8 in the series is a sole-administrator appointed by then head of state Sani Abacha after a major conflict.
+
+
+Notable alumni
+
+
+
+
+The Ahmadu Bello University is notable for producing prominent people and Nigerian leaders, including many former and current state governors and ministers. Amongst the alumni are:
+
+Magaji Abdullahi , former national chairman of the National Centre Party of Nigeria (NCPN), former senator, former deputy governor
+
+Alash'le Abimiku , executive director of the International Research Centre of Excellence at the Institute of Human Virology Nigeria
+
+Muhammed K. Abubakar , academic, former minister
+
+Mohammed Bello Adoke , former Minister of Justice & Attorney General of the Federation
+
+Ahmed Abdullah , OON, former Agriculture and Rural Development Minister
+
+Atiku Abubakar GCON, former vice president, Federal Republic of Nigeria
+
+Yayale Ahmed , former secretary to the Government of the Federation
+
+Aisha Alhassan , former minister of women affairs
+
+Adamu Aliero , former governor, Kebbi State
+
+Solomon Arase , former IGP , Nigeria Police Force
+
+Ayodele Awojobi , scientist and professor at University of Lagos
+
+Sunday Awoniyi , Northern Yoruba Leader, former chairman ACF
+
+Anthony Ayine , auditor general for the Federation
+
+Ahmed Nuhu Bamalli Current Emir of Zazzau and former Ambassador to Thailand
+
+Mohammed Bawa , former Ekiti State governor
+
+Yahaya Bello , governor, Kogi state
+
+Franca Brown , actress.
+
+Maryam Ciroma , former Minister of Women Affairs
+
+Yahaya Abubakar Abdullahi , Senate Majority Leader of the Nigerian 9th National Assembly
+
+Ibrahim Hassan Dankwambo , former governor, Gombe State
+
+Usman Saidu Nasamu Dakingari , former governor, Kebbi State
+
+Lawal Musa Daura , former director general, Nigerian State Security Service
+
+Oladipo Diya , GCON, former vice president/CGS, Federal Republic of Nigeria
+
+Ibrahim Hussaini Doko , DG of Raw materials Nigeria
+
+Donald Duke , former Cross River state governor
+
+Afakriya Gadzama , former Director General Nigerian State Security Service
+
+Ibrahim Gaidam , former governor, Yobe State
+
+Jerry Gana , former information minister
+
+Abubakar Ibn Umar Garba , Shehu of Borno
+
+Ibrahim Garba , former vice chancellor (ABU)
+
+Kabiru Ibrahim Gaya , former Kano state governor
+
+Isa Marte Hussaini , professor, pharmacologist
+
+Bukar Ibrahim , former governor, Yobe State
+
+Ibrahim Kpotun Idris , former IGP , Nigeria Police Force
+
+Catherine Uju Ifejika , chairman and CEO, Brittania-U Limited
+
+Azubuike Ihejirika , former Chief of Army Staff
+
+Attahiru Jega , professor, former chairman, Independent National Electoral Commission (INEC)
+
+Zainab Abdulkadir Kure , politician
+
+Aisha Augie-Kuta , photographer
+
+Idris Legbo Kutigi , former chief justice of Nigeria
+
+Shehu Ladan , former group MD, NNPC
+
+Sanusi Lamido , former governor Central Bank of Nigeria , former Emir of Kano
+
+Ibrahim Lamorde , former chairman, EFCC
+
+Rilwanu Lukman , former secretary general OPEC & Petroleum Minister
+
+Muhammad Nasirudeen Maiturare , professor, former vice Chancellor, IBBUL, Niger State
+
+Ahmed Makarfi , former Kaduna state governor
+
+Umaru Tanko Al-Makura , former governor, Nasarawa State
+
+Dino Melaye , senator, Kogi West
+
+Ahmed Tijjani Mora , pharmacist, president of ABU Alumni Association
+
+Faruk Imam Muhammad , justice, Kogi state Judiciary
+
+Magaji Muhammed OFR, former Minister of Internal Affairs, former Minister of Industries and former Ambassador to the Kingdom of Saudi Arabia
+
+Mansur Muhtar , former executive director of the World Bank
+
+Dahiru Musdapher , former chief justice of Nigeria
+
+Abdullahi Mustapha , former vice chancellor (ABU)
+
+Ghali Umar Na'Abba , former Speaker, House of Representatives
+
+Usman Bayero Nafada , former deputy speaker, House of Representatives
+
+Muhammad Mamman Nami , Executive Chairman, Federal Inland Revenue Service FIRS
+
+Rebecca Ndjoze-Ojo , Namibian, politician
+
+Demas Nwoko , artist and architect
+
+Olufemi Obafemi , Poet, Playwright, and Author
+
+Samuel Oboh , architect
+
+Gani Odutokun , artist and educator
+
+Uche Okeke , artist and educator
+
+Mike Omotosho , national chairman of the Labour Party (Nigeria)
+
+Bruce Onobrakpeya , artist
+
+Samuel Ortom , former Minister of State Trade and Investments
+
+Jude Rabo , vice-chancellor of Federal University, Wukari
+
+Nuhu Ribadu , former chairman, EFCC
+
+Nasir Ahmad el-Rufai , governor of Kaduna State
+
+Aminu Safana , doctor/politician
+
+Namadi Sambo , former vice president of Nigeria
+
+Faisal Shuaib , medical doctor, Executive Director and Chief Executive Officer of Nigeria's National Primary Health Care Development Agency
+
+Ibrahim Shekarau , former Kano state governor
+
+Ibrahim Shema , former governor, Katsina State
+
+Abdullahi Aliyu Sumaila , administrator
+
+Ussif Rashid Sumaila , economist
+
+Danbaba Suntai , former governor, Taraba State
+
+Ibrahim Umar , former vice chancellor and scientist
+
+Patrick Ibrahim Yakowa , former governor Kaduna state
+
+Nenadi Usman , former finance minister
+
+Shamsuddeen Usman , former Minister of National Planning
+
+Auwal H Yadudu Nigerian academician and Vice-Chancellor of the Federal University, Birnin Kebbi, Kebbi State
+
+Andrew Yakubu , former group MD, NNPC
+
+Turai Yar'Adua , former first lady
+
+Umaru Musa Yar'Adua , GCFR, former president of Nigeria
+
+Isa Yuguda , former governor, Bauchi State
+
+Ibrahim Zakzaky prominent Shi'ite-Islam cleric, founder Islamic Movement in Nigeria
+
+Saddiq Dzukogi , poet and professor of English, Mississippi State University
+
+
+Alumni Association
+
+
+
+
+Ahmadu Bello University Alumni Association is an alumni organization for former students of the Ahmadu Bello University. The alumni association is often represented by the national president of the association in the governing council of the university. This is necessary for the association to make a direct input into the university's policies.
+
+The national body of the association currently has 17 National Executive Committee (NEC) members who manage the affairs of the association in alignment with the provisions of the association constitution.
+The incumbent national president of the alumni association is Ahmed Tijani Mora , a renowned pharmacist and former registrar and chief executive officer of the Pharmacists Council of Nigeria .
+
+History
+
+
+
+The alumni association was founded in the early 1960s by the graduating class which included architect Chief Fola Alade , Chief Lai Balogun and Professor Ayodele Awojobi .
+Today, the alumni association has branches across the federation with the secretariat at Ahmadu Bello University, Zaria. Since the inception of the association, the governing council of Ahmadu Bello University has maintained a strong working relationship with the association with the aim of developing the university. Initially, the association was under the supervision of the deputy vice chancellor of the university. Today it is directly under the office of the vice chancellor and supervised by the vice chancellor.
+
+See also
+
+
+
+List of universities in Nigeria
+
+Saratu Iya Aliyu
+
+
+References
+
+
+
+
+
+
+External links
+
+
+
+Official website
+
+Faculty of Administration
+
+Faculty of Agriculture
+
+Faculty of Arts

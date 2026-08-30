@@ -1,0 +1,77 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "Choice screens are often presented as modest competition measures.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Choice-screen proposals are commonly premised on displaying several services, allowing users to select one, and relying on that selection to produce market competition.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Platforms can make technical integration, billing support, or safety review conditions of eligibility for a choice screen.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Platforms can determine whether a service qualifies before launch or only after a delay.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Platforms can control the labels used to describe services on choice screens.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Defaults convert the design of a choice screen into corresponding user behavior.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "First position, highlighted buttons, and preselected services reduce the effort users need to continue through a choice flow.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Selecting alternatives on choice screens generally requires an additional tap or decision.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Selecting an alternative may trigger an additional warning.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Small interface frictions can accumulate to produce a meaningful behavioral burden.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Defaults can reduce user confusion.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Defaults can help devices function immediately, especially during setup.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Providers listed on choice screens compete to be selected.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Gatekeepers controlling choice screens also control providers' access to the selection process, including updates and removal.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Gatekeepers can collect information about which options succeed on a choice screen.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Gatekeepers can use option-performance information to revise choice-screen design and thereby obtain a feedback advantage.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "The proposed oversight safeguards protect rival companies from harmful gatekeeper treatment.",
+      "where": "paragraph 9"
+    },
+    {
+      "claim": "The proposed oversight safeguards protect buyers' ability to choose an alternative service that can function.",
+      "where": "paragraph 9"
+    }
+  ]
+}

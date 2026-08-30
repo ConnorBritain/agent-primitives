@@ -1,0 +1,300 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 84833,
+  "duration_api_ms": 84822,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "c4323fa4-cfa4-4970-a2ae-aa546e1ee166",
+  "total_cost_usd": 0.09733605000000001,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 7153,
+    "cache_read_input_tokens": 6361,
+    "output_tokens": 4573,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7153,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 4573,
+      "cacheReadInputTokens": 6361,
+      "cacheCreationInputTokens": 7153,
+      "webSearchRequests": 0,
+      "costUSD": 0.09733605000000001,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/3",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Title sentence; states the thesis as a conceptual claim. No external descriptive premise is added. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Defines analytically what a choice screen can do and who holds residual control. All clauses are definitional or conditional ('can offer', 'leaving … exactly where it was'); no external factual premise is asserted. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Explains why the distinction matters to developers. 'Can make … look open' is a capability conditional, not an asserted fact about real actors. 'Important decisions happened before the user arrived' follows from the definition in p1s2. No external premise added. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "Section heading posed as a rhetorical question. No descriptive premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Direct answer to the rhetorical question; 'not initially' qualifies the claim appropriately as definitional. No external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Lists categories of gatekeepers conceptually (platform operator, device maker, etc.) as a definitional taxonomy. No specific actor or market is asserted as fact. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Enumerates the selector's powers as logical implications of control over the surface. All clauses follow from the definitional framework established in p2s3. No external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "Draws an inference about the developer's role versus the architectural question of who defines the available world. Conditional framing ('may implement'); no external factual claim. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Transitional sentence extending the argument to defaults. No external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "Negates a narrow definition of a default as mere convenience. Definitional reasoning; no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Provides an analytical characterisation of a default ('recommendation with momentum') with illustrative examples (preselected browser, first-listed provider, etc.) as conceptual instances, not asserted facts about named actors. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "disclose",
+        "reason": "Labeled reasoning, but introduces two external descriptive premises: (1) the behavioral claim that many users will not change a default, and (2) a causal explanation that non-switching is driven by attention cost, time cost, and confidence deficit. These are not derived from prior definitions; they assert facts about real user populations and causal mechanisms, constituting broad generalizations with no ledger support.",
+        "claims": [
+          {
+            "claim": "Many users who encounter a default setting will not change it.",
+            "evidence": "many will not",
+            "kind": "broad-generalization",
+            "verification_question": "Is there empirical evidence (e.g., studies on default persistence) showing that a substantial majority or large share of users leave defaults unchanged?"
+          },
+          {
+            "claim": "Users fail to change defaults primarily because doing so requires attention, time, and confidence that the alternative will work as well.",
+            "evidence": "changing it takes attention, time, and confidence that the alternative will work as well",
+            "kind": "broad-generalization",
+            "verification_question": "What research or evidence identifies attention cost, time cost, and performance uncertainty as the principal reasons users do not change defaults?"
+          }
+        ]
+      },
+      {
+        "id": "p3s5",
+        "status": "keep",
+        "reason": "Draws a logical inference ('therefore') from p3s3–p3s4: if one option is ready and others require a decision, effort is distributed unevenly. The 'one option is ready; the others require a decision' clause restates the definition of a default given above. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p3s6",
+        "status": "keep",
+        "reason": "Concludes from p3s5 that uneven effort distribution shapes behaviour before preference operates. This is an inferential step from the prior reasoning chain, not a new external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Opens a definitional section on market choice; normative/analytical framing with no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "States three constitutive conditions for market choice (fair reach, comparable information, no quiet punishment). These are analytical criteria, not assertions about what courts, laws, or companies currently require or do. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Presents a conditional scenario ('If one provider is placed first … ') to illustrate how structural advantage persists despite multiple names. Conditional framing; no external factual assertion. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Draws the logical conclusion from p4s3: plurality of display does not imply plurality of outcome. Analytical inference; no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Labels the mechanism described in the preceding paragraph. Analytical summary sentence; no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Describes what the gatekeeper 'can' do—conditional capability, not an assertion that specific named actors in fact do this. Enumerates retained controls as logical implications of the definitional framework. Parenthetical restates the conceptual argument. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Restates the distinction between user decision and system control as a logical inference from p5s2. No external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Uses 'when … still depends on' as a conditional illustration of the developer's experience rather than a frequency claim about all or most developers. The conditions listed (approval, ranking, documentation, technical access) are drawn from the definitional taxonomy established earlier. No external factual premise added. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Introduces a counter-argument as a rhetorical device. No external premise; 'predictable' is an argumentative characterisation, not a claim about a real actor or survey. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "States a conceptual distinction between formal and usable availability. Definitional reasoning; no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Elaborates the distinction with conditional descriptors (hard to find, difficult to configure, etc.) applied hypothetically to a generic option. No specific actor or product asserted. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Identifies the flaw in the counter-argument: treating clicks as equivalent. Logical critique; no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "States an analytical definition: friction is policy expressed through interface design. This is a conceptual/argumentative proposition, not an assertion about what companies, courts, or regulators currently do. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Normative proposition recommending structural change rather than surface-level addition. No descriptive claim about what real actors currently do. Basis is normative.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Normative recommendation that the selector disclose criteria and relationships. No claim about what any law or company currently requires or does. Basis is normative.",
+        "claims": []
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Normative recommendation about default contestability and reversibility. No descriptive claim about existing legal or industry practice. Basis is normative.",
+        "claims": []
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Normative recommendation for interoperability and portability. No claim about what existing laws or platforms currently provide. Basis is normative.",
+        "claims": []
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "Draws the logical implication that an incomplete remedy will be cosmetic. Conditional reasoning from the normative criteria stated above; no external factual premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Evaluative characterisation of the standard as both demanding and simple. Analytical meta-comment; no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative recommendation formulated as three diagnostic questions. No claim about what real actors currently do. Basis is normative.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Logical conclusion from p8s2: if the gatekeeper can steer, choice is not surrendered. Conditional inference; no external premise. Basis is reasoning.",
+        "claims": []
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Normative recommendation directed at product teams and policymakers. No claim about what they currently measure or require. Basis is normative.",
+        "claims": []
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "Closes with a definitional conditional restating the thesis: a choice screen becomes market choice only under the stated structural condition. Analytical and normative; no external factual premise. Basis is reasoning.",
+        "claims": []
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "81844fe5-9632-45c3-8e04-18ef2ff780f0",
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "674e3fe141ade25d4c990bcaef2d075ea8256859a33cd9ec53e81fceead79552"
+  },
+  "acceptance_input": {
+    "system_sha256": "345f1aee0589898cd7357d3850370e678f36c696cf48e24b5d416d3d544992a6",
+    "prompt_sha256": "6695d3e84ba1a26739103aa42519d03c0dc194d6d7a548b7c599d639fb79cafd",
+    "schema_sha256": "67587e09fc9fd9751164e9a1b9e59cd962417dc3c5a191147a1eba095e1b1c44"
+  }
+}

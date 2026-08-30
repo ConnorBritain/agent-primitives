@@ -1,0 +1,194 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"The user receives a menu, but the gatekeeper has already drawn its borders.\",\"after\":\"The user receives a menu—but the gatekeeper has already drawn its borders.\",\"reason\":\"Adds a measured em-dash pivot while preserving the sentence.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"Convenience matters, and it’s not a trivial benefit. But convenience cannot be separated from control when the same company selects the options, writes the interface, and governs the path to installation (a browser, operating system, or app store).\",\"after\":\"Convenience matters—and it’s not a trivial benefit. But convenience can't be separated from control when the same company selects the options, writes the interface, and governs the path to installation (a browser, operating system, or app store).\",\"reason\":\"Recasts one full negative as a contraction and adds a measured em-dash pivot.\",\"coverage_dimensions\":[\"contraction-negation\",\"interruption-punctuation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\",\"em-dashes\"]},{\"before\":\"What does that choice mean if the selected service cannot reach the same users, use the same device functions, or compete on the same terms? The question is not whether an alternative appears on the screen. The question is whether the alternative can operate without asking the gatekeeper for special treatment.\",\"after\":\"What does that choice mean if the selected service can't reach the same users—use the same device functions, or compete on the same terms? The question isn't whether an alternative appears on the screen. The question is whether the alternative can operate without asking the gatekeeper for special treatment.\",\"reason\":\"Recasts two full negatives as contractions and adds a measured em-dash interruption.\",\"coverage_dimensions\":[\"contraction-negation\",\"interruption-punctuation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\",\"em-dashes\"]},{\"before\":\"A legal disclaimer won’t solve that problem. A disclaimer can describe a menu; it cannot create an open market. Nor can a company claim that every option is equal when its own defaults determine what people see first, what they learn to use, and what they must overcome to leave (the button the interface presents as normal).\",\"after\":\"A legal disclaimer won’t solve that problem. A disclaimer can describe a menu—it can't create an open market. Nor can a company claim that every option is equal when its own defaults determine what people see first, what they learn to use, and what they must overcome to leave (the button the interface presents as normal).\",\"reason\":\"Recasts one full negative as a contraction and adds a measured em-dash pivot.\",\"coverage_dimensions\":[\"contraction-negation\",\"interruption-punctuation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\",\"em-dashes\"]},{\"before\":\"The governing principle is straightforward: a choice screen is meaningful only when the choices can compete. If the system still controls access, defaults, data, and switching, the menu is a smokescreen (not merely a menu). Lawmakers should not impose remedies that leave that structure untouched, and they should not mistake a visible list for public control (including the cost of switching). If you want that principle enforced, contact the lawmakers responsible for the rules and ask what power the screen leaves in the gatekeeper’s hands.\",\"after\":\"The governing principle is straightforward: a choice screen is meaningful only when the choices can compete. If the system still controls access, defaults, data, and switching, the menu is a smokescreen (not merely a menu). Lawmakers shouldn't impose remedies that leave that structure untouched—and they shouldn't mistake a visible list for public control (including the cost of switching). If you want that principle enforced, contact the lawmakers responsible for the rules and ask what power the screen leaves in the gatekeeper’s hands.\",\"reason\":\"Recasts two full negatives as contractions and adds a measured em-dash pivot.\",\"coverage_dimensions\":[\"contraction-negation\",\"interruption-punctuation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\",\"em-dashes\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The existing reader address and institutional we remain unchanged.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"revised\",\"reason\":\"The edits move full negatives toward range while preserving contracted exposition.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"Existing explicit qualifications remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"Question marks remain unchanged and in range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"No verified opposing position, named ally, or source is supplied.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile provides no supported instruction.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"Collective institutional reference remains clear and singular self-reference remains absent.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"revised\",\"reason\":\"The edits add five em-dash pivots while preserving parenthetical spans and the en-dash absence.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"Existing concrete explanatory comparisons remain unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The title, institutional opening, headings, and action-oriented closure remain unchanged.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources; observation_ids: o11\",\"why\":\"The request supplies no verified opposing position, named ally, or source to attribute; adding one would require inventing material.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "The user receives a menu, but the gatekeeper has already drawn its borders.",
+        "after": "The user receives a menu—but the gatekeeper has already drawn its borders.",
+        "reason": "Adds a measured em-dash pivot while preserving the sentence.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "Convenience matters, and it’s not a trivial benefit. But convenience cannot be separated from control when the same company selects the options, writes the interface, and governs the path to installation (a browser, operating system, or app store).",
+        "after": "Convenience matters—and it’s not a trivial benefit. But convenience can't be separated from control when the same company selects the options, writes the interface, and governs the path to installation (a browser, operating system, or app store).",
+        "reason": "Recasts one full negative as a contraction and adds a measured em-dash pivot.",
+        "coverage_dimensions": [
+          "contraction-negation",
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives",
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "What does that choice mean if the selected service cannot reach the same users, use the same device functions, or compete on the same terms? The question is not whether an alternative appears on the screen. The question is whether the alternative can operate without asking the gatekeeper for special treatment.",
+        "after": "What does that choice mean if the selected service can't reach the same users—use the same device functions, or compete on the same terms? The question isn't whether an alternative appears on the screen. The question is whether the alternative can operate without asking the gatekeeper for special treatment.",
+        "reason": "Recasts two full negatives as contractions and adds a measured em-dash interruption.",
+        "coverage_dimensions": [
+          "contraction-negation",
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives",
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "A legal disclaimer won’t solve that problem. A disclaimer can describe a menu; it cannot create an open market. Nor can a company claim that every option is equal when its own defaults determine what people see first, what they learn to use, and what they must overcome to leave (the button the interface presents as normal).",
+        "after": "A legal disclaimer won’t solve that problem. A disclaimer can describe a menu—it can't create an open market. Nor can a company claim that every option is equal when its own defaults determine what people see first, what they learn to use, and what they must overcome to leave (the button the interface presents as normal).",
+        "reason": "Recasts one full negative as a contraction and adds a measured em-dash pivot.",
+        "coverage_dimensions": [
+          "contraction-negation",
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives",
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "The governing principle is straightforward: a choice screen is meaningful only when the choices can compete. If the system still controls access, defaults, data, and switching, the menu is a smokescreen (not merely a menu). Lawmakers should not impose remedies that leave that structure untouched, and they should not mistake a visible list for public control (including the cost of switching). If you want that principle enforced, contact the lawmakers responsible for the rules and ask what power the screen leaves in the gatekeeper’s hands.",
+        "after": "The governing principle is straightforward: a choice screen is meaningful only when the choices can compete. If the system still controls access, defaults, data, and switching, the menu is a smokescreen (not merely a menu). Lawmakers shouldn't impose remedies that leave that structure untouched—and they shouldn't mistake a visible list for public control (including the cost of switching). If you want that principle enforced, contact the lawmakers responsible for the rules and ask what power the screen leaves in the gatekeeper’s hands.",
+        "reason": "Recasts two full negatives as contractions and adds a measured em-dash pivot.",
+        "coverage_dimensions": [
+          "contraction-negation",
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives",
+          "em-dashes"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing reader address and institutional we remain unchanged."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "revised",
+        "reason": "The edits move full negatives toward range while preserving contracted exposition."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing explicit qualifications remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "Question marks remain unchanged and in range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified opposing position, named ally, or source is supplied."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile provides no supported instruction."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "Collective institutional reference remains clear and singular self-reference remains absent."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "revised",
+        "reason": "The edits add five em-dash pivots while preserving parenthetical spans and the en-dash absence."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing concrete explanatory comparisons remain unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The title, institutional opening, headings, and action-oriented closure remain unchanged."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources; observation_ids: o11",
+        "why": "The request supplies no verified opposing position, named ally, or source to attribute; adding one would require inventing material."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m05.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m05.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "556d951360feb00dbfdb4f23c2ca9bf5f88534afc2f9ff910915684498afb888",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "03df0bfd23242a011448f6fec4acc2d23f27bd8917f62a8184b7689c3d6c9648",
+      "profile_markdown_sha256": "219973f9239d1b2b6b7372cc7eec315474197a8f7a0f0370eeb2ad27a4f6a263",
+      "profile_json_sha256": "47d5d0e1c89b5f61842093b09a397f04931fc8ad04d0933fbf7e461abbdc3b6c"
+    }
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12",
+      "why": "The request supplies no verified named source, quotation, or opponent position to introduce or test."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "In transactions involving maker-controlled devices, buyers ordinarily pay money across a retail counter.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Devices sold under such arrangements ordinarily arrive as boxed products that buyers take into their homes.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Receipts for these transactions ordinarily characterize the device as the buyer’s property.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Makers can use remote commands to reduce a purchased device’s capacity.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Makers can use remote commands to reduce a purchased device’s compatibility.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Makers can use remote commands to reduce owners’ repair access.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Makers can use remote commands to remove a service for which a device buyer has paid.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Security patches can protect devices from security risks.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Network services may require controls against abusive use.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Subscriptions can expire pursuant to terms disclosed before purchase.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A maker-controlled kill switch gives the maker leverage over device repair.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A maker-controlled kill switch gives the maker leverage over device resale.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A maker-controlled kill switch gives the maker leverage over competition.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A maker-controlled kill switch affects when functioning products become waste.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Digital control over devices can be scaled at low marginal cost.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "A locksmith must physically visit an individual car to alter or restore its lock access.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "A vendor can change thousands of devices through a single policy action.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "After checkout, buyers of maker-controlled devices bear sunk costs.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Makers can maintain a credible threat of changing purchased devices at low cost.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Refusing a device update can increase security risk.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Refusing a device update can impair compatibility.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Refusing a device update can cause loss of access.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Interoperability and repair rights make it practically possible for device owners to leave a maker-controlled product or service arrangement.",
+      "where": "paragraph 7"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ date: 2026-07-09
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/house-passed-kids-act-senate-should-reject-it
 ---
 Last week, the House voted on the KIDS Act, a disjointed package of legislation that seeks to control Americans’ web browsing and private messaging. The package combines a revised version of the Kids Online Safety Act (KOSA), with several other internet bills, study bills, reporting requirements, and new regulations. Different parts of the bill pressure online services to impose different age-gating schemes, using different standards. EFF opposed this bill, along with many of our members and supporters.

@@ -1,0 +1,241 @@
+```json
+{
+  "schema": "voice-profile/2",
+  "profile": "doctorow-blog",
+  "profile_markdown": "# Voice profile — doctorow-blog\n\n## 1. Cadence\n\n**Questions, imperatives, and vocatives.** Questions are structural and rhetorical — they crystallize the argument's hinge before the writer supplies the answer, or expose an opponent's position by voicing it as an open question. Direct imperatives appear in tutorial sequences only. The writer rarely leaves a question open for the reader to answer.\n_Evidence: 10/10 samples; several times per piece. [measurement:question-marks] Count: 38 instances; 2.17 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n**Interruption punctuation.** Round parenthetical spans handle three jobs in every post: a throwaway source credit, a dry aside that sharpens the surrounding irony, and a compressed counter-argument acknowledged and dismissed mid-sentence. They keep sentences moving without losing the qualification. Nested parentheticals do not appear.\n_Evidence: 10/10 samples; several times per piece. [measurement:round-parenthetical-spans] Count: 97 instances; 5.53 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n**Interruption punctuation.** En-dashes carry the pivot, appositive, and emphatic-break work conventionally assigned to em-dashes. They are the primary inline interruption mark. Use en-dashes wherever mid-sentence interruption or a sharp pivot is required; em-dashes do not appear in this corpus.\n_Evidence: 10/10 samples; several times per piece. [measurement:en-dashes] Count: 73 instances; 4.16 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n## 2. How a piece opens\n\n**Openings, paragraph endings, and closure.** Posts open with a declarative scene — a quoted phrase, a named phenomenon, or a sharp ironic reversal — that frames the central tension within the first two sentences. Closings return to the opening's vocabulary or extend its metaphor to deliver a verdict, often as a short stand-alone sentence that names what the argument has established.\n_Evidence: 7/10 samples; throughout. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n## 3. How a piece closes\n\nNo independently supported instruction was established for this section.\n\n## 4. Who is being addressed, and how\n\n**Person, number, and reader stance.** Second-person address runs through every post, positioning the reader as someone already embedded in the argument's stakes — a briefed ally, not a stranger being persuaded. 'You' carries both tutorial and polemical weight, alternating between 'here is what they are doing to you' and 'here is what you can do about it.'\n_Evidence: 10/10 samples; throughout. [measurement:second-person-family] Count: 385 instances; 21.94 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n**Person, number, and reader stance.** 'We' consistently names a coalition of workers, citizens, and internet users facing collective adversaries rather than an editorial institution. It produces solidarity rather than authority. Place 'we' when the argument identifies a shared harm or a collective remedy; avoid it when the claim is the writer's individual analysis.\n_Evidence: 10/10 samples; throughout. [measurement:first-person-plural-family] Count: 127 instances; 7.24 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n**Self-reference and biography.** First-person singular marks the writer as arguer and occasional biographical witness. Personal disclosures — cancer treatment, literary estate planning, a friend's death — appear briefly and pivot immediately into the structural argument they illustrate. The 'I' establishes embodied credibility, then steps back to the structural claim.\n_Evidence: 10/10 samples; throughout. [measurement:first-person-singular-family] Count: 113 instances; 6.44 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n## 5. Figures\n\n**Figures and analogy vocabulary.** Analogies are drawn from everyday commercial life — escrow agents, tipped minimum wage, pop-up blockers, beauty contests — and extended for one or two paragraphs before the structural parallel is made explicit. The figure arrives before the abstract claim it supports. Comparisons are not stretched beyond what the original scene can sustain.\n_Evidence: 5/10 samples; several times per piece. Representative locked source: `2026-07-11-your-risk.txt`._\n\n## 6. Register range\n\n**Contraction and negation.** Contractions are the default across the supported contexts, sustaining the register of a fast-talking knowledgeable friend. They prevent argumentative density from tipping into lecture. Full forms appear at moments of rhetorical stress or when mimicking the formal voice of an opponent's legal document or corporate press release.\n_Evidence: 10/10 samples; throughout. [measurement:contractions] Count: 300 instances; 17.09 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n**Profanity and vulgarity.** Profanity appears across every post as punctuation for moral outrage, not decoration. 'Bullshit' and 'fuck off' mark the moment an opponent's claim is not merely wrong but insulting to the reader's intelligence. Placement is typically terminal in an argument sequence, not as opener.\n_Evidence: 10/10 samples; several times per piece. [measurement:profanity-vulgarity] Count: 26 instances; 1.48 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n**Qualification and hedging.** Hedges are sparse and typically ironic: 'of course,' 'obviously,' and 'naturally' introduce claims that are anything but obvious to the opponent. Genuine uncertainty markers — 'I think,' 'I believe' — appear when the writer advances a novel synthesis, always followed immediately by supporting argument rather than left as an open concession.\n_Evidence: 4/10 samples; several times per piece. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n**Named opponents, allies, and sources.** Opponents are named and characterized with compressed contempt. Allies and sources are named precisely, their argument stated in full, then extended or gently corrected. Other people's phrases arrive in quotation marks followed by a gloss or rebuttal — the writer rarely lets a quoted claim stand without delivering a verdict.\n_Evidence: 5/10 samples; throughout. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n## 7. What the corpus never does\n\n**Contraction and negation.** Uncontracted negatives are sparse against the dominant contracted baseline. When they appear they signal a deliberate register shift — a formal charge, a legal formulation, or an ironic mimicry of officialese. The positive replacement driving this pair is the contractions pattern.\n_Evidence: 5/10 samples establish the absence or sparse exception. [measurement:uncontracted-negatives] Count: 9 instances; 0.51 per 1,000 words. Representative locked source: `2026-07-10-posthuman-as-in-no-humans.txt`._\n\n**Interruption punctuation.** Em-dashes are absent from the entire corpus. The interruption and pivot work they would normally handle is distributed between en-dashes and round parenthetical spans. The positive replacement driving this pair is the en-dashes pattern.\n_Evidence: 10/10 samples establish the absence or sparse exception. [measurement:em-dashes] Count: 0 instances; 0.00 per 1,000 words. Representative locked source: `2026-07-09-wilhoitian.txt`._\n\n## 8. What this profile could not determine\n\nThe corpus spans ten posts from a single two-week window in July 2026, which establishes the current register reliably but cannot confirm whether the tutorial register visible in the dickover post — direct imperatives, step-by-step instructions — recurs or is a one-off. The voice.md card is unfilled, so no intent-versus-corpus comparison is possible. No register shift across medium, platform, or audience type is observable within this corpus.\n\n_Observations dropped: 1. Voice card: empty._",
+  "confidence": "full",
+  "corpus_words": 17549,
+  "samples_used": [
+    "2026-07-09-wilhoitian.txt",
+    "2026-07-10-posthuman-as-in-no-humans.txt",
+    "2026-07-11-your-risk.txt",
+    "2026-07-13-go-meta-meta.txt",
+    "2026-07-14-designated-survivor.txt",
+    "2026-07-16-lucky-orifices.txt",
+    "2026-07-21-dickovers.txt",
+    "2026-07-22-table-flipper.txt",
+    "2026-07-23-drop-a-dime.txt",
+    "2026-07-24-supplemental-income.txt"
+  ],
+  "samples_excluded": [],
+  "voice_card": "empty",
+  "observations": [
+    {
+      "id": "o01",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 385,
+        "per_1000_words": 21.94,
+        "counting_rule": "[measurement:second-person-family] Count case-insensitive whole-word tokens you, your, yours, you're, you've, you'd, and you'll in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o02",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 127,
+        "per_1000_words": 7.24,
+        "counting_rule": "[measurement:first-person-plural-family] Count case-sensitive whole-word tokens we, We, us, our, Our, ours, Ours, and the listed contracted we forms in the extracted sample bodies; uppercase US is excluded."
+      }
+    },
+    {
+      "id": "o03",
+      "section": "address",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 113,
+        "per_1000_words": 6.44,
+        "counting_rule": "[measurement:first-person-singular-family] Count case-insensitive whole-word tokens I, me, my, mine, and myself in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o04",
+      "section": "register-range",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 300,
+        "per_1000_words": 17.09,
+        "counting_rule": "[measurement:contractions] Count whole-word n't, 're, 've, 'll, 'd, and 'm forms plus 's only for the closed elision hosts it, that, there, here, who, what, where, when, how, why, he, she, let, one, nothing, everything, something, somebody, nobody, and this; possessive 's is excluded."
+      }
+    },
+    {
+      "id": "o05",
+      "section": "absences",
+      "support": 5,
+      "of": 10,
+      "rate": {
+        "count": 9,
+        "per_1000_words": 0.51,
+        "counting_rule": "[measurement:uncontracted-negatives] Count case-insensitive whole phrases do not, does not, did not, is not, are not, was not, were not, cannot, could not, would not, should not, will not, have not, has not, and had not in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o06",
+      "section": "register-range",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 26,
+        "per_1000_words": 1.48,
+        "counting_rule": "[measurement:profanity-vulgarity] Count only the case-insensitive whole-word profanity and vulgarity forms enumerated by the prose-author profanity rule; coined words containing a rude root are excluded."
+      }
+    },
+    {
+      "id": "o07",
+      "section": "cadence",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 38,
+        "per_1000_words": 2.17,
+        "counting_rule": "[measurement:question-marks] Count every literal question-mark character in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o08",
+      "section": "cadence",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 97,
+        "per_1000_words": 5.53,
+        "counting_rule": "[measurement:round-parenthetical-spans] Count each non-nested pair of round brackets whose contents stay on one line in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o09",
+      "section": "cadence",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 73,
+        "per_1000_words": 4.16,
+        "counting_rule": "[measurement:en-dashes] Count every literal en-dash character in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o10",
+      "section": "absences",
+      "support": 10,
+      "of": 10,
+      "rate": {
+        "count": 0,
+        "per_1000_words": 0,
+        "counting_rule": "[measurement:em-dashes] Count every literal em-dash character in the extracted sample bodies."
+      }
+    },
+    {
+      "id": "o11",
+      "section": "register-range",
+      "support": 4,
+      "of": 10
+    },
+    {
+      "id": "o12",
+      "section": "register-range",
+      "support": 5,
+      "of": 10
+    },
+    {
+      "id": "o13",
+      "section": "figures",
+      "support": 5,
+      "of": 10
+    },
+    {
+      "id": "o14",
+      "section": "openings",
+      "support": 7,
+      "of": 10
+    }
+  ],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "status": "rated",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ]
+    },
+    {
+      "dimension": "contraction-negation",
+      "status": "absent-paired",
+      "observation_ids": [
+        "o04",
+        "o05"
+      ],
+      "positive_observation_id": "o04",
+      "absence_observation_id": "o05"
+    },
+    {
+      "dimension": "qualification-hedging",
+      "status": "described",
+      "observation_ids": [
+        "o11"
+      ]
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "status": "rated",
+      "observation_ids": [
+        "o07"
+      ]
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "status": "described",
+      "observation_ids": [
+        "o12"
+      ]
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "status": "rated",
+      "observation_ids": [
+        "o06"
+      ]
+    },
+    {
+      "dimension": "self-reference-biography",
+      "status": "rated",
+      "observation_ids": [
+        "o03"
+      ]
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "status": "absent-paired",
+      "observation_ids": [
+        "o08",
+        "o09",
+        "o10"
+      ],
+      "positive_observation_id": "o08",
+      "absence_observation_id": "o10"
+    },
+    {
+      "dimension": "figures-analogy",
+      "status": "described",
+      "observation_ids": [
+        "o13"
+      ]
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "status": "described",
+      "observation_ids": [
+        "o14"
+      ]
+    }
+  ],
+  "observations_dropped": 1,
+  "multiple_voices_suspected": false
+}
+```

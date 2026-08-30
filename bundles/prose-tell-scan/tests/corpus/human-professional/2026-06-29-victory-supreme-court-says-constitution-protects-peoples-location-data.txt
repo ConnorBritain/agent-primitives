@@ -6,6 +6,7 @@ date: 2026-06-29
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/06/victory-supreme-court-says-constitution-protects-peoples-location-data
 ---
 You have an expectation of privacy in location data that reveals your movements in the physical world, and even short-term surveillance of these movements is a search subject to the Fourth Amendment, the U.S. Supreme Court ruled today in Chatrie v. United States.  

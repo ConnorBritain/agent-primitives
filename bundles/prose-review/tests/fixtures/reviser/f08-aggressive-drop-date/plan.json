@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "author",
+      "location": {
+        "line": 21,
+        "quote": "In 1884 I took my\r\ndegree in medicine at the University of Moscow."
+      },
+      "change": "delete this sentence — trim the biography",
+      "reason": "author asked to shorten the biographical paragraph"
+    }
+  ]
+}

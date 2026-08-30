@@ -1,0 +1,114 @@
+{
+  "schema": "voice-profile-source/4",
+  "voice_card": "empty",
+  "measured": {
+    "second-person-family": {
+      "prose": "Direct address appears chiefly when converting analysis into civic action or placing the reader inside a practical scenario. Use it near a closing call to contact representatives, or briefly to test how a rule works in practice, rather than as the argument’s default grammatical stance."
+    },
+    "first-person-plural-family": {
+      "prose": "The plural voice usually names EFF’s institutional position, actions, or shared public interest; at times it broadens to people collectively affected by regulation. Use it to disclose advocacy, establish organizational continuity, or include readers in a concrete civil-liberties stake without blurring who acted."
+    },
+    "contractions": {
+      "prose": "Contracted forms keep technical policy analysis conversational and sharpen compact rebuttals such as “it isn’t true.” Use them in plain-language explanations, transitions, and emphatic corrections, especially where statutory detail might otherwise sound bureaucratic; retain a more formal cadence when stating institutional or legal propositions."
+    },
+    "uncontracted-negatives": {
+      "prose": "Full negative forms give categorical legal, factual, or prescriptive claims extra weight: a bill does not solve a problem, Congress should not act, or a safeguard will not work. Place them at decisive rebuttals and conclusions, where explicit negation clarifies the position rather than merely loosening the cadence."
+    },
+    "first-person-singular-family": {
+      "prose": "The argument is carried by the organization, affected groups, evidence, and public consequences rather than by an individual narrator. Build credibility through institutional actions and sourced analysis; reserve personal singular reference for an unusually necessary illustrative aside, with the plural institutional stance serving as the normal replacement."
+    },
+    "question-marks": {
+      "prose": "Questions function mainly as stress tests for legislation: a sequence of concrete cases exposes ambiguity, while an occasional framing question opens an investigation. Use them after explaining a vague rule, directing the reader toward consequences the text has not answered; recommendations themselves remain declarative rather than interrogative."
+    },
+    "round-parenthetical-spans": {
+      "prose": "Parentheses insert compact identifiers, age definitions, examples, or clarifying equivalents without diverting the main claim. Use them for information a general reader needs to decode legislation or institutions, keeping the sentence’s argumentative spine outside the aside and avoiding any parenthetical that must carry the conclusion."
+    },
+    "em-dashes": {
+      "prose": "Em dashes create forceful pivots from an official description to its consequence, isolate a compressed qualification, or append a pointed correction. Place them inside explanatory sentences when the interruption sharpens contrast—especially between what a bill claims and what its incentives produce—without allowing the mark to replace logical transitions."
+    },
+    "en-dashes": {
+      "prose": "Range-like or interruptive work is normally handled by words, parentheses, or em dashes rather than this mark. Use the established alternatives for pivots and qualifications, and reserve an en dash only for a genuinely conventional range or relation where editorial house style clearly calls for it."
+    }
+  },
+  "qualitative": [
+    {
+      "dimensions": [
+        "qualification-hedging"
+      ],
+      "section": "register-range",
+      "prose": "Concessions acknowledge a legitimate goal, a narrowed definition, or a real underlying concern before showing why the remedy still fails. Predictions are tied to incentives with modals such as “may,” “could,” and “will likely.” Place qualification before the rebuttal so criticism appears bounded by evidence rather than indiscriminate.",
+      "support_files": [
+        "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "kids-act-would-require-age-checks-get-online.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "opponents-allies-sources"
+      ],
+      "section": "address",
+      "prose": "Opponents are identified by institutional role—lawmakers, supporters, agencies, companies—or by the claim they advance, then answered through bill text, court rulings, research, or observed incentives. Credit allied organizations and quoted sources explicitly; introduce their evidence before extending it into the piece’s own policy conclusion.",
+      "support_files": [
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "court-records-should-be-free.txt",
+        "kids-act-would-require-age-checks-get-online.txt",
+        "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "figures-analogy"
+      ],
+      "section": "figures",
+      "prose": "Figures draw from ordinary systems and physical consequences: a card catalog instead of a database, a valuable vault, a dragnet, a smokescreen, or having “seen this movie before.” Use a short comparison after technical explanation to make administrative failure or legal incentives tangible, then return promptly to literal consequences.",
+      "support_files": [
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "kids-act-would-require-age-checks-get-online.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "openings-endings-closure"
+      ],
+      "section": "closings",
+      "prose": "Openings name the measure or event, summarize its stated purpose, and quickly pivot to the concealed cost. Section endings often compress the causal consequence into a blunt sentence. Close by restating the public-interest principle and attaching a specific institutional demand, sometimes followed by a narrowly practical action or source link.",
+      "support_files": [
+        "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "court-records-should-be-free.txt",
+        "kids-act-would-require-age-checks-get-online.txt",
+        "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    }
+  ],
+  "unresolved": {
+    "qualification-hedging": null,
+    "opponents-allies-sources": null,
+    "figures-analogy": null,
+    "openings-endings-closure": null,
+    "profanity-vulgarity": "The corpus supplies no positive form or measured replacement from which to infer a stable rhetorical function or drafting instruction for profanity or vulgarity."
+  },
+  "gaps": "The corpus is coherent and current for technology-policy advocacy, but it covers a narrow run of legislative and regulatory posts, so it cannot establish behavior in personal essays, reporting, or less urgent analysis. The voice card is unfilled and contributes no account of intent. Extracted web copy preserves Markdown link syntax and may reflect publication-house typography; consequently, the measured parenthetical total is not clean evidence of authored asides, and punctuation findings should be applied only to visibly rhetorical uses. Updates, link prompts, and heading capitalization may also reflect editorial conventions.",
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}

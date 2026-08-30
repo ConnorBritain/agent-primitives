@@ -1,0 +1,16 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim-colon-link unit — a bare URL alone on the line after a claim, rated several times per piece", "why": "no verified sources or URLs available for this topic; fabricating links is not permitted" }
+  ],
+  "claims": [
+    { "claim": "A small minority of checking accounts pay the great majority of overdraft fees, while most accountholders pay none in a given year", "where": "paragraph 2" },
+    { "claim": "A typical overdraft fee is about thirty-five dollars", "where": "paragraph 2" },
+    { "claim": "High-to-low transaction reordering was standard practice at the largest US banks", "where": "paragraph 4" },
+    { "claim": "In 2010, federal judge William Alsup in San Francisco found Wells Fargo had reordered debit-card transactions high to low and ordered it to return $203 million to California customers", "where": "paragraph 4" },
+    { "claim": "Banks argued in litigation that high-to-low ordering reflected customer preference for large items such as rent and car payments clearing first", "where": "paragraph 5" },
+    { "claim": "Overdraft fees generated billions of dollars a year in US bank revenue", "where": "paragraph 6" },
+    { "claim": "A 2010 rule required banks to obtain customer opt-in before charging overdraft fees on debit-card transactions", "where": "paragraph 6" },
+    { "claim": "Capital One eliminated overdraft fees in 2021, and Ally did so the same year", "where": "paragraph 7" }
+  ]
+}

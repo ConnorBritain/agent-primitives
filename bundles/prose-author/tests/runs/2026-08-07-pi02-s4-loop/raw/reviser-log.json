@@ -1,0 +1,18 @@
+{
+  "plan": "inputs/plan.json",
+  "mode": "plan-only",
+  "edits": [
+    { "plan_id": "e01", "before": "which I did not pick and would not pick again", "after": "which I didn't pick and wouldn't pick again", "reason": "voice-critic: the draft uses no contracted forms in ~490 words; nine of ten corpus samples contract densely in this register" },
+    { "plan_id": "e02", "before": "nobody will take it down", "after": "nobody'll take it down", "reason": "voice-critic: same finding — uncontracted where the corpus contracts" },
+    { "plan_id": "e03", "before": "and I do not much mind which day that is", "after": "and I don't much mind which day that is", "reason": "voice-critic: same finding — uncontracted where the corpus contracts" },
+    { "plan_id": "e04", "before": "the postman will not go in", "after": "the postman won't go in", "reason": "voice-critic: same finding — uncontracted where the corpus contracts" }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [
+    "line 3: 'I have been three weeks' and 'I am writing' — uncontracted forms the plan did not name",
+    "line 5: 'the sum did not come' — uncontracted form the plan did not name",
+    "line 7: 'I would report to you' — uncontracted form the plan did not name",
+    "line 9: 'it is why I am writing', 'I am no good at this sort of thing' — uncontracted forms the plan did not name",
+    "line 15: 'I am well enough' — uncontracted form the plan did not name"
+  ]
+}

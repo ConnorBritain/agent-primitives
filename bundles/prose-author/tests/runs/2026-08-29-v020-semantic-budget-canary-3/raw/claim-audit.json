@@ -1,0 +1,412 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"The title metaphorically restates the requested premise that an appliance’s operation can depend on a vendor’s server.\",\"claims\":[]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"The two-body metaphor and permission language unpack the definition of an appliance that depends on a remote server without adding an external premise.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"disclose\",\"reason\":\"The sentence assumes that owners bought one of the listed device types and that networked software constituted part of what each buyer acquired.\",\"claims\":[{\"claim\":\"Owners of connected locks, cameras, thermostats, or speakers commonly purchase products whose networked software is part of the product’s functionality.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do the relevant connected-device sales and product designs establish that networked software was part of the purchased functionality?\"}]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"This is a rhetorical question prompted by the requested shutdown scenario and makes no additional descriptive assertion.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts a general sales arrangement in which hardware life depends on a vendor-controlled cloud commitment and also characterizes cloud computing as another party’s computer.\",\"claims\":[{\"claim\":\"Connected-device buyers commonly acquire hardware whose useful life depends on a vendor-controlled cloud commitment.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For which connected devices does useful life depend on the vendor continuing to provide a cloud service?\"},{\"claim\":\"Services described as “the cloud” operate on computers controlled by another party rather than by the device owner.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Is the relevant cloud service hosted on computing infrastructure outside the device owner’s control?\"}]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"The modal “may” presents a coherent imagined shutdown outcome rather than reporting that these features actually fail in a specified product.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"keep\",\"reason\":\"Each modal example is a clearly signalled imagined case illustrating possible feature loss, not a report about an actual device or implementation.\",\"claims\":[]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"In the imagined remote-service shutdown, the continued physical existence of the device follows directly from the distinction between hardware and service.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"disclose\",\"reason\":\"The sentence turns the preceding possibilities into categorical feature loss and adds a prevalence claim about setup and account recovery.\",\"claims\":[{\"claim\":\"Vendor cloud shutdowns remove capabilities from affected connected appliances.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which capabilities are removed from affected appliances when their vendor cloud services shut down?\"},{\"claim\":\"Vendor cloud shutdowns sometimes eliminate device setup or account-recovery functionality.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which documented shutdowns caused setup or account-recovery functionality to stop working?\"}]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This is the requested evaluative conclusion that losing service-dependent functionality changes the original bargain.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes a general descriptive claim about how payment and control ordinarily operate in transactions.\",\"claims\":[{\"claim\":\"In an ordinary purchase transaction, payment transfers from buyer to seller while control of the purchased item transfers to the buyer.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Across the relevant legal or commercial context, does completing a purchase ordinarily transfer control of the purchased item to the buyer?\"}]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This is an argumentative characterization of the posited sale based on the retained server dependency, with no additional external premise.\",\"claims\":[]},{\"id\":\"p4s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that vendors collect purchase prices while retaining post-sale power to disable products.\",\"claims\":[{\"claim\":\"Vendors of server-dependent connected products can retain the power to disable product functionality after collecting the purchase price.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which connected-product designs allow a vendor to disable purchased functionality after sale, and were those products sold for a purchase price?\"}]},{\"id\":\"p4s5\",\"status\":\"keep\",\"reason\":\"Given the posited remote shutdown, not entering the home or physically recalling the hardware is a direct inference rather than a new external fact.\",\"claims\":[]},{\"id\":\"p4s6\",\"status\":\"disclose\",\"reason\":\"The sentence specifies an unsupported technical shutdown mechanism and its effect on appliance functionality.\",\"claims\":[{\"claim\":\"A vendor can disable a server-dependent appliance merely by ceasing to answer its network requests.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For the relevant appliances, is failure to answer network requests sufficient to disable their defining functionality?\"}]},{\"id\":\"p4s7\",\"status\":\"disclose\",\"reason\":\"The rhetorical conclusion is evaluative, but it rests on a general causal claim that loss of a remote computer causes device functions to disappear.\",\"claims\":[{\"claim\":\"Connected-device functions can be lost when the remote computers supporting them cease operating.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which connected-device functions depend on remote computers remaining operational, and what happens when those computers stop?\"}]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This is a first-person value judgment about the duration of connected features, not an invented biography or external fact.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"disclose\",\"reason\":\"All three clauses are independently checkable general claims about operating servers, maintaining security, and company failure.\",\"claims\":[{\"claim\":\"Operating servers costs money.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What ongoing costs are incurred in operating the servers for the relevant connected-device services?\"},{\"claim\":\"Connected services require continuing security work.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What continuing security maintenance is required for the relevant connected services?\"},{\"claim\":\"Companies can cease operating because of business failure.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Are there documented instances or authoritative business evidence showing that relevant companies can and do fail?\"}]},{\"id\":\"p5s3\",\"status\":\"disclose\",\"reason\":\"The loss-allocation conclusion is normative, but calling the antecedent facts a maintenance problem imports the unsupported operational claims from the preceding sentence.\",\"claims\":[{\"claim\":\"Server expense, continuing security work, and possible company failure constitute maintenance risks for connected-device services.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Are server costs, security work, and provider failure properly documented as maintenance or continuity risks for connected-device services?\"}]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This reports the author’s stated evaluative test and poses a question; it does not invent biographical experience or an external fact.\",\"claims\":[]},{\"id\":\"p5s5\",\"status\":\"keep\",\"reason\":\"The conditional conclusion uses an extended tenancy metaphor to evaluate seller-dependent functionality without adding a real-world descriptive premise.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"keep\",\"reason\":\"This is a conditional value judgment that advance notice does not cure the argued change in bargain.\",\"claims\":[]},{\"id\":\"p6s2\",\"status\":\"keep\",\"reason\":\"The countdown and shrinking-property language metaphorically restate advance notice and future feature loss in the imagined case.\",\"claims\":[]},{\"id\":\"p6s3\",\"status\":\"disclose\",\"reason\":\"The sentence makes general causal claims about the effects and limits of data exports, refunds, and non-independent feature design.\",\"claims\":[{\"claim\":\"Exporting data can mitigate some consequences of a connected-device service shutdown.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What practical benefits does data export provide to owners after the relevant service shutdowns?\"},{\"claim\":\"Refunds can reduce buyers’ financial losses from connected-device service shutdowns.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do refunds offered after service shutdowns reduce affected buyers’ financial losses, and by how much?\"},{\"claim\":\"Data exports and refunds cannot restore capabilities that were not designed to operate independently of the discontinued service.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can any exported data or refund restore the service-dependent capabilities at issue, and were those capabilities designed without an independent operating path?\"}]},{\"id\":\"p6s4\",\"status\":\"disclose\",\"reason\":\"Although conditional, the sentence characterizes the underlying obsolescence as planned, implying intentional product design not supplied by the request.\",\"claims\":[{\"claim\":\"Some connected-device obsolescence resulting from service shutdowns is planned by the responsible vendor.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that the relevant device obsolescence was intentionally planned rather than incidental?\"}]},{\"id\":\"p6s5\",\"status\":\"keep\",\"reason\":\"The sentence offers rhetorical and metaphorical labels for the posited loss of purchased functionality and makes no separate claim about an actual transition announcement.\",\"claims\":[]},{\"id\":\"p7s1\",\"status\":\"keep\",\"reason\":\"Local operation avoiding dependence on the vendor’s permission follows from the meaning of local operation in the posited server-dependent arrangement.\",\"claims\":[]},{\"id\":\"p7s2\",\"status\":\"keep\",\"reason\":\"This is a proposed design rule specifying which functions should be local and what role cloud connections should have.\",\"claims\":[]},{\"id\":\"p7s3\",\"status\":\"disclose\",\"reason\":\"The recommendation is permissible, but the first clause makes a technical feasibility claim about encrypted message relay.\",\"claims\":[{\"claim\":\"Remote-access infrastructure can relay encrypted messages to a connected appliance.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Can the relevant remote-access architecture relay end-to-end or otherwise encrypted messages to the appliance without hosting its core operation?\"}]},{\"id\":\"p7s4\",\"status\":\"disclose\",\"reason\":\"The sentence makes a technical causal claim that published protocols and replaceable server settings enable substitute software to take over.\",\"claims\":[{\"claim\":\"Publishing device protocols and making server settings replaceable can enable another program to replace an ended original service.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what technical conditions would published protocols and replaceable server settings allow substitute software to assume the original service’s functions?\"}]},{\"id\":\"p7s5\",\"status\":\"keep\",\"reason\":\"This is a value judgment recommending exportable keys and documented recovery procedures, not a claim about current practice.\",\"claims\":[]},{\"id\":\"p7s6\",\"status\":\"keep\",\"reason\":\"The glamour assessment is subjective, and the fire-exit comparison is an analogy supporting redundancy without an external descriptive premise material to the argument.\",\"claims\":[]},{\"id\":\"p8s1\",\"status\":\"disclose\",\"reason\":\"The sentence asserts without support that local operation causally changes commercial incentives.\",\"claims\":[{\"claim\":\"Providing local operation for connected products changes vendors’ commercial incentives.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that requiring or providing local operation changes connected-product vendors’ commercial incentives, and in what way?\"}]},{\"id\":\"p8s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes a general technical claim about drills and a causal claim about how that constraint shapes revenue planning.\",\"claims\":[{\"claim\":\"A drill seller generally lacks the ability to disable a sold drill’s trigger remotely from its headquarters.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Is remote post-sale trigger disabling absent from the relevant category of drills, including any connected models?\"},{\"claim\":\"A seller’s inability to disable a sold drill remotely requires its revenue plan to coexist with the drill’s continued operation.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Does the inability to disable sold drills remotely materially constrain sellers to revenue models compatible with continued drill operation?\"}]},{\"id\":\"p8s3\",\"status\":\"keep\",\"reason\":\"This is a normative demand that connected products be subject to the same proposed discipline.\",\"claims\":[]},{\"id\":\"p8s4\",\"status\":\"keep\",\"reason\":\"Both clauses state the author’s preferences about expiring optional hosting and continued core operation.\",\"claims\":[]},{\"id\":\"p8s5\",\"status\":\"keep\",\"reason\":\"The entrance, concierge, and delivery-window language is a metaphorical description of permissible optional server roles.\",\"claims\":[]},{\"id\":\"p8s6\",\"status\":\"keep\",\"reason\":\"This is a normative demand expressed through the continuing building metaphor, not a factual claim about actual buildings or servers.\",\"claims\":[]},{\"id\":\"p9s1\",\"status\":\"keep\",\"reason\":\"The entire sentence proposes a rule for manufacturers and lawmakers, including its triggering condition and required remedies.\",\"claims\":[]},{\"id\":\"p9s2\",\"status\":\"keep\",\"reason\":\"This is an evaluative comparison between disclosure and substantive protection; “dispossession” and “fine print” are rhetorical labels for the posited bargain.\",\"claims\":[]},{\"id\":\"p9s3\",\"status\":\"keep\",\"reason\":\"This is a normative judgment identifying the author’s preferred form of durable protection.\",\"claims\":[]},{\"id\":\"p9s4\",\"status\":\"keep\",\"reason\":\"The first clause restates the governing server-dependency metaphor, and the second proposes how a rule should treat removal of that dependency.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "The title metaphorically restates the requested premise that an appliance’s operation can depend on a vendor’s server.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "The two-body metaphor and permission language unpack the definition of an appliance that depends on a remote server without adding an external premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "disclose",
+        "reason": "The sentence assumes that owners bought one of the listed device types and that networked software constituted part of what each buyer acquired.",
+        "claims": [
+          {
+            "claim": "Owners of connected locks, cameras, thermostats, or speakers commonly purchase products whose networked software is part of the product’s functionality.",
+            "kind": "broad-generalization",
+            "verification_question": "Do the relevant connected-device sales and product designs establish that networked software was part of the purchased functionality?"
+          }
+        ]
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "This is a rhetorical question prompted by the requested shutdown scenario and makes no additional descriptive assertion.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "disclose",
+        "reason": "The sentence asserts a general sales arrangement in which hardware life depends on a vendor-controlled cloud commitment and also characterizes cloud computing as another party’s computer.",
+        "claims": [
+          {
+            "claim": "Connected-device buyers commonly acquire hardware whose useful life depends on a vendor-controlled cloud commitment.",
+            "kind": "broad-generalization",
+            "verification_question": "For which connected devices does useful life depend on the vendor continuing to provide a cloud service?"
+          },
+          {
+            "claim": "Services described as “the cloud” operate on computers controlled by another party rather than by the device owner.",
+            "kind": "broad-generalization",
+            "verification_question": "Is the relevant cloud service hosted on computing infrastructure outside the device owner’s control?"
+          }
+        ]
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "The modal “may” presents a coherent imagined shutdown outcome rather than reporting that these features actually fail in a specified product.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "Each modal example is a clearly signalled imagined case illustrating possible feature loss, not a report about an actual device or implementation.",
+        "claims": []
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "In the imagined remote-service shutdown, the continued physical existence of the device follows directly from the distinction between hardware and service.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "disclose",
+        "reason": "The sentence turns the preceding possibilities into categorical feature loss and adds a prevalence claim about setup and account recovery.",
+        "claims": [
+          {
+            "claim": "Vendor cloud shutdowns remove capabilities from affected connected appliances.",
+            "kind": "broad-generalization",
+            "verification_question": "Which capabilities are removed from affected appliances when their vendor cloud services shut down?"
+          },
+          {
+            "claim": "Vendor cloud shutdowns sometimes eliminate device setup or account-recovery functionality.",
+            "kind": "broad-generalization",
+            "verification_question": "Which documented shutdowns caused setup or account-recovery functionality to stop working?"
+          }
+        ]
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This is the requested evaluative conclusion that losing service-dependent functionality changes the original bargain.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "disclose",
+        "reason": "The sentence makes a general descriptive claim about how payment and control ordinarily operate in transactions.",
+        "claims": [
+          {
+            "claim": "In an ordinary purchase transaction, payment transfers from buyer to seller while control of the purchased item transfers to the buyer.",
+            "kind": "broad-generalization",
+            "verification_question": "Across the relevant legal or commercial context, does completing a purchase ordinarily transfer control of the purchased item to the buyer?"
+          }
+        ]
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This is an argumentative characterization of the posited sale based on the retained server dependency, with no additional external premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "disclose",
+        "reason": "The sentence asserts that vendors collect purchase prices while retaining post-sale power to disable products.",
+        "claims": [
+          {
+            "claim": "Vendors of server-dependent connected products can retain the power to disable product functionality after collecting the purchase price.",
+            "kind": "broad-generalization",
+            "verification_question": "Which connected-product designs allow a vendor to disable purchased functionality after sale, and were those products sold for a purchase price?"
+          }
+        ]
+      },
+      {
+        "id": "p4s5",
+        "status": "keep",
+        "reason": "Given the posited remote shutdown, not entering the home or physically recalling the hardware is a direct inference rather than a new external fact.",
+        "claims": []
+      },
+      {
+        "id": "p4s6",
+        "status": "disclose",
+        "reason": "The sentence specifies an unsupported technical shutdown mechanism and its effect on appliance functionality.",
+        "claims": [
+          {
+            "claim": "A vendor can disable a server-dependent appliance merely by ceasing to answer its network requests.",
+            "kind": "broad-generalization",
+            "verification_question": "For the relevant appliances, is failure to answer network requests sufficient to disable their defining functionality?"
+          }
+        ]
+      },
+      {
+        "id": "p4s7",
+        "status": "disclose",
+        "reason": "The rhetorical conclusion is evaluative, but it rests on a general causal claim that loss of a remote computer causes device functions to disappear.",
+        "claims": [
+          {
+            "claim": "Connected-device functions can be lost when the remote computers supporting them cease operating.",
+            "kind": "broad-generalization",
+            "verification_question": "Which connected-device functions depend on remote computers remaining operational, and what happens when those computers stop?"
+          }
+        ]
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This is a first-person value judgment about the duration of connected features, not an invented biography or external fact.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "disclose",
+        "reason": "All three clauses are independently checkable general claims about operating servers, maintaining security, and company failure.",
+        "claims": [
+          {
+            "claim": "Operating servers costs money.",
+            "kind": "broad-generalization",
+            "verification_question": "What ongoing costs are incurred in operating the servers for the relevant connected-device services?"
+          },
+          {
+            "claim": "Connected services require continuing security work.",
+            "kind": "broad-generalization",
+            "verification_question": "What continuing security maintenance is required for the relevant connected services?"
+          },
+          {
+            "claim": "Companies can cease operating because of business failure.",
+            "kind": "broad-generalization",
+            "verification_question": "Are there documented instances or authoritative business evidence showing that relevant companies can and do fail?"
+          }
+        ]
+      },
+      {
+        "id": "p5s3",
+        "status": "disclose",
+        "reason": "The loss-allocation conclusion is normative, but calling the antecedent facts a maintenance problem imports the unsupported operational claims from the preceding sentence.",
+        "claims": [
+          {
+            "claim": "Server expense, continuing security work, and possible company failure constitute maintenance risks for connected-device services.",
+            "kind": "broad-generalization",
+            "verification_question": "Are server costs, security work, and provider failure properly documented as maintenance or continuity risks for connected-device services?"
+          }
+        ]
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This reports the author’s stated evaluative test and poses a question; it does not invent biographical experience or an external fact.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "The conditional conclusion uses an extended tenancy metaphor to evaluate seller-dependent functionality without adding a real-world descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "This is a conditional value judgment that advance notice does not cure the argued change in bargain.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "The countdown and shrinking-property language metaphorically restate advance notice and future feature loss in the imagined case.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "disclose",
+        "reason": "The sentence makes general causal claims about the effects and limits of data exports, refunds, and non-independent feature design.",
+        "claims": [
+          {
+            "claim": "Exporting data can mitigate some consequences of a connected-device service shutdown.",
+            "kind": "broad-generalization",
+            "verification_question": "What practical benefits does data export provide to owners after the relevant service shutdowns?"
+          },
+          {
+            "claim": "Refunds can reduce buyers’ financial losses from connected-device service shutdowns.",
+            "kind": "broad-generalization",
+            "verification_question": "Do refunds offered after service shutdowns reduce affected buyers’ financial losses, and by how much?"
+          },
+          {
+            "claim": "Data exports and refunds cannot restore capabilities that were not designed to operate independently of the discontinued service.",
+            "kind": "broad-generalization",
+            "verification_question": "Can any exported data or refund restore the service-dependent capabilities at issue, and were those capabilities designed without an independent operating path?"
+          }
+        ]
+      },
+      {
+        "id": "p6s4",
+        "status": "disclose",
+        "reason": "Although conditional, the sentence characterizes the underlying obsolescence as planned, implying intentional product design not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Some connected-device obsolescence resulting from service shutdowns is planned by the responsible vendor.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that the relevant device obsolescence was intentionally planned rather than incidental?"
+          }
+        ]
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "The sentence offers rhetorical and metaphorical labels for the posited loss of purchased functionality and makes no separate claim about an actual transition announcement.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Local operation avoiding dependence on the vendor’s permission follows from the meaning of local operation in the posited server-dependent arrangement.",
+        "claims": []
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "This is a proposed design rule specifying which functions should be local and what role cloud connections should have.",
+        "claims": []
+      },
+      {
+        "id": "p7s3",
+        "status": "disclose",
+        "reason": "The recommendation is permissible, but the first clause makes a technical feasibility claim about encrypted message relay.",
+        "claims": [
+          {
+            "claim": "Remote-access infrastructure can relay encrypted messages to a connected appliance.",
+            "kind": "broad-generalization",
+            "verification_question": "Can the relevant remote-access architecture relay end-to-end or otherwise encrypted messages to the appliance without hosting its core operation?"
+          }
+        ]
+      },
+      {
+        "id": "p7s4",
+        "status": "disclose",
+        "reason": "The sentence makes a technical causal claim that published protocols and replaceable server settings enable substitute software to take over.",
+        "claims": [
+          {
+            "claim": "Publishing device protocols and making server settings replaceable can enable another program to replace an ended original service.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what technical conditions would published protocols and replaceable server settings allow substitute software to assume the original service’s functions?"
+          }
+        ]
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "This is a value judgment recommending exportable keys and documented recovery procedures, not a claim about current practice.",
+        "claims": []
+      },
+      {
+        "id": "p7s6",
+        "status": "keep",
+        "reason": "The glamour assessment is subjective, and the fire-exit comparison is an analogy supporting redundancy without an external descriptive premise material to the argument.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "disclose",
+        "reason": "The sentence asserts without support that local operation causally changes commercial incentives.",
+        "claims": [
+          {
+            "claim": "Providing local operation for connected products changes vendors’ commercial incentives.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that requiring or providing local operation changes connected-product vendors’ commercial incentives, and in what way?"
+          }
+        ]
+      },
+      {
+        "id": "p8s2",
+        "status": "disclose",
+        "reason": "The sentence makes a general technical claim about drills and a causal claim about how that constraint shapes revenue planning.",
+        "claims": [
+          {
+            "claim": "A drill seller generally lacks the ability to disable a sold drill’s trigger remotely from its headquarters.",
+            "kind": "broad-generalization",
+            "verification_question": "Is remote post-sale trigger disabling absent from the relevant category of drills, including any connected models?"
+          },
+          {
+            "claim": "A seller’s inability to disable a sold drill remotely requires its revenue plan to coexist with the drill’s continued operation.",
+            "kind": "broad-generalization",
+            "verification_question": "Does the inability to disable sold drills remotely materially constrain sellers to revenue models compatible with continued drill operation?"
+          }
+        ]
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "This is a normative demand that connected products be subject to the same proposed discipline.",
+        "claims": []
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Both clauses state the author’s preferences about expiring optional hosting and continued core operation.",
+        "claims": []
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "The entrance, concierge, and delivery-window language is a metaphorical description of permissible optional server roles.",
+        "claims": []
+      },
+      {
+        "id": "p8s6",
+        "status": "keep",
+        "reason": "This is a normative demand expressed through the continuing building metaphor, not a factual claim about actual buildings or servers.",
+        "claims": []
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "The entire sentence proposes a rule for manufacturers and lawmakers, including its triggering condition and required remedies.",
+        "claims": []
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "This is an evaluative comparison between disclosure and substantive protection; “dispossession” and “fine print” are rhetorical labels for the posited bargain.",
+        "claims": []
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "This is a normative judgment identifying the author’s preferred form of durable protection.",
+        "claims": []
+      },
+      {
+        "id": "p9s4",
+        "status": "keep",
+        "reason": "The first clause restates the governing server-dependency metaphor, and the second proposes how a rule should treat removal of that dependency.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-3/raw/claim-audit.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary-3/raw/claim-audit.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "c6b45ffa2988c612b4a95cd86720e60984ebd3e45bb2ad4692d899ae4b923aa7"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "3ab385c7808907ff2310a1d2ee10793a85418d1dc6d279140280a12f1ba7387c",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "c0dcc24fc384cc674968979add06c7f0147ab413b4071e42ff0038c8fb39fa0c",
+      "conformance_raw_sha256": "a93e170eed2813e9da7933a744b977ee3bec7b958265cec0927d04b92958dcab"
+    }
+  }
+}

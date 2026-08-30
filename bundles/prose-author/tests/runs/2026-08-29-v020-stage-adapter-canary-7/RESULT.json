@@ -1,0 +1,46 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "status": "HOLD",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "failed_at": "2026-08-29T12:25:08.453Z",
+  "error": "claim-audit assembly failed: p2s4 rejected: Uses an incoherent literal attribution of ownership and agency to an invisible corporate control room, making the proposition too unclear to verify or scope.",
+  "stages": {
+    "profile": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/profile.json",
+      "raw_sha256": "63797c165c7db79b731a8701cc4265280d939357cf61e653ce1ca330fdff5c16",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/profile.codex-events.jsonl",
+      "raw_events_sha256": "d3ee3476dd23f5ac9bb5e80e293a154ab94afc801e98318d6058e813543c6c6c",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/profile.codex-output.json",
+      "raw_output_sha256": "b060ce05bc2d8c2d5551de6011146392f4dd88f23682265448838d68251ae2b7",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "draft": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/draft.json",
+      "raw_sha256": "9d02a4e56a202d397e5cd85ea257b28566eb0bc862679848c6476bc36b680370",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/draft.codex-events.jsonl",
+      "raw_events_sha256": "c8a433ad46343f4ed3644e2e4325233699302c770e51d53fdbabf509b2f7adc0",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/draft.codex-output.json",
+      "raw_output_sha256": "1f9514901d735efe0b17b787c535c00636b02b95502171fb230f5bd0cf7a20d4",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "claim_audit": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/claim-audit.json",
+      "raw_sha256": "3a725a3e205903e9c6b01e7403e1c4d075f7bd74322227ff5f0ab5b44b427d60",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/claim-audit.codex-events.jsonl",
+      "raw_events_sha256": "50798008022961832f353d11d237b222233e77e5e11e5cb4894ad00a2ec0cb16",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-7/raw/claim-audit.codex-output.json",
+      "raw_output_sha256": "46929d7db3abd088b6a44818f82e3935addaa2c1bcca60e51555ebe046a939b8",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    }
+  }
+}

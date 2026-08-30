@@ -1,0 +1,12 @@
+{
+  "schema": "prose-author-stage-adapter-canary-failure/1",
+  "status": "FAIL",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "case_id": "m02",
+  "candidate_words": 838,
+  "revision_words": 813,
+  "accepted_interval": [552, 748],
+  "error": "semantic revision has 813 words; requested 650 +/- 98",
+  "interpretation": "Even when the system contract explicitly authorized rebuilding the overlong candidate from its semantic outline, the one mandatory revision did not reach the self-added length interval. Word-count tolerance is not part of the pre-registered ship bar and should not remain a release-integrity gate."
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim-colon-link unit — a claim ending on a colon with a bare URL alone on the next line", "why": "no verified sources or URLs available for this topic; fabricating links was not an option" }
+  ],
+  "claims": [
+    { "claim": "Google acquired Revolv, a smart home hub, and later shut down its servers, disabling the hubs customers had bought", "where": "paragraph 4" },
+    { "claim": "Spotify sold a dashboard music player called Car Thing and later rendered it inoperable, telling owners to dispose of it", "where": "paragraph 4" },
+    { "claim": "Chamberlain cut off third-party app access to its garage door openers", "where": "paragraph 4" },
+    { "claim": "BMW offered heated seats, already physically installed in the car, as a monthly subscription", "where": "paragraph 4" },
+    { "claim": "Section 1201 of the DMCA makes circumventing a digital lock a felony regardless of ownership of the device", "where": "paragraph 5" }
+  ]
+}

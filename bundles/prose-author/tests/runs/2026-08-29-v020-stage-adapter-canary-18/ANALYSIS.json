@@ -1,0 +1,25 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "scope": "current-prompt-adapter-only",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "result_pass_meaning": "All five model outputs satisfied their locked native schemas and deterministic assembly contracts.",
+  "failed-run_topology_reused": "The request matches failed acceptance cell m01, but no profile, draft, or model output from that failed run was reused.",
+  "draft_words": 645,
+  "initial_conformance_pass": true,
+  "conformance_edit_count": 0,
+  "conformance_effect": "Every measured row was already in range, so the conformer returned zero edits and the draft remained byte-identical.",
+  "namespace_evidence": "The locked conformance schema carried the exact deterministic measurement-ID enum. This draw needed no edits, so it did not behaviorally exercise a non-empty measurement_ids value.",
+  "omission_evidence": "Both omitted coverage rows named their dimension and every supporting observation ID; all ten coverage rows assembled.",
+  "word_delta_evidence": "The draft had no conformance word delta. The spelling-only exception is exercised by deterministic regressions and mutation checks, not by this draw.",
+  "claim_audit": {
+    "sentences": 43,
+    "keep": 32,
+    "disclose": 11,
+    "reject": 0,
+    "public_claims": 15
+  },
+  "critic_verdict": "CLEAN",
+  "critic_findings": 0,
+  "conclusion": "This run proves that the current post-failure prompt, schemas, and locked Codex adapter can traverse the complete five-stage pipeline without a redraw. It contributes nothing to the locked 20-draft ship bar."
+}

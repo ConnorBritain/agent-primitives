@@ -1,0 +1,17 @@
+{
+  "schema": "voice-draft-claim-audit-probe/1",
+  "status": "complete-disclosure-pass-verification-pending",
+  "prepared_commit": "ca09165fffd11ade8d4dce5474c50c41858d4643",
+  "acceptance": false,
+  "source_run": "2026-08-28-v020-draft-source-probe-6/d01-claude",
+  "agent_body_sha256": "122ca1f1792f623abf855df31a124e4ffa272ba3028529985a76ad996d0f7aac",
+  "audit_schema_sha256": "d5f2b4cc9c8afe50e9cb86ae6e603421b3a9f954951a748ca478786391633a92",
+  "result": {
+    "transport": "pass",
+    "sentence_reconciliation": "pass",
+    "disclosure_completeness": "pass",
+    "claims_verified": "pending",
+    "external_sentences": 12,
+    "external_claims": 16
+  }
+}

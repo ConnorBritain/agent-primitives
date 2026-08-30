@@ -1,0 +1,11 @@
+{
+  "name": "bacon-essay",
+  "description": "Francis Bacon's essays — public-domain test fixture for the drafting path.",
+  "medium": "essay",
+  "register": "aphoristic, impersonal, 1625 English",
+  "notes": [
+    "FIXTURE, not a real user's profile. It is built from public-domain text so",
+    "that `voice-profile-render` can be exercised end to end without anyone's",
+    "own writing in the repo. Nothing here describes a person who uses this tool."
+  ]
+}

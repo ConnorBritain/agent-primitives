@@ -6,6 +6,7 @@ date: 2026-08-04
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/press/releases/mobile-ad-software-encourages-location-data-sharing-eff-report-finds
 ---
 Developers Must Beware of Ad Libraries that Betray Users’ Privacy

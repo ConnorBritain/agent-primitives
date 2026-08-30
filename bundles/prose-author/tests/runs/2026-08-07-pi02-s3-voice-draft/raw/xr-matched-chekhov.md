@@ -1,0 +1,21 @@
+```markdown
+Dear Praskovya Ivanovna,
+
+I have been three weeks in this town, which I did not pick and would not pick again, and I am writing to you because nobody else deserves it. The rain began the day after I arrived and has kept at it since. The gutters run, the yards run, the one paved street runs. My boots have been wet for so long that I have stopped thinking of them as boots.
+
+Money is short. I had counted on a certain sum and the sum did not come, and now I count differently: bread, tea, the room, a candle, the postage on this letter. That is the whole of my arithmetic. It is a restful subject once you give up hope of a different answer.
+
+The town itself is nothing. A square with a well in it, a church painted the colour of weak soup, two shops selling the same thread and the same herring, dogs, a schoolmaster who drinks, and mud of a depth that I would report to you as a number if I had any way of measuring it. The inn has a piano nobody may touch.
+
+But I have seen one thing, and it is why I am writing while my hands are still cold. On Thursday the river came up. It came into the low street below the market, and by evening the whole of it was under water — not a torrent, only a flat brown sheet lying there quietly, with the fence posts standing out of it in a row and the doorsteps gone. The people of that street had carried what they had up to the higher ground and sat with it. And in the middle of the water, perfectly still, was a table. Somebody's kitchen table, floated out of somebody's kitchen, standing upright on its four legs in two feet of river as though it had been set for supper and were waiting on the family, patient as a horse left standing in the traces. I watched it a long while. Toward dark a boy waded out and put his cap on it and waded back, and everyone laughed, and then it got too dark to see. I am no good at this sort of thing. You would have to have been there.
+
+The next morning the water had gone down and the table was on its side in the mud like anything else.
+
+Write to me. I mean it: write, and put the year on the letter, because I have lost track of what month I am in and the calendar in the passage is two years old and nobody will take it down. Tell me whether Nikolay got the position, whether the roof was ever seen to, and whether Anna is still refusing to eat anything that has been near an onion. Tell me the small things especially. I read them twice.
+
+I am well enough. My throat has been bad in the mornings and I cough in a way that makes the woman downstairs knock on her ceiling, but it passes by noon and I have decided to consider that a cure. I sleep a great deal, which is cheap.
+
+I shall stay until the money comes, and then I shall go, and I do not much mind which day that is.
+
+Send the letter to this address and not the other one. The other one has a dog in the yard and the postman will not go in.
+```

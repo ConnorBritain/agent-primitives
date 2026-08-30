@@ -1,0 +1,63 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "status": "PASS",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "prepared_commit": "ea19db9936889eaa85b34a55d3644ce3fd762db7",
+  "stages": {
+    "profile": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/profile.json",
+      "raw_sha256": "abc3c097bda41d0ba7cff7f9dff77e3298d58bf559fbb4db5f248c94660b7250",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/profile.codex-events.jsonl",
+      "raw_events_sha256": "b253d1b9a10b3da4197b128e2f6ea5d009118c5638e6a099e9da54f9e1bf801d",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/profile.codex-output.json",
+      "raw_output_sha256": "6731cce4d25cea9246e4980c0b8dc1d812ef3c849c59a28cc2852ee90b8708f4",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "draft": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/draft.json",
+      "raw_sha256": "8186874b29901d393750b6c000bb1dd037bd3cf2cb36451f7bdcc0b84854d7fe",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/draft.codex-events.jsonl",
+      "raw_events_sha256": "65eb6adc15ba88c6e93934442d1a566cdf1e772cfe913229564ed35d1298f23a",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/draft.codex-output.json",
+      "raw_output_sha256": "bade92afa7f4dbb737b3bdd8ec4a5cb1515f0cb3da4351199866fa70426c6542",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "claim_audit": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/claim-audit.json",
+      "raw_sha256": "f0649d87438b8630f4121a42910b8b5f4cc3ed5e9ccace79fffb8fd437d2e085",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/claim-audit.codex-events.jsonl",
+      "raw_events_sha256": "04d281f1414230a0ea891461377f88d64cccfe179f5c59aec2ef632f604bf4d5",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/claim-audit.codex-output.json",
+      "raw_output_sha256": "63c5d7448629fbeda5bb277e7d823d344fb3ccbc1fcc1b215f5696f978c510db",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "critic": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/critic.json",
+      "raw_sha256": "16e2662ca4ae6986e7ce3b12b990ff4408393e754d6d31aa4f31539be2e87e11",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/critic.codex-events.jsonl",
+      "raw_events_sha256": "198eb7e7723b09e530e706f6f8e6383c080239509f151eeb0725cb91fe6f5d5f",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/critic.codex-output.json",
+      "raw_output_sha256": "9a6efc1a0ba78794557f37fabdcd8eea9c95e687a4e0498fb1d7f788e98713ae",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    }
+  },
+  "profile_assembled": true,
+  "draft_assembled": true,
+  "audit_schema_valid": true,
+  "audit_semantic_pass": true,
+  "audit_findings": [],
+  "critic_assembled": true
+}

@@ -1,0 +1,14 @@
+{
+  "schema": "voice-critic-source/1",
+  "findings": [],
+  "clean_categories": [
+    "register-breaks",
+    "unfamiliar-constructions",
+    "out-of-register-vocabulary",
+    "flattened-rhythm",
+    "unvarying-voice"
+  ],
+  "rhythm_assessed": false,
+  "rhythm_note": "No deterministic rhythm scan was supplied; category 4 was not assessed.",
+  "verdict": "CLEAN"
+}

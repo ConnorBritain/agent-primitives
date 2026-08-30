@@ -1,0 +1,127 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies both measured person and reader-stance ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies the paired contraction and uncontracted-negative ranges.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The initial source concedes the convenience before narrowing the decision to control.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies the measured question-mark range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"omitted\",\"reason\":\"No specific AI service, verified source, or attributable vendor statement was supplied.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The measured zero occurrence already satisfies the permitted range.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies the measured first-person-singular range without inventing biography.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies all measured parenthesis and dash ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The filing-cabinet and temporary-clerk analogy operationalizes the confidentiality risk.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The opening gives the decision directly, and the close returns to a concrete collective recommendation.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named source or attributed adversary\",\"why\":\"No specific AI service, verified source, or attributable vendor statement was supplied.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies both measured person and reader-stance ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies the paired contraction and uncontracted-negative ranges."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source concedes the convenience before narrowing the decision to control."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies the measured question-mark range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "omitted",
+        "reason": "No specific AI service, verified source, or attributable vendor statement was supplied."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured zero occurrence already satisfies the permitted range."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies the measured first-person-singular range without inventing biography."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies all measured parenthesis and dash ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The filing-cabinet and temporary-clerk analogy operationalizes the confidentiality risk."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening gives the decision directly, and the close returns to a concrete collective recommendation."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named source or attributed adversary",
+        "why": "No specific AI service, verified source, or attributable vendor statement was supplied."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/conformance/d09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/conformance/d09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "b59e7c13946f880f411ed947a1b397758913044d0ac43d8691791b37bf2f9fd6",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "daa1cd6d0228529a1637539a9518c82196c2b85d62c2f2f8e021b984c7ec4f99",
+      "profile_markdown_sha256": "025493c644ccd90c329550afec11f0affd3e0f4abe5b6f75a19b0b5f2b48fa62",
+      "profile_json_sha256": "b4887a5a93e6732e98eb4534af5c6a749d0450b3172b167f04972c58ae0d4481"
+    }
+  }
+}

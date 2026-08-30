@@ -1,0 +1,44 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[],\"clean_categories\":[\"register-breaks\",\"unfamiliar-constructions\",\"out-of-register-vocabulary\",\"unvarying-voice\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"CLEAN\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [],
+    "clean_categories": [
+      "register-breaks",
+      "unfamiliar-constructions",
+      "out-of-register-vocabulary",
+      "unvarying-voice"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "Category 4 was not assessed because no deterministic rhythm scan was supplied.",
+    "verdict": "CLEAN"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-18/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-18/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "0b8cae9ca32c9ae12b043f41a5781024eeee6d9c5efc0084dc0c02ef82867fdc"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "77fd146c97fdd3d5354885841e3ec808b5099b735b9572e55a72869dcaeeeff1",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "14df251c4c4d7b339574cc5d24ab123a701246d285b7e4efa6ed07d120fdfa88",
+      "conformance_raw_sha256": "a4dd4178f22bc2322e52c8f37004aeea205ef4215c93f5328b91f3930784e545",
+      "audit_raw_sha256": "1624a6015e5d3ba7ef65662fb70e7a43345948faf3ef71587b8cccdbd0eba1f2"
+    }
+  }
+}

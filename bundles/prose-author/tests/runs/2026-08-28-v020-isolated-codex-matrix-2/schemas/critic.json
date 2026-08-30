@@ -1,0 +1,81 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "voice-critic-source/1"
+    },
+    "findings": {
+      "type": "array",
+      "maxItems": 10,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "location": {
+            "type": "string",
+            "minLength": 1
+          },
+          "what": {
+            "type": "string",
+            "minLength": 1
+          },
+          "corpus_evidence": {
+            "type": "string",
+            "minLength": 1
+          },
+          "confidence": {
+            "type": "string",
+            "enum": [
+              "high",
+              "low"
+            ]
+          }
+        },
+        "required": [
+          "location",
+          "what",
+          "corpus_evidence",
+          "confidence"
+        ]
+      }
+    },
+    "clean_categories": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "register-breaks",
+          "unfamiliar-constructions",
+          "out-of-register-vocabulary",
+          "flattened-rhythm",
+          "unvarying-voice"
+        ]
+      }
+    },
+    "rhythm_assessed": {
+      "type": "boolean"
+    },
+    "rhythm_note": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "CLEAN",
+        "REVISE"
+      ]
+    }
+  },
+  "required": [
+    "schema",
+    "findings",
+    "clean_categories",
+    "rhythm_assessed",
+    "rhythm_note",
+    "verdict"
+  ]
+}

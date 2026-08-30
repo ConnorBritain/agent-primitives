@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 261017,
+  "duration_api_ms": 260991,
+  "num_turns": 1,
+  "result": "```markdown\nScheduling software that rewrites a worker's week with a few hours' notice is often described as a technical inconvenience—a byproduct of demand forecasting, a side effect of optimizing for efficiency. It isn't. The ability to cancel or reassign shifts at midnight (or at any hour a forecasting model recalculates demand), with no statutory obligation and no penalty, is not an accidental feature of these platforms. It's a mechanism of control, and treating it as anything less understates what workers are actually up against.\n\nThe platforms used by large retailers (supermarket chains, big-box stores, fast food operators), restaurant groups, and warehouse operators are marketed under the umbrella of \"workforce management software.\" These systems auto-generate and continuously revise schedules based on sales data, foot traffic projections, and inventory signals. Staffing tracks demand; labor costs shrink when hours fluctuate on short notice. What the marketing conceals is that this flexibility transfers the entire cost of uncertainty onto workers. When a shift is canceled two hours before it starts, a worker doesn't just lose wages. She loses the childcare arrangement she built around that shift (a slot she may have paid to reserve), the second job she turned down because she thought she was already scheduled, the appointment she rescheduled to avoid a conflict that no longer exists.\n\nThat is what control looks like when it's been routed through an algorithm.\n\nWhat separates scheduling software from earlier forms of managerial pressure is that it operates without a face. A floor supervisor who sends workers home early makes a decision someone can contest, document, or bring to a grievance process. An algorithm adjusting hours based on real-time transaction data is more like a weather forecast than a manager: it produces outcomes, but no one made the call. The system is an abstraction—and workforce management vendors (the companies selling these platforms) have lobbied to ensure that predictability requirements written for human supervisors do not automatically apply to the software those supervisors deploy.\n\nIs this effect intentional? It need not be. The predictability that matters to workers and the unpredictability that benefits scheduling systems are the same condition viewed from two sides. Whether an employer designed the harm or simply declined to prevent it is irrelevant to the worker scrambling for childcare at 11 p.m.\n\nUnpredictability also suppresses organizing. A worker who can't know her schedule more than 48 hours in advance cannot reliably commit to a union meeting, hold a shop steward role, or maintain contact with coworkers who rotate through different shifts each week. The disorganization is structural, not incidental. An employer who cannot legally discharge a worker for organizing activity can accomplish something similar by ensuring that worker's life is too chaotic to sustain the effort—no termination required, no paper trail, just the algorithm running as designed.\n\nSeveral jurisdictions have passed predictive scheduling ordinances (laws that require advance schedule notice and impose premium pay for last-minute changes), but enforcement is uneven and coverage is narrow. Many of these laws contain carve-outs for \"voluntary\" shift swaps that scheduling platforms are specifically engineered to exploit—a worker who accepts a reassignment through the platform's own interface (often a single tap on a mobile app) is deemed to have consented, regardless of the economic pressure behind that choice.\n\nFor organizers, the implication is direct: scheduling is a bargaining issue, not background noise. Predictability guarantees, advance notice windows (72 hours or more has appeared as a floor, not a ceiling, in contracts that take this seriously), and premium pay for late changes have all been won at recent bargaining tables. We've seen these demands succeed through sustained shop-floor pressure as well as formal agreements. The technology makes them necessary.\n\nState legislatures should strengthen predictive scheduling laws, close the voluntary-swap loopholes that scheduling platforms exploit, and extend coverage to the industries most reliant on algorithmic shift management. If you're organizing in retail, food service, or logistics, schedule predictability belongs on your demand list.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [],\n  \"claims\": [\n    { \"claim\": \"72 hours or more has appeared as a floor in recent collective agreements addressing scheduling predictability\", \"where\": \"paragraph 8\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "31188b46-abcf-43e5-8b9f-a581647447e0",
+  "total_cost_usd": 0.29556645,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6773,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 17894,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6773,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 17894,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6773,
+      "webSearchRequests": 0,
+      "costUSD": 0.29556645,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "3f94b6d8-7545-4e2c-aaac-7916efad6a54"
+}

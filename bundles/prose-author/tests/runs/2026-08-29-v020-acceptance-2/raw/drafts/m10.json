@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Collecting identity documents is not the only way to perform age assurance, and it may be the riskiest default for a small app. A passport image answers one question by creating several others: how to secure it, who can access it, when to delete it, and what happens after a breach. The mechanism becomes a vault of valuable records.\\n\\nStart by separating the policy goal from the implementation. Determine whether the service needs an exact birth date, a threshold result (over 13, over 16, or over 18), or only a coarse age band. Then determine whether assurance must cover every visitor or only accounts reaching a sensitive feature (public posting or purchases). Narrowing both dimensions reduces cost and exposure.\\n\\nPrefer an architecture that returns a claim instead of an identity—“meets threshold” plus an expiry time and issuer reference (not a name or document number). That claim could come from an operating system, a platform account, or another intermediary the applicable rules accept. Apps can’t trust every signal, but it doesn’t need to become a document warehouse. Verification and identification aren’t the same job.\\n\\nIf local processing is feasible, keep raw input on device and transmit only the threshold result (with cryptographic proof where the threat model justifies it). If human review is unavoidable, make it exceptional (for failed automated checks), isolate access, set deletion periods, and prevent logs or backups from retaining the document. “Delete later” isn’t a security boundary—it assumes each copy will cooperate.\\n\\nNo option is safe in every context. Developers should not collect documents merely because they look definitive. Document the required age decision, choose the least identifying accepted signal, store the smallest result, and provide a failure route for users without conventional credentials. We should demand a simple standard: prove the necessary fact, then stop collecting.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Collecting identity documents is not the only way to perform age assurance, and it may be the riskiest default for a small app. A passport image answers one question by creating several others: how to secure it, who can access it, when to delete it, and what happens after a breach. The mechanism becomes a vault of valuable records.\n\nStart by separating the policy goal from the implementation. Determine whether the service needs an exact birth date, a threshold result (over 13, over 16, or over 18), or only a coarse age band. Then determine whether assurance must cover every visitor or only accounts reaching a sensitive feature (public posting or purchases). Narrowing both dimensions reduces cost and exposure.\n\nPrefer an architecture that returns a claim instead of an identity—“meets threshold” plus an expiry time and issuer reference (not a name or document number). That claim could come from an operating system, a platform account, or another intermediary the applicable rules accept. Apps can’t trust every signal, but it doesn’t need to become a document warehouse. Verification and identification aren’t the same job.\n\nIf local processing is feasible, keep raw input on device and transmit only the threshold result (with cryptographic proof where the threat model justifies it). If human review is unavoidable, make it exceptional (for failed automated checks), isolate access, set deletion periods, and prevent logs or backups from retaining the document. “Delete later” isn’t a security boundary—it assumes each copy will cooperate.\n\nNo option is safe in every context. Developers should not collect documents merely because they look definitive. Document the required age decision, choose the least identifying accepted signal, store the smallest result, and provide a failure route for users without conventional credentials. We should demand a simple standard: prove the necessary fact, then stop collecting.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/m10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/m10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "492c6d7cb2a0cdac8081ff33c8950bc0d635790a9f6e72c61d9addf05f3900b9",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

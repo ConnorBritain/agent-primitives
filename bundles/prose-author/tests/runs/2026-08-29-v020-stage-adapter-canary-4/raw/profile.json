@@ -1,0 +1,126 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-profile-source/3\",\"voice_card\":\"empty\",\"measured\":{\"second-person-family\":{\"prose\":\"Direct second-person address makes the reader a participant in the argument rather than a distant observer. It commonly appears when explaining a system, posing a practical consequence, or turning a general claim into an immediate test: “If you think…” Use you to make abstract stakes feel personal and actionable.\"},\"first-person-plural-family\":{\"prose\":\"First-person plural language builds a shared public position with the returning readership, especially when discussing collective exposure to technology, law, labor, or surveillance. It can include writer and reader in the same vulnerable population, then pivot toward a shared judgment or action. Use we for solidarity, not institutional impersonation.\"},\"contractions\":{\"prose\":\"Contractions keep exposition conversational and give polemical claims a spoken, quick-moving cadence. They are especially effective in transitions, direct address, dismissals, and compressed conclusions, where formal expansion would sound ceremonious. Prefer the contracted form in ordinary argument and explanation; reserve a fuller form for deliberate emphasis.\"},\"uncontracted-negatives\":{\"prose\":\"Full negative forms provide occasional weight at moments of insistence, clarification, or formal contrast, but they are not the ordinary negative texture. Use an uncontracted negative sparingly when the denial itself needs to land—particularly in a corrective sentence—rather than as a general substitute for conversational contractions.\"},\"profanity-vulgarity\":{\"prose\":\"Vulgar language acts as argumentative punctuation: it punctures euphemism, marks contempt for a dishonest premise, or supplies comic force to a concrete example. It often lands after a technical or institutional description, creating an abrupt register drop. Use it selectively at the sharpest turn, not as continuous decoration.\"},\"first-person-singular-family\":{\"prose\":\"First-person singular reference presents the writer as an involved arguer, witness, or example rather than as the subject of memoir. It introduces a remembered encounter, personal judgment, practical recommendation, or limited disclosure before returning to the public claim. Use I to ground an argument briefly, then widen its scope.\"},\"question-marks\":{\"prose\":\"Questions function mainly as rhetorical engines: they expose an inconsistency, force a premise into the open, or launch a counterexample. They often receive an immediate answer or a sequence of answering questions. Use them at pivots and openings within an argument, not to create an uncertain or exploratory posture.\"},\"round-parenthetical-spans\":{\"prose\":\"Parentheses carry compact asides, qualifications, comic labels, and secondary facts without interrupting the main argumentative line. They frequently sharpen an adjacent claim by adding a skeptical gloss or practical limitation. Place them after the relevant noun or clause, keeping the main sentence intelligible if the aside is removed.\"},\"em-dashes\":{\"prose\":\"The corpus does not use em dashes as a supported interruption mark. Do not introduce them as a default substitute for the observed aside, pivot, or qualification pattern; keep the sentence relation explicit through ordinary punctuation or the supported parenthetical and en-dash devices.\"},\"en-dashes\":{\"prose\":\"En dashes support abrupt pivots, appositional interruptions, and compact qualifications while preserving a visibly editorial, essayistic rhythm. They often bracket a short aside or turn a sentence toward a sharper consequence. Use them where the interruption remains grammatically integrated, rather than scattering them through every paragraph.\"}},\"qualitative\":[{\"dimensions\":[\"qualification-hedging\"],\"section\":\"register-range\",\"prose\":\"Qualification appears as explicit concessions, scenario limits, and brief admissions before the argument resumes its force. The prose acknowledges exceptions—“Of course” and “Sure” often introduce them—then distinguishes the exception from the governing pattern. Place a concession immediately before the sharper claim it narrows or strengthens.\",\"frequency\":\"several times per piece\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-14-designated-survivor.txt\"]},{\"dimensions\":[\"opponents-allies-sources\"],\"section\":\"register-range\",\"prose\":\"Sources enter as named people, institutions, linked articles, quoted formulations, or recurring interlocutors. Their claims are summarized, credited, extended, and sometimes corrected: “there’s one area where I think Quiggin’s got it wrong.” Introduce evidence plainly, then state exactly what the source establishes and where your argument departs.\",\"frequency\":\"throughout\",\"support_files\":[\"2026-07-11-your-risk.txt\",\"2026-07-14-designated-survivor.txt\",\"2026-07-22-table-flipper.txt\"]},{\"dimensions\":[\"figures-analogy\"],\"section\":\"figures\",\"prose\":\"Figures translate institutional or technical mechanics into vivid bodily, domestic, commercial, or fantastical scenes: a system may “shift risk,” “punch yourself in the face,” or become an escrow agent. Comparisons are often extended through several concrete consequences before returning to the thesis. Use one governing analogy to make structure memorable.\",\"frequency\":\"several times per piece\",\"support_files\":[\"2026-07-10-posthuman-as-in-no-humans.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-22-table-flipper.txt\"]},{\"dimensions\":[\"openings-endings-closure\"],\"section\":\"openings\",\"prose\":\"Openings commonly begin with a compact provocation, an observed irony, a quoted sentence, or a definition, then widen into the underlying system. Paragraphs often close on a compressed reversal or memorable image. Pieces finish by restating the governing distinction and converting it into a blunt public judgment or practical demand.\",\"frequency\":\"throughout\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-13-go-meta-meta.txt\",\"2026-07-16-lucky-orifices.txt\",\"2026-07-23-drop-a-dime.txt\"]}],\"unresolved\":{\"qualification-hedging\":null,\"opponents-allies-sources\":null,\"figures-analogy\":null,\"openings-endings-closure\":null},\"gaps\":\"All ten supplied samples carry matching provenance and are contemporary, untranslated blog prose, so the requested register is established without an editor or translator caveat. The voice card is explicitly empty and contributes no intent to reconcile. The corpus supports recurring argumentative and typographic patterns, but it does not establish whether every punctuation choice is a stable personal preference outside this blog format. Personal disclosures function as brief argumentative grounding here and should not be reused as biographical content.\",\"observations_dropped\":0,\"multiple_voices_suspected\":false}",
+  "structured_output": {
+    "schema": "voice-profile-source/3",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct second-person address makes the reader a participant in the argument rather than a distant observer. It commonly appears when explaining a system, posing a practical consequence, or turning a general claim into an immediate test: “If you think…” Use you to make abstract stakes feel personal and actionable."
+      },
+      "first-person-plural-family": {
+        "prose": "First-person plural language builds a shared public position with the returning readership, especially when discussing collective exposure to technology, law, labor, or surveillance. It can include writer and reader in the same vulnerable population, then pivot toward a shared judgment or action. Use we for solidarity, not institutional impersonation."
+      },
+      "contractions": {
+        "prose": "Contractions keep exposition conversational and give polemical claims a spoken, quick-moving cadence. They are especially effective in transitions, direct address, dismissals, and compressed conclusions, where formal expansion would sound ceremonious. Prefer the contracted form in ordinary argument and explanation; reserve a fuller form for deliberate emphasis."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negative forms provide occasional weight at moments of insistence, clarification, or formal contrast, but they are not the ordinary negative texture. Use an uncontracted negative sparingly when the denial itself needs to land—particularly in a corrective sentence—rather than as a general substitute for conversational contractions."
+      },
+      "profanity-vulgarity": {
+        "prose": "Vulgar language acts as argumentative punctuation: it punctures euphemism, marks contempt for a dishonest premise, or supplies comic force to a concrete example. It often lands after a technical or institutional description, creating an abrupt register drop. Use it selectively at the sharpest turn, not as continuous decoration."
+      },
+      "first-person-singular-family": {
+        "prose": "First-person singular reference presents the writer as an involved arguer, witness, or example rather than as the subject of memoir. It introduces a remembered encounter, personal judgment, practical recommendation, or limited disclosure before returning to the public claim. Use I to ground an argument briefly, then widen its scope."
+      },
+      "question-marks": {
+        "prose": "Questions function mainly as rhetorical engines: they expose an inconsistency, force a premise into the open, or launch a counterexample. They often receive an immediate answer or a sequence of answering questions. Use them at pivots and openings within an argument, not to create an uncertain or exploratory posture."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses carry compact asides, qualifications, comic labels, and secondary facts without interrupting the main argumentative line. They frequently sharpen an adjacent claim by adding a skeptical gloss or practical limitation. Place them after the relevant noun or clause, keeping the main sentence intelligible if the aside is removed."
+      },
+      "em-dashes": {
+        "prose": "The corpus does not use em dashes as a supported interruption mark. Do not introduce them as a default substitute for the observed aside, pivot, or qualification pattern; keep the sentence relation explicit through ordinary punctuation or the supported parenthetical and en-dash devices."
+      },
+      "en-dashes": {
+        "prose": "En dashes support abrupt pivots, appositional interruptions, and compact qualifications while preserving a visibly editorial, essayistic rhythm. They often bracket a short aside or turn a sentence toward a sharper consequence. Use them where the interruption remains grammatically integrated, rather than scattering them through every paragraph."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Qualification appears as explicit concessions, scenario limits, and brief admissions before the argument resumes its force. The prose acknowledges exceptions—“Of course” and “Sure” often introduce them—then distinguishes the exception from the governing pattern. Place a concession immediately before the sharper claim it narrows or strengthens.",
+        "frequency": "several times per piece",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-14-designated-survivor.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "register-range",
+        "prose": "Sources enter as named people, institutions, linked articles, quoted formulations, or recurring interlocutors. Their claims are summarized, credited, extended, and sometimes corrected: “there’s one area where I think Quiggin’s got it wrong.” Introduce evidence plainly, then state exactly what the source establishes and where your argument departs.",
+        "frequency": "throughout",
+        "support_files": [
+          "2026-07-11-your-risk.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-22-table-flipper.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures translate institutional or technical mechanics into vivid bodily, domestic, commercial, or fantastical scenes: a system may “shift risk,” “punch yourself in the face,” or become an escrow agent. Comparisons are often extended through several concrete consequences before returning to the thesis. Use one governing analogy to make structure memorable.",
+        "frequency": "several times per piece",
+        "support_files": [
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-22-table-flipper.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "prose": "Openings commonly begin with a compact provocation, an observed irony, a quoted sentence, or a definition, then widen into the underlying system. Paragraphs often close on a compressed reversal or memorable image. Pieces finish by restating the governing distinction and converting it into a blunt public judgment or practical demand.",
+        "frequency": "throughout",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-23-drop-a-dime.txt"
+        ]
+      }
+    ],
+    "unresolved": {
+      "qualification-hedging": null,
+      "opponents-allies-sources": null,
+      "figures-analogy": null,
+      "openings-endings-closure": null
+    },
+    "gaps": "All ten supplied samples carry matching provenance and are contemporary, untranslated blog prose, so the requested register is established without an editor or translator caveat. The voice card is explicitly empty and contributes no intent to reconcile. The corpus supports recurring argumentative and typographic patterns, but it does not establish whether every punctuation choice is a stable personal preference outside this blog format. Personal disclosures function as brief argumentative grounding here and should not be reused as biographical content.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-4/raw/profile.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-4/raw/profile.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "28d20a20d34efe4d9242f7898f0e7d458f4356e14ecb0f62610b2d6f0741d96d"
+  },
+  "acceptance_input": {
+    "system_sha256": "0918aa0693a181e5d1a6fe58c81c0304a5feaad6bf20b769a9a9f7b401fa758a",
+    "prompt_sha256": "5ce08f0aeb3effeffc6a23c2fb742028a54fd9b0e63ceb318bebb2867633f333",
+    "schema_sha256": "275a7eafecb00507f3a3d8485ff283ac3c2da6a692e094c1509b30646c0a62e1"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "prose-author-stage-adapter-canary-design/1",
+  "profile": "eff-mullin",
+  "fixture": "eff-mullin",
+  "prompt": "Write a 300-word reply to a colleague at a small nonprofit who asks whether they should use an AI service to summarise confidential intake notes. They need a practical answer for a meeting tomorrow. Be direct, collegial, and specific about the decision.",
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "stages": ["profile", "draft", "conformance", "claim_audit", "critic"],
+  "acceptance_evidence": false,
+  "redraws": 0
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "prose-author-claim-reaudit-diagnostic-result/1",
+  "acceptance_evidence": false,
+  "clears": false,
+  "interpretation": "Stop before acceptance and reconsider the claim-boundary representation.",
+  "cases": {
+    "d01": {
+      "clear": false,
+      "reaudit_errors": [
+        "p2s1 rejected: Labeled hypothetical but describes a real, widely practiced industry arrangement (hardware/software split in terms of service, accepted during unboxing). This is a descriptive claim about how sellers actually structure sales and what buyers actually agree to — not an unmistakably imagined scenario. The ledger contains no entry covering it.",
+        "p3s3 rejected: Labeled hypothetical but makes a descriptive claim about how 'the digital version of that arrangement is treated as ordinary' — a claim about general public or industry behavior. This is not an unmistakably imagined scenario; it asserts a real-world social/market reality. No ledger entry covers it."
+      ],
+      "repaired_sha256": "2bc5031c8df33f7460a806f4f7e7534276650a289cdd897e061b65f8425558a8",
+      "reaudit_sha256": "c0cbb80fc5a1ef50447452c3d87c317bd4d1835524f416cd2856e039c553c2cb"
+    },
+    "m05": {
+      "clear": true,
+      "reaudit_errors": [],
+      "repaired_sha256": "8d7fe71a07b5e904637e0d39d22e5298a999cf73c9b15485b4c60e7473554c13",
+      "reaudit_sha256": "9a68e69b9ca8f9e21483c5388ca69b707c55f90be0fd368f5b893d02b34dbb7e"
+    },
+    "d05": {
+      "clear": false,
+      "reaudit_errors": [
+        "p1s2 rejected: Labeled reasoning but introduces an external descriptive premise: 'is often presented as the moment when power leaves the platform and arrives in your hands.' This is a claim about how platforms or industry actors actually present choice screens to users — a statement about real-world behavior. A reasonable reader would ask 'how do you know choice screens are often presented this way?' No ledger entry covers it, and the reasoning basis does not permit descriptive premises about what real actors do.",
+        "p3s2 rejected: Labeled reasoning but asserts 'most people will leave the setting alone' — a claim about how people generally behave. Per audit rules, 'people generally behave a certain way' is a descriptive claim even when written rhetorically. No ledger entry covers it, and the reasoning basis does not permit adding external behavioral premises."
+      ],
+      "repaired_sha256": "bb4fbfd9d6ed6a2884c90efb0493fd5f64ee907895f58a29821a0bd8d1b16cad",
+      "reaudit_sha256": "0ef2bb3a3f735bdb6c8561d15680000e0700ad5b02f852cb945c862400989f02"
+    }
+  }
+}

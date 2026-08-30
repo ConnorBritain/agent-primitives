@@ -1,0 +1,484 @@
+{
+  "schema": "prose-author-stage-adapter-canary-manifest/1",
+  "run_id": "2026-08-29-v020-stage-adapter-canary-9",
+  "prepared_commit": "bd32370eb01476a0e9d848494d314408e1cdebaa",
+  "concurrency": 1,
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "dispatch": {
+    "profile": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "draft": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "conformance": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "claim_audit": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "critic": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "codex_no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ],
+  "locked_files": {
+    "bundles/prose-author/skills/prose-draft/references/claim-audit.md": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "142bf99dd37933a45035e481af64c83fbe49aba11131b17b915195d2040e45ff",
+    "bundles/prose-author/skills/prose-draft/tools/draft-conformance.mjs": "7c2eb78cdac9f461e50a1dbfedf7e31d89b8d79e490cede552533b81ac02b59b",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "782b05df72c782fe9caf17e4cd00e7bd1601a92581b8f4728b04843e6e200e3f",
+    "bundles/prose-author/skills/prose-draft/tools/draft-targets.mjs": "2da5a1b5c498de79111c1db08ce2e5bd1e4c189ca8c3ca904fb2a9fdc54cc370",
+    "bundles/prose-author/skills/prose-draft/tools/exemplars.mjs": "3480c86a70fc89a64f4d1333ad3839daa5cfe68d37e883d0cb636c37a0b8dccb",
+    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs": "94f52e9ab660b75d2bf137b1058b52c54df598590fddbff6014b3b5d514a86e4",
+    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs": "c4a59b41da0fbbc7892eea5b7456c2843934935d491634135659d0d78283671f",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "eb432e44bf5e985cbb5707e501e190fae388153d7d23701a9f9fb6f08b8ac082",
+    "bundles/prose-author/tests/bar.mjs": "394f6d4fb219da4378cb9c25a9583dee85188770d530edb919a9009251d94a70",
+    "bundles/prose-author/tests/corpus-rates.mjs": "e620b433ab32b36592d23f426ffcae90d357a2fd447925506ec00144e63a9a89",
+    "bundles/prose-author/tests/coverage-analysis.mjs": "18684c425fa53a0b36a767e0244e4323f4140dda0d88472f87c101840f108ed1",
+    "bundles/prose-author/tests/cross-count.mjs": "168bde25d6672d71ea6b2c7c34e87552a6a6c1c381d156f89a58c732c9d9059c",
+    "bundles/prose-author/tests/fences.mjs": "205e938b0b0104fe3f7c7468aedb62c480d2f66c8d7a3de6488bc26a8c2b786f",
+    "bundles/prose-author/tests/loop.mjs": "ea52d35e1711ab4d89e4128e6f1850e749c35ec3887578e610872e870eee28e5",
+    "bundles/prose-author/tests/profile-stability.mjs": "f9572ca74a96e44002272e8752397d2ae164052f734c0d4d464c43c903c40977",
+    "bundles/prose-author/tests/run-gates.mjs": "c689c682a597bf4296ed39546bb98252a2efa9f8196be004961a1ef32644f59f",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/DESIGN.json": "243f55492923295c5bb758ceb63cfaf910bc91f057ad2e996a918d7ebca23da5",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/run.mjs": "b3d52cdd66e0d8c9f539f64357d96573ef46b29b9935c66108b98a2fd74d971d",
+    "bundles/prose-author/tests/strict-output-schema.mjs": "c426816816fece8b220413fc3ff363ff0c0295c8fa4cf73266257330daf9ef3c",
+    "bundles/prose-author/tests/voice-critic-source.mjs": "ce61780da9681550c2a5bb6c37957fa90b4673aceafb2392892ff61884d82b78",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912",
+    "bundles/prose-author/tests/voice-profile.mjs": "9059a9e373a2fcfd443cc174cbd6103317f6d64ccfae4db33f0f6b905e2ae5dd",
+    "primitives/agents/prose-voice-critic/agent.md": "e8395e420fc5379a20bbd58a015332404a6b9816ee2469fdfb6520a761eafcd5",
+    "primitives/agents/voice-draft/agent.md": "3fc63568623e956b9cc07d79357f5165fcf7f0d2b9d76a4073911c75eab296f4",
+    "primitives/agents/voice-profile-render/agent.md": "01797d6c780c2c0343da557ac634cd21062598150d7919e6ddb6ef209e5bc653"
+  },
+  "agents": {
+    "profile": {
+      "source": "primitives/agents/voice-profile-render/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/prompts/agents/profile.md",
+      "sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93"
+    },
+    "draft": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/prompts/agents/draft.md",
+      "sha256": "0d023f2ad4f6945183864935e2d58f00a26507221e258bdaddb0d98d7895161b"
+    },
+    "conformance": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/prompts/agents/conformance.md",
+      "sha256": "0d023f2ad4f6945183864935e2d58f00a26507221e258bdaddb0d98d7895161b"
+    },
+    "claim_audit": {
+      "source": "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/prompts/agents/claim_audit.md",
+      "sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07"
+    },
+    "critic": {
+      "source": "primitives/agents/prose-voice-critic/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/prompts/agents/critic.md",
+      "sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4"
+    }
+  },
+  "fixture": "bundles/prose-author/tests/fixtures/profiles/doctorow-blog",
+  "measurements": {
+    "schema": "voice-profile-measurements/1",
+    "corpus_words": 17549,
+    "sample_count": 10,
+    "samples": [
+      {
+        "file": "2026-07-09-wilhoitian.txt",
+        "words": 1400
+      },
+      {
+        "file": "2026-07-10-posthuman-as-in-no-humans.txt",
+        "words": 1122
+      },
+      {
+        "file": "2026-07-11-your-risk.txt",
+        "words": 2459
+      },
+      {
+        "file": "2026-07-13-go-meta-meta.txt",
+        "words": 898
+      },
+      {
+        "file": "2026-07-14-designated-survivor.txt",
+        "words": 1328
+      },
+      {
+        "file": "2026-07-16-lucky-orifices.txt",
+        "words": 2552
+      },
+      {
+        "file": "2026-07-21-dickovers.txt",
+        "words": 2332
+      },
+      {
+        "file": "2026-07-22-table-flipper.txt",
+        "words": 2061
+      },
+      {
+        "file": "2026-07-23-drop-a-dime.txt",
+        "words": 1963
+      },
+      {
+        "file": "2026-07-24-supplemental-income.txt",
+        "words": 1434
+      }
+    ],
+    "samples_excluded": [],
+    "undelimited_samples": [],
+    "measurements": [
+      {
+        "id": "second-person-family",
+        "count": 385,
+        "per_1000_words": 21.94,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:second-person-family] Count case-insensitive whole-word tokens you, your, yours, you're, you've, you'd, and you'll in the extracted sample bodies."
+      },
+      {
+        "id": "first-person-plural-family",
+        "count": 127,
+        "per_1000_words": 7.24,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:first-person-plural-family] Count case-sensitive whole-word tokens we, We, us, our, Our, ours, Ours, and the listed contracted we forms in the extracted sample bodies; uppercase US is excluded."
+      },
+      {
+        "id": "contractions",
+        "count": 300,
+        "per_1000_words": 17.09,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:contractions] Count whole-word n't, 're, 've, 'll, 'd, and 'm forms plus 's only for the closed elision hosts it, that, there, here, who, what, where, when, how, why, he, she, let, one, nothing, everything, something, somebody, nobody, and this; possessive 's is excluded."
+      },
+      {
+        "id": "uncontracted-negatives",
+        "count": 9,
+        "per_1000_words": 0.51,
+        "samples_with": 5,
+        "samples_without": 5,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt"
+        ],
+        "counting_rule": "[measurement:uncontracted-negatives] Count case-insensitive whole phrases do not, does not, did not, is not, are not, was not, were not, cannot, could not, would not, should not, will not, have not, has not, and had not in the extracted sample bodies."
+      },
+      {
+        "id": "profanity-vulgarity",
+        "count": 26,
+        "per_1000_words": 1.48,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:profanity-vulgarity] Count only the case-insensitive whole-word profanity and vulgarity forms enumerated by the prose-author profanity rule; coined words containing a rude root are excluded."
+      },
+      {
+        "id": "first-person-singular-family",
+        "count": 113,
+        "per_1000_words": 6.44,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:first-person-singular-family] Count case-insensitive whole-word tokens I, me, my, mine, and myself in the extracted sample bodies."
+      },
+      {
+        "id": "question-marks",
+        "count": 38,
+        "per_1000_words": 2.17,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:question-marks] Count every literal question-mark character in the extracted sample bodies."
+      },
+      {
+        "id": "round-parenthetical-spans",
+        "count": 97,
+        "per_1000_words": 5.53,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:round-parenthetical-spans] Count each non-nested pair of round brackets whose contents stay on one line in the extracted sample bodies."
+      },
+      {
+        "id": "em-dashes",
+        "count": 0,
+        "per_1000_words": 0,
+        "samples_with": 0,
+        "samples_without": 10,
+        "files_with": [],
+        "files_without": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "counting_rule": "[measurement:em-dashes] Count every literal em-dash character in the extracted sample bodies."
+      },
+      {
+        "id": "en-dashes",
+        "count": 73,
+        "per_1000_words": 4.16,
+        "samples_with": 10,
+        "samples_without": 0,
+        "files_with": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-16-lucky-orifices.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-22-table-flipper.txt",
+          "2026-07-23-drop-a-dime.txt",
+          "2026-07-24-supplemental-income.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:en-dashes] Count every literal en-dash character in the extracted sample bodies."
+      }
+    ]
+  },
+  "lock": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "2026-07-09-wilhoitian.txt",
+        "group": null,
+        "words": 2067,
+        "sha256": "3bf7f8097ec5ebf15f5759c2c13850490960baddd33711962afe3fb0dcb28d9b"
+      },
+      {
+        "file": "2026-07-10-posthuman-as-in-no-humans.txt",
+        "group": null,
+        "words": 1869,
+        "sha256": "52ab7ded9f7a93fb53feb8f4490f778b0969c6acf4d3a439cc81ce626de900ef"
+      },
+      {
+        "file": "2026-07-11-your-risk.txt",
+        "group": null,
+        "words": 3129,
+        "sha256": "8e633c1ea0f3a962aa9af4447b6911268e84bfb22508bea43a8ce5fb86fc858d"
+      },
+      {
+        "file": "2026-07-13-go-meta-meta.txt",
+        "group": null,
+        "words": 1790,
+        "sha256": "4356ecc760a0249bef1c7cfc3be0a75d2d0a6fc23bb7df29f6dbbef8db875aad"
+      },
+      {
+        "file": "2026-07-14-designated-survivor.txt",
+        "group": null,
+        "words": 2059,
+        "sha256": "58d9cbc639bb98c04dade8b0437a7a1a7e1fc448b4ebeb81cc867b92812125bb"
+      },
+      {
+        "file": "2026-07-16-lucky-orifices.txt",
+        "group": null,
+        "words": 3277,
+        "sha256": "1ef6d9168d6b18adf57e7ac090830597563b1f484b2d15d7a5c3f71d14ab5852"
+      },
+      {
+        "file": "2026-07-21-dickovers.txt",
+        "group": null,
+        "words": 3015,
+        "sha256": "2aee21894ef7a52ff59d90ef2f6dee3306f0221ec38649bef3794fdf5c33f936"
+      },
+      {
+        "file": "2026-07-22-table-flipper.txt",
+        "group": null,
+        "words": 2731,
+        "sha256": "4fd0b86f9d1d4f5c7099148f159902af14c0b455daacb677c980589e37312d38"
+      },
+      {
+        "file": "2026-07-23-drop-a-dime.txt",
+        "group": null,
+        "words": 2571,
+        "sha256": "72a90d8f6992f665ab520adf92bb6f7c817f94b97fe53296ba8601be2936d924"
+      },
+      {
+        "file": "2026-07-24-supplemental-income.txt",
+        "group": null,
+        "words": 2131,
+        "sha256": "4947eecc2673e18db86e6a820743d1bb1b3d29f7094debf6e25062352a5d1133"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "f7b3810aff0c6736a07a4cc0a7116a37856c7646380dc15abb731c28f244ae0a",
+    "profile_json_sha256": "d5fa00d877ca6d793c272ea7863535188ee4ae3f6763ebcab7b2c116b3fa7026",
+    "agent": "voice-profile-render",
+    "agent_sha256": "01797d6c780c2c0343da557ac634cd21062598150d7919e6ddb6ef209e5bc653",
+    "sample_count": 10,
+    "aggregate_sha256": "42df692964169e5ad714d5e15931f3487cd83738cae093c8aa192e485104e009"
+  },
+  "prompt": "Write a 650-word essay for a technology-policy newsletter arguing that a device is not fully owned when its maker can disable features after sale. The readers already follow digital-rights issues. Use no headline or signoff.",
+  "profile_prompt": {
+    "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/prompts/profile.md",
+    "sha256": "e6a4231440c61bb802c808eb20adf6ffe1e888f81edd912ae82507dfbc187ef8"
+  },
+  "schemas": {
+    "profile": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/schemas/profile.json",
+      "sha256": "adfaf23dc10502c423333170341f76dd3774b79d0d2cf3989a89b3502e159d12"
+    },
+    "draft": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/schemas/draft.json",
+      "sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+    },
+    "conformance": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/schemas/conformance.json",
+      "sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+    },
+    "claim_audit": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/schemas/claim-audit.json",
+      "sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+    },
+    "critic": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-9/schemas/critic.json",
+      "sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5"
+    }
+  }
+}

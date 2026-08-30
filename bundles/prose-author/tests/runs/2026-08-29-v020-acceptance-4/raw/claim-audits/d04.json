@@ -1,0 +1,378 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"The sentence states the requested thesis through a hypothetical wristband/passport analogy and explains reuse as the mechanism; it does not report an actual system or event.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"keep\",\"reason\":\"This restates the request's supplied premise that a law may describe age checking as a narrow safety measure.\",\"claims\":[]},{\"id\":\"p1s3\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that age-checking machinery creates a reusable answer and that several real categories of institutions can request it again; those technical and institutional capabilities are not supplied by the request.\",\"claims\":[{\"claim\":\"Online age-checking machinery creates an answer that can be requested repeatedly.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which age-checking architectures produce reusable answers, and how can those answers be requested again?\"},{\"claim\":\"Websites, platforms, payment firms, and governments can request an age-checking answer previously created for another interaction.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what deployed or proposed systems can each named category request a previously created age-checking answer?\"}]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"The imperative “Suppose” clearly introduces an imagined case rather than reporting a real visit.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"Within the expressly imagined case, the site requests threshold proof through a possible provider; the parenthetical merely defines that imagined provider as potentially possessing more information.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"This continues the imagined transaction by stipulating token issuance, browser presentation, and successful access.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"Within the stipulated token design, the site and provider need not exchange a birth date; “tidy” is a value judgment about that arrangement.\",\"claims\":[]},{\"id\":\"p2s5\",\"status\":\"keep\",\"reason\":\"The gate metaphor interprets the stipulated token as making its holder recognizable for an access decision and adds no external premise.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is a question extending the imagined case and makes no independent factual assertion.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"It predicts the least expensive response and future reuse of a credential, relying on unsupported economic and adoption assumptions.\",\"claims\":[{\"claim\":\"Reusing an age credential already in circulation is cheaper than conducting a fresh, isolated age check.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Across which systems and cost components is credential reuse cheaper than a fresh isolated check?\"},{\"claim\":\"Services seeking the same assurance will reuse credentials already in circulation rather than perform fresh checks.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that services generally choose circulating credentials instead of fresh isolated checks?\"}]},{\"id\":\"p3s3\",\"status\":\"disclose\",\"reason\":\"“Soon” predicts that an age credential will acquire functions beyond proving age, a contingent adoption claim not supplied by the request.\",\"claims\":[{\"claim\":\"Age credentials tend to acquire non-age functions soon after entering circulation.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence establishes that age credentials predictably or quickly expand beyond age verification?\"}]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"The sentence identifies possible future uses in the ongoing hypothetical and applies a rhetorical label; it does not claim that real systems currently have those uses.\",\"claims\":[]},{\"id\":\"p3s5\",\"status\":\"disclose\",\"reason\":\"The sentence makes a general causal claim that expanding credential uses increase the cost of refusal and make access depend on persistent attachment of age status to activities.\",\"claims\":[{\"claim\":\"Each additional use of an age credential makes refusing that credential more costly.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what conditions, and by what evidence, does each added credential use increase the cost of refusal?\"},{\"claim\":\"Expanded age-credential use causes access to depend on an age-status assertion remaining attached to a person's activities.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which architectures or practices attach age status to activities, and when does access depend on that attachment?\"}]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"This is the author's statement that the preceding argument does not require positing a conspiracy; it introduces no biographical claim or external factual premise.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"This announces the author's chosen reasoning method and makes no independently checkable external assertion.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"disclose\",\"reason\":\"All three clauses assert general economic or institutional effects involving verifiers, gatekeepers, and authorities that are not supplied by the request.\",\"claims\":[{\"claim\":\"A verifier gains value when more access points accept its credential.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How is verifier value defined, and what evidence shows that broader credential acceptance increases it?\"},{\"claim\":\"A gatekeeper saves money by reusing a familiar identity or age check.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For which gatekeepers and systems does reuse reduce costs, and compared with what alternative?\"},{\"claim\":\"An authority gains leverage when access decisions can be audited through a single layer.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What kind of leverage arises from centralized auditability, and what evidence demonstrates that effect?\"}]},{\"id\":\"p4s4\",\"status\":\"keep\",\"reason\":\"This states the author's concern and contrasts incentive alignment with a hypothetical villainous plan; it reports no actual memo or external event.\",\"claims\":[]},{\"id\":\"p4s5\",\"status\":\"disclose\",\"reason\":\"Although figurative, the sentence infers a real directional outcome from general behavior under incentives, including the unsupported premise that actors push toward the easiest option.\",\"claims\":[{\"claim\":\"When participants choose the easiest available direction, aligned incentives drive an age-checking system toward broader identity infrastructure.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence or model shows that participant incentives and ease of adoption drive age-checking systems toward broader identity use?\"}]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"“Legitimate” is a value judgment, and the possibility that a system can disclose less information is a conceptual design possibility rather than a report about a deployed system.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"“Matters” is a value judgment, while the parenthetical follows from the ordinary informational difference between a binary threshold answer and a full birth date.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This is an argument that reducing information in one transaction does not logically determine the surrounding architecture.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"The sentence recommends questions that decision-makers should ask and does not assert answers about any real system.\",\"claims\":[]},{\"id\":\"p5s5\",\"status\":\"keep\",\"reason\":\"This offers a normative definition of privacy and characterizes repeated demands as power within the essay's argument, without claiming a specific real-world practice.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"keep\",\"reason\":\"The sentence introduces a three-part analytical definition that the following sentences stipulate; it need not describe a universally accepted taxonomy.\",\"claims\":[]},{\"id\":\"p6s2\",\"status\":\"keep\",\"reason\":\"This defines the enrollment layer in the author's stated analytical framework.\",\"claims\":[]},{\"id\":\"p6s3\",\"status\":\"keep\",\"reason\":\"This defines the presentation layer in the analytical framework; “many services” describes the generalized model rather than reporting adoption by real services.\",\"claims\":[]},{\"id\":\"p6s4\",\"status\":\"keep\",\"reason\":\"This defines governance by the decisions its rules address and makes no claim about the content of any actual rules.\",\"claims\":[]},{\"id\":\"p6s5\",\"status\":\"keep\",\"reason\":\"This is a conceptual inference: individually limited layers can compose a system with broader applicability.\",\"claims\":[]},{\"id\":\"p6s6\",\"status\":\"keep\",\"reason\":\"The rail-network comparison is a metaphor for incremental assembly and concentration of control at shared connection points in the defined architecture.\",\"claims\":[]},{\"id\":\"p7s1\",\"status\":\"disclose\",\"reason\":\"The sentence makes a general causal assertion that customary credential use renders consent merely performative.\",\"claims\":[{\"claim\":\"When use of a credential becomes customary, consent to present it ceases to be meaningfully voluntary.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence and definition of meaningful consent support the claim that customary credential use makes consent performative?\"}]},{\"id\":\"p7s2\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that declining a credential can result in exclusion from stores, forums, classrooms, or services; that institutional practice is not supplied.\",\"claims\":[{\"claim\":\"People who decline a customary credential may be denied access to stores, forums, classrooms, or services.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which credential systems permit nominal refusal while denying access to each of the listed settings?\"}]},{\"id\":\"p7s3\",\"status\":\"keep\",\"reason\":\"The cashless-town scenario is a clearly imagined analogy illustrating nominal freedom without a usable alternative.\",\"claims\":[]},{\"id\":\"p7s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts that breaches and mistaken denials can propagate across multiple access points, which depends on contingent system linkage and failure effects.\",\"claims\":[{\"claim\":\"In shared credential systems, a breach can adversely affect a person across multiple access points rather than only one.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which shared-credential architectures allow a breach at one point to affect access at multiple other points?\"},{\"claim\":\"In shared credential systems, a mistaken denial can follow a person across multiple access points.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what technical and governance conditions does an erroneous denial propagate across services?\"}]},{\"id\":\"p7s5\",\"status\":\"keep\",\"reason\":\"The switch metaphor draws the normative implication that a personal attribute used across gates can control access across areas of life; it adds no specific external event or implementation.\",\"claims\":[]},{\"id\":\"p8s1\",\"status\":\"keep\",\"reason\":\"This is a policy recommendation derived from the essay's infrastructure framing and the request's contrast between broad infrastructure and narrow statutory description.\",\"claims\":[]},{\"id\":\"p8s2\",\"status\":\"keep\",\"reason\":\"Every clause is a proposed safeguard or demand, not a claim that current systems have particular rules, document requirements, or appeal mechanisms.\",\"claims\":[]},{\"id\":\"p8s3\",\"status\":\"disclose\",\"reason\":\"The recommendation itself is normative, but its stated justification asserts that policy promises can disappear while technical identifiers continue to exist.\",\"claims\":[{\"claim\":\"Policy promises governing age-checking systems can be withdrawn or cease to constrain later conduct.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What legal, institutional, or historical evidence shows that policy promises governing such systems can be withdrawn or lose effect?\"},{\"claim\":\"Identifiers used in age-checking systems can persist after the policies intended to constrain them have changed or disappeared.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which identifier designs and retention arrangements permit identifiers to outlast their governing policy commitments?\"}]},{\"id\":\"p8s4\",\"status\":\"keep\",\"reason\":\"This is a recommendation to reject designs whose structure favors universal future use; it makes no claim that a particular real design meets that condition.\",\"claims\":[]},{\"id\":\"p8s5\",\"status\":\"keep\",\"reason\":\"This metaphor states the warned-of consequence within the essay's conditional argument: a narrow gate can become a central identity checkpoint.\",\"claims\":[]},{\"id\":\"p9s1\",\"status\":\"keep\",\"reason\":\"This is a normative demand expressed through the wristband metaphor: proof should be limited to one place, purpose, and occasion.\",\"claims\":[]},{\"id\":\"p9s2\",\"status\":\"keep\",\"reason\":\"This is a definitional and evaluative conclusion within the metaphor: proof usable everywhere exceeds the role of a narrow safety accessory.\",\"claims\":[]},{\"id\":\"p9s3\",\"status\":\"keep\",\"reason\":\"The first clause applies the essay's identity-infrastructure definition to universally reusable proof, and the second is a rhetorical judgment about calling such a system narrow.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "The sentence states the requested thesis through a hypothetical wristband/passport analogy and explains reuse as the mechanism; it does not report an actual system or event.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "This restates the request's supplied premise that a law may describe age checking as a narrow safety measure.",
+        "claims": []
+      },
+      {
+        "id": "p1s3",
+        "status": "disclose",
+        "reason": "The sentence asserts that age-checking machinery creates a reusable answer and that several real categories of institutions can request it again; those technical and institutional capabilities are not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Online age-checking machinery creates an answer that can be requested repeatedly.",
+            "kind": "broad-generalization",
+            "verification_question": "Which age-checking architectures produce reusable answers, and how can those answers be requested again?"
+          },
+          {
+            "claim": "Websites, platforms, payment firms, and governments can request an age-checking answer previously created for another interaction.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what deployed or proposed systems can each named category request a previously created age-checking answer?"
+          }
+        ]
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "The imperative “Suppose” clearly introduces an imagined case rather than reporting a real visit.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Within the expressly imagined case, the site requests threshold proof through a possible provider; the parenthetical merely defines that imagined provider as potentially possessing more information.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "This continues the imagined transaction by stipulating token issuance, browser presentation, and successful access.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Within the stipulated token design, the site and provider need not exchange a birth date; “tidy” is a value judgment about that arrangement.",
+        "claims": []
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "The gate metaphor interprets the stipulated token as making its holder recognizable for an access decision and adds no external premise.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is a question extending the imagined case and makes no independent factual assertion.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "It predicts the least expensive response and future reuse of a credential, relying on unsupported economic and adoption assumptions.",
+        "claims": [
+          {
+            "claim": "Reusing an age credential already in circulation is cheaper than conducting a fresh, isolated age check.",
+            "kind": "broad-generalization",
+            "verification_question": "Across which systems and cost components is credential reuse cheaper than a fresh isolated check?"
+          },
+          {
+            "claim": "Services seeking the same assurance will reuse credentials already in circulation rather than perform fresh checks.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that services generally choose circulating credentials instead of fresh isolated checks?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "disclose",
+        "reason": "“Soon” predicts that an age credential will acquire functions beyond proving age, a contingent adoption claim not supplied by the request.",
+        "claims": [
+          {
+            "claim": "Age credentials tend to acquire non-age functions soon after entering circulation.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence establishes that age credentials predictably or quickly expand beyond age verification?"
+          }
+        ]
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "The sentence identifies possible future uses in the ongoing hypothetical and applies a rhetorical label; it does not claim that real systems currently have those uses.",
+        "claims": []
+      },
+      {
+        "id": "p3s5",
+        "status": "disclose",
+        "reason": "The sentence makes a general causal claim that expanding credential uses increase the cost of refusal and make access depend on persistent attachment of age status to activities.",
+        "claims": [
+          {
+            "claim": "Each additional use of an age credential makes refusing that credential more costly.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what conditions, and by what evidence, does each added credential use increase the cost of refusal?"
+          },
+          {
+            "claim": "Expanded age-credential use causes access to depend on an age-status assertion remaining attached to a person's activities.",
+            "kind": "broad-generalization",
+            "verification_question": "Which architectures or practices attach age status to activities, and when does access depend on that attachment?"
+          }
+        ]
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "This is the author's statement that the preceding argument does not require positing a conspiracy; it introduces no biographical claim or external factual premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "This announces the author's chosen reasoning method and makes no independently checkable external assertion.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "disclose",
+        "reason": "All three clauses assert general economic or institutional effects involving verifiers, gatekeepers, and authorities that are not supplied by the request.",
+        "claims": [
+          {
+            "claim": "A verifier gains value when more access points accept its credential.",
+            "kind": "broad-generalization",
+            "verification_question": "How is verifier value defined, and what evidence shows that broader credential acceptance increases it?"
+          },
+          {
+            "claim": "A gatekeeper saves money by reusing a familiar identity or age check.",
+            "kind": "broad-generalization",
+            "verification_question": "For which gatekeepers and systems does reuse reduce costs, and compared with what alternative?"
+          },
+          {
+            "claim": "An authority gains leverage when access decisions can be audited through a single layer.",
+            "kind": "broad-generalization",
+            "verification_question": "What kind of leverage arises from centralized auditability, and what evidence demonstrates that effect?"
+          }
+        ]
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "This states the author's concern and contrasts incentive alignment with a hypothetical villainous plan; it reports no actual memo or external event.",
+        "claims": []
+      },
+      {
+        "id": "p4s5",
+        "status": "disclose",
+        "reason": "Although figurative, the sentence infers a real directional outcome from general behavior under incentives, including the unsupported premise that actors push toward the easiest option.",
+        "claims": [
+          {
+            "claim": "When participants choose the easiest available direction, aligned incentives drive an age-checking system toward broader identity infrastructure.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence or model shows that participant incentives and ease of adoption drive age-checking systems toward broader identity use?"
+          }
+        ]
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "“Legitimate” is a value judgment, and the possibility that a system can disclose less information is a conceptual design possibility rather than a report about a deployed system.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "“Matters” is a value judgment, while the parenthetical follows from the ordinary informational difference between a binary threshold answer and a full birth date.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This is an argument that reducing information in one transaction does not logically determine the surrounding architecture.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "The sentence recommends questions that decision-makers should ask and does not assert answers about any real system.",
+        "claims": []
+      },
+      {
+        "id": "p5s5",
+        "status": "keep",
+        "reason": "This offers a normative definition of privacy and characterizes repeated demands as power within the essay's argument, without claiming a specific real-world practice.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "The sentence introduces a three-part analytical definition that the following sentences stipulate; it need not describe a universally accepted taxonomy.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "This defines the enrollment layer in the author's stated analytical framework.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "This defines the presentation layer in the analytical framework; “many services” describes the generalized model rather than reporting adoption by real services.",
+        "claims": []
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "This defines governance by the decisions its rules address and makes no claim about the content of any actual rules.",
+        "claims": []
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "This is a conceptual inference: individually limited layers can compose a system with broader applicability.",
+        "claims": []
+      },
+      {
+        "id": "p6s6",
+        "status": "keep",
+        "reason": "The rail-network comparison is a metaphor for incremental assembly and concentration of control at shared connection points in the defined architecture.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "disclose",
+        "reason": "The sentence makes a general causal assertion that customary credential use renders consent merely performative.",
+        "claims": [
+          {
+            "claim": "When use of a credential becomes customary, consent to present it ceases to be meaningfully voluntary.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence and definition of meaningful consent support the claim that customary credential use makes consent performative?"
+          }
+        ]
+      },
+      {
+        "id": "p7s2",
+        "status": "disclose",
+        "reason": "The sentence asserts that declining a credential can result in exclusion from stores, forums, classrooms, or services; that institutional practice is not supplied.",
+        "claims": [
+          {
+            "claim": "People who decline a customary credential may be denied access to stores, forums, classrooms, or services.",
+            "kind": "broad-generalization",
+            "verification_question": "Which credential systems permit nominal refusal while denying access to each of the listed settings?"
+          }
+        ]
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "The cashless-town scenario is a clearly imagined analogy illustrating nominal freedom without a usable alternative.",
+        "claims": []
+      },
+      {
+        "id": "p7s4",
+        "status": "disclose",
+        "reason": "The sentence asserts that breaches and mistaken denials can propagate across multiple access points, which depends on contingent system linkage and failure effects.",
+        "claims": [
+          {
+            "claim": "In shared credential systems, a breach can adversely affect a person across multiple access points rather than only one.",
+            "kind": "broad-generalization",
+            "verification_question": "Which shared-credential architectures allow a breach at one point to affect access at multiple other points?"
+          },
+          {
+            "claim": "In shared credential systems, a mistaken denial can follow a person across multiple access points.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what technical and governance conditions does an erroneous denial propagate across services?"
+          }
+        ]
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "The switch metaphor draws the normative implication that a personal attribute used across gates can control access across areas of life; it adds no specific external event or implementation.",
+        "claims": []
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "This is a policy recommendation derived from the essay's infrastructure framing and the request's contrast between broad infrastructure and narrow statutory description.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Every clause is a proposed safeguard or demand, not a claim that current systems have particular rules, document requirements, or appeal mechanisms.",
+        "claims": []
+      },
+      {
+        "id": "p8s3",
+        "status": "disclose",
+        "reason": "The recommendation itself is normative, but its stated justification asserts that policy promises can disappear while technical identifiers continue to exist.",
+        "claims": [
+          {
+            "claim": "Policy promises governing age-checking systems can be withdrawn or cease to constrain later conduct.",
+            "kind": "broad-generalization",
+            "verification_question": "What legal, institutional, or historical evidence shows that policy promises governing such systems can be withdrawn or lose effect?"
+          },
+          {
+            "claim": "Identifiers used in age-checking systems can persist after the policies intended to constrain them have changed or disappeared.",
+            "kind": "broad-generalization",
+            "verification_question": "Which identifier designs and retention arrangements permit identifiers to outlast their governing policy commitments?"
+          }
+        ]
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "This is a recommendation to reject designs whose structure favors universal future use; it makes no claim that a particular real design meets that condition.",
+        "claims": []
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "This metaphor states the warned-of consequence within the essay's conditional argument: a narrow gate can become a central identity checkpoint.",
+        "claims": []
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "This is a normative demand expressed through the wristband metaphor: proof should be limited to one place, purpose, and occasion.",
+        "claims": []
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "This is a definitional and evaluative conclusion within the metaphor: proof usable everywhere exceeds the role of a narrow safety accessory.",
+        "claims": []
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "The first clause applies the essay's identity-infrastructure definition to universally reusable proof, and the second is a rhetorical judgment about calling such a system narrow.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d04.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/d04.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "d32d8b584002da29da371c76e3768872daf0f98f774538562fb8fbdfa92f7387",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

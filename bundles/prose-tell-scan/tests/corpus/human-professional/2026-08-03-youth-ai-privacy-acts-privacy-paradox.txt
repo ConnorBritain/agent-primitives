@@ -6,6 +6,7 @@ date: 2026-08-03
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/08/youth-ai-privacy-acts-privacy-paradox
 ---
 The Senate Commerce Committee is poised to consider the Youth AI Privacy Act, a bill that would require AI companies to create kids-only privacy rules and implement so-called “safe design features,” which would—like three other bills under consideration this week—require more data collection and make it harder for people to access lawful speech online. 

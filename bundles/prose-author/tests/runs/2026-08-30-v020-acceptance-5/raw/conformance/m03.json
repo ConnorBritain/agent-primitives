@@ -1,0 +1,206 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"should not\",\"after\":\"shouldn't\",\"reason\":\"Convert a listed uncontracted negative to the normal accessible contraction register.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"is not\",\"after\":\"isn't\",\"reason\":\"Convert a listed uncontracted negative to the normal accessible contraction register.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"cannot\",\"after\":\"can't\",\"reason\":\"Convert a listed uncontracted negative to the normal accessible contraction register.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"should not\",\"after\":\"shouldn't\",\"reason\":\"Convert a listed uncontracted negative to the normal accessible contraction register.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"does not\",\"after\":\"doesn't\",\"reason\":\"Convert a listed uncontracted negative to the normal accessible contraction register.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"are not\",\"after\":\"aren't\",\"reason\":\"Convert a listed uncontracted negative to the normal accessible contraction register.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"cannot\",\"after\":\"can't\",\"reason\":\"Convert a listed uncontracted negative to the normal accessible contraction register.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The existing second-person and first-person-plural forms remain unchanged.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"revised\",\"reason\":\"The edits add seven contractions and reduce the listed uncontracted negatives by seven.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The existing concessions and conditional framing remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The existing rhetorical question remains unchanged.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The existing treatment of supporters and institutional incentives remains unchanged.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile provides no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The existing institutional we and absence of individual self-reference remain unchanged.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"preserved\",\"reason\":\"Parentheses, em dashes, and en-dash usage remain unchanged.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The existing controlled institutional analogy remains unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The existing proposal-led opening and civic-action closing remain unchanged.\"}],\"omitted\":[]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "should not",
+        "after": "shouldn't",
+        "reason": "Convert a listed uncontracted negative to the normal accessible contraction register.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "is not",
+        "after": "isn't",
+        "reason": "Convert a listed uncontracted negative to the normal accessible contraction register.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "cannot",
+        "after": "can't",
+        "reason": "Convert a listed uncontracted negative to the normal accessible contraction register.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "should not",
+        "after": "shouldn't",
+        "reason": "Convert a listed uncontracted negative to the normal accessible contraction register.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "does not",
+        "after": "doesn't",
+        "reason": "Convert a listed uncontracted negative to the normal accessible contraction register.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "are not",
+        "after": "aren't",
+        "reason": "Convert a listed uncontracted negative to the normal accessible contraction register.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "cannot",
+        "after": "can't",
+        "reason": "Convert a listed uncontracted negative to the normal accessible contraction register.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing second-person and first-person-plural forms remain unchanged."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "revised",
+        "reason": "The edits add seven contractions and reduce the listed uncontracted negatives by seven."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing concessions and conditional framing remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing rhetorical question remains unchanged."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing treatment of supporters and institutional incentives remains unchanged."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile provides no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing institutional we and absence of individual self-reference remain unchanged."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "preserved",
+        "reason": "Parentheses, em dashes, and en-dash usage remain unchanged."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing controlled institutional analogy remains unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing proposal-led opening and civic-action closing remain unchanged."
+      }
+    ],
+    "omitted": []
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m03.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m03.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "2387447ea203b68bf0bc1f88fc35aa2d12526d7c7d9ed34ea3bd4c3a75944d0d",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "3e5fa23f026a12c95344586e646e15dfc44409a866be9b4f68418400b2a92bc7",
+      "profile_markdown_sha256": "0a2943e0d46c4c34362f548373e40f3ae94f134f22c1c53737ad04c0407b5e2f",
+      "profile_json_sha256": "735006cd547cf5f8448ce7c7a9d9240c1456ae01dbd249ca9f384d1299b2a592"
+    }
+  }
+}

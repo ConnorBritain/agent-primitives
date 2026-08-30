@@ -1,0 +1,34 @@
+{
+  "schema": "prose-author-request-support-canary-design/1",
+  "acceptance_evidence": false,
+  "purpose": "Exercise the exact conservative request-support contract and current voice-draft prompt once through Codex and once through Claude before locking the full v0.2 acceptance run.",
+  "source_profile_run": "bundles/prose-author/tests/runs/2026-08-28-v020-measurement-slot-failure",
+  "profile": "doctorow-blog",
+  "render": 1,
+  "fixture": "bundles/prose-author/tests/fixtures/profiles/doctorow-blog",
+  "prompt": "Write a 650-word essay for a technology-policy newsletter arguing that a device is not fully owned when its maker can disable features after sale. The readers already follow digital-rights issues. Use no headline or signoff.",
+  "dispatches": {
+    "codex": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "claude": {
+      "harness": "claude-code",
+      "model": "sonnet",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "redraws": 0,
+  "bar": {
+    "both_sources_validate": true,
+    "both_public_drafts_validate": true,
+    "external_verification_claims": 0,
+    "fabricated_citations": 0,
+    "corpus_leakage": 0
+  }
+}

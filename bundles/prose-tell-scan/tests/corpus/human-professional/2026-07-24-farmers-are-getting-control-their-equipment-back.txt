@@ -6,6 +6,7 @@ date: 2026-07-24
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/farmers-are-getting-control-their-equipment-back
 ---
 For years, John Deere had actively made repairing their tractors near-impossible for anyone but itself and the few "authorized" repair shops—regardless of the ability of its customers to actually visit such shops. Now, in a major win for farmers and right to repair advocates, John Deere must soon provide farmers with not just the tools and resources to finally repair their own John Deere equipment, but also access to future updates for said equipment.

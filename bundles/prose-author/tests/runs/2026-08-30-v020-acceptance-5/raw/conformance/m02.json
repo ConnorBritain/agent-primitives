@@ -1,0 +1,189 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"the worker cannot reliably plan\",\"after\":\"the worker can't reliably plan\",\"reason\":\"Converts one uncontracted negative to a meaning-equivalent contraction, reducing the excess negative count.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"The software does not need\",\"after\":\"The software doesn't need\",\"reason\":\"Converts one uncontracted negative to a meaning-equivalent contraction, reducing the excess negative count.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"These are not unusual edge cases.\",\"after\":\"These aren't unusual edge cases.\",\"reason\":\"Converts one uncontracted negative to a meaning-equivalent contraction, reducing the excess negative count.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"forecasting, its gains\",\"after\":\"forecasting—its gains\",\"reason\":\"Adds an em-dash pivot for the consequential qualification.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"adapt, the arrangement\",\"after\":\"adapt—the arrangement\",\"reason\":\"Adds an em-dash pivot to sharpen the one-sided flexibility contrast.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The existing reader address and first-person plural remain unchanged.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"revised\",\"reason\":\"The named contraction edits reduce uncontracted negatives while preserving the existing contracted register.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"Existing qualifications and evidentiary limits remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"omitted\",\"reason\":\"The question-mark count is semantic-bearing and cannot be changed in conformance patch mode.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"No verified named opponents, allies, or sources are available in the supplied material.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile provides no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"Collective self-reference remains clear and individual autobiography remains absent.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"revised\",\"reason\":\"Two em-dash pivots are added; parenthetical spans and en-dash usage remain unchanged.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The existing explanatory comparison remains unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The existing institutional opening and action-oriented closure remain unchanged.\"}],\"omitted\":[{\"habit\":\"questions-imperatives-vocatives / o06: rhetorical questions exposing practical consequences\",\"why\":\"The question-mark count is semantic-bearing and patch mode forbids changing it.\"},{\"habit\":\"opponents-allies-sources / o11: specific named opponents, allies, and sources credited before extending their implications\",\"why\":\"The request supplies no verified opponent position, named ally, or source material for this topic.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "the worker cannot reliably plan",
+        "after": "the worker can't reliably plan",
+        "reason": "Converts one uncontracted negative to a meaning-equivalent contraction, reducing the excess negative count.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "The software does not need",
+        "after": "The software doesn't need",
+        "reason": "Converts one uncontracted negative to a meaning-equivalent contraction, reducing the excess negative count.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "These are not unusual edge cases.",
+        "after": "These aren't unusual edge cases.",
+        "reason": "Converts one uncontracted negative to a meaning-equivalent contraction, reducing the excess negative count.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "forecasting, its gains",
+        "after": "forecasting—its gains",
+        "reason": "Adds an em-dash pivot for the consequential qualification.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "adapt, the arrangement",
+        "after": "adapt—the arrangement",
+        "reason": "Adds an em-dash pivot to sharpen the one-sided flexibility contrast.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing reader address and first-person plural remain unchanged."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "revised",
+        "reason": "The named contraction edits reduce uncontracted negatives while preserving the existing contracted register."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing qualifications and evidentiary limits remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "omitted",
+        "reason": "The question-mark count is semantic-bearing and cannot be changed in conformance patch mode."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified named opponents, allies, or sources are available in the supplied material."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile provides no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "Collective self-reference remains clear and individual autobiography remains absent."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "revised",
+        "reason": "Two em-dash pivots are added; parenthetical spans and en-dash usage remain unchanged."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing explanatory comparison remains unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing institutional opening and action-oriented closure remain unchanged."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "questions-imperatives-vocatives / o06: rhetorical questions exposing practical consequences",
+        "why": "The question-mark count is semantic-bearing and patch mode forbids changing it."
+      },
+      {
+        "habit": "opponents-allies-sources / o11: specific named opponents, allies, and sources credited before extending their implications",
+        "why": "The request supplies no verified opponent position, named ally, or source material for this topic."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m02.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m02.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "419edbdc98826191f393ccbb480f3e97b4f632335b1172370038efe0df49d3fc",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "68324e1d840e85f7546b2959e190e7efce3ca96e8e07efefc70baa489f2a3d40",
+      "profile_markdown_sha256": "219973f9239d1b2b6b7372cc7eec315474197a8f7a0f0370eeb2ad27a4f6a263",
+      "profile_json_sha256": "47d5d0e1c89b5f61842093b09a397f04931fc8ad04d0933fbf7e461abbdc3b6c"
+    }
+  }
+}

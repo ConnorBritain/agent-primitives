@@ -1,0 +1,47 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "paragraph ending on a colon followed by a bare URL line (111 instances, throughout)",
+      "why": "no verified sources or links available for this topic"
+    },
+    {
+      "habit": "attributive clauses handing the floor to a named ally",
+      "why": "would require quoting a real person's words, which cannot be verified here"
+    },
+    {
+      "habit": "bracketed image credit as a final line",
+      "why": "no image accompanies this draft"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "the typical overdraft fee is a flat charge of about thirty-five dollars regardless of the size of the shortfall",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "roughly nine percent of accounts generate about eighty percent of overdraft revenue",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "banks applied high-to-low posting order to debit transactions, ended largely through class-action litigation",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Wells Fargo was ordered to pay $203m over transaction reordering in a California case",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "the rule requiring customers to opt in to debit-card overdraft coverage took effect in 2010",
+      "where": "paragraph 10"
+    },
+    {
+      "claim": "several large banks have voluntarily reduced or eliminated overdraft fees",
+      "where": "paragraph 11"
+    },
+    {
+      "claim": "a federal rule capping overdraft fees at five dollars was finalised and then reversed by Congress",
+      "where": "paragraph 11"
+    }
+  ]
+}

@@ -6,6 +6,7 @@ date: 2026-07-14
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/dont-repeat-nys-3d-printing-blunder
 ---
 This year the state of New York had the dubious honor of being the first to pass a controversial provision to mandate all 3D printers come with surveillance and censorship. That means not only is there a ticking clock to protect every artist, researcher, engineer, and hobbyist in the state, but there is a real risk of other states thoughtlessly following suit—prior to the New York rules even taking effect.

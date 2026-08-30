@@ -1,0 +1,90 @@
+{
+  "schema": "voice-draft-conformance-patch/1",
+  "edits": [],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft preserves restrained direct address and a clear collective judgment within the measured ranges."
+    },
+    {
+      "dimension": "contraction-negation",
+      "observation_ids": [
+        "o03",
+        "o04"
+      ],
+      "disposition": "preserved",
+      "reason": "Conversational contractions and emphatic full negatives remain within their measured ranges."
+    },
+    {
+      "dimension": "qualification-hedging",
+      "observation_ids": [
+        "o10"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft acknowledges the legitimate convenience of summarization before tracing confidentiality and reliability risks."
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "observation_ids": [
+        "o06"
+      ],
+      "disposition": "preserved",
+      "reason": "The absence of question marks remains within the measured range, while the practical test is stated directly."
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "observation_ids": [
+        "o11"
+      ],
+      "disposition": "preserved",
+      "reason": "The vendor is identified by institutional role, its security assurance is presented fairly, and that assurance is tested against concrete contractual requirements."
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "observation_ids": [],
+      "disposition": "unresolved",
+      "reason": "The profile supplies no supported instruction for this dimension."
+    },
+    {
+      "dimension": "self-reference-biography",
+      "observation_ids": [
+        "o02",
+        "o05"
+      ],
+      "disposition": "preserved",
+      "reason": "Collective judgment is retained without unsupported singular biography, and both measured forms remain in range."
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "observation_ids": [
+        "o07",
+        "o08",
+        "o09"
+      ],
+      "disposition": "preserved",
+      "reason": "Parenthetical clarifications and em-dash pivots remain in range, with no en-dash interruption introduced."
+    },
+    {
+      "dimension": "figures-analogy",
+      "observation_ids": [
+        "o12"
+      ],
+      "disposition": "preserved",
+      "reason": "The locked-cabinet and spare-keys comparison gives the abstract access-control problem a brief concrete shape."
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "observation_ids": [
+        "o13"
+      ],
+      "disposition": "preserved",
+      "reason": "The opening states the live decision and concealed custody problem, while the close names the responsible decision-maker and specific action."
+    }
+  ],
+  "omitted": []
+}

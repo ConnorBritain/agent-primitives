@@ -1,0 +1,42 @@
+{
+  "item-01.txt": {
+    "author": "Kate Chopin",
+    "origin": "chopin-007-the-awakening-chapter-vii.txt"
+  },
+  "item-02.txt": {
+    "author": "O. Henry",
+    "origin": "ohenry-tobins-palm.txt"
+  },
+  "item-03.txt": {
+    "author": "Kate Chopin",
+    "origin": "chopin-033-the-awakening-chapter-xxxiii.txt"
+  },
+  "item-04.txt": {
+    "author": "O. Henry",
+    "origin": "ohenry-the-green-door.txt"
+  },
+  "item-05.txt": {
+    "author": "Kate Chopin",
+    "origin": "chopin-015-the-awakening-chapter-xv.txt"
+  },
+  "item-06.txt": {
+    "author": "O. Henry",
+    "origin": "ohenry-the-coming-out-of-maggie.txt"
+  },
+  "item-07.txt": {
+    "author": "Kate Chopin",
+    "origin": "chopin-030-the-awakening-chapter-xxx.txt"
+  },
+  "item-08.txt": {
+    "author": "O. Henry",
+    "origin": "ohenry-the-furnished-room.txt"
+  },
+  "item-09.txt": {
+    "author": "Kate Chopin",
+    "origin": "chopin-025-the-awakening-chapter-xxv.txt"
+  },
+  "item-10.txt": {
+    "author": "O. Henry",
+    "origin": "ohenry-lost-on-dress-parade.txt"
+  }
+}

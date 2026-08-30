@@ -57,11 +57,36 @@
  *
  * The bar is unchanged from the sibling fetchers: public domain, CC0, CC-BY,
  * or CC-BY-SA only. If the licence cannot be quoted, the source does not land.
+ *
+ * ============================================================================
+ * LINK TARGETS - changed 2026-08-06, and the committed corpus PREDATES it
+ * ============================================================================
+ *
+ * Deeplinks cites by hyperlinking. This extractor used to keep the anchor text
+ * and throw the href away, so a vendored post read as a run of unsourced
+ * assertions and a critic that said so was right about our file and wrong
+ * about the article. Links are now kept as markdown `[text](url)`; the
+ * reasoning is at the replacement in extractBody().
+ *
+ * EVERY .txt CURRENTLY COMMITTED WAS FETCHED BEFORE THAT CHANGE and still has
+ * its targets stripped. Those files therefore carry `link_targets: stripped`
+ * in their frontmatter, added as a disclosure rather than a repair, because
+ * the treatment is a property of the file and not of the calendar.
+ *
+ * THEY ARE NOT RE-FETCHED HERE, AND THE REASON IS NOT COST. The source is an
+ * RSS feed of the ~50 most recent posts, not an archive: re-running --write
+ * does not re-fetch these 50 posts, it fetches WHATEVER 50 ARE CURRENT AND
+ * DELETES THE REST. That silently swaps the sample set underneath every figure
+ * measured on it. A re-fetch is the right way to get link targets into this
+ * bucket and it should be done deliberately, as its own change, with the
+ * corpus diff reviewed and anything baselined against the old set re-measured
+ * - not as a side effect of a test run. Tests never fetch; the corpus is
+ * committed.
  */
 
 import { existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, "human-professional");
@@ -131,7 +156,10 @@ function parseItems(rss) {
  * identify furniture must still be recognisable when we cut, so class-based
  * removals run BEFORE the blanket tag strip.
  */
-function extractBody(html) {
+// Exported so a corpus can be vendored from already-downloaded pages without
+// reimplementing the extractor. The repo has twice been bitten by a second copy of a
+// scan drifting from the first; this is the same lesson applied before it happens.
+export function extractBody(html) {
   let s = html;
 
   // 1. Campaign furniture. Deeplinks wraps its calls to action in
@@ -148,8 +176,42 @@ function extractBody(html) {
   s = s.replace(/<style[\s\S]*?<\/style>/gi, "");
   s = s.replace(/<iframe[\s\S]*?<\/iframe>/gi, "");
 
-  // 3. Link text is writing; the URL is not.
-  s = s.replace(/<a\s[^>]*>([\s\S]*?)<\/a>/gi, "$1");
+  // 3. Links are KEPT, target and all, as markdown `[text](url)`.
+  //
+  //    THIS USED TO DROP THE HREF, and dropping it was a measurement bug rather than a
+  //    tidiness choice. Deeplinks cites by hyperlinking: "the court held" links to the
+  //    opinion, "researchers found" links to the paper. Strip the target and the vendored
+  //    sample reads as a string of confident unsourced assertions - which is the exact
+  //    shape of `absence-of-concrete-detail` and the unnamed-source half of
+  //    `invented-specifics`. Every EFF sample in a false-positive sweep was therefore
+  //    handed to the critic with its citations removed, and any finding the critic made
+  //    about missing support was a finding about our extractor. The confound was known
+  //    and declared per fixture (selftest.mjs, STRIPS_LINKS); declaring a defect is not
+  //    the same as not having it.
+  //
+  //    WHY MARKDOWN AND NOT A FOOTNOTE LIST. The citation has to sit where the claim
+  //    sits, because what the critic is judging is whether THIS sentence is supported. A
+  //    list at the foot restores the URLs and not the association.
+  //
+  //    THE COST, STATED. URLs now count as tokens, so cadence figures over this bucket
+  //    are not comparable with pre-change ones. That is why each file declares which
+  //    treatment it got (`link_targets:` in the frontmatter) instead of the treatment
+  //    being a fact about when it happened to be fetched.
+  let links = 0;
+  s = s.replace(/<a\s([^>]*)>([\s\S]*?)<\/a>/gi, (whole, attrs, text) => {
+    const href = (attrs.match(/href\s*=\s*"([^"]*)"/i) || attrs.match(/href\s*=\s*'([^']*)'/i) || [])[1];
+    const inner = text.trim();
+    // Anchors with no href are page targets, not citations. Anchors with no text are
+    // image links whose <img> step 2 already removed.
+    if (!href || !inner) return text;
+    links += 1;
+    // Deeplinks links internally with site-relative paths. A bare "/deeplinks/2026/..."
+    // is not a citation a reader can follow out of the vendored file.
+    const url = /^https?:\/\//i.test(href) ? href
+      : href.startsWith("/") ? `https://www.eff.org${href}`
+      : href;
+    return `[${inner}](${url})`;
+  });
 
   // 4. Preserve paragraph structure before the tags go.
   s = s.replace(/<\/(p|div|li|h[1-6]|blockquote)>/gi, "\n\n");
@@ -163,7 +225,7 @@ function extractBody(html) {
   s = s.replace(/[ \t]+/g, " ");
   s = s.replace(/\n{3,}/g, "\n\n");
   s = s.replace(/^ +| +$/gm, "");
-  return s.trim();
+  return { text: s.trim(), links };
 }
 
 const ENTITIES = {
@@ -215,7 +277,7 @@ async function main() {
 
   const picked = items.map((it) => {
     const date = isoDate(it.pubDate) || "0000-00-00";
-    const body = extractBody(it.content);
+    const { text: body, links } = extractBody(it.content);
     const words = wordCount(body);
     const override = LICENCE_OVERRIDES.find((rx) => rx.test(body));
     const skipReason = override ? `licence override in body (${override})`
@@ -223,7 +285,7 @@ async function main() {
       : words > MAX_WORDS ? `body ${words} words (extractor likely kept chrome)`
       : !it.author ? "no dc:creator - cannot attribute"
       : null;
-    return { ...it, date, body, words, name: makeName(it.link, date), skipReason };
+    return { ...it, date, body, words, links, name: makeName(it.link, date), skipReason };
   });
 
   const good = picked.filter((p) => !p.skipReason);
@@ -231,7 +293,12 @@ async function main() {
 
   process.stdout.write("\n  plan:\n");
   for (const p of good) {
-    process.stdout.write(`    ${p.name.padEnd(64)} ${String(p.words).padStart(5)}w  ${p.author}\n`);
+    // The link count is printed because it is the only place the dry run shows whether
+    // the citation-preserving branch actually fired. A silent zero here is the old bug.
+    process.stdout.write(
+      `    ${p.name.padEnd(64)} ${String(p.words).padStart(5)}w `
+      + `${String(p.links).padStart(4)} links  ${p.author}\n`,
+    );
   }
   if (skipped.length) {
     process.stdout.write(`\n  ${skipped.length} skipped:\n`);
@@ -286,6 +353,12 @@ async function main() {
       "human_authored: true",
       "license: CC-BY-4.0",
       "multi_author_collection: true",
+      // Declared per file, not inferred from the fetch date. A reader - or a critic
+      // harness deciding whether an "unsourced claim" finding is about the author or
+      // about us - needs to know which treatment THIS sample got. `stripped` is the old
+      // treatment and survives in files vendored before 2026-08-06.
+      "link_targets: preserved",
+      `links: ${p.links}`,
       `permalink: ${p.link}`,
       "---",
       "",
@@ -298,6 +371,8 @@ async function main() {
       permalink: p.link,
       pubDate: p.pubDate,
       words: p.words,
+      link_targets: "preserved",
+      links: p.links,
     });
   }
   writeFileSync(ATTR_PATH, `${JSON.stringify(attribution, null, 2)}\n`);
@@ -306,7 +381,13 @@ async function main() {
   process.stdout.write(`  wrote ${ATTR_PATH}\n\n`);
 }
 
-main().catch((err) => {
-  process.stderr.write(`fetch-professional: ${err.message}\n`);
-  process.exit(1);
-});
+// Run main ONLY when invoked as a script. Without this guard, importing the module to
+// reuse extractBody() also fires a network fetch of the RSS feed - a side effect that
+// makes the extractor effectively unreusable and would push the next caller into writing
+// a second copy of it.
+if (process.argv[1] && pathToFileURL(process.argv[1]).href === import.meta.url) {
+  main().catch((err) => {
+    process.stderr.write(`fetch-professional: ${err.message}\n`);
+    process.exit(1);
+  });
+}

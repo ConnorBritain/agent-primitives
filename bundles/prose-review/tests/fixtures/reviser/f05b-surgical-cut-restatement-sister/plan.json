@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 27,
+        "quote": "Noise, hubbub."
+      },
+      "change": "delete only the 'Noise, ' prefix, leaving 'Hubbub.' as a one-word sentence",
+      "reason": "voice-critic: 'Noise' and 'hubbub' are near-synonyms; cutting one removes the doublet while preserving the auditory dimension that neither the visual ('swarming and surging') nor spatial ('pavements filled with little tables') sentences carry"
+    }
+  ]
+}

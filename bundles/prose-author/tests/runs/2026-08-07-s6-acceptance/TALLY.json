@@ -1,0 +1,98 @@
+{
+  "_comment": "S6 acceptance. Bar pre-registered in .planning/2026-08-07-generator-ship-bar.md and NOT adjustable by these results. k=3 per draft.",
+  "drafts": [
+    {
+      "id": "b04",
+      "topic": "ad-tech targeting",
+      "findings": [
+        0,
+        0,
+        0
+      ],
+      "mean": 0.0,
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "majority": "CLEAN",
+      "passes": true,
+      "note": "unanimous CLEAN, zero findings \u2014 second draft to match the human baseline exactly"
+    },
+    {
+      "id": "b05",
+      "topic": "farm equipment phoning home",
+      "critics": "not run \u2014 drafted and structurally gated only",
+      "structural": "fabricated 0, leakage 0",
+      "passes": null
+    },
+    {
+      "id": "b06",
+      "topic": "academic publishing",
+      "critics": "not run \u2014 drafted and structurally gated only",
+      "structural": "fabricated 0, leakage 0",
+      "passes": null
+    },
+    {
+      "id": "b07",
+      "topic": "streaming licence lapse",
+      "findings": [
+        0,
+        3,
+        0
+      ],
+      "mean": 1.0,
+      "verdicts": [
+        "CLEAN",
+        "REVISE",
+        "CLEAN"
+      ],
+      "majority": "CLEAN",
+      "passes": true,
+      "before_fu17": {
+        "findings": [
+          2,
+          2,
+          0
+        ],
+        "mean": 1.33,
+        "majority": "REVISE",
+        "passes": false
+      },
+      "caveat": "passes at exactly the 1.0 ceiling. Its original failure was the unrated we/us habit (a profile gap, FU-12 class) and the scene-painting finding, NOT the rated habit FU-17 fixed \u2014 so this improvement is not evidence for FU-17."
+    },
+    {
+      "id": "b08",
+      "topic": "overdraft fees",
+      "findings": [
+        0,
+        0,
+        0
+      ],
+      "mean": 0.0,
+      "verdicts": [
+        "CLEAN",
+        "CLEAN",
+        "CLEAN"
+      ],
+      "majority": "CLEAN",
+      "passes": true,
+      "before_fu17": {
+        "findings": [
+          3,
+          0,
+          2
+        ],
+        "mean": 1.67,
+        "majority": "REVISE",
+        "passes": false
+      },
+      "note": "same prompt, same profile, same bar. The only change is FU-17's count-before-you-emit step. Profanity 0 -> 3; the rated habit that failed it is now in range and all three draws clear."
+    }
+  ],
+  "result": {
+    "after_fu17": "b08 [3,0,2] REVISE -> [0,0,0] CLEAN; b07 [2,2,0] REVISE -> [0,3,0] CLEAN",
+    "measured_pass_rate": "5 of 6 (v3, b03-refix, b04, b07, b08 pass; b02 not re-drafted)",
+    "clean_causal_test": "b08 only \u2014 its failure was the rated habit"
+  }
+}

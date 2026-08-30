@@ -1,0 +1,55 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[{\"location\":\"Line 5: “Approval should require a written data processing agreement (DPA), a clear statement that submitted content won’t train models, defined retention and deletion periods, encryption, access controls such as multifactor authentication (MFA), breach notification, and a list of subprocessors.”\",\"what\":\"This shifts into an enterprise compliance-checklist register that is more procedural and institutionally technical than the corpus’s public-facing advocacy voice.\",\"corpus_evidence\":\"Across all eleven samples, technical requirements are explained through concrete consequences for ordinary users rather than presented as procurement controls; for example, “why-are-gay-bars-building-databases-their-patrons.txt” says, “Personal data is routinely stolen by thieves, misused by a company’s employees, seized by government agencies, and diverted to new purposes by a company’s executives.”\",\"confidence\":\"high\"},{\"location\":\"Lines 5–7: “If those answers can’t be obtained in writing, stop. For the meeting, propose a narrow pilot using invented or fully synthetic notes … Assign one staff owner to review every output and prohibit automatic entry into client records.”\",\"what\":\"The sustained sequence of operational directives sounds like an internal implementation memo, unlike the corpus’s pattern of arguing for a policy conclusion through stated harms and consequences.\",\"corpus_evidence\":\"The corpus does use occasional calls to action, but not sustained workplace procedure; “congress-narrowed-guard-act-serious-problems-remain.txt,” for example, moves from consequence to conclusion: “Smaller developers, in particular, may decide it is safer to block younger users entirely … rather than risk severe penalties under vague standards.”\",\"confidence\":\"high\"}],\"clean_categories\":[\"unfamiliar-constructions\",\"unvarying-voice\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"REVISE\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [
+      {
+        "location": "Line 5: “Approval should require a written data processing agreement (DPA), a clear statement that submitted content won’t train models, defined retention and deletion periods, encryption, access controls such as multifactor authentication (MFA), breach notification, and a list of subprocessors.”",
+        "what": "This shifts into an enterprise compliance-checklist register that is more procedural and institutionally technical than the corpus’s public-facing advocacy voice.",
+        "corpus_evidence": "Across all eleven samples, technical requirements are explained through concrete consequences for ordinary users rather than presented as procurement controls; for example, “why-are-gay-bars-building-databases-their-patrons.txt” says, “Personal data is routinely stolen by thieves, misused by a company’s employees, seized by government agencies, and diverted to new purposes by a company’s executives.”",
+        "confidence": "high"
+      },
+      {
+        "location": "Lines 5–7: “If those answers can’t be obtained in writing, stop. For the meeting, propose a narrow pilot using invented or fully synthetic notes … Assign one staff owner to review every output and prohibit automatic entry into client records.”",
+        "what": "The sustained sequence of operational directives sounds like an internal implementation memo, unlike the corpus’s pattern of arguing for a policy conclusion through stated harms and consequences.",
+        "corpus_evidence": "The corpus does use occasional calls to action, but not sustained workplace procedure; “congress-narrowed-guard-act-serious-problems-remain.txt,” for example, moves from consequence to conclusion: “Smaller developers, in particular, may decide it is safer to block younger users entirely … rather than risk severe penalties under vague standards.”",
+        "confidence": "high"
+      }
+    ],
+    "clean_categories": [
+      "unfamiliar-constructions",
+      "unvarying-voice"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "Category 4 was not assessed because no deterministic rhythm scan was supplied.",
+    "verdict": "REVISE"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-17/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-17/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "1c21692a785e64a6b87472d26acb32cb069320530b71ccfae3d68ff11a0f53f5"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "4a00126045e02c95fbd6c9f478a004e69d8d00d565d288cb526407ef3a075e9b",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "3cc51f72e8837902992a74ad50dab59d95214a57c6b039dd1123f84ff767de5d",
+      "conformance_raw_sha256": "edc76855ddbb6e372d8a313338dee5f8d73a772b08038df1625a162aca590ec1",
+      "audit_raw_sha256": "45207aa3f650d95bd17bd5cf05fd983192b4522b00dc1426412159c14cbcef84"
+    }
+  }
+}

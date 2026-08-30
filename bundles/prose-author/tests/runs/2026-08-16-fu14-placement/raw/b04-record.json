@@ -1,0 +1,11 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim-colon-link unit (claim ends on a colon, bare URL alone on the next line)", "why": "no verified sources or URLs available for this topic" }
+  ],
+  "claims": [
+    { "claim": "Google's Privacy Sandbox includes a Topics proposal for interest-based cohorts", "where": "paragraph 5" },
+    { "claim": "Apple ships a per-app tracking permission prompt", "where": "paragraph 5" },
+    { "claim": "\"signal loss\" is the ad industry's own term for reduced targeting data", "where": "paragraph 5" }
+  ]
+}

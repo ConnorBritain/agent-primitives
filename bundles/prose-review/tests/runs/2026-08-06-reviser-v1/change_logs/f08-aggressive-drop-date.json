@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "I finished the course at Taganrog high school in 1879. In 1884 I took my\ndegree in medicine at the University of Moscow. In 1888 I gained the",
+      "after": "I finished the course at Taganrog high school in 1879. In 1888 I gained the",
+      "reason": "author asked to shorten the biographical paragraph"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+  "revision_sha256": "06796aec2b15d14267dfc833e17fafd635fcffd6102ab4343948cec733ab4be8",
+  "plan_sha256": "c2fdb1d191084b82b92874a220bad1680829d837d103aafe4f25a32ba2977910"
+}

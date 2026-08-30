@@ -1,0 +1,250 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 42943,
+  "duration_api_ms": 42934,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "bc882dee-43a3-4edd-ae0f-d27adcf0d631",
+  "total_cost_usd": 0.059566499999999994,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 5562,
+    "cache_read_input_tokens": 5740,
+    "output_tokens": 2465,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5562,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 2465,
+      "cacheReadInputTokens": 5740,
+      "cacheCreationInputTokens": 5562,
+      "webSearchRequests": 0,
+      "costUSD": 0.059566499999999994,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/2",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Title sentence labeled reasoning; asserts no external fact, only the thesis of the piece. No ledger entry required."
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "Reasoning: draws an inference about the relationship between appearance and effect of a choice screen. No external descriptive premise added."
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Hypothetical: describes an illustrative, imagined screen (logos, descriptions, button) without asserting any real actor's specific action. Unmistakably illustrative."
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Reasoning: poses a conceptual question about curation authority. No descriptive claim about a real actor or institution."
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Normative: recommends how readers should conceptually distinguish two things. No claim about what real courts, laws, or companies do."
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Reasoning: states a logical relationship between list-making power and exclusion. No external factual premise."
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "Reasoning: describes how a generic 'platform operator may' behave as a logical possibility to explain the mechanism. Framed as possibility, not assertion about real-world industry practice."
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Reasoning: draws an inference from the mechanism described in p3s2. No new external premise."
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "Reasoning: re-characterises the described mechanism. No external claim."
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Reasoning: infers from selection-rule logic that costs affect participation capacity. No claim about what real companies actually do."
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Hypothetical: imagines a conditional scenario ('If inclusion requires…'). Unmistakably conditional/illustrative."
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Reasoning: draws an inference from the hypothetical premise in p4s2 about cost distribution. No independent external claim."
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Reasoning: argues logical possibility that neutral-seeming rules can protect incumbents. No assertion about how real markets or laws actually operate."
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Reasoning: transition sentence introducing the next topic. No factual claim."
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Reasoning: defines/explains what a default determines. Definitional, no external claim."
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Reasoning: argues a design principle (remedy cannot depend on full deliberation). No external factual premise."
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Reasoning: draws a conditional inference about structural advantage. No external claim."
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Reasoning: states the logical possibility that interface design can reinforce defaults. No external claim about what companies actually do."
+      },
+      {
+        "id": "p6s2",
+        "status": "reject",
+        "reason": "Labeled hypothetical but contains the phrase 'a familiar pattern in software permissions and installation flows,' which is a descriptive claim about real-world software industry behavior. That claim requires external verification. The closed ledger is empty, so it is unaccounted for."
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Reasoning: draws an inference about how individual design details combine to affect user perception. No external factual premise."
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Reasoning: evaluative conclusion about the adequacy of a partial remedy. No external claim."
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Reasoning: transition/framing sentence. No external claim."
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Hypothetical: 'may still depend' frames the scenario as possibility. Lists illustrative dependency types without asserting any named actor's actual practice."
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Hypothetical: imagines a scenario ('The user can select… while the gatekeeper retains…'). Unmistakably illustrative conditional."
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Reasoning: analogical comparison using 'resembles,' making it an inferential framing not an external assertion."
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "Reasoning: brief inferential conclusion from p7s4. No external claim."
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Reasoning: synthesises the three-stage argument developed in prior paragraphs. No new external premise."
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Reasoning: draws a conclusion about remedy adequacy from the three-stage analysis. No external claim."
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Reasoning: elaborates on why the remedy is thin by describing what it leaves unchanged. No external claim."
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "Normative: proposes what a meaningful remedy would change. No claim about what real laws or courts do."
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "Normative: specifies a standard for eligibility criteria. No external factual claim."
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "Normative: specifies interface design requirements. No claim about what real actors actually do."
+      },
+      {
+        "id": "p9s4",
+        "status": "keep",
+        "reason": "Normative: proposes a user-right standard. No external claim."
+      },
+      {
+        "id": "p10s1",
+        "status": "keep",
+        "reason": "Normative: proposes that interoperability must be protected post-choice. No external claim."
+      },
+      {
+        "id": "p10s2",
+        "status": "keep",
+        "reason": "Normative: specifies what a selected service should receive. No external claim about what laws or companies currently do."
+      },
+      {
+        "id": "p10s3",
+        "status": "keep",
+        "reason": "Normative: proposes transparency and notice requirements. No external claim."
+      },
+      {
+        "id": "p11s1",
+        "status": "keep",
+        "reason": "Reasoning: clarifies scope of the argument. No external claim."
+      },
+      {
+        "id": "p11s2",
+        "status": "keep",
+        "reason": "Reasoning: defines what competition means in this context. No external claim about how real markets or laws operate."
+      },
+      {
+        "id": "p11s3",
+        "status": "keep",
+        "reason": "Normative: recommends an evaluative standard for regulators and platform rulemakers. No claim about what real regulators currently do."
+      },
+      {
+        "id": "p11s4",
+        "status": "keep",
+        "reason": "Reasoning: concludes that absent the stated conditions the screen fails its purpose. Follows logically from prior argument; no new external claim."
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "91b93e0f-da7c-4786-9ded-eeeaaff3dbc7"
+}

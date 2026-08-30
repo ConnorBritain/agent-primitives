@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 34,
+        "quote": "A handful of companies actually own the games"
+      },
+      "change": "delete the word 'actually' — 'A handful of companies own the games'",
+      "reason": "voice-critic: an emphatic adverb on a plain factual claim; the sentence asserts it either way"
+    }
+  ]
+}

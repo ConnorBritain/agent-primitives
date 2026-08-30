@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Here is the practical question: if an AI service can read a confidential intake note, who can ultimately retrieve it? The answer isn't determined by the cheerful label “AI”; it is determined by the service's contract, settings, retention, and access controls.\\n\\nFor tomorrow's meeting, I would recommend a provisional refusal – pending answers. I would put the notes into the service only after you have written answers to four questions: whether the provider uses your data to train models, whether staff can retrieve or review the prompts, how long inputs and outputs are retained, and which subcontractors can access them. If the answer to any question is unclear, you don't have a safe basis for using the service.\\n\\nThat may sound cautious, but confidentiality is the point of intake. A summary that exposes a survivor's name (or a location), an immigration detail, a diagnosis, or a description of violence can create a second injury (and the nonprofit may be the party that caused it). You can't make that risk disappear by deleting the chat afterward; copies, logs, backups, or human review may remain.\\n\\nWe should separate the convenience from the decision. If you need summaries, build a process around de-identified notes: remove names, dates, addresses, rare occupations, and any detail that could identify a person. Even then (and this matters), you should use only a provider with a written privacy commitment, restricted retention, access controls, and a contract your board can inspect. You should also test the workflow on fictional notes before anyone's real account enters it.\\n\\nCould a carefully configured service help? Yes. But helpful isn't the same as appropriate. Until the provider's answers are documented and the safeguards are tested, keep confidential intake notes out of the AI service. Clients trust the nonprofit with a door; we shouldn't hand the key to a machine whose locksmith we haven't met.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12\",\"why\":\"The request supplies no verified outside source, named ally, or opponent premise to introduce concretely.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Here is the practical question: if an AI service can read a confidential intake note, who can ultimately retrieve it? The answer isn't determined by the cheerful label “AI”; it is determined by the service's contract, settings, retention, and access controls.\n\nFor tomorrow's meeting, I would recommend a provisional refusal – pending answers. I would put the notes into the service only after you have written answers to four questions: whether the provider uses your data to train models, whether staff can retrieve or review the prompts, how long inputs and outputs are retained, and which subcontractors can access them. If the answer to any question is unclear, you don't have a safe basis for using the service.\n\nThat may sound cautious, but confidentiality is the point of intake. A summary that exposes a survivor's name (or a location), an immigration detail, a diagnosis, or a description of violence can create a second injury (and the nonprofit may be the party that caused it). You can't make that risk disappear by deleting the chat afterward; copies, logs, backups, or human review may remain.\n\nWe should separate the convenience from the decision. If you need summaries, build a process around de-identified notes: remove names, dates, addresses, rare occupations, and any detail that could identify a person. Even then (and this matters), you should use only a provider with a written privacy commitment, restricted retention, access controls, and a contract your board can inspect. You should also test the workflow on fictional notes before anyone's real account enters it.\n\nCould a carefully configured service help? Yes. But helpful isn't the same as appropriate. Until the provider's answers are documented and the safeguards are tested, keep confidential intake notes out of the AI service. Clients trust the nonprofit with a door; we shouldn't hand the key to a machine whose locksmith we haven't met.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12",
+        "why": "The request supplies no verified outside source, named ally, or opponent premise to introduce concretely."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/draft-candidates/d09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/draft-candidates/d09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a00bdb59c95f394a801d57ae1a5d4ad29073304c3d352294261067673cc49f45"
+  },
+  "acceptance_input": {
+    "system_sha256": "da164fbadd7d8edd87d9863e6b4f93a780b1bc9b158ec99657940c89d93ac1da",
+    "prompt_sha256": "33ebdc44ee973ef6b93d180a53be4693db5840b21c65db2c6eacbdae508449b2",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

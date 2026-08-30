@@ -1,0 +1,263 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"draft\",\"ledger\":[{\"id\":\"c1\",\"basis\":\"request-supported\",\"claim\":\"A device maker can disable features after the device has been sold.\",\"request_basis\":\"when its maker can disable features after sale\"}],\"paragraphs\":[{\"sentences\":[{\"text\":\"Ownership is control, or it’s theater.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"When a maker can disable features after sale, you possess the device but share authority over what it may do.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"The maker has kept a hand on your controls – a hand you can’t remove, bargain with, or vote out.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Call that arrangement whatever you like, but it is not full ownership.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Imagine buying a workshop from someone who retains the right to enter at night and weld shut whichever machines no longer suit the seller’s plans.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"You’ve got the deed, the keys, and the bill (definitely the bill), but the seller has kept the decisive power.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"Would you say you owned the whole workshop?\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"You wouldn’t, because ownership that survives only at another party’s pleasure is tenancy dressed up for the checkout screen.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"The confusion comes from treating possession as though it settled the question.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"It doesn’t.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You can hold an object while someone else retains a veto over its useful functions (a veto hidden inside the thing itself).\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That veto is part of the bargain’s substance, no matter how polished the packaging or how permanent the word “buy” looks beside the price.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"I think this distinction will matter more as devices become bundles of physical parts and revocable functions.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"But I don’t think complexity changes the moral arithmetic: if you paid for a capability, the maker shouldn’t get to repossess that capability while leaving the shell on your desk.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"That’s a repo man who only steals verbs – the object remains, but what it does has vanished.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"It’s an ingenious piece of bullshit because the loss can be made to look like a mere change in settings.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"What exactly did you buy: the device, a temporary menu of permissions, or a lottery ticket whose prize changes after the draw?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The honest answer can’t depend on which description flatters the maker.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"If the maker’s continuing consent is necessary for a feature to remain available, then that consent is part of the product (the invisible part with the sharpest teeth).\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"You haven’t bought autonomy; you’ve bought supervised use.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Policy should start by refusing the damn euphemisms.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"A sale shouldn’t quietly become a lease whenever remote control benefits the seller, and “licensed feature” shouldn’t erase the ordinary meaning of buying the device that performs it.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"If makers want continuing control, they should disclose that bargain plainly and price it as continuing control.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"They shouldn’t collect the moral prestige of a sale while reserving the practical privileges of a landlord.\",\"basis\":\"normative\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We also need a simple rule: disabling a paid feature after sale requires the owner’s authorization, except where the owner agreed to a genuinely temporary service.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"The agreement must be specific, comprehensible, and separable from the device purchase – not a scavenger hunt through contractual fog.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Where the maker keeps unilateral power, we should treat the transaction as conditional access and regulate its advertising, refunds, and remedies accordingly.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"You don’t get to sell the cow and keep a switch that turns off the milk.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"I think makers will argue that such limits reduce flexibility.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Whose flexibility?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Not yours: your device is the thing being bent, and you’re the person expected to accept that bending as innovation.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"We shouldn’t confuse a company’s freedom to alter your purchase with your freedom to use what you bought, because those freedoms point in opposite directions.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We can permit subscriptions, rentals, trials, and services without letting every sale become a fucking séance in which ownership appears at payment and disappears when the maker whispers a command.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"We only have to insist that the label match the power.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"If someone else can still decide which paid functions your device may perform, you’re holding their property arrangement, not exercising full ownership of yours.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"A maker’s post-sale kill switch doesn’t merely modify the product; it exposes who remained in charge all along.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"Ownership with an off switch in somebody else’s hand isn’t ownership.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named opponents, allies, sources, and their quoted terms\",\"why\":\"The request supplies no named actors, attributed quotations, or sources suitable for this topic.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "draft",
+    "ledger": [
+      {
+        "id": "c1",
+        "basis": "request-supported",
+        "claim": "A device maker can disable features after the device has been sold.",
+        "request_basis": "when its maker can disable features after sale"
+      }
+    ],
+    "paragraphs": [
+      {
+        "sentences": [
+          {
+            "text": "Ownership is control, or it’s theater.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "When a maker can disable features after sale, you possess the device but share authority over what it may do.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "The maker has kept a hand on your controls – a hand you can’t remove, bargain with, or vote out.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Call that arrangement whatever you like, but it is not full ownership.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Imagine buying a workshop from someone who retains the right to enter at night and weld shut whichever machines no longer suit the seller’s plans.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "You’ve got the deed, the keys, and the bill (definitely the bill), but the seller has kept the decisive power.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "Would you say you owned the whole workshop?",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "You wouldn’t, because ownership that survives only at another party’s pleasure is tenancy dressed up for the checkout screen.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The confusion comes from treating possession as though it settled the question.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "It doesn’t.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You can hold an object while someone else retains a veto over its useful functions (a veto hidden inside the thing itself).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That veto is part of the bargain’s substance, no matter how polished the packaging or how permanent the word “buy” looks beside the price.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "I think this distinction will matter more as devices become bundles of physical parts and revocable functions.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "But I don’t think complexity changes the moral arithmetic: if you paid for a capability, the maker shouldn’t get to repossess that capability while leaving the shell on your desk.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "That’s a repo man who only steals verbs – the object remains, but what it does has vanished.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "It’s an ingenious piece of bullshit because the loss can be made to look like a mere change in settings.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "What exactly did you buy: the device, a temporary menu of permissions, or a lottery ticket whose prize changes after the draw?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The honest answer can’t depend on which description flatters the maker.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If the maker’s continuing consent is necessary for a feature to remain available, then that consent is part of the product (the invisible part with the sharpest teeth).",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "You haven’t bought autonomy; you’ve bought supervised use.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Policy should start by refusing the damn euphemisms.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "A sale shouldn’t quietly become a lease whenever remote control benefits the seller, and “licensed feature” shouldn’t erase the ordinary meaning of buying the device that performs it.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If makers want continuing control, they should disclose that bargain plainly and price it as continuing control.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "They shouldn’t collect the moral prestige of a sale while reserving the practical privileges of a landlord.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We also need a simple rule: disabling a paid feature after sale requires the owner’s authorization, except where the owner agreed to a genuinely temporary service.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "The agreement must be specific, comprehensible, and separable from the device purchase – not a scavenger hunt through contractual fog.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Where the maker keeps unilateral power, we should treat the transaction as conditional access and regulate its advertising, refunds, and remedies accordingly.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "You don’t get to sell the cow and keep a switch that turns off the milk.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "I think makers will argue that such limits reduce flexibility.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Whose flexibility?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Not yours: your device is the thing being bent, and you’re the person expected to accept that bending as innovation.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We shouldn’t confuse a company’s freedom to alter your purchase with your freedom to use what you bought, because those freedoms point in opposite directions.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We can permit subscriptions, rentals, trials, and services without letting every sale become a fucking séance in which ownership appears at payment and disappears when the maker whispers a command.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "We only have to insist that the label match the power.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If someone else can still decide which paid functions your device may perform, you’re holding their property arrangement, not exercising full ownership of yours.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "A maker’s post-sale kill switch doesn’t merely modify the product; it exposes who remained in charge all along.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "Ownership with an off switch in somebody else’s hand isn’t ownership.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named opponents, allies, sources, and their quoted terms",
+        "why": "The request supplies no named actors, attributed quotations, or sources suitable for this topic."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/raw/drafts/d01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-sol-boundary-probe/raw/drafts/d01.codex-output.json",
+  "recovered_from": null
+}

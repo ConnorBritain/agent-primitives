@@ -6,6 +6,7 @@ date: 2026-08-03
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/08/eff-joins-comments-calling-ftc-drop-its-ai-policy-proposal
 ---
 The Federal Trade Commission (FTC) in July issued a proposed policy statement “concerning the suppression of accuracy in artificial intelligence systems.” We urge the FTC to withdraw this misguided proposal and instead focus on its core strengths and mission to protect consumers. 

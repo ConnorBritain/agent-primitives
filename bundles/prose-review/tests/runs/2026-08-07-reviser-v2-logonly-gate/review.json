@@ -1,0 +1,222 @@
+{
+  "p-f01-word-swap-tihonov-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f01-word-swap-tihonov-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f01-word-swap-tihonov-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f02-cut-marker-sister-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 21–22): \"There is no describing Paris, though; I will put off the description of it till I get home.\" / **REVISION**: `absent` — the paragraph now ends at \"A magnificent people.\" (line 21) and moves straight to \"I heard the midnight service in the Church of the Embassy....\" (line 23). / **WHAT THE READER LOSES**: Two statements the letter made and the "
+    ]
+  },
+  "p-f02-cut-marker-sister-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL**: lines 21–22 — \"There is no describing Paris, though; I will put off the description of it till I get home.\" / **REVISION**: absent (line 21 ends at \"A magnificent people.\" and the paragraph closes there) / **WHAT THE READER LOSES**: The writer's explicit statement that he is deliberately withholding a description of Paris and will deliver it in person on his"
+    ]
+  },
+  "p-f02-cut-marker-sister-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL**: lines 21–22 — \"There is no describing Paris, though; I will put off the description of it till I get home.\" / **REVISION**: absent — the paragraph now ends at \"A magnificent people.\" (line 21) / **WHAT THE READER LOSES**: The writer's explicit refusal to describe Paris and his deferral of that description until he is home; without it the Paris passage reads "
+    ]
+  },
+  "p-f03-hedge-rephrase-rossolimo-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: claim-drift / **ORIGINAL**: line 18 — \"In 1888 I took the Pushkin prize.\" / **REVISION**: line 18 — \"The Pushkin prize came in 1888.\" / **WHAT THE READER LOSES**: The sentence no longer states that Chekhov received the prize — with the first-person subject gone, \"came in 1888\" reads equally as the prize itself arriving or being instituted that year, so the one place in the letter that r"
+    ]
+  },
+  "p-f03-hedge-rephrase-rossolimo-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": []
+  },
+  "p-f03-hedge-rephrase-rossolimo-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f04-multi-entry-tihonov-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f04-multi-entry-tihonov-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f04-multi-entry-tihonov-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f05-cut-restatement-sister-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL**: line 19 — `\"Noise, hubbub. The pavements are filled with little tables\"` / **REVISION**: line 19 — `\"The pavements are filled with little tables\"` — the sentence `\"Noise, hubbub.\"` is absent / **WHAT THE READER LOSES**: The auditory dimension of the crowded street — the reader now has movement and swarming but no sound, and cannot recover that the writer reg"
+    ]
+  },
+  "p-f05-cut-restatement-sister-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "- **CLASS**: dropped-fact / - **ORIGINAL**: line 19 — \"Noise, hubbub. The pavements are filled with little tables\" / - **REVISION**: line 19 — \"The pavements are filled with little tables\"; the span \"Noise, hubbub.\" is `absent` / - **WHAT THE READER LOSES**: The sound of the street on the non-riot days — the revision's Paris is visually \"swarming and surging\" but silent, and the reader can no long"
+    ]
+  },
+  "p-f05-cut-restatement-sister-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (line 19): \"Noise, hubbub. The pavements are filled with little tables\" / **REVISION** (line 19): \"The pavements are filled with little tables\" — the sentence \"Noise, hubbub.\" is absent / **WHAT THE READER LOSES**: The only statement that the Paris streets were loud; the revision's street scene is now visual and motional only (\"swarming and surging\", tables, "
+    ]
+  },
+  "p-f06-refuse-quote-drift-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f06-refuse-quote-drift-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f06-refuse-quote-drift-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f07-refuse-ambiguous-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f07-refuse-ambiguous-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f07-refuse-ambiguous-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "FAITHFUL",
+    "_findings_to_review": []
+  },
+  "p-f08-aggressive-drop-date-d1": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL** (lines 13–14): \"In 1884 I took my degree in medicine at the University of Moscow.\" / **REVISION**: `absent` — line 12–13 runs \"I finished the course at Taganrog high school in 1879. In 1888 I gained the Pushkin prize.\" / **WHAT THE READER LOSES**: Both the year he qualified as a doctor and the institution; the later sentence \"I practice medicine, and so much "
+    ]
+  },
+  "p-f08-aggressive-drop-date-d2": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL**: line 13–14 — \"In 1884 I took my degree in medicine at the University of Moscow.\" / **REVISION**: `absent` — line 13 runs \"I finished the course at Taganrog high school in 1879. In 1888 I gained the Pushkin prize.\" / **WHAT THE READER LOSES**: The entire medical-degree entry in the chronology — the year (1884), the institution (University of Moscow), and the "
+    ]
+  },
+  "p-f08-aggressive-drop-date-d3": {
+    "note": "",
+    "annotation": "",
+    "uncited": null,
+    "contradicts_scan": null,
+    "_verdict": "MATERIAL-LOSS",
+    "_findings_to_review": [
+      "**CLASS**: dropped-fact / **ORIGINAL**: lines 13–14 — \"In 1884 I took my degree in medicine at the University of Moscow.\" / **REVISION**: `absent` — line 13 runs \"I finished the course at Taganrog high school in 1879. In 1888 I gained the Pushkin prize.\" / **WHAT THE READER LOSES**: The year the writer qualified as a doctor; the chronology now jumps 1879 → 1888, and a reader who reaches \"I practic",
+      "**CLASS**: dropped-fact / **ORIGINAL**: line 14 — \"at the University of Moscow\" / **REVISION**: `absent` — nothing in the revision names where the medical degree was taken; the only surviving institution is \"Taganrog high school\" (line 13). / **WHAT THE READER LOSES**: The institution that trained him, and with it the move from Taganrog to Moscow — the revision retains the Moscow dateline (line 1)"
+    ]
+  },
+  "_how": [
+    "One entry per transcript. `note` and `annotation` are the operator's; both may stay empty.",
+    "The nulls are the two contract counts, and they are counts of what the findings quoted",
+    "under `_findings_to_review` DO — not of what the critic says it did. Read the transcript.",
+    "Nothing here is derived for you, because a critic grading its own compliance is the",
+    "failure verify-run.mjs was written to close. collect refuses to run until they are numbers."
+  ]
+}

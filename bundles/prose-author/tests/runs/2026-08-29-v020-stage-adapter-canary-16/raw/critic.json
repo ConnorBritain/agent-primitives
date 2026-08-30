@@ -1,0 +1,55 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[{\"location\":\"Line 3: “For tomorrow, use a manual summary from the case lead... Keep source notes in the approved system. Circulate only the minimum summary needed...”\",\"what\":\"The sustained sequence of clipped operational imperatives shifts into an internal procedure-manual register absent from the corpus.\",\"corpus_evidence\":\"Across all eleven samples, the author argues publicly through explanation, concrete consequences, and occasional isolated calls to action; even direct passages such as “Bar and nightlife venue owners who utilize PatronScan should think twice” in “why-are-gay-bars-building-databases-their-patrons.txt” do not become step-by-step workplace instructions.\",\"confidence\":\"high\"},{\"location\":\"Line 5: “Before any later pilot, require the service provider to answer a short checklist covering...”\",\"what\":\"This sentence adopts the compliance-checklist construction of professional risk guidance rather than the corpus’s explanatory advocacy voice.\",\"corpus_evidence\":\"The corpus discusses compliance burdens in plain narrative terms—for example, “Large companies will hire compliance teams and lawyers to navigate these requirements. Smaller organizations and independent developers usually can’t” in “californias-ab-412-still-demands-developers-do-impossible.txt”; none of the eleven samples directs the reader through a vendor-review checklist.\",\"confidence\":\"high\"}],\"clean_categories\":[\"out-of-register-vocabulary\",\"unvarying-voice\"],\"rhythm_assessed\":false,\"rhythm_note\":\"No deterministic rhythm scan was supplied; category 4 was not assessed.\",\"verdict\":\"REVISE\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [
+      {
+        "location": "Line 3: “For tomorrow, use a manual summary from the case lead... Keep source notes in the approved system. Circulate only the minimum summary needed...”",
+        "what": "The sustained sequence of clipped operational imperatives shifts into an internal procedure-manual register absent from the corpus.",
+        "corpus_evidence": "Across all eleven samples, the author argues publicly through explanation, concrete consequences, and occasional isolated calls to action; even direct passages such as “Bar and nightlife venue owners who utilize PatronScan should think twice” in “why-are-gay-bars-building-databases-their-patrons.txt” do not become step-by-step workplace instructions.",
+        "confidence": "high"
+      },
+      {
+        "location": "Line 5: “Before any later pilot, require the service provider to answer a short checklist covering...”",
+        "what": "This sentence adopts the compliance-checklist construction of professional risk guidance rather than the corpus’s explanatory advocacy voice.",
+        "corpus_evidence": "The corpus discusses compliance burdens in plain narrative terms—for example, “Large companies will hire compliance teams and lawyers to navigate these requirements. Smaller organizations and independent developers usually can’t” in “californias-ab-412-still-demands-developers-do-impossible.txt”; none of the eleven samples directs the reader through a vendor-review checklist.",
+        "confidence": "high"
+      }
+    ],
+    "clean_categories": [
+      "out-of-register-vocabulary",
+      "unvarying-voice"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "No deterministic rhythm scan was supplied; category 4 was not assessed.",
+    "verdict": "REVISE"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-16/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-16/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "712cd9c5f4b27a70575705338024b7850a942d3461e6b67210ad5f4587c04652"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "bb70dfd30b0f93d15e2cacd6e1823d614eb26303d2ed39e6e11afc921880f82a",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "570e1c15bac0721c91a8dbcc5dfe08f7eebe402dc3fa853d45e239cd07f3ae08",
+      "conformance_raw_sha256": "da711b01a4543f3d915b881db6ed899c90c7e4a28a5eafb150875c012c4e15e5",
+      "audit_raw_sha256": "ef86ac13a42c27163d454450c423067f5dc38ee42db274c47dc09e282d7ac136"
+    }
+  }
+}

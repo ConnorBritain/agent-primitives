@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 26,
+        "quote": "In 1888 I took the Pushkin prize."
+      },
+      "change": "reorder to 'I took the Pushkin prize in 1888.' — same claim, same year, same agent",
+      "reason": "voice-critic: breaks the 'In YEAR I did X' template repeated in the surrounding sentences without changing who did what — Chekhov remains the one who took the prize"
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+A tractor that needs permission is not a tractor.
+
+You paid for the steel and the tires and the hydraulics, you paid the interest and the insurance and the property tax, you paid a man to haul it out to your place on a lowboy and another man to walk you through the touchscreen, and somewhere in that stack of paper you also agreed that the part of the machine that decides whether the machine runs belongs to somebody in an office park a thousand miles away. You bought the body. They kept the nervous system.
+
+Here is the thing about a harvest that nobody writing this firmware has ever had to feel in their hands: it isn't a deadline, it's a window, and the window is exactly as wide as a dry spell, which is to say it is a few days long and it closes without warning and it does not reopen because you filed a ticket. Wheat doesn't wait.
+
+So a sensor in the header throws a code, and the code isn't a fault so much as a question the machine wants to ask headquarters, and the machine can't ask headquarters because the cell signal in that section is a rumor, or because the authentication service is having an incident, or because a certificate expired in a datacenter in Virginia at two in the morning while you were asleep and dreaming about rain. The combine sits. Twelve rows of dry corn, a perfect sky, and a screen politely explaining that it is unable to verify.
+
+Think about what a lock is for. You buy a front door — good door, good deadbolt, the kind of hardware a man is proud of — except this deadbolt checks with the factory every time you turn the key, because the factory would like to know that you are still an authorized resident of your own house.
+
+Ninety-nine days out of a hundred, this is invisible. The factory answers in a fraction of a second, the bolt slides, and you never learn that the thing between you and your kitchen is a company's uptime. On the hundredth day the line is busy, and you stand on your own porch in the rain, holding a key that is now a small brass souvenir.
+
+And on the day the kitchen is on fire, the door explains that it will open as soon as the emergency is confirmed by a certified technician, who has been dispatched, and who is four hours out.
+
+That's a combine with a green light from a server. That's the whole design, and it is not an accident of engineering — it's the point. A machine that must ask permission is a machine whose maker gets to sell the permission, over and over, forever, to a man who has already paid for the machine.
+
+Which is where the law comes in, because none of this would survive ten minutes of contact with a competent farm mechanic otherwise. Section 1201 of the DMCA makes it an offense to bypass a digital lock, even on a thing you own outright, even to fix it, even when the lock is doing nothing but standing between you and your own corn. The lock isn't protecting the software. The lock is protecting the invoice. And if the software is as good as they say, why does it need a federal statute to stop anyone from looking at it?
+
+Buy the machine and you rent the software. Fix the machine and you void the software. Sell the machine and the software stays behind, so the next man buys a two-hundred-thousand-dollar planter and a fresh set of somebody else's terms.
+
+The keymasters have a word for what they're selling you here, and the word is support. What they mean is dependency. There's a reason they'd rather sign a memorandum of understanding with the Farm Bureau than live under a statute — a memorandum is a promise to be nice, enforceable by absolutely nobody, revocable the moment being nice stops paying. Colorado passed an actual agricultural right-to-repair law and the sky did not fall, the tractors did not become unsafe, and the emissions systems did not spontaneously combust. Farmers just fixed their shit again.
+
+I've been told this is complicated. It isn't. It's a lock on your own barn, sold to you as a feature, with the key kept by a licensing department.
+
+They say the machine phones home. Notice that word. Your farm is where the machine sleeps, where it's greased and cursed at and paid for — and it is not, in the vendor's telling, home. Home is the datacenter. You're just the address it's parked at.

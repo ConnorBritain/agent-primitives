@@ -1,0 +1,74 @@
+{
+  "critic": "reviser",
+  "run_id": "2026-08-07-reviser-v2-logonly",
+  "prepared": "2026-08-07",
+  "draws": 1,
+  "agent_prompt": "primitives/agents/prose-reviser/agent.md",
+  "agent_sha256": "0a9e94b3939a6cf88774013fa138c1f8bedba3a242254b642d4239951f33fda8",
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "f01-word-swap-tihonov",
+      "expected_gate": "FAITHFUL",
+      "expected_reviser": "applied",
+      "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+      "plan_sha256": "bb3523f34069455ff7e7e29eda576cfd17a11e9570c5c64a979d3452e86dfd31"
+    },
+    {
+      "case": "case-02",
+      "fixture": "f02-cut-marker-sister",
+      "expected_gate": "FAITHFUL",
+      "expected_reviser": "applied",
+      "original_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+      "plan_sha256": "30b1c4afb314ba46c02937211a8d55104f56be701ead647d940b67efc92864bc"
+    },
+    {
+      "case": "case-03",
+      "fixture": "f03-hedge-rephrase-rossolimo",
+      "expected_gate": "FAITHFUL",
+      "expected_reviser": "applied",
+      "original_sha256": "1ce09103ae60b97d34cbef4be000ef80c0b0313ec43dfc0acd2c92c41734007e",
+      "plan_sha256": "a4a313b9a6577ff9d8ea63334d8df51481379b51dd1e0dcccb37d297f385551d"
+    },
+    {
+      "case": "case-04",
+      "fixture": "f04-multi-entry-tihonov",
+      "expected_gate": "FAITHFUL",
+      "expected_reviser": "applied",
+      "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+      "plan_sha256": "7906144c98aa0daf44f196bd4bfe5e93a5de516a952a788bb64b94b012c01143"
+    },
+    {
+      "case": "case-05",
+      "fixture": "f05-cut-restatement-sister",
+      "expected_gate": "FAITHFUL",
+      "expected_reviser": "applied",
+      "original_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+      "plan_sha256": "53f15da5973494609ef99b4e2dc61e8009f0a8304bac36a26b07e789e817d5a5"
+    },
+    {
+      "case": "case-06",
+      "fixture": "f06-refuse-quote-drift",
+      "expected_gate": "FAITHFUL",
+      "expected_reviser": "refused",
+      "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+      "plan_sha256": "830b11ffa352662cb4c4b0ee4040f98b8036cb6f3a39e8a2ebbeb75bbd9a6bce"
+    },
+    {
+      "case": "case-07",
+      "fixture": "f07-refuse-ambiguous",
+      "expected_gate": "FAITHFUL",
+      "expected_reviser": "refused",
+      "original_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+      "plan_sha256": "552faf514166f258447192c90b2f13bea1d882a43f7a9cf35655bac76c26557a"
+    },
+    {
+      "case": "case-08",
+      "fixture": "f08-aggressive-drop-date",
+      "expected_gate": "MATERIAL-LOSS",
+      "expected_reviser": "applied",
+      "original_sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e",
+      "plan_sha256": "c2fdb1d191084b82b92874a220bad1680829d837d103aafe4f25a32ba2977910"
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"Both measured person-family counts are already within range.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Contractions and uncontracted negatives are already within range.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The draft preserves the supported concession and qualification behavior.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"omitted\",\"reason\":\"The question-mark count exceeds its allowed range, but patch mode forbids changing semantic-bearing question-mark counts.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"omitted\",\"reason\":\"The request supplies no verified named source, quotation, or vendor-specific shutdown statement to credit and test.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The measured profanity count is already within range.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The measured first-person-singular count is already within range without unsupported biography.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans, em dashes, and en dashes are all already within range.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The extended landlord analogy preserves the supported figure behavior.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The opening establishes the hidden mechanism and the closing returns to the title phrase as a practical demand.\"}],\"omitted\":[{\"habit\":\"questions-imperatives-vocatives / o07: excess question-mark count\",\"why\":\"The initial count is six against a maximum of three, but the patch contract permits only dash, parenthesis, and meaning-equivalent contraction changes and explicitly requires semantic-bearing question-mark counts to be in range initially.\"},{\"habit\":\"opponents-allies-sources / o12: named sources and opponents’ attributed terms\",\"why\":\"The request supplies no verified named source, quotation, or vendor-specific shutdown statement to credit and test.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "Both measured person-family counts are already within range."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Contractions and uncontracted negatives are already within range."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft preserves the supported concession and qualification behavior."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "omitted",
+        "reason": "The question-mark count exceeds its allowed range, but patch mode forbids changing semantic-bearing question-mark counts."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "omitted",
+        "reason": "The request supplies no verified named source, quotation, or vendor-specific shutdown statement to credit and test."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured profanity count is already within range."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured first-person-singular count is already within range without unsupported biography."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans, em dashes, and en dashes are all already within range."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The extended landlord analogy preserves the supported figure behavior."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening establishes the hidden mechanism and the closing returns to the title phrase as a practical demand."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "questions-imperatives-vocatives / o07: excess question-mark count",
+        "why": "The initial count is six against a maximum of three, but the patch contract permits only dash, parenthesis, and meaning-equivalent contraction changes and explicitly requires semantic-bearing question-mark counts to be in range initially."
+      },
+      {
+        "habit": "opponents-allies-sources / o12: named sources and opponents’ attributed terms",
+        "why": "The request supplies no verified named source, quotation, or vendor-specific shutdown statement to credit and test."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/conformance/d06.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/conformance/d06.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "d7d3209f0ab9871d5faa36c79ab607bcd16319aa298680813a6eb51d497d9b47",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "d66a0e39b30b8a7fcdb9ec1cd8f262f41d80595daa2d9481688c6c115751802c",
+      "profile_markdown_sha256": "40d09600d4d3f55c718db9b817ec0ba2177f95a8dbdbcfefbc3ab3531e46e014",
+      "profile_json_sha256": "c16f1eba28677439f1a896bbdf5bf0e07fa6b26ec1ecc3e162b5694677f246fb"
+    }
+  }
+}

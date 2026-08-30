@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 127504,
+  "duration_api_ms": 127481,
+  "num_turns": 1,
+  "result": "```markdown\n\"Collecting identity documents\" is a vendor-created problem dressed up as a regulatory requirement.\n\nThe regulations (COPPA, the UK's AADC, GDPR Article 8) don't tell you to demand a passport. They tell you to make reasonable, proportionate efforts not to collect children's data without parental consent. The vendors selling age-assurance pipelines would very much like you to believe those two things are the same. They're not, and they know it.\n\nWhat does proportionate actually look like for a one-person shop? Think about what a corner store does when someone buys a beer. They don't run a background check. They look at the person, use their judgment, and if the person lies about their age, liability shifts to the liar. Your app can work the same way. A self-declaration checkbox isn't nothing — it creates a record that you asked, and it moves the moral and (I think, in most jurisdictions) some of the legal weight onto the user who ticked it falsely.\n\nBeyond that, you've got options that don't require touching a single piece of identity documentation. Device-level parental controls send signals you can check. Payment method proxies work — if someone's paying with a credit card, that's already age-gated by the banking system. Behavioral patterns can flag anomalies worth a second look. None of these are perfect, and I don't think any regulator expects perfection from an indie dev.\n\nWe didn't build the internet by demanding everyone show ID at the door, and we shouldn't let the vendor market convince you yours is the app that changes that. The age-assurance industry is selling compliance theater at enterprise prices, expensive bullshit you can mostly replace with proportionate design choices and a document explaining your reasoning. Write it down and move on.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o12: named specific opponents quoted and refuted on their own terms\", \"why\": \"no specific age-assurance vendor names available to cite without risk of fabrication; regulatory bodies are named instead\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"COPPA, the UK Age Appropriate Design Code, and GDPR Article 8 require proportionate efforts rather than identity document collection specifically\", \"where\": \"paragraph 2\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "f9c22a60-65b7-4fa8-882a-753ee02a4a1d",
+  "total_cost_usd": 0.13842645,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6877,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 7392,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6877,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 7392,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6877,
+      "webSearchRequests": 0,
+      "costUSD": 0.13842645,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "ec7e340f-8cfe-4171-b24f-6570eb0efc23"
+}

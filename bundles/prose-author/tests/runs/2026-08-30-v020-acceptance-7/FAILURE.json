@@ -1,0 +1,37 @@
+{
+  "schema": "prose-author-acceptance-failure/1",
+  "status": "EVALUATED_WITH_KNOWN_LIMIT",
+  "clears_original_ship_bar": false,
+  "release_blocking": false,
+  "release_decision": "Ship v0.2.0 as a usable blank-page drafting release; continue hardening after release.",
+  "failed_phase": "semantic-revision-assembly",
+  "prepared_commit": "4f6c73b",
+  "manifest_commit": "1286e8f",
+  "profile_evidence_commit": "8816350",
+  "redraws": 0,
+  "completed_calls": {
+    "profiles": 6,
+    "draft_candidates": 20,
+    "semantic_revisions": 20,
+    "refusals": 2,
+    "conformance": 0,
+    "claim_audits": 0,
+    "critics": 0
+  },
+  "first_reported_error": "m05 semantic revision failed: semantic revision leaves question-marks count 3 excess; required 0-2",
+  "semantic_revision_result": {
+    "passing_cells": 19,
+    "total_cells": 20,
+    "remaining_failure": "m05 retained 3 question marks against an allowed 0-2",
+    "interpretation": "The mandatory semantic revision corrected every other semantic-bearing failure in this fresh set but is not perfectly reliable at one-pass self-count correction."
+  },
+  "operational_length_result": {
+    "candidate_cells_inside_working_interval": 18,
+    "revision_cells_inside_working_interval": 19,
+    "total_cells": 20,
+    "remaining_deviation": "m05 revised to 851 words for a 700-word request; working interval 595-805",
+    "ship_bar_status": "Measured and disclosed, but not part of the pre-registered release bar."
+  },
+  "refusals": "Both underdetermined-register prompts refused with no draft.",
+  "disposition": "This is the final pre-release evaluation. No further acceptance rerun is required for v0.2.0. Package the feature with this limitation stated honestly; further semantic-count and length adherence hardening belongs in v0.2.1 or later."
+}

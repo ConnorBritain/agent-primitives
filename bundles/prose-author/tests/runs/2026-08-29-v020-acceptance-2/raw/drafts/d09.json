@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"My short answer is: don’t put confidential intake notes into a general-purpose AI service for tomorrow’s workflow. If you can’t establish exactly what leaves your control, who can read it, how long it is retained, and whether it trains any model, treat the service as outside your confidentiality boundary. “Enterprise privacy” is a sales label; your duty attaches to the notes, not the label.\\n\\nWhy take that line? Because summarisation isn’t magic redaction. You hand a third party the sensitive text first, and only then get the shorter version back. That is like asking a courier to open every sealed envelope, copy the useful lines, and promise the copying room is secure (perhaps it is). The summary may be convenient – but convenience doesn’t reverse the disclosure.\\n\\nFor tomorrow, I’d make the decision conditional. Use the service only if your organisation has approved it for this data class and you have written answers on retention, model training, subcontractors, access controls, deletion, incident response, and the location of processing. Of course, a vendor may offer strong safeguards (including a contract that matches them); even then, enter only the minimum necessary text and remove direct identifiers where the work allows it. If those conditions aren’t met, don’t upload the notes. Full stop.\\n\\nThat doesn’t mean abandoning AI. We can test it on invented cases, or summarise locally with an approved tool, while a staff member checks the result against the original. I would also name one person to own the decision, because “everyone thought someone had checked” is how a vague experiment becomes an organisational failure.\\n\\nFor tomorrow’s meeting, recommend a pause on live notes, a short vendor and security review, and a small synthetic-data pilot. We don’t need a permanent ban; we need a boundary you can explain, enforce, and audit.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "My short answer is: don’t put confidential intake notes into a general-purpose AI service for tomorrow’s workflow. If you can’t establish exactly what leaves your control, who can read it, how long it is retained, and whether it trains any model, treat the service as outside your confidentiality boundary. “Enterprise privacy” is a sales label; your duty attaches to the notes, not the label.\n\nWhy take that line? Because summarisation isn’t magic redaction. You hand a third party the sensitive text first, and only then get the shorter version back. That is like asking a courier to open every sealed envelope, copy the useful lines, and promise the copying room is secure (perhaps it is). The summary may be convenient – but convenience doesn’t reverse the disclosure.\n\nFor tomorrow, I’d make the decision conditional. Use the service only if your organisation has approved it for this data class and you have written answers on retention, model training, subcontractors, access controls, deletion, incident response, and the location of processing. Of course, a vendor may offer strong safeguards (including a contract that matches them); even then, enter only the minimum necessary text and remove direct identifiers where the work allows it. If those conditions aren’t met, don’t upload the notes. Full stop.\n\nThat doesn’t mean abandoning AI. We can test it on invented cases, or summarise locally with an approved tool, while a staff member checks the result against the original. I would also name one person to own the decision, because “everyone thought someone had checked” is how a vague experiment becomes an organisational failure.\n\nFor tomorrow’s meeting, recommend a pause on live notes, a short vendor and security review, and a small synthetic-data pilot. We don’t need a permanent ban; we need a boundary you can explain, enforce, and audit.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/d09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/d09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "ea8ef72bfb2a5baa2ca22efef4197dff19a7bfbda43cf3ecbbee5290fc827ca4",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

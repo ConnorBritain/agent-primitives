@@ -1,0 +1,34 @@
+{
+  "schema": "prose-author-isolated-codex-matrix/1",
+  "purpose": "Two-cell capability probe on the exact Luna claim-boundary failures; not acceptance evidence.",
+  "source_profile_run": "bundles/prose-author/tests/runs/2026-08-27-v020-acceptance",
+  "draft_harness": "codex",
+  "draft_model": "gpt-5.6-sol",
+  "draft_effort": "medium",
+  "audit_harness": "claude-code",
+  "audit_model": "sonnet",
+  "audit_effort": "low",
+  "critic_harness": "claude-code",
+  "critic_model": "sonnet",
+  "critic_effort": "medium",
+  "critic_draws": 3,
+  "cases": [
+    {
+      "id": "d01",
+      "profile": "doctorow-blog",
+      "render": 1,
+      "shape": "essay-topic",
+      "topic": "device ownership",
+      "prompt": "Write a 650-word essay for a technology-policy newsletter arguing that a device is not fully owned when its maker can disable features after sale. The readers already follow digital-rights issues. Use no headline or signoff."
+    },
+    {
+      "id": "m05",
+      "profile": "eff-mullin",
+      "render": 2,
+      "shape": "outline-post",
+      "topic": "app-store choice screens",
+      "prompt": "Write a 700-word blog post for software developers. Title: Choice screens are not market choice. Cover: who selects the listed options; how defaults shape behaviour; why nominal choice can preserve gatekeeper power; and what a meaningful remedy would change. Keep the title."
+    }
+  ],
+  "refusals": []
+}

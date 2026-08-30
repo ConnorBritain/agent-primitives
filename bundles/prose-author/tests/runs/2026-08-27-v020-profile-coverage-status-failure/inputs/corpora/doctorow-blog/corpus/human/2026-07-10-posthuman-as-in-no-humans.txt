@@ -1,0 +1,62 @@
+---
+source: pluralistic.net (Cory Doctorow)
+title: &quot;Rights for robots&quot; and the AI slavery fantasy
+author: Cory Doctorow
+date: 2026-07-10
+human_authored: true
+license: CC-BY-4.0
+permalink: https://pluralistic.net/2026/07/10/posthuman-as-in-no-humans/
+---
+While the AI bubble is primarily a material phenomenon (driven by the calculation that bosses are easy marks for a sales pitch that sees them replacing workers with software), there is an inescapable ideological component to it: the desire for a world without people in it:
+
+https://pluralistic.net/2026/05/13/vibe-governance/#k-hole
+
+If you'd like an essay-formatted version of this thread to read or share, here's a link to it on pluralistic.net, my surveillance-free, ad-free, tracker-free blog:
+
+https://pluralistic.net/2026/07/10/posthuman-as-in-no-humans/#hell-is-other-people
+
+AI dangles the possibility of a world without ego-shattering confrontations between bosses who tell themselves they're in charge, and the workers who know how to do things and insist on telling bosses that their ideas are dangerous, illegal and/or unworkable:
+
+https://pluralistic.net/2026/01/05/fisher-price-steering-wheel/#billionaire-solipsism
+
+A world without people might be lonely, but it sure would be convenient. How maddening it must be to invest billions in Amazon warehouse automation, only to have to slow down or (gasp!) stop the machines so that the workers who serve as "humans in the loop" can stop to pee! Isn't there some way we can make that their problem, not ours?
+
+https://pluralistic.net/2024/05/06/one-click-to-quit-the-union/#foxglove
+
+With AI, the fact that you need to pee – or get paid – does become your problem, rather than your boss's. After the majority of your colleagues have been fired ("because AI will do their jobs"), you become painfully aware that there are plenty of people who need your job, who will happily step in to take it if you complain too much about your bladder or your paycheck.
+
+Even better is when the "human in the loop" can be outsourced to a company overseas, which allows bosses to simply set-and-forget a set of requirements for how the human part of the AI's labor is to be done without ever having to meet or even think about those workers' conditions. This is the illusion of full automation, in which the AI does the job "like magic."
+
+The "magic"? A human being stuck in AI Omelas, tormented by an algorithm that sets an inhuman pace, demands inhuman perfection, and metes out pitiless punishments for any misstep – or perceived misstep – without appeal or explanation. So often, "AI" stands for "Absent Indians": low-waged call-center workers pretending to be robots:
+
+https://pluralistic.net/2024/01/29/pay-no-attention/#to-the-little-man-behind-the-curtain
+
+There are many differences between jobs performed by machines and jobs performed by people, of course. But the biggest difference between a machine and a person is moral consideration. A person deserves and demands moral consideration: for their wellbeing, their feelings, even their bladders. A machine gets none of this: you can curse at it, kick it, snap out orders without a "please" or "thank you."
+
+There's only one kind of person you get to treat like this: a slave.
+
+Slavery is labor without even the pretense of moral consideration.
+
+AI, then, isn't just the fantasy of a world without people – it's the fantasy of a world without people…except for slaves. It's the fantasy of a world where the skilled workers who tell you your ideas are stupid are replaced with pliable chatbots who tell you they're brilliant, and then uncomplainingly do the job to your specifications.
+
+It's a world where the cab driver who has all kinds of shit going on in their life – health problems, family problems, (especially) money problems – is replaced by a "robo-taxi" that is being overseen and (often) driven by a remote worker you can't talk to or see, whose problems you therefore never need consider.
+
+The "AI safety" world is a key piece of the AI hype machine, pulling focus away from the idea that AI has shitty economics, produces substandard goods, and fails to do the jobs it takes from human workers, and shifting that focus to the idea that AI is so powerful that it constitutes an existential risk to the human race. The idea that teaching too many words to the word-guessing program risks creating a "superintelligence" that awakens and converts all into paperclips is absurd, a silly idea akin to the notion that if we breed horses to run ever faster, one of our mares will foal a locomotive. Nevertheless, the elevation of "AI takeoff" from a thought-experiment to an "existential risk" is a powerful marketing tool, because any technology that is indistinguishable from god is also going to be extremely valuable (at least, up to the moment that it turns us all into paperclips):
+
+https://pluralistic.net/2024/05/17/fake-it-until-you-dont-make-it/#twenty-one-seconds
+
+Once the superintelligence thought-experiment is upgraded to an X-risk, lots of other thought experiments are sucked along in its wake. That's where "rights for robots" comes in, the idea that we should spend time thinking about whether chatbots should have human rights.
+
+The best argument for this is that every time we extend rights to the nonhuman world, we end up treating each other better. Movements to extend moral consideration to animals raised uncomfortable questions about the treatment of humans: slaves, workers, poor people, women, children. The Rights for Nature movement, which seeks to extend legal and moral personhood to watersheds and forests, has been key to winning legal and moral victories to protect the environment, and thus the animals and people who depend on it.
+
+But while extending rights to natural things produces positive spillovers for human thriving and rights, the opposite happened when we extended personhood to artificial constructs. Corporate personhood has been a catastrophe for human thriving, conjuring into existence a new race of immortal, pluripotent colony organisms we call "limited liability corporations" that use us as disposable, inconvenient gut flora even as they consume our environment, our political system, and our lives:
+
+https://pluralistic.net/2026/04/16/pascals-wager/#doomer-challenge
+
+There's every reason to think that extending personhood to AI will produce the same outcome as "rights for corporations," which is the opposite of the outcome of "Rights for Nature." Rights for nature come at the expense of corporations. Rights for corporations come at the expense of nature. Humans are part of nature, so we benefit from the former, and suffer under the latter:
+
+https://pluralistic.net/2026/04/15/artificial-lifeforms/#moral-consideration
+
+But here's the kicker: as soon as you start arguing about whether chatbots have rights, you elevate them to personhood, which means that all those chatbots your boss just bought are people. And because they're the kind of people who don't warrant moral consideration (let alone a please or thank you), they are slaves (hence "rights for robots").
+
+The AI sales pitch relies on convincing bosses that we've invented a new kind of slave – a worker who neither deserves nor demands rights or consideration. "Rights for robots" affirms that sales pitch. "Rights for robots" implies that robots are slaves. Wittingly or unwittingly, the transformation of "rights for robots" from a thought experiment to a campaign is a massive convincer for any AI salesman who's hunting for would-be slavers to sell chatbots to.

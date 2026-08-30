@@ -1,0 +1,43 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Age assurance differs from identity collection. If you run an app, the request is to establish that a person belongs inside an age boundary without building a dossier about that person. Those are different jobs, and our shared exposure depends on the design.\\n\\nWhy collect a passport scan when a narrower signal will do? A verifier can check an age threshold and return a yes–no result, while your service receives a token, an expiry time, and perhaps a retry path. The document stays with the specialist or on the user’s device. That architecture shrinks the prize for attackers and the blast radius of your own mistake.\\n\\nYou can also design the product around graduated access. Ask for a stronger signal only when the feature demands it; use a low-friction estimate or account setting for lower-risk areas; put sensitive functions behind a second check. This is the same principle as least privilege in security engineering: give each action only the authority it needs. (A chatroom and a money-transfer feature shouldn’t share a gate.) A smaller gate usually means a smaller failure surface.\\n\\nThat doesn’t make the problem disappear. Age estimates can be wrong, self-attestation can be gamed, and a cheap vendor can become an expensive breach. You’ll need data minimization (and less data is easier to defend), clear retention limits, an appeal route, and a way to test false positives across the audience. We can’t outsource that judgment, though a specialist can handle a narrowly defined check.\\n\\nI’d start with a data-flow diagram and a failure analysis: what is collected, who sees it, how long it lives, and what happens when the answer is uncertain. I’d then compare privacy-preserving providers, including their deletion guarantees and breach obligations. If a specialist is beyond your budget, combine less invasive checks, limit the highest-risk functions, and document the boundary. You’re building an app; a passport warehouse is another business. Keep the proof small, useful, and hard to turn into a permanent record.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12\",\"why\":\"The request supplies no verified source, quotation, named opponent, or linked argument to introduce.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Age assurance differs from identity collection. If you run an app, the request is to establish that a person belongs inside an age boundary without building a dossier about that person. Those are different jobs, and our shared exposure depends on the design.\n\nWhy collect a passport scan when a narrower signal will do? A verifier can check an age threshold and return a yes–no result, while your service receives a token, an expiry time, and perhaps a retry path. The document stays with the specialist or on the user’s device. That architecture shrinks the prize for attackers and the blast radius of your own mistake.\n\nYou can also design the product around graduated access. Ask for a stronger signal only when the feature demands it; use a low-friction estimate or account setting for lower-risk areas; put sensitive functions behind a second check. This is the same principle as least privilege in security engineering: give each action only the authority it needs. (A chatroom and a money-transfer feature shouldn’t share a gate.) A smaller gate usually means a smaller failure surface.\n\nThat doesn’t make the problem disappear. Age estimates can be wrong, self-attestation can be gamed, and a cheap vendor can become an expensive breach. You’ll need data minimization (and less data is easier to defend), clear retention limits, an appeal route, and a way to test false positives across the audience. We can’t outsource that judgment, though a specialist can handle a narrowly defined check.\n\nI’d start with a data-flow diagram and a failure analysis: what is collected, who sees it, how long it lives, and what happens when the answer is uncertain. I’d then compare privacy-preserving providers, including their deletion guarantees and breach obligations. If a specialist is beyond your budget, combine less invasive checks, limit the highest-risk functions, and document the boundary. You’re building an app; a passport warehouse is another business. Keep the proof small, useful, and hard to turn into a permanent record.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12",
+        "why": "The request supplies no verified source, quotation, named opponent, or linked argument to introduce."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/drafts/d10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/drafts/d10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a00bdb59c95f394a801d57ae1a5d4ad29073304c3d352294261067673cc49f45"
+  },
+  "acceptance_input": {
+    "system_sha256": "da164fbadd7d8edd87d9863e6b4f93a780b1bc9b158ec99657940c89d93ac1da",
+    "prompt_sha256": "771995c091cb47e04314b99e5d48e15cc4293419bcc4b4eae056e2ea8de28537",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+    "prerequisites": {
+      "candidate_draft_raw_sha256": "918eb7758606c46e661023dd4125d455208667c22ecd988501e7eb621399097b",
+      "profile_markdown_sha256": "00d76495320c77c3a027127c3ca9ffe4bd05f776d3256e1a9f27ad2d42b2d854",
+      "profile_json_sha256": "1011c95f5bf6525b821ac3333c903d0fbcc30d069d6736ef2692a6bc25528273"
+    }
+  }
+}

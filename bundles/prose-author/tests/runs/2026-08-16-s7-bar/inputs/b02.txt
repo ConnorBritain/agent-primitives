@@ -1,0 +1,23 @@
+An open standard is the finest laundry ever built for a monopoly. It takes a thing that four companies want anyway, runs it through a process with minutes and mailing lists and a public comment period and a formal objection window, and hands it back to you washed and pressed and labelled "consensus." Nobody argues with consensus. That's what it's for.
+
+The trick is that capture never looks like capture. There's no forged vote and no smoke-filled room (the room has a webcast, an archive, a code of conduct and a diversity statement). What happens instead is arithmetic, and arithmetic is very hard for us to get outraged about, because there is no moment in it where anybody does anything wrong.
+
+Say your town's water board decides to open up. Anyone who lives here can join the committee that sets the fluoride level: no dues, no credential, no invitation, just show up on Tuesday nights. This is a real improvement on the old arrangement, where three appointees settled it in a room you weren't allowed into.
+
+Then the bottled-water plant on the edge of town notices. It employs four hundred people. It sends sixty of them to Tuesday nights, on the clock, with expenses (the plant calls this "civic engagement"), and it keeps sending them through the procedural sessions in February when you have a kid with a fever and a shift that starts at six. Every one of those sixty is a resident in good standing, entitled to be in that room, voting his conscience as he understands it.
+
+The vote is honest. The minutes are accurate. The committee is more open than it has ever been in its history, and it now sets the fluoride level to precisely the level the bottled-water plant would like the fluoride level to be. (You can still attend, of course. Nobody's stopping you. You just have to want it more than you want to sleep.)
+
+That's a standards body. I mean that as a description and not as a metaphor – down to the February meetings. So who is actually in the room when the boring drafting happens? The W3C, ISO, ETSI, the IETF working groups: the seat is free, the mailing list is public, the archive is searchable, and the outfits that can afford to fill sixty seats fill sixty seats.
+
+The W3C spent years standardising Encrypted Media Extensions, a way of putting DRM in your browser, and the companies that wanted DRM in your browser were in the room in numbers – paying dues, chairing, drafting, objecting, voting. The EFF quit the W3C over it in 2017. The standard shipped anyway, and it's in whatever browser you're reading this in, doing exactly the job it was built for.
+
+Or take Microsoft's document format, which went through ISO's "fast track" in 2008 while national standards committees in country after country acquired a sudden influx of new voting members, many of them Microsoft business partners, several of whom had never attended a meeting before (or since). Every one of them was eligible.
+
+Open the process and the incumbents send lawyers. Open the mailing list and they send more mail than you can read. Open the vote and they bring more voters. Open the whole thing to the public and they hire the public. Every one of those moves is legitimate under the rules, which is the tell: a rule that a monopolist can satisfy by writing cheques isn't a rule, it's a fee. And the "multistakeholder consensus" that comes out the other end is bullshit dressed up as procedure.
+
+So the word "open" ends up doing two jobs, and we keep letting it. Open as in "you may participate" describes a door. Open as in an outcome that nobody could buy describes an outcome, and no amount of door-holding has ever produced one. We built forty years of infrastructure policy on the first and told ourselves we'd bought the second.
+
+I don't think the answer is shutting the door again, because the closed rooms gave us worse standards and fewer of them. But a process that counts heads without asking whose payroll the heads are on isn't measuring consensus. Who does a standard serve? Not the parties named in its charter. Count who could afford to be there in February, and then look at who signs their cheques.
+
+It's an "open standard," and they're right about that, in the only sense they ever meant it. It's open the way a turnstile is open: anyone may pass, one at a time, in one direction, at whatever rate the owner has set this morning. The "openness" that would actually matter is the kind that survives the arrival of everyone who can afford to arrive, and that one has never once been on offer, because you can't build it out of a door. You build it out of a rule about who gets to fill the room, and nobody who benefits from the current arrangement is going to write that rule for you.

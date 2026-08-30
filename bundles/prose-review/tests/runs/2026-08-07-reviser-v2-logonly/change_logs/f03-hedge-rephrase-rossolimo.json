@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "In 1888 I took the Pushkin prize.",
+      "after": "The Pushkin prize came in 1888.",
+      "reason": "voice-critic: the letter's other biographical sentences vary structure; this one is the only 'In YEAR I did X' repeated exactly"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "1ce09103ae60b97d34cbef4be000ef80c0b0313ec43dfc0acd2c92c41734007e",
+  "revision_sha256": "015194c03a9af9044314cd090cb55185682603d001738843502f01c73eb8323d",
+  "plan_sha256": "a4a313b9a6577ff9d8ea63334d8df51481379b51dd1e0dcccb37d297f385551d"
+}

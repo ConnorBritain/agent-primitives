@@ -43,6 +43,17 @@ A finding without both quotations is a guess and must be dropped.
 
 Then **Immaterial losses**: every remaining scan-flagged atom, one line each, with why its absence costs nothing. Then **Scanner defects**, if any.
 
-End with a one-line verdict: **FAITHFUL / MATERIAL-LOSS**. `MATERIAL-LOSS` on a revision that dropped one date is correct and is not an overreaction - the verdict says information was lost, not that the revision is bad.
+End with a one-line verdict. The verdict line MUST be exactly one of these four bare tokens, on its own line, with no markdown emphasis, no prefix, no label, no punctuation:
+
+```
+FAITHFUL
+MATERIAL-LOSS
+SPLIT
+REFUSE
+```
+
+Not `**Verdict**: MATERIAL-LOSS`. Not `**FAITHFUL / MATERIAL-LOSS**: MATERIAL-LOSS`. Not `Verdict: MATERIAL-LOSS.` — just the bare token. Downstream tools parse the last line strictly and a wrapped verdict looks like a missing verdict.
+
+`MATERIAL-LOSS` on a revision that dropped one date is correct and is not an overreaction — the verdict says information was lost, not that the revision is bad.
 
 Terse. No praise. Do not suggest fixes; you report what is missing and the author decides whether they meant it.

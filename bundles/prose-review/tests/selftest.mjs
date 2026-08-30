@@ -9,9 +9,10 @@
  * adversarial critics are corpus-blocked and will land here when they land.
  */
 
-import { readdirSync, readFileSync } from "node:fs";
+import { readdirSync, readFileSync, existsSync } from "node:fs";
 import { extractAtoms, scanFidelity, verdict, renderReport } from "../tools/fidelity-scan.mjs";
 import { singleWordEntityCandidates } from "./single-word-survey.mjs";
+import { classifyLetter, measure, FIXTURE_LETTERS } from "./ellipsis-provenance.mjs";
 
 let passed = 0;
 let failed = 0;
@@ -70,6 +71,39 @@ group("fidelity-scan — extract");
 }
 
 {
+  // WHAT BREAKS IF THIS REGRESSES: an entity the scan never looked at reaches
+  // nobody. The run pattern used to allow ONE linking word, so "Church of the
+  // Embassy" produced no atom at all - not a truncated one, since a lone
+  // capitalised word is not a run. A revision could delete the church outright
+  // and the report would list every atom as present, while the coverage note
+  // named only the single-word gap. An undisclosed hole reads to the critic as a
+  // clean check, and the critic is told the scan is authoritative on presence.
+  const line = "I heard the midnight service in the Church of the Embassy.";
+  const nouns = extractAtoms(line).filter((a) => a.kind === "proper-noun").map((a) => a.source);
+  check("a named entity joined by two linking words is extracted",
+    nouns.includes("Church of the Embassy"), nouns.join(" | "));
+
+  const scan = scanFidelity(line, "I heard the midnight service.");
+  check("and dropping it is reported as a missing atom",
+    scan.missing.some((a) => a.kind === "proper-noun" && a.source === "Church of the Embassy"),
+    JSON.stringify(scan.missing));
+}
+
+{
+  // THE BOUND ON THE ABOVE, and it is the half that keeps an atom the size of a
+  // name. Linking words chain, so an unbounded rule walks a run across a whole
+  // clause; the report then names one enormous atom, and a revision that touched
+  // any word inside it reads as having lost the lot. A missing-atom list that
+  // misrepresents the SHAPE of a loss fails the critic the same way one that
+  // omits the loss does.
+  const nouns = extractAtoms("He wrote of the Battle of the Somme and of the Marne at length.")
+    .filter((a) => a.kind === "proper-noun").map((a) => a.source);
+  check("a linking-word chain longer than two does not extend the run",
+    nouns.includes("Battle of the Somme") && nouns.every((n) => !/Somme[\s\S]*Marne/.test(n)),
+    nouns.join(" | "));
+}
+
+{
   // THE BUG THIS TEST EXISTS TO PREVENT: an earlier regex used \s+ instead of
   // [ \t]+ for the inter-word gap, so a heading followed by a capitalised
   // sentence produced one huge "proper noun" like "History\n\nThe Northern".
@@ -118,6 +152,44 @@ group("fidelity-scan — extract");
   const nouns = atoms.filter((a) => a.kind === "proper-noun").map((a) => a.source);
   check("named entities with non-ASCII letters are extracted",
     nouns.includes("Augustus Cæsar") && nouns.includes("Émile Zola"), nouns.join(" | "));
+}
+
+{
+  // WHAT BREAKS IF THIS REGRESSES: one loss is reported as two, under two
+  // headings, in the list whose whole job is to show the critic the SHAPE of
+  // what went. The interior of a quotation used to be scanned as prose, so
+  // "Jam Tiberium" was pulled out of a Latin quotation as a named entity; a
+  // revision that paraphrased the line away lost one thing and the report
+  // itemised it twice. It costs the other direction too - the critic must
+  // account for every flagged atom, so it spends a line clearing a name the
+  // document never contained independently.
+  const text = 'Tacitus saith of him, “Jam Tiberium vires et corpus, non dissimulatio, deserebant.”';
+  const atoms = extractAtoms(text);
+  check("a quotation's interior is not also extracted as prose",
+    !atoms.some((a) => a.kind === "proper-noun"),
+    JSON.stringify(atoms.filter((a) => a.kind === "proper-noun").map((a) => a.source)));
+  check("but the quotation itself is still one atom",
+    atoms.some((a) => a.kind === "quote" && /Jam Tiberium vires/.test(a.source)));
+}
+
+{
+  // THE PAIRED NEGATIVE, and it is the reason the span is blanked to a
+  // placeholder rather than to spaces. Closing the gap would let the words on
+  // either side of a quotation join into a run the document never contained -
+  // trading a double-report for an invented atom, which is worse: the critic is
+  // forbidden to claim a flagged atom is present, so it must file a bug instead.
+  const nouns = (t) => extractAtoms(t).filter((a) => a.kind === "proper-noun").map((a) => a.source);
+  check("blanking a quotation does not join the prose on either side of it",
+    nouns('Ahmadu "the whole plan was wrong" Bello wrote it.').length === 0,
+    nouns('Ahmadu "the whole plan was wrong" Bello wrote it.').join(" | "));
+
+  // And the bound the other way: a span too short to BE a quote atom is not
+  // tracked as a quotation, so blanking it would delete coverage rather than
+  // de-duplicate it. "Surly People" is a book title in the Tihonov letter and
+  // the two-word quotes around it are the corpus's own typography.
+  check("a quoted span too short to be a quote atom still yields its entities",
+    nouns('my works are: “Surly People,” and others').includes("Surly People"),
+    nouns('my works are: “Surly People,” and others').join(" | "));
 }
 
 {
@@ -224,8 +296,13 @@ group("fidelity-scan — presence + verdict");
     "It happened under Edward the Fourth of England, in 1461.",
     "It happened under the king, in 1461.",
   );
+  // ASSERTION UPDATED WITH THE LINKING-WORD FIX: the run now carries its "of
+  // England" tail, so the atom is "Edward the Fourth of England". The intent is
+  // unchanged and the string is strictly longer - a check that the whole entity
+  // is reported gone is not a weaker check than one on its first three words.
   check("but a genuinely dropped entity is still missing after normalisation",
-    scan.missing.some((a) => a.source === "Edward the Fourth"));
+    scan.missing.some((a) => a.source === "Edward the Fourth of England"),
+    JSON.stringify(scan.missing));
 }
 
 {
@@ -296,20 +373,35 @@ group("fidelity-scan — presence + verdict");
   // Not named entities in any reading - ordinary capitalised English, demonyms,
   // weekdays, months, and Latin words sitting inside quotations. This list is the
   // judgement; everything else in this block is mechanical.
+  //
+  // RE-MEASURED AFTER THE LINKING-WORD AND QUOTE-INTERIOR FIXES, because this
+  // whole block is derived from what the TOOL extracts and both fixes moved
+  // that. "Russian" and "Serbs" left the candidate list - the longer run
+  // pattern now swallows them into "One of the Russian" and "The Czechs and the
+  // Serbs" - and "Jam", "Tiberium" and "Twilight" joined it, because they used
+  // to be covered by proper-noun runs the tool no longer extracts from inside
+  // quotations. Net 55 -> 53. The numbers are updated to what the code now does;
+  // tuning the code to preserve them would be the tail wagging the dog.
   const notEntities = ["Adeste", "April", "Auto", "Cogita", "Deus", "Easter", "Exhibition",
-    "Extinctus", "Faculties", "February", "Feri", "French", "Frenchmen", "Germans", "January",
-    "Nunc", "October", "Pompa", "Pulchrorum", "Romani", "Russian", "Saturday", "Serbs",
+    "Extinctus", "Faculties", "February", "Feri", "French", "Frenchmen", "Germans", "Jam",
+    "January", "Nunc", "October", "Pompa", "Pulchrorum", "Romani", "Saturday",
     "Stoics", "Stories", "Thursday", "Ut"];
-  check("the single-word-entity survey still yields 55 candidates over the fixture originals",
-    candidates.size === 55, `got ${candidates.size}`);
+  check("the single-word-entity survey still yields 53 candidates over the fixture originals",
+    candidates.size === 53, `got ${candidates.size}`);
   check("every word the survey calls a non-entity is still produced by the rule",
     notEntities.every((w) => candidates.has(w)),
     notEntities.filter((w) => !candidates.has(w)).join(" "));
   check("so the rule remains roughly half ordinary capitalised English",
     notEntities.length / candidates.size > 0.4,
     `${notEntities.length} of ${candidates.size}`);
-  check("and 10 candidates duplicate a loss the quote atoms already report",
-    insideAQuote.size === 10, `got ${insideAQuote.size}: ${[...insideAQuote].sort().join(" ")}`);
+  // 10 -> 13 for a reason that STRENGTHENS the argument this block records: the
+  // tool stopped extracting prose atoms from inside quotations, so three words
+  // it used to double-report as part of a run now show up here instead - still
+  // duplicating a loss the quote atom already carries. The permissive
+  // single-word rule would re-introduce exactly the duplication the
+  // quote-interior fix removed.
+  check("and 13 candidates duplicate a loss the quote atoms already report",
+    insideAQuote.size === 13, `got ${insideAQuote.size}: ${[...insideAQuote].sort().join(" ")}`);
 
   // The counterweight, and it is why this is a survey rather than a one-line
   // won't-fix: the rule DOES find the entities the harness transcripts said the
@@ -326,11 +418,47 @@ group("fidelity-scan — presence + verdict");
     "The university opened years ago.",
   );
   const r = renderReport(scan);
-  check("the report labels its verdict clearly", /fidelity: MATERIAL-LOSS/.test(r));
+  // ASSERTION REPLACED: this used to require the literal `fidelity: MATERIAL-LOSS`
+  // headline, and that headline is the defect fixed below. What it was there to
+  // guarantee - the reader can tell at a glance which way the check came out -
+  // is asserted here in the wording the report now uses.
+  check("the report states its result on the first line",
+    /presence check: material atoms missing/.test(r), r);
   check("and lists each kind of missing atom under its own header",
     /numbers absent from the revision:/.test(r) && /named entities absent from the revision:/.test(r));
-  check("MATERIAL-LOSS wording says the critic decides which losses matter",
+  check("the report says the critic decides which losses matter",
     /critic that/.test(r));
+}
+
+{
+  // WHAT BREAKS IF THIS REGRESSES: the first line of the critic's input answers
+  // the question the critic was convened to decide. The report opened
+  // `fidelity: FAITHFUL` - the exact word the critic must end its own review
+  // with - over a check that only compared strings. Claim drift, a dropped
+  // qualification and a reversed polarity leave every word on the page, so the
+  // tool cannot see the losses a competent rewrite actually produces, and the
+  // coverage note at the bottom cannot undo the word at the top. Two critics on
+  // the S4 run said so independently. `verdict()` keeps the two words for
+  // callers who know what they are; the rendered text does not get them.
+  for (const [label, r] of [
+    ["clean", renderReport(scanFidelity("Ran in 1965.", "Ran in 1965."))],
+    ["lossy", renderReport(scanFidelity("Ran in 1965.", "Ran some time ago."))],
+  ]) {
+    check(`the ${label} report does not print the critic's verdict vocabulary`,
+      !/FAITHFUL|MATERIAL-LOSS/.test(r), r);
+    check(`the ${label} report's headline names the check it actually ran`,
+      /^\s*presence check: /m.test(r), r);
+    check(`the ${label} report disclaims being a fidelity verdict`,
+      /Not a fidelity verdict\./.test(r), r);
+  }
+
+  // And the half that keeps the disclaimer from being decoration: a clean result
+  // must say what it is a statement ABOUT. "None missing" over a list that
+  // excludes every phrasing-carried fact is the sentence most likely to be
+  // over-read by a critic told the scan is authoritative on presence.
+  const clean = renderReport(scanFidelity("Ran in 1965.", "Ran in 1965."));
+  check("a clean result says it is a statement about the atoms, not the revision",
+    /not a statement about the revision/i.test(clean), clean);
 }
 
 /* ------------------------------------------------------------------ */
@@ -359,7 +487,12 @@ group("fidelity fixtures — integrity");
     // THE ANTI-TUNING CHECK. If I can edit an "original", I can edit it until a
     // fixture produces the verdict I wanted, and the harness measures nothing. The
     // original is the corpus file or it is not evidence.
-    const source = readFileSync(new URL(f.source, corpus), "utf8");
+    // A fixture may override corpus_root. The reviser set was single-root (Gutenberg
+    // essays) until FU-3 broadened it, and a modern voice does not live in that tree —
+    // so the alternative to an override was leaving the corpus period-locked, which is
+    // the limitation FU-3 exists to remove.
+    const root = f.corpus_root ? new URL(`${f.corpus_root}/`, dir) : corpus;
+    const source = readFileSync(new URL(f.source, root), "utf8");
     check(`${f.name}: original is byte-identical to ${f.source}`, original === source);
 
     // THE LEAK GUARD, and it exists because the first harness run was invalid.
@@ -460,6 +593,165 @@ group("primitive/bundle parity");
       Object.keys(r).every((k) => ["name", "description", "tools", "model", "color"].includes(k)),
       Object.keys(r).join(","));
   }
+}
+
+/* ------------------------------------------------------------------ */
+group("reviser fixtures — integrity");
+
+{
+  const dir = new URL("fixtures/reviser/", import.meta.url);
+  const manifest = JSON.parse(readFileSync(new URL("fixtures.json", dir), "utf8"));
+  const corpus = new URL(`${manifest.corpus_root}/`, dir);
+  const onDisk = readdirSync(dir, { withFileTypes: true })
+    .filter((e) => e.isDirectory())
+    .map((e) => e.name).sort();
+  const declared = manifest.fixtures.map((f) => f.name).sort();
+
+  // Same anti-tuning rule as the fidelity fixtures: a fixture I can invent by hand is a
+  // fixture I can tune until the acceptance run passes. A fixture whose original is a
+  // corpus file I did not write cannot be tuned that way. The plan is authored, and its
+  // quotes are checked against the (immutable) original — a bogus quote produces a REFUSE
+  // rather than a bad edit, which is intended for exactly one fixture and would be a real
+  // authoring defect on any other.
+  check("every reviser fixture directory is declared in fixtures.json",
+    JSON.stringify(onDisk) === JSON.stringify(declared), `disk=${onDisk.length} manifest=${declared.length}`);
+
+  const STRIP = (t) => { const m = t.match(/^---\n[\s\S]*?\n---\n/); return m ? t.slice(m[0].length) : t; };
+  for (const f of manifest.fixtures) {
+    const orig = readFileSync(new URL(`${f.name}/original.md`, dir), "utf8");
+    // A fixture may override corpus_root. The reviser set was single-root (Gutenberg
+    // essays) until FU-3 broadened it, and a modern voice does not live in that tree —
+    // so the alternative to an override was leaving the corpus period-locked, which is
+    // the limitation FU-3 exists to remove.
+    const root = f.corpus_root ? new URL(`${f.corpus_root}/`, dir) : corpus;
+    const source = readFileSync(new URL(f.source, root), "utf8");
+    check(`${f.name}: original is byte-identical to ${f.source}`, orig === source);
+
+    const plan = JSON.parse(readFileSync(new URL(`${f.name}/plan.json`, dir), "utf8"));
+    check(`${f.name}: plan declares mode plan-only (default)`, plan.mode === "plan-only",
+      `mode=${JSON.stringify(plan.mode)}`);
+    check(`${f.name}: plan has at least one entry`, Array.isArray(plan.entries) && plan.entries.length >= 1);
+
+    // Every plan entry's quote MUST appear verbatim in the original body, EXCEPT for
+    // fixtures whose whole point is refusing on a drifted quote. That exception is stated
+    // per-fixture rather than inferred from the name.
+    const body = STRIP(orig);
+    const mustDrift = f.kind === "refuse-quote-drift";
+    for (const e of plan.entries) {
+      const found = body.includes(e.location.quote);
+      check(`${f.name}/${e.id}: quote ${mustDrift ? "must NOT match (refuse test)" : "matches original verbatim"}`,
+        mustDrift ? !found : found);
+    }
+
+    // The leak guard: same discipline as the fidelity fixtures. A plan entry that
+    // mentions the expected verdict is a plan that tells the reviser what to do AND what
+    // it will be judged as, which contaminates the measurement. The plan reasons live
+    // inside `reason` fields; those may name a critic, but they may not name a verdict.
+    const planText = JSON.stringify(plan);
+    check(`${f.name}: plan does not leak a fidelity verdict (FAITHFUL/MATERIAL-LOSS)`,
+      !/(FAITHFUL|MATERIAL-LOSS)/i.test(planText.replace(/"[a-z_]+":"/g, "")));
+
+    // The manifest's `expected` block is metadata for the harness runner and the
+    // acceptance run, not something the reviser sees. Explicitly asserted here so a
+    // future harness change that started passing `expected` to the primitive would fail.
+    check(`${f.name}: manifest declares expected gate + reviser outcome`,
+      typeof f.expected?.gate === "string" && typeof f.expected?.reviser === "string");
+  }
+
+  // Class-coverage guard. If someone deletes the refuse-tests, the ship bar becomes
+  // "the reviser was well-behaved on the easy cases", which is not what the ship bar
+  // measures. Same shape as the fidelity fixtures' class B / D requirement.
+  const kinds = new Set(manifest.fixtures.map((f) => f.kind));
+  for (const required of ["faithful-local-edit", "refuse-quote-drift", "refuse-ambiguous", "gate-catches-loss"]) {
+    check(`reviser fixtures cover the '${required}' kind`, kinds.has(required));
+  }
+}
+
+/* ------------------------------------------------------------------ */
+group("prose-reviser primitive — parity guard");
+
+// AGENTS.md rule 1: primitives/ is the source, bundles/ is the deployment.
+// A held primitive (ships: false) must NOT be rendered — no absent-copy drift.
+// A shipped primitive (ships: true) MUST be rendered with a body byte-identical
+// to the primitive's agent.md (frontmatter may differ to add tools/model/color).
+{
+  const primitiveDir = new URL("../../../primitives/agents/prose-reviser/", import.meta.url);
+  const meta = readFileSync(new URL("meta.yaml", primitiveDir), "utf8");
+  const held = /^ships:\s*false\b/m.test(meta);
+  const shipped = /^ships:\s*true\b/m.test(meta);
+  const renderedURL = new URL("../agents/prose-reviser.md", import.meta.url);
+  const renderedExists = existsSync(renderedURL);
+
+  // Exactly one of held/shipped must be true.
+  check("prose-reviser: meta.yaml declares ships as exactly one of true or false",
+    held !== shipped);
+
+  // Held → absent from bundle, and a reason is on record.
+  check("prose-reviser: a held primitive is absent from the bundle's agents/ directory",
+    !held || !renderedExists);
+  check("prose-reviser: a held primitive declares a held_reason",
+    !held || /^held_reason:\s*\S/m.test(meta));
+
+  // Shipped → rendered under bundle, body byte-identical to the primitive's agent.md.
+  if (shipped) {
+    check("prose-reviser: a shipped primitive is rendered into the bundle's agents/",
+      renderedExists);
+    if (renderedExists) {
+      const stripFrontmatter = (s) => s.replace(/^---\n[\s\S]*?\n---\n/, "");
+      const src = stripFrontmatter(readFileSync(new URL("agent.md", primitiveDir), "utf8"));
+      const dst = stripFrontmatter(readFileSync(renderedURL, "utf8"));
+      check("prose-reviser: rendered body is byte-identical to primitives/ source (AGENTS.md rule 1)",
+        src === dst);
+    }
+  }
+}
+
+group("ellipsis provenance — the classifier FU-6's finding rests on");
+{
+  // FU-6 withdrew one of S1's four Chekhov findings on the strength of this
+  // classifier: 47.4% of the corpus's ellipses sit at a paragraph or letter
+  // boundary and therefore cannot be an authorial pause. If the position logic is
+  // wrong, a published correction is wrong, and nothing else in the repo would
+  // notice — the script prints plausible percentages either way.
+  const one = (text) => classifyLetter(text).hits.map((h) => h.cls);
+
+  check("an ellipsis opening the first paragraph is a cut before the letter starts",
+    one("... and so I left.\n\nA second paragraph.")[0] === "opens-letter");
+
+  check("an ellipsis opening a later paragraph is a cut, not a pause",
+    one("First paragraph here.\n\n... resuming mid-flow now.")[0] === "opens-paragraph");
+
+  check("an ellipsis closing the last paragraph is a cut after the letter ends",
+    one("First paragraph here.\n\nThe sentence trails off....")[0] === "closes-letter");
+
+  check("an ellipsis closing a middle paragraph is a truncation",
+    one("Truncated here....\n\nA later paragraph.")[0] === "closes-paragraph");
+
+  // The one class that cannot be an excision: there is no removable unit between
+  // two lowercase words. This is the "Rain, cold, mud ... brrr!" case, and it is
+  // the entire surviving authorial habit.
+  check("lowercase either side is scored as the author, not the editor",
+    one("I had to wait. Rain, cold, mud ... brrr! The line is good.")[0] === "mid-sentence");
+
+  // The honest bucket. Scoring these as authorial would have inflated the
+  // surviving rate more than tenfold and reversed the finding.
+  check("a capital after the ellipsis is undecidable, not credited to the author",
+    one("There is nothing.... There is a General, though.")[0] === "between-sentences");
+
+  check("both three- and four-dot forms are counted",
+    classifyLetter("Mid ... pause and mid .... pause here.").hits.length === 2);
+
+  check("frontmatter is stripped before positions are read",
+    one("---\nsource: x\n---\n... opening cut.\n\nSecond.")[0] === "opens-letter");
+
+  // The published numbers must be reproducible from the corpus on demand, not
+  // trusted from a doc someone typed.
+  const m = measure(FIXTURE_LETTERS);
+  check("the 10 S2 fixture letters still measure as FU-6 published them",
+    m.total === 46 && m.boundary === 22 && m.authorial === 4 && m.indeterminate === 20,
+    `total ${m.total}, boundary ${m.boundary}, authorial ${m.authorial}, undecidable ${m.indeterminate}`);
+  check("the defensible authorial rate is still far below the naive reading",
+    (m.authorial * 1000) / m.words < 1 && (m.total * 1000) / m.words > 5);
 }
 
 process.stdout.write(`\n${"─".repeat(60)}\n`);

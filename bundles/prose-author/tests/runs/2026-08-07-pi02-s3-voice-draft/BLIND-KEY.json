@@ -1,0 +1,10 @@
+{
+  "_comment": "Written BEFORE the critic ran. The critic is dispatched against inputs/blinded/ only and never sees this file or the cell names. Order is deliberately not matched-first in both pairs, so a positional artefact cannot masquerade as a result.",
+  "corpus_for": { "case-a": "chekhov", "case-b": "chekhov", "case-c": "bacon", "case-d": "bacon" },
+  "cells": {
+    "case-a": { "profile": "bacon-essay",            "prompt": "letter-to-a-friend",  "cell": "crossed-bacon-on-chekhov", "expect": "degraded" },
+    "case-b": { "profile": "chekhov-correspondence", "prompt": "letter-to-a-friend",  "cell": "matched-chekhov",          "expect": "best-available" },
+    "case-c": { "profile": "bacon-essay",            "prompt": "short-moral-essay",   "cell": "matched-bacon",            "expect": "best-available" },
+    "case-d": { "profile": "chekhov-correspondence", "prompt": "short-moral-essay",   "cell": "crossed-chekhov-on-bacon", "expect": "degraded" }
+  }
+}

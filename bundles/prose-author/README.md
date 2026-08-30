@@ -1,12 +1,25 @@
 # prose-author
 
-Scoped generation in a specific person's voice — drafted against **their own
-writing**, verified in **their own measured terms**, and careful about what it
-claims.
+Scoped generation in a specific person's voice—mapped from **their own writing**,
+drafted from that map without corpus access, and checked in **their own measured
+terms**.
 
-**v0.1 rewrites one passage, with the original beside it.** Not a blank page, not
-a whole piece. One passage is the unit where an author can see immediately
-whether the result is theirs, and that judgement is the only one that counts.
+**v0.2 adds blank-page drafting and preserves the v0.1 passage rewriter.** A
+blank-page request starts with a topic, notes, outline, brief, or reply prompt,
+not an existing passage. `voice-profile-render` turns a single-author corpus into
+a cited `voice-profile/2`; `voice-draft` receives only that profile and the
+request. The corpus itself never enters the drafting context.
+
+## What ships
+
+| surface | job |
+|---|---|
+| `prose-draft` skill | chooses the rewrite or blank-page path and coordinates verification |
+| `voice-profile-render` agent | interprets the corpus; deterministic tools own counts, rates, IDs, and provenance |
+| `voice-draft` agent | creates new prose from the request and profile, with no tools or corpus access in Claude Code |
+
+The canonical agent prompts live under `primitives/`; the copies under
+`bundles/prose-author/agents/` are the downloadable plugin artifacts.
 
 ## The decision the whole bundle turns on
 
@@ -22,12 +35,16 @@ So the drafter never sees `catalog.json`. In any form. The target is the author'
 voice; the catalog is a diagnostic that runs afterwards, on the way to a human,
 and never a quantity to minimise.
 
-## What it is given
+## What each path is given
 
-The author's material, their `voice.md`, whole exemplars from their
-`corpus/human/`, and the register's purpose. Whole files, because a paragraph
-lifted out of a piece shows a rhythm without showing what the rhythm was
-responding to.
+The passage rewriter retains the v0.1 inputs: the passage, the author's voice
+card, selected human exemplars, and the register purpose.
+
+The blank-page drafter is intentionally narrower. It receives the writing
+request and the assembled profile only. Corpus files are visible to the separate
+renderer and independent critic, never to the drafter. This prevents the profile
+from becoming decorative and gives the same boundary a chance to survive across
+Claude Code, Codex, Cursor, and plain agent harnesses.
 
 ## What it is allowed to say afterwards
 
@@ -105,12 +122,28 @@ Verification needs `prose-tell-scan` installed alongside. Without it,
 `verify.mjs` says the draft was **not scanned** — which is the absence of a
 check, not a pass.
 
+A fully gated blank-page result also needs `prose-review` for an independent
+voice review. The draft may still be returned when either dependency is missing,
+but it must be labelled **UNGATED** and name the check that did not run.
+
+Loose-file installation is also supported:
+
+```bash
+./install.sh voice-profile-render voice-draft prose-draft
+```
+
 ## Known limits
 
-- **One passage.** Blank page from notes, mid-document continuation, and voice
-  locks are v0.2 / v0.4. Edit ingestion (v0.3) ships now, out of order, because
-  it needs nothing this bundle does not already have and is what makes a corpus
-  grow usefully rather than stay static. See [`DESIGN.md`](DESIGN.md).
+- **This is not a factual-accuracy guarantee.** The independent audit makes
+  unsupported factual material rejectable or visible, but a model audit can
+  miss a bad claim. Verify consequential claims against real sources.
+- **This release does not claim resemblance or quality.** Measurements constrain
+  behaviors the corpus supports; the author decides whether the result sounds
+  like them.
+- **The final pre-release evaluation was useful but not perfect.** Six fresh
+  profiles validated and 19/20 semantic revisions met every measured band. One
+  retained one question beyond its target; the run stopped there before the
+  critic phase. See [`RELEASE-v0.2.0.md`](RELEASE-v0.2.0.md).
 - **`calibrate.mjs` now blends `corpus/approved/` into catalog bands** under
   the same cap `exemplars.mjs` uses. Both human-only and blended ceilings ship
   side by side in `thresholds.derived.json` (`PROFILES.md` rules 2 and 5), and
@@ -126,7 +159,6 @@ check, not a pass.
   refuses (an untouched generation is not evidence about you); below the word
   floor it refuses (approved/ never advertises files calibration would exclude);
   a repeat ingest refuses without `--force`.
-- **It has no acceptance corpus of its own.** The tools are tested; the *drafting
-  prompt* is not, because measuring "did this come out in their voice" needs a
-  single author's corpus with provenance discipline, and this repo does not have
-  one. `prose-voice-critic` has the same gap for the same reason.
+- **Evaluation coverage is narrow.** v0.2.0 was exercised on two modern licensed
+  authors (Doctorow and EFF's Joe Mullin), not a user's private corpus and not a
+  broad range of languages or historical registers.

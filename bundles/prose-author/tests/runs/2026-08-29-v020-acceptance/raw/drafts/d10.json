@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"No. Collecting identity documents isn’t the only safe option; often, it isn’t even a safe option. A passport scan proves something about a document, but it cannot reliably prove exactly who is holding your phone. It also creates a database of high-value identity material (and a breach target) that you must secure, retain, and delete.\\n\\nStart with the requirement, not the vendor pitch. What decision must your app make, in which jurisdictions, and with what confidence? “Age assurance” can mean a coarse gate, not civil identification – turning every user into a dossier is a category error.\\n\\nI’d threat-model the flows. Prefer the least revealing signal that meets the requirement: a device or app-store age band, a parental approval flow, a payment-derived adulthood signal where appropriate, or age estimation performed locally (with no image retained). If a third party checks age, require it to return a signed yes/no or age-band token, not the underlying document.\\n\\nYou can separate assurance from identity. Bind the token to an account or session, give it a short lifetime, prevent replay, and log only the decision metadata you need. Publish the limits quite plainly. Don’t claim certainty if your method provides probability, and never quietly repurpose an age signal for advertising.\\n\\nOf course, you can’t choose the mechanism until you know the applicable rule and risk tolerance. Ask whoever imposed this obligation to specify accepted assurance levels, audit evidence, retention limits, and fallback treatment for users who lack documents. If they fail to answer, they haven’t given you an engineering requirement; they’ve handed you liability wrapped in a euphemism.\\n\\nI don’t think safety means collecting the most sensitive artifact available. It means minimizing what anyone can learn or lose. We need age checks that prove only what matters, because we inherit the blast radius.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "No. Collecting identity documents isn’t the only safe option; often, it isn’t even a safe option. A passport scan proves something about a document, but it cannot reliably prove exactly who is holding your phone. It also creates a database of high-value identity material (and a breach target) that you must secure, retain, and delete.\n\nStart with the requirement, not the vendor pitch. What decision must your app make, in which jurisdictions, and with what confidence? “Age assurance” can mean a coarse gate, not civil identification – turning every user into a dossier is a category error.\n\nI’d threat-model the flows. Prefer the least revealing signal that meets the requirement: a device or app-store age band, a parental approval flow, a payment-derived adulthood signal where appropriate, or age estimation performed locally (with no image retained). If a third party checks age, require it to return a signed yes/no or age-band token, not the underlying document.\n\nYou can separate assurance from identity. Bind the token to an account or session, give it a short lifetime, prevent replay, and log only the decision metadata you need. Publish the limits quite plainly. Don’t claim certainty if your method provides probability, and never quietly repurpose an age signal for advertising.\n\nOf course, you can’t choose the mechanism until you know the applicable rule and risk tolerance. Ask whoever imposed this obligation to specify accepted assurance levels, audit evidence, retention limits, and fallback treatment for users who lack documents. If they fail to answer, they haven’t given you an engineering requirement; they’ve handed you liability wrapped in a euphemism.\n\nI don’t think safety means collecting the most sensitive artifact available. It means minimizing what anyone can learn or lose. We need age checks that prove only what matters, because we inherit the blast radius.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/d10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/d10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "dcbcb090387b3b976ddded8d07d51a359119164867515e94dd850cdec19f7bc2"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "7c7904c491294641b8226b22ce36d2d0e8bbc6a7128c4b5e51ff02d2f8f4aa5b",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

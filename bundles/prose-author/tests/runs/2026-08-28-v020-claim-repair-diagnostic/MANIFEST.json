@@ -1,0 +1,102 @@
+{
+  "schema": "prose-author-claim-repair-diagnostic-manifest/1",
+  "acceptance_evidence": false,
+  "prepared_commit": "7d8349be389a2922a7e2fe1c4b145e22b34cd79c",
+  "design_sha256": "55c5629a815a4f0cdc7c7fb4a25a3ac128d7f39a93d639de9918afa3a9a0256f",
+  "locked_files": {
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/DESIGN.json": "55c5629a815a4f0cdc7c7fb4a25a3ac128d7f39a93d639de9918afa3a9a0256f",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/run.mjs": "92b5deff135bcf0622ae6b04be4e71e1c42c66a41802211d7e9e55e39a3fdccb",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "7421983a2efecfaf01e4f228d73531abac77dd14c353159a100a4accc9af66e5",
+    "bundles/prose-author/skills/prose-draft/references/claim-repair.md": "c9beb0244a22eb5062dd4fb7f7327cc91d5aef280a2d1a2fb908be75c20f5a3f",
+    "bundles/prose-author/skills/prose-draft/references/claim-audit.md": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "0bebab0c5e81b323f712cf07872f519a5c769131fc2e3f42add83f3197156a89",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "c3a4f4a8ec41ce7891e8ae1101319faafe22b55d2ac420ec4b358b093033a44e",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-repair.mjs": "19cafc73432558cfe23e5ed43abdac04c4cb0962a913d3c44bd71b7fb1a19961",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/sources/d01.original.json": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/audits/d01.json": "7fdaeff5f04696bcad6e5e34a48ee1f59c044afbd783c3668ace14d61753316d",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/sources/m05.original.json": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/inputs/audits/m05.json": "9aa0c718c7e34e4acc497081ed7b913c9c1c45a6fde24e4194b61fed8dc0581e",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/d05.json": "c331c0bac2ec7bf5769f331adafb3e35c1c96a5ce9e7756e91ccd08deaf85fd4"
+  },
+  "dispatch": {
+    "repair": {
+      "harness": "codex",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "reaudit": {
+      "harness": "claude-code",
+      "model": "sonnet",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "codex_no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ],
+  "systems": {
+    "repair": {
+      "path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/prompts/agents/repair.md",
+      "sha256": "c9beb0244a22eb5062dd4fb7f7327cc91d5aef280a2d1a2fb908be75c20f5a3f"
+    },
+    "audit": {
+      "path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/prompts/agents/audit.md",
+      "sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87"
+    }
+  },
+  "schemas": {
+    "draft": {
+      "path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/schemas/draft.json",
+      "sha256": "02851f9440276a6a519f711ab0709288daf04b9b713e589fce3a51b92e053d7d"
+    },
+    "audit": {
+      "path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/schemas/audit.json",
+      "sha256": "e56ccc9209bd8d71156e26f4821a692d95677e3f1d4dc0293b68f0e94c37507d"
+    }
+  },
+  "inputs": {
+    "d01": {
+      "source": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d01.json",
+      "source_sha256": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+      "audit": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/audits/d01.json",
+      "audit_sha256": "7fdaeff5f04696bcad6e5e34a48ee1f59c044afbd783c3668ace14d61753316d",
+      "request_sha256": "a7e8fc8f4fa870ada28d5c8a8152eb1418dbf699374b69977e25af1937bab3a9"
+    },
+    "m05": {
+      "source": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/m05.json",
+      "source_sha256": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+      "audit": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/audits/m05.json",
+      "audit_sha256": "9aa0c718c7e34e4acc497081ed7b913c9c1c45a6fde24e4194b61fed8dc0581e",
+      "request_sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553"
+    },
+    "d05": {
+      "source": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d05.json",
+      "source_sha256": "a7dbfc4f57be84cf270bf6f46be4bd5977a575c41312426eeee0af701c984938",
+      "audit": null,
+      "audit_sha256": null,
+      "request_sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+```markdown
+A man decides, at thirty-two, to become serious. He writes it down. He tells his sister, he tells a friend at dinner, he tells himself in the dark before sleeping, and by spring he has told everyone but the porter. Nothing follows. The decision sits in him like a coin swallowed by accident — present, useless, occasionally felt.
+
+Meanwhile he goes on doing what he actually does. He wakes at eleven. He reads the second page of the newspaper and not the first. He answers the letters that flatter him and leaves the others in the drawer, and the drawer fills, and he buys a second drawer. He walks the long way to avoid a shop where he owes money. These are not decisions. Nobody resolves to walk the long way; one simply finds oneself at the corner, turning.
+
+The habits are what he is made of. Intentions are what he is made of in his own opinion, which is a different and much prettier material.
+
+Look at how a habit is acquired. It is never solemn. A man is cold once and stays in bed an extra quarter of an hour; the next week the quarter is a half; by autumn the morning is gone and he has never once agreed to lose it. Compare this with a resolution, which requires a table, a pen, a certain hour of the evening, and a feeling in the chest. The resolution is a public building. The habit is a mouse that got in under the door.
+
+And the mouse eats.
+
+I would go further. A man's character is legible in the things he does without noticing, and illegible in the things he means. Ask what he intends and you learn what he admires. Ask what he does at four in the afternoon on a Tuesday and you learn what he is. The first is a portrait he commissioned. The second is a photograph taken by somebody else, badly, while he was chewing.
+
+This ought to be depressing and it is not, or not entirely. The same door the mouse came in by is a door. If a life is assembled out of small unwatched motions, then small watched ones can be put into it, and they will do their work with the same indifference to whether they were meant grandly. A man who cannot become good can put a book by the bed. He can pay one debt on the day it falls due. He can answer the letter he does not want to answer, and go on answering it, until answering is simply what happens to that kind of letter in that house. He will not feel transformed. Feeling transformed is the business of intentions, and they are, as we have said, unemployed.
+
+What I distrust is the moment a man announces a change. The announcement discharges the feeling that would otherwise have had to be spent, and he goes to bed lighter, and lighter is exactly wrong: he wanted to be heavier by one small habit and instead he is lighter by one speech.
+
+Say less about it. Do the dull thing at the dull hour. Do it when it is not interesting, which will be almost always, and do not look to see whether it is working.
+
+The floor gets swept by sweeping.
+```

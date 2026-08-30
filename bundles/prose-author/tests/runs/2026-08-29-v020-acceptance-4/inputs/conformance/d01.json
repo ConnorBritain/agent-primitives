@@ -1,0 +1,201 @@
+{
+  "report": {
+    "schema": "voice-draft-conformance-report/1",
+    "draft_words": 650,
+    "measurements": [
+      {
+        "measurement_id": "second-person-family",
+        "observation_id": "o01",
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "aim_count": 14,
+        "minimum": 8,
+        "maximum": 28,
+        "actual_count": 14,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "first-person-plural-family",
+        "observation_id": "o02",
+        "dimensions": [
+          "person-reader-stance"
+        ],
+        "aim_count": 5,
+        "minimum": 3,
+        "maximum": 9,
+        "actual_count": 5,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "contractions",
+        "observation_id": "o03",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 11,
+        "minimum": 6,
+        "maximum": 22,
+        "actual_count": 11,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "uncontracted-negatives",
+        "observation_id": "o04",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 0,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "profanity-vulgarity",
+        "observation_id": "o05",
+        "dimensions": [
+          "profanity-vulgarity"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 2,
+        "actual_count": 1,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "first-person-singular-family",
+        "observation_id": "o06",
+        "dimensions": [
+          "self-reference-biography"
+        ],
+        "aim_count": 4,
+        "minimum": 3,
+        "maximum": 8,
+        "actual_count": 4,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "question-marks",
+        "observation_id": "o07",
+        "dimensions": [
+          "questions-imperatives-vocatives"
+        ],
+        "aim_count": 1,
+        "minimum": 0,
+        "maximum": 3,
+        "actual_count": 1,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "round-parenthetical-spans",
+        "observation_id": "o08",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 4,
+        "minimum": 2,
+        "maximum": 7,
+        "actual_count": 4,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "em-dashes",
+        "observation_id": "o09",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 0,
+        "minimum": 0,
+        "maximum": 1,
+        "actual_count": 0,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      },
+      {
+        "measurement_id": "en-dashes",
+        "observation_id": "o10",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "aim_count": 3,
+        "minimum": 1,
+        "maximum": 5,
+        "actual_count": 3,
+        "status": "in-range",
+        "correction": {
+          "action": "preserve",
+          "minimum_change": 0,
+          "change_to_aim": 0
+        },
+        "occurrences": []
+      }
+    ],
+    "pass": true
+  },
+  "word_control": {
+    "initial_words": 650,
+    "final_words": 650,
+    "contraction_word_delta": 0,
+    "contraction_form_changes": 0,
+    "minimum_required_contraction_changes": 0,
+    "contraction_rows_at_nearest_boundary": false,
+    "target_distance_exception": false,
+    "growth_allowance": 20,
+    "replaced_words": 0,
+    "replacement_allowance": 120
+  }
+}

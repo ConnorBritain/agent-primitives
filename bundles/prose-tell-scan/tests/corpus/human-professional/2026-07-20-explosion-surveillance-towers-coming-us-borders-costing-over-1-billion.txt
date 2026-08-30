@@ -6,6 +6,7 @@ date: 2026-07-20
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/explosion-surveillance-towers-coming-us-borders-costing-over-1-billion
 ---
 A new report from the Government Accounting Office reveals that the Department of Homeland Security (DHS) plans to nearly triple the number of surveillance towers along U.S. borders, from the current 830 to 2,300 by 2034.

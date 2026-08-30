@@ -1,0 +1,39 @@
+{
+  "omitted": [
+    {
+      "habit": "paragraph-ending colon and bare URL",
+      "why": "no verified links available for this topic"
+    },
+    {
+      "habit": "another writer's coinage credited by name",
+      "why": "could not verify specific attributions"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "article processing charges at the top end run to roughly eleven thousand dollars per paper",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "large academic publishers have sustained profit margins above thirty percent",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "big-deal bundles are commonly governed by NDAs preventing price comparison",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "circumventing paywalled access is prosecutable as a felony in the US",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Alexandra Elbakyan founded Sci-Hub, used by researchers with institutional access",
+      "where": "paragraph 10"
+    },
+    {
+      "claim": "Aaron Swartz downloaded from JSTOR and faced thirteen felony counts",
+      "where": "paragraph 10"
+    }
+  ],
+  "schema": "voice-draft/1"
+}

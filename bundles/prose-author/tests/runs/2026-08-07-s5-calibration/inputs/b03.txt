@@ -1,0 +1,21 @@
+Glue is an insult. Parts pairing is a lie. The first one tells you the inside of your device is none of your business; the second one tells you that the genuine part in your hand, the one with the right number stamped on it in the right font, is not really the part you are holding.
+
+Think about what glue actually does. When a company epoxies the battery to the chassis, hides the screws behind pentalobe heads, buries the display connector under a shield that wants a driver you don't own, and prints nothing on the board that would tell you which capacitor cooked itself, it has made your repair hard. Hard is a physical property. Physical properties lose to hot plates, suction cups, guitar picks and other people's Saturday afternoons, and they lose permanently, because the first person to film the trick hands it to everyone who comes after.
+
+Parts pairing doesn't lose to anything. You buy the genuine part — same manufacturer, same part number, pulled out of the same model of the same device — you solder nothing, you improvise nothing, you bodge nothing, you seat it, and the machine boots up and announces that it cannot verify this component. The screen dims. Face ID quits. A warning moves into your settings menu and unpacks its bags. Nothing is broken, and the device will keep sulking for precisely as long as Apple wants a stranger's repair to be worse than an authorized one.
+
+Ask why and you'll be told security. Fine. Then answer this: if a screen harvested from an identical phone is a threat in your hands, how does it stop being a threat when an authorized shop installs that very same screen? Same glass. Same driver chip. Same everything. The only variable left in the experiment is who typed a serial number into a laptop. That's not security. That's a fucking turnstile.
+
+Picture the tap in your kitchen. The washer perishes, the tap drips, you walk to the hardware store, buy the identical washer out of a bin for pocket change, and ten minutes later the dripping has stopped. The whole transaction works because a washer is a washer.
+
+Now put a chip in the tap. You fit the identical washer, the water runs, and an app informs you that it cannot verify this washer, so the hot side stays disabled pending service. A plumber drives out, charges you ninety dollars, plugs a laptop into your sink and types the washer's number into a database in another state, and your hot water comes back. He tightened nothing. He didn't fix your sink, he vouched for it — and the vouching, not the plumbing, is what you actually bought.
+
+That's the entire business model, and it says so out loud. Buy the genuine part and it won't work. Buy the genuine part from the manufacturer and it still won't work. Pay the manufacturer to bless the genuine part and it works, which tells you in the manufacturer's own voice that the part was never the problem.
+
+Glue asks a question about your skill. Pairing asks a question about your permission, and permission is the one repair nobody can perform in their kitchen. Skill spreads — it goes up on video, it turns into a shop on a high street, it turns into a kid in Lagos with a hot air station and a following. Permission doesn't spread, which is the whole point, and it's why the serial-number clergy prefer it to epoxy.
+
+It gets worse, because the pairing check is software, and software that stops you doing something is an access control. Under Section 1201 of the DMCA, breaking an access control is a federal crime. So the padlock John Deere bolted to the tractor you own comes with a deputy attached, and the question stops being whether you can fix your combine during harvest and becomes whether you're willing to be a criminal about it.
+
+Meanwhile the right-to-repair laws we fought for mostly guarantee three things: parts, tools and manuals. I don't think the people who drafted them were fooled, exactly — I think they were writing against glue, because glue was what was in front of them. But a paired part walks straight through all three. You get the part. You get the tool. You get the manual. You still don't get the repair, because none of those laws obliges anyone to say yes.
+
+Which is why "genuine part" is the tell. The part in your hand is genuine. It's the authorization that's counterfeit.

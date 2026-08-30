@@ -1,0 +1,28 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {"line": 15, "quote": "for some reason roared"},
+      "change": "replace with 'for some reason burst out'",
+      "reason": "voice-critic: 'roared with laughter' is a construction the corpus samples do not use"
+    },
+    {
+      "id": "e02",
+      "source": "voice-critic",
+      "location": {"line": 28, "quote": "with moderation"},
+      "change": "replace with 'modestly'",
+      "reason": "voice-critic: 'with moderation' is a formal register that jars against the letter's tone elsewhere"
+    },
+    {
+      "id": "e03",
+      "source": "voice-critic",
+      "location": {"line": 30, "quote": "indeed "},
+      "change": "delete this word (and the trailing space)",
+      "reason": "voice-critic: 'indeed' is an emphatic filler that appears once in the whole letter; drop"
+    }
+  ]
+}

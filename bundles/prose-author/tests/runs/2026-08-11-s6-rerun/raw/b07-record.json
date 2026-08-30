@@ -1,0 +1,10 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim-colon-link units (bare URL alone on the next line)", "why": "no verified sources available for this topic" }
+  ],
+  "claims": [
+    { "claim": "In 2009 Amazon remotely deleted purchased copies of Nineteen Eighty-Four from customers' Kindles, then apologised and called it a mistake", "where": "paragraph 7" },
+    { "claim": "California enacted a law barring digital storefronts from using 'buy' for digital goods without disclosing that access can be revoked", "where": "paragraph 9" }
+  ]
+}

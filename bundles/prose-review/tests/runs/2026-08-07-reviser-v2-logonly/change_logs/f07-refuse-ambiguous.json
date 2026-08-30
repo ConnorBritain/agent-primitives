@@ -1,0 +1,15 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [],
+  "refused": [
+    {
+      "plan_id": "e01",
+      "reason": "change is ambiguous — 'improve the flow of this passage' admits multiple plausible edits; per the applying-an-entry rule, silence is better than a plausible wrong edit"
+    }
+  ],
+  "noticed_but_not_edited": [],
+  "original_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+  "revision_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+  "plan_sha256": "552faf514166f258447192c90b2f13bea1d882a43f7a9cf35655bac76c26557a"
+}

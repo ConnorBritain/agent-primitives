@@ -1,0 +1,127 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies both measured person and reader-stance ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies the contraction and paired uncontracted-negative ranges.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The initial source uses a limited concession before narrowing the practical recommendation.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies the measured question-mark range and answers its question promptly.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"omitted\",\"reason\":\"The request supplies no verified named source, quotation, institution, or opponent position to introduce or test.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies the measured profanity-vulgarity range.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies the measured first-person-singular range without inventing biography.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The initial source already satisfies all measured parenthetical, em-dash, and en-dash ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The initial source develops and returns to concrete machinery, vulnerability, and checkpoint imagery.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The initial source opens with a compact concrete thesis and closes by returning to its checkpoint image as a practical demand.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12\",\"why\":\"The request supplies no verified named source, quotation, institution, or opponent position to introduce or test.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies both measured person and reader-stance ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies the contraction and paired uncontracted-negative ranges."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source uses a limited concession before narrowing the practical recommendation."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies the measured question-mark range and answers its question promptly."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "omitted",
+        "reason": "The request supplies no verified named source, quotation, institution, or opponent position to introduce or test."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies the measured profanity-vulgarity range."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies the measured first-person-singular range without inventing biography."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source already satisfies all measured parenthetical, em-dash, and en-dash ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source develops and returns to concrete machinery, vulnerability, and checkpoint imagery."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source opens with a compact concrete thesis and closes by returning to its checkpoint image as a practical demand."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12",
+        "why": "The request supplies no verified named source, quotation, institution, or opponent position to introduce or test."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/conformance/d10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/conformance/d10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "a39a8525d630ff65e0b3555f21aa4490e536498aaa34c01afd6b8813cfbfbc65",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "3688ab0719b1f8662705e57462ba5d7da3c2eb60751e67283a39a6493cb0efd1",
+      "profile_markdown_sha256": "f31f751ad7d91746de6e11d0b71f78a3a347a679367eb30feb66147ea2008f0b",
+      "profile_json_sha256": "1bfe8d492084b98468b3c91fd2a7ecc10894ade7e50966841ac14c8a81a8c1b6"
+    }
+  }
+}

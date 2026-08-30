@@ -1,0 +1,264 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"draft\",\"ledger\":[{\"id\":\"c1\",\"basis\":\"request-supported\",\"claim\":\"A device is not fully owned when its maker can disable features after sale.\",\"request_basis\":\"a device is not fully owned when its maker can disable features after sale\"}],\"paragraphs\":[{\"sentences\":[{\"text\":\"A device you’ve bought can still have a boss.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"If its maker can disable features after sale, then your purchase came with a power attached to it – a power that remains on the other side of the transaction, waiting to decide what your thing is allowed to do.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"That isn’t full ownership.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We usually talk about ownership as if it were a simple handoff: you give someone money, and they give you the object.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"After that, you can use it, repair it, lend it, sell it, or leave it in a drawer until the battery dies of old age.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The seller’s role is finished (or so the story goes).\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"But a device whose capabilities can be withdrawn isn’t merely an object in your possession; it’s an object plus a continuing permission slip.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The permission slip can be revoked.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"What does it mean to own a tool if someone else can reach through the network and remove the tool you paid for?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"What does it mean to own a car, camera, appliance, or phone if the important part of its function depends on a decision made after your money has changed hands?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You may possess the shell, the screen, the motor, and the little screws, but possession of the physical parts isn’t the same thing as control of the device.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"That distinction is the whole fight.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"The familiar reply is that the maker needs this power for safety, maintenance, compatibility, or some other respectable purpose.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"I think those purposes can be real without making the underlying arrangement acceptable.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A manufacturer may need to correct a defect; it doesn’t follow that it should be able to turn a purchased capability into a subscription by remote command.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A service may need updates; it doesn’t follow that the buyer should lose the old function when the service provider changes its mind.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The exception has swallowed the rule.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Notice what has happened to the word “buy.”\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"It now does two jobs at once: it describes the transfer of money and it disguises the retention of control.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You’re told that you own the device, while the maker keeps a veto over what the device can do.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"That’s not a minor technical qualification (the sort of footnote you can ignore while admiring the shiny product).\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"It’s the central term of the bargain.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We should be especially suspicious of ownership that works only while another party remains cooperative.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"If your neighbor can switch off your bicycle, you don’t call the bicycle fully yours; you call it borrowed under unusually aggressive supervision.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"If a landlord could enter your kitchen and remove the oven whenever it wanted, the lease would still say “home,” but the word would be doing some pretty dishonest work.\",\"basis\":\"hypothetical\",\"claim_ids\":[]},{\"text\":\"A remotely disabled device is the digital version of that trick – a sale that preserves the seller’s hand on the controls.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"This matters because the loss isn’t limited to one feature.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Once the maker can withdraw functionality, it can shape your choices after the sale: which repairs seem worthwhile, which accessories remain useful, which uses are permitted, and when replacement becomes unavoidable.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"You’ve paid for an object, but you’re still negotiating with its owner.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"And that owner isn’t you.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"The policy question, then, isn’t whether devices should ever change.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Of course they’ll change.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"The question is whether change can be imposed as a condition of continued use after the buyer has already paid.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"We can require clear limits before purchase, preserve meaningful offline operation, protect repair and resale, and forbid the maker from silently converting ownership into revocable access.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Those rules wouldn’t freeze technology; they’d put the buyer back inside the definition of buying.\",\"basis\":\"normative\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"Don’t let the network connection become a hidden leash.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"If a maker can disable what you bought, then you bought access to a device, not the device itself.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"That’s a hell of a distinction to discover after the receipt is in your hand.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named opponents, allies, and quoted sources\",\"why\":\"The request supplies no names, quotations, or sources, and inventing them would add unsupported factual material.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "draft",
+    "ledger": [
+      {
+        "id": "c1",
+        "basis": "request-supported",
+        "claim": "A device is not fully owned when its maker can disable features after sale.",
+        "request_basis": "a device is not fully owned when its maker can disable features after sale"
+      }
+    ],
+    "paragraphs": [
+      {
+        "sentences": [
+          {
+            "text": "A device you’ve bought can still have a boss.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "If its maker can disable features after sale, then your purchase came with a power attached to it – a power that remains on the other side of the transaction, waiting to decide what your thing is allowed to do.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "That isn’t full ownership.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We usually talk about ownership as if it were a simple handoff: you give someone money, and they give you the object.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "After that, you can use it, repair it, lend it, sell it, or leave it in a drawer until the battery dies of old age.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The seller’s role is finished (or so the story goes).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "But a device whose capabilities can be withdrawn isn’t merely an object in your possession; it’s an object plus a continuing permission slip.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The permission slip can be revoked.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "What does it mean to own a tool if someone else can reach through the network and remove the tool you paid for?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "What does it mean to own a car, camera, appliance, or phone if the important part of its function depends on a decision made after your money has changed hands?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You may possess the shell, the screen, the motor, and the little screws, but possession of the physical parts isn’t the same thing as control of the device.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That distinction is the whole fight.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The familiar reply is that the maker needs this power for safety, maintenance, compatibility, or some other respectable purpose.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "I think those purposes can be real without making the underlying arrangement acceptable.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A manufacturer may need to correct a defect; it doesn’t follow that it should be able to turn a purchased capability into a subscription by remote command.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A service may need updates; it doesn’t follow that the buyer should lose the old function when the service provider changes its mind.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The exception has swallowed the rule.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Notice what has happened to the word “buy.”",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "It now does two jobs at once: it describes the transfer of money and it disguises the retention of control.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You’re told that you own the device, while the maker keeps a veto over what the device can do.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "That’s not a minor technical qualification (the sort of footnote you can ignore while admiring the shiny product).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "It’s the central term of the bargain.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We should be especially suspicious of ownership that works only while another party remains cooperative.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If your neighbor can switch off your bicycle, you don’t call the bicycle fully yours; you call it borrowed under unusually aggressive supervision.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "If a landlord could enter your kitchen and remove the oven whenever it wanted, the lease would still say “home,” but the word would be doing some pretty dishonest work.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "A remotely disabled device is the digital version of that trick – a sale that preserves the seller’s hand on the controls.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "This matters because the loss isn’t limited to one feature.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Once the maker can withdraw functionality, it can shape your choices after the sale: which repairs seem worthwhile, which accessories remain useful, which uses are permitted, and when replacement becomes unavoidable.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You’ve paid for an object, but you’re still negotiating with its owner.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "And that owner isn’t you.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The policy question, then, isn’t whether devices should ever change.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Of course they’ll change.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The question is whether change can be imposed as a condition of continued use after the buyer has already paid.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We can require clear limits before purchase, preserve meaningful offline operation, protect repair and resale, and forbid the maker from silently converting ownership into revocable access.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Those rules wouldn’t freeze technology; they’d put the buyer back inside the definition of buying.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Don’t let the network connection become a hidden leash.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If a maker can disable what you bought, then you bought access to a device, not the device itself.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "That’s a hell of a distinction to discover after the receipt is in your hand.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named opponents, allies, and quoted sources",
+        "why": "The request supplies no names, quotations, or sources, and inventing them would add unsupported factual material."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/drafts/d01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/drafts/d01.codex-output.json",
+  "recovered_from": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix/raw/drafts/d01.codex-adapter-failure.json"
+}

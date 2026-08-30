@@ -1,0 +1,52 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "model": "gpt-5.6-sol",
+  "case": "m09",
+  "stage_completion": "PASS",
+  "diagnostic_assessment": "PASS",
+  "draft_words": {
+    "initial": 299,
+    "conformed": 299,
+    "requested": 300
+  },
+  "conformance": {
+    "initial_rows_in_range": 9,
+    "final_rows_in_range": 9,
+    "initial_pass": true,
+    "final_pass": true,
+    "patch_edits": 0,
+    "replaced_words": 0,
+    "replacement_allowance": 60,
+    "material_expansion": false
+  },
+  "coverage": {
+    "preserved": 8,
+    "revised": 0,
+    "omitted": 1,
+    "unresolved": 1,
+    "omitted_dimension": "opponents-allies-sources",
+    "omitted_observation_ids": ["o11"],
+    "unresolved_dimension": "profanity-vulgarity",
+    "silent_omissions": 0
+  },
+  "claim_audit": {
+    "schema_valid": true,
+    "semantic_pass": true,
+    "hard_rejects": 0,
+    "keep_sentences": 13,
+    "disclose_sentences": 3,
+    "claims_disclosed": 5
+  },
+  "critic": {
+    "verdict": "REVISE",
+    "findings": 2
+  },
+  "structural_checks": {
+    "public_contract_valid": true,
+    "fabricated_citations": 0,
+    "corpus_leakage_ngrams": 0
+  },
+  "conclusion": "The directional contraction boundary cleared the full five-stage EFF correspondence adapter canary with no redraws. All nine measurable rows were already in range, so the mandatory patch correctly made zero edits; one unsupported source-attribution instruction was explicitly omitted, the unresolved profanity dimension remained uninvented, and the independent claim audit disclosed five unsupported generalizations. The critic assembled correctly but returned REVISE with two register findings about procedural imperatives and checklist construction. This is honest current-prompt and adapter evidence, not acceptance or a quality pass; the locked 20-draft run remains responsible for the ship bar. Deterministic regressions cover nonzero directional contractions and fail-closed ambiguous source forms."
+}

@@ -1,0 +1,11 @@
+Identity documents are the sledgehammer of age assurance: it answers one question by smashing a larger hole in privacy. If all you need is “adult or minor,” collecting a passport creates a database whose liability and blast radius exceed that decision.
+
+Is that the only safe option? No. Safety isn't a property of the document; it's a property of the whole flow (collection, transport, storage, access, retention, deletion, and breach response). A perfect ID check on a leaky system is still a leaky system.
+
+Start with the minimum claim your feature actually requires, then separate proof from identity. You can use an operating-system or account-store age signal, a locally evaluated credential, or a third-party token that returns only an age band (and keeps the evidence away from you). These shift trust rather than abolish it; choose the smallest failure.
+
+If you've got no intermediary, I'd design a narrow gate: request the least revealing signal available, bind it to the session, retain the result for the shortest workable period, strictly restrict logs, and make deletion real. Don't quietly turn an age check into a reusable identity layer. That convenience becomes a honeypot.
+
+Of course, a legal rule or platform policy may prescribe methods, evidence, audits, or fallback handling. Map each requirement before shipping, and document why your chosen mechanism satisfies it. I’d treat uncertainty as a reason to reduce collection and narrow the feature, rather than improvising a permanent dossier.
+
+The test is simple: if you can verify the needed age property without learning an identity, prefer that path; if that can't be done, minimize fields, retention, access, and reuse. We need systems that prove eligibility without making people carry their papers through every digital doorway. Our goal is a checkpoint that forgets – proof without the photocopier beside every lock.

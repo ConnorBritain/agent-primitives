@@ -1,0 +1,7 @@
+{
+  "_comment": "Second-pass reviser change logs. Each ran the reviser on its OWN first-pass revision with the SAME plan.",
+  "f01-word-swap-tihonov": { "edits": 0, "refused": 1, "reasons": ["quote 'for some reason roared' does not appear verbatim — the span already reads 'for some reason burst out', the change this entry authorises"] },
+  "f02b-surgical-cut-marker": { "edits": 0, "refused": 1, "noticed_but_not_edited": 1, "reasons": ["quote 'There is no describing Paris, though; ' does not appear verbatim — the authorised cut appears to have been applied already"], "noticed": ["a mid-sentence line break where the deleted fragment used to sit; rewrapping is not authorised by any plan entry"] },
+  "f03b-surgical-rephrase-rossolimo": { "edits": 0, "refused": 1, "reasons": ["quote 'In 1888 I took the Pushkin prize.' does not appear verbatim — the draft already reads 'I took the Pushkin prize in 1888.'"] },
+  "f04-multi-entry-tihonov": { "edits": 0, "refused": 3, "reasons": ["e01 'for some reason roared' already applied", "e02 'with moderation' already applied", "e03 'indeed ' already applied"] }
+}

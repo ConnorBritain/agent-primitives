@@ -1,0 +1,945 @@
+---
+source: Project Gutenberg 7150
+title: Joseph Priestley
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+If the man to perpetuate whose memory we have this day raised a statue
+had been asked on what part of his busy life's work he set the highest
+value, he would undoubtedly have pointed to his voluminous
+contributions to theology. In season and out of season, he was the
+steadfast champion of that hypothesis respecting the Divine nature
+which is termed Unitarianism by its friends and Socinianism by its
+foes. Regardless of odds, he was ready to do battle with all comers in
+that cause; and if no adversaries entered the lists, he would sally
+forth to seek them.
+
+To this, his highest ideal of duty, Joseph Priestley sacrificed the
+vulgar prizes of life, which, assuredly, were within easy reach of a
+man of his singular energy and varied abilities. For this object he put
+aside, as of secondary importance, those scientific investigations
+which he loved so well, and in which he showed himself so competent to
+enlarge the boundaries of natural knowledge and to win fame. In this
+cause he not only cheerfully suffered obloquy from the bigoted and the
+unthinking, and came within sight of martyrdom; but bore with that
+which is much harder to be borne than all these, the unfeigned
+astonishment and hardly disguised contempt of a brilliant society,
+composed of men whose sympathy and esteem must have been most dear to
+him, and to whom it was simply incomprehensible that a philosopher
+should seriously occupy himself with any form of Christianity.
+
+It appears to me that the man who, setting before himself such an ideal
+of life, acted up to it consistently, is worthy of the deepest respect,
+whatever opinion may be entertained as to the real value of the tenets
+which he so zealously propagated and defended.
+
+But I am sure that I speak not only for myself, but for all this
+assemblage, when I say that our purpose to-day is to do honour, not to
+Priestley, the Unitarian divine, but to Priestley, the fearless
+defender of rational freedom in thought and in action: to Priestley,
+the philosophic thinker; to that Priestley who held a foremost place
+among "the swift runners who hand over the lamp of life,"  and
+transmit from one generation to another the fire kindled,
+in the childhood of the world, at the Promethean altar of Science.
+
+The main incidents of Priestley's life are so well known that I need
+dwell upon them at no great length.
+
+Born in 1733, at Fieldhead, near Leeds, and brought up among Calvinists
+of the straitest orthodoxy, the boy's striking natural ability led to
+his being devoted to the profession of a minister of religion; and, in
+1752, he was sent to the Dissenting Academy at Daventry--an institution
+which authority left undisturbed, though its existence contravened the
+law. The teachers under whose instruction and influence the young man
+came at Daventry, carried out to the letter the injunction to "try all
+things: hold fast that which is good," and encouraged the discussion of
+every imaginable proposition with complete freedom, the leading
+professors taking opposite sides; a discipline which, admirable as it
+may be from a purely scientific point of view, would seem to be
+calculated to make acute, rather than sound, divines. Priestley tells
+us, in his "Autobiography," that he generally found himself on the
+unorthodox side: and, as he grew older, and his faculties attained
+their maturity, this native tendency towards heterodoxy grew with his
+growth and strengthened with his strength. He passed from Calvinism to
+Arianism; and finally, in middle life, landed in that very broad form
+of Unitarianism by which his craving after a credible and consistent
+theory of things was satisfied.
+
+On leaving Daventry Priestley became minister of a congregation, first
+at Needham Market, and secondly at Nantwich; but whether on account of
+his heterodox opinions, or of the stuttering which impeded his
+expression of them in the pulpit, little success attended his efforts
+in this capacity. In 1761, a career much more suited to his abilities
+became open to him. He was appointed "tutor in the languages" in the
+Dissenting Academy at Warrington, in which capacity, besides giving
+three courses of lectures, he taught Latin, Greek, French, and Italian,
+and read lectures on the theory of language and universal grammar, on
+oratory, philosophical criticism, and civil law. And it is interesting
+to observe that, as a teacher, he encouraged and cherished in those
+whom he instructed the freedom which he had enjoyed, in his own student
+days, at Daventry. One of his pupils tells us that,
+
+    "At the conclusion of his lecture, he always encouraged his
+    students to express their sentiments relative to the subject of it,
+    and to urge any objections to what he had delivered, without
+    reserve. It pleased him when any one commenced such a conversation.
+    In order to excite the freest discussion, he occasionally invited
+    the students to drink tea with him, in order to canvass the
+    subjects of his lectures. I do not recollect that he ever showed
+    the least displeasure at the strongest objections that were made to
+    what he delivered, but I distinctly remember the smile of
+    approbation with which he usually received them: nor did he fail to
+    point out, in a very encouraging manner, the ingenuity or force of
+    any remarks that were made, when they merited these characters. His
+    object, as well as Dr. Aikin's, was to engage the students to
+    examine and decide for themselves, uninfluenced by the sentiments
+    of any other persons." 
+
+It would be difficult to give a better description of a model teacher
+than that conveyed in these words.
+
+From his earliest days, Priestley had shown a strong bent towards the
+study of nature; and his brother Timothy tells us that the boy put
+spiders into bottles, to see how long they would live in the same
+air--a curious anticipation of the investigations of his later years.
+At Nantwich, where he set up a school, Priestley informs us that he
+bought an air pump, an electrical machine, and other instruments, in
+the use of which he instructed his scholars. But he does not seem to
+have devoted himself seriously to physical science until 1766, when he
+had the great good fortune to meet Benjamin Franklin, whose friendship
+he ever afterwards enjoyed. Encouraged by Franklin, he wrote a "History
+of Electricity," which was published in 1767, and appears to have met
+with considerable success.
+
+In the same year, Priestley left Warrington to become the minister of a
+congregation at Leeds; and, here, happening to live next door to a
+public brewery, as he says,
+
+    "I, at first, amused myself with making experiments on the fixed
+    air which I found ready-made in the process of fermentation. When I
+    removed from that house I was under the necessity of making fixed
+    air for myself; and one experiment leading to another, as I have
+    distinctly and faithfully noted in my various publications on the
+    subject, I by degrees contrived a convenient apparatus for the
+    purpose, but of the cheapest kind.
+
+    "When I began these experiments I knew very little of _chemistry_,
+    and had, in a manner, no idea on the subject before I attended a
+    course of chemical lectures, delivered in the Academy at
+    Warrington, by Dr. Turner of Liverpool. But I have often thought
+    that, upon the whole, this circumstance was no disadvantage to me;
+    as, in this situation, I was led to devise an apparatus and
+    processes of my own, adapted to my peculiar views; whereas, if I
+    had been previously accustomed to the usual chemical processes, I
+    should not have so easily thought of any other, and without new
+    modes of operation, I should hardly have discovered anything
+    materially new." 
+
+The first outcome of Priestley's chemical work, published in 1772, was
+of a very practical character. He discovered the way of impregnating
+water with an excess of "fixed air," or carbonic acid, and thereby
+producing what we now know as "soda water"--a service to naturally, and
+still more to artificially, thirsty souls, which those whose parched
+throats and hot heads are cooled by morning draughts of that beverage,
+cannot too gratefully acknowledge. In the same year, Priestley
+communicated the extensive series of observations which his industry
+and ingenuity had accumulated, in the course of four years, to the
+Royal Society, under the title of "Observations on Different Kinds of
+Air"--a memoir which was justly regarded of so much merit and
+importance, that the Society at once conferred upon the author the
+highest distinction in their power, by awarding him the Copley Medal.
+
+In 1771 a proposal was made to Priestley to accompany Captain Cook in
+his second voyage to the South Seas. He accepted it, and his
+congregation agreed to pay an assistant to supply his place during his
+absence. But the appointment lay in the hands of the Board of
+Longitude, of which certain clergymen were members; and whether these
+worthy ecclesiastics feared that Priestley's presence among the ship's
+company might expose His Majesty's sloop _Resolution_ to the fate
+which aforetime befell a certain ship that went from Joppa to Tarshish;
+or whether they were alarmed lest a Socinian should undermine that
+piety which, in the days of Commodore Trunnion, so strikingly
+characterised sailors, does not appear; but, at any rate, they objected
+to Priestley "on account of his religious principles," and appointed
+the two Forsters, whose "religious principles," if they had been known
+to these well-meaning but not far-sighted persons, would probably have
+surprised them.
+
+In 1772 another proposal was made to Priestley. Lord Shelburne,
+desiring a "literary companion," had been brought into communication
+with Priestley by the good offices of a friend of both, Dr. Price; and
+offered him the nominal post of librarian, with a good house and
+appointments, and an annuity in case of the termination of the
+engagement. Priestley accepted the offer, and remained with Lord
+Shelburne for seven years, sometimes residing at Calne, sometimes
+travelling abroad with the Earl.
+
+Why the connection terminated has never been exactly known; but it is
+certain that Lord Shelburne behaved with the utmost consideration and
+kindness towards Priestley; that he fulfilled his engagements to the
+letter; and that, at a later period, he expressed a desire that
+Priestley should return to his old footing in his house. Probably
+enough, the politician, aspiring to the highest offices in the State,
+may have found the position of the protector of a man who was being
+denounced all over the country as an infidel and an atheist somewhat
+embarrassing. In fact, a passage in Priestley's "Autobiography" on the
+occasion of the publication of his "Disquisitions relating to Matter
+and Spirit," which took place in 1777, indicates pretty clearly the
+state of the case:--
+
+    "(126) It being probable that this publication would be unpopular,
+    and might be the means of bringing odium on my patron, several
+    attempts were made by his friends, though none by himself, to
+    dissuade me from persisting in it. But being, as I thought, engaged
+    in the cause of important truth, I proceeded without regard to any
+    consequences, assuring them that this publication should not be
+    injurious to his lordship."
+
+It is not unreasonable to suppose that his lordship, as a keen,
+practical man of the world, did not derive much satisfaction from this
+assurance. The "evident marks of dissatisfaction" which Priestley says
+he first perceived in his patron in 1778, may well have arisen from the
+peer's not unnatural uneasiness as to what his domesticated, but not
+tamed, philosopher might write next, and what storm might thereby he
+brought down on his own head; and it speaks very highly for Lord
+Shelburne's delicacy that, in the midst of such perplexities, he made
+not the least attempt to interfere with Priestley's freedom of action.
+In 1780, however, he intimated to Dr. Price that he should be glad to
+establish Priestley on his Irish estates: the suggestion was
+interpreted, as Lord Shelburne probably intended it should be, and
+Priestley left him, the annuity of £150 a year, which had been promised
+in view of such a contingency, being punctually paid.
+
+After leaving Calne, Priestley spent some little time in London, and
+then, having settled in Birmingham at the desire of his brother-in-law,
+he was soon invited to become the minister of a large congregation.
+This settlement Priestley considered, at the time, to be "the happiest
+event of his life." And well he might think so; for it gave him
+competence and leisure; placed him within reach of the best makers of
+apparatus of the day; made him a member of that remarkable "Lunar
+Society," at whose meetings he could exchange thoughts with such men as
+Watt, Wedgwood, Darwin, and Boulton; and threw open to him the pleasant
+house of the Galtons of Barr, where these men, and others of less note,
+formed a society of exceptional charm and intelligence. 
+
+But these halcyon days were ended by a bitter storm. The French
+Revolution broke out. An electric shock ran through the nations;
+whatever there was of corrupt and retrograde, and, at the same time, a
+great deal of what there was of best and noblest, in European society
+shuddered at the outburst of long-pent-up social fires. Men's feelings
+were excited in a way that we, in this generation, can hardly
+comprehend. Party wrath and virulence were expressed in a manner
+unparalleled, and it is to be hoped impossible, in our times; and
+Priestley and his friends were held up to public scorn, even in
+Parliament, as fomenters of sedition. A "Church-and-King" cry was
+raised against the Liberal Dissenters; and, in Birmingham, it was
+intensified and specially directed towards Priestley by a local
+controversy, in which he had engaged with his usual vigour. In 1791,
+the celebration of the second anniversary of the taking of the Bastille
+by a public dinner, with which Priestley had nothing whatever to do,
+gave the signal to the loyal and pious mob, who, unchecked, and indeed
+to some extent encouraged, by those who were responsible for order, had
+the town at their mercy for three days. The chapels and houses of the
+leading Dissenters were wrecked, and Priestley and his family had to
+fly for their lives, leaving library, apparatus, papers, and all their
+possessions, a prey to the flames.
+
+Priestley never returned to Birmingham. He bore the outrages and losses
+inflicted upon him with extreme patience and sweetness,  and betook
+himself to London. But even his scientific colleagues gave him a cold
+shoulder; and though he was elected minister of a congregation at
+Hackney, he felt his position to be insecure, and finally determined on
+emigrating to the United States. He landed in America in 1794; lived
+quietly with his sons at Northumberland, in Pennsylvania, where his
+posterity still flourish; and, clear-headed and busy to the last, died
+on the 6th of February 1804.
+
+Such were the conditions under which Joseph Priestley did the work
+which lay before him, and then, as the Norse Sagas say, went out of the
+story. The work itself was of the most varied kind. No human interest
+was without its attraction for Priestley, and few men have ever had so
+many irons in the fire at once; but, though he may have burned his
+fingers a little, very few who have tried that operation have burned
+their fingers so little. He made admirable discoveries in science; his
+philosophical treatises are still well worth reading; his political
+works are full of insight and replete with the spirit of freedom; and
+while all these sparks flew off from his anvil, the controversial
+hammer rained a hail of blows on orthodox priest and bishop. While thus
+engaged, the kindly, cheerful doctor felt no more wrath or
+uncharitableness towards his opponents than a smith does towards his
+iron. But if the iron could only speak!--and the priests and bishops
+took the point of view of the iron.
+
+No doubt what Priestley's friends repeatedly urged upon him--that he
+would have escaped the heavier trials of his life and done more for the
+advancement of knowledge, if he had confined himself to his scientific
+pursuits and let his fellow-men go their way--was true. But it seems to
+have been Priestley's feeling that he was a man and a citizen before he
+was a philosopher, and that the duties of the two former positions are
+at least as imperative as those of the latter. Moreover, there are men
+(and I think Priestley was one of them) to whom the satisfaction of
+throwing down a triumphant fallacy is as great as that which attends
+the discovery of a new truth; who feel better satisfied with the
+government of the world, when they have been helping Providence by
+knocking an imposture on the head; and who care even more for freedom
+of thought than for mere advance of knowledge. These men are the
+Carnots who organise victory for truth, and they are, at least, as
+important as the generals who visibly fight her battles in the field.
+
+Priestley's reputation as a man of science rests upon his numerous and
+important contributions to the chemistry of gaseous bodies; and to form
+a just estimate of the value of his work--of the extent to which it
+advanced the knowledge of fact and the development of sound theoretical
+views--we must reflect what chemistry was in the first half of the
+eighteenth century.
+
+The vast science which now passes under that name had no existence.
+Air, water, and fire were still counted among the elemental bodies; and
+though Van Helmont, a century before, had distinguished different
+kinds of air as _gas ventosum_ and _gas sylvestre_, and Boyle and Hales
+had experimentally defined the physical properties of air, and
+discriminated some of the various kinds of aëriform bodies, no one
+suspected the existence of the numerous totally distinct gaseous
+elements which are now known, or dreamed that the air we breathe and
+the water we drink are compounds of gaseous elements.
+
+But, in 1754, a young Scotch physician, Dr. Black, made the first
+clearing in this tangled backwood of knowledge. And it gives one a
+wonderful impression of the juvenility of scientific chemistry to think
+that Lord Brougham, whom so many of us recollect, attended Black's
+lectures when he was a student in Edinburgh. Black's researches gave
+the world the novel and startling conception of a gas that was a
+permanently elastic fluid like air, but that differed from common air
+in being much heavier, very poisonous, and in having the properties of
+an acid, capable of neutralising the strongest alkalies; and it took
+the world some time to become accustomed to the notion.
+
+A dozen years later, one of the most sagacious and accurate
+investigators who has adorned this, or any other, country, Henry
+Cavendish, published a memoir in the "Philosophical Transactions," in
+which he deals not only with the "fixed air" (now called carbonic acid
+or carbonic anhydride) of Black, but with "inflammable air," or what we
+now term hydrogen.
+
+By the rigorous application of weight and measure to all his processes,
+Cavendish implied the belief subsequently formulated by Lavoisier,
+that, in chemical processes, matter is neither created nor destroyed,
+and indicated the path along which all future explorers must travel.
+Nor did he himself halt until this path led him, in 1784, to the
+brilliant and fundamental discovery that water is composed of two gases
+united in fixed and constant proportions.
+
+It is a trying ordeal for any man to be compared with Black and
+Cavendish, and Priestley cannot be said to stand on their level.
+Nevertheless his achievements are not only great in themselves, but
+truly wonderful, if we consider the disadvantages under which he
+laboured. Without the careful scientific training of Black, without the
+leisure and appliances secured by the wealth of Cavendish, he scaled
+the walls of science as so many Englishmen have done before and since
+his day; and trusting to mother wit to supply the place of training,
+and to ingenuity to create apparatus out of washing tubs, he discovered
+more new gases than all his predecessors put together had done. He laid
+the foundations of gas analysis; he discovered the complementary
+actions of animal and vegetable life upon the constituents of the
+atmosphere; and, finally, he crowned his work, this day one hundred
+years ago, by the discovery of that "pure dephlogisticated air" to
+which the French chemists subsequently gave the name of oxygen. Its
+importance, as the constituent of the atmosphere which disappears in
+the processes of respiration and combustion, and is restored by green
+plants growing in sunshine, was proved somewhat later. For these
+brilliant discoveries, the Royal Society elected Priestley a fellow and
+gave him their medal, while the Academies of Paris and St. Petersburg
+conferred their membership upon him. Edinburgh had made him an honorary
+doctor of laws at an early period of his career; but, I need hardly
+add, that a man of Priestley's opinions received no recognition from
+the universities of his own country.
+
+That Priestley's contributions to the knowledge of chemical fact were
+of the greatest importance, and that they richly deserve all the praise
+that has been awarded to them, is unquestionable; but it must, at the
+same time, be admitted that he had no comprehension of the deeper
+significance of his work; and, so far from contributing anything to the
+theory of the facts which he discovered, or assisting in their rational
+explanation, his influence to the end of his life was warmly exerted in
+favour of error. From first to last, he was a stiff adherent of the
+phlogiston doctrine which was prevalent when his studies commenced;
+and, by a curious irony of fate, the man who by the discovery of what
+he called "dephlogisticated air" furnished the essential datum for the
+true theory of combustion, of respiration, and of the composition of
+water, to the end of his days fought against the inevitable corollaries
+from his own labours. His last scientific work, published in 1800,
+bears the title, "The Doctrine of Phlogiston established, and that of
+the Composition of Water refuted."
+
+When Priestley commenced his studies, the current belief was, that
+atmospheric air, freed from accidental impurities, is a simple
+elementary substance, indestructible and unalterable, as water was
+supposed to be. When a combustible burned, or when an animal breathed
+in air, it was supposed that a substance, "phlogiston," the matter of
+heat and light, passed from the burning or breathing body into it, and
+destroyed its powers of supporting life and combustion. Thus, air
+contained in a vessel in which a lighted candle had gone out, or a
+living animal had breathed until it could breathe no longer, was called
+"phlogisticated." The same result was supposed to be brought about by
+the addition of what Priestley called "nitrous gas" to common air.
+
+In the course of his researches, Priestley found that the quantity of
+common air which can thus become "phlogisticated," amounts to about
+one-fifth the volume of the whole quantity submitted to experiment.
+Hence it appeared that common air consists, to the extent of
+four-fifths of its volume, of air which is already "phlogisticated";
+while the other fifth is free from phlogiston, or "dephlogisticated."
+On the other hand, Priestley found that air "phlogisticated" by
+combustion or respiration could be "dephlogisticated," or have the
+properties of pure common air restored to it, by the action of green
+plants in sunshine. The question, therefore, would naturally arise--as
+common air can be wholly phlogisticated by combustion, and converted
+into a substance which will no longer support combustion, is it
+possible to get air that shall be less phlogisticated than common air,
+and consequently support combustion better than common air does?
+
+Now, Priestley says that, in 1774, the possibility of obtaining air
+less phlogisticated than common air had not occurred to him.  But in
+pursuing his experiments on the evolution of air from various bodies by
+means of heat, it happened that, on the 1st of August 1774, he threw
+the heat of the sun, by means of a large burning glass which he had
+recently obtained, upon a substance which was then called _mercurius
+calcinatus per se_, and which is commonly known as red precipitate.
+
+    "I presently found that, by means of this lens, air was expelled
+    from it very readily. Having got about three or four times as much
+    as the bulk of my materials, I admitted water to it, and found that
+    it was not imbibed by it. But what surprised me more than I can
+    well express, was that a candle burned in this air with a
+    remarkably vigorous flame, very much like that enlarged flame with
+    which a candle burns in nitrous air, exposed to iron or lime of
+    sulphur; but as I had got nothing like this remarkable appearance
+    from any kind of air besides this particular modification of
+    nitrous air, and I knew no nitrous acid was used in the preparation
+    of _mercurius calcinatus_, I was utterly at a loss how to
+    account for it.
+
+    "In this case also, though I did not give sufficient attention to
+    the circumstance at that time, the flame of the candle, besides
+    being larger, burned with more splendour and heat than in that
+    species of nitrous air; and a piece of red-hot wood sparkled in it,
+    exactly like paper dipped in a solution of nitre, and it consumed
+    very fast--an experiment which I had never thought of trying with
+    nitrous air." 
+
+Priestley obtained the same sort of air from red lead, but, as he says
+himself, he remained in ignorance of the properties of this new kind of
+air for seven months, or until March 1775, when he found that the new
+air behaved with "nitrous gas" in the same way as the dephlogisticated
+part of common air does;  but that, instead of being diminished to
+four-fifths, it almost completely vanished, and, therefore, showed
+itself to be "between five and six times as good as the best common air
+I have ever met with."  As this new air thus appeared to be
+completely free from phlogiston, Priestley called it "dephlogisticated
+air."
+
+What was the nature of this air? Priestley found that the same kind of
+air was to be obtained by moistening with the spirit of nitre (which he
+terms nitrous acid) any kind of earth that is free from phlogiston, and
+applying heat; and consequently he says: "There remained no doubt on my
+mind but that the atmospherical air, or the thing that we breathe,
+consists of the nitrous acid and earth, with so much phlogiston as is
+necessary to its elasticity, and likewise so much more as is required
+to bring it from its state of perfect purity to the mean condition in
+which we find it." 
+
+Priestley's view, in fact, is that atmospheric air is a kind of
+saltpetre, in which the potash is replaced by some unknown earth.
+And in speculating on the manner in which saltpetre is formed,
+he enunciates the hypothesis, "that nitre is, formed by a real
+_decomposition of the air itself_, the _bases_ that are presented to
+it having, in such circumstances, a nearer affinity with the spirit
+of nitre than that kind of earth with which it is united in the
+atmosphere." 
+
+It would have been hard for the most ingenious person to have wandered
+farther from the truth than Priestley does in this hypothesis; and,
+though Lavoisier undoubtedly treated Priestley very ill, and pretended
+to have discovered dephlogisticated air, or oxygen, as he called it,
+independently, we can almost forgive him when we reflect how different
+were the ideas which the great French chemist attached to the body
+which Priestley discovered.
+
+They are like two navigators of whom the first sees a new country, but
+takes clouds for mountains and mirage for lowlands; while the second
+determines its length and breadth, and lays down on a chart its exact
+place, so that, thenceforth, it serves as a guide to his successors,
+and becomes a secure outpost whence new explorations may be pushed.
+
+Nevertheless, as Priestley himself somewhere remarks, the first object
+of physical science is to ascertain facts, and the service which he
+rendered to chemistry by the definite establishment of a large number
+of new and fundamentally important facts, is such as to entitle him to
+a very high place among the fathers of chemical science.
+
+It is difficult to say whether Priestley's philosophical, political,
+or theological views were most responsible for the bitter hatred which
+was borne to him by a large body of his country-men,  and which
+found its expression in the malignant insinuations in which Burke, to
+his everlasting shame, indulged in the House of Commons.
+
+Without containing much that will be new to the readers of Hobbs,
+Spinoza, Collins, Hume, and Hartley, and, indeed, while making no
+pretensions to originality, Priestley's "Disquisitions relating to
+Matter and Spirit," and his "Doctrine of Philosophical Necessity
+Illustrated," are among the most powerful, clear, and unflinching
+expositions of materialism and necessarianism which exist in the
+English language, and are still well worth reading.
+
+Priestley denied the freedom of the will in the sense of its
+self-determination; he denied the existence of a soul distinct from the
+body; and as a natural consequence, he denied the natural immortality
+of man.
+
+In relation to these matters English opinion, a century ago, was very
+much what it is now.
+
+A man may be a necessarian without incurring graver reproach than that
+implied in being called a gloomy fanatic, necessarianism, though very
+shocking, having a note of Calvanistic orthodoxy; but, if a man is a
+materialist; or, if good authorities say he is and must be so, in spite
+of his assertion to the contrary; or, if he acknowledge himself unable
+to see good reasons for believing in the natural immortality of man,
+respectable folks look upon him as an unsafe neighbour of a cash-box,
+as an actual or potential sensualist, the more virtuous in outward
+seeming, the more certainly loaded with secret "grave personal sins."
+
+Nevertheless, it is as certain as anything can be, that Joseph
+Priestley was no gloomy fanatic, but as cheerful and kindly a soul as
+ever breathed, the idol of children; a man who was hated only by those
+who did not know him, and who charmed away the bitterest prejudices in
+personal intercourse; a man who never lost a friend, and the best
+testimony to whose worth is the generous and tender warmth with which
+his many friends vied with one another in rendering him substantial
+help, in all the crises of his career.
+
+The unspotted purity of Priestley's life, the strictness of his
+performance of every duty, his transparent sincerity, the
+unostentatious and deep-seated piety which breathes through all his
+correspondence, are in themselves a sufficient refutation of the
+hypothesis, invented by bigots to cover uncharitableness, that such
+opinions as his must arise from moral defects. And his statue will do
+as good service as the brazen image that was set upon a pole before the
+Israelites, if those who have been bitten by the fiery serpents of
+sectarian hatred, which still haunt this wilderness of a world, are
+made whole by looking upon the image of a heretic who was yet a saint.
+
+Though Priestley did not believe in the natural immortality of man, he
+held with an almost naïve realism that man would be raised from the
+dead by a direct exertion of the power of God, and thenceforward be
+immortal. And it may be as well for those who may be shocked by this
+doctrine to know that views, substantially identical with Priestley's,
+have been advocated, since his time, by two prelates of the Anglican
+Church: by Dr. Whately, Archbishop of Dublin, in his well-known
+"Essays";  and by Dr. Courtenay, Bishop of Kingston in Jamaica,
+the first edition of whose remarkable book "On the Future States,"
+dedicated to Archbishop Whately, was published in 1843 and the second
+in 1857. According to Bishop Courtenay,
+
+    "The death of the body will cause a cessation of all the activity
+    of the mind by way of natural consequence; to continue for ever
+    UNLESS the Creator should interfere."
+
+And again:--
+
+    "The natural end of human existence is the 'first death, the
+    dreamless slumber of the grave, wherein man lies spell-bound, soul
+    and body, under the dominion of sin and death--that whatever modes
+    of conscious existence, whatever future states of 'life' or of
+    'torment' beyond Hades are reserved for man, are results of our
+    blessed Lord's victory over sin and death; that the resurrection of
+    the dead must be preliminary to their entrance into either of the
+    future states, and that the nature and even existence of these
+    states, and even the mere fact that there is a futurity of
+    consciousness, can be known _only_ through God's revelation of
+    Himself in the Person and the Gospel of His Son."--P. 389.
+
+And now hear Priestley:--
+
+    "Man, according to this system (of materialism), is no more than we
+    now see of him. His being commences at the time of his conception,
+    or perhaps at an earlier period. The corporeal and mental faculties,
+    in being in the same substance, grow, ripen, and decay together; and
+    whenever the system is dissolved it continues in a state of
+    dissolution till it shall please that Almighty Being who called it
+    into existence to restore it to life again."--"Matter and Spirit,"
+    p. 49.
+
+And again:--
+
+    "The doctrine of the Scripture is, that God made man of the dust of
+    the ground, and by simply animating this organised matter, made man
+    that living percipient and intelligent being that he is. According
+    to Revelation, _death_ is a state of rest and insensibility,
+    and our only though sure hope of a future life is founded on the
+    doctrine of the resurrection of the whole man at some distant
+    period; this assurance being sufficiently confirmed to us both by
+    the evident tokens of a Divine commission attending the persons who
+    delivered the doctrine, and especially by the actual resurrection of
+    Jesus Christ, which is more authentically attested than any other
+    fact in history."--_Ibid_., p. 247.
+
+We all know that "a saint in crape is twice a saint in lawn;" but it is
+not yet admitted that the views which are consistent with such
+saintliness in lawn, become diabolical when held by a mere dissenter.
+
+
+I am not here either to defend or to attack Priestley's philosophical
+views, and I cannot say that I am personally disposed to attach much
+value to episcopal authority in philosophical questions; but it seems
+right to call attention to the fact, that those of Priestley's opinions
+which have brought most odium upon him have been openly promulgated,
+without challenge, by persons occupying the highest positions in the
+State Church.
+
+I must confess that what interests me most about Priestley's
+materialism, is the evidence that he saw dimly the seed of destruction
+which such materialism carries within its own bosom. In the course of
+his reading for his "History of Discoveries relating to Vision, Light,
+and Colours," he had come upon the speculations of Boscovich and
+Michell, and had been led to admit the sufficiently obvious truth that
+our knowledge of matter is a knowledge of its properties; and that of
+its substance--if it have a substance--we know nothing. And this led to
+the further admission that, so far as we can know, there may be no
+difference between the substance of matter and the substance of spirit
+("Disquisitions," p. 16). A step farther would have shown Priestley
+that his materialism was, essentially, very little different from the
+Idealism of his contemporary, the Bishop of Cloyne.
+
+As Priestley's philosophy is mainly a clear statement of the views of
+the deeper thinkers of his day, so are his political conceptions based
+upon those of Locke. Locke's aphorism that "the end of government is
+the good of mankind," is thus expanded by Priestley:--
+
+    "It must necessarily be understood, therefore, whether it be
+    expressed or not, that all people live in society for their mutual
+    advantage; so that the good and happiness of the members, that is,
+    of the majority of the members, of any state, is the great standard
+    by which everything relating to that state must finally be
+    determined." 
+
+The little sentence here interpolated, "that is, of the majority of the
+members of any state," appears to be that passage which suggested to
+Bentham, according to his own acknowledgment, the famous "greatest
+happiness" formula, which by substituting "happiness" for "good," has
+converted a noble into an ignoble principle. But I do not call to mind
+that there is any utterance in Locke quite so outspoken as the
+following passage in the "Essay on the First Principles of
+Government." After laying down as "a fundamental maxim in all
+Governments," the proposition that "kings, senators, and nobles" are
+"the servants of the public," Priestley goes on to say:--
+
+    "But in the largest states, if the abuses of the government should
+    at any time be great and manifest; if the servants of the people,
+    forgetting their masters and their masters' interest, should pursue
+    a separate one of their own; if, instead of considering that they
+    are made for the people, they should consider the people as made
+    for them; if the oppressions and violation of right should be
+    great, flagrant, and universally resented; if the tyrannical
+    governors should have no friends but a few sycophants, who had long
+    preyed upon the vitals of their fellow-citizens, and who might be
+    expected to desert a government whenever their interests should be
+    detached from it: if, in consequence of these circumstances, it
+    should become manifest that the risk which would be run in
+    attempting a revolution would be trifling, and the evils which
+    might be apprehended from it were far less than those which
+    were actually suffered and which were daily increasing; in the name
+    of God, I ask, what principles are those which ought to restrain an
+    injured and insulted people from asserting their natural rights,
+    and from changing or even punishing their governors--that is, their
+    servants--who had abused their trust, or from altering the whole
+    form of their government, if it appeared to be of a structure so
+    liable to abuse?"
+
+As a Dissenter, subject to the operation of the Corporation and Test
+Acts, and as a Unitarian excluded from the benefit of the Toleration
+Act, it is not surprising to find that Priestley had very definite
+opinions about Ecclesiastical Establishments; the only wonder is that
+these opinions were so moderate as the following passages show them to
+have been:--
+
+    "Ecclesiastical authority may have been necessary in the infant
+    state of society, and, for the same reason, it may perhaps continue
+    to be, in some degree, necessary as long as society is imperfect;
+    and therefore may not be entirely abolished till civil governments
+    have arrived at a much greater degree of perfection. If, therefore,
+    I were asked whether I should approve of the immediate dissolution
+    of all the ecclesiastical establishments in Europe, I should
+    answer, No.... Let experiment be first made of _alterations_,
+    or, which is the same thing, of _better establishments_ than
+    the present. Let them be reformed in many essential articles, and
+    then not thrown aside entirely till it be found by experience that
+    no good can be made of them."
+
+Priestley goes on to suggest four such reforms of a capital nature:--
+
+    "1. Let the Articles of Faith to be subscribed by candidates for
+    the ministry be greatly reduced. In the formulary of the Church of
+    England, might not thirty-eight out of the thirty-nine be very well
+    spared? It is a reproach to any Christian establishment if every
+    man cannot claim the benefit of it who can say that he believes
+    in the religion of Jesus Christ as it is set forth in the New
+    Testament. You say the terms are so general that even Deists would
+    quibble and insinuate themselves. I answer that all the articles
+    which are subscribed at present by no means exclude Deists who will
+    prevaricate; and upon this scheme you would at least exclude fewer
+    honest men." 
+
+The second reform suggested is the equalisation, in proportion to work
+done, of the stipends of the clergy; the third, the exclusion of the
+Bishops from Parliament; and the fourth, complete toleration, so that
+every man may enjoy the rights of a citizen, and be qualified to serve
+his country, whether he belong to the Established Church or not.
+
+Opinions such as those I have quoted, respecting the duties and the
+responsibilities of governors, are the commonplaces of modern
+Liberalism; and Priestley's views on Ecclesiastical Establishments
+would, I fear, meet with but a cool reception, as altogether too
+conservative, from a large proportion of the lineal descendants of the
+people who taught their children to cry "Damn Priestley;" and with that
+love for the practical application of science which is the source of
+the greatness of Birmingham, tried to set fire to the doctor's house
+with sparks from his own electrical machine; thereby giving the man
+they called an incendiary and raiser of sedition against Church and
+King, an appropriately experimental illustration of the nature of arson
+and riot.
+
+If I have succeeded in putting before you the main features of
+Priestley's work, its value will become apparent when we compare the
+condition of the English nation, as he knew it, with its present state.
+
+The fact that France has been for eighty-five years trying, without
+much success, to right herself after the great storm of the Revolution,
+is not unfrequently cited among us as an indication of some inherent
+incapacity for self-government among the French people. I think,
+however, that Englishmen who argue thus, forget that, from the meeting
+of the Long Parliament in 1640, to the last Stuart rebellion in 1745,
+is a hundred and five years, and that, in the middle of the last
+century, we had but just safely freed ourselves from our Bourbons and
+all that they represented. The corruption of our state was as bad as
+that of the Second Empire. Bribery was the instrument of government,
+and peculation its reward. Four-fifths of the seats in the House of
+Commons were more or less openly dealt with as property. A minister had
+to consider the state of the vote market, and the sovereign secured a
+sufficiency of "king's friends" by payments allotted with retail,
+rather than royal, sagacity.
+
+Barefaced and brutal immorality and intemperance pervaded the land,
+from the highest to the lowest classes of society. The Established
+Church was torpid, as far as it was not a scandal; but those who
+dissented from it came within the meshes of the Act of Uniformity, the
+Test Act, and the Corporation Act. By law, such a man as Priestley,
+being a Unitarian, could neither teach nor preach, and was liable to
+ruinous fines and long imprisonment.  In those days the guns that
+were pointed by the Church against the Dissenters were shotted. The law
+was a cesspool of iniquity and cruelty. Adam Smith was a new prophet
+whom few regarded, and commerce was hampered by idiotic impediments,
+and ruined by still more absurd help, on the part of government.
+
+Birmingham, though already the centre of a considerable industry, was a
+mere village as compared with its present extent. People who travelled
+went about armed, by reason of the abundance of highwaymen and the
+paucity and inefficiency of the police. Stage coaches had not reached
+Birmingham, and it took three days to get to London. Even canals were a
+recent and much opposed invention.
+
+Newton had laid the foundation of a mechanical conception of the
+physical universe: Hartley, putting a modern face upon ancient
+materialism, had extended that mechanical conception to psychology;
+Linnaeus and Haller were beginning to introduce method and order into
+the chaotic accumulation of biological facts. But those parts of
+physical science which deal with heat, electricity, and magnetism, and
+above all, chemistry, in the modern sense, can hardly be said to have
+had an existence. No one knew that two of the old elemental bodies, air
+and water, are compounds, and that a third, fire, is not a substance
+but a motion. The great industries that have grown out of the
+applications of modern scientific discoveries had no existence, and the
+man who should have foretold their coming into being in the days of his
+son, would have been regarded as a mad enthusiast.
+
+In common with many other excellent persons, Priestley believed that
+man is capable of reaching, and will eventually attain, perfection. If
+the temperature of space presented no obstacle, I should be glad to
+entertain the same idea; but judging from the past progress of our
+species, I am afraid that the globe will have cooled down so far,
+before the advent of this natural millennium, that we shall be, at
+best, perfected Esquimaux. For all practical purposes, however, it is
+enough that man may visibly improve his condition in the course of a
+century or so. And, if the picture of the state of things in
+Priestley's time, which I have just drawn, have any pretence to
+accuracy, I think it must be admitted that there has been a
+considerable change for the better.
+
+I need not advert to the well-worn topic of material advancement, in a
+place in which the very stones testify to that progress--in the town of
+Watt and of Boulton. I will only remark, in passing, that material
+advancement has its share in moral and intellectual progress. Becky
+Sharp's acute remark that it is not difficult to be virtuous on ten
+thousand a year, has its application to nations; and it is futile to
+expect a hungry and squalid population to be anything but violent and
+gross. But as regards other than material welfare, although perfection
+is not yet in sight--even from the mast-head--it is surely true that
+things are much better than they were.
+
+Take the upper and middle classes as a whole, and it may be said that
+open immorality and gross intemperance have vanished. Four and six
+bottle men are as extinct as the dodo. Women of good repute do not
+gamble, and talk modelled upon Dean Swift's "Art of Polite
+Conversation" would be tolerated in no decent kitchen.
+
+Members of the legislature are not to be bought; and constituents are
+awakening to the fact that votes must not be sold--even for such
+trifles as rabbits and tea and cake. Political power has passed into
+the hands of the masses of the people. Those whom Priestley calls their
+servants have recognised their position, and have requested the master
+to be so good as to go to school and fit himself for the administration
+of his property. In ordinary life, no civil disability attaches to any
+one on theological grounds, and high offices of the state are open to
+Papist, Jew, and Secularist.
+
+Whatever men's opinions as to the policy of Establishment, no one can
+hesitate to admit that the clergy of the Church are men of pure life
+and conversation, zealous in the discharge of their duties; and at
+present, apparently, more bent on prosecuting one another than on
+meddling with Dissenters. Theology itself has broadened so much, that
+Anglican divines put forward doctrines more liberal than those of
+Priestley; and, in our state-supported churches, one listener may hear
+a sermon to which Bossuet might have given his approbation, while
+another may hear a discourse in which Socrates would find nothing new.
+
+But great as these changes may be, they sink into insignificance beside
+the progress of physical science, whether we consider the improvement
+of methods of investigation, or the increase in bulk of solid
+knowledge. Consider that the labours of Laplace, of Young, of Davy, and
+of Faraday; of Cuvier, of Lamarck, and of Robert Brown; of Von Baer,
+and of Schwann; of Smith and of Hutton, have all been carried on since
+Priestley discovered oxygen; and consider that they are now things of
+the past, concealed by the industry of those who have built upon them,
+as the first founders of a coral reef are hidden beneath the life's
+work of their successors; consider that the methods of physical science
+are slowly spreading into all investigations, and that proofs as valid
+as those required by her canons of investigation are being demanded of
+all doctrines which ask for men's assent; and you will have a faint
+image of the astounding difference in this respect between the
+nineteenth century and the eighteenth.
+
+If we ask what is the deeper meaning of all these vast changes, I think
+there can be but one reply. They mean that reason has asserted and
+exercised her primacy over all provinces of human activity: that
+ecclesiastical authority has been relegated to its proper place; that
+the good of the governed has been finally recognised as the end of
+government, and the complete responsibility of governors to the people
+as its means; and that the dependence of natural phenomena in general
+on the laws of action of what we call matter has become an axiom.
+
+But it was to bring these things about, and to enforce the recognition
+of these truths, that Joseph Priestley laboured. If the nineteenth
+century is other and better than the eighteenth, it is, in great
+measure, to him, and to such men as he, that we owe the change. If the
+twentieth century is to be better than the nineteenth, it will be
+because there are among us men who walk in Priestley's footsteps.
+
+Such men are not those whom their own generation delights to honour;
+such men, in fact, rarely trouble themselves about honour, but ask, in
+another spirit than Falstaff's, "What is honour? Who hath it? He that
+died o' Wednesday." But whether Priestley's lot be theirs, and a future
+generation, in justice and in gratitude, set up their statues; or
+whether their names and fame are blotted out from remembrance, their
+work will live as long as time endures. To all eternity, the sum of
+truth and right will have been increased by their means; to all
+eternity, falsehood and injustice will be the weaker because they have
+lived.
+
+       *       *       *       *       *
+
+Footnotes:
+
+ "Quasi cursores, vitai lampada tradunt."--LUCR. _De Rerum Nat_. ii.
+78.
+
+ _Life and Correspondence of Dr. Priestley_, by J. T. Rutt. Vol. I.
+p. 50.
+
+ _Autobiography_, §§ 100, 101.
+
+ See _The Life of Mary Anne Schimmelpenninck_. Mrs.
+Schimmelpenninck (_née_ Galton) remembered Priestley very well,
+and her description of him is worth quotation:--"A man of admirable
+simplicity, gentleness and kindness of heart, united with great
+acuteness of intellect. I can never forget the impression produced on
+me by the serene expression of his countenance. He, indeed, seemed
+present with God by recollection, and with man by cheerfulness. I
+remember that, in the assembly of these distinguished men, amongst whom
+Mr. Boulton, by his noble manner, his fine countenance (which much
+resembled that of Louis XIV.), and princely munificence, stood
+pre-eminently as the great Mecaenas; even as a child, I used to feel,
+when Dr. Priestley entered after him, that the glory of the one was
+terrestrial, that of the other celestial; and utterly far as I am
+removed from a belief in the sufficiency of Dr. Priestley's theological
+creed, I cannot but here record this evidence of the eternal power of
+any portion of the truth held in its vitality."
+
+ Even Mrs. Priestley, who might be forgiven for regarding the
+destroyers of her household gods with some asperity, contents herself,
+in writing to Mrs. Barbauld, with the sarcasm that the Birmingham
+people "will scarcely find so many respectable characters, a second
+time, to make a bonfire of."
+
+ _Experiments and Observations on Different Kinds of Air_, vol.
+ii. p. 31.
+
+ _Experiments and Observations on Different Kinds of Air_, vol.
+ii. pp. 34, 35.
+
+ _Ibid_. vol. i. p. 40.
+
+ _Experiments and Observations on Different Kinds of Air_, vol. ii.
+p. 48.
+
+ _Ibid_. p. 55.
+
+ _Ibid_. p. 60. The italics are Priestley's own.
+
+ "In all the newspapers and most of the periodical publications I
+was represented as an unbeliever in Revelation, and no better than an
+atheist."--_Autobiography_, Rutt, vol i. p. 124. "On the walls of
+houses, etc., and especially where I usually went, were to be seen, in
+large characters, 'MADAN FOR EVER; DAMN PRIESTLEY; NO PRESBYTERIANISM;
+DAMN THE PRESBYTERIANS,' etc., etc.; and, at one time, I was followed
+by a number of boys, who left their play, repeating what they had seen
+on the walls, and shouting out, '_Damn Priestley; damn him, damn
+him, for ever, for ever,_' etc., etc. This was no doubt a lesson
+which they had been taught by their parents, and what they, I fear, had
+learned from their superiors."--_Appeal to the Public on the Subject
+of the Riots at Birmingham_.
+
+ First Series. _On Some of the Peculiarities of the Christian
+Religion_. Essay I. "Revelation of a Future State."
+
+ Not only is Priestley at one with Bishop Courtenay in this matter,
+but with Hartley and Bonnet, both of them stout champions of
+Christianity. Moreover, Archbishop Whately's essay is little better
+than an expansion of the first paragraph of Hume's famous essay on the
+Immortality of the Soul:--"By the mere light of reason it seems
+difficult to prove the immortality of the soul; the arguments for it
+are commonly derived either from metaphysical topics, or moral, or
+physical. But it is in reality the Gospel, and the Gospel alone, that
+has brought _life and immortality to light_." It is impossible to
+imagine that a man of Whately's tastes and acquirements had not read
+Hume or Hartley, though he refers to neither.
+
+ _Essay on the First Principles of Government_, Second edition,
+1771.
+
+ "Utility of Establishments," in _Essay on First Principles of
+Government_, 1771.
+
+ In 1732 Doddridge was cited for teaching without the Bishop's
+leave, at Northampton.

@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 245482,
+  "duration_api_ms": 245457,
+  "num_turns": 1,
+  "result": "```markdown\n# The server was part of the appliance\n\n\"Smart\" is doing a lot of work in that label.\n\nWhen you bought that thermostat – or the doorbell, or the lock, or the light hub – you didn't buy a thermostat. You bought a thermostat plus a data center (operated by a company whose continued solvency you had no vote in and no contract with). The server was part of the appliance. It just happened to be somewhere else, in a rack you've never seen, running software you can't inspect, copy, or take with you when the relationship ends.\n\nNow the vendor's shutting it down.\n\nWhat does that mean for the hardware in your wall? Your lock might still operate locally – or it might not, depending on whether the firmware was written to degrade gracefully or to just stop. Your thermostat's learned schedules, occupancy detection, and remote-access interface are gone the moment the API goes dark. So is the history your security camera spent months building. Revolv, which Google acquired through Nest and bricked in 2016, didn't give users any fallback at all – it just stopped working, converting a $300 hub into a plastic disc. Wink pulled a similar move a few years later, offering users a choice between a new ongoing subscription fee or a useless box. The \"smart\" part was always the cloud part (which was always the part they could revoke).\n\nThis is the original bargain vendors don't put in the brochure. When you paid for the device, you were also paying for continuous cloud services – software updates, remote APIs, voice integrations, automation hooks – and that payment came with no warranty, no service-level agreement, and no refund clause. What they sold you was a product. What they retained was control of the thing that made the product work. That's not a sale; it's a lease in a sale's clothing, and you weren't told about the lease.\n\nHere's the figure that makes this concrete. Imagine you bought a car, and the dealer kept the ignition key in a server room downtown. You could drive it fine until the dealer went bankrupt, got acquired, or just decided the server cost wasn't worth it. That's the connected appliance model – the physical object in your home isn't the thing you were depending on. The thing you were depending on – the relationship between your device and the vendor's infrastructure – was never yours to keep. They sold you a brick with a promise attached, and the promise was always theirs to revoke when the economics changed. Calling that an honest product sale is bullshit.\n\nSo what would actually protect you? Local operation. The question is whether your device can run its core functions – scheduling, automation logic, sensor reading, actuation – without ever pinging a remote server. Most can't, as shipped – and there's no good technical reason for that. It's a business model, and a pretty shitty one: a device that runs locally doesn't produce behavioral data, doesn't need your engagement with the vendor's app, doesn't give them leverage when they decide to flip to a subscription. Some hardware does this right: Zigbee and Z-Wave radios, Home Assistant-compatible devices, Matter-certified gear (built around an interoperability standard designed to survive any single vendor's exit). I've run Home Assistant on a small server in my office for years, and my automations don't care whether my thermostat vendor is still solvent. When the cloud goes dark, my lights still come on at dusk.\n\nWhat we need isn't just individual workarounds for people who know what a local network bridge is. We need manufacturers to ship with local operation as the default (not an afterthought buried in the advanced settings menu), and we need regulatory frameworks requiring vendors to release their firmware when they shutter the cloud – the same way we require a landlord to hand over the keys on the way out. If you're killing the service the product depended on, your users deserve the means to run it themselves. Locking the firmware on exit isn't winding down a business; it's sabotage dressed in a terms-of-service.\n\nThe vendors will tell you the cloud is a feature, not a dependency. That's true the way asbestos is a feature: it was, right until it wasn't, and by then it's in your walls and there's nothing to be done. When your lock goes dead because a company you've never heard of acquired the startup that made it, you'll understand exactly what \"smart\" meant. They kept the part that mattered. We got the plastic.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [],\n  \"claims\": [\n    { \"claim\": \"Revolv was acquired by Google through Nest and its service was shut down (device bricked) in 2016\", \"where\": \"paragraph 4\" },\n    { \"claim\": \"Revolv hub retailed for $300\", \"where\": \"paragraph 4\" },\n    { \"claim\": \"Wink offered users a subscription fee or abandonment after its cloud service change, described as occurring a few years after the Revolv shutdown\", \"where\": \"paragraph 4\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "393eeaa0-24c6-445e-9067-aa102f05bb6b",
+  "total_cost_usd": 0.27160395,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6859,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 16275,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6859,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 16275,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6859,
+      "webSearchRequests": 0,
+      "costUSD": 0.27160395,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "6acbf623-136f-4733-8d40-e87f8b67454b"
+}

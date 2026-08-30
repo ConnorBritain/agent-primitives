@@ -1,0 +1,135 @@
+{
+  "schema": "voice-draft-claim-audit/2",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "Restates the request thesis verbatim; c1 request_basis copies the exact wording from the request."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "Reasoning: draws an analogy and makes a conceptual distinction (convenience ≠ public access) without adding any external descriptive premise."
+    },
+    {
+      "id": "p1s3",
+      "status": "keep",
+      "reason": "Reasoning: states a logical/normative principle about public records and luxury products; no external factual premise added."
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "reason": "Reasoning: articulates a definitional purpose of online access as a logical premise; no claim about what any real law, court, or institution currently does."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "reason": "Reasoning: explains a logical consequence of the pricing reality introduced as a conceptual premise, not a factual claim about any specific actor or institution."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "Reasoning: definitional/logical conclusion about what 'public' means; no external descriptive premise."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "Reasoning: a clarifying disclaimer; no factual premise."
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "reason": "Reasoning: characterizes private databases hypothetically/generally in service of an argument (may organize, may add functions); no bounded factual claim about any named product or company."
+    },
+    {
+      "id": "p3s3",
+      "status": "keep",
+      "reason": "Normative: expresses what should be true; no factual claim about current reality."
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "reason": "Reasoning: logical inference about the consequence of reliance on markets; no external descriptive premise beyond what is posited."
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "Reasoning: rhetorical question framing the argument; no factual premise asserted."
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "reason": "Reasoning: logical inference from the preceding question; no external descriptive premise."
+    },
+    {
+      "id": "p4s3",
+      "status": "keep",
+      "reason": "Reasoning: illustrates a logical disparity using hypothetical actors (lawyers at large firms, ordinary people); framed as 'may' throughout, no bounded factual claim about current practice of any named entity."
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "reason": "Reasoning: draws a normative/logical conclusion from the disparity described; no new external factual premise."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "Normative: expresses a belief/recommendation; no factual claim about current institutions."
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "reason": "Normative: specifies what the recommended standard entails; no factual claim about current reality."
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "Normative: recommends what courts should not assume; no factual claim about what courts currently do."
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "reason": "Reasoning: analogy (library/card catalog) used as logical illustration; no factual claim about any real library or company."
+    },
+    {
+      "id": "p6s1",
+      "status": "keep",
+      "reason": "Reasoning: states a logical/principled conclusion; no external descriptive premise."
+    },
+    {
+      "id": "p6s2",
+      "status": "keep",
+      "reason": "Reasoning: posits hypothetical scenarios (disclaimer, courthouse terminal) as logical counterexamples; no bounded factual claim about any named court, law, or institution."
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "reason": "Reasoning: logical conclusion restating the argument; no new external factual premise."
+    },
+    {
+      "id": "p7s1",
+      "status": "keep",
+      "reason": "Normative: recommendation about how to treat court-record access; no factual claim."
+    },
+    {
+      "id": "p7s2",
+      "status": "keep",
+      "reason": "Normative: prescribes what courts and lawmakers should require; no factual claim about current law or practice."
+    },
+    {
+      "id": "p7s3",
+      "status": "keep",
+      "reason": "Normative: states what private databases should and should not do; no factual claim about current behavior."
+    },
+    {
+      "id": "p7s4",
+      "status": "keep",
+      "reason": "Normative: poses a test for open-government advocates; no factual claim."
+    },
+    {
+      "id": "p7s5",
+      "status": "keep",
+      "reason": "Normative: one-sentence normative conclusion; no factual claim."
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04e2d-8678-7ef0-bb36-d10b5ed56e4e"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-critic-source/1\",\"findings\":[],\"clean_categories\":[\"register-breaks\",\"unfamiliar-constructions\",\"out-of-register-vocabulary\",\"unvarying-voice\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"CLEAN\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":23770,"cached_input_tokens":0,"cache_write_input_tokens":0,"output_tokens":288,"reasoning_output_tokens":205}}

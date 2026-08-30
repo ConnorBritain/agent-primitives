@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 52,
+        "quote": "It had not now rained for an entire year."
+      },
+      "change": "delete the sentence 'It had not now rained for an entire year.' entirely",
+      "reason": "voice-critic: an aside that interrupts the description of the vegetation cycle"
+    }
+  ]
+}

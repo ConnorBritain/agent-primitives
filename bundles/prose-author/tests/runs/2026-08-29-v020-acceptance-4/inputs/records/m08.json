@@ -1,0 +1,61 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "Library lending depends on borrowers having predictable access to loaned materials.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Libraries generally acquire rights that authorize them to lend ebooks.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Library ebook lending rights are often limited by time, price, or circulation conditions.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Libraries place licensed ebook titles in their catalogs and promise borrowers defined loan periods.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Publishers may legitimately withdraw ebook titles from future public-library loans.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Rights disputes sometimes cause publishers to withdraw ebook titles from library lending.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Digital library lending applications control ebook access through licensing controls and account authorization.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Digital library lending systems use the same access-control mechanisms both to enforce due dates and to revoke access immediately.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Immediate revocation of digital library ebook access can occur without conspicuous notice to the borrower.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Physical lending imposes constraints that make mid-loan seizure more difficult than revoking digital access.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Digital library checkout screens may be designed to resemble the experience of checking out material at a physical library desk.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Publisher contracts can require ebook titles to be withdrawn from new library circulation.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Libraries can update their catalogs in response to a publisher's withdrawal of a title.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Public libraries depend on public trust to perform their institutional role.",
+      "where": "paragraph 5"
+    }
+  ]
+}

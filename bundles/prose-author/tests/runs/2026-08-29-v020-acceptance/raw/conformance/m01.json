@@ -1,0 +1,143 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"It should not.\",\"after\":\"It shouldn’t.\",\"reason\":\"Contracts one categorical negative, reducing the excess uncontracted-negative count from 6 to 5 while increasing contractions from 6 to the center aim of 7 without changing meaning.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The patch does not alter second-person or first-person-plural usage.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"revised\",\"reason\":\"The edit converts one full negative to a meaning-equivalent contraction, bringing both measured rows within range.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The opening concession and subsequent opposition remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The operational pressure-test question remains unchanged.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"No verified institution, document, quotation, or external source was supplied for attribution.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile supplies no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"Organizational plural usage and the absence of first-person-singular biography remain unchanged.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans, em dashes, and en-dash absence remain within their measured ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The draft’s concrete ownership analogies remain unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"omitted\",\"reason\":\"No verified live bill or specific development was supplied to name; the existing policy-question opening, pivot, and institutional demand remain unchanged.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: named institutions, linked documents, and attributed external language\",\"why\":\"The request supplied no verified bill, agency, organization, quotation, or source document to attribute or link.\"},{\"habit\":\"openings-endings-closure / o13: opening names a live bill or specific development\",\"why\":\"The request supplied no verified live bill or specific development to name; the draft instead opens with the policy question and preserves the instructed pivot and closing demand.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "It should not.",
+        "after": "It shouldn’t.",
+        "reason": "Contracts one categorical negative, reducing the excess uncontracted-negative count from 6 to 5 while increasing contractions from 6 to the center aim of 7 without changing meaning.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The patch does not alter second-person or first-person-plural usage."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "revised",
+        "reason": "The edit converts one full negative to a meaning-equivalent contraction, bringing both measured rows within range."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening concession and subsequent opposition remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The operational pressure-test question remains unchanged."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified institution, document, quotation, or external source was supplied for attribution."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile supplies no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "Organizational plural usage and the absence of first-person-singular biography remain unchanged."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans, em dashes, and en-dash absence remain within their measured ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft’s concrete ownership analogies remain unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified live bill or specific development was supplied to name; the existing policy-question opening, pivot, and institutional demand remain unchanged."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: named institutions, linked documents, and attributed external language",
+        "why": "The request supplied no verified bill, agency, organization, quotation, or source document to attribute or link."
+      },
+      {
+        "habit": "openings-endings-closure / o13: opening names a live bill or specific development",
+        "why": "The request supplied no verified live bill or specific development to name; the draft instead opens with the policy question and preserves the instructed pivot and closing demand."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/conformance/m01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/conformance/m01.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "dcbcb090387b3b976ddded8d07d51a359119164867515e94dd850cdec19f7bc2"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "0aaddbb7175aa875e54a65bca3989ec508aa731f3b588fff2b5bbba3c218bd66",
+    "schema_sha256": "2d0b1db4b095987bacef943229c5d18258dbd1b9ff0e43813640691b95ad89d9",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "11953bd81906e2115709a0b1fddcee78e33e9afc7d7d0b40cc066d1e771ba8e9",
+      "profile_markdown_sha256": "e8ecc389ec88fd577736d219ef70ef58237832759045d9014d3d679364ce5ab7",
+      "profile_json_sha256": "838bcd127d26c3cb8154d63cda0b8453bb60da1c05de839754697abb000f0913"
+    }
+  }
+}

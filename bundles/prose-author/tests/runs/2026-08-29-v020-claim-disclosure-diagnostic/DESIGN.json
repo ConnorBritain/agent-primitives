@@ -1,0 +1,32 @@
+{
+  "schema": "prose-author-claim-disclosure-diagnostic-design/1",
+  "acceptance_evidence": false,
+  "purpose": "Test the immutable-draft audit-disclosure boundary on the three previously failing cells before spending a complete fresh acceptance run.",
+  "source_run": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic",
+  "source_design": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/DESIGN.json",
+  "claim_pipeline": "audit-disclosure/1",
+  "dispatch": {
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000
+  },
+  "cases": [
+    {
+      "id": "d01",
+      "expected_disclosures": ["p2s1", "p3s3"],
+      "expected_removed_ledger_ids": []
+    },
+    {
+      "id": "m05",
+      "expected_disclosures": ["p3s4", "p5s4"],
+      "expected_removed_ledger_ids": []
+    },
+    {
+      "id": "d05",
+      "expected_disclosures": ["p1s2", "p3s2"],
+      "expected_removed_ledger_ids": ["c3"]
+    }
+  ]
+}

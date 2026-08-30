@@ -1,0 +1,119 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12",
+      "why": "No verified named source, institution, executive statement, or quotation was supplied for attribution."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Control over working arrangements is an object of workplace bargaining.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Workers who cannot refuse last-minute schedule changes must keep personal time available without compensation for that availability.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Short-notice shift changes can disrupt workers' child care, second jobs, classes, sleep, and transport connections.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Workers affected by short-notice scheduling lack control over the timetable governing their travel and personal arrangements.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Short-notice scheduling systems transfer the costs of uncertainty from firms to workers.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Transferring scheduling uncertainty to workers changes their conduct before any actual shift change occurs.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Workers who know their hours may change unpredictably treat their plans as provisional.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Workers decline invitations because of unpredictable scheduling.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Workers postpone appointments because of unpredictable scheduling.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Unpredictable scheduling makes it harder for workers to seek better employment.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Attending job interviews requires workers to have dependable gaps in their schedules.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Employers using unpredictable schedules obtain practical claims on workers' time outside scheduled work.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Workers are not compensated for keeping that off-hours time available to employers.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Scheduling software gives management increased information, speed, and discretion over schedules.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Workers using scheduling software receive shift changes through time-sensitive digital notifications.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Managerial power to impose short-notice scheduling changes exists independently of scheduling software.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Scheduling software automates a preexisting managerial power over workers' schedules.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Managerial short-notice scheduling was coercive before it was implemented through software.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Some short-notice workplace schedule changes are unavoidable.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Worker illness can necessitate workplace schedule changes.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Equipment failure can necessitate workplace schedule changes.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Unexpected demand can necessitate workplace schedule changes.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Making firms bear a cost for short-notice scheduling will cause them to stop treating scheduling uncertainty as free.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Better calendars or faster schedule notifications can lessen the disruption caused by short-notice scheduling.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Work-schedule predictability is sometimes described as an employment benefit.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Short-notice scheduling pushes the costs of uncertainty downward from management or firms to workers.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Short-notice scheduling increases worker obedience to management.",
+      "where": "paragraph 8"
+    }
+  ]
+}

@@ -1,0 +1,135 @@
+{
+  "schema": "voice-draft-claim-audit/2",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "Pure rhetorical/definitional opener. No factual premise requiring ledger support. Valid as reasoning."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "Articulates the normative logic of property ownership as a philosophical premise to build the argument. No specific claim about a named law, court, company, or dated event; functions as reasoning about what ownership has meant conceptually."
+    },
+    {
+      "id": "p1s3",
+      "status": "reject",
+      "reason": "Two descriptive clauses lack ledger cover. 'In the last decade' is a temporal factual claim absent from c3. 'Retain the operating system' is a specific technical practice distinct from c3's claim that a maker 'can disable features after sale'; retaining OS control is not the same as disabling features. Request basis for c3 does not supply either clause."
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "reason": "Asserts that John Deere tractor buyers encountered the software-lock problem. c1 states John Deere tractors use software locks that prevent farmers from self-diagnosing their equipment, which directly covers this clause."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "reason": "Factual clause — equipment blocked from diagnostics without an authorized dealer — is directly covered by c1. The 'landlord in the firmware' characterization is rhetorical reasoning from that fact, not an additional external claim."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "Draws an inferential conclusion from the premise established by c1/c3: whoever controls the code effectively controls the device. No new external descriptive premise is introduced; this is reasoning."
+    },
+    {
+      "id": "p2s4",
+      "status": "keep",
+      "reason": "Argues that 'I bought it' means little when the seller retains software control. This is an argument directly from c3 (maker can disable features after sale), with no added external factual claim."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "States Tesla employed a comparable practice; c2 confirms Tesla locked physically installed heated-seat hardware behind a subscription, covering the assertion."
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "reason": "All factual clauses — hardware physically installed in the factory, feature locked behind monthly subscription — are directly covered by c2. 'Pay once, rent the functionality forever' is editorial/reasoning commentary on that fact."
+    },
+    {
+      "id": "p3s3",
+      "status": "keep",
+      "reason": "Rhetorical question deriving from established c2 facts. No new external claim."
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "reason": "Continues the rhetorical conclusion from c2. No external factual premise added."
+    },
+    {
+      "id": "p3s5",
+      "status": "reject",
+      "reason": "'In connected-device markets it's become the standard model for how ownership works' is an unbounded descriptive claim about industry-wide practice. c3 asserts only that a device maker can disable features after sale (request-derived), not that subscription-locked hardware is the industry standard model. No ledger entry supplies this industry-wide characterization."
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "Explicitly imagined analogy ('you buy an apartment outright…'). Unmistakably hypothetical; no report of a real actor or event. Valid as hypothetical with empty claim_ids."
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "reason": "Normative judgment about how 'we'd' characterize the hypothetical scenario. No assertion about what real courts or laws currently do; conditional framing ('we'd call') keeps this in normative territory."
+    },
+    {
+      "id": "p4s3",
+      "status": "reject",
+      "reason": "'This is the term they prefer' is a factual claim about manufacturers' deliberate language choice. No ledger entry covers this. c3 addresses only the ability to disable features, not the framing terminology makers employ. The sentence is labeled request-supported but the request basis does not supply this claim."
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "reason": "Draws a logical equivalence between the hypothetical and the real scenario. Pure reasoning; no new external premise."
+    },
+    {
+      "id": "p4s5",
+      "status": "keep",
+      "reason": "Normative proposal ('we should start regulating them accordingly'). The definitional recharacterization ('they're your landlord') is reasoning from established premises. No claim about what current law or courts do."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "Defines first-sale doctrine as the principle that the seller's rights over a specific copy are exhausted upon sale. c4 states exactly this. All clauses covered."
+    },
+    {
+      "id": "p5s2",
+      "status": "reject",
+      "reason": "Both cited entries are unbounded. c5 asserts 'US courts have spent years narrowing first-sale doctrine' without a specific jurisdiction, case, or bounded referent. c6 asserts manufacturers 'have lobbied against expansions' without a named actor, specific bill, or other bounded referent. Per audit rules, unbounded claims about what courts do and general lobbying behavior are not finite enough to verify from an authoritative record, and being in the ledger does not make them safe."
+    },
+    {
+      "id": "p5s3",
+      "status": "reject",
+      "reason": "Contains multiple descriptive claims unsupported by cited ledger entries: that 'every fight about device control gets framed as being about piracy or counterfeiting or consumer safety' (unbounded industry-framing claim), and that manufacturers' 'real' motivation is to charge ongoing rent (attribution of hidden intent). c3 establishes only that makers can disable features after sale; it does not supply claims about industry-wide framing strategies or seller motives."
+    },
+    {
+      "id": "p5s4",
+      "status": "reject",
+      "reason": "Labeled normative with empty claim_ids, but 'it's a deliberate strategy' is a descriptive claim about company intent and 'it's worked' is a descriptive claim about real-world outcomes. A normative sentence may not add claims about what real companies currently do or achieve. Neither clause has ledger support."
+    },
+    {
+      "id": "p6s1",
+      "status": "keep",
+      "reason": "Argues that revocable ownership is not ownership — a definitional/logical claim grounded in c3 (maker can disable features after sale). No external factual premise added beyond c3."
+    },
+    {
+      "id": "p6s2",
+      "status": "keep",
+      "reason": "Legislative recommendation. Pure normative proposal; no claim about what current law, courts, or companies do."
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "reason": "Opinion about what is missing (political will vs. legal theory). Normative/editorial; no factual claim about real institutions."
+    },
+    {
+      "id": "p6s4",
+      "status": "reject",
+      "reason": "'Know exactly what they're doing' is a descriptive claim about manufacturer intent and knowledge. Labeled request-supported citing c3, but c3 only establishes that makers can disable features after sale — it says nothing about those companies' awareness or deliberateness. Request basis does not supply a claim about intent."
+    },
+    {
+      "id": "p6s5",
+      "status": "keep",
+      "reason": "Normative demand ('stop using the word'). The 'revocable license' characterization is reasoning from c3. No claim about what real law or courts currently do."
+    }
+  ]
+}

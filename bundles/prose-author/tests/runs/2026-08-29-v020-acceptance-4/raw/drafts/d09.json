@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"My answer is no: you shouldn’t put confidential intake notes into an AI summariser before tomorrow’s meeting. The convenience is real, but the decision turns on control rather than speed. If the provider can retain, inspect, reuse, or disclose the notes, your nonprofit has handed a stranger the filing cabinet and kept responsibility for every folder.\\n\\nWhat happens when you paste a client’s account into a box whose data rules nobody at the meeting can explain? It’s like hiring a temporary clerk through an unmarked door: the clerk makes a useful index, the agency keeps the original files, and the hidden landlord may still copy the keys (or change the locks). That isn’t administrative help – it’s an uncontrolled disclosure pathway.\\n\\nFor tomorrow, make the decision conditional. Don’t upload the notes. Ask the provider, in writing, whether it trains on inputs, retains prompts or outputs, permits human review, subcontracts processing, supports deletion, encrypts data, and will sign terms covering confidentiality and breach response. Require a clear answer about where processing occurs (including backups), who can access it, and how an account can be audited.\\n\\nIf those answers are satisfactory, test only with invented notes that contain no client details. Then conduct a documented privacy and security review, define approved use, restrict accounts, and have a human check every summary against the source. AI can compress language; it can’t decide which omission could hurt someone.\\n\\nUntil that work is done, use a staff-written template: presenting issue, immediate risk, requested service, consent limits, and follow-up. I’d rather defend a slower process than explain why a vulnerable person’s history became vendor data.\\n\\nRecommendation: we pause confidential use, we investigate a contracted service, and you require evidence before your team switches it on. You’re keeping automation useful when you refuse to gamble with entrusted information.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named source or attributed adversary\",\"why\":\"No specific AI service, verified source, or attributable vendor statement was supplied.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "My answer is no: you shouldn’t put confidential intake notes into an AI summariser before tomorrow’s meeting. The convenience is real, but the decision turns on control rather than speed. If the provider can retain, inspect, reuse, or disclose the notes, your nonprofit has handed a stranger the filing cabinet and kept responsibility for every folder.\n\nWhat happens when you paste a client’s account into a box whose data rules nobody at the meeting can explain? It’s like hiring a temporary clerk through an unmarked door: the clerk makes a useful index, the agency keeps the original files, and the hidden landlord may still copy the keys (or change the locks). That isn’t administrative help – it’s an uncontrolled disclosure pathway.\n\nFor tomorrow, make the decision conditional. Don’t upload the notes. Ask the provider, in writing, whether it trains on inputs, retains prompts or outputs, permits human review, subcontracts processing, supports deletion, encrypts data, and will sign terms covering confidentiality and breach response. Require a clear answer about where processing occurs (including backups), who can access it, and how an account can be audited.\n\nIf those answers are satisfactory, test only with invented notes that contain no client details. Then conduct a documented privacy and security review, define approved use, restrict accounts, and have a human check every summary against the source. AI can compress language; it can’t decide which omission could hurt someone.\n\nUntil that work is done, use a staff-written template: presenting issue, immediate risk, requested service, consent limits, and follow-up. I’d rather defend a slower process than explain why a vulnerable person’s history became vendor data.\n\nRecommendation: we pause confidential use, we investigate a contracted service, and you require evidence before your team switches it on. You’re keeping automation useful when you refuse to gamble with entrusted information.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named source or attributed adversary",
+        "why": "No specific AI service, verified source, or attributable vendor statement was supplied."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/drafts/d09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/drafts/d09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "b040ae22f529d213490ec77703e222ffad7f2a981c3ad0ac65aa5714166c8dbc",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

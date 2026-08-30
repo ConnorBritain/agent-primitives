@@ -1,0 +1,241 @@
+{
+  "schema": "voice-draft-claim-audit/1",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p1s3",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "basis": "hypothetical",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p2s4",
+      "status": "keep",
+      "basis": "hypothetical",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p2s5",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Device makers have been building post-purchase remote-modification architecture into products for approximately a decade.",
+          "request_basis": ""
+        },
+        {
+          "claim": "Firmware updates are delivered silently (e.g., at night while users are unaware), making the mechanism invisible to consumers.",
+          "request_basis": ""
+        }
+      ],
+      "reason": ""
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p3s3",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p3s5",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p3s6",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p3s7",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "John Deere has taken the position that the software running its tractors is licensed rather than sold, allowing the company to retain ongoing control over customer use of the hardware.",
+          "request_basis": ""
+        }
+      ],
+      "reason": ""
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "basis": "external-verification",
+      "claims": [
+        {
+          "claim": "Tesla has remotely modified battery range on vehicles that customers had already purchased.",
+          "request_basis": ""
+        }
+      ],
+      "reason": ""
+    },
+    {
+      "id": "p4s3",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p5s5",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p5s6",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p6s1",
+      "status": "keep",
+      "basis": "reasoning",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p6s2",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p6s4",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p6s5",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": ""
+    },
+    {
+      "id": "p6s6",
+      "status": "keep",
+      "basis": "normative",
+      "claims": [],
+      "reason": ""
+    }
+  ]
+}

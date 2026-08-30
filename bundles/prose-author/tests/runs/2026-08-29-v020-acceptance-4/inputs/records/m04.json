@@ -1,0 +1,75 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o11: source-based rebuttal and explicit credit to opponents, allies, or evidence",
+      "why": "The request supplies no specific law, bill text, opponent statement, allied organization, research, or other verified source to quote or credit."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Online age-checking laws usually use eighteen or another legislatively specified age as the threshold.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Institutions are especially likely to expand an existing access-control mechanism once they discover that it exists.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Age-checking systems can expand into identity infrastructure through institutional incentives without a coordinated plan.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Services may find a token already accepted by another service attractive for adoption.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "An agency overseeing age-check compliance may seek audit trails that more clearly record whether checks occurred.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Reusing age-checking infrastructure can reduce integration costs.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "More extensive age-checking records or shared infrastructure can make enforcement easier.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Shared age-checking infrastructure can reduce duplication among systems.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "A series of individually practical expansions of age checking can collectively produce a common credential layer.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "A credential repository or verification system becomes more valuable as more services depend on it.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "The consequences of credential-system errors increase as the credential is used for more purposes or services.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Privacy-preserving design can reduce some risks created by online age-checking systems.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Access to ordinary online life is likely to become conditioned on carrying an approved credential when age-checking systems are deployed.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Technical data minimization limits the information revealed by an individual age check.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Technical data minimization does not prevent an age-checking mechanism from being adopted for additional uses or services.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Once a credential is normalized as a condition for access to ordinary online speech, its use will expand beyond the narrow scope stated in its authorizing statute.",
+      "where": "paragraph 5"
+    }
+  ]
+}

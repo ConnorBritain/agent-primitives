@@ -6,6 +6,7 @@ date: 2026-08-03
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/08/eff-joins-18-civil-rights-organizations-calling-governor-hochul-reject-stealth
 ---
 EFF joined a group of 18 civil society organizations to send a letter encouraging New York Governor Kathy Hochul to Senate Bill 9934A, the New York Stealth Crawler Prohibition Act. The letter states:

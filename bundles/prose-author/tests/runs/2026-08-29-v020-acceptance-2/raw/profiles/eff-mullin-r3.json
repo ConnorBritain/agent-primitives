@@ -1,0 +1,124 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-profile-source/4\",\"voice_card\":\"empty\",\"measured\":{\"second-person-family\":{\"prose\":\"Direct address enters chiefly when the analysis turns into a practical invitation or asks readers to test a legal claim against ordinary experience. Keep “you” localized to calls to contact lawmakers or compact thought experiments; let the policy explanation otherwise speak about users, families, developers, or the public.\"},\"first-person-plural-family\":{\"prose\":\"First-person plural usually speaks for the organization as advocate, investigator, or participant: “we believe,” “we told them,” and “we reached out.” Use it to disclose a position or action, not to presume reader agreement; broader public stakes are better framed through named groups or shared rights.\"},\"contractions\":{\"prose\":\"Contractions keep statutory analysis in an accessible blog register and sharpen plain rebuttals: a proposal “isn’t true,” a disclaimer “doesn’t magically eliminate” risk, and companies “won’t” escape incentives. Use them in explanatory transitions, practical consequences, and emphatic corrections while retaining legal terminology around them.\"},\"uncontracted-negatives\":{\"prose\":\"Full negatives add deliberate weight when stating legal limits, unresolved facts, or firm prescriptions: a bill “does not” solve a problem, Congress “should not” impose a mandate, and users “will not” be protected. Reserve these forms for categorical findings and closing demands rather than routine conversational explanation.\"},\"first-person-singular-family\":{\"prose\":\"The individual arguer recedes behind institutional action, documentary evidence, and affected groups. Build authority through “we” for organizational conduct and through named records, statutes, courts, or coalitions for support; avoid personal anecdote or individual opinion unless a genuinely necessary viewpoint distinction cannot be expressed institutionally.\"},\"question-marks\":{\"prose\":\"Questions expose contradictions and make abstract moderation or privacy rules concrete rather than solicit open-ended discussion. Place a short cluster after explaining a vague mandate, asking what lawful users could still say or how compliance could work; answer through the consequences that follow instead of addressing a named interlocutor.\"},\"round-parenthetical-spans\":{\"prose\":\"Parentheses carry compact identifiers, definitions, age ranges, examples, and clarifications without derailing the policy line. Use them immediately after a bill name, technical system, quoted standard, or affected category when the inserted detail helps general readers decode the argument; keep the main consequence outside the aside.\"},\"em-dashes\":{\"prose\":\"Em dashes stage pivots from official description to practical consequence, insert a pointed qualification, or compress an illustrative specification into the sentence. Place them where a reassuring claim needs immediate reversal or where a consequence deserves extra stress; the surrounding sentence should remain readable if the interruption is removed.\"},\"en-dashes\":{\"prose\":\"Range-style interruption is not a stable part of the cadence; interruption and qualification are instead carried by em dashes and round parentheses. Use those established marks for pivots, examples, and clarifications, and reserve an en dash only for an unavoidable conventional range rather than as a rhetorical separator.\"}},\"qualitative\":[{\"dimensions\":[\"qualification-hedging\"],\"section\":\"register-range\",\"prose\":\"Concessions acknowledge a legitimate aim or a narrowed amendment before separating it from the mechanism’s remaining harms: transparency is “laudable,” concerns are real, and revisions matter, but consequences persist. Put the concession near the opening or section pivot, then qualify predictions with practical incentives, likelihood, or unresolved margins.\",\"support_files\":[\"california-ab-412-stalls-out-win-innovation-and-fair-use.txt\",\"congress-narrowed-guard-act-serious-problems-remain.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"kids-act-would-require-age-checks-get-online.txt\"]},{\"dimensions\":[\"opponents-allies-sources\"],\"section\":\"address\",\"prose\":\"Institutional actors are named by role—lawmakers, supporters, agencies, companies, courts—then tested against bill text, public records, studies, or linked statements. Credit coalitions and allied organizations when their participation matters. Introduce an opponent’s stated rationale fairly before correcting it through incentives, omissions, or documented consequences.\",\"support_files\":[\"congress-just-rushed-through-disastrous-copyright-office-overhaul.txt\",\"congress-narrowed-guard-act-serious-problems-remain.txt\",\"no-fakes-act-could-silence-satire-commentary-and-news.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]},{\"dimensions\":[\"figures-analogy\"],\"section\":\"figures\",\"prose\":\"Figures come from familiar systems and concrete outcomes: a registration system becomes a cumbersome card catalog, data a valuable vault, and regulation a dragnet or a movie seen before. Use a brief image after the technical setup to clarify scale, incentives, or danger; return promptly to literal policy analysis.\",\"support_files\":[\"californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"kids-online-safety-act-will-make-internet-worse-everyone.txt\",\"kids-act-would-require-age-checks-get-online.txt\"]},{\"dimensions\":[\"openings-endings-closure\"],\"section\":\"closings\",\"prose\":\"Openings identify the live legislative or technological development, summarize its advertised purpose, then pivot quickly to the central defect. Section endings crystallize a consequence in a short declarative line. Close by naming the responsible institution, stating the preferred alternative, and issuing a direct legislative or organizational demand.\",\"support_files\":[\"california-ab-412-stalls-out-win-innovation-and-fair-use.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"congress-just-rushed-through-disastrous-copyright-office-overhaul.txt\",\"kids-online-safety-act-will-make-internet-worse-everyone.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]}],\"unresolved\":{\"qualification-hedging\":null,\"opponents-allies-sources\":null,\"figures-analogy\":null,\"openings-endings-closure\":null,\"profanity-vulgarity\":\"The corpus supplies no positive profanity or vulgarity pattern and no measured functional replacement, so it cannot support a reusable instruction for this dimension.\"},\"gaps\":\"The corpus is coherent in authorship, medium, purpose, and contemporary register, but it is tightly concentrated on legislative advocacy about technology, copyright, privacy, and online speech. It therefore does not establish how the prose shifts for personal essays, technical documentation, neutral reporting, or longer-form argument. Link formatting, headings, update notices, and calls to read or contact may partly reflect the publication’s editorial template, so structural claims rely on their argumentative placement rather than exact typography. The unfilled voice card provides no independent account of intended style.\",\"observations_dropped\":0,\"multiple_voices_suspected\":false}",
+  "structured_output": {
+    "schema": "voice-profile-source/4",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct address enters chiefly when the analysis turns into a practical invitation or asks readers to test a legal claim against ordinary experience. Keep “you” localized to calls to contact lawmakers or compact thought experiments; let the policy explanation otherwise speak about users, families, developers, or the public."
+      },
+      "first-person-plural-family": {
+        "prose": "First-person plural usually speaks for the organization as advocate, investigator, or participant: “we believe,” “we told them,” and “we reached out.” Use it to disclose a position or action, not to presume reader agreement; broader public stakes are better framed through named groups or shared rights."
+      },
+      "contractions": {
+        "prose": "Contractions keep statutory analysis in an accessible blog register and sharpen plain rebuttals: a proposal “isn’t true,” a disclaimer “doesn’t magically eliminate” risk, and companies “won’t” escape incentives. Use them in explanatory transitions, practical consequences, and emphatic corrections while retaining legal terminology around them."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negatives add deliberate weight when stating legal limits, unresolved facts, or firm prescriptions: a bill “does not” solve a problem, Congress “should not” impose a mandate, and users “will not” be protected. Reserve these forms for categorical findings and closing demands rather than routine conversational explanation."
+      },
+      "first-person-singular-family": {
+        "prose": "The individual arguer recedes behind institutional action, documentary evidence, and affected groups. Build authority through “we” for organizational conduct and through named records, statutes, courts, or coalitions for support; avoid personal anecdote or individual opinion unless a genuinely necessary viewpoint distinction cannot be expressed institutionally."
+      },
+      "question-marks": {
+        "prose": "Questions expose contradictions and make abstract moderation or privacy rules concrete rather than solicit open-ended discussion. Place a short cluster after explaining a vague mandate, asking what lawful users could still say or how compliance could work; answer through the consequences that follow instead of addressing a named interlocutor."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses carry compact identifiers, definitions, age ranges, examples, and clarifications without derailing the policy line. Use them immediately after a bill name, technical system, quoted standard, or affected category when the inserted detail helps general readers decode the argument; keep the main consequence outside the aside."
+      },
+      "em-dashes": {
+        "prose": "Em dashes stage pivots from official description to practical consequence, insert a pointed qualification, or compress an illustrative specification into the sentence. Place them where a reassuring claim needs immediate reversal or where a consequence deserves extra stress; the surrounding sentence should remain readable if the interruption is removed."
+      },
+      "en-dashes": {
+        "prose": "Range-style interruption is not a stable part of the cadence; interruption and qualification are instead carried by em dashes and round parentheses. Use those established marks for pivots, examples, and clarifications, and reserve an en dash only for an unavoidable conventional range rather than as a rhetorical separator."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Concessions acknowledge a legitimate aim or a narrowed amendment before separating it from the mechanism’s remaining harms: transparency is “laudable,” concerns are real, and revisions matter, but consequences persist. Put the concession near the opening or section pivot, then qualify predictions with practical incentives, likelihood, or unresolved margins.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-act-would-require-age-checks-get-online.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "address",
+        "prose": "Institutional actors are named by role—lawmakers, supporters, agencies, companies, courts—then tested against bill text, public records, studies, or linked statements. Credit coalitions and allied organizations when their participation matters. Introduce an opponent’s stated rationale fairly before correcting it through incentives, omissions, or documented consequences.",
+        "support_files": [
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures come from familiar systems and concrete outcomes: a registration system becomes a cumbersome card catalog, data a valuable vault, and regulation a dragnet or a movie seen before. Use a brief image after the technical setup to clarify scale, incentives, or danger; return promptly to literal policy analysis.",
+        "support_files": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "kids-act-would-require-age-checks-get-online.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "closings",
+        "prose": "Openings identify the live legislative or technological development, summarize its advertised purpose, then pivot quickly to the central defect. Section endings crystallize a consequence in a short declarative line. Close by naming the responsible institution, stating the preferred alternative, and issuing a direct legislative or organizational demand.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      }
+    ],
+    "unresolved": {
+      "qualification-hedging": null,
+      "opponents-allies-sources": null,
+      "figures-analogy": null,
+      "openings-endings-closure": null,
+      "profanity-vulgarity": "The corpus supplies no positive profanity or vulgarity pattern and no measured functional replacement, so it cannot support a reusable instruction for this dimension."
+    },
+    "gaps": "The corpus is coherent in authorship, medium, purpose, and contemporary register, but it is tightly concentrated on legislative advocacy about technology, copyright, privacy, and online speech. It therefore does not establish how the prose shifts for personal essays, technical documentation, neutral reporting, or longer-form argument. Link formatting, headings, update notices, and calls to read or contact may partly reflect the publication’s editorial template, so structural claims rely on their argumentative placement rather than exact typography. The unfilled voice card provides no independent account of intended style.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/profiles/eff-mullin-r3.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/profiles/eff-mullin-r3.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93",
+    "prompt_sha256": "b8130ba80954c7de3cc607c8a70d2e17c5aa8fdd4312a702bd114ee5baeef93e",
+    "schema_sha256": "a70c7895dd56c354644ef84b30f9d9a327324242c91f8b3ffb3042343c6dd973"
+  }
+}

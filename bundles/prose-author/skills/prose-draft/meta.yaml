@@ -10,7 +10,7 @@ bundle: prose-author
 contract:
   read_only: false          # it is an author; it produces text
   writes: none              # but it writes NO files. Output goes to the session.
-  scope: passage            # v0.1: one passage, with the original beside it
+  scope: prompt-or-passage  # v0.2: blank-page drafting plus the v0.1 rewrite path
 
   # Matching tell-scan's meta.yaml, which states both explicitly.
   #
@@ -67,8 +67,10 @@ harness:
   codex:
     enforcement: advisory
     notes: >-
-      No skill dispatch. Invoke tools/exemplars.mjs and tools/verify.mjs
-      directly. The numbers are identical; nothing triggers on its own.
+      Agent discovery and context isolation depend on the Codex host. Run the
+      renderer and drafter as fresh agent/subprocess contexts, invoke the
+      deterministic profile, conformance, claim-audit, and verification tools
+      directly, and do not describe an advisory run as harness-enforced.
 
   agents-md:
     enforcement: advisory
@@ -84,3 +86,7 @@ requires:
     plugin shape, or the TELL_SCAN_PATH environment variable. Absent, verify.mjs
     reports the draft was NOT scanned and lists where it looked - the absence of
     a check, never a pass.
+  prose-review: >-
+    Supplies the independent prose-voice-critic and optional revise/fidelity
+    protocol for a gated blank-page result. If unavailable, the skill may return
+    a draft labelled UNGATED but must not claim that independent voice review ran.

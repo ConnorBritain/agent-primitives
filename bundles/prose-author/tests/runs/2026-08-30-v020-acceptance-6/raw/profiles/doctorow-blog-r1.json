@@ -1,0 +1,121 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-profile-source/4\",\"voice_card\":\"empty\",\"measured\":{\"second-person-family\":{\"prose\":\"Direct address makes the reader a participant in the argument rather than a distant observer. Use you and your when exposing a mechanism, testing a claim, or turning an abstract policy into a personal consequence; address readers most strongly in explanatory pivots and practical conclusions.\"},\"first-person-plural-family\":{\"prose\":\"Inclusive we and our periodically widen the argument from writer and reader to a shared public or affected group. Use this collective pronoun when naming common exposure, mutual responsibility, or a proposed response, while preserving enough specificity that the collective does not become vague institutional voice.\"},\"contractions\":{\"prose\":\"Contractions keep the cadence conversational and forceful, especially in transitions, rebuttals, and direct claims. Use them as the normal spoken register of the blog; reserve expanded forms for deliberate emphasis, formal quotation, or a sentence whose seriousness benefits from a slower, more explicit beat.\"},\"uncontracted-negatives\":{\"prose\":\"Expanded negative forms appear as occasional points of emphasis rather than the default conversational texture. Use an uncontracted negative when a boundary, correction, or categorical distinction needs extra weight; otherwise let the surrounding informal cadence carry the negation more lightly.\"},\"profanity-vulgarity\":{\"prose\":\"Profanity and vulgarity function as argumentative intensifiers, comic shocks, and blunt verdicts on hypocrisy or institutional harm. Place them at a pressure point after the evidence has accumulated, or in a vivid analogy; keep them selective enough to sharpen the target rather than flatten every sentence.\"},\"first-person-singular-family\":{\"prose\":\"The singular first person appears as an argumentative instrument: recalling an encounter, stating a judgment, or connecting public systems to lived attention. Use I sparingly to establish authority or continuity, then return quickly to the evidence and the reader-facing claim rather than making the piece autobiographical.\"},\"question-marks\":{\"prose\":\"Questions are usually rhetorical or diagnostic, designed to expose a contradiction and propel the next answer. Place them after a premise, quotation, or apparent solution, then follow with a plainly stated inference; occasional direct questions can also reset attention before a practical recommendation.\"},\"round-parenthetical-spans\":{\"prose\":\"Parentheses carry compact asides, qualifications, labels, and comic undercutting without derailing the main sentence. Use them after a noun or claim when the aside supplies necessary context or a quick tonal reversal; keep the governing clause readable if the parenthetical is removed.\"},\"em-dashes\":{\"prose\":\"The corpus does not use em dashes as an interruption device. For pivots, asides, or emphatic qualifications, keep the sentence’s interruption visible through other established structures, especially parentheses, commas, or a separately framed clause.\"},\"en-dashes\":{\"prose\":\"En dashes support compact pivots, ranges, and appositional turns within otherwise direct prose. Use them where a phrase needs a visible hinge or compressed qualification, particularly around a sharp contrast or embedded clarification; do not substitute them for every pause in the sentence.\"}},\"qualitative\":[{\"dimensions\":[\"qualification-hedging\"],\"section\":\"register-range\",\"prose\":\"Qualification tends to appear as explicit concessions, counterexamples, and scope limits rather than as sustained tentativeness. The prose often grants a narrow point before reversing its implication, then states the larger conclusion plainly. Place caveats immediately before the claim they refine, keeping uncertainty attached to its source.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-11-your-risk.txt\",\"2026-07-16-lucky-orifices.txt\"]},{\"dimensions\":[\"opponents-allies-sources\"],\"section\":\"register-range\",\"prose\":\"Sources enter as named writers, institutions, quotations, and linked arguments that the prose summarizes, extends, or corrects. Opponents are often identified through their claims or representative language before being answered. Introduce a source with its relevant authority, quote only the load-bearing phrase, and make the writer’s inference the final step.\",\"support_files\":[\"2026-07-10-posthuman-as-in-no-humans.txt\",\"2026-07-14-designated-survivor.txt\",\"2026-07-22-table-flipper.txt\"]},{\"dimensions\":[\"figures-analogy\"],\"section\":\"figures\",\"prose\":\"Figures make systems legible by mapping them onto concrete scenes, familiar transactions, bodily stakes, or comic reversals. Comparisons usually begin briefly, accumulate through parallel examples, and land in a political or technical conclusion. Introduce the image after the abstract claim, extend it only while it clarifies, then return to the subject.\",\"support_files\":[\"2026-07-11-your-risk.txt\",\"2026-07-13-go-meta-meta.txt\",\"2026-07-22-table-flipper.txt\"]},{\"dimensions\":[\"openings-endings-closure\"],\"section\":\"openings\",\"prose\":\"Openings commonly begin with a quoted sentence, a named object, an apparent irony, or a compact definition, then widen into the governing problem. Paragraphs often end on a sharpened implication or forward-facing question. Closings return to the central image or distinction and convert it into a concise demand, warning, or practical takeaway.\",\"support_files\":[\"2026-07-09-wilhoitian.txt\",\"2026-07-21-dickovers.txt\",\"2026-07-23-drop-a-dime.txt\"]}],\"unresolved\":{\"qualification-hedging\":null,\"opponents-allies-sources\":null,\"figures-analogy\":null,\"openings-endings-closure\":null},\"gaps\":\"The ten contemporary, untranslated blog samples establish a coherent present-day polemical register, with recurring technical explanation, source engagement, reader address, and comic intensification. The corpus does not establish how this voice shifts in private correspondence, long-form books, collaborative work, or heavily edited publication. The supplied voice card is explicitly empty, so it contributes no independent intent statement and creates no conflict to reconcile. Typographic findings are limited to marks whose repeated placement is visible in the supplied bodies.\" ,\"observations_dropped\":0,\"multiple_voices_suspected\":false}",
+  "structured_output": {
+    "schema": "voice-profile-source/4",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct address makes the reader a participant in the argument rather than a distant observer. Use you and your when exposing a mechanism, testing a claim, or turning an abstract policy into a personal consequence; address readers most strongly in explanatory pivots and practical conclusions."
+      },
+      "first-person-plural-family": {
+        "prose": "Inclusive we and our periodically widen the argument from writer and reader to a shared public or affected group. Use this collective pronoun when naming common exposure, mutual responsibility, or a proposed response, while preserving enough specificity that the collective does not become vague institutional voice."
+      },
+      "contractions": {
+        "prose": "Contractions keep the cadence conversational and forceful, especially in transitions, rebuttals, and direct claims. Use them as the normal spoken register of the blog; reserve expanded forms for deliberate emphasis, formal quotation, or a sentence whose seriousness benefits from a slower, more explicit beat."
+      },
+      "uncontracted-negatives": {
+        "prose": "Expanded negative forms appear as occasional points of emphasis rather than the default conversational texture. Use an uncontracted negative when a boundary, correction, or categorical distinction needs extra weight; otherwise let the surrounding informal cadence carry the negation more lightly."
+      },
+      "profanity-vulgarity": {
+        "prose": "Profanity and vulgarity function as argumentative intensifiers, comic shocks, and blunt verdicts on hypocrisy or institutional harm. Place them at a pressure point after the evidence has accumulated, or in a vivid analogy; keep them selective enough to sharpen the target rather than flatten every sentence."
+      },
+      "first-person-singular-family": {
+        "prose": "The singular first person appears as an argumentative instrument: recalling an encounter, stating a judgment, or connecting public systems to lived attention. Use I sparingly to establish authority or continuity, then return quickly to the evidence and the reader-facing claim rather than making the piece autobiographical."
+      },
+      "question-marks": {
+        "prose": "Questions are usually rhetorical or diagnostic, designed to expose a contradiction and propel the next answer. Place them after a premise, quotation, or apparent solution, then follow with a plainly stated inference; occasional direct questions can also reset attention before a practical recommendation."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses carry compact asides, qualifications, labels, and comic undercutting without derailing the main sentence. Use them after a noun or claim when the aside supplies necessary context or a quick tonal reversal; keep the governing clause readable if the parenthetical is removed."
+      },
+      "em-dashes": {
+        "prose": "The corpus does not use em dashes as an interruption device. For pivots, asides, or emphatic qualifications, keep the sentence’s interruption visible through other established structures, especially parentheses, commas, or a separately framed clause."
+      },
+      "en-dashes": {
+        "prose": "En dashes support compact pivots, ranges, and appositional turns within otherwise direct prose. Use them where a phrase needs a visible hinge or compressed qualification, particularly around a sharp contrast or embedded clarification; do not substitute them for every pause in the sentence."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Qualification tends to appear as explicit concessions, counterexamples, and scope limits rather than as sustained tentativeness. The prose often grants a narrow point before reversing its implication, then states the larger conclusion plainly. Place caveats immediately before the claim they refine, keeping uncertainty attached to its source.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-11-your-risk.txt",
+          "2026-07-16-lucky-orifices.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "register-range",
+        "prose": "Sources enter as named writers, institutions, quotations, and linked arguments that the prose summarizes, extends, or corrects. Opponents are often identified through their claims or representative language before being answered. Introduce a source with its relevant authority, quote only the load-bearing phrase, and make the writer’s inference the final step.",
+        "support_files": [
+          "2026-07-10-posthuman-as-in-no-humans.txt",
+          "2026-07-14-designated-survivor.txt",
+          "2026-07-22-table-flipper.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures make systems legible by mapping them onto concrete scenes, familiar transactions, bodily stakes, or comic reversals. Comparisons usually begin briefly, accumulate through parallel examples, and land in a political or technical conclusion. Introduce the image after the abstract claim, extend it only while it clarifies, then return to the subject.",
+        "support_files": [
+          "2026-07-11-your-risk.txt",
+          "2026-07-13-go-meta-meta.txt",
+          "2026-07-22-table-flipper.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "openings",
+        "prose": "Openings commonly begin with a quoted sentence, a named object, an apparent irony, or a compact definition, then widen into the governing problem. Paragraphs often end on a sharpened implication or forward-facing question. Closings return to the central image or distinction and convert it into a concise demand, warning, or practical takeaway.",
+        "support_files": [
+          "2026-07-09-wilhoitian.txt",
+          "2026-07-21-dickovers.txt",
+          "2026-07-23-drop-a-dime.txt"
+        ]
+      }
+    ],
+    "unresolved": {
+      "qualification-hedging": null,
+      "opponents-allies-sources": null,
+      "figures-analogy": null,
+      "openings-endings-closure": null
+    },
+    "gaps": "The ten contemporary, untranslated blog samples establish a coherent present-day polemical register, with recurring technical explanation, source engagement, reader address, and comic intensification. The corpus does not establish how this voice shifts in private correspondence, long-form books, collaborative work, or heavily edited publication. The supplied voice card is explicitly empty, so it contributes no independent intent statement and creates no conflict to reconcile. Typographic findings are limited to marks whose repeated placement is visible in the supplied bodies.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/profiles/doctorow-blog-r1.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/profiles/doctorow-blog-r1.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a00bdb59c95f394a801d57ae1a5d4ad29073304c3d352294261067673cc49f45"
+  },
+  "acceptance_input": {
+    "system_sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93",
+    "prompt_sha256": "e6a4231440c61bb802c808eb20adf6ffe1e888f81edd912ae82507dfbc187ef8",
+    "schema_sha256": "adfaf23dc10502c423333170341f76dd3774b79d0d2cf3989a89b3502e159d12"
+  }
+}

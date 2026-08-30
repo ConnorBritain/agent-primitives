@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"No. Returning a library book means the loan ends on the date you agreed to; what happened here was the publisher reaching into a loan and changing the deal. The screen looks similar (the file disappears), but the allocation of power is different.\\n\\nWhen you return a paper book, you act. You didn’t return anything. You carry it back, drop it through the slot, or let the due date trigger the library’s process. What happened here? Somebody else acted on your reading – the publisher withdrew the title, and the platform enforced that decision inside your loan.\\n\\nOf course, a library loan is temporary. I don’t expect permanent possession, and I’m sure that expectation is shared. But “temporary” describes when your agreed access expires; it shouldn’t mean that a distant rights-holder can install a trapdoor under the book (perhaps while you’re halfway through the final chapter). That’s less like returning a book than having a clerk enter your house and snatch it from your hands.\\n\\nThe publisher may have reasons for ending future distribution: a contract dispute, an error, a legal demand. Those reasons can explain why new readers can’t borrow the title. That still leaves an existing library reader absorbing the cost. The publisher made the decision; the library lost the ability to honor its loan; you lost the book. We should call that what it is: remote revocation.\\n\\nThat distinction matters because libraries and readers can bargain over loan periods, renewal limits, and waiting lists. We can plan around a clock. An invisible hand on a kill switch defeats any such plan (especially one pulled after reading has begun). So yes, the book was due to vanish eventually. But this wasn’t the digital version of returning it. It was the digital version of somebody taking it back early.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "No. Returning a library book means the loan ends on the date you agreed to; what happened here was the publisher reaching into a loan and changing the deal. The screen looks similar (the file disappears), but the allocation of power is different.\n\nWhen you return a paper book, you act. You didn’t return anything. You carry it back, drop it through the slot, or let the due date trigger the library’s process. What happened here? Somebody else acted on your reading – the publisher withdrew the title, and the platform enforced that decision inside your loan.\n\nOf course, a library loan is temporary. I don’t expect permanent possession, and I’m sure that expectation is shared. But “temporary” describes when your agreed access expires; it shouldn’t mean that a distant rights-holder can install a trapdoor under the book (perhaps while you’re halfway through the final chapter). That’s less like returning a book than having a clerk enter your house and snatch it from your hands.\n\nThe publisher may have reasons for ending future distribution: a contract dispute, an error, a legal demand. Those reasons can explain why new readers can’t borrow the title. That still leaves an existing library reader absorbing the cost. The publisher made the decision; the library lost the ability to honor its loan; you lost the book. We should call that what it is: remote revocation.\n\nThat distinction matters because libraries and readers can bargain over loan periods, renewal limits, and waiting lists. We can plan around a clock. An invisible hand on a kill switch defeats any such plan (especially one pulled after reading has begun). So yes, the book was due to vanish eventually. But this wasn’t the digital version of returning it. It was the digital version of somebody taking it back early.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/d08.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/d08.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "dcbcb090387b3b976ddded8d07d51a359119164867515e94dd850cdec19f7bc2"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "bb9b567f5558b75475c1414fa435dcbd0e6c05f509b412255011dab73b171ad8",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "Public court records are increasingly accessed through government electronic systems and commercial databases.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "PACER is the federal courts' electronic public-records system.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Commercial databases reorganize court-record material available from government systems and provide it to paying customers.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Providers of electronic court-record access present convenience as a promised benefit.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Institutional users can absorb court-record access fees more readily than other users.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "People unable to absorb those fees ration their court-record searches because of cost.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "The court records at issue are created and maintained by public authorities.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Court records document judicial interpretation of law, prosecutorial uses of power, and the resolution of civil disputes.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Court records include filings that never receive news coverage.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Access to court-record material supports institutional scrutiny, journalism, legal research, and informed public participation.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "A public court-record system permits technical access but makes sustained use unaffordable for some users.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Court-record access fees can appear modest when assessed one page at a time.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Court-record access fees are often described as charges per page.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Serious court-record research rarely starts with a known document.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Serious court-record inquiry requires searching, reviewing false leads, tracing related cases, and checking later docket entries such as motions, orders, exhibits, and amended complaints.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Researchers generally cannot know which court-record research path is relevant before paying to inspect records along it.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Charging for page-level inspection generates revenue from uncertainty in court-record research and raises the cost of exploratory inquiry.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Court-record access costs burden different categories of users unevenly.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Large law firms and data vendors can spread court-record database subscription costs across many clients.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Independent journalists, local advocates, small nonprofits, self-represented litigants, and community residents often cannot spread court-record subscription costs across many clients.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Private court-record databases add value beyond access to the underlying records.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Private court-record databases offer improved indexing, alerts, citation tools, and bulk-analysis capabilities.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Those database capabilities can save researchers time, especially when working across hundreds of dockets.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Some public court-record systems are difficult to search or expensive to use.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Difficulty or expense in public court-record systems can make premium private products the practical gateway to legal records.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Access gaps other than government-imposed court-record charges would remain under the proposed free public baseline.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Court-record access raises concerns in addition to cost.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Court files can contain addresses, medical information, financial records, and allegations that are later disputed.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Wider access to court files can increase harm caused by careless republication.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Wider access to court files can increase harm caused by automated profiling.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Fee-based scarcity protects people through obscurity only against users who cannot afford access, while well-funded actors can obtain the information.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Fee-based court-record access excludes users who cannot afford it.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Administering public institutions requires financial investment.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Democratic governance usually requires public investment.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Private court-record research services can continue to provide useful services above a free public-access foundation.",
+      "where": "paragraph 9"
+    }
+  ]
+}

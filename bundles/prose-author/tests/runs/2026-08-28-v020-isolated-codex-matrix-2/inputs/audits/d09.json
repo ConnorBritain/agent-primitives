@@ -1,0 +1,105 @@
+{
+  "schema": "voice-draft-claim-audit/2",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "Normative directive with no external descriptive premise; the framing of 'confidential' and the recommendation not to use a general-purpose AI service are pure judgment, covered by normative basis with empty claim_ids."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "Normative: poses a due-diligence standard (retention, inspection, training, deletion) as a requirement. No factual claim about what any real service, law, or court does; purely prescriptive."
+    },
+    {
+      "id": "p1s3",
+      "status": "keep",
+      "reason": "Reasoning: reframes the prior normative stance as client-protection rather than anti-AI. No external premise added."
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "reason": "Hypothetical: describes an imagined alternative workflow (invented notes or stripped text) as a conditional possibility, not a report about a real actor or event."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "reason": "Normative: a directive to be honest. No external factual claim."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "Reasoning: draws an inference about what a safe-sample test does and does not prove. No external descriptive premise added."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "Hypothetical: an analogy framing the AI service as an imagined escrow agent. Clearly presented as a conceptual comparison, not a report about a real actor."
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "reason": "Hypothetical: continues the imagined escrow scenario with a conditional 'you wouldn't' construction, not a claim about real behavior."
+    },
+    {
+      "id": "p3s3",
+      "status": "keep",
+      "reason": "Normative: prescribes steps (read agreement, identify custodian, limit instructions, decide on termination). No claim about what real parties currently do."
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "reason": "Normative: applies the same standard to the AI context, with a parenthetical caution about sales pitches. The parenthetical is a general caution, not a finite factual claim about a specific provider."
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "Normative: proposes a decision rule for the meeting tied to an organizational review process. No external factual claim."
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "reason": "Normative: recommends a fallback (local approved tool or manual summaries). No external factual claim."
+    },
+    {
+      "id": "p4s3",
+      "status": "keep",
+      "reason": "Reasoning: acknowledges a trade-off (manual work is slower). No external premise; concedes a self-evident comparative."
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "reason": "Hypothetical: imagines the scenario of explaining a privacy breach to a client; clearly a hypothetical consequence, not a report of a real event."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "Reasoning: poses a rhetorical counter-question to a hypothetical dismissal. No external descriptive premise."
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "reason": "Reasoning: draws an inference about who bears convenience vs. exposure within the stated scenario. No external factual claim."
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "Normative: judges the described accounting as unacceptable and directs rejection. No external factual claim."
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "reason": "Reasoning: reframes the goal of the meeting. No external premise."
+    },
+    {
+      "id": "p5s5",
+      "status": "keep",
+      "reason": "Normative: states the overriding purpose as protecting clients. No external factual claim."
+    },
+    {
+      "id": "p5s6",
+      "status": "keep",
+      "reason": "Normative: delivers the final recommendation conditional on absent safeguards. No external factual claim."
+    }
+  ]
+}

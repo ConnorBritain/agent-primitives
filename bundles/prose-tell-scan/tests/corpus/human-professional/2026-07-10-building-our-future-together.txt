@@ -6,6 +6,7 @@ date: 2026-07-10
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/building-our-future-together
 ---
 In my first weeks as Executive Director of EFF, I’ve been reminded every day how consequential this moment is in determining what kind of future we will have.

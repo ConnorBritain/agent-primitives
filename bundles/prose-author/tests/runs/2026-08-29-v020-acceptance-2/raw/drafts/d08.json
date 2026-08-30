@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"No. Returning a library book means your agreed loan ended and you gave back the copy you borrowed. So what really happened here? The publisher reached into an active loan and made the ebook disappear before its due date. The screen looks like a return; the power relationship doesn't.\\n\\nYes, an ebook loan is temporary. You never bought the file, and when the lending period expires, your access normally ends. That's the partial truth. But a due date is a promise about the temporary access you do have (not a decorative suggestion). If the lender or publisher can cancel midway, then “two weeks” means “until we change our mind.”\\n\\nImagine renting a hotel room for seven nights. The hotel still owns the room, obviously, and your key stops working on checkout morning. But if management deactivates it on night three because a supplier changed terms (or somebody in an office pressed the wrong button), nobody calls that “the digital version of checking out.” They call it a broken rental. The distinction isn't ownership versus borrowing. It's whether the borrower gets the bounded use that was offered.\\n\\nI think the anger belongs here: not because digital loans should last forever, but because institutions sold you a clock and quietly kept a trapdoor. The publisher may have had a reason to withdraw the title, and the library may have had no practical control over the platform. That explains the mechanism – it doesn't make your vanished loan a return.\\n\\nWe should be able to say this plainly. A temporary loan can expire; it shouldn't be revocable at somebody else's whim while the promised term is running. You didn't return the book. Someone upstream took it back early, and libraries and readers deserve systems that can't rewrite a loan after it is already in progress.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "No. Returning a library book means your agreed loan ended and you gave back the copy you borrowed. So what really happened here? The publisher reached into an active loan and made the ebook disappear before its due date. The screen looks like a return; the power relationship doesn't.\n\nYes, an ebook loan is temporary. You never bought the file, and when the lending period expires, your access normally ends. That's the partial truth. But a due date is a promise about the temporary access you do have (not a decorative suggestion). If the lender or publisher can cancel midway, then “two weeks” means “until we change our mind.”\n\nImagine renting a hotel room for seven nights. The hotel still owns the room, obviously, and your key stops working on checkout morning. But if management deactivates it on night three because a supplier changed terms (or somebody in an office pressed the wrong button), nobody calls that “the digital version of checking out.” They call it a broken rental. The distinction isn't ownership versus borrowing. It's whether the borrower gets the bounded use that was offered.\n\nI think the anger belongs here: not because digital loans should last forever, but because institutions sold you a clock and quietly kept a trapdoor. The publisher may have had a reason to withdraw the title, and the library may have had no practical control over the platform. That explains the mechanism – it doesn't make your vanished loan a return.\n\nWe should be able to say this plainly. A temporary loan can expire; it shouldn't be revocable at somebody else's whim while the promised term is running. You didn't return the book. Someone upstream took it back early, and libraries and readers deserve systems that can't rewrite a loan after it is already in progress.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/d08.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/d08.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "76240c5d2a845d57b0457a6019b4ee40c666d4f9dfd05f9ebba92bc378f20a07",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

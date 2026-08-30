@@ -1,0 +1,344 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"The retained disabling power and completed sale are supplied by the request; calling the resulting diminished ownership a concealed cost is an argumentative value judgment derived from that premise.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"keep\",\"reason\":\"Receiving hardware and exchanging money are ordinary entailments of a device sale; the switch is a metaphor for the supplied retained disabling power, and the qualified interface reference adds no asserted external fact.\",\"claims\":[]},{\"id\":\"p1s3\",\"status\":\"keep\",\"reason\":\"This is the requested thesis and a normative definition of full ownership based solely on the supplied retained disabling power.\",\"claims\":[]},{\"id\":\"p1s4\",\"status\":\"keep\",\"reason\":\"The remote-controlled exception figuratively restates the maker's supplied post-sale power, while assigning it to the seller follows from the maker being the selling party in the stated transaction.\",\"claims\":[]},{\"id\":\"p2s1\",\"status\":\"disclose\",\"reason\":\"The sentence characterizes an ownership principle as historically established and asserts a general effect of software on that principle; neither proposition is supplied by the request.\",\"claims\":[{\"claim\":\"A longstanding ownership rule exists that software complicates but does not eliminate.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What ownership rule is meant, how long has it existed, and what legal or historical sources establish that software complicates rather than eliminates it?\"}]},{\"id\":\"p2s2\",\"status\":\"disclose\",\"reason\":\"The sentence makes historical and legal generalizations about the limits ownership has always carried and the institutional sources of those limits.\",\"claims\":[{\"claim\":\"Ownership has historically been limited by safety rules, nuisance laws, and other people's rights.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Across which jurisdictions and periods has ownership been subject to the listed limits?\"},{\"claim\":\"The established limits on ownership arise from law and coexistence rather than a former owner's continuing command.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What legal authorities support this account of the sources of ownership limits and the exclusion of continuing control by former owners?\"}]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"Calling the supplied retained disabling power different from legal or coexistence-based limits is an argumentative distinction that adds no external premise.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"keep\",\"reason\":\"Completing the sale while retaining control restates the request's premise, and the absence of bargaining over each later change follows from the stipulated maker-held unilateral power.\",\"claims\":[]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"The importance assigned to the distinction is a value judgment; the parenthetical functions are clearly illustrative imagined examples rather than reports about actual products.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"disclose\",\"reason\":\"This is a general economic claim about how device prices are determined, which the request does not supply.\",\"claims\":[{\"claim\":\"A device's sale price reflects the bundle of functions offered with it at the time of sale.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What economic evidence shows that device prices generally reflect the functions offered at sale?\"}]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"The conditional subtraction follows from the supplied disabling power; instability, revocable license, and purchase shell are argumentative characterizations of that hypothetical bargain.\",\"claims\":[]},{\"id\":\"p3s4\",\"status\":\"keep\",\"reason\":\"This is a clearly hypothetical property analogy used to express the proposed meaning of complete title, not a report about an actual deed or legal ruling.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"Describing some possible uses of remote control as legitimate is a value judgment rather than a claim that any specified practice currently occurs.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"The stolen-device lock and dangerous-network scenarios are signalled possibilities, and the statements about need and justification are normative judgments about those imagined cases.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"keep\",\"reason\":\"This is logical policy reasoning: accepting a goal as legitimate does not by itself answer the separately identified authority, process, and restoration questions.\",\"claims\":[]},{\"id\":\"p4s4\",\"status\":\"keep\",\"reason\":\"The sentence defines the essay's policy question as broader than technical capability and adds no external descriptive premise.\",\"claims\":[]},{\"id\":\"p4s5\",\"status\":\"keep\",\"reason\":\"The request expressly supplies that software-controlled maker power can disable a device feature after sale, which entails that software can alter what the hardware does.\",\"claims\":[]},{\"id\":\"p4s6\",\"status\":\"keep\",\"reason\":\"This is a framing of the normative question about allocation of final authority, not a descriptive claim about current institutions.\",\"claims\":[]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"The timing, clarity, duration, and scope requirements are recommendations for how retained remote power should be allocated and disclosed.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This states a normative limit on what fine print should be allowed to accomplish; the inconvenience language describes the rejected rationale rather than asserting an actual company's motive.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"The sentence recommends against treating a described update-screen ultimatum as consent; the ultimatum is an illustrative scenario, not a report of a real event or prevalent practice.\",\"claims\":[]},{\"id\":\"p5s4\",\"status\":\"keep\",\"reason\":\"This is a normative definition of meaningful bargaining applied to the stated post-payment hypothetical.\",\"claims\":[]},{\"id\":\"p6s1\",\"status\":\"keep\",\"reason\":\"The proposed distinctions, disclosure requirement, and durability requirement are components of a recommended legal rule; the repair-access parenthetical is a conceptual distinction.\",\"claims\":[]},{\"id\":\"p6s2\",\"status\":\"keep\",\"reason\":\"This is a proposed restriction conditioned on an advertised feature; the server, business-model, and support-cost circumstances are hypothetical rationales the proposed rule would reject.\",\"claims\":[]},{\"id\":\"p6s3\",\"status\":\"keep\",\"reason\":\"The sentence limits the proposed obligation and does not claim that any current law or seller makes such an indefinite promise.\",\"claims\":[]},{\"id\":\"p6s4\",\"status\":\"keep\",\"reason\":\"This identifies the narrower proposed rule as a prohibition on unilateral feature subtraction.\",\"claims\":[]},{\"id\":\"p7s1\",\"status\":\"disclose\",\"reason\":\"The product-rule requirement is normative, but the assertion that existing contract law can support the proposed result is an external legal proposition.\",\"claims\":[{\"claim\":\"Contract law can support a rule barring sellers from unilaterally removing device functionality after sale.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which contract-law doctrines and jurisdictions can support this result, and under what conditions?\"}]},{\"id\":\"p7s2\",\"status\":\"disclose\",\"reason\":\"The burden allocation is a recommendation, but its stated justification makes unsupported general claims about the operational roles of parties that retain remote disabling power.\",\"claims\":[{\"claim\":\"A party that preserves remote power over a sold device generally designs the relevant system.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do sellers or makers retaining remote power generally design the relevant device and control system, including when third-party vendors are involved?\"},{\"claim\":\"A party that preserves remote power over a sold device generally writes the governing terms.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do such parties generally author or control the contractual terms governing that remote power?\"},{\"claim\":\"A party that preserves remote power over a sold device generally controls the servers on which the power depends.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Do such parties generally control the relevant servers, and what exceptions exist for third-party infrastructure or services?\"}]},{\"id\":\"p7s3\",\"status\":\"disclose\",\"reason\":\"This is a general claim about buyers' practical ability to inspect product dependencies during checkout.\",\"claims\":[{\"claim\":\"Buyers generally lack realistic means to inspect every dependency of a device at checkout.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows what dependencies buyers can identify at checkout and whether inspecting all of them is realistically possible?\"}]},{\"id\":\"p7s4\",\"status\":\"disclose\",\"reason\":\"The sentence asserts a general causal effect of clear legal defaults on the practical character and durability of ownership.\",\"claims\":[{\"claim\":\"Clear legal defaults cause ownership to operate as a durable allocation of authority rather than a stack of revocable permissions.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What legal, market, or behavioral evidence shows that clear defaults produce this change in how ownership operates?\"}]},{\"id\":\"p8s1\",\"status\":\"keep\",\"reason\":\"Refunds, restoration, and feasible repair access are recommended remedies, while the demand for remedies with teeth is a value judgment about enforcement design.\",\"claims\":[]},{\"id\":\"p8s2\",\"status\":\"disclose\",\"reason\":\"The sentence predicts general consequences when remedies are absent, including the form of notices and buyers' practical alternatives.\",\"claims\":[{\"claim\":\"Without effective remedies, disclosure of remote disabling power functions as a smokescreen rather than meaningful buyer protection.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What evidence shows that disclosure without effective remedies generally fails to provide meaningful protection?\"},{\"claim\":\"Disclosures of maker-held remote power are generally dense notices that leave buyers with no practical alternative.\",\"kind\":\"broad-generalization\",\"verification_question\":\"How dense are such notices in practice, and what practical alternatives are available to affected buyers?\"}]},{\"id\":\"p8s3\",\"status\":\"disclose\",\"reason\":\"The sentence predicts regulators' behavior and asserts a general insufficiency of advance notice; both are unsupported external propositions.\",\"claims\":[{\"claim\":\"Regulators may tend to regard advance notice of remote disabling power as sufficient protection.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Which regulators or regulatory proposals have treated, or considered treating, advance notice as sufficient?\"},{\"claim\":\"Advance notice alone does not rebalance the parties' positions after a device sale is completed.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What legal, economic, or behavioral evidence establishes the effects of notice alone on the parties' post-sale positions?\"}]},{\"id\":\"p8s4\",\"status\":\"keep\",\"reason\":\"This is a rhetorical question about an explicitly conditional market scenario; it does not assert that every comparable device actually reserves the same power.\",\"claims\":[]},{\"id\":\"p9s1\",\"status\":\"keep\",\"reason\":\"The definition, prohibition, and remedy are recommendations directed to lawmakers and do not describe current law.\",\"claims\":[]},{\"id\":\"p9s2\",\"status\":\"keep\",\"reason\":\"Protecting repair and interoperability is a recommendation, and the tether metaphor logically characterizes the stated condition of complete dependence on the maker's permission.\",\"claims\":[]},{\"id\":\"p9s3\",\"status\":\"keep\",\"reason\":\"The sentence explains how the proposed rules could be scoped: permitting specified updates and requested locks while directing those powers toward purchaser interests.\",\"claims\":[]},{\"id\":\"p9s4\",\"status\":\"keep\",\"reason\":\"This is a conditional call to action and recommendation, not a claim that any particular representative is considering legislation.\",\"claims\":[]},{\"id\":\"p9s5\",\"status\":\"keep\",\"reason\":\"The public-interest formulation is a collective normative position; meaningful control and the absence of a hidden seller veto state the proposed principle rather than current fact.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "The retained disabling power and completed sale are supplied by the request; calling the resulting diminished ownership a concealed cost is an argumentative value judgment derived from that premise.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Receiving hardware and exchanging money are ordinary entailments of a device sale; the switch is a metaphor for the supplied retained disabling power, and the qualified interface reference adds no asserted external fact.",
+        "claims": []
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "This is the requested thesis and a normative definition of full ownership based solely on the supplied retained disabling power.",
+        "claims": []
+      },
+      {
+        "id": "p1s4",
+        "status": "keep",
+        "reason": "The remote-controlled exception figuratively restates the maker's supplied post-sale power, while assigning it to the seller follows from the maker being the selling party in the stated transaction.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "disclose",
+        "reason": "The sentence characterizes an ownership principle as historically established and asserts a general effect of software on that principle; neither proposition is supplied by the request.",
+        "claims": [
+          {
+            "claim": "A longstanding ownership rule exists that software complicates but does not eliminate.",
+            "kind": "broad-generalization",
+            "verification_question": "What ownership rule is meant, how long has it existed, and what legal or historical sources establish that software complicates rather than eliminates it?"
+          }
+        ]
+      },
+      {
+        "id": "p2s2",
+        "status": "disclose",
+        "reason": "The sentence makes historical and legal generalizations about the limits ownership has always carried and the institutional sources of those limits.",
+        "claims": [
+          {
+            "claim": "Ownership has historically been limited by safety rules, nuisance laws, and other people's rights.",
+            "kind": "broad-generalization",
+            "verification_question": "Across which jurisdictions and periods has ownership been subject to the listed limits?"
+          },
+          {
+            "claim": "The established limits on ownership arise from law and coexistence rather than a former owner's continuing command.",
+            "kind": "broad-generalization",
+            "verification_question": "What legal authorities support this account of the sources of ownership limits and the exclusion of continuing control by former owners?"
+          }
+        ]
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Calling the supplied retained disabling power different from legal or coexistence-based limits is an argumentative distinction that adds no external premise.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Completing the sale while retaining control restates the request's premise, and the absence of bargaining over each later change follows from the stipulated maker-held unilateral power.",
+        "claims": []
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "The importance assigned to the distinction is a value judgment; the parenthetical functions are clearly illustrative imagined examples rather than reports about actual products.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "disclose",
+        "reason": "This is a general economic claim about how device prices are determined, which the request does not supply.",
+        "claims": [
+          {
+            "claim": "A device's sale price reflects the bundle of functions offered with it at the time of sale.",
+            "kind": "broad-generalization",
+            "verification_question": "What economic evidence shows that device prices generally reflect the functions offered at sale?"
+          }
+        ]
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "The conditional subtraction follows from the supplied disabling power; instability, revocable license, and purchase shell are argumentative characterizations of that hypothetical bargain.",
+        "claims": []
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "This is a clearly hypothetical property analogy used to express the proposed meaning of complete title, not a report about an actual deed or legal ruling.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Describing some possible uses of remote control as legitimate is a value judgment rather than a claim that any specified practice currently occurs.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "The stolen-device lock and dangerous-network scenarios are signalled possibilities, and the statements about need and justification are normative judgments about those imagined cases.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "This is logical policy reasoning: accepting a goal as legitimate does not by itself answer the separately identified authority, process, and restoration questions.",
+        "claims": []
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "The sentence defines the essay's policy question as broader than technical capability and adds no external descriptive premise.",
+        "claims": []
+      },
+      {
+        "id": "p4s5",
+        "status": "keep",
+        "reason": "The request expressly supplies that software-controlled maker power can disable a device feature after sale, which entails that software can alter what the hardware does.",
+        "claims": []
+      },
+      {
+        "id": "p4s6",
+        "status": "keep",
+        "reason": "This is a framing of the normative question about allocation of final authority, not a descriptive claim about current institutions.",
+        "claims": []
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "The timing, clarity, duration, and scope requirements are recommendations for how retained remote power should be allocated and disclosed.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This states a normative limit on what fine print should be allowed to accomplish; the inconvenience language describes the rejected rationale rather than asserting an actual company's motive.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "The sentence recommends against treating a described update-screen ultimatum as consent; the ultimatum is an illustrative scenario, not a report of a real event or prevalent practice.",
+        "claims": []
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "This is a normative definition of meaningful bargaining applied to the stated post-payment hypothetical.",
+        "claims": []
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "The proposed distinctions, disclosure requirement, and durability requirement are components of a recommended legal rule; the repair-access parenthetical is a conceptual distinction.",
+        "claims": []
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "This is a proposed restriction conditioned on an advertised feature; the server, business-model, and support-cost circumstances are hypothetical rationales the proposed rule would reject.",
+        "claims": []
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "The sentence limits the proposed obligation and does not claim that any current law or seller makes such an indefinite promise.",
+        "claims": []
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "This identifies the narrower proposed rule as a prohibition on unilateral feature subtraction.",
+        "claims": []
+      },
+      {
+        "id": "p7s1",
+        "status": "disclose",
+        "reason": "The product-rule requirement is normative, but the assertion that existing contract law can support the proposed result is an external legal proposition.",
+        "claims": [
+          {
+            "claim": "Contract law can support a rule barring sellers from unilaterally removing device functionality after sale.",
+            "kind": "broad-generalization",
+            "verification_question": "Which contract-law doctrines and jurisdictions can support this result, and under what conditions?"
+          }
+        ]
+      },
+      {
+        "id": "p7s2",
+        "status": "disclose",
+        "reason": "The burden allocation is a recommendation, but its stated justification makes unsupported general claims about the operational roles of parties that retain remote disabling power.",
+        "claims": [
+          {
+            "claim": "A party that preserves remote power over a sold device generally designs the relevant system.",
+            "kind": "broad-generalization",
+            "verification_question": "Do sellers or makers retaining remote power generally design the relevant device and control system, including when third-party vendors are involved?"
+          },
+          {
+            "claim": "A party that preserves remote power over a sold device generally writes the governing terms.",
+            "kind": "broad-generalization",
+            "verification_question": "Do such parties generally author or control the contractual terms governing that remote power?"
+          },
+          {
+            "claim": "A party that preserves remote power over a sold device generally controls the servers on which the power depends.",
+            "kind": "broad-generalization",
+            "verification_question": "Do such parties generally control the relevant servers, and what exceptions exist for third-party infrastructure or services?"
+          }
+        ]
+      },
+      {
+        "id": "p7s3",
+        "status": "disclose",
+        "reason": "This is a general claim about buyers' practical ability to inspect product dependencies during checkout.",
+        "claims": [
+          {
+            "claim": "Buyers generally lack realistic means to inspect every dependency of a device at checkout.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows what dependencies buyers can identify at checkout and whether inspecting all of them is realistically possible?"
+          }
+        ]
+      },
+      {
+        "id": "p7s4",
+        "status": "disclose",
+        "reason": "The sentence asserts a general causal effect of clear legal defaults on the practical character and durability of ownership.",
+        "claims": [
+          {
+            "claim": "Clear legal defaults cause ownership to operate as a durable allocation of authority rather than a stack of revocable permissions.",
+            "kind": "broad-generalization",
+            "verification_question": "What legal, market, or behavioral evidence shows that clear defaults produce this change in how ownership operates?"
+          }
+        ]
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Refunds, restoration, and feasible repair access are recommended remedies, while the demand for remedies with teeth is a value judgment about enforcement design.",
+        "claims": []
+      },
+      {
+        "id": "p8s2",
+        "status": "disclose",
+        "reason": "The sentence predicts general consequences when remedies are absent, including the form of notices and buyers' practical alternatives.",
+        "claims": [
+          {
+            "claim": "Without effective remedies, disclosure of remote disabling power functions as a smokescreen rather than meaningful buyer protection.",
+            "kind": "broad-generalization",
+            "verification_question": "What evidence shows that disclosure without effective remedies generally fails to provide meaningful protection?"
+          },
+          {
+            "claim": "Disclosures of maker-held remote power are generally dense notices that leave buyers with no practical alternative.",
+            "kind": "broad-generalization",
+            "verification_question": "How dense are such notices in practice, and what practical alternatives are available to affected buyers?"
+          }
+        ]
+      },
+      {
+        "id": "p8s3",
+        "status": "disclose",
+        "reason": "The sentence predicts regulators' behavior and asserts a general insufficiency of advance notice; both are unsupported external propositions.",
+        "claims": [
+          {
+            "claim": "Regulators may tend to regard advance notice of remote disabling power as sufficient protection.",
+            "kind": "broad-generalization",
+            "verification_question": "Which regulators or regulatory proposals have treated, or considered treating, advance notice as sufficient?"
+          },
+          {
+            "claim": "Advance notice alone does not rebalance the parties' positions after a device sale is completed.",
+            "kind": "broad-generalization",
+            "verification_question": "What legal, economic, or behavioral evidence establishes the effects of notice alone on the parties' post-sale positions?"
+          }
+        ]
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "This is a rhetorical question about an explicitly conditional market scenario; it does not assert that every comparable device actually reserves the same power.",
+        "claims": []
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "The definition, prohibition, and remedy are recommendations directed to lawmakers and do not describe current law.",
+        "claims": []
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "Protecting repair and interoperability is a recommendation, and the tether metaphor logically characterizes the stated condition of complete dependence on the maker's permission.",
+        "claims": []
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "The sentence explains how the proposed rules could be scoped: permitting specified updates and requested locks while directing those powers toward purchaser interests.",
+        "claims": []
+      },
+      {
+        "id": "p9s4",
+        "status": "keep",
+        "reason": "This is a conditional call to action and recommendation, not a claim that any particular representative is considering legislation.",
+        "claims": []
+      },
+      {
+        "id": "p9s5",
+        "status": "keep",
+        "reason": "The public-interest formulation is a collective normative position; meaningful control and the absence of a hidden seller veto state the proposed principle rather than current fact.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/claim-audits/m01.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "fc1781d2117539bb699ad7ccfecb7c0e302dcd546c6e3cd7d3a5b001b282b260",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+  }
+}

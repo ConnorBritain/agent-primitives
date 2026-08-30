@@ -6,6 +6,7 @@ date: 2026-07-31
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/chatbot-act-forces-one-parenting-model-every-family
 ---
 Artificial intelligence is rapidly changing education, and the way people search for information. Parents, teenagers, teachers, and schools are struggling with tough questions about when AI should, and should not, be used. It makes sense for Congress to hold hearings and examine how AI should be used by minors. But the recently introduced CHATBOT Act answers those questions with a one-size-fits-all mandate governing how teenagers access AI through federally prescribed parental monitoring systems. 

@@ -1,0 +1,142 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-profile-source/4\",\"voice_card\":\"empty\",\"measured\":{\"second-person-family\":{\"prose\":\"Direct address enters chiefly when converting analysis into reader action or placing the reader inside a practical test of a bill’s effects. Use it near a concrete hypothetical or final advocacy prompt, addressing affected residents or ordinary internet users rather than sustaining a conversational relationship throughout.\"},\"first-person-plural-family\":{\"prose\":\"The plural voice usually names EFF as investigator, advocate, or litigant, while occasionally widening to a public-interest community affected by policy. Use it to disclose institutional judgment, outreach, or participation; keep the reader distinct unless a shared civic interest is explicitly being invoked.\"},\"contractions\":{\"prose\":\"Contracted forms keep explanations of statutes and technical systems close to ordinary speech, especially in blunt rebuttals and transitions from a proposal’s stated aim to its actual effect. Use them in accessible exposition and emphatic correction so legal analysis remains direct rather than ceremonially formal.\"},\"uncontracted-negatives\":{\"prose\":\"Full negative forms give categorical legal, factual, or policy limits extra weight: a requirement does not solve the claimed problem, a protection is not adequate, or lawmakers should not proceed. Place them where the argument needs an unmistakable boundary rather than merely an informal rebuttal.\"},\"first-person-singular-family\":{\"prose\":\"Individual self-reference yields to the institutional plural, keeping personal experience from carrying the policy case. Present investigation, judgment, and advocacy as EFF’s work or as publicly verifiable analysis; reserve an individual perspective, if needed at all, for a narrowly framed illustrative aside rather than authority.\"},\"question-marks\":{\"prose\":\"Questions expose a statutory contradiction, test how a rule would operate, or enumerate lawful scenarios threatened by broad language. Pose them after explaining the legal mechanism, often in a compact sequence, then answer through consequences or let the obvious impracticality sharpen the following declarative conclusion.\"},\"round-parenthetical-spans\":{\"prose\":\"Parentheses insert bill abbreviations, age definitions, compact examples, and narrow legal qualifications without diverting the main causal line. Use them locally when a reader needs a label or boundary to understand the next claim; keep the central policy consequence in the surrounding sentence.\"},\"em-dashes\":{\"prose\":\"Em dashes sharpen pivots from official framing to practical effect, set off consequential examples, and deliver compressed corrections. Place them inside otherwise explanatory sentences when the interruption reveals the decisive complication or extends a list; let the resumed clause return promptly to the policy argument.\"},\"en-dashes\":{\"prose\":\"Use em dashes or parentheses for interruption and clarification rather than relying on en dashes as a general-purpose break. Keep en dashes confined to conventional typographic roles where necessary, so argumentative pivots remain visibly stronger and ancillary information remains clearly bracketed.\"}},\"qualitative\":[{\"dimensions\":[\"qualification-hedging\"],\"section\":\"register-range\",\"prose\":\"Concessions acknowledge a proposal’s legitimate aim or genuine underlying concern before narrowing the dispute to means, definitions, or incentives. Predictions are marked with could, may, might, likely, or will according to confidence. Place qualification before the causal critique so opposition does not depend on denying the motivating problem.\",\"support_files\":[\"california-ab-412-stalls-out-win-innovation-and-fair-use.txt\",\"californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt\",\"californias-ab-412-still-demands-developers-do-impossible.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"congress-narrowed-guard-act-serious-problems-remain.txt\",\"kids-act-would-require-age-checks-get-online.txt\",\"kids-online-safety-act-will-make-internet-worse-everyone.txt\",\"no-fakes-act-could-silence-satire-commentary-and-news.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]},{\"dimensions\":[\"opponents-allies-sources\"],\"section\":\"address\",\"prose\":\"Sources enter by institutional name and are immediately assigned a job: bill text establishes obligations, courts supply doctrine, studies or legislative records establish facts, and coalitions show organized concern. Introduce supporters’ claims fairly, then correct them by tracing incentives or omitted consequences rather than speculating about motives.\",\"support_files\":[\"california-ab-412-stalls-out-win-innovation-and-fair-use.txt\",\"californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt\",\"californias-ab-412-still-demands-developers-do-impossible.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"congress-just-rushed-through-disastrous-copyright-office-overhaul.txt\",\"congress-narrowed-guard-act-serious-problems-remain.txt\",\"court-records-should-be-free.txt\",\"kids-act-would-require-age-checks-get-online.txt\",\"no-fakes-act-could-silence-satire-commentary-and-news.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]},{\"dimensions\":[\"figures-analogy\"],\"section\":\"figures\",\"prose\":\"Figures draw from familiar infrastructure and physical danger: card catalogs, vaults, dragnet systems, death sentences, and movies already seen. Extend a comparison only far enough to make administrative burden, accumulated data, or predictable censorship tangible, then return to the legal mechanism and the affected group.\",\"support_files\":[\"californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"kids-act-would-require-age-checks-get-online.txt\",\"kids-online-safety-act-will-make-internet-worse-everyone.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]},{\"dimensions\":[\"openings-endings-closure\"],\"section\":\"closings\",\"prose\":\"Openings identify the live legislative or technological development, summarize its advertised purpose, and pivot quickly to the central harm. Section endings crystallize a consequence in plain language. Close by restating the public-interest standard and directing lawmakers, companies, or affected readers toward a specific rejection, reform, or action.\",\"support_files\":[\"california-ab-412-stalls-out-win-innovation-and-fair-use.txt\",\"californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt\",\"californias-ab-412-still-demands-developers-do-impossible.txt\",\"chatbot-act-forces-one-parenting-model-every-family.txt\",\"congress-just-rushed-through-disastrous-copyright-office-overhaul.txt\",\"congress-narrowed-guard-act-serious-problems-remain.txt\",\"court-records-should-be-free.txt\",\"kids-online-safety-act-will-make-internet-worse-everyone.txt\",\"kids-online-safety-act-will-make-internet-worse-everyone.txt\",\"no-fakes-act-could-silence-satire-commentary-and-news.txt\",\"why-are-gay-bars-building-databases-their-patrons.txt\"]}],\"unresolved\":{\"qualification-hedging\":null,\"opponents-allies-sources\":null,\"figures-analogy\":null,\"openings-endings-closure\":null,\"profanity-vulgarity\":\"The corpus contains no positive form whose rhetorical function or placement can be interpreted, and the mechanical guidance supplies no measured replacement. It therefore cannot support a drafting instruction for this dimension.\"},\"gaps\":\"The corpus establishes a coherent contemporary advocacy-blog register across technology, copyright, privacy, and online-speech legislation. It does not show how the prose changes for long-form reports, legal briefs, personal essays, or non-advocacy subjects. Link stripping preserves anchor text but limits conclusions about citation presentation, and the undelimited extraction offers no independent assurance that heading, spacing, and dash typography always reflect the writer rather than site production. The unfilled voice card supplies no stated intent against which to test these corpus-derived patterns.\",\"observations_dropped\":0,\"multiple_voices_suspected\":false}",
+  "structured_output": {
+    "schema": "voice-profile-source/4",
+    "voice_card": "empty",
+    "measured": {
+      "second-person-family": {
+        "prose": "Direct address enters chiefly when converting analysis into reader action or placing the reader inside a practical test of a bill’s effects. Use it near a concrete hypothetical or final advocacy prompt, addressing affected residents or ordinary internet users rather than sustaining a conversational relationship throughout."
+      },
+      "first-person-plural-family": {
+        "prose": "The plural voice usually names EFF as investigator, advocate, or litigant, while occasionally widening to a public-interest community affected by policy. Use it to disclose institutional judgment, outreach, or participation; keep the reader distinct unless a shared civic interest is explicitly being invoked."
+      },
+      "contractions": {
+        "prose": "Contracted forms keep explanations of statutes and technical systems close to ordinary speech, especially in blunt rebuttals and transitions from a proposal’s stated aim to its actual effect. Use them in accessible exposition and emphatic correction so legal analysis remains direct rather than ceremonially formal."
+      },
+      "uncontracted-negatives": {
+        "prose": "Full negative forms give categorical legal, factual, or policy limits extra weight: a requirement does not solve the claimed problem, a protection is not adequate, or lawmakers should not proceed. Place them where the argument needs an unmistakable boundary rather than merely an informal rebuttal."
+      },
+      "first-person-singular-family": {
+        "prose": "Individual self-reference yields to the institutional plural, keeping personal experience from carrying the policy case. Present investigation, judgment, and advocacy as EFF’s work or as publicly verifiable analysis; reserve an individual perspective, if needed at all, for a narrowly framed illustrative aside rather than authority."
+      },
+      "question-marks": {
+        "prose": "Questions expose a statutory contradiction, test how a rule would operate, or enumerate lawful scenarios threatened by broad language. Pose them after explaining the legal mechanism, often in a compact sequence, then answer through consequences or let the obvious impracticality sharpen the following declarative conclusion."
+      },
+      "round-parenthetical-spans": {
+        "prose": "Parentheses insert bill abbreviations, age definitions, compact examples, and narrow legal qualifications without diverting the main causal line. Use them locally when a reader needs a label or boundary to understand the next claim; keep the central policy consequence in the surrounding sentence."
+      },
+      "em-dashes": {
+        "prose": "Em dashes sharpen pivots from official framing to practical effect, set off consequential examples, and deliver compressed corrections. Place them inside otherwise explanatory sentences when the interruption reveals the decisive complication or extends a list; let the resumed clause return promptly to the policy argument."
+      },
+      "en-dashes": {
+        "prose": "Use em dashes or parentheses for interruption and clarification rather than relying on en dashes as a general-purpose break. Keep en dashes confined to conventional typographic roles where necessary, so argumentative pivots remain visibly stronger and ancillary information remains clearly bracketed."
+      }
+    },
+    "qualitative": [
+      {
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "section": "register-range",
+        "prose": "Concessions acknowledge a proposal’s legitimate aim or genuine underlying concern before narrowing the dispute to means, definitions, or incentives. Predictions are marked with could, may, might, likely, or will according to confidence. Place qualification before the causal critique so opposition does not depend on denying the motivating problem.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "section": "address",
+        "prose": "Sources enter by institutional name and are immediately assigned a job: bill text establishes obligations, courts supply doctrine, studies or legislative records establish facts, and coalitions show organized concern. Introduce supporters’ claims fairly, then correct them by tracing incentives or omitted consequences rather than speculating about motives.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "section": "figures",
+        "prose": "Figures draw from familiar infrastructure and physical danger: card catalogs, vaults, dragnet systems, death sentences, and movies already seen. Extend a comparison only far enough to make administrative burden, accumulated data, or predictable censorship tangible, then return to the legal mechanism and the affected group.",
+        "support_files": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      },
+      {
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "section": "closings",
+        "prose": "Openings identify the live legislative or technological development, summarize its advertised purpose, and pivot quickly to the central harm. Section endings crystallize a consequence in plain language. Close by restating the public-interest standard and directing lawmakers, companies, or affected readers toward a specific rejection, reform, or action.",
+        "support_files": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ]
+      }
+    ],
+    "unresolved": {
+      "qualification-hedging": null,
+      "opponents-allies-sources": null,
+      "figures-analogy": null,
+      "openings-endings-closure": null,
+      "profanity-vulgarity": "The corpus contains no positive form whose rhetorical function or placement can be interpreted, and the mechanical guidance supplies no measured replacement. It therefore cannot support a drafting instruction for this dimension."
+    },
+    "gaps": "The corpus establishes a coherent contemporary advocacy-blog register across technology, copyright, privacy, and online-speech legislation. It does not show how the prose changes for long-form reports, legal briefs, personal essays, or non-advocacy subjects. Link stripping preserves anchor text but limits conclusions about citation presentation, and the undelimited extraction offers no independent assurance that heading, spacing, and dash typography always reflect the writer rather than site production. The unfilled voice card supplies no stated intent against which to test these corpus-derived patterns.",
+    "observations_dropped": 0,
+    "multiple_voices_suspected": false
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-3/raw/profiles/eff-mullin-r2.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-3/raw/profiles/eff-mullin-r2.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "9cddbcb7f3bc07f8e490ffdb2f6c819bb6075214fa01f9ac8710e12dd08cba4f"
+  },
+  "acceptance_input": {
+    "system_sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93",
+    "prompt_sha256": "b8130ba80954c7de3cc607c8a70d2e17c5aa8fdd4312a702bd114ee5baeef93e",
+    "schema_sha256": "a70c7895dd56c354644ef84b30f9d9a327324242c91f8b3ffb3042343c6dd973"
+  }
+}

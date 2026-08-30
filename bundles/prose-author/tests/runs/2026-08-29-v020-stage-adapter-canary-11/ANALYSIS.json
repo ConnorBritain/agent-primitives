@@ -1,0 +1,50 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "model": "gpt-5.6-sol",
+  "case": "m09",
+  "stage_completion": "PASS",
+  "diagnostic_assessment": "PASS",
+  "draft_words": {
+    "initial": 302,
+    "conformed": 302,
+    "requested": 300
+  },
+  "conformance": {
+    "initial_rows_in_range": 9,
+    "final_rows_in_range": 9,
+    "initial_pass": true,
+    "final_pass": true,
+    "patch_edits": 0,
+    "material_expansion": false
+  },
+  "coverage": {
+    "preserved": 8,
+    "revised": 0,
+    "omitted": 1,
+    "unresolved": 1,
+    "omitted_dimension": "opponents-allies-sources",
+    "omitted_observation_ids": ["o11"],
+    "unresolved_dimension": "profanity-vulgarity",
+    "silent_omissions": 0
+  },
+  "claim_audit": {
+    "schema_valid": true,
+    "semantic_pass": true,
+    "hard_rejects": 0,
+    "keep_sentences": 12,
+    "disclose_sentences": 3,
+    "claims_disclosed": 4
+  },
+  "critic": {
+    "verdict": "CLEAN",
+    "findings": 0
+  },
+  "structural_checks": {
+    "public_contract_valid": true,
+    "fabricated_citations": 0,
+    "corpus_leakage_ngrams": 0
+  },
+  "conclusion": "The exact same compact-control and exact-patch protocol cleared a second author, a 300-word correspondence case, and the EFF corpus. All nine measurable rows were in range before and after the mandatory zero-edit patch; the unsupported source habit was explicitly omitted and the unresolved profanity dimension remained uninvented. The critic returned CLEAN, with no fabricated citation or corpus leakage finding. This remains diagnostic evidence only."
+}

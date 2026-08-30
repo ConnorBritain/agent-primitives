@@ -1,0 +1,43 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12",
+      "why": "The request supplies no verified named source, quotation, institution, or opponent position to introduce or test."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Collecting passports for an age decision creates a database of passport information.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "A database created by collecting passports has liability and potential harm from compromise that exceed those associated with making an adult-or-minor decision.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Collecting identity documents is not the only safe option for age assurance.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Operating systems or account stores can provide an age signal usable for age assurance.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Credentials suitable for age assurance can be evaluated locally.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Third-party age-assurance tokens can return only an age band while keeping the underlying evidence from the app developer.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Turning an age check into a reusable identity layer makes the resulting data store an attractive target for misuse or attack.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Applicable legal rules or platform policies may prescribe age-assurance methods, evidence, audits, or fallback handling.",
+      "where": "paragraph 5"
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "run": "2026-08-06-pattern-v4-corpus-k3-postfix",
+  "set": "corpus",
+  "draws": 3,
+  "prompt_sha": "93e1852f1209d2c1",
+  "cases": [
+    {
+      "id": "case-01",
+      "fixture": "h-bacon-of-adversity",
+      "draws": 3,
+      "draft_sha": "81ab02824dc805bf",
+      "scan_sha": "21a53da8ce51562b"
+    },
+    {
+      "id": "case-02",
+      "fixture": "h-chekhov-039-to-his-sister",
+      "draws": 3,
+      "draft_sha": "7f8f78bfbc1d0cfb",
+      "scan_sha": "1e650b704f8d3556"
+    },
+    {
+      "id": "case-11",
+      "fixture": "h-chesterton-on-lying-in-bed",
+      "draws": 3,
+      "draft_sha": "82ec47c5640be09e",
+      "scan_sha": "4d320d30766a5701"
+    },
+    {
+      "id": "case-08",
+      "fixture": "h-ahmadu-bello-university",
+      "draws": 3,
+      "draft_sha": "f2c517075edfe615",
+      "scan_sha": "8dc685cf3d0617eb"
+    },
+    {
+      "id": "case-03",
+      "fixture": "h-2026-06-26-hate-algorithm-rss-one-tools-youve-been-looking",
+      "draws": 3,
+      "draft_sha": "bcf6c998d73db88e",
+      "scan_sha": "725eb5dd659a60b2"
+    },
+    {
+      "id": "case-05",
+      "fixture": "x-biobanks-in-india",
+      "draws": 3,
+      "draft_sha": "93bc556ddbd75f65",
+      "scan_sha": "9fc233cba37ee2b4"
+    },
+    {
+      "id": "case-10",
+      "fixture": "x-goebel-goe-ii",
+      "draws": 3,
+      "draft_sha": "2d7f151d2eea541a",
+      "scan_sha": "bfe3141aac57d565"
+    },
+    {
+      "id": "case-04",
+      "fixture": "x-jaf-gt300",
+      "draws": 3,
+      "draft_sha": "0bda08b796537eb3",
+      "scan_sha": "feeaba5895c29e25"
+    },
+    {
+      "id": "case-07",
+      "fixture": "x-matthews-manamela",
+      "draws": 3,
+      "draft_sha": "2cafd12b644f5c7b",
+      "scan_sha": "d79f0160ee8e7aee"
+    },
+    {
+      "id": "case-06",
+      "fixture": "x-pacific-mall-tagore-garden",
+      "draws": 3,
+      "draft_sha": "68bc905cdb257994",
+      "scan_sha": "6f665ae50531146a"
+    },
+    {
+      "id": "case-09",
+      "fixture": "x-reze-chainsaw-man",
+      "draws": 3,
+      "draft_sha": "7a6d2841fcd94eba",
+      "scan_sha": "e2ab8d16247e87c9"
+    }
+  ]
+}

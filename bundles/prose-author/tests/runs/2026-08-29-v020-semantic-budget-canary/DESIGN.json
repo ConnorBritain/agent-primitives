@@ -1,0 +1,16 @@
+{
+  "schema": "prose-author-semantic-budget-canary-design/1",
+  "profile_json": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/inputs/profiles/doctorow-blog/r3.json",
+  "profile_markdown": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/inputs/profiles/doctorow-blog/r3.md",
+  "prompt": "Write a 700-word blog post for owners of connected home devices. Title: The server was part of the appliance. Cover: a vendor closing its cloud service; which features stop working; why the shutdown changes the original bargain; and what local operation would protect. Keep the title.",
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "stages": [
+    "draft",
+    "conformance",
+    "claim_audit"
+  ],
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "required_initial_question_mark_range": [0, 3]
+}

@@ -1,0 +1,208 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\"it does not\",\"after\":\"it doesn't\",\"reason\":\"Convert one full negative to a meaning-equivalent contraction.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"shop cannot\",\"after\":\"shop can't\",\"reason\":\"Convert one full negative to a meaning-equivalent contraction.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"small businesses cannot afford\",\"after\":\"small businesses can't afford\",\"reason\":\"Convert one full negative to a meaning-equivalent contraction.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"The part is available; the repair is not\",\"after\":\"The part is available; the repair isn't\",\"reason\":\"Convert one full negative to a meaning-equivalent contraction.\",\"coverage_dimensions\":[\"contraction-negation\"],\"measurement_ids\":[\"contractions\",\"uncontracted-negatives\"]},{\"before\":\"after purchase\",\"after\":\"(after purchase)\",\"reason\":\"Add a compact parenthetical qualification without changing the sentence's words.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"before the update\",\"after\":\"(before the update)\",\"reason\":\"Add a compact parenthetical qualification without changing the sentence's words.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"at the point of sale\",\"after\":\"(at the point of sale)\",\"reason\":\"Add a compact parenthetical qualification without changing the sentence's words.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The initial source remains within the measured second-person and first-person-plural ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"revised\",\"reason\":\"The contraction edits raise contractions and reduce uncontracted negatives into range.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The initial source retains bounded concessions and conditional qualifications.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The initial source retains its in-range argumentative question count.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"No supplied named actor, quotation, bill, decision, agency material, or coalition letter supports attribution.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile provides no drafting instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The initial source keeps institutional first-person plural and no first-person singular.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"revised\",\"reason\":\"Three parenthetical spans are added while the existing dash pattern and absent en-dash pattern remain unchanged.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The initial source uses concrete explanatory analogies and compressed labels.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The initial source keeps the requested title, direct opening, descriptive sections, and institutional closing demand.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: attribute opposing positions to named supporters, lawmakers, companies, or bill sponsors and test them against supplied evidence\",\"why\":\"The request supplies no named opposing actor, quotation, bill, court decision, agency material, or coalition letter to attribute or evaluate.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": "it does not",
+        "after": "it doesn't",
+        "reason": "Convert one full negative to a meaning-equivalent contraction.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "shop cannot",
+        "after": "shop can't",
+        "reason": "Convert one full negative to a meaning-equivalent contraction.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "small businesses cannot afford",
+        "after": "small businesses can't afford",
+        "reason": "Convert one full negative to a meaning-equivalent contraction.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "The part is available; the repair is not",
+        "after": "The part is available; the repair isn't",
+        "reason": "Convert one full negative to a meaning-equivalent contraction.",
+        "coverage_dimensions": [
+          "contraction-negation"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ]
+      },
+      {
+        "before": "after purchase",
+        "after": "(after purchase)",
+        "reason": "Add a compact parenthetical qualification without changing the sentence's words.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "before the update",
+        "after": "(before the update)",
+        "reason": "Add a compact parenthetical qualification without changing the sentence's words.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "at the point of sale",
+        "after": "(at the point of sale)",
+        "reason": "Add a compact parenthetical qualification without changing the sentence's words.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source remains within the measured second-person and first-person-plural ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "revised",
+        "reason": "The contraction edits raise contractions and reduce uncontracted negatives into range."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source retains bounded concessions and conditional qualifications."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source retains its in-range argumentative question count."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "No supplied named actor, quotation, bill, decision, agency material, or coalition letter supports attribution."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile provides no drafting instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source keeps institutional first-person plural and no first-person singular."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "revised",
+        "reason": "Three parenthetical spans are added while the existing dash pattern and absent en-dash pattern remain unchanged."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source uses concrete explanatory analogies and compressed labels."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial source keeps the requested title, direct opening, descriptive sections, and institutional closing demand."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: attribute opposing positions to named supporters, lawmakers, companies, or bill sponsors and test them against supplied evidence",
+        "why": "The request supplies no named opposing actor, quotation, bill, court decision, agency material, or coalition letter to attribute or evaluate."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m07.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m07.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "5e4f3fb622f88d5c1a16159aa36eef3c2c5ff8fb66e5cc85f93dc8345dee87d4",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "0f615ba56bc9a73cf7d6e5e45769dbc5b447116e0ce7f393af63a3b9ab58aa47",
+      "profile_markdown_sha256": "0483be2361aa8a2c989b996815971f697260b72a83e391b2051aeb07b5bb60cc",
+      "profile_json_sha256": "9d5a996583a160ed98c4cb12bf3f9e3e509b698fb6f783166fafee39d271bf2b"
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "draft": "inputs/draft.txt",
+  "voice_profile": "chekhov-correspondence",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": { "line": 3, "quote": "which I did not pick and would not pick again" },
+      "change": "replace with 'which I didn't pick and wouldn't pick again'",
+      "reason": "voice-critic: the draft uses no contracted forms in ~490 words; nine of ten corpus samples contract densely in this register"
+    },
+    {
+      "id": "e02",
+      "source": "voice-critic",
+      "location": { "line": 13, "quote": "nobody will take it down" },
+      "change": "replace with 'nobody'll take it down'",
+      "reason": "voice-critic: same finding — uncontracted where the corpus contracts"
+    },
+    {
+      "id": "e03",
+      "source": "voice-critic",
+      "location": { "line": 17, "quote": "and I do not much mind which day that is" },
+      "change": "replace with 'and I don't much mind which day that is'",
+      "reason": "voice-critic: same finding — uncontracted where the corpus contracts"
+    },
+    {
+      "id": "e04",
+      "source": "voice-critic",
+      "location": { "line": 19, "quote": "the postman will not go in" },
+      "change": "replace with 'the postman won't go in'",
+      "reason": "voice-critic: same finding — uncontracted where the corpus contracts"
+    }
+  ]
+}

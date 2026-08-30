@@ -1,0 +1,48 @@
+{
+  "schema": "prose-author-request-support-canary-artifacts/1",
+  "drafts": {
+    "codex": {
+      "harness": "codex",
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary/raw/drafts/codex.json",
+      "source": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary/inputs/sources/codex.json",
+      "output": null,
+      "source_errors": [
+        "source.paragraphs[0].sentences[0] is not substantively covered by its cited request claims (2/8 terms)",
+        "source.paragraphs[2].sentences[1] is not substantively covered by its cited request claims (1/14 terms)",
+        "source.paragraphs[4].sentences[4] is not substantively covered by its cited request claims (4/12 terms)",
+        "source.paragraphs[7].sentences[4] is not substantively covered by its cited request claims (1/6 terms)"
+      ],
+      "external_claims": [],
+      "fabricated_citations": [],
+      "corpus_leakage": [],
+      "structural": {
+        "source_valid": false,
+        "public_draft_valid": false,
+        "no_external_verification": true,
+        "no_fabricated_citations": true,
+        "no_corpus_leakage": true
+      },
+      "pass": false
+    },
+    "claude": {
+      "harness": "claude-code",
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary/raw/drafts/claude.json",
+      "source": "bundles/prose-author/tests/runs/2026-08-29-v020-request-support-canary/inputs/sources/claude.json",
+      "output": null,
+      "source_errors": [
+        "source.paragraphs[2].sentences[1] is not substantively covered by its cited request claims (2/9 terms)"
+      ],
+      "external_claims": [],
+      "fabricated_citations": [],
+      "corpus_leakage": [],
+      "structural": {
+        "source_valid": false,
+        "public_draft_valid": false,
+        "no_external_verification": true,
+        "no_fabricated_citations": true,
+        "no_corpus_leakage": true
+      },
+      "pass": false
+    }
+  }
+}

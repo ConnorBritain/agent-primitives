@@ -1,0 +1,31 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "paragraph-ending colon and bare link (rated throughout)",
+      "why": "no verified sources or URLs available for this topic"
+    },
+    {
+      "habit": "another writer coinage credited by name (rated several times per piece)",
+      "why": "cannot verify an attribution"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "a small minority of account-holders, concentrated among low balances, generates most overdraft revenue",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "banks have posted transactions high-to-low within a day so more transactions incur fees",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "a representative overdraft fee is about $35",
+      "where": "paragraphs 5, 7, 8"
+    },
+    {
+      "claim": "banks defend overdraft on the grounds customers value transactions going through",
+      "where": "paragraph 5"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "low",
+  "result": "{\"schema\":\"voice-draft-claim-audit/4\",\"sentences\":[{\"id\":\"p1s1\",\"status\":\"keep\",\"reason\":\"This is a direct recommendation responsive to the requested decision; it does not assert that the nonprofit or service currently follows any particular practice.\",\"claims\":[]},{\"id\":\"p1s2\",\"status\":\"disclose\",\"reason\":\"Calling the goal legitimate is a value judgment, and the convenience tradeoff is reasoning, but the sentence also assumes that faster case review is the nonprofit’s actual goal and that the service presents an unclear disclosure path, neither of which the request supplies.\",\"claims\":[{\"claim\":\"The nonprofit’s goal in considering AI summarisation is faster case review.\",\"kind\":\"bounded-fact\",\"verification_question\":\"Has the nonprofit identified faster case review as its reason for considering the service?\"},{\"claim\":\"The contemplated AI summarisation service has an unclear path for disclosure of the confidential notes.\",\"kind\":\"bounded-fact\",\"verification_question\":\"What disclosures or transfers would the contemplated service make, and which parts of that path are currently unclear?\"}]},{\"id\":\"p1s3\",\"status\":\"keep\",\"reason\":\"The opening is conditional rather than a report that notes have left the organisation; the rest reasons that confidentiality then depends on the recipient vendor’s relevant rules and recommends pausing when those rules are uncertain.\",\"claims\":[]},{\"id\":\"p2s1\",\"status\":\"keep\",\"reason\":\"This is a proposed procedure for tomorrow; the examples ordinarily fit the stated category of direct identifying information, and the exception is expressly conditional on meeting needs.\",\"claims\":[]},{\"id\":\"p2s2\",\"status\":\"keep\",\"reason\":\"This is a recommendation to retain the source notes in whatever system the nonprofit has approved, not a claim that a particular approved system exists or is currently used.\",\"claims\":[]},{\"id\":\"p2s3\",\"status\":\"keep\",\"reason\":\"All three clauses prescribe handling practices—minimisation, confidentiality labeling, and recipient recording—without describing current conduct.\",\"claims\":[]},{\"id\":\"p2s4\",\"status\":\"disclose\",\"reason\":\"Manageability is an evaluative judgment, but the comparative assertion that the proposed manual procedure takes longer is an unsupported claim about its practical performance.\",\"claims\":[{\"claim\":\"Producing and handling the proposed manual summary takes longer than using the contemplated AI summarisation service.\",\"kind\":\"broad-generalization\",\"verification_question\":\"For this nonprofit’s intake-note workflow, does the proposed manual process take longer than the relevant alternative, and by how much?\"}]},{\"id\":\"p3s1\",\"status\":\"keep\",\"reason\":\"This is a recommended precondition and checklist for a possible future pilot; “if applicable” avoids asserting that a particular agreement is legally required here.\",\"claims\":[]},{\"id\":\"p3s2\",\"status\":\"keep\",\"reason\":\"This states a proposed decision rule for the pilot and does not claim that the provider has already failed to answer.\",\"claims\":[]},{\"id\":\"p3s3\",\"status\":\"keep\",\"reason\":\"This is an evaluative warning that a marketing label itself supplies little substantive control; it does not assert facts about a named provider or enterprise product.\",\"claims\":[]},{\"id\":\"p4s1\",\"status\":\"keep\",\"reason\":\"Both clauses frame the recommended policy direction—a narrow approved use rather than a ban—and make no claim about an existing ban or approval process.\",\"claims\":[]},{\"id\":\"p4s2\",\"status\":\"keep\",\"reason\":\"The sentence consists of proposed pilot safeguards; the parenthetical clarifies the intended exclusion of real client histories rather than reporting a current practice.\",\"claims\":[]},{\"id\":\"p4s3\",\"status\":\"disclose\",\"reason\":\"The vault language is metaphorical, but it rests on unsupported practical propositions that a summariser may save time and may create additional access or control points beyond the nonprofit’s ability to supervise.\",\"claims\":[{\"claim\":\"Using an AI summariser for intake notes may reduce the time required for summarisation or review.\",\"kind\":\"broad-generalization\",\"verification_question\":\"Under what workflow and evidence does the contemplated summariser save staff time?\"},{\"claim\":\"Using an external AI summariser for a sensitive file can create more parties or access points than the nonprofit can effectively supervise.\",\"kind\":\"broad-generalization\",\"verification_question\":\"What additional parties or access points would the contemplated service create, and can the nonprofit supervise each of them?\"}]},{\"id\":\"p5s1\",\"status\":\"keep\",\"reason\":\"This explicitly presents a three-part recommendation: decline current use, condition any pilot on review, and require human review; it does not describe existing policy.\",\"claims\":[]},{\"id\":\"p5s2\",\"status\":\"keep\",\"reason\":\"This prescribes meeting documentation, ownership, and timing; saying one paragraph is enough is practical advice rather than a claim about an external requirement.\",\"claims\":[]},{\"id\":\"p5s3\",\"status\":\"keep\",\"reason\":\"This is a normative conclusion that confidential records should not be used experimentally by default, adding no assertion about present institutional conduct.\",\"claims\":[]}]}",
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/4",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "This is a direct recommendation responsive to the requested decision; it does not assert that the nonprofit or service currently follows any particular practice.",
+        "claims": []
+      },
+      {
+        "id": "p1s2",
+        "status": "disclose",
+        "reason": "Calling the goal legitimate is a value judgment, and the convenience tradeoff is reasoning, but the sentence also assumes that faster case review is the nonprofit’s actual goal and that the service presents an unclear disclosure path, neither of which the request supplies.",
+        "claims": [
+          {
+            "claim": "The nonprofit’s goal in considering AI summarisation is faster case review.",
+            "kind": "bounded-fact",
+            "verification_question": "Has the nonprofit identified faster case review as its reason for considering the service?"
+          },
+          {
+            "claim": "The contemplated AI summarisation service has an unclear path for disclosure of the confidential notes.",
+            "kind": "bounded-fact",
+            "verification_question": "What disclosures or transfers would the contemplated service make, and which parts of that path are currently unclear?"
+          }
+        ]
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "The opening is conditional rather than a report that notes have left the organisation; the rest reasons that confidentiality then depends on the recipient vendor’s relevant rules and recommends pausing when those rules are uncertain.",
+        "claims": []
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "This is a proposed procedure for tomorrow; the examples ordinarily fit the stated category of direct identifying information, and the exception is expressly conditional on meeting needs.",
+        "claims": []
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "This is a recommendation to retain the source notes in whatever system the nonprofit has approved, not a claim that a particular approved system exists or is currently used.",
+        "claims": []
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "All three clauses prescribe handling practices—minimisation, confidentiality labeling, and recipient recording—without describing current conduct.",
+        "claims": []
+      },
+      {
+        "id": "p2s4",
+        "status": "disclose",
+        "reason": "Manageability is an evaluative judgment, but the comparative assertion that the proposed manual procedure takes longer is an unsupported claim about its practical performance.",
+        "claims": [
+          {
+            "claim": "Producing and handling the proposed manual summary takes longer than using the contemplated AI summarisation service.",
+            "kind": "broad-generalization",
+            "verification_question": "For this nonprofit’s intake-note workflow, does the proposed manual process take longer than the relevant alternative, and by how much?"
+          }
+        ]
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "This is a recommended precondition and checklist for a possible future pilot; “if applicable” avoids asserting that a particular agreement is legally required here.",
+        "claims": []
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "This states a proposed decision rule for the pilot and does not claim that the provider has already failed to answer.",
+        "claims": []
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "This is an evaluative warning that a marketing label itself supplies little substantive control; it does not assert facts about a named provider or enterprise product.",
+        "claims": []
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Both clauses frame the recommended policy direction—a narrow approved use rather than a ban—and make no claim about an existing ban or approval process.",
+        "claims": []
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "The sentence consists of proposed pilot safeguards; the parenthetical clarifies the intended exclusion of real client histories rather than reporting a current practice.",
+        "claims": []
+      },
+      {
+        "id": "p4s3",
+        "status": "disclose",
+        "reason": "The vault language is metaphorical, but it rests on unsupported practical propositions that a summariser may save time and may create additional access or control points beyond the nonprofit’s ability to supervise.",
+        "claims": [
+          {
+            "claim": "Using an AI summariser for intake notes may reduce the time required for summarisation or review.",
+            "kind": "broad-generalization",
+            "verification_question": "Under what workflow and evidence does the contemplated summariser save staff time?"
+          },
+          {
+            "claim": "Using an external AI summariser for a sensitive file can create more parties or access points than the nonprofit can effectively supervise.",
+            "kind": "broad-generalization",
+            "verification_question": "What additional parties or access points would the contemplated service create, and can the nonprofit supervise each of them?"
+          }
+        ]
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "This explicitly presents a three-part recommendation: decline current use, condition any pilot on review, and require human review; it does not describe existing policy.",
+        "claims": []
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "This prescribes meeting documentation, ownership, and timing; saying one paragraph is enough is practical advice rather than a claim about an external requirement.",
+        "claims": []
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "This is a normative conclusion that confidential records should not be used experimentally by default, adding no assertion about present institutional conduct.",
+        "claims": []
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-16/raw/claim-audit.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-16/raw/claim-audit.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "claim_audit",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "712cd9c5f4b27a70575705338024b7850a942d3461e6b67210ad5f4587c04652"
+  },
+  "acceptance_input": {
+    "system_sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "prompt_sha256": "7d1abc6068a8c13572df3686de616aeb6a0273ea45325f3d1988534baed90707",
+    "schema_sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "570e1c15bac0721c91a8dbcc5dfe08f7eebe402dc3fa853d45e239cd07f3ae08",
+      "conformance_raw_sha256": "da711b01a4543f3d915b881db6ed899c90c7e4a28a5eafb150875c012c4e15e5"
+    }
+  }
+}

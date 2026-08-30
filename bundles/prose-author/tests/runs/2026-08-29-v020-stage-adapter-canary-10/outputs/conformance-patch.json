@@ -1,0 +1,96 @@
+{
+  "schema": "voice-draft-conformance-patch/1",
+  "edits": [],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ],
+      "disposition": "preserved",
+      "reason": "Direct address and inclusive plural reference already place readers within concrete mechanisms and shared consequences, with both measured families in range."
+    },
+    {
+      "dimension": "contraction-negation",
+      "observation_ids": [
+        "o03",
+        "o04"
+      ],
+      "disposition": "preserved",
+      "reason": "Conversational contractions remain in range, and routine uncontracted negatives remain absent within the required band."
+    },
+    {
+      "dimension": "qualification-hedging",
+      "observation_ids": [
+        "o11"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft concedes narrow benefits and limited truths immediately before explaining why they do not settle the ownership question."
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "observation_ids": [
+        "o07"
+      ],
+      "disposition": "preserved",
+      "reason": "Concrete questions organize two argumentative pivots and remain within the measured range."
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "observation_ids": [
+        "o12"
+      ],
+      "disposition": "omitted",
+      "reason": "No verified source or attributed statement was supplied, so named-source attribution and argumentative handoff cannot be added truthfully."
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "observation_ids": [
+        "o05"
+      ],
+      "disposition": "preserved",
+      "reason": "A single profane verdict follows the exposure of a euphemistic sales arrangement and remains within range."
+    },
+    {
+      "dimension": "self-reference-biography",
+      "observation_ids": [
+        "o06"
+      ],
+      "disposition": "preserved",
+      "reason": "First-person singular appears as explainer and participant without inventing personal history, and its measured count remains in range."
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "observation_ids": [
+        "o08",
+        "o09",
+        "o10"
+      ],
+      "disposition": "preserved",
+      "reason": "Parenthetical spans and en-dash turns remain in range, while em dashes remain absent within the required band."
+    },
+    {
+      "dimension": "figures-analogy",
+      "observation_ids": [
+        "o13"
+      ],
+      "disposition": "preserved",
+      "reason": "The workshop, landlord, master-key, fire-brake, and machinery figures operationalize remote authority before returning to literal policy stakes."
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "observation_ids": [
+        "o14"
+      ],
+      "disposition": "preserved",
+      "reason": "The opening states the ownership thesis and mechanism directly; the closing renews the distinction between a sale and retained control without introducing a new subject."
+    }
+  ],
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12: named-source attribution and argumentative handoff",
+      "why": "The request supplied no verified source or attributed statement to credit."
+    }
+  ]
+}

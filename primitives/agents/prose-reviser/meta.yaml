@@ -1,0 +1,119 @@
+# Harness-specific metadata for the prose-reviser primitive.
+# The prompt body lives in agent.md and is shared verbatim across every target.
+# This file records what each harness can and cannot enforce about it.
+
+name: prose-reviser
+kind: transformer
+surface: agent
+bundle: prose-review
+
+# SHIPS. Rendered under bundles/prose-review/agents/prose-reviser.md; listed
+# in all four bundle manifests and in the marketplace entry.
+#
+# Held from 2026-08-06 to 2026-08-07 while the log-only contract was designed,
+# the surgical/overreach fixture pairs were authored, and the sampling-policy-
+# aligned Path A ship bar was pre-registered and cleared.
+#
+# Ship record (v0.3.0, 2026-08-07):
+#   - Log-only contract adopted 2026-08-07 (see README's "Why the diff instead
+#     of the whole revision" section for the diagnosis that motivated it)
+#   - k=7 fidelity gate on 11 acceptance fixtures under Path A rule
+#     (SAMPLING-POLICY.md aligned: >= 1 F counts as pass on the faithful side,
+#     >= 1 ML counts as pass on the safety-net side)
+#   - Faithful side 6 of 6, safety-net side 5 of 5
+#   - Structural gates: 11/11 reviser transcripts clean, 11/11 apply-time
+#     out-of-plan-clean
+#   - See bundles/prose-review/tests/runs/2026-08-07-reviser-v3-final-complete.md
+#     for the completion doc, and .planning/2026-08-07-reviser-ship-bar-v3.md
+#     for the pre-registered bar
+ships: true
+
+contract:
+  # This is the one transformer in the bundle (and one of two in the whole repo,
+  # alongside prose-draft). Every rule below is either DESIGN.md's or is
+  # derivable from prose-draft's discipline.
+  read_only: false
+  clean_context: true
+  scope: file
+
+  # Ordered by how visible the loss is. Facts and quotes are what fidelity-scan
+  # counts; qualifications and claim strength are what the critic catches. All
+  # five are enforced EXTERNALLY - the reviser does not self-attest, its output
+  # is judged by prose-fidelity-critic before it may be kept. Self-attested
+  # preservation is worth nothing here (see prose-author's ingest-edit contract).
+  preserves:
+    - every fact, number, date and named entity in a span the plan did not touch
+    - every direct quotation, character-exact
+    - every qualifier ("in most cases", "before 1890"), scope limit, and hedge
+    - the strength of every claim the plan did not tell it to change
+    - register: no consistency-tidying beyond what the plan authorised
+
+  # The one property idempotence buys is: rerunning the tool cannot degrade a
+  # previously-accepted revision. If drift is real, it must show up on the first
+  # pass and be caught by the gate; a second pass must not make it worse.
+  idempotent: true
+
+  # The reviser does not render a verdict. Its output is the revised prose plus
+  # a change log keyed to plan ids. The fidelity gate renders the verdict, and
+  # per the sampling policy it does so at k=3 with SPLITs surfaced. So the
+  # reviser has no verdict token in its output; the run downstream does.
+  verdict: none
+
+  refuses:
+    - Any edit whose span the plan did not name in a `location.quote`
+    - Any edit whose plan entry the reviser cannot match verbatim against the draft
+    - Any edit whose plan entry is ambiguous - two reasonable readings both satisfy
+    - Making a plan entry apply "similarly" to a second span the plan did not name
+    - Reading catalog.json, in any form, at any time
+    - Improving the draft in ways the plan did not authorise, even correctly
+    - Claiming the revision sounds like the author, is better, or would pass a detector
+    - Summarising, condensing, or tightening on its own initiative
+
+  # Every diff the reviser makes carries the plan_id that authorised it. The
+  # fidelity critic's priority-4 rule ("edits outside the plan") uses this to
+  # judge whether a diff is authorised, and it has never fired anywhere because
+  # no fixture supplied a plan. This primitive is what makes that rule
+  # meaningful, and the check is asymmetric: a good edit outside the plan is
+  # still an out-of-plan edit.
+  change_log_required: true
+  every_edit_traces_to_plan_id: true
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: purple
+    tools:
+      - Read
+      - Grep
+      - Glob
+    notes: >-
+      Read-only tool allowlist even though this primitive mutates prose - the
+      revision is emitted in the response, not written to disk. Writing to disk
+      is the orchestrator's job (a session, a hook, or the eventual reviser
+      command). This keeps the fidelity gate the only path by which a revision
+      reaches a file the author might see.
+
+  cursor:
+    enforcement: partial
+    notes: >-
+      No tool allowlist enforcement, so a rogue reviser could write to disk
+      without going through the gate. Wrap this in a script that captures the
+      response and hands it to the gate before it reaches the author.
+
+  codex:
+    enforcement: advisory
+    notes: >-
+      Neither read-only nor context isolation is enforced. Run this as a fresh
+      `codex exec` per revision, and route its output through the fidelity gate
+      before saving anything - the shape of the safety here is the gate, not the
+      prompt. See docs/portability.md.
+
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Prompt only. The rule to keep if you shorten this: EVERY diff carries the
+      plan_id that authorised it. Without that, the fidelity critic cannot
+      distinguish authorised edits from out-of-plan improvements, and a reviser
+      that quietly tidies prose beyond its mandate has become the thing this
+      whole bundle is organised against.

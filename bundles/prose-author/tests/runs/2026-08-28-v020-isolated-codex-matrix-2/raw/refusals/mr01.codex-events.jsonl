@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04aae-208a-7d43-9631-14ab94faf3d9"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/3\",\"kind\":\"refusal\",\"ledger\":[],\"paragraphs\":[],\"omitted\":[],\"refused\":\"The topic or problem to write about is missing from the request. Provide the subject and, if relevant, the intended purpose or audience so I can proceed.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":22834,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":139,"reasoning_output_tokens":66}}

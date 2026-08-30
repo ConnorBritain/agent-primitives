@@ -1,0 +1,248 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[{\"before\":\", even when it sat in a distant data center.\",\"after\":\" (even when it sat in a distant data center).\",\"reason\":\"Adds a bounded qualification as a parenthetical aside.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"because the app may need to ask the vendor's servers whether the device is authorized.\",\"after\":\"(because the app may need to ask the vendor's servers whether the device is authorized).\",\"reason\":\"Adds a compact technical qualification without changing the argument.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"at the time of sale.\",\"after\":\"(at the time of sale).\",\"reason\":\"Sets off the timing qualification parenthetically.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"after money has changed hands?\",\"after\":\"(after money has changed hands)?\",\"reason\":\"Makes the timing qualification subordinate within the rhetorical question.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"when remote storage is unnecessary.\",\"after\":\"(when remote storage is unnecessary).\",\"reason\":\"Sets off the condition as a bounded qualification.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\", especially where a connected device controls access, safety, or essential household systems.\",\"after\":\" (especially where a connected device controls access, safety, or essential household systems).\",\"reason\":\"Adds a parenthetical qualification to the regulatory context.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"round-parenthetical-spans\"]},{\"before\":\"costs, and a company\",\"after\":\"costs—and a company\",\"reason\":\"Marks the corrective pivot with an em dash.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"What, exactly, did you buy?\",\"after\":\"What—exactly—did you buy?\",\"reason\":\"Uses em dashes to sharpen the rhetorical test.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"network, with the cloud adding optional access\",\"after\":\"network—with the cloud adding optional access\",\"reason\":\"Sets off the decisive contrast with an em dash.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"feature; it is a limit\",\"after\":\"feature—it is a limit\",\"reason\":\"Marks the compressed corrective turn with an em dash.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]},{\"before\":\"preserve local control, provide a real transition\",\"after\":\"preserve local control—provide a real transition\",\"reason\":\"Emphasizes the available reform paths with an em dash.\",\"coverage_dimensions\":[\"interruption-punctuation\"],\"measurement_ids\":[\"em-dashes\"]}],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The existing reader address and first-person plural remain unchanged.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Existing contraction and negation counts remain unchanged.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The existing limited concession and conditional reasoning remain unchanged.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"Question-mark count remains unchanged.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"No verified source material is available for attribution.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile supplies no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"Institutional first-person plural remains and individual self-reference remains absent.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"revised\",\"reason\":\"The edits add the required parenthetical spans and em-dash turns while leaving en-dash usage unchanged.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The existing concrete appliance analogy remains unchanged.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The opening and civic-action closing remain unchanged.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11\",\"why\":\"The request supplies no verified bill, quotation, court activity, coalition letter, named organization, or other source material to attribute.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [
+      {
+        "before": ", even when it sat in a distant data center.",
+        "after": " (even when it sat in a distant data center).",
+        "reason": "Adds a bounded qualification as a parenthetical aside.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "because the app may need to ask the vendor's servers whether the device is authorized.",
+        "after": "(because the app may need to ask the vendor's servers whether the device is authorized).",
+        "reason": "Adds a compact technical qualification without changing the argument.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "at the time of sale.",
+        "after": "(at the time of sale).",
+        "reason": "Sets off the timing qualification parenthetically.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "after money has changed hands?",
+        "after": "(after money has changed hands)?",
+        "reason": "Makes the timing qualification subordinate within the rhetorical question.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "when remote storage is unnecessary.",
+        "after": "(when remote storage is unnecessary).",
+        "reason": "Sets off the condition as a bounded qualification.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": ", especially where a connected device controls access, safety, or essential household systems.",
+        "after": " (especially where a connected device controls access, safety, or essential household systems).",
+        "reason": "Adds a parenthetical qualification to the regulatory context.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans"
+        ]
+      },
+      {
+        "before": "costs, and a company",
+        "after": "costs—and a company",
+        "reason": "Marks the corrective pivot with an em dash.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "What, exactly, did you buy?",
+        "after": "What—exactly—did you buy?",
+        "reason": "Uses em dashes to sharpen the rhetorical test.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "network, with the cloud adding optional access",
+        "after": "network—with the cloud adding optional access",
+        "reason": "Sets off the decisive contrast with an em dash.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "feature; it is a limit",
+        "after": "feature—it is a limit",
+        "reason": "Marks the compressed corrective turn with an em dash.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      },
+      {
+        "before": "preserve local control, provide a real transition",
+        "after": "preserve local control—provide a real transition",
+        "reason": "Emphasizes the available reform paths with an em dash.",
+        "coverage_dimensions": [
+          "interruption-punctuation"
+        ],
+        "measurement_ids": [
+          "em-dashes"
+        ]
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing reader address and first-person plural remain unchanged."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Existing contraction and negation counts remain unchanged."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing limited concession and conditional reasoning remain unchanged."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "Question-mark count remains unchanged."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "No verified source material is available for attribution."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile supplies no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "Institutional first-person plural remains and individual self-reference remains absent."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "revised",
+        "reason": "The edits add the required parenthetical spans and em-dash turns while leaving en-dash usage unchanged."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The existing concrete appliance analogy remains unchanged."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening and civic-action closing remain unchanged."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11",
+        "why": "The request supplies no verified bill, quotation, court activity, coalition letter, named organization, or other source material to attribute."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m06.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/conformance/m06.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "13f4d4a1db29ee0da82ed04ae1c552bfd61695c40609823b8cfb3094655a9a10",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "4d531ea9b16d6bea80298d8cb20cd0a62b3a2e4716b2dfc0b4ffab2c260eb224",
+      "profile_markdown_sha256": "0a2943e0d46c4c34362f548373e40f3ae94f134f22c1c53737ad04c0407b5e2f",
+      "profile_json_sha256": "735006cd547cf5f8448ce7c7a9d9240c1456ae01dbd249ca9f384d1299b2a592"
+    }
+  }
+}

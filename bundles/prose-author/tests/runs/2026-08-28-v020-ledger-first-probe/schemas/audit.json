@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "voice-draft-claim-audit/2"
+    },
+    "sentences": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^p[1-9][0-9]*s[1-9][0-9]*$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "keep",
+              "reject"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "reason"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "sentences"
+  ]
+}

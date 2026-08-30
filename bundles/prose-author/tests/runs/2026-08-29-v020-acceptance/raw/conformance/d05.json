@@ -1,0 +1,122 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"Both measured person and reader stance rows are already within their allowed ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"The paired contraction and uncontracted-negative measurements are already within their allowed ranges.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The bounded concession and subsequent narrowing are already present.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"The question-mark measurement is already within its allowed range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The draft identifies and answers the gatekeeper's claim without requiring unsupported source material.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The profanity measurement is already within its allowed range.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The first-person-singular measurement is already within its allowed range and introduces no unsupported biography.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans, em dashes, and en dashes are all already within their allowed ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The market, casino, costume, theater, and machinery figures already make the power mechanism concrete.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The opening reveals hidden gatekeeper power and the ending returns to the distinction between displayed options and meaningful choice.\"}],\"omitted\":[]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "Both measured person and reader stance rows are already within their allowed ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "The paired contraction and uncontracted-negative measurements are already within their allowed ranges."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The bounded concession and subsequent narrowing are already present."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "The question-mark measurement is already within its allowed range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft identifies and answers the gatekeeper's claim without requiring unsupported source material."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The profanity measurement is already within its allowed range."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The first-person-singular measurement is already within its allowed range and introduces no unsupported biography."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans, em dashes, and en dashes are all already within their allowed ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The market, casino, costume, theater, and machinery figures already make the power mechanism concrete."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The opening reveals hidden gatekeeper power and the ending returns to the distinction between displayed options and meaningful choice."
+      }
+    ],
+    "omitted": []
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/conformance/d05.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/conformance/d05.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "dcbcb090387b3b976ddded8d07d51a359119164867515e94dd850cdec19f7bc2"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "3f3abfd324a91fffe20f3e86adde148b04fcfd2065a33488ff1ec05f682ee2a2",
+    "schema_sha256": "2d0b1db4b095987bacef943229c5d18258dbd1b9ff0e43813640691b95ad89d9",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "d6ebf5d874198665bc6ad20c0b539cd53438328f4775c197dd6395c689db4103",
+      "profile_markdown_sha256": "db0e1a288ec94afdaa85ac0e53c3188ed90a01541d60c6c0bfe1931766f508a7",
+      "profile_json_sha256": "ad17d6192fe2427c100485a2d54b032ce555929241f3bbe950d703271f7afe2b"
+    }
+  }
+}

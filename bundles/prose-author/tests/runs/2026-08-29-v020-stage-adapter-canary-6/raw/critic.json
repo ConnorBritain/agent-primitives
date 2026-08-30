@@ -1,0 +1,50 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[{\"location\":\"Lines 1–17, entire draft; e.g. “Ownership is the promise that a thing remains yours after the money changes hands.”\",\"what\":\"The draft maintains a restrained, abstract, carefully qualified essay register, unlike the corpus’s consistently conversational, polemical, and aggressively colloquial register.\",\"corpus_evidence\":\"The corpus repeatedly uses direct colloquialisms and profanity—“This is bullshit,” “fuck off,” and “holy shit”—alongside blunt rhetorical attacks, as in 2026-07-21-dickovers.txt and 2026-07-16-lucky-orifices.txt.\",\"confidence\":\"high\"}],\"clean_categories\":[\"unfamiliar-constructions\",\"out-of-register-vocabulary\",\"flattened-rhythm\",\"unvarying-voice\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"REVISE\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [
+      {
+        "location": "Lines 1–17, entire draft; e.g. “Ownership is the promise that a thing remains yours after the money changes hands.”",
+        "what": "The draft maintains a restrained, abstract, carefully qualified essay register, unlike the corpus’s consistently conversational, polemical, and aggressively colloquial register.",
+        "corpus_evidence": "The corpus repeatedly uses direct colloquialisms and profanity—“This is bullshit,” “fuck off,” and “holy shit”—alongside blunt rhetorical attacks, as in 2026-07-21-dickovers.txt and 2026-07-16-lucky-orifices.txt.",
+        "confidence": "high"
+      }
+    ],
+    "clean_categories": [
+      "unfamiliar-constructions",
+      "out-of-register-vocabulary",
+      "flattened-rhythm",
+      "unvarying-voice"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "Category 4 was not assessed because no deterministic rhythm scan was supplied.",
+    "verdict": "REVISE"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-6/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "823617b15deeda61a7c8c3f1cf727c759eb32ea51291a2f1821b9b20f0b3f5d7"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "715b52d57a9073aef1f394bd400e5a55416c8af07522bac79c2a5326120de8a9",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "draft_raw_sha256": "8186874b29901d393750b6c000bb1dd037bd3cf2cb36451f7bdcc0b84854d7fe",
+      "audit_raw_sha256": "f0649d87438b8630f4121a42910b8b5f4cc3ed5e9ccace79fffb8fd437d2e085"
+    }
+  }
+}

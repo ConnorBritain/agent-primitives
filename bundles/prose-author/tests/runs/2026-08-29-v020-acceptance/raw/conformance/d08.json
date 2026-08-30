@@ -1,0 +1,122 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"Both measured person-family rows are already within their allowed ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"Contractions and uncontracted negatives already satisfy the absent-paired measurements.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o11\"],\"disposition\":\"preserved\",\"reason\":\"The bounded concession and subsequent narrowing are present without requiring an unmeasured rewrite.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o07\"],\"disposition\":\"preserved\",\"reason\":\"The question-mark count is already within its allowed range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"The publisher is identified through its action and consequence; no unsupported source material is introduced.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The measured count is already within its allowed range.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The first-person-singular count is already within its allowed range and introduces no biography.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o08\",\"o09\",\"o10\"],\"disposition\":\"preserved\",\"reason\":\"Parenthetical spans, em dashes, and en dashes all already satisfy their measured ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o13\"],\"disposition\":\"preserved\",\"reason\":\"The trapdoor, clerk, invisible hand, and kill-switch figures materially map the mechanism.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o14\"],\"disposition\":\"preserved\",\"reason\":\"The blunt opening and final return to the governing distinction are already present.\"}],\"omitted\":[]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "Both measured person-family rows are already within their allowed ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "Contractions and uncontracted negatives already satisfy the absent-paired measurements."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "preserved",
+        "reason": "The bounded concession and subsequent narrowing are present without requiring an unmeasured rewrite."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o07"
+        ],
+        "disposition": "preserved",
+        "reason": "The question-mark count is already within its allowed range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "The publisher is identified through its action and consequence; no unsupported source material is introduced."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The measured count is already within its allowed range."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The first-person-singular count is already within its allowed range and introduces no biography."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o08",
+          "o09",
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "Parenthetical spans, em dashes, and en dashes all already satisfy their measured ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "preserved",
+        "reason": "The trapdoor, clerk, invisible hand, and kill-switch figures materially map the mechanism."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o14"
+        ],
+        "disposition": "preserved",
+        "reason": "The blunt opening and final return to the governing distinction are already present."
+      }
+    ],
+    "omitted": []
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/conformance/d08.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/conformance/d08.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "dcbcb090387b3b976ddded8d07d51a359119164867515e94dd850cdec19f7bc2"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "b441266a6e6724abf9be7d52a5e4348ce66414837e780dee3465d468e83377c4",
+    "schema_sha256": "2d0b1db4b095987bacef943229c5d18258dbd1b9ff0e43813640691b95ad89d9",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "3c52671a22b8bcd9e4fcfb337d759df53e2c6a044d035f3dd174c8fac5eb69a7",
+      "profile_markdown_sha256": "db0e1a288ec94afdaa85ac0e53c3188ed90a01541d60c6c0bfe1931766f508a7",
+      "profile_json_sha256": "ad17d6192fe2427c100485a2d54b032ce555929241f3bbe950d703271f7afe2b"
+    }
+  }
+}

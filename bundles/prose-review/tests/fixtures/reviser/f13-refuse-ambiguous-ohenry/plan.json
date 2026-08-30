@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 9,
+        "quote": "The policeman on the beat moved up the avenue impressively. The"
+      },
+      "change": "tighten the opening",
+      "reason": "voice-critic: the opening could be tighter"
+    }
+  ]
+}

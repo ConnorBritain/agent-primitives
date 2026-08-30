@@ -1,0 +1,17 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "status": "PASS",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "prepared_commit": "64eeab216f0746ef6d0a7ded40a7ca51afc2c23d",
+  "draft_assembled": true,
+  "semantic_revision_validated": true,
+  "raw": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/raw/revision.json",
+  "raw_sha256": "3df7f6afdaa1157b4bf0d27261aab3100bf3c0fe07e77cf07639e2edf98bdd9c",
+  "source": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/outputs/source.json",
+  "source_sha256": "136c4c3d1375c86c5aad21d797a795a983b92b604b765603abbc0995490ea177",
+  "draft": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/outputs/draft.md",
+  "draft_sha256": "7c03ecd1b3d3386c24fc535ce1730642a5cc97ccce71aa29dd0079b5bf7e6abe",
+  "report": "bundles/prose-author/tests/runs/2026-08-30-v020-semantic-revision-canary/outputs/semantic-report.json",
+  "report_sha256": "a04ea57ec4d8fd7ca20cc399c77343a1c2e3e5dd550ad3bdf137fe8984c246f0"
+}

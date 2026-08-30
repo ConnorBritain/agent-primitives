@@ -1,0 +1,205 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 63993,
+  "duration_api_ms": 63982,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "d465befe-3b82-44a6-9fc4-de34424341d4",
+  "total_cost_usd": 0.0729984,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 6068,
+    "cache_read_input_tokens": 5288,
+    "output_tokens": 3243,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6068,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 3243,
+      "cacheReadInputTokens": 5288,
+      "cacheCreationInputTokens": 6068,
+      "webSearchRequests": 0,
+      "costUSD": 0.0729984,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/2",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Exact restatement of the request-supplied thesis. Covered fully by c1, whose request_basis copies the same wording."
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Reasoning basis. Poses a rhetorical question to frame the essay's conceptual inquiry; adds no external descriptive premise."
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Reasoning basis. Draws a logical inference from the conditional in p1s1—if control remains with the maker, the buyer has not received complete control. No external premise added."
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "Reasoning/definitional basis. The sentence characterizes what ownership conceptually entails (not requiring a product to stay frozen); it is a definitional claim about the concept, not a claim about what courts, laws, or industries do."
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Reasoning basis. Extends the definitional contrast—distinguishing actions a maker may take from retaining a remote veto—without asserting any external fact about real actors or legal regimes."
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Reasoning basis. Draws a conceptual distinction between an update and a remote command; no external descriptive premise introduced."
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Reasoning basis. Elaborates the same distinction by analyzing effects on owner authority; purely inferential."
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Reasoning basis. Introduces a logical counterargument (contractual consent as a possible defense). While 'familiar' has rhetorical color, the substantive content is a logical position—agreement to terms—not a claim about specific laws, court rulings, or industry-wide practice patterns requiring ledger support."
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "Reasoning basis. Grants the contract point and limits its scope; purely inferential, no external premise."
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Normative basis. Asserts a principle about what a long agreement cannot accomplish; no claim about what courts or law currently do."
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "Normative basis. States a principle about complexity not justifying ongoing maker control; no factual claim about real actors."
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Reasoning basis. Rhetorical question that reformulates the core inquiry; no external premise."
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Reasoning basis. Analytical elaboration of the dual-layer transaction concept; no external descriptive premise."
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Reasoning basis. Analogical comparison (permission system to a lease); no factual claim about real institutions or law."
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Reasoning basis. Clarifies the essay's scope by exclusion; no external descriptive premise."
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Normative basis. States what the argument is against; no claim about real actors."
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Normative basis. Proposes a categorical principle; no claim about what law or companies currently do."
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Hypothetical basis. Uses 'will likely' and 'may simply discover'—sufficiently hedged as an imagined scenario, not a report about real actors or events."
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Reasoning basis. Identifies conditions under which impact is greatest; analytical inference from the thesis, no external descriptive premise."
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Reasoning basis. Clarifies that reliance elevates the significance of a disabled feature; no external factual claim."
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Reasoning basis. Characterizes possible consequences (practical, expensive, difficult to reverse) as logical inferences from the scenario; no claim about specific market conditions or repair-industry facts."
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Normative basis. Aphoristic judgment about the meaning of conditional ownership; no factual claim."
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Normative basis. Proposes a standard for judging ownership; no claim about what law or courts currently require."
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Normative basis. Specifies criteria for the proposed standard; no external factual premise."
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Reasoning basis. Draws a conceptual distinction between physical possession and substantive control; no external descriptive premise."
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Normative basis. Addresses the reader with a recommendation; no factual claim."
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative basis. Proposes diagnostic questions; no external factual premise."
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Reasoning basis. Characterizes those questions as the ownership test; inferential conclusion from the preceding argument."
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "Normative basis. States a prohibition the essay advocates; no claim about what law currently does."
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "Normative basis. States what policy should protect; no claim about existing law or regulation."
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "Request-supported basis. Logical restatement (contrapositive) of c1, whose request_basis directly supplies the core claim that a device is not fully owned when the maker retains control over post-sale functionality."
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "60e4cf66-50c3-4b37-8a29-e104990d6359"
+}

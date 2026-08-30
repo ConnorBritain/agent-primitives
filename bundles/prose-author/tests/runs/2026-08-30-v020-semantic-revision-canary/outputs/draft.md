@@ -1,0 +1,29 @@
+```markdown
+A shift app can change your Tuesday while you are still drinking coffee. You open the screen expecting the hours you thought were yours, and your schedule has become a moving target. It's presented as convenience: a neat little calendar, a notification, a button that says accept. But that isn't convenience when you are the one who must absorb every change. The software doesn't merely report the shift; it decides how much uncertainty you’ll carry.
+
+What is flexibility worth if your ability to act depends on somebody else’s last-minute decision? Flexibility gives you room to act. Control makes your ability to act depend on somebody else’s last-minute decision. If you’re told at noon that you must arrive at four, you don't have a smaller inconvenience. You have lost the hours in which you might have arranged childcare, transport, food, sleep, or another job (or simply a few hours of rest). The schedule has become a command that arrives late enough to make refusal expensive.
+
+This is why unpredictability works so well as a management tool. A fixed demand can be challenged, measured, and planned around. A changing demand keeps you alert to the possibility of punishment, even when no punishment is announced. You can't confidently book an appointment, promise time to a family member, or spend money that might be needed to survive the next alteration. The uncertainty occupies part of your mind before the shift begins – and that occupied attention is itself extracted labour.
+
+Think of the scheduling system as a slot machine installed in the break room. You pull the handle by checking the app, and the result determines whether the rest of the day remains usable (a shift, a cancellation, a new start time, a demand to stay). The machine doesn't need to take every hour from you. It only needs to make you keep returning to see what it has taken. Calling this optimisation is bullshit when the practical result is obedience to the screen.
+
+We’ve been taught to treat a schedule as information, but we should treat it as a distribution of power. The manager or algorithm that changes the schedule has options; workers have costs. Workers can refuse a change, but refusal may mean lost pay, fewer future hours, or a mark against reliability. The supposed choice is therefore narrowed before workers make it. The system turns time into a private asset for the employer and a public emergency for workers.
+
+I don’t mean that every alteration is malicious. Emergencies happen, demand changes, and a workplace sometimes needs a quick adjustment. That’s the concession, and it matters. It doesn't follow that workers must remain permanently available, or that software should conceal who made the decision and who pays for it. A genuine emergency is exceptional (that is what makes it an emergency); a staffing model built on everyone else’s permanent readiness is a policy.
+
+What can be organised here is not only a demand for earlier notice, though that is necessary. We need rules about minimum notice, compensation for cancelled hours, access to the schedule’s change history, and a refusal right that doesn't quietly become retaliation. We need to see whether changes fall on the same people, whether the system rewards availability, and whether the people affected can contest its decisions. I see no technical mystery in these demands. They are ordinary conditions for making a job compatible with a life.
+
+I’d put the argument plainly: a schedule that can change without meaningful cost to the employer is not neutral information. It is a leash with a notification sound. You should be able to plan, and you should be able to say no without being punished for having a life. We should build collective power around that boundary, because a workplace that owns every unscheduled hour owns more than your time. You'll know the difference when the app stops asking for your availability and starts respecting it.
+```
+
+```json
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12: named or credited outside voices, quotations, or linked reporting",
+      "why": "The request supplies no verified opponent position, quotation, source, or reporting to introduce."
+    }
+  ]
+}
+```

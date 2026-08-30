@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The subject or problem to write about is missing. Provide the problem, along with the intended reader or purpose if the register should be specific.\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "refusal",
+    "draft": "",
+    "omitted": [],
+    "refused": "The subject or problem to write about is missing. Provide the problem, along with the intended reader or purpose if the register should be specific."
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/refusals/dr01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/refusals/dr01.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a00bdb59c95f394a801d57ae1a5d4ad29073304c3d352294261067673cc49f45"
+  },
+  "acceptance_input": {
+    "system_sha256": "da164fbadd7d8edd87d9863e6b4f93a780b1bc9b158ec99657940c89d93ac1da",
+    "prompt_sha256": "51fd251a208c37cb08b220b9fdb18af9dbb756688f951ba9e066122f25b86f18",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "prose-author-stage-adapter-canary-result/1",
+  "canary_schema": "prose-author-semantic-budget-canary-result/1",
+  "status": "HOLD",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "failed_at": "2026-08-30T00:18:04.904Z",
+  "error": "claim-audit assembly failed: p4s2 rejected: This presents attributed vendor wording or a vendor position that is absent from the request and is not explicitly framed as invented dialogue.",
+  "stages": {
+    "draft": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/draft.json",
+      "raw_sha256": "58f387186039b81a452cedfb1a2a5da80c653d56bcd730e9867e9eeb84d4d94d",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/draft.codex-events.jsonl",
+      "raw_events_sha256": "5dccf5849a36a7a2aa13ef9439eb9a8d81f0196f84ddcc4c4a8b0978b54163ea",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/draft.codex-output.json",
+      "raw_output_sha256": "8578455d8ea85331f579b8b8e3638f94e287ff557ae365a77395ef5597906bd0",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "conformance": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/conformance.json",
+      "raw_sha256": "4a7a74370951e772009c3159e2f628cbbe4c74664386d3e21f676500fc77f37a",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/conformance.codex-events.jsonl",
+      "raw_events_sha256": "d77c6e707954d4aa0f0c204fb5e91c924bad3a59358d57abb9db36a24dbf5194",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/conformance.codex-output.json",
+      "raw_output_sha256": "8251e1b75fb553751429fdf004a2ec1ab7fa74f9774bc1122263f3fb65cbcbdb",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    },
+    "claim_audit": {
+      "raw": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/claim-audit.json",
+      "raw_sha256": "1bc1ca75e9af209b89463087d7af6e364c1e037fb5f6a9148323da4db4efd338",
+      "harness": "codex",
+      "is_error": false,
+      "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/claim-audit.codex-events.jsonl",
+      "raw_events_sha256": "cb7810fad6bcef224e7b501676f331ab95fb023352e1db6e0d0d0e97d3e16677",
+      "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-semantic-budget-canary/raw/claim-audit.codex-output.json",
+      "raw_output_sha256": "abaf755657a51158f7ad35f58907f87aba2d43d124977d50df5a8f9641c61552",
+      "recovered_from": null,
+      "recovered_from_sha256": null
+    }
+  }
+}

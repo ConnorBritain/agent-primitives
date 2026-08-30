@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"My recommendation is simple: don’t put confidential intake notes into a general-purpose AI service tomorrow.\\n\\nThe strongest case for it is real: staff time is scarce, summaries can help with handoffs, and the tool may produce a decent first pass. But what happens after you paste the notes? If the vendor stores prompts, uses them to improve systems, lets subcontractors inspect them, or gives administrators broad access, you have created another copy of someone’s most sensitive story. A polished summary isn’t worth losing control of the source.\\n\\nTreat the service like a new records contractor (because that’s functionally what it is), not like a clever spell-checker. You wouldn’t hand a temp worker a photocopier and a box of files without rules; the AI vendor is the same arrangement – fast hands, opaque back room. The risk sits with your clients, while the convenience lands with us.\\n\\nFor tomorrow’s meeting, I’d recommend a conditional no. Don’t upload live notes unless you have all five controls in writing: a contract covering confidentiality; zero training on your data; defined retention and deletion; access limited to named staff; and an incident process you can actually use. Also require a human to compare every summary with the original (errors and omissions count), and test only with invented records first.\\n\\nAssign one person to collect the vendor’s answers and one to review your existing confidentiality policy. If either document is vague, pause. A deadline for tomorrow’s meeting isn’t a deadline for exposing records; it’s a deadline for making the safe decision.\\n\\nIf a vendor can’t answer those points plainly, that’s the answer. I think we can revisit a vetted, contract-backed system later, perhaps with redacted notes and a narrow pilot. For now, keep confidential stories inside the systems you already govern. The machine may write the summary; your nonprofit still owns the consequences.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named source and specific vendor evidence\",\"why\":\"The request supplies no vendor identity, contract terms, privacy policy, or other verified source to name or quote.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "My recommendation is simple: don’t put confidential intake notes into a general-purpose AI service tomorrow.\n\nThe strongest case for it is real: staff time is scarce, summaries can help with handoffs, and the tool may produce a decent first pass. But what happens after you paste the notes? If the vendor stores prompts, uses them to improve systems, lets subcontractors inspect them, or gives administrators broad access, you have created another copy of someone’s most sensitive story. A polished summary isn’t worth losing control of the source.\n\nTreat the service like a new records contractor (because that’s functionally what it is), not like a clever spell-checker. You wouldn’t hand a temp worker a photocopier and a box of files without rules; the AI vendor is the same arrangement – fast hands, opaque back room. The risk sits with your clients, while the convenience lands with us.\n\nFor tomorrow’s meeting, I’d recommend a conditional no. Don’t upload live notes unless you have all five controls in writing: a contract covering confidentiality; zero training on your data; defined retention and deletion; access limited to named staff; and an incident process you can actually use. Also require a human to compare every summary with the original (errors and omissions count), and test only with invented records first.\n\nAssign one person to collect the vendor’s answers and one to review your existing confidentiality policy. If either document is vague, pause. A deadline for tomorrow’s meeting isn’t a deadline for exposing records; it’s a deadline for making the safe decision.\n\nIf a vendor can’t answer those points plainly, that’s the answer. I think we can revisit a vetted, contract-backed system later, perhaps with redacted notes and a narrow pilot. For now, keep confidential stories inside the systems you already govern. The machine may write the summary; your nonprofit still owns the consequences.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named source and specific vendor evidence",
+        "why": "The request supplies no vendor identity, contract terms, privacy policy, or other verified source to name or quote."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/d09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/d09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "dcbcb090387b3b976ddded8d07d51a359119164867515e94dd850cdec19f7bc2"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "5961469c0299eaf25dd3f0d3269338e1b779fcfbb9ec84861af799e9b4a6058e",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

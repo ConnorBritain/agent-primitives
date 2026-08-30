@@ -1,0 +1,10 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim ending on a colon with a bare URL on the next line (claim-colon-link unit)", "why": "no verified sources or links available for this topic" }
+  ],
+  "claims": [
+    { "claim": "Google's Topics API replaced FLoC, using a shorter, coarser list of interest labels", "where": "paragraph 5" },
+    { "claim": "Topics was designed as a replacement for the third-party cookie and ad buyers have publicly objected that it provides less signal", "where": "paragraph 5" }
+  ]
+}

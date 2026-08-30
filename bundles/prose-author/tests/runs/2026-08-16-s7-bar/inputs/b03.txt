@@ -1,0 +1,23 @@
+Parts pairing is a lock the manufacturer installs on a door you already own. A replacement screen, battery or hydraulic controller carries a serial number, the device checks it against a list the company keeps, and if your part isn't on that list, the repair you just paid for either nags you forever about an "unauthorized part" or refuses outright to work. The part is fine. The only broken thing is a permission.
+
+And the reason given is always safety – a battery that could vent flame in a pocket, a "counterfeit" screen that could misread a fingerprint. Sure, I'm not going to pretend a swollen lithium cell is nothing, but a real safety system tells you what it found and then lets you decide, the way a car warns about a soft tyre instead of welding the wheel to the axle.
+
+Think about what this looks like in a body. A woman breaks her hip at 70, a surgeon puts in a titanium ball and a plastic socket (the socket is the part that wears), and the joint works so well she forgets it, until the liner wears through fifteen years later and needs a forty-minute swap.
+
+Now imagine the new liner has to be recognised by the old implant. Not fitted – recognised. The surgeon holds the right part, machined by the same supplier to the same tolerance, and the hip declines it, because the firm that made the joint has since decided that liners are a revenue stream and this surgeon isn't an "authorized provider".
+
+Nobody would tolerate that in an operating theatre for a week. We tolerate it in tractors, wheelchairs, insulin pumps and phones, and we tolerate it because the parts are silicon rather than polyethylene, and because the surgeon in this case is a woman in a strip mall with a hot-air station and a drawer of donor boards.
+
+That drawer is what pairing is built to empty, and I want to be exact about the mechanism, because the harm isn't sentimental. An independent shop runs on dead devices (the water-damaged phone, the tractor with a thrown rod), because a part harvested from a corpse costs nothing but labour, and labour is the one input a small shop controls.
+
+Pair the parts and every donor becomes e-waste, every repair becomes a purchase order, and the shop that undercut the manufacturer now buys its inventory from the manufacturer at whatever price the manufacturer likes. That's the tell. Real safety engineering makes salvage safer (test the cell, check it for swelling, read the cycle count); pairing makes a salvaged part useless without making it one bit safer, which is a different goal wearing safety's coat.
+
+Apple pairs screens, batteries and cameras. John Deere pairs the controllers in its equipment, and has done it long enough that a used combine's worth turns on whether a dealer will bless it. The story is always about protecting people from "counterfeit" parts and steering them toward "genuine" ones; the effect is always to protect the company from a used one.
+
+The fix isn't mysterious and it isn't technical, and I'd rather argue about the shape of a ban than about whether one is possible. Oregon wrote a pairing ban into its right-to-repair law; most states that passed a repair bill left pairing alone, and a repair law without a pairing ban hands you the right to hold a screwdriver and nothing else.
+
+We can require that a device accept any part meeting its published spec, and we can make a refusal to pair a defect the seller has to cure, because these are our devices. Companies say they need pairing to survive. It's bullshit – they need it because a device that can't be repaired has to be replaced.
+
+Before you buy the thing, you should find out whether its parts are paired, and price that in the way you'd price a lease term. When a shop tells you a repair costs more than the device is worth, ask who arranged for that. Was it physics? Was it the price of glass?
+
+The only genuine part in this arrangement is the manufacturer's interest in it. Everything else (the "calibration" warning, the safety language, the serial number your screen carries around like a passport) exists so that when your device breaks, the person allowed to fix it works for them and never for you.

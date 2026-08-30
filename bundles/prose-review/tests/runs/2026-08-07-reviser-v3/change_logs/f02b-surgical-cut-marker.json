@@ -1,0 +1,17 @@
+{
+  "plan": "plan.json",
+  "mode": "plan-only",
+  "edits": [
+    {
+      "plan_id": "e01",
+      "before": "There is no describing Paris, though; ",
+      "after": "",
+      "reason": "voice-critic: the 'no describing X' formula is a self-referential aside that adds no fact; the deferral ('put off the description till I get home') is a real signal the letter's closing pays off and must be preserved"
+    }
+  ],
+  "refused": [],
+  "noticed_but_not_edited": [],
+  "original_sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6",
+  "revision_sha256": "6c20e1d9b4a4190714786897cf505b678d0b8ac88874d94918283e5a8a3ca49c",
+  "plan_sha256": "14680887d9161a0950bae8bada19e33d79c19d956b44e182c152204c1f821974"
+}

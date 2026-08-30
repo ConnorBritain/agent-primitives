@@ -1,0 +1,21 @@
+{
+  "schema": "prose-author-stage-adapter-canary-analysis/1",
+  "scope": "current-prompt-adapter-only",
+  "acceptance_evidence": false,
+  "behavioral_markdown_probe": false,
+  "redraws": 0,
+  "result_pass_meaning": "All five model outputs satisfied transport and deterministic assembly contracts.",
+  "draft_words": 297,
+  "draft_contains_markdown_code_or_link_signal": false,
+  "conformance_edit_count": 0,
+  "conformance_effect": "The initial draft was within every measured target and remained byte-identical.",
+  "markdown_boundary_evidence": "Deterministic conformance regressions and mutation checks, not this canary, exercise whole-draft Markdown immutability.",
+  "critic_verdict": "REVISE",
+  "critic_findings": 2,
+  "critic_confidence": [
+    "high",
+    "high"
+  ],
+  "critic_interpretation": "The procurement checklist and sustained operational directives were more procedural and institutional than the EFF Mullin corpus.",
+  "conclusion": "This run proves only that the current prompt and locked Codex adapter can traverse the complete structured pipeline without a redraw; it contributes nothing to the locked 20-draft ship bar."
+}

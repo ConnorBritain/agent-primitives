@@ -1,0 +1,23 @@
+```markdown
+Your password manager was a promise, not a product. The promise was: we hold the vault, we can't open it, and our entire business depends on that staying true. It was a good promise. It was also a promise made by a company with about forty employees, one revenue stream, and nothing to lose by keeping it.
+
+That company doesn't exist anymore. LastPass got rolled into GoTo, which got rolled into private equity. 1Password took hundreds of millions in growth capital and now has the growth-capital problem of needing to become several times larger than the thing you actually wanted. Bitwarden took investment too. Dashlane's been passed between funds like a hot casserole nobody wants to hold. Keeper, LogMeIn, the enterprise SSO players nipping at the edges — the whole category has been through the wash, and what came out the other side answers to somebody who has never once thought about your threat model.
+
+Here's the thing about PE ownership that people miss because they're looking for the wrong kind of villain. Nobody at the fund is sitting in a leather chair deciding to sell your vault. That's not the failure mode. The failure mode is that a password manager under PE ownership has a debt load, and debt has to be serviced, and servicing it means the product has to make more money next year than it did this year, forever, from a customer base that isn't growing. There's only one place that money can come from, and it's you, and there are only so many ways to get it.
+
+So they add tiers. The thing you paid for gets renamed the thing below the thing you should pay for. They add "family" and then they add "family plus." They start monetizing the metadata around the vault, because the vault itself is off-limits and everything else is fair game — how many logins you have, which services, when you use them, from where. That's a real product. Somebody will buy it. Your secrets stay encrypted the entire time, and you have still been sold.
+
+And they cut. Security engineering is a cost center that produces no features, and cost centers are the first thing a fund's operating partner learns to find. The audits get less frequent. The bug bounty gets quieter. The people who knew why a particular decision was made in 2017 take the package and leave, and nobody left knows why the code does what it does, only that it does it. LastPass didn't get breached because someone at the top decided to be careless. It got breached because a home developer machine had a vulnerable media server on it, which is what happens when the org chart has been through three owners and nobody's been paid to care about the boring perimeter for a while.
+
+I don't think the encryption is the vulnerability here. The math is fine. The math was always fine. The vulnerability is that the math is administered by an organization, and organizations can be bought, and you didn't get a vote.
+
+That's the part worth sitting with. When you chose a password manager, you performed a security analysis: threat model, key derivation, zero-knowledge architecture, audit history. What you did not analyze — what you had no way to analyze — was the cap table. And the cap table is the attack surface now. It's the only one that can change every single property of the system while the marketing page stays word for word identical.
+
+If the encryption is genuinely zero-knowledge, why does it matter who owns the company? Because zero-knowledge is a property of the code that ships, and who owns the company decides what code ships. The guarantee isn't in the whitepaper. It's in the build pipeline, and the build pipeline has a new boss.
+
+So what do you actually do. Prefer the ones where the promise is structural rather than contractual — open source you or someone like you can build from source, a vault format that another program can read, a foundation or a co-op instead of a fund. Assume any password manager you use will change hands during the time you use it, and pick the one where that changing hands does you the least damage. Export your vault. Know that you can leave.
+
+The industry sold you cryptography and delivered a subscription to a company. Cryptography doesn't have a quarterly target. Companies do:
+
+https://blog.lastpass.com/posts/notice-of-recent-security-incident
+```

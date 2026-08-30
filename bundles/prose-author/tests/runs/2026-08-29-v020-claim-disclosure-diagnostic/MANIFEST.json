@@ -1,0 +1,98 @@
+{
+  "schema": "prose-author-claim-disclosure-diagnostic-manifest/1",
+  "acceptance_evidence": false,
+  "claim_pipeline": "audit-disclosure/1",
+  "prepared_commit": "63c53b635227f34311b7d60889e80689868cd269",
+  "concurrency": 1,
+  "design_sha256": "89012a95585551019290252ed95af3e8274e4950b678eb8723a1226049791f72",
+  "locked_files": {
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "f269d0bd39c5e5fde0dfa5617227408e7465c0f2a66af0e1b440fa236df6ff47",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "a4159c5221bec45cf31d6d764a6233a311dc3555566adb456a0433b3f654d1b8",
+    "bundles/prose-author/skills/prose-draft/tools/exemplars.mjs": "3480c86a70fc89a64f4d1333ad3839daa5cfe68d37e883d0cb636c37a0b8dccb",
+    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs": "7e06f654d64c5e28797ba8df37deed05c805d02f2305c38ba6f762e7dfb9cf4d",
+    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs": "c4a59b41da0fbbc7892eea5b7456c2843934935d491634135659d0d78283671f",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "9110270af0657187a96a29afbc1c5a8fe842090991c97ccbfbc5efd3f5cdca9c",
+    "bundles/prose-author/tests/bar.mjs": "394f6d4fb219da4378cb9c25a9583dee85188770d530edb919a9009251d94a70",
+    "bundles/prose-author/tests/corpus-rates.mjs": "e620b433ab32b36592d23f426ffcae90d357a2fd447925506ec00144e63a9a89",
+    "bundles/prose-author/tests/coverage-analysis.mjs": "18684c425fa53a0b36a767e0244e4323f4140dda0d88472f87c101840f108ed1",
+    "bundles/prose-author/tests/cross-count.mjs": "168bde25d6672d71ea6b2c7c34e87552a6a6c1c381d156f89a58c732c9d9059c",
+    "bundles/prose-author/tests/fences.mjs": "205e938b0b0104fe3f7c7468aedb62c480d2f66c8d7a3de6488bc26a8c2b786f",
+    "bundles/prose-author/tests/loop.mjs": "ea52d35e1711ab4d89e4128e6f1850e749c35ec3887578e610872e870eee28e5",
+    "bundles/prose-author/tests/profile-stability.mjs": "f9572ca74a96e44002272e8752397d2ae164052f734c0d4d464c43c903c40977",
+    "bundles/prose-author/tests/run-gates.mjs": "c689c682a597bf4296ed39546bb98252a2efa9f8196be004961a1ef32644f59f",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d01.json": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d05.json": "a7dbfc4f57be84cf270bf6f46be4bd5977a575c41312426eeee0af701c984938",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/m05.json": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+    "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/DESIGN.json": "99c2ddcca61e43a98185be0c78aa4d668cb64e1bdc55b24d8b81564a504c291d",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/DESIGN.json": "89012a95585551019290252ed95af3e8274e4950b678eb8723a1226049791f72",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/run.mjs": "94f9745cc406a0f8b0a7eb56fca6f7bea4dfafbf32b7212595fe5eab086a1ba5",
+    "bundles/prose-author/tests/voice-critic-source.mjs": "7a2d1b2b621575cde7eedce0c7ef272b893b10243bbe8e0f7111533bfd8d600a",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912",
+    "bundles/prose-author/tests/voice-profile.mjs": "9059a9e373a2fcfd443cc174cbd6103317f6d64ccfae4db33f0f6b905e2ae5dd"
+  },
+  "anchored_files": {
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/prompts/agents/audit.md": "345f1aee0589898cd7357d3850370e678f36c696cf48e24b5d416d3d544992a6",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/schemas/audit.json": "1d318c27a0bfb846fb0c8080684e5fd40416772cfedfbafb06baff5c0c938639",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d01.json": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d01.original.json": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/m05.json": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/m05.original.json": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d05.json": "bb4fbfd9d6ed6a2884c90efb0493fd5f64ee907895f58a29821a0bd8d1b16cad",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d05.original.json": "a7dbfc4f57be84cf270bf6f46be4bd5977a575c41312426eeee0af701c984938"
+  },
+  "dispatch": {
+    "claim_audit": {
+      "harness": "claude-code",
+      "model": "sonnet",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "system": {
+    "path": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/prompts/agents/audit.md",
+    "sha256": "345f1aee0589898cd7357d3850370e678f36c696cf48e24b5d416d3d544992a6"
+  },
+  "audit_schema": {
+    "path": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/schemas/audit.json",
+    "sha256": "1d318c27a0bfb846fb0c8080684e5fd40416772cfedfbafb06baff5c0c938639",
+    "id": "voice-draft-claim-audit/3"
+  },
+  "inputs": {
+    "d01": {
+      "source": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d01.json",
+      "source_sha256": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+      "original_source": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d01.original.json",
+      "original_source_sha256": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+      "source_run_path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d01.json",
+      "source_run_sha256": "8eb4cf15410bab5b49e49102c59891a3bbfa455c7aa1faf3951c4423c7fae430",
+      "request_sha256": "a7e8fc8f4fa870ada28d5c8a8152eb1418dbf699374b69977e25af1937bab3a9",
+      "prose_sha256": "feadc39f6fa5443a99feb91822c8b967e7a7e1cc445d31df16267e43c49f1d5a",
+      "removed_ledger_ids": []
+    },
+    "m05": {
+      "source": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/m05.json",
+      "source_sha256": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+      "original_source": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/m05.original.json",
+      "original_source_sha256": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+      "source_run_path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/m05.json",
+      "source_run_sha256": "ee0904431908b7c9112bb858efa173163974d50aaba11289022ce02f699cf485",
+      "request_sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553",
+      "prose_sha256": "becaec623b7436ac8fbcd128c5044e74479c750b19f3201ce65ca90a7be53a5f",
+      "removed_ledger_ids": []
+    },
+    "d05": {
+      "source": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d05.json",
+      "source_sha256": "bb4fbfd9d6ed6a2884c90efb0493fd5f64ee907895f58a29821a0bd8d1b16cad",
+      "original_source": "bundles/prose-author/tests/runs/2026-08-29-v020-claim-disclosure-diagnostic/inputs/sources/d05.original.json",
+      "original_source_sha256": "a7dbfc4f57be84cf270bf6f46be4bd5977a575c41312426eeee0af701c984938",
+      "source_run_path": "bundles/prose-author/tests/runs/2026-08-28-v020-claim-repair-diagnostic/inputs/sources/d05.json",
+      "source_run_sha256": "a7dbfc4f57be84cf270bf6f46be4bd5977a575c41312426eeee0af701c984938",
+      "request_sha256": "11c4e5b90abec1aa92e77719ff7404450fbd991c83c8f8e9affc0ac7d64cf553",
+      "prose_sha256": "74bbf7988375b610ca5323a82e55f1db1395159f65009db1869301f4405d80f2",
+      "removed_ledger_ids": [
+        "c3"
+      ]
+    }
+  }
+}

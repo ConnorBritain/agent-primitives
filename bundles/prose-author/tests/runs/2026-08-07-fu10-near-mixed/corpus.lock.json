@@ -1,0 +1,74 @@
+{
+  "near-mixed": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "item-01.txt",
+        "group": null,
+        "words": 2571,
+        "sha256": "67e1dd1db2616b12d83b84d4232f26ea112e4ff3f160567ad7fdaa606d2b42f9"
+      },
+      {
+        "file": "item-02.txt",
+        "group": null,
+        "words": 2876,
+        "sha256": "18f647b6864b7b919a86a5c5bee741bb7172670146d9e33936ed8bc1acbf0a5b"
+      },
+      {
+        "file": "item-03.txt",
+        "group": null,
+        "words": 2269,
+        "sha256": "a53a95076b464e3a2fa0b38da9952a609f65f4bf75f43b2ff9f81727978d4c0a"
+      },
+      {
+        "file": "item-04.txt",
+        "group": null,
+        "words": 2733,
+        "sha256": "e6d8c78e514e081c9eb199ef94197f60957b131155d672c48d1826dd0811d3a3"
+      },
+      {
+        "file": "item-05.txt",
+        "group": null,
+        "words": 2124,
+        "sha256": "7f7c8fa52343e43e69b49c63578254919a672d1f3bd350ed18bea517885a922b"
+      },
+      {
+        "file": "item-06.txt",
+        "group": null,
+        "words": 2497,
+        "sha256": "c077933a5d46f79b11576b520bbbed963a4fb6ebe05ab0747148267fbd26c4ca"
+      },
+      {
+        "file": "item-07.txt",
+        "group": null,
+        "words": 2121,
+        "sha256": "dc55f0c85e20085d4a36408ab740ea1357415bdaf77026873fa1a0c34ea044c0"
+      },
+      {
+        "file": "item-08.txt",
+        "group": null,
+        "words": 2451,
+        "sha256": "8fe7da25efb5c71b6ef8af21111789324a461e1e3e03b78fd408eb506b9f3fe7"
+      },
+      {
+        "file": "item-09.txt",
+        "group": null,
+        "words": 2063,
+        "sha256": "026eaad25798c26629c6516bcdebaa6d3fedbcd4b3693cd103f20d657e246c3a"
+      },
+      {
+        "file": "item-10.txt",
+        "group": null,
+        "words": 2331,
+        "sha256": "156c68fbbb90e83efe53e9a3d4f1df87c569f5be9aa88e057ffce1a85a3ab8b4"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "5d82a642e24fd236cce12e107a7223bf64ff3df87f4e061e01366a87561c82f8",
+    "profile_json_sha256": "74df844b0c148e7c2385b35111ea467f7d16db3f80ec68ba9b16bd196f1922e8",
+    "agent": "voice-profile-render",
+    "agent_sha256": "22da67e1698d836fe3fe2ab22f2f6189760ef3feda533c928f6d92842281448d",
+    "sample_count": 10,
+    "aggregate_sha256": "508e11b4d4f389b478438838b69c2421fb59bef3b8bf8a18703bf32721627366"
+  }
+}

@@ -1,13 +1,19 @@
 # prose-review
 
-Read-only critics for prose, run before a draft is called done.
+Two read-only critics and one revising transformer for prose. Every rewrite
+this bundle produces goes through the fidelity gate before it reaches the
+author.
 
-**Status: v0.2 — two critics.**
+**Status: v0.3 — two critics and a reviser.**
 
 - `prose-voice-critic`: does this draft sound like the person it is supposed to
   be by, judged against their own corpus.
 - `prose-fidelity-critic`: did this revision keep what it had to, judged against
   the original and a deterministic scan of it.
+- `prose-reviser`: applies an edit plan to a draft, emitting a change log the
+  fidelity critic then judges. Out-of-plan edits are structurally impossible
+  because the log is the only output channel. See
+  [`REVISER-USAGE.md`](REVISER-USAGE.md) for the operator's how-to.
 
 The [design](DESIGN.md) specifies five critics, a fidelity check and one
 transformer. What ships is what the evidence can currently support, and the
@@ -17,10 +23,10 @@ reason is in [`tests/critic-harness.md`](tests/critic-harness.md).
 |---|---|
 | [`prose-voice-critic`](agents/prose-voice-critic.md) | shipped |
 | [`prose-fidelity-critic`](agents/prose-fidelity-critic.md) | shipped — **before** the reviser it guards |
+| [`prose-reviser`](agents/prose-reviser.md) | shipped v0.3.0, 2026-08-07 — see [`REVISER-USAGE.md`](REVISER-USAGE.md) |
 | `prose-substance-critic` | blocked — needs an argumentative corpus |
 | `prose-adversarial-reader` | blocked — same |
 | `prose-medium-critic` | designed |
-| `prose-reviser` | next, deliberately last |
 
 ## The two critics point opposite ways, on purpose
 
@@ -35,18 +41,25 @@ finding costs a glance at two quoted lines. What is *not* recoverable there is t
 miss: a loss waved through ships, and the original is often gone by the time
 anyone looks.
 
-## Why the reviser is not here
+## Why the reviser ships after its guards
 
 **A reviser built on critics that manufacture nits will dutifully rewrite prose
-to satisfy noise.** The critics have to be shown quiet on human writing before
-anything acts on what they say. Findings plus an author is already most of the
-value; findings plus an automatic rewrite is a much larger surface for a much
-smaller increment.
+to satisfy noise.** The critics had to be shown quiet on human writing before
+anything acted on what they said. They were: `prose-voice-critic` shipped
+2026-08-04, `prose-fidelity-critic` shipped 2026-08-05, both under acceptance
+runs that measured their behaviour on human corpora before their behaviour on
+generated prose.
 
-And when it does arrive, its objective is the author's voice card and corpus. The
-catalog reaches it as one diagnostic among several, never as a quantity to
-minimise — see [`DESIGN.md`](DESIGN.md), which corrects the original plan on
-exactly this point.
+Only then did the reviser ship (2026-08-07). Its output goes through the
+fidelity gate — described in [`PROTOCOL.md`](PROTOCOL.md) and worked through
+step-by-step in [`REVISER-USAGE.md`](REVISER-USAGE.md) — every time. The
+reviser cannot make out-of-plan edits by construction: its only output channel
+is a list of before/after pairs referring to plan ids, and the harness's apply
+step rejects any edit whose text falls outside its authorising plan entry's
+quote.
+
+The catalog reaches the reviser as one diagnostic among several, never as a
+quantity to minimise — see [`DESIGN.md`](DESIGN.md).
 
 ## Why the fidelity critic could ship when two others cannot
 
@@ -97,7 +110,10 @@ already been told their own voice is wrong.
 ```bash
 ./install.sh prose-voice-critic        # → ~/.claude/agents/
 ./install.sh prose-fidelity-critic
+./install.sh prose-reviser
 ```
+
+Or install the whole bundle at once with `./install.sh`.
 
 The voice critic needs a corpus. Without one it stops and says so: it can flag
 internal inconsistency, but not deviation from *your* voice. See

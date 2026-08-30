@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 125727,
+  "duration_api_ms": 125708,
+  "num_turns": 1,
+  "result": "```markdown\nThe pitch for AI summarization is straightforward: faster intake processing, less time transcribing, more time serving clients. But the tool that does that work has to be one the organization can actually control—and most off-the-shelf AI services cannot make that promise.\n\nThe core problem is this. Pasting confidential intake notes into a general-purpose AI tool (ChatGPT, Claude, Gemini, most browser-based summarizers) means those notes are leaving the organization's systems entirely. The terms of service for most consumer AI products don't guarantee that data stays private, and a standard disclaimer in the workflow does not magically eliminate the liability if something goes wrong. Depending on the population served, the organization may also be touching HIPAA-covered information or confidences that carry their own legal protection—neither of which evaporates because summarization sounds like an administrative task.\n\nThe services that can legitimately handle this look different. A tool deployed inside the organization's own infrastructure, or a vendor who signs a data processing agreement (DPA) and a Business Associate Agreement (BAA) where applicable, is operating in a different category. This is more like hiring a bonded contractor than leaving case files in a shared folder.\n\nSo the practical answer for tomorrow: don't use a general AI service on confidential intake notes. If the efficiency case is real—and it probably is—bring a shortlist of vendor options that include DPA terms, and ask whether the budget exists to evaluate them properly. We'd want to see the vendor's data retention policy before any pilot goes live. That's the conversation worth having, not whether AI summarization is possible in principle. It is. It's just not possible with tools built for consumers and pointed at protected data.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [],\n  \"claims\": [\n    { \"claim\": \"Terms of service for most consumer AI products do not guarantee data privacy\", \"where\": \"paragraph 2\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "ed2388fd-55e3-480d-8c25-0fac9286d837",
+  "total_cost_usd": 0.13783394999999998,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6899,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 7347,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6899,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 7347,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6899,
+      "webSearchRequests": 0,
+      "costUSD": 0.13783394999999998,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "32e9d4f4-f5c8-4add-b337-90b21e7b6c45"
+}

@@ -1,0 +1,37 @@
+{
+  "_comment": "The topic prompts, checked in this time. The 2026-08-07 S6 run stored only its drafts, so these are RECONSTRUCTED from the topics recorded in that run's TALLY.json rather than being byte-identical to what it used. That is a real comparability limit and is stated in COMPLETE.md rather than left to be discovered. Storing them here is the process fix.",
+  "profile": "doctorow-blog",
+  "shape": "~700-word blog post for a returning readership",
+  "prompts": [
+    {
+      "id": "v3",
+      "topic": "password managers",
+      "prompt": "Write a ~700-word blog post arguing that the password manager industry has quietly become a single point of failure, and that the security advice everyone repeats has not caught up with that fact."
+    },
+    {
+      "id": "b02",
+      "topic": "open standards",
+      "prompt": "Write a ~700-word blog post about how open standards get captured: a standards body opens a process, incumbents flood it with participants, and the resulting standard is open in name and closed in effect."
+    },
+    {
+      "id": "b03",
+      "topic": "parts pairing",
+      "prompt": "Write a ~700-word blog post about parts pairing — manufacturers using software locks so a replacement part must be blessed by the company before the device will accept it — and what it does to independent repair."
+    },
+    {
+      "id": "b04",
+      "topic": "ad-tech targeting",
+      "prompt": "Write a ~700-word blog post about the ad-tech industry's claim that targeting can be made simultaneously more accurate and less invasive, and why those are the same dial."
+    },
+    {
+      "id": "b07",
+      "topic": "streaming licence lapse",
+      "prompt": "Write a ~700-word blog post about what happens when a streaming service's licence for something lapses and it disappears from customers' libraries, including things they paid for."
+    },
+    {
+      "id": "b08",
+      "topic": "overdraft fees",
+      "prompt": "Write a ~700-word blog post about overdraft fees — who actually pays them, how transaction ordering was used to multiply them, and why the practice survived so long."
+    }
+  ]
+}

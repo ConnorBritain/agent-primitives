@@ -1,0 +1,143 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12",
+      "why": "The request supplied no verified named sources, attributed statements, or specific institutions to credit, test, or quote."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Choice screens typically present several logos or listed options and prompt users to select one.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "For choice screens, a consequential selection of available options occurs before users see the screen.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Choice-screen operators select which candidates appear.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Choice-screen operators establish eligibility rules for listed candidates.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Choice-screen operators determine the ordering of listed candidates.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Choice-screen operators exclude options they regard as troublesome.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Human attention is scarce in choice-screen interactions.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Using interfaces imposes cognitive or practical work on users.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Preselecting an option on a choice screen influences user selection.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A preselected default requires fewer clicks than selecting an alternative.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A preselected default reduces how much users read.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A preselected default reduces user uncertainty.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Users under time pressure tend to accept a prearranged default rather than investigate the competitive implications of their options.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Default placement increases an option's distribution.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Increased distribution produces increased revenue for the selected provider.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Users can change the preselected option on the choice screens under discussion.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Choice-screen gatekeepers benefit from steering user traffic.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Choice-screen gatekeepers can define option categories and admission prices.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Choice-screen gatekeepers can require providers to complete technical integrations.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Choice-screen gatekeepers can reserve the most advantageous position for themselves or a favored option.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "The gatekeeper controls described in the preceding discussion compound one another's effects.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "A rival listed on a choice screen may be placed where users are unlikely to notice it.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "An admitted rival may be subjected to burdens not captured by its nominal admission.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "A visible rival may be prevented from communicating directly with customers.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Listing criteria can exclude providers as effectively as an outright ban.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Exclusion through listing criteria is less conspicuous and appears more favorable than an outright ban.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Choice screens controlled by gatekeepers are embedded in products with an existing user base.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Providing nominal choice can preserve the gatekeeper power that the measure is intended to reduce.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Offering limited visible choice can reduce criticism of a gatekeeper without changing its underlying power structure.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Technical debates about choice screens tend to focus excessively on the number of interface buttons.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Choice screens can produce beneficial outcomes.",
+      "where": "paragraph 6"
+    },
+    {
+      "claim": "Leaving rulemaking, contest, and delay powers with an incumbent causes presentation-focused regulation to preserve the incumbent's business model.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Choice screens display genuine market choice only when legal and engineering measures transfer relevant control beyond the screen.",
+      "where": "paragraph 8"
+    }
+  ]
+}

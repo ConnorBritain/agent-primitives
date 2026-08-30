@@ -1,0 +1,13 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    { "habit": "claim-colon-link unit (bare URL alone on the next line)", "why": "no verified sources or links available for this topic" }
+  ],
+  "claims": [
+    { "claim": "Section 1201 of the DMCA makes circumventing a digital lock a federal offence", "where": "paragraph 7" },
+    { "claim": "Oregon banned parts pairing outright in 2024", "where": "paragraph 8" },
+    { "claim": "most other state right-to-repair laws do not restrict parts pairing", "where": "paragraph 8" },
+    { "claim": "Apple showed 'unable to verify' warnings on phones fitted with genuine Apple replacement screens", "where": "paragraph 5" },
+    { "claim": "John Deere requires a dealer technician to authorize a replacement sensor", "where": "paragraph 5" }
+  ]
+}

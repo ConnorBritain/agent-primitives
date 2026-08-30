@@ -6,6 +6,7 @@ date: 2026-07-31
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/amending-ab-1709-doesnt-fix-it-californias-social-media-ban-still-threatens-free
 ---
 California lawmakers have amended A.B. 1709, but the core problem remains: the bill is still a ban on social media access for youth under 16, and it still threatens the privacy and First Amendment rights of all Californians.

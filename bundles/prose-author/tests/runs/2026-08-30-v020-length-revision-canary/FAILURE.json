@@ -1,0 +1,12 @@
+{
+  "schema": "prose-author-stage-adapter-canary-failure/1",
+  "status": "FAIL",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "case_id": "m02",
+  "candidate_words": 838,
+  "revision_words": 799,
+  "accepted_interval": [552, 748],
+  "error": "semantic revision has 799 words; requested 650 +/- 98",
+  "interpretation": "The exact interval and minimum cut in the user-stage prompt were insufficient while the system-stage contract still required the smallest coherent changes and preservation of useful language. Do not launch a full acceptance run on this prompt."
+}

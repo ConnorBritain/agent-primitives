@@ -92,4 +92,5 @@ docs/wiring.md                                              invocation modes; ed
 docs/portability.md                                         what degrades per harness, per kind
 .claude-plugin/marketplace.json                             makes the repo a CC marketplace
 install.sh / install.ps1                                    loose-file install
+CHANGELOG.md                                                per-bundle history; held work included
 ```

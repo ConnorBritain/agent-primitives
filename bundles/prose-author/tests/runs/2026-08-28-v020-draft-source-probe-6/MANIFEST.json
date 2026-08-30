@@ -1,0 +1,31 @@
+{
+  "schema": "voice-draft-source-probe/1",
+  "status": "complete-mixed-claims-audit",
+  "prepared_commit": "9859078bf36063c98876f1c5134e4c4add602201",
+  "acceptance": false,
+  "cells": {
+    "d01-claude": {
+      "profile": "doctorow-blog",
+      "model": "claude-sonnet",
+      "effort": "low",
+      "prompt_sha256": "8a9a67c7a07d2bffac2a40fa6f66888ba2bb5a3a891b070878312222e2897fce",
+      "claims_audit": "fail"
+    },
+    "m01-codex": {
+      "profile": "eff-mullin",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "prompt_sha256": "d17a313eb3eaf595ed6621ec93b318c49e5eafef55e2fe13da906b8025a5351d",
+      "claims_audit": "pass"
+    }
+  },
+  "agent_body_sha256": "9d401bca11afdc4349d94c81cafdbe0099942944dff8f85870316331cbc78e7c",
+  "draft_schema_sha256": "966ee5950d78e676b933dfc2e1da97ca8c6c1343fd2ce4e65aab7759dd03aa0f",
+  "result": {
+    "claude_transport": "pass",
+    "codex_transport": "pass",
+    "deterministic_assembly": "pass",
+    "claims_audit": "mixed",
+    "voice_bar": "not-run"
+  }
+}

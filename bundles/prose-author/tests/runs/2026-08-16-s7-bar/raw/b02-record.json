@@ -1,0 +1,35 @@
+{
+  "omitted": [
+    {
+      "habit": "named-ally attributive clauses, several times per piece",
+      "why": "no verified quotations available for this topic"
+    },
+    {
+      "habit": "paragraph ending on a colon followed by a bare URL line, throughout",
+      "why": "no verified source URLs"
+    },
+    {
+      "habit": "bracketed image credit as the final line",
+      "why": "no real image or licence to credit"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "The W3C standardised Encrypted Media Extensions, a DRM interface for browsers",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "The EFF resigned from the W3C over EME in 2017",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Microsoft's OOXML document format went through ISO's fast-track process in 2008",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "National standards committees gained an influx of new voting members, many of them Microsoft partners, during the OOXML vote",
+      "where": "paragraph 8"
+    }
+  ],
+  "schema": "voice-draft/1"
+}

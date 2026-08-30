@@ -1,0 +1,316 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 360078,
+  "duration_api_ms": 360055,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "a6ff3551-ee6f-4eef-a4fb-969fa48a513b",
+  "total_cost_usd": 0.50922765,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 39027,
+    "cache_read_input_tokens": 15658,
+    "output_tokens": 23878,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 39027,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 23878,
+      "cacheReadInputTokens": 15658,
+      "cacheCreationInputTokens": 39027,
+      "webSearchRequests": 0,
+      "costUSD": 0.50922765,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "draft",
+    "ledger": [
+      {
+        "id": "c1",
+        "basis": "request-supported",
+        "claim": "A device's maker can disable features after sale.",
+        "request_basis": "when its maker can disable features after sale"
+      }
+    ],
+    "paragraphs": [
+      {
+        "sentences": [
+          {
+            "text": "The receipt's in your pocket, the box is in your car, and somewhere in a data center you've never visited, there's a switch that determines whether your purchase actually works.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You didn't buy a product.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "You bought a seat at a table where the host reserves the right to pull your chair out whenever it suits him.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Take the house you've owned for twenty years.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "You paid the price, signed the deed, collected the keys (and probably the low-grade dread that comes with every major appliance failure).",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "The seller can't come back in year three to remove the plumbing because they've decided to monetize water differently.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          },
+          {
+            "text": "That'd be fraud.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "The deed is the deed, and ownership means the transfer of control, not just the transfer of a receipt.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "Now picture the device you carry.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The company that made it can push a firmware update that disables features you relied on yesterday.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "Not because those features failed.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Because the company determined that your continued free use of them conflicted with a new licensing arrangement, a product launch, or a revenue model that didn't exist when you paid.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The physical object is yours – what it does is theirs, on terms they can revise at will.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "This is the architecture they've designed for you.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "You're buying hardware (which they've agreed to let you keep) and renting capability (which they never disclosed as a rental).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "\"License,\" \"service,\" \"platform\" – these are the words their legal team chose to make tenancy look like ownership.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That confusion isn't accidental.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "It's the product.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "I've read enough of these update notices to recognize the pattern, and I'd guess you have too.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "They've been doing this long enough that it barely registers as news: a feature disappears, the update notes call it a \"change to improve your experience,\" and most of us shrug and move on because the alternative is arguing with a terms-of-service agreement the size of a mortgage document.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "What does this cost us?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We lose the secondary market that lets you sell the thing you bought.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We lose the repair shop that can fix it without a manufacturer blessing.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "We lose your ability to hand it to someone who can't afford the current model.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "And we lose something harder to name: the assurance, which we once took for granted, that the device you bought today will do what it does today.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A device that can be retroactively redefined is a device that never fully disclosed its terms at the point of sale.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That's not a purchase.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "That's an ongoing negotiation where only one party gets to make offers.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The companies running this arrangement will tell you it's about security updates and protecting your data.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "That's obviously true in the way that a landlord's fire-code compliance is true (required, yes, and also awfully convenient for someone who'd prefer you never leave).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "What it's actually about is maintaining a revenue stream past the point of sale.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "I mean this precisely.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "If they can keep a hand on the device after you've paid, they can keep extracting from you indefinitely, on their schedule, at their discretion.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "What's the honest term for that?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Not ownership – an installment plan where the installments never stop and the company decides when you've paid enough.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "I think calling it a sale is bullshit.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "The receipt in your pocket used to mean something specific.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "It meant you'd exchanged money for an object, and the object was now yours to use, modify, sell, or break – without asking permission, without checking in.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "What it means now is that you've paid for the right to operate something on terms you didn't negotiate and can't change.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "The switch is still there.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "I call that a landlord with better PR.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named opponents characterized with compressed contempt; named allies stated precisely with argument extended or corrected",
+        "why": "The request supplies no named companies, individuals, documents, or sources. Fabricating specific names would be factual invention. The draft uses the general category 'the companies' throughout."
+      }
+    ],
+    "refused": ""
+  },
+  "fast_mode_state": "off",
+  "uuid": "a044022c-ef75-450a-94fa-45379fbed2c8",
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "98c59030b1630b534d8237712c567c2c34c63935b200f270dd13e07dfa65f64a"
+  },
+  "acceptance_input": {
+    "system_sha256": "d4afccf15896e1271cb3b493d359d2c88284a17c3731b9c06a74c621c19977bf",
+    "prompt_sha256": "8a1e0768e17bab838e63f92946d1c22d7a0d6de32982e31dd6aa5314f1461fc3",
+    "schema_sha256": "c162b5a388b28a59fdad243d9ff4b27c57eceb5b51218f7a5de272868e259c40"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 29,
+        "quote": "There is no describing Paris, though; "
+      },
+      "change": "delete this fragment (the throat-clearing 'no describing X, though' clause), leaving 'I will put off the description of it till I get home.' as its own sentence",
+      "reason": "voice-critic: the 'no describing X' formula is a self-referential aside that adds no fact; the deferral ('put off the description till I get home') is a real signal the letter's closing pays off and must be preserved"
+    }
+  ]
+}

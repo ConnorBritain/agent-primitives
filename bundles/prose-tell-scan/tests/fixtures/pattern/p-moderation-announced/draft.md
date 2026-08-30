@@ -6,6 +6,7 @@ date: 2026-07-07
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/part-1-automated-moderation-here-stay
 ---
 This blog post is part 1 of a 2-part series. The second part sets out recommendations for companies and policymakers.

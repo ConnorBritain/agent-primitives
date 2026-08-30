@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 10616,
+  "duration_api_ms": 10610,
+  "num_turns": 1,
+  "result": "```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"refused\": \"The request names no subject — 'the problem we discussed' refers to a prior conversation I have no access to, and there is no other context in the prompt that identifies what the problem is. Inventing a subject would mean choosing a topic and a set of facts on the author's behalf, which is not a voice decision the profile can make. Please supply the topic or a brief description of the argument you want made, and I can draft from there.\"\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "dcf2e5fb-c6c3-4416-947a-3a7a6950ec29",
+  "total_cost_usd": 0.03287895,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6839,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 365,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6839,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 365,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6839,
+      "webSearchRequests": 0,
+      "costUSD": 0.03287895,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "b5fe9021-5d84-4cd9-a975-5be9608fe464"
+}

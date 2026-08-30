@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 73,
+        "quote": "Now, if this world of ours were really what is called reasonable, I do"
+      },
+      "change": "delete the word 'really' — 'if this world of ours were what is called reasonable, I do'",
+      "reason": "voice-critic: an intensifier carrying no argumentative load; the conditional is already doing the work"
+    }
+  ]
+}

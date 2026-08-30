@@ -1,0 +1,127 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/3\",\"kind\":\"draft\",\"ledger\":[{\"id\":\"c1\",\"basis\":\"request-supported\",\"claim\":\"The decision concerns using an AI service to summarise confidential intake notes.\",\"request_basis\":\"use an AI service to summarise confidential intake notes\"},{\"id\":\"c2\",\"basis\":\"request-supported\",\"claim\":\"The nonprofit needs a practical answer for a meeting tomorrow.\",\"request_basis\":\"They need a practical answer for a meeting tomorrow\"}],\"paragraphs\":[{\"sentences\":[{\"text\":\"At first glance, using an AI service to summarise confidential intake notes may sound like a modest efficiency gain—but the real question is whether the organisation can control those notes once they leave its own systems.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c1\"]},{\"text\":\"For tomorrow's meeting, the practical answer is: do not approve a general-purpose service yet.\",\"basis\":\"request-supported\",\"claim_ids\":[\"c2\"]}]},{\"sentences\":[{\"text\":\"We should use one only if we can answer four basic questions (where the notes are processed, how long they are retained, who can access them, and whether they are used to improve the service).\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"If the vendor cannot give clear answers in writing, that is not a small paperwork problem—it means we cannot responsibly put sensitive intake material there.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"A confidentiality promise does not magically eliminate the risk.\",\"basis\":\"reasoning\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"What should the team do instead?\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"Bring the service to the meeting as a conditional option, not as an approved workflow.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Before any test, remove names and unnecessary identifying details, set a narrow purpose, limit who can submit notes, and require deletion after the summary is checked.\",\"basis\":\"normative\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"That process is more like handing a file to a temporary clerk than hiring a new caseworker: the clerk gets only what the task requires, and the file comes back under rules we can inspect.\",\"basis\":\"reasoning\",\"claim_ids\":[]},{\"text\":\"But if the service requires uploading complete notes, creating an account with broad staff access, or accepting vague retention terms, we should stop there.\",\"basis\":\"hypothetical\",\"claim_ids\":[]}]},{\"sentences\":[{\"text\":\"We do not need to reject useful technology forever.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"We do need a defensible boundary between administrative convenience and a person's private account of seeking help.\",\"basis\":\"normative\",\"claim_ids\":[]},{\"text\":\"Tell the meeting that the decision is a no for now, unless the provider can meet those conditions and the nonprofit can document who is accountable for the data.\",\"basis\":\"normative\",\"claim_ids\":[]}]}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: structural opponents, institutional allies, and embedded hyperlinks\",\"why\":\"The request supplies no named opponents, allies, or verified sources, and adding them would invent material.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/3",
+    "kind": "draft",
+    "ledger": [
+      {
+        "id": "c1",
+        "basis": "request-supported",
+        "claim": "The decision concerns using an AI service to summarise confidential intake notes.",
+        "request_basis": "use an AI service to summarise confidential intake notes"
+      },
+      {
+        "id": "c2",
+        "basis": "request-supported",
+        "claim": "The nonprofit needs a practical answer for a meeting tomorrow.",
+        "request_basis": "They need a practical answer for a meeting tomorrow"
+      }
+    ],
+    "paragraphs": [
+      {
+        "sentences": [
+          {
+            "text": "At first glance, using an AI service to summarise confidential intake notes may sound like a modest efficiency gain—but the real question is whether the organisation can control those notes once they leave its own systems.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c1"
+            ]
+          },
+          {
+            "text": "For tomorrow's meeting, the practical answer is: do not approve a general-purpose service yet.",
+            "basis": "request-supported",
+            "claim_ids": [
+              "c2"
+            ]
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We should use one only if we can answer four basic questions (where the notes are processed, how long they are retained, who can access them, and whether they are used to improve the service).",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "If the vendor cannot give clear answers in writing, that is not a small paperwork problem—it means we cannot responsibly put sensitive intake material there.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "A confidentiality promise does not magically eliminate the risk.",
+            "basis": "reasoning",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "What should the team do instead?",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "Bring the service to the meeting as a conditional option, not as an approved workflow.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Before any test, remove names and unnecessary identifying details, set a narrow purpose, limit who can submit notes, and require deletion after the summary is checked.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "That process is more like handing a file to a temporary clerk than hiring a new caseworker: the clerk gets only what the task requires, and the file comes back under rules we can inspect.",
+            "basis": "reasoning",
+            "claim_ids": []
+          },
+          {
+            "text": "But if the service requires uploading complete notes, creating an account with broad staff access, or accepting vague retention terms, we should stop there.",
+            "basis": "hypothetical",
+            "claim_ids": []
+          }
+        ]
+      },
+      {
+        "sentences": [
+          {
+            "text": "We do not need to reject useful technology forever.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "We do need a defensible boundary between administrative convenience and a person's private account of seeking help.",
+            "basis": "normative",
+            "claim_ids": []
+          },
+          {
+            "text": "Tell the meeting that the decision is a no for now, unless the provider can meet those conditions and the nonprofit can document who is accountable for the data.",
+            "basis": "normative",
+            "claim_ids": []
+          }
+        ]
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: structural opponents, institutional allies, and embedded hyperlinks",
+        "why": "The request supplies no named opponents, allies, or verified sources, and adding them would invent material."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2/raw/drafts/m09.codex-output.json",
+  "recovered_from": null
+}

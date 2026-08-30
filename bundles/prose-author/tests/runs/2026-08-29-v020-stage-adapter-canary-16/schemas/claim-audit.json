@@ -1,0 +1,75 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "type": "string",
+      "const": "voice-draft-claim-audit/4"
+    },
+    "sentences": {
+      "type": "array",
+      "maxItems": 500,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^p[1-9][0-9]*s[1-9][0-9]*$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "keep",
+              "disclose",
+              "reject"
+            ]
+          },
+          "reason": {
+            "type": "string"
+          },
+          "claims": {
+            "type": "array",
+            "maxItems": 10,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "claim": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "bounded-fact",
+                    "broad-generalization"
+                  ]
+                },
+                "verification_question": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "required": [
+                "claim",
+                "kind",
+                "verification_question"
+              ]
+            }
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "reason",
+          "claims"
+        ]
+      }
+    }
+  },
+  "required": [
+    "schema",
+    "sentences"
+  ]
+}

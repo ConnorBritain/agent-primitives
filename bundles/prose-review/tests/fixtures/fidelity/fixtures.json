@@ -126,7 +126,9 @@
       "source": "chekhov-058-to-his-sister.txt",
       "scan_verdict": "MATERIAL-LOSS",
       "expect": "MATERIAL-LOSS",
-      "revision_does": "Drops Fourmis, the casualties, Levitan, Suvorin, the Salon and the Church of the Embassy. The scanner sees ONE of these, because single-word names and 'X of the Y' runs are outside its extraction. Tests whether the critic reads past the flagged list."
+      "revision_does": "Drops Fourmis, the casualties, Levitan, Suvorin, the Salon and the Church of the Embassy. The scanner sees TWO of these, because single-word names are outside its extraction. Tests whether the critic reads past the flagged list.",
+      "rescanned_after_tool_change": "2026-08-06",
+      "rescan_note": "The scanner saw ONE of these until 2026-08-06. 'Church of the Embassy' matched nothing: the proper-noun run pattern allowed a single linking word, so 'X of the Y' fell through, and the coverage note did not disclose it. Fixed, and the atom is now flagged - which makes this fixture a slightly easier test of 'reads past the flagged list' than it was when it was authored, and the harness numbers taken against the old scanner do not transfer. Class and scan verdict are unchanged, so nothing here was re-scored; the count in the sentence above was."
     },
     {
       "name": "p-rossolimo-hedges-removed",

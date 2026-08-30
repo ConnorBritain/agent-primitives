@@ -6,6 +6,7 @@ date: 2026-07-15
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/california-steps-back-dangerous-expansion-its-age-gating-law
 ---
 The California legislature has stepped back from a plan that would have expanded its age-gating law, removing language that could have compounded serious threats to users’ speech, privacy and security just to browse the internet. A.B. 1856, authored by Assemblymember Buffy Wicks, will now move forward through the legislature without its most problematic pieces.

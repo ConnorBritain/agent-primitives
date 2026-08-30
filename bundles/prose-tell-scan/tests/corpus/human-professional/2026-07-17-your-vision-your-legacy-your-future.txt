@@ -6,6 +6,7 @@ date: 2026-07-17
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/your-vision-your-legacy-your-future
 ---
 This month, we celebrate 36 years of EFF and a mission that is bigger than any one of us. Thanks to EFF, communities around the world are demanding that technology protects their freedom, advances justice, and opens doors to opportunity. That's not a small thing—it's a life's work worth continuing.

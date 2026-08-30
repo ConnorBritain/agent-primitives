@@ -1,0 +1,97 @@
+```markdown
+When a maker sells a device, the transaction appears simple: money changes hands, ownership follows. But if the maker can later disable a repair function or software tool, the sale contains a hidden reservation. The buyer receives the object; the company keeps a switch. That isn't full ownership.
+
+Property rules begin with a practical idea: the owner decides how a lawful thing will be used. Software complicates that idea, but it doesn't erase it. A remote feature control (whether exercised through an account, license server, or mandatory update) lets the seller revise the bargain after payment. The device may remain on the buyer's desk, yet a part of it sits behind someone else's permission. Ownership becomes a card catalog for functions the company still controls.
+
+Manufacturers may argue that remote controls protect security, safety, or regulatory compliance. Those can be legitimate goals. A company may need to revoke a compromised credential (a key that exposes other users) or block code that creates a hazard. But that concession doesn't establish a power to remove paid features. An emergency authority should be narrow, reviewable, and tied to the emergency—not converted into permanent control over ordinary use.
+
+The distinction matters because technical capability becomes economic leverage. If disabling a feature can push an owner toward a subscription, new model, or authorized service, companies will likely feel pressure to use it. They may call the change “support policy” (a label with no magic in it), but the practical result is the same: value sold can be withdrawn. The switch is a little vault door—and the former seller still holds the combination.
+
+What happens when the server makes a mistake, the account changes hands, or the company closes the service? A buyer shouldn't have to prove worthiness merely to retain a function. Nor should a repair shop need the maker's blessing to restore it (assuming the repair itself is lawful). The uncertainty isn't incidental; it is the enforcement mechanism. When access can disappear without the owner's consent, dependence does the work of a contract the buyer never negotiated.
+
+Policy should separate safety interventions from product control. First, sellers should disclose every remotely controllable feature before purchase (including any function dependent on continuing authentication). Second, disabling authority should be limited to circumstances defined in law or the sale contract, with notice and an appeal. Third, loss of a feature should trigger repair, restoration, or refund rights—not a maze of disclaimers. The rule does not need to forbid updates. It needs to stop an update from rewriting ownership.
+
+There are boundary cases. A rented function is different from a sold one (if the rental was clear at checkout). A cloud service can't be guaranteed forever (servers cost money and sometimes fail). And a court order may require disabling a device. None of those cases justifies treating every feature as a revocable favor. The burden should remain on the maker to identify the narrow authority it invokes, explain why it applies, and preserve functions.
+
+This is a competition issue. Remote disablement can steer owners toward approved parts and services, while independent repair becomes possible but useless. It can punish resale: a feature available to the first buyer vanishes for the second (even though the hardware has not changed). That arrangement doesn't preserve a product; it preserves the maker's position after the product leaves its hands.
+
+We should ask lawmakers for a baseline: after a sale, the maker should not disable a paid feature unless a disclosed and legally justified exception applies (with remedies when it gets the decision wrong). If you own an affected device, document the advertised feature and the disabling notice, then send both to the officials considering right-to-repair and consumer protection rules. We don't need a new theory of property—only an old principle applied honestly. A sale should transfer meaningful control, not leave the buyer living under the seller's switch.
+```
+
+```json
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o11: named allies and documentary sources",
+      "why": "The request supplied no verified organizations, court decisions, research, coalition materials, or quotations to cite."
+    },
+    {
+      "habit": "openings-endings-closure / o13: opening on a named live bill, vote, update, or reported practice",
+      "why": "The request supplied no specific bill, vote, update, or verified report to name."
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Property rules generally begin from the principle that an owner decides how a lawful thing will be used.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Software complicates the application of the property principle that owners decide how lawful things are used.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Remote feature control can be exercised through user accounts, license servers, or mandatory software updates.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "A maker's technical ability to disable device features becomes economic leverage over device owners.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Disabling a device feature can push owners toward subscriptions, replacement models, or authorized service.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Companies with the ability to steer owners through feature disablement are likely to feel pressure to exercise that ability.",
+      "where": "paragraph 4"
+    },
+    {
+      "claim": "Uncertainty about continued feature access functions as an enforcement mechanism for maker control.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "Buyers subject to maker-controlled feature revocation generally did not negotiate the dependence created by that control.",
+      "where": "paragraph 5"
+    },
+    {
+      "claim": "A cloud service cannot be guaranteed to continue forever.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Operating servers costs money.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Servers sometimes fail.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "A court order may require a device to be disabled.",
+      "where": "paragraph 7"
+    },
+    {
+      "claim": "Remote feature disablement can steer device owners toward maker-approved parts and services.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Remote feature disablement can render an otherwise possible independent repair useless.",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Government officials are considering right-to-repair and consumer-protection rules relevant to remotely disabled device features.",
+      "where": "paragraph 9"
+    }
+  ]
+}
+```

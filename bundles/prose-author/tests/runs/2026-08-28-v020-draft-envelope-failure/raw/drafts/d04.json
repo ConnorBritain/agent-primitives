@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 289827,
+  "duration_api_ms": 289802,
+  "num_turns": 1,
+  "result": "```markdown\n\"Age verification is a narrow safety measure\" – that's the line you'll hear from every politician who's just voted for one of these laws, and I think it's worth pausing on, because it tells you exactly what they've failed to think through.\n\nHere's what it actually takes to verify someone's age online. The system has to know who they are. Not approximately (not \"this device is probably used by an adult\") but specifically: this person, this identity, checked against something authoritative. The moment you require that, you haven't built a content filter. You've built an identity checkpoint. We don't usually recognize those for what they are until they've already been turned against us, because they accumulate quietly and accumulation is how infrastructure happens.\n\nThink about how a corner liquor store works. The cashier checks your ID, confirms you're of age, and the transaction closes. Nobody logs your name, your birthday, your address against a record of what you bought. Now imagine a law requiring the store to keep a ledger – not because the check changed, but because the regulation demands an audit trail. The check is the same; the infrastructure around it is completely different. That ledger becomes a marketing asset, a thing insurers want access to, a thing the police can subpoena without your knowledge.\n\nOnline age-checking systems cannot do the ledger-free version. They have to retain enough to answer the question \"was this person verified?\" – and that means there's a database somewhere, held by somebody (a government body, a third-party company, a platform consortium), containing the link between your real identity and your online behavior. That's what I'm worried about, not the age check itself.\n\nWho holds it? Under the UK's Online Safety Act verification regime, the practical answer has been third-party companies – companies like Yoti – that sit between you and the platforms you're accessing. They've positioned themselves as privacy-respecting intermediaries: we verify you, we don't tell the platform who you are, we just issue a token. I don't think \"nothing bad, ever\" is a plausible answer to what happens on their end: the verification records exist, someone can compel disclosure, and business models change when markets get crowded.\n\nThe deeper problem is that infrastructure built for one purpose gets used for others, reliably, historically, every time we've built it. We've seen this with financial surveillance (Bank Secrecy Act compliance systems that now ingest every transaction), with anti-terrorism watch lists repurposed for immigration enforcement, with contact-tracing apps that became location-tracking apps. Build a pipe, and eventually someone pushes something through it you didn't authorize. That pattern doesn't break just because this particular pipe was built with sympathetic language about children.\n\nAge-verification infrastructure is a pipe. Your verified identity, linked to what you're reading or watching, is data worth a hell of a lot of money to advertisers, data brokers, and governments who want leverage over what you do online. The \"narrow safety measure\" framing is working hard to keep you from noticing that you're being asked to authorize something much larger. Who actually benefits from a live database of verified identities tied to platform behavior?\n\nA law passes with reassuring language (protecting children is the best possible political cover), the infrastructure goes in, and five years later we're relitigating secondary uses that nobody thought to restrict at the outset. We've been here before. Age-checking mandates deserve the same scrutiny we'd give any proposal to build identity infrastructure at national scale, which means refusing to accept \"protecting the children\" as a complete answer to questions about data retention, legal compulsion, and who ultimately controls the pipe. I'm not arguing against protecting children. I'm arguing that the pipe is going to exist long after any particular child-safety rationale has served its political purpose.\n\nOnce that infrastructure exists, we don't get to un-verify it.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources: named individual opponents quoted and refuted on their own terms\", \"why\": \"the essay argues against a systemic mechanism rather than a named advocate's stated position; naming a specific legislator or industry figure would require attributing arguments I cannot verify\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"UK's Online Safety Act creates an age verification regime in which third-party companies act as intermediaries between users and platforms\", \"where\": \"paragraph 5\" },\n    { \"claim\": \"Yoti operates as an age verification intermediary in the UK context\", \"where\": \"paragraph 5\" },\n    { \"claim\": \"Bank Secrecy Act compliance systems function as broad transaction surveillance infrastructure\", \"where\": \"paragraph 6\" },\n    { \"claim\": \"Anti-terrorism watch lists were repurposed for immigration enforcement\", \"where\": \"paragraph 6\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "9981c228-0b98-479c-9288-cc1663f9ccb6",
+  "total_cost_usd": 0.2936877,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6872,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 17744,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6872,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 17744,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6872,
+      "webSearchRequests": 0,
+      "costUSD": 0.2936877,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "b1f6d5ef-63b4-4b49-a688-78ca9eca43a2"
+}

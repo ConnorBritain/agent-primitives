@@ -1,0 +1,14 @@
+{
+  "name": "chopin-narration",
+  "description": "Third-person short-form fiction — interior, restrained, one consciousness at a time.",
+  "medium": "fiction",
+  "register": "narrative, close third person, 1899",
+  "notes": [
+    "FIXTURE built from public-domain text (Project Gutenberg 160, The Awakening) for",
+    "testing voice-profile-render and voice-draft. Not a real user's profile.",
+    "",
+    "Paired with ohenry-narration for FU-9: two authors in the SAME register and within",
+    "seven years of each other, where a merely-true observation about 'narrative fiction'",
+    "would fail to separate them."
+  ]
+}

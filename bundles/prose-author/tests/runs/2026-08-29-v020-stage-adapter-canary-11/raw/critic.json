@@ -1,0 +1,44 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-critic-source/1\",\"findings\":[],\"clean_categories\":[\"register-breaks\",\"unfamiliar-constructions\",\"out-of-register-vocabulary\",\"unvarying-voice\"],\"rhythm_assessed\":false,\"rhythm_note\":\"Category 4 was not assessed because no deterministic rhythm scan was supplied.\",\"verdict\":\"CLEAN\"}",
+  "structured_output": {
+    "schema": "voice-critic-source/1",
+    "findings": [],
+    "clean_categories": [
+      "register-breaks",
+      "unfamiliar-constructions",
+      "out-of-register-vocabulary",
+      "unvarying-voice"
+    ],
+    "rhythm_assessed": false,
+    "rhythm_note": "Category 4 was not assessed because no deterministic rhythm scan was supplied.",
+    "verdict": "CLEAN"
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/raw/critic.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/raw/critic.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "critic",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "6742b10967d81820ad6c4525bae3069f4560026ef7a16c30f0df5b573755c408"
+  },
+  "acceptance_input": {
+    "system_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "prompt_sha256": "e73a94645bc40593eb089191246b6a7c2c298881bbe7021c6bbc44e304edcc75",
+    "schema_sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5",
+    "prerequisites": {
+      "initial_draft_raw_sha256": "3f376c5b2d3680ba542784a8d902155597655abef490cd117dc276309198cd5f",
+      "conformance_raw_sha256": "3e052000e4c4cce4d287a13a5922119f286c467a3e647727b5476c0ffc86a415",
+      "audit_raw_sha256": "bf6339cd3e2a60a5cb8e69f2bf3a7202ee2dd0bb2bfb38a5f94075b227a8e86d"
+    }
+  }
+}

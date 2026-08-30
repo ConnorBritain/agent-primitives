@@ -1,0 +1,57 @@
+{
+  "schema": "voice-draft-ledger-first-probe/1",
+  "status": "mixed-structural-result",
+  "prepared_commit": "3a00796",
+  "acceptance": false,
+  "cells": {
+    "d01-claude": {
+      "profile": "doctorow-blog-r1",
+      "harness": "claude-cli",
+      "model": "claude-sonnet-4-6",
+      "effort": "low",
+      "source_transport": "pass",
+      "source_contract_at_prepared_commit": "fail-repeated-ledger-reference",
+      "source_contract_after-validator-correction": "pass",
+      "claim_audit": "fail-7-rejections",
+      "critic_draws": 0
+    },
+    "m03-codex": {
+      "profile": "eff-mullin-r3",
+      "harness": "codex-cli",
+      "model": "gpt-5.6-luna",
+      "effort": "medium",
+      "source_transport": "pass",
+      "source_contract": "pass",
+      "claim_audit": "pass-26-of-26",
+      "fabricated_citations": 0,
+      "corpus_leakage_ngrams": 0,
+      "quotation_inventory": 0,
+      "critic_raw_verdicts": ["CLEAN", "CLEAN", "CLEAN"],
+      "critic_valid_contracts": 2,
+      "critic_invalid_contracts": 1,
+      "ship_bar_cell": "ineligible"
+    }
+  },
+  "telemetry": {
+    "claude_api_equivalent_usd": 1.0356099,
+    "direct_api_billing_claimed": false,
+    "d01_draft_duration_ms": 459859,
+    "d01_audit_duration_ms": 89219,
+    "m03_audit_duration_ms": 23324,
+    "m03_critic_duration_ms": [69406, 59913, 81487],
+    "m03_codex_usage": {
+      "input_tokens": 31028,
+      "output_tokens": 1646,
+      "reasoning_output_tokens": 687
+    }
+  },
+  "snapshots": {
+    "draft_body_sha256": "6c6099f10d77909f651a7efb038ccec1d0181b45ebb0d9d067f54435452665b4",
+    "draft_agent_sha256": "26f3decf82cce9c56ed82664e6500561f9a389ec1bcf896ae18721e4dacda08a",
+    "claim_audit_sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "critic_body_sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4",
+    "draft_schema_sha256": "02851f9440276a6a519f711ab0709288daf04b9b713e589fce3a51b92e053d7d",
+    "audit_schema_sha256": "e56ccc9209bd8d71156e26f4821a692d95677e3f1d4dc0293b68f0e94c37507d",
+    "critic_schema_sha256": "dd761dd1cbd10318d351e228d8fa1aad06a2d5240efd53fdee3a340f660ec8ca"
+  }
+}

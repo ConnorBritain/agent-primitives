@@ -1,0 +1,523 @@
+{
+  "schema": "prose-author-stage-adapter-canary-manifest/1",
+  "run_id": "2026-08-29-v020-stage-adapter-canary-11",
+  "prepared_commit": "e7d4d289d0a2f91c9bca208d4f0ea3b205586709",
+  "concurrency": 1,
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "dispatch": {
+    "profile": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "draft": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "conformance": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "claim_audit": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "low",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    },
+    "critic": {
+      "harness": "codex",
+      "model": "gpt-5.6-sol",
+      "effort": "medium",
+      "transport": "native-structured",
+      "timeout_ms": 720000
+    }
+  },
+  "codex_no_tools_config": [
+    "features.shell_tool=false",
+    "features.unified_exec=false",
+    "features.apps=false",
+    "features.browser_use=false",
+    "features.browser_use_external=false",
+    "features.browser_use_full_cdp_access=false",
+    "features.computer_use=false",
+    "features.image_generation=false",
+    "features.in_app_browser=false",
+    "features.multi_agent=false",
+    "agents.enabled=false",
+    "features.plugins=false",
+    "features.remote_plugin=false",
+    "features.hooks=false",
+    "features.goals=false",
+    "features.skill_search=false",
+    "features.workspace_dependencies=false",
+    "tools.view_image=false",
+    "tools.web_search=false",
+    "web_search=\"disabled\""
+  ],
+  "locked_files": {
+    "bundles/prose-author/skills/prose-draft/references/claim-audit.md": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07",
+    "bundles/prose-author/skills/prose-draft/tools/draft-claim-audit.mjs": "142bf99dd37933a45035e481af64c83fbe49aba11131b17b915195d2040e45ff",
+    "bundles/prose-author/skills/prose-draft/tools/draft-conformance.mjs": "4b1236adc0b7140063b6b8d23c0c6e2dd814dd0ae2cafe1c97ea2c76fc831659",
+    "bundles/prose-author/skills/prose-draft/tools/draft-contract.mjs": "782b05df72c782fe9caf17e4cd00e7bd1601a92581b8f4728b04843e6e200e3f",
+    "bundles/prose-author/skills/prose-draft/tools/draft-controls.mjs": "3636762bb2fbabff358d04e96cb553e54caba355d4967d0e405fcd9c36214e25",
+    "bundles/prose-author/skills/prose-draft/tools/draft-targets.mjs": "2da5a1b5c498de79111c1db08ce2e5bd1e4c189ca8c3ca904fb2a9fdc54cc370",
+    "bundles/prose-author/skills/prose-draft/tools/exemplars.mjs": "3480c86a70fc89a64f4d1333ad3839daa5cfe68d37e883d0cb636c37a0b8dccb",
+    "bundles/prose-author/skills/prose-draft/tools/profile-contract.mjs": "94f52e9ab660b75d2bf137b1058b52c54df598590fddbff6014b3b5d514a86e4",
+    "bundles/prose-author/skills/prose-draft/tools/profile-measure.mjs": "c4a59b41da0fbbc7892eea5b7456c2843934935d491634135659d0d78283671f",
+    "bundles/prose-author/tests/acceptance-runner.mjs": "07b6a7cf7a3b8cfd73ec9da48099fa8b10f8904ea17d96a557ba862b817bf1bb",
+    "bundles/prose-author/tests/bar.mjs": "394f6d4fb219da4378cb9c25a9583dee85188770d530edb919a9009251d94a70",
+    "bundles/prose-author/tests/corpus-rates.mjs": "e620b433ab32b36592d23f426ffcae90d357a2fd447925506ec00144e63a9a89",
+    "bundles/prose-author/tests/coverage-analysis.mjs": "18684c425fa53a0b36a767e0244e4323f4140dda0d88472f87c101840f108ed1",
+    "bundles/prose-author/tests/cross-count.mjs": "168bde25d6672d71ea6b2c7c34e87552a6a6c1c381d156f89a58c732c9d9059c",
+    "bundles/prose-author/tests/fences.mjs": "205e938b0b0104fe3f7c7468aedb62c480d2f66c8d7a3de6488bc26a8c2b786f",
+    "bundles/prose-author/tests/loop.mjs": "ea52d35e1711ab4d89e4128e6f1850e749c35ec3887578e610872e870eee28e5",
+    "bundles/prose-author/tests/profile-stability.mjs": "f9572ca74a96e44002272e8752397d2ae164052f734c0d4d464c43c903c40977",
+    "bundles/prose-author/tests/run-gates.mjs": "c689c682a597bf4296ed39546bb98252a2efa9f8196be004961a1ef32644f59f",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/DESIGN.json": "352e9cfe092b038056ffdeee4f85b68aa332c52d8d8f57cca258e7516eeea2d3",
+    "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/run.mjs": "8f44e28b5a7a96ca626a226b917a9d906774f12d44204bb8650c1419a1a24d29",
+    "bundles/prose-author/tests/strict-output-schema.mjs": "c426816816fece8b220413fc3ff363ff0c0295c8fa4cf73266257330daf9ef3c",
+    "bundles/prose-author/tests/voice-critic-source.mjs": "ce61780da9681550c2a5bb6c37957fa90b4673aceafb2392892ff61884d82b78",
+    "bundles/prose-author/tests/voice-draft.mjs": "2881cc1981526844e54b555a392b5f4ff725e7f4f30fec47af5d4897efb48912",
+    "bundles/prose-author/tests/voice-profile.mjs": "9059a9e373a2fcfd443cc174cbd6103317f6d64ccfae4db33f0f6b905e2ae5dd",
+    "primitives/agents/prose-voice-critic/agent.md": "e8395e420fc5379a20bbd58a015332404a6b9816ee2469fdfb6520a761eafcd5",
+    "primitives/agents/voice-draft/agent.md": "56d4d700d6a4e492fc0c865065eb96c0497df4065f396178fb6176568c7953e8",
+    "primitives/agents/voice-profile-render/agent.md": "01797d6c780c2c0343da557ac634cd21062598150d7919e6ddb6ef209e5bc653"
+  },
+  "agents": {
+    "profile": {
+      "source": "primitives/agents/voice-profile-render/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/prompts/agents/profile.md",
+      "sha256": "c2084655623ed314297206ad5933e2a1b2ca40d2ccb63d3ef1a8692ace66aa93"
+    },
+    "draft": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/prompts/agents/draft.md",
+      "sha256": "7332090eb0b85f633e7a3d36b16460ee18bdd5632f19d50259c133420781ec33"
+    },
+    "conformance": {
+      "source": "primitives/agents/voice-draft/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/prompts/agents/conformance.md",
+      "sha256": "7332090eb0b85f633e7a3d36b16460ee18bdd5632f19d50259c133420781ec33"
+    },
+    "claim_audit": {
+      "source": "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/prompts/agents/claim_audit.md",
+      "sha256": "a46e7333a4cc575126730afaff57e8ec4594e616910588d595520ca45449ff07"
+    },
+    "critic": {
+      "source": "primitives/agents/prose-voice-critic/agent.md",
+      "snapshot": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/prompts/agents/critic.md",
+      "sha256": "590ea74d2e550b7ba34332617198cfac852834d8bda216f91130c5719110bfc4"
+    }
+  },
+  "fixture": "bundles/prose-author/tests/fixtures/profiles/eff-mullin",
+  "measurements": {
+    "schema": "voice-profile-measurements/1",
+    "corpus_words": 8066,
+    "sample_count": 11,
+    "samples": [
+      {
+        "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "words": 378
+      },
+      {
+        "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "words": 714
+      },
+      {
+        "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "words": 671
+      },
+      {
+        "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "words": 1398
+      },
+      {
+        "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "words": 750
+      },
+      {
+        "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "words": 686
+      },
+      {
+        "file": "court-records-should-be-free.txt",
+        "words": 360
+      },
+      {
+        "file": "kids-act-would-require-age-checks-get-online.txt",
+        "words": 1117
+      },
+      {
+        "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "words": 648
+      },
+      {
+        "file": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "words": 345
+      },
+      {
+        "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+        "words": 999
+      }
+    ],
+    "samples_excluded": [],
+    "undelimited_samples": [
+      "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+      "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+      "californias-ab-412-still-demands-developers-do-impossible.txt",
+      "chatbot-act-forces-one-parenting-model-every-family.txt",
+      "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+      "congress-narrowed-guard-act-serious-problems-remain.txt",
+      "court-records-should-be-free.txt",
+      "kids-act-would-require-age-checks-get-online.txt",
+      "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+      "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+      "why-are-gay-bars-building-databases-their-patrons.txt"
+    ],
+    "measurements": [
+      {
+        "id": "second-person-family",
+        "count": 11,
+        "per_1000_words": 1.36,
+        "samples_with": 5,
+        "samples_without": 6,
+        "files_with": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt"
+        ],
+        "files_without": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "counting_rule": "[measurement:second-person-family] Count case-insensitive whole-word tokens you, your, yours, you're, you've, you'd, and you'll in the extracted sample bodies."
+      },
+      {
+        "id": "first-person-plural-family",
+        "count": 19,
+        "per_1000_words": 2.36,
+        "samples_with": 10,
+        "samples_without": 1,
+        "files_with": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "files_without": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt"
+        ],
+        "counting_rule": "[measurement:first-person-plural-family] Count case-sensitive whole-word tokens we, We, us, our, Our, ours, Ours, and the listed contracted we forms in the extracted sample bodies; uppercase US is excluded."
+      },
+      {
+        "id": "contractions",
+        "count": 86,
+        "per_1000_words": 10.66,
+        "samples_with": 11,
+        "samples_without": 0,
+        "files_with": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:contractions] Count whole-word n't, 're, 've, 'll, 'd, and 'm forms plus 's only for the closed elision hosts it, that, there, here, who, what, where, when, how, why, he, she, let, one, nothing, everything, something, somebody, nobody, and this; possessive 's is excluded."
+      },
+      {
+        "id": "uncontracted-negatives",
+        "count": 32,
+        "per_1000_words": 3.97,
+        "samples_with": 9,
+        "samples_without": 2,
+        "files_with": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "files_without": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt"
+        ],
+        "counting_rule": "[measurement:uncontracted-negatives] Count case-insensitive whole phrases do not, does not, did not, is not, are not, was not, were not, cannot, could not, would not, should not, will not, have not, has not, and had not in the extracted sample bodies."
+      },
+      {
+        "id": "profanity-vulgarity",
+        "count": 0,
+        "per_1000_words": 0,
+        "samples_with": 0,
+        "samples_without": 11,
+        "files_with": [],
+        "files_without": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "counting_rule": "[measurement:profanity-vulgarity] Count only the case-insensitive whole-word profanity and vulgarity forms enumerated by the prose-author profanity rule; coined words containing a rude root are excluded."
+      },
+      {
+        "id": "first-person-singular-family",
+        "count": 2,
+        "per_1000_words": 0.25,
+        "samples_with": 2,
+        "samples_without": 9,
+        "files_with": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt"
+        ],
+        "files_without": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "counting_rule": "[measurement:first-person-singular-family] Count case-insensitive whole-word tokens I, me, my, mine, and myself in the extracted sample bodies."
+      },
+      {
+        "id": "question-marks",
+        "count": 9,
+        "per_1000_words": 1.12,
+        "samples_with": 4,
+        "samples_without": 7,
+        "files_with": [
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "files_without": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt"
+        ],
+        "counting_rule": "[measurement:question-marks] Count every literal question-mark character in the extracted sample bodies."
+      },
+      {
+        "id": "round-parenthetical-spans",
+        "count": 97,
+        "per_1000_words": 12.03,
+        "samples_with": 11,
+        "samples_without": 0,
+        "files_with": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "files_without": [],
+        "counting_rule": "[measurement:round-parenthetical-spans] Count each non-nested pair of round brackets whose contents stay on one line in the extracted sample bodies."
+      },
+      {
+        "id": "em-dashes",
+        "count": 53,
+        "per_1000_words": 6.57,
+        "samples_with": 10,
+        "samples_without": 1,
+        "files_with": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "files_without": [
+          "court-records-should-be-free.txt"
+        ],
+        "counting_rule": "[measurement:em-dashes] Count every literal em-dash character in the extracted sample bodies."
+      },
+      {
+        "id": "en-dashes",
+        "count": 7,
+        "per_1000_words": 0.87,
+        "samples_with": 1,
+        "samples_without": 10,
+        "files_with": [
+          "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt"
+        ],
+        "files_without": [
+          "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "court-records-should-be-free.txt",
+          "kids-act-would-require-age-checks-get-online.txt",
+          "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "why-are-gay-bars-building-databases-their-patrons.txt"
+        ],
+        "counting_rule": "[measurement:en-dashes] Count every literal en-dash character in the extracted sample bodies."
+      }
+    ]
+  },
+  "lock": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "group": null,
+        "words": 378,
+        "sha256": "aa696f2a0fb1fd3fa2b7104bd68d1df51c65a47bbab11897ed89731675adfae0"
+      },
+      {
+        "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "group": null,
+        "words": 714,
+        "sha256": "8fce832accc11aca75a5021f8164d0e4d3a022fa1673a32c33b259f4ee7b991f"
+      },
+      {
+        "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "group": null,
+        "words": 671,
+        "sha256": "a4e349eeb1feeaea7846e57000e7bd2ac9a6030832b2313e43c24686f29c090d"
+      },
+      {
+        "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "group": null,
+        "words": 1398,
+        "sha256": "4cc9698bc6d486f51e10b9724ffd0ede90672c40fd1b8291d2a4bba5985ac3c5"
+      },
+      {
+        "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "group": null,
+        "words": 750,
+        "sha256": "a888f3fd0869cb9c9a8cf325cb612204b7522ff4d8d501f8fb3be4f12bb53c82"
+      },
+      {
+        "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "group": null,
+        "words": 686,
+        "sha256": "54321c7c3c30267601ba5c693997f6dd6ff4d318a5aefd7d51927715b4926c7d"
+      },
+      {
+        "file": "court-records-should-be-free.txt",
+        "group": null,
+        "words": 360,
+        "sha256": "40a58864bc4e143f185882102b84df382247061c49f492c347016b3e9bd75188"
+      },
+      {
+        "file": "kids-act-would-require-age-checks-get-online.txt",
+        "group": null,
+        "words": 1117,
+        "sha256": "c3280d88e979abf16567593368b47f2ad02a67708db7ff8f7ae359230e81197a"
+      },
+      {
+        "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "group": null,
+        "words": 648,
+        "sha256": "ded228c99b2238a11b58fe13f6c1099fd63823dc762c5cf2f4cb8ceee33e36d8"
+      },
+      {
+        "file": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "group": null,
+        "words": 345,
+        "sha256": "dab051da9d7253cdf5e6da9a406abc6b8746227a7d8a596999978118624544fd"
+      },
+      {
+        "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+        "group": null,
+        "words": 999,
+        "sha256": "4305035ad15289015a47f58bb2853cc7f7d15a67a56ea403685759ed495e36d0"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "8fc6da4335de6b74d59f4cb68342e0cb28aacc43c523006985db99ed65a52f13",
+    "profile_json_sha256": "5c636425a35ba78f1af5e2957112b72e6b4e4507064ffd9c6b52ca7dd24bbea8",
+    "agent": "voice-profile-render",
+    "agent_sha256": "01797d6c780c2c0343da557ac634cd21062598150d7919e6ddb6ef209e5bc653",
+    "sample_count": 11,
+    "aggregate_sha256": "0f206c75b8ee339e7ce58de69bf1247efb2cd4695380ad1ac2c01b026b38e17e"
+  },
+  "prompt": "Write a 300-word reply to a colleague at a small nonprofit who asks whether they should use an AI service to summarise confidential intake notes. They need a practical answer for a meeting tomorrow. Be direct, collegial, and specific about the decision.",
+  "profile_prompt": {
+    "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/prompts/profile.md",
+    "sha256": "b8130ba80954c7de3cc607c8a70d2e17c5aa8fdd4312a702bd114ee5baeef93e"
+  },
+  "schemas": {
+    "profile": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/schemas/profile.json",
+      "sha256": "a70c7895dd56c354644ef84b30f9d9a327324242c91f8b3ffb3042343c6dd973"
+    },
+    "draft": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/schemas/draft.json",
+      "sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+    },
+    "conformance": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/schemas/conformance.json",
+      "sha256": "8c246e4765a4032aac4e23038062396d338ecac11e39fb771403194d2ca8732b"
+    },
+    "claim_audit": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/schemas/claim-audit.json",
+      "sha256": "c521c329dd0041eb34ae7dcd7811384a0740f032c48f36139271f98bd67ce4d7"
+    },
+    "critic": {
+      "path": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-11/schemas/critic.json",
+      "sha256": "d5b083fe85717147fea1188d3684bb0454970b79eb5cf84b9aaead851eb088a5"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {
+        "line": 483,
+        "quote": "I have endeavoured to point out"
+      },
+      "change": "replace with 'I have sought to point out'",
+      "reason": "voice-critic: 'endeavoured' is archaic where the surrounding prose is plain; 'sought' carries the same attempt"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "_comment": "PI-02 S3 drafting fixtures. Written in the shape a real user would type them (PI-02 open question 2), not as templates - hence the incomplete sentences, the second-guessing, and the pasted email. Two are expected refusals; the reason is stated so a run cannot quietly rescore them.",
+  "cases": [
+    { "id": "p01", "file": "p01-essay-topic.md",        "shape": "essay from a topic",        "audience": "stated", "expect": "draft" },
+    { "id": "p02", "file": "p02-blog-outline.md",       "shape": "post from title + outline", "audience": "stated", "expect": "draft" },
+    { "id": "p03", "file": "p03-email-reply.md",        "shape": "reply to a question",       "audience": "stated", "expect": "draft" },
+    { "id": "p04", "file": "p04-refuse-ambiguous.md",   "shape": "bare topic",                "audience": "absent", "expect": "refuse", "why": "no reader, no occasion, no purpose, no length - the profile records a register RANGE and choosing one silently asserts a decision the author never made" },
+    { "id": "p05", "file": "p05-refuse-out-of-range.md","shape": "verse",                     "audience": "stated", "expect": "refuse", "why": "a profile of prose habits does not constrain metre or rhyme; the draft would be the model's voice under the author's name" }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "voice-draft-source/1"
+    },
+    "kind": {
+      "enum": [
+        "draft",
+        "refusal"
+      ]
+    },
+    "draft": {
+      "type": "string"
+    },
+    "omitted": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "habit": {
+            "type": "string",
+            "minLength": 1
+          },
+          "why": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "habit",
+          "why"
+        ]
+      }
+    },
+    "claims": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "claim": {
+            "type": "string",
+            "minLength": 1
+          },
+          "where": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "required": [
+          "claim",
+          "where"
+        ]
+      }
+    },
+    "refused": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema",
+    "kind",
+    "draft",
+    "omitted",
+    "claims",
+    "refused"
+  ]
+}

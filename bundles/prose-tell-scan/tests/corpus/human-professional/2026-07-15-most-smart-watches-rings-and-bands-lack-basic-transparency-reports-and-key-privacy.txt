@@ -6,6 +6,7 @@ date: 2026-07-15
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/07/most-smart-watches-rings-and-bands-lack-basic-transparency-reports-and-key-privacy
 ---
 Oura Rings, Garmin GPS fitness watches, Apple Watches, Whoop bands—every year, more and more tech devices are promising to monitor our health and fitness, guide us toward healthier living, and provide useful health metrics to take to our doctors. But few of these tools provide the sorts of privacy and security promises we demand from all technology, let alone tech that captures personal health data. It’s time they step up and start providing transparency reports and stronger encryption options.

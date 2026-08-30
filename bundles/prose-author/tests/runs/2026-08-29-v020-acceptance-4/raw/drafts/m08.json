@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"No, an ebook vanishing during a library loan is not the digital version of returning a book. A return happens when the loan period ends (or when the borrower returns it early). Here, the publisher changed what the library could provide after the loan had begun—and the reader lost access before the stated deadline.\\n\\nLibrary lending depends on predictable access. A library acquires lending rights (often under time, price, or circulation limits), places the title in its catalog, and promises a defined loan. Withdrawal may be legitimate for future loans (rights disputes can be real), but canceling an active one shifts the publisher’s problem onto the reader. That isn’t a return; it’s a remote repossession.\\n\\nDigital systems make this possible through license controls and account authorization (the machinery behind the lending app). The same machinery can enforce an ordinary due date, but it can also erase access immediately—quietly and without the physical limits that made mid-loan seizure difficult. A checkout screen may look like a familiar library desk, yet the transaction contains a trapdoor.\\n\\nThat is why the remedy shouldn’t be to pretend nothing unusual happened. Publishers can withdraw titles from new circulation when contracts require it, and libraries can update catalogs accordingly. Active loans, however, should remain available until their disclosed expiration (subject to a lawful order or a security emergency). The rule should protect the term already offered rather than convert every loan into permission that can disappear at any moment.\\n\\nThe library and publisher should also explain the withdrawal plainly: who removed the title, whether active loans were included, and what remedy is available. We should insist on a simple boundary: changing future availability is one thing; reaching into an existing loan is another. Public libraries depend on trust, and digital access must honor it.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "No, an ebook vanishing during a library loan is not the digital version of returning a book. A return happens when the loan period ends (or when the borrower returns it early). Here, the publisher changed what the library could provide after the loan had begun—and the reader lost access before the stated deadline.\n\nLibrary lending depends on predictable access. A library acquires lending rights (often under time, price, or circulation limits), places the title in its catalog, and promises a defined loan. Withdrawal may be legitimate for future loans (rights disputes can be real), but canceling an active one shifts the publisher’s problem onto the reader. That isn’t a return; it’s a remote repossession.\n\nDigital systems make this possible through license controls and account authorization (the machinery behind the lending app). The same machinery can enforce an ordinary due date, but it can also erase access immediately—quietly and without the physical limits that made mid-loan seizure difficult. A checkout screen may look like a familiar library desk, yet the transaction contains a trapdoor.\n\nThat is why the remedy shouldn’t be to pretend nothing unusual happened. Publishers can withdraw titles from new circulation when contracts require it, and libraries can update catalogs accordingly. Active loans, however, should remain available until their disclosed expiration (subject to a lawful order or a security emergency). The rule should protect the term already offered rather than convert every loan into permission that can disappear at any moment.\n\nThe library and publisher should also explain the withdrawal plainly: who removed the title, whether active loans were included, and what remedy is available. We should insist on a simple boundary: changing future availability is one thing; reaching into an existing loan is another. Public libraries depend on trust, and digital access must honor it.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/drafts/m08.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-4/raw/drafts/m08.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "222a66cc2808162e9c5166e7e93cdd7c4882097e393b7967e00f103b0d298a83"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "9e95e721fb567cf2639a2cdb07303a3b12650387ff5dedc373988a2b854d505a",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

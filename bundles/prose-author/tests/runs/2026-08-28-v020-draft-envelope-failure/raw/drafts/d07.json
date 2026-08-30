@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 184676,
+  "duration_api_ms": 184638,
+  "num_turns": 1,
+  "result": "```markdown\n# A manual is a tool\n\nA service manual is a tool. Not a creative work, not a trade secret, not a piece of literature that sprang fully formed from a lone inventor's mind. A tool. It tells you what voltage to expect at a test point, what error code means a failed sensor, what torque spec the head bolts need. The manufacturer knows exactly what it is, which is why they've spent years arguing in court and in lobbying offices that it's 'intellectual property' and that giving it to you would somehow destroy their business.\n\nThink about what that actually means for your shop. A customer brings in a piece of equipment you've been repairing for fifteen years. The new model's got a different control board, new firmware, a diagnostic system that's entirely proprietary. You hook up your scan tool and it either doesn't connect at all or gives you a code that isn't in any public database – you're locked out. The manufacturer's authorized dealer down the road has a subscription to the OEM portal. You don't, and even if you applied for one, I think you'd find the pricing structured to make sure you think twice (then give up and send the customer to the dealer anyway).\n\nHere's the part that makes the IP argument particularly full of shit: the documentation isn't separate from the repair ecosystem, it's load-bearing. Modern equipment uses parts pairing – the control unit handshakes with the replacement part's firmware and either authorizes it or doesn't. If you don't have the service manual, you don't know which firmware version the replacement part needs to be running when it arrives at your door. You order the part, it doesn't pair, the customer's machine is still broken, and you eat the restocking fee. The manual isn't just reference material. It's what tells you how the locks work.\n\nThink of it like being a plumber handed a set of blueprints with every pipe diameter redacted. You can see the walls, you can see where the fixtures go, but you can't actually do the job. The manufacturer has built a system where the diagnosis is inseparable from the documentation (I'd argue that's the design, not a side effect), then classified the documentation as IP. That is not protecting innovation. That is protecting market share.\n\nWe've let this go on long enough. The argument from the other side (and I've read every version of it) is that releasing service information exposes safety-critical systems to bad actors. What does it actually expose? The manufacturer's service monopoly. These are torque specs and wiring diagrams, not exploit code – the 'safety' framing has always been a fig leaf for the real concern, which is that an informed technician is a competitive threat.\n\nWhat we actually need is a mandatory disclosure rule with teeth. If you sell a device in commerce, the complete service information – wiring diagrams, diagnostic codes, calibration procedures, parts compatibility matrices, firmware version tables – ships with it. Not behind a paywall. Not through an authorized portal that can revoke your access when you complain about pricing (which they will). With the device. The way a hammer comes with no license requirement to swing it.\n\nYour shop already absorbs the cost of parts markups, diagnostic dead ends, and customers who've been told by the OEM that 'only authorized technicians' can handle the work. You're eating it quietly because what else are you going to do? I think we make a different choice. We push for disclosure rules where right-to-repair legislation has already shown it can pass, and we treat service documentation as what it is: infrastructure for our repair economy, not a separate product the manufacturer gets to sell you after you've already paid for the machine.\n\nA service manual is a tool. It belongs in your toolbox.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o12: named opponents quoted on their own terms; named allies with credential clause\", \"why\": \"prompt frames the adversary generically ('manufacturers'); no specific company or executive is identified in the brief, and fabricating a named opponent with a attributed quote would be an invented citation\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"right-to-repair legislation has already shown it can pass\", \"where\": \"paragraph 7\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "5291d69d-0a69-42ba-960e-90b7253dfdc7",
+  "total_cost_usd": 0.1941852,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6886,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 11107,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6886,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 11107,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6886,
+      "webSearchRequests": 0,
+      "costUSD": 0.1941852,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "f28ffe77-7e00-4b88-a20b-289fc0de6d56"
+}

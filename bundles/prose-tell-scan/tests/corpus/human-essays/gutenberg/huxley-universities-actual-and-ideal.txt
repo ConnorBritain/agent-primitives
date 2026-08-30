@@ -1,0 +1,1067 @@
+---
+source: Project Gutenberg 7150
+title: Universities: Actual and Ideal
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+Elected by the suffrages of your four Nations Rector of the ancient
+University of which you are scholars, I take the earliest opportunity
+which has presented itself since my restoration to health, of
+delivering the Address which, by long custom, is expected of the holder
+of my office.
+
+My first duty in opening that Address, is to offer you my most hearty
+thanks for the signal honour you have conferred upon me--an honour of
+which, as a man unconnected with you by personal or by national ties,
+devoid of political distinction, and a plebeian who stands by his
+order, I could not have dreamed. And it was the more surprising to
+me, as the five-and-twenty years which have passed over my head
+since I reached intellectual manhood, have been largely spent in no
+half-hearted advocacy of doctrines which have not yet found favour in
+the eyes of Academic respectability; so that, when the proposal to
+nominate me for your Rector came, I was almost as much astonished as
+was Hal o' the Wynd, "who fought for his own hand," by the Black
+Douglas's proffer of knighthood. And I fear that my acceptance must be
+taken as evidence that, less wise than the Armourer of Perth, I have
+not yet done with soldiering.
+
+In fact, if, for a moment, I imagined that your intention was simply,
+in the kindness of your hearts, to do me honour; and that the Rector of
+your University, like that of some other Universities was one of those
+happy beings who sit in glory for three years, with nothing to do for
+it save the making of a speech, a conversation with my distinguished
+predecessor soon dispelled the dream. I found that, by the constitution
+of the University of Aberdeen, the incumbent of the Rectorate is, if
+not a power, at any rate a potential energy; and that, whatever may be
+his chances of success or failure, it is his duty to convert that
+potential energy into a living force, directed towards such ends as may
+seem to him conducive to the welfare of the corporation of which he is
+the theoretical head.
+
+I need not tell you that your late Lord Rector took this view of his
+position, and acted upon it with the comprehensive, far-seeing insight
+into the actual condition and tendencies, not merely of his own, but of
+other countries, which is his honourable characteristic among
+statesmen. I have already done my best, and, as long as I hold my
+office, I shall continue my endeavours, to follow in the path which he
+trod; to do what in me lies, to bring this University nearer to
+the ideal--alas, that I should be obliged to say ideal--of all
+Universities; which, as I conceive, should be places in which thought
+is free from all fetters; and in which all sources of knowledge, and
+all aids to learning, should be accessible to all comers, without
+distinction of creed or country, riches or poverty.
+
+Do not suppose, however, that I am sanguine enough to expect much to
+come of any poor efforts of mine. If your annals take any notice of my
+incumbency, I shall probably go down to posterity as the Rector who was
+always beaten. But if they add, as I think they will, that my defeats
+became victories in the hands of my successors, I shall be well
+content.
+
+       *       *       *       *       *
+
+The scenes are shifting in the great theatre of the world. The act
+which commenced with the Protestant Reformation is nearly played out,
+and a wider and deeper change than that effected three centuries ago--a
+reformation, or rather a revolution of thought, the extremes of which
+are represented by the intellectual heirs of John of Leyden and of
+Ignatius Loyola, rather than by those of Luther and of Leo--is waiting
+to come on, nay, visible behind the scenes to those who have good eyes.
+Men are beginning, once more, to awake to the fact that matters of
+belief and of speculation are of absolutely infinite practical
+importance; and are drawing off from that sunny country "where it is
+always afternoon"--the sleepy hollow of broad indifferentism--to range
+themselves under their natural banners. Change is in the air. It is
+whirling feather-heads into all sorts of eccentric orbits, and filling
+the steadiest with a sense of insecurity. It insists on reopening all
+questions and asking all institutions, however venerable, by what right
+they exist, and whether they are, or are not, in harmony with the real
+or supposed wants of mankind. And it is remarkable that these searching
+inquiries are not so much forced on institutions from without, as
+developed from within. Consummate scholars question the value of
+learning; priests contemn dogma; and women turn their backs upon man's
+ideal of perfect womanhood, and seek satisfaction in apocalyptic
+visions of some, as yet, unrealised epicene reality.
+
+If there be a type of stability in this world, one would be inclined to
+look for it in the old Universities of England. But it has been my
+business of late to hear a good deal about what is going on in these
+famous corporations; and I have been filled with astonishment by the
+evidences of internal fermentation which they exhibit. If Gibbon could
+revisit the ancient seat of learning of which he has written so
+cavalierly, assuredly he would no longer speak of "the monks of Oxford
+sunk in prejudice and port." There, as elsewhere, port has gone out of
+fashion, and so has prejudice--at least that particular fine, old,
+crusted sort of prejudice to which the great historian alludes.
+
+Indeed, things are moving so fast in Oxford and Cambridge, that, for my
+part, I rejoiced when the Royal Commission, of which I am a member, had
+finished and presented the Report which related to these Universities;
+for we should have looked like mere plagiarists, if, in consequence of
+a little longer delay in issuing it, all the measures of reform we
+proposed had been anticipated by the spontaneous action of the
+Universities themselves.
+
+A month ago I should have gone on to say that one might speedily expect
+changes of another kind in Oxford and Cambridge. A Commission has been
+inquiring into the revenues of the many wealthy societies, in more or
+less direct connection with the Universities, resident in those towns.
+It is said that the Commission has reported, and that, for the first
+time in recorded history, the nation, and perhaps the Colleges
+themselves, will know what they are worth. And it was announced that a
+statesman, who, whatever his other merits or defects, has aims above
+the level of mere party fighting, and a clear vision into the most
+complex practical problems, meant to deal with these revenues.
+
+But, _Bos locutus est_. That mysterious independent variable of
+political calculation, Public Opinion--which some whisper is, in the
+present case, very much the same thing as publican's opinion--has
+willed otherwise. The Heads may return to their wonted slumbers--at any
+rate for a space.
+
+Is the spirit of change, which is working thus vigorously in the South,
+likely to affect the Northern Universities, and if so, to what extent?
+The violence of fermentation depends, not so much on the quantity of
+the yeast, as on the composition of the wort, and its richness in
+fermentable material; and, as a preliminary to the discussion of this
+question, I venture to call to your minds the essential and fundamental
+differences between the Scottish and the English type of University.
+
+Do not charge me with anything worse than official egotism, if I say
+that these differences appear to be largely symbolised by my own
+existence. There is no Rector in an English University. Now, the
+organisation of the members of a University into Nations, with their
+elective Rector, is the last relic of the primitive constitution of
+Universities. The Rectorate was the most important of all offices in
+that University of Paris, upon the model of which the University of
+Aberdeen was fashioned; and which was certainly a great and flourishing
+institution in the twelfth century.
+
+Enthusiasts for the antiquity of one of the two acknowledged parents of
+all Universities, indeed, do not hesitate to trace the origin of the
+"Studium Parisiense" up to that wonderful king of the Franks and
+Lombards, Karl, surnamed the Great, whom we all called Charlemagne, and
+believed to be a Frenchman, until a learned historian, by beneficent
+iteration, taught us better. Karl is said not to have been much of a
+scholar himself, but he had the wisdom of which knowledge is only the
+servitor. And that wisdom enabled him to see that ignorance is one of
+the roots of all evil.
+
+In the Capitulary which enjoins the foundation of monasterial and
+cathedral schools, he says: "Right action is better than knowledge; but
+in order to do what is right, we must know what is right."  An
+irrefragable truth, I fancy. Acting upon it, the king took pretty full
+compulsory powers, and carried into effect a really considerable and
+effectual scheme of elementary education through the length and breadth
+of his dominions.
+
+No doubt the idolaters out by the Elbe, in what is now part of Prussia,
+objected to the Frankish king's measures; no doubt the priests, who had
+never hesitated about sacrificing all unbelievers in their fantastic
+deities and futile conjurations, were the loudest in chanting the
+virtues of toleration; no doubt they denounced as a cruel persecutor
+the man who would not allow them, however sincere they might be, to go
+on spreading delusions which debased the intellect, as much as they
+deadened the moral sense, and undermined the bonds of civil allegiance;
+no doubt, if they had lived in these times, they would have been able
+to show, with ease, that the king's proceedings were totally contrary
+to the best liberal principles. But it may be said, in justification of
+the Teutonic ruler, first, that he was born before those principles,
+and did not suspect that the best way of getting disorder into order
+was to let it alone; and, secondly, that his rough and questionable
+proceedings did, more or less, bring about the end he had in view. For,
+in a couple of centuries, the schools he sowed broadcast produced their
+crop of men, thirsting for knowledge and craving for culture. Such men
+gravitating towards Paris, as a light amidst the darkness of evil days,
+from Germany, from Spain, from Britain, and from Scandinavia, came
+together by natural affinity. By degrees they banded themselves into a
+society, which, as its end was the knowledge of all things knowable,
+called itself a "_Studium Generale_;" and when it had grown into a
+recognised corporation, acquired the name of "_Universitas Studii
+Generalis_," which, mark you, means not a "Useful Knowledge
+Society," but a "Knowledge-of-things-in-general Society."
+
+And thus the first "University," at any rate on this side of the Alps,
+came into being. Originally it had but one Faculty, that of Arts. Its
+aim was to be a centre of knowledge and culture; not to be, in any
+sense, a technical school.
+
+The scholars seem to have studied Grammar, Logic, and Rhetoric;
+Arithmetic and Geometry; Astronomy; Theology; and Music. Thus, their
+work, however imperfect and faulty, judged by modern lights, it may
+have been, brought them face to face with all the leading aspects of
+the many-sided mind of man. For these studies did really contain, at
+any rate in embryo--sometimes, it may be, in caricature--what we now
+call Philosophy, Mathematical and Physical Science, and Art. And I
+doubt if the curriculum of any modern University shows so clear and
+generous a comprehension of what is meant by culture, as this old
+Trivium and Quadrivium does.
+
+The students who had passed through the University course, and had
+proved themselves competent to teach, became masters and teachers of
+their younger brethren. Whence the distinction of Masters and Regents
+on the one hand, and Scholars on the other.
+
+Rapid growth necessitated organisation. The Masters and Scholars of
+various tongues and countries grouped themselves into four Nations; and
+the Nations, by their own votes at first, and subsequently by those of
+their Procurators, or representatives, elected their supreme head and
+governor, the Rector--at that time the sole representative of the
+University, and a very real power, who could defy Provosts interfering
+from without; or could inflict even corporal punishment on disobedient
+members within the University.
+
+Such was the primitive constitution of the University of Paris. It is
+in reference to this original state of things that I have spoken of the
+Rectorate, and all that appertains to it, as the sole relic of that
+constitution.
+
+But this original organisation did not last long. Society was not then,
+any more than it is now, patient of culture, as such. It says to
+everything, "Be useful to me, or away with you." And to the learned,
+the unlearned man said then, as he does now, "What is the use of all
+your learning, unless you can tell me what I want to know? I am here
+blindly groping about, and constantly damaging myself by collision with
+three mighty powers, the power of the invisible God, the power of my
+fellow Man, and the power of brute Nature. Let your learning be turned
+to the study of these powers, that I may know how I am to comport
+myself with regard to them." In answer to this demand, some of the
+Masters of the Faculty of Arts devoted themselves to the study of
+Theology, some to that of Law, and some to that of Medicine; and they
+became Doctors--men learned in those technical, or, as we now call
+them, professional, branches of knowledge. Like cleaving to like, the
+Doctors formed schools, or Faculties, of Theology, Law, and Medicine,
+which sometimes assumed airs of superiority over their parent, the
+Faculty of Arts, though the latter always asserted and maintained its
+fundamental supremacy.
+
+The Faculties arose by process of natural differentiation out of the
+primitive University. Other constituents, foreign to its nature, were
+speedily grafted upon it. One of these extraneous elements was forced
+into it by the Roman Church, which in those days asserted with effect,
+that which it now asserts, happily without any effect in these realms,
+its right of censorship and control over all teaching. The local
+habitation of the University lay partly in the lands attached to the
+monastery of S. Geneviève, partly in the diocese of the Bishop of
+Paris; and he who would teach must have the licence of the Abbot, or of
+the Bishop, as the nearest representative of the Pope, so to do, which
+licence was granted by the Chancellors of these Ecclesiastics.
+
+Thus, if I am what archaeologists call a "survival" of the primitive
+head and ruler of the University, your Chancellor stands in the same
+relation to the Papacy; and, with all respect for his Grace, I think I
+may say that we both look terribly shrunken when compared with our
+great originals.
+
+Not so is it with a second foreign element, which silently dropped into
+the soil of Universities, like the grain of mustard-seed in the
+parable; and, like that grain, grew into a tree, in whose branches a
+whole aviary of fowls took shelter. That element is the element of
+Endowment. It differed from the preceding, in its original design to
+serve as a prop to the young plant, not to be a parasite upon it. The
+charitable and the humane, blessed with wealth, were very early
+penetrated by the misery of the poor student. And the wise saw that
+intellectual ability is not so common or so unimportant a gift that it
+should be allowed to run to waste upon mere handicrafts and chares. The
+man who was a blessing to his contemporaries, but who so often has been
+converted into a curse, by the blind adherence of his posterity to the
+letter, rather than to the spirit, of his wishes--I mean the "pious
+founder"--gave money and lands, that the student, who was rich in brain
+and poor in all else, might be taken from the plough or from the
+stithy, and enabled to devote himself to the higher service of mankind;
+and built colleges and halls in which he might be not only housed and
+fed, but taught.
+
+The Colleges were very generally placed in strict subordination to the
+University by their founders; but, in many cases, their endowment,
+consisting of land, has undergone an "unearned increment," which has
+given these societies a continually increasing weight and importance as
+against the unendowed, or fixedly endowed, University. In Pharaoh's
+dream, the seven lean kine eat up the seven fat ones. In the reality of
+historical fact, the fat Colleges have eaten up the lean Universities.
+
+Even here in Aberdeen, though the causes at work may have been somewhat
+different, the effects have been similar; and you see how much more
+substantial an entity is the Very Reverend the Principal, analogue, if
+not homologue, of the Principals of King's College, than the Rector,
+lineal representative of the ancient monarchs of the University, though
+now, little more than a "king of shreds and patches."
+
+Do not suppose that, in thus briefly tracing the process of University
+metamorphosis, I have had any intention of quarrelling with its
+results. Practically, it seems to me that the broad changes effected in
+1858 have given the Scottish Universities a very liberal constitution,
+with as much real approximation to the primitive state of things as is
+at all desirable. If your fat kine have eaten the lean, they have not
+lain down to chew the cud ever since. The Scottish Universities, like
+the English, have diverged widely enough from their primitive model;
+but I cannot help thinking that the northern form has remained more
+faithful to its original, not only in constitution, but, what is more
+to the purpose, in view of the cry for change, in the practical
+application of the endowments connected with it.
+
+In Aberdeen, these endowments are numerous, but so small that, taken
+altogether, they are not equal to the revenue of a single third-rate
+English college. They are scholarships, not fellowships; aids to do
+work--not rewards for such work as it lies within the reach of an
+ordinary, or even an extraordinary, young man to do. You do not think
+that passing a respectable examination is a fair equivalent for an
+income, such as many a grey-headed veteran, or clergyman would envy;
+and which is larger than the endowment of many Regius chairs. You do
+not care to make your University a school of manners for the rich; of
+sports for the athletic; or a hot-bed of high-fed, hypercritical
+refinement, more destructive to vigour and originality than are
+starvation and oppression. No; your little Bursaries of ten and twenty
+(I believe even fifty) pounds a year, enabled any boy who has shown
+ability in the course of his education in those remarkable primary
+schools, which have made Scotland the power she is, to obtain the
+highest culture the country can give him; and when he is armed and
+equipped, his Spartan Alma Mater tells him that, so far, he has had his
+wages for his work, and that he may go and earn the rest.
+
+When I think of the host of pleasant, moneyed, well-bred young
+gentlemen, who do a little learning and much boating by Cam and Isis,
+the vision is a pleasant one; and, as a patriot, I rejoice that the
+youth of the upper and richer classes of the nation receive a wholesome
+and a manly training, however small may be the modicum of knowledge
+they gather, in the intervals of this, their serious business. I admit,
+to the full, the social and political value of that training. But, when
+I proceed to consider that these young men may be said to represent the
+great bulk of what the Colleges have to show for their enormous wealth,
+plus, at least, a hundred and fifty pounds a year apiece which each
+undergraduate costs his parents or guardians, I feel inclined to ask,
+whether the rate-in-aid of the education of the wealthy and
+professional classes, thus levied on the resources of the community, is
+not, after all, a little heavy? And, still further, I am tempted to
+inquire what has become of the indigent scholars, the sons of the
+masses of the people whose daily labour just suffices to meet their
+daily wants, for whose benefit these rich foundations were largely, if
+not mainly, instituted? It seems as if Pharaoh's dream had been
+rigorously carried out, and that even the fat scholar has eaten the
+lean one. And when I turn from this picture to the no less real vision
+of many a brave and frugal Scotch boy, spending his summer in hard
+manual labour, that he may have the privilege of wending his way in
+autumn to this University, with a bag of oatmeal, ten pounds in his
+pocket, and his own stout heart to depend upon through the northern
+winter; not bent on seeking
+
+    "The bubble reputation at the cannon's mouth,"
+
+but determined to wring knowledge from the hard hands of penury; when I
+see him win through all such outward obstacles to positions of wide
+usefulness and well-earned fame; I cannot but think that, in essence,
+Aberdeen has departed but little from the primitive intention of the
+founders of Universities, and that the spirit of reform has so much to
+do on the other side of the Border, that it may be long before he has
+leisure to look this way.
+
+As compared with other actual Universities, then, Aberdeen, may,
+perhaps, be well satisfied with itself. But do not think me an
+impracticable dreamer, if I ask you not to rest and be thankful in this
+state of satisfaction; if I ask you to consider awhile, how this actual
+good stands related to that ideal better, towards which both men and
+institutions must progress, if they would not retrograde.
+
+In an ideal University, as I conceive it, a man should be able to
+obtain instruction in all forms of knowledge, and discipline in the use
+of all the methods by which knowledge is obtained. In such a
+University, the force of living example should fire the student with a
+noble ambition to emulate the learning of learned men, and to follow in
+the footsteps of the explorers of new fields of knowledge. And the very
+air he breathes should be charged with that enthusiasm for truth, that
+fanaticism of veracity, which is a greater possession than much
+learning; a nobler gift than the power of increasing knowledge; by so
+much greater and nobler than these, as the moral nature of man is
+greater than the intellectual; for veracity is the heart of morality.
+
+But the man who is all morality and intellect, although he may be good
+and even great, is, after all, only half a man. There is beauty in the
+moral world and in the intellectual world; but there is also a beauty
+which is neither moral nor intellectual--the beauty of the world of
+Art. There are men who are devoid of the power of seeing it, as there
+are men who are born deaf and blind, and the loss of those, as of
+these, is simply infinite. There are others in whom it is an
+overpowering passion; happy men, born with the productive, or at
+lowest, the appreciative, genius of the Artist. But, in the mass of
+mankind, the Aesthetic faculty, like the reasoning power and the moral
+sense, needs to be roused, directed, and cultivated; and I know not why
+the development of that side of his nature, through which man has
+access to a perennial spring of ennobling pleasure, should be omitted
+from any comprehensive scheme of University education.
+
+All Universities recognise Literature in the sense of the old Rhetoric,
+which is art incarnate in words. Some, to their credit, recognise Art
+in its narrower sense, to a certain extent, and confer degrees for
+proficiency in some of its branches. If there are Doctors of Music, why
+should there be no Masters of painting, of Sculpture, of Architecture?
+I should like to see Professors of the Fine Arts in every University;
+and instruction in some branch of their work made a part of the Arts
+curriculum.
+
+I just now expressed the opinion that, in our ideal University, a man
+should be able to obtain instruction in all forms of knowledge. Now, by
+"forms of knowledge" I mean the great classes of things knowable; of
+which the first, in logical, though not in natural, order is knowledge
+relating to the scope and limits of the mental faculties of man, a form
+of knowledge which, in its positive aspect, answers pretty much to
+Logic and part of Psychology, while, on its negative and critical side,
+it corresponds with Metaphysics.
+
+A second class comprehends all that knowledge which relates to man's
+welfare, so far as it is determined by his own acts, or what we call
+his conduct. It answers to Moral and Religious philosophy. Practically,
+it is the most directly valuable of all forms of knowledge, but
+speculatively, it is limited and criticised by that which precedes and
+by that which follows it in my order of enumeration.
+
+A third class embraces knowledge of the phaenomena of the Universe, as
+that which lies about the individual man; and of the rules which those
+phaenomena are observed to follow in the order of their occurrence,
+which we term the laws of Nature.
+
+This is what ought to be called Natural Science, or Physiology, though
+those terms are hopelessly diverted from such a meaning; and it
+includes all exact knowledge of natural fact, whether Mathematical,
+Physical, Biological, or Social.
+
+Kant has said that the ultimate object of all knowledge is to give
+replies to these three questions: What can I do? What ought I to do?
+What may I hope for? The forms of knowledge which I have enumerated,
+should furnish such replies as are within human reach, to the first and
+second of these questions. While to the third, perhaps the wisest
+answer is, "Do what you can to do what you ought, and leave hoping and
+fearing alone."
+
+If this be a just and an exhaustive classification of the forms of
+knowledge, no question as to their relative importance, or as to the
+superiority of one to the other, can be seriously raised.
+
+On the face of the matter, it is absurd to ask whether it is more
+important to know the limits of one's powers; or the ends for which
+they ought to be exerted; or the conditions under which they must be
+exerted. One may as well inquire which of the terms of a Rule of Three
+sum one ought to know, in order to get a trustworthy result. Practical
+life is such a sum, in which your duty multiplied into your capacity,
+and divided by your circumstances, gives you the fourth term in the
+proportion, which is your deserts, with great accuracy. All agree, I
+take it, that men ought to have these three kinds of knowledge. The
+so-called "conflict of studies" turns upon the question of how they may
+best be obtained.
+
+The founders of Universities held the theory that the Scriptures and
+Aristotle taken together, the latter being limited by the former,
+contained all knowledge worth having, and that the business of
+philosophy was to interpret and co-ordinate these two. I imagine that
+in the twelfth century this was a very fair conclusion from known
+facts. Nowhere in the world, in those days, was there such an
+encyclopaedia of knowledge of all three classes, as is to be found in
+those writings. The scholastic philosophy is a wonderful monument of
+the patience and ingenuity with which the human mind toiled to build up
+a logically consistent theory of the Universe, out of such materials.
+And that philosophy is by no means dead and buried, as many vainly
+suppose. On the contrary, numbers of men of no mean learning and
+accomplishment, and sometimes of rare power and subtlety of thought,
+hold by it as the best theory of things which has yet been stated. And,
+what is still more remarkable, men who speak the language of modern
+philosophy, nevertheless think the thoughts of the schoolmen. "The
+voice is the voice of Jacob, but the hands are the hands of Esau."
+Every day I hear "Cause," "Law," "Force," "Vitality," spoken of as
+entities, by people who can enjoy Swift's joke about the meat-roasting
+quality of the smoke-jack, and comfort themselves with the reflection
+that they are not even as those benighted schoolmen.
+
+Well, this great system had its day, and then it was sapped and mined
+by two influences. The first was the study of classical literature,
+which familiarised men with methods of philosophising; with conceptions
+of the highest Good; with ideas of the order of Nature; with notions of
+Literary and Historical Criticism; and, above all, with visions of Art,
+of a kind which not only would not fit into the scholastic scheme, but
+showed them a pre-Christian, and indeed altogether un-Christian world,
+of such grandeur and beauty that they ceased to think of any other.
+They were as men who had kissed the Fairy Queen, and wandering with her
+in the dim loveliness of the under-world, cared not to return to the
+familiar ways of home and fatherland, though they lay, at arm's length,
+overhead. Cardinals were more familiar with Virgil than with Isaiah;
+and Popes laboured, with great success, to re-paganise Rome.
+
+The second influence was the slow, but sure, growth of the physical
+sciences. It was discovered that some results of speculative thought,
+of immense practical and theoretical importance, can be verified by
+observation; and are always true, however severely they may be tested.
+Here, at any rate, was knowledge, to the certainty of which no
+authority could add, or take away, one jot or tittle, and to which the
+tradition of a thousand years was as insignificant as the hearsay of
+yesterday. To the scholastic system, the study of classical literature
+might be inconvenient and distracting, but it was possible to hope that
+it could be kept within bounds. Physical science, on the other hand,
+was an irreconcilable enemy, to be excluded at all hazards. The College
+of Cardinals has not distinguished itself in Physics or Physiology; and
+no Pope has, as yet, set up public laboratories in the Vatican.
+
+People do not always formulate the beliefs on which they act. The
+instinct of fear and dislike is quicker than the reasoning process; and
+I suspect that, taken in conjunction with some other causes, such
+instinctive aversion is at the bottom of the long exclusion of any
+serious discipline in the physical sciences from the general curriculum
+of Universities; while, on the other hand, classical literature has
+been gradually made the backbone of the Arts course.
+
+I am ashamed to repeat here what I have said elsewhere, in season and
+out of season, respecting the value of Science as knowledge and
+discipline. But the other day I met with some passages in the Address
+to another Scottish University, of a great thinker, recently lost to
+us, which express so fully and yet so tersely, the truth in this matter
+that I am fain to quote them:--
+
+"To question all things;--never to turn away from any difficulty; to
+accept no doctrine either from ourselves or from other people without a
+rigid scrutiny by negative criticism; letting no fallacy, or
+incoherence, or confusion of thought, step by unperceived; above all,
+to insist upon having the meaning of a word clearly understood before
+using it, and the meaning of a proposition before assenting to
+it;--these are the lessons we learn" from workers in Science. "With all
+this vigorous management of the negative element, they inspire no
+scepticism about the reality of truth or indifference to its pursuit.
+The noblest enthusiasm, both for the search after truth and for
+applying it to its highest uses, pervades those writers." "In
+cultivating, therefore," science as an essential ingredient in
+education, "we are all the while laying an admirable foundation for
+ethical and philosophical culture." 
+
+The passages I have quoted were uttered by John Stuart Mill; but you
+cannot hear inverted commas, and it is therefore right that I should
+add, without delay, that I have taken the liberty of substituting
+"workers in science" for "ancient dialecticians," and "Science as an
+essential ingredient in education" for "the ancient languages as our
+best literary education." Mill did, in fact, deliver a noble panegyric
+upon classical studies. I do not doubt its justice, nor presume to
+question its wisdom. But I venture to maintain that no wise or just
+judge, who has a knowledge of the facts, will hesitate to say that it
+applies with equal force to scientific training.
+
+But it is only fair to the Scottish Universities to point out that they
+have long understood the value of Science as a branch of general
+education. I observe, with the greatest satisfaction, that candidates
+for the degree of Master of Arts in this University are required to
+have a knowledge, not only of Mental and Moral Philosophy, and of
+Mathematics and Natural Philosophy, but of Natural History, in addition
+to the ordinary Latin and Greek course; and that a candidate may take
+honours in these subjects and in Chemistry.
+
+I do not know what the requirements of your examiners may be, but I
+sincerely trust they are not satisfied with a mere book knowledge of
+these matters. For my own part I would not raise a finger, if I could
+thereby introduce mere book work in science into every Arts curriculum
+in the country. Let those who want to study books devote themselves to
+Literature, in which we have the perfection of books, both as to
+substance and as to form. If I may paraphrase Hobbes's well-known
+aphorism, I would say that "books are the money of Literature, but only
+the counters of Science," Science (in the sense in which I now use the
+term) being the knowledge of fact, of which every verbal description is
+but an incomplete and symbolic expression. And be assured that no
+teaching of science is worth anything, as a mental discipline, which is
+not based upon direct perception of the facts, and practical exercise
+of the observing and logical faculties upon them. Even in such a simple
+matter as the mere comprehension of form, ask the most practised and
+widely informed anatomist what is the difference between his knowledge
+of a structure which he has read about, and his knowledge of the same
+structure when he has seen it for himself; and he will tell you that
+the two things are not comparable--the difference is infinite. Thus I
+am very strongly inclined to agree with some learned schoolmasters who
+say that, in their experience, the teaching of science is all waste
+time. As they teach it, I have no doubt it is. But to teach it
+otherwise requires an amount of personal labour and a development of
+means and appliances, which must strike horror and dismay into a man
+accustomed to mere book work; and who has been in the habit of teaching
+a class of fifty without much strain upon his energies. And this is one
+of the real difficulties in the way of the introduction of physical
+science into the ordinary University course, to which I have alluded.
+It is a difficulty which will not be overcome, until years of patient
+study have organised scientific teaching as well as, or I hope better
+than, classical teaching has been organised hitherto.
+
+A little while ago, I ventured to hint a doubt as to the perfection of
+some of the arrangements in the ancient Universities of England; but,
+in their provision for giving instruction in Science as such, and
+without direct reference to any of its practical applications, they
+have set a brilliant example. Within the last twenty years, Oxford
+alone has sunk more than a hundred and twenty thousand pounds in
+building and furnishing Physical, Chemical, and Physiological
+Laboratories, and a magnificent Museum, arranged with an almost
+luxurious regard for the needs of the student. Cambridge, less rich,
+but aided by the munificence of her Chancellor, is taking the same
+course; and in a few years, it will be for no lack of the means and
+appliances of sound teaching, if the mass of English University men
+remain in their present state of barbarous ignorance of even the
+rudiments of scientific culture.
+
+Yet another step needs to be made before Science can be said to have
+taken its proper place in the Universities. That is its recognition as
+a Faculty, or branch of study demanding recognition and special
+organisation, on account of its bearing on the wants of mankind. The
+Faculties of Theology, Law, and Medicine, are technical schools,
+intended to equip men who have received general culture, with the
+special knowledge which is needed for the proper performance of the
+duties of clergymen, lawyers, and medical practitioners.
+
+When the material well-being of the country depended upon rude pasture
+and agriculture, and still ruder mining; in the days when all the
+innumerable applications of the principles of physical science to
+practical purposes were non-existent even as dreams; days which men
+living may have heard their fathers speak of; what little physical
+science could be seen to bear directly upon human life, lay within the
+province of Medicine. Medicine was the foster-mother of Chemistry,
+because it has to do with the preparation of drugs and the detection of
+poisons; of Botany, because it enabled the physician to recognise
+medicinal herbs; of Comparative Anatomy and Physiology, because the man
+who studied Human Anatomy and Physiology for purely medical purposes
+was led to extend his studies to the rest of the animal world.
+
+Within my recollection, the only way in which a student could obtain
+anything like a training in Physical Science, was by attending the
+lectures of the Professors of Physical and Natural Science attached to
+the Medical Schools. But, in the course of the last thirty years, both
+foster-mother and child have grown so big, that they threaten not only
+to crush one another, but to press the very life out of the unhappy
+student who enters the nursery; to the great detriment of all three.
+
+I speak in the presence of those who know practically what medical
+education is; for I may assume that a large proportion of my hearers
+are more or less advanced students of medicine. I appeal to the most
+industrious and conscientious among you, to those who are most deeply
+penetrated with a sense of the extremely serious responsibilities which
+attach to the calling of a medical practitioner, when I ask whether,
+out of the four years which you devote to your studies, you ought to
+spare even so much as an hour for any work which does not tend directly
+to fit you for your duties?
+
+Consider what that work is. Its foundation is a sound and practical
+acquaintance with the structure of the human organism, and with the
+modes and conditions of its action in health. I say a sound and
+practical acquaintance, to guard against the supposition that my
+intention is to suggest that you ought all to be minute anatomists and
+accomplished physiologists. The devotion of your whole four years to
+Anatomy and Physiology alone, would be totally insufficient to attain
+that end. What I mean is, the sort of practical, familiar, finger-end
+knowledge which a watchmaker has of a watch, and which you expect that
+craftsman, as an honest man, to have, when you entrust a watch that
+goes badly, to him. It is a kind of knowledge which is to be acquired,
+not in the lecture-room, nor in the library, but in the dissecting-room
+and the laboratory. It is to be had not by sharing your attention
+between these and sundry other subjects, but by concentrating your
+minds, week after week, and month after month, six or seven hours a
+day, upon all the complexities of organ and function, until each of the
+greater truths of anatomy and physiology has become an organic part of
+your minds--until you would know them if you were roused and questioned
+in the middle of the night, as a man knows the geography of his native
+place and the daily life of his home. That is the sort of knowledge
+which, once obtained, is a life-long possession. Other occupations may
+fill your minds--it may grow dim, and seem to be forgotten--but there
+it is, like the inscription on a battered and defaced coin, which comes
+out when you warm it.
+
+If I had the power to remodel Medical Education, the first two years of
+the medical curriculum should be devoted to nothing but such thorough
+study of Anatomy and Physiology, with Physiological Chemistry and
+Physics; the student should then pass a real, practical examination in
+these subjects; and, having gone through that ordeal satisfactorily, he
+should be troubled no more with them. His whole mind should then be
+given with equal intentness to Therapeutics, in its broadest sense, to
+Practical Medicine and to Surgery, with instruction in Hygiene and in
+Medical Jurisprudence; and of these subjects only--surely there are
+enough of them--should he be required to show a knowledge in his final
+examination.
+
+I cannot claim any special property in this theory of what the medical
+curriculum should be, for I find that views, more or less closely
+approximating these, are held by all who have seriously considered the
+very grave and pressing question of Medical Reform; and have, indeed,
+been carried into practice, to some extent, by the most enlightened
+Examining Boards. I have heard but two kinds of objections to them.
+There is first, the objection of vested interests, which I will not
+deal with here, because I want to make myself as pleasant as I can, and
+no discussions are so unpleasant as those which turn on such points.
+And there is, secondly, the much more respectable objection, which
+takes the general form of the reproach that, in thus limiting the
+curriculum, we are seeking to narrow it. We are told that the medical
+man ought to be a person of good education and general information, if
+his profession is to hold its own among other professions; that he
+ought to know Botany, or else, if he goes abroad, he will not be able
+to tell poisonous fruits from edible ones; that he ought to know drugs,
+as a druggist knows them, or he will not be able to tell sham bark
+and senna from the real articles; that he ought to know Zoology,
+because--well, I really have never been able to learn exactly why he is
+to be expected to know zoology. There is, indeed, a popular
+superstition, that doctors know all about things that are queer or
+nasty to the general mind, and may, therefore, be reasonably expected
+to know the "barbarous binomials" applicable to snakes, snails, and
+slugs; an amount of information with which the general mind is usually
+completely satisfied. And there is a scientific superstition that
+Physiology is largely aided by Comparative Anatomy--a superstition
+which, like most superstitions, once had a grain of truth at bottom;
+but the grain has become homoeopathic, since Physiology took its modern
+experimental development, and became what it is now, the application of
+the principles of Physics and Chemistry to the elucidation of the
+phaenomena of life.
+
+I hold as strongly as any one can do, that the medical practitioner
+ought to be a person of education and good general culture; but I also
+hold by the old theory of a Faculty, that a man should have his general
+culture before he devotes himself to the special studies of that
+Faculty; and I venture to maintain, that, if the general culture
+obtained in the Faculty of Arts were what it ought to be, the student
+would have quite as much knowledge of the fundamental principles of
+Physics, of Chemistry, and of Biology, as he needs, before he commenced
+his special medical studies.
+
+Moreover, I would urge, that a thorough study of Human Physiology is,
+in itself, an education broader and more comprehensive than much that
+passes under that name. There is no side of the intellect which it does
+not call into play, no region of human knowledge into which either its
+roots, or its branches, do not extend; like the Atlantic between the
+Old and the New Worlds, its waves wash the shores of the two worlds of
+matter and of mind; its tributary streams flow from both; through its
+waters, as yet unfurrowed by the keel of any Columbus, lies the road,
+if such there be, from the one to the other; far away from that
+North-west Passage of mere speculation, in which so many brave souls
+have been hopelessly frozen up.
+
+But whether I am right or wrong about all this, the patent fact of the
+limitation of time remains. As the song runs:--
+
+    "If a man could be sure
+    That his life would endure
+  For the space of a thousand long years------"
+
+he might do a number of things not practicable under present
+conditions. Methuselah might, with much propriety, have taken half a
+century to get his doctor's degree; and might, very fairly, have been
+required to pass a practical examination upon the contents of the
+British Museum, before commencing practice as a promising young fellow
+of two hundred, or thereabouts. But you have four years to do your work
+in, and are turned loose, to save or slay, at two or three and twenty.
+
+Now, I put it to you, whether you think that, when you come down to the
+realities of life--when you stand by the sick-bed, racking you brains
+for the principles which shall furnish you with the means of
+interpreting symptoms, and forming a rational theory of the condition
+of your patient, it will be satisfactory for you to find that those
+principles are not there--although, to use the examination slang which
+is unfortunately too familiar to me, you can quite easily "give an
+account of the leading peculiarities of the _Marsupialia_," or
+"enumerate the chief characters of the _Compositae_," or "state
+the class and order of the animal from which Castoreum is obtained."
+
+I really do not think that state of things will be satisfactory to
+you; I am very sure it will not be so to your patient. Indeed, I
+am so narrow-minded myself, that if I had to choose between two
+physicians--one who did not know whether a whale is a fish or not, and
+could not tell gentian from ginger, but did understand the applications
+of the institutes of medicine to his art; while the other, like
+Talleyrand's doctor, "knew everything, even a little physic"--with all
+my love for breadth of culture, I should assuredly consult the former.
+
+It is not pleasant to incur the suspicion of an inclination to injure
+or depreciate particular branches of knowledge. But the fact that one
+of those which I should have no hesitation in excluding from the
+medical curriculum, is that to which my own life has been specially
+devoted, should, at any rate, defend me from the suspicion of being
+urged to this course by any but the very gravest considerations of the
+public welfare.
+
+And I should like, further, to call your attention to the important
+circumstance that, in thus proposing the exclusion of the study of such
+branches of knowledge as Zoology and Botany, from those compulsory upon
+the medical student, I am not, for a moment, suggesting their exclusion
+from the University. I think that sound and practical instruction in
+the elementary facts and broad principles of Biology should form part
+of the Arts Curriculum: and here, happily, my theory is in entire
+accordance with your practice. Moreover, as I have already said, I have
+no sort of doubt that, in view of the relation of Physical Science to
+the practical life of the present day, it has the same right as
+Theology, Law, and Medicine, to a Faculty of its own in which men shall
+be trained to be professional men of science. It may be doubted whether
+Universities are the places for technical schools of Engineering or
+applied Chemistry, or Agriculture. But there can surely be little
+question, that instruction in the branches of Science which lie at the
+foundation of these Arts, of a far more advanced and special character
+than could, with any propriety, be included in the ordinary Arts
+Curriculum, ought to be obtainable by means of a duly organised Faculty
+of Science in every University.
+
+The establishment of such a Faculty would have the additional advantage
+of providing, in some measure, for one of the greatest wants of our
+time and country. I mean the proper support and encouragement of
+original research.
+
+The other day, an emphatic friend of mine committed himself to the
+opinion that, in England, it is better for a man's worldly prospects to
+be a drunkard, than to be smitten with the divine dipsomania of the
+original investigator. I am inclined to think he was not far wrong.
+And, be it observed, that the question is not, whether such a man shall
+be able to make as much out of his abilities as his brother, of like
+ability, who goes into Law, or Engineering, or Commerce; it is not a
+question of "maintaining a due number of saddle horses," as George
+Eliot somewhere puts it--it is a question of living or starving.
+
+If a student of my own subject shows power and originality, I dare not
+advise him to adopt a scientific career; for, supposing he is able to
+maintain himself until he has attained distinction, I cannot give him
+the assurance that any amount of proficiency in the Biological Sciences
+will be convertible into, even the most modest, bread and cheese. And I
+believe that the case is as bad, or perhaps worse, with other branches
+of Science. In this respect Britain, whose immense wealth and
+prosperity hang upon the thread of Applied Science, is far behind
+France, and infinitely behind Germany.
+
+And the worst of it is, that it is very difficult to see one's way to
+any immediate remedy for this state of affairs which shall be free from
+a tendency to become worse than the disease.
+
+Great schemes for the Endowment of Research have been proposed. It has
+been suggested, that Laboratories for all branches of Physical Science,
+provided with every apparatus needed by the investigator, shall be
+established by the State: and shall be accessible, under due conditions
+and regulations, to all properly qualified persons. I see no objection
+to the principle of such a proposal. If it be legitimate to spend great
+sums of money on public Libraries and public collections of Painting
+and Sculpture, in aid of the Man of Letters, or the Artist, or for the
+mere sake of affording pleasure to the general public. I apprehend that
+it cannot be illegitimate to do as much for the promotion of scientific
+investigation. To take the lowest ground, as a mere investment of
+money, the latter is likely to be much more immediately profitable. To
+my mind, the difficulty in the way of such schemes is not theoretical,
+but practical. Given the laboratories, how are the investigators to be
+maintained? What career is open to those who have been thus encouraged
+to leave bread-winning pursuits? If they are to be provided for by
+endowment, we come back to the College Fellowship system, the results
+of which, for Literature, have not been so brilliant that one would
+wish to see it extended to Science; unless some much better securities
+than at present exist can be taken that it will foster real work. You
+know that among the Bees, it depends on the kind of cell in which the
+egg is deposited, and the quantity and quality of food which is
+supplied to the grub, whether it shall turn out a busy little worker or
+a big idle queen. And, in the human hive, the cells of the endowed
+larvae are always tending to enlarge, and their food to improve, until
+we get queens, beautiful to behold, but which gather no honey and build
+no comb.
+
+I do not say that these difficulties may not be overcome, but their
+gravity is not to be lightly estimated.
+
+In the meanwhile, there is one step in the direction of the endowment
+of research which is free from such objections. It is possible to place
+the scientific enquirer in a position in which he shall have ample
+leisure and opportunity for original work, and yet shall give a fair
+and tangible equivalent for those privileges. The establishment of a
+Faculty of Science in every University, implies that of a corresponding
+number of Professorial chairs, the incumbents of which need not be so
+burdened with teaching as to deprive them of ample leisure for original
+work. I do not think that it is any impediment to an original
+investigator to have to devote a moderate portion of his time to
+lecturing, or superintending practical instruction. On the contrary, I
+think it may be, and often is, a benefit to be obliged to take a
+comprehensive survey of your subject; or to bring your results to a
+point, and give them, as it were, a tangible objective existence. The
+besetting sins of the investigator are two: the one is the desire to
+put aside a subject, the general bearings of which he has mastered
+himself, and pass on to something which has the attraction of novelty;
+and the other, the desire for too much perfection, which leads him to
+
+  "Add and alter many times,
+  Till all be ripe and rotten;"
+
+to spend the energies which should be reserved for action in whitening
+the decks and polishing the guns.
+
+The obligation to produce results for the instruction of others, seems
+to me to be a more effectual check on these tendencies than even the
+love of usefulness or the ambition for fame.
+
+But supposing the Professorial forces of our University to be duly
+organised, there remains an important question, relating to the
+teaching power, to be considered. Is the Professorial system--the
+system, I mean, of teaching in the lecture-room alone, and
+leaving the student to find his own way when he is outside the
+lecture-room--adequate to the wants of learners? In answering this
+question, I confine myself to my own province, and I venture to reply
+for Physical Science, assuredly and undoubtedly, No. As I have
+already intimated, practical work in the Laboratory is absolutely
+indispensable, and that practical work must be guided and superintended
+by a sufficient staff of Demonstrators, who are for Science what Tutors
+are for other branches of study. And there must be a good supply of
+such Demonstrators. I doubt if the practical work of more than twenty
+students can be properly superintended by one Demonstrator. If we
+take the working day at six hours, that is less than twenty minutes
+apiece--not a very large allowance of time for helping a dull man, for
+correcting an inaccurate one, or even for making an intelligent student
+clearly apprehend what he is about. And, no doubt, the supplying of a
+proper amount of this tutorial, practical teaching, is a difficulty in
+the way of giving proper instruction in Physical Science in such
+Universities as that of Aberdeen, which are devoid of endowments; and,
+unlike the English Universities, have no moral claim on the funds of
+richly endowed bodies to supply their wants.
+
+Examination--thorough, searching examination--is an indispensable
+accompaniment of teaching; but I am almost inclined to commit myself to
+the very heterodox proposition that it is a necessary evil. I am a very
+old Examiner, having, for some twenty years past, been occupied with
+examinations on a considerable scale, of all sorts and conditions of
+men, and women too,--from the boys and girls of elementary schools to
+the candidates for Honours and Fellowships in the Universities. I will
+not say that, in this case as in so many others, the adage, that
+familiarity breeds contempt, holds good; but my admiration for the
+existing system of examination and its products, does not wax warmer as
+I see more of it. Examination, like fire, is a good servant, but a bad
+master; and there seems to me to be some danger of its becoming our
+master. I by no means stand alone in this opinion. Experienced friends
+of mine do not hesitate to say that students whose career they watch,
+appear to them to become deteriorated by the constant effort to pass
+this or that examination, just as we hear of men's brains becoming
+affected by the daily necessity of catching a train. They work to pass,
+not to know; and outraged Science takes her revenge. They do pass, and
+they don't know. I have passed sundry examinations in my time, not
+without credit, and I confess I am ashamed to think how very little
+real knowledge underlay the torrent of stuff which I was able to pour
+out on paper. In fact, that which examination, as ordinarily conducted,
+tests, is simply a man's power of work under stimulus, and his capacity
+for rapidly and clearly producing that which, for the time, he has got
+into his mind. Now, these faculties are by no means to be despised.
+They are of great value in practical life, and are the making of many
+an advocate, and of many a so-called statesman. But in the pursuit of
+truth, scientific or other, they count for very little, unless they are
+supplemented by that long-continued, patient "intending of the mind,"
+as Newton phrased it, which makes very little show in Examinations. I
+imagine that an Examiner who knows his students personally, must not
+unfrequently have found himself in the position of finding A's paper
+better than B's, though his own judgment tells him, quite clearly, that
+B is the man who has the larger share of genuine capacity.
+
+Again, there is a fallacy about Examiners. It is commonly supposed that
+any one who knows a subject is competent to teach it; and no one seems
+to doubt that any one who knows a subject is competent to examine in
+it. I believe both these opinions to be serious mistakes: the latter,
+perhaps, the more serious of the two. In the first place, I do not
+believe that any one who is not, or has not been, a teacher is really
+qualified to examine advanced students. And in the second place,
+Examination is an Art, and a difficult one, which has to be learned
+like all other arts.
+
+Beginners always set too difficult questions--partly because they are
+afraid of being suspected of ignorance if they set easy ones, and
+partly from not understanding their business. Suppose that you want to
+test the relative physical strength of a score of young men. You do not
+put a hundredweight down before them, and tell each to swing it round.
+If you do, half of them won't be able to lift it at all, and only one
+or two will be able to perform the task. You must give them half a
+hundredweight, and see how they manoeuvre that, if you want to form any
+estimate of the muscular strength of each. So, a practised Examiner
+will seek for information respecting the mental vigour and training of
+candidates from the way in which they deal with questions easy enough
+to let reason, memory, and method have free play.
+
+No doubt, a great deal is to be done by the careful selection of
+Examiners, and by the copious introduction of practical work, to remove
+the evils inseparable from examination; but, under the best of
+circumstances, I believe that examination will remain but an imperfect
+test of knowledge, and a still more imperfect test of capacity, while
+it tells next to nothing about a man's power as an investigator.
+
+There is much to be said in favour of restricting the highest degrees
+in each Faculty, to those who have shown evidence of such original
+power, by prosecuting a research under the eye of the Professor in
+whose province it lies; or, at any rate, under conditions which shall
+afford satisfactory proof that the work is theirs. The notion may sound
+revolutionary, but it is really very old; for, I take it, that it lies
+at the bottom of that presentation of a thesis by the candidate for a
+doctorate, which has now, too often, become little better than a matter
+of form.
+
+       *       *       *       *       *
+
+Thus far, I have endeavoured to lay before you, in a too brief and
+imperfect manner, my views respecting the teaching half--the Magistri
+and Regentes--of the University of the Future. Now let me turn to the
+learning half--the Scholares.
+
+If the Universities are to be the sanctuaries of the highest culture of
+the country, those who would enter that sanctuary must not come with
+unwashed hands. If the good seed is to yield its hundredfold harvest,
+it must not be scattered amidst the stones of ignorance, or the tares
+of undisciplined indolence and wantonness. On the contrary, the soil
+must have been carefully prepared, and the Professor should find that
+the operations of clod-crushing, draining, and weeding, and even a good
+deal of planting, have been done by the Schoolmaster.
+
+That is exactly what the Professor does not find in any University in
+the three Kingdoms that I can hear of--the reason of which state of
+things lies in the extremely faulty organisation of the majority of
+secondary schools. Students come to the Universities ill-prepared in
+classics and mathematics, not at all prepared in anything else; and
+half their time is spent in learning that which they ought to have
+known when they came.
+
+I sometimes hear it said that the Scottish Universities differ from the
+English, in being to a much greater extent places of comparatively
+elementary education for a younger class of students. But it would seem
+doubtful if any great difference of this kind really exists; for a high
+authority, himself Head of an English College, has solemnly affirmed
+that: "Elementary teaching of youths under twenty is now the only
+function performed by the University;" and that Colleges are "boarding
+schools in which the elements of the learned languages are taught to
+youths." 
+
+This is not the first time that I have quoted those remarkable
+assertions. I should like to engrave them in public view, for they have
+not been refuted; and I am convinced that if their import is once
+clearly apprehended, they will play no mean part when the question of
+University reorganisation, with a view to practical measures, comes on
+for discussion. You are not responsible for this anomalous state of
+affairs now; but, as you pass into active life and acquire the
+political influence to which your education and your position should
+entitle you, you will become responsible for it, unless each in his
+sphere does his best to alter it, by insisting on the improvement of
+secondary schools.
+
+Your present responsibility is of another, though not less serious,
+kind. Institutions do not make men, any more than organisation makes
+life; and even the ideal University we have been dreaming about will be
+but a superior piece of mechanism, unless each student strive after the
+ideal of the Scholar. And that ideal, it seems to me, has never been
+better embodied than by the great Poet, who, though lapped in luxury,
+the favourite of a Court, and the idol of his countrymen, remained
+through all the length of his honoured years a Scholar in Art, in
+Science, and in Life.
+
+
+  "Wouldst shape a noble life! Then cast
+  No backward glances towards the past:
+  And though somewhat be lost and gone,
+  Yet do thou act as one new-born.
+  What each day needs, that shalt thou ask;
+  Each day will set its proper task.
+  Give others' work just share of praise;
+  Not of thine own the merits raise.
+  Beware no fellow man thou hate:
+  And so in God's hands leave thy fate." 
+
+       *       *       *       *       *
+
+Footnotes:
+
+ "Quamvis enim melius sit bene facere quam nosse, prius tamen est
+nosse quam facere."--"Karoli Magni Regis Constitutio de Scholis per
+singula Episcopia et Monasteria instituendis," addressed to the Abbot
+of Fulda. Baluzius, _Capitularia Regum Francorum_, T. i., p. 202.
+
+ Inaugural Address delivered to the University of St. Andrew,
+February 1, 1867, by J. S. Mill, Rector of the University (pp. 32, 33).
+
+ _Suggestions for Academical Organisation, with Especial Reference
+to Oxford_. By the Rector of Lincoln.
+
+ Goethe, _Zahme Xenien, Vierte Abtheilung_. I should be glad to
+take credit for the close and vigorous English version; but it is my
+wife's, and not mine.

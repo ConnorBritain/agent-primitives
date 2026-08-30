@@ -1,0 +1,70 @@
+{
+  "schema": "voice-draft-claim-audit/2",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "The first clause restates c1 (using an AI service to summarise confidential intake notes). The second clause ('the real question is whether the organisation can control those notes once they leave its own systems') is a framing argument — it identifies the crux of the decision rather than asserting a descriptive fact about law, industry, or behaviour. It functions as reasoning about c1's subject matter and adds no external descriptive premise."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "Directly tied to c2 (practical answer for tomorrow's meeting) and c1 (the AI service decision). The recommendation itself is normative/advisory; the temporal reference 'tomorrow's meeting' is covered by c2."
+    },
+    {
+      "id": "p2s1",
+      "status": "keep",
+      "reason": "Labeled reasoning with no claim IDs. The four questions listed (processing location, retention duration, access, training use) are presented as a logical checklist the writer derives from the nature of the decision, not as assertions about what law requires or what industry does. No external descriptive premise is added."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "reason": "Labeled reasoning. The sentence draws a logical inference from the conditions in p2s1: inability to get written answers entails inability to responsibly use the service. No external factual claim about law, courts, or industry practice is asserted."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "Labeled reasoning. 'A confidentiality promise does not magically eliminate the risk' is an inferential statement about the logical relationship between a promise and actual risk reduction, not a claim about what courts or industry does. No external premise added."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "Labeled reasoning. Purely a rhetorical transitional question with no factual claim."
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "reason": "Labeled normative. A recommendation about how to frame the service at the meeting. No descriptive claim about real actors, law, or industry."
+    },
+    {
+      "id": "p3s3",
+      "status": "keep",
+      "reason": "Labeled normative. Lists recommended procedural steps before any test. No descriptive claim about what law requires or what others do; purely prescriptive."
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "Labeled reasoning. An analogy ('like handing a file to a temporary clerk') used to explain the logic of the recommended approach. No external descriptive premise about real institutions or practices is asserted."
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "reason": "Labeled hypothetical. The sentence explicitly describes conditional scenarios ('if the service requires…') as imagined conditions, not as reports about a specific real actor or event. The list of conditions is illustrative, not an assertion of fact."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "Labeled normative. A value statement about not permanently rejecting technology. No descriptive claim."
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "reason": "Labeled normative. Articulates a principle (a defensible boundary between convenience and privacy). No descriptive claim about what law, courts, or organisations currently do."
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "Labeled normative. A recommendation about what to tell the meeting, conditional on vendor and accountability conditions. No external descriptive premise; the advice follows from prior reasoning and normative statements."
+    }
+  ]
+}

@@ -1,0 +1,90 @@
+{
+  "schema": "voice-draft-conformance-patch/1",
+  "edits": [],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ],
+      "disposition": "preserved",
+      "reason": "The measured second-person and institutional-plural stance is already in range and requires no safe correction."
+    },
+    {
+      "dimension": "contraction-negation",
+      "observation_ids": [
+        "o03",
+        "o04"
+      ],
+      "disposition": "preserved",
+      "reason": "Contractions and categorical uncontracted negatives are already within their measured ranges."
+    },
+    {
+      "dimension": "qualification-hedging",
+      "observation_ids": [
+        "o10"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft concedes legitimate commercial value and privacy concerns before explaining the policy defects and likely consequences."
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "observation_ids": [
+        "o06"
+      ],
+      "disposition": "preserved",
+      "reason": "The single practical question is already within range and is answered by the surrounding declarative argument."
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "observation_ids": [
+        "o11"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft directly names courts, Congress, administrators, companies, and vendors while addressing legal structure and incentives without inventing motives or sources."
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "observation_ids": [],
+      "disposition": "unresolved",
+      "reason": "The profile supplies no supported instruction for this dimension."
+    },
+    {
+      "dimension": "self-reference-biography",
+      "observation_ids": [
+        "o02",
+        "o05"
+      ],
+      "disposition": "preserved",
+      "reason": "Institutional and shared-public plural references remain in range, with no first-person singular biography."
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "observation_ids": [
+        "o07",
+        "o08",
+        "o09"
+      ],
+      "disposition": "preserved",
+      "reason": "Parenthetical spans and em dashes are already within range, and no en dash requires correction."
+    },
+    {
+      "dimension": "figures-analogy",
+      "observation_ids": [
+        "o12"
+      ],
+      "disposition": "preserved",
+      "reason": "The meter, gateway, vault, toll, admission-ticket, and clothing figures briefly clarify access burdens without displacing the concrete policy argument."
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "observation_ids": [
+        "o13"
+      ],
+      "disposition": "preserved",
+      "reason": "The opening identifies the current access practice and hidden consequence, while the final paragraph compresses the alternative into direct institutional demands and closes on the public-access contrast."
+    }
+  ],
+  "omitted": []
+}

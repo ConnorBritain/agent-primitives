@@ -1,0 +1,731 @@
+---
+source: Project Gutenberg 7150
+title: On the Study of Biology
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+It is my duty to-night to speak about the study of Biology, and while
+it may be that there are many of my audience who are quite familiar
+with that study, yet as a lecturer of some standing, it would, I know
+by experience, be very bad policy on my part to suppose such to be
+extensively the case. On the contrary, I must imagine that there are
+many of you who would like to know what Biology is; that there are
+others who have that amount of information, but would nevertheless
+gladly hear why it should be worth their while to study Biology; and
+yet others, again, to whom these two points are clear, but who desire
+to learn how they had best study it, and, finally, when they had best
+study it.
+
+I shall, therefore, address myself to the endeavour to give you some
+answer to these four questions--what Biology is; why it should be
+studied; how it should be studied; and when it should be studied.
+
+In the first place, in respect to what Biology is, there are, I
+believe, some persons who imagine that the term "Biology" is simply a
+new-fangled denomination, a neologism in short, for what used to be
+known under the title of "Natural History;" but I shall try to show
+you, on the contrary, that the word is the expression of the growth of
+science during the last 200 years, and came into existence half a
+century ago.
+
+At the revival of learning, knowledge was divided into two kinds--the
+knowledge of nature and the knowledge of man; for it was the current
+idea then (and a great deal of that ancient conception still remains)
+that there was a sort of essential antithesis, not to say antagonism,
+between nature and man; and that the two had not very much to do with
+one another, except that the one was oftentimes exceedingly troublesome
+to the other. Though it is one of the salient merits of our great
+philosophers of the seventeenth century, that they recognised but one
+scientific method, applicable alike to man and to nature, we find this
+notion of the existence of a broad distinction between nature and man
+in the writings both of Bacon and of Hobbes of Malmesbury; and I have
+brought with me that famous work which is now so little known, greatly
+as it deserves to be studied, "The Leviathan," in order that I may put
+to you in the wonderfully terse and clear language of Thomas Hobbes,
+what was his view of the matter. He says:--
+
+"The register of knowledge of fact is called history. Whereof there be
+two sorts, one called natural history; which is the history of such
+facts or effects of nature as have no dependence on man's will; such as
+are the histories of metals, plants, animals, regions, and the like.
+The other is civil history; which is the history of the voluntary
+actions of men in commonwealths."
+
+So that all history of fact was divided into these two great groups of
+natural and of civil history. The Royal Society was in course of
+foundation about the time that Hobbes was writing this book, which was
+published in 1651; and that Society was termed a "Society for the
+Improvement of Natural Knowledge," which was then nearly the same thing
+as a "Society for the Improvement of Natural History." As time went on,
+and the various branches of human knowledge became more distinctly
+developed and separated from one another, it was found that some were
+much more susceptible of precise mathematical treatment than others.
+The publication of the "Principia" of Newton, which probably gave a
+greater stimulus to physical science than any work ever published
+before, or which is likely to be published hereafter, showed that
+precise mathematical methods were applicable to those branches of
+science such as astronomy, and what we now call physics, which occupy a
+very large portion of the domain of what the older writers understood
+by natural history. And inasmuch as the partly deductive and partly
+experimental methods of treatment to which Newton and others subjected
+these branches of human knowledge, showed that the phenomena of nature
+which belonged to them were susceptible of explanation, and thereby
+came within the reach of what was called "philosophy" in those days; so
+much of this kind of knowledge as was not included under astronomy came
+to be spoken of as "natural philosophy"--a term which Bacon had
+employed in a much wider sense. Time went on, and yet other branches of
+science developed themselves. Chemistry took a definite shape; and
+since all these sciences, such as astronomy, natural philosophy, and
+chemistry, were susceptible either of mathematical treatment or of
+experimental treatment, or of both, a broad distinction was drawn
+between the experimental branches of what had previously been called
+natural history and the observational branches--those in which
+experiment was (or appeared to be) of doubtful use, and where, at that
+time, mathematical methods were inapplicable. Under these circumstances
+the old name of "Natural History" stuck by the residuum, by those
+phenomena which were not, at that time, susceptible of mathematical or
+experimental treatment; that is to say, those phenomena of nature which
+come now under the general heads of physical geography, geology,
+mineralogy, the history of plants, and the history of animals. It was
+in this sense that the term was understood by the great writers of the
+middle of the last century--Buffon and Linnaeus--by Buffon in his great
+work, the "Histoire Naturelle Générale," and by Linnaeus in his
+splendid achievement, the "Systema Naturae." The subjects they deal
+with are spoken of as "Natural History," and they called themselves and
+were called "Naturalists." But you will observe that this was not the
+original meaning of these terms; but that they had, by this time,
+acquired a signification widely different from that which they
+possessed primitively.
+
+The sense in which "Natural History" was used at the time I am now
+speaking of has, to a certain extent, endured to the present day. There
+are now in existence in some of our northern universities, chairs of
+"Civil and Natural History," in which "Natural History" is used to
+indicate exactly what Hobbes and Bacon meant by that term. The unhappy
+incumbent of the chair of Natural History is, or was, supposed to cover
+the whole ground of geology, mineralogy, and zoology, perhaps even
+botany, in his lectures.
+
+But as science made the marvellous progress which it did make at the
+latter end of the last and the beginning of the present century,
+thinking men began to discern that under this title of "Natural
+History" there were included very heterogeneous constituents--that, for
+example, geology and mineralogy were, in many respects, widely
+different from botany and zoology; that a man might obtain an extensive
+knowledge of the structure and functions of plants and animals, without
+having need to enter upon the study of geology or mineralogy, and
+_vice versâ_; and, further as knowledge advanced, it became clear
+that there was a great analogy, a very close alliance, between those
+two sciences, of botany and zoology which deal with human beings, while
+they are much more widely separated from all other studies. It is due
+to Buffon to remark that he clearly recognised this great fact. He
+says: "Ces deux genres d'êtres organisés [les animaux et les végétaux]
+ont beaucoup plus de propriétés communes que de différences réelles."
+Therefore, it is not wonderful that, at the beginning of the present
+century, in two different countries, and so far as I know, without any
+intercommunication, two famous men clearly conceived the notion of
+uniting the sciences which deal with living matter into one whole, and
+of dealing with them as one discipline. In fact, I may say there were
+three men to whom this idea occurred contemporaneously, although there
+were but two who carried it into effect, and only one who worked it out
+completely. The persons to whom I refer were the eminent physiologist
+Bichat, and the great naturalist Lamarck, in France; and a
+distinguished German, Treviranus. Bichat  assumed the existence of a
+special group of "physiological" sciences. Lamarck, in a work published
+in 1801,  for the first time made use of the name "Biologie," from
+the two Greek words which signify a discourse upon life and living
+things. About the same time, it occurred to Treviranus, that all those
+sciences which deal with living matter are essentially and
+fundamentally one, and ought to be treated as a whole; and, in the year
+1802, he published the first volume of what he also called "Biologie."
+Treviranus's great merit lies in this, that he worked out his idea, and
+wrote the very remarkable book to which I refer. It consists of six
+volumes, and occupied its author for twenty years--from 1802 to 1822.
+
+That is the origin of the term "Biology"; and that is how it has come
+about that all clear thinkers and lovers of consistent nomenclature
+have substituted for the old confusing name of "Natural History," which
+has conveyed so many meanings, the term "Biology" which denotes the
+whole of the sciences which deal with living things, whether they be
+animals or whether they be plants. Some little time ago--in the course
+of this year, I think--I was favoured by a learned classic, Dr. Field
+of Norwich, with a disquisition, in which he endeavourved to prove
+that, from a philological point of view, neither Treviranus nor Lamarck
+had any right to coin this new word "Biology" for their purpose; that,
+in fact, the Greek word "Bios" had relation only to human life and
+human affairs, and that a different word was employed by the Greeks
+when they wished to speak of the life of animals and plants. So Dr.
+Field tells us we are all wrong in using the term biology, and that we
+ought to employ another; only he is not sure about the propriety of
+that which he proposes as a substitute. It is a somewhat hard
+one--"zootocology." I am sorry we are wrong, because we are likely to
+continue so. In these matters we must have some sort of "Statute of
+Limitations." When a name has been employed for half a century, persons
+of authority  have been using it, and its sense has become well
+understood, I am afraid people will go on using it, whatever the weight
+of philological objection.
+
+Now that we have arrived at the origin of this word "Biology," the next
+point to consider is: What ground does it cover? I have said that in
+its strict technical sense, it denotes all the phenomena which are
+exhibited by living things, as distinguished from those which are not
+living; but while that is all very well, so long as we confine
+ourselves to the lower animals and to plants, it lands us in
+considerable difficulties when we reach the higher forms of living
+things. For whatever view we may entertain about the nature of man, one
+thing is perfectly certain, that he is a living creature. Hence, if our
+definition is to be interpreted strictly, we must include man and all
+his ways and works under the head of Biology; in which case, we should
+find that psychology, politics, and political economy would be absorbed
+into the province of Biology. In fact, civil history would be merged in
+natural history. In strict logic it may be hard to object to this
+course, because no one can doubt that the rudiments and outlines of our
+own mental phenomena are traceable among the lower animals. They have
+their economy and their polity, and if, as is always admitted, the
+polity of bees and the commonwealth of wolves fall within the purview
+of the biologist proper, it becomes hard to say why we should not
+include therein human affairs, which, in so many cases, resemble those
+of the bees in zealous getting, and are not without a certain parity in
+the proceedings of the wolves. The real fact is that we biologists are
+a self-sacrificing people; and inasmuch as, on a moderate estimate,
+there are about a quarter of a million different species of animals and
+plants to know about already, we feel that we have more than sufficient
+territory. There has been a sort of practical convention by which we
+give up to a different branch of science what Bacon and Hobbes would
+have called "Civil History." That branch of science has constituted
+itself under the head of Sociology. I may use phraseology which, at
+present, will be well understood and say that we have allowed that
+province of Biology to become autonomous; but I should like you to
+recollect that that is a sacrifice, and that you should not be
+surprised if it occasionally happens that you see a biologist
+apparently trespassing in the region of philosophy or politics; or
+meddling with human education; because, after all, that is a part of
+his kingdom which he has only voluntarily forsaken.
+
+Having now defined the meaning of the word Biology, and having
+indicated the general scope of Biological Science, I turn to my second
+question, which is--Why should we study Biology? Possibly the time may
+come when that will seem a very odd question. That we, living
+creatures, should not feel a certain amount of interest in what it is
+that constitutes our life will eventually, under altered ideas of the
+fittest objects of human inquiry, appear to be a singular phenomenon;
+but at present, judging by the practice of teachers and educators,
+Biology would seem to be a topic that does not concern us at all. I
+propose to put before you a few considerations with which I dare say
+many will be familiar already, but which will suffice to show--not
+fully, because to demonstrate this point fully would take a great many
+lectures--that there are some very good and substantial reasons why it
+may be advisable that we should know something about this branch of
+human learning.
+
+I myself entirely agree with another sentiment of the philosopher of
+Malmesbury, "that the scope of all speculation is the performance of
+some action or thing to be done," and I have not any very great respect
+for, or interest in, mere knowing as such. I judge of the value of
+human pursuits by their bearing upon human interests; in other words,
+by their utility; but I should like that we should quite clearly
+understand what it is that we mean by this word "utility." In an
+Englishman's mouth it generally means that by which we get pudding or
+praise, or both. I have no doubt that is one meaning of the word
+utility, but it by no means includes all I mean by utility. I think
+that knowledge of every kind is useful in proportion as it tends to
+give people right ideas, which are essential to the foundation of right
+practice, and to remove wrong ideas, which are the no less essential
+foundations and fertile mothers of every description of error in
+practice. And inasmuch as, whatever practical people may say, this
+world is, after all, absolutely governed by ideas, and very often by
+the wildest and most hypothetical ideas, it is a matter of the very
+greatest importance that our theories of things, and even of things
+that seem a long way apart from our daily lives, should be as far as
+possible true, and as far as possible removed from error. It is not
+only in the coarser, practical sense of the word "utility," but in this
+higher and broader sense, that I measure the value of the study of
+biology by its utility; and I shall try to point out to you that you
+will feel the need of some knowledge of biology at a great many turns
+of this present nineteenth century life of ours. For example, most of
+us attach great importance to the conception which we entertain of the
+position of man in this universe and his relation to the rest of
+nature. We have almost all been told, and most of us hold by the
+tradition, that man occupies an isolated and peculiar position in
+nature; that though he is in the world he is not of the world; that his
+relations to things about him are of a remote character; that his
+origin is recent, his duration likely to be short, and that he is the
+great central figure round which other things in this world revolve.
+But this is not what the biologist tells us.
+
+At the present moment you will be kind enough to separate me from them,
+because it is in no way essential to my present argument that I should
+advocate their views. Don't suppose that I am saying this for the
+purpose of escaping the responsibility of their beliefs; indeed, at
+other times and in other places, I do not think that point has been
+left doubtful; but I want clearly to point out to you that for my
+present argument they may all be wrong; and, nevertheless, my argument
+will hold good. The biologists tell us that all this is an entire
+mistake. They turn to the physical organisation of man. They examine
+his whole structure, his bony frame and all that clothes it. They
+resolve him into the finest particles into which the microscope will
+enable them to break him up. They consider the performance of his
+various functions and activities, and they look at the manner in which
+he occurs on the surface of the world. Then they turn to other animals,
+and taking the first handy domestic animal--say a dog--they profess to
+be able to demonstrate that the analysis of the dog leads them, in
+gross, to precisely the same results as the analysis of the man; that
+they find almost identically the same bones, having the same relations;
+that they can name the muscles of the dog by the names of the muscles
+of the man, and the nerves of the dog by those of the nerves of the
+man, and that, such structures and organs of sense as we find in the
+man such also we find in the dog; they analyse the brain and spinal
+cord and they find that the nomenclature which fits, the one answers
+for the other. They carry their microscopic inquiries in the case of
+the dog as far as they can, and they find that his body is resolvable
+into the same elements as those of the man. Moreover, they trace back
+the dog's and the man's development, and they find that, at a certain
+stage of their existence, the two creatures are not distinguishable the
+one from the other; they find that the dog and his kind have a certain
+distribution over the surface of the world, comparable in its way to
+the distribution of the human species. What is true of the dog they
+tell us is true of all the higher animals; and they assert that they
+can lay down a common plan for the whole of these creatures, and regard
+the man and the dog, the horse and the ox as minor modifications of one
+great fundamental unity. Moreover, the investigations of the last
+three-quarters of a century have proved, they tell us, that similar
+inquiries, carried out through all the different kinds of animals which
+are met with in nature, will lead us, not in one straight series, but
+by many roads, step by step, gradation by gradation, from man, at the
+summit, to specks of animated jelly at the bottom of the series. So
+that the idea of Leibnitz, and of Bonnet, that animals form a great
+scale of being, in which there are a series of gradations from the most
+complicated form to the lowest and simplest; that idea, though not
+exactly in the form in which it was propounded by those philosophers,
+turns out to be substantially correct. More than this, when biologists
+pursue their investigations into the vegetable world, they find that
+they can, in the same way, follow out the structure of the plant, from
+the most gigantic and complicated trees down through a similar series
+of gradations, until they arrive at specks of animated jelly, which
+they are puzzled to distinguish from those specks which they reached by
+the animal road.
+
+Thus, biologists have arrived at the conclusion that a fundamental
+uniformity of structure pervades the animal and vegetable worlds, and
+that plants and animals differ from one another simply as diverse
+modifications of the same great general plan.
+
+Again, they tell us the same story in regard to the study of function.
+They admit the large and important interval which, at the present time,
+separates the manifestations of the mental faculties observable in the
+higher forms of mankind, and even in the lower forms, such as we know
+them, from those exhibited by other animals; but, at the same time,
+they tell us that the foundations, or rudiments, of almost all the
+faculties of man are to be met with in the lower animals; that there is
+a unity of mental faculty as well as of bodily structure, and that,
+here also, the difference is a difference of degree and not of kind. I
+said "almost all," for a reason. Among the many distinctions which have
+been drawn between the lower creatures and ourselves, there is one
+which is hardly ever insisted on,  but which may be very fitly
+spoken of in a place so largely devoted to Art as that in which we are
+assembled. It is this, that while, among various kinds of animals, it
+is possible to discover traces of all the other faculties of man,
+especially the faculty of mimicry, yet that particular form of mimicry
+which shows itself in the imitation of form, either by modelling or by
+drawing, is not to be met with. As far as I know, there is no sculpture
+or modelling, and decidedly no painting or drawing, of animal origin. I
+mention the fact, in order that such comfort may be derived therefrom
+as artists may feel inclined to take.
+
+If what the biologists tell us is true, it will be needful to get rid
+of our erroneous conceptions of man, and of his place in nature, and to
+substitute right ones for them. But it is impossible to form any
+judgment as to whether the biologists are right or wrong, unless we are
+able to appreciate the nature of the arguments which they have to
+offer.
+
+One would almost think this to be a self-evident proposition. I wonder
+what a scholar would say to the man who should undertake to criticise a
+difficult passage in a Greek play, but who obviously had not acquainted
+himself with the rudiments of Greek grammar. And yet, before giving
+positive opinions about these high questions of Biology, people not
+only do not seem to think it necessary to be acquainted with the
+grammar of the subject, but they have not even mastered the alphabet.
+You find criticism and denunciation showered about by persons who not
+only have not attempted to go through the discipline necessary to
+enable them to be judges, but who have not even reached that stage of
+emergence from ignorance in which the knowledge that such a discipline
+is necessary dawns upon the mind. I have had to watch with some
+attention--in fact I have been favoured with a good deal of it
+myself--the sort of criticism with which biologists and biological
+teachings are visited. I am told every now and then that there is a
+"brilliant article"  in so-and-so, in which we are all demolished. I
+used to read these things once, but I am getting old now, and I have
+ceased to attend very much to this cry of "wolf." When one does read
+any of these productions, what one finds generally, on the face of it
+is, that the brilliant critic is devoid of even the elements of
+biological knowledge, and that his brilliancy is like the light given
+out by the crackling of thorns under a pot of which Solomon speaks. So
+far as I recollect, Solomon makes use of the image for purposes of
+comparison; but I will not proceed further into that matter.
+
+Two things must be obvious: in the first place, that every man who has
+the interests of truth at heart must earnestly desire that every
+well-founded and just criticism that can be made should be made; but
+that, in the second place, it is essential to anybody's being able to
+benefit by criticism, that the critic should know what he is talking
+about, and be in a position to form a mental image of the facts
+symbolised by the words he uses. If not, it is as obvious in the case
+of a biological argument, as it is in that of a historical or
+philological discussion, that such criticism is a mere waste of time on
+the part of its author, and wholly undeserving of attention on the part
+of those who are criticised. Take it then as an illustration of the
+importance of biological study, that thereby alone are men able to form
+something like a rational conception of what constitutes valuable
+criticism of the teachings of biologists. 
+
+Next, I may mention another bearing of biological knowledge--a more
+practical one in the ordinary sense of the word. Consider the theory of
+infectious disease. Surely that is of interest to all of us. Now the
+theory of infectious disease is rapidly being elucidated by biological
+study. It is possible to produce, from among the lower animals,
+examples of devastating diseases which spread in the same manner as our
+infectious disorders, and which are certainly and unmistakably caused
+by living organisms. This fact renders it possible, at any rate, that
+that doctrine of the causation of infectious disease which is known
+under the name of "the germ theory" may be well-founded; and, if so, it
+must needs lead to the most important practical measures in dealing
+with those terrible visitations. It may be well that the general, as
+well as the professional, public should have a sufficient knowledge of
+biological truths to be able to take a rational interest in the
+discussion of such problems, and to see, what I think they may hope to
+see, that, to those who possess a sufficient elementary knowledge of
+Biology, they are not all quite open questions.
+
+Let me mention another important practical illustration of the value of
+biological study. Within the last forty years the theory of agriculture
+has been revolutionised. The researches of Liebig, and those of our own
+Lawes and Gilbert, have had a bearing upon that branch of industry the
+importance of which cannot be over-estimated; but the whole of these
+new views have grown out of the better explanation of certain processes
+which go on in plants; and which, of course, form a part of the
+subject-matter of Biology.
+
+I might go on multiplying these examples, but I see that the clock
+won't wait for me, and I must therefore pass to the third question to
+which I referred:--Granted that Biology is something worth studying,
+what is the best way of studying it? Here I must point out that, since
+Biology is a physical science, the method of studying it must needs be
+analogous to that which is followed in the other physical sciences. It
+has now long been recognised that, if a man wishes to be a chemist, it
+is not only necessary that he should read chemical books and attend
+chemical lectures, but that he should actually perform the fundamental
+experiments in the laboratory for himself, and thus learn exactly what
+the words which he finds in his books and hears from his teachers,
+mean. If he does not do so, he may read till the crack of doom, but he
+will never know much about chemistry. That is what every chemist will
+tell you, and the physicist will do the same for his branch of science.
+The great changes and improvements in physical and chemical scientific
+education, which have taken place of late, have all resulted from the
+combination of practical teaching with the reading of books and with
+the hearing of lectures. The same thing is true in Biology. Nobody
+will ever know anything about Biology except in a dilettante
+"paper-philosopher" way, who contents himself with reading books on
+botany, zoology, and the like; and the reason of this is simple and
+easy to understand. It is that all language is merely symbolical of the
+things of which it treats; the more complicated the things, the more
+bare is the symbol, and the more its verbal definition requires to be
+supplemented by the information derived directly from the handling, and
+the seeing, and the touching of the thing symbolised:--that is really
+what is at the bottom of the whole matter. It is plain common sense, as
+all truth, in the long run, is only common sense clarified. If you want
+a man to be a tea merchant, you don't tell him to read books about
+China or about tea, but you put him into a tea-merchant's office where
+he has the handling, the smelling, and the tasting of tea. Without the
+sort of knowledge which can be gained only in this practical way, his
+exploits as a tea merchant will soon come to a bankrupt termination.
+The "paper-philosophers" are under the delusion that physical science
+can be mastered as literary accomplishments are acquired, but
+unfortunately it is not so. You may read any quantity of books, and you
+may be almost as ignorant as you were at starting, if you don't have,
+at the back of your minds, the change for words in definite images
+which can only be acquired through the operation of your observing
+faculties on the phenomena of nature.
+
+It may be said:--"That is all very well, but you told us just now that
+there are probably something like a quarter of a million different
+kinds of living and extinct animals and plants, and a human life could
+not suffice for the examination of one-fiftieth part of all these."
+That is true, but then comes the great convenience of the way things
+are arranged; which is, that although there are these immense numbers
+of different kinds of living things in existence, yet they are built
+up, after all, upon marvellously few plans.
+
+There are certainly more than 100,000 species of insects, and yet
+anybody who knows one insect--if a properly chosen one--will be able
+to have a very fair conception of the structure of the whole. I do not
+mean to say he will know that structure thoroughly, or as well as it is
+desirable he should know it; but he will have enough real knowledge to
+enable him to understand what he reads, to have genuine images in his
+mind of those structures which become so variously modified in all the
+forms of insects he has not seen. In fact, there are such things as
+types of form among animals and vegetables, and for the purpose of
+getting a definite knowledge of what constitutes the leading
+modifications of animal and plant life, it is not needful to examine
+more than a comparatively small number of animals and plants.
+
+Let me tell you what we do in the biological laboratory which is lodged
+in a building adjacent to this. There I lecture to a class of students
+daily for about four-and-a-half months, and my class have, of course,
+their text-books; but the essential part of the whole teaching, and
+that which I regard as really the most important part of it, is a
+laboratory for practical work, which is simply a room with all the
+appliances needed for ordinary dissection. We have tables properly
+arranged in regard to light, microscopes, and dissecting instruments,
+and we work through the structure of a certain number of animals and
+plants. As, for example, among the plants, we take a yeast plant, a
+_Protococcus_, a common mould, a _Chara_, a fern, and some
+flowering plant; among animals we examine such things as an _Amoeba_,
+_a Vorticella_, and a fresh-water polype. We dissect a star-fish,
+an earth-worm, a snail, a squid, and a fresh-water mussel. We
+examine a lobster and a cray-fish, and a black beetle. We go on to a
+common skate, a cod-fish, a frog, a tortoise, a pigeon, and a rabbit,
+and that takes us about all the time we have to give.  The purpose of
+this course is not to make skilled dissectors, but to give every
+student a clear and definite conception, by means of sense-images, of
+the characteristic structure of each of the leading modifications of
+the animal kingdom; and that is perfectly possible, by going no further
+than the length of that list of forms which I have enumerated. If a man
+knows the structure of the animals I have mentioned, he has a clear and
+exact, however limited, apprehension of the essential features of the
+organisation of all those great divisions of the animal and vegetable
+kingdoms to which the forms I have mentioned severally belong. And it
+then becomes possible for him to read with profit; because every time
+he meets with the name of a structure, he has a definite image in his
+mind of what the name means in the particular creature he is reading
+about, and therefore the reading is not mere reading. It is not mere
+repetition of words; but every term employed in the description, we
+will say, of a horse, or of an elephant, will call up the image of the
+things he had seen in the rabbit, and he is able to form a distinct
+conception of that which he has not seen, as a modification of that
+which he has seen.
+
+I find this system to yield excellent results; and I have no hesitation
+whatever in saying, that any one who has gone through such a course,
+attentively, is in a better position to form a conception of the great
+truths of Biology, especially of morphology (which is what we chiefly
+deal with), than if he had merely read all the books on that topic put
+together.
+
+The connection of this discourse with the Loan Collection of Scientific
+Apparatus arises out of the exhibition in that collection of certain
+aids to our laboratory work.  Such of you as have visited that very
+interesting collection may have noticed a series of diagrams and of
+preparations illustrating the structure of a frog. Those diagrams and
+preparations have been made for the use of the students in the
+biological laboratory. Similar diagrams and preparations illustrating
+the structure of all the other forms of life we examine, are either
+made or in course of preparation. Thus the student has before him,
+first, a picture of the structure he ought to see; secondly, the
+structure itself worked out; and if with these aids, and such needful
+explanations and practical hints as a demonstrator can supply, he
+cannot make out the facts for himself in the materials supplied to him,
+he had better take to some other pursuit than that of biological
+science.
+
+I should have been glad to have said a few words about the use of
+museums in the study of Biology, but I see that my time is becoming
+short, and I have yet another question to answer. Nevertheless, I must,
+at the risk of wearying you, say a word or two upon the important
+subject of museums. Without doubt there are no helps to the study of
+Biology, or rather to some branches of it, which are, or may be, more
+important than natural history museums; but, in order to take this
+place in regard to Biology, they must be museums of the future. The
+museums of the present do not, by any means, do so much for us as they
+might do. I do not wish to particularise, but I dare say many of you,
+seeking knowledge, or in the laudable desire to employ a holiday
+usefully, have visited some great natural history museum. You have
+walked through a quarter of a mile of animals, more or less well
+stuffed, with their long names written out underneath them; and, unless
+your experience is very different from that of most people, the upshot
+of it all is that you leave that splendid pile with sore feet, a bad
+headache, and a general idea that the animal kingdom is a "mighty maze
+without a plan." I do not think that a museum which brings about this
+result does all that may be reasonably expected from such an
+institution. What is needed in a collection of natural history is that
+it should be made as accessible and as useful as possible, on the one
+hand to the general public, and on the other to scientific workers.
+That need is not met by constructing a sort of happy hunting-ground of
+miles of glass cases; and, under the pretence of exhibiting everything
+putting the maximum amount of obstacle in the way of those who wish
+properly to see anything.
+
+What the public want is easy and unhindered access to such a collection
+as they can understand and appreciate; and what the men of science want
+is similar access to the materials of science. To this end the
+vast mass of objects of natural history should be divided into two
+parts--one open to the public, the other to men of science, every day.
+The former division should exemplify all the more important and
+interesting forms of life. Explanatory tablets should be attached to
+them, and catalogues containing clearly-written popular expositions of
+the general significance of the objects exhibited should be provided.
+The latter should contain, packed into a comparatively small space, in
+rooms adapted for working purposes, the objects of purely scientific
+interest. For example, we will say I am an ornithologist. I go to
+examine a collection of birds. It is a positive nuisance to have them
+stuffed. It is not only sheer waste, but I have to reckon with the
+ideas of the bird-stuffer, while, if I have the skin and nobody has
+interfered with it, I can form my own judgment as to what the bird was
+like. For ornithological purposes, what is needed is not glass cases
+full of stuffed birds on perches, but convenient drawers into each of
+which a great quantity of skins will go. They occupy no great space and
+do not require any expenditure beyond their original cost. But for the
+edification of the public, who want to learn indeed, but do not seek
+for minute and technical knowledge, the case is different. What one of
+the general public walking into a collection of birds desires to see is
+not all the birds that can be got together. He does not want to compare
+a hundred species of the sparrow tribe side by side; but he wishes to
+know what a bird is, and what are the great modifications of bird
+structure, and to be able to get at that knowledge easily. What will
+best serve his purpose is a comparatively small number of birds
+carefully selected, and artistically, as well as accurately, set up;
+with their different ages, their nests, their young, their eggs, and
+their skeletons side by side; and in accordance with the admirable plan
+which is pursued in this museum, a tablet, telling the spectator
+in legible characters what they are and what they mean. For the
+instruction and recreation of the public such a typical collection
+would be of far greater value than any many-acred imitation of Noah's
+ark.
+
+Lastly comes the question as to when biological study may best be
+pursued. I do not see any valid reason why it should not be made, to
+a certain extent, a part of ordinary school training. I have long
+advocated this view, and I am perfectly certain that it can be carried
+out with ease, and not only with ease, but with very considerable
+profit to those who are taught; but then such instruction must be
+adapted to the minds and needs of the scholars. They used to have a
+very odd way of teaching the classical languages when I was a boy. The
+first task set you was to learn the rules of the Latin grammar in the
+Latin language--that being the language you were going to learn! I
+thought then that this was an odd way of learning a language, but
+did not venture to rebel against the judgment of my superiors. Now,
+perhaps, I am not so modest as I was then, and I allow myself to think
+that it was a very absurd fashion. But it would be no less absurd, if
+we were to set about teaching Biology by putting into the hands of
+boys a series of definitions of the classes and orders of the animal
+kingdom, and making them repeat them by heart. That is so very
+favourite a method of teaching, that I sometimes fancy the spirit of
+the old classical system has entered into the new scientific system, in
+which case I would much rather that any pretence at scientific teaching
+were abolished altogether. What really has to be done is to get into
+the young mind some notion of what animal and vegetable life is. In
+this matter, you have to consider practical convenience as well as
+other things. There are difficulties in the way of a lot of boys making
+messes with slugs and snails; it might not work in practice. But there
+is a very convenient and handy animal which everybody has at hand, and
+that is himself; and it is a very easy and simple matter to obtain
+common plants. Hence the general truths of anatomy and physiology can
+be taught to young people in a very real fashion by dealing with the
+broad facts of human structure. Such viscera as they cannot very well
+examine in themselves, such as hearts, lungs, and livers, may be
+obtained from the nearest butcher's shop. In respect to teaching
+something about the biology of plants, there is no practical
+difficulty, because almost any of the common plants will do, and plants
+do not make a mess--at least they do not make an unpleasant mess; so
+that, in my judgment, the best form of Biology for teaching to very
+young people is elementary human physiology on the one hand, and the
+elements of botany on the other; beyond that I do not think it will be
+feasible to advance for some time to come. But then I see no reason,
+why, in secondary schools, and in the Science Classes which are under
+the control of the Science and Art Department--and which I may say, in
+passing, have in my judgment, done so very much for the diffusion of a
+knowledge of science over the country--we should not hope to see
+instruction in the elements of Biology carried out, not perhaps to the
+same extent, but still upon somewhat the same principle as here. There
+is no difficulty, when you have to deal with students of the ages of
+fifteen or sixteen, in practising a little dissection and in getting a
+notion of, at any rate, the four or five great modifications of the
+animal form; and the like is true in regard to the higher anatomy of
+plants.
+
+While, lastly, to all those who are studying biological science with
+a view to their own edification merely, or with the intention of
+becoming zoologists or botanists; to all those who intend to pursue
+physiology--and especially to those who propose to employ the working
+years of their lives in the practice of medicine--I say that there is
+no training so fitted, or which may be of such important service to
+them, as the discipline in practical biological work which I have
+sketched out as being pursued in the laboratory hard by.
+
+       *       *       *       *       *
+
+I may add that, beyond all these different classes of persons who may
+profit by the study of Biology, there is yet one other. I remember, a
+number of years ago, that a gentleman who was a vehement opponent of
+Mr. Darwin's views and had written some terrible articles against them,
+applied to me to know what was the best way in which he could acquaint
+himself with the strongest arguments in favour of evolution. I wrote
+back, in all good faith and simplicity, recommending him to go through
+a course of comparative anatomy and physiology, and then to study
+development. I am sorry to say he was very much displeased, as people
+often are with good advice. Notwithstanding this discouraging result, I
+venture, as a parting word, to repeat the suggestion, and to say to all
+the more or less acute lay and clerical "paper-philosophers"  who
+venture into the regions of biological controversy--Get a little sound,
+thorough, practical, elementary instruction in biology.
+
+       *       *       *       *       *
+
+Footnotes:
+
+ See the distinction between the "sciences physiques" and the
+"sciences physiologiques" in the _Anatomie Générale_, 1801.
+
+ _Hydrogéologie_, an. x. (1801).
+
+ "The term _Biology_, which means exactly what we wish to
+express, _the Science of Life_, has often been used, and has of
+late become not uncommon, among good writers."--Whewell, _Philosophy
+of the Inductive Sciences_, vol. i. p. 544 (edition of 1847).
+
+ I think that my friend, Professor Allman, was the first to draw
+attention to it.
+
+ Galileo was troubled by a sort of people whom he called "paper
+philosophers," because they fancied that the true reading of nature was
+to be detected by the collation of texts. The race is not extinct, but,
+as of old, brings forth its "winds of doctrine" by which the
+weathercock heads among us are much exercised.
+
+ Some critics do not even take the trouble to read. I have recently
+been adjured with much solemnity; to state publicly why I have "changed
+my opinion" as to the value of the palaeontological evidence of the
+occurrence of evolution.
+
+To this my reply is, Why should I, when that statement was made seven
+years ago? An address delivered from the Presidential Chair of the
+Geological Society, in 1870, may be said to be a public document,
+inasmuch as it not only appeared in the _Journal_ of that learned
+body, but was re-published, in 1873, in a volume of _Critiques and
+Addresses_, to which my name is attached. Therein will be found a
+pretty full statement of my reasons for enunciating two propositions:
+(1) that "when we turn to the higher _Vertebrata_, the results of
+recent investigations, however we may sift and criticise them, seem to
+me to leave a clear balance in favour of the evolution of living forms
+one from another;" and (2) that the case of the horse is one which
+"will stand rigorous criticism." Thus I do not see clearly in what way
+I can be said to have changed my opinion, except in the way of
+intensifying it, when in consequence of the accumulation of similar
+evidence since 1870, I recently spoke of the denial of evolution as not
+worth serious consideration.
+
+ Writers of this stamp are fond of talking about the Baconian
+method. I beg them therefore to lay to heart these two weighty sayings
+of the herald of Modern Science:--
+
+"Syllogismus ex propositionibus constat, propositiones ex verbis, verba
+notionum tesserae sunt. Itaque si notiones ipsae (_id quod basis rei
+est_) confusae sint et temere a rebus abstractae, nihil in iis quae
+superstruuntur est firmitudinis."--_Novum Organon_, ii. 14.
+
+"Huic autem vanitati nonnulli ex modernis summa levitate ita
+indulserunt, ut in primo capitulo Geneseos et in libro Job et aliis
+scripturis sacris, philosophiam naturalem fundare conati sint; _inter
+vivos quaerentes mortua_."--_Ibid_. 65.

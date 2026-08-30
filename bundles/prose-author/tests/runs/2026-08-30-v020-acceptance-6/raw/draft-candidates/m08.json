@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"The short answer is: sometimes, but the resemblance ends at the checkout screen. Returning a paper book ends the loan because the library still possesses the object (the borrowing period). An ebook loan can end with the publisher withdrawing the work, which removes access even though the library made the loan in good faith.\\n\\nThat distinction matters. A physical book is like a tool sitting on a library shelf: the lender can ask for it back, but the tool remains available for the next borrower (or a physical copy). An ebook is often treated more like a temporary permission slip (a license, not ownership). The publisher can change the permission, and the library cannot hand the same file to another reader after the withdrawal.\\n\\nThis is why the digital version is not simply the old practice with a screen added. In a traditional loan, the library controls circulation of an item. In a licensed ebook system, an outside company may control whether the item exists in the library’s collection at all. The reader experiences that as a missing book, not as an ordinary return.\\n\\nThere can be legitimate reasons for ending access, including rights disputes or an author’s request. But a quiet withdrawal during an active loan shifts the cost onto the library and the reader—and it makes the collection less stable. The terms should state what happens to current loans, whether advance notice is required, and what remedy follows when access disappears.\\n\\nWe should preserve the useful parts of digital lending without accepting a system where “borrowed” means “available until a distant contract changes.” A library ebook should carry a clear loan term, meaningful notice, and a dependable answer when the publisher pulls it. That is a fairer digital version of returning a book.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: identify a source or institution, summarize its position, and test it against consequences\",\"why\":\"The request supplies no source, bill language, agency statement, company position, letter, court action, report, or coalition reference to identify without inventing material.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "The short answer is: sometimes, but the resemblance ends at the checkout screen. Returning a paper book ends the loan because the library still possesses the object (the borrowing period). An ebook loan can end with the publisher withdrawing the work, which removes access even though the library made the loan in good faith.\n\nThat distinction matters. A physical book is like a tool sitting on a library shelf: the lender can ask for it back, but the tool remains available for the next borrower (or a physical copy). An ebook is often treated more like a temporary permission slip (a license, not ownership). The publisher can change the permission, and the library cannot hand the same file to another reader after the withdrawal.\n\nThis is why the digital version is not simply the old practice with a screen added. In a traditional loan, the library controls circulation of an item. In a licensed ebook system, an outside company may control whether the item exists in the library’s collection at all. The reader experiences that as a missing book, not as an ordinary return.\n\nThere can be legitimate reasons for ending access, including rights disputes or an author’s request. But a quiet withdrawal during an active loan shifts the cost onto the library and the reader—and it makes the collection less stable. The terms should state what happens to current loans, whether advance notice is required, and what remedy follows when access disappears.\n\nWe should preserve the useful parts of digital lending without accepting a system where “borrowed” means “available until a distant contract changes.” A library ebook should carry a clear loan term, meaningful notice, and a dependable answer when the publisher pulls it. That is a fairer digital version of returning a book.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: identify a source or institution, summarize its position, and test it against consequences",
+        "why": "The request supplies no source, bill language, agency statement, company position, letter, court action, report, or coalition reference to identify without inventing material."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/draft-candidates/m08.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/draft-candidates/m08.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a00bdb59c95f394a801d57ae1a5d4ad29073304c3d352294261067673cc49f45"
+  },
+  "acceptance_input": {
+    "system_sha256": "da164fbadd7d8edd87d9863e6b4f93a780b1bc9b158ec99657940c89d93ac1da",
+    "prompt_sha256": "12aabdb88cbc7339a6fdb437a41f79f2c1a732587df2cf9d759c22227c32e1f3",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

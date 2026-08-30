@@ -1,0 +1,26 @@
+{
+  "type": "result",
+  "is_error": true,
+  "harness": "codex",
+  "result": "",
+  "structured_output": null,
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-2/raw/profile.codex-events.jsonl",
+  "raw_output": null,
+  "recovered_from": null,
+  "error": "codex exited 1: 2026-08-29T10:29:10.426453Z ERROR codex_models_manager::cache: failed to load models cache: missing field `base_instructions` at line 97 column 5\n2026-08-29T10:29:10.801340Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n",
+  "acceptance_dispatch": {
+    "stage": "profile",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a6eec4882deb488cc9293faa5b2814c3dda4f29fa1adc99c452403893273472d"
+  },
+  "acceptance_input": {
+    "system_sha256": "0918aa0693a181e5d1a6fe58c81c0304a5feaad6bf20b769a9a9f7b401fa758a",
+    "prompt_sha256": "11b55a2acd3ae47c9093968896af29ed235c1b093492a05e36dffc0db14dca3a",
+    "schema_sha256": "1e32a9822f8c12b832afc64ae6ca93589f40e0b0e8d34970f3737b2643e40ff0"
+  }
+}

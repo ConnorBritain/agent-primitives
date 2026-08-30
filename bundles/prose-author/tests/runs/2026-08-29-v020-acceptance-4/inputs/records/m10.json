@@ -1,0 +1,53 @@
+{
+  "schema": "voice-draft/1",
+  "claims": [
+    {
+      "claim": "Age assurance is a goal that can be implemented through more than one technology.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "A requirement to implement age assurance can result in an independent app collecting identity data.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Identity documents can establish a person's age.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "Collecting identity documents is not the only safe method of age assurance.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "In many cases, collecting identity documents is riskier than other age-assurance options.",
+      "where": "paragraph 1"
+    },
+    {
+      "claim": "The proposed non-document age-assurance methods are imperfect.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "Passport uploads are imperfect as an age-assurance method.",
+      "where": "paragraph 2"
+    },
+    {
+      "claim": "A service may need confidence that a person belongs to an age range such as under 13, 13 to 15, or adult.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Services rarely need a person's legal name, address, document number, and photograph for age assurance.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A collection of legal names, addresses, document numbers, and photographs constitutes a valuable data repository.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "A breach, subpoena, or internal misuse of such a repository can expose substantially more personal information than age alone.",
+      "where": "paragraph 3"
+    },
+    {
+      "claim": "Document-based age assurance can exclude people who lack qualifying credentials or cannot safely present them.",
+      "where": "paragraph 4"
+    }
+  ]
+}

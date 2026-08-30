@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Age assurance can serve a legitimate goal, but collecting identity documents is not the only safe option. For a small app, it may be the most dangerous default: the developer acquires sensitive records, creates an attractive breach target, and still has to decide whether the document belongs to the person presenting it. A compliance measure can become a data vault.\\n\\nStart with the narrowest question: what the service must know. If the requirement is merely to distinguish an adult from a minor, the system shouldn’t retain a name, address, birth date, or document image. Use data minimization (collecting only what the decision requires), short retention (deleting evidence after the check), and separation (keeping age status apart from account identity). The result can be a simple eligibility signal rather than a reusable identity file.\\n\\nDepending on risk, lower-intrusion methods include self-declaration, age gating tied to device or account settings, payment checks, or a third-party token that returns only an age band (not the underlying credential). None is perfect. The choice should follow the harm being addressed, the accuracy actually needed, and the consequences of a wrong result—not a reflex to identify everyone.\\n\\nBuild the flow so it can’t quietly expand. Don’t log raw evidence; limit access; encrypt what must briefly remain; document deletion; provide a route for errors (especially for users without standard documents). An assurance provider can reduce operational work, but outsourcing does not erase responsibility—the app still needs to understand what is collected, returned, retained, and shared.\\n\\nBefore shipping, write down the minimum age decision, the threat model, and the deletion schedule. Test whether the same protection works with less identifying data. We should reject the choice between collecting passports and ignoring safety. The safer architecture proves age when necessary and forgets identity by design.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11\",\"why\":\"The request supplied no verified external claims, documents, organizations, or quotations to attribute.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Age assurance can serve a legitimate goal, but collecting identity documents is not the only safe option. For a small app, it may be the most dangerous default: the developer acquires sensitive records, creates an attractive breach target, and still has to decide whether the document belongs to the person presenting it. A compliance measure can become a data vault.\n\nStart with the narrowest question: what the service must know. If the requirement is merely to distinguish an adult from a minor, the system shouldn’t retain a name, address, birth date, or document image. Use data minimization (collecting only what the decision requires), short retention (deleting evidence after the check), and separation (keeping age status apart from account identity). The result can be a simple eligibility signal rather than a reusable identity file.\n\nDepending on risk, lower-intrusion methods include self-declaration, age gating tied to device or account settings, payment checks, or a third-party token that returns only an age band (not the underlying credential). None is perfect. The choice should follow the harm being addressed, the accuracy actually needed, and the consequences of a wrong result—not a reflex to identify everyone.\n\nBuild the flow so it can’t quietly expand. Don’t log raw evidence; limit access; encrypt what must briefly remain; document deletion; provide a route for errors (especially for users without standard documents). An assurance provider can reduce operational work, but outsourcing does not erase responsibility—the app still needs to understand what is collected, returned, retained, and shared.\n\nBefore shipping, write down the minimum age decision, the threat model, and the deletion schedule. Test whether the same protection works with less identifying data. We should reject the choice between collecting passports and ignoring safety. The safer architecture proves age when necessary and forgets identity by design.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11",
+        "why": "The request supplied no verified external claims, documents, organizations, or quotations to attribute."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/m10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance/raw/drafts/m10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "dcbcb090387b3b976ddded8d07d51a359119164867515e94dd850cdec19f7bc2"
+  },
+  "acceptance_input": {
+    "system_sha256": "96b8759007f12da5d48bbdf1fc02637269f5382bc2eff911fd95b84c9354fc25",
+    "prompt_sha256": "fa3451dd044e255d7e30aed8bf02f2ff0437ab91215db3da4db6bc06bcccc829",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

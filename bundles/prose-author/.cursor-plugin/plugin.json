@@ -1,7 +1,7 @@
 {
   "name": "prose-author",
-  "version": "0.1.0",
-  "description": "Scoped generation in a specific person's voice, drafted against their own corpus and voice card rather than a list of words to avoid. Verifies in the author's own measured terms and refuses to compare against fallbacks when no corpus exists. Never claims the output sounds like the author.",
+  "version": "0.2.0",
+  "description": "Blank-page drafting and passage rewriting in a specific person's measured voice. Renders a cited profile from their corpus, drafts without corpus access, and reports the checks and limits honestly.",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -15,5 +15,6 @@
     "voice",
     "authoring",
     "skill"
-  ]
+  ],
+  "agents": "agents"
 }

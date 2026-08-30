@@ -1,0 +1,242 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 67114,
+  "duration_api_ms": 67105,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "35965867-fdce-4dce-b16e-8964769b8b05",
+  "total_cost_usd": 0.08728005,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 7023,
+    "cache_read_input_tokens": 5706,
+    "output_tokens": 3948,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 7023,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 3948,
+      "cacheReadInputTokens": 5706,
+      "cacheCreationInputTokens": 7023,
+      "webSearchRequests": 0,
+      "costUSD": 0.08728005,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/2",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "The sentence reproduces the requested title exactly. c1's request_basis ('Title: Choice screens are not market choice.') covers it completely."
+      },
+      {
+        "id": "p1s2",
+        "status": "reject",
+        "reason": "Labeled reasoning but introduces an external descriptive premise: 'is often presented as the moment when power leaves the platform and arrives in your hands.' This is a claim about how platforms or industry actors actually present choice screens to users — a statement about real-world behavior. A reasonable reader would ask 'how do you know choice screens are often presented this way?' No ledger entry covers it, and the reasoning basis does not permit descriptive premises about what real actors do."
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Rhetorical question that carries the analytical thread forward. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p1s4",
+        "status": "keep",
+        "reason": "Rhetorical declaration extending the prior question. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "Metaphorical framing of the prior argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Articulates the logical structure of who makes menu decisions (browsers, payment systems, etc. as illustrative categories). Argues a point about the nature of selection; adds no factual claim about a specific real actor or documented industry pattern requiring verification."
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Metaphorical restatement ('tollbooth') of the analytical point. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Rhetorical elaboration of the argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Transitional analytical claim following from prior argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p3s2",
+        "status": "reject",
+        "reason": "Labeled reasoning but asserts 'most people will leave the setting alone' — a claim about how people generally behave. Per audit rules, 'people generally behave a certain way' is a descriptive claim even when written rhetorically. No ledger entry covers it, and the reasoning basis does not permit adding external behavioral premises."
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Introduces a rhetorical counterpoint ('the platform can call this convenience'). No external factual claim requiring verification; pure reasoning setup."
+      },
+      {
+        "id": "p3s4",
+        "status": "keep",
+        "reason": "Rhetorical/analytical characterization of the word 'convenience.' No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Extends the road metaphor to argue a point about the structure of choice. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Analytical inference from the metaphor. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Defines and contrasts 'nominal choice' and 'meaningful choice.' Definitional/analytical; no external descriptive premise."
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Evaluative/normative dismissal of the conflation described in p4s3. No external descriptive premise."
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Analytical conclusion drawn from the preceding argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Describes a logical strategy a gatekeeper could adopt (list a narrow set, favour one, etc.) as an analytical argument about how power can be preserved. The parenthetical '(a crude prohibition attracts attention)' is a reasoned explanation of why subtler means are preferred, not a finite factual claim about a named actor or documented event requiring separate verification. Treated as reasoning."
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Metaphorical summary of the rigged-game argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p5s4",
+        "status": "keep",
+        "reason": "Analytical extension of the argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Rhetorical question transitioning to the remedy section. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Normative sentence rejecting inadequate remedies. No claim-IDs required; contains no assertion about what real courts, laws, or companies currently do."
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Normative sentence proposing what a meaningful remedy would do. No claim-IDs required; no assertion about existing real-world practice."
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Normative sentence listing specific user capabilities a remedy should provide. No claim-IDs required; no assertion about existing real-world practice."
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Analytical transition extending the remedy argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Conditional argument ('If choosing a rival means losing access…') explaining the economics of lock-in. Framed as a logical condition, not a finite factual claim about a specific actor or documented event. Pure reasoning."
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Normative sentence asserting why interoperability and portability matter. No claim-IDs required; no assertion about existing law or company behavior."
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Rhetorical/analytical conclusion to the exit argument. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Addresses software developers as audience, covered by c2 ('Write a 700-word blog post for software developers'). The framing ('the test is therefore more demanding') is an analytical inference from prior argument."
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative sentence listing questions developers should ask. No claim-IDs required; no assertion about existing real-world practice."
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Normative sentence adding a developer-focused question. No claim-IDs required; no assertion about existing real-world practice."
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Analytical conclusion from the questions posed in p8s2–p8s3. No external descriptive premise; pure reasoning."
+      },
+      {
+        "id": "p9s1",
+        "status": "keep",
+        "reason": "Normative/analytical call to stop conflating the existence of a choice with meaningful choice. No external descriptive premise."
+      },
+      {
+        "id": "p9s2",
+        "status": "keep",
+        "reason": "Normative sentence describing what a real remedy would accomplish. No claim-IDs required; no assertion about existing real-world practice."
+      },
+      {
+        "id": "p9s3",
+        "status": "keep",
+        "reason": "Normative sentence summarizing the exit argument. No claim-IDs required; no assertion about existing real-world practice."
+      },
+      {
+        "id": "p9s4",
+        "status": "keep",
+        "reason": "Rhetorical/analytical closing statement. No external descriptive premise; pure reasoning."
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "e4f7ea7f-534b-4f1d-a80b-57d1a21cb615",
+  "acceptance_dispatch": {
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000
+  },
+  "acceptance_input": {
+    "system_sha256": "d5001ac930ea47e45e127ebfc00ba082722217e5cc0eb3b786cb5c9f21cb3b87",
+    "prompt_sha256": "20e820825e23487114aef9e772eff75f98364fb6a946f28a40770d5e5612c52f",
+    "schema_sha256": "90adb601d45eb440fccec69d35a6d709e11d33cb60b103e8022cf085d10d4d50"
+  }
+}

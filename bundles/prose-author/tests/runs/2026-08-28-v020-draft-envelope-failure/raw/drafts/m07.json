@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 333657,
+  "duration_api_ms": 333631,
+  "num_turns": 1,
+  "result": "```markdown\n# A manual is a tool\n\nManufacturers have spent the last decade reclassifying service documentation as intellectual property—and independent repair shops are paying the price. The argument isn't complicated: if a technician can't access a wiring diagram, a calibration procedure, or a software handshake sequence, the repair doesn't happen. What manufacturers call trade secret protection (a claim grounded in copyright or trade secret law, depending on the jurisdiction) is, in practice, a market-allocation mechanism.\n\nThe cost lands unevenly. A dealership or authorized service center gets access to the manufacturer's portal (sometimes for a nominal annual fee, sometimes at no charge). An independent shop working two bays doesn't get the same terms, or doesn't get access at all. Repairs that were routine fifteen years ago (replacing a sensor, swapping a battery pack, reflashing a control module) now require either a dealer referral or a subscription to a third-party information service that may simply not carry what a smaller shop needs, and even when it does, the information may be months out of date compared to what the dealer has.\n\nWhat makes this harder is the pairing problem. Manufacturers will argue that parts pairing (the software process by which a replacement component is bound to a vehicle's or device's central management system) exists for safety and security reasons. That may be true in some narrow cases. But pairing doesn't work without the OEM's proprietary diagnostic tools, and those tools won't authenticate without an active authorized service account. A technician who has the correct part, in hand, cannot complete the repair without going through the manufacturer's authorization pipeline (even if the part is entirely genuine and unmodified). The documentation lockout and the parts lockout are the same lockout. A shop that solves one without the other still can't finish the job, and that combination (documentation access gated by authorization status) is how manufacturers ensure independent technicians stay dependent on the OEM pipeline.\n\nWhy does this matter beyond repair shops' bottom lines? Because documentation access determines who can fix things. A shop that can't get a calibration file can't serve a customer who can't afford dealer rates. That customer does not get a repaired vehicle (or phone, or appliance); the shop doesn't get the job. Independent repair is not a niche market—it's where a substantial portion of the country actually gets things fixed. Treating the service manual as proprietary IP doesn't just hurt competitors; it removes options from people who don't have many.\n\nThe manufacturers' counterargument is that documentation contains sensitive design information. This might sound reasonable. It is not. Service information—torque specs, fault code definitions, calibration sequences, wiring schematics—describes how to restore a product to working condition. It doesn't describe how the product was engineered in the first place. Competitors aren't going to reverse-engineer a drivetrain from a calibration table. The IP designation is a legal wrapper around a business decision, and we should call it what it is.\n\nA practical disclosure rule is the fix, and the basic structure isn't complicated. Manufacturers that sell products in a given market must make service information available to independent technicians on terms that are fair, reasonable, and nondiscriminatory (a standard abbreviated FRAND in most licensing contexts). That means the same documentation at the same price, with the same access window a dealer gets. It doesn't require giving anything away—reasonable licensing fees are acceptable. It requires that a small shop in a mid-sized city can get what the dealership gets, without signing a volume-minimum contract (often requiring dozens of qualifying service events per year) they can't realistically satisfy.\n\nIf you run an independent shop, that pattern is probably familiar: a job stalled because a recalibration sequence wasn't in any database you could legally access, a customer sent to a dealer not because the repair was too complex but because the documentation wasn't there. That's the system working as designed (and, in many cases, as explicitly lobbied for).\n\nWe think documentation disclosure requirements are the right tool to change that. The service manual is not a product; it's a record of how the product works. Locking it up doesn't protect innovation—it protects market position. Legislators and regulators serious about repair rights should treat service information access as the threshold question it is: everything else in the right-to-repair debate follows from it.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o11: sources appear inline via hyperlinks; quotation from primary texts preferred over paraphrase\", \"why\": \"no verified source URLs available for this topic; no primary legislative text to quote directly\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"third-party service information databases may carry documentation that is months out of date compared to what the OEM makes available to dealers\", \"where\": \"paragraph 2\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "5be2fde0-7c16-4938-ab6e-cb45bb8b8140",
+  "total_cost_usd": 0.3441627,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6656,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 21163,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6656,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 21163,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6656,
+      "webSearchRequests": 0,
+      "costUSD": 0.3441627,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "fec5ebe7-2add-433e-886f-d919f2f0fb2c"
+}

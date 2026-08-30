@@ -6,6 +6,7 @@ date: 2026-08-03
 human_authored: true
 license: CC-BY-4.0
 multi_author_collection: true
+link_targets: stripped
 permalink: https://www.eff.org/deeplinks/2026/08/senate-should-reject-kosas-privacy-risks
 ---
 The Senate Commerce Committee is once again considering legislation that would dramatically expand age verification, and undermine privacy for everyone. Alongside the SCREEN Act, the CHATBOT Act, and the Youth AI Privacy Act, the Kids Online Safety Act (KOSA) would push companies to collect more information about their users while creating new incentives to restrict lawful speech.

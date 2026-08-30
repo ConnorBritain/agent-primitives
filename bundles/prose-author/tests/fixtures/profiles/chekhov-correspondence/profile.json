@@ -1,0 +1,15 @@
+{
+  "name": "chekhov-correspondence",
+  "description": "Anton Chekhov's letters — public-domain test fixture for the drafting path.",
+  "medium": "letter",
+  "register": "dialogic, one named recipient, 1890s translated Russian",
+  "notes": [
+    "FIXTURE, not a real user's profile. It is built from public-domain text so",
+    "that `voice-profile-render` can be exercised end to end without anyone's",
+    "own writing in the repo. Nothing here describes a person who uses this tool.",
+    "",
+    "The text is Constance Garnett's English translation. Punctuation, idiom and",
+    "sentence joinery are therefore partly the translator's, not Chekhov's, and",
+    "any voice observation derived from this corpus inherits that caveat."
+  ]
+}

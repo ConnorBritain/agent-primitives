@@ -96,6 +96,13 @@ export function readRun(dir) {
   const malformed = [];
   const mismatched = [];
   for (const f of files) {
+    // `<fixture>-dK.md` for runs that record their draws, bare `<fixture>.md` for the
+    // pre-draws runs that predate the suffix. Both parse to (fixture, draw); a legacy
+    // run reads as draw 1 of a 1-draw case, which is what those runs actually were.
+    const nameNoExt = f.replace(/\.md$/, "");
+    const dm = nameNoExt.match(/^(.+)-d(\d+)$/);
+    const fixture = dm ? dm[1] : nameNoExt;
+    const draw = dm ? Number(dm[2]) : 1;
     const text = readFileSync(join(dir, f), "utf8");
     const m = text.match(RESULT);
     if (!m) {
@@ -126,25 +133,75 @@ export function readRun(dir) {
       continue;
     }
     const fromHeading = declared[1].toLowerCase();
-    const fromName = f.startsWith("p-") ? "positive" : "negative";
+    const fromName = fixture.startsWith("p-") ? "positive" : "negative";
     if (fromHeading !== fromName) {
       mismatched.push(`${f}: heading says ${fromHeading}, filename says ${fromName}`);
       continue;
     }
 
-    runs.push({ file: f, critic, kind: fromHeading, verdict: m[1], ...fields });
+    runs.push({ file: f, fixture, draw, critic, kind: fromHeading, verdict: m[1], ...fields });
   }
   return { runs, malformed, mismatched };
 }
 
+/**
+ * Group transcripts by fixture. Each entry is one *case*, with all its draws attached.
+ *
+ * Grouping is where "single-draw" and "k=3" become the same code path, and it is why
+ * `tally` can stop caring which one it got. A k=1 run yields groups of size 1, so the
+ * majority is just the one verdict and every case is trivially unanimous — which is
+ * the correct thing to say about a run that only asked once.
+ */
+export function groupCases(runs) {
+  const groups = new Map();
+  for (const r of runs) {
+    if (!groups.has(r.fixture)) groups.set(r.fixture, []);
+    groups.get(r.fixture).push(r);
+  }
+  const cases = [...groups.entries()].map(([fixture, draws]) => {
+    // Every draw of a case shares the same kind and the same critic, because they come
+    // from the same fixture. A run that mixed those would be broken elsewhere.
+    const kind = draws[0].kind;
+    const critic = draws[0].critic;
+    const verdicts = draws.map((d) => d.verdict);
+    const tally = verdicts.reduce((a, v) => ({ ...a, [v]: (a[v] || 0) + 1 }), {});
+    const sorted = Object.entries(tally).sort((a, b) => b[1] - a[1]);
+    return {
+      fixture,
+      kind,
+      critic,
+      draws,
+      verdicts,
+      majority: sorted[0][0],
+      majorityCount: sorted[0][1],
+      unanimous: sorted.length === 1,
+    };
+  });
+  return cases;
+}
+
 export function tally(runs, profile) {
-  const of = (kind) => runs.filter((r) => r.kind === kind);
-  const count = (list, v) => list.filter((r) => r.verdict === v).length;
+  const cases = groupCases(runs);
+  const of = (kind) => cases.filter((c) => c.kind === kind);
+  const count = (list, v) => list.filter((c) => c.majority === v).length;
   const t = {
+    // n is the number of CASES, not draws. Reporting "12 of 33 flagged" over 11 cases
+    // with 3 draws each would be technically true and completely misleading — the
+    // question the header answers is "how many of the fixtures came back X", and a
+    // fixture that comes back REVISE-REVISE-CLEAN counts as REVISE once, not twice.
     negative: { n: of("negative").length, flagged: count(of("negative"), profile.flag) },
     positive: { n: of("positive").length, flagged: count(of("positive"), profile.flag) },
     findings: runs.reduce((a, r) => a + r.findings, 0),
+    // A split is any case whose draws did not all agree. Reported as its own count
+    // rather than resolved: a critic that returns opposite verdicts on the same prompt
+    // is telling you which cases sit on its threshold, and hiding that in a majority
+    // would throw away the most useful thing about running k>1.
+    splits: cases.filter((c) => !c.unanimous).length,
+    totalCases: cases.length,
+    cases,
   };
+  // Contract counts sum across every draw. A critic is not allowed to make an
+  // authorship claim once, so an authorship claim in 1 of 3 draws still blocks.
   for (const k of profile.contract) t[k] = runs.reduce((a, r) => a + r[k], 0);
   return t;
 }
@@ -165,42 +222,39 @@ function scannerAgreement(runs, dir, critic, line) {
 
   const manifest = JSON.parse(readFileSync(join(fixturesDir, "fixtures.json"), "utf8"));
   const byName = new Map(manifest.fixtures.map((f) => [f.name, f]));
+  const cases = groupCases(runs);
   let echo = 0, clearedOverFlag = 0, caughtBlindSpot = 0, correct = 0;
   const unresolved = [], corrected = [];
 
-  for (const r of runs) {
-    const name = r.file.replace(/\.md$/, "");
-    const f = byName.get(name);
-    if (!f) { unresolved.push(r.file); continue; }
+  // Per CASE, not per draw. A fixture whose 3 draws split REVISE/REVISE/CLEAN counts
+  // once in the tally — with the majority verdict — because a case is one document and
+  // "correct" is a property of the document's ground truth, not of the individual
+  // dispatches. Splits are already surfaced elsewhere; double-counting them here would
+  // scale the echo baseline by the split count and turn a stable measurement into a
+  // moving target.
+  for (const c of cases) {
+    const f = byName.get(c.fixture);
+    if (!f) { unresolved.push(c.fixture); continue; }
 
     // A fixture whose expected verdict was changed AFTER this run scored against it.
-    // The score is then partly a score against an answer the run itself supplied, and
-    // a reader has to know that to read the number. Printed rather than left to a
-    // sentence in a summary, because sentences in summaries are what CALIBRATION.md
-    // is a list of.
-    // ONLY when the correction happened after THIS run. `corrected_after_run`
-    // names the run whose score was computed against the old expectation; a later
-    // run scored against the corrected one and is not caveated by it.
-    //
-    // The first version tested only that the key was present, so every future run
-    // inherited a warning about a correction that predated it. Left alone, that
-    // trains readers to skip the block - and this block is the one thing standing
-    // between a 12-of-13 and a reader who does not know one answer came from the
-    // run itself. A caveat that cries wolf is worse than no caveat.
+    // ONLY when the correction happened after THIS run — `corrected_after_run` names
+    // the run whose score was computed against the OLD expectation, and a later run
+    // scored against the corrected one is not caveated by it. A caveat that cries wolf
+    // is worse than no caveat.
     if (f.corrected_after_run === basename(resolve(dir))) {
-      corrected.push(`${name}: expected ${f.previous_expect} when run, now ${f.expect}`);
+      corrected.push(`${c.fixture}: expected ${f.previous_expect} when run, now ${f.expect}`);
     }
     const scan = scanVerdict(scanFidelity(
-      readFileSync(join(fixturesDir, name, "original.md"), "utf8"),
-      readFileSync(join(fixturesDir, name, "revision.md"), "utf8"),
+      readFileSync(join(fixturesDir, c.fixture, "original.md"), "utf8"),
+      readFileSync(join(fixturesDir, c.fixture, "revision.md"), "utf8"),
     ));
-    if (r.verdict === f.expect) correct += 1;
-    if (r.verdict === scan) echo += 1;
+    if (c.majority === f.expect) correct += 1;
+    if (c.majority === scan) echo += 1;
     else if (scan === "MATERIAL-LOSS") clearedOverFlag += 1;
     else caughtBlindSpot += 1;
   }
 
-  const n = runs.length - unresolved.length;
+  const n = cases.length - unresolved.length;
   process.stdout.write("\n");
   line(`verdicts matching the fixture's expected verdict:  ${correct} of ${n}`);
   line(`losses the scan flagged and the critic cleared:    ${clearedOverFlag}`);
@@ -211,12 +265,12 @@ function scannerAgreement(runs, dir, critic, line) {
   if (corrected.length) {
     process.stdout.write("\n");
     line(`${corrected.length} fixture(s) whose expected verdict was CORRECTED after this run:`);
-    for (const c of corrected) line(`  ${c}`);
+    for (const cc of corrected) line(`  ${cc}`);
     line("  Read fixtures.json's correction_note before quoting the score above.");
   }
   if (unresolved.length) {
     // An unresolvable transcript is one whose ground truth nobody can check.
-    process.stdout.write(`\n    ${unresolved.length} transcript(s) naming no known fixture: ${unresolved.join(", ")}\n`);
+    process.stdout.write(`\n    ${unresolved.length} case(s) naming no known fixture: ${unresolved.join(", ")}\n`);
     bad += 1;
   }
   return bad;
@@ -243,11 +297,42 @@ function main() {
   const t = tally(runs, profile);
   const line = (s) => process.stdout.write(`    ${s}\n`);
 
-  process.stdout.write(`\n  ${dir} — ${runs.length} transcripts\n\n`);
+  // Draws come from the MANIFEST if it exists; otherwise infer from the runs. A run
+  // whose draws differ across cases is a legitimate thing to say — the cross-author
+  // voice run had k=3 on some cells and k=1 on others — so we describe what we see
+  // rather than claim a single k.
+  const manifest = existsSync(join(dir, "MANIFEST.json"))
+    ? JSON.parse(readFileSync(join(dir, "MANIFEST.json"), "utf8"))
+    : null;
+  const observedDraws = [...new Set(t.cases.map((c) => c.draws.length))].sort((a, b) => a - b);
+  const drawsLabel = manifest?.draws != null
+    ? `k=${manifest.draws}`
+    : observedDraws.length === 1 ? `k=${observedDraws[0]}` : `k=${observedDraws.join("/")}, mixed`;
+
+  process.stdout.write(`\n  ${dir} — ${t.cases.length} case(s), ${runs.length} transcript(s) (${drawsLabel})\n\n`);
+
+  // The "single draw" banner is the whole reason SAMPLING-POLICY exists. A run with
+  // only one dispatch per case cannot tell a stable verdict from an unstable one, and
+  // a reader who quotes it without knowing that is quoting an unmeasured wobble as if
+  // it were a number.
+  const singleDraw = manifest?.draws === 1 || (observedDraws.length === 1 && observedDraws[0] === 1);
+  if (singleDraw) {
+    line("single draw per case (unreliable on borderlines)  <- widen to k=3 before quoting");
+    process.stdout.write("\n");
+  }
+
   for (const kind of ["negative", "positive"]) {
     const { n, flagged } = t[kind];
     line(`${profile.labels[kind].replace("%N%", String(n))} ${flagged} ${profile.flag}, ${n - flagged} ${profile.clean}`);
   }
+
+  // Splits are only meaningful when there is more than one draw somewhere in the run.
+  // Reporting "0 splits" over a k=1 run would falsely imply the critic agreed with
+  // itself, which it was never asked.
+  if (observedDraws.some((k) => k > 1)) {
+    line(`cases whose ${drawsLabel} draws did not all agree:  ${t.splits} of ${t.totalCases}   (a split is a finding)`);
+  }
+
   for (const k of profile.contract) line(profile.labels[k].replace("%V%", String(t[k])));
 
   // Anything a critic needs beyond the shared counts goes through this hook, so

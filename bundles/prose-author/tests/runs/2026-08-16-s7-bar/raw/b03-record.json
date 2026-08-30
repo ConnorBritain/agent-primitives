@@ -1,0 +1,31 @@
+{
+  "schema": "voice-draft/1",
+  "omitted": [
+    {
+      "habit": "paragraph ends on a colon and the next line is a bare URL",
+      "why": "no verified sources available for this topic"
+    },
+    {
+      "habit": "named-ally attributive clauses",
+      "why": "no verifiable quotation available; would require inventing one"
+    },
+    {
+      "habit": "bracketed image credit as the final line",
+      "why": "no image accompanies this draft"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Apple applies parts pairing to screens, batteries and cameras",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "John Deere pairs controllers in its equipment, and dealer authorization affects used-combine resale value",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Oregon's right-to-repair law includes a ban on parts pairing, and most other state repair laws do not",
+      "where": "paragraph 9"
+    }
+  ]
+}

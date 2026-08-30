@@ -1,0 +1,94 @@
+{
+  "_comment": "One full loop iteration on the S3 matched-chekhov draft. k=3 per SAMPLING-POLICY.md. The draft-side numbers are reused verbatim from the S3 run (case-b) rather than re-measured — re-running a published figure changes the sample under the number. findings_detail[].location is the critic's LOCATION line verbatim — attribution is computed from it, so a paraphrase there makes the run unreproducible (the replay caught exactly that).",
+  "draft": {
+    "source": "runs/2026-08-07-pi02-s3-voice-draft, case-b (matched-chekhov)",
+    "findings": [
+      1,
+      2,
+      0
+    ],
+    "verdicts": [
+      "REVISE",
+      "REVISE",
+      "CLEAN"
+    ],
+    "majority": "REVISE",
+    "split": true
+  },
+  "revision": {
+    "findings": [
+      1,
+      2,
+      2
+    ],
+    "verdicts": [
+      "REVISE",
+      "REVISE",
+      "REVISE"
+    ],
+    "majority": "REVISE",
+    "split": false,
+    "findings_detail": [
+      {
+        "draw": 1,
+        "what": "pronoun+will elision 'nobody'll' — a contraction class absent from all ten samples",
+        "confidence": "high",
+        "caused_by": "e02",
+        "location": "line 13 — \"the calendar in the passage is two years old and nobody'll take it down\""
+      },
+      {
+        "draw": 2,
+        "what": "no question mark or exclamation anywhere; corpus asks the recipient outright in 9/10",
+        "confidence": "high",
+        "caused_by": null,
+        "location": "line 13 — \"Tell me whether Nikolay got the position, whether the roof was ever seen to, and whether Anna is still refusing to eat anything that has been near an onion.\" (and the draft as a whole: it contains no question mark and no exclamation mark anywhere)"
+      },
+      {
+        "draw": 2,
+        "what": "two similes stacked on one object and dwelt on",
+        "confidence": "low",
+        "caused_by": null,
+        "location": "line 9 — \"standing upright on its four legs in two feet of river as though it had been set for supper and were waiting on the family, patient as a horse left standing in the traces. I watched it a long while.\""
+      },
+      {
+        "draw": 3,
+        "what": "'I mean it:' sincerity flag — a modern confessional register break",
+        "confidence": "high",
+        "caused_by": null,
+        "location": "line 13 — \"Write to me. I mean it: write, and put the year on the letter\""
+      },
+      {
+        "draw": 3,
+        "what": "'nobody'll' contraction class",
+        "confidence": "low",
+        "caused_by": "e02",
+        "location": "line 13 — \"the calendar in the passage is two years old and nobody'll take it down\""
+      }
+    ]
+  },
+  "decisions": {
+    "detectDegradation": {
+      "degraded": false,
+      "delta": 0.67,
+      "reason": "findings rose by 0.67/draw, within k=3 noise — surfaced, not blocking"
+    },
+    "attributeToEdits": {
+      "caused": 2,
+      "plan_ids": [
+        "e02"
+      ]
+    },
+    "nextAction": {
+      "action": "refuse",
+      "refusedPlanIds": [
+        "e02"
+      ],
+      "why": "causation outranks counts"
+    },
+    "shouldStop_if_applied": {
+      "outcome": "stalled",
+      "reason": "two consecutive rounds at REVISE with no reduction (1.00 -> 1.67 findings/draw)"
+    }
+  },
+  "limitation": "Dispatches were manual, not harness-wrapped, so the enumerated verify-run gate does not cover this directory. Same limitation as the S1 MVP and the S3 run."
+}

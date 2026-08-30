@@ -1,0 +1,180 @@
+{
+  "schema": "voice-draft-claim-audit/2",
+  "sentences": [
+    {
+      "id": "p1s1",
+      "status": "keep",
+      "reason": "Restates the request premise directly: maker can disable features after sale (c1, request_basis matches). No additional external claim."
+    },
+    {
+      "id": "p1s2",
+      "status": "keep",
+      "reason": "Pure rhetorical reasoning/metaphor extending the premise; no external factual claim introduced."
+    },
+    {
+      "id": "p1s3",
+      "status": "keep",
+      "reason": "Reasoning metaphor elaborating the ownership-control distinction; no external factual claim."
+    },
+    {
+      "id": "p2s1",
+      "status": "reject",
+      "reason": "Labeled reasoning with no claim IDs, but the sentence asserts a descriptive claim about how sellers and buyers characteristically handle hardware/software distinctions and terms-of-service at unboxing — a claim about real industry practice and common behavior that requires external support not present in the ledger."
+    },
+    {
+      "id": "p2s2",
+      "status": "keep",
+      "reason": "First-person epistemic hedge; no factual claim."
+    },
+    {
+      "id": "p2s3",
+      "status": "keep",
+      "reason": "Logical/rhetorical argument about the nature of a device; no external descriptive premise added."
+    },
+    {
+      "id": "p2s4",
+      "status": "keep",
+      "reason": "Definitional reasoning about hardware/software relationship; no external factual claim."
+    },
+    {
+      "id": "p2s5",
+      "status": "keep",
+      "reason": "Conditional logical inference from the request premise (c1); no new external claim."
+    },
+    {
+      "id": "p3s1",
+      "status": "keep",
+      "reason": "Rhetorical question extending the reasoning argument; no external factual claim."
+    },
+    {
+      "id": "p3s2",
+      "status": "keep",
+      "reason": "Labeled hypothetical; the landlord/seller comparison is an imagined analogy, not a report about a real actor or law."
+    },
+    {
+      "id": "p3s3",
+      "status": "reject",
+      "reason": "Labeled reasoning but asserts a descriptive claim that 'the digital version of that arrangement is treated as ordinary' — a claim about how courts, industry, or the public currently treat such arrangements — and that contracts are longer than anyone can reasonably read, both of which are external descriptive claims not covered by any ledger entry."
+    },
+    {
+      "id": "p3s4",
+      "status": "keep",
+      "reason": "Aphoristic reasoning conclusion; no external factual claim."
+    },
+    {
+      "id": "p4s1",
+      "status": "keep",
+      "reason": "Reasoning observation about terminology options; no external factual claim about what any real actor does."
+    },
+    {
+      "id": "p4s2",
+      "status": "keep",
+      "reason": "Reasoning conclusion; no external factual claim."
+    },
+    {
+      "id": "p4s3",
+      "status": "keep",
+      "reason": "Conditional reasoning inference from the request premise; no new external descriptive claim."
+    },
+    {
+      "id": "p4s4",
+      "status": "keep",
+      "reason": "Normative sentence recommending suspicion of a described arrangement; no claim about what real actors currently do."
+    },
+    {
+      "id": "p5s1",
+      "status": "keep",
+      "reason": "Explicitly hypothetical ('Imagine'); imagined scenario, not a report about a real product or actor."
+    },
+    {
+      "id": "p5s2",
+      "status": "keep",
+      "reason": "Explicitly hypothetical ('Imagine'); imagined scenarios, not reports about real products or events."
+    },
+    {
+      "id": "p5s3",
+      "status": "keep",
+      "reason": "Continuation of the hypothetical; no real-world factual claim."
+    },
+    {
+      "id": "p5s4",
+      "status": "keep",
+      "reason": "Reasoning distinction between possession and control; no external factual claim."
+    },
+    {
+      "id": "p5s5",
+      "status": "keep",
+      "reason": "Reasoning metaphor elaborating the control argument; no external factual claim."
+    },
+    {
+      "id": "p6s1",
+      "status": "keep",
+      "reason": "First-person reasoning transition; no external factual claim."
+    },
+    {
+      "id": "p6s2",
+      "status": "keep",
+      "reason": "Normative recommendation; no claim about what real law or companies currently do."
+    },
+    {
+      "id": "p6s3",
+      "status": "keep",
+      "reason": "Reasoning clarification of the normative scope; no external factual claim."
+    },
+    {
+      "id": "p6s4",
+      "status": "keep",
+      "reason": "Reasoning elaboration of the normative argument; no external factual claim about real actors."
+    },
+    {
+      "id": "p6s5",
+      "status": "keep",
+      "reason": "Normative prescription about disclosure and fallback paths; no claim about what real actors currently do."
+    },
+    {
+      "id": "p7s1",
+      "status": "keep",
+      "reason": "Reasoning anticipation of a counterargument framed as a general objection type; no claim that any specific real actor has done something."
+    },
+    {
+      "id": "p7s2",
+      "status": "keep",
+      "reason": "Single-word acknowledgment; no factual claim."
+    },
+    {
+      "id": "p7s3",
+      "status": "keep",
+      "reason": "Normative proposal listing permissible policy requirements; no claim about what real law currently does."
+    },
+    {
+      "id": "p7s4",
+      "status": "keep",
+      "reason": "Reasoning characterization of the problem space; no external factual claim."
+    },
+    {
+      "id": "p7s5",
+      "status": "keep",
+      "reason": "Rhetorical reasoning question about allocation of uncertainty; no external factual claim."
+    },
+    {
+      "id": "p8s1",
+      "status": "keep",
+      "reason": "Normative statement about what need not be done; no claim about current law or practice."
+    },
+    {
+      "id": "p8s2",
+      "status": "keep",
+      "reason": "Normative statement about how licenses should not be treated; no claim about what real courts or law currently do."
+    },
+    {
+      "id": "p8s3",
+      "status": "keep",
+      "reason": "Normative statement about what a device should be; no external factual claim."
+    },
+    {
+      "id": "p8s4",
+      "status": "keep",
+      "reason": "Reasoning conclusion restating the ownership-control distinction from the request premise; no new external claim."
+    }
+  ]
+}

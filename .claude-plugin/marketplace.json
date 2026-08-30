@@ -1,9 +1,11 @@
 {
   "name": "agent-primitives",
-  "description": "Portable agent patterns — reviewers, gates, and workflows that deploy to Claude Code, Codex, Cursor, and any AGENTS.md harness from one source of truth.",
   "owner": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
+  },
+  "metadata": {
+    "description": "Portable agent patterns for Claude Code, Codex, Cursor, and AGENTS.md harnesses."
   },
   "plugins": [
     {
@@ -38,23 +40,24 @@
     },
     {
       "name": "prose-review",
-      "description": "Read-only critics for prose, run before a draft is called done. prose-voice-critic: does this sound like the author, judged against their own corpus, with every finding required to cite how they write instead. prose-fidelity-critic: did a revision keep the facts, quotes, qualifications and claim strength of the original, judged against a deterministic scan that is authoritative on presence. Never judges quality, never claims anything about who wrote something.",
+      "description": "Two read-only critics and one revising transformer for prose. prose-voice-critic: does this sound like the author, judged against their own corpus, with every finding required to cite how they write instead. prose-fidelity-critic: did a revision keep the facts, quotes, qualifications and claim strength of the original, judged against a deterministic scan that is authoritative on presence. prose-reviser: applies a plan of edits and emits a change log the fidelity critic then judges — out-of-plan edits impossible by construction. Never judges quality, never claims anything about who wrote something.",
       "source": "./bundles/prose-review",
-      "version": "0.2.0",
+      "version": "0.3.0",
       "category": "writing",
       "tags": [
         "writing",
         "prose",
         "editing",
         "voice",
-        "review"
+        "review",
+        "revision"
       ]
     },
     {
       "name": "prose-author",
-      "description": "Scoped generation in a specific person's voice, drafted against their own corpus and voice card rather than a list of words to avoid. Verifies in the author's own measured terms and refuses to compare against fallbacks when no corpus exists. Never claims the output sounds like the author.",
+      "description": "Blank-page drafting and passage rewriting in a specific person's measured voice. Renders a cited profile from their corpus, drafts without corpus access, and reports the checks and limits honestly.",
       "source": "./bundles/prose-author",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "category": "writing",
       "tags": [
         "writing",

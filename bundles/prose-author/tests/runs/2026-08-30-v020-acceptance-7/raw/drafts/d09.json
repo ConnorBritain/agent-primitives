@@ -1,0 +1,43 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"If you need a decision for tomorrow's meeting, here it is: don't put confidential intake notes into a general-purpose AI service. The convenience is real, but your obligation is to protect people who may already have little control over what happens to their information.\\n\\nThat doesn't mean you can never use summarisation. It means you should use it only if the provider gives you a written, specific answer about data retention, model training, access controls, deletion, breach handling, and subcontractors (the companies or systems that may touch the text). If the answer is vague, you don't have a safe basis for approval.\\n\\nAsk the service a single blunt question: “Will these notes be used to train a model, retained after processing, or made available to anyone outside our authorised staff?” Then require the answer in the contract, rather than in a sales call. If the service can't meet that standard, stop there. A human summary may be slower, but slower isn't a security failure.\\n\\nI would treat the notes as a high-risk category, even when names are removed – the information can still identify a person through details, context, or combination. My recommendation is a two-step policy: use an approved tool only for material that has been deliberately minimised, and keep raw intake notes out of external systems. We can still test the workflow with synthetic examples (even briefly) that contain zero real client details.\\n\\nBefore the meeting, write down the minimum acceptable conditions: a signed agreement, training prohibited on your data, defined retention and deletion, restricted access, and a named person who reviews every summary. If you can't verify each condition, the answer is no for now. Revisit the question when the service and the safeguards are clear. The point isn't to reject useful automation; it's to make consent and confidentiality part of the design.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named opponents, allies, sources with titles, links, and brief credit\",\"why\":\"No verified source, opponent position, ally, or link was supplied for this practical reply.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "If you need a decision for tomorrow's meeting, here it is: don't put confidential intake notes into a general-purpose AI service. The convenience is real, but your obligation is to protect people who may already have little control over what happens to their information.\n\nThat doesn't mean you can never use summarisation. It means you should use it only if the provider gives you a written, specific answer about data retention, model training, access controls, deletion, breach handling, and subcontractors (the companies or systems that may touch the text). If the answer is vague, you don't have a safe basis for approval.\n\nAsk the service a single blunt question: “Will these notes be used to train a model, retained after processing, or made available to anyone outside our authorised staff?” Then require the answer in the contract, rather than in a sales call. If the service can't meet that standard, stop there. A human summary may be slower, but slower isn't a security failure.\n\nI would treat the notes as a high-risk category, even when names are removed – the information can still identify a person through details, context, or combination. My recommendation is a two-step policy: use an approved tool only for material that has been deliberately minimised, and keep raw intake notes out of external systems. We can still test the workflow with synthetic examples (even briefly) that contain zero real client details.\n\nBefore the meeting, write down the minimum acceptable conditions: a signed agreement, training prohibited on your data, defined retention and deletion, restricted access, and a named person who reviews every summary. If you can't verify each condition, the answer is no for now. Revisit the question when the service and the safeguards are clear. The point isn't to reject useful automation; it's to make consent and confidentiality part of the design.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named opponents, allies, sources with titles, links, and brief credit",
+        "why": "No verified source, opponent position, ally, or link was supplied for this practical reply."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/drafts/d09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/drafts/d09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e583139afda505dc338f9b24682d92eda69d5834ddf5e731ac2c4c1445ddf3c1"
+  },
+  "acceptance_input": {
+    "system_sha256": "6c4e76c11eaf5ab59fb0ad55a04026bdb0522326583a537b09a2261464a3f7d8",
+    "prompt_sha256": "0bf25128aefc7695c2e256d6a4cf76f59a3e5874b8d0cac1c1d842cf79019665",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+    "prerequisites": {
+      "candidate_draft_raw_sha256": "fb4eb1f958c830cc28aa81c5df13b02b82f596fa46fd91224c0d32dc9992fa6d",
+      "profile_markdown_sha256": "c70e9a781e0646dc6053003c7d4e46db2e6ae881262120962fd19ffcd05313f2",
+      "profile_json_sha256": "4deb671b08e2588d2360915146c20d33be18a6b5eaf3aadf3fa6a2306fd1fe28"
+    }
+  }
+}

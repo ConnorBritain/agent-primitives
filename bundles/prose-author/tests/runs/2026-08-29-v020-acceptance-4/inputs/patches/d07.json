@@ -1,0 +1,96 @@
+{
+  "schema": "voice-draft-conformance-patch/1",
+  "edits": [],
+  "coverage": [
+    {
+      "dimension": "person-reader-stance",
+      "observation_ids": [
+        "o01",
+        "o02"
+      ],
+      "disposition": "preserved",
+      "reason": "Both measured person and reader stance habits are already within their allowed ranges."
+    },
+    {
+      "dimension": "contraction-negation",
+      "observation_ids": [
+        "o03",
+        "o04"
+      ],
+      "disposition": "preserved",
+      "reason": "Contractions and uncontracted negatives are already within their allowed ranges."
+    },
+    {
+      "dimension": "qualification-hedging",
+      "observation_ids": [
+        "o11"
+      ],
+      "disposition": "preserved",
+      "reason": "The draft preserves the supported pattern of limited concession followed by a practical narrowing."
+    },
+    {
+      "dimension": "questions-imperatives-vocatives",
+      "observation_ids": [
+        "o07"
+      ],
+      "disposition": "preserved",
+      "reason": "The measured question-mark count is already within its allowed range, and practical guidance is present."
+    },
+    {
+      "dimension": "opponents-allies-sources",
+      "observation_ids": [
+        "o12"
+      ],
+      "disposition": "omitted",
+      "reason": "The request provides no verified named source, quotation, institution, executive, doctrine, or opponent formulation."
+    },
+    {
+      "dimension": "profanity-vulgarity",
+      "observation_ids": [
+        "o05"
+      ],
+      "disposition": "preserved",
+      "reason": "The measured profanity count is already within its allowed range and appears at an argumentative payoff."
+    },
+    {
+      "dimension": "self-reference-biography",
+      "observation_ids": [
+        "o06"
+      ],
+      "disposition": "preserved",
+      "reason": "The measured first-person singular count is already within its allowed range without introducing biography."
+    },
+    {
+      "dimension": "interruption-punctuation",
+      "observation_ids": [
+        "o08",
+        "o09",
+        "o10"
+      ],
+      "disposition": "preserved",
+      "reason": "Parenthetical spans, em dashes, and en dashes are all already within their allowed ranges."
+    },
+    {
+      "dimension": "figures-analogy",
+      "observation_ids": [
+        "o13"
+      ],
+      "disposition": "preserved",
+      "reason": "The toolbox and casino figures map concrete parts of the argument and reveal the relevant asymmetry."
+    },
+    {
+      "dimension": "openings-endings-closure",
+      "observation_ids": [
+        "o14"
+      ],
+      "disposition": "preserved",
+      "reason": "The compact opening thesis and closing return to the toolbox image preserve the supported structure."
+    }
+  ],
+  "omitted": [
+    {
+      "habit": "opponents-allies-sources / o12",
+      "why": "The request supplies no verified named source, quotation, institution, executive, doctrine, or opponent formulation to introduce or test."
+    }
+  ]
+}

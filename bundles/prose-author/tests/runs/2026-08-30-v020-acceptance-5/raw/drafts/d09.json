@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"The dangerous part isn't the summary. The destination of the notes is. If you send confidential intake material to an AI service, you’re making a second decision about custody, access, retention, and reuse. A tidy paragraph can hide that decision, but it can't erase it.\\n\\nFor tomorrow’s meeting, I’d recommend a conditional answer: use the service only if your organization has verified (in writing) that the data is excluded from model training, retained for the shortest practical period, encrypted, restricted to approved staff, and deleted on request. The agreement should identify subprocessors, breach notice duties, storage locations, and what happens when the contract ends. If any of those answers is vague, pause. Careful handling is a safeguard; it’s a wish wearing a lanyard.\\n\\nWhat would you be willing to tell a stranger in an elevator? That’s a crude test, but it exposes the human stakes. Intake notes may contain trauma, immigration details, health information, family conflict, or names that turn a summary into a map of someone’s vulnerability. You’re handing material about a person to a system whose future handling you must be able to explain to that person.\\n\\nThe team should separate usefulness from permission. We can still test summarization with synthetic notes or heavily redacted examples, measure errors, and decide whether the time saved justifies the remaining risk. I’d also require a human review of every output (with the original note beside it), because a fluent omission is still an omission. Record omissions and meaningful changes before anyone relies on the result.\\n\\nIf the meeting needs a yes-or-no sentence, use this one: hold off unless the service passes the written privacy check and the pilot uses data we’re authorized to process. Your nonprofit’s urgency matters – so does your client’s right to remain more than a convenient input.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12\",\"why\":\"The request supplies no verified source, named opponent, slogan, quotation, or linked evidence to introduce.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "The dangerous part isn't the summary. The destination of the notes is. If you send confidential intake material to an AI service, you’re making a second decision about custody, access, retention, and reuse. A tidy paragraph can hide that decision, but it can't erase it.\n\nFor tomorrow’s meeting, I’d recommend a conditional answer: use the service only if your organization has verified (in writing) that the data is excluded from model training, retained for the shortest practical period, encrypted, restricted to approved staff, and deleted on request. The agreement should identify subprocessors, breach notice duties, storage locations, and what happens when the contract ends. If any of those answers is vague, pause. Careful handling is a safeguard; it’s a wish wearing a lanyard.\n\nWhat would you be willing to tell a stranger in an elevator? That’s a crude test, but it exposes the human stakes. Intake notes may contain trauma, immigration details, health information, family conflict, or names that turn a summary into a map of someone’s vulnerability. You’re handing material about a person to a system whose future handling you must be able to explain to that person.\n\nThe team should separate usefulness from permission. We can still test summarization with synthetic notes or heavily redacted examples, measure errors, and decide whether the time saved justifies the remaining risk. I’d also require a human review of every output (with the original note beside it), because a fluent omission is still an omission. Record omissions and meaningful changes before anyone relies on the result.\n\nIf the meeting needs a yes-or-no sentence, use this one: hold off unless the service passes the written privacy check and the pilot uses data we’re authorized to process. Your nonprofit’s urgency matters – so does your client’s right to remain more than a convenient input.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12",
+        "why": "The request supplies no verified source, named opponent, slogan, quotation, or linked evidence to introduce."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/drafts/d09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/raw/drafts/d09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e97845f40fb00d72389f7dd53740e80b5dd46ed2cedfd617e5b5d923329a49b4"
+  },
+  "acceptance_input": {
+    "system_sha256": "da065fd3709403c0438a8aaff0afa0f9ec136796cc6f1e3d1282318a97a68004",
+    "prompt_sha256": "efc2304c2550e74230ca3d334c1778d1211bf011dcb91d6dbea35df52f406099",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

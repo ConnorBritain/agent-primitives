@@ -1,0 +1,133 @@
+{
+  "schema": "voice-profile-measurements/1",
+  "corpus_words": 8066,
+  "sample_count": 11,
+  "samples": [
+    {
+      "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+      "words": 378
+    },
+    {
+      "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+      "words": 714
+    },
+    {
+      "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+      "words": 671
+    },
+    {
+      "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+      "words": 1398
+    },
+    {
+      "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+      "words": 750
+    },
+    {
+      "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+      "words": 686
+    },
+    {
+      "file": "court-records-should-be-free.txt",
+      "words": 360
+    },
+    {
+      "file": "kids-act-would-require-age-checks-get-online.txt",
+      "words": 1117
+    },
+    {
+      "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+      "words": 648
+    },
+    {
+      "file": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+      "words": 345
+    },
+    {
+      "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+      "words": 999
+    }
+  ],
+  "measurements": [
+    {
+      "id": "second-person-family",
+      "count": 11,
+      "per_1000_words": 1.36,
+      "samples_with": 5,
+      "samples_without": 6,
+      "counting_rule": "[measurement:second-person-family] Count case-insensitive whole-word tokens you, your, yours, you're, you've, you'd, and you'll in the extracted sample bodies."
+    },
+    {
+      "id": "first-person-plural-family",
+      "count": 19,
+      "per_1000_words": 2.36,
+      "samples_with": 10,
+      "samples_without": 1,
+      "counting_rule": "[measurement:first-person-plural-family] Count case-sensitive whole-word tokens we, We, us, our, Our, ours, Ours, and the listed contracted we forms in the extracted sample bodies; uppercase US is excluded."
+    },
+    {
+      "id": "contractions",
+      "count": 86,
+      "per_1000_words": 10.66,
+      "samples_with": 11,
+      "samples_without": 0,
+      "counting_rule": "[measurement:contractions] Count whole-word n't, 're, 've, 'll, 'd, and 'm forms plus 's only for the closed elision hosts it, that, there, here, who, what, where, when, how, why, he, she, let, one, nothing, everything, something, somebody, nobody, and this; possessive 's is excluded."
+    },
+    {
+      "id": "uncontracted-negatives",
+      "count": 32,
+      "per_1000_words": 3.97,
+      "samples_with": 9,
+      "samples_without": 2,
+      "counting_rule": "[measurement:uncontracted-negatives] Count case-insensitive whole phrases do not, does not, did not, is not, are not, was not, were not, cannot, could not, would not, should not, will not, have not, has not, and had not in the extracted sample bodies."
+    },
+    {
+      "id": "profanity-vulgarity",
+      "count": 0,
+      "per_1000_words": 0,
+      "samples_with": 0,
+      "samples_without": 11,
+      "counting_rule": "[measurement:profanity-vulgarity] Count only the case-insensitive whole-word profanity and vulgarity forms enumerated by the prose-author corpus-rates profanity rule; coined words containing a rude root are excluded."
+    },
+    {
+      "id": "first-person-singular-family",
+      "count": 2,
+      "per_1000_words": 0.25,
+      "samples_with": 2,
+      "samples_without": 9,
+      "counting_rule": "[measurement:first-person-singular-family] Count case-insensitive whole-word tokens I, me, my, mine, and myself in the extracted sample bodies."
+    },
+    {
+      "id": "question-marks",
+      "count": 9,
+      "per_1000_words": 1.12,
+      "samples_with": 4,
+      "samples_without": 7,
+      "counting_rule": "[measurement:question-marks] Count every literal question-mark character in the extracted sample bodies."
+    },
+    {
+      "id": "round-parenthetical-spans",
+      "count": 97,
+      "per_1000_words": 12.03,
+      "samples_with": 11,
+      "samples_without": 0,
+      "counting_rule": "[measurement:round-parenthetical-spans] Count each non-nested pair of round brackets whose contents stay on one line in the extracted sample bodies."
+    },
+    {
+      "id": "em-dashes",
+      "count": 53,
+      "per_1000_words": 6.57,
+      "samples_with": 10,
+      "samples_without": 1,
+      "counting_rule": "[measurement:em-dashes] Count every literal em-dash character in the extracted sample bodies."
+    },
+    {
+      "id": "en-dashes",
+      "count": 7,
+      "per_1000_words": 0.87,
+      "samples_with": 1,
+      "samples_without": 10,
+      "counting_rule": "[measurement:en-dashes] Count every literal en-dash character in the extracted sample bodies."
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+```json
+{
+  "schema": "voice-draft/1",
+  "refused": "The prompt asks for a rhymed four-stanza poem, and this profile cannot constrain verse. Everything it establishes is prose habit — accreting lists of particulars, a long sentence deflated by a short flat one, paratactic statements set side by side, one-clause figures that are dropped immediately, short paragraphs each opening on a named subject. None of that survives the move into metre and rhyme, where line breaks, stanza shape and rhyme scheme do the structural work the profile has nothing to say about. Section 8 compounds this: every sample is a private letter to one named person, so the profile shows nothing of how this voice behaves in any medium but the letter, and the text is a translation, so idiom and sound — the things a rhymed poem is mostly made of — are partly the translator's rather than the author's. Writing the poem anyway would mean inventing a prosody and calling it the author's; the result would be this model's verse wearing their name. Two separate things would let me proceed: a prompt in prose — a birthday letter to your daughter about the sea, in whatever length you want — which the profile does cover, or, if it must be a poem, a profile built on that author's verse."
+}
+```

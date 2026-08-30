@@ -1,12 +1,10 @@
 # prose-author — design
 
-**Status: v0.1 + v0.3.** Scoped passage rewriting ships, exemplar selection
-under the approved-corpus cap ships, verification with two refusals ships, and
-edit ingestion (`tools/ingest-edit.mjs`) ships — the correction channel that
-turns a kept edit into a corpus sample with computed `edit_fraction`. Blank-page
-drafting (v0.2) and voice locks (v0.4) remain spec only. This document
-exists to be argued with before anything is built, in the same way the bundle
-split was settled before the split happened.
+**Status: v0.2.0 ships.** Scoped passage rewriting, blank-page drafting,
+`voice-profile/2`, deterministic conformance and claim-disclosure tooling, and
+edit ingestion all ship. Voice locks (v0.4) remain design work. The v0.2 path
+uses two separate agent contexts: a renderer may read the corpus, while the
+drafter receives only the assembled profile and request.
 
 The other bundles in this repo measure prose. This one writes it. That inversion
 is the whole risk, and most of what follows is about containing it.
@@ -31,7 +29,8 @@ Three specific ways it goes wrong, and the design decision each one forces:
 Prose written to minimise catalog hits scores zero and reads like no one wrote
 it. This is Goodhart, and this repo already committed to the rule: *the catalog
 is a diagnostic, never a target.* → **The drafter never sees the catalog while
-drafting.** It sees the author's voice card and exemplars. The catalog runs
+drafting.** The v0.1 rewrite path sees the author's voice card and selected
+exemplars; the v0.2 blank-page path sees only the assembled profile. The catalog runs
 afterwards, on the output, as a report.
 
 **2. It regresses to a generic competent voice and calls it the author's.**
@@ -53,8 +52,8 @@ when only calibration read them.
 | | |
 |---|---|
 | **kind** | `author` |
-| **surface** | `skill` — it ships scripts (diffing, exemplar selection, verification) and per `CONTRIBUTING.md` anything with a deterministic component belongs behind a skill |
-| **bundle** | its own. Someone who wants a drafter does not necessarily want six critics, and `prose-review` does not exist yet |
+| **surface** | one coordinating skill plus two agents (`voice-profile-render`, `voice-draft`) and deterministic assembly/conformance tools |
+| **bundle** | its own. Independent criticism remains in `prose-review`, so the author does not grade itself |
 | **shares** | the `<project>/.claude/humanizer/` contract in [`PROFILES.md`](../prose-tell-scan/PROFILES.md) — read, extended, owned by nobody |
 
 `CONTRIBUTING.md`'s rules for `kind: author` map onto this almost word for word:
@@ -73,16 +72,16 @@ below.
 
 ```
   1  intake      register resolved per the existing Phase 0 rules
-  2  ground      voice.md + N exemplars from corpus/human for that register
-  3  draft       the author's material, their voice card, their exemplars.
-                 NO CATALOG.
-  4  measure     tell-scan the draft against the author's DERIVED bands
-  5  report      where the draft sits relative to the author's own range
-  6  the author edits — this is the step that matters
-  7  ingest      optionally keep the edited draft, with edit fraction measured
+  2  render      corpus -> cited voice-profile/2; deterministic code owns counts
+  3  draft       request + profile only. NO CORPUS. NO CATALOG.
+  4  conform     measure, semantic revision, then bounded exact patch if needed
+  5  audit       independent factual-basis disclosure; no accuracy guarantee
+  6  review      tell-scan + independent prose-voice-critic
+  7  the author edits — this is the step that matters
+  8  ingest      optionally keep the edited draft, with edit fraction measured
 ```
 
-Steps 4–5 are what make this an `author` primitive rather than a text generator:
+Steps 4–6 are what make this an `author` primitive rather than a text generator:
 it says how the output was verified, in the author's own measured terms.
 
 ### Step 3 in detail: what the drafter is given

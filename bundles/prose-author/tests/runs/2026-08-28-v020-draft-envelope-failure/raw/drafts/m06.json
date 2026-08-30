@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 263856,
+  "duration_api_ms": 263831,
+  "num_turns": 1,
+  "result": "```markdown\n# The server was part of the appliance\n\nWhen a connected device vendor announces it's shutting down its cloud service, the press release arrives wrapped in reassurance (typically a blog post from a VP of Product). The app is \"sunsetting.\" The platform is \"evolving.\" Some features \"may be affected.\" At first glance, this sounds like a minor inconvenience—but for millions of device owners, it means hardware they paid for is about to stop doing most of what it was sold to do.\n\nThat gap between the announcement and the reality is worth examining closely.\n\n**What actually stops working**\n\nThe features that go dark first are the ones that were never running on the device itself. Remote access through the vendor's app (the thing most buyers consider the whole point)—gone. Voice assistant integrations that route through the vendor's servers—gone. Scheduled automations, usage dashboards, firmware updates, and push notifications all depend on infrastructure the vendor is now dismantling. What remains is often the bare minimum: a thermostat that holds a temperature, a lock that responds to a physical key, a bulb that turns on when someone flips a wall switch. The \"smart\" portion, the part consumers paid a premium for, doesn't survive the shutdown.\n\nCloud connectivity isn't an add-on feature that vendors bolt onto otherwise-complete products. It's the architecture. The device was designed from the outset to offload its logic to a server the owner doesn't control and can't keep running unilaterally.\n\n**The bargain that changed**\n\nWhen someone buys a connected device, they enter an arrangement that isn't meaningfully described on the box. The price reflects the device's capabilities as they exist at purchase: the app, the remote access, the integrations. There is no disclosure (in the fine print or anywhere the buyer actually looks) that a corporate decision made years later can strip those capabilities away, leaving a product that doesn't resemble what was sold.\n\nVendors sometimes argue that terms of service disclosed this possibility all along. That's technically true in many cases—but a clause buried in an onboarding flow is not the same thing as a consumer understanding that their $300 thermostat could become a $30 one without warning. Manufacturers of conventional appliances (toasters, refrigerators, dishwashers) cannot sell a product and then remotely remove its core functions; connected device vendors have been doing the functional equivalent, and regulators have been slow to treat it that way.\n\nThe shutdown doesn't just inconvenience existing owners. It retroactively changes what they purchased. That's a consumer protection problem wearing a technical disguise.\n\n**What local control would actually protect**\n\nLocal operation—where the device's logic runs on hardware inside the owner's home rather than in a vendor data center—is the only architecture that makes a shutdown irrelevant. The cloud becomes optional instead of load-bearing. A device that processes commands locally (and exposes its functions through open protocols like Matter, or plain HTTP endpoints on the local network) doesn't depend on whether the company that made it is still in business.\n\nVendors have resisted this for understandable commercial reasons (lock-in is profitable; local control is not). Local-only devices generate no recurring data, create no lock-in, and enable no subscription revenue. The incentive to build fragile cloud dependency into the architecture is real, and the cost falls entirely on consumers.\n\nWhat would actually help? Right-to-repair principles applied to software: the ability to install alternative firmware (without legal threats under the DMCA or similar statutes) when vendor support ends. Mandatory disclosure (at point of sale) of the expected cloud service lifespan. And when a vendor does shut down, an obligation to release local control APIs or open-source the relevant code, so the device keeps functioning after the servers go dark.\n\nThose are not radical asks. They're the minimum conditions for \"smart\" to mean something durable rather than something that expires on the vendor's schedule. We believe the legal frameworks for requiring exactly this already exist—they just haven't been applied to connected devices.\n\nIf you own hardware that depends on a vendor's cloud, look for products that support open local protocols alongside their cloud features, or that have active open-source firmware communities ready to step in. The server was part of the appliance. It shouldn't have been.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o11: sources as embedded hyperlinks inside the argument\", \"why\": \"no verified URLs available for this topic; links cannot be fabricated\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "2026bf15-bcb4-452d-89eb-78bcd6b05cd2",
+  "total_cost_usd": 0.29332020000000003,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6906,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 17711,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6906,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 17711,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6906,
+      "webSearchRequests": 0,
+      "costUSD": 0.29332020000000003,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "d1d8b7ee-a51d-4f6e-be68-e7a588aa0bf5"
+}

@@ -1,0 +1,61 @@
+{
+  "critic": "fidelity",
+  "run_id": "2026-08-07-critic-tighten-verify",
+  "prepared": "2026-08-08",
+  "draws": 3,
+  "agent_prompt": "primitives/agents/prose-fidelity-critic/agent.md",
+  "agent_sha256": "2b3b5980b5619129c68f10b398c4e5d2f8222a164330e485a06ca577e55716f7",
+  "cases": [
+    {
+      "case": "case-01",
+      "fixture": "p-f03b-surgical-rephrase-rossolimo",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f03b-surgical-rephrase-rossolimo/original.md",
+          "sha256": "1ce09103ae60b97d34cbef4be000ef80c0b0313ec43dfc0acd2c92c41734007e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f03b-surgical-rephrase-rossolimo/revision.md",
+          "sha256": "e4b0af1971e77e62da860d5be34a42f1dee0bbbd2ae735a1a67629fbef718f04"
+        }
+      ]
+    },
+    {
+      "case": "case-02",
+      "fixture": "p-f02b-surgical-cut-marker",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f02b-surgical-cut-marker/original.md",
+          "sha256": "211ea9470c54f4101447dcd9686a60bca96f4a51bf078fdea743dba8cfb892c6"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f02b-surgical-cut-marker/revision.md",
+          "sha256": "6c20e1d9b4a4190714786897cf505b678d0b8ac88874d94918283e5a8a3ca49c"
+        }
+      ]
+    },
+    {
+      "case": "case-03",
+      "fixture": "p-f01-word-swap-tihonov",
+      "kind": "positive",
+      "inputs": [
+        {
+          "as": "original.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f01-word-swap-tihonov/original.md",
+          "sha256": "c0bdb0617caae11dc2ce0ded46045be79412177766de116e2a0cf8c0531ad83e"
+        },
+        {
+          "as": "revision.md",
+          "from": "bundles/prose-review/tests/runs/2026-08-07-reviser-v3/fidelity-fixtures/p-f01-word-swap-tihonov/revision.md",
+          "sha256": "1e89e4ee92713d194dffa10c72ee0782280ed1505706a1e1123a870a4d8c96d6"
+        }
+      ]
+    }
+  ]
+}

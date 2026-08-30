@@ -1,0 +1,40 @@
+---
+source: EFF Deeplinks (eff.org)
+title: The Kids Online Safety Act Will Make the Internet Worse for Everyone
+author: Joe Mullin
+date: 2025-05-01
+human_authored: true
+license: CC-BY-4.0
+link_targets: stripped
+extraction: field--name-body node only
+permalink: https://www.eff.org/deeplinks/2025/05/kids-online-safety-act-will-make-internet-worse-everyone
+---
+The Kids Online Safety Act (KOSA) is back in the Senate. Sponsors are claiming—again—that the latest version won’t censor online content. It isn’t true. This bill still sets up a censorship regime disguised as a “duty of care,” and it will do what previous versions threatened: suppress lawful, important speech online, especially for young people.
+
+KOSA Still Forces Platforms to Police Legal Speech
+
+At the center of the bill is a requirement that platforms “exercise reasonable care” to prevent and mitigate a sweeping list of harms to minors, including depression, anxiety, eating disorders, substance use, bullying, and “compulsive usage.” The bill claims to bar lawsuits over “the viewpoint of users,” but that’s a [smokescreen](https://www.eff.org/deeplinks/2024/03/analyzing-kosas-constitutional-problems-depth). Its core function is to let government agencies sue platforms, big or small, that don’t block or restrict content someone later claims contributed to one of these harms.
+
+When the safest legal option is to delete a forum, platforms will delete the forum.
+
+This bill won’t bother big tech. Large companies will be able to manage this regulation, which is why [Apple](https://www.blackburn.senate.gov/services/files/660C34AF-4D56-47F6-8460-3BC74023F853) and [X](https://thehill.com/policy/technology/5029776-kids-online-safety-act-update/) have agreed to support it. In fact, X [helped negotiate the text](https://www.eff.org/deeplinks/2024/12/xs-last-minute-update-kids-online-safety-act-still-fails-protect-kids-or-adults) of the last version of this bill we saw. Meanwhile, those companies’ smaller competitors will be left scrambling to comply. Under KOSA, a small platform hosting mental health discussion boards will be just as vulnerable as Meta or TikTok—but much less able to defend itself.
+
+To avoid liability, platforms will over-censor. It’s not merely hypothetical. It’s what happens when speech becomes a legal risk. The list of harms in KOSA’s “duty of care” provision is so broad and vague that no platform will know what to do regarding any given piece of content. Forums won’t be able to host posts with messages like “love your body,” “please don’t do drugs,” or “here’s how I got through depression” without fearing that an attorney general or FTC lawyer might later decide the content was harmful. Support groups and anti-harm communities, which can’t do their work without talking about difficult subjects like eating disorders, mental health, and drug abuse, will get caught in the dragnet.
+
+When the safest legal option is to delete a forum, platforms will delete the forum.
+
+There’s Still No Science Behind KOSA’s Core Claims
+
+KOSA relies heavily on vague, subjective harms like “compulsive usage.” The bill defines it as repetitive online behavior that disrupts life activities like eating, sleeping, or socializing. But here’s the problem: there is no accepted clinical definition of “compulsive usage” of online services.
+
+There’s no scientific consensus that online platforms cause mental health disorders, nor agreement on how to measure so-called “addictive” behavior online. The term sounds like settled medical science, but it’s legislative sleight-of-hand: an undefined concept given legal teeth, with major consequences for speech and access to information.
+
+Carveouts Don’t Fix the First Amendment Problem
+
+The bill says it can’t be enforced based on a user’s “viewpoint.” But the text of the bill itself [preferences certain viewpoints](https://www.eff.org/deeplinks/2024/03/analyzing-kosas-constitutional-problems-depth) over others. Plus, liability in KOSA attaches to the platform, not the user. The only way for platforms to reduce risk in the world of KOSA is to monitor, filter, and restrict what users say.
+
+If the FTC can sue a platform because minors saw a medical forum discussing anorexia, or posts about LGBTQ identity, or posts discussing how to help a friend who’s depressed, then that’s censorship. The bill’s stock language that “viewpoints are protected” won’t matter. The legal incentives guarantee that platforms will silence even remotely controversial speech to stay safe.
+
+Lawmakers who support KOSA today are choosing to trust the current administration, and future administrations, to define what youth—and to some degree, all of us—should be allowed to read online.
+
+KOSA will not make kids safer. It will make the internet more dangerous for anyone who relies on it to learn, connect, or speak freely. Lawmakers should reject it, and fast.

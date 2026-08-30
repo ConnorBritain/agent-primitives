@@ -1,0 +1,129 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-conformance-patch/1\",\"edits\":[],\"coverage\":[{\"dimension\":\"person-reader-stance\",\"observation_ids\":[\"o01\",\"o02\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies both measured person and reader-stance ranges.\"},{\"dimension\":\"contraction-negation\",\"observation_ids\":[\"o03\",\"o04\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies both measured contraction and negation ranges.\"},{\"dimension\":\"qualification-hedging\",\"observation_ids\":[\"o10\"],\"disposition\":\"preserved\",\"reason\":\"The draft preserves qualified predictions and a concession before restating the objection.\"},{\"dimension\":\"questions-imperatives-vocatives\",\"observation_ids\":[\"o06\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies the measured question-mark range.\"},{\"dimension\":\"opponents-allies-sources\",\"observation_ids\":[\"o11\"],\"disposition\":\"omitted\",\"reason\":\"Named allies and documentary sources require verified source material not supplied in the request.\"},{\"dimension\":\"profanity-vulgarity\",\"observation_ids\":[],\"disposition\":\"unresolved\",\"reason\":\"The profile provides no supported instruction for this dimension.\"},{\"dimension\":\"self-reference-biography\",\"observation_ids\":[\"o02\",\"o05\"],\"disposition\":\"preserved\",\"reason\":\"The institutional plural voice is present, individual self-reference remains absent, and both measured ranges are satisfied.\"},{\"dimension\":\"interruption-punctuation\",\"observation_ids\":[\"o07\",\"o08\",\"o09\"],\"disposition\":\"preserved\",\"reason\":\"The initial draft already satisfies all measured parenthesis and dash ranges.\"},{\"dimension\":\"figures-analogy\",\"observation_ids\":[\"o12\"],\"disposition\":\"preserved\",\"reason\":\"Brief explanatory figures drawn from everyday and institutional machinery remain present.\"},{\"dimension\":\"openings-endings-closure\",\"observation_ids\":[\"o13\"],\"disposition\":\"omitted\",\"reason\":\"The closing principle and action are preserved, but the request supplied no verified live bill, vote, update, or reported practice for the supported opening habit.\"}],\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: named allies and documentary sources\",\"why\":\"The request supplied no verified organizations, court decisions, research, coalition materials, or quotations to cite.\"},{\"habit\":\"openings-endings-closure / o13: opening on a named live bill, vote, update, or reported practice\",\"why\":\"The request supplied no specific bill, vote, update, or verified report to name.\"}]}",
+  "structured_output": {
+    "schema": "voice-draft-conformance-patch/1",
+    "edits": [],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "observation_ids": [
+          "o01",
+          "o02"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies both measured person and reader-stance ranges."
+      },
+      {
+        "dimension": "contraction-negation",
+        "observation_ids": [
+          "o03",
+          "o04"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies both measured contraction and negation ranges."
+      },
+      {
+        "dimension": "qualification-hedging",
+        "observation_ids": [
+          "o10"
+        ],
+        "disposition": "preserved",
+        "reason": "The draft preserves qualified predictions and a concession before restating the objection."
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "observation_ids": [
+          "o06"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies the measured question-mark range."
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "observation_ids": [
+          "o11"
+        ],
+        "disposition": "omitted",
+        "reason": "Named allies and documentary sources require verified source material not supplied in the request."
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "observation_ids": [],
+        "disposition": "unresolved",
+        "reason": "The profile provides no supported instruction for this dimension."
+      },
+      {
+        "dimension": "self-reference-biography",
+        "observation_ids": [
+          "o02",
+          "o05"
+        ],
+        "disposition": "preserved",
+        "reason": "The institutional plural voice is present, individual self-reference remains absent, and both measured ranges are satisfied."
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "observation_ids": [
+          "o07",
+          "o08",
+          "o09"
+        ],
+        "disposition": "preserved",
+        "reason": "The initial draft already satisfies all measured parenthesis and dash ranges."
+      },
+      {
+        "dimension": "figures-analogy",
+        "observation_ids": [
+          "o12"
+        ],
+        "disposition": "preserved",
+        "reason": "Brief explanatory figures drawn from everyday and institutional machinery remain present."
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "observation_ids": [
+          "o13"
+        ],
+        "disposition": "omitted",
+        "reason": "The closing principle and action are preserved, but the request supplied no verified live bill, vote, update, or reported practice for the supported opening habit."
+      }
+    ],
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: named allies and documentary sources",
+        "why": "The request supplied no verified organizations, court decisions, research, coalition materials, or quotations to cite."
+      },
+      {
+        "habit": "openings-endings-closure / o13: opening on a named live bill, vote, update, or reported practice",
+        "why": "The request supplied no specific bill, vote, update, or verified report to name."
+      }
+    ]
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-18/raw/conformance.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-stage-adapter-canary-18/raw/conformance.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "conformance",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "0b8cae9ca32c9ae12b043f41a5781024eeee6d9c5efc0084dc0c02ef82867fdc"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "54f237d6261554760a99695afa4a8d8210426a608570d11e8de5083d5ac3cf33",
+    "schema_sha256": "50e3e3d2abb2f482cec0b6ec16e5d252ebff95854062c369aa0e66462f04d66e",
+    "prerequisites": {
+      "profile_raw_sha256": "836037b2c66ccf7626a6a0c1543be03449d032a9a4f5b94fe7f2cd0127d33aa2",
+      "initial_draft_raw_sha256": "14df251c4c4d7b339574cc5d24ab123a701246d285b7e4efa6ed07d120fdfa88"
+    }
+  }
+}

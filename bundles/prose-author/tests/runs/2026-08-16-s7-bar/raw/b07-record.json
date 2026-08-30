@@ -1,0 +1,31 @@
+{
+  "omitted": [
+    {
+      "habit": "paragraph ends on a colon, next line is a bare URL (rated throughout)",
+      "why": "no verified sources or links available for this topic"
+    },
+    {
+      "habit": "named ally plus verb of saying (rated several times per piece)",
+      "why": "would require attributing words to a real person without a verified quotation"
+    }
+  ],
+  "claims": [
+    {
+      "claim": "Amazon remotely deleted purchased copies of Orwell's 1984 from customers' Kindles after a licensing problem",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Sony notified PlayStation Store customers that already-purchased Discovery content would be removed because of a lapsed licensing deal",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "Ubisoft shut down The Crew's servers and revoked the licences of people who had bought the game",
+      "where": "paragraph 8"
+    },
+    {
+      "claim": "California enacted a law requiring sellers to stop describing digital goods as a 'purchase' when what is sold is a revocable licence",
+      "where": "paragraph 12"
+    }
+  ],
+  "schema": "voice-draft/1"
+}

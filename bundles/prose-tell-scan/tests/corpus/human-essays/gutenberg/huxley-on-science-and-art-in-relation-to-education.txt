@@ -1,0 +1,636 @@
+---
+source: Project Gutenberg 7150
+title: On Science and Art in Relation to Education
+author: Thomas H. Huxley
+date: 1893
+human_authored: true
+license: public-domain
+---
+When a man is honoured by such a request as that which reached me from
+the authorities of your institution some time ago, I think the first
+thing that occurs to him is that which occurred to those who were
+bidden to the feast in the Gospel--to begin to make an excuse; and
+probably all the excuses suggested on that famous occasion crop up in
+his mind one after the other, including his "having married a wife," as
+reasons for not doing what he is asked to do. But, in my own case, and
+on this particular occasion, there were other difficulties of a sort
+peculiar to the time, and more or less personal to myself; because I
+felt that, if I came amongst you, I should be expected, and, indeed,
+morally compelled, to speak upon the subject of Scientific Education.
+And then there arose in my mind the recollection of a fact, which
+probably no one here but myself remembers; namely, that some fourteen
+years ago I was the guest of a citizen of yours, who bears the honoured
+name of Rathbone, at a very charming and pleasant dinner given by the
+Philomathic Society; and I there and then, and in this very city, made
+a speech upon the topic of Scientific Education. Under these
+circumstances, you see, one runs two dangers--the first, of repeating
+one's self, although I may fairly hope that everybody has forgotten the
+fact I have just now mentioned, except myself; and the second, and even
+greater difficulty, is the danger of saying something different from
+what one said before, because then, however forgotten your previous
+speech may be, somebody finds out its existence, and there goes on that
+process so hateful to members of Parliament, which may be denoted by
+the term "Hansardisation." Under these circumstances, I came to the
+conclusion that the best thing I could do was to take the bull by the
+horns, and to "Hansardise" myself,--to put before you, in the briefest
+possible way, the three or four propositions which I endeavoured to
+support on the occasion of the speech to which I have referred; and
+then to ask myself, supposing you were asking me, whether I had
+anything to retract, or to modify, in them, in virtue of the increased
+experience, and, let us charitably hope, the increased wisdom of an
+added fourteen years.
+
+Now, the points to which I directed particular attention on that
+occasion were these: in the first place, that instruction in physical
+science supplies information of a character of especial value, both in
+a practical and a speculative point of view--information which cannot
+be obtained otherwise; and, in the second place, that, as educational
+discipline, it supplies, in a better form than any other study can
+supply, exercise in a special form of logic, and a peculiar method of
+testing the validity of our processes of inquiry. I said further, that,
+even at that time, a great and increasing attention was being paid to
+physical science in our schools and colleges, and that, most assuredly,
+such attention must go on growing and increasing, until education in
+these matters occupied a very much larger share of the time which is
+given to teaching and training, than had been the case heretofore. And
+I threw all the strength of argumentation of which I was possessed into
+the support of these propositions. But I venture to remind you, also,
+of some other words I used at that time, and which I ask permission to
+read to you. They were these:--"There are other forms of culture
+besides physical science, and I should be profoundly sorry to see the
+fact forgotten, or even to observe a tendency to starve or cripple
+literary or aesthetic culture for the sake of science. Such a narrow
+view of the nature of education has nothing to do with my firm
+conclusion that a complete and thorough scientific culture ought to be
+introduced into all schools."
+
+I say I desire, in commenting upon these various points, and judging
+them as fairly as I can by the light of increased experience, to
+particularly emphasise this last, because I am told, although I
+assuredly do not know it of my own knowledge--though I think if the
+fact were so I ought to know it, being tolerably well acquainted with
+that which goes on in the scientific world, and which has gone on there
+for the last thirty years--that there is a kind of sect, or horde, of
+scientific Goths and Vandals, who think it would be proper and
+desirable to sweep away all other forms of culture and instruction,
+except those in physical science, and to make them the universal and
+exclusive, or, at any rate, the dominant training of the human mind of
+the future generation. This is not my view--I do not believe that it is
+anybody's view,--but it is attributed to those who, like myself,
+advocate scientific education. I therefore dwell strongly upon the
+point, and I beg you to believe that the words I have just now read
+were by no means intended by me as a sop to the Cerberus of culture. I
+have not been in the habit of offering sops to any kind of Cerberus;
+but it was an expression of profound conviction on my own part--a
+conviction forced upon me not only by my mental constitution, but by
+the lessons of what is now becoming a somewhat long experience of
+varied conditions of life.
+
+I am not about to trouble you with my autobiography; the omens are
+hardly favourable, at present, for work of that kind. But I should like
+if I may do so without appearing, what I earnestly desire not to be,
+egotistical,--I should like to make it clear to you, that such notions
+as these, which are sometimes attributed to me, are, as I have said,
+inconsistent with my mental constitution, and still more inconsistent
+with the upshot of the teaching of my experience. For I can certainly
+claim for myself that sort of mental temperament which can say that
+nothing human comes amiss to it. I have never yet met with any branch
+of human knowledge which I have found unattractive--which it would not
+have been pleasant to me to follow, so far as I could go; and I have
+yet to meet with any form of art in which it has not been possible for
+me to take as acute a pleasure as, I believe, it is possible for men to
+take.
+
+And with respect to the circumstances of life, it so happens that it
+has been my fate to know many lands and many climates, and to be
+familiar, by personal experience, with almost every form of society,
+from the uncivilised savage of Papua and Australia and the civilised
+savages of the slums and dens of the poverty-stricken parts of
+great cities, to those who perhaps, are occasionally the somewhat
+over-civilised members of our upper ten thousand. And I have never
+found, in any of these conditions of life, a deficiency of something
+which was attractive. Savagery has its pleasures, I assure you, as well
+as civilisation, and I may even venture to confess--if you will not let
+a whisper of the matter get back to London, where I am known--I am even
+fain to confess, that sometimes in the din and throng of what is called
+"a brilliant reception" the vision crosses my mind of waking up from
+the soft plank which had afforded me satisfactory sleep during the
+hours of the night, in the bright dawn of a tropical morning, when my
+comrades were yet asleep, when every sound was hushed, except the
+little lap-lap of the ripples against the sides of the boat, and the
+distant twitter of the sea-bird on the reef. And when that vision
+crosses my mind, I am free to confess I desire to be back in the boat
+again. So that, if I share with those strange persons to whose
+asserted, but still hypothetical existence I have referred, the want of
+appreciation of forms of culture other than the pursuit of physical
+science, all I can say is, that it is, in spite of my constitution, and
+in spite of my experience, that such should be my fate.
+
+But now let me turn to another point, or rather to two other points,
+with which I propose to occupy myself. How far does the experience of
+the last fourteen years justify the estimate which I ventured to put
+forward of the value of scientific culture, and of the share--the
+increasing share--which it must take in ordinary education? Happily, in
+respect to that matter, you need not rely upon my testimony. In the
+last half-dozen numbers of the "Journal of Education," you will find a
+series of very interesting and remarkable papers, by gentlemen who are
+practically engaged in the business of education in our great public
+and other schools, telling us what is doing in these schools, and what
+is their experience of the results of scientific education there, so
+far as it has gone. I am not going to trouble you with an abstract of
+those papers, which are well worth your study in their fulness and
+completeness, but I have copied out one remarkable passage, because it
+seems to me so entirely to bear out what I have formerly ventured to
+say about the value of science, both as to its subject-matter and as to
+the discipline which the learning of science involves. It is from a
+paper by Mr. Worthington--one of the masters at Clifton, the reputation
+of which school you know well, and at the head of which is an old
+friend of mine, the Rev. Mr. Wilson--to whom much credit is due for
+being one of the first, as I can say from my own knowledge, to take up
+this question and work it into practical shape. What Mr. Worthington
+says is this:--
+
+    "It is not easy to exaggerate the importance of the information
+    imparted by certain branches of science; it modifies the
+    whole criticism of life made in maturer years. The study has
+    often, on a mass of boys, a certain influence which, I think, was
+    hardly anticipated, and to which a good deal of value must be
+    attached--an influence as much moral as intellectual, which is
+    shown in the increased and increasing respect for precision of
+    statement, and for that form of veracity which consists in the
+    acknowledgment of difficulties. It produces a real effect to find
+    that Nature cannot be imposed upon, and the attention given
+    to experimental lectures, at first superficial and curious only,
+    soon becomes minute, serious, and practical."
+
+Ladies and gentlemen, I could not have chosen better words to
+express--in fact, I have, in other words, expressed the same conviction
+in former days--what the influence of scientific teaching, if properly
+carried out, must be.
+
+But now comes the question of properly carrying it out, because, when I
+hear the value of school teaching in physical science disputed, my
+first impulse is to ask the disputer, "What have you known about it?"
+and he generally tells me some lamentable case of failure. Then I ask,
+"What are the circumstances of the case, and how was the teaching
+carried out?" I remember, some few years ago, hearing of the head
+master of a large school, who had expressed great dissatisfaction with
+the adoption of the teaching of physical science--and that after
+experiment. But the experiment consisted in this--in asking one of the
+junior masters in the school to get up science, in order to teach it;
+and the young gentleman went away for a year and got up science and
+taught it. Well, I have no doubt that the result was as disappointing
+as the head-master said it was, and I have no doubt that it ought to
+have been as disappointing, and far more disappointing too; for, if
+this kind of instruction is to be of any good at all, if it is not to
+be less than no good, if it is to take the place of that which is
+already of some good, then there are several points which must be
+attended to.
+
+And the first of these is the proper selection of topics, the second is
+practical teaching, the third is practical teachers, and the fourth is
+sufficiency of time. If these four points are not carefully attended to
+by anybody who undertakes the teaching of physical science in schools,
+my advice to him is, to let it alone. I will not dwell at any length
+upon the first point, because there is a general consensus of opinion
+as to the nature of the topics which should be chosen. The second
+point--practical teaching--is one of great importance, because it
+requires more capital to set it agoing, demands more time, and, last,
+but by no means least, it requires much more personal exertion and
+trouble on the part of those professing to teach, than is the case with
+other kinds of instruction.
+
+When I accepted the invitation to be here this evening, your secretary
+was good enough to send me the addresses which have been given by
+distinguished persons who have previously occupied this chair. I don't
+know whether he had a malicious desire to alarm me; but, however that
+may be, I read the addresses, and derived the greatest pleasure and
+profit from some of them, and from none more than from the one given by
+the great historian, Mr. Freeman, which delighted me most of all; and,
+if I had not been ashamed of plagiarising, and if I had not been sure
+of being found out, I should have been glad to have copied very much of
+what Mr. Freeman said, simply putting in the word science for history.
+There was one notable passage,--"The difference between good and bad
+teaching mainly consists in this, whether the words used are really
+clothed with a meaning or not." And Mr. Freeman gives a remarkable
+example of this. He says, when a little girl was asked where Turkey
+was, she answered that it was in the yard with the other fowls, and
+that showed she had a definite idea connected with the word Turkey, and
+was, so far, worthy of praise. I quite agree with that commendation;
+but what a curious thing it is that one should now find it necessary to
+urge that this is the be-all and end-all of scientific instruction--the
+_sine quâ non_, the absolutely necessary condition,--and yet that
+it was insisted upon more than two hundred years ago by one of the
+greatest men science ever possessed in this country, William Harvey.
+Harvey wrote, or at least published, only two small books, one of which
+is the well-known treatise on the circulation of the blood. The other,
+the "Exercitationes de Generatione," is less known, but not less
+remarkable. And not the least valuable part of it is the preface, in
+which there occurs this passage: "Those who, reading the words of
+authors, do not form sensible images of the things referred to, obtain
+no true ideas, but conceive false imaginations and inane phantasms."
+You see, William Harvey's words are just the same in substance as those
+of Mr. Freeman, only they happen to be rather more than two centuries
+older. So that what I am now saying has its application elsewhere than
+in science; but assuredly in science the condition of knowing, of your
+own knowledge, things which you talk about, is absolutely imperative.
+
+I remember, in my youth, there were detestable books which ought to
+have been burned by the hands of the common hangman, for they contained
+questions and answers to be learned by heart, of this sort, "What is a
+horse? The horse is termed _Equus caballus_; belongs to the class
+Mammalia; order, Pachydermata; family, Solidungula." Was any human
+being wiser for learning that magic formula? Was he not more foolish,
+inasmuch as he was deluded into taking words for knowledge? It is that
+kind of teaching that one wants to get rid of, and banished out of
+science. Make it as little as you like, but, unless that which is
+taught is based on actual observation and familiarity with facts, it is
+better left alone.
+
+There are a great many people who imagine that elementary teaching
+might be properly carried out by teachers provided with only elementary
+knowledge. Let me assure you that that is the profoundest mistake in
+the world. There is nothing so difficult to do as to write a good
+elementary book, and there is nobody so hard to teach properly and well
+as people who know nothing about a subject, and I will tell you why. If
+I address an audience of persons who are occupied in the same line of
+work as myself, I can assume that they know a vast deal, and that they
+can find out the blunders I make. If they don't, it is their fault and
+not mine; but when I appear before a body of people who know nothing
+about the matter, who take for gospel whatever I say, surely it becomes
+needful that I consider what I say, make sure that it will bear
+examination, and that I do not impose upon the credulity of those who
+have faith in me. In the second place, it involves that difficult
+process of knowing what you know so well that you can talk about it as
+you can talk about your ordinary business. A man can always talk about
+his own business. He can always make it plain; but, if his knowledge is
+hearsay, he is afraid to go beyond what he has recollected, and put it
+before those that are ignorant in such a shape that they shall
+comprehend it. That is why, to be a good elementary teacher, to teach
+the elements of any subject, requires most careful consideration, if
+you are a master of the subject; and, if you are not a master of it, it
+is needful you should familiarise yourself with so much as you are
+called upon to teach--soak yourself in it, so to speak--until you know
+it as part of your daily life and daily knowledge, and then you will be
+able to teach anybody. That is what I mean by practical teachers, and,
+although the deficiency of such teachers is being remedied to a large
+extent, I think it is one which has long existed, and which has existed
+from no fault of those who undertook to teach, but because, until the
+last score of years, it absolutely was not possible for any one in a
+great many branches of science, whatever his desire might be, to get
+instruction which would enable him to be a good teacher of elementary
+things. All that is being rapidly altered, and I hope it will soon
+become a thing of the past.
+
+The last point I have referred to is the question of the sufficiency of
+time. And here comes the rub. The teaching of science needs time, as
+any other subject; but it needs more time proportionally than other
+subjects, for the amount of work obviously done, if the teaching is to
+be, as I have said, practical. Work done in a laboratory involves a
+good deal of expenditure of time without always an obvious result,
+because we do not see anything of that quiet process of soaking the
+facts into the mind, which takes place through the organs of the
+senses. On this ground there must be ample time given to science
+teaching. What that amount of time should be is a point which I need
+not discuss now; in fact, it is a point which cannot be settled until
+one has made up one's mind about various other questions.
+
+All, then, that I have to ask for, on behalf of the scientific people,
+if I may venture to speak for more than myself, is that you should put
+scientific teaching into what statesmen call the condition of "the most
+favoured nation"; that is to say, that it shall have as large a share
+of the time given to education as any other principal subject. You may
+say that that is a very vague statement, because the value of the
+allotment of time, under those circumstances, depends upon the number
+of principal subjects. It is _x_ the time, and an unknown quantity
+of principal subjects dividing that, and science taking shares with the
+rest. That shows that we cannot deal with this question fully until we
+have made up our minds as to what the principal subjects of education
+ought to be.
+
+I know quite well that launching myself into this discussion is a very
+dangerous operation; that it is a very large subject, and one which is
+difficult to deal with, however much I may trespass upon your patience
+in the time allotted to me. But the discussion is so fundamental, it is
+so completely impossible to make up one's mind on these matters until
+one has settled the question, that I will even venture to make the
+experiment. A great lawyer-statesman and philosopher of a former age--I
+mean Francis Bacon--said that truth came out of error much more rapidly
+than it came out of confusion. There is a wonderful truth in that
+saying. Next to being right in this world, the best of all things is to
+be clearly and definitely wrong, because you will come out somewhere.
+If you go buzzing about between right and wrong, vibrating and
+fluctuating, you come out nowhere; but if you are absolutely and
+thoroughly and persistently wrong, you must, some of these days, have
+the extreme good fortune of knocking your head against a fact, and that
+sets you all straight again. So I will not trouble myself as to whether
+I may be right or wrong in what I am about to say, but at any rate I
+hope to be clear and definite; and then you will be able to judge for
+yourselves whether, in following out the train of thought I have to
+introduce, you knock your heads against facts or not.
+
+I take it that the whole object of education is, in the first place, to
+train the faculties of the young in such a manner as to give their
+possessors the best chance of being happy and useful in their
+generation; and, in the second place, to furnish them with the most
+important portions of that immense capitalised experience of the human
+race which we call knowledge of various kinds. I am using the term
+knowledge in its widest possible sense; and the question is, what
+subjects to select by training and discipline, in which the object I
+have just defined may be best attained.
+
+I must call your attention further to this fact, that all the subjects
+of our thoughts--all feelings and propositions (leaving aside our
+sensations as the mere materials and occasions of thinking and
+feeling), all our mental furniture--may be classified under one of two
+heads--as either within the province of the intellect, something that
+can be put into propositions and affirmed or denied; or as within the
+province of feeling, or that which, before the name was defiled, was
+called the aesthetic side of our nature, and which can neither be
+proved nor disproved, but only felt and known.
+
+According to the classification which I have put before you, then, the
+subjects of all knowledge are divisible into the two groups, matters of
+science and matters of art; for all things with which the reasoning
+faculty alone is occupied, come under the province of science; and in
+the broadest sense, and not in the narrow and technical sense in which
+we are now accustomed to use the word art, all things feelable, all
+things which stir our emotions, come under the term of art, in the
+sense of the subject-matter of the aesthetic faculty. So that we are
+shut up to this--that the business of education is, in the first place,
+to provide the young with the means and the habit of observation; and,
+secondly, to supply the subject-matter of knowledge either in the shape
+of science or of art, or of both combined.
+
+Now, it is a very remarkable fact--but it is true of most things in
+this world--that there is hardly anything one-sided, or of one nature;
+and it is not immediately obvious what of the things that interest us
+may be regarded as pure science, and what may be regarded as pure art.
+It may be that there are some peculiarly constituted persons who,
+before they have advanced far into the depths of geometry, find
+artistic beauty about it; but, taking the generality of mankind, I
+think it may be said that, when they begin to learn mathematics, their
+whole souls are absorbed in tracing the connection between the
+premisses and the conclusion, and that to them geometry is pure
+science. So I think it may be said that mechanics and osteology are
+pure science. On the other hand, melody in music is pure art. You
+cannot reason about it; there is no proposition involved in it. So,
+again, in the pictorial art, an arabesque, or a "harmony in grey,"
+touches none but the aesthetic faculty. But a great mathematician, and
+even many persons who are not great mathematicians, will tell you that
+they derive immense pleasure from geometrical reasonings. Everybody
+knows mathematicians speak of solutions and problems as "elegant," and
+they tell you that a certain mass of mystic symbols is "beautiful,
+quite lovely." Well, you do not see it. They do see it, because the
+intellectual process, the process of comprehending the reasons
+symbolised by these figures and these signs, confers upon them a sort
+of pleasure, such as an artist has in visual symmetry. Take a science
+of which I may speak with more confidence, and which is the most
+attractive of those I am concerned with. It is what we call morphology,
+which consists in tracing out the unity in variety of the infinitely
+diversified structures of animals and plants. I cannot give you any
+example of a thorough aesthetic pleasure more intensely real than a
+pleasure of this kind--the pleasure which arises in one's mind when a
+whole mass of different structures run into one harmony as the
+expression of a central law. That is where the province of art overlays
+and embraces the province of intellect. And, if I may venture to
+express an opinion on such a subject, the great majority of forms of
+art are not in the sense what I just now defined them to be--pure art;
+but they derive much of their quality from simultaneous and even
+unconscious excitement of the intellect.
+
+When I was a boy, I was very fond of music, and I am so now; and it so
+happened that I had the opportunity of hearing much good music. Among
+other things, I had abundant opportunities of hearing that great old
+master, Sebastian Bach. I remember perfectly well--though I knew
+nothing about music then, and, I may add, know nothing whatever about
+it now--the intense satisfaction and delight which I had in listening,
+by the hour together, to Bach's fugues. It is a pleasure which remains
+with me, I am glad to think; but, of late years, I have tried to find
+out the why and wherefore, and it has often occurred to me that the
+pleasure derived from musical compositions of this kind is essentially
+of the same nature as that which is derived from pursuits which are
+commonly regarded as purely intellectual. I mean, that the source
+of pleasure is exactly the same as in most of my problems in
+morphology--that you have the theme in one of the old master's works
+followed out in all its endless variations, always appearing and always
+reminding you of unity in variety. So in painting; what is called
+"truth to nature" is the intellectual element coming in, and truth to
+nature depends entirely upon the intellectual culture of the person to
+whom art is addressed. If you are in Australia, you may get credit for
+being a good artist--I mean among the natives--if you can draw a
+kangaroo after a fashion. But, among men of higher civilisation, the
+intellectual knowledge we possess brings its criticism into our
+appreciation of works of art, and we are obliged to satisfy it, as well
+as the mere sense of beauty in colour and in outline. And so, the
+higher the culture and information of those whom art addresses, the
+more exact and precise must be what we call its "truth to nature."
+
+If we turn to literature, the same thing is true, and you find works of
+literature which may be said to be pure art. A little song of
+Shakespeare or of Goethe is pure art; it is exquisitely beautiful,
+although its intellectual content may be nothing. A series of pictures
+is made to pass before your mind by the meaning of words, and the
+effect is a melody of ideas. Nevertheless, the great mass of the
+literature we esteem is valued, not merely because of having artistic
+form, but because of its intellectual content; and the value is the
+higher the more precise, distinct, and true is that intellectual
+content. And, if you will let me for a moment speak of the very highest
+forms of literature, do we not regard them as highest simply because
+the more we know the truer they seem, and the more competent we are to
+appreciate beauty the more beautiful they are? No man ever understands
+Shakespeare until he is old, though the youngest may admire him, the
+reason being that he satisfies the artistic instinct of the youngest
+and harmonises with the ripest and richest experience of the oldest.
+
+I have said this much to draw your attention to what, to my mind, lies
+at the root of all this matter, and at the understanding of one another
+by the men of science on the one hand, and the men of literature, and
+history, and art, on the other. It is not a question whether one order
+of study or another should predominate. It is a question of what topics
+of education you shall select which will combine all the needful
+elements in such due proportion as to give the greatest amount of food,
+support, and encouragement to those faculties which enable us to
+appreciate truth, and to profit by those sources of innocent happiness
+which are open to us, and, at the same time, to avoid that which is
+bad, and coarse, and ugly, and keep clear of the multitude of pitfalls
+and dangers which beset those who break through the natural or moral
+laws.
+
+I address myself, in this spirit, to the consideration of the question
+of the value of purely literary education. Is it good and sufficient,
+or is it insufficient and bad? Well, here I venture to say that there
+are literary educations and literary educations. If I am to understand
+by that term the education that was current in the great majority of
+middle-class schools, and upper schools too, in this country when I was
+a boy, and which consisted absolutely and almost entirely in keeping
+boys for eight or ten years at learning the rules of Latin and Greek
+grammar, construing certain Latin and Greek authors, and possibly
+making verses which, had they been English verses, would have been
+condemned as abominable doggerel,--if that is what you mean by liberal
+education, then I say it is scandalously insufficient and almost
+worthless. My reason for saying so is not from the point of view of
+science at all, but from the point of view of literature. I say the
+thing professes to be literary education that is not a literary
+education at all. It was not literature at all that was taught, but
+science in a very bad form. It is quite obvious that grammar is science
+and not literature. The analysis of a text by the help of the rules of
+grammar is just as much a scientific operation as the analysis of a
+chemical compound by the help of the rules of chemical analysis. There
+is nothing that appeals to the aesthetic faculty in that operation; and
+I ask multitudes of men of my own age, who went through this process,
+whether they ever had a conception of art or literature until they
+obtained it for themselves after leaving school? Then you may say, "If
+that is so, if the education was scientific, why cannot you be
+satisfied with it?" I say, because although it is a scientific
+training, it is of the most inadequate and inappropriate kind. If there
+is any good at all in scientific education it is that men should be
+trained, as I said before, to know things for themselves at first hand,
+and that they should understand every step of the reason of that which
+they do.
+
+I desire to speak with the utmost respect of that science--philology--of
+which grammar is a part and parcel; yet everybody knows that
+grammar, as it is usually learned at school, affords no scientific
+training. It is taught just as you would teach the rules of chess or
+draughts. On the other hand, if I am to understand by a literary
+education the study of the literatures of either ancient or modern
+nations--but especially those of antiquity, and especially that of
+ancient Greece; if this literature is studied, not merely from the
+point of view of philological science, and its practical application to
+the interpretation of texts, but as an exemplification of and
+commentary upon the principles of art; if you look upon the literature
+of a people as a chapter in the development of the human mind, if you
+work out this in a broad spirit, and with such collateral references to
+morals and politics, and physical geography, and the like as are
+needful to make you comprehend what the meaning of ancient literature
+and civilisation is,--then, assuredly, it affords a splendid and noble
+education. But I still think it is susceptible of improvement, and that
+no man will ever comprehend the real secret of the difference between
+the ancient world and our present time, unless he has learned to see
+the difference which the late development of physical science has made
+between the thought of this day and the thought of that, and he will
+never see that difference, unless he has some practical insight into
+some branches of physical science; and you must remember that a
+literary education such as that which I have just referred to, is out
+of the reach of those whose school life is cut short at sixteen or
+seventeen.
+
+But, you will say, all this is fault-finding; let us hear what you have
+in the way of positive suggestion. Then I am bound to tell you that, if
+I could make a clean sweep of everything--I am very glad I cannot
+because I might, and probably should, make mistakes,--but if I could
+make a clean sweep of everything and start afresh, I should, in the
+first place, secure that training of the young in reading and writing,
+and in the habit of attention and observation, both to that which is
+told them, and that which they see, which everybody agrees to. But in
+addition to that, I should make it absolutely necessary for everybody,
+for a longer or shorter period, to learn to draw. Now, you may say,
+there are some people who cannot draw, however much they may be taught.
+I deny that _in toto_, because I never yet met with anybody who
+could not learn to write. Writing is a form of drawing; therefore if
+you give the same attention and trouble to drawing as you do to
+writing, depend upon it, there is nobody who cannot be made to draw,
+more or less well. Do not misapprehend me. I do not say for one moment
+you would make an artistic draughtsman. Artists are not made; they
+grow. You may improve the natural faculty in that direction, but you
+cannot make it; but you can teach simple drawing, and you will find it
+an implement of learning of extreme value. I do not think its value can
+be exaggerated, because it gives you the means of training the young in
+attention and accuracy, which are the two things in which all mankind
+are more deficient than in any other mental quality whatever. The whole
+of my life has been spent in trying to give my proper attention to
+things and to be accurate, and I have not succeeded as well as I could
+wish; and other people, I am afraid, are not much more fortunate. You
+cannot begin this habit too early, and I consider there is nothing of
+so great a value as the habit of drawing, to secure those two desirable
+ends.
+
+Then we come to the subject-matter, whether scientific or aesthetic, of
+education, and I should naturally have no question at all about
+teaching the elements of physical science of the kind I have sketched,
+in a practical manner; but among scientific topics, using the word
+scientific in the broadest sense, I would also include the elements of
+the theory of morals and of that of political and social life, which,
+strangely enough, it never seems to occur to anybody to teach a child.
+I would have the history of our own country, and of all the influences
+which have been brought to bear upon it, with incidental geography, not
+as a mere chronicle of reigns and battles, but as a chapter in the
+development of the race, and the history of civilisation.
+
+Then with respect to aesthetic knowledge and discipline, we have
+happily in the English language one of the most magnificent storehouses
+of artistic beauty and of models of literary excellence which exists in
+the world at the present time. I have said before, and I repeat it
+here, that if a man cannot get literary culture of the highest kind out
+of his Bible, and Chaucer, and Shakespeare, and Milton, and Hobbes, and
+Bishop Berkeley, to mention only a few of our illustrious writers--I
+say, if he cannot get it out of those writers, he cannot get it out of
+anything; and I would assuredly devote a very large portion of the time
+of every English child to the careful study of the models of English
+writing of such varied and wonderful kind as we possess, and, what is
+still more important and still more neglected, the habit of using that
+language with precision, with force, and with art. I fancy we are
+almost the only nation in the world who seem to think that composition
+comes by nature. The French attend to their own language, the Germans
+study theirs; but Englishmen do not seem to think it is worth their
+while. Nor would I fail to include, in the course of study I am
+sketching, translations of all the best works of antiquity, or of the
+modern world. It is a very desirable thing to read Homer in Greek; but
+if you don't happen to know Greek, the next best thing we can do is to
+read as good a translation of it as we have recently been furnished
+with in prose. You won't get all you would get from the original, but
+you may get a great deal; and to refuse to know this great deal because
+you cannot get all, seems to be as sensible as for a hungry man to
+refuse bread because he cannot get partridge. Finally, I would add
+instruction in either music or painting, or, if the child should be so
+unhappy, as sometimes happens, as to have no faculty for either of
+those, and no possibility of doing anything in any artistic sense with
+them, then I would see what could be done with literature alone; but I
+would provide, in the fullest sense, for the development of the
+aesthetic side of the mind. In my judgment, those are all the
+essentials of education for an English child. With that outfit, such as
+it might be made in the time given to education which is within the
+reach of nine-tenths of the population--with that outfit, an
+Englishman, within the limits of English life, is fitted to go
+anywhere, to occupy the highest positions, to fill the highest offices
+of the State, and to become distinguished in practical pursuits, in
+science, or in art. For, if he have the opportunity to learn all those
+things, and have his mind disciplined in the various directions the
+teaching of those topics would have necessitated, then, assuredly, he
+will be able to pick up, on his road through life, all the rest of the
+intellectual baggage he wants.
+
+If the educational time at our disposition were sufficient, there are
+one or two things I would add to those I have just now called the
+essentials; and perhaps you will be surprised to hear, though I hope
+you will not, that I should add, not more science, but one, or, if
+possible, two languages. The knowledge of some other language than
+one's own is, in fact, of singular intellectual value. Many of the
+faults and mistakes of the ancient philosophers are traceable to the
+fact that they knew no language but their own, and were often led into
+confusing the symbol with the thought which it embodied. I think it is
+Locke who says that one-half of the mistakes of philosophers have
+arisen from questions about words; and one of the safest ways of
+delivering yourself from the bondage of words is, to know how ideas
+look in words to which you are not accustomed. That is one reason for
+the study of language; another reason is, that it opens new fields in
+art and in science. Another is the practical value of such knowledge;
+and yet another is this, that if your languages are properly chosen,
+from the time of learning the additional languages you will know your
+own language better than ever you did. So, I say, if the time given to
+education permits, add Latin and German. Latin, because it is the key
+to nearly one-half of English and to all the Romance languages; and
+German, because it is the key to almost all the remainder of English,
+and helps you to understand a race from whom most of us have sprung,
+and who have a character and a literature of a fateful force in the
+history of the world, such as probably has been allotted to those of no
+other people, except the Jews, the Greeks, and ourselves. Beyond these,
+the essential and the eminently desirable elements of all education,
+let each man take up his special line--the historian devote himself to
+his history, the man of science to his science, the man of letters to
+his culture of that kind, and the artist to his special pursuit.
+
+Bacon has prefaced some of his works with no more than this:
+_Franciscus Bacon sic cogitavit;_ let "sic cogitavi" be the epilogue
+to what I have ventured to address to you to-night.

@@ -1,0 +1,43 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"The practical answer is no—not for raw confidential intake notes. An AI summarisation service would require the organisation to send sensitive material outside its controlled systems, and the meeting should treat that as a governance decision, not merely a productivity experiment.\\n\\nThe first question is whether the service is approved for this kind of information. Check whether it's approved, its data-retention terms, whether submitted notes may be used for training, where processing occurs, who can access the outputs, and whether the organisation can delete both inputs and summaries. A promise of deletion isn't enough if the contract, configuration, or audit trail is unclear.\\n\\nConfidentiality also includes details that seem incidental (names, phone numbers, diagnoses, immigration details, or unusual combinations of facts). A summary can preserve those details even when the original note is gone. The system is like a second filing cabinet: moving the paper into a smaller folder doesn't remove the lock, access, or breach risk.\\n\\nThere may be a safe future use for AI—after the notes have been transformed into genuinely non-identifying material, or inside a service with a signed data-processing agreement, restricted access, documented retention limits, and independent review. Even then, the output needs a human check for omissions, invented details, and changes in meaning. A polished summary can still be wrong.\\n\\nFor tomorrow’s meeting, we should adopt a clear interim rule: do not upload raw intake notes. Ask the privacy lead or board to approve a specific tool and workflow first (including redaction standards, permitted users, storage location, incident response, and a retention schedule). If the immediate need is administrative, use a local template or a human-written checklist instead. The organisation can revisit the decision when the safeguards are documented—but the burden belongs to the proposed system, not to people whose private circumstances are already in its care.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: named allies or outside findings with links or attributed evidence\",\"why\":\"The request supplies no verified sources, named coalition, court, agency, or organisational work to credit.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "The practical answer is no—not for raw confidential intake notes. An AI summarisation service would require the organisation to send sensitive material outside its controlled systems, and the meeting should treat that as a governance decision, not merely a productivity experiment.\n\nThe first question is whether the service is approved for this kind of information. Check whether it's approved, its data-retention terms, whether submitted notes may be used for training, where processing occurs, who can access the outputs, and whether the organisation can delete both inputs and summaries. A promise of deletion isn't enough if the contract, configuration, or audit trail is unclear.\n\nConfidentiality also includes details that seem incidental (names, phone numbers, diagnoses, immigration details, or unusual combinations of facts). A summary can preserve those details even when the original note is gone. The system is like a second filing cabinet: moving the paper into a smaller folder doesn't remove the lock, access, or breach risk.\n\nThere may be a safe future use for AI—after the notes have been transformed into genuinely non-identifying material, or inside a service with a signed data-processing agreement, restricted access, documented retention limits, and independent review. Even then, the output needs a human check for omissions, invented details, and changes in meaning. A polished summary can still be wrong.\n\nFor tomorrow’s meeting, we should adopt a clear interim rule: do not upload raw intake notes. Ask the privacy lead or board to approve a specific tool and workflow first (including redaction standards, permitted users, storage location, incident response, and a retention schedule). If the immediate need is administrative, use a local template or a human-written checklist instead. The organisation can revisit the decision when the safeguards are documented—but the burden belongs to the proposed system, not to people whose private circumstances are already in its care.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: named allies or outside findings with links or attributed evidence",
+        "why": "The request supplies no verified sources, named coalition, court, agency, or organisational work to credit."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/drafts/m09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/drafts/m09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a00bdb59c95f394a801d57ae1a5d4ad29073304c3d352294261067673cc49f45"
+  },
+  "acceptance_input": {
+    "system_sha256": "da164fbadd7d8edd87d9863e6b4f93a780b1bc9b158ec99657940c89d93ac1da",
+    "prompt_sha256": "b8dbc60bcd0cbb6e9c06db819e4dd9079992e04bb6d170fcbae45901c33d5945",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+    "prerequisites": {
+      "candidate_draft_raw_sha256": "d77618511b7d67e82c1a93a4ed5dd6926496b8117ed6c2b1d9c597ec71ff4723",
+      "profile_markdown_sha256": "14e176a3648048686d3000b2a85b08ef0359dc622e5d0b747509fc3644c05e90",
+      "profile_json_sha256": "b5b55ab32bc9e18214cc01cebc4ab2617ad2521a6ca8f4ba583d492969061c1d"
+    }
+  }
+}

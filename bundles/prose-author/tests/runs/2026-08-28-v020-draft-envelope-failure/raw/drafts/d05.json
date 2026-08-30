@@ -1,0 +1,45 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 299504,
+  "duration_api_ms": 299477,
+  "num_turns": 1,
+  "result": "```markdown\n# Choice screens are not market choice\n\nA choice screen is what you get when regulators forget to ask who's doing the choosing.\n\nI've been following the antitrust discourse around tech platforms long enough to recognize a favorite escape hatch when I see it. The \"choice screen\" remedy has become the industry's preferred compliance trophy – the thing that lets a gatekeeper look like it's competing while keeping its hand on the lever. The EU's Digital Markets Act mandated them. The DOJ's remedy proposals in the Google Search case gestured at them. Regulators congratulate themselves, the press runs headlines about historic accountability, and nothing structurally changes. Why? Because who selects the listed options determines whether you're getting a market or a menu, and the company curating that list isn't our advocate.\n\nHere's how it works, and I want to be precise about the sequence. Your Android phone powers on for the first time and a screen asks which search engine you'd like to use. There are five options (assembled, of course, by Google). In the EU, Google initially auctioned the remaining ballot slots to whoever bid highest – not whoever built the best search engine. That's not competition; that's a toll booth wearing a democratic costume. The gatekeeper curates the alternatives to itself, deciding which competitors are permitted to appear and under what terms. It's your nominal choice, but the chooser was never you.\n\nDefaults do the real work. The research on default stickiness isn't ambiguous: most people don't switch, not because they've evaluated the alternatives and concluded the default is superior, but because inertia is free and switching costs attention. If your device ships with a search engine integrated into every entry point, a one-time pop-up asking whether you'd like to reconsider isn't a remedy. It's a ritual. You tap through it the same way we all tap through terms-of-service screens (which is to say: without reading, and faster every time). My suspicion is that Google has studied your behavior on that ballot screen more carefully than any regulator has, and the default setting reflects everything they learned.\n\nThis is where \"nominal choice\" becomes the central problem. You can, technically, select DuckDuckGo from the ballot. But that choice leaves the gatekeeper's structural advantages intact: its placement in the OS, its integration with hardware features, its preferential position in results ranking, its data flywheel built from years of your prior queries. A competitor who wins a ballot slot is running on the gatekeeper's track, by the gatekeeper's rules, while the gatekeeper also runs the race (and seeds the track). It's bullshit, and calling it a market doesn't make it one; the gatekeeper's position survives regardless of what we print on the ballot.\n\nThink about what this resembles. Imagine a supermarket that stocks its own shelves, controls the placement of every competing product, and arranges aisles so its house brand sits at eye level while everything else occupies the bottom shelf. A regulator shows up and insists on a sign at the entrance listing the alternatives. The store's architecture, built by them and paid for by your data and loyalty over years, stays exactly as they designed it, and you navigate those aisles the same way you always did. The sign at the door doesn't change what ends up in your cart, and the ballot screen doesn't change whose OS you're running on or whose data advantage compounds every time you search.\n\nWhat would a meaningful remedy actually change? It'd have to attack the architecture. Real interoperability (the word regulators have historically preferred not to say out loud) means your chosen alternative gets the same OS integration, the same API access, the same hardware features the incumbent enjoys by default. Data portability means your search history travels with you to a competitor instead of anchoring you in place. And defaults that reset genuinely and recurrently, on your schedule rather than the platform's, would make the ballot real each time you revisit the question rather than a one-time ritual completed at first boot.\n\nWe're not going to get there by letting the gatekeeper design the ballot. A remedy that leaves the gatekeeper in charge of the screen, the list, the defaults, and the underlying architecture hasn't touched its power. It's given them a story to tell about choice while our actual options stay exactly as narrow as they were before anyone walked into a hearing room.\n```\n\n```json\n{\n  \"schema\": \"voice-draft/1\",\n  \"omitted\": [\n    { \"habit\": \"opponents-allies-sources / o12: verbatim quotation of named opponent before rebuttal\", \"why\": \"no verified direct quotations from Google representatives or other named opponents available; named the actor but could not reproduce a key claim without fabrication\" }\n  ],\n  \"claims\": [\n    { \"claim\": \"Google initially auctioned EU Android ballot screen slots to the highest bidder rather than selecting on product merit\", \"where\": \"paragraph 3\" },\n    { \"claim\": \"The DOJ's remedy proposals in the Google Search case included or gestured at choice screen mechanisms\", \"where\": \"paragraph 2\" }\n  ]\n}\n```",
+  "stop_reason": "end_turn",
+  "session_id": "43c9d829-c8d0-4ac1-b4c3-8a9ec856af01",
+  "total_cost_usd": 0.3174927,
+  "usage": {
+    "input_tokens": 3,
+    "cache_creation_input_tokens": 6888,
+    "cache_read_input_tokens": 5829,
+    "output_tokens": 19327,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6888,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 3,
+      "outputTokens": 19327,
+      "cacheReadInputTokens": 5829,
+      "cacheCreationInputTokens": 6888,
+      "webSearchRequests": 0,
+      "costUSD": 0.3174927,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "fast_mode_state": "off",
+  "uuid": "b75eaf62-e635-4467-be21-f1b9029ff209"
+}

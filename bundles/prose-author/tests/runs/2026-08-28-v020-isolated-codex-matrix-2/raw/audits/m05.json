@@ -1,0 +1,235 @@
+{
+  "type": "result",
+  "subtype": "success",
+  "is_error": false,
+  "duration_ms": 51825,
+  "duration_api_ms": 51814,
+  "num_turns": 2,
+  "result": "",
+  "stop_reason": "end_turn",
+  "session_id": "f4537d36-0819-47f5-97c2-60d281d23f03",
+  "total_cost_usd": 0.06217815,
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 5597,
+    "cache_read_input_tokens": 5608,
+    "output_tokens": 2633,
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 5597,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "",
+    "iterations": [],
+    "speed": "standard"
+  },
+  "modelUsage": {
+    "claude-sonnet-4-6": {
+      "inputTokens": 4,
+      "outputTokens": 2633,
+      "cacheReadInputTokens": 5608,
+      "cacheCreationInputTokens": 5597,
+      "webSearchRequests": 0,
+      "costUSD": 0.06217815,
+      "contextWindow": 200000,
+      "maxOutputTokens": 32000
+    }
+  },
+  "permission_denials": [],
+  "structured_output": {
+    "schema": "voice-draft-claim-audit/2",
+    "sentences": [
+      {
+        "id": "p1s1",
+        "status": "keep",
+        "reason": "Title restated as reasoning; no factual claim made."
+      },
+      {
+        "id": "p1s2",
+        "status": "keep",
+        "reason": "Pure reasoning: defines the concept of a choice screen and how control can remain with the presenter. No external descriptive premise added."
+      },
+      {
+        "id": "p1s3",
+        "status": "keep",
+        "reason": "Reasoning directed at the developer audience: explains why the distinction matters by unpacking how an interface can misrepresent constraint as openness. No external claim."
+      },
+      {
+        "id": "p2s1",
+        "status": "keep",
+        "reason": "Section-heading question; no descriptive claim."
+      },
+      {
+        "id": "p2s2",
+        "status": "keep",
+        "reason": "Reasoning that the end-user is not the initial selector. No external premise."
+      },
+      {
+        "id": "p2s3",
+        "status": "keep",
+        "reason": "Reasoning that enumerates categories of gatekeepers (platform operator, device maker, etc.) as a logical account of who controls the surface. No claim about specific real actors or their verified behavior."
+      },
+      {
+        "id": "p2s4",
+        "status": "keep",
+        "reason": "Reasoning that extends the prior inference: lists the decisions the selector controls. All clauses follow from the definitional account of the gatekeeper role; no external factual premise."
+      },
+      {
+        "id": "p2s5",
+        "status": "keep",
+        "reason": "Reasoning: acknowledges the developer's implementation role while noting the prior architectural question remains. No external claim."
+      },
+      {
+        "id": "p3s1",
+        "status": "keep",
+        "reason": "Reasoning: transitional inference that defaults operate as a quieter answer to the control question. No external premise."
+      },
+      {
+        "id": "p3s2",
+        "status": "keep",
+        "reason": "Reasoning/definitional: asserts what a default is not, as part of developing the argument. No external claim."
+      },
+      {
+        "id": "p3s3",
+        "status": "keep",
+        "reason": "Reasoning: defines a default by example (preselected browser, first-listed provider, etc.) as a 'recommendation with momentum.' These are logical illustrations of the concept, not claims about specific real products or verified market data."
+      },
+      {
+        "id": "p3s4",
+        "status": "reject",
+        "reason": "The clause 'many will not' is a descriptive claim about how users generally behave in practice. That is a claim about common behavior requiring empirical support. The ledger is empty and the basis is 'reasoning,' but generic wording does not convert a behavioral premise into reasoning. No ledger entry covers it."
+      },
+      {
+        "id": "p3s5",
+        "status": "keep",
+        "reason": "Reasoning: infers from the definitional account of defaults that effort is distributed unevenly between the preselected option and alternatives. Follows from the argument without adding an external premise."
+      },
+      {
+        "id": "p3s6",
+        "status": "keep",
+        "reason": "Reasoning: draws the inference that uneven effort shapes behavior before preference can operate. This is a logical conclusion from the prior reasoning chain, not an independent empirical claim."
+      },
+      {
+        "id": "p4s1",
+        "status": "keep",
+        "reason": "Normative/reasoning: asserts that market choice requires more than buttons. Definitional premise for the argument that follows."
+      },
+      {
+        "id": "p4s2",
+        "status": "keep",
+        "reason": "Reasoning: specifies the conditions that would constitute genuine market choice (fair reach, information, no quiet punishment). These are criteria developed by argument, not claims about how real markets or laws currently operate."
+      },
+      {
+        "id": "p4s3",
+        "status": "keep",
+        "reason": "Reasoning: shows by logical construction how cumulative presentation advantages persist even when competitors are nominally listed. No real actor or market data invoked."
+      },
+      {
+        "id": "p4s4",
+        "status": "keep",
+        "reason": "Reasoning: draws the conclusion that plurality on screen can coexist with a singular practical outcome. No external claim."
+      },
+      {
+        "id": "p5s1",
+        "status": "keep",
+        "reason": "Reasoning: labels the mechanism derived from the prior paragraphs. No new external premise."
+      },
+      {
+        "id": "p5s2",
+        "status": "keep",
+        "reason": "Reasoning: describes how the gatekeeper can rhetorically point to visible freedom while controlling underlying conditions. Presented as a logical account of the structural dynamic, not a verified claim about a specific actor's verified statements or actions."
+      },
+      {
+        "id": "p5s3",
+        "status": "keep",
+        "reason": "Reasoning: distills the distinction between user decision and system control. No external premise."
+      },
+      {
+        "id": "p5s4",
+        "status": "reject",
+        "reason": "The clause 'Developers feel this gap' is a descriptive claim about the general experience of a real population (software developers). This is a claim about common behavior; generic wording does not make it reasoning. The ledger is empty and no entry covers it."
+      },
+      {
+        "id": "p6s1",
+        "status": "keep",
+        "reason": "Reasoning: frames a predictable counterargument for rebuttal. No external factual claim."
+      },
+      {
+        "id": "p6s2",
+        "status": "keep",
+        "reason": "Reasoning: states the analytical distinction between formal and usable availability. Definitional."
+      },
+      {
+        "id": "p6s3",
+        "status": "keep",
+        "reason": "Reasoning: elaborates the distinction by listing conditions (hard to find, difficult to configure, etc.) that render formal availability non-equivalent. Logical extension of the definition, no external claim."
+      },
+      {
+        "id": "p6s4",
+        "status": "keep",
+        "reason": "Reasoning: identifies the error in the objection (treating clicks as equal). No external premise."
+      },
+      {
+        "id": "p6s5",
+        "status": "keep",
+        "reason": "Reasoning: definitional claim that friction is interface-encoded policy. No claim about a specific company, law, or verified industry practice."
+      },
+      {
+        "id": "p7s1",
+        "status": "keep",
+        "reason": "Normative: proposes that a meaningful remedy would target structure rather than the menu. Empty claim_ids appropriate for normative basis."
+      },
+      {
+        "id": "p7s2",
+        "status": "keep",
+        "reason": "Normative: recommends disclosure requirements. No claim about what real laws or courts currently require."
+      },
+      {
+        "id": "p7s3",
+        "status": "keep",
+        "reason": "Normative: recommends that defaults be contestable and reversible. No external descriptive premise."
+      },
+      {
+        "id": "p7s4",
+        "status": "keep",
+        "reason": "Normative: recommends durable interoperable access for developers and users. No claim about existing law or verified industry practice."
+      },
+      {
+        "id": "p7s5",
+        "status": "keep",
+        "reason": "Reasoning: infers that remedies leaving structural conditions untouched will reproduce existing power. Follows logically from the argument; 'likely' marks it as inference, not a verified historical pattern."
+      },
+      {
+        "id": "p8s1",
+        "status": "keep",
+        "reason": "Reasoning: characterizes the standard as demanding but simple. Evaluative inference from the argument, no external claim."
+      },
+      {
+        "id": "p8s2",
+        "status": "keep",
+        "reason": "Normative: proposes three diagnostic questions. No external descriptive premise."
+      },
+      {
+        "id": "p8s3",
+        "status": "keep",
+        "reason": "Reasoning: draws the logical conclusion that an affirmative answer to the third question reveals the screen performs choice without surrendering control. No external claim."
+      },
+      {
+        "id": "p8s4",
+        "status": "keep",
+        "reason": "Normative: recommends that product teams and policymakers measure meaningful access and require durable remedies. No claim about what they currently do."
+      },
+      {
+        "id": "p8s5",
+        "status": "keep",
+        "reason": "Reasoning: restates the thesis as a logical equivalence—market choice requires that screen control no longer translates to market control. Closes the argument without adding an external premise."
+      }
+    ]
+  },
+  "fast_mode_state": "off",
+  "uuid": "6e31f293-b3f7-40c2-ba08-7dea1fd0e5fa"
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "prose-author-semantic-budget-canary-analysis/1",
+  "status": "HOLD",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "semantic_budget_result": "FAIL",
+  "initial_draft_sha256": "f73fb0785207e5c8c8e3320f400437a1e102e9943d866c0ec624bcd84daf3bec",
+  "initial_question_marks": 4,
+  "required_initial_question_mark_range": [
+    0,
+    3
+  ],
+  "failed_before_conformance": true,
+  "failed_before_claim_audit": true,
+  "conclusion": "A second fresh zero-redraw d06 draw exceeded the literal hard ceiling by one. Natural-language presentation of the unchanged 0-3 gate is therefore not reliable enough by itself. The next locked implementation must target an exact interior count while retaining the unchanged deterministic acceptance range."
+}

@@ -1,0 +1,14 @@
+{
+  "draft": "original.md",
+  "voice_profile": "essay",
+  "mode": "plan-only",
+  "entries": [
+    {
+      "id": "e01",
+      "source": "voice-critic",
+      "location": {"line": 26, "quote": "There was a great deal of movement, the streets were swarming and surging."},
+      "change": "improve the flow of this passage",
+      "reason": "voice-critic: this passage reads flat"
+    }
+  ]
+}

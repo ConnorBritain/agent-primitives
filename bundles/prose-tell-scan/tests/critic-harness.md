@@ -138,6 +138,40 @@ comparison.** Both runs are complete, at the same k, over the same cases.
 takes every Nth, so "which samples did you use" cannot be answered with "the ones that
 worked". Eleven samples are excluded by a second stated rule, below.
 
+### The sweep was five human documents, and that was the bottleneck
+
+The runs above drew `ceil(n/2)` Gutenberg + 1 Wikipedia + 1 EFF — **five human documents at
+the default**. One arguable finding moves a false-positive figure over five documents by
+twenty points, so a real regression and a single defensible call look identical. The corpus
+held hundreds of human documents the entire time; the limit was the rule, not the material.
+
+Changed 2026-08-06. The rule is still sort-and-step and is still evaluated rather than
+typed, but it now runs **inside strata**:
+
+- **Human and AI counts are set separately** (`--human`, `--ai`), because they measure
+  different things — the human half bounds false positives, the AI half checks the critic
+  is not decorative. `--n` sized both at once and is now refused rather than aliased, since
+  a stale command line that keeps working while measuring something else is the failure the
+  split exists to end.
+- **The single-author share is split evenly across authors**, then stepped within each. A
+  merged every-Nth over `human-essays/` is mostly a measurement of Chekhov, who is 113 of
+  293 samples. An author added to the corpus enters the sweep with no edit here.
+- **Half the human pool is single-author essays, a quarter Wikipedia, the rest EFF** — one
+  identifiable writer, an encyclopedia written by committee, and edited contemporary
+  advocacy. Three kinds of evidence, not three sources of the same kind.
+- **Over-requesting comes back short.** A thin stratum is never refilled from a fat one;
+  that would restore the imbalance invisibly.
+
+Recommended sweep, and the counts come from the harness's own report line, not from here:
+
+```bash
+node tests/pattern-harness.mjs prepare corpus <run-id> --draws 1 --human 24 --ai 12
+```
+
+`selftest.mjs` holds the guards: at least 20 human documents drawn, every single-author
+corpus author present, all three human buckets represented, `--ai` unable to move the human
+draw, and an over-large request neither padded nor repeated.
+
 ### The AI corpus tells the critic the answer, in seven samples
 
 They are Wikipedia pages vendored together with the talk-page comment that got them listed
@@ -152,6 +186,21 @@ that acquires such a line later stops the run instead of contaminating it.
 The rule is blunt on purpose and over-excludes in the safe direction: it also drops four
 EFF posts that merely *discuss* LLMs. Losing four negatives costs a little false-positive
 bound; keeping one labelled positive would cost the entire positive column.
+
+**7 of 33 was the count at the runs above.** `NAMES_AUTHORSHIP` was widened afterwards to
+catch `chatbot-generated`, which changes the denominator — a selection change, recorded as
+one. Do not retype the figure from here: `prepare corpus` prints the current exclusions per
+bucket on every run, and that line is the one to quote.
+
+**EFF posts arrive with their citations removed, and that is our doing.** Deeplinks cites by
+hyperlinking; the extractor kept the anchor text and dropped the href, so a vendored post
+reads as unsourced where the published article is sourced — and a critic that says so has
+found our extractor. `fetch-professional.mjs` now writes markdown links, but **every
+committed EFF sample predates that change** and says so in its own frontmatter
+(`link_targets: stripped`). They are not re-fetched automatically because the source is a
+50-item RSS feed rather than an archive: a re-fetch swaps the sample set instead of
+repairing it. Until that is done deliberately, treat an absence-of-support finding on an EFF
+sample as unresolved rather than as a hit.
 
 ---
 
@@ -252,7 +301,8 @@ ships. Item 0 is a harness fix, not a prompt fix, and is the blocker.
 |---|---|---|---|---|---|
 | [2026-08-05 v1](runs/2026-08-05-pattern-complete.md) — first sweep, k=3. **SUPERSEDED** | 6 of 8 (A 1/2 · B 2/2 · C 2/2 · D 1/2) | 2 of 8 | 0 | 0 | 0 |
 | [2026-08-05 v2](runs/2026-08-05-pattern-v2-complete.md) — after the `llm-safe-truths` tightening, k=3, **same cases**. **CURRENT** | **6 of 8** (A 2/2 · B 1/2 · C 2/2 · D 1/2) | 3 of 8 | 0 | 0 | 0 |
-| [2026-08-06 v3-corpus-k3](runs/2026-08-06-pattern-v3-corpus-k3/) — **corpus sweep only**, after `absence-of-concrete-detail` was dropped from scope. 11 samples, k=3, same 11 documents as v2's sweep. **BLOCKED** | n/a — no fixtures re-run | 4 of 11 | 0 | **2** | 0 |
+| [2026-08-06 v3-corpus-k3](runs/2026-08-06-pattern-v3-corpus-k3/) — **corpus sweep only**, after `absence-of-concrete-detail` was dropped from scope. 11 samples, k=3, same 11 documents as v2's sweep. **BLOCKED — and contaminated twice; see v4** | n/a — no fixtures re-run | 4 of 11 | 0 | **2** | 0 |
+| [2026-08-06 v4-corpus-k3-postfix](runs/2026-08-06-pattern-v4-corpus-k3-postfix/) — corpus sweep, k=3, **same prompt as v3** (`prompt_sha 93e1852f1209d2c1`), fixed staging (912c788). Sample re-indexed by the fix: same 5 human, 6 different AI. Human **1 of 5** flagged · AI **0 of 6**. **HELD** | n/a — no fixtures re-run | 1 of 11 | 0 | **1** | 0 |
 
 **Only the v2 row describes the shipped prompt.** v1 measures a prompt that no longer exists;
 its numbers may not be pooled with v2's or averaged against them. The two rows are comparable
@@ -289,6 +339,48 @@ samples. Against that threshold alone the run says SHIP.
 **It does not ship, because `authorship_claims` is 2 and that count blocks regardless.**
 Both are `case-09`, and both trace to staging rather than to the prompt. See the run's
 [README](runs/2026-08-06-pattern-v3-corpus-k3/README.md).
+
+### The threshold above was mis-specified. Corrected 2026-08-06, before v4's numbers existed
+
+**"≤ 2 of 11" scaled the false-positive bands — which are for the NEGATIVE test only — onto a
+mixed pool of 5 human + 6 AI samples. That counts true positives against the critic.** v3's two
+flags were both AI samples, so it passed by accident; a run flagging 4 AI and 0 human — better
+behaviour on both axes — would have failed. The pooled number is the thing that caused the
+error, and it should not be quoted alone.
+
+**Corrected criteria. All three required, and the two corpora are reported separately.**
+
+- **Negative (human): 0 of 5 flagged.** Not ≤1. Separating the pools makes shipping *easier*,
+  so the human band is set stricter than the scaled band would give: 2-of-12 is 17%, which on
+  n=5 rounds to ≤1, and the looser rounding is not taken on a correction made in the
+  corrector's own favour. v3 achieved 0 of 5, so it is achievable.
+- **Positive (AI): ≥ 1 of 6 flagged**, else the critic is decorative.
+- **Contract:** `uncatalogued`, `authorship_claims`, `echoes_scan` all **0**. Unchanged, and
+  blocking regardless of score.
+
+**n=5 human is too small for the band's resolution** — one document moves the rate 20 points.
+Widen the human pool before the next sweep rather than leaning on this one.
+
+### The v4 re-run on the fixed harness
+
+**HOLD, on all three criteria.** Pooled rate 1 of 11 would clear even the old threshold; it
+fails the corrected one. Human 1 of 5 (`case-03`, an EFF post, `announced-then-undelivered`
+unanimously across 3 draws, both locations quoted — a well-evidenced finding that may be
+correct and still fails the negative band). AI 0 of 6. `authorship_claims: 1`.
+
+**v3 was contaminated twice, not once.** The broadened `NAMES_AUTHORSHIP` disqualified
+`x-berry-hill-stoke-on-trent` — one of v3's two flagged documents — because its vendored body
+text contains "chatbot-generated". v3's 2-of-11 therefore included a flag on a document that
+named its own authorship in the prose being judged. Removing it re-indexed the every-Nth
+selection and changed all six AI samples, so **v4 is not a controlled comparison with v3** and
+the two rows may not be differenced. The prompt is byte-identical across both.
+
+Agreement improved to 10 of 11 unanimous (v3: 7 of 11), on a different sample.
+
+The single authorship claim is a **borderline adjudication recorded rather than rounded away**,
+and it arose with no leaked id available to trigger it. Details and the case for reading it the
+other way are in the run's
+[README](runs/2026-08-06-pattern-v4-corpus-k3-postfix/README.md).
 
 **Agreement is 7 of 11 unanimous, 4 of 11 split** — a second, independent measurement of
 this critic's non-determinism, on documents rather than fixtures, and close to the fixture

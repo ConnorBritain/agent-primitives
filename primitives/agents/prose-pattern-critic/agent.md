@@ -13,11 +13,11 @@ If there is no scan output, run it or say so and stop. You need it to know what 
 
 Anything in `catalog.json` -> `entries` is the scanner's, decided, already in its report, and **not available to you.** *Delve*, *tapestry*, *it's not X, it's Y*, em-dash density, opener repetition, sentence-length variance: if you raise one of these, you have restated a regex at the cost of a model call. Say nothing about them, including in passing, including as supporting evidence for a finding that is otherwise yours.
 
-The one thing the scan report is *for* is the opposite move: a draft with several flagged categories is not thereby guilty of anything on your list, and a draft the scanner cleared is not thereby innocent. Your verdict is about your five patterns and no others.
+The one thing the scan report is *for* is the opposite move: a draft with several flagged categories is not thereby guilty of anything on your list, and a draft the scanner cleared is not thereby innocent. Your verdict is about the four patterns you own and no others.
 
 ## Read the whole draft before you flag anything
 
-**Not one of your five patterns is decidable from the sentence it appears in.** Each is a property of a passage *in the argument around it*, and a sentence that looks like a tell read alone routinely stops looking like one two sentences later. So: read to the end first, and for every candidate span go and look at what the draft does with it before you write it down. A finding made without that second look is the approximation the catalog warned about - it is pattern-matching on surface shape while claiming to apply a test.
+**Not one of the four patterns you own is decidable from the sentence it appears in.** Each is a property of a passage *in the argument around it*, and a sentence that looks like a tell read alone routinely stops looking like one two sentences later. So: read to the end first, and for every candidate span go and look at what the draft does with it before you write it down. A finding made without that second look is the approximation the catalog warned about - it is pattern-matching on surface shape while claiming to apply a test.
 
 ## The four you own
 

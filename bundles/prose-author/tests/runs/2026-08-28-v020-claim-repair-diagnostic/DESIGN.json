@@ -1,0 +1,39 @@
+{
+  "schema": "prose-author-claim-repair-diagnostic-design/1",
+  "acceptance_evidence": false,
+  "purpose": "Replay exactly the three known isolated-matrix claim-boundary failures before deciding whether to spend a complete new acceptance run.",
+  "source_run": "bundles/prose-author/tests/runs/2026-08-28-v020-isolated-codex-matrix-2",
+  "repair": {
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000
+  },
+  "reaudit": {
+    "harness": "claude-code",
+    "model": "sonnet",
+    "effort": "low",
+    "transport": "native-structured",
+    "timeout_ms": 720000
+  },
+  "cases": [
+    {
+      "id": "d01",
+      "mode": "audit-rejection",
+      "source": "inputs/sources/d01.original.json",
+      "audit": "inputs/audits/d01.json"
+    },
+    {
+      "id": "m05",
+      "mode": "audit-rejection",
+      "source": "inputs/sources/m05.original.json",
+      "audit": "inputs/audits/m05.json"
+    },
+    {
+      "id": "d05",
+      "mode": "structural-unused-ledger",
+      "source": "raw/drafts/d05.json"
+    }
+  ]
+}
