@@ -16,7 +16,7 @@ import {
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
   profileEvidenceMetadataErrors,
-  quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt,
+  quotationAudit, recountValidationErrors, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt,
   strictlyCommittedAfter, schemaInvocation, validateCases, validateSemanticRevision,
   assertStrictOutputSchema, strictOutputSchemaErrors,
 } from "./acceptance-runner.mjs";
@@ -351,6 +351,29 @@ export async function run(t, { HERE }) {
     t.check("a named dash correction cannot alter unnamed punctuation",
       !commaReversal.ok
         && commaReversal.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const decomposedAccent = `Cafe${String.fromCharCode(0x301)}.`;
+    const unicodeNormalization = applyDraftConformancePatch({
+      ...initialSource, draft: decomposedAccent,
+    }, {
+      ...conformingPatch,
+      edits: [{
+        ...conformingPatch.edits[0], before: decomposedAccent, after: "Café–.",
+      }],
+    }, { request: "Preserve the exact lexical bytes.", profile: targetProfile, card: targetCard });
+    t.check("a named punctuation correction cannot normalize unnamed Unicode code points",
+      !unicodeNormalization.ok
+        && unicodeNormalization.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
+    const newlineNormalization = applyDraftConformancePatch({
+      ...initialSource, draft: "Alpha.\r\nBeta.",
+    }, {
+      ...conformingPatch,
+      edits: [{
+        ...conformingPatch.edits[0], before: "Alpha.\r\nBeta.", after: "Alpha –.\nBeta.",
+      }],
+    }, { request: "Preserve exact line endings.", profile: targetProfile, card: targetCard });
+    t.check("a named punctuation correction cannot normalize unnamed line endings",
+      !newlineNormalization.ok
+        && newlineNormalization.errors.some((error) => /changes lexical content outside its named measurement forms/.test(error)));
     for (const attack of [{
       label: "four-space indentation", before: "Alpha sentence.", after: "    Alpha – sentence.",
     }, {
@@ -1238,12 +1261,19 @@ export async function run(t, { HERE }) {
       && /await dispatchConformancePipeline\(runDir, manifest, cases\)/.test(source)
       && /resolveConformedDraft\(runDir, manifest, c\)/.test(source));
   t.check("acceptance locks one semantic revision before the unchanged exact patch",
-    source.includes('const DRAFT_PIPELINE = "mandatory-semantic-revision/1"')
+    source.includes('const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/5"')
+      && source.includes('const DRAFT_PIPELINE = "mandatory-semantic-revision/1"')
       && source.includes("draft_pipeline: DRAFT_PIPELINE")
+      && source.includes("if (!usesSemanticRevision(manifest))")
       && /await pool\("draft candidate"/.test(source)
       && /await pool\("mandatory semantic revision"/.test(source)
       && /candidate_draft_raw_sha256/.test(source)
       && /resolveSemanticRevision\(runDir, manifest, c\)/.test(source));
+  t.check("independent recount validation rejects both divergence and an unlocatable claim",
+    recountValidationErrors([{ id: "we/us", status: "DIVERGES", stated: 8, measured: 4 }], "p-r1")
+      .some((error) => /diverges/.test(error))
+    && recountValidationErrors([{ id: "we/us", status: "unlocatable", measured: 4 }], "p-r1")
+      .some((error) => /unlocatable/.test(error)));
   t.check("acceptance defaults to a native independent claim-audit transport",
     prepareConfig({}).stages.claim_audit.transport === "native-structured"
       && source.includes("claim_pipeline: CLAIM_PIPELINE")

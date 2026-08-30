@@ -71,7 +71,7 @@ import { RESEMBLANCE_CLAIMS } from "./run-gates.mjs";
 const TESTS = dirname(fileURLToPath(import.meta.url));
 const BUNDLE = resolve(TESTS, "..");
 const REPO = resolve(BUNDLE, "..", "..");
-const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/4";
+const MANIFEST_SCHEMA = "prose-author-acceptance-manifest/5";
 const ARTIFACTS_SCHEMA = "prose-author-acceptance-artifacts/4";
 const CLAIM_PIPELINE = "audit-disclosure/1";
 const DRAFT_PIPELINE = "mandatory-semantic-revision/1";
@@ -130,6 +130,20 @@ const AGENTS = {
 
 function usesSemanticRevision(manifest) {
   return manifest?.draft_pipeline === DRAFT_PIPELINE;
+}
+
+export function recountValidationErrors(recount, label = "profile") {
+  if (!Array.isArray(recount)) return [`${label} independent recount is not an array`];
+  return recount.flatMap((row) => {
+    if (row?.status === "agrees") return [];
+    if (row?.status === "DIVERGES") {
+      return [`${label} independent recount diverges: ${row.id} ${row.stated}/${row.measured}`];
+    }
+    if (row?.status === "unlocatable") {
+      return [`${label} independently recountable claim is unlocatable: ${row.id}`];
+    }
+    return [`${label} independent recount has invalid status for ${row?.id ?? "unknown claim"}`];
+  });
 }
 
 const FORBIDDEN_DRAFT_CLAIMS = [
@@ -711,7 +725,7 @@ function loadPrepared(runDir) {
   if (manifest.claim_pipeline !== CLAIM_PIPELINE) {
     die(`MANIFEST.json claim_pipeline must be ${CLAIM_PIPELINE}`);
   }
-  if (manifest.draft_pipeline !== undefined && !usesSemanticRevision(manifest)) {
+  if (!usesSemanticRevision(manifest)) {
     die(`MANIFEST.json draft_pipeline must be ${DRAFT_PIPELINE}`);
   }
   try {
@@ -1256,9 +1270,8 @@ function collectProfiles(runDir) {
         die(`${profile.id}-r${render} prose silently omits coverage: ${coverage.filter((c) => c.status === "absent").map((c) => c.id).join(", ")}`);
       }
       const recount = crossCount(sourceProfile(profile), parsed.markdown);
-      if (recount.some((row) => row.status === "DIVERGES")) {
-        die(`${profile.id}-r${render} independent recount diverges: ${recount.filter((row) => row.status === "DIVERGES").map((row) => `${row.id} ${row.stated}/${row.measured}`).join(", ")}`);
-      }
+      const recountErrors = recountValidationErrors(recount, `${profile.id}-r${render}`);
+      if (recountErrors.length) die(recountErrors.join("; "));
       const outDir = join(runDir, "inputs", "profiles", profile.id);
       const md = join(outDir, `r${render}.md`);
       const js = join(outDir, `r${render}.json`);
@@ -3114,7 +3127,8 @@ function deriveProfileEvidence(runDir, manifest, cases) {
       const coverage = analyzeParagraphCoverage(parsed.markdown);
       if (coverage.some((row) => row.status === "absent")) throw new Error(`${id} silently omits coverage`);
       const recount = crossCount(sourceProfile(profile), parsed.markdown);
-      if (recount.some((row) => row.status === "DIVERGES")) throw new Error(`${id} independent recount diverges`);
+      const recountErrors = recountValidationErrors(recount, id);
+      if (recountErrors.length) throw new Error(recountErrors.join("; "));
       const outDir = join(runDir, "inputs", "profiles", profile.id);
       requireCanonical(join(outDir, `r${render}.source.json`), `${JSON.stringify(decoded.source, null, 2)}\n`, `${id} source`);
       requireCanonical(join(outDir, `r${render}.md`), `${parsed.markdown.trim()}\n`, `${id} markdown`);

@@ -343,7 +343,10 @@ function ambiguousContractionPattern(value) {
 }
 
 function normalizeNamedPunctuation(value, ids) {
-  let normalized = value.normalize("NFC").replace(/\r\n?/g, "\n");
+  // Preserve every code point and line ending that is not one of the explicitly
+  // named measurement forms. This exact patch stage may not normalize unnamed
+  // source bytes, even when that normalization is semantically harmless.
+  let normalized = String(value ?? "");
   // One ordinary space may move around a named mark because inserting or removing
   // that mark necessarily changes its immediate separator. Tabs, repeated spaces,
   // indentation, trailing hard-break spaces, and all other whitespace remain exact.
