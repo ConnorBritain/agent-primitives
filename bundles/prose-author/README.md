@@ -4,7 +4,8 @@ Scoped generation in a specific person's voice—mapped from **their own writing
 drafted from that map without corpus access, and checked in **their own measured
 terms**.
 
-**v0.2 adds blank-page drafting and preserves the v0.1 passage rewriter.** A
+**v0.2 adds blank-page drafting and preserves the v0.1 passage rewriter; v0.2.1
+hardens the overlength correction path.** A
 blank-page request starts with a topic, notes, outline, brief, or reply prompt,
 not an existing passage. `voice-profile-render` turns a single-author corpus into
 a cited `voice-profile/2`; `voice-draft` receives only that profile and the
@@ -143,7 +144,10 @@ Loose-file installation is also supported:
 - **The final pre-release evaluation was useful but not perfect.** Six fresh
   profiles validated and 19/20 semantic revisions met every measured band. One
   retained one question beyond its target; the run stopped there before the
-  critic phase. See [`RELEASE-v0.2.0.md`](RELEASE-v0.2.0.md).
+  critic phase. v0.2.1 replays that exact immutable failure through a bounded
+  residual-prune plan and deterministically reaches 737 words with all
+  semantic-bearing counts in range. This targeted canary is not a replacement
+  20-draft acceptance run. See [`RELEASE-v0.2.1.md`](RELEASE-v0.2.1.md).
 - **`calibrate.mjs` now blends `corpus/approved/` into catalog bands** under
   the same cap `exemplars.mjs` uses. Both human-only and blended ceilings ship
   side by side in `thresholds.derived.json` (`PROFILES.md` rules 2 and 5), and

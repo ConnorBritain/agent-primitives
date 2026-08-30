@@ -31,7 +31,7 @@ contract:
   # runs afterwards, on the way to a human, never as a quantity to minimise.
   denied_inputs:
     - catalog.json          # in any form, including as a post-hoc hint
-    - its own prior prose   # self-amplification, compounding every round
+    - its own prior prose outside the bounded same-request conformance chain
 
   verification:
     # `kind: author` must state how output was verified. These three are
@@ -69,8 +69,9 @@ harness:
     notes: >-
       Agent discovery and context isolation depend on the Codex host. Run the
       renderer and drafter as fresh agent/subprocess contexts, invoke the
-      deterministic profile, conformance, claim-audit, and verification tools
-      directly, and do not describe an advisory run as harness-enforced.
+      deterministic profile, residual-prune, conformance, claim-audit, and
+      verification tools directly, and do not describe an advisory run as
+      harness-enforced.
 
   agents-md:
     enforcement: advisory

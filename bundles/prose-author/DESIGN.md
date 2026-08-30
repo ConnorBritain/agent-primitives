@@ -1,10 +1,11 @@
 # prose-author — design
 
-**Status: v0.2.0 ships.** Scoped passage rewriting, blank-page drafting,
+**Status: v0.2.1 ships.** Scoped passage rewriting, blank-page drafting,
 `voice-profile/2`, deterministic conformance and claim-disclosure tooling, and
-edit ingestion all ship. Voice locks (v0.4) remain design work. The v0.2 path
-uses two separate agent contexts: a renderer may read the corpus, while the
-drafter receives only the assembled profile and request.
+edit ingestion all ship. v0.2.1 adds a bounded whole-paragraph residual prune
+between semantic revision and exact conformance. Voice locks (v0.4) remain
+design work. The v0.2 path uses two separate agent contexts: a renderer may read
+the corpus, while the drafter receives only the assembled profile and request.
 
 The other bundles in this repo measure prose. This one writes it. That inversion
 is the whole risk, and most of what follows is about containing it.
@@ -52,7 +53,7 @@ when only calibration read them.
 | | |
 |---|---|
 | **kind** | `author` |
-| **surface** | one coordinating skill plus two agents (`voice-profile-render`, `voice-draft`) and deterministic assembly/conformance tools |
+| **surface** | one coordinating skill plus two agents (`voice-profile-render`, `voice-draft`) and deterministic assembly/conformance/residual-prune tools |
 | **bundle** | its own. Independent criticism remains in `prose-review`, so the author does not grade itself |
 | **shares** | the `<project>/.claude/humanizer/` contract in [`PROFILES.md`](../prose-tell-scan/PROFILES.md) — read, extended, owned by nobody |
 
@@ -74,7 +75,7 @@ below.
   1  intake      register resolved per the existing Phase 0 rules
   2  render      corpus -> cited voice-profile/2; deterministic code owns counts
   3  draft       request + profile only. NO CORPUS. NO CATALOG.
-  4  conform     measure, semantic revision, then bounded exact patch if needed
+  4  conform     measure, semantic revision, narrow residual prune if eligible, then bounded exact patch
   5  audit       independent factual-basis disclosure; no accuracy guarantee
   6  review      tell-scan + independent prose-voice-critic
   7  the author edits — this is the step that matters

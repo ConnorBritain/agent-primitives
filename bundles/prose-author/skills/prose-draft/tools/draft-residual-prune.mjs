@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 /** Bounded whole-paragraph pruning for a still-overlong semantic revision. */
 
+import { readFileSync } from "node:fs";
+import { resolve } from "node:path";
+import { fileURLToPath } from "node:url";
+
 import { normalizeVoiceDraftSource } from "./draft-contract.mjs";
 import { measureDraftConformance } from "./draft-conformance.mjs";
-import { SEMANTIC_BEARING_MEASUREMENTS, wordTargetBounds } from "./draft-targets.mjs";
+import {
+  draftTargetCard, SEMANTIC_BEARING_MEASUREMENTS, wordTargetBounds,
+} from "./draft-targets.mjs";
 
 export const RESIDUAL_PRUNE_SCHEMA_ID = "voice-draft-residual-prune/1";
 export const MAX_PRUNED_PARAGRAPHS = 6;
@@ -202,4 +208,58 @@ export function residualPrunePrompt(priorSource, { request, card }) {
     "", "## Normalized numbered draft", "", ...rows,
     "Return voice-draft-residual-prune/1 exactly. Give only paragraph ids and a short reason; do not return prose.",
   ].join("\n");
+}
+
+const cliArgs = (argv) => {
+  const args = { command: argv[0] };
+  for (let index = 1; index < argv.length; index += 2) {
+    const key = argv[index];
+    const value = argv[index + 1];
+    if (!key?.startsWith("--") || value === undefined) throw new Error(`invalid argument ${key ?? "(missing)"}`);
+    args[key.slice(2).replaceAll("-", "_")] = value;
+  }
+  return args;
+};
+
+const cliJson = (path) => JSON.parse(readFileSync(resolve(path), "utf8"));
+const cliSource = (path) => {
+  const value = cliJson(path);
+  return value?.structured_output && typeof value.structured_output === "object"
+    ? value.structured_output : value;
+};
+
+export function residualPruneCli(argv = process.argv.slice(2)) {
+  const args = cliArgs(argv);
+  if (args.command === "schema") {
+    process.stdout.write(`${JSON.stringify(RESIDUAL_PRUNE_SCHEMA, null, 2)}\n`);
+    return;
+  }
+  if (!args.source || !args.profile || !args.request_file) {
+    throw new Error("prompt/apply require --source, --profile, and --request-file");
+  }
+  const source = cliSource(args.source);
+  const profile = cliJson(args.profile);
+  const request = readFileSync(resolve(args.request_file), "utf8").trim();
+  const card = draftTargetCard(profile, request);
+  if (args.command === "prompt") {
+    process.stdout.write(`${residualPrunePrompt(source, { request, card })}\n`);
+    return;
+  }
+  if (args.command === "apply") {
+    if (!args.plan) throw new Error("apply requires --plan");
+    const result = applyResidualPrunePlan(source, cliSource(args.plan), { request, card });
+    if (!result.ok) throw new Error(result.errors.join("; "));
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+    return;
+  }
+  throw new Error("usage: draft-residual-prune.mjs <schema|prompt|apply> [--source file --profile file --request-file file --plan file]");
+}
+
+if (process.argv[1] && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  try {
+    residualPruneCli();
+  } catch (error) {
+    process.stderr.write(`draft-residual-prune: ${error.message}\n`);
+    process.exitCode = 1;
+  }
 }

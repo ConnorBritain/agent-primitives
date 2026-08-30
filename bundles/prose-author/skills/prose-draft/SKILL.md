@@ -69,10 +69,31 @@ biography for the author.
 ### 3. Conform and audit before presenting
 
 Compile the deterministic target card, measure the first draft, and run the
-mandatory semantic-conformance revision. When exact measured counts still fall
-outside their bands, request only the bounded minimal patch and apply it through
-the deterministic conformance tool. Do not keep redrawing complete drafts to
-chase a favorable result.
+mandatory semantic-conformance revision.
+
+If that revision is still over the requested length, first check whether the
+only remaining semantic repairs are an explicitly locked title and excess
+question marks on Markdown headings. In that narrow case, use
+`tools/draft-residual-prune.mjs`: generate its plan prompt, dispatch
+`references/residual-prune.md` in a fresh corpus-blind context with the schema
+from the tool's `schema` command, then apply the returned plan through the
+tool's `apply` command. The planner may select only whole unlocked body
+paragraphs; code restores the title, performs safe heading normalization,
+applies the deletions, and recounts the complete result. A plan that remains
+long, empties a section, deletes the closing paragraph, or moves a
+semantic-bearing counter out of range fails.
+
+Do not use the prune planner for an underlength draft, arbitrary semantic
+failures, or general rewriting. Do not redraw complete drafts to chase a
+favorable result. After semantic counts and length are in range, request only
+the bounded minimal patch and apply it through the deterministic conformance
+tool for remaining byte-safe measured forms.
+
+```bash
+node tools/draft-residual-prune.mjs schema
+node tools/draft-residual-prune.mjs prompt --source revision.json --profile profile.json --request-file request.txt
+node tools/draft-residual-prune.mjs apply --source revision.json --profile profile.json --request-file request.txt --plan plan.json
+```
 
 Then run the factual-basis audit in a separate clean context and assemble the
 public draft only after the audit is linked to the exact prompt and draft. This
@@ -246,6 +267,11 @@ calibration will widen the band that flagged it.
 - **The profile is a compact map, not the corpus.** It preserves measured and
   cited habits while deliberately denying the drafter direct corpus access. Very
   unusual forms or registers may be refused or may need a refreshed corpus.
+- **Residual pruning is deliberately narrow.** It can remove redundant whole
+  paragraphs from an overlong revision and deterministically recount the
+  result; it cannot repair an underlength draft or prove that a deletion
+  preserved every nuance. The independent review remains required for a gated
+  result.
 - **Passage rewrite remains supported.** Mid-document continuation with the
   drafter reading its own earlier prose is still excluded because it creates the
   self-amplification loop this bundle is designed to avoid.
