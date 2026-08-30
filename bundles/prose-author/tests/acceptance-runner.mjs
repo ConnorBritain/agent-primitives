@@ -2898,6 +2898,22 @@ function deriveProfileEvidence(runDir, manifest, cases) {
   return { profileMeta, stability };
 }
 
+function profileEvidenceMetadataErrors(stored, derived, id) {
+  if (!stored || typeof stored !== "object" || Array.isArray(stored)) {
+    return [`${id} profile evidence metadata is missing`];
+  }
+  if (!Object.prototype.hasOwnProperty.call(stored, "source_normalizations")) {
+    return [`${id} profile source_normalizations metadata is missing`];
+  }
+  if (stored.transport_repairs !== derived.transport_repairs
+    || JSON.stringify(stored.source_normalizations) !== JSON.stringify(derived.source_normalizations)
+    || JSON.stringify(stored.coverage) !== JSON.stringify(derived.coverage)
+    || JSON.stringify(stored.recount) !== JSON.stringify(derived.recount)) {
+    return [`${id} profile evidence metadata does not reproduce from raw`];
+  }
+  return [];
+}
+
 function deriveDraftEvidence(runDir, manifest, cases) {
   const draftDispatch = manifestDispatch(manifest, "draft");
   const drafts = {};
@@ -3446,11 +3462,7 @@ function check(runDir) {
         for (let render = 1; render <= profile.renders; render += 1) {
           const stored = artifacts.profiles?.[profile.id]?.[`r${render}`];
           const derived = profiles.profileMeta[profile.id][`r${render}`];
-          if (stored && (stored.transport_repairs !== derived.transport_repairs
-            || JSON.stringify(stored.coverage) !== JSON.stringify(derived.coverage)
-            || JSON.stringify(stored.recount) !== JSON.stringify(derived.recount))) {
-            errors.push(`${profile.id}-r${render} profile evidence metadata does not reproduce from raw`);
-          }
+          errors.push(...profileEvidenceMetadataErrors(stored, derived, `${profile.id}-r${render}`));
         }
       }
     }
@@ -3510,6 +3522,7 @@ export {
   factualCandidateReasons, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, manifestStageSchema, modelAdapterName, prepareConfig, quotationAudit,
+  profileEvidenceMetadataErrors,
   dispatchPreflightErrors, rawNamespaceErrors, resolveDraftChain, retiredRepairEvidenceErrors, schemaInvocation,
   sentenceReviewTemplate, stagePrompt, strictlyCommittedAfter, structuralGates, validateCases,
   assertStrictOutputSchema, strictOutputSchemaErrors,

@@ -15,6 +15,7 @@ import {
   factualCandidateReasons, HARNESS_CAPABILITIES, invocationInput,
   immutableFirstAddAnchor, legacyRepairArtifactErrors, localModuleClosure, lockedImplementationErrors,
   manifestDispatch, modelAdapterName, prepareConfig, profileRenderPrompt,
+  profileEvidenceMetadataErrors,
   quotationAudit, resolveDraftChain, retiredRepairEvidenceErrors, sentenceReviewTemplate, stagePrompt,
   strictlyCommittedAfter, schemaInvocation, validateCases,
   assertStrictOutputSchema, strictOutputSchemaErrors,
@@ -1782,6 +1783,24 @@ export async function run(t, { HERE }) {
     /render_sha256: SHA\(text\(rawRender\)\)/.test(source)
       && /analyzeProfileStability\(renderIds\.map/.test(source)
       && /stability evidence does not reproduce from its canonical profiles/.test(source));
+  {
+    const derived = {
+      transport_repairs: 0,
+      source_normalizations: { duplicate_support_files_removed: 1 },
+      coverage: [{ id: "person-number-reader-stance", status: "covered" }],
+      recount: [{ id: "question-marks", stated: 2, measured: 2, status: "MATCHES" }],
+    };
+    const missing = clone(derived);
+    delete missing.source_normalizations;
+    const tampered = clone(derived);
+    tampered.source_normalizations.duplicate_support_files_removed = 0;
+    t.check("profile normalization metadata is required and reproduces exactly from immutable raw source",
+      profileEvidenceMetadataErrors(clone(derived), derived, "fixture-r1").length === 0
+        && profileEvidenceMetadataErrors(missing, derived, "fixture-r1")
+          .some((error) => /source_normalizations metadata is missing/.test(error))
+        && profileEvidenceMetadataErrors(tampered, derived, "fixture-r1")
+          .some((error) => /does not reproduce from raw/.test(error)));
+  }
   t.check("TALLY, structural gates, and score are rederived from raw critic results during check",
     /function deriveAcceptanceEvidence/.test(source)
       && /const evidence = deriveAcceptanceEvidence\(runDir, manifest, cases\);/.test(source)

@@ -812,6 +812,13 @@ export const MUTATIONS = [
     guards: "editing any recorded acceptance artifact invalidates its evidence",
   },
   {
+    name: "stop comparing profile source normalizations to raw evidence",
+    file: ACCEPTANCE_RUNNER,
+    find: "    || JSON.stringify(stored.source_normalizations) !== JSON.stringify(derived.source_normalizations)",
+    with: "    || false",
+    guards: "profile support deduplication metadata reproduces exactly from immutable raw source",
+  },
+  {
     name: "advertise legacy claim-repair evidence in a current artifact record",
     file: ACCEPTANCE_RUNNER,
     find: "    if (entry[key] !== null && entry[key] !== undefined) {",
