@@ -41,6 +41,10 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | restore a model-owned quota for qualitative profile evidence | 1 | support prevalence across files cannot masquerade as a within-piece frequency |
 | erase the deterministic center aim from draft target cards | 3 | every harness receives the same length-scaled center target instead of model arithmetic |
 | let the drafter return an out-of-range measured habit | 1 | a measured target is an enforced final check rather than an informational card |
+| hide question marks from the semantic-bearing hard limits | 1 | question-mark ceilings are literal pre-return budgets because conformance cannot repair them |
+| let semantic-bearing generation target the outer checker boundary | 1 | unpatchable semantic counters target the exact center rather than an outer acceptance boundary |
+| tell the drafter conformance can repair semantic-bearing counts | 2 | the portable prompt assigns semantic-bearing count correction to generation, not conformance |
+| let the drafter invent an opponent's paraphrased position | 2 | paraphrased opponent positions remain attribution even without quotation marks |
 | detach compiled voice instructions from their observation ids | 1 | the compact control card preserves the profile's exact instruction-to-ID binding |
 | accept a conformance patch whose final count remains out of range | 1 | local remeasurement, not the patch author's confidence, gates the final prose |
 | let a conformance patch expand the draft without bound | 1 | the correction stage remains a minimal patch rather than a second unconstrained draft |
