@@ -31,7 +31,7 @@ to this result.
 
 - The prepared manifest pins every stage's harness, model, effort, transport, timeout,
   concurrency, prompt body, schema, corpus lock, and implementation closure.
-- Every stage uses the subscription-backed Codex CLI with `gpt-5.6-sol`, native structured
+- Every stage uses the subscription-backed Codex CLI with `gpt-5.6-luna`, native structured
   output, concurrency one, and a twelve-minute per-call timeout. No direct provider API key,
   fallback model, parallel draw, or runtime override is permitted.
 - `voice-draft` receives only the request and assigned profile. It receives no corpus,
