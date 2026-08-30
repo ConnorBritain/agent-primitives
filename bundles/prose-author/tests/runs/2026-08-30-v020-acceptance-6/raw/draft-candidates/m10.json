@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Collecting identity documents is not the only safe option. It is one possible control, and often the most expensive, but safety depends on the threat model, the age boundary, and what happens to the resulting data.\\n\\nStart by separating assurance from identification. A system may need confidence that a person meets an age threshold; it may not need to know that person’s name, address, or document number. A developer can combine a declared age with lower-risk signals, friction for suspicious patterns, and a narrowly scoped escalation path. The escalation path might use a specialist service, a trusted platform assertion, or a document check only when the risk justifies it.\\n\\nEach signal has limits. Self-declaration is weak against deliberate evasion. Device or platform signals may be unavailable or inaccurate. Facial age estimation can introduce biometric and demographic risks (for example, unequal error rates), while document collection creates an attractive store of sensitive information. The right design therefore makes the weakest path insufficient for the highest-risk action and keeps the strongest path exceptional.\\n\\nData minimization matters as much as the initial check. If a document check is used, the app should prefer a yes-or-no age result over a retained image, define deletion timing (if retained), restrict access, log the decision rather than the document, and make failure understandable. A database is more than an ID check—it becomes a liability when unnecessary identity data accumulates.\\n\\nWe should also distinguish legal compliance from a defensible security design. A rule may require a particular assurance level, but it does not automatically require permanent possession of identity documents. Where the requirement is unclear, document the threat model, the alternatives considered, the residual risks, and the reason for each data field. The goal is not maximal collection. It is proportionate assurance, under a strict deletion schedule, with a clear route for review when the automated path gets it wrong. That is a safer answer than treating identity documents as the only serious tool.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: sources and allies enter through linked records, coalition letters, court findings, legislative analyses, and attributed statements\",\"why\":\"The request supplies no verified sources, records, coalition letters, court findings, legislative analyses, or attributed statements to name.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Collecting identity documents is not the only safe option. It is one possible control, and often the most expensive, but safety depends on the threat model, the age boundary, and what happens to the resulting data.\n\nStart by separating assurance from identification. A system may need confidence that a person meets an age threshold; it may not need to know that person’s name, address, or document number. A developer can combine a declared age with lower-risk signals, friction for suspicious patterns, and a narrowly scoped escalation path. The escalation path might use a specialist service, a trusted platform assertion, or a document check only when the risk justifies it.\n\nEach signal has limits. Self-declaration is weak against deliberate evasion. Device or platform signals may be unavailable or inaccurate. Facial age estimation can introduce biometric and demographic risks (for example, unequal error rates), while document collection creates an attractive store of sensitive information. The right design therefore makes the weakest path insufficient for the highest-risk action and keeps the strongest path exceptional.\n\nData minimization matters as much as the initial check. If a document check is used, the app should prefer a yes-or-no age result over a retained image, define deletion timing (if retained), restrict access, log the decision rather than the document, and make failure understandable. A database is more than an ID check—it becomes a liability when unnecessary identity data accumulates.\n\nWe should also distinguish legal compliance from a defensible security design. A rule may require a particular assurance level, but it does not automatically require permanent possession of identity documents. Where the requirement is unclear, document the threat model, the alternatives considered, the residual risks, and the reason for each data field. The goal is not maximal collection. It is proportionate assurance, under a strict deletion schedule, with a clear route for review when the automated path gets it wrong. That is a safer answer than treating identity documents as the only serious tool.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: sources and allies enter through linked records, coalition letters, court findings, legislative analyses, and attributed statements",
+        "why": "The request supplies no verified sources, records, coalition letters, court findings, legislative analyses, or attributed statements to name."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/draft-candidates/m10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/draft-candidates/m10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "a00bdb59c95f394a801d57ae1a5d4ad29073304c3d352294261067673cc49f45"
+  },
+  "acceptance_input": {
+    "system_sha256": "da164fbadd7d8edd87d9863e6b4f93a780b1bc9b158ec99657940c89d93ac1da",
+    "prompt_sha256": "e29400d3c9e335d779af9b4ff7ca9f3d25311efee453f1f5a21da67b523606dd",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

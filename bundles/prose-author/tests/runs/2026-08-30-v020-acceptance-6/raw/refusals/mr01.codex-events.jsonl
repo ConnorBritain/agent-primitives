@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0546c-824f-7301-a459-ed739e9e728f"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The problem to address is not included in the request. Please provide the topic, bill, practice, or policy issue you want drafted.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":18702,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":146,"reasoning_output_tokens":82}}

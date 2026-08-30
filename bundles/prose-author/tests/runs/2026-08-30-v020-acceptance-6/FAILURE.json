@@ -1,0 +1,33 @@
+{
+  "schema": "prose-author-acceptance-failure/1",
+  "status": "HOLD",
+  "clears": false,
+  "failed_phase": "semantic-revision-assembly",
+  "prepared_commit": "428a4c1594a9f6ce6782000d05404219b00c3726",
+  "manifest_commit": "b7d56da",
+  "profile_evidence_commit": "a9c2663",
+  "redraws": 0,
+  "completed_calls": {
+    "profiles": 6,
+    "draft_candidates": 20,
+    "semantic_revisions": 20,
+    "refusals": 2,
+    "conformance": 0,
+    "claim_audits": 0,
+    "critics": 0
+  },
+  "first_reported_error": "m02 semantic revision failed: semantic revision has 808 words; requested 650 +/- 98",
+  "length_failures": {
+    "m02": "candidate 838 words; semantic revision 808 words; required 552-748",
+    "m06": "candidate 868 words; semantic revision 850 words; required 595-805",
+    "m07": "candidate 847 words; semantic revision 839 words; required 595-805"
+  },
+  "interpretation": [
+    "All twenty candidate calls, twenty mandatory semantic-revision calls, and two refusal calls completed sequentially with no redraw before deterministic assembly stopped at m02.",
+    "Every semantic-bearing count failure in the candidate set was corrected into its locked range, including the failure patterns that invalidated rerun 5.",
+    "Three Mullin candidates substantially exceeded their requested length. Their mandatory revisions shortened the drafts but did not reach the already stated hard tolerance.",
+    "The candidate target card named the requested center but not the deterministic accepted interval or required excess-word reduction. The semantic prompt stated the generic tolerance but did not calculate the exact interval and minimum required cut beside the measured candidate length.",
+    "This is a bounded-revision instruction failure, not evidence that the exact mechanical patch should gain semantic editing authority."
+  ],
+  "disposition": "This run is invalid. No profile, candidate, revision, refusal, or other cell may be reused after an implementation change; a complete new locked six-profile, twenty-draft, two-refusal, sixty-critic run is required."
+}
