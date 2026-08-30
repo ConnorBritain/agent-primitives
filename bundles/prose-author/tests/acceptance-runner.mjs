@@ -46,7 +46,7 @@ import {
   parseVoiceDraftClaimAudit, sentenceRefs,
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import {
-  draftTargetCard, renderDraftTargetCard, SEMANTIC_BEARING_MEASUREMENTS,
+  draftTargetCard, renderDraftTargetCard, SEMANTIC_BEARING_MEASUREMENTS, wordTargetBounds,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
   applyDraftConformancePatch, CONFORMANCE_PATCH_SCHEMA,
@@ -1348,9 +1348,9 @@ export function validateSemanticRevision(candidateSource, revisionSource, { requ
     }
   }
   if (Number.isInteger(card?.word_target)) {
-    const tolerance = Math.max(50, Math.ceil(card.word_target * 0.15));
-    if (Math.abs(report.draft_words - card.word_target) > tolerance) {
-      errors.push(`semantic revision has ${report.draft_words} words; requested ${card.word_target} ± ${tolerance}`);
+    const length = wordTargetBounds(card.word_target);
+    if (report.draft_words < length.minimum || report.draft_words > length.maximum) {
+      errors.push(`semantic revision has ${report.draft_words} words; requested ${card.word_target} ± ${length.tolerance}`);
     }
   }
   return { ok: errors.length === 0, errors, source: revision.source, report };
@@ -1362,6 +1362,28 @@ export function draftSemanticRevisionPrompt(c, profileMarkdown, profileJson, can
   }
   const card = draftTargetCard(profileJson, c.prompt);
   const report = measureDraftConformance(candidateSource.draft, card);
+  const length = Number.isInteger(card.word_target) ? wordTargetBounds(card.word_target) : null;
+  const lengthDirective = !length ? [] : report.draft_words > length.maximum ? [
+    "## Hard length correction",
+    "",
+    `The candidate has ${report.draft_words} measured words; the accepted interval is ${length.minimum}–${length.maximum}, with target ${length.target}.`,
+    `It is ${report.draft_words - length.maximum} words above the maximum. Remove at least ${report.draft_words - length.maximum} measured words; aim for ${length.target}.`,
+    "Compress or remove redundant sentences and paragraphs as needed. Preserving the candidate's exact wording is subordinate to this hard bound; preserve its requested meaning and useful substance instead.",
+    "Recount the complete revision before returning it. A result outside the interval is rejected.",
+    "",
+  ] : report.draft_words < length.minimum ? [
+    "## Hard length correction",
+    "",
+    `The candidate has ${report.draft_words} measured words; the accepted interval is ${length.minimum}–${length.maximum}, with target ${length.target}.`,
+    `It is ${length.minimum - report.draft_words} words below the minimum. Add at least ${length.minimum - report.draft_words} measured words from the request's supplied subject; aim for ${length.target} without inventing facts.`,
+    "Recount the complete revision before returning it. A result outside the interval is rejected.",
+    "",
+  ] : [
+    "## Hard length preservation",
+    "",
+    `The candidate has ${report.draft_words} measured words and is inside the accepted ${length.minimum}–${length.maximum} interval. Keep the complete revision inside that interval; aim for ${length.target}.`,
+    "",
+  ];
   const controls = renderDraftControlCard(draftControlCard(profileMarkdown, profileJson));
   return [
     "Produce the one mandatory semantic conformance revision of the candidate below.",
@@ -1378,6 +1400,7 @@ export function draftSemanticRevisionPrompt(c, profileMarkdown, profileJson, can
     "",
     renderDraftConformanceReport(report),
     "",
+    ...lengthDirective,
     "## Candidate source",
     "",
     "```json",

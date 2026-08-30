@@ -8,6 +8,8 @@ import { fileURLToPath } from "node:url";
 export const TARGET_CARD_SCHEMA_ID = "voice-draft-target-card/1";
 export const TARGET_RATIO_BAND = 2;
 export const TARGET_ABSOLUTE_FLOOR = 2;
+export const WORD_TARGET_RATIO_TOLERANCE = 0.15;
+export const WORD_TARGET_ABSOLUTE_TOLERANCE = 50;
 export const SEMANTIC_BEARING_MEASUREMENTS = Object.freeze([
   "second-person-family",
   "first-person-plural-family",
@@ -20,6 +22,17 @@ export function requestedWordTarget(request) {
   const text = String(request ?? "");
   const match = /\b([1-9][0-9]{1,4})(?:\s*[-–—]\s*word|\s+words?)\b/i.exec(text);
   return match ? Number(match[1]) : null;
+}
+
+export function wordTargetBounds(target) {
+  if (!Number.isInteger(target) || target < 1) {
+    throw new TypeError("word target bounds require a positive integer");
+  }
+  const tolerance = Math.max(
+    WORD_TARGET_ABSOLUTE_TOLERANCE,
+    Math.ceil(target * WORD_TARGET_RATIO_TOLERANCE),
+  );
+  return { target, tolerance, minimum: target - tolerance, maximum: target + tolerance };
 }
 
 function acceptedCount(count, expected, corpusRate) {
@@ -112,6 +125,13 @@ export function renderDraftTargetCard(card) {
     "Count by the referenced measurement rule after drafting. Aim at the center, not merely the edge.",
     "",
   ];
+  if (card.word_target) {
+    const length = wordTargetBounds(card.word_target);
+    lines.push(
+      `- HARD LENGTH: ${length.minimum}–${length.maximum} words inclusive; aim ${length.target}.`,
+      "  Count the complete finished draft before returning it. Output outside this interval is rejected and cannot be repaired by the later exact patch.",
+    );
+  }
   for (const row of card.measurements) {
     const dimensions = row.dimensions.join(", ") || "unmapped";
     const target = card.word_target

@@ -30,7 +30,7 @@ import {
 } from "../skills/prose-draft/tools/draft-claim-audit.mjs";
 import {
   countRange, draftTargetCard, renderDraftTargetCard, requestedWordTarget,
-  SEMANTIC_BEARING_MEASUREMENTS, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND,
+  SEMANTIC_BEARING_MEASUREMENTS, TARGET_ABSOLUTE_FLOOR, TARGET_RATIO_BAND, wordTargetBounds,
 } from "../skills/prose-draft/tools/draft-targets.mjs";
 import {
   applyDraftConformancePatch, CONFORMANCE_MEASUREMENT_IDS, CONFORMANCE_PATCH_SCHEMA,
@@ -199,7 +199,10 @@ export async function run(t, { HERE }) {
     });
     t.check("semantic-bearing target bands are literal pre-return budgets",
       JSON.stringify(SEMANTIC_BEARING_MEASUREMENTS) === JSON.stringify(semanticMeasurements)
-        && (hardCard.match(/^- HARD /gm) ?? []).length === semanticMeasurements.length
+        && JSON.stringify(wordTargetBounds(700))
+          === JSON.stringify({ target: 700, tolerance: 105, minimum: 595, maximum: 805 })
+        && /HARD LENGTH: 595–805 words inclusive; aim 700/.test(hardCard)
+        && (hardCard.match(/^- HARD /gm) ?? []).length === semanticMeasurements.length + 1
         && /Hard pre-return limits — conformance cannot repair these/.test(hardCard)
         && /\[measurement:question-marks\]: operational target EXACTLY 2; unchanged checker range 0–3/.test(hardCard)
         && /exact operational target, not an outer checker boundary/.test(hardCard)
@@ -219,6 +222,14 @@ export async function run(t, { HERE }) {
         && /candidate can never ship/.test(semanticPrompt)
         && /Return voice-draft-source\/4 exactly; return the complete revised draft, not a patch/.test(semanticPrompt)
         && /independent factual audit/.test(semanticPrompt));
+    const overlongSemanticPrompt = draftSemanticRevisionPrompt(
+      { prompt: "Write a 650-word post." }, profileMarkdown, targetProfile,
+      { ...initialSource, draft: `${"word ".repeat(838).trim()}.` },
+    );
+    t.check("an overlong candidate receives its exact hard interval and minimum required cut",
+      /candidate has 838 measured words; the accepted interval is 552–748, with target 650/.test(overlongSemanticPrompt)
+        && /It is 90 words above the maximum\. Remove at least 90 measured words; aim for 650/.test(overlongSemanticPrompt)
+        && /Preserving the candidate's exact wording is subordinate to this hard bound/.test(overlongSemanticPrompt));
     const semanticCard = {
       schema: "voice-draft-target-card/1", word_target: null,
       ratio_band: TARGET_RATIO_BAND, absolute_floor: TARGET_ABSOLUTE_FLOOR,
