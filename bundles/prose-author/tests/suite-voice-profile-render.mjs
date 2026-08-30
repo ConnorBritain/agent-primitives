@@ -25,6 +25,7 @@ import {
   assembleVoiceProfile, COVERAGE_DIMENSIONS as SOURCE_DIMENSIONS, parseVoiceProfileSource,
   frequencyForPerPiece, sourceMeasurementPlan, sourceRenderSchema,
 } from "../skills/prose-draft/tools/profile-contract.mjs";
+import { validateVoiceDraftSource } from "../skills/prose-draft/tools/draft-contract.mjs";
 import { strictOutputSchemaErrors } from "./strict-output-schema.mjs";
 import { parseDraft, validateDraft } from "./voice-draft.mjs";
 import {
@@ -1114,6 +1115,26 @@ export async function run(t, { tmp, HERE }) {
             .some((renders) => Object.keys(renders ?? {}).length > 0);
         } else if (owner === "voice-draft") {
           hasValidatedArtifact = Object.keys(artifacts.drafts ?? {}).length > 0;
+          // A strict acceptance run can stop after semantic revision and before
+          // canonical public-draft collection. Its immutable raw response still
+          // exercises the exact locked prompt; recognize it only when the current
+          // source contract validates, rather than making an hours-long run
+          // invisible merely because a later stage correctly failed closed.
+          if (!hasValidatedArtifact) {
+            const rawDrafts = join(runs, name, "raw", "drafts");
+            if (fsExists(rawDrafts)) {
+              hasValidatedArtifact = readdirSync(rawDrafts)
+                .filter((file) => file.endsWith(".json") && !file.endsWith(".codex-output.json"))
+                .some((file) => {
+                  try {
+                    const wrapper = JSON.parse(fsRead(join(rawDrafts, file), "utf8"));
+                    return validateVoiceDraftSource(wrapper.structured_output).ok;
+                  } catch {
+                    return false;
+                  }
+                });
+            }
+          }
         }
       } else {
         const manifestPath = join(runs, name, "MANIFEST.json");

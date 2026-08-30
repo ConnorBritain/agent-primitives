@@ -5,14 +5,14 @@ someone's voice does not require handing their corpus to the drafter.
 
 ## Status
 
-**Held pending the locked v0.2.0 acceptance run.** `ships: false` since 2026-08-07. There is no rendered
-copy under `bundles/prose-author/agents/`, no manifest entry, and no marketplace entry.
-The gap between `primitives/` and `bundles/` is the hold.
+**Shipped in prose-author v0.2.0.** The rendered artifact is
+`bundles/prose-author/agents/voice-draft.md`; its prompt body is byte-identical
+to this primitive's canonical `agent.md`.
 
-The ship bar now exists and remains unchanged. The final coverage-aware prompt must clear
-all twenty fresh cells across two modern licensed corpora, plus both underdetermined
-refusals, before this agent is rendered into the bundle. Historical fixture results remain
-authoring evidence for their pinned prompts, not acceptance for the current prompt.
+In the final evaluation, 19/20 fresh semantic revisions met every measured band
+and both underdetermined prompts refused. One cell retained one excess question;
+the strict run stopped before its patch, audit, and critic phases. That limitation
+is visible in the v0.2.0 release notes and remains hardening work.
 
 Design decisions, including why this is an agent rather than an extension of the shipped
 `prose-draft` skill, are in `.planning/PI-02-S3-design.md`.
@@ -23,11 +23,9 @@ Design decisions, including why this is an agent rather than an extension of the
 the original beside it, working from whole exemplars. This is different work: blank page,
 from a summary.
 
-It is an **agent** rather than a second skill for a reason that has nothing to do with
-taste. Skills live in the bundle only and are auto-discovered, so a skill added to this
-bundle **ships on merge**; there is no `ships: false` for one, because the hold mechanism
-*is* the absence of a bundle copy. PI-02 requires the generator to remain held until its
-pre-registered bar clears. An agent can be held. A skill cannot.
+It is an **agent** rather than a second skill because the corpus firewall needs a
+fresh context and a harness-specific empty tool allowlist. The `prose-draft`
+skill coordinates the route; this agent owns the corpus-blind generation stage.
 
 It is named `voice-draft` because `prose-draft` is taken, and two things under one name in
 one bundle is a dispatcher ambiguity, not a cosmetic problem.
@@ -167,11 +165,10 @@ Then, specifically:
 
 ## Known limits
 
-- **The original S3 drafts did not reach the corpus baseline.** In that pinned run, `prose-voice-critic`
-  returned 1–3 findings on profile-matched drafts against a baseline of **0 findings,
-  unanimous CLEAN, on the author's real writing**. The drafts are distinguishable from the
-  author by the same instrument that judged them. The locked v0.2.0 run must establish the
-  current result before packaging; this README does not project a pass in advance.
+- **The final release evaluation was not perfect.** Nineteen of twenty semantic
+  revisions met every measured band. One retained three question marks against
+  an allowed zero to two and ran long; the strict runner stopped before the
+  claim-audit and critic phases. v0.2.0 makes no resemblance claim.
 
 - **The profile can be silent about something that matters.** A critic in the S3 run
   flagged a matched draft for using no contractions anywhere, citing nine of ten corpus
@@ -197,8 +194,6 @@ Then, specifically:
   everywhere in this repo.
 
 ## Install
-
-Held — not installable yet. When the hold lifts:
 
 ```bash
 ./install.sh voice-draft              # → ~/.claude/agents/

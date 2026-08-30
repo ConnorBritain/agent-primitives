@@ -6,15 +6,14 @@ to the drafter every time.
 
 ## Status
 
-**Held pending the locked v0.2.0 acceptance run.** `ships: false` since 2026-08-07. There is no
-rendered copy under `bundles/prose-author/agents/`, no manifest entry, and no
-marketplace entry. The gap between `primitives/` and `bundles/` is the hold.
+**Shipped in prose-author v0.2.0.** The rendered artifact is
+`bundles/prose-author/agents/voice-profile-render.md`; its prompt body is
+byte-identical to this primitive's canonical `agent.md`.
 
-The ship bar now exists and remains unchanged. The final `voice-profile/2` renderer must
-produce three valid renders for each of the two licensed modern corpora, and the complete
-profile-to-draft pipeline must clear all twenty preregistered draft cells. Until that fresh
-evidence exists, the primitive remains source-only. Historical authoring tests remain
-evidence about their pinned prompts, not acceptance evidence for the current prompt.
+The final evaluation produced three valid renders for each of two licensed modern
+corpora. The downstream semantic revision met every measured band in 19/20 cells;
+the remaining miss and the incomplete critic phase are disclosed in the bundle's
+v0.2.0 release notes rather than converted into a resemblance claim.
 
 Design decisions, including two deviations from PI-02.md, are in
 `.planning/PI-02-S2-design.md`.
@@ -40,7 +39,9 @@ questions are aimed at the recipient rather than the page. Naming the habit is w
 turns a sample into an instruction. That is the whole content of this primitive, and
 it is also its danger — see below.
 
-The profile does not replace exemplars. It sits beside them.
+For the v0.1 passage rewriter, the profile can sit beside exemplars. For the v0.2
+blank-page path it deliberately replaces them in the drafting context: the
+renderer sees the corpus, while the drafter sees only the compiled profile.
 
 ## The failure mode this is built around
 

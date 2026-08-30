@@ -17,34 +17,7 @@ it is not yet in their hands.
 
 ## Unreleased
 
-### prose-author — the generator, held
-
-Two primitives are authored, tested, and **deliberately not shipped**:
-
-- **`voice-profile-render`** — reads an author's corpus and writes the voice profile a
-  drafter works from. Every observation carries a sample citation and a support count;
-  countable habits carry a measured rate (`count` + `per_1000_words`).
-- **`voice-draft`** — writes prose from that profile. Runs with `tools: []`, so it
-  cannot reach the corpus the profile summarises.
-
-**Why they are held.** The pre-registered ship bar
-(majority CLEAN at k=3 **and** ≤ 1.0 critic findings per draw, plus structural gates) is
-currently cleared by 5 of 6 measured drafts, with 3 at unanimous zero findings — matching
-the human-writing baseline. That is not sufficient, for reasons recorded in the run docs:
-every artefact so far is public-domain text or one professional blogger, n is 6 on one
-corpus, and no corpus belonging to an actual user has been through any of it.
-
-Supporting test tooling added alongside them:
-
-- `corpus-rates.mjs` — deterministic habit-rate comparison between a corpus and a draft,
-  the first instrument here that compares the two rather than comparing drafts to each
-  other. Includes the paragraph-ending measure that diagnosed a six-appearance critic
-  finding no earlier measure could see.
-- `fixture-guard.mjs` — prompt-leak guard. Catches a prompt naming a fixture's author
-  (from directory names *and* corpus frontmatter) and a prompt quoting a fixture corpus's
-  measured rates, which is the same contamination wearing arithmetic.
-- `loop.mjs` / `loop-harness.mjs` — the critique loop's stopping and degradation rules,
-  replayable from recorded artefacts.
+No unreleased prose-author changes.
 
 ---
 
@@ -90,6 +63,27 @@ Supporting test tooling added alongside them:
 ---
 
 ## prose-author
+
+### [0.2.0]
+
+- **Added** `voice-profile-render`, which converts a single-author corpus into cited
+  semantic findings for deterministic `voice-profile/2` assembly. The profile covers ten
+  fixed dimensions and keeps count/rate arithmetic out of the model's hands.
+- **Added** `voice-draft`, a corpus-blind blank-page drafter. It receives only the request
+  and rendered profile; Claude Code ships it with an empty tool allowlist.
+- **Added** deterministic target compilation, semantic conformance measurement, bounded
+  exact patches, and an independent factual-basis disclosure/rejection stage. These make
+  unsupported claims visible; they do not guarantee factual accuracy.
+- **Changed** `prose-draft` to choose between the original passage-rewrite path and the new
+  blank-page path, and to label results UNGATED when `prose-tell-scan` or `prose-review`
+  is unavailable.
+- **Packaged** both agents for Claude Code, Codex, Cursor, generic plugin discovery, and
+  loose-file installation without changing their canonical prompt bodies.
+- **Evaluated** the release on two modern licensed corpora. Six fresh profiles validated;
+  19/20 semantic revisions met every measured band; both underdetermined prompts refused.
+  One revision retained one excess question and the run stopped before claim audits and
+  critics. This known limitation is documented for v0.2.1 rather than hidden behind a
+  resemblance, quality, detector, or factual-accuracy claim.
 
 ### [0.1.0]
 

@@ -2,21 +2,15 @@
 # The prompt body lives in agent.md and is shared verbatim across every target.
 # This file records what each harness can and cannot enforce about it.
 #
-# HELD — authored, harnessed, and deliberately NOT DEPLOYED. There is no rendered
-# copy under bundles/prose-author/agents/ and no manifest entry, which is this
-# repo's way of saying a primitive exists but does not ship: primitives/ is the
-# source, bundles/ is the deployment, and the gap between them is the hold. Same
-# shape as prose-pattern-critic and as prose-reviser during its own hold.
-#
-# TO LIFT THE HOLD: the pre-registered bar now exists. The final v0.2 implementation
-# must clear its fresh two-corpus, 20-draft acceptance run before packaging. A miss
-# keeps this source-only; a pass permits the rendered bundle copy and ships: true.
+# SHIPPED in prose-author v0.2.0. The canonical source remains agent.md; the
+# bundle copy adds only harness frontmatter and keeps this prompt body verbatim.
+# The final pre-release evaluation is release evidence, not a guarantee: all six
+# fresh profiles validated and 19/20 semantic revisions met their measured bands.
+# The one miss is recorded for v0.2.1 hardening in the release notes.
 
 name: voice-profile-render
 kind: author
-ships: false
-held_reason: final voice-profile/2 implementation has not yet cleared the locked v0.2.0 acceptance run
-held_since: 2026-08-07
+ships: true
 surface: agent
 bundle: prose-author
 

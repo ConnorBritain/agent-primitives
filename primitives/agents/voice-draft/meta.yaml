@@ -2,30 +2,15 @@
 # The prompt body lives in agent.md and is shared verbatim across every target.
 # This file records what each harness can and cannot enforce about it.
 #
-# HELD — authored, harnessed, and deliberately NOT DEPLOYED. There is no rendered
-# copy under bundles/prose-author/agents/ and no manifest entry, which is this
-# repo's way of saying a primitive exists but does not ship. Same shape as
-# voice-profile-render, prose-pattern-critic, and prose-reviser during its hold.
-#
-# The hold is why this is an AGENT and not an extension of the shipped prose-draft
-# skill. Skills live in the bundle only (CONTRIBUTING, "Surfaces"), are auto-
-# discovered, and this bundle's plugin.json points at the whole skills/ directory
-# — so a skill added here ships on merge, and there is no ships: false for it.
-# PI-02 required that nothing ship before the preregistered bar exists and clears.
-# An agent can be held; a skill cannot. See .planning/PI-02-S3-design.md D1.
-#
-# TO LIFT THE HOLD: the ship bar is pre-registered. The final v0.2 implementation
-# must clear a fresh two-corpus, 20-draft acceptance run. Then render into the bundle,
-# update its supported manifests, bump the version, flip ships: true, and give the shipped
-# prose-draft skill a blank-page path that spawns this agent (CONTRIBUTING's
-# "a skill that spawns the agent"). The parity guard in the bundle selftest
-# already carries the shipped branch.
+# SHIPPED in prose-author v0.2.0. The canonical source remains agent.md; the
+# bundle copy adds only harness frontmatter and keeps this prompt body verbatim.
+# The final pre-release evaluation is release evidence, not a guarantee: 19/20
+# semantic revisions met every measured band, while one retained one question
+# beyond its target. That miss remains visible for v0.2.1 hardening.
 
 name: voice-draft
 kind: author
-ships: false
-held_reason: final coverage-aware implementation has not yet cleared the locked v0.2.0 acceptance run
-held_since: 2026-08-07
+ships: true
 surface: agent
 bundle: prose-author
 

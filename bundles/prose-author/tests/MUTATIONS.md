@@ -44,8 +44,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let the drafter return an out-of-range measured habit | 1 | a measured target is an enforced final check rather than an informational card |
 | hide question marks from the semantic-bearing hard limits | 1 | question-mark ceilings are literal pre-return budgets because conformance cannot repair them |
 | let semantic-bearing generation target the outer checker boundary | 1 | unpatchable semantic counters target the exact center rather than an outer acceptance boundary |
-| tell the drafter conformance can repair semantic-bearing counts | 2 | the portable prompt assigns semantic-bearing count correction to generation, not conformance |
-| let the drafter invent an opponent's paraphrased position | 2 | paraphrased opponent positions remain attribution even without quotation marks |
+| tell the drafter conformance can repair semantic-bearing counts | 3 | the portable prompt assigns semantic-bearing count correction to generation, not conformance |
+| let the drafter invent an opponent's paraphrased position | 3 | paraphrased opponent positions remain attribution even without quotation marks |
 | detach compiled voice instructions from their observation ids | 1 | the compact control card preserves the profile's exact instruction-to-ID binding |
 | accept a conformance patch whose final count remains out of range | 1 | local remeasurement, not the patch author's confidence, gates the final prose |
 | let a conformance patch expand the draft without bound | 1 | the correction stage remains a minimal patch rather than a second unconstrained draft |
@@ -53,7 +53,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let one conformance anchor span multiple paragraphs | 1 | an exact patch cannot hide a whole-draft replacement in one anchor |
 | let equal-length paragraph replacements become a second draft | 1 | minimal conformance retains at least four fifths of the initial draft rather than only its length |
 | let unrelated edits borrow a failing measurement id | 1 | every exact edit must independently move one named failing measurement toward its range |
-| let measured punctuation edits rewrite unrelated semantics | 10 | a bounded measured correction cannot reverse the request stance or rewrite qualitative content |
+| let measured punctuation edits rewrite unrelated semantics | 12 | a bounded measured correction cannot reverse the request stance or rewrite qualitative content |
 | let an edit hide a collateral measurement delta | 1 | every actual per-edit measurement change is named before coverage dimensions are derived |
 | reject contractions licensed by an explicit source auxiliary | 5 | an explicit had, would, is, or has source can be contracted without lexical guesswork |
 | expand an ambiguous source contraction by convenient symmetry | 2 | an ambiguous source contraction cannot choose whichever expansion makes a patch pass |
@@ -76,9 +76,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
 | invite observation IDs into conformance measurement IDs | 1 | the conformer is explicitly told to use deterministic measurement tokens |
 | let one observation hide inside a multi-observation omission | 1 | a free-text omission remains accountable to every supported observation it drops |
-| tell the drafter to recalculate a locked target card | 1 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
-| teach conformance to use profile observation IDs as measurements | 2 | the portable agent prompt keeps observation and measurement namespaces distinct |
-| make every contraction delta content-length neutral | 2 | the portable agent prompt limits the word-count exception to the minimum required correction |
+| tell the drafter to recalculate a locked target card | 2 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
+| teach conformance to use profile observation IDs as measurements | 3 | the portable agent prompt keeps observation and measurement namespaces distinct |
+| make every contraction delta content-length neutral | 3 | the portable agent prompt limits the word-count exception to the minimum required correction |
 | skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
 | let model output downgrade the prepared claim-audit schema | 1 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |
@@ -135,12 +135,12 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | drop the explicit type from context-specific profile dimensions | 1 | the generated profile schema remains valid in strict structured-output harnesses |
 | derive the critic verdict from its finding count | 1 | the model-owned verdict remains independent from the findings-rate instrument |
 | drop the independent sentence-by-sentence claim inventory | 1 | a nearby disclosed fact cannot hide a second checkable assertion |
-| treat model memory as verified evidence | 3 | remembered examples remain explicitly queued for verification |
-| treat profile examples as reusable topic facts | 2 | corpus-derived profile examples cannot cross the factual firewall |
-| let unverifiable generalizations enter the claims queue | 2 | claims remain finite propositions a publisher can actually check |
-| let argumentative prose decorate itself with external-memory facts | 2 | an argument uses a restrained number of relevant facts instead of decorative memory |
+| treat model memory as verified evidence | 4 | remembered examples remain explicitly queued for verification |
+| treat profile examples as reusable topic facts | 3 | corpus-derived profile examples cannot cross the factual firewall |
+| let unverifiable generalizations enter the claims queue | 3 | claims remain finite propositions a publisher can actually check |
+| let argumentative prose decorate itself with external-memory facts | 3 | an argument uses a restrained number of relevant facts instead of decorative memory |
 | tell the drafter topical request overlap can license a new predicate | 1 | the model prompt matches the conservative request-support contract |
-| let a listed claim license an invented attributed quotation | 2 | an invented quotation cannot be laundered through the verification list |
+| let a listed claim license an invented attributed quotation | 3 | an invented quotation cannot be laundered through the verification list |
 | collapse multiple named-actor assertions into one topic claim | 1 | each checkable action and consequence remains independently auditable |
 | dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
 | let the independent factual audit treat the profile as a fact packet | 1 | profile examples, biography, and source facts cannot bypass the public verification queue |
@@ -163,7 +163,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | omit the independent audit anchor from critic invocation provenance | 1 | every critic raw record names the exact audit hash and pre-critic commit |
 | stop checking that critic evidence was committed after the independent audit checkpoint | 2 | repository history proves the independent checkpoint predates every critic result |
 | let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
-| let the requested container override the profile's register | 2 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
+| let the requested container override the profile's register | 3 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
 | stop noticing a fallen verdict | 1 | a revision that drops the verdict is refused |
 | treat a split CLEAN as converged | 2 | a split is surfaced, not read as the half that suits the loop |

@@ -20,6 +20,33 @@ import {
 } from "../skills/prose-draft/tools/ingest-edit.mjs";
 
 export async function run(t, { tmp, makeProfile, HERE, CORPUS }) {
+  t.group("Package — v0.2.0 is one installable bundle");
+
+  {
+    const bundle = resolve(HERE, "..");
+    const manifestPaths = [
+      ".claude-plugin/plugin.json", ".codex-plugin/plugin.json",
+      ".cursor-plugin/plugin.json", ".plugin/plugin.json",
+    ];
+    const manifests = manifestPaths.map((path) => JSON.parse(fsRead(join(bundle, path), "utf8")));
+    t.check("all four prose-author manifests agree at 0.2.0",
+      manifests.every((manifest) => manifest.version === "0.2.0"));
+
+    const marketplace = JSON.parse(fsRead(resolve(HERE, "..", "..", "..", ".claude-plugin", "marketplace.json"), "utf8"));
+    const entry = marketplace.plugins.find((plugin) => plugin.name === "prose-author");
+    t.check("the marketplace prose-author entry agrees at 0.2.0", entry?.version === "0.2.0");
+
+    const claudeAgents = manifests[0].agents ?? [];
+    t.check("the Claude manifest exposes both shipped v0.2 agents",
+      JSON.stringify(claudeAgents) === JSON.stringify([
+        "./agents/voice-profile-render.md", "./agents/voice-draft.md",
+      ]));
+    t.check("the Cursor manifest exposes the bundle agents directory",
+      manifests[2].agents === "agents");
+    t.check("both rendered agent files are present for plugin and loose-file installation",
+      ["voice-profile-render.md", "voice-draft.md"].every((name) => fsExists(join(bundle, "agents", name))));
+  }
+
   t.group("Exemplars — the channel that can poison a voice");
 
   {

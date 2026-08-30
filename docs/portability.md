@@ -52,6 +52,19 @@ selection, don't pass the file and describe the selection.
 **author — moderate.** Output quality holds. What you lose is the assurance that it only wrote
 where it was supposed to. Review the file list.
 
+For `prose-author` v0.2 there is a second author-specific boundary: the blank-page
+drafter must receive only the request and assembled voice profile, never the
+corpus that produced it. Claude Code can enforce the empty tool allowlist and
+separate agent context. On other harnesses, isolate every stage in a fresh
+subprocess or context: rendering and drafting must not share history, and neither
+should audit or criticism. The profile and JSON contracts port; the isolation
+guarantee becomes advisory.
+
+An advisory port is still useful, but must not be reported as gated unless the
+exact output also reaches `prose-tell-scan` and an independent `prose-review`
+context. Neither a clean audit nor a clean voice review proves factual accuracy
+or resemblance.
+
 **investigator — mild.** Read-only is a natural fit for the task rather than a constraint being
 fought, and there's no verdict anyone has an incentive to skip. Ports nearly intact.
 

@@ -1,7 +1,7 @@
 {
   "name": "prose-author",
-  "version": "0.1.0",
-  "description": "Scoped generation in a specific person's voice, drafted against their own corpus and voice card rather than a list of words to avoid. Verifies in the author's own measured terms and refuses to compare against fallbacks when no corpus exists. Never claims the output sounds like the author.",
+  "version": "0.2.0",
+  "description": "Blank-page drafting and passage rewriting in a specific person's measured voice. Renders a cited profile from their corpus, drafts without corpus access, and reports the checks and limits honestly.",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -18,8 +18,8 @@
   "homepage": "https://github.com/ConnorBritain/agent-primitives",
   "interface": {
     "displayName": "Prose Author",
-    "shortDescription": "Drafts one passage in your voice, and says exactly what it checked.",
-    "longDescription": "Rewrites one passage in a specific person's voice. It reads that person's own writing samples and voice card as the target, and deliberately never reads the AI-tell catalog: prose optimised against a tell list scores zero and reads like nobody wrote it, which is the failure the catalog exists to detect. Afterwards it scans the draft and states the three things that are actually checkable - that it was scanned against this author's profile, that cadence was compared to their derived bands, and that no leaked-markup artifact is present. It never claims the result sounds like the author, that it is good, or that it would pass a detector. With no calibrated corpus it refuses to report a gap rather than comparing against generic fallbacks. NOTE: the tools are Node scripts and behave identically everywhere; what Codex does not provide is skill dispatch, so invoke them directly.",
+    "shortDescription": "Drafts new prose or rewrites a passage from your measured voice profile.",
+    "longDescription": "Adds a blank-page path to the existing passage rewriter. voice-profile-render reads a single-author corpus and emits cited semantic findings that deterministic tools assemble into voice-profile/2. voice-draft then receives only the writing request and rendered profile, not the corpus, exemplars, session history, or AI-tell catalog. Deterministic conformance and a separate factual-basis audit make deviations and unsupported claims visible; they do not guarantee factual accuracy or resemblance. Independent prose-review and prose-tell-scan checks are required before describing a result as gated. On Codex and other advisory harnesses, run the stages in fresh contexts because prompt metadata alone cannot enforce corpus isolation.",
     "developerName": "Connor England",
     "category": "Developer Tools",
     "capabilities": [
@@ -29,7 +29,8 @@
     "defaultPrompt": [
       "This paragraph isn't working - rewrite it the way I write",
       "Draft this section from my notes, in my voice",
-      "What would this look like written the way I write?"
+      "Write a new essay from this outline using my voice profile",
+      "Draft a reply for this reader and purpose in my voice"
     ]
   }
 }
