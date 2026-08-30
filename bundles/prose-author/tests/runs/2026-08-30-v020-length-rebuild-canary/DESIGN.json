@@ -1,0 +1,14 @@
+{
+  "schema": "prose-author-semantic-revision-canary-design/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "case_id": "m02",
+  "cases": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/CASES.json",
+  "candidate_record": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/raw/draft-candidates/m02.json",
+  "profile_markdown": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/inputs/profiles/eff-mullin/r2.md",
+  "profile_json": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-6/inputs/profiles/eff-mullin/r2.json",
+  "purpose": "Test the conditional rebuild contract against the exact immutable 838-word rerun-6 failure. This is diagnostic evidence, not a redraw, and cannot count toward acceptance."
+}
