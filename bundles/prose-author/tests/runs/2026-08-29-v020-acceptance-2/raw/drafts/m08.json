@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"No. Returning a library book ends the loan because the agreed borrowing period is over. What happened here is different: the loan was still active, but the publisher withdrew the ebook and the reader lost access anyway. That’s not a return; it’s a remote revocation: the digital shelf changing after checkout.\\n\\nA publisher may say that an ebook loan is only a temporary license (the copy was never permanently owned). Fair enough. Public library lending has always involved time limits. But a time-limited loan still carries a basic promise: the item will remain available for that period, absent some exceptional failure. Withdrawal is not the same as expiration.\\n\\nThink of a print library recalling every borrowed copy because a distributor changed its catalog (usually before the due date). The paper book doesn’t vanish from the kitchen table. Digital systems can make that happen instantly—and that technical ability can obscure the policy choice behind it.\\n\\nThe practical issue is control. A library can secure access, a reader can borrow under the stated rules, and both can still be overruled by an outside decision (including one made after checkout). That leaves public access contingent on a permission that can be withdrawn midstream. That distinction matters: libraries differ from subscription trials; they are public institutions making limited community resources consistently available.\\n\\nWe should not pretend that this is ordinary circulation. It’s closer to lending a book attached to an invisible string—one the supplier can pull before the due date.\\n\\nPublishers and ebook vendors should honor existing loans when a title is withdrawn (even if they stop new checkouts), and libraries should insist on contract terms that protect that continuity. The responsible rule is simple: withdrawal may close the door to the next borrower, but it shouldn’t eject the reader already inside.\",\"omitted\":[],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "No. Returning a library book ends the loan because the agreed borrowing period is over. What happened here is different: the loan was still active, but the publisher withdrew the ebook and the reader lost access anyway. That’s not a return; it’s a remote revocation: the digital shelf changing after checkout.\n\nA publisher may say that an ebook loan is only a temporary license (the copy was never permanently owned). Fair enough. Public library lending has always involved time limits. But a time-limited loan still carries a basic promise: the item will remain available for that period, absent some exceptional failure. Withdrawal is not the same as expiration.\n\nThink of a print library recalling every borrowed copy because a distributor changed its catalog (usually before the due date). The paper book doesn’t vanish from the kitchen table. Digital systems can make that happen instantly—and that technical ability can obscure the policy choice behind it.\n\nThe practical issue is control. A library can secure access, a reader can borrow under the stated rules, and both can still be overruled by an outside decision (including one made after checkout). That leaves public access contingent on a permission that can be withdrawn midstream. That distinction matters: libraries differ from subscription trials; they are public institutions making limited community resources consistently available.\n\nWe should not pretend that this is ordinary circulation. It’s closer to lending a book attached to an invisible string—one the supplier can pull before the due date.\n\nPublishers and ebook vendors should honor existing loans when a title is withdrawn (even if they stop new checkouts), and libraries should insist on contract terms that protect that continuity. The responsible rule is simple: withdrawal may close the door to the next borrower, but it shouldn’t eject the reader already inside.",
+    "omitted": [],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/m08.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/m08.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "cda294048484255f552c19e0c99eca05b54bd1943dd5314e1fbdf6295b40b4d0",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

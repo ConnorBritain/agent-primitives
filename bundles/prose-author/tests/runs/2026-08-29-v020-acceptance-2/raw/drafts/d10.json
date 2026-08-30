@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-sol",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Documents may provide strong evidence, but they aren't the only safe option; for many apps, collecting them is the most dangerous one. You turn a narrow question – whether this user is above a threshold – into a warehouse of names, birth dates, faces, and document numbers forever. That warehouse attracts attackers (and creates a breach you then have to explain).\\n\\nStart with the capability your service actually needs. If an age band is enough, store an attestation such as “under 13,” “13–15,” or “adult,” rather than the evidence used to produce it. Prefer a platform or device assertion when available; otherwise consider local age estimation, a parent-controlled approval flow, or a deliberately limited self-declaration for low-risk features.\\n\\nThen separate assurance from access. You can gate chat, discovery, purchases, or adult material progressively instead of demanding maximum proof at signup. The harder a feature can hurt someone, the stronger its check should be. That’s risk engineering (ordinary threat modelling applied to people), not a ritual in which every visitor surrenders a passport.\\n\\nI’d design the data path before choosing the check: what enters, what leaves, what’s retained, who can query it, and how deletion is verified. If a vendor or operating system can return a signed age-band token without revealing identity, you’ve bought the answer without buying the liability. If it can’t, keep raw evidence on-device where possible and discard intermediate images immediately.\\n\\nDoes this satisfy every law and app-store rule? I can’t tell you without the jurisdiction, audience, and feature set. But the engineering principle travels: collect the least revealing signal that supports the required decision, bind it to the smallest purpose, and expire it quickly. We should prove age without quietly building identity infrastructure. Otherwise we’ve built a bouncer who photocopies every wallet: expensive, invasive, and a splendid target for thieves.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named sources, attributed findings, or quotations\",\"why\":\"The request supplies no verified source or attributed wording, so none could be introduced safely.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Documents may provide strong evidence, but they aren't the only safe option; for many apps, collecting them is the most dangerous one. You turn a narrow question – whether this user is above a threshold – into a warehouse of names, birth dates, faces, and document numbers forever. That warehouse attracts attackers (and creates a breach you then have to explain).\n\nStart with the capability your service actually needs. If an age band is enough, store an attestation such as “under 13,” “13–15,” or “adult,” rather than the evidence used to produce it. Prefer a platform or device assertion when available; otherwise consider local age estimation, a parent-controlled approval flow, or a deliberately limited self-declaration for low-risk features.\n\nThen separate assurance from access. You can gate chat, discovery, purchases, or adult material progressively instead of demanding maximum proof at signup. The harder a feature can hurt someone, the stronger its check should be. That’s risk engineering (ordinary threat modelling applied to people), not a ritual in which every visitor surrenders a passport.\n\nI’d design the data path before choosing the check: what enters, what leaves, what’s retained, who can query it, and how deletion is verified. If a vendor or operating system can return a signed age-band token without revealing identity, you’ve bought the answer without buying the liability. If it can’t, keep raw evidence on-device where possible and discard intermediate images immediately.\n\nDoes this satisfy every law and app-store rule? I can’t tell you without the jurisdiction, audience, and feature set. But the engineering principle travels: collect the least revealing signal that supports the required decision, bind it to the smallest purpose, and expire it quickly. We should prove age without quietly building identity infrastructure. Otherwise we’ve built a bouncer who photocopies every wallet: expensive, invasive, and a splendid target for thieves.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named sources, attributed findings, or quotations",
+        "why": "The request supplies no verified source or attributed wording, so none could be introduced safely."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/d10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-29-v020-acceptance-2/raw/drafts/d10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-sol",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "07952e0d268fc2d195eb1efbbfdee974d4eae6953bb222a133ee6172d64688a7"
+  },
+  "acceptance_input": {
+    "system_sha256": "b6920abf04b4d205b8d54160aaae3b2d8daf2c2d6d1177fc6b62955b288b121c",
+    "prompt_sha256": "eceb6653f2c9263403e0ea277ed4b77aae3386197ee7b2a8ac4c74af710a2e5f",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

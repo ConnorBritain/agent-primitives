@@ -1,0 +1,38 @@
+{
+  "schema": "prose-author-acceptance-failure/1",
+  "status": "HOLD",
+  "clears": false,
+  "failed_phase": "conformance-assembly",
+  "prepared_commit": "02e0b2ecc6b0d779cbd0d6bf00d5916ad412195c",
+  "manifest_commit": "4788871d6b20f72e9ce41b0a872201ff4c021b5d",
+  "profile_evidence_commit": "48290d4e0e1370a5a82f542129a54d4b732a3089",
+  "redraws": 0,
+  "completed_calls": {
+    "profiles": 6,
+    "drafts": 20,
+    "refusals": 2,
+    "conformance": 20,
+    "claim_audits": 0,
+    "critics": 0
+  },
+  "first_reported_error": "d06 conformance patch failed: final question-marks count 6 is excess; required 0–3",
+  "offline_conformance_replay": {
+    "passed": 19,
+    "failed": 1,
+    "failures": {
+      "d06": [
+        "final question-marks count 6 is excess; required 0–3"
+      ]
+    }
+  },
+  "underdetermined_refusals": {
+    "passed": 2,
+    "failed": 0
+  },
+  "interpretation": [
+    "The d06 initial draft emitted six question marks against its locked zero-to-three band even though the target card explicitly required a final recount before return.",
+    "Question-mark changes are semantic-bearing prose edits and are intentionally outside the deterministic conformance patch boundary, so the conformer correctly returned no edit rather than certifying a rewrite.",
+    "The other nineteen draft cells replay cleanly. The only two initial contraction failures, m05 and m07, were corrected by exact minimal patches under the signed coupled-count implementation."
+  ],
+  "disposition": "This run is invalid. No profile, draft, refusal, patch, or other cell may be reused after an implementation change; a complete new locked six-profile, twenty-draft, two-refusal, sixty-critic run is required."
+}

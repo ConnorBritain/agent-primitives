@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a04ff6-0866-7202-aa12-b5f511cbce40"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The problem to write about is missing from the request, and no earlier discussion is available here. Please state the problem, along with any essential facts or position the draft should advance.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":18234,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":108,"reasoning_output_tokens":35}}
