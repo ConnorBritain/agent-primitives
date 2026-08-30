@@ -1,0 +1,93 @@
+{
+  "schema": "voice-profile-source/4",
+  "voice_card": "empty",
+  "measured": {
+    "second-person-family": {
+      "prose": "Direct address appears when the post turns analysis into civic guidance, especially in closing calls to contact lawmakers or act on a public issue. Use “you” for a concrete reader-facing next step, not as a continuous conversational frame throughout the argument."
+    },
+    "first-person-plural-family": {
+      "prose": "First-person plural presents the organisation’s position and joins it to a wider public-interest coalition, as in “we criticized” or “we hope.” Use “we” for institutional advocacy, shared civic stakes, or collective action; keep the referent clear rather than using it as an intimate substitute for “I”."
+    },
+    "contractions": {
+      "prose": "Contractions keep policy analysis brisk and accessible while preserving legal and factual precision. They occur in explanations, pivots, and conclusions, helping a general readership move through complex statutory consequences. Prefer the contracted form in ordinary exposition unless a formal distinction or emphasis calls for greater weight."
+    },
+    "uncontracted-negatives": {
+      "prose": "Full negative forms give selected objections and conclusions a deliberate, emphatic weight: they state what a bill does not protect, what lawmakers should not impose, or what a disclaimer cannot accomplish. Use them at consequential pivots and rebuttals, while allowing contractions in surrounding exposition."
+    },
+    "first-person-singular-family": {
+      "prose": "The individual writer is largely absent as a speaking presence. Arguments are carried by institutional or collective authority, named facts, and direct analysis rather than personal testimony. Avoid autobiographical framing; if a personal stance is needed, recast it as the organisation’s position or as an explicitly supported public-interest judgment."
+    },
+    "question-marks": {
+      "prose": "Questions function mainly as rhetorical tests of a bill’s practical consequences, often listing ordinary situations that expose a gap between legislative language and lived use. Place them in the body after explaining the rule, where they make an abstract risk concrete rather than opening every section."
+    },
+    "round-parenthetical-spans": {
+      "prose": "Parentheses insert compact qualifications, examples, naming details, or scope limits without breaking the main claim. They are useful after a term that needs clarification or beside a concrete example, but should remain subordinate to the sentence’s primary legal or policy proposition."
+    },
+    "em-dashes": {
+      "prose": "Em dashes mark sharp pivots, appositional explanations, and consequential interruptions, often tightening a contrast inside an otherwise direct sentence. Use them to expose the practical result of a policy or to add a pointed qualification; do not let them replace clear clause structure."
+    },
+    "en-dashes": {
+      "prose": "The en-dash is not a stable punctuation choice in this corpus. Preserve ordinary compounds and ranges according to house style, but do not use en dashes as a signature interruption device; the argumentative work belongs elsewhere, especially in explicit clauses, parentheses, or em-dash pivots."
+    }
+  },
+  "qualitative": [
+    {
+      "dimensions": [
+        "qualification-hedging"
+      ],
+      "section": "register-range",
+      "prose": "The prose qualifies claims through explicit limits and evidentiary signals: “may,” “could,” “it’s not at all clear,” and distinctions between what a bill says and what it pressures companies to do. Place qualifications immediately beside the legal or practical claim, then state the likely consequence without overstating certainty.",
+      "support_files": [
+        "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "kids-act-would-require-age-checks-get-online.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "opponents-allies-sources"
+      ],
+      "section": "register-range",
+      "prose": "Opposing positions are introduced fairly enough to identify their stated aim, then tested against statutory language, institutional history, or practical incentives. Allies and sources are named specifically—EFF, coalitions, courts, lawmakers, and cited analyses—so attribution carries argumentative weight. Credit evidence before extending or correcting its implication.",
+      "support_files": [
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "court-records-should-be-free.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "figures-analogy"
+      ],
+      "section": "figures",
+      "prose": "Figures are concrete and explanatory rather than ornamental: AI training becomes “like reading,” a database becomes a “vault,” and legal disclaimers become a “smokescreen.” Extend a comparison only far enough to clarify mechanism or stakes, then return to the bill, system, or institutional consequence it illuminates.",
+      "support_files": [
+        "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "why-are-gay-bars-building-databases-their-patrons.txt"
+      ]
+    },
+    {
+      "dimensions": [
+        "openings-endings-closure"
+      ],
+      "section": "openings",
+      "prose": "Posts commonly open with the immediate legislative or institutional development, identify the claimed purpose, and pivot quickly to the public-interest problem. Sections use declarative, verdict-like headings, while endings convert the analysis into a specific institutional demand or reader action. Close by restating the governing principle and naming the next decision.",
+      "support_files": [
+        "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "kids-act-would-require-age-checks-get-online.txt"
+      ]
+    }
+  ],
+  "unresolved": {
+    "qualification-hedging": null,
+    "opponents-allies-sources": null,
+    "figures-analogy": null,
+    "openings-endings-closure": null,
+    "profanity-vulgarity": "The corpus does not establish a profanity or vulgarity instruction; no measured positive form supplies a supported rhetorical use or replacement."
+  },
+  "gaps": "The voice card is explicitly unfilled, so all findings come from the corpus. The eleven usable samples share EFF Deeplinks provenance, single-author attribution, and the declared advocacy-blog medium, with dates spanning 2025–2026; they support a contemporary policy register but do not establish behavior outside this genre. Editorial extraction strips links while retaining body text, so link presentation and some typographic choices cannot be assessed independently. The corpus does not establish a stable personal-biographical mode, and its institutional advocacy setting may constrain how opponents, calls to action, and first-person reference appear.",
+  "observations_dropped": 0,
+  "multiple_voices_suspected": false
+}
