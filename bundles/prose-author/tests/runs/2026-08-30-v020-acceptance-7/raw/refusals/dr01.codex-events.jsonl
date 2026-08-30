@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a0548c-3adf-7020-a219-40db3f06b71a"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The problem or subject to write about was not supplied. Provide the topic and any facts, claims, or sources the draft should use.\"}"}}
+{"type":"turn.completed","usage":{"input_tokens":18692,"cached_input_tokens":8960,"cache_write_input_tokens":0,"output_tokens":128,"reasoning_output_tokens":64}}

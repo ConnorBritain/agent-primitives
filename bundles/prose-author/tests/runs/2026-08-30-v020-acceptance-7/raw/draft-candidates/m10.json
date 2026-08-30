@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"Collecting identity documents is not the only safe option for age assurance. It’s one option, but it creates a concentrated store of highly sensitive data that an independent app may be poorly equipped to secure, delete, or keep out of unrelated systems.\\n\\nThe first step is to define the actual risk. If the goal is to limit access to a feature, a service-level age signal may be enough. A platform could verify an age threshold once and return only a yes-or-no result (with no name, document image, birth date, or account history). A third-party identity check could be technically stronger, but it also expands the number of parties handling identity data and may create a target that did not exist before.\\n\\nThat distinction matters because age assurance is not the same as identity verification. A system can establish that an account meets an age band without learning the person’s legal identity. Depending on the threat model, alternatives may include a device or platform-provided age attribute, a privacy-preserving credential, a parent-mediated approval flow, or a narrowly designed self-declaration backed by rate limits and abuse monitoring. None is universally sufficient. Each should be evaluated against the specific harm the feature could enable.\\n\\nThe dangerous shortcut is to treat document collection as a magic shield. It doesn’t remove the duty to minimize retention, restrict access, protect logs, and explain the process. It won’t solve circumvention by itself, either. For a small developer, a layered design may be more realistic: collect the least information necessary, separate the age result from the application profile, encrypt sensitive material, and set automatic deletion. The service can then be tested against realistic abuse cases—not just a compliance checklist.\\n\\nWe should also document the limits plainly. If the assurance method cannot reliably distinguish every user or prevent every bypass, say so. That honesty is safer than claiming certainty a small system cannot deliver. Start with the narrowest age signal that addresses the identified risk, and avoid collecting identity documents unless the threat model demonstrates that lesser measures are inadequate.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: introduce outside claims through sources, named coalition positions, or links\",\"why\":\"The request supplies no verified sources or named positions, so this described source-attribution practice cannot be applied without inventing material.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "Collecting identity documents is not the only safe option for age assurance. It’s one option, but it creates a concentrated store of highly sensitive data that an independent app may be poorly equipped to secure, delete, or keep out of unrelated systems.\n\nThe first step is to define the actual risk. If the goal is to limit access to a feature, a service-level age signal may be enough. A platform could verify an age threshold once and return only a yes-or-no result (with no name, document image, birth date, or account history). A third-party identity check could be technically stronger, but it also expands the number of parties handling identity data and may create a target that did not exist before.\n\nThat distinction matters because age assurance is not the same as identity verification. A system can establish that an account meets an age band without learning the person’s legal identity. Depending on the threat model, alternatives may include a device or platform-provided age attribute, a privacy-preserving credential, a parent-mediated approval flow, or a narrowly designed self-declaration backed by rate limits and abuse monitoring. None is universally sufficient. Each should be evaluated against the specific harm the feature could enable.\n\nThe dangerous shortcut is to treat document collection as a magic shield. It doesn’t remove the duty to minimize retention, restrict access, protect logs, and explain the process. It won’t solve circumvention by itself, either. For a small developer, a layered design may be more realistic: collect the least information necessary, separate the age result from the application profile, encrypt sensitive material, and set automatic deletion. The service can then be tested against realistic abuse cases—not just a compliance checklist.\n\nWe should also document the limits plainly. If the assurance method cannot reliably distinguish every user or prevent every bypass, say so. That honesty is safer than claiming certainty a small system cannot deliver. Start with the narrowest age signal that addresses the identified risk, and avoid collecting identity documents unless the threat model demonstrates that lesser measures are inadequate.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: introduce outside claims through sources, named coalition positions, or links",
+        "why": "The request supplies no verified sources or named positions, so this described source-attribution practice cannot be applied without inventing material."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/draft-candidates/m10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/draft-candidates/m10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e583139afda505dc338f9b24682d92eda69d5834ddf5e731ac2c4c1445ddf3c1"
+  },
+  "acceptance_input": {
+    "system_sha256": "6c4e76c11eaf5ab59fb0ad55a04026bdb0522326583a537b09a2261464a3f7d8",
+    "prompt_sha256": "d4a5a1f3b16b0cd9b1addf37829c1837b405b574dfc3c9320301b55360c5c336",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

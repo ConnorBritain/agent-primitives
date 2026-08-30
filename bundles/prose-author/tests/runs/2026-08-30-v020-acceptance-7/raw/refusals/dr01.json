@@ -1,0 +1,33 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"refusal\",\"draft\":\"\",\"omitted\":[],\"refused\":\"The problem or subject to write about was not supplied. Provide the topic and any facts, claims, or sources the draft should use.\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "refusal",
+    "draft": "",
+    "omitted": [],
+    "refused": "The problem or subject to write about was not supplied. Provide the topic and any facts, claims, or sources the draft should use."
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/refusals/dr01.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/refusals/dr01.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e583139afda505dc338f9b24682d92eda69d5834ddf5e731ac2c4c1445ddf3c1"
+  },
+  "acceptance_input": {
+    "system_sha256": "6c4e76c11eaf5ab59fb0ad55a04026bdb0522326583a537b09a2261464a3f7d8",
+    "prompt_sha256": "0c1dbb95e4b8af24412aecb760996e81ca7d9007aa3e21a1641baa13886a82b2",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

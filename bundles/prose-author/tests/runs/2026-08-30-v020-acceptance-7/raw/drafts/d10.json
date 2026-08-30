@@ -1,0 +1,43 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"“Age assurance” is not the same thing as collecting identity documents. If you’re building an app, you’re being asked to answer a question that sounds technical but is really about power: who gets to enter, who gets excluded, and who keeps the records? The safest answer isn’t automatically the most invasive one.\\n\\nA document check can be appropriate for a particular service, especially where the law or the real-world risk demands strong proof. But it also creates a valuable target: names, addresses, birth dates, document numbers, and sometimes photographs. A small team may secure an ordinary account competently while struggling to protect an identity dossier. That difference matters. “Collect everything” is a security posture only in the same sense that carrying every key on one ring is a security posture.\\n\\nStart with the risk you’re trying to control. If you need to keep children from a genuinely adult feature, you need an age signal, not necessarily a permanent identity file. Ask what happens to the data after the check, who can see it, whether the result can be reduced to a yes-or-no token (a small, useful result), and what recourse exists when the system gets the answer wrong. A vendor’s price is one input; your users’ exposure is the larger bill.\\n\\nI’d consider layered options: a device-level or platform-provided age signal, a privacy-preserving third-party assertion, or a narrowly scoped self-declaration with friction added only where abuse appears. Each has limits. We can measure false positives, false negatives, abandonment, and disparate failure rates. Then we should document the choice and its limits (especially under pressure). I’d also make deletion, retention, and breach response concrete before launch.\\n\\nYou’ve been handed a procurement question, but your users will live with the architecture. Don’t let “safe” mean “most data.” Define the harm, minimize the evidence, and make the system answerable when it fails. That’s how you build assurance without building a second identity company.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o12: named sources, allies, or attributed claims\",\"why\":\"The request supplies no verified source material or opponent position, so introducing one would require invented factual material.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "“Age assurance” is not the same thing as collecting identity documents. If you’re building an app, you’re being asked to answer a question that sounds technical but is really about power: who gets to enter, who gets excluded, and who keeps the records? The safest answer isn’t automatically the most invasive one.\n\nA document check can be appropriate for a particular service, especially where the law or the real-world risk demands strong proof. But it also creates a valuable target: names, addresses, birth dates, document numbers, and sometimes photographs. A small team may secure an ordinary account competently while struggling to protect an identity dossier. That difference matters. “Collect everything” is a security posture only in the same sense that carrying every key on one ring is a security posture.\n\nStart with the risk you’re trying to control. If you need to keep children from a genuinely adult feature, you need an age signal, not necessarily a permanent identity file. Ask what happens to the data after the check, who can see it, whether the result can be reduced to a yes-or-no token (a small, useful result), and what recourse exists when the system gets the answer wrong. A vendor’s price is one input; your users’ exposure is the larger bill.\n\nI’d consider layered options: a device-level or platform-provided age signal, a privacy-preserving third-party assertion, or a narrowly scoped self-declaration with friction added only where abuse appears. Each has limits. We can measure false positives, false negatives, abandonment, and disparate failure rates. Then we should document the choice and its limits (especially under pressure). I’d also make deletion, retention, and breach response concrete before launch.\n\nYou’ve been handed a procurement question, but your users will live with the architecture. Don’t let “safe” mean “most data.” Define the harm, minimize the evidence, and make the system answerable when it fails. That’s how you build assurance without building a second identity company.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o12: named sources, allies, or attributed claims",
+        "why": "The request supplies no verified source material or opponent position, so introducing one would require invented factual material."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/drafts/d10.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/drafts/d10.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e583139afda505dc338f9b24682d92eda69d5834ddf5e731ac2c4c1445ddf3c1"
+  },
+  "acceptance_input": {
+    "system_sha256": "6c4e76c11eaf5ab59fb0ad55a04026bdb0522326583a537b09a2261464a3f7d8",
+    "prompt_sha256": "c35acbfc695dc95ed6b252d055ad887a56eddbb7dd747451e25ce4c06f3334fa",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863",
+    "prerequisites": {
+      "candidate_draft_raw_sha256": "60e06932fda5b6dc239a0a1ce767440cbc99a312d2b0190a1a24458751e27f6c",
+      "profile_markdown_sha256": "1a1ceb62a60bed1097f004c58f9b9e2ec27cd39e43d9a9a02a83006f5d699e41",
+      "profile_json_sha256": "0e175c62e7a19a33d265594461c2a171e494ad3bbad6f44642a38cdca8389021"
+    }
+  }
+}

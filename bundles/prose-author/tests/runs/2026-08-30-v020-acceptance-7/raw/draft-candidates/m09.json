@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"The nonprofit should not put confidential intake notes into an AI service for tomorrow’s meeting. The notes concern people whose safety, dignity, and control over their own information must come first.\\n\\nAn AI summary can sound efficient, but efficiency is not the decision rule. Before any use, the team would need a written answer to several basic questions: Where will the notes be processed? Who can access them (the people described in the notes)? How long will the service retain them? Will the material be used to train or improve the system? Can the nonprofit require deletion (including backups and logs)? If those answers are unclear, the service is not ready for confidential material.\\n\\nA privacy policy alone doesn’t settle the matter. The relevant safeguards belong in enforceable terms (retention, deletion, and model-training terms), with access limited to named staff (including administrators and vendors). Consent also matters. A person who shared an intake story for help did not necessarily consent to automated analysis, even if the proposed summary sounds harmless. The notes are not disposable text; they are a vault of other people’s lives.\\n\\nFor the meeting, the practical decision is a pause: do not upload the notes to a general-purpose AI service. If there is a compelling operational need, test the workflow only with synthetic material or a redacted sample (with names, dates, and unusual details removed), and have the board or privacy lead approve the service after reviewing its contract and settings. We can still discuss whether a narrowly configured tool, strict deletion controls, and explicit consent would make a later pilot acceptable.\\n\\nThe recommendation for tomorrow is simple: keep the real notes out, document the unanswered safeguards, and revisit the question only after the nonprofit can demonstrate control over the data. A faster summary is not worth turning a confidential intake process into an irreversible disclosure.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11\",\"why\":\"No verified coalition letter, court decision, legislative analysis, linked record, or named external position was supplied for this topic.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "The nonprofit should not put confidential intake notes into an AI service for tomorrow’s meeting. The notes concern people whose safety, dignity, and control over their own information must come first.\n\nAn AI summary can sound efficient, but efficiency is not the decision rule. Before any use, the team would need a written answer to several basic questions: Where will the notes be processed? Who can access them (the people described in the notes)? How long will the service retain them? Will the material be used to train or improve the system? Can the nonprofit require deletion (including backups and logs)? If those answers are unclear, the service is not ready for confidential material.\n\nA privacy policy alone doesn’t settle the matter. The relevant safeguards belong in enforceable terms (retention, deletion, and model-training terms), with access limited to named staff (including administrators and vendors). Consent also matters. A person who shared an intake story for help did not necessarily consent to automated analysis, even if the proposed summary sounds harmless. The notes are not disposable text; they are a vault of other people’s lives.\n\nFor the meeting, the practical decision is a pause: do not upload the notes to a general-purpose AI service. If there is a compelling operational need, test the workflow only with synthetic material or a redacted sample (with names, dates, and unusual details removed), and have the board or privacy lead approve the service after reviewing its contract and settings. We can still discuss whether a narrowly configured tool, strict deletion controls, and explicit consent would make a later pilot acceptable.\n\nThe recommendation for tomorrow is simple: keep the real notes out, document the unanswered safeguards, and revisit the question only after the nonprofit can demonstrate control over the data. A faster summary is not worth turning a confidential intake process into an irreversible disclosure.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11",
+        "why": "No verified coalition letter, court decision, legislative analysis, linked record, or named external position was supplied for this topic."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/draft-candidates/m09.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-7/raw/draft-candidates/m09.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "e583139afda505dc338f9b24682d92eda69d5834ddf5e731ac2c4c1445ddf3c1"
+  },
+  "acceptance_input": {
+    "system_sha256": "6c4e76c11eaf5ab59fb0ad55a04026bdb0522326583a537b09a2261464a3f7d8",
+    "prompt_sha256": "039534ff60fe24b0d1a699f21e0f5cea2a7073a8427d5036ac4438ac3a1318b0",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}
