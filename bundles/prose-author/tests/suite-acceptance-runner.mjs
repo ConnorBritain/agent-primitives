@@ -41,12 +41,6 @@ import { COVERAGE_DIMENSIONS } from "../skills/prose-draft/tools/profile-contrac
 import { DEFAULT_RATIO_BAND, MIN_ABSOLUTE_DEVIATION } from "./corpus-rates.mjs";
 
 const clone = (value) => JSON.parse(JSON.stringify(value));
-const humanAttestation = () => ({
-  reviewer: "Release reviewer",
-  completed_at: "2026-08-29T06:00:00Z",
-  statement: "I personally reviewed every immutable sentence and recorded every unsupported descriptive premise as requires-change or listed-for-verification before any critic call.",
-});
-
 export async function run(t, { HERE }) {
   const runDir = join(HERE, "runs", "2026-08-27-v020-acceptance");
   const cases = JSON.parse(readFileSync(join(runDir, "CASES.json"), "utf8"));
@@ -1181,7 +1175,7 @@ export async function run(t, { HERE }) {
         .every((key) => ARTIFACT_PATH_KEYS.draft.includes(key))
       && (source.match(/\.\.\.codexCompanionArtifactFields\(record\),/g) ?? []).length === 4
       && /codexCompanionArtifactFields\(auditRecord, "audit_"\)/.test(source));
-  t.check("final provenance makes every model record immutable and orders all critic companions after human review",
+  t.check("final provenance makes every model record immutable and orders all critic companions after the audit checkpoint",
     /const evidencePaths = \[resolve\(item\.path\), \.\.\.codexCompanionEvidencePaths\(record\)\]/.test(source)
       && /for \(const evidencePath of evidencePaths\)/.test(source)
       && /strictlyCommittedAfter\(evidencePath, item\.prerequisiteCommit\)/.test(source)
@@ -1224,9 +1218,9 @@ export async function run(t, { HERE }) {
   t.check("critic dispatch is blocked until the independent claims audit is complete",
     /const claimsAudit = json\(p\.audit\);[\s\S]*const auditFailures = claimsAuditFailures\(\s*claimsAudit, cases, artifacts, runDir[\s\S]*no critic calls were made/.test(source)
       && /immutableFirstAddAnchor\(p\.audit\)/.test(source));
-  t.check("the human completeness gate treats only the request as supplied factual evidence",
-    source.includes("the profile is voice evidence, never a factual packet")
-      && !source.includes("supplied by the request/profile"));
+  t.check("the independent completeness gate treats only the request as supplied factual evidence",
+    /The request is the only supplied factual packet/.test(claimAuditSource)
+      && !claimAuditSource.includes("supplied by the request/profile"));
 
   {
     const chainRoot = mkdtempSync(join(tmpdir(), "prose-author-claim-chain-"));
@@ -1396,7 +1390,7 @@ export async function run(t, { HERE }) {
           && one.prompt_sha256 !== two.prompt_sha256
           && one.schema_sha256 !== three.schema_sha256
           && /completedResult\(item\.path, item\.dispatch, item\.input\)/.test(source));
-      t.check("critic invocation provenance can bind an exact pre-dispatch human audit",
+      t.check("critic invocation provenance can bind an exact pre-dispatch independent audit checkpoint",
         four.prerequisites.claims_audit_sha256 === "a".repeat(64)
           && four.prerequisites.claims_audit_commit === "b".repeat(40)
           && /prerequisites: criticPrerequisites/.test(source));
@@ -1485,7 +1479,7 @@ export async function run(t, { HERE }) {
         const ordered = strictlyCommittedAfter(rawPath, auditAnchor.commit, anchorRoot) === null;
         writeFileSync(auditPath, "{\"complete\":false}\n");
         const auditDrift = immutableFirstAddAnchor(auditPath, anchorRoot).error;
-        t.check("the completed human audit is immutable and critic evidence is committed strictly after it",
+        t.check("the completed independent audit checkpoint is immutable and critic evidence is committed strictly after it",
           !auditAnchor.error && ordered && /differs from its immutable first-add version/.test(auditDrift)
             && /if \(auditAnchor\.error\) \{/.test(source)
             && /completed claims audit must be committed unchanged before critic calls/.test(source)
@@ -1621,7 +1615,7 @@ export async function run(t, { HERE }) {
       schema: "voice-draft-source/4", kind: "draft",
       draft: "Developers feel this gap when access still depends on approval.", omitted: [], refused: "",
     };
-    t.check("the human review template carries deterministic candidates rather than a blank checklist",
+    t.check("the independent review template carries deterministic candidates rather than a blank checklist",
       sentenceReviewTemplate(candidateSource)[0].candidate_reasons.includes("population-or-institution")
         && sentenceReviewTemplate(candidateSource)[0].candidate_reasons.includes("capability-or-dependence"));
     t.check("a plainly normative sentence is not promoted into a factual candidate",
@@ -1819,206 +1813,220 @@ export async function run(t, { HERE }) {
   {
     const auditRoot = mkdtempSync(join(tmpdir(), "prose-author-audit-link-"));
     try {
+      const repoRoot = resolve(HERE, "../../..");
       const draftPath = join(auditRoot, "inputs", "drafts", "x.txt");
+      const sourcePath = join(auditRoot, "inputs", "sources", "drafts", "x.json");
+      const canonicalAuditPath = join(auditRoot, "inputs", "audits", "x.json");
       mkdirSync(dirname(draftPath), { recursive: true });
+      mkdirSync(dirname(sourcePath), { recursive: true });
+      mkdirSync(dirname(canonicalAuditPath), { recursive: true });
       const draft = "The supplied phrase appears.\n";
-      writeFileSync(draftPath, draft);
       const draftHash = createHash("sha256").update(draft).digest("hex");
       const auditCases = { cases: [{
         id: "x", prompt: "Write about ownership choices. Include this exact sentence: The supplied phrase appears.",
       }] };
-      const sourcePath = join(auditRoot, "inputs", "sources", "drafts", "x.json");
-      const canonicalAuditPath = join(auditRoot, "inputs", "audits", "x.json");
       const sourceRecord = {
-        schema: "voice-draft-source/3", kind: "draft",
-        ledger: [{
-          id: "c1", basis: "request-supported", claim: "The supplied phrase appears.",
-          request_basis: "The supplied phrase appears.",
-        }],
-        paragraphs: [{ sentences: [{
-          text: "The supplied phrase appears.", basis: "request-supported", claim_ids: ["c1"],
-        }] }],
-        omitted: [], refused: "",
+        schema: "voice-draft-source/4", kind: "draft",
+        draft: draft.trim(), omitted: [], refused: "",
       };
-      mkdirSync(dirname(sourcePath), { recursive: true });
-      writeFileSync(sourcePath, `${JSON.stringify(sourceRecord, null, 2)}\n`);
-      mkdirSync(dirname(canonicalAuditPath), { recursive: true });
-      writeFileSync(canonicalAuditPath, `${JSON.stringify({
+      const independentAudit = {
         schema: "voice-draft-claim-audit/4",
         sentences: [{
           id: "p1s1", status: "keep", reason: "The request supplies the complete assertion.", claims: [],
         }],
+      };
+      writeFileSync(draftPath, draft);
+      writeFileSync(sourcePath, `${JSON.stringify(sourceRecord, null, 2)}\n`);
+      writeFileSync(canonicalAuditPath, `${JSON.stringify(independentAudit, null, 2)}\n`);
+      const auditHash = createHash("sha256").update(readFileSync(canonicalAuditPath)).digest("hex");
+      const auditPromptHash = "c".repeat(64);
+      const auditRawHash = "d".repeat(64);
+      const auditAgentHash = "a".repeat(64);
+      const draftAgentHash = "b".repeat(64);
+      const dispatch = {
+        harness: "codex", model: "locked-auditor", effort: "low", transport: "native-structured",
+        timeout_ms: 100,
+      };
+      writeFileSync(join(auditRoot, "MANIFEST.json"), `${JSON.stringify({
+        concurrency: 1,
+        agents: {
+          claim_audit: { sha256: auditAgentHash }, draft: { sha256: draftAgentHash },
+        },
+        dispatch: { claim_audit: dispatch },
       }, null, 2)}\n`);
+      const provenance = {
+        mode: "independent-model-audit",
+        claim_audit_schema: "voice-draft-claim-audit/4",
+        audit_agent_sha256: auditAgentHash,
+        draft_agent_sha256: draftAgentHash,
+        harness: dispatch.harness,
+        model: dispatch.model,
+        effort: dispatch.effort,
+        transport: dispatch.transport,
+      };
       const review = {
         ...sentenceReviewTemplate(sourceRecord)[0],
-        decision: "request-supported", request_evidence: ["The supplied phrase appears."],
-        note: "The exact supplied sentence supports every descriptive term in this sentence.",
+        decision: "cleared",
+        note: independentAudit.sentences[0].reason,
       };
-      const audit = {
-        schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
-        draft_sha256: draftHash, claims: [],
-        quoted_spans: quotationAudit(draft, auditCases.cases[0].prompt),
-        sentence_reviews: [review], claims_verified: true, quotations_verified: true, note: "",
-      } },
+      const checkpoint = {
+        schema: "prose-author-claims-audit/6", provenance, instructions: [], drafts: { x: {
+          draft_sha256: draftHash,
+          audit_prompt_sha256: auditPromptHash,
+          audit_raw_sha256: auditRawHash,
+          audit_sha256: auditHash,
+          claims: [],
+          quoted_spans: quotationAudit(draft, auditCases.cases[0].prompt),
+          sentence_reviews: [review],
+          note: "Deterministically assembled from the immutable independent claim-audit result.",
+        } },
       };
       const artifacts = { drafts: { x: {
         draft_sha256: draftHash,
-        disclosure: null, disclosure_sha256: null,
-        source: relative(resolve(HERE, "../../.."), sourcePath),
+        audit_prompt_sha256: auditPromptHash,
+        audit_raw_sha256: auditRawHash,
+        source: relative(repoRoot, sourcePath),
         source_sha256: createHash("sha256").update(readFileSync(sourcePath)).digest("hex"),
+        audit: relative(repoRoot, canonicalAuditPath),
+        audit_sha256: auditHash,
+        disclosure: null,
+        disclosure_sha256: null,
       } } };
-      t.check("human sentence review linkage is rederived from the canonical source and disclosure",
-        claimsAuditFailures(audit, auditCases, artifacts, auditRoot).length === 0
-          && claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+      t.check("independent sentence decisions are rederived from canonical source, audit, and disclosure",
+        claimsAuditFailures(checkpoint, auditCases, artifacts, auditRoot).length === 0
+          && claimsAuditFailures({ ...checkpoint, drafts: { x: { ...checkpoint.drafts.x,
             draft_sha256: "0".repeat(64),
           } } }, auditCases, artifacts, auditRoot).some((error) => /audited draft hash drifted/.test(error))
           && /claimsAuditFailures\(json\(p\.audit\), cases, artifacts, runDir\)/.test(source));
+      t.check("the checkpoint binds each independent audit prompt, raw response, and canonical output",
+        claimsAuditFailures({ ...checkpoint, drafts: { x: { ...checkpoint.drafts.x,
+          audit_prompt_sha256: "e".repeat(64),
+        } } }, auditCases, artifacts, auditRoot)
+          .some((error) => /independent audit prompt hash drifted/.test(error))
+        && claimsAuditFailures({ ...checkpoint, drafts: { x: { ...checkpoint.drafts.x,
+          audit_raw_sha256: "f".repeat(64),
+        } } }, auditCases, artifacts, auditRoot)
+          .some((error) => /independent audit raw hash drifted/.test(error))
+        && /audit_prompt_sha256: artifacts\.drafts\[c\.id\]\.audit_prompt_sha256/.test(source)
+        && /audit_raw_sha256: artifacts\.drafts\[c\.id\]\.audit_raw_sha256/.test(source));
       t.check("a scalar completeness assertion cannot replace a sentence decision",
-        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+        claimsAuditFailures({ ...checkpoint, drafts: { x: { ...checkpoint.drafts.x,
           sentence_reviews: [{ ...review, decision: null }],
         } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /has no completed human decision/.test(error)));
-      t.check("omitting one sentence review cannot assert completeness by omission",
-        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+          .some((error) => /has no completed independent decision/.test(error)));
+      t.check("omitting one independent sentence review cannot assert completeness by omission",
+        claimsAuditFailures({ ...checkpoint, drafts: { x: { ...checkpoint.drafts.x,
           sentence_reviews: [],
         } } }, auditCases, artifacts, auditRoot)
           .some((error) => /sentence review covers 0 of 1 sentence units/.test(error)));
-      t.check("candidate reasons and sentence hashes are immutable source-derived evidence",
-        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
+      t.check("candidate reasons and sentence hashes remain immutable source-derived evidence",
+        claimsAuditFailures({ ...checkpoint, drafts: { x: { ...checkpoint.drafts.x,
           sentence_reviews: [{ ...review, candidate_reasons: ["frequency-or-quantity"] }],
         } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /does not reproduce from the immutable source sentence/.test(error)));
-      t.check("request-supported review is checked independently of the model-authored request ledger",
-        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
-          sentence_reviews: [{ ...review, request_evidence: ["ownership choices"] }],
+          .some((error) => /does not reproduce from the immutable independent audit/.test(error)));
+      t.check("independent clearance rationale is exact and substantive",
+        claimsAuditFailures({ ...checkpoint, drafts: { x: { ...checkpoint.drafts.x,
+          sentence_reviews: [{ ...review, note: "too short" }],
         } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /no substantive lexical support for the sentence/.test(error)));
-      t.check("request-supported human clearance needs an independent rationale",
-        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
-          sentence_reviews: [{ ...review, note: "" }],
-        } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /needs a substantive independent rationale/.test(error)));
-      t.check("request-supported rationale cannot delegate judgment to model authority",
-        claimsAuditFailures({ ...audit, drafts: { x: { ...audit.drafts.x,
-          sentence_reviews: [{ ...review,
-            note: "The automated reviewer classified this as supplied, so no independent check is needed.",
-          }],
-        } } }, auditCases, artifacts, auditRoot)
-          .some((error) => /delegates semantic judgment to pipeline authority/.test(error)));
-      t.check("critic-unlocking review requires an explicit human attestation",
-        claimsAuditFailures({ ...audit, attestation: {
-          ...humanAttestation(), reviewer: "",
+          .some((error) => /substantive independent-auditor rationale/.test(error)));
+      t.check("critic-unlocking review requires exact independent-auditor provenance",
+        claimsAuditFailures({ ...checkpoint, provenance: {
+          ...provenance, audit_agent_sha256: draftAgentHash,
         } }, auditCases, artifacts, auditRoot)
-          .some((error) => /reviewer identity is incomplete/.test(error)));
+          .some((error) => /does not separate drafting from claim auditing/.test(error))
+        && claimsAuditFailures({ ...checkpoint, provenance: {
+          ...provenance, model: "mutable-alternate",
+        } }, auditCases, artifacts, auditRoot)
+          .some((error) => /does not reproduce from the locked manifest/.test(error)));
       const alternateSourcePath = join(auditRoot, "alternate", "x.json");
       mkdirSync(dirname(alternateSourcePath), { recursive: true });
       writeFileSync(alternateSourcePath, `${JSON.stringify({
-        ...sourceRecord,
-        paragraphs: [{ sentences: [{
-          text: "This should change.", basis: "reasoning", claim_ids: [],
-        }] }],
-        ledger: [],
+        ...sourceRecord, draft: "This should change.",
       }, null, 2)}\n`);
       t.check("final checking refuses an artifact pointer to an alternate valid-hash source",
-        claimsAuditFailures(audit, auditCases, { drafts: { x: {
+        claimsAuditFailures(checkpoint, auditCases, { drafts: { x: {
           ...artifacts.drafts.x,
-          source: relative(resolve(HERE, "../../.."), alternateSourcePath),
+          source: relative(repoRoot, alternateSourcePath),
           source_sha256: createHash("sha256").update(readFileSync(alternateSourcePath)).digest("hex"),
         } } }, auditRoot)
           .some((error) => /artifact source is not the canonical raw-derived source/.test(error)));
-      const riskySource = clone(sourceRecord);
-      riskySource.paragraphs[0].sentences[0].text = "Developers often feel this gap.";
-      const riskyReview = {
-        ...sentenceReviewTemplate(riskySource)[0], decision: "non-factual",
-        sentence_evidence: "Developers often feel this gap.", non_factual_basis: "normative",
-        note: "too short",
+      const alternateAuditPath = join(auditRoot, "alternate", "audit.json");
+      writeFileSync(alternateAuditPath, `${JSON.stringify(independentAudit, null, 2)}\n`);
+      t.check("final checking refuses an artifact pointer to an alternate claim audit",
+        claimsAuditFailures(checkpoint, auditCases, { drafts: { x: {
+          ...artifacts.drafts.x,
+          audit: relative(repoRoot, alternateAuditPath),
+          audit_sha256: createHash("sha256").update(readFileSync(alternateAuditPath)).digest("hex"),
+        } } }, auditRoot)
+          .some((error) => /artifact audit is not the canonical independent result/.test(error)));
+
+      const factualDraft = "Acme released version 2. Most users prefer it.\n";
+      const factualSource = {
+        schema: "voice-draft-source/4", kind: "draft", draft: factualDraft.trim(), omitted: [], refused: "",
       };
-      t.check("clearing a flagged sentence as non-factual requires a substantive human rationale",
-        claimsAuditFailures({
-          schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
-          ...audit.drafts.x, sentence_reviews: [riskyReview],
-        } },
-        }, auditCases).some((error) => /substantive human rationale/.test(error)));
-      t.check("a non-factual decision needs an explicit closed semantic basis",
-        claimsAuditFailures({
-          schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
-            ...audit.drafts.x,
-            sentence_reviews: [{ ...riskyReview,
-              non_factual_basis: null,
-              note: "The model audit says keep, so this sentence needs no independent semantic explanation.",
-            }],
-          } },
-        }, auditCases).some((error) => /needs one closed semantic basis/.test(error)));
-      t.check("a non-factual rationale cannot delegate judgment to model authority",
-        claimsAuditFailures({
-          schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
-            ...audit.drafts.x,
-            sentence_reviews: [{ ...riskyReview,
-              note: "The model audit says this is normative, so no independent factual review is required.",
-            }],
-          } },
-        }, auditCases).some((error) => /delegates semantic judgment to pipeline authority/.test(error)));
-      const sharedParagraphSource = {
-        schema: "voice-draft-source/3", kind: "draft",
-        ledger: [{
-          id: "c1", basis: "external-verification", claim: "Acme released version 2.", request_basis: "",
+      const factualAudit = {
+        schema: "voice-draft-claim-audit/4", sentences: [{
+          id: "p1s1", status: "disclose", reason: "Named release is an external fact.", claims: [{
+            claim: "Acme released version 2.", kind: "bounded-fact",
+            verification_question: "Did Acme release version 2?",
+          }],
+        }, {
+          id: "p1s2", status: "disclose", reason: "Population preference is external.", claims: [{
+            claim: "Most users prefer Acme version 2.", kind: "broad-generalization",
+            verification_question: "What population evidence establishes this preference?",
+          }],
         }],
-        paragraphs: [{ sentences: [
-          { text: "Acme released version 2.", basis: "external-verification", claim_ids: ["c1"] },
-          { text: "Most users prefer it.", basis: "reasoning", claim_ids: [] },
-        ] }],
-        omitted: [], refused: "",
       };
-      const sharedParagraphAudit = {
-        schema: "voice-draft-claim-audit/4", sentences: [
-          { id: "p1s1", status: "keep", reason: "Finite claim is in the ledger.", claims: [] },
-          { id: "p1s2", status: "keep", reason: "Auditor incorrectly calls this reasoning.", claims: [] },
-        ],
-      };
-      const sharedDraft = "Acme released version 2. Most users prefer it.\n";
-      const sharedDisclosure = {
-        schema: "voice-draft/1", claims: [{ claim: "Acme released version 2.", where: "paragraph 1" }],
-      };
-      writeFileSync(sourcePath, `${JSON.stringify(sharedParagraphSource, null, 2)}\n`);
-      writeFileSync(canonicalAuditPath, `${JSON.stringify(sharedParagraphAudit, null, 2)}\n`);
-      writeFileSync(draftPath, sharedDraft);
       const disclosurePath = join(auditRoot, "inputs", "records", "x.json");
       mkdirSync(dirname(disclosurePath), { recursive: true });
-      writeFileSync(disclosurePath, `${JSON.stringify(sharedDisclosure, null, 2)}\n`);
-      const templates = sentenceReviewTemplate(sharedParagraphSource);
-      const sharedHumanAudit = {
-        schema: "prose-author-claims-audit/5", attestation: humanAttestation(), instructions: [], drafts: { x: {
-        draft_sha256: createHash("sha256").update(sharedDraft).digest("hex"),
-        claims: sharedDisclosure.claims, quoted_spans: [],
-        sentence_reviews: [
-          { ...templates[0], decision: "listed-for-verification", claim_refs: ["Acme released version 2."] },
-          { ...templates[1], decision: "listed-for-verification", claim_refs: ["Acme released version 2."] },
-        ],
-        claims_verified: true, quotations_verified: true, note: "",
-      } },
+      const factualClaims = [
+        { claim: "Acme released version 2.", where: "paragraph 1" },
+        { claim: "Most users prefer Acme version 2.", where: "paragraph 1" },
+      ];
+      writeFileSync(draftPath, factualDraft);
+      writeFileSync(sourcePath, `${JSON.stringify(factualSource, null, 2)}\n`);
+      writeFileSync(canonicalAuditPath, `${JSON.stringify(factualAudit, null, 2)}\n`);
+      writeFileSync(disclosurePath, `${JSON.stringify({
+        schema: "voice-draft/1", claims: factualClaims,
+      }, null, 2)}\n`);
+      const factualAuditHash = createHash("sha256").update(readFileSync(canonicalAuditPath)).digest("hex");
+      const templates = sentenceReviewTemplate(factualSource);
+      const factualCheckpoint = {
+        schema: "prose-author-claims-audit/6", provenance, instructions: [], drafts: { x: {
+          draft_sha256: createHash("sha256").update(factualDraft).digest("hex"),
+          audit_prompt_sha256: auditPromptHash,
+          audit_raw_sha256: auditRawHash,
+          audit_sha256: factualAuditHash,
+          claims: factualClaims,
+          quoted_spans: [],
+          sentence_reviews: [
+            { ...templates[0], decision: "listed-for-verification", claim_refs: [factualClaims[0].claim], note: factualAudit.sentences[0].reason },
+            { ...templates[1], decision: "listed-for-verification", claim_refs: [factualClaims[1].claim], note: factualAudit.sentences[1].reason },
+          ],
+          note: "Deterministically assembled from the immutable independent claim-audit result.",
+        } },
       };
-      const sharedArtifacts = { drafts: { x: {
-        draft_sha256: sharedHumanAudit.drafts.x.draft_sha256,
-        source: relative(resolve(HERE, "../../.."), sourcePath),
+      const factualArtifacts = { drafts: { x: {
+        draft_sha256: factualCheckpoint.drafts.x.draft_sha256,
+        audit_prompt_sha256: auditPromptHash,
+        audit_raw_sha256: auditRawHash,
+        source: relative(repoRoot, sourcePath),
         source_sha256: createHash("sha256").update(readFileSync(sourcePath)).digest("hex"),
-        disclosure: relative(resolve(HERE, "../../.."), disclosurePath),
+        audit: relative(repoRoot, canonicalAuditPath),
+        audit_sha256: factualAuditHash,
+        disclosure: relative(repoRoot, disclosurePath),
         disclosure_sha256: createHash("sha256").update(readFileSync(disclosurePath)).digest("hex"),
       } } };
-      t.check("a public claim from the same paragraph cannot cover a different sentence",
-        claimsAuditFailures(sharedHumanAudit, auditCases, sharedArtifacts, auditRoot)
-          .some((error) => /claim refs do not match the exact canonical sentence inventory/.test(error)));
-      t.check("non-factual sentence evidence must be an exact span of that canonical sentence",
-        claimsAuditFailures({ ...sharedHumanAudit, drafts: { x: { ...sharedHumanAudit.drafts.x,
-          sentence_reviews: [sharedHumanAudit.drafts.x.sentence_reviews[0], {
-            ...templates[1], decision: "non-factual", sentence_evidence: "Most users",
-            non_factual_basis: "normative",
-            note: "This is presented as argumentative framing without any independently checkable premise.",
+      t.check("a same-paragraph claim cannot cover a different audited sentence",
+        claimsAuditFailures({ ...factualCheckpoint, drafts: { x: { ...factualCheckpoint.drafts.x,
+          sentence_reviews: [factualCheckpoint.drafts.x.sentence_reviews[0], {
+            ...factualCheckpoint.drafts.x.sentence_reviews[1], claim_refs: [factualClaims[0].claim],
           }],
-        } } }, auditCases, sharedArtifacts, auditRoot)
-          .some((error) => /must reproduce the complete canonical sentence/.test(error)));
+        } } }, auditCases, factualArtifacts, auditRoot)
+          .some((error) => /claim refs do not match the exact canonical sentence inventory/.test(error)));
       t.check("a canonical disclosure cannot be hidden behind a null artifact pointer",
-        claimsAuditFailures(sharedHumanAudit, auditCases, { drafts: { x: {
-          ...sharedArtifacts.drafts.x, disclosure: null, disclosure_sha256: null,
+        claimsAuditFailures(factualCheckpoint, auditCases, { drafts: { x: {
+          ...factualArtifacts.drafts.x, disclosure: null, disclosure_sha256: null,
         } } }, auditRoot)
           .some((error) => /artifact disclosure is not the canonical raw-derived record/.test(error)));
     } finally {

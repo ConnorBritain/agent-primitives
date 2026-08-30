@@ -588,7 +588,7 @@ export async function run(t, { HERE }) {
         && /Generic wording does not turn[\s\S]*into logic/.test(claimAuditInstructions));
     t.check("the independent auditor exposes unsupported propositions without laundering hard failures",
       /For every keep row[\s\S]*`reason`[\s\S]*every clause/.test(claimAuditInstructions)
-        && /status: "disclose"[\s\S]*mandatory human audit/.test(claimAuditInstructions)
+        && /status: "disclose"[\s\S]*public claim inventory/.test(claimAuditInstructions)
         && /status: "reject"[\s\S]*fabricated or placeholder citation[\s\S]*invented first-person author biography/.test(claimAuditInstructions));
     t.check("the independent auditor separates semantic judgment from mechanical evidence anchoring",
       /- a metaphor, analogy, tautology, or rhetorical label derived from the supplied premise/.test(claimAuditInstructions)

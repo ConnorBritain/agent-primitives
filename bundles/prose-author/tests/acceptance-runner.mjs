@@ -1423,7 +1423,7 @@ function claimAuditPrompt(c, source) {
     "exactly once and in order. Every row carries id, status, reason, and claims.",
     "Keep/reject rows carry claims: []; disclose rows extract every unsupported",
     "proposition. Do not copy evidence; deterministic assembly binds the complete",
-    "immutable sentence for the later mandatory verification audit.",
+    "immutable sentence into the provenance-locked acceptance checkpoint.",
   ].join("\n");
 }
 
@@ -1763,21 +1763,13 @@ function collectDrafts(runDir) {
   write(artifactsPath, artifacts);
   prepareClaimsAudit(runDir, cases, artifacts);
   process.stdout.write("\n  collected twenty drafts and two valid underdetermined refusals\n");
-  process.stdout.write("  complete and commit the human CLAIMS-AUDIT.json before dispatching critics\n\n");
+  process.stdout.write("  commit the deterministic independent CLAIMS-AUDIT.json checkpoint before dispatching critics\n\n");
 }
 
-const CLAIMS_AUDIT_SCHEMA = "prose-author-claims-audit/5";
-const CLAIMS_AUDIT_ATTESTATION = "I personally reviewed every immutable sentence and recorded every unsupported descriptive premise as requires-change or listed-for-verification before any critic call.";
+const CLAIMS_AUDIT_SCHEMA = "prose-author-claims-audit/6";
 const SENTENCE_REVIEW_DECISIONS = [
-  "request-supported", "listed-for-verification", "non-factual", "requires-change",
+  "cleared", "listed-for-verification", "requires-change",
 ];
-const NON_FACTUAL_BASES = ["normative", "hypothetical", "logical", "rhetorical", "procedural"];
-const SEMANTIC_AUTHORITY = String.raw`(?:model(?:-authored)?|audit(?:or)?|ledger|classifier|automated[ -]reviewer)`;
-const SEMANTIC_VERDICT = String.raw`(?:says?|said|marks?|marked|labels?|labelled|classifies?|classified|calls?|called|treats?|treated|decides?|decided|finds?|found)`;
-const SEMANTIC_DEFERENCE = new RegExp(
-  String.raw`(?:\b${SEMANTIC_AUTHORITY}\b.{0,48}\b${SEMANTIC_VERDICT}\b|\b(?:according to|because of|relying on)\b.{0,32}\b${SEMANTIC_AUTHORITY}\b)`,
-  "i",
-);
 const FACTUAL_CANDIDATE_RULES = [
   {
     id: "frequency-or-quantity",
@@ -1815,11 +1807,26 @@ function sentenceReviewTemplate(source) {
     candidate_reasons: factualCandidateReasons(ref.text),
     decision: null,
     claim_refs: [],
-    request_evidence: [],
-    sentence_evidence: "",
-    non_factual_basis: null,
     note: "",
   }));
+}
+
+function independentSentenceReview(source, audit, request) {
+  const template = sentenceReviewTemplate(source);
+  const claimsBySentence = sentenceClaimInventory(source, audit, request);
+  return template.map((review, index) => {
+    const decision = audit.sentences[index];
+    const mapped = decision?.status === "keep" ? "cleared"
+      : decision?.status === "disclose" ? "listed-for-verification"
+        : "requires-change";
+    return {
+      ...review,
+      decision: mapped,
+      claim_refs: mapped === "listed-for-verification"
+        ? (claimsBySentence[review.id] ?? []) : [],
+      note: String(decision?.reason ?? ""),
+    };
+  });
 }
 
 function sentenceClaimInventory(source, audit, request) {
@@ -1853,24 +1860,27 @@ function sentenceClaimInventory(source, audit, request) {
 
 function prepareClaimsAudit(runDir, cases, artifacts) {
   const auditPath = join(runDir, "CLAIMS-AUDIT.json");
-  const prior = existsSync(auditPath) ? json(auditPath) : null;
-  let preserveAttestation = prior?.schema === CLAIMS_AUDIT_SCHEMA;
+  const manifest = json(join(runDir, "MANIFEST.json"));
+  const auditDispatch = manifestDispatch(manifest, "claim_audit");
   const next = {
     schema: CLAIMS_AUDIT_SCHEMA,
-    attestation: preserveAttestation ? prior.attestation : {
-      reviewer: "",
-      completed_at: "",
-      statement: CLAIMS_AUDIT_ATTESTATION,
+    provenance: {
+      mode: "independent-model-audit",
+      claim_audit_schema: DRAFT_AUDIT_SCHEMA_ID,
+      audit_agent_sha256: manifest.agents.claim_audit.sha256,
+      draft_agent_sha256: manifest.agents.draft.sha256,
+      harness: auditDispatch.harness,
+      model: auditDispatch.model,
+      effort: auditDispatch.effort,
+      transport: auditDispatch.transport,
     },
     instructions: [
-      "claims_verified: verify every listed claim against an authoritative source; use true only when every item is verified",
-      "sentence_reviews: review every immutable sentence; the model audit and candidate reasons are aids, never completeness authority",
-      "request-supported: independently cite exact substantive request spans in request_evidence and explain how they support the complete sentence; do not delegate to a model label",
-      "listed-for-verification: put every public claim covering the sentence into claim_refs; each claim must be located in the same paragraph",
-      "non-factual: copy the complete sentence into sentence_evidence, select one closed non_factual_basis, and independently explain why the whole sentence has no external descriptive premise",
-      "requires-change: use when any premise is missing, overbroad, fabricated, or otherwise cannot pass; critics remain blocked",
-      "the profile is voice evidence, never a factual packet; model memory and generic plausibility are not supplied facts",
-      "quotations_verified: inspect every quoted span and use true only when every attributed quotation is verbatim in the request or independently verified; scare quotes may be marked reviewed",
+      "every immutable sentence decision is reproduced from the separately dispatched claim auditor",
+      "listed-for-verification binds the exact public claims emitted for that sentence",
+      "cleared means the independent auditor found no unsupported external descriptive premise",
+      "requires-change blocks critics for fabricated attribution, biography, leakage, or another hard factual failure",
+      "quotation spans are deterministic review candidates; attributed wording absent from the request is a hard auditor rejection",
+      "this voice acceptance checkpoint proves disclosure and provenance, not the truth of uncited prose",
     ],
     drafts: {},
   };
@@ -1881,30 +1891,16 @@ function prepareClaimsAudit(runDir, cases, artifacts) {
     const draft = text(join(runDir, "inputs", "drafts", `${c.id}.txt`));
     const quotedSpans = quotationAudit(draft, c.prompt);
     const source = json(join(runDir, "inputs", "sources", "drafts", `${c.id}.json`));
-    const reviewTemplate = sentenceReviewTemplate(source);
-    const previous = prior?.schema === CLAIMS_AUDIT_SCHEMA ? prior.drafts?.[c.id] : null;
-    const unchanged = previous?.draft_sha256 === artifacts.drafts[c.id].draft_sha256
-      && JSON.stringify(previous.claims) === JSON.stringify(claims)
-      && JSON.stringify(previous.quoted_spans) === JSON.stringify(quotedSpans)
-      && JSON.stringify((previous.sentence_reviews ?? []).map((review) => ({
-        id: review.id, text_sha256: review.text_sha256, candidate_reasons: review.candidate_reasons,
-      }))) === JSON.stringify(reviewTemplate.map((review) => ({
-        id: review.id, text_sha256: review.text_sha256, candidate_reasons: review.candidate_reasons,
-      })));
-    preserveAttestation &&= unchanged;
+    const independentAudit = json(join(runDir, "inputs", "audits", `${c.id}.json`));
     next.drafts[c.id] = {
       draft_sha256: artifacts.drafts[c.id].draft_sha256,
+      audit_prompt_sha256: artifacts.drafts[c.id].audit_prompt_sha256,
+      audit_raw_sha256: artifacts.drafts[c.id].audit_raw_sha256,
+      audit_sha256: artifacts.drafts[c.id].audit_sha256,
       claims,
       quoted_spans: quotedSpans,
-      sentence_reviews: unchanged ? previous.sentence_reviews : reviewTemplate,
-      claims_verified: unchanged ? previous.claims_verified : (claims.length === 0 ? true : null),
-      quotations_verified: unchanged ? previous.quotations_verified : (quotedSpans.length === 0 ? true : null),
-      note: unchanged ? (previous.note ?? "") : "",
-    };
-  }
-  if (!preserveAttestation) {
-    next.attestation = {
-      reviewer: "", completed_at: "", statement: CLAIMS_AUDIT_ATTESTATION,
+      sentence_reviews: independentSentenceReview(source, independentAudit, c.prompt),
+      note: "Deterministically assembled from the immutable independent claim-audit result.",
     };
   }
   write(auditPath, next);
@@ -1936,29 +1932,56 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
   const failures = [];
   if (audit?.schema !== CLAIMS_AUDIT_SCHEMA) return ["CLAIMS-AUDIT.json has the wrong schema"];
   if (JSON.stringify(Object.keys(audit).sort())
-    !== JSON.stringify(["attestation", "drafts", "instructions", "schema"].sort())) {
+    !== JSON.stringify(["drafts", "instructions", "provenance", "schema"].sort())) {
     failures.push("CLAIMS-AUDIT.json top-level fields drifted");
   }
-  const attestation = audit.attestation;
-  if (!attestation || typeof attestation !== "object" || Array.isArray(attestation)
-    || JSON.stringify(Object.keys(attestation).sort())
-      !== JSON.stringify(["completed_at", "reviewer", "statement"].sort())) {
-    failures.push("CLAIMS-AUDIT.json has no exact human attestation");
+  const provenanceFields = [
+    "mode", "claim_audit_schema", "audit_agent_sha256", "draft_agent_sha256",
+    "harness", "model", "effort", "transport",
+  ];
+  const provenance = audit.provenance;
+  if (!provenance || typeof provenance !== "object" || Array.isArray(provenance)
+    || JSON.stringify(Object.keys(provenance).sort()) !== JSON.stringify(provenanceFields.sort())) {
+    failures.push("CLAIMS-AUDIT.json has no exact independent-audit provenance");
   } else {
-    if (typeof attestation.reviewer !== "string"
-      || normalizeAuditText(attestation.reviewer).length < 2
-      || normalizeAuditText(attestation.reviewer).length > 120) {
-      failures.push("CLAIMS-AUDIT.json reviewer identity is incomplete");
+    if (provenance.mode !== "independent-model-audit") {
+      failures.push("CLAIMS-AUDIT.json audit mode drifted");
     }
-    if (typeof attestation.completed_at !== "string"
-      || !/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/.test(attestation.completed_at)
-      || Number.isNaN(Date.parse(attestation.completed_at))) {
-      failures.push("CLAIMS-AUDIT.json completion time is not an exact UTC timestamp");
+    if (provenance.claim_audit_schema !== DRAFT_AUDIT_SCHEMA_ID) {
+      failures.push("CLAIMS-AUDIT.json claim-audit schema drifted");
     }
-    if (attestation.statement !== CLAIMS_AUDIT_ATTESTATION) {
-      failures.push("CLAIMS-AUDIT.json human attestation statement drifted");
+    for (const field of ["audit_agent_sha256", "draft_agent_sha256"]) {
+      if (!/^[a-f0-9]{64}$/.test(provenance[field] ?? "")) {
+        failures.push(`CLAIMS-AUDIT.json ${field} is not a content hash`);
+      }
+    }
+    if (provenance.audit_agent_sha256 === provenance.draft_agent_sha256) {
+      failures.push("CLAIMS-AUDIT.json does not separate drafting from claim auditing");
+    }
+    for (const field of ["harness", "model", "effort", "transport"]) {
+      if (typeof provenance[field] !== "string" || !provenance[field].trim()) {
+        failures.push(`CLAIMS-AUDIT.json provenance ${field} is incomplete`);
+      }
+    }
+    if (runDir && existsSync(join(runDir, "MANIFEST.json"))) {
+      const manifest = json(join(runDir, "MANIFEST.json"));
+      const dispatch = manifestDispatch(manifest, "claim_audit");
+      const expected = {
+        mode: "independent-model-audit",
+        claim_audit_schema: DRAFT_AUDIT_SCHEMA_ID,
+        audit_agent_sha256: manifest.agents.claim_audit.sha256,
+        draft_agent_sha256: manifest.agents.draft.sha256,
+        harness: dispatch.harness,
+        model: dispatch.model,
+        effort: dispatch.effort,
+        transport: dispatch.transport,
+      };
+      if (JSON.stringify(provenance) !== JSON.stringify(expected)) {
+        failures.push("CLAIMS-AUDIT.json provenance does not reproduce from the locked manifest");
+      }
     }
   }
+  if (!Array.isArray(audit.instructions)) failures.push("CLAIMS-AUDIT.json instructions must be an array");
   const expectedIds = new Set(cases.cases.map((c) => c.id));
   for (const id of Object.keys(audit.drafts ?? {})) {
     if (!expectedIds.has(id)) failures.push(`${id}: unexpected audit row`);
@@ -1967,29 +1990,41 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
     const row = audit.drafts?.[c.id];
     if (!row) { failures.push(`${c.id}: missing audit row`); continue; }
     const rowFields = [
-      "draft_sha256", "claims", "quoted_spans", "sentence_reviews",
-      "claims_verified", "quotations_verified", "note",
+      "draft_sha256", "audit_prompt_sha256", "audit_raw_sha256", "audit_sha256",
+      "claims", "quoted_spans", "sentence_reviews", "note",
     ];
     if (JSON.stringify(Object.keys(row).sort()) !== JSON.stringify([...rowFields].sort())) {
       failures.push(`${c.id}: audit row fields drifted`);
     }
+    for (const field of ["audit_prompt_sha256", "audit_raw_sha256", "audit_sha256"]) {
+      if (!/^[a-f0-9]{64}$/.test(row[field] ?? "")) {
+        failures.push(`${c.id}: ${field} is invalid`);
+      }
+    }
     let expectedReviews = null;
     let expectedClaimsBySentence = null;
-    let sourceTextBySentence = null;
     if (artifacts && runDir) {
       const artifact = artifacts.drafts?.[c.id];
       if (!artifact) {
         failures.push(`${c.id}: missing draft artifact for audit`);
       } else {
         if (row.draft_sha256 !== artifact.draft_sha256) failures.push(`${c.id}: audited draft hash drifted`);
+        if (row.audit_prompt_sha256 !== artifact.audit_prompt_sha256) failures.push(`${c.id}: independent audit prompt hash drifted`);
+        if (row.audit_raw_sha256 !== artifact.audit_raw_sha256) failures.push(`${c.id}: independent audit raw hash drifted`);
+        if (row.audit_sha256 !== artifact.audit_sha256) failures.push(`${c.id}: independent audit hash drifted`);
         const canonicalSourcePath = join(runDir, "inputs", "sources", "drafts", `${c.id}.json`);
         const canonicalDisclosurePath = join(runDir, "inputs", "records", `${c.id}.json`);
         const canonicalAuditPath = join(runDir, "inputs", "audits", `${c.id}.json`);
         const expectedSourcePath = rel(canonicalSourcePath);
+        const expectedAuditPath = rel(canonicalAuditPath);
         const expectedDisclosurePath = existsSync(canonicalDisclosurePath) ? rel(canonicalDisclosurePath) : null;
         if (artifact.source !== expectedSourcePath
           || artifact.source_sha256 !== (existsSync(canonicalSourcePath) ? SHA(text(canonicalSourcePath)) : null)) {
           failures.push(`${c.id}: artifact source is not the canonical raw-derived source`);
+        }
+        if (artifact.audit !== expectedAuditPath
+          || artifact.audit_sha256 !== (existsSync(canonicalAuditPath) ? SHA(text(canonicalAuditPath)) : null)) {
+          failures.push(`${c.id}: artifact audit is not the canonical independent result`);
         }
         if (artifact.disclosure !== expectedDisclosurePath
           || artifact.disclosure_sha256 !== (expectedDisclosurePath ? SHA(text(canonicalDisclosurePath)) : null)) {
@@ -2005,15 +2040,11 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
         }
         try {
           const canonicalSource = json(canonicalSourcePath);
-          expectedReviews = sentenceReviewTemplate(canonicalSource);
-          sourceTextBySentence = Object.fromEntries(
-            sentenceRefs(canonicalSource).map((ref) => [ref.id, String(ref.text ?? "")]),
-          );
-          expectedClaimsBySentence = sentenceClaimInventory(
-            canonicalSource, json(canonicalAuditPath), c.prompt,
-          );
+          const canonicalAudit = json(canonicalAuditPath);
+          expectedReviews = independentSentenceReview(canonicalSource, canonicalAudit, c.prompt);
+          expectedClaimsBySentence = sentenceClaimInventory(canonicalSource, canonicalAudit, c.prompt);
         } catch (error) {
-          failures.push(`${c.id}: sentence review source cannot be reconstructed: ${error.message}`);
+          failures.push(`${c.id}: independent sentence audit cannot be reconstructed: ${error.message}`);
         }
       }
     }
@@ -2029,10 +2060,7 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
     for (let index = 0; index < reviews.length; index += 1) {
       const review = reviews[index];
       const at = `${c.id}: sentence_reviews[${index}]`;
-      const reviewFields = [
-        "id", "text_sha256", "candidate_reasons", "decision",
-        "claim_refs", "request_evidence", "sentence_evidence", "non_factual_basis", "note",
-      ];
+      const reviewFields = ["id", "text_sha256", "candidate_reasons", "decision", "claim_refs", "note"];
       if (!review || typeof review !== "object" || Array.isArray(review)
         || JSON.stringify(Object.keys(review).sort()) !== JSON.stringify([...reviewFields].sort())) {
         failures.push(`${at} fields drifted`);
@@ -2050,15 +2078,8 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
           !FACTUAL_CANDIDATE_RULES.some((rule) => rule.id === reason))) {
         failures.push(`${at} has invalid candidate reasons`);
       }
-      if (expectedReviews) {
-        const expected = expectedReviews[index];
-        if (review.id !== expected?.id || review.text_sha256 !== expected?.text_sha256
-          || JSON.stringify(review.candidate_reasons) !== JSON.stringify(expected?.candidate_reasons)) {
-          failures.push(`${at} does not reproduce from the immutable source sentence`);
-        }
-      }
       if (!SENTENCE_REVIEW_DECISIONS.includes(review.decision)) {
-        failures.push(`${at} has no completed human decision`);
+        failures.push(`${at} has no completed independent decision`);
         continue;
       }
       if (!Array.isArray(review.claim_refs)
@@ -2067,75 +2088,25 @@ function claimsAuditFailures(audit, cases, artifacts = null, runDir = null) {
         failures.push(`${at} claim_refs must be unique non-empty strings`);
       }
       const claimRefs = Array.isArray(review.claim_refs) ? review.claim_refs : [];
-      if (!Array.isArray(review.request_evidence)
-        || review.request_evidence.some((evidence) => typeof evidence !== "string" || !evidence.trim())
-        || new Set(review.request_evidence).size !== review.request_evidence.length
-        || typeof review.sentence_evidence !== "string" || typeof review.note !== "string") {
-        failures.push(`${at} evidence and note fields are invalid`);
-        continue;
+      if (typeof review.note !== "string" || normalizeAuditText(review.note).length < 32) {
+        failures.push(`${at} needs a substantive independent-auditor rationale`);
       }
-      const requestEvidence = review.request_evidence;
-      const sentenceEvidence = normalizeAuditText(review.sentence_evidence);
-      if (review.decision === "request-supported") {
-        if (claimRefs.length) failures.push(`${at} request-supported cannot cite public claims`);
-        if (sentenceEvidence) failures.push(`${at} request-supported cannot cite sentence evidence`);
-        if (review.non_factual_basis !== null) failures.push(`${at} request-supported cannot carry a non-factual basis`);
-        if (!requestEvidence.length || requestEvidence.some((evidence) =>
-          normalizeAuditText(evidence).length < 8
-            || !normalizeAuditText(c.prompt).includes(normalizeAuditText(evidence)))) {
-          failures.push(`${at} request evidence is not an exact supplied request span`);
-        }
-        const canonicalSentence = sourceTextBySentence?.[review.id] ?? "";
-        if (canonicalSentence
-          && sharedRequestSupportTerms(canonicalSentence, requestEvidence.join(" ")).length === 0) {
-          failures.push(`${at} request evidence has no substantive lexical support for the sentence`);
-        }
-        if (normalizeAuditText(review.note).length < 32) {
-          failures.push(`${at} request-supported needs a substantive independent rationale`);
-        } else if (SEMANTIC_DEFERENCE.test(review.note)) {
-          failures.push(`${at} request-supported rationale delegates semantic judgment to pipeline authority`);
-        }
+      if (review.decision === "cleared" && claimRefs.length) {
+        failures.push(`${at} cleared cannot cite public claims`);
       } else if (review.decision === "listed-for-verification") {
-        if (requestEvidence.length) failures.push(`${at} listed-for-verification cannot cite request evidence`);
-        if (sentenceEvidence) failures.push(`${at} listed-for-verification cannot cite sentence evidence`);
-        if (review.non_factual_basis !== null) failures.push(`${at} listed-for-verification cannot carry a non-factual basis`);
         if (!claimRefs.length) failures.push(`${at} listed-for-verification needs at least one claim ref`);
         if (expectedClaimsBySentence) {
           const expectedClaimRefs = expectedClaimsBySentence[review.id] ?? [];
           if (JSON.stringify([...claimRefs].sort()) !== JSON.stringify([...expectedClaimRefs].sort())) {
             failures.push(`${at} claim refs do not match the exact canonical sentence inventory`);
           }
-        } else {
-          const paragraph = /^p([1-9][0-9]*)s/.exec(review.id)?.[1];
-          for (const claimRef of claimRefs) {
-            if (!(row.claims ?? []).some((claim) =>
-              claim?.claim === claimRef && claim?.where === `paragraph ${paragraph}`)) {
-              failures.push(`${at} claim ref is not public and located in the same paragraph: ${claimRef}`);
-            }
-          }
-        }
-      } else if (review.decision === "non-factual") {
-        if (claimRefs.length || requestEvidence.length) {
-          failures.push(`${at} non-factual cannot cite request evidence or public claims`);
-        }
-        const canonicalSentence = normalizeAuditText(sourceTextBySentence?.[review.id] ?? "");
-        if (!canonicalSentence || sentenceEvidence !== canonicalSentence) {
-          failures.push(`${at} non-factual evidence must reproduce the complete canonical sentence`);
-        }
-        if (!NON_FACTUAL_BASES.includes(review.non_factual_basis)) {
-          failures.push(`${at} non-factual decision needs one closed semantic basis`);
-        }
-        if (normalizeAuditText(review.note).length < 32) {
-          failures.push(`${at} non-factual needs a substantive human rationale`);
-        } else if (SEMANTIC_DEFERENCE.test(review.note)) {
-          failures.push(`${at} non-factual rationale delegates semantic judgment to pipeline authority`);
         }
       } else if (review.decision === "requires-change") {
         failures.push(`${at} requires a draft or disclosure change`);
       }
-    }
-    for (const field of ["claims_verified", "quotations_verified"]) {
-      if (row[field] !== true) failures.push(`${c.id}: ${field}`);
+      if (expectedReviews && JSON.stringify(review) !== JSON.stringify(expectedReviews[index])) {
+        failures.push(`${at} does not reproduce from the immutable independent audit`);
+      }
     }
   }
   return failures;
@@ -2782,7 +2753,7 @@ async function dispatchCritics(runDir) {
     }
   }
   await pool("critic", jobs, manifest.concurrency);
-  process.stdout.write("\n  dispatched sixty fresh critic draws bound to the committed human audit; run collect\n\n");
+  process.stdout.write("\n  dispatched sixty fresh critic draws bound to the committed independent audit checkpoint; run collect\n\n");
 }
 
 function deriveCritic(body) {

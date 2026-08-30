@@ -52,7 +52,8 @@ Every disclosed claim carries:
 - `claim`: a complete proposition whose verification would account for the clause;
 - `kind`: `bounded-fact` for a finite actor, event, law, case, date, or figure, otherwise
   `broad-generalization` for an industry, population, causal, or scope-dependent assertion;
-- `verification_question`: a concrete question for the later human source audit.
+- `verification_question`: a concrete question that makes the publication risk explicit to
+  a downstream reviewer or application.
 
 Do not copy an evidence span. The sentence ID already identifies immutable source text;
 deterministic assembly binds each disclosure to that complete sentence as exact evidence.
@@ -65,8 +66,10 @@ human to verify, scope, or remove. Those failures stop assembly. A reject carrie
 
 A keep or reject row carries `claims: []`; a disclose row carries one or more claims and a
 rationale explaining which unsupported clauses they expose. Disclosure does not verify a
-claim or make it publishable. It makes the risk visible to the mandatory human audit that
-must finish before any voice critic runs.
+claim or make it publishable. It makes the risk visible in the draft's public claim inventory.
+The voice acceptance gate checks disclosure completeness and provenance; it does not pretend
+to establish the truth of uncited prose or require a universal human fact-check before voice
+criticism.
 
 Return `voice-draft-claim-audit/4` as the supplied strict structured object and nothing
 else. Each row carries exactly `id`, `status`, `reason`, and `claims`. Preserve sentence IDs

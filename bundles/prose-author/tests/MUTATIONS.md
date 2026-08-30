@@ -88,7 +88,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let more than two rejected units enter claim repair | 1 | a low percentage cannot conceal more than two rewritten sentence units |
 | let claim repair alter bytes under its hypothetical wrapper | 5 | the only prose edit is one fixed prefix before otherwise byte-identical rejected text |
 | let a hypothetical wrapper keep a nonhypothetical basis | 1 | the fixed wrapper changes epistemic status rather than laundering factual prose |
-| resume a prepared run under the current environment model | 1 | a prepared run uses only the model recorded before its first dispatch |
+| resume a prepared run under the current environment model | 2 | a prepared run uses only the model recorded before its first dispatch |
 | route Codex only for drafts instead of every locked stage | 1 | profile, audit, and critic stages use the same manifest-selected adapter contract as drafts |
 | hash committed schemas only for Codex drafts | 1 | profile, audit, and critic provenance hashes the exact schema file Codex received |
 | accept an adapter that cannot enforce the gated runtime boundary | 1 | a new harness cannot claim gated acceptance without clean context, no-tools, and immutable failures |
@@ -97,7 +97,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let an early Claude exit raise an unhandled stdin EPIPE | 1 | an early Claude CLI exit is persisted as one immutable failed cell before retry is possible |
 | omit Codex companions from profile artifact hashes | 1 | profile evidence binds the primary Codex event stream and final structured output |
 | omit Codex companions from claim-audit artifact hashes | 1 | independent claim audits bind their primary Codex evidence rather than only a mutable wrapper |
-| order only the critic wrapper after the human audit | 1 | a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper |
+| order only the critic wrapper after the independent audit checkpoint | 1 | a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper |
 | skip the exact raw-result namespace inventory | 1 | an orphan failed call, redraw, or extra critic draw cannot survive outside the artifact index |
 | allow undeclared files during acceptance dispatch preflight | 2 | an archived failed cell cannot be moved elsewhere in the run before a canonical redraw |
 | allow profile-derived files before profile collection | 1 | a profile failure cannot be laundered into an assembled profile path before rendering resumes |
@@ -128,7 +128,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | skip prompt reconstruction during final check | 1 | final acceptance rederives every model prompt from locked inputs and raw predecessors |
 | skip raw profile reconstruction during final check | 1 | canonical profile files and stability reproduce from raw profile responses |
 | score canonical drafts without reconstructing raw draft evidence | 1 | structural gates score drafts reconstructed from raw draft and audit responses |
-| skip claims audit linkage during final check | 1 | manual claims decisions stay linked to the exact draft, disclosure, and quotations |
+| skip claims audit linkage during final check | 1 | independent claims decisions stay linked to the exact draft, disclosure, and quotation candidates |
 | trust canonical critic sources instead of comparing them to raw | 1 | critic canonical sources reproduce byte-for-byte from raw model results |
 | trust a Codex wrapper that diverges from its primary event stream | 1 | final verification reconstructs Codex structured output from immutable JSONL events |
 | select Codex reconstruction from the mutable wrapper label | 1 | a Codex wrapper cannot skip primary-event reconstruction by relabelling itself |
@@ -143,27 +143,25 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let a listed claim license an invented attributed quotation | 2 | an invented quotation cannot be laundered through the verification list |
 | collapse multiple named-actor assertions into one topic claim | 1 | each checkable action and consequence remains independently auditable |
 | dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
-| let the human factual audit treat the profile as a fact packet | 1 | profile examples, biography, and source facts cannot bypass the public verification queue |
-| stop requiring a sentence-by-sentence human decision | 1 | a scalar or model-authored claim list cannot substitute for human review of every sentence |
-| erase deterministic factual candidates from the human review ledger | 1 | the known conditional and rhetorical misses are surfaced without relying on the model auditor |
-| trust handwritten candidate reasons instead of rederiving them | 1 | candidate flags and sentence hashes reproduce from the immutable semantic source |
-| let an unrelated same-paragraph claim cover a reviewed sentence | 1 | a public verification claim must belong to the exact sentence under human review |
-| accept a token rationale for clearing a flagged non-factual sentence | 1 | a human clearing a possible factual premise records an inspectable rationale |
+| let the independent factual audit treat the profile as a fact packet | 1 | profile examples, biography, and source facts cannot bypass the public verification queue |
+| stop requiring a sentence-by-sentence independent decision | 1 | a scalar completeness assertion cannot substitute for an independent decision on every sentence |
+| erase deterministic factual candidates from the independent audit checkpoint | 1 | known conditional and rhetorical risks remain source-derived review candidates |
+| trust a handwritten checkpoint instead of the immutable independent audit | 1 | every decision, rationale, candidate flag, and claim reference reproduces from independent evidence |
+| let an unrelated same-paragraph claim cover an audited sentence | 1 | a public verification claim belongs to the exact independently audited sentence |
+| accept a token independent-auditor rationale | 1 | a cleared sentence retains the auditor's inspectable clause-level rationale |
 | accept a request ledger claim only topically related to its supplied basis | 2 | a shared topic cannot become model-authored support for an appended predicate |
 | let a request-backed claim license unrelated prose | 1 | request support remains linked from supplied basis through claim to exact sentence |
-| accept human request evidence unrelated to the reviewed sentence | 1 | human request evidence is independently checked instead of trusting the model-authored ledger |
-| accept request-supported human clearance without a rationale | 1 | a human explains how exact request evidence supports the complete sentence |
-| let request-supported clearance defer to pipeline authority | 1 | human request support is an independent semantic judgment rather than a model label |
-| let non-factual clearance defer to pipeline authority | 1 | human non-factual classification cannot cite the model or audit as its authority |
-| accept a fragment as evidence that a whole sentence is non-factual | 1 | a non-factual decision accounts for the complete sentence rather than one convenient clause |
-| let free-form prose replace a closed non-factual classification | 1 | the human completeness boundary records an explicit normative, hypothetical, logical, rhetorical, or procedural basis |
-| accept an empty human reviewer identity | 1 | critic-unlocking sentence review carries an explicit human attestation |
-| follow a mutable alternate draft source pointer during human audit checking | 1 | human decisions remain bound to the canonical source derived from raw model evidence |
-| hide a canonical disclosure behind a mutable artifact pointer | 1 | human review cannot suppress or substitute the canonical public disclosure |
-| let the completed human audit change after its first commit | 1 | the exact human audit and critic raw evidence stay immutable after first commit |
-| dispatch critics before committing the completed human audit | 1 | critic calls cannot precede the immutable human-audit anchor |
-| omit the human audit anchor from critic invocation provenance | 1 | every critic raw record names the exact audit hash and pre-critic commit |
-| stop checking that critic evidence was committed after the human audit | 2 | repository history proves the reviewed audit predates every critic result |
+| let the drafting agent serve as its own independent auditor | 1 | drafting and factual clearance remain separate prompt authorities and invocations |
+| accept audit provenance that drifts from the locked manifest | 1 | the checkpoint names the exact locked auditor harness, model, prompt body, and transport |
+| stop binding the independent audit prompt hash into the checkpoint | 1 | critic-unlocking decisions remain tied to the exact per-draft auditor prompt |
+| stop binding the independent audit raw response into the checkpoint | 1 | critic-unlocking decisions remain tied to the immutable raw auditor response |
+| follow a mutable alternate draft source pointer during independent audit checking | 1 | independent decisions remain bound to the canonical source derived from raw model evidence |
+| follow a mutable alternate independent-audit pointer | 1 | the checkpoint remains bound to the canonical independent result derived from raw model evidence |
+| hide a canonical disclosure behind a mutable artifact pointer | 1 | the independent checkpoint cannot suppress or substitute the canonical public disclosure |
+| let the completed independent audit checkpoint change after its first commit | 1 | the exact independent checkpoint and critic raw evidence stay immutable after first commit |
+| dispatch critics before committing the independent audit checkpoint | 1 | critic calls cannot precede the immutable independent-audit anchor |
+| omit the independent audit anchor from critic invocation provenance | 1 | every critic raw record names the exact audit hash and pre-critic commit |
+| stop checking that critic evidence was committed after the independent audit checkpoint | 2 | repository history proves the independent checkpoint predates every critic result |
 | let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
 | let the requested container override the profile's register | 2 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
 | block degradation on any mean rise | 3 | a k=3 noise tick-up does not refuse a good revision |
