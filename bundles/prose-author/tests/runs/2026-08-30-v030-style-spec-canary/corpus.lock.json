@@ -1,0 +1,80 @@
+{
+  "eff-mullin-style-spec": {
+    "schema": "voice-profile-lock/1",
+    "files": [
+      {
+        "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "group": null,
+        "words": 378,
+        "sha256": "aa696f2a0fb1fd3fa2b7104bd68d1df51c65a47bbab11897ed89731675adfae0"
+      },
+      {
+        "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+        "group": null,
+        "words": 714,
+        "sha256": "8fce832accc11aca75a5021f8164d0e4d3a022fa1673a32c33b259f4ee7b991f"
+      },
+      {
+        "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+        "group": null,
+        "words": 671,
+        "sha256": "a4e349eeb1feeaea7846e57000e7bd2ac9a6030832b2313e43c24686f29c090d"
+      },
+      {
+        "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+        "group": null,
+        "words": 1398,
+        "sha256": "4cc9698bc6d486f51e10b9724ffd0ede90672c40fd1b8291d2a4bba5985ac3c5"
+      },
+      {
+        "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+        "group": null,
+        "words": 750,
+        "sha256": "a888f3fd0869cb9c9a8cf325cb612204b7522ff4d8d501f8fb3be4f12bb53c82"
+      },
+      {
+        "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+        "group": null,
+        "words": 686,
+        "sha256": "54321c7c3c30267601ba5c693997f6dd6ff4d318a5aefd7d51927715b4926c7d"
+      },
+      {
+        "file": "court-records-should-be-free.txt",
+        "group": null,
+        "words": 360,
+        "sha256": "40a58864bc4e143f185882102b84df382247061c49f492c347016b3e9bd75188"
+      },
+      {
+        "file": "kids-act-would-require-age-checks-get-online.txt",
+        "group": null,
+        "words": 1117,
+        "sha256": "c3280d88e979abf16567593368b47f2ad02a67708db7ff8f7ae359230e81197a"
+      },
+      {
+        "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+        "group": null,
+        "words": 648,
+        "sha256": "ded228c99b2238a11b58fe13f6c1099fd63823dc762c5cf2f4cb8ceee33e36d8"
+      },
+      {
+        "file": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "group": null,
+        "words": 345,
+        "sha256": "dab051da9d7253cdf5e6da9a406abc6b8746227a7d8a596999978118624544fd"
+      },
+      {
+        "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+        "group": null,
+        "words": 999,
+        "sha256": "4305035ad15289015a47f58bb2853cc7f7d15a67a56ea403685759ed495e36d0"
+      }
+    ],
+    "excluded": [],
+    "voice_card_sha256": "8fc6da4335de6b74d59f4cb68342e0cb28aacc43c523006985db99ed65a52f13",
+    "profile_json_sha256": "9d5a996583a160ed98c4cb12bf3f9e3e509b698fb6f783166fafee39d271bf2b",
+    "agent": "voice-draft",
+    "agent_sha256": "74168aeee2359297c554da77f17a065e4e725f783430b3e6534c229de4d6cfdb",
+    "sample_count": 11,
+    "aggregate_sha256": "aeb92360f1a0c663d96ae2f0416ef5bf34431f3bfcabbb6875c85be41d0fb270"
+  }
+}
