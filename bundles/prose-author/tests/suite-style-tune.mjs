@@ -122,14 +122,16 @@ export async function run(t, { HERE }) {
     directive: "State the central claim in the opening sentence.",
     statement: "Maybe try a more direct opening.", stance: "experimental",
   });
-  const v2 = applyProposal(profile, v1, proposal(v1, [
+  const selectedV2 = applyProposal(profile, v1, proposal(v1, [
     add("remove-questions", suppressQuestions), add("unselected-opening", unselected),
   ], {
     statement: "Never use rhetorical questions.",
   }), ["remove-questions"]);
   t.check("explicit acceptance creates one new immutable revision",
-    v2.revision === 2 && v2.parent_digest === digest(v1) && v1.decisions.length === 0
-      && v2.decisions[0].id === "p001");
+    selectedV2.revision === 2 && selectedV2.parent_digest === digest(v1) && v1.decisions.length === 0
+      && selectedV2.decisions.length === 1 && selectedV2.decisions[0].id === "p001");
+  const v2 = applyProposal(profile, v1,
+    proposal(v1, [add("remove-questions", suppressQuestions)]), ["remove-questions"]);
 
   let unresolvedRejected = false;
   try {
