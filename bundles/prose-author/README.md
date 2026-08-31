@@ -122,8 +122,27 @@ influence.
 
 ## Install
 
+Install `prose-author`, `prose-tell-scan`, and `prose-review` together for the intended
+draft → independent review → revise → deterministic scan workflow. Complete Codex and Claude
+Code instructions, verification commands, and update steps are in **[INSTALL.md](INSTALL.md)**.
+
+### Codex
+
+From the repository root:
+
 ```bash
+node install-prose-codex.mjs
+```
+
+Start a new session and invoke `$prose-draft`, `$prose-style-tune`, or `$tell-scan`.
+
+### Claude Code
+
+```text
+/plugin marketplace add ConnorBritain/agent-primitives
 /plugin install prose-author@agent-primitives
+/plugin install prose-tell-scan@agent-primitives
+/plugin install prose-review@agent-primitives
 ```
 
 Verification needs `prose-tell-scan` installed alongside. Without it,
@@ -137,7 +156,9 @@ but it must be labelled **UNGATED** and name the check that did not run.
 Loose-file installation is also supported:
 
 ```bash
-./install.sh voice-profile-render voice-draft voice-feedback-interpret prose-draft prose-style-tune
+./install.sh voice-profile-render voice-draft voice-feedback-interpret \
+  prose-draft prose-style-tune tell-scan \
+  prose-voice-critic prose-fidelity-critic prose-reviser
 ```
 
 ## Known limits

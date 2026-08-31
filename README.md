@@ -102,11 +102,28 @@ can't do its job; applying transformer rules to a reviewer produces a rubber sta
 
 ## Install
 
+For the complete prose drafting and style-tuning setup, use the
+**[prose toolchain install guide](bundles/prose-author/INSTALL.md)**. It covers Codex and
+Claude Code, verification, updates, and first use.
+
+### Codex — prose toolchain
+
+From a clone, one command installs the three prose plugins plus six read-only custom agents:
+
+```bash
+node install-prose-codex.mjs
+```
+
+Start a new Codex session, then invoke `$prose-draft`, `$prose-style-tune`, or `$tell-scan`.
+Run `node install-prose-codex.mjs --check` to verify the installation.
+
 ### Claude Code — plugin
 
-```
+```text
 /plugin marketplace add ConnorBritain/agent-primitives
-/plugin install verification-gate@agent-primitives
+/plugin install prose-author@agent-primitives
+/plugin install prose-tell-scan@agent-primitives
+/plugin install prose-review@agent-primitives
 ```
 
 ### Claude Code — loose files
@@ -126,7 +143,7 @@ can't do its job; applying transformer rules to a reviewer produces a rubber sta
 Agents land in `agents/`, skills as whole directories in `skills/`, commands in
 `commands/`.
 
-### Codex, Cursor, Copilot, Zed, or any AGENTS.md project
+### Cursor, Copilot, Zed, or any AGENTS.md project
 
 Each bundle ships a portable variant — see its `AGENTS.md` and `wiring/` directory.
 
