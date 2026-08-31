@@ -30,6 +30,12 @@ scope precedence, equal-specificity conflict refusal, numeric target overrides, 
 comparison assignment, and diffs. The full bundle gate and loose-file install are required
 before release.
 
+A locked, zero-redraw, one-call diagnostic against the final prompt produced a 308-word draft,
+honored a user override of zero question marks, and applied the selected experimental concrete
+opening. The raw call, compiled style, output, and deterministic recount are checked in under
+`tests/runs/2026-08-30-v030-style-spec-canary-2`. This is a narrow integration canary, not an
+acceptance study.
+
 This release does not claim literary quality, author resemblance, or detector performance.
 A/B draws remain stochastic outside the one deliberately changed style directive. The
 headless artifacts provide no accounts, database, visual editor, or persistent project
