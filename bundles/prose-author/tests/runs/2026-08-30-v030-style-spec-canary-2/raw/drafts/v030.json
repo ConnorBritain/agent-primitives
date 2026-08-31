@@ -1,0 +1,38 @@
+{
+  "type": "result",
+  "is_error": false,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "result": "{\"schema\":\"voice-draft-source/4\",\"kind\":\"draft\",\"draft\":\"When an update moves a privacy setting, the change can feel larger than a rearranged screen. A familiar control has a new address, and its label may change (even when the underlying choice remains available). That moment reveals why settings should remain legible after updates.\\n\\nLegibility means that a person can recognize what a setting governs, locate it, and understand the consequence of changing it. The standard does not require an interface to stay frozen. Software can gain features or revise its design. But those changes should preserve a clear path from a person’s intention to the control that carries it.\\n\\nA moved setting creates a problem: memory becomes unreliable. Someone who once found a control must search again, while a renamed control adds uncertainty (the old term fails to point cleanly to the new one). Repeated updates can turn ordinary maintenance into a maze.\\n\\nClear labels and stable explanations reduce that burden. If a setting changes location, its description can identify the function and indicate the new place (for example, beneath a different heading). If its name changes, the interface can preserve familiar language alongside the new term (at least during the transition).\\n\\nThis matters because settings are part of the user’s control over software. An update may improve the product, but remains a failure of communication when a choice becomes hard to recognize. The setting doesn’t need to look identical forever; it needs to remain findable and intelligible. A system can change its surface—it can’t hide its workings.\\n\\nWe should expect updates to explain their changes in the same clear language the settings use. A short notice or visible path to the revised control can keep a rearrangement from becoming confusion. Software should evolve—but it can’t make control depend on memory of an older interface. Keep the settings legible, and keep the person’s choice within reach.\",\"omitted\":[{\"habit\":\"opponents-allies-sources / o11: attributed opposing positions tested against sources\",\"why\":\"The request supplies no real opposing position or source material, and inventing either would violate the factual constraint.\"}],\"refused\":\"\"}",
+  "structured_output": {
+    "schema": "voice-draft-source/4",
+    "kind": "draft",
+    "draft": "When an update moves a privacy setting, the change can feel larger than a rearranged screen. A familiar control has a new address, and its label may change (even when the underlying choice remains available). That moment reveals why settings should remain legible after updates.\n\nLegibility means that a person can recognize what a setting governs, locate it, and understand the consequence of changing it. The standard does not require an interface to stay frozen. Software can gain features or revise its design. But those changes should preserve a clear path from a person’s intention to the control that carries it.\n\nA moved setting creates a problem: memory becomes unreliable. Someone who once found a control must search again, while a renamed control adds uncertainty (the old term fails to point cleanly to the new one). Repeated updates can turn ordinary maintenance into a maze.\n\nClear labels and stable explanations reduce that burden. If a setting changes location, its description can identify the function and indicate the new place (for example, beneath a different heading). If its name changes, the interface can preserve familiar language alongside the new term (at least during the transition).\n\nThis matters because settings are part of the user’s control over software. An update may improve the product, but remains a failure of communication when a choice becomes hard to recognize. The setting doesn’t need to look identical forever; it needs to remain findable and intelligible. A system can change its surface—it can’t hide its workings.\n\nWe should expect updates to explain their changes in the same clear language the settings use. A short notice or visible path to the revised control can keep a rearrangement from becoming confusion. Software should evolve—but it can’t make control depend on memory of an older interface. Keep the settings legible, and keep the person’s choice within reach.",
+    "omitted": [
+      {
+        "habit": "opponents-allies-sources / o11: attributed opposing positions tested against sources",
+        "why": "The request supplies no real opposing position or source material, and inventing either would violate the factual constraint."
+      }
+    ],
+    "refused": ""
+  },
+  "raw_events": "bundles/prose-author/tests/runs/2026-08-30-v030-style-spec-canary-2/raw/drafts/v030.codex-events.jsonl",
+  "raw_output": "bundles/prose-author/tests/runs/2026-08-30-v030-style-spec-canary-2/raw/drafts/v030.codex-output.json",
+  "recovered_from": null,
+  "acceptance_dispatch": {
+    "stage": "draft",
+    "harness": "codex",
+    "model": "gpt-5.6-luna",
+    "effort": "medium",
+    "transport": "native-structured",
+    "timeout_ms": 720000,
+    "concurrency": 1,
+    "manifest_sha256": "62acc06ecb27bd8d8e37026e6168013ef91694d733d9a1801b01a21fe1d7cda5"
+  },
+  "acceptance_input": {
+    "system_sha256": "55048dbceaf9189c60c263aa8de2b2e38405f75757b6065897020d6b0e459fe0",
+    "prompt_sha256": "b1bdf2233d6ed2a4fe3eba30b44a2cbc4df45e0b9b5778e4f436675310eebfb3",
+    "schema_sha256": "e5a9127366770487bd15126a9bd8e6b4394ec685f5d4da0229010594e80b9863"
+  }
+}

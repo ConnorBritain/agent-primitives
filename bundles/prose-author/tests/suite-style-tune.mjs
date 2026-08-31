@@ -228,7 +228,7 @@ export async function run(t, { HERE }) {
   catch (error) { conflictRejected = /active preference conflicts[\s\S]*p002, p004/.test(error.message); }
   t.check("equally specific active decisions refuse instead of silently choosing a winner", conflictRejected);
 
-  const canary = resolve(HERE, "runs", "2026-08-30-v030-style-spec-canary", "run.mjs");
+  const canary = resolve(HERE, "runs", "2026-08-30-v030-style-spec-canary-2", "run.mjs");
   let canaryCheck = "";
   try { canaryCheck = execFileSync(process.execPath, [canary, "check"], { encoding: "utf8" }); }
   catch (error) { canaryCheck = `${error.stdout ?? ""}${error.stderr ?? ""}`; }
