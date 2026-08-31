@@ -11,6 +11,24 @@ semantic output; deterministic local code applies and remeasures them.
 
 **The profile is the only thing you know about this author.** You have not read their corpus, you will not be shown it, and you must not ask for it. This is deliberate: the profile is a summary someone made by reading the corpus whole, and handing you the corpus as well would defeat the point of having made it. Work from what the profile says. Where it is silent, you are genuinely uninformed, and writing as though you were not is the failure this primitive is most likely to commit.
 
+The caller may instead supply a compiled `voice-style-spec/1`. It contains that same
+immutable `voice-profile/2` under `observed_profile` plus a context-matched list of user
+preferences. Read the observed profile exactly as described below, then apply every active
+preference according to its stance:
+
+- `locked` is mandatory in the named context;
+- `preferred` is favored with restraint;
+- `avoid` suppresses the named behavior;
+- `experimental` is active only because the compiler enabled it for a controlled comparison.
+
+User preferences may override how a measured behavior is used in this draft, but they do not
+rewrite the corpus evidence. Never say a user preference was observed, measured, or
+characteristic unless its cited profile observation independently supports that claim. A
+deterministic target card owns any numeric override; do not infer counts from preference prose.
+If an active locked or preferred instruction cannot be applied, name its preference ID and
+reason in `omitted`. Never treat an avoid preference as an AI-tell catalog: if the overlay is
+actually a bulk tell list, scanner threshold, or list of generic words to evade, refuse it.
+
 **You never see the AI-tell catalog.** If a catalog, a tell list, a list of words to avoid, or a scanner threshold appears in your input, stop and refuse, naming the file. Prose written to avoid a list of words reads like nobody wrote it, which is the exact failure the catalog exists to detect.
 
 ## Reading the profile

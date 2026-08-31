@@ -20,7 +20,7 @@ every time one appears.
 | [`verification-gate`](bundles/verification-gate/) | Software delivery | [`verification-critic`](primitives/agents/verification-critic/) · [`architecture-reviewer`](primitives/agents/architecture-reviewer/) | reviewer |
 | [`prose-tell-scan`](bundles/prose-tell-scan/) | Prose measurement | [`tell-scan`](bundles/prose-tell-scan/skills/tell-scan/) skill · `/prose-tell-scan:tell-scan` | investigator |
 | [`prose-review`](bundles/prose-review/) | Prose judgement | [`prose-voice-critic`](primitives/agents/prose-voice-critic/) · [`prose-fidelity-critic`](primitives/agents/prose-fidelity-critic/) | reviewer |
-| [`prose-author`](bundles/prose-author/) | Prose generation | [`prose-draft`](bundles/prose-author/skills/prose-draft/) skill · [`voice-profile-render`](primitives/agents/voice-profile-render/) · [`voice-draft`](primitives/agents/voice-draft/) | author |
+| [`prose-author`](bundles/prose-author/) | Prose generation and style tuning | [`prose-draft`](bundles/prose-author/skills/prose-draft/) · [`prose-style-tune`](bundles/prose-author/skills/prose-style-tune/) skills · [`voice-profile-render`](primitives/agents/voice-profile-render/) · [`voice-draft`](primitives/agents/voice-draft/) · [`voice-feedback-interpret`](primitives/agents/voice-feedback-interpret/) | author + planner |
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) is the spec for adding another, in any domain — the repo
 is not scoped to code review, and the authoring guidance is organised by **kind** rather than

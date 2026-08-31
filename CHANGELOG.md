@@ -64,6 +64,24 @@ No unreleased prose-author changes.
 
 ## prose-author
 
+### [0.3.0]
+
+- **Added** `prose-style-tune`, a headless discovery, feedback, versioning, scoping,
+  diff, compilation, and controlled-comparison workflow over immutable `voice-profile/2`
+  evidence.
+- **Added** `voice-feedback-interpret`, a read-only planner that translates one direct,
+  discovery, or pairwise feedback event into a reviewable proposal. It cannot edit the
+  profile or apply its own operations.
+- **Added** deterministic `voice-preferences/1`, `voice-preference-proposal/1`, and
+  `voice-style-spec/1` contracts with canonical digests, parent ancestry, explicit operation
+  acceptance, stale-profile refusal, five-axis scopes, conflict refusal, and context-specific
+  compilation.
+- **Changed** `voice-draft` and its deterministic control/target cards to accept a compiled
+  style specification while preserving the profile-only path. Recountable user-supplied
+  controls can override named measured targets without rewriting the observed profile.
+- **Documented** the repository split boundary: semantic contracts remain primitives;
+  persistent corpus/project/UI state belongs in a future Style Studio product repository.
+
 ### [0.2.1]
 
 - **Added** a conditional whole-paragraph residual-prune boundary for an overlong

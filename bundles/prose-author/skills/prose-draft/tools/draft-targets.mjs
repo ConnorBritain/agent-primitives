@@ -64,8 +64,19 @@ function measurementId(observation) {
   return /^\[measurement:([a-z0-9-]+)\]/.exec(observation?.rate?.counting_rule ?? "")?.[1] ?? null;
 }
 
-export function draftTargetCard(profile, request) {
+function styleInput(input) {
+  if (input?.schema === "voice-style-spec/1") {
+    if (input.observed_profile?.schema !== "voice-profile/2" || !Array.isArray(input.active_preferences)) {
+      throw new TypeError("target card received an incomplete voice-style-spec/1");
+    }
+    return { profile: input.observed_profile, preferences: input.active_preferences, preferenceRevision: input.preference_revision };
+  }
+  return { profile: input, preferences: [], preferenceRevision: null };
+}
+
+export function draftTargetCard(profileInput, request) {
   const wordTarget = requestedWordTarget(request);
+  const { profile, preferences, preferenceRevision } = styleInput(profileInput);
   if (profile?.schema !== "voice-profile/2" || !Array.isArray(profile.observations)
     || !Array.isArray(profile.coverage)) {
     throw new TypeError("target card requires a complete voice-profile/2");
@@ -101,12 +112,33 @@ export function draftTargetCard(profile, request) {
       } : {}),
     }];
   });
+  const numericOverrides = new Map();
+  for (const preference of preferences) {
+    const control = preference?.control;
+    if (!control || ["qualitative", "preserve-observed"].includes(control.mode)) continue;
+    const row = measurements.find((candidate) => candidate.observation_id === control.observation_id);
+    if (!row) throw new TypeError(`preference ${preference.id} controls an unknown measured observation`);
+    if (!wordTarget) throw new TypeError(`preference ${preference.id} has an absolute count control but the request has no numeric word target`);
+    if (numericOverrides.has(control.observation_id)) {
+      throw new TypeError(`multiple active preferences control ${control.observation_id}`);
+    }
+    numericOverrides.set(control.observation_id, preference.id);
+    row.status = "user-preference-override";
+    row.preference_id = preference.id;
+    row.aim_count = control.aim;
+    row.gate_minimum = control.minimum;
+    row.gate_maximum = control.maximum;
+  }
   return {
     schema: TARGET_CARD_SCHEMA_ID,
     word_target: wordTarget,
     ratio_band: TARGET_RATIO_BAND,
     absolute_floor: TARGET_ABSOLUTE_FLOOR,
     measurements,
+    preference_revision: preferenceRevision,
+    preference_overrides: [...numericOverrides.entries()].map(([observation_id, preference_id]) => ({
+      observation_id, preference_id,
+    })),
     qualitative_rule: "Described observations have restrained placement but no numeric quota.",
   };
 }
@@ -125,6 +157,9 @@ export function renderDraftTargetCard(card) {
     "Count by the referenced measurement rule after drafting. Aim at the center, not merely the edge.",
     "",
   ];
+  if (card.preference_revision !== null && card.preference_revision !== undefined) {
+    lines.push(`Compiled user preference revision: ${card.preference_revision}. Numeric preference overrides replace observed targets only where named below.`, "");
+  }
   if (card.word_target) {
     const length = wordTargetBounds(card.word_target);
     lines.push(
@@ -137,7 +172,8 @@ export function renderDraftTargetCard(card) {
     const target = card.word_target
       ? `aim ${row.aim_count}; unchanged gate range ${row.gate_minimum}–${row.gate_maximum}`
       : `${row.corpus_per_1000_words} per 1,000 words`;
-    lines.push(`- ${row.observation_id} [measurement:${row.measurement_id}] (${dimensions}; ${row.status}): ${target}.`);
+    const source = row.preference_id ? `; preference:${row.preference_id}` : "";
+    lines.push(`- ${row.observation_id} [measurement:${row.measurement_id}${source}] (${dimensions}; ${row.status}): ${target}.`);
   }
   lines.push("", card.qualitative_rule);
   const hardRows = card.word_target

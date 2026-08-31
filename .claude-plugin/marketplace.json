@@ -55,9 +55,9 @@
     },
     {
       "name": "prose-author",
-      "description": "Blank-page drafting and passage rewriting in a specific person's measured voice. Renders a cited profile from their corpus, drafts without corpus access, and reports the checks and limits honestly.",
+      "description": "Measured-voice drafting with a versioned style tuner. Keeps observed corpus evidence separate from scoped user preferences, supports discovery and controlled comparisons, and drafts without corpus access.",
       "source": "./bundles/prose-author",
-      "version": "0.2.1",
+      "version": "0.3.0",
       "category": "writing",
       "tags": [
         "writing",

@@ -8,11 +8,16 @@ description: This skill should be used when the user asks to draft or rewrite a 
 Scoped generation in a specific person's voice, verified in that person's own
 measured terms.
 
-**v0.2 has two paths.** Preserve the v0.1 passage-rewrite path when the user gives
+**v0.3 has two drafting paths plus an optional tuning layer.** Preserve the v0.1 passage-rewrite path when the user gives
 you prose to rewrite. Use the blank-page path when the user gives you a topic,
 brief, notes, outline, or correspondence prompt and asks for new prose. “Blank
 page” means there is no existing passage to transform; it does not mean the tool
 writes without evidence about the voice.
+
+When the user has a `voice-preferences/1`, use the sibling `prose-style-tune` skill to
+compile it with the immutable observed profile and the current register/form/audience/purpose/
+project context. Give the drafter the resulting `voice-style-spec/1`, not a hand-edited profile.
+The ordinary profile-only path remains backward compatible.
 
 ## Choose the path before loading style material
 
@@ -54,7 +59,8 @@ corpus, stop. Do not create a generic voice and label it personal.
 Run `voice-draft` in a fresh context with exactly two semantic inputs:
 
 1. the user's prompt, including reader, purpose, form, and requested length;
-2. the rendered profile (`profile.json`, with its human-readable profile text).
+2. either the rendered profile (`profile.json`, with its human-readable profile text) or a
+   context-specific `voice-style-spec/1` compiled by `prose-style-tune`.
 
 Do not pass corpus files, exemplars, the tell catalog, earlier generated prose,
 or session history. The empty Claude tool allowlist enforces this boundary there;

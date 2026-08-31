@@ -1,0 +1,46 @@
+name: prose-style-tune
+kind: planner
+surface: skill
+bundle: prose-author
+
+contract:
+  read_only: false
+  writes: versioned-preference-artifacts
+  scope: voice-profile
+  clean_context: false
+  deterministic: partial
+  observed_profile_immutable: true
+  explicit_acceptance_before_apply: true
+  denied_inputs:
+    - catalog.json
+    - corpus files in feedback-interpretation or drafting contexts
+  refuses:
+    - tuning a historical profile without a ten-dimension coverage ledger
+    - applying an agent proposal with unresolved questions
+    - stale profile or preference ancestry
+    - equally specific active preference conflicts
+    - inferring broad preferences from an uncontrolled whole-draft choice
+
+harness:
+  claude-code:
+    enforcement: partial
+    notes: >-
+      Deterministic schema, digest, ancestry, scope, conflict, and apply guards are
+      enforced. Clean semantic contexts and withholding the A/B mapping from the user
+      remain orchestration responsibilities.
+  cursor:
+    enforcement: partial
+    notes: >-
+      The Node tool is portable; clean agent contexts and corpus isolation depend on
+      the host. Apply only explicitly selected operation ids.
+  codex:
+    enforcement: advisory
+    notes: >-
+      Invoke the deterministic tool directly and run voice-feedback-interpret and each
+      voice-draft candidate in fresh contexts. The host does not enforce those context
+      boundaries from metadata alone.
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Keep observed evidence immutable, store user preference separately, and never
+      apply a semantic proposal without explicit selection.

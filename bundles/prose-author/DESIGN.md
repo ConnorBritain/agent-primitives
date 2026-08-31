@@ -1,11 +1,14 @@
 # prose-author — design
 
-**Status: v0.2.1 ships.** Scoped passage rewriting, blank-page drafting,
+**Status: v0.3.0 ships.** Scoped passage rewriting, blank-page drafting,
 `voice-profile/2`, deterministic conformance and claim-disclosure tooling, and
-edit ingestion all ship. v0.2.1 adds a bounded whole-paragraph residual prune
-between semantic revision and exact conformance. Voice locks (v0.4) remain
-design work. The v0.2 path uses two separate agent contexts: a renderer may read
-the corpus, while the drafter receives only the assembled profile and request.
+edit ingestion all ship. v0.2.1 added a bounded whole-paragraph residual prune;
+v0.3.0 adds an immutable observed-profile/user-preference split, versioned scope-aware
+tuning, discovery cards, and controlled comparisons.
+The blank-page path uses separate agent contexts: a renderer may read the corpus;
+the feedback planner receives only profile evidence, preferences, and one feedback
+event; the drafter receives only the assembled profile or compiled style specification
+and request.
 
 The other bundles in this repo measure prose. This one writes it. That inversion
 is the whole risk, and most of what follows is about containing it.
@@ -53,7 +56,7 @@ when only calibration read them.
 | | |
 |---|---|
 | **kind** | `author` |
-| **surface** | one coordinating skill plus two agents (`voice-profile-render`, `voice-draft`) and deterministic assembly/conformance/residual-prune tools |
+| **surface** | two coordinating skills plus three agents (`voice-profile-render`, `voice-draft`, `voice-feedback-interpret`) and deterministic assembly/conformance/tuning tools |
 | **bundle** | its own. Independent criticism remains in `prose-review`, so the author does not grade itself |
 | **shares** | the `<project>/.claude/humanizer/` contract in [`PROFILES.md`](../prose-tell-scan/PROFILES.md) — read, extended, owned by nobody |
 
@@ -81,6 +84,22 @@ below.
   7  the author edits — this is the step that matters
   8  ingest      optionally keep the edited draft, with edit fraction measured
 ```
+
+## Atomicity and the future repository split
+
+v0.3 keeps semantic judgement and deterministic state mechanics separate:
+
+- `voice-profile-render` interprets corpus evidence;
+- `voice-feedback-interpret` translates one feedback event into a proposed plan;
+- `voice-draft` writes from one compiled specification;
+- ordinary code owns IDs, digests, ancestry, acceptance, scope precedence, conflicts,
+  discovery pagination, diffs, and A/B assignment.
+
+This remains a primitives bundle because every artifact is explicit and portable and each
+agent performs one semantic transformation. It becomes a separate product when persistent
+state dominates: corpus libraries, accounts, project lifecycle, draft history, visual
+annotation, and a long-running UI. That future Style Studio should consume these contracts
+from `agent-primitives`; it should not move their canonical definitions into an application.
 
 Steps 4–6 are what make this an `author` primitive rather than a text generator:
 it says how the output was verified, in the author's own measured terms.
@@ -325,8 +344,8 @@ Then, in this bundle:
 |---|---|
 | v0.1 | scoped generation — one passage, with the original beside it, easiest to judge |
 | v0.2 | blank page from notes; content-outline continuity |
-| v0.3 | edit ingestion with measured `edit_fraction`; the correction channel |
-| v0.4 | voice locks as a drafting target |
+| v0.3 | versioned voice preferences, locks, discovery, controlled comparisons, and style compilation |
+| future product | persistent corpus/project libraries, visual annotation, draft history, and UI in a separate Style Studio repository |
 
 ## What would make this a bad primitive
 

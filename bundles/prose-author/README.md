@@ -4,20 +4,27 @@ Scoped generation in a specific person's voice—mapped from **their own writing
 drafted from that map without corpus access, and checked in **their own measured
 terms**.
 
-**v0.2 adds blank-page drafting and preserves the v0.1 passage rewriter; v0.2.1
-hardens the overlength correction path.** A
+**v0.3 adds a versioned style tuner to the v0.2 blank-page drafter and preserves
+the v0.1 passage rewriter.** A
 blank-page request starts with a topic, notes, outline, brief, or reply prompt,
 not an existing passage. `voice-profile-render` turns a single-author corpus into
 a cited `voice-profile/2`; `voice-draft` receives only that profile and the
 request. The corpus itself never enters the drafting context.
+
+`prose-style-tune` keeps the measured profile immutable and stores the user's choices in a
+separate `voice-preferences/1` revision chain. It can surface profile evidence three
+dimensions at a time, propose scoped preferences from direct or pairwise feedback, compile
+the applicable choices for one writing context, and compare a single experimental behavior.
 
 ## What ships
 
 | surface | job |
 |---|---|
 | `prose-draft` skill | chooses the rewrite or blank-page path and coordinates verification |
+| `prose-style-tune` skill | discovers, pins, scopes, versions, diffs, compiles, and compares user style preferences |
 | `voice-profile-render` agent | interprets the corpus; deterministic tools own counts, rates, IDs, and provenance |
 | `voice-draft` agent | creates new prose from the request and profile, with no tools or corpus access in Claude Code |
+| `voice-feedback-interpret` agent | converts one feedback event into a narrow reviewable proposal; it cannot apply the change |
 
 The canonical agent prompts live under `primitives/`; the copies under
 `bundles/prose-author/agents/` are the downloadable plugin artifacts.
@@ -42,7 +49,7 @@ The passage rewriter retains the v0.1 inputs: the passage, the author's voice
 card, selected human exemplars, and the register purpose.
 
 The blank-page drafter is intentionally narrower. It receives the writing
-request and the assembled profile only. Corpus files are visible to the separate
+request and either the assembled profile or a compiled `voice-style-spec/1` only. Corpus files are visible to the separate
 renderer and independent critic, never to the drafter. This prevents the profile
 from becoming decorative and gives the same boundary a chance to survive across
 Claude Code, Codex, Cursor, and plain agent harnesses.
@@ -130,10 +137,21 @@ but it must be labelled **UNGATED** and name the check that did not run.
 Loose-file installation is also supported:
 
 ```bash
-./install.sh voice-profile-render voice-draft prose-draft
+./install.sh voice-profile-render voice-draft voice-feedback-interpret prose-draft prose-style-tune
 ```
 
 ## Known limits
+
+- **Preference tuning is not automatic taste discovery.** The user approves every applied
+  operation. Whole-draft likes without a named passage or single controlled difference remain
+  ambiguous and produce a question, not a guessed preference.
+- **Pairwise drafts are only partly controlled.** The style compiler changes one experimental
+  directive, but independent model draws can differ elsewhere. The workflow therefore asks
+  which passage drove the choice and does not treat an unexplained A/B preference as broad
+  evidence.
+- **The headless layer owns no persistent product state.** It emits portable versioned files.
+  Corpus libraries, visual editing, accounts, and project history belong in a future Style
+  Studio repository rather than in this primitives catalog.
 
 - **This is not a factual-accuracy guarantee.** The independent audit makes
   unsupported factual material rejectable or visible, but a model audit can

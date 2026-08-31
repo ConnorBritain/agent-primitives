@@ -4,9 +4,9 @@
 #
 # SHIPPED in prose-author v0.2.0. The canonical source remains agent.md; the
 # bundle copy adds only harness frontmatter and keeps this prompt body verbatim.
-# The final pre-release evaluation is release evidence, not a guarantee: 19/20
-# semantic revisions met every measured band, while one retained one question
-# beyond its target. That miss remains visible for v0.2.1 hardening.
+# The final v0.2.0 evaluation is release evidence, not a guarantee: 19/20
+# semantic revisions met every measured band. v0.2.1 closed the recorded residual
+# miss; v0.3.0 adds compiled preference input without changing the corpus firewall.
 
 name: voice-draft
 kind: author
