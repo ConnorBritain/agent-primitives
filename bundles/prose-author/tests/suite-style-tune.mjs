@@ -1,8 +1,9 @@
 /** Headless style tuning — evidence/preferences boundary, revisions, scope, and compilation. */
 
-import { readFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, realpathSync, rmSync, symlinkSync } from "node:fs";
 import { execFileSync } from "node:child_process";
-import { resolve } from "node:path";
+import { join, resolve } from "node:path";
+import { tmpdir } from "node:os";
 
 import {
   applyProposal, comparison, compileStyle, digest, diffPreferences, discover,
@@ -65,6 +66,19 @@ export async function run(t, { HERE }) {
     /authoritative as a preference[\s\S]*never retroactive evidence/.test(agentPrompt)
       && /propose changes only[\s\S]*explicitly accept operation IDs/.test(agentPrompt)
       && /“I like this” about an entire draft is underdetermined/.test(agentPrompt));
+
+  const cliSource = resolve(HERE, "..", "skills", "prose-style-tune", "tools", "style-contract.mjs");
+  const cliTemp = mkdtempSync(join(tmpdir(), "prose-style-cli-"));
+  const cliLink = join(cliTemp, "style-contract.mjs");
+  let linkedSchema = null;
+  try {
+    symlinkSync(realpathSync(cliSource), cliLink);
+    linkedSchema = JSON.parse(execFileSync(process.execPath, [cliLink, "schema", "proposal"], { encoding: "utf8" }));
+  } finally {
+    rmSync(cliTemp, { recursive: true, force: true });
+  }
+  t.check("style-contract CLI runs through a canonicalized or symlinked install path",
+    linkedSchema?.type === "object" && linkedSchema?.required?.includes("operations"));
 
   const profilePath = resolve(HERE, "runs", "2026-08-30-v020-semantic-revision-canary", "inputs", "profile.json");
   const profile = JSON.parse(readFileSync(profilePath, "utf8"));
