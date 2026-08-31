@@ -1,6 +1,7 @@
 /** Headless style tuning — evidence/preferences boundary, revisions, scope, and compilation. */
 
 import { readFileSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { resolve } from "node:path";
 
 import {
@@ -212,4 +213,11 @@ export async function run(t, { HERE }) {
   try { compileStyle(profile, collision, context({ form: "email" })); }
   catch (error) { conflictRejected = /active preference conflicts[\s\S]*p002, p004/.test(error.message); }
   t.check("equally specific active decisions refuse instead of silently choosing a winner", conflictRejected);
+
+  const canary = resolve(HERE, "runs", "2026-08-30-v030-style-spec-canary", "run.mjs");
+  let canaryCheck = "";
+  try { canaryCheck = execFileSync(process.execPath, [canary, "check"], { encoding: "utf8" }); }
+  catch (error) { canaryCheck = `${error.stdout ?? ""}${error.stderr ?? ""}`; }
+  t.check("the one-call compiled-style canary reproduces without a redraw",
+    /style-spec canary check PASS/.test(canaryCheck), canaryCheck.trim());
 }
