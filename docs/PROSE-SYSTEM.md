@@ -422,8 +422,9 @@ on synthetic corpora.
 is not a small prompt addition: it is a corpus-to-profile renderer, a corpus-blind
 drafter, deterministic conformance, and an independent claim-disclosure stage.
 The final pre-release run validated six profiles and 19/20 semantic revisions;
-one excess question remains recorded for v0.2.1 hardening. **v0.4** voice locks
-remain design work in `bundles/prose-author/DESIGN.md`.
+one excess question was closed by v0.2.1 residual hardening. **v0.3** now ships voice locks
+as a separate versioned preference overlay rather than editing measured profile evidence.
+Persistent Style Studio UI and project state remain intentionally outside this repository.
 
 **10b. Fix the four `fidelity-scan` defects the acceptance run found.** All are
 in `bundles/prose-review/tools/fidelity-scan.mjs`, all are real, and none was

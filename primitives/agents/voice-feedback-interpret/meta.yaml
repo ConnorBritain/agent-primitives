@@ -1,0 +1,56 @@
+# Harness-specific metadata for the voice-feedback-interpret primitive.
+# The prompt body lives in agent.md and is rendered byte-identically in prose-author.
+
+name: voice-feedback-interpret
+kind: planner
+ships: true
+surface: agent
+bundle: prose-author
+
+contract:
+  read_only: true
+  clean_context: true
+  scope: feedback-event
+  verdict: none
+  output: voice-preference-proposal/1
+  applies_own_plan: false
+  reads_corpus: false
+  reads_catalog: false
+  success_criteria:
+    - every proposed operation traces to the user's supplied feedback
+    - user taste remains separate from observed corpus evidence
+    - contextual feedback does not silently become a global preference
+    - deterministic code, after explicit user selection, owns revision mutation
+  refuses:
+    - a corpus or AI-tell catalog placed in its input
+    - inferring several preferences from an unexplained whole-draft like or dislike
+    - changing the observed voice profile
+    - applying its own proposal
+
+harness:
+  claude-code:
+    enforcement: enforced
+    model: sonnet
+    color: green
+    tools: []
+    notes: >-
+      All semantic inputs arrive inline and the empty tool allowlist prevents the
+      planner from reading the corpus, catalog, or preference files directly. The
+      orchestrator supplies the native proposal schema and deterministic code validates
+      the result before any explicitly accepted operation is applied.
+  cursor:
+    enforcement: partial
+    notes: >-
+      Tool restriction and clean-context isolation are not guaranteed. Supply only the
+      relevant profile card, current overlay, and one feedback event in a fresh request.
+  codex:
+    enforcement: advisory
+    notes: >-
+      Run in a fresh context with the strict schema from prose-style-tune. The planner
+      must not share the corpus-reading context. Apply only user-selected operation IDs
+      through the deterministic style contract.
+  agents-md:
+    enforcement: advisory
+    notes: >-
+      Keep the boundary: feedback proposes a preference overlay change; it never edits
+      observed evidence and never applies itself.

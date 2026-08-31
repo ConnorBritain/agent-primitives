@@ -1,0 +1,71 @@
+{
+  "schema": "voice-preferences/1",
+  "profile": {
+    "schema": "voice-profile/2",
+    "id": "eff-mullin",
+    "digest": "36b2ed8e0da9f728148b150dc19817bbc3d343cb9f14b0361da7bc043bb8ebb0"
+  },
+  "revision": 2,
+  "parent_digest": "80826678be78823d219923b72a04460d7c5ff1b5f30e7a5ad41a971444cb50cc",
+  "label": "v0.3 style-spec canary",
+  "decisions": [
+    {
+      "id": "p001",
+      "feature": "rhetorical-questions",
+      "dimension": "questions-imperatives-vocatives",
+      "observation_ids": [
+        "o06"
+      ],
+      "directive": "Use no rhetorical or terminal questions in this essay.",
+      "stance": "avoid",
+      "control": {
+        "mode": "suppress-counted",
+        "observation_id": "o06",
+        "minimum": 0,
+        "aim": 0,
+        "maximum": 0
+      },
+      "scope": {
+        "registers": [],
+        "forms": [
+          "essay"
+        ],
+        "audiences": [],
+        "purposes": [],
+        "projects": []
+      },
+      "basis": {
+        "kind": "direct-feedback",
+        "statement": "Use no rhetorical or terminal questions in this essay."
+      }
+    },
+    {
+      "id": "p002",
+      "feature": "concrete-opening",
+      "dimension": "openings-endings-closure",
+      "observation_ids": [],
+      "directive": "Open with one concrete situation before stating the general claim.",
+      "stance": "experimental",
+      "control": {
+        "mode": "qualitative",
+        "observation_id": null,
+        "minimum": null,
+        "aim": null,
+        "maximum": null
+      },
+      "scope": {
+        "registers": [],
+        "forms": [
+          "essay"
+        ],
+        "audiences": [],
+        "purposes": [],
+        "projects": []
+      },
+      "basis": {
+        "kind": "direct-feedback",
+        "statement": "Open with one concrete situation before stating the general claim."
+      }
+    }
+  ]
+}

@@ -46,7 +46,9 @@ function instructionBlocks(markdown) {
   return blocks;
 }
 
-export function draftControlCard(profileMarkdown, profile) {
+export function draftControlCard(profileMarkdown, profileInput) {
+  const style = profileInput?.schema === "voice-style-spec/1" ? profileInput : null;
+  const profile = style ? style.observed_profile : profileInput;
   if (profile?.schema !== "voice-profile/2" || !Array.isArray(profile.observations)
     || !Array.isArray(profile.coverage)) {
     throw new TypeError("draft controls require one complete voice-profile/2");
@@ -114,6 +116,8 @@ export function draftControlCard(profileMarkdown, profile) {
     voice_card: profile.voice_card,
     instructions: compiled,
     coverage,
+    preference_revision: style?.preference_revision ?? null,
+    preferences: style?.active_preferences ?? [],
   };
 }
 
@@ -142,6 +146,17 @@ export function renderDraftControlCard(card) {
       ? `no instruction; ${row.unresolved_reason}`
       : `instructions ${row.observation_ids.join(", ")}`;
     lines.push(`- ${row.dimension}: ${row.status}; ${support}.`);
+  }
+  if (card.preferences?.length) {
+    lines.push(
+      "",
+      "### Active user preferences",
+      "",
+      "These are user-selected directives, not observations about the corpus.",
+    );
+    for (const row of card.preferences) {
+      lines.push(`- ${row.id} [${row.stance}; ${row.dimension}/${row.feature}]: ${row.directive}`);
+    }
   }
   return lines.join("\n");
 }

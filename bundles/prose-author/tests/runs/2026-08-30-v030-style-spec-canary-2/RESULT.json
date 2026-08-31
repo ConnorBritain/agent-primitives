@@ -1,0 +1,15 @@
+{
+  "schema": "prose-author-style-spec-canary-result/1",
+  "status": "PASS",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "prepared_commit": "fbf63f3ee9c7114527cd860345d7e55ba32d5123",
+  "raw": "bundles/prose-author/tests/runs/2026-08-30-v030-style-spec-canary-2/raw/drafts/v030.json",
+  "raw_sha256": "696c64fff642efb25cf7fcfb571427873ce729743e4a31d5484c49db36d3556d",
+  "source": "bundles/prose-author/tests/runs/2026-08-30-v030-style-spec-canary-2/outputs/source.json",
+  "source_sha256": "5d6a61f9bbf6f92fe05ffb4770e9280b2a220c0a7cf7302edfe75a86d970cd39",
+  "conformance": "bundles/prose-author/tests/runs/2026-08-30-v030-style-spec-canary-2/outputs/conformance.json",
+  "conformance_sha256": "8818acf0761624f31856a7d5941c0849a812f7582c3c361b14bb85a12d871c93",
+  "question_marks": 0,
+  "draft_words": 308
+}

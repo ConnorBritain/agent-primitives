@@ -104,6 +104,7 @@ const BAR = "bundles/prose-author/tests/bar.mjs";
 const XCOUNT = "bundles/prose-author/tests/cross-count.mjs";
 const GATES = "bundles/prose-author/tests/run-gates.mjs";
 const FGUARD = "bundles/prose-author/tests/fixture-guard.mjs";
+const STYLE_CONTRACT = "bundles/prose-author/skills/prose-style-tune/tools/style-contract.mjs";
 
 /**
  * A throwaway copy of the whole repo, minus the things that must not be copied.
@@ -136,6 +137,41 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  {
+    name: "let preferences silently retarget a changed observed profile",
+    file: STYLE_CONTRACT,
+    find: '    if (preferences.profile.digest !== expected.digest) errors.push("preferences profile digest is stale");',
+    with: '    if (false) errors.push("preferences profile digest is stale");',
+    guards: "user choices remain bound to the exact observed evidence they were made against",
+  },
+  {
+    name: "apply a semantic preference proposal before its questions are answered",
+    file: STYLE_CONTRACT,
+    find: '  if ((proposal.questions ?? []).length) errors.push("proposal has unresolved questions; answer them before applying changes");',
+    with: '  if (false) errors.push("proposal has unresolved questions; answer them before applying changes");',
+    guards: "ambiguous feedback cannot mutate the versioned preference overlay",
+  },
+  {
+    name: "apply every proposed preference operation instead of the selected ids",
+    file: STYLE_CONTRACT,
+    find: '  for (const operation of proposal.operations.filter((row) => accepted.has(row.id))) {',
+    with: '  for (const operation of proposal.operations) {',
+    guards: "semantic proposals remain review material until the user explicitly selects operations",
+  },
+  {
+    name: "silently choose among equally specific active style decisions",
+    file: STYLE_CONTRACT,
+    find: '  if (conflicts.length) throw new Error(`active preference conflicts: ${conflicts.map((row) => `${row.feature} (${row.decision_ids.join(", ")})`).join("; ")}`);',
+    with: '  if (false) throw new Error(`active preference conflicts`);',
+    guards: "scope ties refuse instead of making an unrecorded style choice",
+  },
+  {
+    name: "ignore a user-approved counted target override during drafting",
+    file: DRAFT_TARGETS,
+    find: '    row.aim_count = control.aim;',
+    with: '    row.aim_count = row.aim_count;',
+    guards: "accepted recountable preferences reach the deterministic drafting target",
+  },
   {
     name: "allow full JSON Schema keywords into strict model transport",
     file: STRICT_OUTPUT_SCHEMA,

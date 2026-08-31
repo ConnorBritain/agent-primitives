@@ -6,7 +6,7 @@
 # bundle copy adds only harness frontmatter and keeps this prompt body verbatim.
 # The final pre-release evaluation is release evidence, not a guarantee: all six
 # fresh profiles validated and 19/20 semantic revisions met their measured bands.
-# The one miss is recorded for v0.2.1 hardening in the release notes.
+# v0.2.1 closed the recorded residual miss; v0.3.0 leaves profile evidence immutable.
 
 name: voice-profile-render
 kind: author

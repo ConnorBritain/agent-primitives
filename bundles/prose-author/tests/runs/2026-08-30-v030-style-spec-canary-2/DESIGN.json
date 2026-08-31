@@ -1,0 +1,23 @@
+{
+  "schema": "prose-author-style-spec-canary-design/1",
+  "acceptance_evidence": false,
+  "redraws": 0,
+  "harness": "codex",
+  "model": "gpt-5.6-luna",
+  "effort": "medium",
+  "profile_json": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/inputs/profiles/eff-mullin/r1.json",
+  "profile_markdown": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/inputs/profiles/eff-mullin/r1.md",
+  "source_corpus_lock": "bundles/prose-author/tests/runs/2026-08-30-v020-acceptance-5/corpus.lock.json",
+  "source_corpus_key": "eff-mullin-drafter",
+  "request": "Write a 300-word argumentative essay for a general reader explaining why software settings should remain legible after updates. Use only the premise in this request: an update can change where a setting appears or what it is called. Explain the value of legibility without inventing companies, incidents, studies, laws, quotations, or statistics.",
+  "context": {
+    "register": "argumentative",
+    "form": "essay",
+    "audience": "general",
+    "purpose": "explain",
+    "project": "style-spec-canary"
+  },
+  "preference": "Use no rhetorical or terminal questions in this essay.",
+  "experiment": "Open with one concrete situation before stating the general claim.",
+  "purpose": "Exercise the committed voice-draft prompt with a compiled voice-style-spec/1. The zero-question preference is machine-counted; the concrete-opening preference proves an experimental semantic directive reaches the corpus-blind drafter. This one-call diagnostic is not release acceptance evidence."
+}

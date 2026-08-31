@@ -23,6 +23,33 @@ request. Its order is:
  10  author edits  <- the step that matters
 ```
 
+## Optional v0.3 tuning loop
+
+Tuning happens beside profile rendering, never inside it:
+
+```text
+  observed profile ──► three-card discovery or one direct feedback event
+                              │
+                              ▼
+                  voice-feedback-interpret
+                              │ proposal only
+                    explicit accepted operation ids
+                              ▼
+                  voice-preferences revision N+1
+                              │ + writing context
+                              ▼
+                    voice-style-spec/1 ──► ordinary draft pipeline
+```
+
+The observed profile is immutable. A changed profile digest makes the preference chain stale
+instead of silently retargeting it. Context-specific decisions override less-specific ones for
+the same feature; equal-specificity conflicts refuse. Experimental preferences are inactive
+except in a named A/B comparison.
+
+For comparisons, draft A and B in separate clean contexts with the same request and settings.
+Do not show the baseline/experiment mapping before the user chooses. Ask which passage drove
+the choice; sampling differences outside the one varied preference are not tuning evidence.
+
 One production profile render per corpus. Multiple renders are stability
 evidence, never a union that production depends on.
 
@@ -31,7 +58,8 @@ evidence, never a union that production depends on.
 | stage | may read | must not read |
 |---|---|---|
 | renderer | corpus, deterministic measurement context | tell catalog, drafting history |
-| drafter | request, assembled profile | corpus, exemplars, tell catalog, earlier generated prose |
+| feedback interpreter | profile card, current preferences, one feedback event | corpus, tell catalog, unrelated session history |
+| drafter | request, assembled profile or compiled style specification | corpus, exemplars, tell catalog, earlier generated prose |
 | residual pruner | rejected same-request revision, numbered paragraph budgets | corpus, exemplars, tell catalog, freeform rewriting |
 | claim audit | exact request and exact draft | corpus as an excuse to infer facts |
 | voice critic | exact draft, author corpus, scan result | the writer's reasoning/history |
@@ -88,6 +116,7 @@ will widen the band that flagged it. Do not argue.
 | the author's edits to earlier drafts | its own prior prose, summarised |
 | the verification result | its own prior prose, "just for rhythm" |
 | an assembled voice profile | the corpus in the blank-page drafting context |
+| a versioned preference overlay and compiled context | user preference rewritten as corpus evidence |
 | a rejected same-request revision inside the bounded conformance chain | that revision reused as style evidence in a later request |
 
 Content and style travel on separate channels and **the only style evidence is

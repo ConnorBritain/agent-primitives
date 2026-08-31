@@ -52,13 +52,20 @@ selection, don't pass the file and describe the selection.
 **author — moderate.** Output quality holds. What you lose is the assurance that it only wrote
 where it was supposed to. Review the file list.
 
-For `prose-author` v0.2 there is a second author-specific boundary: the blank-page
+For `prose-author` there is a second author-specific boundary: the blank-page
 drafter must receive only the request and assembled voice profile, never the
 corpus that produced it. Claude Code can enforce the empty tool allowlist and
 separate agent context. On other harnesses, isolate every stage in a fresh
 subprocess or context: rendering and drafting must not share history, and neither
 should audit or criticism. The profile and JSON contracts port; the isolation
 guarantee becomes advisory.
+
+v0.3's preference artifacts, canonical digests, ancestry, scope matching, conflict
+refusal, diffs, and explicit apply selection are deterministic and port intact. What does
+not port automatically is context hygiene: `voice-feedback-interpret` should receive only
+profile evidence, the current overlay, and one feedback event; each A/B draft should run in
+its own clean context. The baseline/experiment mapping can be withheld from the user by any
+harness, but not cryptographically hidden from an orchestrator that dispatches both specs.
 
 An advisory port is still useful, but must not be reported as gated unless the
 exact output also reaches `prose-tell-scan` and an independent `prose-review`

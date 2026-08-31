@@ -1,7 +1,7 @@
 {
   "name": "prose-author",
-  "version": "0.2.1",
-  "description": "Blank-page drafting and passage rewriting in a specific person's measured voice. Renders a cited profile from their corpus, drafts without corpus access, and reports the checks and limits honestly.",
+  "version": "0.3.0",
+  "description": "Measured-voice drafting with a versioned style tuner. Keeps observed corpus evidence separate from scoped user preferences, supports discovery and controlled comparisons, and drafts without corpus access.",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -18,8 +18,8 @@
   "homepage": "https://github.com/ConnorBritain/agent-primitives",
   "interface": {
     "displayName": "Prose Author",
-    "shortDescription": "Drafts new prose or rewrites a passage from your measured voice profile.",
-    "longDescription": "Adds a blank-page path to the existing passage rewriter. voice-profile-render reads a single-author corpus and emits cited semantic findings that deterministic tools assemble into voice-profile/2. voice-draft then receives only the writing request and rendered profile, not the corpus, exemplars, session history, or AI-tell catalog. Deterministic conformance and a separate factual-basis audit make deviations and unsupported claims visible; they do not guarantee factual accuracy or resemblance. Independent prose-review and prose-tell-scan checks are required before describing a result as gated. On Codex and other advisory harnesses, run the stages in fresh contexts because prompt metadata alone cannot enforce corpus isolation.",
+    "shortDescription": "Drafts from measured voice evidence plus versioned, scoped user preferences.",
+    "longDescription": "Renders a single-author corpus into immutable voice-profile/2 evidence, then layers versioned voice-preferences/1 decisions without rewriting the observations. prose-style-tune serves evidence in small discovery batches, translates direct or pairwise feedback into reviewable proposals, applies only explicitly accepted operations, compiles context-specific style specifications, and supports controlled A/B drafts. voice-draft receives only the request and compiled profile/specification, never the corpus or AI-tell catalog. Deterministic conformance and independent audits make deviations visible; they do not guarantee factual accuracy, quality, or resemblance.",
     "developerName": "Connor England",
     "category": "Developer Tools",
     "capabilities": [
@@ -30,7 +30,9 @@
       "This paragraph isn't working - rewrite it the way I write",
       "Draft this section from my notes, in my voice",
       "Write a new essay from this outline using my voice profile",
-      "Draft a reply for this reader and purpose in my voice"
+      "Draft a reply for this reader and purpose in my voice",
+      "Show me three style traits at a time so I can decide what to lock or change",
+      "Compare two versions that differ only in how directly they open"
     ]
   }
 }

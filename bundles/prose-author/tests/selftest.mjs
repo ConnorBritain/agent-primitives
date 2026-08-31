@@ -23,6 +23,7 @@ import * as corpusRates from "./suite-corpus-rates.mjs";
 import * as bar from "./suite-bar.mjs";
 import * as crossCount from "./suite-cross-count.mjs";
 import * as acceptanceRunner from "./suite-acceptance-runner.mjs";
+import * as styleTune from "./suite-style-tune.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = resolve(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
@@ -87,6 +88,7 @@ const SUITES = [
   ["bar", bar],
   ["cross-count", crossCount],
   ["acceptance-runner", acceptanceRunner],
+  ["style-tune", styleTune],
 ];
 const only = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 const selected = only.length
