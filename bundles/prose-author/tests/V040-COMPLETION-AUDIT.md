@@ -65,22 +65,24 @@ that profile-plus-examples writes better prose than examples alone.
 
 | Requirement | Evidence and current finding |
 |---|---|
-| Instructions, prompts, contracts and user documentation updated | Canonical/rendered/embedded prompt parity is tested. README, protocol, design, runtime, installation and portability documentation describe current semantics. Latest operational failure notes are still being consolidated. |
+| Instructions, prompts, contracts and user documentation updated | Canonical/rendered/embedded prompt parity is tested. README, protocol, design, runtime, installation and portability documentation describe current semantics. Final engineering and operational failure notes are consolidated in [the evidence report](V040-FINAL-ENGINEERING.md); corpus-selection guidance is explicit and locally refreshed. |
 | Version consistency and independently usable components | All four prose-author manifests and marketplace entry were parsed at 0.4.0. Compatible companion bundles remain prose-review 0.3.0 and prose-tell-scan 0.1.1. Pi is documented but not implemented. |
 | Local engineering suites and historical verification | Author suite, both sibling suites, acceptance, both harness-integrity suites, four canonical checks and four historical run verifiers pass locally. The historical fidelity correction warning and held-agent parity skip remain disclosed. |
-| Mutation update/check and concurrent safety | The current 242-case concurrency test passed, as did both targeted probe mutations. The 240-case full update was already running when the stuck-probe defect was found. Final 242-case update/check is required; no old snapshot will be called final verification. |
-| Installed plugin and loose-file paths | Both plugin deployments were byte checked after the timeout fix; Claude loose installation includes runtime tools and fidelity scanner. Codex custom-agent wrappers are installed. Actual installed interruption and zero-call preference/receipt rechecks pass. Windows scripts were not executed on this Mac. |
+| Mutation update/check and concurrent safety | The 242-case update passed. The first full check failed on one count discrepancy (4 failures instead of 2); three focused repeats and a diagnostic full check reproduced 2. The diagnostic full check passed all 242 rows, baseline/restoration suites and unchanged-tree verification. Ten concurrent review runs passed, five with an applied private-sandbox mutation directly observed. The isolated discrepancy remains unexplained, not declared fixed. See [final engineering evidence](V040-FINAL-ENGINEERING.md). |
+| Installed plugin and loose-file paths | Both plugin deployments were byte checked after the timeout fix and refreshed again after the final guidance edit; Claude loose installation includes runtime tools and fidelity scanner. Codex custom-agent wrappers are installed. Actual installed interruption and zero-call preference/receipt rechecks pass. Windows scripts were not executed on this Mac. |
 | Both installed conversational workflows work | Tuning save/undo conversations pass. Skill-name drafting reaches the runtime. **Not complete:** Codex's restricted outer sandbox blocks initialization; the requested full-access test awaits permission. Claude's focused counter-documentation repeat used one valid job and passed all hard rules, but still reformatted the receipt and made an unsupported installation statement. Strict receipt delivery remains failed. |
 | Review-ready handoff with exact evidence and honest limits | Comparison and installed reports exist. This audit keeps outstanding items explicit. No completed-candidate claim yet. |
 | Preserve history and claims audit; no publication or Actions changes | No pushes, PRs, merges, tags or publication occurred. `.github/workflows` has no diff from the starting commit. The existing untracked claims audit retains its recorded SHA-256 and remains untracked. |
 
 ## Remaining completion decisions
 
-1. Finish current mutation update/check, including concurrent working-tree safety.
+1. Preserve the completed mutation evidence, including its first failed check
+   and the unexplained extra failures; do not relabel the failed run as passed.
 2. Resolve the installed conversation boundary failures without repeatedly
    redrawing unchanged prose or imposing a new literary acceptance bar.
-3. Reconcile final documentation/installation bytes and update this audit from
-   current evidence before calling the goal complete.
+3. Revisit this audit after the conversation-boundary decisions and their
+   affected checks; documentation and installation bytes are currently reconciled,
+   but the unresolved workflows still prevent a completion claim.
 
 An unavailable full-access test is not permission to disable a sandbox. A
 fallible voice/fidelity disagreement correctly reported as incomplete is also

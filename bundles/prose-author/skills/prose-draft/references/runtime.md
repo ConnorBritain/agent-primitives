@@ -48,6 +48,14 @@ an explicitly examples-only or preference-only condition; it does not remove a
 supplied profile silently. `examples: false` with a profile means profile-only
 generation; the reviewer can still use authorized samples.
 
+Automatic rendering summarizes the supplied samples. `context.register` and
+`context.form` guide drafting, example selection and comparisons; they do not
+filter the renderer's corpus. For a register-specific profile, supply the
+explicitly selected whole human pieces through `samples` (or a selected corpus
+directory), preserving their attribution and metadata. Do not invent labels for
+unknown samples. A mixed corpus remains limited evidence overall, with support
+reported separately for its known groups.
+
 The five scope axes are exact labels. Reuse saved labels instead of inventing
 synonyms that would make a scoped preference silently inactive. An explicit
 one-off rule with the same ID replaces that saved rule for this job only.

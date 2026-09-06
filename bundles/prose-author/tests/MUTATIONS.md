@@ -12,6 +12,38 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 
 | mutation | tests failed | what it guards |
 |---|---|---|
+| let a nonterminating capability probe defeat its timeout | 1 | synchronous CLI preflight terminates even when the child ignores SIGTERM |
+| let a nonterminating plugin registry defeat its timeout | 1 | dependency discovery cannot indefinitely block interruption handling in the parent |
+| read receipt diagnostics as completed mutation-suite counts | 1 | mutation evidence comes from a unique delimited suite summary, not quoted diagnostic counts |
+| hide host permission failures behind a generic CLI exit | 1 | the receipt identifies a host-permission failure without implying the model or prose failed |
+| skip deep factual auditing when requested | 1 | an explicitly requested claim audit cannot disappear from the required review path |
+| invent a passing artifact scan in the human receipt | 1 | the user-facing receipt uses the recorded scanner result, including failure and unavailable cases |
+| trim the checked prose during final delivery assembly | 1 | final assembly preserves the exact checked draft bytes |
+| call unevaluated semantic checks passed during receipt reproduction | 1 | integrity success does not upgrade the underlying check results |
+| treat every omitted observed tendency as a required occurrence | 2 | natural variation is not rejected as if corpus observations were quotas |
+| allow omitted required instructions to accompany a clear review | 1 | only observed tendencies receive the advisory-omission exception |
+| resolve an advisory omission without both task and voice review | 1 | an unavailable voice review cannot be replaced by task review alone |
+| excuse user-rule omissions as observed variation | 1 | reviewed natural variation never exempts an explicit user instruction |
+| fill example slots with known form or register mismatches | 2 | a shortage of matching style examples does not silently mix known writing contexts |
+| hide unknown example metadata from the final receipt | 1 | unclassified samples are not represented as verified form/register matches |
+| certify mismatched remote plugins and local agent wrappers | 1 | remote mode does not silently mix different-generation plugin and wrapper contracts |
+| omit the exact missing-atom list from task review | 1 | task reviewers receive an explicit empty accounting list instead of inventing one |
+| use a disabled companion plugin from its cache | 1 | dependency discovery respects enabled registry entries instead of stale cached files |
+| accept stale installed runtime bytes | 1 | a current version label does not mask changed or stale installed code |
+| switch a marketplace containing unrelated installed plugins | 1 | local prose installation does not silently change other marketplace consumers |
+| accept missing or redrawn bounded-comparison calls | 1 | the recorded comparison contains every prescribed initial call exactly once |
+| drop style evidence when repairing a draft | 1 | repairs retain the same profile and examples rather than substituting generic style |
+| accept a session-relative persistent preference path | 1 | persistent corrections cannot move silently with a new session working directory |
+| remove the small-batch discovery ceiling | 1 | conversational discovery cannot dump arbitrarily large review batches |
+| allow comparison against an inactive scoped preference | 1 | a one-feature preview must actually vary an applicable preference |
+| silently render a profile for the examples-only condition | 1 | the examples-only path stays distinct from profile generation |
+| dispatch a profile call after cancellation | 1 | cancelled profile preparation cannot consume another model call |
+| count Markdown link destinations as author parentheticals | 4 | visible-prose counts exclude balanced Markdown targets while retaining genuine asides |
+| turn unevaluable empty-text rates into passing zeroes | 1 | a missing rate denominator is not evaluated, never a passing absence |
+| restore a one-hit exception to an explicit zero rule | 6 | explicit mechanical limits are exact and independent of corpus-rate tolerances |
+| trust a stored receipt without reproducing final checks | 2 | a presented draft is bound to its checked bytes, not a prior candidate |
+| save inferred preferences without user approval | 1 | only explicit persistent feedback or approved inference changes saved preferences |
+| silently retarget current observation-dependent preferences | 2 | independent user rules survive refresh but evidence-dependent rules require rebinding |
 | let preferences silently retarget a changed observed profile | 2 | user choices remain bound to the exact observed evidence they were made against |
 | apply a semantic preference proposal before its questions are answered | 2 | ambiguous feedback cannot mutate the versioned preference overlay |
 | apply every proposed preference operation instead of the selected ids | 2 | semantic proposals remain review material until the user explicitly selects operations |
@@ -49,8 +81,8 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let the drafter return an out-of-range measured habit | 2 | a measured target is an enforced final check rather than an informational card |
 | hide question marks from the semantic-bearing hard limits | 7 | question-mark ceilings are literal pre-return budgets because conformance cannot repair them |
 | let semantic-bearing generation target the outer checker boundary | 2 | unpatchable semantic counters target the exact center rather than an outer acceptance boundary |
-| tell the drafter conformance can repair semantic-bearing counts | 4 | the portable prompt assigns semantic-bearing count correction to generation, not conformance |
-| let the drafter invent an opponent's paraphrased position | 4 | paraphrased opponent positions remain attribution even without quotation marks |
+| tell the drafter conformance can repair semantic-bearing counts | 3 | the portable prompt assigns semantic-bearing count correction to generation, not conformance |
+| let the drafter invent an opponent's paraphrased position | 3 | paraphrased opponent positions remain attribution even without quotation marks |
 | detach compiled voice instructions from their observation ids | 2 | the compact control card preserves the profile's exact instruction-to-ID binding |
 | accept a conformance patch whose final count remains out of range | 2 | local remeasurement, not the patch author's confidence, gates the final prose |
 | let a conformance patch expand the draft without bound | 2 | the correction stage remains a minimal patch rather than a second unconstrained draft |
@@ -78,14 +110,14 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | enforce contraction minimality only when length changes | 3 | zero-net extra contraction changes fail independently of target-distance movement |
 | let a coupled correction cross one row's nearest boundary | 2 | every initially failing contraction row stops at its nearest permitted count |
 | treat two contracted aliases as the same preserved surface | 2 | an apostrophe glyph rewrite or malformed contracted alias cannot hitchhike at zero cost |
-| invite the conformer to replace the whole draft | 2 | the model returns bounded edits rather than another candidate draft |
-| invite observation IDs into conformance measurement IDs | 2 | the conformer is explicitly told to use deterministic measurement tokens |
-| let one observation hide inside a multi-observation omission | 2 | a free-text omission remains accountable to every supported observation it drops |
-| tell the drafter to recalculate a locked target card | 3 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
-| teach conformance to use profile observation IDs as measurements | 4 | the portable agent prompt keeps observation and measurement namespaces distinct |
-| make every contraction delta content-length neutral | 4 | the portable agent prompt limits the word-count exception to the minimum required correction |
-| skip the independent claim-audit dispatch | 2 | acceptance cannot assemble the drafter's correlated self-audit directly |
-| let model output downgrade the prepared claim-audit schema | 2 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
+| invite the conformer to replace the whole draft | 1 | the model returns bounded edits rather than another candidate draft |
+| invite observation IDs into conformance measurement IDs | 1 | the conformer is explicitly told to use deterministic measurement tokens |
+| let one observation hide inside a multi-observation omission | 1 | a free-text omission remains accountable to every supported observation it drops |
+| tell the drafter to recalculate a locked target card | 2 | the corpus-blind model follows deterministic targets rather than doing approximate bookkeeping |
+| teach conformance to use profile observation IDs as measurements | 3 | the portable agent prompt keeps observation and measurement namespaces distinct |
+| make every contraction delta content-length neutral | 3 | the portable agent prompt limits the word-count exception to the minimum required correction |
+| skip the independent claim-audit dispatch | 1 | acceptance cannot assemble the drafter's correlated self-audit directly |
+| let model output downgrade the prepared claim-audit schema | 1 | the immutable prepared pipeline, not model-authored output, selects the accepted audit schema |
 | let claim repair alter independently accepted prose | 1 | bounded repair changes only sentence units the independent audit rejected |
 | let claim repair alter a retained factual ledger entry | 1 | a repair cannot rewrite the provenance of a retained factual premise |
 | let a malformed audit authorize claim repair | 1 | only a complete independently auditable decision set can authorize sentence changes |
@@ -93,82 +125,82 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | let more than two rejected units enter claim repair | 1 | a low percentage cannot conceal more than two rewritten sentence units |
 | let claim repair alter bytes under its hypothetical wrapper | 5 | the only prose edit is one fixed prefix before otherwise byte-identical rejected text |
 | let a hypothetical wrapper keep a nonhypothetical basis | 1 | the fixed wrapper changes epistemic status rather than laundering factual prose |
-| resume a prepared run under the current environment model | 3 | a prepared run uses only the model recorded before its first dispatch |
-| route Codex only for drafts instead of every locked stage | 2 | profile, audit, and critic stages use the same manifest-selected adapter contract as drafts |
-| hash committed schemas only for Codex drafts | 2 | profile, audit, and critic provenance hashes the exact schema file Codex received |
-| accept an adapter that cannot enforce the gated runtime boundary | 2 | a new harness cannot claim gated acceptance without clean context, no-tools, and immutable failures |
-| drop the hash of Claude failure output | 2 | a Claude timeout preserves inspectable raw output instead of disappearing before evidence collection |
-| reject a Codex spawn error without persisting its failed cell | 2 | a missing Codex executable records one immutable failed call and cannot be retried as a redraw |
-| let an early Claude exit raise an unhandled stdin EPIPE | 2 | an early Claude CLI exit is persisted as one immutable failed cell before retry is possible |
-| omit Codex companions from profile artifact hashes | 2 | profile evidence binds the primary Codex event stream and final structured output |
-| omit Codex companions from claim-audit artifact hashes | 2 | independent claim audits bind their primary Codex evidence rather than only a mutable wrapper |
-| order only the critic wrapper after the independent audit checkpoint | 2 | a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper |
-| skip the exact raw-result namespace inventory | 2 | an orphan failed call, redraw, or extra critic draw cannot survive outside the artifact index |
-| allow undeclared files during acceptance dispatch preflight | 3 | an archived failed cell cannot be moved elsewhere in the run before a canonical redraw |
-| allow profile-derived files before profile collection | 2 | a profile failure cannot be laundered into an assembled profile path before rendering resumes |
-| stop revalidating draft prompts at critic dispatch | 2 | failed evidence cannot be laundered into an earlier prompt before critic dispatch |
-| allow final critic outputs before critic collection | 2 | a critic failure cannot be laundered into a future critic source or score path before dispatch |
-| let final collection write before its evidence preflight | 3 | collect cannot erase relocated failed evidence before validating the complete critic graph |
-| require canonical critic outputs before read-only finalization finishes | 2 | finalization derives all critic evidence in memory before it materializes any canonical output |
-| allow undeclared files during final acceptance evidence checking | 2 | the final evidence check rejects every undeclared run file without guessing its content |
-| let a Codex wrapper point at another cell's companions | 2 | each Codex wrapper is bound to its own canonical event, output, and recovery filenames |
-| trust a recorded artifact hash without reading its file | 2 | editing any recorded acceptance artifact invalidates its evidence |
-| stop comparing profile source normalizations to raw evidence | 2 | profile support deduplication metadata reproduces exactly from immutable raw source |
-| advertise legacy claim-repair evidence in a current artifact record | 3 | current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash |
-| scan only the top-level artifact record for legacy repair fields | 2 | legacy repair fields are forbidden in every profile, draft, refusal, critic, and evidence record |
-| check only case-shaped files in retired repair trees | 5 | orphan repair results and prompts invalidate a current run regardless of their names |
-| ignore Codex companion files in retired repair trees | 2 | an extra repair-model invocation cannot hide in an unindexed Codex event stream |
-| score the handwritten tally instead of rebuilding raw critic evidence | 2 | a passing TALLY.json cannot conceal failing raw critic draws |
-| leave transitive scoring dependencies outside the prepare lock | 2 | the immutable run locks the full local scoring and structural dependency closure |
-| resume from an uncommitted mutable manifest | 2 | the prepared manifest is committed unchanged before its first dispatch |
-| skip locked implementation verification before dispatch | 2 | a prepared run refuses transient implementation changes before any model process starts |
-| let the manifest lock bytes absent from its prepared parent | 2 | manifest hashes are anchored to implementation bytes in prepared_commit, not merely current files |
-| relabel recoverable Codex events under a new manifest | 2 | Codex recovery preserves the dispatch provenance of the original event stream |
-| let required artifact path and hash pairs disappear together | 2 | a missing required artifact cannot pass merely because its hash was also removed |
-| omit concurrency from raw dispatch provenance | 3 | every raw result records the manifest's actual locked concurrency |
-| omit the exact prompt from raw invocation provenance | 2 | each raw result is bound to the exact prompt bytes sent to its model |
-| dispatch prompt bytes that differ from the staged evidence | 2 | the prompt file, dispatched prompt, and invocation hash use identical bytes |
-| stop checking invocation provenance on final evidence | 2 | final verification matches every raw result to its system prompt, user prompt, and schema |
-| skip staged input reconstruction during final check | 2 | final acceptance rederives every staged corpus input from the locked fixture |
-| skip prompt reconstruction during final check | 2 | final acceptance rederives every model prompt from locked inputs and raw predecessors |
-| skip raw profile reconstruction during final check | 2 | canonical profile files and stability reproduce from raw profile responses |
-| score canonical drafts without reconstructing raw draft evidence | 2 | structural gates score drafts reconstructed from raw draft and audit responses |
-| skip claims audit linkage during final check | 2 | independent claims decisions stay linked to the exact draft, disclosure, and quotation candidates |
-| trust canonical critic sources instead of comparing them to raw | 2 | critic canonical sources reproduce byte-for-byte from raw model results |
-| trust a Codex wrapper that diverges from its primary event stream | 2 | final verification reconstructs Codex structured output from immutable JSONL events |
-| select Codex reconstruction from the mutable wrapper label | 2 | a Codex wrapper cannot skip primary-event reconstruction by relabelling itself |
+| resume a prepared run under the current environment model | 2 | a prepared run uses only the model recorded before its first dispatch |
+| route Codex only for drafts instead of every locked stage | 1 | profile, audit, and critic stages use the same manifest-selected adapter contract as drafts |
+| hash committed schemas only for Codex drafts | 1 | profile, audit, and critic provenance hashes the exact schema file Codex received |
+| accept an adapter that cannot enforce the gated runtime boundary | 1 | a new harness cannot claim gated acceptance without clean context, no-tools, and immutable failures |
+| drop the hash of Claude failure output | 1 | a Claude timeout preserves inspectable raw output instead of disappearing before evidence collection |
+| reject a Codex spawn error without persisting its failed cell | 1 | a missing Codex executable records one immutable failed call and cannot be retried as a redraw |
+| let an early Claude exit raise an unhandled stdin EPIPE | 1 | an early Claude CLI exit is persisted as one immutable failed cell before retry is possible |
+| omit Codex companions from profile artifact hashes | 1 | profile evidence binds the primary Codex event stream and final structured output |
+| omit Codex companions from claim-audit artifact hashes | 1 | independent claim audits bind their primary Codex evidence rather than only a mutable wrapper |
+| order only the critic wrapper after the independent audit checkpoint | 1 | a pre-audit Codex critic event stream cannot be laundered through a post-audit wrapper |
+| skip the exact raw-result namespace inventory | 1 | an orphan failed call, redraw, or extra critic draw cannot survive outside the artifact index |
+| allow undeclared files during acceptance dispatch preflight | 2 | an archived failed cell cannot be moved elsewhere in the run before a canonical redraw |
+| allow profile-derived files before profile collection | 1 | a profile failure cannot be laundered into an assembled profile path before rendering resumes |
+| stop revalidating draft prompts at critic dispatch | 1 | failed evidence cannot be laundered into an earlier prompt before critic dispatch |
+| allow final critic outputs before critic collection | 1 | a critic failure cannot be laundered into a future critic source or score path before dispatch |
+| let final collection write before its evidence preflight | 2 | collect cannot erase relocated failed evidence before validating the complete critic graph |
+| require canonical critic outputs before read-only finalization finishes | 1 | finalization derives all critic evidence in memory before it materializes any canonical output |
+| allow undeclared files during final acceptance evidence checking | 1 | the final evidence check rejects every undeclared run file without guessing its content |
+| let a Codex wrapper point at another cell's companions | 1 | each Codex wrapper is bound to its own canonical event, output, and recovery filenames |
+| trust a recorded artifact hash without reading its file | 1 | editing any recorded acceptance artifact invalidates its evidence |
+| stop comparing profile source normalizations to raw evidence | 1 | profile support deduplication metadata reproduces exactly from immutable raw source |
+| advertise legacy claim-repair evidence in a current artifact record | 2 | current audit-disclosure artifacts cannot claim an obsolete repair branch even with a valid file hash |
+| scan only the top-level artifact record for legacy repair fields | 1 | legacy repair fields are forbidden in every profile, draft, refusal, critic, and evidence record |
+| check only case-shaped files in retired repair trees | 4 | orphan repair results and prompts invalidate a current run regardless of their names |
+| ignore Codex companion files in retired repair trees | 1 | an extra repair-model invocation cannot hide in an unindexed Codex event stream |
+| score the handwritten tally instead of rebuilding raw critic evidence | 1 | a passing TALLY.json cannot conceal failing raw critic draws |
+| leave transitive scoring dependencies outside the prepare lock | 1 | the immutable run locks the full local scoring and structural dependency closure |
+| resume from an uncommitted mutable manifest | 1 | the prepared manifest is committed unchanged before its first dispatch |
+| skip locked implementation verification before dispatch | 1 | a prepared run refuses transient implementation changes before any model process starts |
+| let the manifest lock bytes absent from its prepared parent | 1 | manifest hashes are anchored to implementation bytes in prepared_commit, not merely current files |
+| relabel recoverable Codex events under a new manifest | 1 | Codex recovery preserves the dispatch provenance of the original event stream |
+| let required artifact path and hash pairs disappear together | 1 | a missing required artifact cannot pass merely because its hash was also removed |
+| omit concurrency from raw dispatch provenance | 2 | every raw result records the manifest's actual locked concurrency |
+| omit the exact prompt from raw invocation provenance | 1 | each raw result is bound to the exact prompt bytes sent to its model |
+| dispatch prompt bytes that differ from the staged evidence | 1 | the prompt file, dispatched prompt, and invocation hash use identical bytes |
+| stop checking invocation provenance on final evidence | 1 | final verification matches every raw result to its system prompt, user prompt, and schema |
+| skip staged input reconstruction during final check | 1 | final acceptance rederives every staged corpus input from the locked fixture |
+| skip prompt reconstruction during final check | 1 | final acceptance rederives every model prompt from locked inputs and raw predecessors |
+| skip raw profile reconstruction during final check | 1 | canonical profile files and stability reproduce from raw profile responses |
+| score canonical drafts without reconstructing raw draft evidence | 1 | structural gates score drafts reconstructed from raw draft and audit responses |
+| skip claims audit linkage during final check | 1 | independent claims decisions stay linked to the exact draft, disclosure, and quotation candidates |
+| trust canonical critic sources instead of comparing them to raw | 1 | critic canonical sources reproduce byte-for-byte from raw model results |
+| trust a Codex wrapper that diverges from its primary event stream | 1 | final verification reconstructs Codex structured output from immutable JSONL events |
+| select Codex reconstruction from the mutable wrapper label | 1 | a Codex wrapper cannot skip primary-event reconstruction by relabelling itself |
 | drop the explicit type from context-specific profile dimensions | 2 | the generated profile schema remains valid in strict structured-output harnesses |
 | derive the critic verdict from its finding count | 2 | the model-owned verdict remains independent from the findings-rate instrument |
 | drop the independent sentence-by-sentence claim inventory | 1 | a nearby disclosed fact cannot hide a second checkable assertion |
-| treat model memory as verified evidence | 5 | remembered examples remain explicitly queued for verification |
-| treat profile examples as reusable topic facts | 4 | corpus-derived profile examples cannot cross the factual firewall |
-| let unverifiable generalizations enter the claims queue | 4 | claims remain finite propositions a publisher can actually check |
-| let argumentative prose decorate itself with external-memory facts | 4 | an argument uses a restrained number of relevant facts instead of decorative memory |
+| treat model memory as verified evidence | 4 | remembered examples remain explicitly queued for verification |
+| treat profile examples as reusable topic facts | 3 | corpus-derived profile examples cannot cross the factual firewall |
+| let unverifiable generalizations enter the claims queue | 3 | claims remain finite propositions a publisher can actually check |
+| let argumentative prose decorate itself with external-memory facts | 3 | an argument uses a restrained number of relevant facts instead of decorative memory |
 | tell the drafter topical request overlap can license a new predicate | 1 | the model prompt matches the conservative request-support contract |
-| let a listed claim license an invented attributed quotation | 4 | an invented quotation cannot be laundered through the verification list |
+| let a listed claim license an invented attributed quotation | 3 | an invented quotation cannot be laundered through the verification list |
 | collapse multiple named-actor assertions into one topic claim | 1 | each checkable action and consequence remains independently auditable |
-| dispatch sixty critics before the claims audit is complete | 2 | an incomplete disclosure audit cannot spend or score sixty critic calls |
+| dispatch sixty critics before the claims audit is complete | 1 | an incomplete disclosure audit cannot spend or score sixty critic calls |
 | let the independent factual audit treat the profile as a fact packet | 1 | profile examples, biography, and source facts cannot bypass the public verification queue |
-| stop requiring a sentence-by-sentence independent decision | 2 | a scalar completeness assertion cannot substitute for an independent decision on every sentence |
-| erase deterministic factual candidates from the independent audit checkpoint | 2 | known conditional and rhetorical risks remain source-derived review candidates |
-| trust a handwritten checkpoint instead of the immutable independent audit | 2 | every decision, rationale, candidate flag, and claim reference reproduces from independent evidence |
-| let an unrelated same-paragraph claim cover an audited sentence | 2 | a public verification claim belongs to the exact independently audited sentence |
-| accept a token independent-auditor rationale | 2 | a cleared sentence retains the auditor's inspectable clause-level rationale |
+| stop requiring a sentence-by-sentence independent decision | 1 | a scalar completeness assertion cannot substitute for an independent decision on every sentence |
+| erase deterministic factual candidates from the independent audit checkpoint | 1 | known conditional and rhetorical risks remain source-derived review candidates |
+| trust a handwritten checkpoint instead of the immutable independent audit | 1 | every decision, rationale, candidate flag, and claim reference reproduces from independent evidence |
+| let an unrelated same-paragraph claim cover an audited sentence | 1 | a public verification claim belongs to the exact independently audited sentence |
+| accept a token independent-auditor rationale | 1 | a cleared sentence retains the auditor's inspectable clause-level rationale |
 | accept a request ledger claim only topically related to its supplied basis | 3 | a shared topic cannot become model-authored support for an appended predicate |
 | let a request-backed claim license unrelated prose | 2 | request support remains linked from supplied basis through claim to exact sentence |
-| let the drafting agent serve as its own independent auditor | 2 | drafting and factual clearance remain separate prompt authorities and invocations |
-| accept audit provenance that drifts from the locked manifest | 2 | the checkpoint names the exact locked auditor harness, model, prompt body, and transport |
-| stop binding the independent audit prompt hash into the checkpoint | 2 | critic-unlocking decisions remain tied to the exact per-draft auditor prompt |
-| stop binding the independent audit raw response into the checkpoint | 2 | critic-unlocking decisions remain tied to the immutable raw auditor response |
-| follow a mutable alternate draft source pointer during independent audit checking | 2 | independent decisions remain bound to the canonical source derived from raw model evidence |
-| follow a mutable alternate independent-audit pointer | 2 | the checkpoint remains bound to the canonical independent result derived from raw model evidence |
-| hide a canonical disclosure behind a mutable artifact pointer | 2 | the independent checkpoint cannot suppress or substitute the canonical public disclosure |
-| let the completed independent audit checkpoint change after its first commit | 2 | the exact independent checkpoint and critic raw evidence stay immutable after first commit |
-| dispatch critics before committing the independent audit checkpoint | 2 | critic calls cannot precede the immutable independent-audit anchor |
-| omit the independent audit anchor from critic invocation provenance | 2 | every critic raw record names the exact audit hash and pre-critic commit |
-| stop checking that critic evidence was committed after the independent audit checkpoint | 3 | repository history proves the independent checkpoint predates every critic result |
-| let a quotation hide inside a profile example | 2 | the profile remains voice evidence rather than a factual quotation source |
-| let the requested container override the profile's register | 4 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
+| let the drafting agent serve as its own independent auditor | 1 | drafting and factual clearance remain separate prompt authorities and invocations |
+| accept audit provenance that drifts from the locked manifest | 1 | the checkpoint names the exact locked auditor harness, model, prompt body, and transport |
+| stop binding the independent audit prompt hash into the checkpoint | 1 | critic-unlocking decisions remain tied to the exact per-draft auditor prompt |
+| stop binding the independent audit raw response into the checkpoint | 1 | critic-unlocking decisions remain tied to the immutable raw auditor response |
+| follow a mutable alternate draft source pointer during independent audit checking | 1 | independent decisions remain bound to the canonical source derived from raw model evidence |
+| follow a mutable alternate independent-audit pointer | 1 | the checkpoint remains bound to the canonical independent result derived from raw model evidence |
+| hide a canonical disclosure behind a mutable artifact pointer | 1 | the independent checkpoint cannot suppress or substitute the canonical public disclosure |
+| let the completed independent audit checkpoint change after its first commit | 1 | the exact independent checkpoint and critic raw evidence stay immutable after first commit |
+| dispatch critics before committing the independent audit checkpoint | 1 | critic calls cannot precede the immutable independent-audit anchor |
+| omit the independent audit anchor from critic invocation provenance | 1 | every critic raw record names the exact audit hash and pre-critic commit |
+| stop checking that critic evidence was committed after the independent audit checkpoint | 2 | repository history proves the independent checkpoint predates every critic result |
+| let a quotation hide inside a profile example | 1 | the profile remains voice evidence rather than a factual quotation source |
+| let the requested container override the profile's register | 3 | a policy-newsletter request does not turn the author's vocabulary into policy-brief prose |
 | block degradation on any mean rise | 4 | a k=3 noise tick-up does not refuse a good revision |
 | stop noticing a fallen verdict | 2 | a revision that drops the verdict is refused |
 | treat a split CLEAN as converged | 3 | a split is surfaced, not read as the half that suits the loop |
