@@ -73,7 +73,7 @@ export function copyingCheck(draft, samples, { original = "", authorized_quotes 
     reason: !samples.length ? "No corpus text available for copying comparison" : "Exact overlap heuristic, not proof that all copying is absent" };
 }
 
-function compactProfile(profile) {
+export function compactProfile(profile) {
   if (!profile) return null;
   return { schema: profile.schema, id: profile.id, digest: digest(profile), support: profile.measured.support,
     coverage: profile.coverage, observations: profile.observations, limits: profile.limits,
@@ -114,6 +114,7 @@ export function scanRuntimeArtifacts(draft, scanner) {
 }
 
 export async function renderCurrentProfile({ id, samples, adapter, selection = {} }, { dispatch = callModel, onCall = () => {}, signal } = {}) {
+  if (!PROFILE_INSTRUCTIONS) return { status: "not-evaluated", reason: "Packaged voice-profile-render prompt is unavailable", profile: null };
   if (signal?.aborted) return { status: "not-evaluated", reason: "Cancelled before profile render", profile: null };
   const measured = measureSamples(samples, selection);
   if (!measured.sample_count) return { status: "not-evaluated", reason: "No usable corpus; explicit preferences remain usable", profile: null };
@@ -146,6 +147,7 @@ export async function renderCurrentProfile({ id, samples, adapter, selection = {
 export async function runWriting(job, { dispatch = callModel, scan = scanRuntimeArtifacts, onCall = () => {}, onProgress = () => {}, signal } = {}) {
   const started = Date.now(), calls = [], attempts = [], errors = jobErrors(job);
   const refused = (reason) => ({ schema: "prose-writing-result/1", status: "refused", draft: "", reason, calls, attempts, elapsed_ms: Date.now() - started });
+  if (!DRAFT_INSTRUCTIONS) return { ...refused("Packaged voice-draft prompt is unavailable"), status: "ungated" };
   if (errors.length) return refused(errors.join("; "));
   const samples = job.samples ?? [], profile = job.profile ?? null;
   if (profile) {
@@ -205,7 +207,9 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
       original: [job.source_text ?? "", ...(job.facts ?? [])].join("\n"), profile: compactProfile(profile), rules: spec.rules, instruction_ids: instructionIds });
     const voicePrompt = promptFrom(deps.voice);
     if (profile) await stageReview("voice-review", voicePrompt && samples.length ? `${voicePrompt}\n\n${REVIEW_TRANSPORT}` : null,
-      { original: samples.map((s) => s.text).join("\n\n"), profile: compactProfile(profile), rules: spec.rules, instruction_ids: [], context: job.context });
+      { original: samples.map((s) => s.text).join("\n\n"), profile: compactProfile(profile), rules: spec.rules,
+        instruction_ids: profile.observations.map((o) => o.id), context: job.context,
+        observed_comparison: observed, previous_draft: repairOriginal || null });
     if (repairOriginal) {
       if (!deps.fidelity || !deps.fidelity_scan) reviews.push({ stage: "fidelity-review", status: "not-evaluated", reason: "prose-review fidelity critic or scanner is unavailable" });
       else {

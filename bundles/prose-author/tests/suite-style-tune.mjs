@@ -64,8 +64,9 @@ export async function run(t, { HERE }) {
       && /^\s*reads_catalog:\s*false$/m.test(agentMeta) && /^\s*tools:\s*\[\]$/m.test(agentMeta));
   t.check("feedback interpretation keeps evidence separate and cannot apply itself",
     /authoritative as a preference[\s\S]*never retroactive evidence/.test(agentPrompt)
-      && /propose changes only[\s\S]*explicitly accept operation IDs/.test(agentPrompt)
-      && /“I like this” about an entire draft is underdetermined/.test(agentPrompt));
+      && /Inferred preferences need approval/.test(agentPrompt)
+      && /propose changes only and never apply your own plan/.test(agentPrompt)
+      && /“I like this” about an entire draft[\s\S]*is underdetermined/.test(agentPrompt));
 
   const cliSource = resolve(HERE, "..", "skills", "prose-style-tune", "tools", "style-contract.mjs");
   const cliTemp = mkdtempSync(join(tmpdir(), "prose-style-cli-"));
@@ -230,10 +231,9 @@ export async function run(t, { HERE }) {
   catch (error) { conflictRejected = /active preference conflicts[\s\S]*p002, p004/.test(error.message); }
   t.check("equally specific active decisions refuse instead of silently choosing a winner", conflictRejected);
 
-  const canary = resolve(HERE, "runs", "2026-08-30-v030-style-spec-canary-2", "run.mjs");
   let canaryCheck = "";
-  try { canaryCheck = execFileSync(process.execPath, [canary, "check"], { encoding: "utf8" }); }
-  catch (error) { canaryCheck = `${error.stdout ?? ""}${error.stderr ?? ""}`; }
+  try { canaryCheck = (await import("./historical-canary-check.mjs")).checkHistoricalStyleCanary(); }
+  catch (error) { canaryCheck = `${error.message}\n${error.stdout ?? ""}${error.stderr ?? ""}`; }
   t.check("the one-call compiled-style canary reproduces without a redraw",
     /style-spec canary check PASS/.test(canaryCheck), canaryCheck.trim());
 }

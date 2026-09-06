@@ -1088,7 +1088,8 @@ export async function run(t, { tmp, HERE }) {
       if (owners.length === 0) continue;
       const locks = evidenceLocksOf(name);
       for (const owner of owners) {
-      const agentSrc = resolve(HERE, "..", "..", "..", "primitives", "agents", owner, "agent.md");
+      // Current /3 evidence has its own checks; do not reinterpret these /1-/2 runs.
+      const agentSrc = resolve(HERE, "fixtures/historical-v030", owner, "agent.md");
       if (!fsExists(agentSrc)) { t.check(`${name}: its declared agent ${owner} exists`, false); continue; }
       const live = createHash("sha256").update(fsRead(agentSrc)).digest("hex");
       const recorded = [...new Set(locks.filter((l) => l.agent === owner).map((l) => l.agent_sha256))];
@@ -1170,8 +1171,8 @@ export async function run(t, { tmp, HERE }) {
     }
 
     for (const [owner, hasCurrent] of currency) {
-      t.check(`some checked-in run exercises the CURRENT ${owner} prompt`, hasCurrent,
-        "every run for this agent predates the prompt on disk — nothing shows what it does now");
+      t.check(`some checked-in historical run exercises the frozen v0.3 ${owner} prompt`, hasCurrent,
+        "the frozen historical prompt no longer matches its recorded evidence");
     }
 
     for (const path of found) {

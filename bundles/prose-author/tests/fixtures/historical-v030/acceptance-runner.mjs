@@ -124,11 +124,9 @@ export const CODEX_NO_TOOLS_CONFIG = [
 ];
 
 const AGENTS = {
-  // This runner implements the historical quota protocol. Current production uses
-  // writing-runtime.mjs; do not feed its /5 agents this runner's /4 schemas.
-  profile: "bundles/prose-author/tests/fixtures/historical-v030/voice-profile-render/agent.md",
-  draft: "bundles/prose-author/tests/fixtures/historical-v030/voice-draft/agent.md",
-  conformance: "bundles/prose-author/tests/fixtures/historical-v030/voice-draft/agent.md",
+  profile: "primitives/agents/voice-profile-render/agent.md",
+  draft: "primitives/agents/voice-draft/agent.md",
+  conformance: "primitives/agents/voice-draft/agent.md",
   claim_audit: "bundles/prose-author/skills/prose-draft/references/claim-audit.md",
   critic: "primitives/agents/prose-voice-critic/agent.md",
 };

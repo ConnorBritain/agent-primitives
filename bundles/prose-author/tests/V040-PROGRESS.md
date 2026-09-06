@@ -47,9 +47,15 @@ explicit zeroes have no one-hit exception. Counts use actual final draft text.
 - Examples-only jobs can explicitly skip profile rendering. Profile preparation
   receives cancellation and has structured call records; invocation accounting
   includes preparation as well as draft/review calls.
-- Prompt ownership/packaging integration remains to be completed; current runtime
-  draft/profile instructions are still inline and the independently installable
-  primitive bodies still carry the historical contract.
+- Current primitive prompts, rendered agents and self-contained skill prompt
+  copies now share byte-identical bodies. `render-current-prompts.mjs` owns the
+  two deployments. Models inherit configuration instead of hard-coding Sonnet.
+- Repair inputs retain the same profile, examples and rules. Voice review
+  accounts for every supported observation, sees descriptive deviations, and
+  can compare a repair with the previous candidate without treating it as corpus.
+- The quota-era source prompts and acceptance runner are archived as exact v0.3
+  fixtures. Historical scoring is unchanged; its canary runs in a temporary
+  layout containing hash-verified original inputs, without changing raw evidence.
 
 ## Skill/runtime integration verification
 
@@ -88,7 +94,7 @@ general OS-level guarantee that arbitrary reads are impossible.
 
 ## Remaining before completion
 
-1. Finish current prompt ownership, input validation and runtime failure-path tests.
+1. Record and verify current prompt evidence; continue targeted failure-path tests.
 2. Verify conversational behavior through actual installed skill entrypoints,
    including discovery, scoped corrections and undo in both harnesses.
 3. Run the bounded six-case, three-condition comparison; no repeated 20/60 bar.
@@ -98,3 +104,13 @@ general OS-level guarantee that arbitrary reads are impossible.
 
 No private-corpus comparison, subjective keep/edit judgment, author resemblance,
 or full release readiness has been established by these smoke tests.
+
+## Locked bounded-comparison design
+
+`fixtures/v040/COMPARISON-DESIGN.json` fixes two authors, three forms (short reply,
+outline-to-blog and passage rewrite), and three conditions (examples, profile,
+profile plus examples). Each case uses the same supplied fictional facts and
+explicit rules. `bounded-comparison.mjs` records eighteen initial drafts and one
+profile per author, with no redraw, repair loop or critic panel. It reports
+unmatched source metadata rather than treating cross-form rates as calibrated
+targets. The report remains incomplete until actual calls and recounts finish.

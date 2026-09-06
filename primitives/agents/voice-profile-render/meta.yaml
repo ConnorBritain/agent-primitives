@@ -1,13 +1,3 @@
-# Harness-specific metadata for the voice-profile-render primitive.
-# The prompt body lives in agent.md and is shared verbatim across every target.
-# This file records what each harness can and cannot enforce about it.
-#
-# SHIPPED in prose-author v0.2.0. The canonical source remains agent.md; the
-# bundle copy adds only harness frontmatter and keeps this prompt body verbatim.
-# The final pre-release evaluation is release evidence, not a guarantee: all six
-# fresh profiles validated and 19/20 semantic revisions met their measured bands.
-# v0.2.1 closed the recorded residual miss; v0.3.0 leaves profile evidence immutable.
-
 name: voice-profile-render
 kind: author
 ships: true
@@ -15,88 +5,48 @@ surface: agent
 bundle: prose-author
 
 contract:
-  # Writes a new artifact rather than judging or rewriting one. Per CONTRIBUTING's
-  # taxonomy the author kind's obligation is "artifact + how it was verified", and
-  # every key below exists to make that verification real rather than asserted.
-  #
-  # PI-02.md calls this a transformer. That is the wrong row: the renderer does not
-  # rewrite the corpus, and its central risk is the author kind's risk verbatim -
-  # inventing conventions the material does not support. Reasoning recorded in
-  # .planning/PI-02-S2-design.md (D2).
   read_only: false
   clean_context: true
-
-  # None of CONTRIBUTING's four illustrative scopes (diff|file|selection|repo) fit a
-  # profile directory read whole. "file" is plainly wrong for ten samples plus a
-  # voice card; "repo" means the project. Naming the real unit rather than picking
-  # the least-wrong wrong one.
-  scope: corpus
-
-  # Not a reviewer. The output is a description of a voice; there is nothing here
-  # for a gate to read a verdict token off, and inventing one would invite a caller
-  # to treat "profile rendered" as "voice approved".
+  scope: supplied-human-corpus
   verdict: none
-
-  # THE contract. Every semantic observation names either its complete qualitative
-  # support set or one deterministic measurement. The assembler derives counts, rates,
-  # frequency bands, citations, ids, and coverage; unsupported observations are dropped
-  # and counted. The bundle selftest checks the assembled json rather than trusting a
-  # model to self-attest or keep duplicate arithmetic.
-  every_claim_cited: true
-  uncertainty_resolves_to: omission
-
-  # The firewall. The drafter reads the rendered profile, so anything catalog-shaped
-  # that reaches the profile reaches the drafter transitively - which is the exact
-  # failure prose-author/README.md and prose-tell-scan/PROFILES.md are organised
-  # against. Not "may read, must not emit": may not read. Enforced by the tools
-  # allowlist below carrying no catalog path and no Bash.
+  output: voice-profile-source/5
+  inputs_inline: true
+  reads_corpus: true
+  reads_exemplars: false
   reads_catalog: false
-
-  # Hashes are the harness's job (same rule as prose-reviser). A model cannot compute
-  # sha256 reliably, and a fabricated hash inside a provenance block is worse than an
-  # absent field. corpus.lock.json is produced deterministically alongside the render.
+  applies_own_plan: false
   computes_hashes: false
-
-  refuses:
-    - fewer than 5 usable samples in corpus/human (the floor calibrate.mjs refuses at)
-    - more than 50 samples, where a whole read becomes an unseen sampling decision
-    - a corpus that is visibly more than one voice, rather than averaging them into a
-      description that fits neither
-    - any catalog, tell list, threshold file or list of words to avoid placed in its input
-    - naming a construction absent from the corpus unless paired with the positive
-      habit that occupies its place
+  observed_rates: advisory-not-quotas
+  explicit_rules: independent-user-instructions
+  never_claims:
+    - resemblance or quality guarantees
+    - factual certainty
+    - detector success
 
 harness:
   claude-code:
-    enforcement: enforced
-    model: sonnet
+    enforcement: partial
+    tools: []
     color: green
-    tools: [Read, Grep, Glob]
     notes: >-
-      Runs as a subagent in its own context, which is the point - the corpus is read
-      whole and must not land in the caller's history, or the drafter downstream
-      inherits the exemplars the profile exists to summarise. The tool allowlist is
-      read-only even though this primitive authors an artifact: both files are emitted
-      in the response and written by the orchestrator. No Bash, so it cannot compute
-      the hashes it is forbidden to compute, and no path that would reach a catalog.
-  cursor:
+      Inputs arrive inline; no tools are permitted. Model selection inherits the
+      caller configuration. The production runtime uses a fresh authenticated CLI
+      context and audits execution records. This is not general OS read isolation.
+  codex:
     enforcement: partial
     notes: >-
-      Context isolation is not guaranteed. Run it as its own request against a clean
-      thread; sharing a thread with a drafting session defeats the corpus firewall
-      silently, because the output looks identical either way.
-  codex:
+      Use the production runtime with the voice-profile-source/5 schema.
+      Authenticated CLI calls preserve configured models. Mechanical checks bind
+      exact final bytes; observed rates remain advisory and semantic review is fallible.
+      Historical source/1, source/2, source/3 and source/4 artifacts remain readable
+      through versioned historical tools; never silently relabel old evidence.
+  cursor:
     enforcement: advisory
     notes: >-
-      Neither the read-only tool restriction nor context isolation is enforced. Run as
-      a fresh `codex exec`, ask it for voice-profile-source/4, then pass that object and
-      the deterministic measurement context to profile-assemble.mjs. The same portable
-      source validation and canonical voice-profile/2 assembly apply; do not ask Codex
-      to recreate counts or final fields in prose.
+      Supply a fresh context with only authorized inputs. No native Cursor model
+      adapter is implemented. Missing runtime support must be disclosed.
   agents-md:
     enforcement: advisory
     notes: >-
-      If you shorten this to one rule, keep: every observation carries a sample
-      citation and a support count, and anything that cannot be cited is dropped and
-      counted. Without it the primitive degrades into fluent invention, which is its
-      one failure mode and the one nobody catches by reading the output.
+      Prompt-only invocation does not enforce execution or storage boundaries.
+      Use deterministic tooling for artifacts and never claim unperformed checks.

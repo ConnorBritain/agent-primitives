@@ -1,16 +1,18 @@
 import assert from "node:assert/strict";
-import { writeFileSync, readFileSync } from "node:fs";
+import { writeFileSync, readFileSync, cpSync, rmSync } from "node:fs";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { runWriting, selectCurrentExamples, copyingCheck, renderCurrentProfile, MAX_REPAIRS, scanRuntimeArtifacts } from "../skills/prose-draft/tools/writing-runtime.mjs";
 import { parseAdapterOutput, adapterPreflight, configuredModel, callModel, adapterFailureReason } from "../skills/prose-draft/tools/runtime-adapters.mjs";
 import { assembleProfileV3, sha256 } from "../skills/prose-draft/tools/profile-v3.mjs";
-import { validateDraftV5, validateReview } from "../skills/prose-draft/tools/runtime-contract.mjs";
+import { validateDraftV5, validateReview, DRAFT_INSTRUCTIONS, PROFILE_INSTRUCTIONS, runtimePrompt } from "../skills/prose-draft/tools/runtime-contract.mjs";
+import { renderCurrentPrompts } from "./render-current-prompts.mjs";
 import { initPreferenceStore, readPreferenceStore, applyPreferenceStore, undoPreferenceStore, defaultPreferenceDirectory } from "../skills/prose-draft/tools/preference-store.mjs";
 import { proposePreferencesV2, emptyScope } from "../skills/prose-draft/tools/preferences-v2.mjs";
 import { runtimeMain, loadWritingJob } from "../skills/prose-draft/tools/prose-runtime.mjs";
 import { discoveryCards, preferenceDiff, comparePreference } from "../skills/prose-draft/tools/style-session.mjs";
 import { initPreferencesV2, applyPreferencesV2 } from "../skills/prose-draft/tools/preferences-v2.mjs";
+import { comparisonInputs, DESIGN } from "./bounded-comparison.mjs";
 
 const candidate = (draft) => ({ schema: "voice-draft-source/5", kind: "draft", draft, omitted: [], claims: [], refused: "" });
 const clear = (input) => ({ schema: "prose-runtime-review/1", verdict: "clear", findings: [],
@@ -27,6 +29,50 @@ const dispatchFor = (drafts = ["Thank you. I cannot attend."]) => {
 export async function run(t, { tmp, HERE }) {
   t.group("v0.4 production runtime and authenticated CLI transport");
   const test = async (name, fn) => { try { await fn(); t.check(name, true); } catch (e) { t.check(name, false, e.stack); } };
+  await test("bounded comparison varies only profile/examples, not task facts or explicit preferences", () => {
+    const design = JSON.parse(readFileSync(DESIGN, "utf8"));
+    assert.equal(design.authors.length * design.forms.length * design.conditions.length, 18);
+    const samples = [{ id: "a", text: "Human prose.", author: "A", source: "fixture", human_authored: true }];
+    const profile = assembleProfileV3({ id: "a", samples });
+    for (const form of design.forms) {
+      const variants = comparisonInputs(design, form, samples, profile);
+      assert.deepEqual(variants.map((v) => v.condition), ["examples", "profile", "profile-and-examples"]);
+      for (const key of ["brief", "mode", "context", "facts", "rules", "source_text"]) {
+        assert.deepEqual(variants[0].input[key], variants[1].input[key]); assert.deepEqual(variants[0].input[key], variants[2].input[key]);
+      }
+      assert.equal(variants[0].input.profile, null); assert.deepEqual(variants[1].input.examples, []);
+      assert.deepEqual(variants[0].input.examples, variants[2].input.examples);
+      assert.deepEqual(variants[1].input.profile, variants[2].input.profile);
+    }
+  });
+  await test("runtime and standalone agent bodies are rendered from the same primitive sources", () => {
+    assert.deepEqual(renderCurrentPrompts(), []);
+    const body = (name) => readFileSync(join(HERE, "../../../primitives/agents", name, "agent.md"), "utf8").replace(/^---\n[\s\S]*?\n---\n/, "");
+    assert.equal(DRAFT_INSTRUCTIONS, body("voice-draft")); assert.equal(PROFILE_INSTRUCTIONS, body("voice-profile-render"));
+    assert.equal(runtimePrompt("voice-feedback-interpret"), body("voice-feedback-interpret"));
+  });
+  await test("a missing installed prompt yields ungated output without calling a model", () => {
+    const copy = join(tmp, "missing-prompt-skill");
+    cpSync(join(HERE, "../skills/prose-draft"), copy, { recursive: true });
+    rmSync(join(copy, "references/prompts/voice-draft.md"));
+    const script = `import {runWriting} from ${JSON.stringify(new URL(`file://${join(copy, "tools/writing-runtime.mjs")}`).href)}; const result=await runWriting(${JSON.stringify(job())},{dispatch:async()=>{throw new Error("must not call");}}); console.log(JSON.stringify(result));`;
+    const result = JSON.parse(execFileSync(process.execPath, ["--input-type=module", "-e", script], { encoding: "utf8" }));
+    assert.equal(result.status, "ungated"); assert.equal(result.calls.length, 0); assert.match(result.reason, /prompt is unavailable/);
+  });
+  await test("repairs retain profile, examples and explicit rules and re-review every observation", async () => {
+    const samples = [{ id: "a", text: "I pause (briefly).", author: "A", source: "fixture", human_authored: true }];
+    const profile = assembleProfileV3({ id: "a", samples, observations: [{ description: "This one sample qualifies duration through an aside.", dimensions: ["qualification-hedging"], citations: [{ file: "a", quote: "(briefly)", start: 8, end: 17 }] }] });
+    const inputs = [], dispatch = dispatchFor(["May I decline?", "I must decline."]);
+    const result = await runWriting(job({ profile, samples, rules: [{ id: "q", kind: "punctuation", directive: "No question marks", characters: "?", minimum: 0, maximum: 0 }] }), {
+      scan: scanner, dispatch: async (args) => { inputs.push(structuredClone(args)); return dispatch(args); } });
+    assert.equal(result.status, "checked"); assert.equal(result.attempts.length, 2);
+    const generations = inputs.filter((r) => r.schema.properties.schema.const === "voice-draft-source/5");
+    for (const key of ["profile", "examples", "rules", "facts", "context"]) assert.deepEqual(generations[0].input[key], generations[1].input[key]);
+    assert.equal(generations[0].system, DRAFT_INSTRUCTIONS); assert.equal(generations[1].system, DRAFT_INSTRUCTIONS);
+    const voice = inputs.filter((r) => r.input.observed_comparison);
+    assert.equal(voice.length, 2); assert.deepEqual(voice[1].input.instruction_ids, profile.observations.map((o) => o.id));
+    assert.equal(voice[1].input.previous_draft, "May I decline?");
+  });
   await test("new sessions locate one persistent store without creating or replacing an identity", async () => {
     assert.equal(defaultPreferenceDirectory({}, tmp), join(tmp, ".config/prose-author/preferences"));
     assert.equal(defaultPreferenceDirectory({ PROSE_PREFERENCES_DIR: tmp }, "/different-home"), tmp);

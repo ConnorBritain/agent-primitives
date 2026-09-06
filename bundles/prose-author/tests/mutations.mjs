@@ -98,7 +98,8 @@ const DRAFT_CONTROLS = `${TOOLS}/draft-controls.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
 const ACCEPTANCE_RUNNER = "bundles/prose-author/tests/acceptance-runner.mjs";
 const STRICT_OUTPUT_SCHEMA = "bundles/prose-author/tests/strict-output-schema.mjs";
-const VOICE_DRAFT_PROMPT = "primitives/agents/voice-draft/agent.md";
+// These mutations exercise the preserved quota-era protocol, not current tendencies.
+const VOICE_DRAFT_PROMPT = "bundles/prose-author/tests/fixtures/historical-v030/voice-draft/agent.md";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
 const XCOUNT = "bundles/prose-author/tests/cross-count.mjs";
@@ -137,6 +138,13 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  {
+    name: "drop style evidence when repairing a draft",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: '{ previous_draft: candidate.draft, repair_findings: repairFindings }',
+    with: '{ profile: null, examples: [], previous_draft: candidate.draft, repair_findings: repairFindings }',
+    guards: "repairs retain the same profile and examples rather than substituting generic style",
+  },
   {
     name: "accept a session-relative persistent preference path",
     file: `${TOOLS}/preference-store.mjs`,

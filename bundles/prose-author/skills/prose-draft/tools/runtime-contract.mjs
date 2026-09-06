@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 /** Small current runtime contracts. The historical acceptance transport stays separate. */
 import { COVERAGE_DIMENSIONS } from "./profile-contract.mjs";
 const text = { type: "string" };
@@ -72,17 +73,19 @@ export function validateReview(value, { draft, original = "", instructionIds = [
   return errors;
 }
 
-export const DRAFT_INSTRUCTIONS = `You draft or revise prose using only the authorized task data. Return voice-draft-source/5.
-The brief and explicit user rules control this task. Corpus-derived tendencies are advisory, not quotas. Read all coverage dimensions and supported observations; do not invent unresolved habits. If an applicable supported instruction cannot be used, name its ID in omitted.
-Whole selected examples are style evidence, not reusable facts about the user. Never copy their distinctive passages unannounced. Do not invent author biography, employment, experiences, quotations, citations, or statistics. Put factual additions lacking supplied support in claims with their exact draft quote and what requires verification.
-The optional source_text is content to preserve or continue, not an additional author sample. Rewrite only the requested passage. Continuation produces only the continuation, preserving established referents. In repair mode make the smallest coherent changes addressing supplied findings; never delete substantive material to satisfy a count. Preserve original claims, quotations, names, qualification and scope. Perform a final pronoun and referent consistency check.
-Apply explicit phrase and punctuation preferences; they are user choices, not learned habits. Never consume a tell catalog or optimize toward scanner scores. Never claim resemblance, quality, factual certainty, or detector success. Refuse if the task genuinely leaves its register unchoosable. Return only the required JSON, with the actual prose in draft and no verification commentary inside it.`;
-
-export const PROFILE_INSTRUCTIONS = `Read the supplied whole human-authored samples and return voice-profile-source/5. Describe observable writing behavior, its function and restrained placement, not personality or biography. Measurements are supplied as descriptive evidence; do not invent numbers, mandatory quotas or universal prohibitions from observed absences.
-Cover each supplied coverage dimension with cited observations or an explicit unresolved reason. Do not invent a habit to fill a row. Cite a unique, exact quote from the original source with its file ID; code locates the source span. A general recurring habit needs support from at least two distinct pieces. A limited one-piece observation must say it is limited. Separate register/form differences, editorial interventions, and other people's quoted material. Refuse a visibly mixed-author corpus or an unresolvable requested register. Sparse samples may produce explicitly limited evidence rather than a full learned voice.
-Use up to fourteen concise observations. Never read or derive instructions from a tell catalog, detector threshold, or generic tell list. Return JSON only; counts, coverage IDs and rates belong to the assembler.`;
+/** Installed skill copies are rendered from primitives, never a second hand-written prompt. */
+export function runtimePrompt(name) {
+  if (!["voice-draft", "voice-profile-render", "voice-feedback-interpret"].includes(name)) throw new TypeError("Unknown runtime primitive");
+  try {
+    const source = readFileSync(new URL(`../references/prompts/${name}.md`, import.meta.url), "utf8");
+    const match = /^---\n[\s\S]*?\n---\n([\s\S]+)$/.exec(source);
+    return match?.[1] ?? null;
+  } catch { return null; }
+}
+export const DRAFT_INSTRUCTIONS = runtimePrompt("voice-draft");
+export const PROFILE_INSTRUCTIONS = runtimePrompt("voice-profile-render");
 
 export const REVIEW_TRANSPORT = `For this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.
-Read the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.`;
+Read the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.`;
 
 export const TASK_REVIEW_INSTRUCTIONS = `Review only task adherence, explicit semantic preferences, supported profile instructions, pronoun/referent consistency and unsupported factual additions. Do not judge general quality. Check first-person biography, employers and personal experiences against supplied task facts, not style examples. Check that the draft has not silently dropped requested parentheticals, figure vocabulary or attribution. Surface evidence-backed omissions; ordinary variation is not an error. Never claim to prove factual accuracy. ${REVIEW_TRANSPORT}`;
