@@ -1,93 +1,56 @@
-# Harness-specific metadata for the prose-draft skill.
-# The instructions live in SKILL.md; the deterministic logic lives in tools/.
-# This file records what each harness can and cannot enforce about it.
-
 name: prose-draft
 kind: author
 surface: skill
 bundle: prose-author
 
 contract:
-  read_only: false          # it is an author; it produces text
-  writes: none              # but it writes NO files. Output goes to the session.
-  scope: prompt-or-passage  # v0.2: blank-page drafting plus the v0.1 rewrite path
-
-  # Matching tell-scan's meta.yaml, which states both explicitly.
-  #
-  # clean_context is FALSE and that is a real difference from the critics: a
-  # drafter needs the author's material and their edits to earlier drafts. What
-  # it must not carry across turns is its own prose - see denied_inputs.
+  read_only: false
+  writes: private-run-artifacts
+  scope: draft-rewrite-continuation
   clean_context: false
-  # The tools are deterministic; the drafting step is not, and cannot be. The
-  # split matters because only the deterministic half is enforceable, which is
-  # what the enforcement labels below turn on.
-  deterministic: partial    # tools/ yes, the draft itself no
-
-  # WHAT THE DRAFTER IS DENIED, and the denial is the design.
-  #
-  # Prose optimised against a tell list scores zero and reads like nobody wrote
-  # it - the failure the catalog exists to DETECT, reproduced by the tool meant
-  # to prevent it. The target is the author's corpus and voice card. The catalog
-  # runs afterwards, on the way to a human, never as a quantity to minimise.
+  deterministic: partial
   denied_inputs:
-    - catalog.json          # in any form, including as a post-hoc hint
-    - its own prior prose outside the bounded same-request conformance chain
-
+    - catalog.json in generation or repair
+    - unauthorized session history
   verification:
-    # `kind: author` must state how output was verified. These three are
-    # checkable, so these three are what may be claimed.
     claims:
-      - scanned by tell-scan against this author's profile
-      - cadence and density compared to this author's derived bands
-      - no Tier A artifact present
+      - explicit mechanical rules checked against exact delivered bytes
+      - observed distributions compared where matching evidence exists
+      - named reviews and artifact checks completed or explicitly unavailable
     refuses:
-      - that the draft sounds like the author
-      - that the draft is good
-      - that the draft would pass any detector
-      - reporting a cadence gap when no calibrated corpus exists
-      - drafting "in your voice" with no human corpus present
+      - resemblance or quality guarantees
+      - detector success claims
+      - passed status for unavailable checks
+      - invented personal calibration without samples
+  runtime: tools/prose-runtime.mjs
+  maximum_repairs: 2
 
 harness:
   claude-code:
     enforcement: partial
     notes: >-
-      Skill dispatch and the deterministic tools both work. The refusals in
-      tools/ are enforced in code - a cold start cannot report a gap, a Tier A
-      artifact cannot be reported as a finding. The denied_inputs are NOT
-      enforced: nothing stops a session reading catalog.json and mentioning it.
-      That half is prompt discipline, and calling it enforced would be the
-      dishonesty docs/portability.md exists to prevent.
-
-  cursor:
+      Production runner uses the authenticated CLI with empty tools and MCP config,
+      a fresh working directory and audited execution records. Mechanical checks
+      are deterministic; semantic judgment and general filesystem isolation are not.
+  codex:
     enforcement: partial
     notes: >-
-      Same as Claude Code. The tools are Node scripts and behave identically;
-      what varies is how reliably the skill is reached.
-
-  codex:
+      Production runner uses authenticated codex exec with fresh context, disabled
+      unrelated tools and audited events. Model selection follows configuration.
+      Context restriction is not a general filesystem isolation guarantee.
+  cursor:
     enforcement: advisory
     notes: >-
-      Agent discovery and context isolation depend on the Codex host. Run the
-      renderer and drafter as fresh agent/subprocess contexts, invoke the
-      deterministic profile, residual-prune, conformance, claim-audit, and
-      verification tools directly, and do not describe an advisory run as
-      harness-enforced.
-
+      Mechanical tools are portable. No native model adapter is implemented;
+      without an available Claude or Codex CLI the result is ungated.
   agents-md:
     enforcement: advisory
     notes: >-
-      Prompt only. If you shorten it, keep two rules: the drafter never sees the
-      catalog, and it never claims the output sounds like the author. Everything
-      else degrades into ordinary drafting; those two failing turn it into a
-      tool that writes like a model and tells the user it is them.
+      Instructions alone cannot enforce runtime use. Missing adapters or dependencies
+      must be reported; never simulate a verified result.
 
 requires:
-  prose-tell-scan: >-
-    Needed by tools/verify.mjs. Resolved from the loose-file install shape, the
-    plugin shape, or the TELL_SCAN_PATH environment variable. Absent, verify.mjs
-    reports the draft was NOT scanned and lists where it looked - the absence of
-    a check, never a pass.
-  prose-review: >-
-    Supplies the independent prose-voice-critic and optional revise/fidelity
-    protocol for a gated blank-page result. If unavailable, the skill may return
-    a draft labelled UNGATED but must not claim that independent voice review ran.
+  node: Dependency-free production runner requires Node.js.
+  authenticated-cli: Claude or Codex CLI with a compatible noninteractive interface.
+  prose-tell-scan: Required artifact scanner; absence yields ungated output.
+  prose-review: Voice critic when a profile exists; fidelity critic and scan for rewrites and repairs.

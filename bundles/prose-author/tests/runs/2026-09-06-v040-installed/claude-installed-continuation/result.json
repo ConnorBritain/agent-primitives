@@ -1,0 +1,187 @@
+{
+  "schema": "prose-writing-result/1",
+  "status": "checked",
+  "reason": "Exact final text checked; no resemblance, quality or factual guarantee",
+  "draft": "Instead, the library could collect anonymous aggregate usage totals—enough to gauge what readers value without tying data to individual accounts. Letting people browse and read without creating an account would also reduce the amount of personal information stored in the first place. These are suggestions, not settled proposals. If you have thoughts on the contract or on alternatives like these, written comments are accepted until June 30.",
+  "receipt": {
+    "draft_digest": "a851c8f010f4e51de72201fbd10c0b13e6318a3c13ac125c1e4c15dc13552e6b",
+    "profile_digest": null,
+    "preference_digest": "eb8142c2a760bfc1f00142060adc9bc5cfc4bd0e2ef3ff5bd5a1128942e259d7",
+    "preference_revision": 1,
+    "active_preferences": [],
+    "overrides": [
+      "length",
+      "deadline"
+    ],
+    "examples": [],
+    "example_exclusions": [],
+    "model_calls": 2,
+    "elapsed_ms": 28226,
+    "final_check": {
+      "cycle": 0,
+      "draft_digest": "a851c8f010f4e51de72201fbd10c0b13e6318a3c13ac125c1e4c15dc13552e6b"
+    },
+    "isolation": "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee"
+  },
+  "claims": [],
+  "omitted": [],
+  "attempts": [
+    {
+      "cycle": 0,
+      "draft": "Instead, the library could collect anonymous aggregate usage totals—enough to gauge what readers value without tying data to individual accounts. Letting people browse and read without creating an account would also reduce the amount of personal information stored in the first place. These are suggestions, not settled proposals. If you have thoughts on the contract or on alternatives like these, written comments are accepted until June 30.",
+      "draft_digest": "a851c8f010f4e51de72201fbd10c0b13e6318a3c13ac125c1e4c15dc13552e6b",
+      "mechanical": {
+        "schema": "voice-rule-report/1",
+        "draft_digest": "a851c8f010f4e51de72201fbd10c0b13e6318a3c13ac125c1e4c15dc13552e6b",
+        "draft_words": 68,
+        "normalization": "visible-prose/1",
+        "exclusions": [],
+        "warnings": [],
+        "checks": [
+          {
+            "id": "length",
+            "kind": "word-limit",
+            "directive": "Use at most 80 words.",
+            "enforcement": "enforced",
+            "actual": 68,
+            "minimum": 1,
+            "maximum": 80,
+            "occurrences": [],
+            "status": "passed"
+          },
+          {
+            "id": "deadline",
+            "kind": "required-text",
+            "directive": "Include June 30 exactly.",
+            "enforcement": "enforced",
+            "actual": 1,
+            "minimum": 1,
+            "maximum": null,
+            "occurrences": [
+              {
+                "text": "June 30",
+                "start": 435,
+                "end": 442
+              }
+            ],
+            "status": "passed"
+          }
+        ],
+        "status": "passed"
+      },
+      "observed": {
+        "status": "not-evaluated",
+        "reason": "A current profile is unavailable",
+        "measurements": []
+      },
+      "copying": {
+        "status": "not-evaluated",
+        "findings": [],
+        "reason": "No corpus text available for copying comparison"
+      },
+      "artifacts": {
+        "status": "passed",
+        "draft_digest": "a851c8f010f4e51de72201fbd10c0b13e6318a3c13ac125c1e4c15dc13552e6b",
+        "findings": [],
+        "reason": "Tier A artifact scan only; no fallback cadence claim"
+      },
+      "reviews": [
+        {
+          "stage": "task-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [
+              {
+                "id": "length",
+                "status": "applied",
+                "reason": "Draft is approximately 68 words, well within the 80-word maximum."
+              },
+              {
+                "id": "deadline",
+                "status": "applied",
+                "reason": "The exact text \"June 30\" appears at the end of the draft."
+              }
+            ],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        }
+      ],
+      "omitted": [],
+      "claims": []
+    }
+  ],
+  "calls": [
+    {
+      "stage": "draft",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 8909,
+      "usage": {
+        "input_tokens": 5447,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 277,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "babb468030f3ded4a3332857a979dcef6defccffc6413b67a8ac08d5bd926d98",
+      "system_digest": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "task-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 18724,
+      "usage": {
+        "input_tokens": 4398,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 1038,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "9cea2784033bab71b3ddd01103877c72ffcaac94b47c4a73ab79fc26aee5e807",
+      "system_digest": "9a831cc24108a4a93cae31c956c4f9ccd8f4ac8e3a05a3cc4c3ba1c757b037b1",
+      "isolation": "partial",
+      "reason": null
+    }
+  ],
+  "invocation": {
+    "model_calls": 2,
+    "model_call_records": 2,
+    "model_elapsed_ms": 27633,
+    "elapsed_ms": 28227,
+    "input_digest": "a68895c70a0f922504559cdf6714ef6e170d98fbd0adc9175841a37379aae695",
+    "resolved_input_digest": "a68895c70a0f922504559cdf6714ef6e170d98fbd0adc9175841a37379aae695"
+  }
+}

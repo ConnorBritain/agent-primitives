@@ -1,0 +1,196 @@
+{
+  "schema": "prose-writing-result/1",
+  "status": "checked",
+  "reason": "Exact final text checked; no resemblance, quality or factual guarantee",
+  "draft": "The library has proposed a six-month reading-app pilot but has not yet signed the contract, which would retain identifiable reading histories for two years after account closure. The board called the pilot \"a proposal, not a commitment\". Written comments are accepted until June 30.",
+  "receipt": {
+    "draft_digest": "2d1cf055265d64fe88fa7b9e66d66f183a5a89508fdb4ce9691a6597f94eb6d4",
+    "profile_digest": null,
+    "preference_digest": "eb8142c2a760bfc1f00142060adc9bc5cfc4bd0e2ef3ff5bd5a1128942e259d7",
+    "preference_revision": 1,
+    "active_preferences": [],
+    "overrides": [
+      "length",
+      "deadline"
+    ],
+    "examples": [],
+    "example_exclusions": [],
+    "model_calls": 3,
+    "elapsed_ms": 23531,
+    "final_check": {
+      "cycle": 0,
+      "draft_digest": "2d1cf055265d64fe88fa7b9e66d66f183a5a89508fdb4ce9691a6597f94eb6d4"
+    },
+    "isolation": "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee"
+  },
+  "claims": [],
+  "omitted": [],
+  "attempts": [
+    {
+      "cycle": 0,
+      "draft": "The library has proposed a six-month reading-app pilot but has not yet signed the contract, which would retain identifiable reading histories for two years after account closure. The board called the pilot \"a proposal, not a commitment\". Written comments are accepted until June 30.",
+      "draft_digest": "2d1cf055265d64fe88fa7b9e66d66f183a5a89508fdb4ce9691a6597f94eb6d4",
+      "mechanical": {
+        "schema": "voice-rule-report/1",
+        "draft_digest": "2d1cf055265d64fe88fa7b9e66d66f183a5a89508fdb4ce9691a6597f94eb6d4",
+        "draft_words": 46,
+        "normalization": "visible-prose/1",
+        "exclusions": [],
+        "warnings": [],
+        "checks": [
+          {
+            "id": "length",
+            "kind": "word-limit",
+            "directive": "Use at most 90 words.",
+            "enforcement": "enforced",
+            "actual": 46,
+            "minimum": 1,
+            "maximum": 90,
+            "occurrences": [],
+            "status": "passed"
+          },
+          {
+            "id": "deadline",
+            "kind": "required-text",
+            "directive": "Retain June 30 exactly.",
+            "enforcement": "enforced",
+            "actual": 1,
+            "minimum": 1,
+            "maximum": null,
+            "occurrences": [
+              {
+                "text": "June 30",
+                "start": 274,
+                "end": 281
+              }
+            ],
+            "status": "passed"
+          }
+        ],
+        "status": "passed"
+      },
+      "observed": {
+        "status": "not-evaluated",
+        "reason": "A current profile is unavailable",
+        "measurements": []
+      },
+      "copying": {
+        "status": "not-evaluated",
+        "findings": [],
+        "reason": "No corpus text available for copying comparison"
+      },
+      "artifacts": {
+        "status": "passed",
+        "draft_digest": "2d1cf055265d64fe88fa7b9e66d66f183a5a89508fdb4ce9691a6597f94eb6d4",
+        "findings": [],
+        "reason": "Tier A artifact scan only; no fallback cadence claim"
+      },
+      "reviews": [
+        {
+          "stage": "task-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [
+              {
+                "id": "length",
+                "status": "applied",
+                "reason": "The draft has 45 words, within the 90-word maximum, and uses three sentences."
+              },
+              {
+                "id": "deadline",
+                "status": "applied",
+                "reason": "The draft retains “June 30” exactly."
+              }
+            ],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        },
+        {
+          "stage": "fidelity-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        }
+      ],
+      "omitted": [],
+      "claims": []
+    }
+  ],
+  "calls": [
+    {
+      "stage": "draft",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 7554,
+      "usage": {
+        "input_tokens": 11970,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 92,
+        "reasoning_output_tokens": 0
+      },
+      "input_digest": "98baf5722ee186cef5669dc850a4ea46496d28966279466e6d03601600ae3745",
+      "system_digest": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "task-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 9010,
+      "usage": {
+        "input_tokens": 11106,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 120,
+        "reasoning_output_tokens": 23
+      },
+      "input_digest": "d250d7ef8a5ea88eb1ddc883b1d32b5562190b0e96c7640c939a9e23e36e85ca",
+      "system_digest": "9a831cc24108a4a93cae31c956c4f9ccd8f4ac8e3a05a3cc4c3ba1c757b037b1",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "fidelity-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 6215,
+      "usage": {
+        "input_tokens": 12205,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 61,
+        "reasoning_output_tokens": 18
+      },
+      "input_digest": "05f8a8b552ddf069a077a9bf2395b7d7589bbeb0ac9a350f1c411f33c83ed352",
+      "system_digest": "143c045af8e723c0e5fbd3864e3535125a1ea35d4053d6e25a9aa8add23107ca",
+      "isolation": "partial",
+      "reason": null
+    }
+  ],
+  "invocation": {
+    "model_calls": 3,
+    "model_call_records": 3,
+    "model_elapsed_ms": 22779,
+    "elapsed_ms": 23532,
+    "input_digest": "0ff985298073a2860611e322c8f55848cfcf538bf25069cb0b6a9abd638f881c",
+    "resolved_input_digest": "0ff985298073a2860611e322c8f55848cfcf538bf25069cb0b6a9abd638f881c"
+  }
+}

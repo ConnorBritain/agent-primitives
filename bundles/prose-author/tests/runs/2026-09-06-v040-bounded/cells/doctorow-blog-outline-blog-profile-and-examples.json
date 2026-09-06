@@ -1,0 +1,347 @@
+{
+  "id": "doctorow-blog-outline-blog-profile-and-examples",
+  "author": "doctorow-blog",
+  "form": "outline-blog",
+  "condition": "profile-and-examples",
+  "input_digest": "4905dd85fbe80848e9da3f47909e750297b9bbe6a728452304d3893eaa06d60c",
+  "status": "initial-candidate",
+  "errors": [],
+  "refused": "",
+  "draft": "A six-month trial can leave a much longer reading record. In this fictional scenario, a town library is considering a reading app whose proposed contract permits the vendor to retain identifiable reading histories for two years after a patron closes an account. The library hasn't signed.\n\nThat clock deserves attention: the two years begin when the account closes. A patron could finish using the app and still leave a record linking their identity to their reading (a remarkably persistent souvenir).\n\nImagine you're considering a book about a subject you'd prefer to explore privately. Knowing that your choice could remain attached to your identity might make you hesitate. You might choose something less revealing, postpone the inquiry, or abandon it altogether. The possibility of later scrutiny could become part of deciding what to read.\n\nThat's a risk argument. Nothing in this scenario establishes that a patron has changed their reading or that anyone has accessed a retained history. The concern is that this arrangement could make private inquiry feel like browsing a shop where the proprietor keeps a named ledger of your selections long after you've left. The vendor would hold the record; the reader would carry the worry.\n\nThe proposed alternative is concrete: retain only anonymous aggregate usage totals and let patrons read without creating an account. Totals would describe usage collectively. Reading without an account would let a patron open a book without first establishing an account identity. Both provisions belong in the proposed contract revision.\n\nThe library board accepts written comments until June 30. Submit a comment before that deadline identifying the retention clause, explaining the risk to private inquiry, and requesting the anonymous totals and account-free alternative. The contract is still unsigned – there's a concrete decision to address while its terms remain proposed.",
+  "draft_digest": "6c543bdf222db09bd001012490c86496a3ef7a444c16af7b88cac8a6b7ca95bd",
+  "omitted": [
+    {
+      "id": "o007",
+      "reason": "No attributable source contribution was supplied for this fictional scenario."
+    },
+    {
+      "id": "o009",
+      "reason": "No author experience or biography was supplied to support a personal anecdote."
+    }
+  ],
+  "claims": [],
+  "mechanical": {
+    "schema": "voice-rule-report/1",
+    "draft_digest": "6c543bdf222db09bd001012490c86496a3ef7a444c16af7b88cac8a6b7ca95bd",
+    "draft_words": 298,
+    "normalization": "visible-prose/1",
+    "exclusions": [],
+    "warnings": [],
+    "checks": [
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Keep the exact deadline text June 30.",
+        "enforcement": "enforced",
+        "actual": 1,
+        "minimum": 1,
+        "maximum": null,
+        "occurrences": [
+          {
+            "text": "June 30",
+            "start": 1630,
+            "end": 1637
+          }
+        ],
+        "status": "passed"
+      },
+      {
+        "id": "no-cliche",
+        "kind": "prohibited-phrase",
+        "directive": "Do not use the phrase in today's world.",
+        "enforcement": "enforced",
+        "actual": 0,
+        "minimum": 0,
+        "maximum": 0,
+        "occurrences": [],
+        "status": "passed"
+      },
+      {
+        "id": "questions",
+        "kind": "punctuation",
+        "directive": "Use at most one question mark.",
+        "enforcement": "enforced",
+        "actual": 0,
+        "minimum": 0,
+        "maximum": 1,
+        "occurrences": [],
+        "status": "passed"
+      },
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use 260–340 words.",
+        "enforcement": "enforced",
+        "actual": 298,
+        "minimum": 260,
+        "maximum": 340,
+        "occurrences": [],
+        "status": "passed"
+      }
+    ],
+    "status": "passed"
+  },
+  "observed": {
+    "schema": "voice-observed-comparison/1",
+    "draft_digest": "6c543bdf222db09bd001012490c86496a3ef7a444c16af7b88cac8a6b7ca95bd",
+    "draft_words": 298,
+    "enforcement": "advisory",
+    "measurements": [
+      {
+        "id": "second-person-family",
+        "count": 8,
+        "per_1000_words": 26.85,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "first-person-plural-family",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "contractions",
+        "count": 6,
+        "per_1000_words": 20.13,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "uncontracted-negatives",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "profanity-vulgarity",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "first-person-singular-family",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "question-marks",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "round-parenthetical-spans",
+        "count": 1,
+        "per_1000_words": 3.36,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "em-dashes",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "en-dashes",
+        "count": 1,
+        "per_1000_words": 3.36,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      }
+    ]
+  },
+  "pooled_diagnostic": {
+    "comparison": {
+      "schema": "voice-observed-comparison/1",
+      "draft_digest": "6c543bdf222db09bd001012490c86496a3ef7a444c16af7b88cac8a6b7ca95bd",
+      "draft_words": 298,
+      "enforcement": "advisory",
+      "measurements": [
+        {
+          "id": "second-person-family",
+          "count": 8,
+          "per_1000_words": 26.85,
+          "reference": {
+            "n": 10,
+            "minimum": 10.95,
+            "p10": 12.705,
+            "median": 17.715,
+            "p90": 38.293,
+            "maximum": 40.3
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "first-person-plural-family",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 10,
+            "minimum": 0.97,
+            "p10": 2.122,
+            "median": 6.11,
+            "p90": 14.095,
+            "maximum": 14.23
+          },
+          "status": "outside-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "contractions",
+          "count": 6,
+          "per_1000_words": 20.13,
+          "reference": {
+            "n": 10,
+            "minimum": 12.5,
+            "p10": 13.418,
+            "median": 16.635,
+            "p90": 24.395,
+            "maximum": 25.97
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "uncontracted-negatives",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 10,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0.2,
+            "p90": 1.4429999999999998,
+            "maximum": 1.56
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "profanity-vulgarity",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 10,
+            "minimum": 0.39,
+            "p10": 0.399,
+            "median": 1.29,
+            "p90": 2.1769999999999996,
+            "maximum": 2.87
+          },
+          "status": "outside-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "first-person-singular-family",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 10,
+            "minimum": 0.4,
+            "p10": 0.841,
+            "median": 5.21,
+            "p90": 20.898999999999997,
+            "maximum": 23.95
+          },
+          "status": "outside-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "question-marks",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 10,
+            "minimum": 0.48,
+            "p10": 0.696,
+            "median": 1.4249999999999998,
+            "p90": 3.899999999999996,
+            "maximum": 14.07
+          },
+          "status": "outside-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "round-parenthetical-spans",
+          "count": 1,
+          "per_1000_words": 3.36,
+          "reference": {
+            "n": 10,
+            "minimum": 1.96,
+            "p10": 2.689,
+            "median": 6.58,
+            "p90": 7.529,
+            "maximum": 7.88
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "em-dashes",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 10,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "maximum": 0
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "en-dashes",
+          "count": 1,
+          "per_1000_words": 3.36,
+          "reference": {
+            "n": 10,
+            "minimum": 0.75,
+            "p10": 1.0470000000000002,
+            "median": 3.685,
+            "p90": 7.181,
+            "maximum": 7.73
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        }
+      ]
+    },
+    "interpretation": "Unspecified-metadata corpus reference only; not a form-matched pass or failure"
+  },
+  "copying": {
+    "status": "passed",
+    "findings": [],
+    "reason": "Exact overlap heuristic, not proof that all copying is absent"
+  },
+  "artifacts": {
+    "status": "passed",
+    "draft_digest": "6c543bdf222db09bd001012490c86496a3ef7a444c16af7b88cac8a6b7ca95bd",
+    "findings": [],
+    "reason": "Tier A artifact scan only; no fallback cadence claim"
+  },
+  "human_keep_edit": "not-measured",
+  "editing_burden": "not-measured",
+  "semantic_review": "not-evaluated"
+}

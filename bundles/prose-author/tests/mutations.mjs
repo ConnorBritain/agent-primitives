@@ -98,7 +98,8 @@ const DRAFT_CONTROLS = `${TOOLS}/draft-controls.mjs`;
 const CRITIC_SOURCE = "bundles/prose-author/tests/voice-critic-source.mjs";
 const ACCEPTANCE_RUNNER = "bundles/prose-author/tests/acceptance-runner.mjs";
 const STRICT_OUTPUT_SCHEMA = "bundles/prose-author/tests/strict-output-schema.mjs";
-const VOICE_DRAFT_PROMPT = "primitives/agents/voice-draft/agent.md";
+// These mutations exercise the preserved quota-era protocol, not current tendencies.
+const VOICE_DRAFT_PROMPT = "bundles/prose-author/tests/fixtures/historical-v030/voice-draft/agent.md";
 const RATES = "bundles/prose-author/tests/corpus-rates.mjs";
 const BAR = "bundles/prose-author/tests/bar.mjs";
 const XCOUNT = "bundles/prose-author/tests/cross-count.mjs";
@@ -137,6 +138,260 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  { name: "ignore misspelled history attachment fields", file: `${TOOLS}/history-session.mjs`, find: 'Object.keys(config).some((k) => !["identity", "directory", "document_id", "revision_id", "snapshot", "format", "language"].includes(k))', with: 'false', guards: "an invalid attachment cannot silently collect into the default history directory" },
+  { name: "accept altered numerical stage differences", file: `${TOOLS}/history-session.mjs`, find: 'if (JSON.stringify(stage.changes) !== JSON.stringify(previous ? compareHistoryStages(previous, stage.measurement) : null))', with: 'if (false)', guards: "stage comparisons reproduce from the recorded exact candidate measurements" },
+  // Change the reference population, not the reporting instant too. A fresh
+  // wall-clock timestamp made an unrelated single-stage assertion fail only
+  // when two calls happened in different milliseconds; the repair fixture
+  // deliberately adds history and must catch this probe regardless of timing.
+  { name: "move the reference baseline during repairs", file: `${TOOLS}/history-session.mjs`, find: 'compareHistoryMeasurement(measurement, baseline,', with: 'compareHistoryMeasurement(measurement, buildHistoryReport(readHistory(root, config.identity), { now: baseline.as_of }),', guards: "all stages use the same pre-generation baseline despite concurrent history ingestion" },
+  { name: "silently ignore unknown history flags", file: `${TOOLS}/history-cli.mjs`, find: '!allowed.has(rest[i]) ||', with: '', guards: "unknown options cannot silently redirect history writes to the default store" },
+  { name: "reject the known Claude product-name adapter alias", file: `${TOOLS}/runtime-adapters.mjs`, find: 'name === "claude-code" ? "claude" : name', with: 'name', guards: "Claude Code product spelling resolves to the existing authenticated Claude transport" },
+  {"name":"history accepts undeclared collection","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (!state) return { enabled: false, rhetoric: false };","with":"if (!state) return { enabled: true, rhetoric: false };","guards":"collection is disabled until explicit scope consent"},
+  {"name":"history disables project precedence","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"state.scopes.find((s) => s.project === scope) ??","with":"","guards":"specific disablement overrides identity-wide collection"},
+  {"name":"history ignores revision replacement","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"latest.set(r.document, r)","with":"latest.set(r.id, r)","guards":"document revisions are not independent pieces"},
+  {"name":"history permits source recount divergence","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (digestHistory(input.measurement) !== digestHistory(measureHistoryText(input.text, input)))","with":"if (false)","guards":"persisted measurements reproduce from supplied source"},
+  {"name":"history leaks its fingerprint key in exports","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"return exported;","with":"return state;","guards":"exports omit the private keyed-fingerprint secret"},
+  {"name":"history applies stale deletion preview","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (actual.confirmation !== preview.confirmation)","with":"if (false)","guards":"deletion requires a current exact target preview"},
+  {"name":"history drops source text sanitization","file":"bundles/prose-author/skills/prose-draft/tools/history-measure.mjs","find":"visit(m);","with":"/* skip payload sanitization */","guards":"history measurement payloads cannot carry prose"},
+  {"name":"history erases within-piece variance","file":"bundles/prose-author/skills/prose-draft/tools/history-measure.mjs","find":"values.reduce((s, v) => s + (v - mean) ** 2, 0) / n","with":"0","guards":"equal means do not erase rhythm variation"},
+  {"name":"history admits generated human baselines","file":"bundles/prose-author/skills/prose-draft/tools/history-report.mjs","find":"provenance === \"human-independent\" &&","with":"true &&","guards":"generated usage remains separate from human evidence"},
+  {"name":"history flags sparse empirical departures","file":"bundles/prose-author/skills/prose-draft/tools/history-report.mjs","find":"reference?.n >= 20","with":"reference?.n >= 5","guards":"empirical departure labels require twenty pieces"},
+  {"name":"history pools incompatible analyzers","file":"bundles/prose-author/skills/prose-draft/tools/history-report.mjs","find":"r.measurement.analyzer, series","with":"\"shared-analyzer\", series","guards":"analyzer changes produce separate compatible series"},
+  {"name":"rhetoric ignores explicit opt-in","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"if (!enabled) return unavailable(\"disabled\");","with":"/* ignore consent */","guards":"rhetorical model dispatch requires separate enablement"},
+  {"name":"rhetoric ignores spent call budget","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"budget.remaining <= 0","with":"false","guards":"rhetorical analysis has a finite separate call budget"},
+  {"name":"rhetoric accepts unaccounted paragraphs","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"errors.push(\"Silent paragraph omission\")","with":"/* silently omit */","guards":"every paragraph is annotated or explicitly unclassified"},
+  {"name":"rhetoric accepts duplicate annotations","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"if (seen.has(key)) errors.push(\"Duplicate annotation\");","with":"/* double count */","guards":"identical evidence cannot inflate estimated frequencies"},
+  {"name":"history ignores final byte changes","file":"bundles/prose-author/skills/prose-draft/tools/history-session.mjs","find":"if (h.final_digest !== sha256(result.draft))","with":"if (false)","guards":"history binds the exact delivered prose"},
+  {
+    name: "accept invented check results as direct receipt excerpts",
+    file: "bundles/prose-author/tests/chat-receipt.mjs",
+    find: "excerpts.every((excerpt) => receipt.includes(excerpt))", with: "true",
+    guards: "a directly quoted receipt excerpt must occur in the generated receipt, not just use quotation marks",
+  },
+  {
+    name: "accept changed delivery receipts as checked artifacts",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: 'readFileSync(delivery, "utf8") === renderWritingDelivery(result, renderWritingReceipt(result, job))',
+    with: 'true',
+    guards: "the authoritative delivery includes exact recorded receipt bytes, not only checked prose",
+  },
+  {
+    name: "let delivery prose differ from the checked draft file",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: 'result.draft === draft\n      &&',
+    with: 'true\n      &&',
+    guards: "delivery assembly cannot substitute unverified prose while retaining the old draft hash",
+  },
+  {
+    name: "let a nonterminating capability probe defeat its timeout",
+    file: `${TOOLS}/runtime-adapters.mjs`,
+    find: 'timeout: 15000, killSignal: "SIGKILL",',
+    with: 'timeout: 15000,',
+    guards: "synchronous CLI preflight terminates even when the child ignores SIGTERM",
+  },
+  {
+    name: "let a nonterminating plugin registry defeat its timeout",
+    file: `${TOOLS}/installed-dependencies.mjs`,
+    find: 'timeout: 15000, killSignal: "SIGKILL",',
+    with: 'timeout: 15000,',
+    guards: "dependency discovery cannot indefinitely block interruption handling in the parent",
+  },
+  {
+    name: "read receipt diagnostics as completed mutation-suite counts",
+    file: "bundles/prose-author/tests/mutations.mjs",
+    find: "  const m = summaries.length === 1" + " ? summaries[0] : null;",
+    with: "  const m = out.match(/(\\d+) passed, (\\d+) failed/);",
+    guards: "mutation evidence comes from a unique delimited suite summary, not quoted diagnostic counts",
+  },
+  {
+    name: "hide host permission failures behind a generic CLI exit",
+    file: `${TOOLS}/runtime-adapters.mjs`,
+    find: 'harness === "codex" && /failed to initialize', with: 'false && /failed to initialize',
+    guards: "the receipt identifies a host-permission failure without implying the model or prose failed",
+  },
+  {
+    name: "skip deep factual auditing when requested",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'if (job.review === "deep") await stageReview', with: 'if (false) await stageReview',
+    guards: "an explicitly requested claim audit cannot disappear from the required review path",
+  },
+  {
+    name: "invent a passing artifact scan in the human receipt",
+    file: `${TOOLS}/writing-receipt.mjs`,
+    find: 'flat(attempt?.artifacts?.status)', with: '"passed"',
+    guards: "the user-facing receipt uses the recorded scanner result, including failure and unavailable cases",
+  },
+  {
+    name: "trim the checked prose during final delivery assembly",
+    file: `${TOOLS}/writing-receipt.mjs`,
+    find: '`${result.draft}\\n\\n${receipt}`', with: '`${result.draft.trim()}\\n\\n${receipt}`',
+    guards: "final assembly preserves the exact checked draft bytes",
+  },
+  {
+    name: "call unevaluated semantic checks passed during receipt reproduction",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: 'mechanical_status: reproduced.status', with: 'mechanical_status: "passed"',
+    guards: "integrity success does not upgrade the underlying check results",
+  },
+  {
+    name: "treat every omitted observed tendency as a required occurrence",
+    file: `${TOOLS}/runtime-contract.mjs`,
+    find: '!advisoryIds.includes(r.id)', with: 'true',
+    guards: "natural variation is not rejected as if corpus observations were quotas",
+  },
+  {
+    name: "allow omitted required instructions to accompany a clear review",
+    file: `${TOOLS}/runtime-contract.mjs`,
+    find: '!advisoryIds.includes(r.id)', with: 'false',
+    guards: "only observed tendencies receive the advisory-omission exception",
+  },
+  {
+    name: "resolve an advisory omission without both task and voice review",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: '["task-review", "voice-review"].every((stage)', with: '["task-review", "voice-review"].some((stage)',
+    guards: "an unavailable voice review cannot be replaced by task review alone",
+  },
+  {
+    name: "excuse user-rule omissions as observed variation",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'advisoryIds.includes(o.id) && ["task-review", "voice-review"]', with: 'true && ["task-review", "voice-review"]',
+    guards: "reviewed natural variation never exempts an explicit user instruction",
+  },
+  {
+    name: "fill example slots with known form or register mismatches",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'if (mismatches.length) {', with: 'if (false) {',
+    guards: "a shortage of matching style examples does not silently mix known writing contexts",
+  },
+  {
+    name: "hide unknown example metadata from the final receipt",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'example_warnings: selected.warnings ?? [],', with: 'example_warnings: [],',
+    guards: "unclassified samples are not represented as verified form/register matches",
+  },
+  {
+    name: "certify mismatched remote plugins and local agent wrappers",
+    file: "install-prose-codex.mjs",
+    find: 'if (plugin.version !== version) throw new Error', with: 'if (false) throw new Error',
+    guards: "remote mode does not silently mix different-generation plugin and wrapper contracts",
+  },
+  {
+    name: "omit the exact missing-atom list from task review",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'missing_atoms: options.missingAtoms ?? [], draft: candidate.draft',
+    with: 'draft: candidate.draft',
+    guards: "task reviewers receive an explicit empty accounting list instead of inventing one",
+  },
+  {
+    name: "use a disabled companion plugin from its cache",
+    file: `${TOOLS}/installed-dependencies.mjs`,
+    find: '&& e.enabled === true', with: '&& true',
+    guards: "dependency discovery respects enabled registry entries instead of stale cached files",
+  },
+  {
+    name: "accept stale installed runtime bytes",
+    file: "install-prose-codex.mjs",
+    find: '!readFileSync(join(source, file)).equals(readFileSync(join(installed, file)))', with: 'false',
+    guards: "a current version label does not mask changed or stale installed code",
+  },
+  {
+    name: "switch a marketplace containing unrelated installed plugins",
+    file: "install-prose-codex.mjs",
+    find: 'if (others.length) throw new Error', with: 'if (false) throw new Error',
+    guards: "local prose installation does not silently change other marketplace consumers",
+  },
+  {
+    name: "accept missing or redrawn bounded-comparison calls",
+    file: "bundles/prose-author/tests/bounded-comparison.mjs",
+    find: 'return JSON.stringify(calls.map((r) => r.stage)) === JSON.stringify(expected)\n    && new Set(calls.map((r) => r.id)).size === expected.length',
+    with: 'return true',
+    guards: "the recorded comparison contains every prescribed initial call exactly once",
+  },
+  {
+    name: "drop style evidence when repairing a draft",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: '{ previous_draft: candidate.draft, repair_findings: repairFindings }',
+    with: '{ profile: null, examples: [], previous_draft: candidate.draft, repair_findings: repairFindings }',
+    guards: "repairs retain the same profile and examples rather than substituting generic style",
+  },
+  {
+    name: "accept a session-relative persistent preference path",
+    file: `${TOOLS}/preference-store.mjs`,
+    find: 'configured && !isAbsolute(configured)',
+    with: 'false',
+    guards: "persistent corrections cannot move silently with a new session working directory",
+  },
+  {
+    name: "remove the small-batch discovery ceiling",
+    file: `${TOOLS}/style-session.mjs`,
+    find: '|| limit > 3',
+    with: '|| false',
+    guards: "conversational discovery cannot dump arbitrarily large review batches",
+  },
+  {
+    name: "allow comparison against an inactive scoped preference",
+    file: `${TOOLS}/style-session.mjs`,
+    find: 'const active = a.active_preferences.find((d) => d.id === decision_id);',
+    with: 'const active = preferences.decisions.find((d) => d.id === decision_id);',
+    guards: "a one-feature preview must actually vary an applicable preference",
+  },
+  {
+    name: "silently render a profile for the examples-only condition",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: '!job.profile && job.profile_policy !== "none"',
+    with: '!job.profile',
+    guards: "the examples-only path stays distinct from profile generation",
+  },
+  {
+    name: "dispatch a profile call after cancellation",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'if (signal?.aborted) return { status: "not-evaluated", reason: "Cancelled before profile render", profile: null };',
+    with: '/* defect: dispatch after cancellation */',
+    guards: "cancelled profile preparation cannot consume another model call",
+  },
+  {
+    name: "count Markdown link destinations as author parentheticals",
+    file: `${TOOLS}/visible-prose.mjs`,
+    find: 'mask(labelEnd, k, "link-target");',
+    with: '/* defect: leave the destination in prose */',
+    guards: "visible-prose counts exclude balanced Markdown targets while retaining genuine asides",
+  },
+  {
+    name: "turn unevaluable empty-text rates into passing zeroes",
+    file: `${TOOLS}/style-rules.mjs`,
+    find: 'occurrences.length / words * 1000 : null;',
+    with: 'occurrences.length / words * 1000 : 0;',
+    guards: "a missing rate denominator is not evaluated, never a passing absence",
+  },
+  {
+    name: "restore a one-hit exception to an explicit zero rule",
+    file: `${TOOLS}/style-rules.mjs`,
+    find: '(maximum === null || actual <= maximum)',
+    with: '(maximum === null || actual <= maximum + 1)',
+    guards: "explicit mechanical limits are exact and independent of corpus-rate tolerances",
+  },
+  {
+    name: "trust a stored receipt without reproducing final checks",
+    file: `${TOOLS}/style-rules.mjs`,
+    find: 'export function verifyRuleReceipt(draft, rules, receipt, options) {',
+    with: 'export function verifyRuleReceipt(draft, rules, receipt, options) { return { status: receipt.status };',
+    guards: "a presented draft is bound to its checked bytes, not a prior candidate",
+  },
+  {
+    name: "save inferred preferences without user approval",
+    file: `${TOOLS}/preferences-v2.mjs`,
+    find: 'if (!direct && !accepted.length) return',
+    with: 'if (false) return',
+    guards: "only explicit persistent feedback or approved inference changes saved preferences",
+  },
+  {
+    name: "silently retarget current observation-dependent preferences",
+    file: `${TOOLS}/preferences-v2.mjs`,
+    find: 'throw new TypeError(`Preference ${d.id} needs validated rebinding to the current profile`);',
+    with: '/* defect: accept stale binding */',
+    guards: "independent user rules survive refresh but evidence-dependent rules require rebinding",
+  },
   {
     name: "let preferences silently retarget a changed observed profile",
     file: STYLE_CONTRACT,
@@ -1679,15 +1934,18 @@ function runSuite(root, suiteRel = SUITES.author) {
     const out = execFileSync("node", [join(root, suiteRel)], {
       encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
     });
-    return parse(out);
+    return parseSuiteSummary(out);
   } catch (err) {
     // A non-zero exit is the normal case here - the suite is meant to fail.
-    return parse(String(err.stdout || ""));
+    return parseSuiteSummary(String(err.stdout || ""));
   }
 }
 
-function parse(out) {
-  const m = out.match(/(\d+) passed, (\d+) failed/);
+export function parseSuiteSummary(out) {
+  // Diagnostic text can contain receipt counts such as "1 passed, 0 failed".
+  // Only the suites' delimited, complete summary is evidence of completion.
+  const summaries = [...out.matchAll(/^─{60}\r?\n(\d+) passed, (\d+) failed(?:, \d+ skipped)?\r?$/gm)];
+  const m = summaries.length === 1 ? summaries[0] : null;
   // No summary line means the run DIED rather than finished. Reporting the FAIL
   // lines it managed to print before crashing is how this table got a wrong
   // number in the first place (CALIBRATION.md FN-2026-08-04-j).

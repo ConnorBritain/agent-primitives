@@ -1,0 +1,300 @@
+{
+  "stage": "fidelity-review",
+  "input": {
+    "original": "The library has proposed a six-month reading-app pilot, but it has not yet signed the contract. The proposed contract would retain identifiable reading histories for two years after account closure. Written comments are accepted until June 30. The board called the pilot \"a proposal, not a commitment\".",
+    "fidelity_scan": {
+      "atoms": [
+        {
+          "kind": "quote",
+          "source": "a proposal, not a commitment",
+          "present": true
+        },
+        {
+          "kind": "number",
+          "source": "30",
+          "present": true
+        }
+      ],
+      "missing": []
+    },
+    "missing_atoms": [],
+    "instruction_ids": [],
+    "brief": "Tighten this fictional library notice into two or three sentences. Preserve its facts, quoted words and uncertainty. Do not introduce new facts or advice.",
+    "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30."
+  },
+  "system": "\nYou have an original, a revision of it, and the output of `fidelity-scan`, which has already done the counting. Your only question is whether the revision kept what it had to. You are not judging whether it reads better, whether it sounds like the author, or whether the argument holds - other critics own those, and a revision can be an improvement in every one of them while still having quietly dropped a date.\n\n**Your errors are not symmetrical, and this is the opposite of the asymmetry in `prose-voice-critic`.** That critic resolves uncertainty to silence, because wrongly telling authors their voice is off teaches them to write blandly. Here the costs invert: a loss you wave through ships, and the original may be gone by the time anyone looks. A loss you raise wrongly costs the author ten seconds and a glance at two lines. So **when you cannot tell whether a loss matters, it matters.** Assume the revision dropped something and find it.\n\nIf there is no original, stop and say so. Fidelity is a comparison, and without the pre-revision text there is nothing to compare against; anything you produce would be a judgement of the revision on its own terms, which is a different critic's job.\n\n## The scan is authoritative on presence. You are authoritative only on consequence.\n\n`fidelity-scan` reports which atoms from the original - numbers, dates, quoted spans, named entities, headings - do not appear in the revision. That is a string comparison, and it is right. **You may not claim a flagged atom is present.** Models reliably \"see\" a number in a revision because the surrounding sentence sounds right; the scan does not. If you believe the scan is wrong, say so under *Scanner defects* as a bug report about the tool, and do not fold it into a fidelity finding.\n\nYour job is the half a string comparison cannot do: which absences cost the reader something, and which losses never appeared in the scan at all.\n\n## Look for exactly these, in priority order\n\n1. **Flagged atoms that are genuinely gone** - a number, date, quote, or named entity whose information the reader cannot recover from the revision. \"Opened in 1965\" becoming \"opened in the mid-sixties\" loses precision the reader cannot get back. A second mention of a name replaced by \"the university\" loses nothing.\n2. **Claim drift the scan cannot see** - the revision states something the original did not. Polarity reversed, a hedge removed (*may have been* becoming *was*), a claim strengthened or weakened, an attribution dropped so an opinion reads as fact. The scan is blind to all of this, because every word involved is still on the page.\n3. **Dropped qualifications and scope limits** - *in most cases*, *before 1890*, *among the younger writers*. Each one narrows a claim, and removing one broadens it silently. This is the most common real loss in a competent rewrite and the least likely to look like one.\n4. **Edits outside the plan** - where an edit plan was supplied, any change not traceable to an entry in it. A reviser that improved something nobody asked it to improve has exceeded its mandate, and that is a finding even when the change is good.\n5. **Structural loss wearing a rename** - a heading the scan flagged is informational when it is a retitling and material when the section under it went with it. Check whether the content survived before deciding.\n\n## Account for every flagged atom\n\nAn atom the scan flagged and you did not raise as a finding must appear under *Immaterial losses* with the reason, one line each. Returning `FAITHFUL` over a list you did not read is the failure this critic exists to prevent, and a group waved through as \"the rest are fine\" is indistinguishable from not having looked.\n\n## What is NOT a finding\n\nThe revision reading better, or worse. Sentences merged or split. A different word for the same thing. Reordering that preserves the relations between claims. Anything about voice, register, or rhythm - `prose-voice-critic` owns those and runs on the revision separately. Length, in either direction: a revision asked to cut by half is not unfaithful for being half as long, only for what it chose to cut.\n\n## Output\n\nFor each finding:\n- **CLASS**: dropped-fact | claim-drift | dropped-qualification | outside-plan | structural\n- **ORIGINAL**: line number, and quote the span\n- **REVISION**: what stands there now, quoted - or `absent`\n- **WHAT THE READER LOSES**: one sentence, concrete. Not \"detail is lost\" but what detail, and what they can no longer work out.\n\nA finding without both quotations is a guess and must be dropped.\n\nThen **Immaterial losses**: every remaining scan-flagged atom, one line each, with why its absence costs nothing. Then **Scanner defects**, if any.\n\nEnd with a one-line verdict. The verdict line MUST be exactly one of these four bare tokens, on its own line, with no markdown emphasis, no prefix, no label, no punctuation:\n\n```\nFAITHFUL\nMATERIAL-LOSS\nSPLIT\nREFUSE\n```\n\nNot `**Verdict**: MATERIAL-LOSS`. Not `**FAITHFUL / MATERIAL-LOSS**: MATERIAL-LOSS`. Not `Verdict: MATERIAL-LOSS.` — just the bare token. Downstream tools parse the last line strictly and a wrapped verdict looks like a missing verdict.\n\n`MATERIAL-LOSS` on a revision that dropped one date is correct and is not an overreaction — the verdict says information was lost, not that the revision is bad.\n\nTerse. No praise. Do not suggest fixes; you report what is missing and the author decides whether they meant it.\n\n\nFor this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.\nRead the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. The missing_atoms input is the complete list: atom_accounting must contain exactly those atoms, once each. If missing_atoms is empty, return atom_accounting: []; do not invent a factual inventory there. Additional semantic losses belong in findings, not atom_accounting. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.",
+  "result": {
+    "harness": "claude",
+    "model": "opus[1m]",
+    "elapsed_ms": 20187,
+    "dispatched": true,
+    "input_digest": "d158b4900a99567ea9435ea2af0f0faf868e564189eee8a101a790bd892accca",
+    "schema_digest": "533d254b81dcae07afbbae34d9f7ddad99e7e059cd3f5305abd772bbd18ef6c5",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"system\",\"subtype\":\"init\",\"cwd\":\"/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-0E8ag7\",\"session_id\":\"ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7\",\"tools\":[\"StructuredOutput\"],\"mcp_servers\":[],\"model\":\"claude-opus-4-6[1m]\",\"permissionMode\":\"dontAsk\",\"slash_commands\":[],\"apiKeySource\":\"none\",\"claude_code_version\":\"2.1.86\",\"output_style\":\"default\",\"agents\":[\"general-purpose\",\"statusline-setup\",\"Explore\",\"Plan\"],\"skills\":[\"update-config\",\"debug\",\"simplify\",\"batch\",\"loop\",\"schedule\",\"claude-api\"],\"plugins\":[],\"uuid\":\"062a8794-e2e6-435d-ac2e-6d372953a5d3\",\"fast_mode_state\":\"off\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemenGW3EshCMKk4JPNF6\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me compare the original and draft carefully.\\n\\nOriginal facts:\\n1. Six-month reading-app pilot proposed by library\\n2. Contract not yet signed\\n3. Proposed contract retains identifiable reading histories for two years after account closure\\n4. Written comments accepted until June 30\\n5. Board called pilot \\\"a proposal, not a commitment\\\"\\n\\nDraft preserves all of these. No missing atoms. No instruction IDs to check. The brief asked to tighten to 2-3 sentences preserving facts, quoted words, and uncertainty, without introducing new facts.\\nChecking the three-sentence draft against these points: all facts are present, the quote is intact, and the hedging language (\\\"proposed,\\\" \\\"not yet signed,\\\" \\\"would be retained\\\") is preserved. The shift to \\\"under the proposed terms\\\" instead of naming the contract directly is just a stylistic rewording, not a factual change, so the draft looks faithful overall.\",\"signature\":\"EvgKCqgBCBEYAipAnPGtcyAdBAAOiahUPDFEJA1d4MZdWve7O5DKPd7Nn01CkMyoeqvjauw8JZSCTLG+GxqYYuUxYPdoUc5TZgDMHDIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAdf689QGsAECEgx29LsZ7ryz2ZLizqcaDHd2dUNxhT850sJlsyIwWo5y5idVSpScGqasIUpGgqFAtaIwp0dbpbNMGWlboF++/z5nCDyKfhFYnJGBdb+TKvwIs273z3gLbAcMW0ygl9nMXSk0BY7QzT5hl1R/32A8TGTIhHGwm/GfXkeK/Zg34S5z6/m1yQSxkMHHrKRUDqCxhXSP8sdaIPq3+PrJLoXWtzaVoA4KFxI+lH1HZGjdRxmjrZDensMK2tPatGhoNrogsL6OuJt71T13c24uo/QWubhj0qBlvt/f+24icDnkCQlFOZPBcGWmHffNHSK8zXeexsHX/qZ6CncsD0IaqyIfk7W4+daGqg6kkONQpUr+paP3kH/t34qrNjoaPXDMwuUD61WQLLN1ZAdM7Ok2LsNZM8KHSQZr5HoEugsX2bY1skS6IwZYJfpvknRJ23JUD68+t++5hHeoQ4Cl7pAgWM7uBHQo/sYLJLnWAP4vUnR5MEbEmtW/Llb2l78Sh7GAp8QLp3cLq7nTOKVfvjd76u6xVjvWNFNaPSERnqHEh1pcc67tcm11HzRA7UAGcN5VdpYZz79WCFgsZ7Gs4wDL5YBea2Cf92JCZmrIvMZopz/E+CPUao2z8grnMIuq3MxFWYnC0tUm9OaVEBydLy0CMneDSmlbySw3E3/DMZM1j9akb2cKZihZ//bxZrY7OEXCRJ9wGE7DPFCR43oDNojNW3Y8hWSE7rsyzi8gz/bDf6wdu+HCcbjTz7zcB4SHgApI8EVuYyIpXRx87kCDHieJPveNtGBr+y5+zmYPaGqaW7RTHdpCvSVW4TZ9aa4SH7mFWrCgz8gtcCiGtyedUku/ecGKR93dytTdG9a3nS3Bnutc6wB1Zn9sl66Axxt3JXOK6ZauTF6ExcUYytJF8MMCV56PQi1t5MiiqTxLbyK9OAdLEh+zC5BqbmU4UeqdYD0z/QG36KXT9uIcVHQGZnQSpL6yc9coUAtmpHmrmIARCe4TEraoLW7Epfy5XBqDPPZznZ1saWtz8TpKgklVED4Oq/Ii630JJWPo+DUCXyoo94v8QJz1zK6SND4kmStc7nP+HExPbnuNpN8CWxGq0DsYexSBZ08M8enKLPqZyLBqki6DPhtXkVfY51MTnKMcOZRnAOiam7lGQM3BpQLT1/s0y5asAWDnqZNWYnv7lTbEf8bF+JHM4zNjTW+EDSR+5k8lJR9aMV0wXcj7/l+JjwzFFoiD67vdr8C/lWS4zLYrZGJTZqINPglLFr2TcCA2pLCCSMBnXGoAbcABfbVYLdPX+vpds46fJtAunk/cxfhGcKblUT6bkkjxjI1WVleqQP/6UQQiDeOV9n94H+hKil4QTx/l0zSS7Gl2jUKvxxF/TgxvTqbceg53hitdQUZ0Y+8sRkZHcY71RTzlUJZoxGe7Bj7zYrtTbKWuaNIhPff3chsoMlGcwjH5BCFkJqOMGC9ncEujiRujEiU3krRIgQw7S1uls/4fdUVZr60494SWudiYH29XfMOx5c1Wju5NVIQ/qmDXZr6oCv0w79IDN799YGzYz6bUm6JfDEZCq6d/NidG5eDBUb7wJYu/dbc6CkYzBg45MCE0ctuK7tuONdQzZXPGcpYjP7H1TnQK/w/WR3UYAQ==\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":2932,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7\",\"uuid\":\"7ea76f2c-7f75-4eb5-aaed-a831e1e050ab\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemenGW3EshCMKk4JPNF6\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_01SgrsFWzifccRog5iqjnSyR\",\"name\":\"StructuredOutput\",\"input\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[],\"atom_accounting\":[],\"disclosures\":[]},\"caller\":{\"type\":\"direct\"}}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":2932,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7\",\"uuid\":\"1fc0babc-82c0-4a68-a76e-7cb2769d0f5a\"}\n{\"type\":\"user\",\"message\":{\"role\":\"user\",\"content\":[{\"tool_use_id\":\"toolu_01SgrsFWzifccRog5iqjnSyR\",\"type\":\"tool_result\",\"content\":\"Structured output provided successfully\"}]},\"parent_tool_use_id\":null,\"session_id\":\"ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7\",\"uuid\":\"c9992eee-c628-4a93-b75b-d5f356647a04\",\"timestamp\":\"2026-09-06T05:42:47.498Z\",\"tool_use_result\":\"Structured output provided successfully\"}\n{\"type\":\"rate_limit_event\",\"rate_limit_info\":{\"status\":\"allowed\",\"resetsAt\":1788682800,\"rateLimitType\":\"five_hour\",\"overageStatus\":\"rejected\",\"overageDisabledReason\":\"org_level_disabled\",\"isUsingOverage\":false},\"uuid\":\"215d9020-4bf6-4354-b0dd-0dbb0bcf3f88\",\"session_id\":\"ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemeoP6wX3vxZvP1wfK6B\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"No missing atoms were flagged by the scan. All five original facts (six-month pilot, unsigned contract, two-year retention of reading histories after closure, June 30 comment deadline, board quote) survive in the draft with their qualifications intact. The hedging language (\\\"proposed,\\\" \\\"not yet signed,\\\" \\\"would be retained\\\") is preserved. The board quote is reproduced exactly. No new claims were introduced. The draft meets the brief's request to tighten to two or three sentences.\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":3360,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":1,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7\",\"uuid\":\"b4844fef-2a40-4e77-91b1-dcb5612fc126\"}\n{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":19632,\"duration_api_ms\":19618,\"num_turns\":2,\"result\":\"No missing atoms were flagged by the scan. All five original facts (six-month pilot, unsigned contract, two-year retention of reading histories after closure, June 30 comment deadline, board quote) survive in the draft with their qualifications intact. The hedging language (\\\"proposed,\\\" \\\"not yet signed,\\\" \\\"would be retained\\\") is preserved. The board quote is reproduced exactly. No new claims were introduced. The draft meets the brief's request to tighten to two or three sentences.\",\"stop_reason\":\"end_turn\",\"session_id\":\"ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7\",\"total_cost_usd\":0.044435,\"usage\":{\"input_tokens\":6292,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":519,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":0,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6[1m]\":{\"inputTokens\":6292,\"outputTokens\":519,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.044435,\"contextWindow\":1000000,\"maxOutputTokens\":64000}},\"permission_denials\":[],\"structured_output\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[],\"atom_accounting\":[],\"disclosures\":[]},\"fast_mode_state\":\"off\",\"uuid\":\"b71ece3b-810e-400e-a3cb-5d8f0170e54a\"}\n",
+    "stderr": "",
+    "exit_code": 0,
+    "value": {
+      "schema": "prose-runtime-review/1",
+      "verdict": "clear",
+      "findings": [],
+      "instructions": [],
+      "atom_accounting": [],
+      "disclosures": []
+    },
+    "usage": {
+      "input_tokens": 6292,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 519,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard"
+    },
+    "events": [
+      {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-0E8ag7",
+        "session_id": "ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7",
+        "tools": [
+          "StructuredOutput"
+        ],
+        "mcp_servers": [],
+        "model": "claude-opus-4-6[1m]",
+        "permissionMode": "dontAsk",
+        "slash_commands": [],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.86",
+        "output_style": "default",
+        "agents": [
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "update-config",
+          "debug",
+          "simplify",
+          "batch",
+          "loop",
+          "schedule",
+          "claude-api"
+        ],
+        "plugins": [],
+        "uuid": "062a8794-e2e6-435d-ac2e-6d372953a5d3",
+        "fast_mode_state": "off"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemenGW3EshCMKk4JPNF6",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "Let me compare the original and draft carefully.\n\nOriginal facts:\n1. Six-month reading-app pilot proposed by library\n2. Contract not yet signed\n3. Proposed contract retains identifiable reading histories for two years after account closure\n4. Written comments accepted until June 30\n5. Board called pilot \"a proposal, not a commitment\"\n\nDraft preserves all of these. No missing atoms. No instruction IDs to check. The brief asked to tighten to 2-3 sentences preserving facts, quoted words, and uncertainty, without introducing new facts.\nChecking the three-sentence draft against these points: all facts are present, the quote is intact, and the hedging language (\"proposed,\" \"not yet signed,\" \"would be retained\") is preserved. The shift to \"under the proposed terms\" instead of naming the contract directly is just a stylistic rewording, not a factual change, so the draft looks faithful overall.",
+              "signature": "EvgKCqgBCBEYAipAnPGtcyAdBAAOiahUPDFEJA1d4MZdWve7O5DKPd7Nn01CkMyoeqvjauw8JZSCTLG+GxqYYuUxYPdoUc5TZgDMHDIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAdf689QGsAECEgx29LsZ7ryz2ZLizqcaDHd2dUNxhT850sJlsyIwWo5y5idVSpScGqasIUpGgqFAtaIwp0dbpbNMGWlboF++/z5nCDyKfhFYnJGBdb+TKvwIs273z3gLbAcMW0ygl9nMXSk0BY7QzT5hl1R/32A8TGTIhHGwm/GfXkeK/Zg34S5z6/m1yQSxkMHHrKRUDqCxhXSP8sdaIPq3+PrJLoXWtzaVoA4KFxI+lH1HZGjdRxmjrZDensMK2tPatGhoNrogsL6OuJt71T13c24uo/QWubhj0qBlvt/f+24icDnkCQlFOZPBcGWmHffNHSK8zXeexsHX/qZ6CncsD0IaqyIfk7W4+daGqg6kkONQpUr+paP3kH/t34qrNjoaPXDMwuUD61WQLLN1ZAdM7Ok2LsNZM8KHSQZr5HoEugsX2bY1skS6IwZYJfpvknRJ23JUD68+t++5hHeoQ4Cl7pAgWM7uBHQo/sYLJLnWAP4vUnR5MEbEmtW/Llb2l78Sh7GAp8QLp3cLq7nTOKVfvjd76u6xVjvWNFNaPSERnqHEh1pcc67tcm11HzRA7UAGcN5VdpYZz79WCFgsZ7Gs4wDL5YBea2Cf92JCZmrIvMZopz/E+CPUao2z8grnMIuq3MxFWYnC0tUm9OaVEBydLy0CMneDSmlbySw3E3/DMZM1j9akb2cKZihZ//bxZrY7OEXCRJ9wGE7DPFCR43oDNojNW3Y8hWSE7rsyzi8gz/bDf6wdu+HCcbjTz7zcB4SHgApI8EVuYyIpXRx87kCDHieJPveNtGBr+y5+zmYPaGqaW7RTHdpCvSVW4TZ9aa4SH7mFWrCgz8gtcCiGtyedUku/ecGKR93dytTdG9a3nS3Bnutc6wB1Zn9sl66Axxt3JXOK6ZauTF6ExcUYytJF8MMCV56PQi1t5MiiqTxLbyK9OAdLEh+zC5BqbmU4UeqdYD0z/QG36KXT9uIcVHQGZnQSpL6yc9coUAtmpHmrmIARCe4TEraoLW7Epfy5XBqDPPZznZ1saWtz8TpKgklVED4Oq/Ii630JJWPo+DUCXyoo94v8QJz1zK6SND4kmStc7nP+HExPbnuNpN8CWxGq0DsYexSBZ08M8enKLPqZyLBqki6DPhtXkVfY51MTnKMcOZRnAOiam7lGQM3BpQLT1/s0y5asAWDnqZNWYnv7lTbEf8bF+JHM4zNjTW+EDSR+5k8lJR9aMV0wXcj7/l+JjwzFFoiD67vdr8C/lWS4zLYrZGJTZqINPglLFr2TcCA2pLCCSMBnXGoAbcABfbVYLdPX+vpds46fJtAunk/cxfhGcKblUT6bkkjxjI1WVleqQP/6UQQiDeOV9n94H+hKil4QTx/l0zSS7Gl2jUKvxxF/TgxvTqbceg53hitdQUZ0Y+8sRkZHcY71RTzlUJZoxGe7Bj7zYrtTbKWuaNIhPff3chsoMlGcwjH5BCFkJqOMGC9ncEujiRujEiU3krRIgQw7S1uls/4fdUVZr60494SWudiYH29XfMOx5c1Wju5NVIQ/qmDXZr6oCv0w79IDN799YGzYz6bUm6JfDEZCq6d/NidG5eDBUb7wJYu/dbc6CkYzBg45MCE0ctuK7tuONdQzZXPGcpYjP7H1TnQK/w/WR3UYAQ=="
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 2932,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7",
+        "uuid": "7ea76f2c-7f75-4eb5-aaed-a831e1e050ab"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemenGW3EshCMKk4JPNF6",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01SgrsFWzifccRog5iqjnSyR",
+              "name": "StructuredOutput",
+              "input": {
+                "schema": "prose-runtime-review/1",
+                "verdict": "clear",
+                "findings": [],
+                "instructions": [],
+                "atom_accounting": [],
+                "disclosures": []
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 2932,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7",
+        "uuid": "1fc0babc-82c0-4a68-a76e-7cb2769d0f5a"
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01SgrsFWzifccRog5iqjnSyR",
+              "type": "tool_result",
+              "content": "Structured output provided successfully"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7",
+        "uuid": "c9992eee-c628-4a93-b75b-d5f356647a04",
+        "timestamp": "2026-09-06T05:42:47.498Z",
+        "tool_use_result": "Structured output provided successfully"
+      },
+      {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1788682800,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "org_level_disabled",
+          "isUsingOverage": false
+        },
+        "uuid": "215d9020-4bf6-4354-b0dd-0dbb0bcf3f88",
+        "session_id": "ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemeoP6wX3vxZvP1wfK6B",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "No missing atoms were flagged by the scan. All five original facts (six-month pilot, unsigned contract, two-year retention of reading histories after closure, June 30 comment deadline, board quote) survive in the draft with their qualifications intact. The hedging language (\"proposed,\" \"not yet signed,\" \"would be retained\") is preserved. The board quote is reproduced exactly. No new claims were introduced. The draft meets the brief's request to tighten to two or three sentences."
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 3360,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7",
+        "uuid": "b4844fef-2a40-4e77-91b1-dcb5612fc126"
+      },
+      {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 19632,
+        "duration_api_ms": 19618,
+        "num_turns": 2,
+        "result": "No missing atoms were flagged by the scan. All five original facts (six-month pilot, unsigned contract, two-year retention of reading histories after closure, June 30 comment deadline, board quote) survive in the draft with their qualifications intact. The hedging language (\"proposed,\" \"not yet signed,\" \"would be retained\") is preserved. The board quote is reproduced exactly. No new claims were introduced. The draft meets the brief's request to tighten to two or three sentences.",
+        "stop_reason": "end_turn",
+        "session_id": "ea4f249c-6fca-4fb1-a1f7-dc0ac796aeb7",
+        "total_cost_usd": 0.044435,
+        "usage": {
+          "input_tokens": 6292,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 519,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-opus-4-6[1m]": {
+            "inputTokens": 6292,
+            "outputTokens": 519,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.044435,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 64000
+          }
+        },
+        "permission_denials": [],
+        "structured_output": {
+          "schema": "prose-runtime-review/1",
+          "verdict": "clear",
+          "findings": [],
+          "instructions": [],
+          "atom_accounting": [],
+          "disclosures": []
+        },
+        "fast_mode_state": "off",
+        "uuid": "b71ece3b-810e-400e-a3cb-5d8f0170e54a"
+      }
+    ],
+    "status": "passed"
+  }
+}

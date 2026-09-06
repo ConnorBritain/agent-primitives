@@ -5,42 +5,40 @@ bundle: prose-author
 
 contract:
   read_only: false
-  writes: versioned-preference-artifacts
-  scope: voice-profile
+  writes: immutable-preference-revisions
+  scope: independent-preferences-and-optional-profile
   clean_context: false
   deterministic: partial
   observed_profile_immutable: true
-  explicit_acceptance_before_apply: true
+  direct_persistent_instruction: save-with-scope-version-and-undo-receipt
+  inferred_preference: explicit-approval-required
+  runtime: ../prose-draft/tools/prose-runtime.mjs
   denied_inputs:
     - catalog.json
-    - corpus files in feedback-interpretation or drafting contexts
   refuses:
-    - tuning a historical profile without a ten-dimension coverage ledger
-    - applying an agent proposal with unresolved questions
-    - stale profile or preference ancestry
+    - ambiguous interpretation or scope
+    - stale preference ancestry or observation-dependent binding
     - equally specific active preference conflicts
-    - inferring broad preferences from an uncontrolled whole-draft choice
+    - inferring unrelated preferences from an uncontrolled draft choice
 
 harness:
   claude-code:
     enforcement: partial
     notes: >-
-      Deterministic schema, digest, ancestry, scope, conflict, and apply guards are
-      enforced. Clean semantic contexts and withholding the A/B mapping from the user
-      remain orchestration responsibilities.
-  cursor:
+      Runtime enforces immutable history, digests, scope precedence and approval
+      for inferred operations. Interpreting user meaning remains a host responsibility.
+  codex:
     enforcement: partial
     notes: >-
-      The Node tool is portable; clean agent contexts and corpus isolation depend on
-      the host. Apply only explicitly selected operation ids.
-  codex:
+      Same deterministic preference store and rules as Claude. Model dispatch uses
+      authenticated CLI sessions; unsupported isolation is disclosed.
+  cursor:
     enforcement: advisory
     notes: >-
-      Invoke the deterministic tool directly and run voice-feedback-interpret and each
-      voice-draft candidate in fresh contexts. The host does not enforce those context
-      boundaries from metadata alone.
+      Preference tools work with Node. Draft comparisons require an implemented
+      Claude or Codex adapter; no native Cursor adapter is claimed.
   agents-md:
     enforcement: advisory
     notes: >-
-      Keep observed evidence immutable, store user preference separately, and never
-      apply a semantic proposal without explicit selection.
+      Prompt-only hosts must invoke the tools for checked storage and compilation.
+      Never hand-edit preference state as a substitute for an unavailable runtime.

@@ -1,0 +1,1 @@
+Thanks so much for the invitation—I really appreciate it. Unfortunately I won't be able to make it on Friday, but I hope it goes great.

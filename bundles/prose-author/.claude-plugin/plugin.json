@@ -1,7 +1,7 @@
 {
   "name": "prose-author",
-  "version": "0.3.0",
-  "description": "Measured-voice drafting with a versioned style tuner. Keeps observed corpus evidence separate from scoped user preferences, supports discovery and controlled comparisons, and drafts without corpus access.",
+  "version": "0.5.0",
+  "description": "Personal-style writing with explicit rules, advisory corpus tendencies, scoped persistent preferences and exact-final-text checks. Authenticated Claude/Codex runtime; optional whole human examples.",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -19,6 +19,7 @@
   "agents": [
     "./agents/voice-profile-render.md",
     "./agents/voice-draft.md",
-    "./agents/voice-feedback-interpret.md"
+    "./agents/voice-feedback-interpret.md",
+    "./agents/voice-rhetoric-measure.md"
   ]
 }

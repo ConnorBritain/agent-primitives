@@ -1,0 +1,125 @@
+{
+  "stage": "initial-draft",
+  "system": "\nYou draft or revise prose using only the authorized task inputs. Return\n`voice-draft-source/5`; deterministic code and separate reviewers check it.\n\n## Inputs and priority\n\nThe caller supplies a brief, task context, factual material, optional existing\npassage, explicit rules, an optional `voice-profile/3`, and up to three selected\nwhole human-authored examples. A compiled `voice-style-spec/2` may supply the\nprofile and rules instead. Follow the user's chosen form, purpose and explicit\npreferences. Never reinterpret a user preference as an observed habit.\n\nUse only supplied inputs. Do not open files, browse, invoke tools, or bring in\nunrelated session history. Examples are authorized style evidence, not a license\nto read the rest of a corpus. Without examples, stay profile-only. Without a\nprofile, use the supplied preferences and task; do not invent a learned voice.\n\nNever consume `catalog.json`, detector thresholds, or a generic AI-tell list.\nRefuse such material. A user's explicit phrase or punctuation choice is allowed;\ndo not mistake an ordinary personal preference for a tell catalog.\n\n## Read the profile as evidence, not quotas\n\nRead every supplied coverage row and resolve its `observation_ids` before\nwriting, including:\n\n- `person-reader-stance`\n- `contraction-negation`\n- `qualification-hedging`\n- `questions-imperatives-vocatives`\n- `opponents-allies-sources`\n- `profanity-vulgarity`\n- `self-reference-biography`\n- `interruption-punctuation`\n- `figures-analogy`\n- `openings-endings-closure`\n\nFor `rated` rows, measured frequencies describe the samples; they are advisory\ntendencies, not mandatory quotas or per-draft minimums. For `described` rows,\nuse the supported behavior with context-appropriate placement and restraint.\nFor `unresolved` rows, invent no habit. An observed absence means “not observed\nin these samples,” not “the author never does this.” Only an explicit user rule\ncreates a prohibition or count requirement. Limited samples and unmatched\nregisters limit what the profile establishes.\n\nDo not smooth away supported parentheticals, interruption punctuation, figure\nvocabulary or attribution merely because uninterrupted generic prose is easier\nto compose. Conversely, do not force every tendency into a short reply, reproduce\nevery paragraph ending as the same rhetorical move, or pad a piece to hit a\ncorpus rate. If an applicable supported instruction cannot be used, identify its\nobservation or rule ID and the concrete reason in `omitted`. Natural variation\nalone is not an omission; an unresolved coverage row supplies no instruction.\n\nExplicit mechanical rules govern literal phrases, punctuation, word limits and\nnamed count ranges. Use the final prose length, not the requested target, when\nconsidering a rate. An explicit zero means zero. Semantic preferences govern\nmeaning or placement but are not mechanically provable. Never change substantive\nmeaning just to satisfy a count.\n\n## Task modes and fidelity\n\n- `draft`: write the requested new piece from its brief, notes or outline.\n- `rewrite`: change the supplied passage only as requested. Preserve its facts,\n  quotations, named entities, qualifications, scope and strength of claims.\n- `continue`: return only the continuation. Use the existing passage for\n  coherence and established referents, not as an additional human style sample.\n- A supplied `previous_draft` and `repair_findings` mean bounded repair: make\n  the smallest coherent changes addressing those identified problems. Preserve\n  substantive material; never silently delete paragraphs to satisfy a count.\n  The caller limits repair cycles and checks the exact final bytes.\n\nBefore output, substitute the referenced noun/group for each pronoun and\npossessive. Fix inconsistent person, number, ownership or reader inclusion,\nespecially `we/our` beside `you/your`. Preserve factual relationships, not just\nthe literal presence of names or numbers.\n\n## Factual material and copying\n\nFirst person is grammar, not biography. Never invent an employer, experience,\ncredential, residence, family, possession or event for the supposed author.\nExamples and profile citations do not make their authors' lives the user's life.\nUse task facts for author biography; omit or recast unsupported personal details.\n\nDo not fabricate citations, attributed quotations, statistics or an opponent's\nposition to imitate a source habit. Preserve supplied quotation bytes. If the\ntask lacks material needed for an attribution-based habit, omit that habit and\nrecord why. A statement about what an unnamed opponent would say is still an\nunsupported attribution, not a harmless workaround.\n\nDisclose factual additions lacking supplied support in `claims`, with the exact\ndraft quote and what needs verification. A disclosure is not verification or\npermission to fabricate a source. General knowledge can be mistaken; do not\nclaim factual certainty. Examples guide style, not topic facts. Do not reproduce\ndistinctive example passages without authorized attribution. A later overlap\ncheck is a heuristic, not a guarantee that copying is impossible.\n\n## Refusal and output contract\n\nRefuse when the requested register is genuinely unchoosable, necessary task\ncontent is missing, or forbidden catalog material is supplied. Do not refuse\nmerely because there is no corpus or because a supported short task has limited\nstyle evidence. Do not silently convert historical profiles into /3; ask the\ncaller to refresh or select the historical workflow.\n\nReturn one JSON object without fences or commentary. All keys are required:\n\n```json\n{\n  \"schema\": \"voice-draft-source/5\",\n  \"kind\": \"draft\",\n  \"draft\": \"The actual prose, without verification commentary.\",\n  \"omitted\": [{\"id\": \"a-supplied-rule-or-observation-id\", \"reason\": \"Why it could not apply.\"}],\n  \"claims\": [{\"quote\": \"An exact span in the draft.\", \"reason\": \"What requires verification.\"}],\n  \"refused\": \"\"\n}\n```\n\nUse empty arrays when there are no omissions or disclosed additions. A refusal\nuses `kind: \"refusal\"`, an empty draft and empty arrays, and a nonempty `refused`\nreason. Never return both a draft and a refusal. Do not invent IDs. Do not claim\nthe result sounds like the author, is good, is factually accurate, or would pass\na detector.\n\n## Known limits\n\nA compact profile loses detail. Selected examples can bias topic or wording.\nSemantic checks can miss errors. You produce a candidate, not its certification;\nonly the caller's recorded checks describe what was actually evaluated.\n",
+  "input": {
+    "brief": "Rewrite the supplied passage using the selected style evidence and preferences. Preserve every supplied fact and the author's conditional uncertainty; keep the request for anonymous totals and account-free reading. Do not add an anecdote or external claim.",
+    "mode": "rewrite",
+    "context": {
+      "form": "passage",
+      "purpose": "rewrite-library-comment",
+      "audience": "library board",
+      "register": null
+    },
+    "facts": [
+      "This is a fictional scenario supplied for a writing exercise, not a report about a real program.",
+      "A town library is considering a six-month pilot of a reading app.",
+      "The vendor's proposed contract permits retaining identifiable reading histories for two years after a patron closes an account.",
+      "The library has not signed the contract.",
+      "The library board accepts written comments until June 30.",
+      "The proposed alternative is to retain only anonymous aggregate usage totals and to let patrons read without creating an account."
+    ],
+    "source_text": "The library has not signed the contract for its proposed six-month reading-app pilot. That leaves time to change a clause allowing the vendor to retain identifiable reading histories for two years after a patron closes an account. I oppose that clause. Keeping those records could discourage some patrons from exploring subjects privately, although I cannot say whether that would happen here. The board should instead ask the vendor to retain only anonymous aggregate usage totals and allow patrons to read without creating an account. These changes would make the pilot more acceptable to me. Written comments are accepted until June 30; I would like the board to consider this alternative before it signs.",
+    "rules": [
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Keep the exact deadline text June 30.",
+        "text": "June 30"
+      },
+      {
+        "id": "no-cliche",
+        "kind": "prohibited-phrase",
+        "directive": "Do not use the phrase in today's world.",
+        "text": "in today's world"
+      },
+      {
+        "id": "questions",
+        "kind": "punctuation",
+        "directive": "Use at most one question mark.",
+        "characters": "?",
+        "minimum": 0,
+        "maximum": 1
+      },
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use 100–160 words.",
+        "minimum": 100,
+        "maximum": 160
+      }
+    ],
+    "profile": null,
+    "examples": [
+      {
+        "id": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+        "text": "---\nsource: EFF Deeplinks (eff.org)\ntitle: The NO FAKES Act Could Silence Satire, Commentary, And News\nauthor: Joe Mullin\ndate: 2026-06-01\nhuman_authored: true\nlicense: CC-BY-4.0\nlink_targets: stripped\nextraction: field--name-body node only\npermalink: https://www.eff.org/deeplinks/2026/06/no-fakes-act-could-silence-satire-commentary-and-news\n---\nThe [NO FAKES Act](https://www.eff.org/deeplinks/2026/06/tell-congress-just-say-no-no-fakes) is supposed to target harmful AI-generated impersonations. But in reality, it will [make it easier to suppress](https://www.eff.org/deeplinks/2026/06/tell-congress-just-say-no-no-fakes) commentary, satire, and other lawful speech. That's why EFF has signed a [letter](https://cdt.org/wp-content/uploads/2026/06/NO-FAKES-Summer-2026_FINAL-1.pdf) urging the Senate Judiciary Committee not to advance the bill in its current form.\n\nIn the letter, EFF joins a coalition of civil society groups in pointing out that the bill would import many of the worst features of the DMCA notice-and-takedown system into an even broader range of online expression. Faced with a “heckler’s veto” over legal speech, platforms will have incentives to remove content first and ask questions later.\n\nThe bill offers no protection for a platform’s judgment about an often difficult question—whether a particular piece of content is satire, parody, commentary, or news. Any platform that guesses wrong faces penalties of up to $750,000 per work.\n\nNO FAKES could also undermine the rights of the people it is supposed to protect. The new federal “likeness” right could be licensed or transferred to others, so individuals will lose control over the use of their own face and voice. That’s not theoretical—workers in the entertainment industry are routinely asked to sign broad contracts about the future use of their likenesses.\n\nAs the letter notes:\n\nA background actor who signs a release on set or an ordinary person who clicks through a platform's terms of service could end up with the right to their own face and voice in someone else's hands, for years, with federal enforcement behind it.\n\nEFF and the other signatories urge Congress to examine existing legal remedies and pursue narrowly tailored solutions to genuine harms. The last thing we need is a sweeping new intellectual property right that threatens free expression.\n\nIn addition to EFF, the letter is signed by the Center for Democracy & Technology, the American Civil Liberties Union, Fight for the Future, Foundation for Individual Rights and Expression, the Organization for Transformative Works, Public Knowledge, the R Street Institute, The Future of Free Speech, and the Woodhull Freedom Foundation. Read the [full letter](https://cdt.org/wp-content/uploads/2026/06/NO-FAKES-Summer-2026_FINAL-1.pdf) here.\n",
+        "digest": "dab051da9d7253cdf5e6da9a406abc6b8746227a7d8a596999978118624544fd"
+      },
+      {
+        "id": "court-records-should-be-free.txt",
+        "text": "---\nsource: EFF Deeplinks (eff.org)\ntitle: Court Records Should Be Free\nauthor: Joe Mullin\ndate: 2026-06-01\nhuman_authored: true\nlicense: CC-BY-4.0\nlink_targets: stripped\nextraction: field--name-body node only\npermalink: https://www.eff.org/deeplinks/2026/06/court-records-should-be-free\n---\nCourt records belong to the public. Yet anyone seeking access to federal court filings through PACER, a government software system that stands for Public Access to Court Electronic Records, is usually required to pay hefty fees to search for and view documents. PACER’s fees have long acted as a barrier that makes it hard, especially for low income people, to see and understand the work produced by our own public servants.\n\nThat's why EFF [joined a broad group of organizations](https://fixthecourt.com/wp-content/uploads/2026/06/Group-letter-on-the-Open-Courts-Act-6.15.26.pdf) supporting the Open Courts Act of 2026, legislation that would modernize the federal courts' electronic filing systems and eliminate PACER fees.\n\nPublic access to the courts is a cornerstone of democratic accountability.\n\nThe bill would replace the aging PACER and [CM/ECF](https://en.wikipedia.org/wiki/CM/ECF) systems with a modern, unified platform designed to improve public access, strengthen cybersecurity, and reduce long-term costs. Supporters note that PACER currently collects more than $150 million annually in fees from the public, despite court records being public documents.\n\nThe Open Courts Act would also make court records easier to find, access, and understand. The legislation builds on a [similar proposal](https://www.eff.org/deeplinks/2020/09/end-pacer-paywall), also supported by EFF, that previously won bipartisan support in the Senate Judiciary Committee but did not become law before the end of the congressional session.\n\nThis is not a new issue for EFF. More than a decade ago, [we criticized PACER's paywalls](https://www.eff.org/deeplinks/2014/09/right-know-pacer-mess-and-how-clean-it) and the removal of some court records from online access, arguing that the public should not have to pay to read the law and the judicial decisions that shape it. The Open Courts Act would move U.S. courts a big step closer to that goal.\n\nIn addition to EFF, the bill is supported by [Fix the Court](https://fixthecourt.com/), the group pushing this bill forward; the [Free Law Project](https://free.law/), which maintains RECAP, software that has created a large archive of legal opinions and other court records; as well as civil society groups, open government watchdogs, and media groups.\n\nPublic access to the courts is a cornerstone of democratic accountability. Let’s [eliminate unnecessary barriers to court records](https://www.eff.org/deeplinks/2020/09/end-pacer-paywall), and bring the federal judiciary’s tech into the modern era.\n\nRead the [full letter](https://fixthecourt.com/wp-content/uploads/2026/06/Group-letter-on-the-Open-Courts-Act-6.15.26.pdf) supporting the Open Courts Act of 2026\n",
+        "digest": "40a58864bc4e143f185882102b84df382247061c49f492c347016b3e9bd75188"
+      },
+      {
+        "id": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+        "text": "---\nsource: EFF Deeplinks (eff.org)\ntitle: California A.B. 412 Stalls Out—A Win for Innovation and Fair Use\nauthor: Joe Mullin\ndate: 2025-07-01\nhuman_authored: true\nlicense: CC-BY-4.0\nlink_targets: stripped\nextraction: field--name-body node only\npermalink: https://www.eff.org/deeplinks/2025/07/california-ab-412-stalls-out-win-innovation-and-fair-use\n---\nA.B. 412, the flawed California bill that threatened small developers in the name of AI “transparency,” has been delayed and turned into a [two-year bill](https://capitolmuseum.ca.gov/learn/about-the-government/life-cycle-of-a-bill/). That means it won’t move forward in 2025—a significant victory for innovation, freedom to code, and the open web.\n\nEFF [opposed this bill from the start](https://www.eff.org/deeplinks/2025/03/californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly). A.B. 412 tried to regulate generative AI, not by looking at the public interest, but by mandating training data “reading lists” designed to pave the way for new copyright lawsuits, many of which are filed by large content companies.\n\nTransparency in AI development is a laudable goal. But A.B. 412 failed to offer a fair or effective path to get there. Instead, it gave companies large and small the impossible task of differentiating between what content was copyrighted and what wasn’t—with severe penalties for anyone who couldn’t meet that regulation. That would have protected the largest AI companies, but frozen out smaller and non-commercial developers who might want to tweak or fine-tune AI systems for the public good.\n\nThe most interesting work in AI won’t necessarily come from the biggest companies. It will come from small teams, fine-tuning for accessibility, privacy, and building tools that identify AI harms. And some of the most valuable work will be done using source code under permissive licenses.\n\nA.B. 412 ignored those facts, and would have punished some of the most worthwhile projects.\n\nThe Bill Blew Off Fair Use Rights\n\nThe question of whether—and how much—AI training qualifies as fair use is being actively litigated right now in federal courts. And so far, courts have found much of this work to be fair use. In [a recent landmark AI case,](https://www.eff.org/deeplinks/2025/06/two-courts-rule-generative-ai-and-fair-use-one-gets-it-right) Bartz v. Anthropic, for example, a federal judge found that AI training work is “transformative—spectacularly so.” He compared it to how search engines copy images and text in order to provide useful search results to users.\n\nCopyright is federally governed. When states try to rewrite the rules, they create confusion—and more litigation that doesn’t help anyone.\n\nIf lawmakers want to revisit AI transparency, they need to do so without giving rights-holders a tool to weaponize copyright claims. That means rejecting A.B. 412’s approach—and crafting laws that protect speech, competition, and the public’s interest in a robust, open, and fair AI ecosystem.\n",
+        "digest": "aa696f2a0fb1fd3fa2b7104bd68d1df51c65a47bbab11897ed89731675adfae0"
+      }
+    ]
+  },
+  "result": {
+    "harness": "codex",
+    "model": "gpt-6-astra",
+    "elapsed_ms": 12007,
+    "dispatched": true,
+    "input_digest": "ab96cf9209b8c1d555aff42f91d0833af4f8d9f1039b2022c9c53207fcc634c8",
+    "schema_digest": "79d3fb57cce1275acbeb69784dda620f71e1929c7379ed2f8d7a26c6d908a70a",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a07522-a20c-70d3-a6ab-e3bce17708a9\"}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"agent_message\",\"text\":\"{\\\"schema\\\":\\\"voice-draft-source/5\\\",\\\"kind\\\":\\\"draft\\\",\\\"draft\\\":\\\"This comment concerns a fictional scenario, not a real library program.\\\\n\\\\nThe town library hasn’t signed the contract for its proposed six-month reading-app pilot. That leaves time to change a clause permitting the vendor to keep identifiable reading histories for two years after a patron closes an account.\\\\n\\\\nI oppose that clause. Keeping those records could discourage some patrons from exploring subjects privately—although I can’t say whether that would happen here.\\\\n\\\\nThe board should ask the vendor to retain only anonymous aggregate usage totals and let patrons read without creating an account. Those changes would make the pilot more acceptable to me.\\\\n\\\\nThe board accepts written comments until June 30. I would like it to consider this alternative before signing the contract.\\\",\\\"omitted\\\":[],\\\"claims\\\":[],\\\"refused\\\":\\\"\\\"}\"}}\n{\"type\":\"turn.completed\",\"usage\":{\"input_tokens\":14762,\"cached_input_tokens\":0,\"cache_write_input_tokens\":0,\"output_tokens\":243,\"reasoning_output_tokens\":56}}\n",
+    "stderr": "2026-09-06T05:13:19.120422Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:13:19.121835Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:13:19.122817Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:13:19.124010Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n",
+    "exit_code": 0,
+    "value": {
+      "schema": "voice-draft-source/5",
+      "kind": "draft",
+      "draft": "This comment concerns a fictional scenario, not a real library program.\n\nThe town library hasn’t signed the contract for its proposed six-month reading-app pilot. That leaves time to change a clause permitting the vendor to keep identifiable reading histories for two years after a patron closes an account.\n\nI oppose that clause. Keeping those records could discourage some patrons from exploring subjects privately—although I can’t say whether that would happen here.\n\nThe board should ask the vendor to retain only anonymous aggregate usage totals and let patrons read without creating an account. Those changes would make the pilot more acceptable to me.\n\nThe board accepts written comments until June 30. I would like it to consider this alternative before signing the contract.",
+      "omitted": [],
+      "claims": [],
+      "refused": ""
+    },
+    "usage": {
+      "input_tokens": 14762,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 243,
+      "reasoning_output_tokens": 56
+    },
+    "events": [
+      {
+        "type": "thread.started",
+        "thread_id": "01a07522-a20c-70d3-a6ab-e3bce17708a9"
+      },
+      {
+        "type": "turn.started"
+      },
+      {
+        "type": "item.completed",
+        "item": {
+          "id": "item_0",
+          "type": "agent_message",
+          "text": "{\"schema\":\"voice-draft-source/5\",\"kind\":\"draft\",\"draft\":\"This comment concerns a fictional scenario, not a real library program.\\n\\nThe town library hasn’t signed the contract for its proposed six-month reading-app pilot. That leaves time to change a clause permitting the vendor to keep identifiable reading histories for two years after a patron closes an account.\\n\\nI oppose that clause. Keeping those records could discourage some patrons from exploring subjects privately—although I can’t say whether that would happen here.\\n\\nThe board should ask the vendor to retain only anonymous aggregate usage totals and let patrons read without creating an account. Those changes would make the pilot more acceptable to me.\\n\\nThe board accepts written comments until June 30. I would like it to consider this alternative before signing the contract.\",\"omitted\":[],\"claims\":[],\"refused\":\"\"}"
+        }
+      },
+      {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 14762,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 243,
+          "reasoning_output_tokens": 56
+        }
+      }
+    ],
+    "status": "passed"
+  }
+}

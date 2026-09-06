@@ -47,10 +47,10 @@ export async function run(t, { HERE }) {
     t.check("voice-draft: declares reads_catalog: false", /^\s*reads_catalog:\s*false\b/m.test(meta));
     t.check("voice-draft: the claude-code tool allowlist is empty — the firewall is structural",
       /^\s*tools:\s*\[\s*\]\s*$/m.test(meta));
-    t.check("voice-draft: Codex metadata names the current source and conformance contracts",
-      /use the voice-draft-source\/4 schema/.test(meta)
-        && /voice-draft-conformance-patch\/1 stage/.test(meta)
-        && /Historical source\/1, source\/2, and source\/3 artifacts[\s\S]*remain readable/.test(meta));
+    t.check("voice-draft: Codex metadata names the current source and preserved historical readers",
+      /voice-draft-source\/5/.test(meta)
+        && /observed rates remain advisory/.test(meta)
+        && /Historical source\/1, source\/2, source\/3 and source\/4 artifacts remain readable/.test(meta));
 
     const agentPath = join(dir, "agent.md");
     if (fsExists(agentPath)) {
@@ -85,34 +85,38 @@ export async function run(t, { HERE }) {
         "profanity-vulgarity", "self-reference-biography", "interruption-punctuation",
         "figures-analogy", "openings-endings-closure",
       ];
-      t.check("voice-draft: names all ten voice-profile/2 coverage dimensions",
+      t.check("voice-draft: names all ten voice-profile/3 coverage dimensions",
         coverageDimensions.every((dimension) => prompt.includes(`\`${dimension}\``)),
         coverageDimensions.filter((dimension) => !prompt.includes(`\`${dimension}\``)).join(", "));
+      // Preserve the old protocol's assertions against its exact historical prompt.
+      // Current behavior/parity is exercised by suite-runtime-v040, not these quotas.
+      const legacySrc = fsRead(join(HERE, "fixtures/historical-v030/voice-draft/agent.md"), "utf8");
+      const legacyPrompt = legacySrc.toLowerCase();
       for (const status of ["rated", "described", "absent-paired", "unresolved"]) {
-        t.check(`voice-draft: defines how to process ${status} coverage`,
-          new RegExp(`\\*\\*\\\`${status}\\\`\\*\\*`).test(prompt));
+        t.check(`historical v0.3 voice-draft: defines how to process ${status} coverage`,
+          new RegExp(`\\*\\*\\\`${status}\\\`\\*\\*`).test(legacyPrompt));
       }
-      t.check("voice-draft: resolves supported coverage through observation ids",
-        /resolve each supported entry through its `observation_ids`/.test(prompt));
-      t.check("voice-draft: remains compatible with historical voice-profile/1 inputs",
-        /older `voice-profile\/1` profiles have no coverage table[\s\S]*remain usable/.test(prompt));
-      t.check("voice-draft: silently dropping any supported instruction requires an omission record",
-        /whether its status is `rated`, `described`, or `absent-paired`[\s\S]*put it in `omitted`/.test(prompt));
-      t.check("voice-draft: audits each named actor action and consequence independently",
-        /every proper name and quotation[\s\S]*every factual verb and consequence attached to it/.test(src));
-      t.check("voice-draft: an attributed quotation must be supplied verbatim",
-        /attributed quoted words must appear[\s\S]*in the request or in real source material[\s\S]*remove the[\s\S]{0,24}attribution and quotation marks/i.test(src));
-      t.check("voice-draft: v2 omissions identify the dimension and every observation",
-        /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(prompt));
-      t.check("voice-draft: deterministic target cards own measured arithmetic while described habits stay qualitative",
-        /deterministic draft target card[\s\S]*aim at its stated count[\s\S]*min\/max range[\s\S]*qualitative `described` observation has no numeric quota/.test(prompt));
-      t.check("voice-draft: conformance mode emits exact minimal patches rather than another candidate draft",
-        /explicitly requests `voice-draft-conformance-patch\/1`[\s\S]*not another candidate draft/.test(prompt)
-          && /Every `before` value must copy one exact, unique[\s\S]*one paragraph or less/.test(src)
-          && /Return exactly ten coverage rows[\s\S]*`revised` row must be named by an[\s\S]*edit/.test(src)
-          && /measurement_ids[\s\S]*exact token printed inside `\[measurement:\.\.\.\]`[\s\S]*never an observation id/.test(prompt)
-          && /minimum unavoidable whitespace-word delta[\s\S]*content-length[\s\S]*neutral[\s\S]*extra form change still fails/.test(prompt)
-          && /rejects non-unique or overlapping anchors[\s\S]*out-of-range final[\s\S]*counts/.test(src));
+      t.check("historical v0.3 voice-draft: resolves supported coverage through observation ids",
+        /resolve each supported entry through its `observation_ids`/.test(legacyPrompt));
+      t.check("historical v0.3 voice-draft: remains compatible with historical voice-profile/1 inputs",
+        /older `voice-profile\/1` profiles have no coverage table[\s\S]*remain usable/.test(legacyPrompt));
+      t.check("historical v0.3 voice-draft: silently dropping any supported instruction requires an omission record",
+        /whether its status is `rated`, `described`, or `absent-paired`[\s\S]*put it in `omitted`/.test(legacyPrompt));
+      t.check("historical v0.3 voice-draft: audits each named actor action and consequence independently",
+        /every proper name and quotation[\s\S]*every factual verb and consequence attached to it/.test(legacySrc));
+      t.check("historical v0.3 voice-draft: an attributed quotation must be supplied verbatim",
+        /attributed quoted words must appear[\s\S]*in the request or in real source material[\s\S]*remove the[\s\S]{0,24}attribution and quotation marks/i.test(legacySrc));
+      t.check("historical v0.3 voice-draft: v2 omissions identify the dimension and every observation",
+        /for `voice-profile\/2`, name the coverage dimension and every affected observation id in `habit`/.test(legacyPrompt));
+      t.check("historical v0.3 voice-draft: deterministic target cards own measured arithmetic while described habits stay qualitative",
+        /deterministic draft target card[\s\S]*aim at its stated count[\s\S]*min\/max range[\s\S]*qualitative `described` observation has no numeric quota/.test(legacyPrompt));
+      t.check("historical v0.3 voice-draft: conformance mode emits exact minimal patches rather than another candidate draft",
+        /explicitly requests `voice-draft-conformance-patch\/1`[\s\S]*not another candidate draft/.test(legacyPrompt)
+          && /Every `before` value must copy one exact, unique[\s\S]*one paragraph or less/.test(legacySrc)
+          && /Return exactly ten coverage rows[\s\S]*`revised` row must be named by an[\s\S]*edit/.test(legacySrc)
+          && /measurement_ids[\s\S]*exact token printed inside `\[measurement:\.\.\.\]`[\s\S]*never an observation id/.test(legacyPrompt)
+          && /minimum unavoidable whitespace-word delta[\s\S]*content-length[\s\S]*neutral[\s\S]*extra form change still fails/.test(legacyPrompt)
+          && /rejects non-unique or overlapping anchors[\s\S]*out-of-range final[\s\S]*counts/.test(legacySrc));
       if (shipped && fsExists(rendered)) {
         const strip = (s) => s.replace(/^---\n[\s\S]*?\n---\n/, "");
         t.check("voice-draft: rendered body is byte-identical to primitives/ source (AGENTS.md rule 1)",
@@ -123,9 +127,9 @@ export async function run(t, { HERE }) {
     }
   }
 
-  t.group("voice-draft prompt regressions — known silent failures have explicit final checks");
+  t.group("historical v0.3 draft prompt regressions — frozen quota protocol");
   {
-    const agentPath = resolve(HERE, "..", "..", "..", "primitives", "agents", "voice-draft", "agent.md");
+    const agentPath = join(HERE, "fixtures/historical-v030/voice-draft/agent.md");
     const src = fsRead(agentPath, "utf8").toLowerCase();
     const fixturePath = resolve(HERE, "fixtures", "voice-draft-regressions", "safeguards.json");
     t.check("the five drafter safeguard regressions are checked in", fsExists(fixturePath), fixturePath);
@@ -209,7 +213,7 @@ export async function run(t, { HERE }) {
         /absent-paired[\s\S]*count the absent form and its positive replacement separately/],
     ];
     for (const [label, pattern] of policies) {
-      t.check(`voice-draft: ${label}`, pattern.test(src));
+      t.check(`historical v0.3 voice-draft: ${label}`, pattern.test(src));
     }
   }
 

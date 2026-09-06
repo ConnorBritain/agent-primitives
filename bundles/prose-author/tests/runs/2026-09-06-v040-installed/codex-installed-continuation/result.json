@@ -1,0 +1,165 @@
+{
+  "schema": "prose-writing-result/1",
+  "status": "checked",
+  "reason": "Exact final text checked; no resemblance, quality or factual guarantee",
+  "draft": "I would prefer a contract that allows only anonymous aggregate usage totals and lets people read without creating an account. While the contract is still proposed, please submit written comments by June 30.",
+  "receipt": {
+    "draft_digest": "d825100ec0a24b4285dcec7f268f2df504a1bd1aceacba97ab54667e12e70b9f",
+    "profile_digest": null,
+    "preference_digest": "eb8142c2a760bfc1f00142060adc9bc5cfc4bd0e2ef3ff5bd5a1128942e259d7",
+    "preference_revision": 1,
+    "active_preferences": [],
+    "overrides": [
+      "length",
+      "deadline"
+    ],
+    "examples": [],
+    "example_exclusions": [],
+    "model_calls": 2,
+    "elapsed_ms": 14597,
+    "final_check": {
+      "cycle": 0,
+      "draft_digest": "d825100ec0a24b4285dcec7f268f2df504a1bd1aceacba97ab54667e12e70b9f"
+    },
+    "isolation": "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee"
+  },
+  "claims": [],
+  "omitted": [],
+  "attempts": [
+    {
+      "cycle": 0,
+      "draft": "I would prefer a contract that allows only anonymous aggregate usage totals and lets people read without creating an account. While the contract is still proposed, please submit written comments by June 30.",
+      "draft_digest": "d825100ec0a24b4285dcec7f268f2df504a1bd1aceacba97ab54667e12e70b9f",
+      "mechanical": {
+        "schema": "voice-rule-report/1",
+        "draft_digest": "d825100ec0a24b4285dcec7f268f2df504a1bd1aceacba97ab54667e12e70b9f",
+        "draft_words": 33,
+        "normalization": "visible-prose/1",
+        "exclusions": [],
+        "warnings": [],
+        "checks": [
+          {
+            "id": "length",
+            "kind": "word-limit",
+            "directive": "Use at most 80 words.",
+            "enforcement": "enforced",
+            "actual": 33,
+            "minimum": 1,
+            "maximum": 80,
+            "occurrences": [],
+            "status": "passed"
+          },
+          {
+            "id": "deadline",
+            "kind": "required-text",
+            "directive": "Include June 30 exactly.",
+            "enforcement": "enforced",
+            "actual": 1,
+            "minimum": 1,
+            "maximum": null,
+            "occurrences": [
+              {
+                "text": "June 30",
+                "start": 198,
+                "end": 205
+              }
+            ],
+            "status": "passed"
+          }
+        ],
+        "status": "passed"
+      },
+      "observed": {
+        "status": "not-evaluated",
+        "reason": "A current profile is unavailable",
+        "measurements": []
+      },
+      "copying": {
+        "status": "not-evaluated",
+        "findings": [],
+        "reason": "No corpus text available for copying comparison"
+      },
+      "artifacts": {
+        "status": "passed",
+        "draft_digest": "d825100ec0a24b4285dcec7f268f2df504a1bd1aceacba97ab54667e12e70b9f",
+        "findings": [],
+        "reason": "Tier A artifact scan only; no fallback cadence claim"
+      },
+      "reviews": [
+        {
+          "stage": "task-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [
+              {
+                "id": "length",
+                "status": "applied",
+                "reason": "The continuation is one paragraph of 34 words, within the 80-word limit."
+              },
+              {
+                "id": "deadline",
+                "status": "applied",
+                "reason": "Includes “June 30” exactly."
+              }
+            ],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        }
+      ],
+      "omitted": [],
+      "claims": []
+    }
+  ],
+  "calls": [
+    {
+      "stage": "draft",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 7314,
+      "usage": {
+        "input_tokens": 11972,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 75,
+        "reasoning_output_tokens": 0
+      },
+      "input_digest": "0b2fe9ae240371722f09ac73536d102ce42539d29d928ab09bd73c8f4dc4df7c",
+      "system_digest": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "task-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 6674,
+      "usage": {
+        "input_tokens": 11087,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 91,
+        "reasoning_output_tokens": 0
+      },
+      "input_digest": "cc66a2cdd51e46fd5f70bb82aada7cc3c69160e8a146bf18287e622ec8cde11c",
+      "system_digest": "9a831cc24108a4a93cae31c956c4f9ccd8f4ac8e3a05a3cc4c3ba1c757b037b1",
+      "isolation": "partial",
+      "reason": null
+    }
+  ],
+  "invocation": {
+    "model_calls": 2,
+    "model_call_records": 2,
+    "model_elapsed_ms": 13988,
+    "elapsed_ms": 14598,
+    "input_digest": "f491acaabe4954f01b58a06af8abbdc0b36b75b7d59e3b70b74dbdeb4ffffdae",
+    "resolved_input_digest": "f491acaabe4954f01b58a06af8abbdc0b36b75b7d59e3b70b74dbdeb4ffffdae"
+  }
+}

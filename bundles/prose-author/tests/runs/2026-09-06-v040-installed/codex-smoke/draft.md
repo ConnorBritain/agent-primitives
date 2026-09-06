@@ -1,0 +1,1 @@
+Thanks for the invitation! I can’t make it on Friday.

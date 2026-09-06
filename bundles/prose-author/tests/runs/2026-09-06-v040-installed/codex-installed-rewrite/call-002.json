@@ -1,0 +1,100 @@
+{
+  "stage": "task-review",
+  "input": {
+    "brief": "Tighten this fictional library notice into two or three sentences. Preserve its facts, quoted words and uncertainty. Do not introduce new facts or advice.",
+    "context": {
+      "form": "notice",
+      "purpose": "explain a proposed pilot",
+      "register": "plain"
+    },
+    "original": "The library has proposed a six-month reading-app pilot, but it has not yet signed the contract. The proposed contract would retain identifiable reading histories for two years after account closure. Written comments are accepted until June 30. The board called the pilot \"a proposal, not a commitment\".",
+    "profile": null,
+    "rules": [
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use at most 90 words.",
+        "minimum": 1,
+        "maximum": 90
+      },
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Retain June 30 exactly.",
+        "text": "June 30"
+      }
+    ],
+    "instruction_ids": [
+      "length",
+      "deadline"
+    ],
+    "draft": "The library has proposed a six-month reading-app pilot but has not yet signed the contract, which would retain identifiable reading histories for two years after account closure. The board called the pilot \"a proposal, not a commitment\". Written comments are accepted until June 30."
+  },
+  "system": "Review only task adherence, explicit semantic preferences, supported profile instructions, pronoun/referent consistency and unsupported factual additions. Do not judge general quality. Check first-person biography, employers and personal experiences against supplied task facts, not style examples. Check that the draft has not silently dropped requested parentheticals, figure vocabulary or attribution. Surface evidence-backed omissions; ordinary variation is not an error. Never claim to prove factual accuracy. For this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.\nRead the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.",
+  "result": {
+    "harness": "codex",
+    "model": "gpt-6-astra",
+    "elapsed_ms": 9010,
+    "dispatched": true,
+    "input_digest": "d250d7ef8a5ea88eb1ddc883b1d32b5562190b0e96c7640c939a9e23e36e85ca",
+    "schema_digest": "533d254b81dcae07afbbae34d9f7ddad99e7e059cd3f5305abd772bbd18ef6c5",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a07538-4aab-72d0-b51b-94808516865d\"}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"agent_message\",\"text\":\"{\\\"schema\\\":\\\"prose-runtime-review/1\\\",\\\"verdict\\\":\\\"clear\\\",\\\"findings\\\":[],\\\"instructions\\\":[{\\\"id\\\":\\\"length\\\",\\\"status\\\":\\\"applied\\\",\\\"reason\\\":\\\"The draft has 45 words, within the 90-word maximum, and uses three sentences.\\\"},{\\\"id\\\":\\\"deadline\\\",\\\"status\\\":\\\"applied\\\",\\\"reason\\\":\\\"The draft retains “June 30” exactly.\\\"}],\\\"atom_accounting\\\":[],\\\"disclosures\\\":[]}\"}}\n{\"type\":\"turn.completed\",\"usage\":{\"input_tokens\":11106,\"cached_input_tokens\":0,\"cache_write_input_tokens\":0,\"output_tokens\":120,\"reasoning_output_tokens\":23}}\n",
+    "stderr": "2026-09-06T05:36:58.544064Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:36:58.545619Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:36:58.546977Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n",
+    "exit_code": 0,
+    "value": {
+      "schema": "prose-runtime-review/1",
+      "verdict": "clear",
+      "findings": [],
+      "instructions": [
+        {
+          "id": "length",
+          "status": "applied",
+          "reason": "The draft has 45 words, within the 90-word maximum, and uses three sentences."
+        },
+        {
+          "id": "deadline",
+          "status": "applied",
+          "reason": "The draft retains “June 30” exactly."
+        }
+      ],
+      "atom_accounting": [],
+      "disclosures": []
+    },
+    "usage": {
+      "input_tokens": 11106,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 120,
+      "reasoning_output_tokens": 23
+    },
+    "events": [
+      {
+        "type": "thread.started",
+        "thread_id": "01a07538-4aab-72d0-b51b-94808516865d"
+      },
+      {
+        "type": "turn.started"
+      },
+      {
+        "type": "item.completed",
+        "item": {
+          "id": "item_0",
+          "type": "agent_message",
+          "text": "{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"length\",\"status\":\"applied\",\"reason\":\"The draft has 45 words, within the 90-word maximum, and uses three sentences.\"},{\"id\":\"deadline\",\"status\":\"applied\",\"reason\":\"The draft retains “June 30” exactly.\"}],\"atom_accounting\":[],\"disclosures\":[]}"
+        }
+      },
+      {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 11106,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 120,
+          "reasoning_output_tokens": 23
+        }
+      }
+    ],
+    "status": "passed"
+  }
+}

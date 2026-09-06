@@ -1,7 +1,7 @@
 {
   "name": "prose-author",
-  "version": "0.3.0",
-  "description": "Measured-voice drafting with a versioned style tuner. Keeps observed corpus evidence separate from scoped user preferences, supports discovery and controlled comparisons, and drafts without corpus access.",
+  "version": "0.5.0",
+  "description": "Personal-style writing with explicit rules, advisory corpus tendencies, scoped persistent preferences and exact-final-text checks. Authenticated Claude/Codex runtime; optional whole human examples.",
   "author": {
     "name": "Connor England",
     "url": "https://github.com/ConnorBritain"
@@ -18,8 +18,8 @@
   "homepage": "https://github.com/ConnorBritain/agent-primitives",
   "interface": {
     "displayName": "Prose Author",
-    "shortDescription": "Drafts from measured voice evidence plus versioned, scoped user preferences.",
-    "longDescription": "Renders a single-author corpus into immutable voice-profile/2 evidence, then layers versioned voice-preferences/1 decisions without rewriting the observations. prose-style-tune serves evidence in small discovery batches, translates direct or pairwise feedback into reviewable proposals, applies only explicitly accepted operations, compiles context-specific style specifications, and supports controlled A/B drafts. voice-draft receives only the request and compiled profile/specification, never the corpus or AI-tell catalog. Deterministic conformance and independent audits make deviations visible; they do not guarantee factual accuracy, quality, or resemblance.",
+    "shortDescription": "Personal-style writing with checked rules and persistent preferences.",
+    "longDescription": "Draft, rewrite or continue prose using explicit user preferences, a cited voice-profile/3 and optional selected whole human examples. The dependency-free runner uses existing Claude/Codex CLI authentication, checks exact final bytes, performs task-scaled review and limits repairs to two cycles. Scoped voice-preferences/2 persist with version receipts and undo; inferred preferences require approval. Observed frequencies are advisory, not quotas. Missing checks remain visible. No resemblance, quality or factual-accuracy guarantee.",
     "developerName": "Connor England",
     "category": "Developer Tools",
     "capabilities": [
@@ -27,12 +27,9 @@
     ],
     "websiteURL": "https://github.com/ConnorBritain/agent-primitives",
     "defaultPrompt": [
-      "This paragraph isn't working - rewrite it the way I write",
-      "Draft this section from my notes, in my voice",
-      "Write a new essay from this outline using my voice profile",
-      "Draft a reply for this reader and purpose in my voice",
-      "Show me three style traits at a time so I can decide what to lock or change",
-      "Compare two versions that differ only in how directly they open"
+      "Draft a reply using my writing preferences",
+      "Remember this style correction for future replies",
+      "Continue this passage without changing its established facts"
     ]
   }
 }

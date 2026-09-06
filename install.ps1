@@ -111,6 +111,11 @@ if ($selAgents.Count -gt 0) {
     New-Item -ItemType Directory -Force -Path $agentDest | Out-Null
     foreach ($f in $selAgents) {
         Copy-Item -Path $f.FullName -Destination $agentDest -Force
+        if ($f.BaseName -eq 'prose-fidelity-critic') {
+            $toolsDest = Join-Path $root 'tools'
+            New-Item -ItemType Directory -Force -Path $toolsDest | Out-Null
+            Copy-Item -Path (Join-Path $f.Directory.Parent.FullName 'tools/fidelity-scan.mjs') -Destination $toolsDest -Force
+        }
         Write-Host "  agent  $($f.BaseName)"
         $count++
     }

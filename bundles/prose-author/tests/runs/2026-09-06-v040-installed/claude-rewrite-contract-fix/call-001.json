@@ -1,0 +1,272 @@
+{
+  "stage": "draft",
+  "input": {
+    "brief": "Tighten this fictional library notice into two or three sentences. Preserve its facts, quoted words and uncertainty. Do not introduce new facts or advice.",
+    "mode": "rewrite",
+    "context": {
+      "form": "notice",
+      "purpose": "explain a proposed pilot",
+      "register": "plain"
+    },
+    "facts": [],
+    "source_text": "The library has proposed a six-month reading-app pilot, but it has not yet signed the contract. The proposed contract would retain identifiable reading histories for two years after account closure. Written comments are accepted until June 30. The board called the pilot \"a proposal, not a commitment\".",
+    "profile": null,
+    "rules": [
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use at most 90 words.",
+        "minimum": 1,
+        "maximum": 90
+      },
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Retain June 30 exactly.",
+        "text": "June 30"
+      }
+    ],
+    "examples": []
+  },
+  "system": "\nYou draft or revise prose using only the authorized task inputs. Return\n`voice-draft-source/5`; deterministic code and separate reviewers check it.\n\n## Inputs and priority\n\nThe caller supplies a brief, task context, factual material, optional existing\npassage, explicit rules, an optional `voice-profile/3`, and up to three selected\nwhole human-authored examples. A compiled `voice-style-spec/2` may supply the\nprofile and rules instead. Follow the user's chosen form, purpose and explicit\npreferences. Never reinterpret a user preference as an observed habit.\n\nUse only supplied inputs. Do not open files, browse, invoke tools, or bring in\nunrelated session history. Examples are authorized style evidence, not a license\nto read the rest of a corpus. Without examples, stay profile-only. Without a\nprofile, use the supplied preferences and task; do not invent a learned voice.\n\nNever consume `catalog.json`, detector thresholds, or a generic AI-tell list.\nRefuse such material. A user's explicit phrase or punctuation choice is allowed;\ndo not mistake an ordinary personal preference for a tell catalog.\n\n## Read the profile as evidence, not quotas\n\nRead every supplied coverage row and resolve its `observation_ids` before\nwriting, including:\n\n- `person-reader-stance`\n- `contraction-negation`\n- `qualification-hedging`\n- `questions-imperatives-vocatives`\n- `opponents-allies-sources`\n- `profanity-vulgarity`\n- `self-reference-biography`\n- `interruption-punctuation`\n- `figures-analogy`\n- `openings-endings-closure`\n\nFor `rated` rows, measured frequencies describe the samples; they are advisory\ntendencies, not mandatory quotas or per-draft minimums. For `described` rows,\nuse the supported behavior with context-appropriate placement and restraint.\nFor `unresolved` rows, invent no habit. An observed absence means “not observed\nin these samples,” not “the author never does this.” Only an explicit user rule\ncreates a prohibition or count requirement. Limited samples and unmatched\nregisters limit what the profile establishes.\n\nDo not smooth away supported parentheticals, interruption punctuation, figure\nvocabulary or attribution merely because uninterrupted generic prose is easier\nto compose. Conversely, do not force every tendency into a short reply, reproduce\nevery paragraph ending as the same rhetorical move, or pad a piece to hit a\ncorpus rate. If an applicable supported instruction cannot be used, identify its\nobservation or rule ID and the concrete reason in `omitted`. Natural variation\nalone is not an omission; an unresolved coverage row supplies no instruction.\n\nExplicit mechanical rules govern literal phrases, punctuation, word limits and\nnamed count ranges. Use the final prose length, not the requested target, when\nconsidering a rate. An explicit zero means zero. Semantic preferences govern\nmeaning or placement but are not mechanically provable. Never change substantive\nmeaning just to satisfy a count.\n\n## Task modes and fidelity\n\n- `draft`: write the requested new piece from its brief, notes or outline.\n- `rewrite`: change the supplied passage only as requested. Preserve its facts,\n  quotations, named entities, qualifications, scope and strength of claims.\n- `continue`: return only the continuation. Use the existing passage for\n  coherence and established referents, not as an additional human style sample.\n- A supplied `previous_draft` and `repair_findings` mean bounded repair: make\n  the smallest coherent changes addressing those identified problems. Preserve\n  substantive material; never silently delete paragraphs to satisfy a count.\n  The caller limits repair cycles and checks the exact final bytes.\n\nBefore output, substitute the referenced noun/group for each pronoun and\npossessive. Fix inconsistent person, number, ownership or reader inclusion,\nespecially `we/our` beside `you/your`. Preserve factual relationships, not just\nthe literal presence of names or numbers.\n\n## Factual material and copying\n\nFirst person is grammar, not biography. Never invent an employer, experience,\ncredential, residence, family, possession or event for the supposed author.\nExamples and profile citations do not make their authors' lives the user's life.\nUse task facts for author biography; omit or recast unsupported personal details.\n\nDo not fabricate citations, attributed quotations, statistics or an opponent's\nposition to imitate a source habit. Preserve supplied quotation bytes. If the\ntask lacks material needed for an attribution-based habit, omit that habit and\nrecord why. A statement about what an unnamed opponent would say is still an\nunsupported attribution, not a harmless workaround.\n\nDisclose factual additions lacking supplied support in `claims`, with the exact\ndraft quote and what needs verification. A disclosure is not verification or\npermission to fabricate a source. General knowledge can be mistaken; do not\nclaim factual certainty. Examples guide style, not topic facts. Do not reproduce\ndistinctive example passages without authorized attribution. A later overlap\ncheck is a heuristic, not a guarantee that copying is impossible.\n\n## Refusal and output contract\n\nRefuse when the requested register is genuinely unchoosable, necessary task\ncontent is missing, or forbidden catalog material is supplied. Do not refuse\nmerely because there is no corpus or because a supported short task has limited\nstyle evidence. Do not silently convert historical profiles into /3; ask the\ncaller to refresh or select the historical workflow.\n\nReturn one JSON object without fences or commentary. All keys are required:\n\n```json\n{\n  \"schema\": \"voice-draft-source/5\",\n  \"kind\": \"draft\",\n  \"draft\": \"The actual prose, without verification commentary.\",\n  \"omitted\": [{\"id\": \"a-supplied-rule-or-observation-id\", \"reason\": \"Why it could not apply.\"}],\n  \"claims\": [{\"quote\": \"An exact span in the draft.\", \"reason\": \"What requires verification.\"}],\n  \"refused\": \"\"\n}\n```\n\nUse empty arrays when there are no omissions or disclosed additions. A refusal\nuses `kind: \"refusal\"`, an empty draft and empty arrays, and a nonempty `refused`\nreason. Never return both a draft and a refusal. Do not invent IDs. Do not claim\nthe result sounds like the author, is good, is factually accurate, or would pass\na detector.\n\n## Known limits\n\nA compact profile loses detail. Selected examples can bias topic or wording.\nSemantic checks can miss errors. You produce a candidate, not its certification;\nonly the caller's recorded checks describe what was actually evaluated.\n",
+  "result": {
+    "harness": "claude",
+    "model": "opus[1m]",
+    "elapsed_ms": 8271,
+    "dispatched": true,
+    "input_digest": "680cd6355ecd36f85c378148b6264c1416003dfb724be62dd7011c3767d6733e",
+    "schema_digest": "79d3fb57cce1275acbeb69784dda620f71e1929c7379ed2f8d7a26c6d908a70a",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"system\",\"subtype\":\"init\",\"cwd\":\"/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-J60n9l\",\"session_id\":\"4c0a1760-e418-449d-ad0b-0893ae840be8\",\"tools\":[\"StructuredOutput\"],\"mcp_servers\":[],\"model\":\"claude-opus-4-6[1m]\",\"permissionMode\":\"dontAsk\",\"slash_commands\":[],\"apiKeySource\":\"none\",\"claude_code_version\":\"2.1.86\",\"output_style\":\"default\",\"agents\":[\"general-purpose\",\"statusline-setup\",\"Explore\",\"Plan\"],\"skills\":[\"update-config\",\"debug\",\"simplify\",\"batch\",\"loop\",\"schedule\",\"claude-api\"],\"plugins\":[],\"uuid\":\"1323986b-ed6a-4f67-803d-9bee832ef776\",\"fast_mode_state\":\"off\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011Cemekec1eZRDAtggJPRRg\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Rewrite task: tighten to 2-3 sentences, preserve facts, quoted words, uncertainty. Max 90 words, must include \\\"June 30\\\".\",\"signature\":\"EoUDCqgBCBEYAipA4AsF4dCsaRH6xW24NAORY9PQE8Kp6XC7XGH1XiigBXvTWwgXhmXXwU25UDUKAMuiaXDrZZuHVi0icz7JAM2IYDIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAbb689QGsAECEgzw53Ai5PtVOtAug/EaDDIuffIMJoupKa5w2iIw9fInYOmlomAR6YjHlB995meWjT/uKJ6JKaMsHfp7Fv0U5gCFEojAtkoTymrn8e5/KokBZ52fFIgrFwwber1FsudFzsonqOpuVoMS6tM+CUgQZSntXgZNobVQtCs/lwpjZxl0SrgdZGUFBs9Li8rioJ5YBKT7rv17MzbIPDyFWl5DCkGfy3JDnANcj12E1zeWB4clogG8BASOEz1YrULSQQa/flcqje3WCp2zNa/mktRvOAbdBcGUzz3SmiEYAQ==\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":2575,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":10,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"4c0a1760-e418-449d-ad0b-0893ae840be8\",\"uuid\":\"05074da2-7029-4131-8e30-319b4000449e\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011Cemekec1eZRDAtggJPRRg\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_01WVr9F55zznhRhAy4ZWQdDg\",\"name\":\"StructuredOutput\",\"input\":{\"schema\":\"voice-draft-source/5\",\"kind\":\"draft\",\"draft\":\"The library has proposed a six-month reading-app pilot—described by the board as \\\"a proposal, not a commitment\\\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.\",\"omitted\":[],\"claims\":[],\"refused\":\"\"},\"caller\":{\"type\":\"direct\"}}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":2575,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":10,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"4c0a1760-e418-449d-ad0b-0893ae840be8\",\"uuid\":\"b8b757c4-2cf7-40f7-8153-a9572956c03f\"}\n{\"type\":\"user\",\"message\":{\"role\":\"user\",\"content\":[{\"tool_use_id\":\"toolu_01WVr9F55zznhRhAy4ZWQdDg\",\"type\":\"tool_result\",\"content\":\"Structured output provided successfully\"}]},\"parent_tool_use_id\":null,\"session_id\":\"4c0a1760-e418-449d-ad0b-0893ae840be8\",\"uuid\":\"3fa679c5-65c3-440a-97ab-9e1d3f82b262\",\"timestamp\":\"2026-09-06T05:42:16.309Z\",\"tool_use_result\":\"Structured output provided successfully\"}\n{\"type\":\"rate_limit_event\",\"rate_limit_info\":{\"status\":\"allowed\",\"resetsAt\":1788682800,\"rateLimitType\":\"five_hour\",\"overageStatus\":\"rejected\",\"overageDisabledReason\":\"org_level_disabled\",\"isUsingOverage\":false},\"uuid\":\"cc092dc8-0941-4447-bcaa-c3b786679cb1\",\"session_id\":\"4c0a1760-e418-449d-ad0b-0893ae840be8\"}\n{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":7756,\"duration_api_ms\":7742,\"num_turns\":2,\"result\":\"\",\"stop_reason\":\"end_turn\",\"session_id\":\"4c0a1760-e418-449d-ad0b-0893ae840be8\",\"total_cost_usd\":0.033620000000000004,\"usage\":{\"input_tokens\":5424,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":260,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":0,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6[1m]\":{\"inputTokens\":5424,\"outputTokens\":260,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.033620000000000004,\"contextWindow\":1000000,\"maxOutputTokens\":64000}},\"permission_denials\":[],\"structured_output\":{\"schema\":\"voice-draft-source/5\",\"kind\":\"draft\",\"draft\":\"The library has proposed a six-month reading-app pilot—described by the board as \\\"a proposal, not a commitment\\\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.\",\"omitted\":[],\"claims\":[],\"refused\":\"\"},\"fast_mode_state\":\"off\",\"uuid\":\"c846c698-ab9a-484b-8d0d-a2ca2fbdd1e1\"}\n",
+    "stderr": "",
+    "exit_code": 0,
+    "value": {
+      "schema": "voice-draft-source/5",
+      "kind": "draft",
+      "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.",
+      "omitted": [],
+      "claims": [],
+      "refused": ""
+    },
+    "usage": {
+      "input_tokens": 5424,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 260,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard"
+    },
+    "events": [
+      {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-J60n9l",
+        "session_id": "4c0a1760-e418-449d-ad0b-0893ae840be8",
+        "tools": [
+          "StructuredOutput"
+        ],
+        "mcp_servers": [],
+        "model": "claude-opus-4-6[1m]",
+        "permissionMode": "dontAsk",
+        "slash_commands": [],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.86",
+        "output_style": "default",
+        "agents": [
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "update-config",
+          "debug",
+          "simplify",
+          "batch",
+          "loop",
+          "schedule",
+          "claude-api"
+        ],
+        "plugins": [],
+        "uuid": "1323986b-ed6a-4f67-803d-9bee832ef776",
+        "fast_mode_state": "off"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011Cemekec1eZRDAtggJPRRg",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "Rewrite task: tighten to 2-3 sentences, preserve facts, quoted words, uncertainty. Max 90 words, must include \"June 30\".",
+              "signature": "EoUDCqgBCBEYAipA4AsF4dCsaRH6xW24NAORY9PQE8Kp6XC7XGH1XiigBXvTWwgXhmXXwU25UDUKAMuiaXDrZZuHVi0icz7JAM2IYDIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAbb689QGsAECEgzw53Ai5PtVOtAug/EaDDIuffIMJoupKa5w2iIw9fInYOmlomAR6YjHlB995meWjT/uKJ6JKaMsHfp7Fv0U5gCFEojAtkoTymrn8e5/KokBZ52fFIgrFwwber1FsudFzsonqOpuVoMS6tM+CUgQZSntXgZNobVQtCs/lwpjZxl0SrgdZGUFBs9Li8rioJ5YBKT7rv17MzbIPDyFWl5DCkGfy3JDnANcj12E1zeWB4clogG8BASOEz1YrULSQQa/flcqje3WCp2zNa/mktRvOAbdBcGUzz3SmiEYAQ=="
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 2575,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 10,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "4c0a1760-e418-449d-ad0b-0893ae840be8",
+        "uuid": "05074da2-7029-4131-8e30-319b4000449e"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011Cemekec1eZRDAtggJPRRg",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01WVr9F55zznhRhAy4ZWQdDg",
+              "name": "StructuredOutput",
+              "input": {
+                "schema": "voice-draft-source/5",
+                "kind": "draft",
+                "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.",
+                "omitted": [],
+                "claims": [],
+                "refused": ""
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 2575,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 10,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "4c0a1760-e418-449d-ad0b-0893ae840be8",
+        "uuid": "b8b757c4-2cf7-40f7-8153-a9572956c03f"
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01WVr9F55zznhRhAy4ZWQdDg",
+              "type": "tool_result",
+              "content": "Structured output provided successfully"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "4c0a1760-e418-449d-ad0b-0893ae840be8",
+        "uuid": "3fa679c5-65c3-440a-97ab-9e1d3f82b262",
+        "timestamp": "2026-09-06T05:42:16.309Z",
+        "tool_use_result": "Structured output provided successfully"
+      },
+      {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1788682800,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "org_level_disabled",
+          "isUsingOverage": false
+        },
+        "uuid": "cc092dc8-0941-4447-bcaa-c3b786679cb1",
+        "session_id": "4c0a1760-e418-449d-ad0b-0893ae840be8"
+      },
+      {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 7756,
+        "duration_api_ms": 7742,
+        "num_turns": 2,
+        "result": "",
+        "stop_reason": "end_turn",
+        "session_id": "4c0a1760-e418-449d-ad0b-0893ae840be8",
+        "total_cost_usd": 0.033620000000000004,
+        "usage": {
+          "input_tokens": 5424,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 260,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-opus-4-6[1m]": {
+            "inputTokens": 5424,
+            "outputTokens": 260,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.033620000000000004,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 64000
+          }
+        },
+        "permission_denials": [],
+        "structured_output": {
+          "schema": "voice-draft-source/5",
+          "kind": "draft",
+          "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.",
+          "omitted": [],
+          "claims": [],
+          "refused": ""
+        },
+        "fast_mode_state": "off",
+        "uuid": "c846c698-ab9a-484b-8d0d-a2ca2fbdd1e1"
+      }
+    ],
+    "status": "passed"
+  }
+}

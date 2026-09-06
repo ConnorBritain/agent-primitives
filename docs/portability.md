@@ -52,25 +52,14 @@ selection, don't pass the file and describe the selection.
 **author — moderate.** Output quality holds. What you lose is the assurance that it only wrote
 where it was supposed to. Review the file list.
 
-For `prose-author` there is a second author-specific boundary: the blank-page
-drafter must receive only the request and assembled voice profile, never the
-corpus that produced it. Claude Code can enforce the empty tool allowlist and
-separate agent context. On other harnesses, isolate every stage in a fresh
-subprocess or context: rendering and drafting must not share history, and neither
-should audit or criticism. The profile and JSON contracts port; the isolation
-guarantee becomes advisory.
-
-v0.3's preference artifacts, canonical digests, ancestry, scope matching, conflict
-refusal, diffs, and explicit apply selection are deterministic and port intact. What does
-not port automatically is context hygiene: `voice-feedback-interpret` should receive only
-profile evidence, the current overlay, and one feedback event; each A/B draft should run in
-its own clean context. The baseline/experiment mapping can be withheld from the user by any
-harness, but not cryptographically hidden from an orchestrator that dispatches both specs.
-
-An advisory port is still useful, but must not be reported as gated unless the
-exact output also reaches `prose-tell-scan` and an independent `prose-review`
-context. Neither a clean audit nor a clean voice review proves factual accuracy
-or resemblance.
+Bundle-specific adapters must distinguish deterministic checks from partial
+context restriction and semantic judgment. The current `prose-author` candidate
+implements authenticated Claude/Codex CLI adapters, portable preferences and
+exact-final-byte checks; selected whole human examples are optional authorized
+inputs. It does not claim general read isolation or a native Pi adapter. See its
+[runtime and adapter contract](../bundles/prose-author/RUNTIME.md) for precise
+boundaries and unavailable-check behavior. Historical corpus-blind runs retain
+their original meaning rather than being relabeled as current evidence.
 
 **investigator — mild.** Read-only is a natural fit for the task rather than a constraint being
 fought, and there's no verdict anyone has an incentive to skip. Ports nearly intact.

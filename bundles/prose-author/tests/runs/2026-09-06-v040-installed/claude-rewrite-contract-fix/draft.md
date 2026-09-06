@@ -1,0 +1,1 @@
+The library has proposed a six-month reading-app pilot—described by the board as "a proposal, not a commitment"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.

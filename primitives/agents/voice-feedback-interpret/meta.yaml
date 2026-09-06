@@ -1,6 +1,3 @@
-# Harness-specific metadata for the voice-feedback-interpret primitive.
-# The prompt body lives in agent.md and is rendered byte-identically in prose-author.
-
 name: voice-feedback-interpret
 kind: planner
 ships: true
@@ -12,45 +9,44 @@ contract:
   clean_context: true
   scope: feedback-event
   verdict: none
-  output: voice-preference-proposal/1
-  applies_own_plan: false
+  output: voice-feedback-source/2
+  inputs_inline: true
   reads_corpus: false
+  reads_exemplars: false
   reads_catalog: false
-  success_criteria:
-    - every proposed operation traces to the user's supplied feedback
-    - user taste remains separate from observed corpus evidence
-    - contextual feedback does not silently become a global preference
-    - deterministic code, after explicit user selection, owns revision mutation
-  refuses:
-    - a corpus or AI-tell catalog placed in its input
-    - inferring several preferences from an unexplained whole-draft like or dislike
-    - changing the observed voice profile
-    - applying its own proposal
+  applies_own_plan: false
+  computes_hashes: false
+  observed_rates: advisory-not-quotas
+  explicit_rules: independent-user-instructions
+  never_claims:
+    - resemblance or quality guarantees
+    - factual certainty
+    - detector success
 
 harness:
   claude-code:
-    enforcement: enforced
-    model: sonnet
-    color: green
+    enforcement: partial
     tools: []
+    color: green
     notes: >-
-      All semantic inputs arrive inline and the empty tool allowlist prevents the
-      planner from reading the corpus, catalog, or preference files directly. The
-      orchestrator supplies the native proposal schema and deterministic code validates
-      the result before any explicitly accepted operation is applied.
-  cursor:
+      Inputs arrive inline; no tools are permitted. Model selection inherits the
+      caller configuration. The production runtime uses a fresh authenticated CLI
+      context and audits execution records. This is not general OS read isolation.
+  codex:
     enforcement: partial
     notes: >-
-      Tool restriction and clean-context isolation are not guaranteed. Supply only the
-      relevant profile card, current overlay, and one feedback event in a fresh request.
-  codex:
+      Use the production runtime with the voice-feedback-source/2 schema.
+      Authenticated CLI calls preserve configured models. Mechanical checks bind
+      exact final bytes; observed rates remain advisory and semantic review is fallible.
+      Historical source/1, source/2, source/3 and source/4 artifacts remain readable
+      through versioned historical tools; never silently relabel old evidence.
+  cursor:
     enforcement: advisory
     notes: >-
-      Run in a fresh context with the strict schema from prose-style-tune. The planner
-      must not share the corpus-reading context. Apply only user-selected operation IDs
-      through the deterministic style contract.
+      Supply a fresh context with only authorized inputs. No native Cursor model
+      adapter is implemented. Missing runtime support must be disclosed.
   agents-md:
     enforcement: advisory
     notes: >-
-      Keep the boundary: feedback proposes a preference overlay change; it never edits
-      observed evidence and never applies itself.
+      Prompt-only invocation does not enforce execution or storage boundaries.
+      Use deterministic tooling for artifacts and never claim unperformed checks.

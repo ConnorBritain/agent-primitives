@@ -1,0 +1,342 @@
+{
+  "stage": "task-review",
+  "input": {
+    "brief": "Tighten this fictional library notice into two or three sentences. Preserve its facts, quoted words and uncertainty. Do not introduce new facts or advice.",
+    "context": {
+      "form": "notice",
+      "purpose": "explain a proposed pilot",
+      "register": "plain"
+    },
+    "original": "The library has proposed a six-month reading-app pilot, but it has not yet signed the contract. The proposed contract would retain identifiable reading histories for two years after account closure. Written comments are accepted until June 30. The board called the pilot \"a proposal, not a commitment\".",
+    "profile": null,
+    "rules": [
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use at most 90 words.",
+        "minimum": 1,
+        "maximum": 90
+      },
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Retain June 30 exactly.",
+        "text": "June 30"
+      }
+    ],
+    "instruction_ids": [
+      "length",
+      "deadline"
+    ],
+    "missing_atoms": [],
+    "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30."
+  },
+  "system": "Review only task adherence, explicit semantic preferences, supported profile instructions, pronoun/referent consistency and unsupported factual additions. Do not judge general quality. Check first-person biography, employers and personal experiences against supplied task facts, not style examples. Check that the draft has not silently dropped requested parentheticals, figure vocabulary or attribution. Surface evidence-backed omissions; ordinary variation is not an error. Never claim to prove factual accuracy. For this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.\nRead the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. The missing_atoms input is the complete list: atom_accounting must contain exactly those atoms, once each. If missing_atoms is empty, return atom_accounting: []; do not invent a factual inventory there. Additional semantic losses belong in findings, not atom_accounting. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.",
+  "result": {
+    "harness": "claude",
+    "model": "opus[1m]",
+    "elapsed_ms": 13402,
+    "dispatched": true,
+    "input_digest": "bba19368b86d331b8378f23a09eabdd4d0984206ef5ccb19f2fbf9f076ca3c7e",
+    "schema_digest": "533d254b81dcae07afbbae34d9f7ddad99e7e059cd3f5305abd772bbd18ef6c5",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"system\",\"subtype\":\"init\",\"cwd\":\"/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-N5uAbf\",\"session_id\":\"61ba8b2a-6005-4f95-ae90-62ceb9912449\",\"tools\":[\"StructuredOutput\"],\"mcp_servers\":[],\"model\":\"claude-opus-4-6[1m]\",\"permissionMode\":\"dontAsk\",\"slash_commands\":[],\"apiKeySource\":\"none\",\"claude_code_version\":\"2.1.86\",\"output_style\":\"default\",\"agents\":[\"general-purpose\",\"statusline-setup\",\"Explore\",\"Plan\"],\"skills\":[\"update-config\",\"debug\",\"simplify\",\"batch\",\"loop\",\"schedule\",\"claude-api\"],\"plugins\":[],\"uuid\":\"6f825406-a4c8-4cc0-ae7f-833de02f6a3a\",\"fast_mode_state\":\"off\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CememGSnPPUVrkRPaKoMt\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me review the draft against the original and instructions.\\n\\nOriginal facts:\\n1. Six-month reading-app pilot proposed ✓\\n2. Contract not yet signed ✓\\n3. Identifiable reading histories retained for two years after account closure ✓\\n4. Written comments accepted until June 30 ✓\\n5. Board called it \\\"a proposal, not a commitment\\\" ✓\\n\\nInstructions:\\n- length: at most 90 words - let me count... roughly 48 words. ✓\\n- deadline mentioned and no missing facts. Nothing appears added, the quote is preserved exactly, and the hedging language (\\\"proposed,\\\" \\\"not yet signed,\\\" \\\"would be retained\\\") stays intact. The draft reads as three clean sentences that satisfy the brief.\",\"signature\":\"EusHCqgBCBEYAipAKJEEq+amDPA6yMp8fx+oe+qrynH27J0gsYr66rRLwoQN5QFvTtsXnhhNVywcF8TEiA1AocIMcb1U1vVPZuV4nzIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAcL689QGsAECEgz1/sH8Dx3gqLm7RmEaDELSHVEz3ODx29WSXCIwufCGB4FVEetZu4iRWKBoSR9TVSTVP8ydJ8YBo5lZgHQZB0kyeu8oOfOqhAkPo38iKu8FewMDIOnWqFBTaKS4Ey+Awi+1i0HurVT9gP6Af5VjgTdll2gDFQ0mR0U8TCiI4XnfoAVcifQVgG2R60XhEziRFJxWRDh5iY+BwEPKPIgGqAN1c/aCsHvnIBi3pPyY4Ib18CffUIQB/SgEad0SQY7B58HtN+t2GpMrbX5XDilcOItoQOLILtING5R8pbNyK1ooU7ox4YgiCxvC6Fj9+7sJ/Q3vLubXgFZJS6XwiKpA0DYG4Lm30tuwPoVx/KyBeWHxOb88DfBW934vWdpHMwP918fE39wU5KWyIHQRfFIF3lhImNSkv8zXgYG9MFtj9OY51CPiIO8W9CGLknX17SzKIVVirG2tGKMb7n6HuwnWdr+2iQxF+T6wtPiovbjkB/+r5wyRpIe2lXyrk5736JTNAUXkjPHvud6YBXwqz3N+BtX1+owFH0BrAd5P90QpR5/QwhBfcxYDD8Woi7F/yOXnmmImUaJahb91A7b8Ajpfvj3+2jP0MuTcVlwTRQdZ4oBv9ECoUXcLmNyHpmKvjvTv09N0/6CEB1IU94LjmHa2rb+TTrd2hzKyt2MjenooYQ/4rtJQyaVBzBF4i8gAO+GRpFe+5fr6sCob6tYXdfJtDLngbBYOOcloBCQBIxKRgke+CEHJJl3up/W16ERgvRcJYTIrX7KH1gbVvQpphvxXZVjJEzSvecQvcCa4tCbZMvtXLpujDxe/WPR9wf/Nk/fGQTG3CSg/BBwKtQY+uveZJI9CFkEYAtgyfWOKpP/flOzuAb+z9bnfF6IzsUz5BXomXMXfoV/x/Yqp8OhRrRkH/gexhjtBBJDp46F6tl3L5w9SKQ6Ye+w/kvIVg864NcncBiwfT8Cywpr7xAwVjhsA+UVDttjKi3sNPj1CS6Gf1GztjCldKmfV590iCk0LLawoZOzeuEJk+HYdgR1/q0thup2udIcLX46N4PoxLRzop8tIlWh1lWmYTBdKQXBJPoIAXZ1JY9xcX0S+MzH9wtebQxgB\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":1765,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"61ba8b2a-6005-4f95-ae90-62ceb9912449\",\"uuid\":\"8c03929e-cb4b-46fb-8636-7f1f0eec9560\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CememGSnPPUVrkRPaKoMt\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_016JSNQBhG2xbcy47npmgZvU\",\"name\":\"StructuredOutput\",\"input\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"length\",\"status\":\"applied\",\"reason\":\"Draft is approximately 48 words, well within the 90-word maximum.\"},{\"id\":\"deadline\",\"status\":\"applied\",\"reason\":\"\\\"June 30\\\" appears verbatim in the final sentence.\"}],\"atom_accounting\":[],\"disclosures\":[]},\"caller\":{\"type\":\"direct\"}}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":1765,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"61ba8b2a-6005-4f95-ae90-62ceb9912449\",\"uuid\":\"387e1cdd-681c-4b49-a11f-2a5aa99451c0\"}\n{\"type\":\"user\",\"message\":{\"role\":\"user\",\"content\":[{\"tool_use_id\":\"toolu_016JSNQBhG2xbcy47npmgZvU\",\"type\":\"tool_result\",\"content\":\"Structured output provided successfully\"}]},\"parent_tool_use_id\":null,\"session_id\":\"61ba8b2a-6005-4f95-ae90-62ceb9912449\",\"uuid\":\"ff903511-a714-4c43-8989-3a2fd4fa2118\",\"timestamp\":\"2026-09-06T05:42:27.302Z\",\"tool_use_result\":\"Structured output provided successfully\"}\n{\"type\":\"rate_limit_event\",\"rate_limit_info\":{\"status\":\"allowed\",\"resetsAt\":1788682800,\"rateLimitType\":\"five_hour\",\"overageStatus\":\"rejected\",\"overageDisabledReason\":\"org_level_disabled\",\"isUsingOverage\":false},\"uuid\":\"b6c13857-03c5-49f7-a2a5-5d4cf16eba9f\",\"session_id\":\"61ba8b2a-6005-4f95-ae90-62ceb9912449\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CememtqoG16BNTbwfvLya\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"All original facts are preserved (six-month pilot, unsigned contract, two-year reading-history retention, comment deadline, board quote). The quoted phrase \\\"a proposal, not a commitment\\\" is retained exactly. Uncertainty markers (\\\"proposed,\\\" \\\"not yet signed,\\\" \\\"would be retained\\\") are intact. No new facts or advice have been introduced. Both instructions are satisfied. The draft condenses the notice from four sentences to three without semantic loss.\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":2212,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":1,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"61ba8b2a-6005-4f95-ae90-62ceb9912449\",\"uuid\":\"d0a60de5-66d0-4aab-9ebf-40689c8e2342\"}\n{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":12932,\"duration_api_ms\":12920,\"num_turns\":2,\"result\":\"All original facts are preserved (six-month pilot, unsigned contract, two-year reading-history retention, comment deadline, board quote). The quoted phrase \\\"a proposal, not a commitment\\\" is retained exactly. Uncertainty markers (\\\"proposed,\\\" \\\"not yet signed,\\\" \\\"would be retained\\\") are intact. No new facts or advice have been introduced. Both instructions are satisfied. The draft condenses the notice from four sentences to three without semantic loss.\",\"stop_reason\":\"end_turn\",\"session_id\":\"61ba8b2a-6005-4f95-ae90-62ceb9912449\",\"total_cost_usd\":0.03276,\"usage\":{\"input_tokens\":3977,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":515,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":0,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6[1m]\":{\"inputTokens\":3977,\"outputTokens\":515,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.03276,\"contextWindow\":1000000,\"maxOutputTokens\":64000}},\"permission_denials\":[],\"structured_output\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"length\",\"status\":\"applied\",\"reason\":\"Draft is approximately 48 words, well within the 90-word maximum.\"},{\"id\":\"deadline\",\"status\":\"applied\",\"reason\":\"\\\"June 30\\\" appears verbatim in the final sentence.\"}],\"atom_accounting\":[],\"disclosures\":[]},\"fast_mode_state\":\"off\",\"uuid\":\"303ea552-0cde-4de2-89fb-4310374bae5f\"}\n",
+    "stderr": "",
+    "exit_code": 0,
+    "value": {
+      "schema": "prose-runtime-review/1",
+      "verdict": "clear",
+      "findings": [],
+      "instructions": [
+        {
+          "id": "length",
+          "status": "applied",
+          "reason": "Draft is approximately 48 words, well within the 90-word maximum."
+        },
+        {
+          "id": "deadline",
+          "status": "applied",
+          "reason": "\"June 30\" appears verbatim in the final sentence."
+        }
+      ],
+      "atom_accounting": [],
+      "disclosures": []
+    },
+    "usage": {
+      "input_tokens": 3977,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 515,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard"
+    },
+    "events": [
+      {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-N5uAbf",
+        "session_id": "61ba8b2a-6005-4f95-ae90-62ceb9912449",
+        "tools": [
+          "StructuredOutput"
+        ],
+        "mcp_servers": [],
+        "model": "claude-opus-4-6[1m]",
+        "permissionMode": "dontAsk",
+        "slash_commands": [],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.86",
+        "output_style": "default",
+        "agents": [
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "update-config",
+          "debug",
+          "simplify",
+          "batch",
+          "loop",
+          "schedule",
+          "claude-api"
+        ],
+        "plugins": [],
+        "uuid": "6f825406-a4c8-4cc0-ae7f-833de02f6a3a",
+        "fast_mode_state": "off"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CememGSnPPUVrkRPaKoMt",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "Let me review the draft against the original and instructions.\n\nOriginal facts:\n1. Six-month reading-app pilot proposed ✓\n2. Contract not yet signed ✓\n3. Identifiable reading histories retained for two years after account closure ✓\n4. Written comments accepted until June 30 ✓\n5. Board called it \"a proposal, not a commitment\" ✓\n\nInstructions:\n- length: at most 90 words - let me count... roughly 48 words. ✓\n- deadline mentioned and no missing facts. Nothing appears added, the quote is preserved exactly, and the hedging language (\"proposed,\" \"not yet signed,\" \"would be retained\") stays intact. The draft reads as three clean sentences that satisfy the brief.",
+              "signature": "EusHCqgBCBEYAipAKJEEq+amDPA6yMp8fx+oe+qrynH27J0gsYr66rRLwoQN5QFvTtsXnhhNVywcF8TEiA1AocIMcb1U1vVPZuV4nzIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAcL689QGsAECEgz1/sH8Dx3gqLm7RmEaDELSHVEz3ODx29WSXCIwufCGB4FVEetZu4iRWKBoSR9TVSTVP8ydJ8YBo5lZgHQZB0kyeu8oOfOqhAkPo38iKu8FewMDIOnWqFBTaKS4Ey+Awi+1i0HurVT9gP6Af5VjgTdll2gDFQ0mR0U8TCiI4XnfoAVcifQVgG2R60XhEziRFJxWRDh5iY+BwEPKPIgGqAN1c/aCsHvnIBi3pPyY4Ib18CffUIQB/SgEad0SQY7B58HtN+t2GpMrbX5XDilcOItoQOLILtING5R8pbNyK1ooU7ox4YgiCxvC6Fj9+7sJ/Q3vLubXgFZJS6XwiKpA0DYG4Lm30tuwPoVx/KyBeWHxOb88DfBW934vWdpHMwP918fE39wU5KWyIHQRfFIF3lhImNSkv8zXgYG9MFtj9OY51CPiIO8W9CGLknX17SzKIVVirG2tGKMb7n6HuwnWdr+2iQxF+T6wtPiovbjkB/+r5wyRpIe2lXyrk5736JTNAUXkjPHvud6YBXwqz3N+BtX1+owFH0BrAd5P90QpR5/QwhBfcxYDD8Woi7F/yOXnmmImUaJahb91A7b8Ajpfvj3+2jP0MuTcVlwTRQdZ4oBv9ECoUXcLmNyHpmKvjvTv09N0/6CEB1IU94LjmHa2rb+TTrd2hzKyt2MjenooYQ/4rtJQyaVBzBF4i8gAO+GRpFe+5fr6sCob6tYXdfJtDLngbBYOOcloBCQBIxKRgke+CEHJJl3up/W16ERgvRcJYTIrX7KH1gbVvQpphvxXZVjJEzSvecQvcCa4tCbZMvtXLpujDxe/WPR9wf/Nk/fGQTG3CSg/BBwKtQY+uveZJI9CFkEYAtgyfWOKpP/flOzuAb+z9bnfF6IzsUz5BXomXMXfoV/x/Yqp8OhRrRkH/gexhjtBBJDp46F6tl3L5w9SKQ6Ye+w/kvIVg864NcncBiwfT8Cywpr7xAwVjhsA+UVDttjKi3sNPj1CS6Gf1GztjCldKmfV590iCk0LLawoZOzeuEJk+HYdgR1/q0thup2udIcLX46N4PoxLRzop8tIlWh1lWmYTBdKQXBJPoIAXZ1JY9xcX0S+MzH9wtebQxgB"
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 1765,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "61ba8b2a-6005-4f95-ae90-62ceb9912449",
+        "uuid": "8c03929e-cb4b-46fb-8636-7f1f0eec9560"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CememGSnPPUVrkRPaKoMt",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_016JSNQBhG2xbcy47npmgZvU",
+              "name": "StructuredOutput",
+              "input": {
+                "schema": "prose-runtime-review/1",
+                "verdict": "clear",
+                "findings": [],
+                "instructions": [
+                  {
+                    "id": "length",
+                    "status": "applied",
+                    "reason": "Draft is approximately 48 words, well within the 90-word maximum."
+                  },
+                  {
+                    "id": "deadline",
+                    "status": "applied",
+                    "reason": "\"June 30\" appears verbatim in the final sentence."
+                  }
+                ],
+                "atom_accounting": [],
+                "disclosures": []
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 1765,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "61ba8b2a-6005-4f95-ae90-62ceb9912449",
+        "uuid": "387e1cdd-681c-4b49-a11f-2a5aa99451c0"
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_016JSNQBhG2xbcy47npmgZvU",
+              "type": "tool_result",
+              "content": "Structured output provided successfully"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "61ba8b2a-6005-4f95-ae90-62ceb9912449",
+        "uuid": "ff903511-a714-4c43-8989-3a2fd4fa2118",
+        "timestamp": "2026-09-06T05:42:27.302Z",
+        "tool_use_result": "Structured output provided successfully"
+      },
+      {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1788682800,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "org_level_disabled",
+          "isUsingOverage": false
+        },
+        "uuid": "b6c13857-03c5-49f7-a2a5-5d4cf16eba9f",
+        "session_id": "61ba8b2a-6005-4f95-ae90-62ceb9912449"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CememtqoG16BNTbwfvLya",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "All original facts are preserved (six-month pilot, unsigned contract, two-year reading-history retention, comment deadline, board quote). The quoted phrase \"a proposal, not a commitment\" is retained exactly. Uncertainty markers (\"proposed,\" \"not yet signed,\" \"would be retained\") are intact. No new facts or advice have been introduced. Both instructions are satisfied. The draft condenses the notice from four sentences to three without semantic loss."
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 2212,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "61ba8b2a-6005-4f95-ae90-62ceb9912449",
+        "uuid": "d0a60de5-66d0-4aab-9ebf-40689c8e2342"
+      },
+      {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 12932,
+        "duration_api_ms": 12920,
+        "num_turns": 2,
+        "result": "All original facts are preserved (six-month pilot, unsigned contract, two-year reading-history retention, comment deadline, board quote). The quoted phrase \"a proposal, not a commitment\" is retained exactly. Uncertainty markers (\"proposed,\" \"not yet signed,\" \"would be retained\") are intact. No new facts or advice have been introduced. Both instructions are satisfied. The draft condenses the notice from four sentences to three without semantic loss.",
+        "stop_reason": "end_turn",
+        "session_id": "61ba8b2a-6005-4f95-ae90-62ceb9912449",
+        "total_cost_usd": 0.03276,
+        "usage": {
+          "input_tokens": 3977,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 515,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-opus-4-6[1m]": {
+            "inputTokens": 3977,
+            "outputTokens": 515,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.03276,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 64000
+          }
+        },
+        "permission_denials": [],
+        "structured_output": {
+          "schema": "prose-runtime-review/1",
+          "verdict": "clear",
+          "findings": [],
+          "instructions": [
+            {
+              "id": "length",
+              "status": "applied",
+              "reason": "Draft is approximately 48 words, well within the 90-word maximum."
+            },
+            {
+              "id": "deadline",
+              "status": "applied",
+              "reason": "\"June 30\" appears verbatim in the final sentence."
+            }
+          ],
+          "atom_accounting": [],
+          "disclosures": []
+        },
+        "fast_mode_state": "off",
+        "uuid": "303ea552-0cde-4de2-89fb-4310374bae5f"
+      }
+    ],
+    "status": "passed"
+  }
+}

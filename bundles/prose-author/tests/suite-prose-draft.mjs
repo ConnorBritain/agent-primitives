@@ -20,7 +20,7 @@ import {
 } from "../skills/prose-draft/tools/ingest-edit.mjs";
 
 export async function run(t, { tmp, makeProfile, HERE, CORPUS }) {
-  t.group("Package — v0.3.0 is one installable bundle");
+  t.group("Package — v0.4.0 is one installable bundle");
 
   {
     const bundle = resolve(HERE, "..");
@@ -29,28 +29,30 @@ export async function run(t, { tmp, makeProfile, HERE, CORPUS }) {
       ".cursor-plugin/plugin.json", ".plugin/plugin.json",
     ];
     const manifests = manifestPaths.map((path) => JSON.parse(fsRead(join(bundle, path), "utf8")));
-    t.check("all four prose-author manifests agree at 0.3.0",
-      manifests.every((manifest) => manifest.version === "0.3.0"));
+    t.check("all four prose-author manifests agree at 0.5.0",
+      manifests.every((manifest) => manifest.version === "0.5.0"));
 
     const marketplace = JSON.parse(fsRead(resolve(HERE, "..", "..", "..", ".claude-plugin", "marketplace.json"), "utf8"));
     const entry = marketplace.plugins.find((plugin) => plugin.name === "prose-author");
-    t.check("the marketplace prose-author entry agrees at 0.3.0", entry?.version === "0.3.0");
+    t.check("the marketplace prose-author entry agrees at 0.5.0", entry?.version === "0.5.0");
 
     const claudeAgents = manifests[0].agents ?? [];
-    t.check("the Claude manifest exposes all three shipped agents",
+    t.check("the Claude manifest exposes all four shipped agents",
       JSON.stringify(claudeAgents) === JSON.stringify([
         "./agents/voice-profile-render.md", "./agents/voice-draft.md",
         "./agents/voice-feedback-interpret.md",
+        "./agents/voice-rhetoric-measure.md",
       ]));
     t.check("the Cursor manifest exposes the bundle agents directory",
       manifests[2].agents === "agents");
     t.check("all rendered agent files are present for plugin and loose-file installation",
-      ["voice-profile-render.md", "voice-draft.md", "voice-feedback-interpret.md"]
+      ["voice-profile-render.md", "voice-draft.md", "voice-feedback-interpret.md", "voice-rhetoric-measure.md"]
         .every((name) => fsExists(join(bundle, "agents", name))));
     const skill = fsRead(join(bundle, "skills", "prose-draft", "SKILL.md"), "utf8");
-    t.check("the shipped blank-page skill routes narrow overlength residuals through deterministic pruning",
-      /draft-residual-prune\.mjs[\s\S]*residual-prune\.md[\s\S]*whole unlocked body[\s\S]*recounts the complete result/.test(skill));
-    t.check("the residual planner and deterministic applicator ship in the installable skill",
+    t.check("the shipped skill routes current writing through the production runner",
+      /tools\/prose-runtime\.mjs run/.test(skill)
+      && ["tools/prose-runtime.mjs", "references/runtime.md"].every((path) => fsExists(join(bundle, "skills", "prose-draft", path))));
+    t.check("the historical residual planner and applicator remain available",
       ["references/residual-prune.md", "tools/draft-residual-prune.mjs"]
         .every((path) => fsExists(join(bundle, "skills", "prose-draft", path))));
     const tuneSkill = join(bundle, "skills", "prose-style-tune");

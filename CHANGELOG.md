@@ -17,7 +17,8 @@ it is not yet in their hands.
 
 ## Unreleased
 
-No unreleased prose-author changes.
+The prose-author local candidates below remain unpublished.
+No push, PR, release, tag or marketplace publication is implied.
 
 ---
 
@@ -63,6 +64,59 @@ No unreleased prose-author changes.
 ---
 
 ## prose-author
+
+### [0.5.0] — local candidate, unpublished
+
+- **Added** opt-in numbers-only history with per-piece rhythm and punctuation
+  measurements, compatible contextual baselines, temporal summaries, pinned
+  references, export, disablement and preview-bound deletion.
+- **Added** independently usable `voice-rhetoric-measure` and separately enabled,
+  bounded rhetorical estimates. Raw annotations are not retained in history.
+- **Preserved** independent human evidence, revision/duplicate accounting and
+  explicit preferences. Generated writing never becomes a human baseline;
+  statistical departures are not automatic quotas or repair instructions.
+- **Verified** exact-byte stage comparisons, native Claude/Codex installation,
+  loose files and all local engineering gates, including 266 caught mutations.
+  Fixed a timestamp-dependent mutation probe without changing production code
+  or assertions; the original failed check remains recorded.
+- **Recorded** twelve locked rhetorical draws without redraws. Structural validity
+  is not semantic accuracy. Both corrected installed workflows have passing
+  artifact audits, while Claude's chat-summary labeling failure remains visible.
+- **Limits** collection remains off for real writing until enabled; English
+  segmentation is heuristic, rhetoric is model-estimated, and neither establishes
+  writing quality or resemblance. See [completion evidence](bundles/prose-author/tests/V050-FINAL-ENGINEERING.md).
+
+### [0.4.0] — local candidate, unpublished
+
+- **Verified** authoritative generated-file delivery in fresh Claude and Codex
+  sessions. Chat summaries remain unverified; direct receipt excerpts must match
+  their source. `check-result --delivery` detects prose or receipt changes.
+- **Recorded** all local engineering gates passing, including 245 mutation
+  update/check cases, with original failed experiments and known limits retained.
+
+- **Changed** observed frequencies from compulsory quotas to advisory per-document
+  tendencies. Added independent explicit phrase, punctuation, length and count rules.
+- **Fixed** visible-prose measurement so link destinations, metadata and code do
+  not inflate author counts. Rules use actual final length, exact zero limits and
+  explicit not-evaluated states.
+- **Added** profile/3, preferences/2 and style-spec/2, preserving historical readers
+  and scoring. Short attributable samples count; sparse evidence stays limited.
+- **Added** an authenticated Claude/Codex production runtime with task-scaled review,
+  exact-byte receipts, selected whole human examples, profile-only mode and at most
+  two repairs that retain original style inputs.
+- **Added** generated human-readable delivery receipts and separate receipt-integrity
+  verification that preserves failed or unevaluated check statuses. Host permission
+  denials remain explicitly ungated; no sandbox bypass is automatic.
+- **Added** persistent scoped corrections, shared store discovery, immutable history,
+  undo and small-batch discovery/comparison. Direct persistent instructions save with
+  receipts; inferred preferences require approval. No human attestation is required.
+- **Preserved** rewriting and added passage-context continuation without automatically
+  ingesting generated text into a human corpus.
+- **Documented** the Pi adapter interface; implementation remains deferred. Companion
+  bundle versions are unchanged because their contracts are unchanged.
+- **Evaluation** uses a bounded two-author, three-form, three-condition comparison,
+  not a renewed 20/60 release bar. Current evidence and known limits are
+  recorded in [V040-PROGRESS.md](bundles/prose-author/tests/V040-PROGRESS.md).
 
 ### [0.3.0]
 

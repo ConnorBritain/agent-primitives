@@ -20,7 +20,7 @@ every time one appears.
 | [`verification-gate`](bundles/verification-gate/) | Software delivery | [`verification-critic`](primitives/agents/verification-critic/) · [`architecture-reviewer`](primitives/agents/architecture-reviewer/) | reviewer |
 | [`prose-tell-scan`](bundles/prose-tell-scan/) | Prose measurement | [`tell-scan`](bundles/prose-tell-scan/skills/tell-scan/) skill · `/prose-tell-scan:tell-scan` | investigator |
 | [`prose-review`](bundles/prose-review/) | Prose judgement | [`prose-voice-critic`](primitives/agents/prose-voice-critic/) · [`prose-fidelity-critic`](primitives/agents/prose-fidelity-critic/) | reviewer |
-| [`prose-author`](bundles/prose-author/) | Prose generation and style tuning | [`prose-draft`](bundles/prose-author/skills/prose-draft/) · [`prose-style-tune`](bundles/prose-author/skills/prose-style-tune/) skills · [`voice-profile-render`](primitives/agents/voice-profile-render/) · [`voice-draft`](primitives/agents/voice-draft/) · [`voice-feedback-interpret`](primitives/agents/voice-feedback-interpret/) | author + planner |
+| [`prose-author`](bundles/prose-author/) | Prose generation, style tuning and opt-in history | [`prose-draft`](bundles/prose-author/skills/prose-draft/) · [`prose-style-tune`](bundles/prose-author/skills/prose-style-tune/) skills · [`voice-profile-render`](primitives/agents/voice-profile-render/) · [`voice-draft`](primitives/agents/voice-draft/) · [`voice-feedback-interpret`](primitives/agents/voice-feedback-interpret/) · [`voice-rhetoric-measure`](primitives/agents/voice-rhetoric-measure/) | author + planner + investigator |
 
 [`CONTRIBUTING.md`](CONTRIBUTING.md) is the spec for adding another, in any domain — the repo
 is not scoped to code review, and the authoring guidance is organised by **kind** rather than
@@ -108,7 +108,8 @@ Claude Code, verification, updates, and first use.
 
 ### Codex — prose toolchain
 
-From a clone, one command installs the three prose plugins plus six read-only custom agents:
+From a clone, one command installs **that local checkout's** three prose plugins
+plus seven read-only custom agents (including unpublished candidate changes):
 
 ```bash
 node install-prose-codex.mjs
@@ -116,6 +117,8 @@ node install-prose-codex.mjs
 
 Start a new Codex session, then invoke `$prose-draft`, `$prose-style-tune`, or `$tell-scan`.
 Run `node install-prose-codex.mjs --check` to verify the installation.
+An existing GitHub source requires the explicit `--replace-marketplace` option
+to switch locally. Use `--remote` only when you want GitHub main instead.
 
 ### Claude Code — plugin
 
