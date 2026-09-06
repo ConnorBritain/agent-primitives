@@ -1,0 +1,160 @@
+# Installed persistence, conversations and final bytes
+
+Local verification against the v0.4.0 candidate at `0833014`, followed by the
+example-selection correction described below. These are workflow tests using
+synthetic identities, not private user preferences or evidence of voice quality.
+All model work used authenticated CLI sessions and inherited configured models.
+No direct API-key client was used and no dollar cost is inferred.
+
+## Persistent correction through installed entrypoints
+
+`tests/installed-preferences-test.mjs` starts a fresh runtime process for each
+operation. Its rule is “Never use exclamation marks in replies.” The sequence
+checks scope/revision/undo receipts, cross-process persistence, exact-zero
+violations, exclusion from other forms, independent-rule survival across profile
+refresh, three-card discovery, a temporary one-feature comparison, approval for
+one-word inferred feedback, undo, and explicit ungated missing-CLI behavior.
+
+| Installed path | Assertions | Live model calls | Model-call elapsed | Result |
+|---|---:|---:|---:|---|
+| Codex plugin | 10 | 2 | 13.552 s | Passed, saved correction applied to final draft |
+| Claude plugin | 10 | 2 | 23.092 s | Passed, saved correction applied to final draft |
+| Claude loose skill | 9 | 0 | 0 s | Passed, no live generation requested |
+
+The live draft checks also reproduced against each installed `check-result`
+entrypoint. Undo restored an empty active rule set as revision 3 while retaining
+revisions 1 and 2. No real user's preference store was changed.
+
+## Fresh agent conversations
+
+`tests/conversational-smoke.mjs` supplies the installed tuning skill path and a
+test-only store, then asks the agent to save the same instruction. A second,
+fresh conversation asks it to undo. Both harnesses invoked the actual preference
+runtime rather than writing revision files themselves. The harness checked the
+saved state after each conversation: revision 2 with one reply-only punctuation
+rule, then revision 3 with no active decisions. Each conversation returned a
+human-readable receipt. Tool records showed installed instructions and test-store
+operations; no unrelated preference writes were observed.
+
+| Harness | Save elapsed | Undo elapsed | Outer CLI conversations | Result |
+|---|---:|---:|---:|---|
+| Codex | 61.719 s | 60.934 s | 2 | Passed |
+| Claude | 40.761 s | 36.218 s | 2 | Passed |
+
+These are four outer conversations, **not** a claim of four internal model
+requests. The CLIs' aggregate token-usage records are retained locally. Automatic
+skill discovery was not tested: the prompt explicitly identified the skill.
+Claude's save receipt described undo with a runtime operation name; the next
+natural-language undo request nevertheless completed successfully.
+
+## External final-text edits
+
+`tests/installed-final-bytes-test.mjs` checks each already-recorded live draft
+through its installed runtime. The original bytes pass. A copy with one trailing
+space fails with “Published bytes differ from the run,” despite unchanged word
+and punctuation counts. Both Codex and Claude plugin paths passed this negative
+test, with zero additional model calls. Original evidence was not overwritten.
+
+This proves invalidation **when checking is invoked**. It does not prevent a
+hosting agent from bypassing checking or editing prose after returning it.
+
+## Narrow example-selection correction
+
+A completion audit found that ranking preferred matching examples but filled
+remaining slots with known nonmatching writing forms. Current selection excludes
+known form/register conflicts even when fewer than three examples remain. Samples
+with unknown metadata remain available as general evidence, with explicit receipt
+warnings that matching is not established. A new regression checks exclusions,
+warnings and their propagation into the final receipt; the existing test now
+requires one matching reply rather than topping it up with essays. Selection
+without a requested form still verifies the three-example cap.
+
+The full author suite passed **1,333 checks, zero failures**. The unchanged
+bounded comparison reproduces under the corrected selector: its source metadata
+was unknown, not known-conflicting. No comparison draft or input was regenerated.
+Both plugins and the Claude loose draft skill were reinstalled afterward; their
+runtime bytes match the source. The complete mutation table update/check remains
+a separate, unfinished engineering requirement at this checkpoint.
+
+Two isolated mutation trials verify the new guards: admitting known mismatches
+caused two test failures; hiding unknown-metadata warnings caused one. Each trial
+used the existing mutation tool's sandbox/apply mechanism and the full author
+suite. These focused trials do not substitute for the full update/check.
+
+## Evidence retention and limits
+
+### Subsequent profile-guided failures
+
+`tests/installed-profile-smoke.mjs` exercises an installed full draft/review
+invocation using the already-recorded Doctorow profile and licensed samples.
+Its fictional outline-to-blog brief is taken from the bounded comparison; it
+does not rerender a profile or replace a comparison cell.
+
+The first Codex invocation used three model calls, 78.499 s model-call elapsed;
+Claude used three calls, 145.290 s. Both returned **ungated**. Voice reviewers
+accounted for supplied explicit rules beyond the requested list. In addition,
+the validator rejected clear reviews that explained absent advisory habits as
+ordinary variation. The Codex voice reviewer did identify an actionable drift:
+an evaluator-like disclaimer replaced the direct reader relationship in the
+examples. Its response could not drive a repair because the accounting contract
+was invalid. This is evidence of a useful finding and a real orchestration
+defect, not a successful end-to-end result.
+
+The correction explicitly supplies advisory IDs, requests all rule/observation
+IDs consistently, and permits ordinary variation only with reasoned, successful
+task and voice reviews. All omission disclosures remain in the sidecar; required
+rule omissions and unresolved judgments are still blocking. The full author
+suite after this correction passed 1,336 checks. Four focused mutation trials
+detected reintroduced quota semantics (two failures), excused required omissions
+(one), missing dual review (one), and user rules treated as observations (one).
+
+The focused live repeats produced:
+
+| Harness | Calls | Model-call elapsed | Attempts | Outcome |
+|---|---:|---:|---:|---|
+| Claude | 3 | 131.640 s | 1 | Checked; final bytes reproduced |
+| Codex | 11 | 234.887 s | 3 | Incomplete after the two-repair limit |
+
+The corrected Claude run retained three omission disclosures (unsupplied sources,
+unsupplied biography, context-inappropriate profanity) as reviewed advisory
+omissions. They were not silently removed and did not become compulsory habits.
+
+Codex's voice review requested a register repair to remove an evaluator-like
+disclaimer. Fidelity review then requested restoration of the explicit statement
+that no deterrence had been observed in the scenario. The last voice review
+flagged that restored sentence. Task and fidelity review passed; voice review
+did not. The runtime stopped incomplete with all attempts retained. The smoke
+test's strict successful-output assertion therefore failed; this case must not
+be counted as a passed installed draft. It demonstrates a remaining disagreement
+between voice and fidelity review, and the bounded failure path, not a reason
+to silently waive a review or redraw until success.
+
+The two initial invocations and two focused repeats used **20 model calls**
+in total. No profile was rerendered and no comparison output was replaced.
+
+### Retained original reports
+
+Complete raw reports, generated drafts, runtime calls, preference revisions and
+conversation traces are retained in a private local backup, not published in
+this repository: outer CLI traces can contain host configuration metadata.
+The following SHA-256 hashes identify the original, unedited `REPORT.json` files.
+
+| Report | SHA-256 |
+|---|---|
+| codex-persistence | `505665b31136225793b27dce55708a254c258df3e57b85b9ea1e6fb2f8a7e478` |
+| claude-persistence | `4f9911df58ae1d644e3bed47628e3f07062bbd56332f2ad82aaf47f4ca1f4b3d` |
+| claude-loose-persistence | `9a7f868ba8c69cf922547d16ef56032a973e88821f0a17af371704f8567c0d62` |
+| codex-conversation | `332ca8a60af583a80106567afac861397cda52b96dde8c4c59fb20c63f5f364b` |
+| claude-conversation | `a80a0a7ada1b7d136314403f9c9d5699423e42bf6ae273129871230d2c6c5ba4` |
+| codex-final-bytes | `e9840fbc3f7b23306cc307ca7266706f400900dc13fc57bc7b94d7fcd89a6f39` |
+| claude-final-bytes | `eefb14af7cfa999bbb61ebd8966ad01c018e23fc5e831c1e899cc0e4520c627c` |
+| codex-profile-1 (ungated) | `03d73d8e89787d5e4a8bc6f4e3c016c2d1ce3a8c84ef3d3ee431277a825c8c92` |
+| claude-profile-1 (ungated) | `66dd5fe1ce8f1b2cef92f7d94e49ba12af4fcd3905446d14a09954a578c3af41` |
+| codex-profile-2 (incomplete) | `8923fed1211800058c8312d3614ed80966e5b52c30b2fd722eff9a25b6846182` |
+| claude-profile-2 (checked) | `34bcd34dbb332d56986c93b2132ef0292675996b282a58dee8e56103621bb57e` |
+
+The engineering scripts can repeat these scenarios against another local install
+using explicit `--skill`, `--harness`/`--artifact`, and new `--out` paths. Normal
+users invoke the skills conversationally, not these test scripts. These results
+do not establish implicit discovery, subjective usefulness, private-corpus voice
+fidelity, Windows execution, or a completed release audit.

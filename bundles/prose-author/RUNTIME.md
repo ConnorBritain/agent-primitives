@@ -57,12 +57,25 @@ runner selects at most three whole human examples deterministically, validates
 current profile evidence, compiles applicable preferences and dispatches a fresh
 model context. It never imports the acceptance release protocol.
 
+Known form/register mismatches are excluded, even when fewer than three examples
+remain. Samples without the requested metadata can provide general style
+evidence, but the receipt warns that their match is not established. Selection
+never invents missing metadata or fills a slot with a known conflicting sample.
+
 The exact candidate is mechanically checked and independently reviewed at the
 task's required depth. At most two repair cycles retain original style inputs,
 address identified problems and preserve substantive material. Every new version
 is rescanned and reviewed. The result records exact final hashes; an external
 edit invalidates the old receipt. `check-result` reproduces mechanical checks,
 not a new semantic review of altered prose.
+
+Review accounting distinguishes advisory observation IDs from explicit rules.
+An observed habit need not occur in every draft. Omission disclosures are kept;
+they become `advisory_omissions` only when both task and voice reviews clear the
+draft and explain the observation as omitted or not applicable. Other omissions
+remain `unresolved_omissions` and prevent a checked result. This exception never
+applies to explicit user rules. A concrete voice-dilution finding still requires
+repair even when it concerns an advisory observation.
 
 Check status is passed, failed or not-evaluated. Aggregate output status is
 checked, incomplete, ungated or refused. An empty preference set or unavailable

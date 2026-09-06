@@ -44,6 +44,10 @@ refreshed its files. Claude `plugin update` did not refresh changed files under
 
 ## What remains unproven
 
+Follow-up [session evidence](../2026-09-06-v040-sessions/README.md) now covers
+persistent feedback, undo, missing-CLI failures and external final-byte edits.
+The following describes the boundary of this earlier checkpoint.
+
 This checkpoint establishes the basic installed runtime paths, not automatic
 conversational skill selection, personalized voice quality, or complete release
 readiness. Installed persistent-feedback/undo, installed failure-path coverage,

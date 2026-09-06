@@ -60,8 +60,8 @@ explicit zeroes have no one-hit exception. Counts use actual final draft text.
 
 ## Skill/runtime integration verification
 
-The current full author suite passed **1,332 assertions, zero failures**, including
-**40 runtime tests** covering
+The current full author suite passed **1,336 assertions, zero failures**, including
+**44 runtime tests** covering
 shared store discovery, automatic-profile
 call accounting, and conflicting input paths. Both revised skills passed the
 skill-creator format validator using isolated `uv run --with pyyaml`; neither
@@ -97,8 +97,9 @@ general OS-level guarantee that arbitrary reads are impossible.
 ## Remaining before completion
 
 1. Continue targeted installed failure-path tests; current comparison evidence now reproduces.
-2. Verify conversational behavior through actual installed skill entrypoints,
-   including discovery, scoped corrections and undo in both harnesses.
+2. Complete the installed-workflow audit. Explicit-skill-path conversations now
+   prove scoped correction and undo in both harnesses; implicit discovery and
+   a conversation-level drafting invocation remain unproven.
 3. Preserve the completed bounded comparison; subjective judgments remain unmeasured.
 4. Finish documentation consistency checks; regenerate mutation
    documentation through its tool and run all applicable local suites.
@@ -160,11 +161,50 @@ raw records, the initial ungated case and the bounded fix.
 Codex reinstall refreshed same-version files. Claude `plugin update` did not;
 `plugin install` refreshed them and the deployment-byte check then passed.
 Both current plugin copies and the Claude loose skills contain the contract fix.
-Persistent-feedback/undo and explicit installed failure paths still need their
-complete installed-workflow evidence.
+Persistent-feedback/undo now passes through fresh installed-runtime processes
+and fresh agent conversations in both harnesses. Live drafts applied a saved
+reply-only rule; undo removed it. Missing CLI failures remain ungated. External
+edits invalidate both installed receipts, including a trailing-space-only edit.
+See [session evidence](runs/2026-09-06-v040-sessions/README.md) for exact counts,
+timing, report hashes and the distinction between CLI and conversational tests.
+
+Example selection now rejects known form/register mismatches instead of filling
+unused slots with them. Unknown metadata is disclosed in the final receipt.
+The full author suite and unchanged bounded-comparison verifier pass; both
+plugin copies and the Claude loose runtime were refreshed and byte-checked.
 
 Six focused mutation trials each caused exactly one failure: missing atom-list
 input, disabled companion discovery, stale installed bytes, unrelated marketplace
 impact, missing/redrawn comparison calls, and style evidence lost during repair.
 The sandbox baseline and restored tree were green. The full table has **not**
-been regenerated or checked yet.
+been checked on the latest state yet. The first full update completed with 228
+mutations, all detected and no crashes. Six new mutations now cover example
+matching and advisory-review semantics; the current 234-mutation update/check
+is still required.
+
+## Profile-guided installed audit
+
+The first current profile-guided installed invocation in each harness returned
+ungated, not falsely checked. The reviews exposed a contract inconsistency:
+ordinary omitted tendencies were rejected by a validator that treated every
+observation as mandatory. Voice review also accounted for explicit rules that
+the call supplied but omitted from its requested-ID list. The old outputs and
+their six model calls (78.499 s Codex, 145.290 s Claude) are retained privately.
+
+The runtime now labels advisory IDs explicitly, requests the same complete
+accounting list in both reviews, and preserves omission disclosures without
+turning reviewed natural variation into compulsory occurrences. Both task and
+voice review must clear and explain an advisory omission; explicit rule
+omissions and unresolved judgments remain blocking. Regression tests cover
+both sides of that boundary. The focused Claude repeat passed in three model
+calls (131.640 s), with the original omission disclosures retained and reviewed
+as ordinary variation. Codex completed eleven calls (234.887 s) and stopped
+incomplete after two repairs: voice review objected to an evaluator-like
+disclaimer, fidelity review requested its explicit evidentiary qualification,
+and the final voice review still objected. The strict successful-output smoke
+assertion failed for Codex; no passing result is claimed for that case. All
+calls, attempts and the failure remain retained. Do not redraw it unchanged.
+
+The current 234-mutation update is running. Remaining completion work includes
+its check-mode run and a requirement-by-requirement audit, including the boundary
+between a review disagreement reported correctly and a required runtime fix.

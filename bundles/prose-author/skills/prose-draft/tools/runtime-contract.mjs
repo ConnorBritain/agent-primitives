@@ -50,7 +50,7 @@ export function validateDraftV5(value, instructionIds = []) {
   return errors;
 }
 
-export function validateReview(value, { draft, original = "", instructionIds = [], missingAtoms = [] }) {
+export function validateReview(value, { draft, original = "", instructionIds = [], advisoryIds = [], missingAtoms = [] }) {
   const errors = schemaErrors(value, REVIEW_SCHEMA);
   if (errors.length) return errors;
   if (value.verdict === "clear" && value.findings.length) errors.push("A clear review cannot contain revision findings");
@@ -65,7 +65,7 @@ export function validateReview(value, { draft, original = "", instructionIds = [
     || value.instructions.length !== instructionIds.length
     || instructionIds.some((id) => !value.instructions.some((r) => r.id === id))) errors.push("Review must account for every requested instruction exactly once");
   if (value.instructions.some((r) => !r.reason.trim())) errors.push("Instruction dispositions need reasons");
-  if (value.verdict === "clear" && value.instructions.some((r) => ["omitted", "unresolved"].includes(r.status))) errors.push("An unresolved or omitted instruction is not a clear review");
+  if (value.verdict === "clear" && value.instructions.some((r) => r.status === "unresolved" || (r.status === "omitted" && !advisoryIds.includes(r.id)))) errors.push("An unresolved or omitted required instruction is not a clear review");
   if (value.atom_accounting.length !== missingAtoms.length || new Set(value.atom_accounting.map((r) => r.atom)).size !== value.atom_accounting.length
     || missingAtoms.some((atom) => !value.atom_accounting.some((r) => r.atom === atom))) errors.push("Fidelity review must account for every missing atom");
   if (value.atom_accounting.some((r) => !r.reason.trim())) errors.push("Missing atom dispositions need reasons");
@@ -86,6 +86,7 @@ export const DRAFT_INSTRUCTIONS = runtimePrompt("voice-draft");
 export const PROFILE_INSTRUCTIONS = runtimePrompt("voice-profile-render");
 
 export const REVIEW_TRANSPORT = `For this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.
+The instruction_ids input is the exact accounting list: return each ID once and no other IDs. advisory_instruction_ids identifies observed tendencies, not required occurrences. A clear verdict may mark an advisory tendency omitted or not-applicable with a task-specific reason when that is ordinary variation, not an identified loss of style. Do not excuse a concrete style-dilution finding just because its observation is advisory. Omitted required instructions and unresolved judgments cannot accompany a clear verdict.
 Read the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. The missing_atoms input is the complete list: atom_accounting must contain exactly those atoms, once each. If missing_atoms is empty, return atom_accounting: []; do not invent a factual inventory there. Additional semantic losses belong in findings, not atom_accounting. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.`;
 
 export const TASK_REVIEW_INSTRUCTIONS = `Review only task adherence, explicit semantic preferences, supported profile instructions, pronoun/referent consistency and unsupported factual additions. Do not judge general quality. Check first-person biography, employers and personal experiences against supplied task facts, not style examples. Check that the draft has not silently dropped requested parentheticals, figure vocabulary or attribution. Surface evidence-backed omissions; ordinary variation is not an error. Never claim to prove factual accuracy. ${REVIEW_TRANSPORT}`;

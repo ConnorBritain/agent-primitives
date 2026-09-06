@@ -23,7 +23,8 @@ a repo-level file.
 `primitives/agents/<name>/agent.md`. The only permitted difference is added frontmatter keys
 (`tools`, `model`, `color`) drawn from `meta.yaml`.
 
-There's no generator yet, so this is maintained by hand. **Change both in the same commit.** A
+Use a bundle's renderer when it supplies one; otherwise maintain the pair by hand.
+**Change both in the same commit.** A
 drifted pair silently ships two different agents under one name. Verify:
 
 ```bash

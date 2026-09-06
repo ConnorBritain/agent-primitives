@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { writeFileSync, readFileSync, cpSync, rmSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
-import { runWriting, selectCurrentExamples, copyingCheck, renderCurrentProfile, MAX_REPAIRS, scanRuntimeArtifacts } from "../skills/prose-draft/tools/writing-runtime.mjs";
+import { runWriting, selectCurrentExamples, copyingCheck, renderCurrentProfile, MAX_REPAIRS, scanRuntimeArtifacts, reviewedAdvisoryOmissions } from "../skills/prose-draft/tools/writing-runtime.mjs";
 import { parseAdapterOutput, adapterPreflight, configuredModel, callModel, adapterFailureReason } from "../skills/prose-draft/tools/runtime-adapters.mjs";
 import { assembleProfileV3, sha256 } from "../skills/prose-draft/tools/profile-v3.mjs";
 import { validateDraftV5, validateReview, DRAFT_INSTRUCTIONS, PROFILE_INSTRUCTIONS, runtimePrompt } from "../skills/prose-draft/tools/runtime-contract.mjs";
@@ -164,8 +164,49 @@ export async function run(t, { tmp, HERE }) {
     for (const key of ["profile", "examples", "rules", "facts", "context"]) assert.deepEqual(generations[0].input[key], generations[1].input[key]);
     assert.equal(generations[0].system, DRAFT_INSTRUCTIONS); assert.equal(generations[1].system, DRAFT_INSTRUCTIONS);
     const voice = inputs.filter((r) => r.input.observed_comparison);
-    assert.equal(voice.length, 2); assert.deepEqual(voice[1].input.instruction_ids, profile.observations.map((o) => o.id));
+    assert.equal(voice.length, 2); assert.deepEqual(voice[1].input.instruction_ids, ["q", ...profile.observations.map((o) => o.id)]);
+    assert.deepEqual(voice[1].input.advisory_instruction_ids, profile.observations.map((o) => o.id));
     assert.equal(voice[1].input.previous_draft, "May I decline?");
+  });
+  await test("advisory omissions can be clear, but required omissions and uncertainty cannot", () => {
+    const value = clear({ instruction_ids: ["observed"] });
+    value.instructions[0].status = "omitted"; value.instructions[0].reason = "No aside needed in this reply.";
+    const options = { draft: "No, thank you.", instructionIds: ["observed"], advisoryIds: ["observed"] };
+    assert.deepEqual(validateReview(value, options), []);
+    assert.ok(validateReview(value, { ...options, advisoryIds: [] }).some((e) => /omitted required instruction/.test(e)));
+    value.instructions[0].status = "unresolved";
+    assert.ok(validateReview(value, options).some((e) => /unresolved/.test(e)));
+    value.instructions.push({ id: "extra", status: "applied", reason: "Not requested" });
+    assert.ok(validateReview(value, options).some((e) => /exactly once/.test(e)));
+  });
+  await test("advisory omission resolution requires both successful reviews and never excuses user rules", () => {
+    const omitted = [{ id: "observed", reason: "Not relevant to this reply" }, { id: "required", reason: "Could not apply" }];
+    const review = (stage) => ({ stage, status: "passed", result: { instructions: omitted.map((o) => ({ ...o, status: "not-applicable" })) } });
+    const both = [review("task-review"), review("voice-review")];
+    assert.deepEqual(reviewedAdvisoryOmissions(omitted, ["observed"], both), [omitted[0]]);
+    assert.deepEqual(reviewedAdvisoryOmissions(omitted, ["observed"], both.slice(0, 1)), []);
+    both[1].status = "not-evaluated";
+    assert.deepEqual(reviewedAdvisoryOmissions(omitted, ["observed"], both), []);
+    both[1].status = "passed"; both[1].result.instructions[0].status = "applied";
+    assert.deepEqual(reviewedAdvisoryOmissions(omitted, ["observed"], both), []);
+  });
+  await test("the runtime retains reviewed natural variation without requiring every observed habit", async () => {
+    const samples = [{ id: "a", text: "I pause (briefly).", author: "A", source: "fixture", human_authored: true }];
+    const profile = assembleProfileV3({ id: "a", samples, observations: [{ description: "This one sample qualifies duration through an aside.", dimensions: ["qualification-hedging"], citations: [{ file: "a", quote: "(briefly)", start: 8, end: 17 }] }] });
+    const omitted = [{ id: "o001", reason: "No aside needed for this short reply." }];
+    const dispatch = async ({ input }) => {
+      if (!input.draft) return simulated({ ...candidate("No, thank you."), omitted });
+      assert.deepEqual(input.advisory_instruction_ids, ["o001"]);
+      const review = clear(input); review.instructions[0] = { id: "o001", status: "omitted", reason: omitted[0].reason };
+      return simulated(review);
+    };
+    const result = await runWriting(job({ profile, samples }), { dispatch, scan: scanner });
+    assert.equal(result.status, "checked"); assert.equal(result.attempts.length, 1);
+    assert.deepEqual(result.omitted, omitted); assert.deepEqual(result.advisory_omissions, omitted);
+    assert.deepEqual(result.unresolved_omissions, []);
+    const required = await runWriting(job({ rules: [{ id: "o001", kind: "required-text", directive: "Include the exact text thank you", text: "thank you" }] }), {
+      scan: scanner, dispatch: async ({ input }) => simulated(input.draft ? clear(input) : { ...candidate("No, thank you."), omitted }) });
+    assert.equal(required.status, "incomplete"); assert.deepEqual(required.unresolved_omissions, omitted);
   });
   await test("new sessions locate one persistent store without creating or replacing an identity", async () => {
     assert.equal(defaultPreferenceDirectory({}, tmp), join(tmp, ".config/prose-author/preferences"));
@@ -324,10 +365,25 @@ export async function run(t, { tmp, HERE }) {
     const samples = Array.from({ length: 5 }, (_, i) => ({ id: `s${i}`, text: `Human example ${i}.`, source: "fixture", author: "A", human_authored: true, form: i === 3 ? "reply" : "essay" }));
     samples.push({ ...samples[0], id: "model", human_authored: false });
     const result = selectCurrentExamples(samples, { context: { form: "reply" } });
-    assert.equal(result.examples.length, 3); assert.equal(result.examples[0].id, "s3");
+    assert.equal(result.examples.length, 1); assert.equal(result.examples[0].id, "s3");
+    assert.deepEqual(result.excluded.map((e) => e.id), ["s0", "s1", "s2", "s4"]);
+    assert.equal(selectCurrentExamples(samples).examples.length, 3);
     for (const e of result.examples) assert.equal(e.text, samples.find((s) => s.id === e.id).text);
     assert.deepEqual(selectCurrentExamples([...samples].reverse(), { context: { form: "reply" } }), result);
     assert.equal(selectCurrentExamples(samples, { max_chars: 1 }).examples.length, 0);
+  });
+  await test("examples exclude known register conflicts and disclose unknown metadata on the final receipt", async () => {
+    const sample = (id, metadata) => ({ id, text: `Human example ${id}.`, source: "fixture", author: "A", human_authored: true, ...metadata });
+    const samples = [sample("matching", { form: "reply", register: "casual" }), sample("wrong-register", { form: "reply", register: "formal" }), sample("unknown", {})];
+    const context = { form: "reply", purpose: "decline", register: "casual" };
+    const selected = selectCurrentExamples(samples, { context });
+    assert.deepEqual(selected.examples.map((e) => e.id), ["matching", "unknown"]);
+    assert.deepEqual(selected.excluded.map((e) => e.id), ["wrong-register"]);
+    assert.equal(selected.warnings.length, 1); assert.equal(selected.warnings[0].id, "unknown");
+    assert.match(selected.warnings[0].reason, /matching is not established/);
+    const result = await runWriting(job({ samples, context }), { dispatch: async ({ input }) => simulated(input.draft ? clear(input) : candidate("Thank you. I cannot make it.")), scan: scanner });
+    assert.deepEqual(result.receipt.example_warnings, selected.warnings);
+    assert.deepEqual(result.receipt.example_exclusions, selected.excluded);
   });
   await test("copying flags unexplained overlap but permits explicit supplied quotations", () => {
     const text = "The first twelve words in this particular sentence belong to this author alone.";

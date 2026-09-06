@@ -1,5 +1,12 @@
 # Prose system — plan and state
 
+> Historical v0.2-era handoff. For current prose-author v0.4 behavior, use the
+> [bundle protocol](../bundles/prose-author/PROTOCOL.md),
+> [runtime contract](../bundles/prose-author/RUNTIME.md), and
+> [implementation evidence](../bundles/prose-author/tests/V040-PROGRESS.md).
+> The quota-era thresholds, corpus floors, held states and branch below do not
+> govern current drafting or persistent feedback. Historical scoring remains unchanged.
+
 **Snapshot date:** 2026-08-30. This document is a handoff from one session to
 the next, meant to be read by a fresh-context agent before writing any code.
 When something in it goes stale, edit it in the same commit as the change.

@@ -18,6 +18,15 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const strip = (s) => s.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
 export const MAX_REPAIRS = 2;
 export const MAX_CALLS = 16;
+
+/** Preserve omission disclosures, but do not turn reviewed natural variation into quotas. */
+export function reviewedAdvisoryOmissions(omitted, advisoryIds, reviews) {
+  return omitted.filter((o) => advisoryIds.includes(o.id) && ["task-review", "voice-review"].every((stage) => {
+    const review = reviews.find((r) => r.stage === stage);
+    const disposition = review?.result?.instructions.find((r) => r.id === o.id);
+    return review?.status === "passed" && ["omitted", "not-applicable"].includes(disposition?.status);
+  }));
+}
 const first = (paths) => paths.find((p) => p && existsSync(p)) ?? null;
 const promptFrom = (path) => { try { return path ? strip(readFileSync(path, "utf8")) : null; } catch { return null; } };
 
@@ -46,18 +55,29 @@ export function selectCurrentExamples(samples, { profile = null, context = {}, t
   const measured = measureSamples(samples);
   const permitted = new Set(measured.samples.map((s) => s.id));
   const profileIds = profile ? new Set(profile.measured.samples.map((s) => s.id)) : null;
-  const eligible = samples.filter((s) => permitted.has(s.id) && (!profileIds || profileIds.has(s.id)));
+  const excluded = [];
+  const eligible = samples.filter((s) => permitted.has(s.id) && (!profileIds || profileIds.has(s.id))).filter((s) => {
+    const mismatches = ["form", "register"].filter((key) => context[key] && s[key] && context[key] !== s[key]);
+    if (mismatches.length) {
+      excluded.push({ id: s.id, reason: `Known example metadata conflicts with requested ${mismatches.join(" and ")}` });
+      return false;
+    }
+    return true;
+  });
   const score = (s) => Number(Boolean(context.form && s.form === context.form)) * 2 + Number(Boolean(context.register && s.register === context.register));
   eligible.sort((a, b) => score(b) - score(a)
     || (target_words ? Math.abs(wordCount(visibleProse(a.text).author) - target_words) - Math.abs(wordCount(visibleProse(b.text).author) - target_words) : 0)
     || a.id.localeCompare(b.id, "en"));
-  const chosen = [], excluded = []; let used = 0;
+  const chosen = [], warnings = []; let used = 0;
   for (const s of eligible) {
     if (chosen.length >= 3) break;
     if (used + s.text.length > max_chars) { excluded.push({ id: s.id, reason: "Whole file exceeds remaining example budget; no excerpt substituted" }); continue; }
     chosen.push({ id: s.id, text: s.text, digest: sha256(s.text) }); used += s.text.length;
+    const unknown = ["form", "register"].filter((key) => context[key] && !s[key]);
+    if (unknown.length) warnings.push({ id: s.id, reason: `Example ${unknown.join(" and ")} metadata unavailable; matching is not established` });
   }
-  return { examples: chosen, excluded, policy: "whole human-authored files only; no generated samples" };
+  excluded.sort((a, b) => a.id.localeCompare(b.id, "en"));
+  return { examples: chosen, excluded, warnings, policy: "whole human-authored files only; known form/register mismatches excluded; unknown metadata disclosed; no generated samples" };
 }
 
 /** Long exact overlaps are flags for review, not a plagiarism verdict. */
@@ -166,6 +186,7 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
       : selectCurrentExamples(samples, { profile, context: job.context, target_words: job.target_words });
   } catch (e) { return refused(e.message); }
   const deps = runtimeDependencies(job.dependencies, process.env, job.adapter), instructionIds = [...new Set([...spec.rules.map((r) => r.id), ...(profile?.observations.map((o) => o.id) ?? [])])];
+  const advisoryIds = (profile?.observations ?? []).map((o) => o.id).filter((id) => !spec.rules.some((r) => r.id === id));
   const baseInput = { brief: job.brief, mode: job.mode, context: job.context, facts: job.facts ?? [], source_text: job.source_text ?? "",
     profile: compactProfile(profile), rules: spec.rules, examples: selected.examples };
   const invoke = async (stage, system, input, schema) => {
@@ -200,19 +221,19 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     const reviews = [];
     const stageReview = async (stage, system, input, options = {}) => {
       if (!system) { reviews.push({ stage, status: "not-evaluated", reason: `${stage} dependency is unavailable` }); return; }
-      const called = await invoke(stage, system, { ...input, missing_atoms: options.missingAtoms ?? [], draft: candidate.draft }, REVIEW_SCHEMA);
+      const called = await invoke(stage, system, { ...input, advisory_instruction_ids: options.advisoryIds ?? [], missing_atoms: options.missingAtoms ?? [], draft: candidate.draft }, REVIEW_SCHEMA);
       if (called.status !== "passed") { reviews.push({ stage, status: "not-evaluated", reason: called.reason }); return; }
-      const invalid = validateReview(called.value, { draft: candidate.draft, original: input.original ?? "", instructionIds: input.instruction_ids ?? [], missingAtoms: options.missingAtoms ?? [] });
+      const invalid = validateReview(called.value, { draft: candidate.draft, original: input.original ?? "", instructionIds: input.instruction_ids ?? [], advisoryIds: options.advisoryIds ?? [], missingAtoms: options.missingAtoms ?? [] });
       reviews.push(invalid.length ? { stage, status: "not-evaluated", reason: invalid.join("; ") }
         : { stage, status: called.value.verdict === "clear" ? "passed" : called.value.verdict === "revise" ? "failed" : "not-evaluated", result: called.value });
     };
     await stageReview("task-review", TASK_REVIEW_INSTRUCTIONS, { brief: job.brief, context: job.context,
-      original: [job.source_text ?? "", ...(job.facts ?? [])].join("\n"), profile: compactProfile(profile), rules: spec.rules, instruction_ids: instructionIds });
+      original: [job.source_text ?? "", ...(job.facts ?? [])].join("\n"), profile: compactProfile(profile), rules: spec.rules, instruction_ids: instructionIds }, { advisoryIds });
     const voicePrompt = promptFrom(deps.voice);
     if (profile) await stageReview("voice-review", voicePrompt && samples.length ? `${voicePrompt}\n\n${REVIEW_TRANSPORT}` : null,
       { original: samples.map((s) => s.text).join("\n\n"), profile: compactProfile(profile), rules: spec.rules,
-        instruction_ids: profile.observations.map((o) => o.id), context: job.context,
-        observed_comparison: observed, previous_draft: repairOriginal || null });
+        instruction_ids: instructionIds, context: job.context,
+        observed_comparison: observed, previous_draft: repairOriginal || null }, { advisoryIds });
     if (repairOriginal) {
       if (!deps.fidelity || !deps.fidelity_scan) reviews.push({ stage: "fidelity-review", status: "not-evaluated", reason: "prose-review fidelity critic or scanner is unavailable" });
       else {
@@ -227,13 +248,16 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     }
     if (job.review === "deep") await stageReview("claim-audit", `Audit factual claims against ONLY the supplied sources. Identify unsupported names, dates, numbers, attributed quotations, biography and citations. Disclose unverifiable additions. No external verification is available in this call. ${REVIEW_TRANSPORT}`,
       { original: [job.source_text ?? "", ...(job.facts ?? [])].join("\n"), instruction_ids: [] });
-    const attempt = { cycle, draft: candidate.draft, draft_digest: sha256(candidate.draft), mechanical, observed, copying, artifacts, reviews, omitted: candidate.omitted, claims: candidate.claims };
+    const advisoryOmissions = reviewedAdvisoryOmissions(candidate.omitted, advisoryIds, reviews);
+    const unresolvedOmissions = candidate.omitted.filter((o) => !advisoryOmissions.includes(o));
+    const attempt = { cycle, draft: candidate.draft, draft_digest: sha256(candidate.draft), mechanical, observed, copying, artifacts, reviews,
+      omitted: candidate.omitted, advisory_omissions: advisoryOmissions, unresolved_omissions: unresolvedOmissions, claims: candidate.claims };
     attempts.push(attempt);
     const hardFailed = mechanical.checks.some((r) => r.enforcement === "enforced" && r.status === "failed");
     const unavailable = mechanical.checks.some((r) => r.enforcement === "enforced" && r.status === "not-evaluated")
       || artifacts.status === "not-evaluated" || reviews.some((r) => r.status === "not-evaluated");
     const failed = hardFailed || copying.status === "failed" || artifacts.status === "failed" || reviews.some((r) => r.status === "failed");
-    if (!failed) { terminal = { status: unavailable ? "ungated" : candidate.omitted.length ? "incomplete" : "checked", reason: unavailable ? "One or more required checks were unavailable or unresolved" : "Exact final text checked; no resemblance, quality or factual guarantee" }; break; }
+    if (!failed) { terminal = { status: unavailable ? "ungated" : unresolvedOmissions.length ? "incomplete" : "checked", reason: unavailable ? "One or more required checks were unavailable or unresolved" : unresolvedOmissions.length ? "One or more omissions remain unresolved" : "Exact final text checked; no resemblance, quality or factual guarantee" }; break; }
     repairFindings = { rules: mechanical.checks.filter((r) => r.enforcement === "enforced" && r.status === "failed"), copying: copying.findings,
       // Scanner thresholds/catalog entries are intentionally not fed back to generation.
       artifact_instruction: artifacts.status === "failed" ? "Remove accidental machine scaffolding; preserve substantive text. No scanner thresholds are supplied." : null,
@@ -246,9 +270,11 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     receipt: { draft_digest: sha256(draft), profile_digest: spec.profile_digest, preference_digest: spec.preference_digest,
       preference_revision: spec.preference_revision, active_preferences: spec.active_preferences.map((p) => p.id), overrides: spec.override_ids,
       examples: selected.examples.map(({ id, digest }) => ({ id, digest })), example_exclusions: selected.excluded,
+      example_warnings: selected.warnings ?? [],
       model_calls: calls.filter((c) => c.dispatched).length, elapsed_ms: Date.now() - started,
       final_check: finalAttempt ? { cycle: finalAttempt.cycle, draft_digest: finalAttempt.draft_digest } : null,
       isolation: "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee" },
     claims: [...(candidate?.claims ?? []), ...(finalAttempt?.reviews.flatMap((r) => r.result?.disclosures ?? []) ?? [])],
-    omitted: candidate?.omitted ?? [], attempts, calls };
+    omitted: candidate?.omitted ?? [], advisory_omissions: finalAttempt?.advisory_omissions ?? [],
+    unresolved_omissions: finalAttempt?.unresolved_omissions ?? [], attempts, calls };
 }

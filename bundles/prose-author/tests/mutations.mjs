@@ -139,6 +139,42 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "treat every omitted observed tendency as a required occurrence",
+    file: `${TOOLS}/runtime-contract.mjs`,
+    find: '!advisoryIds.includes(r.id)', with: 'true',
+    guards: "natural variation is not rejected as if corpus observations were quotas",
+  },
+  {
+    name: "allow omitted required instructions to accompany a clear review",
+    file: `${TOOLS}/runtime-contract.mjs`,
+    find: '!advisoryIds.includes(r.id)', with: 'false',
+    guards: "only observed tendencies receive the advisory-omission exception",
+  },
+  {
+    name: "resolve an advisory omission without both task and voice review",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: '["task-review", "voice-review"].every((stage)', with: '["task-review", "voice-review"].some((stage)',
+    guards: "an unavailable voice review cannot be replaced by task review alone",
+  },
+  {
+    name: "excuse user-rule omissions as observed variation",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'advisoryIds.includes(o.id) && ["task-review", "voice-review"]', with: 'true && ["task-review", "voice-review"]',
+    guards: "reviewed natural variation never exempts an explicit user instruction",
+  },
+  {
+    name: "fill example slots with known form or register mismatches",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'if (mismatches.length) {', with: 'if (false) {',
+    guards: "a shortage of matching style examples does not silently mix known writing contexts",
+  },
+  {
+    name: "hide unknown example metadata from the final receipt",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'example_warnings: selected.warnings ?? [],', with: 'example_warnings: [],',
+    guards: "unclassified samples are not represented as verified form/register matches",
+  },
+  {
     name: "certify mismatched remote plugins and local agent wrappers",
     file: "install-prose-codex.mjs",
     find: 'if (plugin.version !== version) throw new Error', with: 'if (false) throw new Error',
