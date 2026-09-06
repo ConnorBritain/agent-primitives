@@ -83,6 +83,12 @@ sandbox or change authentication to work around a denial without user approval.
 
 ## Learn from corrections
 
+When a writing identity has explicitly enabled numerical history, read
+[references/history.md](references/history.md) and attach that identity to the
+runtime job. Preserve document IDs across revisions. Do not enable collection
+implicitly or treat history departures as quotas. Link the history sidecar when
+relevant; its failures do not silently become successful measurements.
+
 Use sibling `prose-style-tune` for persistent preferences. Clear “always,”
 “never,” or “remember” instructions save with scope/version and undo receipts.
 Ordinary edits stay task-local; inferred preferences need approval. A one-word

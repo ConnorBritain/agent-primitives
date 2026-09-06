@@ -5,7 +5,7 @@ import { dirname, resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const HERE = dirname(fileURLToPath(import.meta.url)), REPO = resolve(HERE, "../../..");
-export const CURRENT_AGENTS = ["voice-draft", "voice-profile-render", "voice-feedback-interpret"];
+export const CURRENT_AGENTS = ["voice-draft", "voice-profile-render", "voice-feedback-interpret", "voice-rhetoric-measure"];
 export function renderCurrentPrompts({ root = REPO, update = false } = {}) {
   const errors = [];
   for (const name of CURRENT_AGENTS) {

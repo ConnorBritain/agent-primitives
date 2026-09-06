@@ -13,6 +13,7 @@ import { DRAFT_SCHEMA, PROFILE_SOURCE_SCHEMA, REVIEW_SCHEMA, schemaErrors, valid
   DRAFT_INSTRUCTIONS, PROFILE_INSTRUCTIONS, TASK_REVIEW_INSTRUCTIONS, REVIEW_TRANSPORT } from "./runtime-contract.mjs";
 import { findScanner } from "./verify.mjs";
 import { installedCompanions } from "./installed-dependencies.mjs";
+import { startHistorySession } from "./history-session.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const strip = (s) => s.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
@@ -201,6 +202,7 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     onCall({ stage, input, system, result }); return result;
   };
   let candidate = null, repairFindings = null, repairOriginal = "", terminal = null;
+  const history = startHistorySession(job, { dispatch, signal });
   for (let cycle = 0; cycle <= MAX_REPAIRS; cycle++) {
     const generated = await invoke(cycle ? "repair" : "draft", DRAFT_INSTRUCTIONS,
       { ...baseInput, ...(cycle ? { previous_draft: candidate.draft, repair_findings: repairFindings } : {}) }, DRAFT_SCHEMA);
@@ -214,6 +216,7 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     repairOriginal = candidate?.draft ?? (job.mode === "rewrite" ? job.source_text : "");
     candidate = generated.value;
     const mechanical = checkRules(candidate.draft, spec.rules), observed = compareObserved(candidate.draft, profile, job.context);
+    const historyEvidence = await history?.observe(candidate.draft, cycle ? `repair-${cycle}` : "draft");
     const copying = copyingCheck(candidate.draft, samples, { original: job.source_text ?? "", authorized_quotes: job.authorized_quotes ?? [] });
     let artifacts;
     try { artifacts = await scan(candidate.draft, deps.scanner); }
@@ -233,7 +236,8 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     if (profile) await stageReview("voice-review", voicePrompt && samples.length ? `${voicePrompt}\n\n${REVIEW_TRANSPORT}` : null,
       { original: samples.map((s) => s.text).join("\n\n"), profile: compactProfile(profile), rules: spec.rules,
         instruction_ids: instructionIds, context: job.context,
-        observed_comparison: observed, previous_draft: repairOriginal || null }, { advisoryIds });
+        observed_comparison: observed, previous_draft: repairOriginal || null,
+        ...(historyEvidence ? { numerical_history: historyEvidence } : {}) }, { advisoryIds });
     if (repairOriginal) {
       if (!deps.fidelity || !deps.fidelity_scan) reviews.push({ stage: "fidelity-review", status: "not-evaluated", reason: "prose-review fidelity critic or scanner is unavailable" });
       else {
@@ -276,5 +280,6 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
       isolation: "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee" },
     claims: [...(candidate?.claims ?? []), ...(finalAttempt?.reviews.flatMap((r) => r.result?.disclosures ?? []) ?? [])],
     omitted: candidate?.omitted ?? [], advisory_omissions: finalAttempt?.advisory_omissions ?? [],
-    unresolved_omissions: finalAttempt?.unresolved_omissions ?? [], attempts, calls };
+    unresolved_omissions: finalAttempt?.unresolved_omissions ?? [], attempts, calls,
+    ...(history ? { telemetry: history.finish(draft) } : {}) };
 }

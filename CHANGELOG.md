@@ -17,8 +17,12 @@ it is not yet in their hands.
 
 ## Unreleased
 
-prose-author v0.4.0 is a locally installed, verified candidate for review.
+prose-author v0.5.0 is in local development; v0.4.0 remains the verified installed baseline until candidate verification completes.
 No push, PR, release, tag or marketplace publication is implied.
+
+Planned v0.5.0 additions: opt-in numbers-only writing history, separately enabled
+rhetorical estimates, contextual descriptive baselines and drafting-stage
+comparisons. No automatic quotas, corpus promotion, or collection enablement.
 
 ---
 

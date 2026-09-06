@@ -1,9 +1,9 @@
 # prose-author
 
 Personal-style drafting with explicit preferences, human writing examples and
-checks tied to the delivered text. **v0.4.0 is a local candidate, not a published
-release.** Installation and release verification remain recorded in
-[the implementation evidence](tests/V040-PROGRESS.md).
+checks tied to the delivered text. **v0.5.0 is in local development, not a published
+release.** Follow [current progress](tests/V050-PROGRESS.md); the previous installed
+candidate's evidence remains in [v0.4.0 verification](tests/V040-PROGRESS.md).
 
 Ask your coding agent to draft a reply, turn an outline into a blog post, rewrite
 a passage or continue an existing piece. You do not run the writing scripts
@@ -11,6 +11,17 @@ yourself. “Blank page” means new prose from a brief, rather than an existing
 passage to rewrite.
 
 ## What constrains the writing
+
+The optional history extension retains per-piece numbers, not source prose, and
+shows how habits vary across comparable writing and over time. Collection needs
+an explicit identity/scope opt-in; model-based rhetorical measurements need a
+separate opt-in. Independent human writing, assisted writing and generated output
+stay separate. A changing average never silently changes your preferences.
+
+Ask for a history report, a comparison of recent essays, or a drafting-stage
+comparison. English rhythm measurements are heuristic; rhetorical labels are
+fallible estimates. Reports show empirical variation, not a voice score or a
+quality guarantee. See [the history interface and privacy limits](skills/prose-draft/references/history.md).
 
 Your explicit rules and the corpus have different jobs. Literal phrases,
 punctuation restrictions, word limits and supported count ranges are checked

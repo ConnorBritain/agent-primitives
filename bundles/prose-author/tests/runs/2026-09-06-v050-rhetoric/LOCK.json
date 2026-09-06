@@ -1,0 +1,66 @@
+{
+  "schema": "voice-history-diagnostic/1",
+  "rubric": "rhetoric-rubric/1",
+  "analyzer": "da5e91a84856446bb00bc5bda6cafe6dbb0d7e827788b66757902756f55482ac",
+  "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+  "draws_per_passage": 2,
+  "maximum_calls": 12,
+  "redraws": 0,
+  "passages": [
+    {
+      "id": "doctorow-blog-1",
+      "author": "Cory Doctorow",
+      "source": "bundles/prose-author/tests/runs/2026-09-06-v040-bounded/inputs/doctorow-blog.json",
+      "source_digest": "271d2cc9b201b82e3dae5ecf3017138385e3eeb8d691f425ca786a7cb37ef930",
+      "sample_id": "2026-07-09-wilhoitian.txt",
+      "selection": "first-three-normalized-author-paragraphs",
+      "text_digest": "4bca9f3991ab91aa1a9cc4b10659def4c6361a0f38b2b5986ecdbaa1cdea4231"
+    },
+    {
+      "id": "doctorow-blog-2",
+      "author": "Cory Doctorow",
+      "source": "bundles/prose-author/tests/runs/2026-09-06-v040-bounded/inputs/doctorow-blog.json",
+      "source_digest": "271d2cc9b201b82e3dae5ecf3017138385e3eeb8d691f425ca786a7cb37ef930",
+      "sample_id": "2026-07-10-posthuman-as-in-no-humans.txt",
+      "selection": "first-three-normalized-author-paragraphs",
+      "text_digest": "a69f1efc10166d3012de831d09e4e280e63f64ce91b244ade3db5e209faff865"
+    },
+    {
+      "id": "doctorow-blog-3",
+      "author": "Cory Doctorow",
+      "source": "bundles/prose-author/tests/runs/2026-09-06-v040-bounded/inputs/doctorow-blog.json",
+      "source_digest": "271d2cc9b201b82e3dae5ecf3017138385e3eeb8d691f425ca786a7cb37ef930",
+      "sample_id": "2026-07-11-your-risk.txt",
+      "selection": "first-three-normalized-author-paragraphs",
+      "text_digest": "2eab8141638b0d6abc7d7c5ceef67c873c690fc8e44efacd538ef9266c1b7f3e"
+    },
+    {
+      "id": "eff-mullin-1",
+      "author": "Joe Mullin",
+      "source": "bundles/prose-author/tests/runs/2026-09-06-v040-bounded/inputs/eff-mullin.json",
+      "source_digest": "1787a50e6767e8faacf77a8b4f016f1671501fb503fb09323c1e17852b07b729",
+      "sample_id": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+      "selection": "first-three-normalized-author-paragraphs",
+      "text_digest": "dd5a6015a3d8b4fcee42e112b5c99306b03503f951d92df7a3407b7a9baca1f3"
+    },
+    {
+      "id": "eff-mullin-2",
+      "author": "Joe Mullin",
+      "source": "bundles/prose-author/tests/runs/2026-09-06-v040-bounded/inputs/eff-mullin.json",
+      "source_digest": "1787a50e6767e8faacf77a8b4f016f1671501fb503fb09323c1e17852b07b729",
+      "sample_id": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+      "selection": "first-three-normalized-author-paragraphs",
+      "text_digest": "205d07d8f59b0d52285a3449d3c6b42da6be3f69693a1a0011c58a49c4ff2305"
+    },
+    {
+      "id": "eff-mullin-3",
+      "author": "Joe Mullin",
+      "source": "bundles/prose-author/tests/runs/2026-09-06-v040-bounded/inputs/eff-mullin.json",
+      "source_digest": "1787a50e6767e8faacf77a8b4f016f1671501fb503fb09323c1e17852b07b729",
+      "sample_id": "californias-ab-412-still-demands-developers-do-impossible.txt",
+      "selection": "first-three-normalized-author-paragraphs",
+      "text_digest": "c24f2fcdc0e8f3f9f9b8410000931f335232effad51fb521722a43d81d3b8d35"
+    }
+  ],
+  "interpretation": "Structural evidence and model disagreement only; semantic accuracy is unmeasured without independent labels."
+}

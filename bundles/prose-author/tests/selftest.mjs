@@ -26,6 +26,7 @@ import * as acceptanceRunner from "./suite-acceptance-runner.mjs";
 import * as styleTune from "./suite-style-tune.mjs";
 import * as v040 from "./suite-v040.mjs";
 import * as runtimeV040 from "./suite-runtime-v040.mjs";
+import * as historyV050 from "./suite-history-v050.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = resolve(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
@@ -93,6 +94,7 @@ const SUITES = [
   ["style-tune", styleTune],
   ["v040", v040],
   ["runtime-v040", runtimeV040],
+  ["history-v050", historyV050],
 ];
 const only = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 const selected = only.length

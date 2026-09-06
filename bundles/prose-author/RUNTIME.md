@@ -34,6 +34,16 @@ rules; observation-dependent choices need explicit validated rebinding.
 
 ## Measurement semantics
 
+The optional v0.5 extension adds `voice-history-store/1`,
+`voice-history-record/1`, `voice-history-measurements/1`,
+`voice-history-report/1`, `voice-history-ingest/1`, and
+`voice-history-run/1`. Rhetorical annotation uses `voice-rhetoric-source/1`
+with `rhetoric-rubric/1`; model/prompt versions define separate series.
+Current writing jobs/results accept an optional telemetry attachment without
+changing historical profile/preference contracts. See the
+[history reference](skills/prose-draft/references/history.md) for operations,
+consent, numerical semantics, budgets, and retention boundaries.
+
 The normalizer masks link destinations, metadata, code and other non-prose while
 retaining original UTF-16 source offsets. Recognized Markdown/HTML quotations
 and caller-supplied quote ranges are separate from author-written prose. Inline

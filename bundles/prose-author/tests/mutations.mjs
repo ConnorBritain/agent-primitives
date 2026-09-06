@@ -138,6 +138,22 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  {"name":"history accepts undeclared collection","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (!state) return { enabled: false, rhetoric: false };","with":"if (!state) return { enabled: true, rhetoric: false };","guards":"collection is disabled until explicit scope consent"},
+  {"name":"history disables project precedence","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"state.scopes.find((s) => s.project === scope) ??","with":"","guards":"specific disablement overrides identity-wide collection"},
+  {"name":"history ignores revision replacement","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"latest.set(r.document, r)","with":"latest.set(r.id, r)","guards":"document revisions are not independent pieces"},
+  {"name":"history permits source recount divergence","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (digestHistory(input.measurement) !== digestHistory(measureHistoryText(input.text, input)))","with":"if (false)","guards":"persisted measurements reproduce from supplied source"},
+  {"name":"history leaks its fingerprint key in exports","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"return exported;","with":"return state;","guards":"exports omit the private keyed-fingerprint secret"},
+  {"name":"history applies stale deletion preview","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (actual.confirmation !== preview.confirmation)","with":"if (false)","guards":"deletion requires a current exact target preview"},
+  {"name":"history drops source text sanitization","file":"bundles/prose-author/skills/prose-draft/tools/history-measure.mjs","find":"visit(m);","with":"/* skip payload sanitization */","guards":"history measurement payloads cannot carry prose"},
+  {"name":"history erases within-piece variance","file":"bundles/prose-author/skills/prose-draft/tools/history-measure.mjs","find":"values.reduce((s, v) => s + (v - mean) ** 2, 0) / n","with":"0","guards":"equal means do not erase rhythm variation"},
+  {"name":"history admits generated human baselines","file":"bundles/prose-author/skills/prose-draft/tools/history-report.mjs","find":"provenance === \"human-independent\" &&","with":"true &&","guards":"generated usage remains separate from human evidence"},
+  {"name":"history flags sparse empirical departures","file":"bundles/prose-author/skills/prose-draft/tools/history-report.mjs","find":"reference?.n >= 20","with":"reference?.n >= 5","guards":"empirical departure labels require twenty pieces"},
+  {"name":"history pools incompatible analyzers","file":"bundles/prose-author/skills/prose-draft/tools/history-report.mjs","find":"r.measurement.analyzer, series","with":"\"shared-analyzer\", series","guards":"analyzer changes produce separate compatible series"},
+  {"name":"rhetoric ignores explicit opt-in","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"if (!enabled) return unavailable(\"disabled\");","with":"/* ignore consent */","guards":"rhetorical model dispatch requires separate enablement"},
+  {"name":"rhetoric ignores spent call budget","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"budget.remaining <= 0","with":"false","guards":"rhetorical analysis has a finite separate call budget"},
+  {"name":"rhetoric accepts unaccounted paragraphs","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"errors.push(\"Silent paragraph omission\")","with":"/* silently omit */","guards":"every paragraph is annotated or explicitly unclassified"},
+  {"name":"rhetoric accepts duplicate annotations","file":"bundles/prose-author/skills/prose-draft/tools/history-rhetoric.mjs","find":"if (seen.has(key)) errors.push(\"Duplicate annotation\");","with":"/* double count */","guards":"identical evidence cannot inflate estimated frequencies"},
+  {"name":"history ignores final byte changes","file":"bundles/prose-author/skills/prose-draft/tools/history-session.mjs","find":"if (h.final_digest !== sha256(result.draft))","with":"if (false)","guards":"history binds the exact delivered prose"},
   {
     name: "accept invented check results as direct receipt excerpts",
     file: "bundles/prose-author/tests/chat-receipt.mjs",

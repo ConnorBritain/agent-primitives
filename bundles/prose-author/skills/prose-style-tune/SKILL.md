@@ -1,6 +1,6 @@
 ---
 name: prose-style-tune
-description: Discover, save, scope, compare, version, or undo personal writing-style preferences. Use when the user teaches the writing tools what they like or dislike, requests persistent style rules, or wants small guided comparisons. Explicit preferences work without a learned profile; observations and user choices stay separate.
+description: Discover, save, scope, compare, version, or undo personal writing-style preferences; inspect opt-in numerical writing history and changes over time. Use for persistent style rules, guided comparisons, history ingestion, baselines, export, or deletion. Observations and user choices stay separate.
 ---
 
 # Prose style tune
@@ -47,6 +47,14 @@ new rules. Inferred preferences still require approval. Missing drafting
 dependencies mean no verified comparison.
 
 ## Scope, history and delivery
+
+For numerical writing history, collection consent, selected-file ingestion,
+baselines, trends, export or deletion, read the sibling drafting skill's
+`references/history.md` and use its runtime. This is a different store from
+preference revision history. Collection is opt-in; rhetorical model calls need
+separate opt-in. Surface a small relevant set of comparisons, not raw JSON.
+History never automatically rewrites preferences or promotes generated work to
+independent human evidence.
 
 Compile with current register/form/audience/purpose/project context.
 More-specific rules override broader ones for the same feature. Equally

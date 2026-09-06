@@ -1,6 +1,6 @@
 {
   "name": "prose-author",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Personal-style writing with explicit rules, advisory corpus tendencies, scoped persistent preferences and exact-final-text checks. Authenticated Claude/Codex runtime; optional whole human examples.",
   "author": {
     "name": "Connor England",

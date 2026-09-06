@@ -18,6 +18,11 @@ export function renderWritingReceipt(result, job) {
   ];
   if (semantic.length) lines.push(`Not mechanically evaluated (semantic instructions): ${semantic.map((c) => flat(c.id)).join(", ")}. See task review and sidecar.`);
   if (result.claims?.length) lines.push(`Claims disclosed for verification: ${result.claims.length}. See sidecar.`);
+  if (result.telemetry) {
+    const h = result.telemetry, last = h.stages.at(-1);
+    lines.push(`Numerical history: ${flat(h.status)}; ${h.stages.length} stages. Baseline: ${flat(h.baseline?.digest)}. Additional rhetorical CLI dispatches: ${h.calls.filter((c) => c.dispatched).length}.`,
+      `Rhetorical analysis: ${flat(last?.rhetoric.status)}. Final-stage empirical departures: ${last?.comparison.features.filter((f) => /^(above|below)-/.test(f.status)).length ?? 0}; comparison ${flat(last?.comparison.status)}. See history sidecar; departures are advisory, not rule failures.`);
+  }
   if (result.status !== "checked" && result.reason) lines.push(`Reason: ${flat(result.reason)}.`);
   lines.push(`CLI dispatches: ${result.invocation?.model_calls ?? 0}; elapsed: ${((result.invocation?.elapsed_ms ?? 0) / 1000).toFixed(3)} s.`,
     "This generated delivery is authoritative for the recorded checks. Host-written chat summaries are unverified.",

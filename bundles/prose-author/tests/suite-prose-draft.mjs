@@ -29,23 +29,24 @@ export async function run(t, { tmp, makeProfile, HERE, CORPUS }) {
       ".cursor-plugin/plugin.json", ".plugin/plugin.json",
     ];
     const manifests = manifestPaths.map((path) => JSON.parse(fsRead(join(bundle, path), "utf8")));
-    t.check("all four prose-author manifests agree at 0.4.0",
-      manifests.every((manifest) => manifest.version === "0.4.0"));
+    t.check("all four prose-author manifests agree at 0.5.0",
+      manifests.every((manifest) => manifest.version === "0.5.0"));
 
     const marketplace = JSON.parse(fsRead(resolve(HERE, "..", "..", "..", ".claude-plugin", "marketplace.json"), "utf8"));
     const entry = marketplace.plugins.find((plugin) => plugin.name === "prose-author");
-    t.check("the marketplace prose-author entry agrees at 0.4.0", entry?.version === "0.4.0");
+    t.check("the marketplace prose-author entry agrees at 0.5.0", entry?.version === "0.5.0");
 
     const claudeAgents = manifests[0].agents ?? [];
-    t.check("the Claude manifest exposes all three shipped agents",
+    t.check("the Claude manifest exposes all four shipped agents",
       JSON.stringify(claudeAgents) === JSON.stringify([
         "./agents/voice-profile-render.md", "./agents/voice-draft.md",
         "./agents/voice-feedback-interpret.md",
+        "./agents/voice-rhetoric-measure.md",
       ]));
     t.check("the Cursor manifest exposes the bundle agents directory",
       manifests[2].agents === "agents");
     t.check("all rendered agent files are present for plugin and loose-file installation",
-      ["voice-profile-render.md", "voice-draft.md", "voice-feedback-interpret.md"]
+      ["voice-profile-render.md", "voice-draft.md", "voice-feedback-interpret.md", "voice-rhetoric-measure.md"]
         .every((name) => fsExists(join(bundle, "agents", name))));
     const skill = fsRead(join(bundle, "skills", "prose-draft", "SKILL.md"), "utf8");
     t.check("the shipped skill routes current writing through the production runner",

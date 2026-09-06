@@ -75,7 +75,7 @@ export function validateReview(value, { draft, original = "", instructionIds = [
 
 /** Installed skill copies are rendered from primitives, never a second hand-written prompt. */
 export function runtimePrompt(name) {
-  if (!["voice-draft", "voice-profile-render", "voice-feedback-interpret"].includes(name)) throw new TypeError("Unknown runtime primitive");
+  if (!["voice-draft", "voice-profile-render", "voice-feedback-interpret", "voice-rhetoric-measure"].includes(name)) throw new TypeError("Unknown runtime primitive");
   try {
     const source = readFileSync(new URL(`../references/prompts/${name}.md`, import.meta.url), "utf8");
     const match = /^---\n[\s\S]*?\n---\n([\s\S]+)$/.exec(source);

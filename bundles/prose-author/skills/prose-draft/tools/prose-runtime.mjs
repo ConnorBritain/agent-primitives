@@ -10,6 +10,8 @@ import { proposePreferencesV2, compileStyleV2, initPreferencesV2 } from "./prefe
 import { verifyRuleReceipt } from "./style-rules.mjs";
 import { discoveryCards, preferenceDiff, comparePreference } from "./style-session.mjs";
 import { renderWritingReceipt, renderWritingDelivery } from "./writing-receipt.mjs";
+import { historyMain } from "./history-cli.mjs";
+import { verifyHistoryRun } from "./history-session.mjs";
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
 const write = (path, value) => writeFileSync(path, typeof value === "string" ? value : `${JSON.stringify(value, null, 2)}\n`, { flag: "wx", mode: 0o600 });
@@ -22,6 +24,7 @@ export function loadWritingJob(path) {
   if (job.samples_dir) job.samples = readCurrentSamples(at(job.samples_dir));
   if (job.preference_store) job.preferences = readPreferenceStore(at(job.preference_store));
   if (job.source_file) job.source_text = readFileSync(at(job.source_file), "utf8");
+  if (job.telemetry?.directory) job.telemetry.directory = at(job.telemetry.directory);
   if (job.dependencies) for (const [k, p] of Object.entries(job.dependencies)) if (typeof p === "string") job.dependencies[k] = at(p);
   for (const k of ["profile_file", "samples_dir", "preference_store", "source_file"]) delete job[k];
   return job;
@@ -32,6 +35,10 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
   const [command, ...rest] = args;
   const value = (flag) => { const i = rest.indexOf(flag); return i < 0 ? null : rest[i + 1]; };
   const requireValue = (flag) => { const v = value(flag); if (!v || v.startsWith("--")) throw new TypeError(`Missing ${flag}`); return v; };
+  if (command === "history") {
+    const result = await historyMain(rest, { dispatch, signal });
+    stdout(`${JSON.stringify(result, null, 2)}\n`); return result;
+  }
   if (command === "preferences") {
     const op = rest[0], store = rest.includes("--store") ? resolve(requireValue("--store")) : defaultPreferenceDirectory();
     let result;
@@ -63,8 +70,10 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
     const delivery = value("--delivery");
     const deliveryMatches = !delivery || (result.draft === draft
       && readFileSync(delivery, "utf8") === renderWritingDelivery(result, renderWritingReceipt(result, job)));
-    const check = { schema: "prose-result-verification/1", status: reproduced.reproduced === true && deliveryMatches ? "passed" : "failed",
+    const telemetry = verifyHistoryRun(result);
+    const check = { schema: "prose-result-verification/1", status: reproduced.reproduced === true && deliveryMatches && telemetry.status !== "failed" ? "passed" : "failed",
       result_status: result.status, mechanical_status: reproduced.status, reason: reproduced.reason,
+      telemetry_status: telemetry.status,
       delivery_status: delivery ? (deliveryMatches ? "passed" : "failed") : "not-evaluated",
       claim: "Receipt integrity only; existing check statuses are unchanged, not upgraded." };
     if (!deliveryMatches) check.reason = "Delivery file differs from the recorded prose and generated receipt";
@@ -99,10 +108,13 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
   if (!result) result = await runWriting(job, { dispatch, onCall, signal,
     onProgress: (event) => stderr(`${event.stage} (${event.calls} completed calls)\n`) });
   // Covers preparation/profile calls as well as the writing pipeline's own receipt.
-  result.invocation = { model_calls: dispatched, model_call_records: count, model_elapsed_ms: modelElapsed,
+  const rhetoricalCalls = result.telemetry?.calls ?? [];
+  result.invocation = { model_calls: dispatched + rhetoricalCalls.filter((c) => c.dispatched).length, model_call_records: count + rhetoricalCalls.length,
+    model_elapsed_ms: modelElapsed + rhetoricalCalls.reduce((n, c) => n + c.elapsed_ms, 0),
     elapsed_ms: Date.now() - started, input_digest: sha256(readFileSync(join(out, "job.json"), "utf8")),
     resolved_input_digest: sha256(readFileSync(join(out, "resolved-job.json"), "utf8")) };
   write(join(out, "result.json"), result);
+  if (result.telemetry) write(join(out, "history.json"), result.telemetry);
   if (result.draft) write(join(out, "draft.md"), result.draft);
   if (command === "run") {
     const receipt = renderWritingReceipt(result, job);

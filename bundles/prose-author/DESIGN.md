@@ -45,6 +45,24 @@ and scanning remain companion bundle responsibilities.
 
 ## Avoiding feedback loops
 
+The v0.5 history extension observes variation rather than optimizing a similarity
+score. Deterministic counters and rhythm, and optional rhetorical estimates, have
+separate definitions and compatibility series. Keeping per-piece numbers permits
+later regrouping without copying the underlying prose. It does not permit later
+recounting without the originals or capture all rhetorical meaning.
+
+One immutable reference is used throughout a writing run. Numerical departures
+and stage differences can inform existing voice review; only a located,
+contextually justified finding can authorize repair. A repair is never required
+merely to return a feature to its empirical interval. The history store and
+read-only rhetoric annotator remain independently reusable mechanisms, not an
+application, watcher, or service.
+
+Human-independent, assisted, generated, and unknown histories are distinct.
+Opting into collection does not authorize rhetorical model calls until separately
+enabled. Generated acceptance never updates the independent human baseline.
+Recent variation does not change an explicit preference or pinned reference.
+
 Selected examples are whole human-authored pieces, at most three by default,
 chosen deterministically by available form/register and length proximity.
 Examples may be disabled. The tell catalog never reaches generation or repair.

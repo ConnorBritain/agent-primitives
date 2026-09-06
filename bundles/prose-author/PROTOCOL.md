@@ -35,6 +35,18 @@ accounted for; a numerical departure alone is not a semantic finding.
 
 ## Context boundaries
 
+An opted-in writing identity may attach numerical history. Snapshot the reference
+before generation and exclude the current document/revisions. Measure each draft
+stage against that reference; optional rhetorical analysis uses its own bounded
+budget. Send compact advisory history evidence only to the existing voice review,
+not to the drafter as new constraints. Storage/analysis failures are disclosed
+separately and cannot erase an otherwise usable writing result.
+
+The read-only rhetorical annotator receives only normalized author-prose
+paragraphs and the fixed rubric. Located annotations are validated transiently;
+history retains numbers and sanitized call metadata, not text or explanations.
+There is no automatic ingestion of outside files or promotion into a corpus.
+
 | Stage | Authorized inputs | Excluded |
 | --- | --- | --- |
 | Profile renderer | Whole human samples, provenance, deterministic measurements | Tell catalog, generated drafting history |

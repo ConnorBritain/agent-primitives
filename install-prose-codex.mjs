@@ -16,6 +16,7 @@ const AGENTS = [
   "voice-profile-render",
   "voice-draft",
   "voice-feedback-interpret",
+  "voice-rhetoric-measure",
   "prose-voice-critic",
   "prose-fidelity-critic",
   "prose-reviser",
@@ -35,7 +36,7 @@ Usage:
   node install-prose-codex.mjs --remote
 
 Options:
-  --check        Verify the three plugins and six generated custom agents.
+  --check        Verify the three plugins and seven generated custom agents.
   --agents-only  Install or check custom agents without changing plugins.
   --local        Install this checkout (the default); no GitHub download.
   --remote       Install GitHub main instead of this checkout.

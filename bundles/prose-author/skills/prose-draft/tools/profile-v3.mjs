@@ -17,7 +17,7 @@ export const CURRENT_MEASUREMENT_RULES = PROFILE_MEASUREMENT_RULES.map((r) => ({
 }));
 
 // Preserve original offsets while retaining the existing editorial-body boundary.
-function bodyRange(raw) {
+export function bodyRange(raw) {
   const lines = [...raw.matchAll(/[^\n]*(?:\n|$)/g)].filter((m) => m[0]);
   const first = lines.findIndex((m) => /\(permalink\)\s*$/.test(m[0]));
   if (first === -1) return null;

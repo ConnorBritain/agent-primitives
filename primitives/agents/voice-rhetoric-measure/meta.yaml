@@ -1,0 +1,29 @@
+name: voice-rhetoric-measure
+kind: investigator
+ships: true
+surface: agent
+bundle: prose-author
+contract:
+  read_only: true
+  clean_context: true
+  scope: supplied-prose
+  output: voice-rhetoric-source/1
+  inputs_inline: true
+  reads_corpus: false
+  reads_catalog: false
+  computes_hashes: false
+harness:
+  claude-code:
+    enforcement: partial
+    tools: []
+    color: green
+    notes: Fresh authenticated CLI context; located annotations remain fallible estimates.
+  codex:
+    enforcement: partial
+    notes: Structured production adapter; no general OS read-isolation guarantee.
+  cursor:
+    enforcement: advisory
+    notes: No native adapter; prompt loading alone does not enforce the contract.
+  agents-md:
+    enforcement: advisory
+    notes: Requires external structural validation and numeric aggregation.
