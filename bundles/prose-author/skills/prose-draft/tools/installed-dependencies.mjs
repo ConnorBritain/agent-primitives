@@ -12,7 +12,7 @@ export function installedCompanions(directory, adapter = {}, { env = process.env
   const marketplace = basename(marketplaceRoot), found = {};
   try {
     const raw = JSON.parse(exec(adapter.executable ?? adapter.harness, ["plugin", "list", "--json"],
-      { encoding: "utf8", env, timeout: 15000, maxBuffer: 4 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] }));
+      { encoding: "utf8", env, timeout: 15000, killSignal: "SIGKILL", maxBuffer: 4 * 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] }));
     const entries = adapter.harness === "codex" ? raw.installed : raw;
     if (!Array.isArray(entries)) return {};
     for (const name of ["prose-review", "prose-tell-scan"]) {

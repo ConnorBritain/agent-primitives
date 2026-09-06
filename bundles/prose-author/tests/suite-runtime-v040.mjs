@@ -42,6 +42,14 @@ export async function run(t, { tmp, HERE }) {
     assert.deepEqual(parseSuiteSummary(summary + summary), { failed: null, crashed: true });
     assert.deepEqual(parseSuiteSummary(`${"─".repeat(60)}\r\n334 passed, 0 failed, 1 skipped\r\n\nSkipped:\n`), { failed: 0, crashed: false });
   });
+  await test("synchronous discovery and capability probes cannot wait forever on ignored SIGTERM", () => {
+    const options = [];
+    const exec = (file, args, opts) => { options.push(opts); throw Object.assign(new Error("fixture timeout"), { code: "ETIMEDOUT" }); };
+    assert.equal(adapterPreflight("codex", { exec }).status, "not-evaluated");
+    assert.deepEqual(installedCompanions(join(tmp, "cache/test/prose-author/0.4.0/skills/prose-draft/tools"), { harness: "codex" }, { exec }), {});
+    assert.equal(options.length, 2);
+    for (const opts of options) { assert.equal(opts.timeout, 15000); assert.equal(opts.killSignal, "SIGKILL"); }
+  });
   await test("local Codex installer requires an explicit source switch and refuses unrelated plugin impact", () => {
     assert.equal(installerArgs([]).local, true); assert.equal(installerArgs(["--remote"]).local, false);
     assert.throws(() => installerArgs(["--remote", "--local"]), /not both/);

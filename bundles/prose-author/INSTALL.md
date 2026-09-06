@@ -145,6 +145,11 @@ about you. Rewrites and continuation receive the existing passage for coherence;
 that text is not automatically added to your corpus.
 
 Missing CLI capabilities or review dependencies produce an explicit ungated result.
+The coding agent's host permissions must also allow its authenticated CLI to
+initialize local state and make model requests. A restricted parent sandbox can
+block this even with network access enabled. Ask the host for permission through
+its normal approval flow; the writing tool does not silently disable a sandbox
+or switch authentication. A blocked run is ungated, not a checked draft.
 Versioned plugin installs consult the enabled companion registry, rather than
 choosing an arbitrary old cache. For unusual layouts, the agent can supply verified
 dependency paths using the [runtime contract](RUNTIME.md). Pi has a documented

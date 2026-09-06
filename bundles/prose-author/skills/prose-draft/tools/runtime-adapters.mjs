@@ -41,7 +41,7 @@ export function configuredModel(harness, env = process.env) {
 export function adapterPreflight(harness, { executable = harness, exec = execFileSync } = {}) {
   if (!HELP_REQUIREMENTS[harness]) return { status: "not-evaluated", reason: `Unsupported harness ${harness}; implement the adapter contract` };
   try {
-    const help = exec(executable, harness === "codex" ? ["exec", "--help"] : ["--help"], { encoding: "utf8", timeout: 15000, maxBuffer: 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] });
+    const help = exec(executable, harness === "codex" ? ["exec", "--help"] : ["--help"], { encoding: "utf8", timeout: 15000, killSignal: "SIGKILL", maxBuffer: 1024 * 1024, stdio: ["ignore", "pipe", "pipe"] });
     const missing = HELP_REQUIREMENTS[harness].filter((flag) => !help.includes(flag));
     return missing.length ? { status: "not-evaluated", reason: `CLI lacks required isolation/transport flags: ${missing.join(", ")}` }
       : { status: "passed", harness, help_digest: sha256(help), isolation: "partial", reason: "Explicit input, empty working directory and tool restrictions; not an OS-level prohibition on all reads" };

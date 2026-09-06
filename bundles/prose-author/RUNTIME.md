@@ -117,6 +117,11 @@ with network enabled. The adapter reports this as ungated with an actionable
 permission diagnostic; it does not bypass that restriction. Use the host's
 normal permission process, not an undisclosed sandbox or authentication change.
 
+Capability and plugin-registry probes are read-only and forcibly terminate after
+15 seconds. Generation has its own configured timeout, first sends termination,
+then forces termination after two seconds if needed. Local child cleanup does
+not prove provider-side cancellation of an already submitted model request.
+
 ## Pi and other harnesses: adapter interface, implementation deferred
 
 No native Pi adapter ships in this candidate. A compatible adapter should:

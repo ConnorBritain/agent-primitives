@@ -205,3 +205,50 @@ sentence counting is unsupported. The original evidence is unchanged.
 Raw traces and both Claude result directories are retained in a private local
 backup. These failures concern outer-host integration, not a rerun of the
 bounded 18-draft comparison and not evidence that every generated draft is poor.
+
+## Installed lifecycle and receipt rechecks
+
+These checks use the refreshed installed tools, isolated stores and local fake
+CLI children. **No model requests or network calls** are made. The fixture
+deliberately ignores SIGTERM to test bounded process cleanup, not language quality.
+
+The initial Codex interruption check hung in plugin-registry discovery before
+generation. The synchronous probe's timeout could not finish while the child
+ignored SIGTERM. The exact fixture child was manually stopped; the original
+failed report is retained (67.531 seconds including diagnosis). The original
+Claude loose-file generation interruption passed in 3.359 seconds because it
+did not need that registry lookup.
+
+The fixed synchronous probes use forced termination at 15 seconds. The installed
+focused checks now report:
+
+| Installed path / scenario | Elapsed | Outcome |
+|---|---:|---|
+| Codex plugin / generation timeout | 3.411 s | Passed; ungated, no draft, child dead, temporary context removed |
+| Codex plugin / stuck registry then generation timeout | 18.100 s | Passed; both children terminated, no retry or checked output |
+| Claude plugin / stuck capability probe | 15.674 s | Passed; ungated, no generation dispatch |
+| Claude loose / generation timeout | 3.612 s | Passed; ungated, no draft, child dead, temporary context removed |
+
+Fresh-process preference tests pass nine assertions in both installed Codex and
+Claude loose paths: direct save, scope, profile refresh, inference approval,
+comparison, undo and unavailable-CLI behavior. Updated receipt verification also
+passes in both plugin paths and rejects trailing-space alterations. Claude's
+mixed hard/semantic report reproduces with integrity status passed **and
+mechanical status not-evaluated**; no semantic check is upgraded.
+
+| Retained report | SHA-256 |
+|---|---|
+| codex-interruption-final (failed original) | `f2595b3617d68645c291d382d973f7e5d61eee0b496120bb34dbe065aa467db0` |
+| claude-interruption-final | `d4e997217fdac1dac01840701198b9ae8af9e60fe4255820c3350582e3c201cb` |
+| codex-interruption-fixed | `abe614af6f2c250093a4406d0ee395cdbaff09bc35e3764f114f49daf54758bb` |
+| codex-registry-timeout-fixed | `7621b48f18b0acb61eefac56597b532d1f722267d819d84a81139f7aa47f09e5` |
+| claude-capability-timeout-fixed | `3f89feb71cb357ce10eabd7a0079d00b416c27ec9a5d15379f73736547583ac5` |
+| claude-interruption-fixed | `78aeb6234a84e2b03ca5ea63dc8a0a8f46f3b121c93079e0a2172dc7afc9993f` |
+| codex-receipt-integrity-2 | `efc2c08f91ff723ae8fe2941332e1e3e6b93f788acd518a98c923ac6b971da0b` |
+| claude-receipt-integrity-2 | `1637c4aebce2ca812b994da2625b1de68f4d6a2ddbbae8ee75cdfdf8dc3e1ced` |
+| codex-preferences-final | `9e7e908c4c27435be21337a32c040c8eff85b7edab3ecf98340b4aaa380fb45e` |
+| claude-preferences-final | `b3b9433fd1035bf60eecd4a9cf011cc8c005cd01179076c9d11c0c18d096e79d` |
+
+Raw reports and fixture artifacts are retained privately. These are POSIX local
+process checks, not proof of Windows termination or cancellation at a model
+provider. They do not resolve the separate conversational handoff failures.

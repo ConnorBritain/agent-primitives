@@ -60,8 +60,8 @@ explicit zeroes have no one-hit exception. Counts use actual final draft text.
 
 ## Skill/runtime integration verification
 
-The current full author suite passed **1,341 assertions, zero failures**, including
-**49 runtime tests** covering
+The current full author suite passed **1,342 assertions, zero failures**, including
+**50 runtime tests** covering
 shared store discovery, automatic-profile
 call accounting, and conflicting input paths. Both revised skills passed the
 skill-creator format validator using isolated `uv run --with pyyaml`; neither
@@ -244,3 +244,26 @@ replaced, and no unchanged profile-guided run was redrawn.
 Completion still requires the current mutation check, the remaining installed
 conversation boundary audit, and a requirement-by-requirement completion audit.
 The goal remains active; these are not claims of a finished candidate.
+
+## Completion audit and installed process lifecycle
+
+The [completion audit](V040-COMPLETION-AUDIT.md) now maps every milestone to
+inspected implementation and evidence, distinguishing semantic limits from
+outstanding engineering/integration work.
+
+An installed process-interruption test exposed a real pre-generation hang:
+the synchronous plugin-registry probe's timeout sent SIGTERM, but its child
+ignored it. The test was stopped explicitly and its failed record retained.
+Read-only registry and capability probes now force termination at 15 seconds.
+Generation retains its graceful-then-forced shutdown. Real local fixture children
+verify both probe types, generation interruption, absence of surviving children,
+cleanup and explicitly ungated delivery. No model calls or network requests are
+used by these process fixtures. Windows/provider-side cancellation is unverified.
+
+The full author suite passes 1,342 assertions. All 242 mutation targets preserve
+the working tree, and each of the two new timeout mutations causes one focused
+failure. The earlier 240-mutation update remains a live older snapshot; final
+242-mutation update/check is still required. Both plugin copies were refreshed
+and byte checked; the Claude loose runtime was refreshed and exercised too.
+Installed preference/undo and exact-byte receipt checks also pass with zero new
+model calls. See the session report for retained original hashes and timings.

@@ -139,6 +139,20 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "let a nonterminating capability probe defeat its timeout",
+    file: `${TOOLS}/runtime-adapters.mjs`,
+    find: 'timeout: 15000, killSignal: "SIGKILL",',
+    with: 'timeout: 15000,',
+    guards: "synchronous CLI preflight terminates even when the child ignores SIGTERM",
+  },
+  {
+    name: "let a nonterminating plugin registry defeat its timeout",
+    file: `${TOOLS}/installed-dependencies.mjs`,
+    find: 'timeout: 15000, killSignal: "SIGKILL",',
+    with: 'timeout: 15000,',
+    guards: "dependency discovery cannot indefinitely block interruption handling in the parent",
+  },
+  {
     name: "read receipt diagnostics as completed mutation-suite counts",
     file: "bundles/prose-author/tests/mutations.mjs",
     find: "  const m = summaries.length === 1" + " ? summaries[0] : null;",

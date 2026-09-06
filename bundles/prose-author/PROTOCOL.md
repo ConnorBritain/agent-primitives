@@ -21,8 +21,10 @@ do not manually reconstruct its review/repair loop.
 6. Repair identified problems at most twice, retaining the same profile,
    preferences and selected examples. Preserve substance and recheck all final
    bytes. No automatic paragraph pruning merely to satisfy length.
-7. Return exact prose plus the receipt, disclosures, omissions and unresolved
-   checks. A later edit invalidates the earlier result.
+7. Return the generated `delivery.md`: exact prose plus the recorded receipt.
+   Link the sidecar for disclosures, omissions and unresolved checks. Do not
+   infer statuses from the host's skill list. A later edit invalidates the
+   earlier result.
 
 Observed frequency is advisory, not permission to ignore supported style.
 Reviewers must distinguish ordinary variation from concrete substitutions or
