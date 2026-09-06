@@ -6,6 +6,7 @@ import { readFileSync, writeFileSync, mkdirSync, readdirSync } from "node:fs";
 import { join, resolve } from "node:path";
 import { homedir } from "node:os";
 import { pathToFileURL } from "node:url";
+import { chatReceiptMode } from "./chat-receipt.mjs";
 
 const value = (flag) => { const i = process.argv.indexOf(flag); if (i < 0 || !process.argv[i + 1]) throw new Error(`Missing ${flag}`); return process.argv[i + 1]; };
 const harness = value("--harness"), out = resolve(value("--out"));
@@ -33,7 +34,7 @@ save("stdout.jsonl", run.stdout ?? ""); save("stderr.txt", run.stderr ?? "");
 const events = (run.stdout ?? "").split(/\r?\n/).flatMap((line) => { try { return [JSON.parse(line)]; } catch { return []; } });
 const final = harness === "codex" ? events.findLast((e) => e.type === "item.completed" && e.item?.type === "agent_message")?.item.text
   : events.findLast((e) => e.type === "result")?.result;
-let error = null, result = null, artifact = null;
+let error = null, result = null, artifact = null, chatReceipt = null;
 const walk = (dir) => readdirSync(dir, { withFileTypes: true }).flatMap((e) => e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)]);
 try {
   assert.equal(run.status, 0, run.error?.message ?? run.stderr);
@@ -54,7 +55,8 @@ try {
   if (legacyInline) assert.ok(final.includes(readFileSync(join(dir, "delivery.md"), "utf8").trimEnd()), "Deliver the recorded receipt, not a reconstructed status summary");
   else {
     assert.ok(final?.includes(join(dir, "delivery.md")), "The host must link to the authoritative delivery file");
-    assert.match(final, /unverified/i, "A host-written chat summary must be explicitly unverified");
+    chatReceipt = chatReceiptMode(final, result.draft, readFileSync(join(dir, "receipt.md"), "utf8"));
+    assert.ok(chatReceipt, "Chat must label a summary unverified or quote verified receipt excerpts without added claims");
   }
   const checked = spawnSync(process.execPath, [join(skill, "tools/prose-runtime.mjs"), "check-result", "--result", artifact, "--draft", join(dir, "draft.md"), "--job", join(dir, "resolved-job.json"), ...(!legacyInline ? ["--delivery", join(dir, "delivery.md")] : [])], { encoding: "utf8", timeout: 30000 });
   save("final-check.json", { exit: checked.status, stdout: checked.stdout, stderr: checked.stderr });
@@ -62,6 +64,7 @@ try {
   assert.ok(result.draft.includes("Thanks for inviting me")); assert.doesNotMatch(result.draft, /[?!]/);
 } catch (e) { error = e.stack; }
 const report = { schema: "conversational-writing-evidence/2", delivery_boundary: legacyInline ? "legacy-verbatim-inline" : "authoritative-artifact", permission: fullAccess ? "user-authorized-isolated-full-access" : "default-test-permissions", status: error ? "failed" : "passed", harness, outer_exit: run.status,
+  chat_receipt: chatReceipt,
   outer_elapsed_ms: Date.now() - started, final: final ?? null, artifact, runtime_status: result?.status ?? null,
   inner_model_calls: result?.invocation?.model_calls ?? null, inner_model_elapsed_ms: result?.invocation?.model_elapsed_ms ?? null,
   outer_usage: events.findLast((e) => e.type === "turn.completed" || e.type === "result")?.usage ?? null, error,

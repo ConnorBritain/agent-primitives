@@ -139,6 +139,12 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "accept invented check results as direct receipt excerpts",
+    file: "bundles/prose-author/tests/chat-receipt.mjs",
+    find: "excerpts.every((excerpt) => receipt.includes(excerpt))", with: "true",
+    guards: "a directly quoted receipt excerpt must occur in the generated receipt, not just use quotation marks",
+  },
+  {
     name: "accept changed delivery receipts as checked artifacts",
     file: `${TOOLS}/prose-runtime.mjs`,
     find: 'readFileSync(delivery, "utf8") === renderWritingDelivery(result, renderWritingReceipt(result, job))',

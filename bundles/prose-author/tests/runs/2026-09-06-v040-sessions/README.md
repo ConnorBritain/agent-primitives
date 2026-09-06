@@ -272,3 +272,47 @@ mechanical status not-evaluated**; no semantic check is upgraded.
 Raw reports and fixture artifacts are retained privately. These are POSIX local
 process checks, not proof of Windows termination or cancellation at a model
 provider. They do not resolve the separate conversational handoff failures.
+
+## User-authorized authoritative-file handoff
+
+The user subsequently approved an isolated full-access Codex test, with no
+saved-setting changes, and generated-file authority with host summaries labeled
+unverified. Implementation commit `8085719` preceded these fresh conversations.
+Both installations had matching production files. The tests requested the skill
+by name, supplied no skill path, used isolated preference stores and generated
+one initial draft plus one task review per harness. They sent no messages to
+external recipients. Inspected outer execution records show task-local writes,
+skill/dependency reads and runtime commands, not account-setting changes.
+
+| Harness | Outer elapsed (includes inner calls) | Inner calls / elapsed | Delivered artifact |
+|---|---:|---:|---|
+| Codex, authorized one-off full access | 86.681 s | 2 / 16.573 s | Checked; complete delivery verification passed |
+| Claude, existing test permissions | 79.049 s | 2 / 18.885 s | Checked; complete delivery verification passed |
+
+Claude used its refreshed loose skill and passed the conversation test directly.
+It linked the generated file and explicitly labeled its chat summary unverified.
+Codex used its refreshed plugin skill and linked the authoritative file, with
+directly quoted receipt excerpts. Its original automated result was **failed**:
+the test required the word “unverified” even for source-verified direct excerpts,
+rather than distinguishing quotations from host-written summaries.
+
+That false alarm was corrected in the test, not by changing the conversation.
+Independent fixtures reject invented quoted statuses, unsupported added claims
+and unlabeled summaries; a focused mutation of the excerpt-source check fails.
+A zero-model-call recheck of both retained conversations verifies the actual
+delivery bytes, rule encoding, task-local preferences, source excerpts or summary
+label, and the file link. Codex's source excerpts occur in its recorded receipt.
+The original failed report remains unchanged alongside the separate recheck.
+Neither conversation nor any bounded-comparison cell was redrawn.
+
+The runtime's new `check-result --delivery` also rejects receipt-only changes,
+whitespace changes and substitution of different prose. Omitting the option
+reports delivery not-evaluated. These are integrity checks, not semantic or
+resemblance guarantees. Raw conversations and rechecks are backed up privately.
+
+| Retained report | SHA-256 |
+|---|---|
+| Codex (original false-alarm result retained) | `678ba9930d3bad6d9b9468bfec34c51c04bfaff6fe976d3095e20e7bc691c787` |
+| Claude | `0b5eb54f598f1ef904eebda23f946a473556aa8b146dce3a969547ad6cacd241` |
+| Codex zero-call artifact recheck | `b35bc1c21e7e005ad40ff134d686f3a20b6e818811f848f77c24198f00b3d984` |
+| Claude zero-call artifact recheck | `9cf2035c1369ffd90984ff9ab8a9dcfefc5675a4c2d506d342d995bbbf1d6e39` |

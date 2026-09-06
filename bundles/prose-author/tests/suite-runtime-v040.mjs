@@ -16,6 +16,7 @@ import { comparisonInputs, comparisonCallErrors, verifyComparison, DESIGN } from
 import { installedCompanions } from "../skills/prose-draft/tools/installed-dependencies.mjs";
 import { renderWritingReceipt, renderWritingDelivery } from "../skills/prose-draft/tools/writing-receipt.mjs";
 import { parseSuiteSummary } from "./mutations.mjs";
+import { chatReceiptMode } from "./chat-receipt.mjs";
 import { parseArgs as installerArgs, installPlugins, checkPlugins, verifyDeployment } from "../../../install-prose-codex.mjs";
 
 const candidate = (draft) => ({ schema: "voice-draft-source/5", kind: "draft", draft, omitted: [], claims: [], refused: "" });
@@ -33,6 +34,15 @@ const dispatchFor = (drafts = ["Thank you. I cannot attend."]) => {
 export async function run(t, { tmp, HERE }) {
   t.group("v0.4 production runtime and authenticated CLI transport");
   const test = async (name, fn) => { try { await fn(); t.check(name, true); } catch (e) { t.check(name, false, e.stack); } };
+  await test("attributed receipt excerpts are checked against source, not mistaken for host summaries", () => {
+    const draft = "A reply.", receipt = "Status: checked.\n\nTask review: passed. Voice review: not-evaluated.\n";
+    const final = `${draft}\n\nGenerated check receipt excerpt:\n\n> Status: checked.\n>\n> Task review: passed.\n\n[Delivery](/task/delivery.md)`;
+    assert.equal(chatReceiptMode(final, draft, receipt), "verified-receipt-excerpts");
+    assert.equal(chatReceiptMode(final.replace("Task review: passed.", "Voice review: passed."), draft, receipt), null);
+    assert.equal(chatReceiptMode(final + "\n\nEvery review passed.", draft, receipt), null);
+    assert.equal(chatReceiptMode("All checks passed. [Delivery](/task/delivery.md)", draft, receipt), null);
+    assert.equal(chatReceiptMode("Chat summary (unverified): task review passed.", draft, receipt), "unverified-summary");
+  });
   await test("mutation counts require the completed suite summary, not receipt diagnostics", () => {
     const diagnostic = "AssertionError: expected Hard rules: 1 passed, 0 failed, 2 not-evaluated\n";
     const summary = `${"─".repeat(60)}\n1339 passed, 1 failed\n\nFailures:\n  - receipt test\n`;

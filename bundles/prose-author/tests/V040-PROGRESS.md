@@ -305,4 +305,11 @@ each without crashes; the author suite remains 1,342 passed, 0 failed.
 
 Claude and Codex plugin copies plus the Claude loose skill were refreshed and
 byte checked. Conversation evidence uses a new versioned boundary rather than
-rewriting the original strict-inline failures. Fresh calls are still pending.
+rewriting the original strict-inline failures. The subsequent fresh conversations
+used two inner calls per harness and produced checked authoritative files. Claude
+passed directly; Codex's direct receipt excerpts triggered an overly broad test
+assertion. Source-verified excerpt fixtures corrected that false alarm, and a
+zero-call recheck verified both retained artifacts without redrawing either.
+The original report remains unchanged. The suite now passes 1,343 assertions;
+all three new focused mutations fail one assertion each without crashing.
+Final 245-case mutation update/check and local engineering verification remain.

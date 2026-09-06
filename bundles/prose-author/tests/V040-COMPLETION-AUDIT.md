@@ -28,7 +28,7 @@ integration failures are retained, not converted to passes by this audit.
 | Tell catalog excluded; copying checked afterward | Generation and repair receive no catalog. Copying checks distinguish authorized source quotations from unexplained exact overlap. Twelve-word overlap is a heuristic, not proof against all copying. |
 | Task-scaled review and at most two targeted repairs | Runtime fixtures and live records show task review, profile voice review, rewrite/repair fidelity review and explicit deep claim auditing. Interrupted audits cannot become checked outputs. A live Codex review disagreement stopped incomplete after two repairs. |
 | Exact final bytes after every change; no silent substantive pruning | Per-attempt hashes, rule receipts, review input checks and fidelity review are implemented. Installed tests reject a trailing-space-only external edit. Semantic preservation remains fallible rather than universally guaranteed. |
-| Prose, concise receipt, detailed sidecar | Runtime emits exact draft, generated receipt/delivery, resolved job and individual calls. Receipt-integrity status is separate from original check status. **Outer-host delivery remains incomplete:** Claude reformatted the receipt and one earlier conversation misstated scan availability. |
+| Prose, concise receipt, detailed sidecar | Runtime emits exact draft, generated receipt/delivery, resolved job and individual calls. The user approved generated-file authority. `check-result --delivery` verifies the prose and receipt together; chat summaries are unverified. Both retained fresh conversation artifacts pass, including Codex's source-verified direct excerpts. Historical inline failures remain recorded. |
 | Missing/incompatible/interrupted dependencies honestly ungated | Installed missing-CLI and old-incompatible-CLI evidence exists. POSIX installed child-interruption testing exposed a synchronous-probe hang. The fix passes real fixture-child registry/capability/generation interruption checks, including cleanup and an ungated result. These are local transport fixtures, not provider-cancellation evidence. |
 
 ## 3. Corrections and everyday use
@@ -70,26 +70,25 @@ that profile-plus-examples writes better prose than examples alone.
 | Local engineering suites and historical verification | Author suite, both sibling suites, acceptance, both harness-integrity suites, four canonical checks and four historical run verifiers pass locally. The historical fidelity correction warning and held-agent parity skip remain disclosed. |
 | Mutation update/check and concurrent safety | The 242-case update passed. The first full check failed on one count discrepancy (4 failures instead of 2); three focused repeats and a diagnostic full check reproduced 2. The diagnostic full check passed all 242 rows, baseline/restoration suites and unchanged-tree verification. Ten concurrent review runs passed, five with an applied private-sandbox mutation directly observed. The isolated discrepancy remains unexplained, not declared fixed. See [final engineering evidence](V040-FINAL-ENGINEERING.md). |
 | Installed plugin and loose-file paths | Both plugin deployments were byte checked after the timeout fix and refreshed again after the final guidance edit; Claude loose installation includes runtime tools and fidelity scanner. Codex custom-agent wrappers are installed. Actual installed interruption and zero-call preference/receipt rechecks pass. Windows scripts were not executed on this Mac. |
-| Both installed conversational workflows work | Tuning save/undo conversations pass. Skill-name drafting reaches the runtime. **Not complete:** Codex's restricted outer sandbox blocks initialization; the requested full-access test awaits permission. Claude's focused counter-documentation repeat used one valid job and passed all hard rules, but still reformatted the receipt and made an unsupported installation statement. Strict receipt delivery remains failed. |
+| Both installed conversational workflows work | Tuning save/undo conversations pass. Fresh skill-name drafting uses the installed runtime and returns a checked authoritative file in both harnesses. The user-authorized full-access Codex test closes the initialization boundary for that permission level; restricted mode remains unsupported, not silently bypassed. Claude's chat summary is explicitly unverified; Codex supplies source-verified receipt excerpts. The original overly broad test failure and zero-call recheck are both retained in the session report. |
 | Review-ready handoff with exact evidence and honest limits | Comparison and installed reports exist. This audit keeps outstanding items explicit. No completed-candidate claim yet. |
 | Preserve history and claims audit; no publication or Actions changes | No pushes, PRs, merges, tags or publication occurred. `.github/workflows` has no diff from the starting commit. The existing untracked claims audit retains its recorded SHA-256 and remains untracked. |
 
-## Remaining completion decisions
+## Remaining completion verification
 
 The user has now approved both the isolated Codex full-access test (without
 saved configuration changes) and authoritative generated-file delivery with
 host-written chat summaries explicitly unverified. The runtime and installed
-guidance implement that boundary. Fresh conversation evidence and the affected
-engineering checks are still required; the historical failures above remain
-historical failures, not retroactive passes.
+guidance implement that boundary. Fresh conversation evidence and zero-call
+artifact rechecks are recorded. The affected engineering checks still need their
+final run; historical failures remain historical failures, not retroactive passes.
 
 1. Preserve the completed mutation evidence, including its first failed check
    and the unexplained extra failures; do not relabel the failed run as passed.
-2. Resolve the installed conversation boundary failures without repeatedly
-   redrawing unchanged prose or imposing a new literary acceptance bar.
-3. Revisit this audit after the conversation-boundary decisions and their
-   affected checks; documentation and installation bytes are currently reconciled,
-   but the unresolved workflows still prevent a completion claim.
+2. Complete the current 245-mutation update/check and applicable local suites
+   after the artifact-delivery changes.
+3. Reconcile final evidence, documentation and installed bytes before calling
+   the goal complete. No further model redraw or literary acceptance bar is required.
 
 An unavailable full-access test is not permission to disable a sandbox. A
 fallible voice/fidelity disagreement correctly reported as incomplete is also
