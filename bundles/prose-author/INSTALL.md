@@ -37,8 +37,8 @@ It leaves other marketplaces alone. Keep the checkout at its registered path.
 For GitHub main instead, use `--remote` (and `--remote --check`); an unpublished
 local candidate is not available through that route.
 Remote plugin versions must match the checkout used to render custom agents;
-otherwise the installer stops with a mismatch error. For this unpublished 0.5.0
-candidate, use the local route.
+otherwise the installer stops with a mismatch error. The remote route follows
+GitHub `main`; use the local route for changes that have not merged there yet.
 
 Verify the installation with:
 
