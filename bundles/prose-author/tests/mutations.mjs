@@ -138,6 +138,48 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "count Markdown link destinations as author parentheticals",
+    file: `${TOOLS}/visible-prose.mjs`,
+    find: 'mask(labelEnd, k, "link-target");',
+    with: '/* defect: leave the destination in prose */',
+    guards: "visible-prose counts exclude balanced Markdown targets while retaining genuine asides",
+  },
+  {
+    name: "turn unevaluable empty-text rates into passing zeroes",
+    file: `${TOOLS}/style-rules.mjs`,
+    find: 'occurrences.length / words * 1000 : null;',
+    with: 'occurrences.length / words * 1000 : 0;',
+    guards: "a missing rate denominator is not evaluated, never a passing absence",
+  },
+  {
+    name: "restore a one-hit exception to an explicit zero rule",
+    file: `${TOOLS}/style-rules.mjs`,
+    find: '(maximum === null || actual <= maximum)',
+    with: '(maximum === null || actual <= maximum + 1)',
+    guards: "explicit mechanical limits are exact and independent of corpus-rate tolerances",
+  },
+  {
+    name: "trust a stored receipt without reproducing final checks",
+    file: `${TOOLS}/style-rules.mjs`,
+    find: 'export function verifyRuleReceipt(draft, rules, receipt, options) {',
+    with: 'export function verifyRuleReceipt(draft, rules, receipt, options) { return { status: receipt.status };',
+    guards: "a presented draft is bound to its checked bytes, not a prior candidate",
+  },
+  {
+    name: "save inferred preferences without user approval",
+    file: `${TOOLS}/preferences-v2.mjs`,
+    find: 'if (!direct && !accepted.length) return',
+    with: 'if (false) return',
+    guards: "only explicit persistent feedback or approved inference changes saved preferences",
+  },
+  {
+    name: "silently retarget current observation-dependent preferences",
+    file: `${TOOLS}/preferences-v2.mjs`,
+    find: 'throw new TypeError(`Preference ${d.id} needs validated rebinding to the current profile`);',
+    with: '/* defect: accept stale binding */',
+    guards: "independent user rules survive refresh but evidence-dependent rules require rebinding",
+  },
+  {
     name: "let preferences silently retarget a changed observed profile",
     file: STYLE_CONTRACT,
     find: '    if (preferences.profile.digest !== expected.digest) errors.push("preferences profile digest is stale");',

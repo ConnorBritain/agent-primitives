@@ -1,0 +1,12 @@
+{
+  "schema": "prose-writing-job/1",
+  "mode": "draft",
+  "brief": "Write a two-sentence reply thanking the organizer and declining Friday's invitation. Do not ask a question. Keep it under 60 words. Do not invent a reason I cannot attend.",
+  "context": { "form": "reply", "purpose": "politely decline an invitation", "register": "informal", "audience": "the organizer" },
+  "facts": ["I appreciate the invitation.", "I cannot attend on Friday."],
+  "rules": [
+    { "id": "no-questions", "kind": "punctuation", "directive": "Do not ask a question.", "characters": "?", "minimum": 0, "maximum": 0 },
+    { "id": "short-reply", "kind": "word-limit", "directive": "Keep it under 60 words.", "minimum": 1, "maximum": 59 }
+  ],
+  "adapter": { "harness": "codex", "timeout_ms": 180000 }
+}
