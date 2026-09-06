@@ -48,9 +48,10 @@ export async function run(t, { tmp, makeProfile, HERE, CORPUS }) {
       ["voice-profile-render.md", "voice-draft.md", "voice-feedback-interpret.md"]
         .every((name) => fsExists(join(bundle, "agents", name))));
     const skill = fsRead(join(bundle, "skills", "prose-draft", "SKILL.md"), "utf8");
-    t.check("the shipped blank-page skill routes narrow overlength residuals through deterministic pruning",
-      /draft-residual-prune\.mjs[\s\S]*residual-prune\.md[\s\S]*whole unlocked body[\s\S]*recounts the complete result/.test(skill));
-    t.check("the residual planner and deterministic applicator ship in the installable skill",
+    t.check("the shipped skill routes current writing through the production runner",
+      /tools\/prose-runtime\.mjs run/.test(skill)
+      && ["tools/prose-runtime.mjs", "references/runtime.md"].every((path) => fsExists(join(bundle, "skills", "prose-draft", path))));
+    t.check("the historical residual planner and applicator remain available",
       ["references/residual-prune.md", "tools/draft-residual-prune.mjs"]
         .every((path) => fsExists(join(bundle, "skills", "prose-draft", path))));
     const tuneSkill = join(bundle, "skills", "prose-style-tune");

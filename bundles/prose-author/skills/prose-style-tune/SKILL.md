@@ -1,102 +1,62 @@
 ---
 name: prose-style-tune
-description: Discover, pin, scope, compare, version, or revise writing-style preferences layered over a measured voice profile. Use when a user wants to teach the prose tools what they like or dislike, lock a behavior, maintain different registers, compare style variants, inspect profile evidence in small batches, or view changes between style versions. Keeps user preference separate from observed corpus evidence.
+description: Discover, save, scope, compare, version, or undo personal writing-style preferences. Use when the user teaches the writing tools what they like or dislike, requests persistent style rules, or wants small guided comparisons. Explicit preferences work without a learned profile; observations and user choices stay separate.
 ---
 
 # Prose style tune
 
-Build a reviewable preference layer over an immutable measured voice profile. The result is a
-portable headless style specification, not a claim that generated prose resembles its author.
+Use the sibling drafting skill's production runtime for storage and compilation.
+Read [references/session.md](references/session.md) before acting. The tool owns
+revisions, digests, scope precedence, conflict detection and undo. Never
+hand-edit saved preference files or ask users to review raw JSON.
 
-## Preserve the two layers
+Keep observed `voice-profile/3`, independent choices in `voice-preferences/2`,
+and context-specific `voice-style-spec/2` distinct. Tuning never changes the
+observed profile. Explicit rules need no profile. Historical versions remain
+historical; migrate or refresh explicitly.
 
-- `voice-profile/2` is observed evidence from source examples. Never edit it during tuning.
-- `voice-preferences/1` is the user's versioned choice layer.
-- `voice-style-spec/1` is a context-specific compilation of both, suitable for
-  `voice-draft`.
+## Interpret corrections narrowly
 
-If only a historical `voice-profile/1` exists, stop and offer to refresh it. Tuning needs the
-ten-dimension coverage ledger and stable observation IDs in v2.
+- A clear persistent instruction (“always,” “never,” “remember this”) authorizes
+  saving that instruction. Show what was saved, its scope, revision and undo.
+- A draft-specific edit changes only this draft. Offer a narrow persistent
+  proposal if useful; never save an inference without approval.
+- Ambiguous scope or meaning needs a short clarification, even when the user
+  used “always.” Do not infer an essay-wide preference from one edited word.
 
-Use `tools/style-contract.mjs` for every artifact mutation. Do not hand-edit preference JSON,
-assign decision IDs, calculate digests, advance revisions, or resolve scope precedence in
-prose. Read [references/contracts.md](references/contracts.md) when integrating the artifact
-formats or diagnosing a refusal.
+Encode supported literal phrases, exact required text, punctuation, word limits
+and named count ranges as mechanical rules. Other preferences remain semantic
+and reviewable, not falsely enforced. Bind to observations only when the choice
+actually depends on them. Independent rules survive profile refresh; dependent
+bindings require reviewing new evidence before rebinding.
 
-## Choose one mode
+## Discover and compare in small batches
 
-### Discover the style
+Use `preferences discover` for at most three cards. Present a short cited
+snippet, the limited observed tendency when available, and one question per
+card. Without a profile, ask about choices without pretending they were
+observed. Wait for an answer or skip before another batch. Evidence-only answers
+create no preference.
 
-Initialize an empty overlay if needed, then request at most three discovery cards at a time.
-Show the card's observed status, supporting profile prose, measured rate when present, and
-current decisions. Ask the card's single question. Do not show raw profile JSON or continue to
-the next batch until the user responds or asks to skip.
+Use `preferences compare` to preview one change to an active preference without
+saving it. Generate two variants with the same brief, facts, examples, profile
+and model settings; only the selected rule changes. Present A/B without the
+mapping, ask what the user would keep or edit, then reveal the mapping. A choice
+supports only the tested feature; unrelated sampling differences do not become
+new rules. Inferred preferences still require approval. Missing drafting
+dependencies mean no verified comparison.
 
-An answer such as “keep this as evidence only” produces no preference. For `prefer`, `lock`,
-`avoid`, or scoped answers, dispatch `voice-feedback-interpret` in a clean context with the
-card, current preferences plus digest, the user's exact answer, and any context they supplied.
+## Scope, history and delivery
 
-### Record direct feedback
+Compile with current register/form/audience/purpose/project context.
+More-specific rules override broader ones for the same feature. Equally
+specific conflicts require clarification. A one-off override changes only the
+current job, never a saved rule.
 
-For a passage annotation or natural-language preference, send exactly one feedback event to
-`voice-feedback-interpret`. Whole-draft likes and dislikes are underdetermined unless the user
-identifies a passage or a controlled comparison changed exactly one feature. Surface the
-agent's question instead of guessing.
+Use `preferences diff` for actual changes and `preferences undo` to restore the
+previous state as a new revision without erasing history. State which scope
+changed. Route writing through sibling `prose-draft` so the exact delivered bytes
+are checked; the tuner does not certify prose.
 
-Present proposed operations in plain language, including stance, scope, evidence links,
-rationale, and expected effect. Apply only operation IDs the user explicitly accepts. A
-proposal with unresolved questions is mechanically inapplicable.
-
-### Compare one experimental choice
-
-First record the candidate behavior as an `experimental` preference. Compile a comparison for
-that decision and one fully specified context. Dispatch candidate A and candidate B through
-`voice-draft` in separate clean contexts with the same writing request and generation settings.
-Only the compiled style specification differs.
-
-Show the drafts as A and B without revealing which contains the experiment. Ask which the user
-prefers and what passage drove the choice. After they answer, reveal the mapping and send one
-`pairwise-choice` event to `voice-feedback-interpret`. A choice may update only the feature the
-comparison varied; unrelated sampling differences are not preference evidence.
-
-### Compile for drafting
-
-Require an explicit context object with register, form, audience, purpose, and project; use
-`null` for genuinely unspecified axes. Compile the current preferences against that context.
-Scope-specific decisions override less-specific decisions for the same feature. Equally
-specific active conflicts are refusals, not tie-breaks.
-
-Give `voice-draft` the user's request and the complete `voice-style-spec/1`. The observed
-profile remains its only source of claims about the author's examples. Active preferences are
-user instructions, not newly observed habits. Continue through the ordinary conformance,
-claim-audit, tell-scan, and independent review pipeline.
-
-### Version or inspect
-
-Every accepted change creates a new revision with the previous artifact's digest as
-`parent_digest`. Preserve earlier files. Use the deterministic diff for review or rollback;
-do not summarize versions from memory. Branches are ordinary immutable preference files with
-the same parent and different accepted proposals.
-
-## Commands used by this skill
-
-```bash
-node tools/style-contract.mjs init --profile profile.json --label "Working voice"
-node tools/style-contract.mjs discover --profile profile.json --preferences preferences.json --offset 0 --limit 3
-node tools/style-contract.mjs schema proposal
-node tools/style-contract.mjs prompt --profile profile.json --preferences preferences.json --feedback feedback.json --context context.json
-node tools/style-contract.mjs apply --profile profile.json --preferences preferences.json --proposal proposal.json --accept add-directness
-node tools/style-contract.mjs compile --profile profile.json --preferences preferences.json --context context.json
-node tools/style-contract.mjs compare --profile profile.json --preferences preferences.json --context context.json --decision p003
-node tools/style-contract.mjs diff --from preferences-v2.json --to preferences-v3.json
-```
-
-These are skill internals, not prerequisites the user should have to type.
-
-## Claims and stopping conditions
-
-Never say that a preference is part of the source author's voice unless its cited observation
-supports that statement. Never claim that a draft is good, resembles the author, or would pass
-a detector. Stop on a stale profile digest, a dangling observation ID, an unresolved proposal,
-an ambiguous active conflict, or a comparison whose experimental decision does not apply to
-the supplied context.
+Observed absences mean “not observed in these samples,” not universal bans.
+Never claim resemblance, quality, factual accuracy or detector success.

@@ -113,14 +113,17 @@ export function scanRuntimeArtifacts(draft, scanner) {
   finally { rmSync(dir, { recursive: true, force: true }); }
 }
 
-export async function renderCurrentProfile({ id, samples, adapter, selection = {} }, { dispatch = callModel, onCall = () => {} } = {}) {
+export async function renderCurrentProfile({ id, samples, adapter, selection = {} }, { dispatch = callModel, onCall = () => {}, signal } = {}) {
+  if (signal?.aborted) return { status: "not-evaluated", reason: "Cancelled before profile render", profile: null };
   const measured = measureSamples(samples, selection);
   if (!measured.sample_count) return { status: "not-evaluated", reason: "No usable corpus; explicit preferences remain usable", profile: null };
   const used = samples.filter((s) => measured.samples.some((m) => m.id === s.id));
-  const result = await dispatch({ ...adapter, system: PROFILE_INSTRUCTIONS,
-    input: { coverage_dimensions: Object.keys(Object.fromEntries(assembleProfileV3({ id, samples: used }).coverage.map((r) => [r.dimension, true]))),
-      samples: used, measured: { support: measured.support, groups: measured.groups, measurements: measured.measurements } }, schema: PROFILE_SOURCE_SCHEMA });
-  onCall(result);
+  const input = { coverage_dimensions: Object.keys(Object.fromEntries(assembleProfileV3({ id, samples: used }).coverage.map((r) => [r.dimension, true]))),
+    samples: used, measured: { support: measured.support, groups: measured.groups, measurements: measured.measurements } };
+  let result;
+  try { result = await dispatch({ ...adapter, system: PROFILE_INSTRUCTIONS, input, schema: PROFILE_SOURCE_SCHEMA, signal }); }
+  catch (e) { result = { status: "failed", reason: `Profile dispatch failed: ${e.message}`, dispatched: false }; }
+  onCall({ stage: "profile", input, system: PROFILE_INSTRUCTIONS, result });
   if (result.status !== "passed") return { status: result.status, reason: result.reason, profile: null };
   const errors = schemaErrors(result.value, PROFILE_SOURCE_SCHEMA);
   if (errors.length) return { status: "failed", reason: errors.join("; "), profile: null };

@@ -5,14 +5,18 @@ import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runWriting, renderCurrentProfile } from "./writing-runtime.mjs";
 import { readCurrentSamples, sha256 } from "./profile-v3.mjs";
-import { initPreferenceStore, readPreferenceStore, applyPreferenceStore, undoPreferenceStore } from "./preference-store.mjs";
+import { initPreferenceStore, readPreferenceStore, applyPreferenceStore, undoPreferenceStore, defaultPreferenceDirectory } from "./preference-store.mjs";
 import { proposePreferencesV2, compileStyleV2, initPreferencesV2 } from "./preferences-v2.mjs";
 import { verifyRuleReceipt } from "./style-rules.mjs";
+import { discoveryCards, preferenceDiff, comparePreference } from "./style-session.mjs";
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
 const write = (path, value) => writeFileSync(path, typeof value === "string" ? value : `${JSON.stringify(value, null, 2)}\n`, { flag: "wx", mode: 0o600 });
 export function loadWritingJob(path) {
   const job = read(path), base = dirname(resolve(path)), at = (p) => resolve(base, p);
+  for (const [file, inline] of [["profile_file", "profile"], ["samples_dir", "samples"], ["preference_store", "preferences"], ["source_file", "source_text"]]) {
+    if (job[file] !== undefined && job[inline] !== undefined) throw new TypeError(`Supply ${file} or ${inline}, not both`);
+  }
   if (job.profile_file) job.profile = read(at(job.profile_file));
   if (job.samples_dir) job.samples = readCurrentSamples(at(job.samples_dir));
   if (job.preference_store) job.preferences = readPreferenceStore(at(job.preference_store));
@@ -23,20 +27,30 @@ export function loadWritingJob(path) {
 }
 
 export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdout.write(s), stderr = (s) => process.stderr.write(s), signal } = {}) {
+  const started = Date.now();
   const [command, ...rest] = args;
   const value = (flag) => { const i = rest.indexOf(flag); return i < 0 ? null : rest[i + 1]; };
   const requireValue = (flag) => { const v = value(flag); if (!v || v.startsWith("--")) throw new TypeError(`Missing ${flag}`); return v; };
   if (command === "preferences") {
-    const op = rest[0], store = resolve(requireValue("--store"));
+    const op = rest[0], store = rest.includes("--store") ? resolve(requireValue("--store")) : defaultPreferenceDirectory();
     let result;
-    if (op === "init") result = initPreferenceStore(store, requireValue("--id"));
+    if (op === "locate") result = { directory: store, exists: existsSync(join(store, "current.json")),
+      preference_id: existsSync(join(store, "current.json")) ? readPreferenceStore(store).id : null };
+    else if (op === "init") result = initPreferenceStore(store, requireValue("--id"));
     else if (op === "show") result = readPreferenceStore(store);
     else if (op === "propose") result = proposePreferencesV2(readPreferenceStore(store), read(requireValue("--feedback")));
     else if (op === "apply") result = applyPreferenceStore(store, read(requireValue("--proposal")), { accepted: (value("--accept") ?? "").split(",").filter(Boolean) });
     else if (op === "undo") result = undoPreferenceStore(store);
+    else if (op === "discover") result = discoveryCards(readPreferenceStore(store), {
+      profile: value("--profile") ? read(value("--profile")) : null,
+      offset: Number(value("--offset") ?? 0), limit: Number(value("--limit") ?? 3) });
+    else if (op === "diff") result = preferenceDiff(read(requireValue("--from")), readPreferenceStore(store));
+    else if (op === "compare") result = comparePreference(readPreferenceStore(store), {
+      decision_id: requireValue("--decision"), rule: read(requireValue("--rule")),
+      context: read(requireValue("--context")), profile: value("--profile") ? read(value("--profile")) : null });
     else if (op === "compile") result = compileStyleV2(readPreferenceStore(store), {
       context: value("--context") ? read(value("--context")) : {}, profile: value("--profile") ? read(value("--profile")) : null });
-    else throw new TypeError("preferences: init, show, propose, apply, undo or compile");
+    else throw new TypeError("preferences: locate, init, show, propose, apply, undo, discover, diff, compare or compile");
     stdout(`${JSON.stringify(result, null, 2)}\n`); return result;
   }
   if (command === "check-result") {
@@ -50,19 +64,24 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
   if (!["run", "profile"].includes(command)) throw new TypeError("prose-runtime: run|profile --job job.json --out NEW-directory; preferences <operation>; check-result");
   const jobPath = requireValue("--job"), job = loadWritingJob(jobPath), out = resolve(requireValue("--out"));
   if (value("--harness")) job.adapter = { ...job.adapter, harness: value("--harness") };
+  if (job.profile_policy !== undefined && !["auto", "none"].includes(job.profile_policy)) throw new TypeError("profile_policy must be auto or none");
+  if (job.profile_policy === "none" && job.profile) throw new TypeError("profile_policy none cannot also supply a profile");
   mkdirSync(dirname(out), { recursive: true });
   // Existing run directories are never reused: no silent redraw or overwrite.
   mkdirSync(out, { mode: 0o700 });
   write(join(out, "job.json"), job);
-  let count = 0;
+  let count = 0, dispatched = 0, modelElapsed = 0;
   const onCall = (record) => {
     count++;
+    const call = record.result ?? record;
+    if (call.dispatched) dispatched++;
+    modelElapsed += call.elapsed_ms ?? 0;
     write(join(out, `call-${String(count).padStart(3, "0")}.json`), record);
     stderr(`${record.stage ?? "profile"}: ${record.result?.status ?? record.status}\n`);
   };
   let result;
-  if ((command === "profile" || !job.profile) && job.samples?.length) {
-    const rendered = await renderCurrentProfile({ id: job.profile_id ?? "working-voice", samples: job.samples, adapter: job.adapter }, { dispatch, onCall });
+  if ((command === "profile" || (!job.profile && job.profile_policy !== "none")) && job.samples?.length) {
+    const rendered = await renderCurrentProfile({ id: job.profile_id ?? "working-voice", samples: job.samples, adapter: job.adapter }, { dispatch, onCall, signal });
     write(join(out, "profile-result.json"), rendered);
     if (rendered.profile) { job.profile = rendered.profile; write(join(out, "profile.json"), rendered.profile); }
     if (command === "profile" || rendered.status !== "passed") result = rendered;
@@ -70,6 +89,10 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
   write(join(out, "resolved-job.json"), job);
   if (!result) result = await runWriting(job, { dispatch, onCall, signal,
     onProgress: (event) => stderr(`${event.stage} (${event.calls} completed calls)\n`) });
+  // Covers preparation/profile calls as well as the writing pipeline's own receipt.
+  result.invocation = { model_calls: dispatched, model_call_records: count, model_elapsed_ms: modelElapsed,
+    elapsed_ms: Date.now() - started, input_digest: sha256(readFileSync(join(out, "job.json"), "utf8")),
+    resolved_input_digest: sha256(readFileSync(join(out, "resolved-job.json"), "utf8")) };
   write(join(out, "result.json"), result);
   if (result.draft) write(join(out, "draft.md"), result.draft);
   stdout(`${JSON.stringify({ status: result.status, reason: result.reason ?? null, output_directory: out,

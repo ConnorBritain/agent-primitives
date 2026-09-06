@@ -6,9 +6,11 @@ import { runWriting, selectCurrentExamples, copyingCheck, renderCurrentProfile, 
 import { parseAdapterOutput, adapterPreflight, configuredModel, callModel, adapterFailureReason } from "../skills/prose-draft/tools/runtime-adapters.mjs";
 import { assembleProfileV3, sha256 } from "../skills/prose-draft/tools/profile-v3.mjs";
 import { validateDraftV5, validateReview } from "../skills/prose-draft/tools/runtime-contract.mjs";
-import { initPreferenceStore, readPreferenceStore, applyPreferenceStore, undoPreferenceStore } from "../skills/prose-draft/tools/preference-store.mjs";
+import { initPreferenceStore, readPreferenceStore, applyPreferenceStore, undoPreferenceStore, defaultPreferenceDirectory } from "../skills/prose-draft/tools/preference-store.mjs";
 import { proposePreferencesV2, emptyScope } from "../skills/prose-draft/tools/preferences-v2.mjs";
-import { runtimeMain } from "../skills/prose-draft/tools/prose-runtime.mjs";
+import { runtimeMain, loadWritingJob } from "../skills/prose-draft/tools/prose-runtime.mjs";
+import { discoveryCards, preferenceDiff, comparePreference } from "../skills/prose-draft/tools/style-session.mjs";
+import { initPreferencesV2, applyPreferencesV2 } from "../skills/prose-draft/tools/preferences-v2.mjs";
 
 const candidate = (draft) => ({ schema: "voice-draft-source/5", kind: "draft", draft, omitted: [], claims: [], refused: "" });
 const clear = (input) => ({ schema: "prose-runtime-review/1", verdict: "clear", findings: [],
@@ -25,6 +27,96 @@ const dispatchFor = (drafts = ["Thank you. I cannot attend."]) => {
 export async function run(t, { tmp, HERE }) {
   t.group("v0.4 production runtime and authenticated CLI transport");
   const test = async (name, fn) => { try { await fn(); t.check(name, true); } catch (e) { t.check(name, false, e.stack); } };
+  await test("new sessions locate one persistent store without creating or replacing an identity", async () => {
+    assert.equal(defaultPreferenceDirectory({}, tmp), join(tmp, ".config/prose-author/preferences"));
+    assert.equal(defaultPreferenceDirectory({ PROSE_PREFERENCES_DIR: tmp }, "/different-home"), tmp);
+    assert.throws(() => defaultPreferenceDirectory({ PROSE_PREFERENCES_DIR: "relative" }, tmp), /absolute/);
+    const store = join(tmp, "locate-only-store"), options = { stdout: () => {}, stderr: () => {} };
+    const absent = await runtimeMain(["preferences", "locate", "--store", store], options);
+    assert.equal(absent.exists, false); assert.equal(absent.preference_id, null);
+    initPreferenceStore(store, "shared-person");
+    const located = await runtimeMain(["preferences", "locate", "--store", store], options);
+    assert.equal(located.preference_id, "shared-person");
+    assert.throws(() => initPreferenceStore(store, "different-person"), /different identity/);
+  });
+  await test("discovery stays small and distinguishes unmeasured choices from observed evidence", () => {
+    const p = initPreferencesV2("discovery");
+    const empty = discoveryCards(p);
+    assert.equal(empty.cards.length, 3); assert.ok(empty.cards.every((c) => c.status === "not-evaluated"));
+    assert.equal(empty.next_offset, null);
+    const profile = assembleProfileV3({ id: "a", samples: [{ id: "a", text: "I pause (briefly).", source: "fixture", author: "A", human_authored: true }] });
+    const first = discoveryCards(p, { profile }), second = discoveryCards(p, { profile, offset: first.next_offset });
+    assert.equal(first.cards.length, 3); assert.equal(second.cards.length, 3);
+    assert.ok(first.cards.every((c) => !second.cards.some((d) => d.id === c.id)));
+    assert.throws(() => discoveryCards(p, { limit: 4 }), /one to three/);
+  });
+  await test("one-feature comparisons preserve stored choices and reject inactive or unchanged variants", () => {
+    const p = initPreferencesV2("comparison");
+    const rule = { id: "q", kind: "punctuation", directive: "Never ask questions in replies", characters: "?", minimum: 0, maximum: 0 };
+    const decision = { id: "q", feature: "questions", scope: { ...emptyScope(), forms: ["reply"] }, rule, binding: null };
+    const saved = applyPreferencesV2(p, proposePreferencesV2(p, { feedback: "Never ask questions in replies", operations: [{ id: "save", kind: "upsert", decision }] })).preferences;
+    const before = JSON.stringify(saved), preview = { ...rule, directive: "Allow one question", maximum: 1 };
+    const compared = comparePreference(saved, { decision_id: "q", rule: preview, context: { form: "reply" } });
+    assert.equal(compared.saved, false); assert.equal(JSON.stringify(saved), before);
+    assert.equal(compared.variants[0].style.rules[0].maximum, 0); assert.equal(compared.variants[1].style.rules[0].maximum, 1);
+    assert.deepEqual(preferenceDiff(saved, saved).changes, []);
+    assert.equal(preferenceDiff(p, saved).changes[0].kind, "added");
+    assert.throws(() => comparePreference(saved, { decision_id: "q", rule: preview, context: { form: "essay" } }), /active preference/);
+    assert.throws(() => comparePreference(saved, { decision_id: "q", rule, context: { form: "reply" } }), /actual rule change/);
+  });
+  await test("documented feedback and discovery work through the real command entrypoint", async () => {
+    const reference = readFileSync(join(HERE, "../skills/prose-style-tune/references/session.md"), "utf8");
+    const feedback = JSON.parse(reference.match(/```json\n([\s\S]*?)\n```/)[1]);
+    const store = join(tmp, "documented-preferences"), file = join(tmp, "documented-feedback.json"), proposalFile = join(tmp, "documented-proposal.json");
+    const options = { stdout: () => {}, stderr: () => {} };
+    await runtimeMain(["preferences", "init", "--store", store, "--id", "documented"], options);
+    writeFileSync(file, JSON.stringify(feedback));
+    const proposal = await runtimeMain(["preferences", "propose", "--store", store, "--feedback", file], options);
+    writeFileSync(proposalFile, JSON.stringify(proposal));
+    const saved = await runtimeMain(["preferences", "apply", "--store", store, "--proposal", proposalFile], options);
+    assert.equal(saved.status, "saved"); assert.deepEqual(saved.receipt.scopes[0].scope.forms, ["reply"]);
+    const cards = await runtimeMain(["preferences", "discover", "--store", store], options);
+    assert.equal(cards.cards.length, 3);
+    const undone = await runtimeMain(["preferences", "undo", "--store", store], options);
+    assert.equal(undone.revision, 3); assert.deepEqual(undone.decisions, []);
+  });
+  await test("examples-only entrypoint does not silently render a profile", async () => {
+    const path = join(tmp, "examples-only.json"), out = join(tmp, "examples-only-run"), inputs = [];
+    writeFileSync(path, JSON.stringify(job({ profile_policy: "none", samples: [{ id: "a", text: "A little human note.", author: "A", source: "fixture", human_authored: true }] })));
+    const result = await runtimeMain(["run", "--job", path, "--out", out], { dispatch: async (args) => { inputs.push(args.input); return dispatchFor()(args); }, stdout: () => {}, stderr: () => {} });
+    assert.equal(result.status, "checked"); assert.equal(result.invocation.model_calls, 2);
+    assert.equal(inputs[0].profile, null); assert.equal(inputs[0].examples[0].text, "A little human note.");
+    assert.equal(result.invocation.model_call_records, 2);
+  });
+  await test("automatic profile preparation is included in total call accounting and recorded inputs", async () => {
+    const path = join(tmp, "automatic-profile.json"), out = join(tmp, "automatic-profile-run");
+    const samples = [{ id: "a", text: "A little human note.", author: "A", source: "fixture", human_authored: true }];
+    writeFileSync(path, JSON.stringify(job({ samples })));
+    const result = await runtimeMain(["run", "--job", path, "--out", out], { stdout: () => {}, stderr: () => {}, dispatch: async (args) => {
+      if (args.schema.properties.schema.const !== "voice-profile-source/5") return dispatchFor()(args);
+      return simulated({ schema: "voice-profile-source/5", observations: [], refused: "",
+        unresolved: args.input.coverage_dimensions.map((dimension) => ({ dimension, reason: "This small fixture supplies no recurring semantic habit" })) });
+    } });
+    assert.equal(result.status, "checked");
+    assert.equal(result.invocation.model_calls, 4); assert.equal(result.receipt.model_calls, 3);
+    const record = JSON.parse(readFileSync(join(out, "call-001.json")));
+    assert.equal(record.stage, "profile"); assert.equal(record.input.samples[0].text, samples[0].text); assert.ok(record.system);
+    assert.equal(result.invocation.model_elapsed_ms, 4);
+  });
+  await test("contradictory inline/file inputs and missing explicit store values refuse", async () => {
+    const path = join(tmp, "conflicting-inputs.json");
+    writeFileSync(path, JSON.stringify(job({ source_file: "missing.md", source_text: "A different source" })));
+    assert.throws(() => loadWritingJob(path), /not both/);
+    await assert.rejects(() => runtimeMain(["preferences", "locate", "--store", "--id", "invalid"]), /Missing --store/);
+  });
+  await test("profile cancellation and thrown transport are recorded without invented success", async () => {
+    const sampleJob = { id: "cancelled", samples: [{ id: "a", text: "Human sample.", author: "A", source: "fixture", human_authored: true }], adapter: { harness: "codex" } };
+    const controller = new AbortController(); controller.abort(); let count = 0;
+    const cancelled = await renderCurrentProfile(sampleJob, { signal: controller.signal, dispatch: async () => { count++; } });
+    assert.equal(cancelled.status, "not-evaluated"); assert.equal(count, 0);
+    const records = [], broken = await renderCurrentProfile(sampleJob, { dispatch: async () => { throw new Error("Disconnected"); }, onCall: (r) => records.push(r) });
+    assert.equal(broken.status, "failed"); assert.equal(records[0].stage, "profile"); assert.equal(records[0].result.dispatched, false);
+  });
   await test("ordinary brief with no numeric length runs actual final-byte checks", async () => {
     const result = await runWriting(job({ rules: [{ id: "no-questions", directive: "Never use question marks", kind: "punctuation", characters: "?", minimum: 0, maximum: 0 }] }), { dispatch: dispatchFor(), scan: scanner });
     assert.equal(result.status, "checked"); assert.equal(result.receipt.model_calls, 2);

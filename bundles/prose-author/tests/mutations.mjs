@@ -138,6 +138,41 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "accept a session-relative persistent preference path",
+    file: `${TOOLS}/preference-store.mjs`,
+    find: 'configured && !isAbsolute(configured)',
+    with: 'false',
+    guards: "persistent corrections cannot move silently with a new session working directory",
+  },
+  {
+    name: "remove the small-batch discovery ceiling",
+    file: `${TOOLS}/style-session.mjs`,
+    find: '|| limit > 3',
+    with: '|| false',
+    guards: "conversational discovery cannot dump arbitrarily large review batches",
+  },
+  {
+    name: "allow comparison against an inactive scoped preference",
+    file: `${TOOLS}/style-session.mjs`,
+    find: 'const active = a.active_preferences.find((d) => d.id === decision_id);',
+    with: 'const active = preferences.decisions.find((d) => d.id === decision_id);',
+    guards: "a one-feature preview must actually vary an applicable preference",
+  },
+  {
+    name: "silently render a profile for the examples-only condition",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: '!job.profile && job.profile_policy !== "none"',
+    with: '!job.profile',
+    guards: "the examples-only path stays distinct from profile generation",
+  },
+  {
+    name: "dispatch a profile call after cancellation",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'if (signal?.aborted) return { status: "not-evaluated", reason: "Cancelled before profile render", profile: null };',
+    with: '/* defect: dispatch after cancellation */',
+    guards: "cancelled profile preparation cannot consume another model call",
+  },
+  {
     name: "count Markdown link destinations as author parentheticals",
     file: `${TOOLS}/visible-prose.mjs`,
     find: 'mask(labelEnd, k, "link-target");',

@@ -1,7 +1,8 @@
 # v0.4.0 implementation evidence — in progress
 
 This is an implementation checkpoint, **not a release or install claim**. The
-shipped manifests and skills still describe v0.3.0. No push, PR, publication or
+shipped manifests remain v0.3.0; working-tree skill entrypoints now use the v0.4
+runtime, but installed copies have not yet been updated. No push, PR, publication or
 GitHub Actions change is part of this work.
 
 ## Current deterministic foundation
@@ -39,8 +40,31 @@ explicit zeroes have no one-hit exception. Counts use actual final draft text.
 - Whole human-authored example selection; observed ranges remain advisory.
 - `voice-preferences/2`, `voice-style-spec/2`, scoped direct instructions, approval
   for inferred preferences, immutable on-disk revisions, writer locking and undo.
-- Skill-internal command entrypoint; existing shipped skills have **not yet been
-  switched to it**. Prompt ownership/packaging integration remains to be completed.
+- Skill entrypoints now route current writing and tuning through the production
+  command, with executable-reference fixtures and concise conversational receipts.
+- Shared persistent-store discovery across harnesses, three-card discovery,
+  immutable diffs, and one-active-preference comparisons without saving changes.
+- Examples-only jobs can explicitly skip profile rendering. Profile preparation
+  receives cancellation and has structured call records; invocation accounting
+  includes preparation as well as draft/review calls.
+- Prompt ownership/packaging integration remains to be completed; current runtime
+  draft/profile instructions are still inline and the independently installable
+  primitive bodies still carry the historical contract.
+
+## Skill/runtime integration verification
+
+The full author suite passed **1,320 assertions, zero failures**, including 28
+runtime integration tests covering shared store discovery, automatic-profile
+call accounting, and conflicting input paths. Both revised skills passed the
+skill-creator format validator using isolated `uv run --with pyyaml`; neither
+system Python nor the app-bundled Python had that development dependency.
+No production Python dependency was introduced.
+
+Focused mutation trials removed the discovery ceiling, allowed an inactive
+preference comparison, silently rendered a profile for examples-only input, and
+ignored profile cancellation. A fifth allowed a session-relative persistent
+preference path. Each caused one test failure. The full mutation
+table still awaits tool-driven regeneration/check after packaging changes.
 
 ## Small live transport smoke tests
 
@@ -65,7 +89,8 @@ general OS-level guarantee that arbitrary reads are impossible.
 ## Remaining before completion
 
 1. Finish current prompt ownership, input validation and runtime failure-path tests.
-2. Wire skills and conversational discovery/feedback into the production entrypoint.
+2. Verify conversational behavior through actual installed skill entrypoints,
+   including discovery, scoped corrections and undo in both harnesses.
 3. Run the bounded six-case, three-condition comparison; no repeated 20/60 bar.
 4. Update documentation and all v0.4.0 packaging metadata; regenerate mutation
    documentation through its tool and run all applicable local suites.

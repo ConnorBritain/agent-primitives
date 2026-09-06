@@ -1,8 +1,16 @@
 /** Local immutable revision storage. One exclusive writer; atomic current pointer. */
 import { mkdirSync, readFileSync, writeFileSync, openSync, closeSync, unlinkSync, renameSync, existsSync, readdirSync } from "node:fs";
-import { join } from "node:path";
+import { join, isAbsolute } from "node:path";
+import { homedir } from "node:os";
 import { randomUUID } from "node:crypto";
 import { initPreferencesV2, validatePreferencesV2, digest, applyPreferencesV2, undoPreferencesV2 } from "./preferences-v2.mjs";
+
+/** Shared across harnesses; task-local output folders are never implicit stores. */
+export function defaultPreferenceDirectory(env = process.env, home = homedir()) {
+  const configured = env.PROSE_PREFERENCES_DIR;
+  if (configured && !isAbsolute(configured)) throw new TypeError("PROSE_PREFERENCES_DIR must be an absolute persistent path");
+  return configured || join(home, ".config", "prose-author", "preferences");
+}
 
 function valid(p) { const errors = validatePreferencesV2(p); if (errors.length) throw new TypeError(errors.join("; ")); return p; }
 const revisionName = (p) => `${String(p.revision).padStart(6, "0")}-${digest(p)}.json`;

@@ -16,16 +16,31 @@ reads like nobody wrote it, which is what the catalog exists to detect. The
 target is the author's corpus and voice card. The catalog runs *afterwards*, on
 the way to a human.
 
-## The three claims, and the three refusals
+## Current claims and historical verification
 
-Anything this bundle prints about a draft must be one of:
+Current runtime receipts may report only what their recorded checks support:
+
+- explicit mechanical rules checked against the exact delivered bytes
+- observed distributions compared where matching human evidence is available
+- named artifact and semantic reviews completed, failed, or not evaluated
+
+Observations are advisory, not quotas. A measured absence is not a universal
+prohibition. Explicit user preferences work independently of a corpus, and
+unavailable checks must never become passing checks. Semantic review does not
+prove factual accuracy. Rewrites and continuation remain supported task modes;
+supplied prior text is coherence/content context, never automatically a corpus
+sample. Clear persistent instructions save with a visible receipt and undo;
+inferred preferences need approval. Do not apply corpus-ingestion thresholds
+to feedback learning.
+
+The historical verifier's three claims remain unchanged for historical runs:
 
 - it was scanned against this author's profile
 - cadence and density were compared to this author's derived bands
 - no Tier A artifact is present
 
-Never that it **sounds like the author**, that it is **good**, or that it would
-**pass a detector**. These are tested for in `tests/selftest.mjs`, including the
+Neither path claims that it **sounds like the author**, that it is **good**, or
+that it would **pass a detector**. These are tested for in `tests/selftest.mjs`, including the
 awkward case: the phrase "sounds like you" *does* appear in the output, inside
 the sentence disclaiming it, so the test asserts every occurrence sits after
 "Not claimed" rather than asserting the phrase is absent. A test written the
@@ -54,9 +69,11 @@ read it.
   a guard, add its mutation; a guard with no failing mutation is decoration, and
   a mutation scoring 0 is reported as a missing test rather than a passing row.
   Do not hand-edit the table — `--update` regenerates it. Put the output in the PR.
-- If you touched anything under `skills/`, exercise every refusal path by hand:
-  no corpus, uncalibrated profile, Tier A artifact, missing sibling scanner. Show
-  the output.
+- If you touched anything under `skills/`, exercise current fallback/refusal
+  paths: preference-only without a corpus, limited-evidence profiles, Tier A
+  artifacts, missing required siblings/adapters, scoped conflicts, interrupted
+  calls and exhausted repairs. Preserve historical refusal tests as historical;
+  do not reintroduce the old cold-start prohibition into current assistance.
 - All four manifests parse and carry the same `version` as the marketplace entry.
 - Relative links resolve — this bundle links into `prose-tell-scan` twice.
 
