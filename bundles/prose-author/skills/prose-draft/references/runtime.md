@@ -1,7 +1,10 @@
 # Production writing runtime
 
 Resolve paths relative to the installed skill directory. Node.js is the only
-runtime dependency. The current harness's authenticated `claude` or `codex` CLI
+runtime dependency. Adapter names are `claude` or `codex`; the product-name alias
+`claude-code` is normalized to the same `claude` transport without changing the
+model or authentication. Other unknown adapters remain unsupported.
+The current harness's authenticated `claude` or `codex` CLI
 must be on PATH. Omit model overrides to preserve configured models. If these
 dependencies are missing, explain the unavailable check; do not simulate a run.
 

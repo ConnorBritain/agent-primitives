@@ -138,6 +138,8 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  { name: "silently ignore unknown history flags", file: `${TOOLS}/history-cli.mjs`, find: '!allowed.has(rest[i]) ||', with: '', guards: "unknown options cannot silently redirect history writes to the default store" },
+  { name: "reject the known Claude product-name adapter alias", file: `${TOOLS}/runtime-adapters.mjs`, find: 'name === "claude-code" ? "claude" : name', with: 'name', guards: "Claude Code product spelling resolves to the existing authenticated Claude transport" },
   {"name":"history accepts undeclared collection","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (!state) return { enabled: false, rhetoric: false };","with":"if (!state) return { enabled: true, rhetoric: false };","guards":"collection is disabled until explicit scope consent"},
   {"name":"history disables project precedence","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"state.scopes.find((s) => s.project === scope) ??","with":"","guards":"specific disablement overrides identity-wide collection"},
   {"name":"history ignores revision replacement","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"latest.set(r.document, r)","with":"latest.set(r.id, r)","guards":"document revisions are not independent pieces"},

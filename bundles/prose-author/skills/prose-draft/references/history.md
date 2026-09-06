@@ -10,8 +10,14 @@ authorize collection. Nothing watches folders or uploads a corpus in the backgro
 Use `tools/prose-runtime.mjs history locate` to locate the shared local store.
 The default is `.config/prose-author/history` under the user home; an absolute
 `PROSE_HISTORY_DIR` overrides it. This is separate from corpora and preferences.
+For a user-selected custom store, append `--store DIRECTORY` to **every** history
+command, not only to the writing job's telemetry attachment. `--directory` is an
+equivalent alias; conflicting directories and unknown flags fail before writes.
 Use the user's chosen short identity identifier; ask if multiple identities
 could apply. Never infer a new identity from a source filename.
+The store directory is reserved for numerical state. Prepare configuration,
+ingestion jobs, selected source files, exports and readable reports in the task's
+separate output directory, not inside the history store.
 
 The configuration is a small JSON file prepared by the agent:
 

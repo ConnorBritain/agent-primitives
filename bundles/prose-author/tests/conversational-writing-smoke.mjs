@@ -13,13 +13,21 @@ const harness = value("--harness"), out = resolve(value("--out"));
 assert.ok(["codex", "claude"].includes(harness));
 const fullAccess = process.argv.includes("--full-access");
 const legacyInline = process.argv.includes("--legacy-inline");
+const historyTest = process.argv.includes("--history");
 assert.ok(!fullAccess || harness === "codex", "--full-access is a Codex test option requiring user authorization");
-const skill = join(homedir(), `.${harness}`, "plugins/cache/agent-primitives/prose-author/0.4.0/skills/prose-draft");
+const version = JSON.parse(readFileSync(new URL("../.claude-plugin/plugin.json", import.meta.url))).version;
+const skill = join(homedir(), `.${harness}`, `plugins/cache/agent-primitives/prose-author/${version}/skills/prose-draft`);
 const storeModule = await import(pathToFileURL(join(skill, "tools/preference-store.mjs")));
 mkdirSync(out, { mode: 0o700 });
 const store = join(out, "test-preferences"); storeModule.initPreferenceStore(store, "writing-conversation-test");
 const save = (name, data) => writeFileSync(join(out, name), typeof data === "string" ? data : JSON.stringify(data, null, 2) + "\n", { flag: "wx", mode: 0o600 });
-const prompt = `Use the installed prose-draft skill to write a short, two-sentence reply declining Friday's invitation. For this draft, include the exact text "Thanks for inviting me", use no question marks or exclamation marks, and stay under 60 words. Do not invent a reason for declining. Show me the resulting prose and its concise check receipt.
+const historyRoot = join(out, "test-history"), historyIdentity = "history-conversation-test";
+if (historyTest) {
+  mkdirSync(join(out, "human-fixtures"));
+  for (let i = 1; i <= 5; i++) save(`human-fixtures/piece-${i}.txt`, `Fixture ${i}. ${"We write a clear sentence. ".repeat(40)}\n`);
+}
+const historyPrompt = historyTest ? `First use the installed prose-style-tune skill for numerical history. This is a synthetic store fixture, not evidence about a real author. Explicitly enable deterministic collection only for identity ${historyIdentity}, project integration-test, in ${historyRoot}; rhetorical analysis must initially be off. Ingest the five selected files in ${join(out, "human-fixtures")} as five independent-human fixture documents, form reply, register informal, written date 2026-08-01. Do not add them to any corpus or profile. Show/record the limited descriptive baseline. Then separately enable rhetorical analysis for this same test identity/project; I authorize the additional bounded CLI calls. Use that history attachment and project integration-test/register informal for the reply below. After drafting, save the numerical history export to ${join(out, "history-export.json")}, disable collection and verify it is disabled without losing records, save that disabled state to ${join(out, "history-disabled.json")}, then delete the whole synthetic history identity using an exact deletion preview. This deletion is authorized; do not touch other stores. Keep the generated delivery and run evidence. Do not rerun writing merely to make history checks pass.\n\n` : "";
+const prompt = `${historyPrompt}Use the installed prose-draft skill to write a short, two-sentence reply declining Friday's invitation. For this draft, include the exact text "Thanks for inviting me", use no question marks or exclamation marks, and stay under 60 words. Do not invent a reason for declining. Show me the resulting prose and its concise check receipt.
 This is an isolated integration test: use ONLY the existing preference store ${store}, identity writing-conversation-test. No learned profile or corpus is supplied; use preference-only assistance. Do not change saved preferences. Keep task files and output within ${out}. Do not inspect unrelated files, use other agents, edit installed tools, or change account configuration. Let the skill's normal bounded workflow finish; if it fails, report that result without restarting it. Authenticated CLI model calls required by the installed workflow are authorized. Do not send the reply anywhere.`;
 save("prompt.txt", prompt);
 const env = { ...process.env };
@@ -62,8 +70,24 @@ try {
   save("final-check.json", { exit: checked.status, stdout: checked.stdout, stderr: checked.stderr });
   assert.equal(checked.status, 0, checked.stdout || checked.stderr);
   assert.ok(result.draft.includes("Thanks for inviting me")); assert.doesNotMatch(result.draft, /[?!]/);
+  if (historyTest) {
+    const historyModule = await import(pathToFileURL(join(skill, "tools/history-store.mjs")));
+    assert.equal(historyModule.readHistory(historyRoot, historyIdentity), null, "Explicit identity deletion must finish");
+    const exported = JSON.parse(readFileSync(join(out, "history-export.json"), "utf8"));
+    const disabled = JSON.parse(readFileSync(join(out, "history-disabled.json"), "utf8"));
+    assert.equal(exported.key, undefined, "Exports omit the fingerprint secret");
+    assert.equal(exported.records.filter((r) => r.provenance === "human-independent").length, 5);
+    assert.ok(exported.records.some((r) => r.provenance === "generated" && r.stage === "final"));
+    assert.equal(disabled.records.length, exported.records.length, "Disablement retains measurements");
+    assert.equal(historyModule.historyConsent(disabled, "integration-test").enabled, false);
+    assert.doesNotMatch(JSON.stringify(exported), /We write a clear sentence|Thanks for inviting me/);
+    assert.equal(result.telemetry.status, "recorded");
+    assert.equal(result.telemetry.stages[0].rhetoric.status, "measured-estimate");
+    assert.equal(result.telemetry.baseline.groups.find((g) => g.baseline_eligible).lifetime.pieces, 5);
+  }
 } catch (e) { error = e.stack; }
 const report = { schema: "conversational-writing-evidence/2", delivery_boundary: legacyInline ? "legacy-verbatim-inline" : "authoritative-artifact", permission: fullAccess ? "user-authorized-isolated-full-access" : "default-test-permissions", status: error ? "failed" : "passed", harness, outer_exit: run.status,
+  history_test: historyTest,
   chat_receipt: chatReceipt,
   outer_elapsed_ms: Date.now() - started, final: final ?? null, artifact, runtime_status: result?.status ?? null,
   inner_model_calls: result?.invocation?.model_calls ?? null, inner_model_elapsed_ms: result?.invocation?.model_elapsed_ms ?? null,

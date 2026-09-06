@@ -1,0 +1,128 @@
+{
+  "id": "doctorow-blog-2-draw-1",
+  "passage": "doctorow-blog-2",
+  "draw": 1,
+  "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+  "input_digest": "a69f1efc10166d3012de831d09e4e280e63f64ce91b244ade3db5e209faff865",
+  "measured": {
+    "status": "measured-estimate",
+    "rubric": "rhetoric-rubric/1",
+    "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+    "model": "gpt-6-astra",
+    "harness": "codex",
+    "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+    "paragraphs": 3,
+    "unclassified": 0,
+    "measurements": [
+      {
+        "id": "qualification-uncertainty",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "qualification-scope",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "qualification-concession",
+        "count": 1,
+        "denominator": 118,
+        "value": 8.474576271186441
+      },
+      {
+        "id": "analogy-explanation",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "analogy-evaluation",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "analogy-illustration",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "reader-direct",
+        "count": 1,
+        "denominator": 118,
+        "value": 8.474576271186441
+      },
+      {
+        "id": "reader-inclusive",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "reader-question",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "reader-directive",
+        "count": 0,
+        "denominator": 118,
+        "value": 0
+      },
+      {
+        "id": "paragraph-claim",
+        "count": 2,
+        "denominator": 3,
+        "value": 0.6666666666666666
+      },
+      {
+        "id": "paragraph-explanation",
+        "count": 1,
+        "denominator": 3,
+        "value": 0.3333333333333333
+      },
+      {
+        "id": "paragraph-evidence",
+        "count": 0,
+        "denominator": 3,
+        "value": 0
+      },
+      {
+        "id": "paragraph-qualification",
+        "count": 0,
+        "denominator": 3,
+        "value": 0
+      },
+      {
+        "id": "paragraph-transition",
+        "count": 0,
+        "denominator": 3,
+        "value": 0
+      },
+      {
+        "id": "paragraph-closure",
+        "count": 0,
+        "denominator": 3,
+        "value": 0
+      }
+    ],
+    "call": {
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 10644,
+      "dispatched": true,
+      "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+      "input_digest": "995d4acee28c4a81f6804d1e7954a83716833bd6410caf04d90f86fca2655526",
+      "usage": {
+        "input_tokens": 11354,
+        "output_tokens": 181,
+        "cached_input_tokens": 0
+      }
+    }
+  }
+}

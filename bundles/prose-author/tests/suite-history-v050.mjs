@@ -9,12 +9,18 @@ import { measureRhetoric, rhetoricalInput, validateRhetoricalSource, aggregateRh
 import { runWriting } from "../skills/prose-draft/tools/writing-runtime.mjs";
 import { verifyHistoryRun } from "../skills/prose-draft/tools/history-session.mjs";
 import { historyMain } from "../skills/prose-draft/tools/history-cli.mjs";
+import { canonicalHarness } from "../skills/prose-draft/tools/runtime-adapters.mjs";
 
 export async function run(t, { tmp }) {
   t.group("v0.5 numerical history and consent");
   const test = (name, fn) => { try { fn(); t.check(name, true); } catch (e) { t.check(name, false, e.stack); } };
   const root = join(tmp, "history-v050"), identity = "fixture";
   const measure = (text) => measureHistoryText(text);
+  test("known Claude product alias resolves without accepting unknown transports", () => {
+    assert.equal(canonicalHarness("claude-code"), "claude");
+    assert.equal(canonicalHarness("codex"), "codex");
+    assert.equal(canonicalHarness("other-harness"), "other-harness");
+  });
   const input = (id, text = "You write. We read!") => ({ document_id: id, revision_id: "r1", text, provenance: "human-independent", project: "notes", form: "essay", register: "informal", measurement: measure(text) });
   test("surface counts exclude URLs, code, metadata and quoted material", () => {
     const m = measure('---\nwho: You?\n---\nYou read [this](https://test/?x=1) (briefly); we wait…\n\n> Really!\n\n`why?`');
@@ -199,7 +205,11 @@ export async function run(t, { tmp }) {
     const args = ["--store", root, "--identity", "cli", "--job", join(dir, "job.json")];
     assert.equal((await historyMain(["ingest-preview", ...args])).maximum_model_calls, 0);
     assert.equal((await historyMain(["ingest", ...args])).results[0].status, "saved");
-    assert.ok(!JSON.stringify(await historyMain(["show", ...args])).includes("private test"));
+    assert.ok(!JSON.stringify(await historyMain(["show", ...args.slice(0, 4)])).includes("private test"));
     assert.equal((await historyMain(["ingest", ...args])).results[0].status, "duplicate");
+    assert.equal((await historyMain(["show", "--directory", root, "--identity", "cli"])).records.length, 1);
+    await assert.rejects(() => historyMain(["show", "--stroe", root, "--identity", "cli"]), /option/);
+    await assert.rejects(() => historyMain(["show", "--store", root, "--directory", join(root, "other"), "--identity", "cli"]), /Conflicting/);
+    await assert.rejects(() => historyMain(["show", "--store", "--identity", "cli"]), /option/);
   });
 }

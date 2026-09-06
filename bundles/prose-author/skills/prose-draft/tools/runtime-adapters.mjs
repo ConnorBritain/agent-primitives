@@ -17,6 +17,8 @@ export const CODEX_RESTRICTIONS = [
   'approval_policy="never"', 'user_instructions=""', 'developer_instructions=""',
 ];
 const ALLOWED_CODEX_ITEMS = new Set(["agent_message", "reasoning"]);
+// Product-name spelling is not a different transport or authentication path.
+export const canonicalHarness = (name) => name === "claude-code" ? "claude" : name;
 const HELP_REQUIREMENTS = {
   codex: ["--ignore-user-config", "--ignore-rules", "--ephemeral", "--json", "--output-schema"],
   claude: ["--tools", "--strict-mcp-config", "--setting-sources", "--disable-slash-commands", "--no-session-persistence", "--json-schema"],

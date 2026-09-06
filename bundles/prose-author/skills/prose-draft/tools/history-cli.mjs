@@ -5,12 +5,23 @@ import { historyDirectory, readHistory, configureHistory, historyConsent, saveHi
 import { measureHistoryText } from "./history-measure.mjs";
 import { measureRhetoric } from "./history-rhetoric.mjs";
 import { buildHistoryReport, renderHistoryReport, compareHistoryMeasurement } from "./history-report.mjs";
+import { canonicalHarness } from "./runtime-adapters.mjs";
 
 export async function historyMain(args, { dispatch, signal } = {}) {
   const [op, ...rest] = args, value = (f) => { const i = rest.indexOf(f); return i < 0 ? null : rest[i + 1]; };
+  const common = ["--store", "--directory", "--identity"];
+  const flags = { locate: [], configure: ["--config"], show: [], report: ["--out", "--as-of"], pin: ["--as-of"], export: ["--out"],
+    "delete-preview": ["--documents"], delete: ["--preview"], "ingest-preview": ["--job"], ingest: ["--job"], compare: ["--job"] };
+  if (!Object.hasOwn(flags, op)) throw new TypeError("Unknown history operation");
+  const allowed = new Set([...common, ...flags[op]]), seen = new Set();
+  for (let i = 0; i < rest.length; i += 2) {
+    if (!allowed.has(rest[i]) || seen.has(rest[i]) || !rest[i + 1] || rest[i + 1].startsWith("--")) throw new TypeError("Unknown, duplicate or valueless history option; no operation performed");
+    seen.add(rest[i]);
+  }
   const required = (f) => { const v = value(f); if (!v || v.startsWith("--")) throw new TypeError(`Missing ${f}`); return v; };
   const read = (p) => JSON.parse(readFileSync(p, "utf8"));
-  const root = value("--store") ? resolve(required("--store")) : historyDirectory();
+  if (value("--store") && value("--directory") && resolve(value("--store")) !== resolve(value("--directory"))) throw new TypeError("Conflicting history directories");
+  const root = value("--store") || value("--directory") ? resolve(value("--store") ?? value("--directory")) : historyDirectory();
   if (op === "locate") return { directory: root, default_enabled: false };
   const identity = required("--identity");
   if (op === "configure") {
@@ -33,6 +44,7 @@ export async function historyMain(args, { dispatch, signal } = {}) {
   if (op === "delete") return deleteHistory(root, identity, read(required("--preview")));
   if (!["ingest-preview", "ingest", "compare"].includes(op)) throw new TypeError("history: locate, configure, show, report, pin, export, delete-preview, delete, ingest-preview, ingest or compare");
   const jobPath = resolve(required("--job")), job = read(jobPath);
+  if (job.adapter) job.adapter = { ...job.adapter, harness: canonicalHarness(job.adapter.harness) };
   if (job.schema !== "voice-history-ingest/1" || !Array.isArray(job.documents) || !job.documents.length) throw new TypeError("Expected explicitly selected history documents");
   const limit = job.rhetorical_call_limit ?? 10;
   if (!Number.isInteger(limit) || limit < 0 || limit > 10) throw new TypeError("Rhetorical batch call limit must be 0–10; start another explicit batch for more");

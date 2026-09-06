@@ -1,0 +1,2161 @@
+{
+  "schema": "voice-history-diagnostic-report/1",
+  "lock_digest": "c694a24b2fc0d219f632ccd53ff3e7c066daf71346357b141d55bd4ce74fe02c",
+  "cells": [
+    {
+      "id": "doctorow-blog-1-draw-1",
+      "passage": "doctorow-blog-1",
+      "draw": 1,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "4bca9f3991ab91aa1a9cc4b10659def4c6361a0f38b2b5986ecdbaa1cdea4231",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "qualification-concession",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 2,
+            "denominator": 85,
+            "value": 23.52941176470588
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 11692,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "42f1978e8feaff69c5df4006e15744323f068fd97d77ea582c7c2c801484a45a",
+          "usage": {
+            "input_tokens": 11339,
+            "output_tokens": 217,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "doctorow-blog-1-draw-2",
+      "passage": "doctorow-blog-1",
+      "draw": 2,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "4bca9f3991ab91aa1a9cc4b10659def4c6361a0f38b2b5986ecdbaa1cdea4231",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "qualification-concession",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 2,
+            "denominator": 85,
+            "value": 23.52941176470588
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 85,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 3,
+            "denominator": 3,
+            "value": 1
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 11369,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "42f1978e8feaff69c5df4006e15744323f068fd97d77ea582c7c2c801484a45a",
+          "usage": {
+            "input_tokens": 11341,
+            "output_tokens": 213,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "doctorow-blog-2-draw-1",
+      "passage": "doctorow-blog-2",
+      "draw": 1,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "a69f1efc10166d3012de831d09e4e280e63f64ce91b244ade3db5e209faff865",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 10644,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "995d4acee28c4a81f6804d1e7954a83716833bd6410caf04d90f86fca2655526",
+          "usage": {
+            "input_tokens": 11354,
+            "output_tokens": 181,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "doctorow-blog-2-draw-2",
+      "passage": "doctorow-blog-2",
+      "draw": 2,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "a69f1efc10166d3012de831d09e4e280e63f64ce91b244ade3db5e209faff865",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 8101,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "995d4acee28c4a81f6804d1e7954a83716833bd6410caf04d90f86fca2655526",
+          "usage": {
+            "input_tokens": 11356,
+            "output_tokens": 118,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "doctorow-blog-3-draw-1",
+      "passage": "doctorow-blog-3",
+      "draw": 1,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "2eab8141638b0d6abc7d7c5ceef67c873c690fc8e44efacd538ef9266c1b7f3e",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 1,
+            "denominator": 161,
+            "value": 6.211180124223602
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 161,
+            "value": 6.211180124223602
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 2,
+            "denominator": 161,
+            "value": 12.422360248447204
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 2,
+            "denominator": 161,
+            "value": 12.422360248447204
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 3,
+            "denominator": 3,
+            "value": 1
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 14080,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "6e45d5d4384d717a2f2fada39c126395ab976884e41f1a2f7d6288b72afe6dcf",
+          "usage": {
+            "input_tokens": 11436,
+            "output_tokens": 288,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "doctorow-blog-3-draw-2",
+      "passage": "doctorow-blog-3",
+      "draw": 2,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "2eab8141638b0d6abc7d7c5ceef67c873c690fc8e44efacd538ef9266c1b7f3e",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 1,
+            "denominator": 161,
+            "value": 6.211180124223602
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 161,
+            "value": 6.211180124223602
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 2,
+            "denominator": 161,
+            "value": 12.422360248447204
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 2,
+            "denominator": 161,
+            "value": 12.422360248447204
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 161,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 12716,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "6e45d5d4384d717a2f2fada39c126395ab976884e41f1a2f7d6288b72afe6dcf",
+          "usage": {
+            "input_tokens": 11434,
+            "output_tokens": 274,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "eff-mullin-1-draw-1",
+      "passage": "eff-mullin-1",
+      "draw": 1,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "dd5a6015a3d8b4fcee42e112b5c99306b03503f951d92df7a3407b7a9baca1f3",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 177,
+            "value": 5.649717514124294
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 3,
+            "denominator": 3,
+            "value": 1
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 14632,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "b0fcc59e3ac486bddc18157f3e0b64d6d9d44bdecd4f21ad7f388440dcfe7f3c",
+          "usage": {
+            "input_tokens": 11473,
+            "output_tokens": 278,
+            "cached_input_tokens": 10112
+          }
+        }
+      }
+    },
+    {
+      "id": "eff-mullin-1-draw-2",
+      "passage": "eff-mullin-1",
+      "draw": 2,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "dd5a6015a3d8b4fcee42e112b5c99306b03503f951d92df7a3407b7a9baca1f3",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 177,
+            "value": 5.649717514124294
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 177,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 3,
+            "denominator": 3,
+            "value": 1
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 12464,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "b0fcc59e3ac486bddc18157f3e0b64d6d9d44bdecd4f21ad7f388440dcfe7f3c",
+          "usage": {
+            "input_tokens": 11475,
+            "output_tokens": 201,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "eff-mullin-2-draw-1",
+      "passage": "eff-mullin-2",
+      "draw": 1,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "205d07d8f59b0d52285a3449d3c6b42da6be3f69693a1a0011c58a49c4ff2305",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 3,
+            "denominator": 3,
+            "value": 1
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 11016,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "47e6c1ab8d4a5f60cb168d0ef047749743cf1b4ee60c24df99a12d2980dc997a",
+          "usage": {
+            "input_tokens": 11385,
+            "output_tokens": 231,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "eff-mullin-2-draw-2",
+      "passage": "eff-mullin-2",
+      "draw": 2,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "205d07d8f59b0d52285a3449d3c6b42da6be3f69693a1a0011c58a49c4ff2305",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "qualification-concession",
+            "count": 1,
+            "denominator": 118,
+            "value": 8.474576271186441
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 118,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 3,
+            "denominator": 3,
+            "value": 1
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 8787,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "47e6c1ab8d4a5f60cb168d0ef047749743cf1b4ee60c24df99a12d2980dc997a",
+          "usage": {
+            "input_tokens": 11387,
+            "output_tokens": 137,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    },
+    {
+      "id": "eff-mullin-3-draw-1",
+      "passage": "eff-mullin-3",
+      "draw": 1,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "c24f2fcdc0e8f3f9f9b8410000931f335232effad51fb521722a43d81d3b8d35",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 1,
+            "denominator": 106,
+            "value": 9.433962264150942
+          },
+          {
+            "id": "qualification-concession",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 3,
+            "denominator": 3,
+            "value": 1
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 10858,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "503a77a40cda18a011a61fac657b536e0fc74414cec057a2cbb2828d132fa003",
+          "usage": {
+            "input_tokens": 11365,
+            "output_tokens": 196,
+            "cached_input_tokens": 10112
+          }
+        }
+      }
+    },
+    {
+      "id": "eff-mullin-3-draw-2",
+      "passage": "eff-mullin-3",
+      "draw": 2,
+      "commit": "b4cd8bab54dc537f4f1fc172d7013a7cbc3b05e6",
+      "input_digest": "c24f2fcdc0e8f3f9f9b8410000931f335232effad51fb521722a43d81d3b8d35",
+      "measured": {
+        "status": "measured-estimate",
+        "rubric": "rhetoric-rubric/1",
+        "series": "916f2ae9d150cd1a84d05ca970be78bebc5c48559738d1e4497b2fff2132260f",
+        "model": "gpt-6-astra",
+        "harness": "codex",
+        "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+        "paragraphs": 3,
+        "unclassified": 0,
+        "measurements": [
+          {
+            "id": "qualification-uncertainty",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "qualification-scope",
+            "count": 1,
+            "denominator": 106,
+            "value": 9.433962264150942
+          },
+          {
+            "id": "qualification-concession",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "analogy-explanation",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "analogy-evaluation",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "analogy-illustration",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-direct",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-inclusive",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-question",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "reader-directive",
+            "count": 0,
+            "denominator": 106,
+            "value": 0
+          },
+          {
+            "id": "paragraph-claim",
+            "count": 2,
+            "denominator": 3,
+            "value": 0.6666666666666666
+          },
+          {
+            "id": "paragraph-explanation",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-evidence",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-qualification",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          },
+          {
+            "id": "paragraph-transition",
+            "count": 1,
+            "denominator": 3,
+            "value": 0.3333333333333333
+          },
+          {
+            "id": "paragraph-closure",
+            "count": 0,
+            "denominator": 3,
+            "value": 0
+          }
+        ],
+        "call": {
+          "harness": "codex",
+          "model": "gpt-6-astra",
+          "elapsed_ms": 8426,
+          "dispatched": true,
+          "prompt_digest": "7a9fe9550ba17f9c5aea6d65339c66123cc1520628d6ee419b6e9afcf958be58",
+          "input_digest": "503a77a40cda18a011a61fac657b536e0fc74414cec057a2cbb2828d132fa003",
+          "usage": {
+            "input_tokens": 11365,
+            "output_tokens": 136,
+            "cached_input_tokens": 0
+          }
+        }
+      }
+    }
+  ],
+  "pairs": [
+    {
+      "passage": "doctorow-blog-1",
+      "status": "descriptive",
+      "differences": [
+        {
+          "id": "qualification-uncertainty",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-scope",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-concession",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-explanation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-evaluation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-illustration",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-direct",
+          "first": 2,
+          "second": 2,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-inclusive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-question",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-directive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-claim",
+          "first": 2,
+          "second": 3,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-explanation",
+          "first": 1,
+          "second": 0,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-evidence",
+          "first": 2,
+          "second": 2,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-qualification",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-transition",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-closure",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        }
+      ]
+    },
+    {
+      "passage": "doctorow-blog-2",
+      "status": "descriptive",
+      "differences": [
+        {
+          "id": "qualification-uncertainty",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-scope",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-concession",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-explanation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-evaluation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-illustration",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-direct",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-inclusive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-question",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-directive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-claim",
+          "first": 2,
+          "second": 2,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-explanation",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-evidence",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-qualification",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-transition",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-closure",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        }
+      ]
+    },
+    {
+      "passage": "doctorow-blog-3",
+      "status": "descriptive",
+      "differences": [
+        {
+          "id": "qualification-uncertainty",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-scope",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-concession",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-explanation",
+          "first": 2,
+          "second": 2,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-evaluation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-illustration",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-direct",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-inclusive",
+          "first": 2,
+          "second": 2,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-question",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-directive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-claim",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-explanation",
+          "first": 3,
+          "second": 2,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-evidence",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-qualification",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-transition",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-closure",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        }
+      ]
+    },
+    {
+      "passage": "eff-mullin-1",
+      "status": "descriptive",
+      "differences": [
+        {
+          "id": "qualification-uncertainty",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-scope",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-concession",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-explanation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-evaluation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-illustration",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-direct",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-inclusive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-question",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-directive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-claim",
+          "first": 3,
+          "second": 3,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-explanation",
+          "first": 2,
+          "second": 2,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-evidence",
+          "first": 1,
+          "second": 0,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-qualification",
+          "first": 1,
+          "second": 0,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-transition",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-closure",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        }
+      ]
+    },
+    {
+      "passage": "eff-mullin-2",
+      "status": "descriptive",
+      "differences": [
+        {
+          "id": "qualification-uncertainty",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-scope",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-concession",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-explanation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-evaluation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-illustration",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-direct",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-inclusive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-question",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-directive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-claim",
+          "first": 3,
+          "second": 3,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-explanation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-evidence",
+          "first": 2,
+          "second": 1,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-qualification",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-transition",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-closure",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        }
+      ]
+    },
+    {
+      "passage": "eff-mullin-3",
+      "status": "descriptive",
+      "differences": [
+        {
+          "id": "qualification-uncertainty",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-scope",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "qualification-concession",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-explanation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-evaluation",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "analogy-illustration",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-direct",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-inclusive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-question",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "reader-directive",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-claim",
+          "first": 3,
+          "second": 2,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-explanation",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-evidence",
+          "first": 1,
+          "second": 1,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-qualification",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        },
+        {
+          "id": "paragraph-transition",
+          "first": 0,
+          "second": 1,
+          "absolute_difference": 1
+        },
+        {
+          "id": "paragraph-closure",
+          "first": 0,
+          "second": 0,
+          "absolute_difference": 0
+        }
+      ]
+    }
+  ],
+  "structurally_measured": 12,
+  "dispatched_calls": 12,
+  "model_elapsed_ms": 134785,
+  "semantic_accuracy": "not-evaluated",
+  "redraws": 0
+}

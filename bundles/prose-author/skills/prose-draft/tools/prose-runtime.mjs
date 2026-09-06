@@ -12,6 +12,7 @@ import { discoveryCards, preferenceDiff, comparePreference } from "./style-sessi
 import { renderWritingReceipt, renderWritingDelivery } from "./writing-receipt.mjs";
 import { historyMain } from "./history-cli.mjs";
 import { verifyHistoryRun } from "./history-session.mjs";
+import { canonicalHarness } from "./runtime-adapters.mjs";
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
 const write = (path, value) => writeFileSync(path, typeof value === "string" ? value : `${JSON.stringify(value, null, 2)}\n`, { flag: "wx", mode: 0o600 });
@@ -25,6 +26,7 @@ export function loadWritingJob(path) {
   if (job.preference_store) job.preferences = readPreferenceStore(at(job.preference_store));
   if (job.source_file) job.source_text = readFileSync(at(job.source_file), "utf8");
   if (job.telemetry?.directory) job.telemetry.directory = at(job.telemetry.directory);
+  if (job.adapter) job.adapter = { ...job.adapter, harness: canonicalHarness(job.adapter.harness) };
   if (job.dependencies) for (const [k, p] of Object.entries(job.dependencies)) if (typeof p === "string") job.dependencies[k] = at(p);
   for (const k of ["profile_file", "samples_dir", "preference_store", "source_file"]) delete job[k];
   return job;
@@ -81,7 +83,7 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
   }
   if (!["run", "profile"].includes(command)) throw new TypeError("prose-runtime: run|profile --job job.json --out NEW-directory; preferences <operation>; check-result");
   const jobPath = requireValue("--job"), job = loadWritingJob(jobPath), out = resolve(requireValue("--out"));
-  if (value("--harness")) job.adapter = { ...job.adapter, harness: value("--harness") };
+  if (value("--harness")) job.adapter = { ...job.adapter, harness: canonicalHarness(value("--harness")) };
   if (job.profile_policy !== undefined && !["auto", "none"].includes(job.profile_policy)) throw new TypeError("profile_policy must be auto or none");
   if (job.profile_policy === "none" && job.profile) throw new TypeError("profile_policy none cannot also supply a profile");
   mkdirSync(dirname(out), { recursive: true });

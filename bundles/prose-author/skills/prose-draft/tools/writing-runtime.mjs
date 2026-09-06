@@ -8,7 +8,7 @@ import { sha256, validateProfileV3, measureSamples, assembleProfileV3 } from "./
 import { visibleProse, wordCount } from "./visible-prose.mjs";
 import { initPreferencesV2, compileStyleV2, digest } from "./preferences-v2.mjs";
 import { checkRules, compareObserved, verifyRuleReceipt } from "./style-rules.mjs";
-import { callModel } from "./runtime-adapters.mjs";
+import { callModel, canonicalHarness } from "./runtime-adapters.mjs";
 import { DRAFT_SCHEMA, PROFILE_SOURCE_SCHEMA, REVIEW_SCHEMA, schemaErrors, validateDraftV5, validateReview,
   DRAFT_INSTRUCTIONS, PROFILE_INSTRUCTIONS, TASK_REVIEW_INSTRUCTIONS, REVIEW_TRANSPORT } from "./runtime-contract.mjs";
 import { findScanner } from "./verify.mjs";
@@ -169,6 +169,7 @@ export async function renderCurrentProfile({ id, samples, adapter, selection = {
 }
 
 export async function runWriting(job, { dispatch = callModel, scan = scanRuntimeArtifacts, onCall = () => {}, onProgress = () => {}, signal } = {}) {
+  if (job?.adapter) job = { ...job, adapter: { ...job.adapter, harness: canonicalHarness(job.adapter.harness) } };
   const started = Date.now(), calls = [], attempts = [], errors = jobErrors(job);
   const refused = (reason) => ({ schema: "prose-writing-result/1", status: "refused", draft: "", reason, calls, attempts, elapsed_ms: Date.now() - started });
   if (!DRAFT_INSTRUCTIONS) return { ...refused("Packaged voice-draft prompt is unavailable"), status: "ungated" };
