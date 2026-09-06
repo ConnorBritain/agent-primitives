@@ -139,6 +139,43 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "read receipt diagnostics as completed mutation-suite counts",
+    file: "bundles/prose-author/tests/mutations.mjs",
+    find: "  const m = summaries.length === 1" + " ? summaries[0] : null;",
+    with: "  const m = out.match(/(\\d+) passed, (\\d+) failed/);",
+    guards: "mutation evidence comes from a unique delimited suite summary, not quoted diagnostic counts",
+  },
+  {
+    name: "hide host permission failures behind a generic CLI exit",
+    file: `${TOOLS}/runtime-adapters.mjs`,
+    find: 'harness === "codex" && /failed to initialize', with: 'false && /failed to initialize',
+    guards: "the receipt identifies a host-permission failure without implying the model or prose failed",
+  },
+  {
+    name: "skip deep factual auditing when requested",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'if (job.review === "deep") await stageReview', with: 'if (false) await stageReview',
+    guards: "an explicitly requested claim audit cannot disappear from the required review path",
+  },
+  {
+    name: "invent a passing artifact scan in the human receipt",
+    file: `${TOOLS}/writing-receipt.mjs`,
+    find: 'flat(attempt?.artifacts?.status)', with: '"passed"',
+    guards: "the user-facing receipt uses the recorded scanner result, including failure and unavailable cases",
+  },
+  {
+    name: "trim the checked prose during final delivery assembly",
+    file: `${TOOLS}/writing-receipt.mjs`,
+    find: '`${result.draft}\\n\\n${receipt}`', with: '`${result.draft.trim()}\\n\\n${receipt}`',
+    guards: "final assembly preserves the exact checked draft bytes",
+  },
+  {
+    name: "call unevaluated semantic checks passed during receipt reproduction",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: 'mechanical_status: reproduced.status', with: 'mechanical_status: "passed"',
+    guards: "integrity success does not upgrade the underlying check results",
+  },
+  {
     name: "treat every omitted observed tendency as a required occurrence",
     file: `${TOOLS}/runtime-contract.mjs`,
     find: '!advisoryIds.includes(r.id)', with: 'true',
@@ -1838,15 +1875,18 @@ function runSuite(root, suiteRel = SUITES.author) {
     const out = execFileSync("node", [join(root, suiteRel)], {
       encoding: "utf8", stdio: ["ignore", "pipe", "pipe"],
     });
-    return parse(out);
+    return parseSuiteSummary(out);
   } catch (err) {
     // A non-zero exit is the normal case here - the suite is meant to fail.
-    return parse(String(err.stdout || ""));
+    return parseSuiteSummary(String(err.stdout || ""));
   }
 }
 
-function parse(out) {
-  const m = out.match(/(\d+) passed, (\d+) failed/);
+export function parseSuiteSummary(out) {
+  // Diagnostic text can contain receipt counts such as "1 passed, 0 failed".
+  // Only the suites' delimited, complete summary is evidence of completion.
+  const summaries = [...out.matchAll(/^─{60}\r?\n(\d+) passed, (\d+) failed(?:, \d+ skipped)?\r?$/gm)];
+  const m = summaries.length === 1 ? summaries[0] : null;
   // No summary line means the run DIED rather than finished. Reporting the FAIL
   // lines it managed to print before crashing is how this table got a wrong
   // number in the first place (CALIBRATION.md FN-2026-08-04-j).

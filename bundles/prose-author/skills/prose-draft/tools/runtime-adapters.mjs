@@ -84,7 +84,10 @@ export function parseAdapterOutput(harness, output) {
 }
 
 /** Surface actionable CLI errors without dumping the full diagnostic stream. */
-export function adapterFailureReason(harness, output, code) {
+export function adapterFailureReason(harness, output, code, stderr = "") {
+  if (harness === "codex" && /failed to initialize[^\n]*Operation not permitted/i.test(stderr)) {
+    return "Codex CLI initialization was denied by host permissions. Request permission through the host to run the authenticated CLI; do not weaken a sandbox or switch authentication without approval.";
+  }
   const events = output.split(/\r?\n/).flatMap((line) => { try { return [JSON.parse(line)]; } catch { return []; } });
   const event = events.findLast((e) => e.type === "turn.failed" || e.type === "error" || e.type === "result" && e.is_error);
   let message = event?.error?.message ?? event?.message ?? event?.result;
@@ -127,7 +130,7 @@ export async function callModel({ harness, system, input, schema, model, effort,
           input_digest: sha256(prompt), schema_digest: sha256(JSON.stringify(schema)), isolation: checked.isolation,
           stdout, stderr, exit_code: code };
         try {
-          if (error || issue || code !== 0) throw new TypeError(issue || error?.message || adapterFailureReason(harness, stdout, code));
+          if (error || issue || code !== 0) throw new TypeError(issue || error?.message || adapterFailureReason(harness, stdout, code, stderr));
           const parsed = parseAdapterOutput(harness, stdout);
           resolvePromise({ ...base, ...parsed, status: "passed" });
         } catch (e) { resolvePromise({ ...base, status: "failed", reason: e.message }); }

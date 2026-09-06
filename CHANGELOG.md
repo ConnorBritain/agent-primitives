@@ -77,6 +77,9 @@ publication is implied; installation and full verification remain in progress.
 - **Added** an authenticated Claude/Codex production runtime with task-scaled review,
   exact-byte receipts, selected whole human examples, profile-only mode and at most
   two repairs that retain original style inputs.
+- **Added** generated human-readable delivery receipts and separate receipt-integrity
+  verification that preserves failed or unevaluated check statuses. Host permission
+  denials remain explicitly ungated; no sandbox bypass is automatic.
 - **Added** persistent scoped corrections, shared store discovery, immutable history,
   undo and small-batch discovery/comparison. Direct persistent instructions save with
   receipts; inferred preferences require approval. No human attestation is required.

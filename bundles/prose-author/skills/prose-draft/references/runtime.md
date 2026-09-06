@@ -55,6 +55,32 @@ Unsupported semantic requests use `kind: "semantic"` and a `directive`, not
 invented counters. For rule shapes and persistent choices, read the sibling
 [session reference](../../prose-style-tune/references/session.md).
 
+Encode requested hard rules with their supported kinds, not as semantic rules
+or facts alone. These task-local examples do not change saved preferences:
+
+```json
+[
+  {"id":"exact-name","kind":"required-text","directive":"Include the exact name River House.","text":"River House"},
+  {"id":"no-phrase","kind":"prohibited-phrase","directive":"Do not use cutting edge.","text":"cutting edge"},
+  {"id":"no-exclamation","kind":"punctuation","directive":"No exclamation marks.","characters":"!","minimum":0,"maximum":0},
+  {"id":"one-question","kind":"count-range","directive":"At most one question mark.","measurement_id":"question-marks","unit":"per-document","minimum":0,"maximum":1},
+  {"id":"brief","kind":"word-limit","directive":"Fewer than 60 words.","minimum":1,"maximum":59},
+  {"id":"tone","kind":"semantic","directive":"Decline warmly without inventing a reason."}
+]
+```
+
+Before dispatch, account for each explicit user restriction in `rules` or an
+existing active preference. Semantic classification is not a shortcut around an
+available hard checker. Unknown semantic requests remain reviewable, not fake
+mechanical checks.
+
+Supported `count-range` measurement IDs are `second-person-family`,
+`first-person-plural-family`, `contractions`, `uncontracted-negatives`,
+`profanity-vulgarity`, `first-person-singular-family`, `question-marks`,
+`round-parenthetical-spans`, `em-dashes`, and `en-dashes`. Do not invent another
+ID. Sentence counts are currently semantic instructions, not a supported counter;
+the runtime refuses unknown counters before generation.
+
 ## Dispatch and dependencies
 
 Agent-internal commands (use resolved absolute paths in execution):
@@ -67,6 +93,10 @@ node tools/prose-runtime.mjs profile --job /task/job.json --out /task/new-profil
 The output directory must be new; never reuse it to hide a failed attempt.
 When a CLI rejects its configured model, report the actual error. Do not
 downgrade the model, switch authentication methods or retry with an API key.
+The parent harness must permit the authenticated CLI to initialize its local
+state and make its model request. A restricted parent sandbox can prevent this
+even when network access is enabled. Report that denial and request permission
+through the host when available; never silently weaken the sandbox.
 
 The runner discovers adjacent `prose-tell-scan` and `prose-review` installations.
 If discovery fails, resolve installed paths and pass `dependencies` explicitly:
@@ -88,12 +118,13 @@ Do not invent paths or treat an absent sibling as an evaluated check.
 ## Deliver and retain evidence
 
 Each new output directory contains the resolved input snapshot, exact draft,
-result sidecar, and individual model-call records; a newly rendered profile is
+`receipt.md`, combined `delivery.md`, result sidecar, and individual model-call records; a newly rendered profile is
 also saved. Raw records can contain private prose and should stay private.
 
-Read the sidecar before delivery. Present prose followed by a concise receipt:
-preference scope/version, hard-rule results, unresolved findings or omissions,
-and a link to details. `not-evaluated` is never a pass. An observed-pattern
+Read the sidecar, then return the generated `delivery.md` unchanged with a link
+to details. Do not summarize check status from memory or from which skills were
+listed: the runtime's receipt records the actual scan/review results.
+`not-evaluated` is never a pass. An observed-pattern
 departure is advisory, not a failed hard rule. No required user attestation or
 manual review of hundreds of claims exists.
 
@@ -103,8 +134,10 @@ After any external editing step, use:
 node tools/prose-runtime.mjs check-result --result /task/new-run/result.json --draft /task/new-run/draft.md --job /task/new-run/resolved-job.json
 ```
 
-This verifies the recorded final bytes and reproduces mechanical checks. It does
-not rerun semantic review on changed prose. If it fails, deliver no prior checked
+This checks receipt integrity: `status` describes whether bytes and the report
+reproduce, while `result_status` and `mechanical_status` retain the original
+outcome. An integrity pass never upgrades an incomplete or unevaluated result.
+It does not rerun semantic review on changed prose. If integrity fails, deliver no prior checked
 label; a new requested rewrite needs a new run. The runtime limits repairs to two
 cycles and never deletes paragraphs merely to meet a word target.
 

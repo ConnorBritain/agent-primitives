@@ -60,8 +60,8 @@ explicit zeroes have no one-hit exception. Counts use actual final draft text.
 
 ## Skill/runtime integration verification
 
-The current full author suite passed **1,336 assertions, zero failures**, including
-**44 runtime tests** covering
+The current full author suite passed **1,341 assertions, zero failures**, including
+**49 runtime tests** covering
 shared store discovery, automatic-profile
 call accounting, and conflicting input paths. Both revised skills passed the
 skill-creator format validator using isolated `uv run --with pyyaml`; neither
@@ -98,8 +98,9 @@ general OS-level guarantee that arbitrary reads are impossible.
 
 1. Continue targeted installed failure-path tests; current comparison evidence now reproduces.
 2. Complete the installed-workflow audit. Explicit-skill-path conversations now
-   prove scoped correction and undo in both harnesses; implicit discovery and
-   a conversation-level drafting invocation remain unproven.
+   prove scoped correction and undo in both harnesses. Skill-name drafting now
+   reaches the real runner in both, but the strict conversational smoke tests
+   fail on permission/input preparation and final receipt handling (details below).
 3. Preserve the completed bounded comparison; subjective judgments remain unmeasured.
 4. Finish documentation consistency checks; regenerate mutation
    documentation through its tool and run all applicable local suites.
@@ -205,6 +206,41 @@ and the final voice review still objected. The strict successful-output smoke
 assertion failed for Codex; no passing result is claimed for that case. All
 calls, attempts and the failure remain retained. Do not redraw it unchanged.
 
-The current 234-mutation update is running. Remaining completion work includes
-its check-mode run and a requirement-by-requirement audit, including the boundary
-between a review disagreement reported correctly and a required runtime fix.
+The 234-mutation update completed successfully. It is an earlier snapshot, not
+the final current-state check. Six additional mutations cover human receipt
+accuracy, exact delivery bytes, integrity/status separation, host permissions,
+requested deep auditing, and the mutation tool's own summary parsing.
+
+## Latest integration fixes and remaining evidence
+
+The runtime now generates `receipt.md` and `delivery.md` deterministically.
+Receipt verification reports integrity separately from the original runtime and
+mechanical statuses, so an intact report cannot turn an unevaluated semantic
+check into a passing mechanical check. Explicitly requested deep claim audits
+also have an interruption regression. Both local plugin copies and the Claude
+loose skill were refreshed after these changes; plugin validation passed.
+
+The mutation parser previously matched any `N passed, M failed` substring,
+including quoted receipt text in an assertion diagnostic. It now requires one
+complete, delimited suite summary. Independent fixtures cover misleading
+diagnostics, missing/duplicate summaries and skipped-test summaries. Each of
+the six new focused mutations caused one actual failing test, without crashes.
+The current **240-mutation update is running**; its final check-mode run is
+still required. Mutation documentation is changed only by its update command.
+
+Conversation-level drafting evidence is retained in the
+[session report](runs/2026-09-06-v040-sessions/README.md#conversation-level-drafting-failures-retained).
+Codex reached the installed runtime but the test's parent sandbox blocked the
+child CLI before generation. A request to test with this task's full-access
+permission level is pending; no permission bypass has been performed.
+Claude's first conversation exposed weak hard-rule encoding and an inaccurate
+host-written receipt. The focused second invocation correctly encoded hard
+rules, but first tried an unsupported sentence counter, then corrected its
+zero-call refusal. Its prose was checked; the strict workflow test remains
+failed, including host reformatting of the receipt. The reference now lists
+supported counters explicitly. No failed evidence or comparison cells were
+replaced, and no unchanged profile-guided run was redrawn.
+
+Completion still requires the current mutation check, the remaining installed
+conversation boundary audit, and a requirement-by-requirement completion audit.
+The goal remains active; these are not claims of a finished candidate.

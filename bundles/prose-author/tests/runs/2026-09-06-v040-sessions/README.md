@@ -158,3 +158,50 @@ using explicit `--skill`, `--harness`/`--artifact`, and new `--out` paths. Norma
 users invoke the skills conversationally, not these test scripts. These results
 do not establish implicit discovery, subjective usefulness, private-corpus voice
 fidelity, Windows execution, or a completed release audit.
+
+## Conversation-level drafting: failures retained
+
+`conversational-writing-smoke.mjs` requests the installed skill by name, without
+supplying its path or runtime command. It uses an isolated preference store and
+asks for a two-sentence invitation reply with required exact text, no question
+or exclamation marks, and fewer than 60 words. No result is sent externally.
+
+| Invocation | Outer elapsed | Inner CLI dispatches | Inner elapsed | Observed outcome |
+|---|---:|---:|---:|---|
+| Codex conversation 1 | 61.939 s | 1 | 0.293 s | Ungated: parent sandbox prevented child initialization |
+| Claude conversation 1 | 77.621 s | 2 | 18.838 s | Checked runtime draft, but incomplete mechanical encoding and inaccurate host receipt |
+| Claude conversation 2 | 95.020 s | 2 | 18.795 s | Zero-call input refusal, then checked corrected job; strict conversation test still failed |
+
+Outer elapsed includes inner calls; do not add them. The Codex child launch
+failed before a provider response, so one CLI dispatch is not evidence of one
+completed model request. The test temporarily enabled network but kept the
+workspace-write sandbox. No saved permissions were changed, and no unrestricted
+repeat has been run under this test.
+
+Claude conversation 1 treated literal text and punctuation restrictions as
+semantic preferences rather than hard rules. Its prose happened to comply,
+but the final host-written receipt incorrectly claimed that a scanner was
+unavailable even though the runtime recorded a passing scan. The runtime now
+generates `receipt.md` and `delivery.md`; the skill tells the host to return
+those recorded statuses. Exact receipt reproduction is independently checked
+without relabeling semantic not-evaluated checks as mechanical passes.
+
+Claude conversation 2 represented all four supported hard rules correctly.
+Its initial job also invented a `sentences` measurement, which the runtime
+refused with zero calls. The host corrected that instruction to semantic and
+ran the corrected job once: one draft and one task review. Thus two result
+directories do **not** mean two generated drafts. The test's single-invocation
+assertion failed, and the host also reformatted the generated receipt rather
+than delivering it verbatim. Neither failure is relabeled as a pass. The runtime
+reference now enumerates its actual counter IDs, including the fact that
+sentence counting is unsupported. The original evidence is unchanged.
+
+| Original report | SHA-256 |
+|---|---|
+| codex-writing-conversation-1 | `3502f9da244c431ffad8b0e45388630cd37980e463fb8808c8a3d68d577e0529` |
+| claude-writing-conversation-1 | `4b1fdd693107d7f35f06063d6b92344cc0e75e9cc7f821a54bdb425e292093e0` |
+| claude-writing-conversation-2 | `c9f7a3ea8ec868ab6e5987a7587cc346b291d80e4e551e9ff0d07e426f644bbe` |
+
+Raw traces and both Claude result directories are retained in a private local
+backup. These failures concern outer-host integration, not a rerun of the
+bounded 18-draft comparison and not evidence that every generated draft is poor.

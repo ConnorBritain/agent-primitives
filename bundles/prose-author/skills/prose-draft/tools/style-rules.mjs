@@ -89,5 +89,5 @@ export function verifyRuleReceipt(draft, rules, receipt, options) {
   if (receipt?.draft_digest !== sha256(draft)) return { status: "failed", reason: "Final draft bytes changed after checking" };
   const fresh = checkRules(draft, rules, options);
   if (JSON.stringify(fresh) !== JSON.stringify(receipt)) return { status: "failed", reason: "Rule report does not reproduce" };
-  return { status: fresh.status, reason: "Report reproduced against exact final bytes" };
+  return { status: fresh.status, reproduced: true, reason: "Report reproduced against exact final bytes" };
 }

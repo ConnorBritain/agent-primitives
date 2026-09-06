@@ -9,6 +9,7 @@ import { initPreferenceStore, readPreferenceStore, applyPreferenceStore, undoPre
 import { proposePreferencesV2, compileStyleV2, initPreferencesV2 } from "./preferences-v2.mjs";
 import { verifyRuleReceipt } from "./style-rules.mjs";
 import { discoveryCards, preferenceDiff, comparePreference } from "./style-session.mjs";
+import { renderWritingReceipt, renderWritingDelivery } from "./writing-receipt.mjs";
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
 const write = (path, value) => writeFileSync(path, typeof value === "string" ? value : `${JSON.stringify(value, null, 2)}\n`, { flag: "wx", mode: 0o600 });
@@ -57,8 +58,11 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
     const result = read(requireValue("--result")), draft = readFileSync(requireValue("--draft"), "utf8");
     const job = loadWritingJob(requireValue("--job"));
     const compiled = compileStyleV2(job.preferences ?? initPreferencesV2("task-local"), { profile: job.profile ?? null, context: job.context, overrides: job.rules ?? [] });
-    const check = result.receipt?.draft_digest !== sha256(draft) ? { status: "failed", reason: "Published bytes differ from the run" }
+    const reproduced = result.receipt?.draft_digest !== sha256(draft) ? { status: "failed", reason: "Published bytes differ from the run" }
       : verifyRuleReceipt(draft, compiled.rules, result.attempts.at(-1)?.mechanical);
+    const check = { schema: "prose-result-verification/1", status: reproduced.reproduced === true ? "passed" : "failed",
+      result_status: result.status, mechanical_status: reproduced.status, reason: reproduced.reason,
+      claim: "Receipt integrity only; existing check statuses are unchanged, not upgraded." };
     stdout(`${JSON.stringify(check)}\n`); return check;
   }
   if (!["run", "profile"].includes(command)) throw new TypeError("prose-runtime: run|profile --job job.json --out NEW-directory; preferences <operation>; check-result");
@@ -95,8 +99,14 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
     resolved_input_digest: sha256(readFileSync(join(out, "resolved-job.json"), "utf8")) };
   write(join(out, "result.json"), result);
   if (result.draft) write(join(out, "draft.md"), result.draft);
+  if (command === "run") {
+    const receipt = renderWritingReceipt(result, job);
+    write(join(out, "receipt.md"), receipt);
+    write(join(out, "delivery.md"), renderWritingDelivery(result, receipt));
+  }
   stdout(`${JSON.stringify({ status: result.status, reason: result.reason ?? null, output_directory: out,
-    draft: result.draft ? join(out, "draft.md") : null, report: join(out, "result.json"), model_call_records: count })}\n`);
+    draft: result.draft ? join(out, "draft.md") : null, report: join(out, "result.json"),
+    delivery: command === "run" ? join(out, "delivery.md") : null, model_call_records: count })}\n`);
   return result;
 }
 

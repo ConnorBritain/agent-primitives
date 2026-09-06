@@ -18,6 +18,7 @@ This is a developer/adapter reference. Users enter through `prose-draft` and
 | `prose-runtime-review/1` | Located findings, instruction dispositions and missing-atom accounting |
 | `prose-writing-job/1` | Authorized task and file references; current adapter selection |
 | `prose-writing-result/1` | Exact final prose, receipt, attempts, calls, disclosures and unresolved checks |
+| `prose-result-verification/1` | Receipt integrity result, retaining original runtime and mechanical statuses |
 
 Production implementations live in `skills/prose-draft/tools/`. The small strict
 model transport schemas are in `runtime-contract.mjs`; profile and preference
@@ -69,6 +70,13 @@ is rescanned and reviewed. The result records exact final hashes; an external
 edit invalidates the old receipt. `check-result` reproduces mechanical checks,
 not a new semantic review of altered prose.
 
+The runner writes `receipt.md` from recorded checks and combines it with exact
+draft bytes in `delivery.md`. The conversation should return that delivery, not
+reconstruct scanner availability or review outcomes from the host's skill list.
+`check-result.status` reports reproduction; `result_status` and
+`mechanical_status` retain the original outcomes. An intact report with semantic
+checks marked not-evaluated can pass integrity without upgrading those checks.
+
 Review accounting distinguishes advisory observation IDs from explicit rules.
 An observed habit need not occur in every draft. Omission disclosures are kept;
 they become `advisory_omissions` only when both task and voice reviews clear the
@@ -102,6 +110,12 @@ context with user rules/configuration disabled and explicit tool restrictions.
 Both run in empty temporary directories and inspect execution records for
 unexpected tools. These are partial context restrictions, not a general OS-level
 guarantee against every filesystem read. Semantic reviewers remain fallible.
+
+The parent harness must permit its child CLI to initialize local authenticated
+state. A restricted parent sandbox can block Codex before a model request even
+with network enabled. The adapter reports this as ungated with an actionable
+permission diagnostic; it does not bypass that restriction. Use the host's
+normal permission process, not an undisclosed sandbox or authentication change.
 
 ## Pi and other harnesses: adapter interface, implementation deferred
 

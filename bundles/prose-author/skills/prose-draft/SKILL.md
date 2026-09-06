@@ -42,6 +42,12 @@ tendencies are advisory, not quotas; “not observed” does not mean forbidden.
 Examples teach style, not the user's biography. Never pass a tell catalog into
 generation, even as repair advice.
 
+Encode every explicit, supported mechanical instruction as a concrete rule:
+required/prohibited text, punctuation, word limits or supported count ranges.
+Do not put these only in the brief or classify them as `semantic`. Use the rule
+examples in the runtime reference; reserve semantic rules for contextual requests
+without a deterministic checker. Draft-specific rules do not save preferences.
+
 ## Run and return the exact result
 
 Invoke `tools/prose-runtime.mjs run` using the current Claude or Codex harness
@@ -52,15 +58,16 @@ and at most two problem-specific repair cycles. Use deep review for researched
 or explicitly publication-sensitive work; supply actual source content as task
 facts, not just URLs.
 
+Return `delivery.md`, which contains the exact draft and a runtime-generated
+receipt. Do not rewrite that receipt or infer a missing dependency from the
+skill list: the recorded check statuses determine what ran.
 Return the exact `draft.md` bytes without an unverified polish afterward.
 A requested change needs a new rewrite run; earlier checks do not cover new
 text. Run `check-result` before delivery if files passed through another editing
 step. An invalidated result must not retain its previous checked label.
 
-Give prose and a short receipt: applied preference revision/scope, hard-rule
-results, missing checks or unresolved findings, and a link to the detailed
-sidecar. Disclose claims requiring verification and supported instructions
-omitted by the draft. Report model calls and elapsed time when relevant, not
+Add a link to the detailed sidecar. Disclose claims requiring verification and
+supported instructions omitted by the draft. Report model calls and elapsed time when relevant, not
 estimated dollars. Keep JSON and measurement tables out of ordinary conversation.
 
 `checked` means configured checks ran on these bytes, not that the draft is good
@@ -68,6 +75,10 @@ or resembles the author. `incomplete` and `ungated` are not certifications:
 name failed or unavailable checks. Missing `prose-tell-scan`, a required
 `prose-review` dependency, interrupted calls, or exhausted repairs must remain
 visible. Do not restart a whole run just to obtain a passing result.
+
+If the host sandbox prevents the authenticated CLI from starting, report ungated
+and use the host's normal permission request when available. Do not disable a
+sandbox or change authentication to work around a denial without user approval.
 
 ## Learn from corrections
 

@@ -14,6 +14,8 @@ import { discoveryCards, preferenceDiff, comparePreference } from "../skills/pro
 import { initPreferencesV2, applyPreferencesV2 } from "../skills/prose-draft/tools/preferences-v2.mjs";
 import { comparisonInputs, comparisonCallErrors, verifyComparison, DESIGN } from "./bounded-comparison.mjs";
 import { installedCompanions } from "../skills/prose-draft/tools/installed-dependencies.mjs";
+import { renderWritingReceipt, renderWritingDelivery } from "../skills/prose-draft/tools/writing-receipt.mjs";
+import { parseSuiteSummary } from "./mutations.mjs";
 import { parseArgs as installerArgs, installPlugins, checkPlugins, verifyDeployment } from "../../../install-prose-codex.mjs";
 
 const candidate = (draft) => ({ schema: "voice-draft-source/5", kind: "draft", draft, omitted: [], claims: [], refused: "" });
@@ -31,6 +33,15 @@ const dispatchFor = (drafts = ["Thank you. I cannot attend."]) => {
 export async function run(t, { tmp, HERE }) {
   t.group("v0.4 production runtime and authenticated CLI transport");
   const test = async (name, fn) => { try { await fn(); t.check(name, true); } catch (e) { t.check(name, false, e.stack); } };
+  await test("mutation counts require the completed suite summary, not receipt diagnostics", () => {
+    const diagnostic = "AssertionError: expected Hard rules: 1 passed, 0 failed, 2 not-evaluated\n";
+    const summary = `${"─".repeat(60)}\n1339 passed, 1 failed\n\nFailures:\n  - receipt test\n`;
+    assert.deepEqual(parseSuiteSummary(diagnostic + summary), { failed: 1, crashed: false });
+    assert.deepEqual(parseSuiteSummary(diagnostic), { failed: null, crashed: true });
+    assert.deepEqual(parseSuiteSummary("1 passed, 0 failed\n"), { failed: null, crashed: true });
+    assert.deepEqual(parseSuiteSummary(summary + summary), { failed: null, crashed: true });
+    assert.deepEqual(parseSuiteSummary(`${"─".repeat(60)}\r\n334 passed, 0 failed, 1 skipped\r\n\nSkipped:\n`), { failed: 0, crashed: false });
+  });
   await test("local Codex installer requires an explicit source switch and refuses unrelated plugin impact", () => {
     assert.equal(installerArgs([]).local, true); assert.equal(installerArgs(["--remote"]).local, false);
     assert.throws(() => installerArgs(["--remote", "--local"]), /not both/);
@@ -440,6 +451,27 @@ export async function run(t, { tmp, HERE }) {
     assert.equal(result.draft_digest, sha256("A short, ordinary sentence."));
     assert.equal(scanRuntimeArtifacts("Text.", null).status, "not-evaluated");
   });
+  await test("host permission failures have actionable diagnostics without dumping local state paths", () => {
+    const stderr = "WARN state at /private/local-state is read only\nError: failed to initialize in-process app-server client: Operation not permitted (os error 1)\n";
+    const reason = adapterFailureReason("codex", "", 1, stderr);
+    assert.match(reason, /denied by host permissions/); assert.match(reason, /without approval/);
+    assert.doesNotMatch(reason, /private\/local-state/);
+    assert.equal(adapterFailureReason("codex", "", 1, "unrelated startup failure"), "codex exited 1");
+  });
+  await test("deep claim auditing receives supplied facts and cannot vanish into a checked result", async () => {
+    let auditCalls = 0;
+    const input = job({ review: "deep", facts: ["The invitation is for Friday."] });
+    const dispatch = async (args) => {
+      if (args.system.startsWith("Audit factual claims")) {
+        auditCalls++; assert.ok(args.input.original.includes(input.facts[0]));
+        return { status: "failed", reason: "Audit interrupted", dispatched: true };
+      }
+      return dispatchFor()(args);
+    };
+    const result = await runWriting(input, { dispatch, scan: scanner });
+    assert.equal(auditCalls, 1); assert.equal(result.status, "ungated");
+    assert.equal(result.attempts[0].reviews.find((r) => r.stage === "claim-audit").status, "not-evaluated");
+  });
   await test("saved feedback survives a new CLI process and undo preserves earlier revisions", () => {
     const directory = join(tmp, "preference-store-v040"), p = initPreferenceStore(directory, "writer");
     const decision = { id: "dash", feature: "dash", binding: null, scope: { ...emptyScope(), forms: ["reply"] },
@@ -466,5 +498,45 @@ export async function run(t, { tmp, HERE }) {
     assert.equal(result.status, "checked"); assert.equal(readFileSync(join(out, "draft.md"), "utf8"), result.draft);
     assert.equal(JSON.parse(readFileSync(join(out, "result.json"))).receipt.draft_digest, sha256(result.draft));
     await assert.rejects(() => runtimeMain(["run", "--job", path, "--out", out], { dispatch: dispatchFor() }), /EEXIST/);
+  });
+  await test("human receipt reports recorded statuses and delivery preserves the exact prose", () => {
+    const result = { status: "ungated", reason: "Voice dependency unavailable", draft: "A short draft.  \n", attempts: [{
+      mechanical: { checks: [{ id: "limit", enforcement: "enforced", status: "passed" }, { id: "warmth", enforcement: "advisory", status: "not-evaluated" }] },
+      artifacts: { status: "failed" }, copying: { status: "not-evaluated" },
+      reviews: [{ stage: "task-review", status: "passed" }, { stage: "voice-review", status: "not-evaluated" }],
+    }], receipt: { preference_revision: 2, active_preferences: ["limit"] }, invocation: { model_calls: 2, elapsed_ms: 1200 } };
+    const context = job({ profile: { measured: { support: "limited-evidence" } } });
+    const receipt = renderWritingReceipt(result, context);
+    assert.match(receipt, /Status: ungated/); assert.match(receipt, /Profile evidence: limited-evidence/);
+    assert.match(receipt, /Artifact scan: failed/); assert.match(receipt, /Voice review: not-evaluated/);
+    assert.match(receipt, /Hard rules: 1 passed, 0 failed, 0 not-evaluated/);
+    assert.match(receipt, /Not mechanically evaluated \(semantic instructions\): warmth/);
+    assert.equal(renderWritingDelivery(result, receipt), result.draft + "\n\n" + receipt);
+    const missing = renderWritingReceipt({ status: "ungated", reason: "CLI missing" }, job());
+    assert.match(missing, /Hard rules: not-evaluated/); assert.match(missing, /Artifact scan: not-evaluated/);
+    assert.doesNotMatch(missing, /Artifact scan: passed/);
+  });
+  await test("a mixed-rule receipt can reproduce without relabeling semantic checks as mechanical passes", async () => {
+    const file = join(tmp, "mixed-receipt-job.json"), out = join(tmp, "mixed-receipt-run");
+    writeFileSync(file, JSON.stringify(job({ rules: [
+      { id: "limit", kind: "word-limit", directive: "Under 60 words", minimum: 1, maximum: 59 },
+      { id: "warmth", kind: "semantic", directive: "Decline warmly" },
+    ] })));
+    const options = { dispatch: dispatchFor(), stdout: () => {}, stderr: () => {} };
+    const result = await runtimeMain(["run", "--job", file, "--out", out], options);
+    assert.equal(result.status, "checked");
+    assert.equal(result.attempts[0].mechanical.status, "not-evaluated");
+    assert.equal(readFileSync(join(out, "delivery.md"), "utf8"), result.draft + "\n\n" + readFileSync(join(out, "receipt.md"), "utf8"));
+    const args = ["check-result", "--result", join(out, "result.json"), "--draft", join(out, "draft.md"), "--job", join(out, "resolved-job.json")];
+    const checked = await runtimeMain(args, options);
+    assert.equal(checked.schema, "prose-result-verification/1"); assert.equal(checked.status, "passed");
+    assert.equal(checked.mechanical_status, "not-evaluated"); assert.equal(checked.result_status, "checked");
+    const retained = JSON.parse(readFileSync(join(out, "result.json")));
+    assert.equal(retained.attempts[0].mechanical.checks[1].status, "not-evaluated");
+    writeFileSync(join(out, "draft.md"), result.draft + " ");
+    assert.equal((await runtimeMain(args, options)).status, "failed");
+    writeFileSync(join(out, "draft.md"), result.draft);
+    writeFileSync(join(out, "result.json"), JSON.stringify({ ...result, status: "incomplete" }));
+    assert.equal((await runtimeMain(args, options)).result_status, "incomplete");
   });
 }
