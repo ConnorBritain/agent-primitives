@@ -1,0 +1,3 @@
+The library is considering a six-month reading app pilot, but the vendor’s proposed contract would permit retaining identifiable reading histories for two years after a patron closes an account. That’s a long shadow for a short pilot. I oppose this retention clause.
+
+The library hasn’t signed the contract, so there’s still time to change these terms. With written comments accepted until June 30, please consider this alternative: retain only anonymous aggregate usage totals and let patrons read without creating an account. The board should require those changes before signing.

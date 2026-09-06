@@ -1,0 +1,229 @@
+{
+  "schema": "prose-writing-result/1",
+  "status": "checked",
+  "reason": "Exact final text checked; no resemblance, quality or factual guarantee",
+  "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.",
+  "receipt": {
+    "draft_digest": "607858aac138122685e0357fceca3b48d84e55c6f2f80ee22e05c28d49d95a46",
+    "profile_digest": null,
+    "preference_digest": "eb8142c2a760bfc1f00142060adc9bc5cfc4bd0e2ef3ff5bd5a1128942e259d7",
+    "preference_revision": 1,
+    "active_preferences": [],
+    "overrides": [
+      "length",
+      "deadline"
+    ],
+    "examples": [],
+    "example_exclusions": [],
+    "model_calls": 3,
+    "elapsed_ms": 45318,
+    "final_check": {
+      "cycle": 0,
+      "draft_digest": "607858aac138122685e0357fceca3b48d84e55c6f2f80ee22e05c28d49d95a46"
+    },
+    "isolation": "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee"
+  },
+  "claims": [],
+  "omitted": [],
+  "attempts": [
+    {
+      "cycle": 0,
+      "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract. Under the proposed terms, identifiable reading histories would be retained for two years after account closure. Written comments are accepted until June 30.",
+      "draft_digest": "607858aac138122685e0357fceca3b48d84e55c6f2f80ee22e05c28d49d95a46",
+      "mechanical": {
+        "schema": "voice-rule-report/1",
+        "draft_digest": "607858aac138122685e0357fceca3b48d84e55c6f2f80ee22e05c28d49d95a46",
+        "draft_words": 50,
+        "normalization": "visible-prose/1",
+        "exclusions": [],
+        "warnings": [],
+        "checks": [
+          {
+            "id": "length",
+            "kind": "word-limit",
+            "directive": "Use at most 90 words.",
+            "enforcement": "enforced",
+            "actual": 50,
+            "minimum": 1,
+            "maximum": 90,
+            "occurrences": [],
+            "status": "passed"
+          },
+          {
+            "id": "deadline",
+            "kind": "required-text",
+            "directive": "Retain June 30 exactly.",
+            "enforcement": "enforced",
+            "actual": 1,
+            "minimum": 1,
+            "maximum": null,
+            "occurrences": [
+              {
+                "text": "June 30",
+                "start": 297,
+                "end": 304
+              }
+            ],
+            "status": "passed"
+          }
+        ],
+        "status": "passed"
+      },
+      "observed": {
+        "status": "not-evaluated",
+        "reason": "A current profile is unavailable",
+        "measurements": []
+      },
+      "copying": {
+        "status": "not-evaluated",
+        "findings": [],
+        "reason": "No corpus text available for copying comparison"
+      },
+      "artifacts": {
+        "status": "passed",
+        "draft_digest": "607858aac138122685e0357fceca3b48d84e55c6f2f80ee22e05c28d49d95a46",
+        "findings": [],
+        "reason": "Tier A artifact scan only; no fallback cadence claim"
+      },
+      "reviews": [
+        {
+          "stage": "task-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [
+              {
+                "id": "length",
+                "status": "applied",
+                "reason": "Draft is approximately 48 words, well within the 90-word maximum."
+              },
+              {
+                "id": "deadline",
+                "status": "applied",
+                "reason": "\"June 30\" appears verbatim in the final sentence."
+              }
+            ],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        },
+        {
+          "stage": "fidelity-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        }
+      ],
+      "omitted": [],
+      "claims": []
+    }
+  ],
+  "calls": [
+    {
+      "stage": "draft",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 8271,
+      "usage": {
+        "input_tokens": 5424,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 260,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "680cd6355ecd36f85c378148b6264c1416003dfb724be62dd7011c3767d6733e",
+      "system_digest": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "task-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 13402,
+      "usage": {
+        "input_tokens": 3977,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 515,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "bba19368b86d331b8378f23a09eabdd4d0984206ef5ccb19f2fbf9f076ca3c7e",
+      "system_digest": "47c7301a5c358a6e2cef6f1edc832afece90cce724de550b13a0202cfcaf512d",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "fidelity-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 20187,
+      "usage": {
+        "input_tokens": 6292,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 519,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "d158b4900a99567ea9435ea2af0f0faf868e564189eee8a101a790bd892accca",
+      "system_digest": "6c9cce56ebecbc4d6982bec3eee9c0c8b1d8a71dedc95c4532e3cee8ef3745e5",
+      "isolation": "partial",
+      "reason": null
+    }
+  ],
+  "invocation": {
+    "model_calls": 3,
+    "model_call_records": 3,
+    "model_elapsed_ms": 41860,
+    "elapsed_ms": 45319,
+    "input_digest": "9898932e0d2da854d61310d9b8ea611894d19ebef8753b502f1194d66863a8cc",
+    "resolved_input_digest": "9898932e0d2da854d61310d9b8ea611894d19ebef8753b502f1194d66863a8cc"
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "schema": "prose-author-bounded-manifest/1",
+  "design": {
+    "schema": "prose-author-bounded-design/1",
+    "authors": [
+      "doctorow-blog",
+      "eff-mullin"
+    ],
+    "conditions": [
+      "examples",
+      "profile",
+      "profile-and-examples"
+    ],
+    "harness": "codex",
+    "facts": [
+      "This is a fictional scenario supplied for a writing exercise, not a report about a real program.",
+      "A town library is considering a six-month pilot of a reading app.",
+      "The vendor's proposed contract permits retaining identifiable reading histories for two years after a patron closes an account.",
+      "The library has not signed the contract.",
+      "The library board accepts written comments until June 30.",
+      "The proposed alternative is to retain only anonymous aggregate usage totals and to let patrons read without creating an account."
+    ],
+    "forms": [
+      {
+        "id": "reply",
+        "mode": "draft",
+        "context": {
+          "form": "reply",
+          "purpose": "respond-to-library-board",
+          "audience": "library board",
+          "register": null
+        },
+        "brief": "Write a short reply to the library board opposing the retention clause and requesting the supplied alternative. Use only the supplied scenario facts. Do not invent a personal library visit, employer or experience. Mention the comment deadline. Do not include a subject line or signature.",
+        "minimum": 70,
+        "maximum": 110
+      },
+      {
+        "id": "outline-blog",
+        "mode": "draft",
+        "context": {
+          "form": "blog",
+          "purpose": "explain-proposed-library-contract",
+          "audience": "general readers",
+          "register": null
+        },
+        "brief": "Turn this outline into a short blog post: (1) What the proposed library app contract retains; (2) why retaining identifiable reading history can chill private inquiry—present this as a risk argument, not an observed event; (3) the concrete anonymous/account-free alternative; (4) how to comment before the deadline. Stay within the supplied fictional scenario. Do not invent a named opponent, quotation, statistic, law or actual breach.",
+        "minimum": 260,
+        "maximum": 340
+      },
+      {
+        "id": "rewrite",
+        "mode": "rewrite",
+        "context": {
+          "form": "passage",
+          "purpose": "rewrite-library-comment",
+          "audience": "library board",
+          "register": null
+        },
+        "brief": "Rewrite the supplied passage using the selected style evidence and preferences. Preserve every supplied fact and the author's conditional uncertainty; keep the request for anonymous totals and account-free reading. Do not add an anecdote or external claim.",
+        "minimum": 100,
+        "maximum": 160,
+        "source_text": "The library has not signed the contract for its proposed six-month reading-app pilot. That leaves time to change a clause allowing the vendor to retain identifiable reading histories for two years after a patron closes an account. I oppose that clause. Keeping those records could discourage some patrons from exploring subjects privately, although I cannot say whether that would happen here. The board should instead ask the vendor to retain only anonymous aggregate usage totals and allow patrons to read without creating an account. These changes would make the pilot more acceptable to me. Written comments are accepted until June 30; I would like the board to consider this alternative before it signs."
+      }
+    ],
+    "shared_rules": [
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Keep the exact deadline text June 30.",
+        "text": "June 30"
+      },
+      {
+        "id": "no-cliche",
+        "kind": "prohibited-phrase",
+        "directive": "Do not use the phrase in today's world.",
+        "text": "in today's world"
+      },
+      {
+        "id": "questions",
+        "kind": "punctuation",
+        "directive": "Use at most one question mark.",
+        "characters": "?",
+        "minimum": 0,
+        "maximum": 1
+      }
+    ],
+    "limits": [
+      "Exactly eighteen initial draft calls: no redraws, critic panel or repair loop.",
+      "Render one current profile per author and reuse it. A failed call remains recorded; do not select a favorable replacement.",
+      "Same facts, explicit preferences and model configuration within each three-condition case.",
+      "Held-out human deviations are descriptive; no calibrated prediction interval is claimed.",
+      "Subjective keep/edit judgments and editing burden remain unmeasured until a user supplies them.",
+      "These are diagnostic initial candidates, not runtime-certified final prose or a resemblance test."
+    ]
+  },
+  "design_digest": "febd2d37f052e6d5a9b0020e41215f63e32b3d7505eb446dbb528bbdd0ca4211",
+  "implementation_commit": "c00178c6f7c4aac2686c2d771b9ef5b6b5ee2dd5",
+  "prompt_digests": {
+    "draft": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+    "profile": "99e702b6ad5842266f43904a75d3e54cf028be16312668937a9c5ffdc4f95309"
+  },
+  "initial_draft_calls": 18,
+  "profile_calls": 2,
+  "redraws": 0,
+  "required_human_attestation": false
+}

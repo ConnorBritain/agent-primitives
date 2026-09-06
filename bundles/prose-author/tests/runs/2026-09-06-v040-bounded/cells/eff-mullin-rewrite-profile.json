@@ -1,0 +1,343 @@
+{
+  "id": "eff-mullin-rewrite-profile",
+  "author": "eff-mullin",
+  "form": "rewrite",
+  "condition": "profile",
+  "input_digest": "fb1a97324415d5c9ecb029ac890473639c7b6ccf571e7ed808c24e036710533b",
+  "status": "initial-candidate",
+  "errors": [],
+  "refused": "",
+  "draft": "In this fictional scenario, the town library hasn't signed the contract for its proposed six-month reading-app pilot. There's still time to change it. The vendor's proposed contract would allow it to retain identifiable reading histories for two years after a patron closes an account—long after that patron has shut the door on the service.\n\nI oppose that clause. Keeping those records could discourage some patrons from exploring subjects privately, although I cannot say whether that would happen here.\n\nThe board should ask the vendor to retain only anonymous aggregate usage totals and let patrons read without creating an account. Those changes would make the pilot more acceptable to me. The board accepts written comments until June 30. I would like it to consider this alternative before signing the contract.",
+  "draft_digest": "06b870f7fb8e7c22084ef0795e443fad6b6944f7696bf827ca595df1d000c9da",
+  "omitted": [
+    {
+      "id": "o007",
+      "reason": "No source statements or responses were supplied for attribution; inventing them would exceed the rewrite's factual scope."
+    }
+  ],
+  "claims": [],
+  "mechanical": {
+    "schema": "voice-rule-report/1",
+    "draft_digest": "06b870f7fb8e7c22084ef0795e443fad6b6944f7696bf827ca595df1d000c9da",
+    "draft_words": 132,
+    "normalization": "visible-prose/1",
+    "exclusions": [],
+    "warnings": [],
+    "checks": [
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Keep the exact deadline text June 30.",
+        "enforcement": "enforced",
+        "actual": 1,
+        "minimum": 1,
+        "maximum": null,
+        "occurrences": [
+          {
+            "text": "June 30",
+            "start": 736,
+            "end": 743
+          }
+        ],
+        "status": "passed"
+      },
+      {
+        "id": "no-cliche",
+        "kind": "prohibited-phrase",
+        "directive": "Do not use the phrase in today's world.",
+        "enforcement": "enforced",
+        "actual": 0,
+        "minimum": 0,
+        "maximum": 0,
+        "occurrences": [],
+        "status": "passed"
+      },
+      {
+        "id": "questions",
+        "kind": "punctuation",
+        "directive": "Use at most one question mark.",
+        "enforcement": "enforced",
+        "actual": 0,
+        "minimum": 0,
+        "maximum": 1,
+        "occurrences": [],
+        "status": "passed"
+      },
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use 100–160 words.",
+        "enforcement": "enforced",
+        "actual": 132,
+        "minimum": 100,
+        "maximum": 160,
+        "occurrences": [],
+        "status": "passed"
+      }
+    ],
+    "status": "passed"
+  },
+  "observed": {
+    "schema": "voice-observed-comparison/1",
+    "draft_digest": "06b870f7fb8e7c22084ef0795e443fad6b6944f7696bf827ca595df1d000c9da",
+    "draft_words": 132,
+    "enforcement": "advisory",
+    "measurements": [
+      {
+        "id": "second-person-family",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "first-person-plural-family",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "contractions",
+        "count": 2,
+        "per_1000_words": 15.15,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "uncontracted-negatives",
+        "count": 1,
+        "per_1000_words": 7.58,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "profanity-vulgarity",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "first-person-singular-family",
+        "count": 4,
+        "per_1000_words": 30.3,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "question-marks",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "round-parenthetical-spans",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "em-dashes",
+        "count": 1,
+        "per_1000_words": 7.58,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      },
+      {
+        "id": "en-dashes",
+        "count": 0,
+        "per_1000_words": 0,
+        "reference": null,
+        "status": "not-evaluated",
+        "reason": "Insufficient matching evidence or no prose words"
+      }
+    ]
+  },
+  "pooled_diagnostic": {
+    "comparison": {
+      "schema": "voice-observed-comparison/1",
+      "draft_digest": "06b870f7fb8e7c22084ef0795e443fad6b6944f7696bf827ca595df1d000c9da",
+      "draft_words": 132,
+      "enforcement": "advisory",
+      "measurements": [
+        {
+          "id": "second-person-family",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 4.05,
+            "maximum": 4.39
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "first-person-plural-family",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 2.6,
+            "p90": 3.04,
+            "maximum": 5.51
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "contractions",
+          "count": 2,
+          "per_1000_words": 15.15,
+          "reference": {
+            "n": 11,
+            "minimum": 1.42,
+            "p10": 2.96,
+            "median": 7.73,
+            "p90": 16.22,
+            "maximum": 30.4
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "uncontracted-negatives",
+          "count": 1,
+          "per_1000_words": 7.58,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 3.51,
+            "p90": 7.95,
+            "maximum": 8.26
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "profanity-vulgarity",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "maximum": 0
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "first-person-singular-family",
+          "count": 4,
+          "per_1000_words": 30.3,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 1.35,
+            "maximum": 1.52
+          },
+          "status": "outside-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "question-marks",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0.99,
+            "maximum": 4.42
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "round-parenthetical-spans",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 1.46,
+            "p90": 2.7,
+            "maximum": 2.96
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "em-dashes",
+          "count": 1,
+          "per_1000_words": 7.58,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 1.41,
+            "median": 5.67,
+            "p90": 17.72,
+            "maximum": 20.73
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        },
+        {
+          "id": "en-dashes",
+          "count": 0,
+          "per_1000_words": 0,
+          "reference": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "maximum": 9.46
+          },
+          "status": "within-observed-range",
+          "reason": "Descriptive range, not a mandatory quota"
+        }
+      ]
+    },
+    "interpretation": "Unspecified-metadata corpus reference only; not a form-matched pass or failure"
+  },
+  "copying": {
+    "status": "passed",
+    "findings": [],
+    "reason": "Exact overlap heuristic, not proof that all copying is absent"
+  },
+  "artifacts": {
+    "status": "passed",
+    "draft_digest": "06b870f7fb8e7c22084ef0795e443fad6b6944f7696bf827ca595df1d000c9da",
+    "findings": [],
+    "reason": "Tier A artifact scan only; no fallback cadence claim"
+  },
+  "human_keep_edit": "not-measured",
+  "editing_burden": "not-measured",
+  "semantic_review": "not-evaluated"
+}

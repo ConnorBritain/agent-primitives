@@ -20,7 +20,7 @@ import {
 } from "../skills/prose-draft/tools/ingest-edit.mjs";
 
 export async function run(t, { tmp, makeProfile, HERE, CORPUS }) {
-  t.group("Package — v0.3.0 is one installable bundle");
+  t.group("Package — v0.4.0 is one installable bundle");
 
   {
     const bundle = resolve(HERE, "..");
@@ -29,12 +29,12 @@ export async function run(t, { tmp, makeProfile, HERE, CORPUS }) {
       ".cursor-plugin/plugin.json", ".plugin/plugin.json",
     ];
     const manifests = manifestPaths.map((path) => JSON.parse(fsRead(join(bundle, path), "utf8")));
-    t.check("all four prose-author manifests agree at 0.3.0",
-      manifests.every((manifest) => manifest.version === "0.3.0"));
+    t.check("all four prose-author manifests agree at 0.4.0",
+      manifests.every((manifest) => manifest.version === "0.4.0"));
 
     const marketplace = JSON.parse(fsRead(resolve(HERE, "..", "..", "..", ".claude-plugin", "marketplace.json"), "utf8"));
     const entry = marketplace.plugins.find((plugin) => plugin.name === "prose-author");
-    t.check("the marketplace prose-author entry agrees at 0.3.0", entry?.version === "0.3.0");
+    t.check("the marketplace prose-author entry agrees at 0.4.0", entry?.version === "0.4.0");
 
     const claudeAgents = manifests[0].agents ?? [];
     t.check("the Claude manifest exposes all three shipped agents",

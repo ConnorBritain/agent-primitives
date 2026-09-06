@@ -123,6 +123,12 @@ if [ ${#SEL_AGENTS[@]} -gt 0 ]; then
   mkdir -p "$DEST/agents"
   for f in "${SEL_AGENTS[@]}"; do
     cp "$f" "$DEST/agents/"
+    # A loose critic needs the same deterministic scan as its plugin deployment.
+    # Install only this bundle's supporting tool, not unrelated bundle tooling.
+    if [ "$(basename "$f" .md)" = "prose-fidelity-critic" ]; then
+      mkdir -p "$DEST/tools"
+      cp "$(dirname "$(dirname "$f")")/tools/fidelity-scan.mjs" "$DEST/tools/fidelity-scan.mjs"
+    fi
     echo "  agent  $(basename "$f" .md)"
     count=$((count + 1))
   done

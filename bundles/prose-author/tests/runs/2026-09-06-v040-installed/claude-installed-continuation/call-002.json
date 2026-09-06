@@ -1,0 +1,341 @@
+{
+  "stage": "task-review",
+  "input": {
+    "brief": "Continue this fictional note with one short paragraph explaining my preferred alternative and inviting written comments. Return only the continuation, not the existing passage. Preserve the tentative status; do not invent an affiliation or personal history.",
+    "context": {
+      "form": "note",
+      "purpose": "invite comments",
+      "register": "plain"
+    },
+    "original": "The library has not signed its proposed reading-app contract. I oppose its provision for keeping identifiable reading histories for two years after account closure.\nI prefer anonymous aggregate usage totals and reading without creating an account.\nWritten comments are accepted until June 30.",
+    "profile": null,
+    "rules": [
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use at most 80 words.",
+        "minimum": 1,
+        "maximum": 80
+      },
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Include June 30 exactly.",
+        "text": "June 30"
+      }
+    ],
+    "instruction_ids": [
+      "length",
+      "deadline"
+    ],
+    "draft": "Instead, the library could collect anonymous aggregate usage totals—enough to gauge what readers value without tying data to individual accounts. Letting people browse and read without creating an account would also reduce the amount of personal information stored in the first place. These are suggestions, not settled proposals. If you have thoughts on the contract or on alternatives like these, written comments are accepted until June 30."
+  },
+  "system": "Review only task adherence, explicit semantic preferences, supported profile instructions, pronoun/referent consistency and unsupported factual additions. Do not judge general quality. Check first-person biography, employers and personal experiences against supplied task facts, not style examples. Check that the draft has not silently dropped requested parentheticals, figure vocabulary or attribution. Surface evidence-backed omissions; ordinary variation is not an error. Never claim to prove factual accuracy. For this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.\nRead the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.",
+  "result": {
+    "harness": "claude",
+    "model": "opus[1m]",
+    "elapsed_ms": 18724,
+    "dispatched": true,
+    "input_digest": "9cea2784033bab71b3ddd01103877c72ffcaac94b47c4a73ab79fc26aee5e807",
+    "schema_digest": "533d254b81dcae07afbbae34d9f7ddad99e7e059cd3f5305abd772bbd18ef6c5",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"system\",\"subtype\":\"init\",\"cwd\":\"/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-32gUeH\",\"session_id\":\"a268f95d-df48-4c3e-8f6f-4eaf66645a6b\",\"tools\":[\"StructuredOutput\"],\"mcp_servers\":[],\"model\":\"claude-opus-4-6[1m]\",\"permissionMode\":\"dontAsk\",\"slash_commands\":[],\"apiKeySource\":\"none\",\"claude_code_version\":\"2.1.86\",\"output_style\":\"default\",\"agents\":[\"general-purpose\",\"statusline-setup\",\"Explore\",\"Plan\"],\"skills\":[\"update-config\",\"debug\",\"simplify\",\"batch\",\"loop\",\"schedule\",\"claude-api\"],\"plugins\":[],\"uuid\":\"c76662c0-93c9-4fd2-acf0-a45870c43fd9\",\"fast_mode_state\":\"off\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemeUbR65aNYphuhMNaMV\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me review the draft against the brief, rules, and original text.\\n\\nBrief: Continue with one short paragraph explaining preferred alternative and inviting written comments. Return only the continuation. Preserve tentative status. Don't invent affiliation or personal history.\\n\\nOriginal already contains: \\\"I prefer anonymous aggregate usage totals and reading without creating an account. Written comments are accepted until June 30.\\\"\\n\\nSo the draft should continue from the original, not repeat it. Let me check if the draft is a continuation or repeats the original.\\n\\nThe original ends with \\\"Written comments are accepted until June 30.\\\" The draft is supposed to be a continuation - but the brief says \\\"Continue this fictional note with one short paragraph explaining my preferred alternative and inviting written comments.\\\"\\nI'm checking that the draft frames these as suggestions rather than settled proposals, and verifying it stays under the 80-word limit by counting through the sentence.\\n\\ncontract or alternatives, written comments are accepted until June 30. Checking the draft against requirements: it's under 80 words, includes the deadline, preserves the tentative framing, avoids inventing affiliation or unsupported facts, and stays to one paragraph without repeating the original verbatim. This all looks solid.\\n\\n\",\"signature\":\"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\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":1723,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"a268f95d-df48-4c3e-8f6f-4eaf66645a6b\",\"uuid\":\"0dc03dba-a1fa-4875-8ecd-ce6501a2ec2a\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemeUbR65aNYphuhMNaMV\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_01HPHAR6oF9PxoQLHrCeXGmC\",\"name\":\"StructuredOutput\",\"input\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"length\",\"status\":\"applied\",\"reason\":\"Draft is approximately 68 words, well within the 80-word maximum.\"},{\"id\":\"deadline\",\"status\":\"applied\",\"reason\":\"The exact text \\\"June 30\\\" appears at the end of the draft.\"}],\"atom_accounting\":[],\"disclosures\":[]},\"caller\":{\"type\":\"direct\"}}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":1723,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"a268f95d-df48-4c3e-8f6f-4eaf66645a6b\",\"uuid\":\"f29ed82c-5827-430f-8737-46a03a239276\"}\n{\"type\":\"user\",\"message\":{\"role\":\"user\",\"content\":[{\"tool_use_id\":\"toolu_01HPHAR6oF9PxoQLHrCeXGmC\",\"type\":\"tool_result\",\"content\":\"Structured output provided successfully\"}]},\"parent_tool_use_id\":null,\"session_id\":\"a268f95d-df48-4c3e-8f6f-4eaf66645a6b\",\"uuid\":\"83f4a0dd-6e1c-4668-9acf-8614d5156d40\",\"timestamp\":\"2026-09-06T05:38:46.779Z\",\"tool_use_result\":\"Structured output provided successfully\"}\n{\"type\":\"rate_limit_event\",\"rate_limit_info\":{\"status\":\"allowed\",\"resetsAt\":1788682800,\"rateLimitType\":\"five_hour\",\"overageStatus\":\"rejected\",\"overageDisabledReason\":\"org_level_disabled\",\"isUsingOverage\":false},\"uuid\":\"8d4610ed-9a27-4bae-b1bd-c0f7720d1ddf\",\"session_id\":\"a268f95d-df48-4c3e-8f6f-4eaf66645a6b\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemeVdqTXnnEdafZAp7H8\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"**Review summary**\\n\\nThe draft satisfies both explicit rules (word limit ≤ 80; exact text \\\"June 30\\\"). It is a single continuation paragraph that does not reproduce the existing passage. It explains the preferred alternative (anonymous aggregate totals, account-free reading) and invites written comments, matching the brief. Tentative status is explicitly preserved (\\\"These are suggestions, not settled proposals\\\"). No affiliation or personal history is invented. No unsupported factual additions detected. Verdict: **clear**.\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":2675,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":1,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"a268f95d-df48-4c3e-8f6f-4eaf66645a6b\",\"uuid\":\"d119679f-1149-475e-9894-1f9bb3bdc669\"}\n{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":18227,\"duration_api_ms\":18210,\"num_turns\":2,\"result\":\"**Review summary**\\n\\nThe draft satisfies both explicit rules (word limit ≤ 80; exact text \\\"June 30\\\"). It is a single continuation paragraph that does not reproduce the existing passage. It explains the preferred alternative (anonymous aggregate totals, account-free reading) and invites written comments, matching the brief. Tentative status is explicitly preserved (\\\"These are suggestions, not settled proposals\\\"). No affiliation or personal history is invented. No unsupported factual additions detected. Verdict: **clear**.\",\"stop_reason\":\"end_turn\",\"session_id\":\"a268f95d-df48-4c3e-8f6f-4eaf66645a6b\",\"total_cost_usd\":0.047939999999999997,\"usage\":{\"input_tokens\":4398,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":1038,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":0,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6[1m]\":{\"inputTokens\":4398,\"outputTokens\":1038,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.047939999999999997,\"contextWindow\":1000000,\"maxOutputTokens\":64000}},\"permission_denials\":[],\"structured_output\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"length\",\"status\":\"applied\",\"reason\":\"Draft is approximately 68 words, well within the 80-word maximum.\"},{\"id\":\"deadline\",\"status\":\"applied\",\"reason\":\"The exact text \\\"June 30\\\" appears at the end of the draft.\"}],\"atom_accounting\":[],\"disclosures\":[]},\"fast_mode_state\":\"off\",\"uuid\":\"d84c49d3-fc4d-4d0d-ae21-1bf4c1a37aba\"}\n",
+    "stderr": "",
+    "exit_code": 0,
+    "value": {
+      "schema": "prose-runtime-review/1",
+      "verdict": "clear",
+      "findings": [],
+      "instructions": [
+        {
+          "id": "length",
+          "status": "applied",
+          "reason": "Draft is approximately 68 words, well within the 80-word maximum."
+        },
+        {
+          "id": "deadline",
+          "status": "applied",
+          "reason": "The exact text \"June 30\" appears at the end of the draft."
+        }
+      ],
+      "atom_accounting": [],
+      "disclosures": []
+    },
+    "usage": {
+      "input_tokens": 4398,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 1038,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard"
+    },
+    "events": [
+      {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-32gUeH",
+        "session_id": "a268f95d-df48-4c3e-8f6f-4eaf66645a6b",
+        "tools": [
+          "StructuredOutput"
+        ],
+        "mcp_servers": [],
+        "model": "claude-opus-4-6[1m]",
+        "permissionMode": "dontAsk",
+        "slash_commands": [],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.86",
+        "output_style": "default",
+        "agents": [
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "update-config",
+          "debug",
+          "simplify",
+          "batch",
+          "loop",
+          "schedule",
+          "claude-api"
+        ],
+        "plugins": [],
+        "uuid": "c76662c0-93c9-4fd2-acf0-a45870c43fd9",
+        "fast_mode_state": "off"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemeUbR65aNYphuhMNaMV",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "Let me review the draft against the brief, rules, and original text.\n\nBrief: Continue with one short paragraph explaining preferred alternative and inviting written comments. Return only the continuation. Preserve tentative status. Don't invent affiliation or personal history.\n\nOriginal already contains: \"I prefer anonymous aggregate usage totals and reading without creating an account. Written comments are accepted until June 30.\"\n\nSo the draft should continue from the original, not repeat it. Let me check if the draft is a continuation or repeats the original.\n\nThe original ends with \"Written comments are accepted until June 30.\" The draft is supposed to be a continuation - but the brief says \"Continue this fictional note with one short paragraph explaining my preferred alternative and inviting written comments.\"\nI'm checking that the draft frames these as suggestions rather than settled proposals, and verifying it stays under the 80-word limit by counting through the sentence.\n\ncontract or alternatives, written comments are accepted until June 30. Checking the draft against requirements: it's under 80 words, includes the deadline, preserves the tentative framing, avoids inventing affiliation or unsupported facts, and stays to one paragraph without repeating the original verbatim. This all looks solid.\n\n",
+              "signature": "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"
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 1723,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a268f95d-df48-4c3e-8f6f-4eaf66645a6b",
+        "uuid": "0dc03dba-a1fa-4875-8ecd-ce6501a2ec2a"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemeUbR65aNYphuhMNaMV",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01HPHAR6oF9PxoQLHrCeXGmC",
+              "name": "StructuredOutput",
+              "input": {
+                "schema": "prose-runtime-review/1",
+                "verdict": "clear",
+                "findings": [],
+                "instructions": [
+                  {
+                    "id": "length",
+                    "status": "applied",
+                    "reason": "Draft is approximately 68 words, well within the 80-word maximum."
+                  },
+                  {
+                    "id": "deadline",
+                    "status": "applied",
+                    "reason": "The exact text \"June 30\" appears at the end of the draft."
+                  }
+                ],
+                "atom_accounting": [],
+                "disclosures": []
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 1723,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a268f95d-df48-4c3e-8f6f-4eaf66645a6b",
+        "uuid": "f29ed82c-5827-430f-8737-46a03a239276"
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01HPHAR6oF9PxoQLHrCeXGmC",
+              "type": "tool_result",
+              "content": "Structured output provided successfully"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a268f95d-df48-4c3e-8f6f-4eaf66645a6b",
+        "uuid": "83f4a0dd-6e1c-4668-9acf-8614d5156d40",
+        "timestamp": "2026-09-06T05:38:46.779Z",
+        "tool_use_result": "Structured output provided successfully"
+      },
+      {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1788682800,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "org_level_disabled",
+          "isUsingOverage": false
+        },
+        "uuid": "8d4610ed-9a27-4bae-b1bd-c0f7720d1ddf",
+        "session_id": "a268f95d-df48-4c3e-8f6f-4eaf66645a6b"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemeVdqTXnnEdafZAp7H8",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "**Review summary**\n\nThe draft satisfies both explicit rules (word limit ≤ 80; exact text \"June 30\"). It is a single continuation paragraph that does not reproduce the existing passage. It explains the preferred alternative (anonymous aggregate totals, account-free reading) and invites written comments, matching the brief. Tentative status is explicitly preserved (\"These are suggestions, not settled proposals\"). No affiliation or personal history is invented. No unsupported factual additions detected. Verdict: **clear**."
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 2675,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "a268f95d-df48-4c3e-8f6f-4eaf66645a6b",
+        "uuid": "d119679f-1149-475e-9894-1f9bb3bdc669"
+      },
+      {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 18227,
+        "duration_api_ms": 18210,
+        "num_turns": 2,
+        "result": "**Review summary**\n\nThe draft satisfies both explicit rules (word limit ≤ 80; exact text \"June 30\"). It is a single continuation paragraph that does not reproduce the existing passage. It explains the preferred alternative (anonymous aggregate totals, account-free reading) and invites written comments, matching the brief. Tentative status is explicitly preserved (\"These are suggestions, not settled proposals\"). No affiliation or personal history is invented. No unsupported factual additions detected. Verdict: **clear**.",
+        "stop_reason": "end_turn",
+        "session_id": "a268f95d-df48-4c3e-8f6f-4eaf66645a6b",
+        "total_cost_usd": 0.047939999999999997,
+        "usage": {
+          "input_tokens": 4398,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 1038,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-opus-4-6[1m]": {
+            "inputTokens": 4398,
+            "outputTokens": 1038,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.047939999999999997,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 64000
+          }
+        },
+        "permission_denials": [],
+        "structured_output": {
+          "schema": "prose-runtime-review/1",
+          "verdict": "clear",
+          "findings": [],
+          "instructions": [
+            {
+              "id": "length",
+              "status": "applied",
+              "reason": "Draft is approximately 68 words, well within the 80-word maximum."
+            },
+            {
+              "id": "deadline",
+              "status": "applied",
+              "reason": "The exact text \"June 30\" appears at the end of the draft."
+            }
+          ],
+          "atom_accounting": [],
+          "disclosures": []
+        },
+        "fast_mode_state": "off",
+        "uuid": "d84c49d3-fc4d-4d0d-ae21-1bf4c1a37aba"
+      }
+    ],
+    "status": "passed"
+  }
+}

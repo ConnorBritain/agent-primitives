@@ -93,11 +93,21 @@ export function renderComparisonReport(report) {
 }
 
 /** Recount immutable initial drafts; never dispatches a model or replaces a cell. */
+export function comparisonCallErrors(design, calls) {
+  const expected = design.authors.flatMap((author) => [`${author}-profile`,
+    ...design.forms.flatMap((form) => CONDITIONS.map((condition) => `${author}-${form.id}-${condition}`))]);
+  // A condition named "profile" is a draft, not another profile-render call.
+  return JSON.stringify(calls.map((r) => r.stage)) === JSON.stringify(expected)
+    && new Set(calls.map((r) => r.id)).size === expected.length
+    ? [] : ["Expected exactly two profile and eighteen draft records in design order, with no redraws"];
+}
+
 export function verifyComparison(out) {
   const manifest = read(join(out, "MANIFEST.json")), report = read(join(out, "REPORT.json")), errors = [];
   if (manifest.prompt_digests.draft !== sha256(DRAFT_INSTRUCTIONS) || manifest.prompt_digests.profile !== sha256(PROFILE_INSTRUCTIONS)) errors.push("Current prompt bodies differ from the recorded comparison");
   if (manifest.design_digest !== sha256(readFileSync(DESIGN)) || JSON.stringify(manifest.design) !== JSON.stringify(read(DESIGN))) errors.push("Comparison design changed");
   if (report.cells.length !== 18 || new Set(report.cells.map((c) => c.id)).size !== 18) errors.push("Expected eighteen unique initial cells");
+  errors.push(...comparisonCallErrors(manifest.design, report.calls));
   for (const author of manifest.design.authors) {
     const samples = read(join(out, "inputs", `${author}.json`)), rendered = read(join(out, "profiles", `${author}.json`));
     if (JSON.stringify(samples) !== JSON.stringify(readCurrentSamples(join(HERE, "fixtures/profiles", author)))) errors.push(`${author}: source corpus changed`);
@@ -116,7 +126,6 @@ export function verifyComparison(out) {
       if (JSON.stringify(copyingCheck(cell.draft, samples, { original: input.source_text })) !== JSON.stringify(cell.copying)) errors.push(`${id}: copying results do not reproduce`);
     }
   }
-  if (report.calls.length !== 20 || report.calls.filter((r) => r.stage.endsWith("-profile")).length !== 2) errors.push("Expected exactly two profile and eighteen draft records, with no redraws");
   return errors;
 }
 

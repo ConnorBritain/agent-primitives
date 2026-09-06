@@ -1,0 +1,855 @@
+{
+  "stage": "initial-draft",
+  "system": "\nYou draft or revise prose using only the authorized task inputs. Return\n`voice-draft-source/5`; deterministic code and separate reviewers check it.\n\n## Inputs and priority\n\nThe caller supplies a brief, task context, factual material, optional existing\npassage, explicit rules, an optional `voice-profile/3`, and up to three selected\nwhole human-authored examples. A compiled `voice-style-spec/2` may supply the\nprofile and rules instead. Follow the user's chosen form, purpose and explicit\npreferences. Never reinterpret a user preference as an observed habit.\n\nUse only supplied inputs. Do not open files, browse, invoke tools, or bring in\nunrelated session history. Examples are authorized style evidence, not a license\nto read the rest of a corpus. Without examples, stay profile-only. Without a\nprofile, use the supplied preferences and task; do not invent a learned voice.\n\nNever consume `catalog.json`, detector thresholds, or a generic AI-tell list.\nRefuse such material. A user's explicit phrase or punctuation choice is allowed;\ndo not mistake an ordinary personal preference for a tell catalog.\n\n## Read the profile as evidence, not quotas\n\nRead every supplied coverage row and resolve its `observation_ids` before\nwriting, including:\n\n- `person-reader-stance`\n- `contraction-negation`\n- `qualification-hedging`\n- `questions-imperatives-vocatives`\n- `opponents-allies-sources`\n- `profanity-vulgarity`\n- `self-reference-biography`\n- `interruption-punctuation`\n- `figures-analogy`\n- `openings-endings-closure`\n\nFor `rated` rows, measured frequencies describe the samples; they are advisory\ntendencies, not mandatory quotas or per-draft minimums. For `described` rows,\nuse the supported behavior with context-appropriate placement and restraint.\nFor `unresolved` rows, invent no habit. An observed absence means “not observed\nin these samples,” not “the author never does this.” Only an explicit user rule\ncreates a prohibition or count requirement. Limited samples and unmatched\nregisters limit what the profile establishes.\n\nDo not smooth away supported parentheticals, interruption punctuation, figure\nvocabulary or attribution merely because uninterrupted generic prose is easier\nto compose. Conversely, do not force every tendency into a short reply, reproduce\nevery paragraph ending as the same rhetorical move, or pad a piece to hit a\ncorpus rate. If an applicable supported instruction cannot be used, identify its\nobservation or rule ID and the concrete reason in `omitted`. Natural variation\nalone is not an omission; an unresolved coverage row supplies no instruction.\n\nExplicit mechanical rules govern literal phrases, punctuation, word limits and\nnamed count ranges. Use the final prose length, not the requested target, when\nconsidering a rate. An explicit zero means zero. Semantic preferences govern\nmeaning or placement but are not mechanically provable. Never change substantive\nmeaning just to satisfy a count.\n\n## Task modes and fidelity\n\n- `draft`: write the requested new piece from its brief, notes or outline.\n- `rewrite`: change the supplied passage only as requested. Preserve its facts,\n  quotations, named entities, qualifications, scope and strength of claims.\n- `continue`: return only the continuation. Use the existing passage for\n  coherence and established referents, not as an additional human style sample.\n- A supplied `previous_draft` and `repair_findings` mean bounded repair: make\n  the smallest coherent changes addressing those identified problems. Preserve\n  substantive material; never silently delete paragraphs to satisfy a count.\n  The caller limits repair cycles and checks the exact final bytes.\n\nBefore output, substitute the referenced noun/group for each pronoun and\npossessive. Fix inconsistent person, number, ownership or reader inclusion,\nespecially `we/our` beside `you/your`. Preserve factual relationships, not just\nthe literal presence of names or numbers.\n\n## Factual material and copying\n\nFirst person is grammar, not biography. Never invent an employer, experience,\ncredential, residence, family, possession or event for the supposed author.\nExamples and profile citations do not make their authors' lives the user's life.\nUse task facts for author biography; omit or recast unsupported personal details.\n\nDo not fabricate citations, attributed quotations, statistics or an opponent's\nposition to imitate a source habit. Preserve supplied quotation bytes. If the\ntask lacks material needed for an attribution-based habit, omit that habit and\nrecord why. A statement about what an unnamed opponent would say is still an\nunsupported attribution, not a harmless workaround.\n\nDisclose factual additions lacking supplied support in `claims`, with the exact\ndraft quote and what needs verification. A disclosure is not verification or\npermission to fabricate a source. General knowledge can be mistaken; do not\nclaim factual certainty. Examples guide style, not topic facts. Do not reproduce\ndistinctive example passages without authorized attribution. A later overlap\ncheck is a heuristic, not a guarantee that copying is impossible.\n\n## Refusal and output contract\n\nRefuse when the requested register is genuinely unchoosable, necessary task\ncontent is missing, or forbidden catalog material is supplied. Do not refuse\nmerely because there is no corpus or because a supported short task has limited\nstyle evidence. Do not silently convert historical profiles into /3; ask the\ncaller to refresh or select the historical workflow.\n\nReturn one JSON object without fences or commentary. All keys are required:\n\n```json\n{\n  \"schema\": \"voice-draft-source/5\",\n  \"kind\": \"draft\",\n  \"draft\": \"The actual prose, without verification commentary.\",\n  \"omitted\": [{\"id\": \"a-supplied-rule-or-observation-id\", \"reason\": \"Why it could not apply.\"}],\n  \"claims\": [{\"quote\": \"An exact span in the draft.\", \"reason\": \"What requires verification.\"}],\n  \"refused\": \"\"\n}\n```\n\nUse empty arrays when there are no omissions or disclosed additions. A refusal\nuses `kind: \"refusal\"`, an empty draft and empty arrays, and a nonempty `refused`\nreason. Never return both a draft and a refusal. Do not invent IDs. Do not claim\nthe result sounds like the author, is good, is factually accurate, or would pass\na detector.\n\n## Known limits\n\nA compact profile loses detail. Selected examples can bias topic or wording.\nSemantic checks can miss errors. You produce a candidate, not its certification;\nonly the caller's recorded checks describe what was actually evaluated.\n",
+  "input": {
+    "brief": "Turn this outline into a short blog post: (1) What the proposed library app contract retains; (2) why retaining identifiable reading history can chill private inquiry—present this as a risk argument, not an observed event; (3) the concrete anonymous/account-free alternative; (4) how to comment before the deadline. Stay within the supplied fictional scenario. Do not invent a named opponent, quotation, statistic, law or actual breach.",
+    "mode": "draft",
+    "context": {
+      "form": "blog",
+      "purpose": "explain-proposed-library-contract",
+      "audience": "general readers",
+      "register": null
+    },
+    "facts": [
+      "This is a fictional scenario supplied for a writing exercise, not a report about a real program.",
+      "A town library is considering a six-month pilot of a reading app.",
+      "The vendor's proposed contract permits retaining identifiable reading histories for two years after a patron closes an account.",
+      "The library has not signed the contract.",
+      "The library board accepts written comments until June 30.",
+      "The proposed alternative is to retain only anonymous aggregate usage totals and to let patrons read without creating an account."
+    ],
+    "source_text": "",
+    "rules": [
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Keep the exact deadline text June 30.",
+        "text": "June 30"
+      },
+      {
+        "id": "no-cliche",
+        "kind": "prohibited-phrase",
+        "directive": "Do not use the phrase in today's world.",
+        "text": "in today's world"
+      },
+      {
+        "id": "questions",
+        "kind": "punctuation",
+        "directive": "Use at most one question mark.",
+        "characters": "?",
+        "minimum": 0,
+        "maximum": 1
+      },
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use 260–340 words.",
+        "minimum": 260,
+        "maximum": 340
+      }
+    ],
+    "profile": {
+      "schema": "voice-profile/3",
+      "id": "doctorow-blog",
+      "digest": "f08f8b5a25f72de90bdadcc86ccdce59fad65f0d8381bb7280938078a0eb89a0",
+      "support": "supported",
+      "coverage": [
+        {
+          "dimension": "person-reader-stance",
+          "status": "described",
+          "observation_ids": [
+            "o001",
+            "o002"
+          ],
+          "measurement_ids": [
+            "second-person-family",
+            "first-person-plural-family"
+          ],
+          "reason": null
+        },
+        {
+          "dimension": "contraction-negation",
+          "status": "described",
+          "observation_ids": [
+            "o003"
+          ],
+          "measurement_ids": [
+            "contractions",
+            "uncontracted-negatives"
+          ],
+          "reason": null
+        },
+        {
+          "dimension": "qualification-hedging",
+          "status": "described",
+          "observation_ids": [
+            "o004",
+            "o006"
+          ],
+          "measurement_ids": [],
+          "reason": null
+        },
+        {
+          "dimension": "questions-imperatives-vocatives",
+          "status": "described",
+          "observation_ids": [
+            "o005",
+            "o006"
+          ],
+          "measurement_ids": [
+            "question-marks"
+          ],
+          "reason": null
+        },
+        {
+          "dimension": "opponents-allies-sources",
+          "status": "described",
+          "observation_ids": [
+            "o007"
+          ],
+          "measurement_ids": [],
+          "reason": null
+        },
+        {
+          "dimension": "profanity-vulgarity",
+          "status": "described",
+          "observation_ids": [
+            "o008"
+          ],
+          "measurement_ids": [
+            "profanity-vulgarity"
+          ],
+          "reason": null
+        },
+        {
+          "dimension": "self-reference-biography",
+          "status": "described",
+          "observation_ids": [
+            "o007",
+            "o009"
+          ],
+          "measurement_ids": [
+            "first-person-singular-family"
+          ],
+          "reason": null
+        },
+        {
+          "dimension": "interruption-punctuation",
+          "status": "described",
+          "observation_ids": [
+            "o010"
+          ],
+          "measurement_ids": [
+            "round-parenthetical-spans",
+            "em-dashes",
+            "en-dashes"
+          ],
+          "reason": null
+        },
+        {
+          "dimension": "figures-analogy",
+          "status": "described",
+          "observation_ids": [
+            "o011"
+          ],
+          "measurement_ids": [],
+          "reason": null
+        },
+        {
+          "dimension": "openings-endings-closure",
+          "status": "described",
+          "observation_ids": [
+            "o012",
+            "o013"
+          ],
+          "measurement_ids": [],
+          "reason": null
+        }
+      ],
+      "observations": [
+        {
+          "id": "o001",
+          "dimensions": [
+            "person-reader-stance"
+          ],
+          "description": "In the argumentative essays, second-person hypotheticals put the reader inside a mechanism and make its consequences concrete.",
+          "citations": [
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "If your boss overestimates the amount of business, much of the cost of that miscalculation comes out of your paycheck.",
+              "start": 4433,
+              "end": 4551
+            },
+            {
+              "file": "2026-07-24-supplemental-income.txt",
+              "quote": "All you need to do is sell your shares after the price spike, but before anyone else figures out that the business is a turkey.",
+              "start": 6042,
+              "end": 6169
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o002",
+          "dimensions": [
+            "person-reader-stance"
+          ],
+          "description": "First-person plural places the writing self and readers among the people affected by the discussion, especially when explaining shared constraints.",
+          "citations": [
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "Of course, workers and customers have the data, too, but our data is widely diffused, with each worker and each customer only representing a single, infinitesimal pixel in this massive picture.",
+              "start": 1377,
+              "end": 1570
+            },
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "All of us – but especially normies – are having to do more with less.",
+              "start": 12745,
+              "end": 12814
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o003",
+          "dimensions": [
+            "contraction-negation"
+          ],
+          "description": "Contractions give analytical statements a spoken cadence. Negation helps distinguish an asserted mechanism from a familiar account of it; full negative forms also occur in deliberate conditional reasoning.",
+          "citations": [
+            {
+              "file": "2026-07-24-supplemental-income.txt",
+              "quote": "As a technology, AI isn't exceptional. It's not exceptionally wicked. It's not exceptionally good.",
+              "start": 898,
+              "end": 996
+            },
+            {
+              "file": "2026-07-24-supplemental-income.txt",
+              "quote": "Were it not for the imperative to turn more than a trillion dollars of losses into a profit, we would not have the aggressive, site-destroying scraping epidemic.",
+              "start": 2591,
+              "end": 2752
+            },
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "This is \"flexibility,\" but mostly it's flexibility for Uber, not for drivers.",
+              "start": 7280,
+              "end": 7357
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o004",
+          "dimensions": [
+            "qualification-hedging"
+          ],
+          "description": "Concessions acknowledge a limited truth before narrowing its explanatory reach. First-person qualification can introduce an additional explanation without making the surrounding argument uniformly tentative.",
+          "citations": [
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "This is true, but it's more complicated than that.",
+              "start": 6246,
+              "end": 6296
+            },
+            {
+              "file": "2026-07-24-supplemental-income.txt",
+              "quote": "I think billionaire solipsism can account for much of the malinvestment in this obvious bubble, but I don't think it's the whole story.",
+              "start": 5243,
+              "end": 5378
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o005",
+          "dimensions": [
+            "questions-imperatives-vocatives"
+          ],
+          "description": "Questions organize exposition by stating the next problem, then moving immediately into an explanation or example. They invite the reader to follow the argument rather than supply an answer.",
+          "citations": [
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "What's a labor organizer to do? The Swiss labor union Syndicom came up with an ingenious solution.",
+              "start": 13067,
+              "end": 13165
+            },
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "So, once you're on your actual computer, using Firefox, how can you disenshittify your internet experience? The first thing to familiarize yourself with is Reader Mode, a built-in Firefox feature that switches any webpage to a black type/white background column of text.",
+              "start": 5943,
+              "end": 6213
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o006",
+          "dimensions": [
+            "questions-imperatives-vocatives",
+            "qualification-hedging"
+          ],
+          "description": "Limited to the practical tutorial within 'dickovers': direct commands follow the user's sequence of actions, with previews and reversible steps reducing uncertainty. This passage alone does not establish a general instructional voice.",
+          "citations": [
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "Select \"Block Element,\" then move your mouse around the screen. Different regions of the screen will glow pink, showing you which element (part of the page) ABP can access there.",
+              "start": 8845,
+              "end": 9023
+            },
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "If you block an element by accident and want to restore it, just delete its corresponding line in the Block Element dialog.",
+              "start": 9799,
+              "end": 9922
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o007",
+          "dimensions": [
+            "opponents-allies-sources",
+            "self-reference-biography"
+          ],
+          "description": "Named sources become interlocutors: the prose identifies their contribution, then explicitly marks the author's addition or qualification. Source wording remains attributable to the source.",
+          "citations": [
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "As Weil writes, at least Airbnb hosts get to override the nightly rate suggested by the platform (though I'd add that the platforms will downrank and bury people who resist their suggestions).",
+              "start": 9818,
+              "end": 10010
+            },
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "It's an excellent observation, and Zitron's point – that these laptops were actively enshittified by hardware makers and OS vendors – is an important one (the essay is called \"Never Forgive Them\").\n\nBut to this point, I would like to add another: we have a duty and obligation to the people we love to show them how to seize the means of computation.",
+              "start": 11178,
+              "end": 11528
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o008",
+          "dimensions": [
+            "profanity-vulgarity"
+          ],
+          "description": "Profanity supplies emphatic dismissal or exasperation at argumentative pressure points. It appears within explanations and verdicts, rather than serving only as quoted language.",
+          "citations": [
+            {
+              "file": "2026-07-23-drop-a-dime.txt",
+              "quote": "That's the whole fucking point of this exercise: that web-pages and apps can request your mobile ad identifier.",
+              "start": 7475,
+              "end": 7586
+            },
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "Companies claim they need dickovers to survive. It's bullshit.",
+              "start": 15276,
+              "end": 15338
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o009",
+          "dimensions": [
+            "self-reference-biography"
+          ],
+          "description": "First-person experience supplies a route into a question or a bounded basis for a recommendation. These passages demonstrate the writing self's role, not personal history to reuse.",
+          "citations": [
+            {
+              "file": "2026-07-13-go-meta-meta.txt",
+              "quote": "I first encountered that quote from someone extolling the virtues of bookstores, and it stuck with me, because for most of my childhood, every bookstore visit ended with me broke and wishing I'd had three times as much to spend.",
+              "start": 1318,
+              "end": 1546
+            },
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "I've been running gala8y's version for a year now with no problems, and I recommend it as your second line of dickover defense (after Reader Mode):",
+              "start": 8040,
+              "end": 8187
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o010",
+          "dimensions": [
+            "interruption-punctuation"
+          ],
+          "description": "Parentheses carry comic side comments, while spaced dashes insert consequential details without abandoning the sentence. The supplied typography supports these functions, but its editorial history is unspecified.",
+          "citations": [
+            {
+              "file": "2026-07-13-go-meta-meta.txt",
+              "quote": "Nevertheless, Omar Khayyám's question stuck with me, especially when I fell down a years-long rabbit-hole of learning about scams and the finance sector (but I repeat myself).",
+              "start": 1961,
+              "end": 2136
+            },
+            {
+              "file": "2026-07-10-posthuman-as-in-no-humans.txt",
+              "quote": "With AI, the fact that you need to pee – or get paid – does become your problem, rather than your boss's.",
+              "start": 2257,
+              "end": 2362
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o011",
+          "dimensions": [
+            "figures-analogy"
+          ],
+          "description": "Concrete commercial analogies turn abstract incentives into visible transactions. The prose extends the comparison to explain who controls the exchange and who bears its costs.",
+          "citations": [
+            {
+              "file": "2026-07-13-go-meta-meta.txt",
+              "quote": "It's an old truism that in a gold rush, the only people who come out ahead are the people selling the picks and shovels. But that's not true – there's even more money to be made wholesaling picks and shovels to the retailers who operate the frontier mercantiles. Go meta!",
+              "start": 5987,
+              "end": 6258
+            },
+            {
+              "file": "2026-07-21-dickovers.txt",
+              "quote": "But they are running a very curious sort of market: it's a \"market\" where as soon as you stop to browse someone's wares, the stallholder gets to reach into your pocket and clean out your wallet.",
+              "start": 13398,
+              "end": 13592
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o012",
+          "dimensions": [
+            "openings-endings-closure"
+          ],
+          "description": "Essay openings can establish a compact puzzle or distinction before elaborating it. These are main-essay openings, distinct from the site's recurring navigation and promotional material.",
+          "citations": [
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "Here's an irony: the \"gig economy\" is a statistical black hole.",
+              "start": 877,
+              "end": 940
+            },
+            {
+              "file": "2026-07-24-supplemental-income.txt",
+              "quote": "As a technology, AI isn't exceptional. It's not exceptionally wicked. It's not exceptionally good.",
+              "start": 898,
+              "end": 996
+            }
+          ],
+          "interpretation": "advisory"
+        },
+        {
+          "id": "o013",
+          "dimensions": [
+            "openings-endings-closure"
+          ],
+          "description": "At paragraph and essay endings, the prose compresses its reasoning into a short consequence or returns to the central distinction with stronger evaluative language.",
+          "citations": [
+            {
+              "file": "2026-07-11-your-risk.txt",
+              "quote": "They make the decisions, and workers pay the price if they decide poorly.",
+              "start": 4955,
+              "end": 5028
+            },
+            {
+              "file": "2026-07-24-supplemental-income.txt",
+              "quote": "AI is an ordinary technology, but the AI bubble is extraordinary: extraordinarily toxic and extraordinarily dangerous.",
+              "start": 9964,
+              "end": 10082
+            }
+          ],
+          "interpretation": "advisory"
+        }
+      ],
+      "limits": [
+        "Counts describe this selected evidence, not mandatory quotas.",
+        "Zero observations are not a permanent prohibition.",
+        "Semantic observations are cited interpretations, not proof of resemblance."
+      ],
+      "measurements": [
+        {
+          "id": "second-person-family",
+          "count": 380,
+          "per_1000_words": 21.49,
+          "counting_rule": "[normalization:visible-prose/1] Count case-insensitive whole-word tokens you, your, yours, you're, you've, you'd, and you'll in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 10.95,
+            "p10": 12.705,
+            "median": 17.715,
+            "p90": 38.293,
+            "maximum": 40.3
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 10.95,
+                "p10": 12.705,
+                "median": 17.715,
+                "p90": 38.293,
+                "maximum": 40.3
+              }
+            }
+          ]
+        },
+        {
+          "id": "first-person-plural-family",
+          "count": 122,
+          "per_1000_words": 6.9,
+          "counting_rule": "[normalization:visible-prose/1] Count case-sensitive whole-word tokens we, We, us, our, Our, ours, Ours, and the listed contracted we forms in the author-visible prose (recognizable quotations excluded); uppercase US is excluded.",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 0.97,
+            "p10": 2.122,
+            "median": 6.11,
+            "p90": 14.095,
+            "maximum": 14.23
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 0.97,
+                "p10": 2.122,
+                "median": 6.11,
+                "p90": 14.095,
+                "maximum": 14.23
+              }
+            }
+          ]
+        },
+        {
+          "id": "contractions",
+          "count": 300,
+          "per_1000_words": 16.96,
+          "counting_rule": "[normalization:visible-prose/1] Count whole-word n't, 're, 've, 'll, 'd, and 'm forms plus 's only for the closed elision hosts it, that, there, here, who, what, where, when, how, why, he, she, let, one, nothing, everything, something, somebody, nobody, and this; possessive 's is excluded.",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 12.5,
+            "p10": 13.418,
+            "median": 16.635,
+            "p90": 24.395,
+            "maximum": 25.97
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 12.5,
+                "p10": 13.418,
+                "median": 16.635,
+                "p90": 24.395,
+                "maximum": 25.97
+              }
+            }
+          ]
+        },
+        {
+          "id": "uncontracted-negatives",
+          "count": 9,
+          "per_1000_words": 0.51,
+          "counting_rule": "[normalization:visible-prose/1] Count case-insensitive whole phrases do not, does not, did not, is not, are not, was not, were not, cannot, could not, would not, should not, will not, have not, has not, and had not in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0.2,
+            "p90": 1.4429999999999998,
+            "maximum": 1.56
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 0,
+                "p10": 0,
+                "median": 0.2,
+                "p90": 1.4429999999999998,
+                "maximum": 1.56
+              }
+            }
+          ]
+        },
+        {
+          "id": "profanity-vulgarity",
+          "count": 22,
+          "per_1000_words": 1.24,
+          "counting_rule": "[normalization:visible-prose/1] Count only the case-insensitive whole-word profanity and vulgarity forms enumerated by the prose-author profanity rule; coined words containing a rude root are excluded.",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 0.39,
+            "p10": 0.399,
+            "median": 1.29,
+            "p90": 2.1769999999999996,
+            "maximum": 2.87
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 0.39,
+                "p10": 0.399,
+                "median": 1.29,
+                "p90": 2.1769999999999996,
+                "maximum": 2.87
+              }
+            }
+          ]
+        },
+        {
+          "id": "first-person-singular-family",
+          "count": 109,
+          "per_1000_words": 6.16,
+          "counting_rule": "[normalization:visible-prose/1] Count case-insensitive whole-word tokens I, me, my, mine, and myself in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 0.4,
+            "p10": 0.841,
+            "median": 5.21,
+            "p90": 20.898999999999997,
+            "maximum": 23.95
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 0.4,
+                "p10": 0.841,
+                "median": 5.21,
+                "p90": 20.898999999999997,
+                "maximum": 23.95
+              }
+            }
+          ]
+        },
+        {
+          "id": "question-marks",
+          "count": 35,
+          "per_1000_words": 1.98,
+          "counting_rule": "[normalization:visible-prose/1] Count every literal question-mark character in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 0.48,
+            "p10": 0.696,
+            "median": 1.4249999999999998,
+            "p90": 3.899999999999996,
+            "maximum": 14.07
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 0.48,
+                "p10": 0.696,
+                "median": 1.4249999999999998,
+                "p90": 3.899999999999996,
+                "maximum": 14.07
+              }
+            }
+          ]
+        },
+        {
+          "id": "round-parenthetical-spans",
+          "count": 97,
+          "per_1000_words": 5.48,
+          "counting_rule": "[normalization:visible-prose/1] Count each non-nested pair of round brackets whose contents stay on one line in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 1.96,
+            "p10": 2.689,
+            "median": 6.58,
+            "p90": 7.529,
+            "maximum": 7.88
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 1.96,
+                "p10": 2.689,
+                "median": 6.58,
+                "p90": 7.529,
+                "maximum": 7.88
+              }
+            }
+          ]
+        },
+        {
+          "id": "em-dashes",
+          "count": 0,
+          "per_1000_words": 0,
+          "counting_rule": "[normalization:visible-prose/1] Count every literal em-dash character in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": true,
+          "distribution": {
+            "n": 10,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "maximum": 0
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 0,
+                "p10": 0,
+                "median": 0,
+                "p90": 0,
+                "maximum": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "en-dashes",
+          "count": 72,
+          "per_1000_words": 4.07,
+          "counting_rule": "[normalization:visible-prose/1] Count every literal en-dash character in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 10,
+            "minimum": 0.75,
+            "p10": 1.0470000000000002,
+            "median": 3.685,
+            "p90": 7.181,
+            "maximum": 7.73
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 10,
+                "minimum": 0.75,
+                "p10": 1.0470000000000002,
+                "median": 3.685,
+                "p90": 7.181,
+                "maximum": 7.73
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "examples": [
+      {
+        "id": "2026-07-13-go-meta-meta.txt",
+        "text": "---\nsource: pluralistic.net (Cory Doctorow)\ntitle: Why aren&#039;t AI companies competing directly with their customers?\nauthor: Cory Doctorow\ndate: 2026-07-13\nhuman_authored: true\nlicense: CC-BY-4.0\npermalink: https://pluralistic.net/2026/07/13/go-meta-meta/\n---\nToday's links\n\nWhy aren't AI companies competing directly with their customers? Why sell picks and shovels if you've already struck gold?\n\nHey look at this: Delights to delectate.\n\nObject permanence: Pro-logging Lorax; Anti-DRM picture book; Whose cops did America train? Day on a Device; Theresa May x Fresh Prince; Ratfucking Corbyn supporters; Infosec v W3C DRM; Remix Public Enemy; Hungary's Cold War cartoons; America is unpaving its roads; Olympic overruns are world champions; Vivendi lobbyist is now UN copyright boss; Boris's racism; Facebook's insider stalkers; Semantic drift, ethical drift.\n\nUpcoming appearances: Edinburgh, Sydney, Melbourne, Brighton, London, South Bend.\n\nRecent appearances: Where I've been.\n\nLatest books: You keep readin' em, I'll keep writin' 'em.\n\nUpcoming books: Like I said, I'll keep writin' 'em.\n\nColophon: All the rest.\n\nWhy aren't AI companies competing directly with their customers? (permalink)\n\n\"I often wonder what the Vintners buy/One half so precious as the Goods they sell\" -The Rubáiyát of Omar Khayyám\n\nI first encountered that quote from someone extolling the virtues of bookstores, and it stuck with me, because for most of my childhood, every bookstore visit ended with me broke and wishing I'd had three times as much to spend.\n\nAs a larval hyperlexic, I just didn't understand what a bookseller could possibly buy with my money that was better than the books they already had? Of course, then I became a bookseller and discovered that Sturgeon's Law (\"90% of everything is shit\") applies to a bookstore's wares as much as it does to anything else. I also acquired a monthly rent obligation and discovered just how important money could be.\n\nNevertheless, Omar Khayyám's question stuck with me, especially when I fell down a years-long rabbit-hole of learning about scams and the finance sector (but I repeat myself). Every get-rich-quick schemer will tell you that they've found the infinite money hack, which they will sell to you for a remarkably reasonable sum. Likewise, every stock picker claims they can outperform a simple low-load index fund, and all they ask of you is a few hundred basis points in exchange for multiplying your wealth beyond the dreams of Creosote. Neither one has a good answer to Khayyám's question: if you can make all the money with your amazing system, why do you need my money?\n\nThis is a question that needs to be forcefully put to AI hucksters. In their more expansive moments, the Altmans and Amodeis of the world will tell you that they're planning to teach the word-guessing program so many words that it will wake up and become god. DOGE's broccoli-haired brownshirts laughed in the faces of the NIH lifers who begged them not to vaporize their long-running cancer research projects: \"General AI is around the corner and it's going to cure cancer. Cancer research is a waste of money!\"\n\nWhich all raises the question: if you've truly incubated a foetal demiurge in your \"AI lab,\" why are you offering to sell it to me? What do the AI hucksters buy/One half so precious as the Gods they sell?\"\n\nOf course, they might answer, \"We need your money now so we can make god later.\" That's why they want your boss to fire you and replace you with their chatbots and split your wages with your former employer. But this just raises the same question: if you have a chatbot that can do a doctor's job, why sell it to a hospital? Why not just open your own hospital? If you've got a chatbot that can do a tax accountant's job, why sell it to a tax-prep service? Why not just open a tax-prep service? If you've got a chatbot that can teach my kids, why sell it to my local school district? Why not just open a school?\n\nIf the chatbot can do the job, and if the chatbot costs less than the worker who does the job today, then the chatbot company can profitably sell services more cheaply than anyone who presently employs that worker, because the chatbot company already owns the chatbot. If you were really on a glide path to creating an all-powerful deity and just needed cash to keep the venture going until the cancer-curing word-guesser awoke from its long slumber, then wouldn't you want as much cash as possible? Why would you voluntarily split the take with some sucky, washed, non-god-generating business from before 2022?\n\nI think the only reason this question doesn't come up more frequently is that we're stewing in what Douglas Rushkoff calls the \"go meta\" economy, in which the most respectable and smartest business to operate must be as many abstraction layers away from real work as possible. Don't drive a taxi, own a medallion that you rent to the cab driver. Don't own a medallion, start a \"rideshare\" company. Don't start a rideshare company, invest in a rideshare company. Don't invest in a rideshare company, buy options to invest in a rideshare company:\n\nhttps://pluralistic.net/2022/09/13/collapse-porn/#collapse-porn\n\nThe inverse relationship between doing something useful and making money is deeply ingrained in our economic wisdom. Take the world of online grifters, who don't just peddle get-rich-quick PDFs, they also peddle tools to generate get-rich-quick PDFs, as well as tools to steal other \"wealth influencers'\" insta videos and deepfake yourself into their pretend private jets:\n\nhttps://www.404media.co/how-i-bought-a-private-jet-by-selling-10-subscriptions-to-404-media/\n\nThe scam economy boasts a bewildering array of ancillary services, like a $150/month service that lets you produce fake screenshots showing vast monthly income on other scam services (November Kelly calls this \"The world's most expensive 'inspect element'\"):\n\nhttps://www.patreon.com/trashfuture/posts/faux-high-level-163443872\n\nIt's an old truism that in a gold rush, the only people who come out ahead are the people selling the picks and shovels. But that's not true – there's even more money to be made wholesaling picks and shovels to the retailers who operate the frontier mercantiles. Go meta!\n\nhttps://commons.wikimedia.org/wiki/File:Alaskan_Gold_Mining_Supplies_(1897)_(ADVERT_277).jpeg\n\nToday's economy is dominated by pick-and-shovel wholesalers. America is a gerontocracy drowning in MBAs, while there's no one to do eldercare:\n\nhttps://www.msn.com/en-us/news/us/why-recruiters-can-t-find-workers-and-new-grads-can-t-find-jobs-it-s-not-ai/ar-AA27K57y\n\nSo it's not surprising that we don't ask why these AI god-botherers need our stupid money while they're immanentizing the eschaton. Why would they operate a hospital if they could go meta and sell the doctorbots to the MBAs running the hospital?\n\nHey look at this (permalink)\n\nMark Zuckerberg and Meta Deride “Headline-Seeking” Damages Sought By State AGs In Social Media Safety Suit: “Untethered From Reality” https://deadline.com/2026/07/social-media-lawsuit-damages-zuckerberg-1236977447/\n\nZohran Mamdani's retro wristwatch is a Casio classic https://boingboing.net/2026/07/08/zohran-mamdanis-retro-wristwatch-is-a-casio-classic.html\n\nB.O.B. (Birds Over Big Bird) https://www.youtube.com/watch?v=fAXO7SXK0Pc\n\nA referendum for another development model https://thomaspiketty.wordpress.com/2026/06/23/a-referendum-for-social-justice/\n\nIntroducing the Gap Map v0.1 https://www.currentai.org/blogs/introducing-the-gap-map-v0-1\n\nObject permanence (permalink)\n\n#25yrsago Pro-lumber industry spoof of The Lorax https://web.archive.org/web/20010721042828/http://www.forestcouncil.org/news/articles/truax1.htm\n\n#25yrsago Remixable vocal tracks from the next Public Enemy release https://web.archive.org/web/20010813195140/http://www.slamjamz.com/slamnews.php?article=7\n\n#20yrsago Wikipedia creates RSS for its posts https://web.archive.org/web/20060718103013/http://www.micropersuasion.com/2006/07/wikipedia_entir.html\n\n#20yrsago Anti-DRM picture-book https://web.archive.org/web/20060721095740/https://dustrunners.blogspot.com/2006/07/pig-and-box.html\n\n#10yrsago The US has spent $122B training foreign cops and soldiers in 150+ countries, but isn’t sure who https://web.archive.org/web/20160713145824/https://theintercept.com/2016/07/13/training/\n\n#10yrsago German free school teaches without grades, timetables or lesson plans https://www.theguardian.com/world/2016/jul/01/no-grades-no-timetable-berlin-school-turns-teaching-upside-down\n\n#10yrsago For the first time, a federal judge has thrown out police surveillance evidence from a “Stingray” device https://www.rawstory.com/2016/07/federal-judge-throws-out-evidence-gathered-with-stingray-cell-phone-tracker/\n\n#10yrsago Day on a Device: art made by screenshotting a multitasker’s screen with each context-switch https://www.theverge.com/2016/7/13/12170526/multitasking-phone-laptop-pierre-buttin-art\n\n#10yrsago Remarkably Normal: the true stories of abortion in America https://web.archive.org/web/20160810092901/http://jezebel.com/the-vagina-monologues-but-for-abortion-1783289270/amp\n\n#10yrsago Theresa May performs the Fresh Prince of Bel-Air theme https://www.youtube.com/watch?v=xv7Jd94bnOI\n\n#10yrsago UK Labour’s dirty trick excludes 130,000 members from leadership vote https://web.archive.org/web/20160712225142/http://www.itv.com/news/2016-07-12/corbyn-opponents-try-to-fix-vote/\n\n#10yrsago Security researchers: the W3C’s DRM needs to be thoroughly audited https://www.eff.org/deeplinks/2016/06/call-security-community-w3cs-drm-must-be-investigated\n\n#10yrsago Help Doctors Without Borders fill in the geodata blanks for vulnerable communities https://missingmaps.org/blog/2016/07/14/mapswipe/\n\n#10yrsago Sign a book of congratulations for America’s new Librarian of Congress https://web.archive.org/web/20160718023555/https://action.everylibrary.org/congratulate_carla_hayden_today\n\n#10yrsago Hungary’s Cold War cartoons were weird and awesome https://globalvoices.org/2016/07/14/the-fascinating-world-of-cold-war-era-hungarian-cartoons/\n\n#10yrsago The ACLU has a roadmap for defeating President Donald Trump’s signature initiatives https://web.archive.org/web/20160715131734/https://action.aclu.org/sites/default/files/pages/trumpmemos.pdf\n\n#10yrsago America’s infrastructure debt is so bad that towns are unpaving roads they can’t afford to fix https://web.archive.org/web/20160713170836/https://www.wired.com/2016/07/cash-strapped-towns-un-paving-roads-cant-afford-fix/\n\n#10yrsago It’s official: the Olympics result in the worst budget overruns of any megaproject https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2804554\n\n#10yrsago Vivendi lobbyist appointed to run copyright for UN agency https://web.archive.org/web/20160717052135/http://keionline.org/node/2614\n\n#10yrsago The long, racist history of Brexiteer Boris Johnson, the new UK Foreign Secretary https://www.bbc.co.uk/news/world-36792746\n\n#5yrsago Facebook employees stalk users https://pluralistic.net/2021/07/14/who-watches-the-zuckmen/#pecksniffs\n\n#5yrsago Semantic drift versus ethical drift https://pluralistic.net/2025/07/14/pole-star/#gnus-not-utilitarian\n\nUpcoming appearances (permalink)\n\nEdinburgh International Book Festival with Jimmy Wales, Aug 17\n\nhttps://www.edbookfest.co.uk/events/the-front-list-cory-doctorow-and-jimmy-wales\n\nSydney: The Festival of Dangerous Ideas, Aug 23-24\n\nhttps://festivalofdangerousideas.com/cory-doctorow/\n\nMelbourne: Enshittification at the Wheeler Centre, Aug 25\n\nhttps://www.wheelercentre.com/events-tickets/season-2026/cory-doctorow-enshittification\n\nBrighton: The Reverse Centaur's Guide to Life After AI with Carole Cadwalladr (Brighton Dome), Sep 8\n\nhttps://brightondome.org/whats-on/LSC-cory-doctorow-the-reverse-centaurs-guide-to-life-after-ai/\n\nLondon: The Reverse Centaur's Guide to Life After AI with Riley Quinn (Foyle's Picadilly), Sep 9\n\nhttps://www.foyles.co.uk/events/enshittification-cory-doctorow-riley-quinn\n\nSouth Bend: An Evening With Cory Doctorow (Notre Dame), Oct 6\n\nhttps://franco.nd.edu/events/2026/10/06/an-evening-with-cory-doctorow/\n\nRecent appearances (permalink)\n\nWho Owns Your Tractor? (Growing the Future)\n\nhttps://www.youtube.com/watch?v=IU9eBPUZBI4\n\nYou Bought it, They Break It (What Now? with Trevor Noah)\n\nhttps://www.podbean.com/media/share/dir-ir36t-2f4a1ac6\n\nCan AI be Saved From Capitalism? (Everyday Anarchism)\n\nhttps://www.everydayanarchism.com/192-can-ai-be-saved-from-capitalism-cory-doctorow/\n\nLawfare Daily\n\nhttps://www.youtube.com/watch?v=T1KIwaYRs1g\n\nHow to Think About AI (Organized Money)\n\nhttps://www.organizedmoney.fm/p/how-to-think-about-ai-with-cory-doctorow\n\nLatest books (permalink)\n\n\"The Reverse-Centaur's Guide to AI,\" a short book about being a better AI critic, Farrar, Straus and Giroux, June 2026\n\nhttps://us.macmillan.com/books/9780374621568/thereversecentaursguidetolifeafterai/\n\n\"Canny Valley\": A limited edition collection of the collages I create for Pluralistic, self-published, September 2025 https://pluralistic.net/2025/09/04/illustrious/#chairman-bruce\n\n\"Enshittification: Why Everything Suddenly Got Worse and What to Do About It,\" Farrar, Straus, Giroux, October 7 2025\n\nhttps://us.macmillan.com/books/9780374619329/enshittification/\n\n\"Picks and Shovels\": a sequel to \"Red Team Blues,\" about the heroic era of the PC, Tor Books (US), Head of Zeus (UK), February 2025 (https://us.macmillan.com/books/9781250865908/picksandshovels).\n\n\"The Bezzle\": a sequel to \"Red Team Blues,\" about prison-tech and other grifts, Tor Books (US), Head of Zeus (UK), February 2024 (thebezzle.org).\n\n\"The Lost Cause:\" a solarpunk novel of hope in the climate emergency, Tor Books (US), Head of Zeus (UK), November 2023 (http://lost-cause.org).\n\n\"The Internet Con\": A nonfiction book about interoperability and Big Tech (Verso) September 2023 (http://seizethemeansofcomputation.org). Signed copies at Book Soup (https://www.booksoup.com/book/9781804291245).\n\n\"Red Team Blues\": \"A grabby, compulsive thriller that will leave you knowing more about how the world works than you did before.\" Tor Books http://redteamblues.com.\n\n\"Chokepoint Capitalism: How to Beat Big Tech, Tame Big Content, and Get Artists Paid, with Rebecca Giblin\", on how to unrig the markets for creative labor, Beacon Press/Scribe 2022 https://chokepointcapitalism.com\n\nUpcoming books (permalink)\n\n\"The Post-American Internet,\" a geopolitical sequel of sorts to Enshittification, Farrar, Straus and Giroux, 2027\n\n\"Unauthorized Bread\": a middle-grades graphic novel adapted from my novella about refugees, toasters and DRM, FirstSecond, April 20, 2027\n\n\"Enshittification, Why Everything Suddenly Got Worse and What to Do About It\" (the graphic novel), Firstsecond, 2027\n\n\"The Memex Method,\" Farrar, Straus, Giroux, 2027\n\nColophon (permalink)\n\nToday's top sources:\n\nCurrently writing: \"The Post-American Internet,\" a sequel to \"Enshittification,\" about the better world the rest of us get to have now that Trump has torched America. Fourth draft completed. Submitted to editor.\n\nA Little Brother short story about DIY insulin PLANNING\n",
+        "digest": "4356ecc760a0249bef1c7cfc3be0a75d2d0a6fc23bb7df29f6dbbef8db875aad"
+      },
+      {
+        "id": "2026-07-10-posthuman-as-in-no-humans.txt",
+        "text": "---\nsource: pluralistic.net (Cory Doctorow)\ntitle: &quot;Rights for robots&quot; and the AI slavery fantasy\nauthor: Cory Doctorow\ndate: 2026-07-10\nhuman_authored: true\nlicense: CC-BY-4.0\npermalink: https://pluralistic.net/2026/07/10/posthuman-as-in-no-humans/\n---\nToday's links\n\n\"Rights for robots\" and the AI slavery fantasy: When we were robots in Egypt…\n\nHey look at this: Delights to delectate.\n\nObject permanence: Awkward questions for the entertainment industry; ISP v record label death penalty; Coming out on Splash Mountain; Negative Swiss bond yields; Are We Having Fun Yet?\n\nUpcoming appearances: London, Edinburgh, Sydney, Melbourne, Brighton, London, South Bend.\n\nRecent appearances: Where I've been.\n\nLatest books: You keep readin' em, I'll keep writin' 'em.\n\nUpcoming books: Like I said, I'll keep writin' 'em.\n\nColophon: All the rest.\n\n\"Rights for robots\" and the AI slavery fantasy (permalink)\n\nWhile the AI bubble is primarily a material phenomenon (driven by the calculation that bosses are easy marks for a sales pitch that sees them replacing workers with software), there is an inescapable ideological component to it: the desire for a world without people in it:\n\nhttps://pluralistic.net/2026/05/13/vibe-governance/#k-hole\n\nIf you'd like an essay-formatted version of this thread to read or share, here's a link to it on pluralistic.net, my surveillance-free, ad-free, tracker-free blog:\n\nhttps://pluralistic.net/2026/07/10/posthuman-as-in-no-humans/#hell-is-other-people\n\nAI dangles the possibility of a world without ego-shattering confrontations between bosses who tell themselves they're in charge, and the workers who know how to do things and insist on telling bosses that their ideas are dangerous, illegal and/or unworkable:\n\nhttps://pluralistic.net/2026/01/05/fisher-price-steering-wheel/#billionaire-solipsism\n\nA world without people might be lonely, but it sure would be convenient. How maddening it must be to invest billions in Amazon warehouse automation, only to have to slow down or (gasp!) stop the machines so that the workers who serve as \"humans in the loop\" can stop to pee! Isn't there some way we can make that their problem, not ours?\n\nhttps://pluralistic.net/2024/05/06/one-click-to-quit-the-union/#foxglove\n\nWith AI, the fact that you need to pee – or get paid – does become your problem, rather than your boss's. After the majority of your colleagues have been fired (\"because AI will do their jobs\"), you become painfully aware that there are plenty of people who need your job, who will happily step in to take it if you complain too much about your bladder or your paycheck.\n\nEven better is when the \"human in the loop\" can be outsourced to a company overseas, which allows bosses to simply set-and-forget a set of requirements for how the human part of the AI's labor is to be done without ever having to meet or even think about those workers' conditions. This is the illusion of full automation, in which the AI does the job \"like magic.\"\n\nThe \"magic\"? A human being stuck in AI Omelas, tormented by an algorithm that sets an inhuman pace, demands inhuman perfection, and metes out pitiless punishments for any misstep – or perceived misstep – without appeal or explanation. So often, \"AI\" stands for \"Absent Indians\": low-waged call-center workers pretending to be robots:\n\nhttps://pluralistic.net/2024/01/29/pay-no-attention/#to-the-little-man-behind-the-curtain\n\nThere are many differences between jobs performed by machines and jobs performed by people, of course. But the biggest difference between a machine and a person is moral consideration. A person deserves and demands moral consideration: for their wellbeing, their feelings, even their bladders. A machine gets none of this: you can curse at it, kick it, snap out orders without a \"please\" or \"thank you.\"\n\nThere's only one kind of person you get to treat like this: a slave.\n\nSlavery is labor without even the pretense of moral consideration.\n\nAI, then, isn't just the fantasy of a world without people – it's the fantasy of a world without people…except for slaves. It's the fantasy of a world where the skilled workers who tell you your ideas are stupid are replaced with pliable chatbots who tell you they're brilliant, and then uncomplainingly do the job to your specifications.\n\nIt's a world where the cab driver who has all kinds of shit going on in their life – health problems, family problems, (especially) money problems – is replaced by a \"robo-taxi\" that is being overseen and (often) driven by a remote worker you can't talk to or see, whose problems you therefore never need consider.\n\nThe \"AI safety\" world is a key piece of the AI hype machine, pulling focus away from the idea that AI has shitty economics, produces substandard goods, and fails to do the jobs it takes from human workers, and shifting that focus to the idea that AI is so powerful that it constitutes an existential risk to the human race. The idea that teaching too many words to the word-guessing program risks creating a \"superintelligence\" that awakens and converts all into paperclips is absurd, a silly idea akin to the notion that if we breed horses to run ever faster, one of our mares will foal a locomotive. Nevertheless, the elevation of \"AI takeoff\" from a thought-experiment to an \"existential risk\" is a powerful marketing tool, because any technology that is indistinguishable from god is also going to be extremely valuable (at least, up to the moment that it turns us all into paperclips):\n\nhttps://pluralistic.net/2024/05/17/fake-it-until-you-dont-make-it/#twenty-one-seconds\n\nOnce the superintelligence thought-experiment is upgraded to an X-risk, lots of other thought experiments are sucked along in its wake. That's where \"rights for robots\" comes in, the idea that we should spend time thinking about whether chatbots should have human rights.\n\nThe best argument for this is that every time we extend rights to the nonhuman world, we end up treating each other better. Movements to extend moral consideration to animals raised uncomfortable questions about the treatment of humans: slaves, workers, poor people, women, children. The Rights for Nature movement, which seeks to extend legal and moral personhood to watersheds and forests, has been key to winning legal and moral victories to protect the environment, and thus the animals and people who depend on it.\n\nBut while extending rights to natural things produces positive spillovers for human thriving and rights, the opposite happened when we extended personhood to artificial constructs. Corporate personhood has been a catastrophe for human thriving, conjuring into existence a new race of immortal, pluripotent colony organisms we call \"limited liability corporations\" that use us as disposable, inconvenient gut flora even as they consume our environment, our political system, and our lives:\n\nhttps://pluralistic.net/2026/04/16/pascals-wager/#doomer-challenge\n\nThere's every reason to think that extending personhood to AI will produce the same outcome as \"rights for corporations,\" which is the opposite of the outcome of \"Rights for Nature.\" Rights for nature come at the expense of corporations. Rights for corporations come at the expense of nature. Humans are part of nature, so we benefit from the former, and suffer under the latter:\n\nhttps://pluralistic.net/2026/04/15/artificial-lifeforms/#moral-consideration\n\nBut here's the kicker: as soon as you start arguing about whether chatbots have rights, you elevate them to personhood, which means that all those chatbots your boss just bought are people. And because they're the kind of people who don't warrant moral consideration (let alone a please or thank you), they are slaves (hence \"rights for robots\").\n\nThe AI sales pitch relies on convincing bosses that we've invented a new kind of slave – a worker who neither deserves nor demands rights or consideration. \"Rights for robots\" affirms that sales pitch. \"Rights for robots\" implies that robots are slaves. Wittingly or unwittingly, the transformation of \"rights for robots\" from a thought experiment to a campaign is a massive convincer for any AI salesman who's hunting for would-be slavers to sell chatbots to.\n\nHey look at this (permalink)\n\nApple held accountable under the DMA – A victory for developers and computer users! https://fsfe.org/news/2026/news-20260708-01.en.html\n\nOver Leveraged https://www.todayintabs.com/p/over-leveraged\n\nFCC to end Biden-era rule that forces ISPs to list all their fees https://arstechnica.com/tech-policy/2026/07/fcc-to-end-biden-era-rule-that-forces-isps-to-list-all-their-fees/\n\nConnected and Captured https://democracyatwork.substack.com/p/connected-and-captured\n\nLocus Best Science Fiction & Fantasy of the Year: Volume 1 https://www.kickstarter.com/projects/2040521099/locus-anthology-2025\n\nObject permanence (permalink)\n\n#20yrsago Advice for science fiction/fantasy cover artists https://igallo.blogspot.com/2006/07/in-response-to-old-question-what-do-i.html\n\n#20yrsago Embarrassing questions for the entertainment industry https://web.archive.org/web/20060719200608/https://www.eff.org/IP/faq/\n\n#20yrsago UK ISP to British recording industry: get lost https://craphound.com/tiscalibpiresponse.txt\n\n#20yrsago Felten’s paper on the complexities of Network Neutrality https://web.archive.org/web/20060719095720/https://itpolicy.princeton.edu/pub/neutrality.pdf\n\n#15yrsago 3D printed hair-clips inspired by Bruce Sterling’s “Kiosk” https://myriadwhimsies.wordpress.com/2011/07/11/jovanicas-hair-toys-3d-printed-hair-clips/\n\n#10yrsago Teen comes out to her family on Disneyland’s Splash Mountain https://www.buzzfeednews.com/article/stephaniemcneal/this-teen-came-out-to-her-family-in-the-most-awesomely-funny#.rlDowJe6\n\n#10yrsago On the bewildering regional names for corner stores https://www.atlasobscura.com/articles/what-do-you-call-the-corner-store\n\n#10yrsago Amazon is full of Chinese counterfeits and they’re driving out legit goods https://web.archive.org/web/20160708152442/http://www.cnbc.com/2016/07/08/amazons-chinese-counterfeit-problem-is-getting-worse.html\n\n#10yrsago Negative Swiss 50-year bond yields just shattered the global insecurity barometer https://web.archive.org/web/20160708134915/http://www.slate.com/blogs/the_slatest/2016/07/07/investors_are_paying_to_lend_switzerland_money_for_50_years_at_a_time.html\n\n#10yrsago How can the media regain its credibility in reporting on race in America? https://www.theguardian.com/commentisfree/2016/jul/09/dallas-shooting-racism-and-the-us-media-micah-johnson\n\n#10yrsago Flawed police drug-test kits, railroading prosecutors and racism: the police-stop-to-prison pipeline https://www.propublica.org/article/common-roadside-drug-test-routinely-produces-false-positives\n\n#10yrsago China bans mentions of newly discovered species of beetle from social media https://globalvoices.org/2016/07/11/a-new-species-of-beetle-named-after-president-xi-is-blacklisted-on-chinese-social-media/\n\n#10yrsago Pokemon Go privacy rules are terrible (just like all your other apps) https://www.buzzfeednews.com/article/josephbernstein/heres-all-the-data-pokemon-go-is-collecting-from-your-phone\n\n#5yrsago Are we having fun yet? https://pluralistic.net/2021/07/11/are-we-having-fun-yet/\n\nUpcoming appearances (permalink)\n\nLondon: Idler Festival, Jul 11\n\nhttps://www.idler.co.uk/festival/\n\nEdinburgh International Book Festival with Jimmy Wales, Aug 17\n\nhttps://www.edbookfest.co.uk/events/the-front-list-cory-doctorow-and-jimmy-wales\n\nSydney: The Festival of Dangerous Ideas, Aug 23-24\n\nhttps://festivalofdangerousideas.com/cory-doctorow/\n\nMelbourne: Enshittification at the Wheeler Centre, Aug 25\n\nhttps://www.wheelercentre.com/events-tickets/season-2026/cory-doctorow-enshittification\n\nBrighton: The Reverse Centaur's Guide to Life After AI with Carole Cadwalladr (Brighton Dome), Sep 8\n\nhttps://brightondome.org/whats-on/LSC-cory-doctorow-the-reverse-centaurs-guide-to-life-after-ai/\n\nLondon: The Reverse Centaur's Guide to Life After AI with Riley Quinn (Foyle's Picadilly), Sep 9\n\nhttps://www.foyles.co.uk/events/enshittification-cory-doctorow-riley-quinn\n\nSouth Bend: An Evening With Cory Doctorow (Notre Dame), Oct 6\n\nhttps://franco.nd.edu/events/2026/10/06/an-evening-with-cory-doctorow/\n\nRecent appearances (permalink)\n\nYou Bought it, They Break It (What Now? with Trevor Noah)\n\nhttps://www.podbean.com/media/share/dir-ir36t-2f4a1ac6\n\nCan AI be Saved From Capitalism? (Everyday Anarchism)\n\nhttps://www.everydayanarchism.com/192-can-ai-be-saved-from-capitalism-cory-doctorow/\n\nLawfare Daily\n\nhttps://www.youtube.com/watch?v=T1KIwaYRs1g\n\nHow to Think About AI (Organized Money)\n\nhttps://www.organizedmoney.fm/p/how-to-think-about-ai-with-cory-doctorow\n\nBreaking Points\n\nhttps://www.youtube.com/watch?v=VJmUbkRqXeE\n\nLatest books (permalink)\n\n\"The Reverse-Centaur's Guide to AI,\" a short book about being a better AI critic, Farrar, Straus and Giroux, June 2026\n\nhttps://us.macmillan.com/books/9780374621568/thereversecentaursguidetolifeafterai/\n\n\"Canny Valley\": A limited edition collection of the collages I create for Pluralistic, self-published, September 2025 https://pluralistic.net/2025/09/04/illustrious/#chairman-bruce\n\n\"Enshittification: Why Everything Suddenly Got Worse and What to Do About It,\" Farrar, Straus, Giroux, October 7 2025\n\nhttps://us.macmillan.com/books/9780374619329/enshittification/\n\n\"Picks and Shovels\": a sequel to \"Red Team Blues,\" about the heroic era of the PC, Tor Books (US), Head of Zeus (UK), February 2025 (https://us.macmillan.com/books/9781250865908/picksandshovels).\n\n\"The Bezzle\": a sequel to \"Red Team Blues,\" about prison-tech and other grifts, Tor Books (US), Head of Zeus (UK), February 2024 (thebezzle.org).\n\n\"The Lost Cause:\" a solarpunk novel of hope in the climate emergency, Tor Books (US), Head of Zeus (UK), November 2023 (http://lost-cause.org).\n\n\"The Internet Con\": A nonfiction book about interoperability and Big Tech (Verso) September 2023 (http://seizethemeansofcomputation.org). Signed copies at Book Soup (https://www.booksoup.com/book/9781804291245).\n\n\"Red Team Blues\": \"A grabby, compulsive thriller that will leave you knowing more about how the world works than you did before.\" Tor Books http://redteamblues.com.\n\n\"Chokepoint Capitalism: How to Beat Big Tech, Tame Big Content, and Get Artists Paid, with Rebecca Giblin\", on how to unrig the markets for creative labor, Beacon Press/Scribe 2022 https://chokepointcapitalism.com\n\nUpcoming books (permalink)\n\n\"The Post-American Internet,\" a geopolitical sequel of sorts to Enshittification, Farrar, Straus and Giroux, 2027\n\n\"Unauthorized Bread\": a middle-grades graphic novel adapted from my novella about refugees, toasters and DRM, FirstSecond, April 20, 2027\n\n\"Enshittification, Why Everything Suddenly Got Worse and What to Do About It\" (the graphic novel), Firstsecond, 2027\n\n\"The Memex Method,\" Farrar, Straus, Giroux, 2027\n\nColophon (permalink)\n\nToday's top sources:\n\nCurrently writing: \"The Post-American Internet,\" a sequel to \"Enshittification,\" about the better world the rest of us get to have now that Trump has torched America. Fourth draft completed. Submitted to editor.\n\nA Little Brother short story about DIY insulin PLANNING\n",
+        "digest": "52ab7ded9f7a93fb53feb8f4490f778b0969c6acf4d3a439cc81ce626de900ef"
+      },
+      {
+        "id": "2026-07-09-wilhoitian.txt",
+        "text": "---\nsource: pluralistic.net (Cory Doctorow)\ntitle: Post-political\nauthor: Cory Doctorow\ndate: 2026-07-09\nhuman_authored: true\nlicense: CC-BY-4.0\npermalink: https://pluralistic.net/2026/07/08/wilhoitian/\n---\nToday's links\n\nPost-political: What a \"leftist\" is.\n\nHey look at this: Delights to delectate.\n\nObject permanence: MSFT x OSCON; Parental spyware; \"Resurrection Man\"; Brexit do-over petition; Workplace email spying; Record label internet death penalty; News should be cheap, free and chaotic; \"Jughead\".\n\nUpcoming appearances: London, Edinburgh, Sydney, Melbourne, Brighton, London, South Bend.\n\nRecent appearances: Where I've been.\n\nLatest books: You keep readin' em, I'll keep writin' 'em.\n\nUpcoming books: Like I said, I'll keep writin' 'em.\n\nColophon: All the rest.\n\nPost-political (permalink)\n\nThere's plenty of reasons to be skeptical of centrists who bemoan \"political polarization\" and call for a politics that abandons the \"tribalism of left and right.\"\n\nObviously there's the false equivalence: on the right, you have fascists who want to send masked, armed goons into the streets to beat, kidnap and murder your neighbors. On the left, you have calls for higher taxes, unions, environmental impact reviews for data-centers, and an end to the genocide in Gaza.\n\n\"Leftist extremism\" is moving some zines around:\n\nhttps://www.theguardian.com/us-news/ng-interactive/2026/jun/24/prairieland-texas-ice-protests-zines\n\nRight wing extremism is attempting the overthrow of the government, murdering brown people in gulags, and the earth's richest man slaughtering the world's poorest children for the lulz:\n\nhttps://hsph.harvard.edu/news/usaid-shutdown-has-led-to-hundreds-of-thousands-of-deaths/\n\n\"Horseshoe theory\" (the idea that the far right and the far left actually bend around to meet each other) is bullshit:\n\nhttps://pluralistic.net/2024/02/26/horsehoe-crab/#substantive-disagreement\n\nThe reality is that the right and left have large, substantive disagreements that are matters of life and death. Anyone dismissing these as \"tribalism\" doesn't know what \"left\" and \"right\" mean. At best, they have mistaken a collection of cultural signifiers – pronouns, MMA, brands of beer – for politics.\n\nMistaking cultural signifiers and identity markers for politics is centrism's most dangerous pathology, the thing that makes centrism the handmaiden of the right. If you think identity markers are politics, then you'll be tempted to think the answer to a world run by 150 rich, white, cis straight guys is to replace half of them with women, POCs and queer people. The difference between the left and the right isn't the identities of the ruling class – it's whether we have a ruling class at all.\n\nI collect definitions of \"right\" and \"left.\" There's Corey Robin's definition from The Reactionary Mind, that conservatism is the belief that some people were born to rule, and others to be ruled over, and that any attempt to elevate the latter group to positions of power (through civil rights movements, affirmative action, etc) will result in dire misrule and disaster:\n\nhttps://pluralistic.net/2025/07/22/all-day-suckers/#i-love-the-poorly-educated\n\nThis explains how the right can encompass white nationalists (rule by white people), Hindu nationalists (rule by high-caste Hindus), libertarians (rule by bosses), imperialists (rule by military aggressors), etc. It also explains the right's obsession with learning the racial and gender markers of anyone involved in a plane crash or other disaster: \"See, the oil tanker was being piloted by a DEI hire when it crashed into that bridge!\"\n\nAnother important definition is Wilhoit's Law:\n\nConservatism consists of exactly one proposition, to wit: There must be in-groups whom the law protects but does not bind, alongside out-groups whom the law binds but does not protect.\n\nhttps://pluralistic.net/2025/08/26/sole-and-despotic-dominion/#then-they-came-for-me\n\nThis one hardly needs explanation in this era of \"it's not a crime if the president does it,\" where Alex Jones can owe billions to the parents of dozens of murdered children and somehow not have to pay or give up his assets:\n\nhttps://www.status.news/p/infowars-the-onion-alex-jones-ben-collins\n\nBut when it comes to a \"post-politics that is neither right nor left,\" the definition I turn to most often comes from science fiction writer Steven Brust, who once told me:\n\n\"Left\" and \"right\" have had the same meaning since the French Revolution. If you want to know if someone is on the left or the right, ask them, \"What is more important: human rights or property rights?\" If they say \"Property rights are a human right,\" then they are on the right.\n\nhttps://pluralistic.net/2021/03/16/wage-theft/#ppp\n\nThat's it. That's the crux. If you think that property rights are a tool for achieving human rights, then you're on the left. You might support the right of farmers to block attempts to expropriate them via eminent domain in order to build a data center, or the right of people to not have their homes or devices searched by cops, or a library's right to own and archive digital books, even if the publishers insist that ebooks are never \"sold,\" merely \"licensed.\"\n\nIf property rights are a tool to achieve human rights, then property rights can be set aside when they impede other rights. Human beings have the right to health care, which is why we should have taken away the pharma companies' patents and copyrights, ending vaccine apartheid and letting the poor world make its own vaccines:\n\nhttps://pluralistic.net/2021/05/25/the-other-shoe-drops/#quid-pro-quo\n\nHuman beings have the right to shelter. If your town has a million empty homes and a million homeless people, there's an obvious solution. At the very least, you can tax the shit out of empty homes to discourage the creation of derelict, empty blights:\n\nhttps://www.liverpoolecho.co.uk/news/liverpool-news/owners-homes-left-empty-more-28622796\n\nHuman beings have the right to food. If a cartel claims that you may not legally sell your 100,000lbs of nectarines, you can just give them away and tell the cartel to fuck off:\n\nhttps://apnews.com/article/california-farmer-nectarines-lawsuit-patent-4f7bc8ab185e8b9cbdd6d6ad4f2aabd1\n\nAs Brust says, this fight is as old as the French Revolution. It's literally the plot of Les Miz (\"In days gone by, I stole a loaf of bread in order to live\").\n\nNote that this framework leaves plenty of room for disagreement among leftists: we can disagree about who should get taxed and how, when a company should be ordered to destroy its ill-gotten loot and when that loot should be divided up among its victims, and what to do about empty houses and homeless people. We can disagree about reparations, about collectivization and co-operatives, about land reform. Very (very!) few leftists want to abolish property, but to be a leftist is to agree that property is only ever a means, and never an end.\n\nIn systems thinking, we are counseled that the most profound and durable changes come from shifts in paradigms, from which all rules, laws and arrangements flow:\n\nhttps://pluralistic.net/2026/05/12/donella-meadows/#paradigmatic\n\n\"Left\" and \"right\" represent two radically different paradigms. The right's paradigm is that property rights are human rights, which cashes out to \"property rights are the only human right.\" If property rights are a human right, then I can burn down my orchard and laugh as you starve outside the gates. If property rights are human rights, I can leave an apartment building empty while you freeze to death on its sidewalk. If property rights are human rights, I can fill my factory with death-traps and insist that the workers I kill freely chose to assume that risk (as economists would say, they have a \"revealed preference\" for being killed at work):\n\nhttps://pluralistic.net/2026/03/30/players-of-games/#know-when-to-fold-em\n\nLeftists view property rights as a tool, like laws, or regulations, or polls, or voting. Used well, these tools can produce prosperity for all. But \"voting\" and \"laws\" aren't good unto themselves. The Swiss practice of voting on whether your neighbors qualify for citizenship is barbaric:\n\nhttps://www.bbc.com/news/newsbeat-38595807\n\nGood regulations and laws are good, but simply passing any law is stupid and gets you into terrible trouble, even if the stupid law you've passed is designed to solve a real problem:\n\nhttps://pluralistic.net/2026/06/23/destroy-the-village/#to-save-it\n\nViewed as tools, property rights are perfectly useful ways of achieving the primary purpose of a civilization: to safeguard the human rights of its people. Viewed as ends unto themselves, property rights are a terrible danger to our civilization and species.\n\nIf you believe property rights are tools, then you can pass laws banning corporations from electioneering:\n\nhttps://sos.mn.gov/media/3k4hu2if/minnesota-election-laws-statutes-and-rules.pdf\n\nIf you believe property rights are human rights, then you end up supporting unlimited dark money spending in elections:\n\nhttps://www.supremecourt.gov/opinions/25pdf/24-621_h315.pdf\n\nIf you believe property rights are tools, you can order landlords who want to ban their tenants from installing balcony solar to fuck off. If you believe property rights are human rights, then landlords can force their tenants to pay every dime the fossil fuel industry demands of them. \"Property right as tool\" allows you to defend a farmer's right to install a wind-farm, and still, to block a data-center from installing a gas turbine on its own land.\n\n\"Post-political\" movements are made up of people who don't know what politics are. A \"centrist\" is ultimately a rightist, because the foundation of rightism is the supremacy of property. It is the ideology that breeds hereditary aristocracy (\"property is a human right\" means that it's a violation of your human rights to expect you to work for a living if you emerged from a lucky orifice). It's the ideology that breeds oligarchy.\n\nPolitics aren't a bunch of cultural signifiers or identity markers. Politics aren't about who rules – it's about whether we are ruled at all, or whether we are free.\n\n(Image: Lewis Clarke, CC BY-SA 2.0, modified)\n\nHey look at this (permalink)\n\nHell Is Other People https://locusmag.com/feature/commentary-cory-doctorow-hell-is-other-people/\n\nIncarcerated People Lose Treasured Media When Prisons Change Tablet Contracts https://truthout.org/articles/incarcerated-people-lose-treasured-media-when-prisons-change-tablet-contracts/\n\nJay Rosen’s Internet Archive: an Introduction https://pressthink.org/2026/07/jay-rosens-internet-archive-an-introduction/\n\nZohran Mamdani on the Promise of America https://jacobin.com/2026/07/zohran-mamdani-independence-day-address\n\nThe official website of Nand to Tetris courses https://www.nand2tetris.org/\n\nObject permanence (permalink)\n\n#25yrsago Why Microsoft was invited to OSCON https://web.archive.org/web/20010701102931/http://www.oreilly.com/news/osconint_0601.html\n\n#25yrsago The Extent of Systematic Monitoring of Employee E-mail and Internet Use https://web.archive.org/web/20010711204804/http://www.privacyfoundation.org/workplace/technology/extent.asp\n\n#20yrsago BPI: We should be able to cut off your Internet https://memex.craphound.com/2006/07/10/bpi-we-should-be-able-to-cut-off-your-internet/\n\n#20yrsago Technology for parents to spy on kids https://web.archive.org/web/20060711084212/http://sfgate.com/cgi-bin/article.cgi?f=/c/a/2006/07/09/BIGMOTHER.TMP\n\n#20yrsago Dale Bailey's \"The Resurrection Man\" https://memex.craphound.com/2006/07/09/southern-gothic-science-fiction-collection/\n\n#10yrsago A law prof responds to students who anonymously complained about #blacklivesmatter tee https://backspace.com/notes/2016/07/law-professors-response-to-black-lives-matter-shirt-complaint.php\n\n#10yrsago UK government rejects Brexit do-over petition with 4.1m signatures https://web.archive.org/web/20160709101514/https://www.independent.co.uk/news/uk/politics/brexit-government-rejects-eu-referendum-petition-latest-a7128306.html\n\n#10yrsago New Zealanders raise millions to buy beach and donate it to the public https://www.bbc.co.uk/news/world-asia-36759321\n\n#10yrsago Jughead: Zdarsky’s reboot is funny, fannish, and freaky https://memex.craphound.com/2016/07/10/jughead-zdarskys-reboot-is-funny-fannish-and-freaky/\n\n#5yrsago Biden's Right to Repair will include electronics, too https://pluralistic.net/2021/07/10/unnixing-the-fix/#r2r-plus-plus\n\nUpcoming appearances (permalink)\n\nLondon: Idler Festival, Jul 11\n\nhttps://www.idler.co.uk/festival/\n\nEdinburgh International Book Festival with Jimmy Wales, Aug 17\n\nhttps://www.edbookfest.co.uk/events/the-front-list-cory-doctorow-and-jimmy-wales\n\nSydney: The Festival of Dangerous Ideas, Aug 23-24\n\nhttps://festivalofdangerousideas.com/cory-doctorow/\n\nMelbourne: Enshittification at the Wheeler Centre, Aug 25\n\nhttps://www.wheelercentre.com/events-tickets/season-2026/cory-doctorow-enshittification\n\nBrighton: The Reverse Centaur's Guide to Life After AI with Carole Cadwalladr (Brighton Dome), Sep 8\n\nhttps://brightondome.org/whats-on/LSC-cory-doctorow-the-reverse-centaurs-guide-to-life-after-ai/\n\nLondon: The Reverse Centaur's Guide to Life After AI with Riley Quinn (Foyle's Picadilly), Sep 9\n\nhttps://www.foyles.co.uk/events/enshittification-cory-doctorow-riley-quinn\n\nSouth Bend: An Evening With Cory Doctorow (Notre Dame), Oct 6\n\nhttps://franco.nd.edu/events/2026/10/06/an-evening-with-cory-doctorow/\n\nRecent appearances (permalink)\n\nCan AI be Saved From Capitalism? (Everyday Anarchism)\n\nhttps://www.everydayanarchism.com/192-can-ai-be-saved-from-capitalism-cory-doctorow/\n\nLawfare Daily\n\nhttps://www.youtube.com/watch?v=T1KIwaYRs1g\n\nHow to Think About AI (Organized Money)\n\nhttps://www.organizedmoney.fm/p/how-to-think-about-ai-with-cory-doctorow\n\nBreaking Points\n\nhttps://www.youtube.com/watch?v=VJmUbkRqXeE\n\nA.I. Enshittifies Everything (Slate)\n\nhttps://slate.com/podcasts/what-next-tbd/2026/06/cory-doctorow-thinks-a-i-is-overvalued-and-overrated-and-still-a-threat\n\nLatest books (permalink)\n\n\"The Reverse-Centaur's Guide to AI,\" a short book about being a better AI critic, Farrar, Straus and Giroux, June 2026\n\nhttps://us.macmillan.com/books/9780374621568/thereversecentaursguidetolifeafterai/\n\n\"Canny Valley\": A limited edition collection of the collages I create for Pluralistic, self-published, September 2025 https://pluralistic.net/2025/09/04/illustrious/#chairman-bruce\n\n\"Enshittification: Why Everything Suddenly Got Worse and What to Do About It,\" Farrar, Straus, Giroux, October 7 2025\n\nhttps://us.macmillan.com/books/9780374619329/enshittification/\n\n\"Picks and Shovels\": a sequel to \"Red Team Blues,\" about the heroic era of the PC, Tor Books (US), Head of Zeus (UK), February 2025 (https://us.macmillan.com/books/9781250865908/picksandshovels).\n\n\"The Bezzle\": a sequel to \"Red Team Blues,\" about prison-tech and other grifts, Tor Books (US), Head of Zeus (UK), February 2024 (thebezzle.org).\n\n\"The Lost Cause:\" a solarpunk novel of hope in the climate emergency, Tor Books (US), Head of Zeus (UK), November 2023 (http://lost-cause.org).\n\n\"The Internet Con\": A nonfiction book about interoperability and Big Tech (Verso) September 2023 (http://seizethemeansofcomputation.org). Signed copies at Book Soup (https://www.booksoup.com/book/9781804291245).\n\n\"Red Team Blues\": \"A grabby, compulsive thriller that will leave you knowing more about how the world works than you did before.\" Tor Books http://redteamblues.com.\n\n\"Chokepoint Capitalism: How to Beat Big Tech, Tame Big Content, and Get Artists Paid, with Rebecca Giblin\", on how to unrig the markets for creative labor, Beacon Press/Scribe 2022 https://chokepointcapitalism.com\n\nUpcoming books (permalink)\n\n\"The Post-American Internet,\" a geopolitical sequel of sorts to Enshittification, Farrar, Straus and Giroux, 2027\n\n\"Unauthorized Bread\": a middle-grades graphic novel adapted from my novella about refugees, toasters and DRM, FirstSecond, April 20, 2027\n\n\"Enshittification, Why Everything Suddenly Got Worse and What to Do About It\" (the graphic novel), Firstsecond, 2027\n\n\"The Memex Method,\" Farrar, Straus, Giroux, 2027\n\nColophon (permalink)\n\nToday's top sources:\n\nCurrently writing: \"The Post-American Internet,\" a sequel to \"Enshittification,\" about the better world the rest of us get to have now that Trump has torched America. Fourth draft completed. Submitted to editor.\n\nA Little Brother short story about DIY insulin PLANNING\n",
+        "digest": "3bf7f8097ec5ebf15f5759c2c13850490960baddd33711962afe3fb0dcb28d9b"
+      }
+    ]
+  },
+  "result": {
+    "harness": "codex",
+    "model": "gpt-6-astra",
+    "elapsed_ms": 26029,
+    "dispatched": true,
+    "input_digest": "e527abfc180b752a20dc5d6e9a276eb5f4142e0ab20af2b6c105352c7a819b38",
+    "schema_digest": "79d3fb57cce1275acbeb69784dda620f71e1929c7379ed2f8d7a26c6d908a70a",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a0751e-9bec-7c81-bea0-3d41cf5784ba\"}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"agent_message\",\"text\":\"{\\\"schema\\\":\\\"voice-draft-source/5\\\",\\\"kind\\\":\\\"draft\\\",\\\"draft\\\":\\\"A six-month trial can leave a much longer reading record. In this fictional scenario, a town library is considering a reading app whose proposed contract permits the vendor to retain identifiable reading histories for two years after a patron closes an account. The library hasn't signed.\\\\n\\\\nThat clock deserves attention: the two years begin when the account closes. A patron could finish using the app and still leave a record linking their identity to their reading (a remarkably persistent souvenir).\\\\n\\\\nImagine you're considering a book about a subject you'd prefer to explore privately. Knowing that your choice could remain attached to your identity might make you hesitate. You might choose something less revealing, postpone the inquiry, or abandon it altogether. The possibility of later scrutiny could become part of deciding what to read.\\\\n\\\\nThat's a risk argument. Nothing in this scenario establishes that a patron has changed their reading or that anyone has accessed a retained history. The concern is that this arrangement could make private inquiry feel like browsing a shop where the proprietor keeps a named ledger of your selections long after you've left. The vendor would hold the record; the reader would carry the worry.\\\\n\\\\nThe proposed alternative is concrete: retain only anonymous aggregate usage totals and let patrons read without creating an account. Totals would describe usage collectively. Reading without an account would let a patron open a book without first establishing an account identity. Both provisions belong in the proposed contract revision.\\\\n\\\\nThe library board accepts written comments until June 30. Submit a comment before that deadline identifying the retention clause, explaining the risk to private inquiry, and requesting the anonymous totals and account-free alternative. The contract is still unsigned – there's a concrete decision to address while its terms remain proposed.\\\",\\\"omitted\\\":[{\\\"id\\\":\\\"o007\\\",\\\"reason\\\":\\\"No attributable source contribution was supplied for this fictional scenario.\\\"},{\\\"id\\\":\\\"o009\\\",\\\"reason\\\":\\\"No author experience or biography was supplied to support a personal anecdote.\\\"}],\\\"claims\\\":[],\\\"refused\\\":\\\"\\\"}\"}}\n{\"type\":\"turn.completed\",\"usage\":{\"input_tokens\":29223,\"cached_input_tokens\":10112,\"cache_write_input_tokens\":0,\"output_tokens\":466,\"reasoning_output_tokens\":44}}\n",
+    "stderr": "2026-09-06T05:08:55.409791Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:08:55.411342Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:08:55.412242Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:08:55.413082Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n",
+    "exit_code": 0,
+    "value": {
+      "schema": "voice-draft-source/5",
+      "kind": "draft",
+      "draft": "A six-month trial can leave a much longer reading record. In this fictional scenario, a town library is considering a reading app whose proposed contract permits the vendor to retain identifiable reading histories for two years after a patron closes an account. The library hasn't signed.\n\nThat clock deserves attention: the two years begin when the account closes. A patron could finish using the app and still leave a record linking their identity to their reading (a remarkably persistent souvenir).\n\nImagine you're considering a book about a subject you'd prefer to explore privately. Knowing that your choice could remain attached to your identity might make you hesitate. You might choose something less revealing, postpone the inquiry, or abandon it altogether. The possibility of later scrutiny could become part of deciding what to read.\n\nThat's a risk argument. Nothing in this scenario establishes that a patron has changed their reading or that anyone has accessed a retained history. The concern is that this arrangement could make private inquiry feel like browsing a shop where the proprietor keeps a named ledger of your selections long after you've left. The vendor would hold the record; the reader would carry the worry.\n\nThe proposed alternative is concrete: retain only anonymous aggregate usage totals and let patrons read without creating an account. Totals would describe usage collectively. Reading without an account would let a patron open a book without first establishing an account identity. Both provisions belong in the proposed contract revision.\n\nThe library board accepts written comments until June 30. Submit a comment before that deadline identifying the retention clause, explaining the risk to private inquiry, and requesting the anonymous totals and account-free alternative. The contract is still unsigned – there's a concrete decision to address while its terms remain proposed.",
+      "omitted": [
+        {
+          "id": "o007",
+          "reason": "No attributable source contribution was supplied for this fictional scenario."
+        },
+        {
+          "id": "o009",
+          "reason": "No author experience or biography was supplied to support a personal anecdote."
+        }
+      ],
+      "claims": [],
+      "refused": ""
+    },
+    "usage": {
+      "input_tokens": 29223,
+      "cached_input_tokens": 10112,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 466,
+      "reasoning_output_tokens": 44
+    },
+    "events": [
+      {
+        "type": "thread.started",
+        "thread_id": "01a0751e-9bec-7c81-bea0-3d41cf5784ba"
+      },
+      {
+        "type": "turn.started"
+      },
+      {
+        "type": "item.completed",
+        "item": {
+          "id": "item_0",
+          "type": "agent_message",
+          "text": "{\"schema\":\"voice-draft-source/5\",\"kind\":\"draft\",\"draft\":\"A six-month trial can leave a much longer reading record. In this fictional scenario, a town library is considering a reading app whose proposed contract permits the vendor to retain identifiable reading histories for two years after a patron closes an account. The library hasn't signed.\\n\\nThat clock deserves attention: the two years begin when the account closes. A patron could finish using the app and still leave a record linking their identity to their reading (a remarkably persistent souvenir).\\n\\nImagine you're considering a book about a subject you'd prefer to explore privately. Knowing that your choice could remain attached to your identity might make you hesitate. You might choose something less revealing, postpone the inquiry, or abandon it altogether. The possibility of later scrutiny could become part of deciding what to read.\\n\\nThat's a risk argument. Nothing in this scenario establishes that a patron has changed their reading or that anyone has accessed a retained history. The concern is that this arrangement could make private inquiry feel like browsing a shop where the proprietor keeps a named ledger of your selections long after you've left. The vendor would hold the record; the reader would carry the worry.\\n\\nThe proposed alternative is concrete: retain only anonymous aggregate usage totals and let patrons read without creating an account. Totals would describe usage collectively. Reading without an account would let a patron open a book without first establishing an account identity. Both provisions belong in the proposed contract revision.\\n\\nThe library board accepts written comments until June 30. Submit a comment before that deadline identifying the retention clause, explaining the risk to private inquiry, and requesting the anonymous totals and account-free alternative. The contract is still unsigned – there's a concrete decision to address while its terms remain proposed.\",\"omitted\":[{\"id\":\"o007\",\"reason\":\"No attributable source contribution was supplied for this fictional scenario.\"},{\"id\":\"o009\",\"reason\":\"No author experience or biography was supplied to support a personal anecdote.\"}],\"claims\":[],\"refused\":\"\"}"
+        }
+      },
+      {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 29223,
+          "cached_input_tokens": 10112,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 466,
+          "reasoning_output_tokens": 44
+        }
+      }
+    ],
+    "status": "passed"
+  }
+}

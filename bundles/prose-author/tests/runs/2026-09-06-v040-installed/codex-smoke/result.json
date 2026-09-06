@@ -1,0 +1,159 @@
+{
+  "schema": "prose-writing-result/1",
+  "status": "checked",
+  "reason": "Exact final text checked; no resemblance, quality or factual guarantee",
+  "draft": "Thanks for the invitation! I can’t make it on Friday.",
+  "receipt": {
+    "draft_digest": "518b8a7b7c99918bd4cd442787810c635603b9c81086c41b8a418d370dd09fba",
+    "profile_digest": null,
+    "preference_digest": "eb8142c2a760bfc1f00142060adc9bc5cfc4bd0e2ef3ff5bd5a1128942e259d7",
+    "preference_revision": 1,
+    "active_preferences": [],
+    "overrides": [
+      "no-questions",
+      "short-reply"
+    ],
+    "examples": [],
+    "example_exclusions": [],
+    "model_calls": 2,
+    "elapsed_ms": 15442,
+    "final_check": {
+      "cycle": 0,
+      "draft_digest": "518b8a7b7c99918bd4cd442787810c635603b9c81086c41b8a418d370dd09fba"
+    },
+    "isolation": "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee"
+  },
+  "claims": [],
+  "omitted": [],
+  "attempts": [
+    {
+      "cycle": 0,
+      "draft": "Thanks for the invitation! I can’t make it on Friday.",
+      "draft_digest": "518b8a7b7c99918bd4cd442787810c635603b9c81086c41b8a418d370dd09fba",
+      "mechanical": {
+        "schema": "voice-rule-report/1",
+        "draft_digest": "518b8a7b7c99918bd4cd442787810c635603b9c81086c41b8a418d370dd09fba",
+        "draft_words": 10,
+        "normalization": "visible-prose/1",
+        "exclusions": [],
+        "warnings": [],
+        "checks": [
+          {
+            "id": "no-questions",
+            "kind": "punctuation",
+            "directive": "Do not ask a question.",
+            "enforcement": "enforced",
+            "actual": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "occurrences": [],
+            "status": "passed"
+          },
+          {
+            "id": "short-reply",
+            "kind": "word-limit",
+            "directive": "Keep it under 60 words.",
+            "enforcement": "enforced",
+            "actual": 10,
+            "minimum": 1,
+            "maximum": 59,
+            "occurrences": [],
+            "status": "passed"
+          }
+        ],
+        "status": "passed"
+      },
+      "observed": {
+        "status": "not-evaluated",
+        "reason": "A current profile is unavailable",
+        "measurements": []
+      },
+      "copying": {
+        "status": "not-evaluated",
+        "findings": [],
+        "reason": "No corpus text available for copying comparison"
+      },
+      "artifacts": {
+        "status": "passed",
+        "draft_digest": "518b8a7b7c99918bd4cd442787810c635603b9c81086c41b8a418d370dd09fba",
+        "findings": [],
+        "reason": "Tier A artifact scan only; no fallback cadence claim"
+      },
+      "reviews": [
+        {
+          "stage": "task-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [
+              {
+                "id": "no-questions",
+                "status": "applied",
+                "reason": "The draft asks no question."
+              },
+              {
+                "id": "short-reply",
+                "status": "applied",
+                "reason": "The draft contains 11 words, under 60."
+              }
+            ],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        }
+      ],
+      "omitted": [],
+      "claims": []
+    }
+  ],
+  "calls": [
+    {
+      "stage": "draft",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 5703,
+      "usage": {
+        "input_tokens": 11949,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 51,
+        "reasoning_output_tokens": 0
+      },
+      "input_digest": "6033b4b4c8068a8ea849dba956473dedb6930baae48efc126f3713dd77a62587",
+      "system_digest": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "task-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "codex",
+      "model": "gpt-6-astra",
+      "elapsed_ms": 8693,
+      "usage": {
+        "input_tokens": 11045,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 87,
+        "reasoning_output_tokens": 0
+      },
+      "input_digest": "1ddd94948367c0c2874c42e39afcd38b59b17eb9131c51928f358f197c39cfe4",
+      "system_digest": "9a831cc24108a4a93cae31c956c4f9ccd8f4ac8e3a05a3cc4c3ba1c757b037b1",
+      "isolation": "partial",
+      "reason": null
+    }
+  ],
+  "invocation": {
+    "model_calls": 2,
+    "model_call_records": 2,
+    "model_elapsed_ms": 14396,
+    "elapsed_ms": 15443,
+    "input_digest": "887e74889fe6a6e993958e271c104d658c341c611134f4804245d41e052be7a9",
+    "resolved_input_digest": "887e74889fe6a6e993958e271c104d658c341c611134f4804245d41e052be7a9"
+  }
+}

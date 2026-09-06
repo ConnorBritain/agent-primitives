@@ -1,0 +1,3733 @@
+{
+  "status": "passed",
+  "profile": {
+    "schema": "voice-profile/3",
+    "id": "eff-mullin",
+    "measured": {
+      "schema": "voice-profile-measurements/2",
+      "normalization": "visible-prose/1",
+      "author": "Joe Mullin",
+      "corpus_words": 8233,
+      "sample_count": 11,
+      "samples": [
+        {
+          "id": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+          "digest": "aa696f2a0fb1fd3fa2b7104bd68d1df51c65a47bbab11897ed89731675adfae0",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 395,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 356
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 352
+            },
+            {
+              "kind": "link-marker",
+              "start": 495,
+              "end": 496
+            },
+            {
+              "kind": "link-target",
+              "start": 509,
+              "end": 589
+            },
+            {
+              "kind": "link-marker",
+              "start": 710,
+              "end": 711
+            },
+            {
+              "kind": "link-target",
+              "start": 743,
+              "end": 860
+            },
+            {
+              "kind": "link-marker",
+              "start": 2207,
+              "end": 2208
+            },
+            {
+              "kind": "link-target",
+              "start": 2234,
+              "end": 2335
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "contractions",
+              "count": 5,
+              "per_1000_words": 12.66,
+              "occurrences": [
+                {
+                  "text": "won’t",
+                  "start": 605,
+                  "end": 610
+                },
+                {
+                  "text": "wasn’t",
+                  "start": 1343,
+                  "end": 1349
+                },
+                {
+                  "text": "couldn’t",
+                  "start": 1387,
+                  "end": 1395
+                },
+                {
+                  "text": "won’t",
+                  "start": 1625,
+                  "end": 1630
+                },
+                {
+                  "text": "doesn’t",
+                  "start": 2680,
+                  "end": 2687
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "em-dashes",
+              "count": 7,
+              "per_1000_words": 17.72,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 631,
+                  "end": 632
+                },
+                {
+                  "text": "—",
+                  "start": 1349,
+                  "end": 1350
+                },
+                {
+                  "text": "—",
+                  "start": 2035,
+                  "end": 2036
+                },
+                {
+                  "text": "—",
+                  "start": 2048,
+                  "end": 2049
+                },
+                {
+                  "text": "—",
+                  "start": 2431,
+                  "end": 2432
+                },
+                {
+                  "text": "—",
+                  "start": 2654,
+                  "end": 2655
+                },
+                {
+                  "text": "—",
+                  "start": 2875,
+                  "end": 2876
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+          "digest": "8fce832accc11aca75a5021f8164d0e4d3a022fa1673a32c33b259f4ee7b991f",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 740,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 401
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 397
+            },
+            {
+              "kind": "link-marker",
+              "start": 1001,
+              "end": 1002
+            },
+            {
+              "kind": "link-target",
+              "start": 1024,
+              "end": 1071
+            },
+            {
+              "kind": "link-marker",
+              "start": 1077,
+              "end": 1078
+            },
+            {
+              "kind": "link-target",
+              "start": 1101,
+              "end": 1153
+            },
+            {
+              "kind": "link-marker",
+              "start": 2798,
+              "end": 2799
+            },
+            {
+              "kind": "link-target",
+              "start": 2832,
+              "end": 2937
+            },
+            {
+              "kind": "link-marker",
+              "start": 2942,
+              "end": 2943
+            },
+            {
+              "kind": "link-target",
+              "start": 2975,
+              "end": 3087
+            },
+            {
+              "kind": "link-marker",
+              "start": 3268,
+              "end": 3269
+            },
+            {
+              "kind": "link-target",
+              "start": 3296,
+              "end": 3376
+            },
+            {
+              "kind": "link-marker",
+              "start": 5159,
+              "end": 5160
+            },
+            {
+              "kind": "link-target",
+              "start": 5180,
+              "end": 5222
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 3,
+              "per_1000_words": 4.05,
+              "occurrences": [
+                {
+                  "text": "you",
+                  "start": 5049,
+                  "end": 5052
+                },
+                {
+                  "text": "you",
+                  "start": 5117,
+                  "end": 5120
+                },
+                {
+                  "text": "your",
+                  "start": 5142,
+                  "end": 5146
+                }
+              ]
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 1,
+              "per_1000_words": 1.35,
+              "occurrences": [
+                {
+                  "text": "we",
+                  "start": 2568,
+                  "end": 2570
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 12,
+              "per_1000_words": 16.22,
+              "occurrences": [
+                {
+                  "text": "it’s",
+                  "start": 654,
+                  "end": 658
+                },
+                {
+                  "text": "Can’t",
+                  "start": 809,
+                  "end": 814
+                },
+                {
+                  "text": "they’re",
+                  "start": 958,
+                  "end": 965
+                },
+                {
+                  "text": "it’s",
+                  "start": 1598,
+                  "end": 1602
+                },
+                {
+                  "text": "doesn’t",
+                  "start": 1649,
+                  "end": 1656
+                },
+                {
+                  "text": "It’s",
+                  "start": 2330,
+                  "end": 2334
+                },
+                {
+                  "text": "that’s",
+                  "start": 2388,
+                  "end": 2394
+                },
+                {
+                  "text": "shouldn’t",
+                  "start": 2499,
+                  "end": 2508
+                },
+                {
+                  "text": "It’s",
+                  "start": 2645,
+                  "end": 2649
+                },
+                {
+                  "text": "won’t",
+                  "start": 3845,
+                  "end": 3850
+                },
+                {
+                  "text": "that’s",
+                  "start": 4658,
+                  "end": 4664
+                },
+                {
+                  "text": "They’ll",
+                  "start": 4719,
+                  "end": 4726
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 1,
+              "per_1000_words": 1.35,
+              "occurrences": [
+                {
+                  "text": "will not",
+                  "start": 4701,
+                  "end": 4709
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 1,
+              "per_1000_words": 1.35,
+              "occurrences": [
+                {
+                  "text": "I",
+                  "start": 2298,
+                  "end": 2299
+                }
+              ]
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 2,
+              "per_1000_words": 2.7,
+              "occurrences": [
+                {
+                  "text": "(A.B. 412)",
+                  "start": 451,
+                  "end": 461
+                },
+                {
+                  "text": "(or at least appear to comply)",
+                  "start": 4070,
+                  "end": 4100
+                }
+              ]
+            },
+            {
+              "id": "em-dashes",
+              "count": 5,
+              "per_1000_words": 6.76,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 2189,
+                  "end": 2190
+                },
+                {
+                  "text": "—",
+                  "start": 2223,
+                  "end": 2224
+                },
+                {
+                  "text": "—",
+                  "start": 3376,
+                  "end": 3377
+                },
+                {
+                  "text": "—",
+                  "start": 3393,
+                  "end": 3394
+                },
+                {
+                  "text": "—",
+                  "start": 3870,
+                  "end": 3871
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 7,
+              "per_1000_words": 9.46,
+              "occurrences": [
+                {
+                  "text": "–",
+                  "start": 989,
+                  "end": 990
+                },
+                {
+                  "text": "–",
+                  "start": 1255,
+                  "end": 1256
+                },
+                {
+                  "text": "–",
+                  "start": 1333,
+                  "end": 1334
+                },
+                {
+                  "text": "–",
+                  "start": 1556,
+                  "end": 1557
+                },
+                {
+                  "text": "–",
+                  "start": 1643,
+                  "end": 1644
+                },
+                {
+                  "text": "–",
+                  "start": 4573,
+                  "end": 4574
+                },
+                {
+                  "text": "–",
+                  "start": 4598,
+                  "end": 4599
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "californias-ab-412-still-demands-developers-do-impossible.txt",
+          "digest": "a4e349eeb1feeaea7846e57000e7bd2ac9a6030832b2313e43c24686f29c090d",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 684,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 355
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 351
+            },
+            {
+              "kind": "link-marker",
+              "start": 380,
+              "end": 381
+            },
+            {
+              "kind": "link-target",
+              "start": 386,
+              "end": 483
+            },
+            {
+              "kind": "link-marker",
+              "start": 496,
+              "end": 497
+            },
+            {
+              "kind": "link-target",
+              "start": 505,
+              "end": 591
+            },
+            {
+              "kind": "link-marker",
+              "start": 743,
+              "end": 744
+            },
+            {
+              "kind": "link-target",
+              "start": 761,
+              "end": 878
+            },
+            {
+              "kind": "link-marker",
+              "start": 1045,
+              "end": 1046
+            },
+            {
+              "kind": "link-target",
+              "start": 1063,
+              "end": 1133
+            },
+            {
+              "kind": "link-marker",
+              "start": 2143,
+              "end": 2144
+            },
+            {
+              "kind": "link-target",
+              "start": 2171,
+              "end": 2203
+            },
+            {
+              "kind": "link-marker",
+              "start": 3938,
+              "end": 3939
+            },
+            {
+              "kind": "link-target",
+              "start": 3963,
+              "end": 4025
+            },
+            {
+              "kind": "link-marker",
+              "start": 4165,
+              "end": 4166
+            },
+            {
+              "kind": "link-target",
+              "start": 4213,
+              "end": 4314
+            },
+            {
+              "kind": "link-marker",
+              "start": 5203,
+              "end": 5204
+            },
+            {
+              "kind": "link-target",
+              "start": 5224,
+              "end": 5266
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 3,
+              "per_1000_words": 4.39,
+              "occurrences": [
+                {
+                  "text": "you",
+                  "start": 5079,
+                  "end": 5082
+                },
+                {
+                  "text": "you",
+                  "start": 5157,
+                  "end": 5160
+                },
+                {
+                  "text": "your",
+                  "start": 5182,
+                  "end": 5186
+                }
+              ]
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 2,
+              "per_1000_words": 2.92,
+              "occurrences": [
+                {
+                  "text": "we",
+                  "start": 1192,
+                  "end": 1194
+                },
+                {
+                  "text": "we",
+                  "start": 2618,
+                  "end": 2620
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 11,
+              "per_1000_words": 16.08,
+              "occurrences": [
+                {
+                  "text": "it’s",
+                  "start": 880,
+                  "end": 884
+                },
+                {
+                  "text": "Can’t",
+                  "start": 1386,
+                  "end": 1391
+                },
+                {
+                  "text": "it’s",
+                  "start": 1581,
+                  "end": 1585
+                },
+                {
+                  "text": "wasn’t",
+                  "start": 2508,
+                  "end": 2514
+                },
+                {
+                  "text": "that’s",
+                  "start": 3244,
+                  "end": 3250
+                },
+                {
+                  "text": "can’t",
+                  "start": 3461,
+                  "end": 3466
+                },
+                {
+                  "text": "won’t",
+                  "start": 3586,
+                  "end": 3591
+                },
+                {
+                  "text": "don’t",
+                  "start": 3713,
+                  "end": 3718
+                },
+                {
+                  "text": "they’re",
+                  "start": 3741,
+                  "end": 3748
+                },
+                {
+                  "text": "isn’t",
+                  "start": 3789,
+                  "end": 3794
+                },
+                {
+                  "text": "isn’t",
+                  "start": 4783,
+                  "end": 4788
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 4,
+              "per_1000_words": 5.85,
+              "occurrences": [
+                {
+                  "text": "does not",
+                  "start": 973,
+                  "end": 981
+                },
+                {
+                  "text": "cannot",
+                  "start": 993,
+                  "end": 999
+                },
+                {
+                  "text": "should not",
+                  "start": 4377,
+                  "end": 4387
+                },
+                {
+                  "text": "does not",
+                  "start": 5040,
+                  "end": 5048
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 1,
+              "per_1000_words": 1.46,
+              "occurrences": [
+                {
+                  "text": "(like  the images that EFF creates                                )",
+                  "start": 2137,
+                  "end": 2204
+                }
+              ]
+            },
+            {
+              "id": "em-dashes",
+              "count": 1,
+              "per_1000_words": 1.46,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 1797,
+                  "end": 1798
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "chatbot-act-forces-one-parenting-model-every-family.txt",
+          "digest": "4cc9698bc6d486f51e10b9724ffd0ede90672c40fd1b8291d2a4bba5985ac3c5",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 1423,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 345
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 341
+            },
+            {
+              "kind": "link-marker",
+              "start": 854,
+              "end": 855
+            },
+            {
+              "kind": "link-target",
+              "start": 866,
+              "end": 935
+            },
+            {
+              "kind": "link-marker",
+              "start": 1165,
+              "end": 1166
+            },
+            {
+              "kind": "link-target",
+              "start": 1198,
+              "end": 1291
+            },
+            {
+              "kind": "link-marker",
+              "start": 3978,
+              "end": 3979
+            },
+            {
+              "kind": "link-target",
+              "start": 3984,
+              "end": 4080
+            },
+            {
+              "kind": "link-marker",
+              "start": 4729,
+              "end": 4730
+            },
+            {
+              "kind": "link-target",
+              "start": 4738,
+              "end": 4772
+            },
+            {
+              "kind": "link-marker",
+              "start": 4774,
+              "end": 4775
+            },
+            {
+              "kind": "link-target",
+              "start": 4784,
+              "end": 4824
+            },
+            {
+              "kind": "link-marker",
+              "start": 4826,
+              "end": 4827
+            },
+            {
+              "kind": "link-target",
+              "start": 4833,
+              "end": 4915
+            },
+            {
+              "kind": "link-marker",
+              "start": 4917,
+              "end": 4918
+            },
+            {
+              "kind": "link-target",
+              "start": 4919,
+              "end": 5002
+            },
+            {
+              "kind": "link-marker",
+              "start": 5004,
+              "end": 5005
+            },
+            {
+              "kind": "link-target",
+              "start": 5012,
+              "end": 5047
+            },
+            {
+              "kind": "link-marker",
+              "start": 5049,
+              "end": 5050
+            },
+            {
+              "kind": "link-target",
+              "start": 5058,
+              "end": 5087
+            },
+            {
+              "kind": "link-marker",
+              "start": 5089,
+              "end": 5090
+            },
+            {
+              "kind": "link-target",
+              "start": 5097,
+              "end": 5181
+            },
+            {
+              "kind": "link-marker",
+              "start": 5183,
+              "end": 5184
+            },
+            {
+              "kind": "link-target",
+              "start": 5191,
+              "end": 5252
+            },
+            {
+              "kind": "link-marker",
+              "start": 5282,
+              "end": 5283
+            },
+            {
+              "kind": "link-target",
+              "start": 5292,
+              "end": 5321
+            },
+            {
+              "kind": "link-marker",
+              "start": 5397,
+              "end": 5398
+            },
+            {
+              "kind": "link-target",
+              "start": 5416,
+              "end": 5503
+            },
+            {
+              "kind": "link-marker",
+              "start": 5505,
+              "end": 5506
+            },
+            {
+              "kind": "link-target",
+              "start": 5519,
+              "end": 5577
+            },
+            {
+              "kind": "link-marker",
+              "start": 5582,
+              "end": 5583
+            },
+            {
+              "kind": "link-target",
+              "start": 5590,
+              "end": 5665
+            },
+            {
+              "kind": "link-marker",
+              "start": 5677,
+              "end": 5678
+            },
+            {
+              "kind": "link-target",
+              "start": 5707,
+              "end": 5800
+            },
+            {
+              "kind": "link-marker",
+              "start": 5951,
+              "end": 5952
+            },
+            {
+              "kind": "link-target",
+              "start": 5997,
+              "end": 6081
+            },
+            {
+              "kind": "link-marker",
+              "start": 7634,
+              "end": 7635
+            },
+            {
+              "kind": "link-target",
+              "start": 7649,
+              "end": 7720
+            },
+            {
+              "kind": "link-marker",
+              "start": 7757,
+              "end": 7758
+            },
+            {
+              "kind": "link-target",
+              "start": 7782,
+              "end": 7839
+            },
+            {
+              "kind": "link-marker",
+              "start": 8045,
+              "end": 8046
+            },
+            {
+              "kind": "link-target",
+              "start": 8062,
+              "end": 8108
+            },
+            {
+              "kind": "link-marker",
+              "start": 8124,
+              "end": 8125
+            },
+            {
+              "kind": "link-target",
+              "start": 8158,
+              "end": 8243
+            },
+            {
+              "kind": "link-marker",
+              "start": 10104,
+              "end": 10105
+            },
+            {
+              "kind": "link-target",
+              "start": 10132,
+              "end": 10210
+            },
+            {
+              "kind": "link-marker",
+              "start": 10392,
+              "end": 10393
+            },
+            {
+              "kind": "link-target",
+              "start": 10416,
+              "end": 10529
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "contractions",
+              "count": 11,
+              "per_1000_words": 7.73,
+              "occurrences": [
+                {
+                  "text": "isn’t",
+                  "start": 2159,
+                  "end": 2164
+                },
+                {
+                  "text": "won't",
+                  "start": 3375,
+                  "end": 3380
+                },
+                {
+                  "text": "shouldn’t",
+                  "start": 3754,
+                  "end": 3763
+                },
+                {
+                  "text": "That’s",
+                  "start": 4223,
+                  "end": 4229
+                },
+                {
+                  "text": "don’t",
+                  "start": 6968,
+                  "end": 6973
+                },
+                {
+                  "text": "shouldn’t",
+                  "start": 7844,
+                  "end": 7853
+                },
+                {
+                  "text": "doesn’t",
+                  "start": 8029,
+                  "end": 8036
+                },
+                {
+                  "text": "don’t",
+                  "start": 8558,
+                  "end": 8563
+                },
+                {
+                  "text": "shouldn’t",
+                  "start": 9251,
+                  "end": 9260
+                },
+                {
+                  "text": "shouldn’t",
+                  "start": 9637,
+                  "end": 9646
+                },
+                {
+                  "text": "doesn't",
+                  "start": 9783,
+                  "end": 9790
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 5,
+              "per_1000_words": 3.51,
+              "occurrences": [
+                {
+                  "text": "should not",
+                  "start": 715,
+                  "end": 725
+                },
+                {
+                  "text": "is not",
+                  "start": 4547,
+                  "end": 4553
+                },
+                {
+                  "text": "does not",
+                  "start": 5678,
+                  "end": 5686
+                },
+                {
+                  "text": "should not",
+                  "start": 7402,
+                  "end": 7412
+                },
+                {
+                  "text": "does not",
+                  "start": 7537,
+                  "end": 7545
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "em-dashes",
+              "count": 2,
+              "per_1000_words": 1.41,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 6328,
+                  "end": 6329
+                },
+                {
+                  "text": "—",
+                  "start": 7337,
+                  "end": 7338
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+          "digest": "a888f3fd0869cb9c9a8cf325cb612204b7522ff4d8d501f8fb3be4f12bb53c82",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 770,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 368
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 364
+            },
+            {
+              "kind": "link-marker",
+              "start": 439,
+              "end": 440
+            },
+            {
+              "kind": "link-target",
+              "start": 449,
+              "end": 517
+            },
+            {
+              "kind": "link-marker",
+              "start": 1194,
+              "end": 1195
+            },
+            {
+              "kind": "link-target",
+              "start": 1214,
+              "end": 1305
+            },
+            {
+              "kind": "link-marker",
+              "start": 1958,
+              "end": 1959
+            },
+            {
+              "kind": "link-target",
+              "start": 1990,
+              "end": 2107
+            },
+            {
+              "kind": "link-marker",
+              "start": 2163,
+              "end": 2164
+            },
+            {
+              "kind": "link-target",
+              "start": 2193,
+              "end": 2293
+            },
+            {
+              "kind": "link-marker",
+              "start": 2405,
+              "end": 2406
+            },
+            {
+              "kind": "link-target",
+              "start": 2415,
+              "end": 2467
+            },
+            {
+              "kind": "link-marker",
+              "start": 2630,
+              "end": 2631
+            },
+            {
+              "kind": "link-target",
+              "start": 2654,
+              "end": 2775
+            },
+            {
+              "kind": "link-marker",
+              "start": 3216,
+              "end": 3217
+            },
+            {
+              "kind": "link-target",
+              "start": 3261,
+              "end": 3310
+            },
+            {
+              "kind": "link-marker",
+              "start": 4295,
+              "end": 4296
+            },
+            {
+              "kind": "link-target",
+              "start": 4307,
+              "end": 4402
+            },
+            {
+              "kind": "link-marker",
+              "start": 4923,
+              "end": 4924
+            },
+            {
+              "kind": "link-target",
+              "start": 4974,
+              "end": 5054
+            },
+            {
+              "kind": "link-marker",
+              "start": 5710,
+              "end": 5711
+            },
+            {
+              "kind": "link-target",
+              "start": 5733,
+              "end": 5810
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 2,
+              "per_1000_words": 2.6,
+              "occurrences": [
+                {
+                  "text": "We",
+                  "start": 1406,
+                  "end": 1408
+                },
+                {
+                  "text": "We",
+                  "start": 5056,
+                  "end": 5058
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 4,
+              "per_1000_words": 5.19,
+              "occurrences": [
+                {
+                  "text": "it’s",
+                  "start": 664,
+                  "end": 668
+                },
+                {
+                  "text": "that’s",
+                  "start": 1047,
+                  "end": 1053
+                },
+                {
+                  "text": "that’s",
+                  "start": 1155,
+                  "end": 1161
+                },
+                {
+                  "text": "Doesn’t",
+                  "start": 1475,
+                  "end": 1482
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 2,
+              "per_1000_words": 2.6,
+              "occurrences": [
+                {
+                  "text": "has not",
+                  "start": 1959,
+                  "end": 1966
+                },
+                {
+                  "text": "has not",
+                  "start": 4614,
+                  "end": 4621
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 2,
+              "per_1000_words": 2.6,
+              "occurrences": [
+                {
+                  "text": "(SOPA)",
+                  "start": 2556,
+                  "end": 2562
+                },
+                {
+                  "text": "(DMCA)",
+                  "start": 2987,
+                  "end": 2993
+                }
+              ]
+            },
+            {
+              "id": "em-dashes",
+              "count": 4,
+              "per_1000_words": 5.19,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 1501,
+                  "end": 1502
+                },
+                {
+                  "text": "—",
+                  "start": 1910,
+                  "end": 1911
+                },
+                {
+                  "text": "—",
+                  "start": 2528,
+                  "end": 2529
+                },
+                {
+                  "text": "—",
+                  "start": 6240,
+                  "end": 6241
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "congress-narrowed-guard-act-serious-problems-remain.txt",
+          "digest": "54321c7c3c30267601ba5c693997f6dd6ff4d318a5aefd7d51927715b4926c7d",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 705,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 347
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 343
+            },
+            {
+              "kind": "link-marker",
+              "start": 396,
+              "end": 397
+            },
+            {
+              "kind": "link-target",
+              "start": 406,
+              "end": 510
+            },
+            {
+              "kind": "link-marker",
+              "start": 582,
+              "end": 583
+            },
+            {
+              "kind": "link-target",
+              "start": 625,
+              "end": 738
+            },
+            {
+              "kind": "link-marker",
+              "start": 3065,
+              "end": 3066
+            },
+            {
+              "kind": "link-target",
+              "start": 3085,
+              "end": 3176
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 1,
+              "per_1000_words": 1.42,
+              "occurrences": [
+                {
+                  "text": "us",
+                  "start": 5118,
+                  "end": 5120
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 1,
+              "per_1000_words": 1.42,
+              "occurrences": [
+                {
+                  "text": "it’s",
+                  "start": 3375,
+                  "end": 3379
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 3,
+              "per_1000_words": 4.26,
+              "occurrences": [
+                {
+                  "text": "do not",
+                  "start": 2754,
+                  "end": 2760
+                },
+                {
+                  "text": "are not",
+                  "start": 3683,
+                  "end": 3690
+                },
+                {
+                  "text": "are not",
+                  "start": 3824,
+                  "end": 3831
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "em-dashes",
+              "count": 4,
+              "per_1000_words": 5.67,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 857,
+                  "end": 858
+                },
+                {
+                  "text": "—",
+                  "start": 2570,
+                  "end": 2571
+                },
+                {
+                  "text": "—",
+                  "start": 4441,
+                  "end": 4442
+                },
+                {
+                  "text": "—",
+                  "start": 4468,
+                  "end": 4469
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "court-records-should-be-free.txt",
+          "digest": "40a58864bc4e143f185882102b84df382247061c49f492c347016b3e9bd75188",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 363,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 292
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 288
+            },
+            {
+              "kind": "link-marker",
+              "start": 734,
+              "end": 735
+            },
+            {
+              "kind": "link-target",
+              "start": 772,
+              "end": 873
+            },
+            {
+              "kind": "link-marker",
+              "start": 1139,
+              "end": 1140
+            },
+            {
+              "kind": "link-target",
+              "start": 1146,
+              "end": 1185
+            },
+            {
+              "kind": "link-marker",
+              "start": 1583,
+              "end": 1584
+            },
+            {
+              "kind": "link-target",
+              "start": 1600,
+              "end": 1658
+            },
+            {
+              "kind": "link-marker",
+              "start": 1882,
+              "end": 1883
+            },
+            {
+              "kind": "link-target",
+              "start": 1913,
+              "end": 1992
+            },
+            {
+              "kind": "link-marker",
+              "start": 2277,
+              "end": 2278
+            },
+            {
+              "kind": "link-target",
+              "start": 2291,
+              "end": 2318
+            },
+            {
+              "kind": "link-marker",
+              "start": 2361,
+              "end": 2362
+            },
+            {
+              "kind": "link-target",
+              "start": 2378,
+              "end": 2398
+            },
+            {
+              "kind": "link-marker",
+              "start": 2668,
+              "end": 2669
+            },
+            {
+              "kind": "link-target",
+              "start": 2716,
+              "end": 2774
+            },
+            {
+              "kind": "link-marker",
+              "start": 2846,
+              "end": 2847
+            },
+            {
+              "kind": "link-target",
+              "start": 2858,
+              "end": 2959
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 2,
+              "per_1000_words": 5.51,
+              "occurrences": [
+                {
+                  "text": "our",
+                  "start": 693,
+                  "end": 696
+                },
+                {
+                  "text": "we",
+                  "start": 1883,
+                  "end": 1885
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 2,
+              "per_1000_words": 5.51,
+              "occurrences": [
+                {
+                  "text": "That's",
+                  "start": 719,
+                  "end": 725
+                },
+                {
+                  "text": "Let’s",
+                  "start": 2662,
+                  "end": 2667
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 3,
+              "per_1000_words": 8.26,
+              "occurrences": [
+                {
+                  "text": "did not",
+                  "start": 1760,
+                  "end": 1767
+                },
+                {
+                  "text": "is not",
+                  "start": 1830,
+                  "end": 1836
+                },
+                {
+                  "text": "should not",
+                  "start": 2075,
+                  "end": 2085
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "em-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "kids-act-would-require-age-checks-get-online.txt",
+          "digest": "c3280d88e979abf16567593368b47f2ad02a67708db7ff8f7ae359230e81197a",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 1132,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 331
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 327
+            },
+            {
+              "kind": "link-marker",
+              "start": 390,
+              "end": 391
+            },
+            {
+              "kind": "link-target",
+              "start": 399,
+              "end": 468
+            },
+            {
+              "kind": "link-marker",
+              "start": 620,
+              "end": 621
+            },
+            {
+              "kind": "link-target",
+              "start": 643,
+              "end": 740
+            },
+            {
+              "kind": "link-marker",
+              "start": 1877,
+              "end": 1878
+            },
+            {
+              "kind": "link-target",
+              "start": 1882,
+              "end": 1954
+            },
+            {
+              "kind": "link-marker",
+              "start": 3548,
+              "end": 3549
+            },
+            {
+              "kind": "link-target",
+              "start": 3564,
+              "end": 3705
+            },
+            {
+              "kind": "link-marker",
+              "start": 3707,
+              "end": 3708
+            },
+            {
+              "kind": "link-target",
+              "start": 3732,
+              "end": 3817
+            },
+            {
+              "kind": "link-marker",
+              "start": 3823,
+              "end": 3824
+            },
+            {
+              "kind": "link-target",
+              "start": 3850,
+              "end": 3895
+            },
+            {
+              "kind": "link-marker",
+              "start": 6566,
+              "end": 6567
+            },
+            {
+              "kind": "link-target",
+              "start": 6581,
+              "end": 6685
+            },
+            {
+              "kind": "link-marker",
+              "start": 7658,
+              "end": 7659
+            },
+            {
+              "kind": "link-target",
+              "start": 7681,
+              "end": 7731
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 2,
+              "per_1000_words": 1.77,
+              "occurrences": [
+                {
+                  "text": "you",
+                  "start": 2118,
+                  "end": 2121
+                },
+                {
+                  "text": "you",
+                  "start": 5649,
+                  "end": 5652
+                }
+              ]
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 1,
+              "per_1000_words": 0.88,
+              "occurrences": [
+                {
+                  "text": "We",
+                  "start": 6501,
+                  "end": 6503
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 15,
+              "per_1000_words": 13.25,
+              "occurrences": [
+                {
+                  "text": "It’s",
+                  "start": 1140,
+                  "end": 1144
+                },
+                {
+                  "text": "doesn’t",
+                  "start": 1964,
+                  "end": 1971
+                },
+                {
+                  "text": "shouldn’t",
+                  "start": 2063,
+                  "end": 2072
+                },
+                {
+                  "text": "doesn’t",
+                  "start": 2528,
+                  "end": 2535
+                },
+                {
+                  "text": "it’s",
+                  "start": 2758,
+                  "end": 2762
+                },
+                {
+                  "text": "won’t",
+                  "start": 2996,
+                  "end": 3001
+                },
+                {
+                  "text": "They’ll",
+                  "start": 3039,
+                  "end": 3046
+                },
+                {
+                  "text": "doesn’t",
+                  "start": 4142,
+                  "end": 4149
+                },
+                {
+                  "text": "can’t",
+                  "start": 4232,
+                  "end": 4237
+                },
+                {
+                  "text": "can’t",
+                  "start": 4497,
+                  "end": 4502
+                },
+                {
+                  "text": "she’s",
+                  "start": 5773,
+                  "end": 5778
+                },
+                {
+                  "text": "We’ve",
+                  "start": 6501,
+                  "end": 6506
+                },
+                {
+                  "text": "doesn’t",
+                  "start": 7104,
+                  "end": 7111
+                },
+                {
+                  "text": "they’re",
+                  "start": 7316,
+                  "end": 7323
+                },
+                {
+                  "text": "can’t",
+                  "start": 7364,
+                  "end": 7369
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 9,
+              "per_1000_words": 7.95,
+              "occurrences": [
+                {
+                  "text": "are not",
+                  "start": 2982,
+                  "end": 2989
+                },
+                {
+                  "text": "is not",
+                  "start": 4009,
+                  "end": 4015
+                },
+                {
+                  "text": "is not",
+                  "start": 4291,
+                  "end": 4297
+                },
+                {
+                  "text": "will not",
+                  "start": 4768,
+                  "end": 4776
+                },
+                {
+                  "text": "does not",
+                  "start": 6163,
+                  "end": 6171
+                },
+                {
+                  "text": "should not",
+                  "start": 6945,
+                  "end": 6955
+                },
+                {
+                  "text": "are not",
+                  "start": 7597,
+                  "end": 7604
+                },
+                {
+                  "text": "are not",
+                  "start": 7828,
+                  "end": 7835
+                },
+                {
+                  "text": "is not",
+                  "start": 8018,
+                  "end": 8024
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 5,
+              "per_1000_words": 4.42,
+              "occurrences": [
+                {
+                  "text": "?",
+                  "start": 5743,
+                  "end": 5744
+                },
+                {
+                  "text": "?",
+                  "start": 5828,
+                  "end": 5829
+                },
+                {
+                  "text": "?",
+                  "start": 5942,
+                  "end": 5943
+                },
+                {
+                  "text": "?",
+                  "start": 6031,
+                  "end": 6032
+                },
+                {
+                  "text": "?",
+                  "start": 7374,
+                  "end": 7375
+                }
+              ]
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 2,
+              "per_1000_words": 1.77,
+              "occurrences": [
+                {
+                  "text": "(defined in the bill as anyone under 13)",
+                  "start": 2393,
+                  "end": 2433
+                },
+                {
+                  "text": "(defined as anyone between 13 and 16 years old)",
+                  "start": 2444,
+                  "end": 2491
+                }
+              ]
+            },
+            {
+              "id": "em-dashes",
+              "count": 2,
+              "per_1000_words": 1.77,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 2674,
+                  "end": 2675
+                },
+                {
+                  "text": "—",
+                  "start": 5686,
+                  "end": 5687
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+          "digest": "ded228c99b2238a11b58fe13f6c1099fd63823dc762c5cf2f4cb8ceee33e36d8",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 658,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 360
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 356
+            },
+            {
+              "kind": "link-marker",
+              "start": 1081,
+              "end": 1082
+            },
+            {
+              "kind": "link-target",
+              "start": 1093,
+              "end": 1179
+            },
+            {
+              "kind": "link-marker",
+              "start": 1539,
+              "end": 1540
+            },
+            {
+              "kind": "link-target",
+              "start": 1545,
+              "end": 1632
+            },
+            {
+              "kind": "link-marker",
+              "start": 1637,
+              "end": 1638
+            },
+            {
+              "kind": "link-target",
+              "start": 1639,
+              "end": 1718
+            },
+            {
+              "kind": "link-marker",
+              "start": 1757,
+              "end": 1758
+            },
+            {
+              "kind": "link-target",
+              "start": 1783,
+              "end": 1903
+            },
+            {
+              "kind": "link-marker",
+              "start": 3820,
+              "end": 3821
+            },
+            {
+              "kind": "link-target",
+              "start": 3851,
+              "end": 3937
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 1,
+              "per_1000_words": 1.52,
+              "occurrences": [
+                {
+                  "text": "your",
+                  "start": 2521,
+                  "end": 2525
+                }
+              ]
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 2,
+              "per_1000_words": 3.04,
+              "occurrences": [
+                {
+                  "text": "we",
+                  "start": 1937,
+                  "end": 1939
+                },
+                {
+                  "text": "us",
+                  "start": 4670,
+                  "end": 4672
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 20,
+              "per_1000_words": 30.4,
+              "occurrences": [
+                {
+                  "text": "won’t",
+                  "start": 469,
+                  "end": 474
+                },
+                {
+                  "text": "isn’t",
+                  "start": 501,
+                  "end": 506
+                },
+                {
+                  "text": "that’s",
+                  "start": 1072,
+                  "end": 1078
+                },
+                {
+                  "text": "don’t",
+                  "start": 1263,
+                  "end": 1268
+                },
+                {
+                  "text": "won’t",
+                  "start": 1447,
+                  "end": 1452
+                },
+                {
+                  "text": "It’s",
+                  "start": 2228,
+                  "end": 2232
+                },
+                {
+                  "text": "It’s",
+                  "start": 2258,
+                  "end": 2262
+                },
+                {
+                  "text": "won’t",
+                  "start": 2468,
+                  "end": 2473
+                },
+                {
+                  "text": "don’t",
+                  "start": 2541,
+                  "end": 2546
+                },
+                {
+                  "text": "here’s",
+                  "start": 2562,
+                  "end": 2568
+                },
+                {
+                  "text": "can’t",
+                  "start": 2746,
+                  "end": 2751
+                },
+                {
+                  "text": "There’s",
+                  "start": 2979,
+                  "end": 2986
+                },
+                {
+                  "text": "here’s",
+                  "start": 3226,
+                  "end": 3232
+                },
+                {
+                  "text": "There’s",
+                  "start": 3330,
+                  "end": 3337
+                },
+                {
+                  "text": "it’s",
+                  "start": 3536,
+                  "end": 3540
+                },
+                {
+                  "text": "Don’t",
+                  "start": 3683,
+                  "end": 3688
+                },
+                {
+                  "text": "can’t",
+                  "start": 3739,
+                  "end": 3744
+                },
+                {
+                  "text": "who’s",
+                  "start": 4289,
+                  "end": 4294
+                },
+                {
+                  "text": "that’s",
+                  "start": 4311,
+                  "end": 4317
+                },
+                {
+                  "text": "won’t",
+                  "start": 4388,
+                  "end": 4393
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 1,
+              "per_1000_words": 1.52,
+              "occurrences": [
+                {
+                  "text": "will not",
+                  "start": 4713,
+                  "end": 4721
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 1,
+              "per_1000_words": 1.52,
+              "occurrences": [
+                {
+                  "text": "I",
+                  "start": 2573,
+                  "end": 2574
+                }
+              ]
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 1,
+              "per_1000_words": 1.52,
+              "occurrences": [
+                {
+                  "text": "(KOSA)",
+                  "start": 387,
+                  "end": 393
+                }
+              ]
+            },
+            {
+              "id": "em-dashes",
+              "count": 5,
+              "per_1000_words": 7.6,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 438,
+                  "end": 439
+                },
+                {
+                  "text": "—",
+                  "start": 444,
+                  "end": 445
+                },
+                {
+                  "text": "—",
+                  "start": 2141,
+                  "end": 2142
+                },
+                {
+                  "text": "—",
+                  "start": 4642,
+                  "end": 4643
+                },
+                {
+                  "text": "—",
+                  "start": 4672,
+                  "end": 4673
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+          "digest": "dab051da9d7253cdf5e6da9a406abc6b8746227a7d8a596999978118624544fd",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 350,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 348
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 344
+            },
+            {
+              "kind": "link-marker",
+              "start": 352,
+              "end": 353
+            },
+            {
+              "kind": "link-target",
+              "start": 365,
+              "end": 440
+            },
+            {
+              "kind": "link-marker",
+              "start": 524,
+              "end": 525
+            },
+            {
+              "kind": "link-target",
+              "start": 551,
+              "end": 626
+            },
+            {
+              "kind": "link-marker",
+              "start": 700,
+              "end": 701
+            },
+            {
+              "kind": "link-target",
+              "start": 707,
+              "end": 785
+            },
+            {
+              "kind": "link-marker",
+              "start": 2700,
+              "end": 2701
+            },
+            {
+              "kind": "link-target",
+              "start": 2712,
+              "end": 2790
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 1,
+              "per_1000_words": 2.86,
+              "occurrences": [
+                {
+                  "text": "we",
+                  "start": 2265,
+                  "end": 2267
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 2,
+              "per_1000_words": 5.71,
+              "occurrences": [
+                {
+                  "text": "That's",
+                  "start": 672,
+                  "end": 678
+                },
+                {
+                  "text": "That’s",
+                  "start": 1698,
+                  "end": 1704
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "em-dashes",
+              "count": 2,
+              "per_1000_words": 5.71,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 1308,
+                  "end": 1309
+                },
+                {
+                  "text": "—",
+                  "start": 1720,
+                  "end": 1721
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        },
+        {
+          "id": "why-are-gay-bars-building-databases-their-patrons.txt",
+          "digest": "4305035ad15289015a47f58bb2853cc7f7d15a67a56ea403685759ed495e36d0",
+          "author": "Joe Mullin",
+          "register": null,
+          "form": null,
+          "words": 1013,
+          "quoted_words": 0,
+          "format": "markdown",
+          "exclusions": [
+            {
+              "kind": "metadata",
+              "start": 0,
+              "end": 338
+            },
+            {
+              "kind": "indented-code",
+              "start": 3,
+              "end": 334
+            },
+            {
+              "kind": "link-marker",
+              "start": 420,
+              "end": 421
+            },
+            {
+              "kind": "link-target",
+              "start": 442,
+              "end": 526
+            },
+            {
+              "kind": "link-marker",
+              "start": 732,
+              "end": 733
+            },
+            {
+              "kind": "link-target",
+              "start": 747,
+              "end": 810
+            },
+            {
+              "kind": "link-marker",
+              "start": 816,
+              "end": 817
+            },
+            {
+              "kind": "link-target",
+              "start": 829,
+              "end": 913
+            },
+            {
+              "kind": "link-marker",
+              "start": 1518,
+              "end": 1519
+            },
+            {
+              "kind": "link-target",
+              "start": 1529,
+              "end": 1669
+            },
+            {
+              "kind": "link-marker",
+              "start": 1993,
+              "end": 1994
+            },
+            {
+              "kind": "link-target",
+              "start": 2008,
+              "end": 2070
+            },
+            {
+              "kind": "link-marker",
+              "start": 2955,
+              "end": 2956
+            },
+            {
+              "kind": "link-target",
+              "start": 2969,
+              "end": 3004
+            },
+            {
+              "kind": "link-marker",
+              "start": 3430,
+              "end": 3431
+            },
+            {
+              "kind": "link-target",
+              "start": 3438,
+              "end": 3525
+            },
+            {
+              "kind": "link-marker",
+              "start": 3658,
+              "end": 3659
+            },
+            {
+              "kind": "link-target",
+              "start": 3720,
+              "end": 3784
+            },
+            {
+              "kind": "link-marker",
+              "start": 4540,
+              "end": 4541
+            },
+            {
+              "kind": "link-target",
+              "start": 4564,
+              "end": 4630
+            },
+            {
+              "kind": "link-marker",
+              "start": 4930,
+              "end": 4931
+            },
+            {
+              "kind": "link-target",
+              "start": 4937,
+              "end": 4972
+            }
+          ],
+          "quotations": [],
+          "warnings": [],
+          "measurements": [
+            {
+              "id": "second-person-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-plural-family",
+              "count": 3,
+              "per_1000_words": 2.96,
+              "occurrences": [
+                {
+                  "text": "we",
+                  "start": 604,
+                  "end": 606
+                },
+                {
+                  "text": "We",
+                  "start": 2821,
+                  "end": 2823
+                },
+                {
+                  "text": "us",
+                  "start": 2943,
+                  "end": 2945
+                }
+              ]
+            },
+            {
+              "id": "contractions",
+              "count": 3,
+              "per_1000_words": 2.96,
+              "occurrences": [
+                {
+                  "text": "it’s",
+                  "start": 1826,
+                  "end": 1830
+                },
+                {
+                  "text": "don’t",
+                  "start": 6879,
+                  "end": 6884
+                },
+                {
+                  "text": "It’s",
+                  "start": 7105,
+                  "end": 7109
+                }
+              ]
+            },
+            {
+              "id": "uncontracted-negatives",
+              "count": 4,
+              "per_1000_words": 3.95,
+              "occurrences": [
+                {
+                  "text": "cannot",
+                  "start": 2315,
+                  "end": 2321
+                },
+                {
+                  "text": "does not",
+                  "start": 3161,
+                  "end": 3169
+                },
+                {
+                  "text": "was not",
+                  "start": 4382,
+                  "end": 4389
+                },
+                {
+                  "text": "cannot",
+                  "start": 7262,
+                  "end": 7268
+                }
+              ]
+            },
+            {
+              "id": "profanity-vulgarity",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "first-person-singular-family",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            },
+            {
+              "id": "question-marks",
+              "count": 1,
+              "per_1000_words": 0.99,
+              "occurrences": [
+                {
+                  "text": "?",
+                  "start": 3060,
+                  "end": 3061
+                }
+              ]
+            },
+            {
+              "id": "round-parenthetical-spans",
+              "count": 3,
+              "per_1000_words": 2.96,
+              "occurrences": [
+                {
+                  "text": "(on that year's  AB 2769                                                                                       )",
+                  "start": 3414,
+                  "end": 3526
+                },
+                {
+                  "text": "(CHIRLA)",
+                  "start": 4530,
+                  "end": 4538
+                },
+                {
+                  "text": "(like a judicial warrant)",
+                  "start": 5795,
+                  "end": 5820
+                }
+              ]
+            },
+            {
+              "id": "em-dashes",
+              "count": 21,
+              "per_1000_words": 20.73,
+              "occurrences": [
+                {
+                  "text": "—",
+                  "start": 710,
+                  "end": 711
+                },
+                {
+                  "text": "—",
+                  "start": 711,
+                  "end": 712
+                },
+                {
+                  "text": "—",
+                  "start": 712,
+                  "end": 713
+                },
+                {
+                  "text": "—",
+                  "start": 713,
+                  "end": 714
+                },
+                {
+                  "text": "—",
+                  "start": 714,
+                  "end": 715
+                },
+                {
+                  "text": "—",
+                  "start": 715,
+                  "end": 716
+                },
+                {
+                  "text": "—",
+                  "start": 716,
+                  "end": 717
+                },
+                {
+                  "text": "—",
+                  "start": 717,
+                  "end": 718
+                },
+                {
+                  "text": "—",
+                  "start": 718,
+                  "end": 719
+                },
+                {
+                  "text": "—",
+                  "start": 719,
+                  "end": 720
+                },
+                {
+                  "text": "—",
+                  "start": 720,
+                  "end": 721
+                },
+                {
+                  "text": "—",
+                  "start": 721,
+                  "end": 722
+                },
+                {
+                  "text": "—",
+                  "start": 722,
+                  "end": 723
+                },
+                {
+                  "text": "—",
+                  "start": 723,
+                  "end": 724
+                },
+                {
+                  "text": "—",
+                  "start": 724,
+                  "end": 725
+                },
+                {
+                  "text": "—",
+                  "start": 725,
+                  "end": 726
+                },
+                {
+                  "text": "—",
+                  "start": 726,
+                  "end": 727
+                },
+                {
+                  "text": "—",
+                  "start": 727,
+                  "end": 728
+                },
+                {
+                  "text": "—",
+                  "start": 728,
+                  "end": 729
+                },
+                {
+                  "text": "—",
+                  "start": 729,
+                  "end": 730
+                },
+                {
+                  "text": "—",
+                  "start": 3862,
+                  "end": 3863
+                }
+              ]
+            },
+            {
+              "id": "en-dashes",
+              "count": 0,
+              "per_1000_words": 0,
+              "occurrences": []
+            }
+          ]
+        }
+      ],
+      "samples_excluded": [],
+      "groups": [
+        {
+          "register": null,
+          "form": null,
+          "samples": [
+            "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+            "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+            "californias-ab-412-still-demands-developers-do-impossible.txt",
+            "chatbot-act-forces-one-parenting-model-every-family.txt",
+            "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+            "congress-narrowed-guard-act-serious-problems-remain.txt",
+            "court-records-should-be-free.txt",
+            "kids-act-would-require-age-checks-get-online.txt",
+            "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+            "no-fakes-act-could-silence-satire-commentary-and-news.txt",
+            "why-are-gay-bars-building-databases-their-patrons.txt"
+          ],
+          "words": 8233,
+          "support": "supported"
+        }
+      ],
+      "support": "supported",
+      "measurements": [
+        {
+          "id": "second-person-family",
+          "count": 9,
+          "per_1000_words": 1.09,
+          "counting_rule": "[normalization:visible-prose/1] Count case-insensitive whole-word tokens you, your, yours, you're, you've, you'd, and you'll in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 4.05,
+            "maximum": 4.39
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 0,
+                "p90": 4.05,
+                "maximum": 4.39
+              }
+            }
+          ]
+        },
+        {
+          "id": "first-person-plural-family",
+          "count": 15,
+          "per_1000_words": 1.82,
+          "counting_rule": "[normalization:visible-prose/1] Count case-sensitive whole-word tokens we, We, us, our, Our, ours, Ours, and the listed contracted we forms in the author-visible prose (recognizable quotations excluded); uppercase US is excluded.",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 2.6,
+            "p90": 3.04,
+            "maximum": 5.51
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 2.6,
+                "p90": 3.04,
+                "maximum": 5.51
+              }
+            }
+          ]
+        },
+        {
+          "id": "contractions",
+          "count": 86,
+          "per_1000_words": 10.45,
+          "counting_rule": "[normalization:visible-prose/1] Count whole-word n't, 're, 've, 'll, 'd, and 'm forms plus 's only for the closed elision hosts it, that, there, here, who, what, where, when, how, why, he, she, let, one, nothing, everything, something, somebody, nobody, and this; possessive 's is excluded.",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 1.42,
+            "p10": 2.96,
+            "median": 7.73,
+            "p90": 16.22,
+            "maximum": 30.4
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 1.42,
+                "p10": 2.96,
+                "median": 7.73,
+                "p90": 16.22,
+                "maximum": 30.4
+              }
+            }
+          ]
+        },
+        {
+          "id": "uncontracted-negatives",
+          "count": 32,
+          "per_1000_words": 3.89,
+          "counting_rule": "[normalization:visible-prose/1] Count case-insensitive whole phrases do not, does not, did not, is not, are not, was not, were not, cannot, could not, would not, should not, will not, have not, has not, and had not in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 3.51,
+            "p90": 7.95,
+            "maximum": 8.26
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 3.51,
+                "p90": 7.95,
+                "maximum": 8.26
+              }
+            }
+          ]
+        },
+        {
+          "id": "profanity-vulgarity",
+          "count": 0,
+          "per_1000_words": 0,
+          "counting_rule": "[normalization:visible-prose/1] Count only the case-insensitive whole-word profanity and vulgarity forms enumerated by the prose-author profanity rule; coined words containing a rude root are excluded.",
+          "interpretation": "advisory",
+          "observed_absence": true,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "maximum": 0
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 0,
+                "p90": 0,
+                "maximum": 0
+              }
+            }
+          ]
+        },
+        {
+          "id": "first-person-singular-family",
+          "count": 2,
+          "per_1000_words": 0.24,
+          "counting_rule": "[normalization:visible-prose/1] Count case-insensitive whole-word tokens I, me, my, mine, and myself in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 1.35,
+            "maximum": 1.52
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 0,
+                "p90": 1.35,
+                "maximum": 1.52
+              }
+            }
+          ]
+        },
+        {
+          "id": "question-marks",
+          "count": 6,
+          "per_1000_words": 0.73,
+          "counting_rule": "[normalization:visible-prose/1] Count every literal question-mark character in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0.99,
+            "maximum": 4.42
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 0,
+                "p90": 0.99,
+                "maximum": 4.42
+              }
+            }
+          ]
+        },
+        {
+          "id": "round-parenthetical-spans",
+          "count": 11,
+          "per_1000_words": 1.34,
+          "counting_rule": "[normalization:visible-prose/1] Count each non-nested pair of round brackets whose contents stay on one line in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 1.46,
+            "p90": 2.7,
+            "maximum": 2.96
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 1.46,
+                "p90": 2.7,
+                "maximum": 2.96
+              }
+            }
+          ]
+        },
+        {
+          "id": "em-dashes",
+          "count": 53,
+          "per_1000_words": 6.44,
+          "counting_rule": "[normalization:visible-prose/1] Count every literal em-dash character in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 1.41,
+            "median": 5.67,
+            "p90": 17.72,
+            "maximum": 20.73
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 1.41,
+                "median": 5.67,
+                "p90": 17.72,
+                "maximum": 20.73
+              }
+            }
+          ]
+        },
+        {
+          "id": "en-dashes",
+          "count": 7,
+          "per_1000_words": 0.85,
+          "counting_rule": "[normalization:visible-prose/1] Count every literal en-dash character in the author-visible prose (recognizable quotations excluded).",
+          "interpretation": "advisory",
+          "observed_absence": false,
+          "distribution": {
+            "n": 11,
+            "minimum": 0,
+            "p10": 0,
+            "median": 0,
+            "p90": 0,
+            "maximum": 9.46
+          },
+          "groups": [
+            {
+              "register": null,
+              "form": null,
+              "distribution": {
+                "n": 11,
+                "minimum": 0,
+                "p10": 0,
+                "median": 0,
+                "p90": 0,
+                "maximum": 9.46
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "observations": [
+      {
+        "id": "o001",
+        "dimensions": [
+          "person-reader-stance",
+          "self-reference-biography"
+        ],
+        "description": "In these institutional advocacy articles, first-person plural presents an organizational position or reporting action. The writing self appears as a participant in public debate rather than through personal autobiography.",
+        "citations": [
+          {
+            "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+            "quote": "We hope the Senate promptly rejects this bill.",
+            "start": 1406,
+            "end": 1452
+          },
+          {
+            "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+            "quote": "We reached out to Patronscan with questions regarding their practices and their views on California ID law.",
+            "start": 2821,
+            "end": 2928
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o002",
+        "dimensions": [
+          "person-reader-stance",
+          "questions-imperatives-vocatives",
+          "openings-endings-closure"
+        ],
+        "description": "Direct reader address appears in conditional closing invitations, identifying the relevant audience before suggesting participation.",
+        "citations": [
+          {
+            "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+            "quote": "If you are a California resident and want to speak out about A.B. 412, you can find and contact your legislators",
+            "start": 5046,
+            "end": 5158
+          },
+          {
+            "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+            "quote": "If you are a California resident and interested in speaking out about this bill, you can find and contact your representatives",
+            "start": 5076,
+            "end": 5202
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o003",
+        "dimensions": [
+          "contraction-negation"
+        ],
+        "description": "Contractions keep explanatory passages conversational; full negative forms also appear in emphatic judgments. Negation often supplies a brief rebuttal or distinguishes a stated purpose from the author's account of its effects.",
+        "citations": [
+          {
+            "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+            "quote": "It’s not merely hypothetical. It’s what happens when speech becomes a legal risk.",
+            "start": 2228,
+            "end": 2309
+          },
+          {
+            "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+            "quote": "KOSA will not make kids safer.",
+            "start": 4708,
+            "end": 4738
+          },
+          {
+            "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+            "quote": "The bill is premised on the idea that copyright owners currently don’t have good remedies if they’re mistreated by AI companies. That simply isn’t true.",
+            "start": 3648,
+            "end": 3800
+          },
+          {
+            "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+            "quote": "But A.B. 412 does not strike the right balance.",
+            "start": 5027,
+            "end": 5074
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o004",
+        "dimensions": [
+          "qualification-hedging",
+          "opponents-allies-sources"
+        ],
+        "description": "Concessions acknowledge an understandable goal or a revision before a pivot restates the objection. They appear near the start of an argument or when assessing amendments.",
+        "citations": [
+          {
+            "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+            "quote": "Transparency in AI development is a laudable goal. But A.B. 412 failed to offer a fair or effective path to get there.",
+            "start": 1096,
+            "end": 1214
+          },
+          {
+            "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+            "quote": "That change does address some of the broadest concerns raised about the original proposal, though some questions about the bill’s reach remain.",
+            "start": 955,
+            "end": 1098
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o005",
+        "dimensions": [
+          "qualification-hedging"
+        ],
+        "description": "Modal verbs qualify particular scenarios and interpretations inside otherwise assertive arguments. Possible responses and boundary cases receive narrower wording than the surrounding conclusions.",
+        "citations": [
+          {
+            "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+            "quote": "Some providers might ask for government-issued identification.",
+            "start": 8906,
+            "end": 8968
+          },
+          {
+            "file": "congress-narrowed-guard-act-serious-problems-remain.txt",
+            "quote": "As conversational AI becomes more emotionally responsive, a customer service chatbot’s efforts to empathize may sweep it within the bill’s definition.",
+            "start": 4138,
+            "end": 4288
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o006",
+        "dimensions": [
+          "questions-imperatives-vocatives",
+          "person-reader-stance"
+        ],
+        "description": "Limited to the KIDS Act piece, clustered rhetorical questions turn abstract content categories into everyday situations. The questions invite the reader to test the proposed boundaries through concrete examples.",
+        "citations": [
+          {
+            "file": "kids-act-would-require-age-checks-get-online.txt",
+            "quote": "Can teens discuss addiction and recovery? Can a 15-year-old post that she’s worried she has a friend who is drinking too much? Can they seek advice about a parent’s gambling problem, or get help if they or a family member have been scammed? Can they participate in harm-reduction communities or discuss substance abuse treatment?",
+            "start": 5703,
+            "end": 6032
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o007",
+        "dimensions": [
+          "opponents-allies-sources"
+        ],
+        "description": "Attribution identifies whose position or response is being reported before developing the argument. Organizational sources and the subject's own response provide documentary grounding; their quoted language is not evidence of the author's phrasing.",
+        "citations": [
+          {
+            "file": "court-records-should-be-free.txt",
+            "quote": "Supporters note that PACER currently collects more than $150 million annually in fees from the public, despite court records being public documents.",
+            "start": 1315,
+            "end": 1463
+          },
+          {
+            "file": "why-are-gay-bars-building-databases-their-patrons.txt",
+            "quote": "We reached out to Patronscan with questions regarding their practices and their views on California ID law.",
+            "start": 2821,
+            "end": 2928
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o008",
+        "dimensions": [
+          "interruption-punctuation"
+        ],
+        "description": "Dashes insert brief emphasis or introduce a consequence within a sentence. This is observable in the supplied publication text; authorship of dash choice and spacing is unverified, so these typographic details should not be treated as settled personal preferences.",
+        "citations": [
+          {
+            "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+            "quote": "Sponsors are claiming—again—that the latest version won’t censor online content.",
+            "start": 417,
+            "end": 497
+          },
+          {
+            "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+            "quote": "When states try to rewrite the rules, they create confusion—and more litigation that doesn’t help anyone.",
+            "start": 2595,
+            "end": 2700
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o009",
+        "dimensions": [
+          "figures-analogy"
+        ],
+        "description": "Compact metaphors translate administrative or technical arrangements into familiar physical objects. They sit within explanation, making an asserted limitation or risk easier to picture without becoming extended allegories.",
+        "citations": [
+          {
+            "file": "californias-ab-412-bill-could-crush-startups-and-cement-big-tech-ai-monopoly.txt",
+            "quote": "The registration system is a cumbersome beast at best–neither machine-readable nor accessible, it’s more like a card catalog than a database",
+            "start": 1503,
+            "end": 1643
+          },
+          {
+            "file": "chatbot-act-forces-one-parenting-model-every-family.txt",
+            "quote": "Once Congress requires AI companies to create a permanent, centralized record of teen AI conversations for parental review, that will be a valuable vault of extremely personal information.",
+            "start": 2925,
+            "end": 3113
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o010",
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "description": "Openings establish a legislative development and quickly introduce an evaluative turn. These are dated publication openings, not current status reports; relative time expressions belong to their original publication context.",
+        "citations": [
+          {
+            "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+            "quote": "The Kids Online Safety Act (KOSA) is back in the Senate. Sponsors are claiming—again—that the latest version won’t censor online content. It isn’t true.",
+            "start": 360,
+            "end": 512
+          },
+          {
+            "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+            "quote": "The legislation is presented as a technical reorganization of some government agencies, but it’s much more than that.",
+            "start": 572,
+            "end": 689
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o011",
+        "dimensions": [
+          "openings-endings-closure",
+          "questions-imperatives-vocatives"
+        ],
+        "description": "Closings often compress the argument into a short recommendation directed at lawmakers, using 'should' rather than an open-ended question.",
+        "citations": [
+          {
+            "file": "congress-just-rushed-through-disastrous-copyright-office-overhaul.txt",
+            "quote": "The Senate should reject H.R. 6028.",
+            "start": 6160,
+            "end": 6195
+          },
+          {
+            "file": "kids-online-safety-act-will-make-internet-worse-everyone.txt",
+            "quote": "Lawmakers should reject it, and fast.",
+            "start": 4844,
+            "end": 4881
+          }
+        ],
+        "interpretation": "advisory"
+      },
+      {
+        "id": "o012",
+        "dimensions": [
+          "openings-endings-closure"
+        ],
+        "description": "Brief standalone sentences punctuate longer explanations with a compressed consequence or judgment. Their placement gives the argument a momentary stop before the next section of reasoning.",
+        "citations": [
+          {
+            "file": "california-ab-412-stalls-out-win-innovation-and-fair-use.txt",
+            "quote": "A.B. 412 ignored those facts, and would have punished some of the most worthwhile projects.",
+            "start": 1884,
+            "end": 1975
+          },
+          {
+            "file": "californias-ab-412-still-demands-developers-do-impossible.txt",
+            "quote": "That may seem straightforward. In practice, it’s anything but.",
+            "start": 1537,
+            "end": 1599
+          }
+        ],
+        "interpretation": "advisory"
+      }
+    ],
+    "coverage": [
+      {
+        "dimension": "person-reader-stance",
+        "status": "described",
+        "observation_ids": [
+          "o001",
+          "o002",
+          "o006"
+        ],
+        "measurement_ids": [
+          "second-person-family",
+          "first-person-plural-family"
+        ],
+        "reason": null
+      },
+      {
+        "dimension": "contraction-negation",
+        "status": "described",
+        "observation_ids": [
+          "o003"
+        ],
+        "measurement_ids": [
+          "contractions",
+          "uncontracted-negatives"
+        ],
+        "reason": null
+      },
+      {
+        "dimension": "qualification-hedging",
+        "status": "described",
+        "observation_ids": [
+          "o004",
+          "o005"
+        ],
+        "measurement_ids": [],
+        "reason": null
+      },
+      {
+        "dimension": "questions-imperatives-vocatives",
+        "status": "described",
+        "observation_ids": [
+          "o002",
+          "o006",
+          "o011"
+        ],
+        "measurement_ids": [
+          "question-marks"
+        ],
+        "reason": null
+      },
+      {
+        "dimension": "opponents-allies-sources",
+        "status": "described",
+        "observation_ids": [
+          "o004",
+          "o007"
+        ],
+        "measurement_ids": [],
+        "reason": null
+      },
+      {
+        "dimension": "profanity-vulgarity",
+        "status": "rated",
+        "observation_ids": [],
+        "measurement_ids": [
+          "profanity-vulgarity"
+        ],
+        "reason": null
+      },
+      {
+        "dimension": "self-reference-biography",
+        "status": "described",
+        "observation_ids": [
+          "o001"
+        ],
+        "measurement_ids": [
+          "first-person-singular-family"
+        ],
+        "reason": null
+      },
+      {
+        "dimension": "interruption-punctuation",
+        "status": "described",
+        "observation_ids": [
+          "o008"
+        ],
+        "measurement_ids": [
+          "round-parenthetical-spans",
+          "em-dashes",
+          "en-dashes"
+        ],
+        "reason": null
+      },
+      {
+        "dimension": "figures-analogy",
+        "status": "described",
+        "observation_ids": [
+          "o009"
+        ],
+        "measurement_ids": [],
+        "reason": null
+      },
+      {
+        "dimension": "openings-endings-closure",
+        "status": "described",
+        "observation_ids": [
+          "o002",
+          "o010",
+          "o011",
+          "o012"
+        ],
+        "measurement_ids": [],
+        "reason": null
+      }
+    ],
+    "provenance": {
+      "corpus_digest": "e8114c302c880a721d4c3212b3f0634cb491547c5d9b0d2f213bfa933a2d8cf1",
+      "renderer": {
+        "prompt_digest": "99e702b6ad5842266f43904a75d3e54cf028be16312668937a9c5ffdc4f95309",
+        "input_digest": "1737851afbc464c01a88c420ddb32ab2ad29f7c98fc89656e13ad22703e875e3",
+        "harness": "codex",
+        "model": "gpt-6-astra"
+      }
+    },
+    "limits": [
+      "Counts describe this selected evidence, not mandatory quotas.",
+      "Zero observations are not a permanent prohibition.",
+      "Semantic observations are cited interpretations, not proof of resemblance."
+    ]
+  }
+}

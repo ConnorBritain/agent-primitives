@@ -1,0 +1,100 @@
+{
+  "stage": "task-review",
+  "input": {
+    "brief": "Continue this fictional note with one short paragraph explaining my preferred alternative and inviting written comments. Return only the continuation, not the existing passage. Preserve the tentative status; do not invent an affiliation or personal history.",
+    "context": {
+      "form": "note",
+      "purpose": "invite comments",
+      "register": "plain"
+    },
+    "original": "The library has not signed its proposed reading-app contract. I oppose its provision for keeping identifiable reading histories for two years after account closure.\nI prefer anonymous aggregate usage totals and reading without creating an account.\nWritten comments are accepted until June 30.",
+    "profile": null,
+    "rules": [
+      {
+        "id": "length",
+        "kind": "word-limit",
+        "directive": "Use at most 80 words.",
+        "minimum": 1,
+        "maximum": 80
+      },
+      {
+        "id": "deadline",
+        "kind": "required-text",
+        "directive": "Include June 30 exactly.",
+        "text": "June 30"
+      }
+    ],
+    "instruction_ids": [
+      "length",
+      "deadline"
+    ],
+    "draft": "I would prefer a contract that allows only anonymous aggregate usage totals and lets people read without creating an account. While the contract is still proposed, please submit written comments by June 30."
+  },
+  "system": "Review only task adherence, explicit semantic preferences, supported profile instructions, pronoun/referent consistency and unsupported factual additions. Do not judge general quality. Check first-person biography, employers and personal experiences against supplied task facts, not style examples. Check that the draft has not silently dropped requested parentheticals, figure vocabulary or attribution. Surface evidence-backed omissions; ordinary variation is not an error. Never claim to prove factual accuracy. For this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.\nRead the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.",
+  "result": {
+    "harness": "codex",
+    "model": "gpt-6-astra",
+    "elapsed_ms": 6674,
+    "dispatched": true,
+    "input_digest": "cc66a2cdd51e46fd5f70bb82aada7cc3c69160e8a146bf18287e622ec8cde11c",
+    "schema_digest": "533d254b81dcae07afbbae34d9f7ddad99e7e059cd3f5305abd772bbd18ef6c5",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"thread.started\",\"thread_id\":\"01a07538-a5d1-7341-9752-868dcad2e7cb\"}\n{\"type\":\"turn.started\"}\n{\"type\":\"item.completed\",\"item\":{\"id\":\"item_0\",\"type\":\"agent_message\",\"text\":\"{\\\"schema\\\":\\\"prose-runtime-review/1\\\",\\\"verdict\\\":\\\"clear\\\",\\\"findings\\\":[],\\\"instructions\\\":[{\\\"id\\\":\\\"length\\\",\\\"status\\\":\\\"applied\\\",\\\"reason\\\":\\\"The continuation is one paragraph of 34 words, within the 80-word limit.\\\"},{\\\"id\\\":\\\"deadline\\\",\\\"status\\\":\\\"applied\\\",\\\"reason\\\":\\\"Includes “June 30” exactly.\\\"}],\\\"atom_accounting\\\":[],\\\"disclosures\\\":[]}\"}}\n{\"type\":\"turn.completed\",\"usage\":{\"input_tokens\":11087,\"cached_input_tokens\":0,\"cache_write_input_tokens\":0,\"output_tokens\":91,\"reasoning_output_tokens\":0}}\n",
+    "stderr": "2026-09-06T05:37:21.877123Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:37:21.878796Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n2026-09-06T05:37:21.880187Z  WARN codex_rollout::list: state db discrepancy during find_thread_path_by_id_str_in_subdir: falling_back\n",
+    "exit_code": 0,
+    "value": {
+      "schema": "prose-runtime-review/1",
+      "verdict": "clear",
+      "findings": [],
+      "instructions": [
+        {
+          "id": "length",
+          "status": "applied",
+          "reason": "The continuation is one paragraph of 34 words, within the 80-word limit."
+        },
+        {
+          "id": "deadline",
+          "status": "applied",
+          "reason": "Includes “June 30” exactly."
+        }
+      ],
+      "atom_accounting": [],
+      "disclosures": []
+    },
+    "usage": {
+      "input_tokens": 11087,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 91,
+      "reasoning_output_tokens": 0
+    },
+    "events": [
+      {
+        "type": "thread.started",
+        "thread_id": "01a07538-a5d1-7341-9752-868dcad2e7cb"
+      },
+      {
+        "type": "turn.started"
+      },
+      {
+        "type": "item.completed",
+        "item": {
+          "id": "item_0",
+          "type": "agent_message",
+          "text": "{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"length\",\"status\":\"applied\",\"reason\":\"The continuation is one paragraph of 34 words, within the 80-word limit.\"},{\"id\":\"deadline\",\"status\":\"applied\",\"reason\":\"Includes “June 30” exactly.\"}],\"atom_accounting\":[],\"disclosures\":[]}"
+        }
+      },
+      {
+        "type": "turn.completed",
+        "usage": {
+          "input_tokens": 11087,
+          "cached_input_tokens": 0,
+          "cache_write_input_tokens": 0,
+          "output_tokens": 91,
+          "reasoning_output_tokens": 0
+        }
+      }
+    ],
+    "status": "passed"
+  }
+}

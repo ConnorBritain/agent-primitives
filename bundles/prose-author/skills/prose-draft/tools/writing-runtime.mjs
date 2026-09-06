@@ -12,6 +12,7 @@ import { callModel } from "./runtime-adapters.mjs";
 import { DRAFT_SCHEMA, PROFILE_SOURCE_SCHEMA, REVIEW_SCHEMA, schemaErrors, validateDraftV5, validateReview,
   DRAFT_INSTRUCTIONS, PROFILE_INSTRUCTIONS, TASK_REVIEW_INSTRUCTIONS, REVIEW_TRANSPORT } from "./runtime-contract.mjs";
 import { findScanner } from "./verify.mjs";
+import { installedCompanions } from "./installed-dependencies.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const strip = (s) => s.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
@@ -20,15 +21,17 @@ export const MAX_CALLS = 16;
 const first = (paths) => paths.find((p) => p && existsSync(p)) ?? null;
 const promptFrom = (path) => { try { return path ? strip(readFileSync(path, "utf8")) : null; } catch { return null; } };
 
-export function runtimeDependencies(explicit = {}, env = process.env) {
-  const reviewRoot = explicit.review_root ?? env.PROSE_REVIEW_ROOT;
+export function runtimeDependencies(explicit = {}, env = process.env, adapter = {}) {
+  const companions = installedCompanions(HERE, adapter, { env });
+  const reviewRoot = explicit.review_root ?? env.PROSE_REVIEW_ROOT ?? companions["prose-review"];
   const agent = (name) => first([
     reviewRoot && join(reviewRoot, "agents", `${name}.md`),
     join(HERE, "../../../agents", `${name}.md`), // loose-file installation
     join(HERE, "../../../../prose-review/agents", `${name}.md`),
   ]);
   return {
-    scanner: explicit.scanner === null ? null : explicit.scanner ?? findScanner([], env),
+    scanner: explicit.scanner === null ? null : explicit.scanner ?? findScanner([], env)
+      ?? first([companions["prose-tell-scan"] && join(companions["prose-tell-scan"], "skills/tell-scan/tools/tell-scan.mjs")]),
     voice: explicit.voice === null ? null : explicit.voice ?? agent("prose-voice-critic"),
     fidelity: explicit.fidelity === null ? null : explicit.fidelity ?? agent("prose-fidelity-critic"),
     fidelity_scan: explicit.fidelity_scan === null ? null : explicit.fidelity_scan ?? first([
@@ -162,7 +165,7 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     selected = job.examples === false ? { examples: [], excluded: [], policy: "profile-only" }
       : selectCurrentExamples(samples, { profile, context: job.context, target_words: job.target_words });
   } catch (e) { return refused(e.message); }
-  const deps = runtimeDependencies(job.dependencies), instructionIds = [...new Set([...spec.rules.map((r) => r.id), ...(profile?.observations.map((o) => o.id) ?? [])])];
+  const deps = runtimeDependencies(job.dependencies, process.env, job.adapter), instructionIds = [...new Set([...spec.rules.map((r) => r.id), ...(profile?.observations.map((o) => o.id) ?? [])])];
   const baseInput = { brief: job.brief, mode: job.mode, context: job.context, facts: job.facts ?? [], source_text: job.source_text ?? "",
     profile: compactProfile(profile), rules: spec.rules, examples: selected.examples };
   const invoke = async (stage, system, input, schema) => {
@@ -197,7 +200,7 @@ export async function runWriting(job, { dispatch = callModel, scan = scanRuntime
     const reviews = [];
     const stageReview = async (stage, system, input, options = {}) => {
       if (!system) { reviews.push({ stage, status: "not-evaluated", reason: `${stage} dependency is unavailable` }); return; }
-      const called = await invoke(stage, system, { ...input, draft: candidate.draft }, REVIEW_SCHEMA);
+      const called = await invoke(stage, system, { ...input, missing_atoms: options.missingAtoms ?? [], draft: candidate.draft }, REVIEW_SCHEMA);
       if (called.status !== "passed") { reviews.push({ stage, status: "not-evaluated", reason: called.reason }); return; }
       const invalid = validateReview(called.value, { draft: candidate.draft, original: input.original ?? "", instructionIds: input.instruction_ids ?? [], missingAtoms: options.missingAtoms ?? [] });
       reviews.push(invalid.length ? { stage, status: "not-evaluated", reason: invalid.join("; ") }

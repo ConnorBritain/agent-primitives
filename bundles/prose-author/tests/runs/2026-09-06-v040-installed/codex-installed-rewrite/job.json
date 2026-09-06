@@ -1,0 +1,30 @@
+{
+  "schema": "prose-writing-job/1",
+  "mode": "rewrite",
+  "brief": "Tighten this fictional library notice into two or three sentences. Preserve its facts, quoted words and uncertainty. Do not introduce new facts or advice.",
+  "context": {
+    "form": "notice",
+    "purpose": "explain a proposed pilot",
+    "register": "plain"
+  },
+  "source_text": "The library has proposed a six-month reading-app pilot, but it has not yet signed the contract. The proposed contract would retain identifiable reading histories for two years after account closure. Written comments are accepted until June 30. The board called the pilot \"a proposal, not a commitment\".",
+  "rules": [
+    {
+      "id": "length",
+      "kind": "word-limit",
+      "directive": "Use at most 90 words.",
+      "minimum": 1,
+      "maximum": 90
+    },
+    {
+      "id": "deadline",
+      "kind": "required-text",
+      "directive": "Retain June 30 exactly.",
+      "text": "June 30"
+    }
+  ],
+  "adapter": {
+    "harness": "codex",
+    "timeout_ms": 180000
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "prose-writing-job/1",
+  "mode": "continue",
+  "brief": "Continue this fictional note with one short paragraph explaining my preferred alternative and inviting written comments. Return only the continuation, not the existing passage. Preserve the tentative status; do not invent an affiliation or personal history.",
+  "context": {"form": "note", "purpose": "invite comments", "register": "plain"},
+  "source_text": "The library has not signed its proposed reading-app contract. I oppose its provision for keeping identifiable reading histories for two years after account closure.",
+  "facts": ["I prefer anonymous aggregate usage totals and reading without creating an account.", "Written comments are accepted until June 30."],
+  "rules": [
+    {"id": "length", "kind": "word-limit", "directive": "Use at most 80 words.", "minimum": 1, "maximum": 80},
+    {"id": "deadline", "kind": "required-text", "directive": "Include June 30 exactly.", "text": "June 30"}
+  ],
+  "adapter": {"harness": "codex", "timeout_ms": 180000}
+}

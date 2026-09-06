@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import { spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync, readdirSync, realpathSync } from "node:fs";
 import { homedir } from "node:os";
-import { dirname, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { dirname, join, resolve } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
 const REPO = dirname(fileURLToPath(import.meta.url));
 const CODEX_HOME = process.env.CODEX_HOME || join(homedir(), ".codex");
@@ -31,20 +31,28 @@ Usage:
   node install-prose-codex.mjs
   node install-prose-codex.mjs --check
   node install-prose-codex.mjs --agents-only
+  node install-prose-codex.mjs --replace-marketplace
+  node install-prose-codex.mjs --remote
 
 Options:
   --check        Verify the three plugins and six generated custom agents.
   --agents-only  Install or check custom agents without changing plugins.
+  --local        Install this checkout (the default); no GitHub download.
+  --remote       Install GitHub main instead of this checkout.
+  --replace-marketplace  Explicitly switch an existing prose-only marketplace source.
   --help         Show this help.
 
 Set CODEX_HOME to use a non-default Codex configuration directory.`);
 }
 
 function parseArgs(argv) {
-  const known = new Set(["--check", "--agents-only", "--help", "-h"]);
+  const known = new Set(["--check", "--agents-only", "--local", "--remote", "--replace-marketplace", "--help", "-h"]);
   const unknown = argv.filter((arg) => !known.has(arg));
   if (unknown.length) throw new Error(`unknown option: ${unknown[0]}`);
+  if (argv.includes("--local") && argv.includes("--remote")) throw new Error("Choose --local or --remote, not both");
   return {
+    local: !argv.includes("--remote"),
+    replaceMarketplace: argv.includes("--replace-marketplace"),
     agentsOnly: argv.includes("--agents-only"),
     check: argv.includes("--check"),
     help: argv.includes("--help") || argv.includes("-h"),
@@ -75,8 +83,9 @@ function renderAgent(name) {
 }
 
 function runCodex(args) {
-  const result = spawnSync("codex", args, { encoding: "utf8" });
+  const result = spawnSync("codex", args, { encoding: "utf8", timeout: 60000 });
   if (result.error?.code === "ENOENT") throw new Error("codex was not found on PATH");
+  if (result.error) throw result.error;
   if (result.status !== 0) {
     const detail = (result.stderr || result.stdout || "unknown error").trim();
     throw new Error(`codex ${args.join(" ")} failed: ${detail}`);
@@ -84,18 +93,23 @@ function runCodex(args) {
   return result.stdout;
 }
 
-function installPlugins() {
-  runCodex([
-    "plugin",
-    "marketplace",
-    "add",
-    "ConnorBritain/agent-primitives",
-    "--ref",
-    "main",
-    "--json",
-  ]);
+function installPlugins({ local = true, replaceMarketplace = false } = {}, run = runCodex) {
+  const sources = JSON.parse(run(["plugin", "marketplace", "list", "--json"]));
+  const prior = sources.marketplaces?.find((m) => m.name === MARKETPLACE);
+  const desired = local ? REPO : "ConnorBritain/agent-primitives";
+  const matches = prior && (local
+    ? prior.marketplaceSource?.sourceType === "local" && realpathSync(prior.root) === realpathSync(REPO)
+    : prior.marketplaceSource?.sourceType === "git" && prior.marketplaceSource.source === "https://github.com/ConnorBritain/agent-primitives.git");
+  if (prior && !matches) {
+    if (!replaceMarketplace) throw new Error(`${MARKETPLACE} uses a different source. Use --replace-marketplace to explicitly switch to ${desired}.`);
+    const listing = JSON.parse(run(["plugin", "list", "--json"]));
+    const others = listing.installed?.filter((p) => p.marketplaceName === MARKETPLACE && !PLUGINS.includes(p.name)) ?? [];
+    if (others.length) throw new Error(`Source switch would affect other installed plugins: ${others.map((p) => p.name).join(", ")}. Switch their marketplace explicitly first.`);
+    run(["plugin", "marketplace", "remove", MARKETPLACE, "--json"]);
+  }
+  run(["plugin", "marketplace", "add", desired, ...(!local ? ["--ref", "main"] : []), "--json"]);
   for (const plugin of PLUGINS) {
-    runCodex(["plugin", "add", `${plugin}@${MARKETPLACE}`, "--json"]);
+    run(["plugin", "add", `${plugin}@${MARKETPLACE}`, "--json"]);
     console.log(`  plugin ${plugin}`);
   }
 }
@@ -117,14 +131,45 @@ function installAgents() {
   }
 }
 
-function checkPlugins() {
-  const listing = JSON.parse(runCodex(["plugin", "list", "--json"]));
+function deploymentFiles(root) {
+  const files = [];
+  const visit = (relative) => {
+    for (const e of readdirSync(join(root, relative), { withFileTypes: true })) {
+      const p = join(relative, e.name);
+      if (e.isDirectory()) visit(p);
+      else if (e.isFile()) files.push(p);
+      else throw new Error(`${join(root, p)}: unsupported deployment entry`);
+    }
+  };
+  for (const part of [".codex-plugin", "agents", "skills", "tools", "commands"]) if (existsSync(join(root, part))) visit(part);
+  return files.sort();
+}
+
+function verifyDeployment(source, installed) {
+  const expected = deploymentFiles(source), actual = deploymentFiles(installed);
+  if (JSON.stringify(expected) !== JSON.stringify(actual)) throw new Error(`${installed}: deployment file inventory differs from this checkout`);
+  for (const file of expected) if (!readFileSync(join(source, file)).equals(readFileSync(join(installed, file)))) {
+    throw new Error(`${join(installed, file)} differs from this checkout; reinstall the local plugin`);
+  }
+}
+
+function checkPlugins({ local = true } = {}, run = runCodex) {
+  const listing = JSON.parse(run(["plugin", "list", "--json"]));
   for (const name of PLUGINS) {
     const plugin = listing.installed?.find(
       (item) => item.pluginId === `${name}@${MARKETPLACE}`,
     );
     if (!plugin?.installed || !plugin?.enabled) {
       throw new Error(`${name}@${MARKETPLACE} is not installed and enabled`);
+    }
+    const source = join(REPO, "bundles", name);
+    const version = JSON.parse(readFileSync(join(source, ".codex-plugin/plugin.json"), "utf8")).version;
+    if (plugin.version !== version) throw new Error(`${name}: installed ${plugin.version}, expected ${version}. Use a matching checkout; do not mix remote plugins with different-version local agent wrappers.`);
+    if (local) {
+      if (plugin.marketplaceSource?.sourceType !== "local" || realpathSync(plugin.source.path) !== realpathSync(source)) {
+        throw new Error(`${name}: enabled plugin is not sourced from this checkout`);
+      }
+      verifyDeployment(source, join(CODEX_HOME, "plugins/cache", MARKETPLACE, name, version));
     }
     console.log(`  plugin ${name}  OK`);
   }
@@ -141,22 +186,24 @@ function checkAgents() {
   }
 }
 
-export { AGENTS, HOST_BOUNDARY, MARKER, parseArgs, readPrimitive, renderAgent };
+export { AGENTS, HOST_BOUNDARY, MARKER, parseArgs, readPrimitive, renderAgent, installPlugins, checkPlugins, verifyDeployment };
 
+if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
 try {
   const options = parseArgs(process.argv.slice(2));
   if (options.help) {
     usage();
   } else if (options.check) {
-    if (!options.agentsOnly) checkPlugins();
+    if (!options.agentsOnly) checkPlugins(options);
     checkAgents();
     console.log("\nCodex prose installation is current.");
   } else {
-    if (!options.agentsOnly) installPlugins();
+    if (!options.agentsOnly) { installPlugins(options); checkPlugins(options); }
     installAgents();
     console.log(`\nInstalled the Codex prose toolchain. Start a new Codex session to load it.`);
   }
 } catch (error) {
   console.error(`install-prose-codex: ${error.message}`);
   process.exitCode = 1;
+}
 }

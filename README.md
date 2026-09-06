@@ -108,7 +108,8 @@ Claude Code, verification, updates, and first use.
 
 ### Codex — prose toolchain
 
-From a clone, one command installs the three prose plugins plus six read-only custom agents:
+From a clone, one command installs **that local checkout's** three prose plugins
+plus six read-only custom agents (including unpublished candidate changes):
 
 ```bash
 node install-prose-codex.mjs
@@ -116,6 +117,8 @@ node install-prose-codex.mjs
 
 Start a new Codex session, then invoke `$prose-draft`, `$prose-style-tune`, or `$tell-scan`.
 Run `node install-prose-codex.mjs --check` to verify the installation.
+An existing GitHub source requires the explicit `--replace-marketplace` option
+to switch locally. Use `--remote` only when you want GitHub main instead.
 
 ### Claude Code — plugin
 

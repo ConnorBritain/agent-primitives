@@ -1,0 +1,211 @@
+{
+  "schema": "prose-writing-result/1",
+  "status": "ungated",
+  "reason": "One or more required checks were unavailable or unresolved",
+  "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract, which would retain identifiable reading histories for two years after account closure. Written comments are accepted until June 30.",
+  "receipt": {
+    "draft_digest": "99d1c6db131205ec9f21b42ecf8ddeb3b4c04af06ae02c5844dad5ba3b8a140b",
+    "profile_digest": null,
+    "preference_digest": "eb8142c2a760bfc1f00142060adc9bc5cfc4bd0e2ef3ff5bd5a1128942e259d7",
+    "preference_revision": 1,
+    "active_preferences": [],
+    "overrides": [
+      "length",
+      "deadline"
+    ],
+    "examples": [],
+    "example_exclusions": [],
+    "model_calls": 3,
+    "elapsed_ms": 33138,
+    "final_check": {
+      "cycle": 0,
+      "draft_digest": "99d1c6db131205ec9f21b42ecf8ddeb3b4c04af06ae02c5844dad5ba3b8a140b"
+    },
+    "isolation": "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee"
+  },
+  "claims": [],
+  "omitted": [],
+  "attempts": [
+    {
+      "cycle": 0,
+      "draft": "The library has proposed a six-month reading-app pilot—described by the board as \"a proposal, not a commitment\"—but has not yet signed the contract, which would retain identifiable reading histories for two years after account closure. Written comments are accepted until June 30.",
+      "draft_digest": "99d1c6db131205ec9f21b42ecf8ddeb3b4c04af06ae02c5844dad5ba3b8a140b",
+      "mechanical": {
+        "schema": "voice-rule-report/1",
+        "draft_digest": "99d1c6db131205ec9f21b42ecf8ddeb3b4c04af06ae02c5844dad5ba3b8a140b",
+        "draft_words": 46,
+        "normalization": "visible-prose/1",
+        "exclusions": [],
+        "warnings": [],
+        "checks": [
+          {
+            "id": "length",
+            "kind": "word-limit",
+            "directive": "Use at most 90 words.",
+            "enforcement": "enforced",
+            "actual": 46,
+            "minimum": 1,
+            "maximum": 90,
+            "occurrences": [],
+            "status": "passed"
+          },
+          {
+            "id": "deadline",
+            "kind": "required-text",
+            "directive": "Retain June 30 exactly.",
+            "enforcement": "enforced",
+            "actual": 1,
+            "minimum": 1,
+            "maximum": null,
+            "occurrences": [
+              {
+                "text": "June 30",
+                "start": 272,
+                "end": 279
+              }
+            ],
+            "status": "passed"
+          }
+        ],
+        "status": "passed"
+      },
+      "observed": {
+        "status": "not-evaluated",
+        "reason": "A current profile is unavailable",
+        "measurements": []
+      },
+      "copying": {
+        "status": "not-evaluated",
+        "findings": [],
+        "reason": "No corpus text available for copying comparison"
+      },
+      "artifacts": {
+        "status": "passed",
+        "draft_digest": "99d1c6db131205ec9f21b42ecf8ddeb3b4c04af06ae02c5844dad5ba3b8a140b",
+        "findings": [],
+        "reason": "Tier A artifact scan only; no fallback cadence claim"
+      },
+      "reviews": [
+        {
+          "stage": "task-review",
+          "status": "not-evaluated",
+          "reason": "Fidelity review must account for every missing atom"
+        },
+        {
+          "stage": "fidelity-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        }
+      ],
+      "omitted": [],
+      "claims": []
+    }
+  ],
+  "calls": [
+    {
+      "stage": "draft",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 7016,
+      "usage": {
+        "input_tokens": 5418,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 254,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "680cd6355ecd36f85c378148b6264c1416003dfb724be62dd7011c3767d6733e",
+      "system_digest": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "task-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 14314,
+      "usage": {
+        "input_tokens": 4004,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 655,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "bf68643ef8f53f112fb301c627af20c633fd8fc022fc9baf783552154d94c37b",
+      "system_digest": "9a831cc24108a4a93cae31c956c4f9ccd8f4ac8e3a05a3cc4c3ba1c757b037b1",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "fidelity-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 11161,
+      "usage": {
+        "input_tokens": 6038,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 395,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "34adb29c052cd7e65fc34ecc9d7064e526e37f0aa25993b4bb87ac925f52a793",
+      "system_digest": "143c045af8e723c0e5fbd3864e3535125a1ea35d4053d6e25a9aa8add23107ca",
+      "isolation": "partial",
+      "reason": null
+    }
+  ],
+  "invocation": {
+    "model_calls": 3,
+    "model_call_records": 3,
+    "model_elapsed_ms": 32491,
+    "elapsed_ms": 33139,
+    "input_digest": "9898932e0d2da854d61310d9b8ea611894d19ebef8753b502f1194d66863a8cc",
+    "resolved_input_digest": "9898932e0d2da854d61310d9b8ea611894d19ebef8753b502f1194d66863a8cc"
+  }
+}

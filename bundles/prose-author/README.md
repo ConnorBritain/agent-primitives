@@ -1,207 +1,103 @@
 # prose-author
 
-Scoped generation in a specific person's voice—mapped from **their own writing**,
-drafted from that map without corpus access, and checked in **their own measured
-terms**.
+Personal-style drafting with explicit preferences, human writing examples and
+checks tied to the delivered text. **v0.4.0 is a local candidate, not a published
+release.** Installation and release verification remain recorded in
+[the implementation evidence](tests/V040-PROGRESS.md).
 
-**v0.3 adds a versioned style tuner to the v0.2 blank-page drafter and preserves
-the v0.1 passage rewriter.** A
-blank-page request starts with a topic, notes, outline, brief, or reply prompt,
-not an existing passage. `voice-profile-render` turns a single-author corpus into
-a cited `voice-profile/2`; `voice-draft` receives only that profile and the
-request. The corpus itself never enters the drafting context.
+Ask your coding agent to draft a reply, turn an outline into a blog post, rewrite
+a passage or continue an existing piece. You do not run the writing scripts
+yourself. “Blank page” means new prose from a brief, rather than an existing
+passage to rewrite.
 
-`prose-style-tune` keeps the measured profile immutable and stores the user's choices in a
-separate `voice-preferences/1` revision chain. It can surface profile evidence three
-dimensions at a time, propose scoped preferences from direct or pairwise feedback, compile
-the applicable choices for one writing context, and compare a single experimental behavior.
+## What constrains the writing
 
-## What ships
+Your explicit rules and the corpus have different jobs. Literal phrases,
+punctuation restrictions, word limits and supported count ranges are checked
+deterministically against the exact final text. Other preferences receive
+contextual review; they are not falsely described as mechanically enforced.
 
-| surface | job |
-|---|---|
-| `prose-draft` skill | chooses the rewrite or blank-page path and coordinates verification |
-| `prose-style-tune` skill | discovers, pins, scopes, versions, diffs, compiles, and compares user style preferences |
-| `voice-profile-render` agent | interprets the corpus; deterministic tools own counts, rates, IDs, and provenance |
-| `voice-draft` agent | creates new prose from the request and profile, with no tools or corpus access in Claude Code |
-| `voice-feedback-interpret` agent | converts one feedback event into a narrow reviewable proposal; it cannot apply the change |
+The corpus provides cited style evidence and descriptive distributions, not a
+quota for every draft. A measured absence means “not observed in these samples.”
+The drafter reads all ten coverage dimensions. Voice review looks for concrete
+departures in function, diction, reader relationship, figures and placement,
+not merely whether a counter hits a target.
 
-The canonical agent prompts live under `primitives/`; the copies under
-`bundles/prose-author/agents/` are the downloadable plugin artifacts.
+By default, generation receives up to three deterministically selected whole
+human examples alongside a profile. You can choose profile-only generation.
+Examples guide style; they do not supply facts about your life. The tell catalog
+never enters generation or repair.
 
-## The decision the whole bundle turns on
+## Start with what you have
 
-The obvious design hands the drafter the AI-tell catalog as a list of things to
-avoid. **That is reversed here, and the reversal is load-bearing.**
+- No corpus: use explicit preferences without claiming a learned voice.
+- Short samples: attributable short pieces count. The default supported-profile
+  floor is five independent pieces and 1,000 aggregate author-written words per
+  selected register/form. Smaller sets remain explicitly limited evidence.
+- An existing passage: preserve its supplied facts and qualifications during a
+  rewrite, or pass it as coherence context for continuation. Generated text is
+  never silently added to the human corpus.
+- A correction: “never use exclamation marks in replies” saves with a visible
+  scope/version receipt and undo. Ordinary edits stay local; inferred
+  preferences require approval. One word can be useful feedback.
 
-Prose optimised against a tell list scores zero and reads like nobody wrote it —
-which is the exact failure the catalog exists to *detect*, reproduced by the tool
-meant to prevent it. Goodhart, in one hop: a measure used as a target stops being
-either.
+Claude and Codex share a default private preference directory, with an explicit
+override for other identities. Independent preferences survive profile refresh;
+observation-dependent choices require validated rebinding. Equally specific
+conflicts ask for clarification.
 
-So the drafter never sees `catalog.json`. In any form. The target is the author's
-voice; the catalog is a diagnostic that runs afterwards, on the way to a human,
-and never a quantity to minimise.
+## What ships in the candidate
 
-## What each path is given
+| Component | Responsibility |
+| --- | --- |
+| `prose-draft` skill | Prepare a writing task and invoke the production runner |
+| `prose-style-tune` skill | Save, scope, discover, compare, version and undo choices |
+| `voice-profile-render` agent | Interpret cited human evidence for profile assembly |
+| `voice-draft` agent | Produce one candidate or bounded repair from authorized inputs |
+| `voice-feedback-interpret` agent | Propose narrow changes; never save its own proposal |
 
-The passage rewriter retains the v0.1 inputs: the passage, the author's voice
-card, selected human exemplars, and the register purpose.
+Primitive prompts remain canonical. Standalone agents and the skill's embedded
+prompts are rendered from those sources with byte-identical bodies. Each
+component stays independently usable; the skills provide the integrated workflow.
 
-The blank-page drafter is intentionally narrower. It receives the writing
-request and either the assembled profile or a compiled `voice-style-spec/1` only. Corpus files are visible to the separate
-renderer and independent critic, never to the drafter. This prevents the profile
-from becoming decorative and gives the same boundary a chance to survive across
-Claude Code, Codex, Cursor, and plain agent harnesses.
+## Checks and receipts
 
-## What it is allowed to say afterwards
+The dependency-free Node runner uses authenticated Claude or Codex CLI sessions,
+preserving configured models. It records actual calls and elapsed time, not
+speculative dollar costs. It separates preparation, generation, mechanical
+checking, task/voice/fidelity review, bounded repair and final assembly.
 
-`kind: author` obliges a primitive to state how its output was verified. Three
-things about a draft are checkable, and those three are exactly what gets
-claimed:
+Every output receives mechanical checks and task review; profiles add voice
+review, rewrites and repairs add fidelity review. Researched or explicitly
+publication-sensitive tasks add deeper claim auditing against supplied sources.
+At most two repair cycles address identified problems and recheck final bytes.
 
-1. it was scanned against **this author's** profile
-2. cadence and density were compared to **this author's** derived bands
-3. no Tier A artifact is present
+The result includes prose, a concise receipt and a detailed sidecar with hashes,
+preferences, omissions, claims requiring verification and repair history.
+`passed`, `failed` and `not-evaluated` are distinct. Missing dependencies or
+unresolved reviews yield an ungated result; exhausted repairs yield an incomplete
+one. Neither is a certification.
 
-And three things are never claimed, under any flag: that the draft **sounds like
-the author** (unmeasurable, and the one judgement the author is best placed to
-make), that it is **good** (not this tool's business), or that it would **pass a
-detector** (refused on principle everywhere in this repo).
+See [installation](INSTALL.md), [runtime contracts](RUNTIME.md),
+[protocol](PROTOCOL.md) and [design](DESIGN.md).
 
-`tools/verify.mjs` prints that last paragraph as part of its output, because a
-claim the tool declines to make is only reliably absent if it says so.
+## Evidence and limits
 
-## Two refusals, and both are features
+The bounded comparison records two modern licensed authors across three forms
+and three conditions: examples, profile, and both. It measures initial-draft
+compliance, deviations, omissions, copying flags, calls and latency. It does not
+require the most elaborate condition to win or revive the old 20/60 release bar.
+Human keep/edit preference and editing burden remain unmeasured without feedback.
 
-**A Tier A artifact returns the draft.** Leaked markup, a chatbot preamble, an
-identifier failing its own checksum — these are not style observations to weigh
-against a band. Handing one back beside a tidy cadence table invites the author
-to read the table and skim the problem.
+No private user corpus, broad language range, resemblance guarantee, quality
+guarantee or hallucination-elimination claim is established. Semantic critics
+can miss mistakes. Context restriction is partial, not general OS isolation.
+Whole-example copying checks are heuristic. Verify consequential factual
+additions against real sources.
 
-**With no calibrated corpus, no gap is reported.** The draft can still be called
-artifact-clean, which needs no corpus. But cadence is not compared against
-fallback bands, because those describe a generic register this repo guessed at,
-and *"within range"* read as *"within your range"* would be the tool's worst
-available lie: confident, personal-sounding, and about nobody.
-
-Which makes the ordering constraint real rather than advisory:
-**corpus → calibration → generation.**
-
-## The corpus can include model drafts. Carefully.
-
-A generation can land the voice, and throwing those away wastes the best
-available signal about what "right" looks like. But feeding them back is a loop
-with a known failure: a model pointed at its own output narrows until it
-collapses onto its mode.
-
-`tools/exemplars.mjs` enforces the rules from
-[`PROFILES.md`](../prose-tell-scan/PROFILES.md):
-
-- **human keeps the majority, always** — the cap is clamped below 0.5 *in code*,
-  because a config that can express "the model is most of my voice" will
-  eventually be set that way by someone who stopped thinking about it
-- **approved drafts supplement; they never bootstrap** — below ten human samples
-  they contribute nothing, or the cold-start path is to fill the folder with
-  model output and calibrate against model norms on day one
-- **and at the documented default they contribute nothing anyway** — slots are
-  `floor(n × cap)`, so at `n=3, cap=0.2` that is `floor(0.6) = 0`. Approved
-  drafts earn a slot only on larger exemplar sets. That is the intended
-  direction, since the cap is a ceiling rather than a quota, but it means the
-  feature is *off* at the invocation the docs recommend. The tool now says so in
-  its own output rather than leaving you to do the arithmetic
-- **weight scales with how much of the draft is actually you** — a generation
-  approved untouched is worth approximately nothing as evidence about a person
-- **cadence bands never see them at all** — that firewall is in `prose-tell-scan`
-
-A count cap alone would not be enough, and the number is reassuring in a way it
-has not earned: approved generations are less varied than human samples twice
-over, since the model already regressed to a mode and you then picked the ones
-you liked. Twenty percent of the slots is more than twenty percent of the
-influence.
-
-## Install
-
-Install `prose-author`, `prose-tell-scan`, and `prose-review` together for the intended
-draft → independent review → revise → deterministic scan workflow. Complete Codex and Claude
-Code instructions, verification commands, and update steps are in **[INSTALL.md](INSTALL.md)**.
-
-### Codex
-
-From the repository root:
-
-```bash
-node install-prose-codex.mjs
-```
-
-Start a new session and invoke `$prose-draft`, `$prose-style-tune`, or `$tell-scan`.
-
-### Claude Code
-
-```text
-/plugin marketplace add ConnorBritain/agent-primitives
-/plugin install prose-author@agent-primitives
-/plugin install prose-tell-scan@agent-primitives
-/plugin install prose-review@agent-primitives
-```
-
-Verification needs `prose-tell-scan` installed alongside. Without it,
-`verify.mjs` says the draft was **not scanned** — which is the absence of a
-check, not a pass.
-
-A fully gated blank-page result also needs `prose-review` for an independent
-voice review. The draft may still be returned when either dependency is missing,
-but it must be labelled **UNGATED** and name the check that did not run.
-
-Loose-file installation is also supported:
-
-```bash
-./install.sh voice-profile-render voice-draft voice-feedback-interpret \
-  prose-draft prose-style-tune tell-scan \
-  prose-voice-critic prose-fidelity-critic prose-reviser
-```
-
-## Known limits
-
-- **Preference tuning is not automatic taste discovery.** The user approves every applied
-  operation. Whole-draft likes without a named passage or single controlled difference remain
-  ambiguous and produce a question, not a guessed preference.
-- **Pairwise drafts are only partly controlled.** The style compiler changes one experimental
-  directive, but independent model draws can differ elsewhere. The workflow therefore asks
-  which passage drove the choice and does not treat an unexplained A/B preference as broad
-  evidence.
-- **The headless layer owns no persistent product state.** It emits portable versioned files.
-  Corpus libraries, visual editing, accounts, and project history belong in a future Style
-  Studio repository rather than in this primitives catalog.
-
-- **This is not a factual-accuracy guarantee.** The independent audit makes
-  unsupported factual material rejectable or visible, but a model audit can
-  miss a bad claim. Verify consequential claims against real sources.
-- **This release does not claim resemblance or quality.** Measurements constrain
-  behaviors the corpus supports; the author decides whether the result sounds
-  like them.
-- **The final pre-release evaluation was useful but not perfect.** Six fresh
-  profiles validated and 19/20 semantic revisions met every measured band. One
-  retained one question beyond its target; the run stopped there before the
-  critic phase. v0.2.1 replays that exact immutable failure through a bounded
-  residual-prune plan and deterministically reaches 737 words with all
-  semantic-bearing counts in range. This targeted canary is not a replacement
-  20-draft acceptance run. See [`RELEASE-v0.2.1.md`](RELEASE-v0.2.1.md).
-- **`calibrate.mjs` now blends `corpus/approved/` into catalog bands** under
-  the same cap `exemplars.mjs` uses. Both human-only and blended ceilings ship
-  side by side in `thresholds.derived.json` (`PROFILES.md` rules 2 and 5), and
-  a narrowing of any ceiling beyond 20% raises a warning. **Cadence bands
-  never see approved samples** — that firewall is absolute (rule 3), because a
-  generation whose rhythm was right was right *because* it matched the human
-  corpus that set the band. Verified in prose-tell-scan's test suite.
-- **`corpus/approved/` is written by `tools/ingest-edit.mjs`.** Given an
-  edited draft and the original the drafter produced, it computes
-  `edit_fraction` from a word-level LCS diff and writes the pair — the edit
-  under `corpus/approved/<yyyy-mm-dd>-<hash>.txt`, the original under
-  `.originals/<sha256>.txt`. Three refusals guard it: below 10% edited it
-  refuses (an untouched generation is not evidence about you); below the word
-  floor it refuses (approved/ never advertises files calibration would exclude);
-  a repeat ingest refuses without `--force`.
-- **Evaluation coverage is narrow.** v0.2.0 was exercised on two modern licensed
-  authors (Doctorow and EFF's Joe Mullin), not a user's private corpus and not a
-  broad range of languages or historical registers.
+Historical /1 and /2 profiles, /1 preferences and quota-era evaluation remain
+readable with their original tools and meanings. Current artifacts use
+`voice-profile/3`, `voice-preferences/2` and `voice-style-spec/2`; refreshing is
+explicit, never a silent reinterpretation of old evidence. The historical
+approved-corpus ingestion rules in [PROFILES.md](../prose-tell-scan/PROFILES.md)
+are unchanged and do not govern current correction learning.

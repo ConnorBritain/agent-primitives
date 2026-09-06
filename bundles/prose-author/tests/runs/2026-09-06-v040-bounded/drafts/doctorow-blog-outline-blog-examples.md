@@ -1,0 +1,11 @@
+A six-month reading app pilot can leave a much longer paper trail. In this fictional scenario, a town library is considering a vendor contract that permits retaining identifiable reading histories for two years after a patron closes an account. The library hasn't signed it.
+
+That timing matters. Closing an account would still leave the vendor permitted to keep a record connecting a patron to their reading for another two years. The proposed pilot lasts six months; the retention clock starts when the patron closes the account.
+
+Consider what that could mean for someone exploring a subject they aren't ready to discuss. A reader might want to investigate a health concern, examine a belief, or follow an uncomfortable line of inquiry. If they know their reading history could remain attached to their identity, they might hesitate before opening a book. They might choose something less revealing. They might abandon the inquiry altogether.
+
+Those are possible consequences, not events reported in this exercise. The risk is that keeping an identifiable record could change what people feel free to read. Private inquiry needs room for unfinished thoughts (including thoughts a reader may eventually reject). A reading history could become a shadow that follows the reader after the account is gone.
+
+The proposed alternative makes two concrete changes: retain only anonymous aggregate usage totals, and let patrons read without creating an account. Under that proposal, retained totals would describe overall use without preserving identifiable reading histories. Account-free access would let a patron begin reading without first establishing an account.
+
+The library board accepts written comments until June 30. To participate, submit a written comment before that deadline. Address the two-year retention provision, explain any concerns or questions, and discuss the proposed anonymous totals and account-free access. The contract is still unsigned, so comments can address its terms before the library commits.

@@ -1,0 +1,1 @@
+I would prefer a contract that allows only anonymous aggregate usage totals and lets people read without creating an account. While the contract is still proposed, please submit written comments by June 30.

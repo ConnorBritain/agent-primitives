@@ -139,6 +139,44 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "certify mismatched remote plugins and local agent wrappers",
+    file: "install-prose-codex.mjs",
+    find: 'if (plugin.version !== version) throw new Error', with: 'if (false) throw new Error',
+    guards: "remote mode does not silently mix different-generation plugin and wrapper contracts",
+  },
+  {
+    name: "omit the exact missing-atom list from task review",
+    file: `${TOOLS}/writing-runtime.mjs`,
+    find: 'missing_atoms: options.missingAtoms ?? [], draft: candidate.draft',
+    with: 'draft: candidate.draft',
+    guards: "task reviewers receive an explicit empty accounting list instead of inventing one",
+  },
+  {
+    name: "use a disabled companion plugin from its cache",
+    file: `${TOOLS}/installed-dependencies.mjs`,
+    find: '&& e.enabled === true', with: '&& true',
+    guards: "dependency discovery respects enabled registry entries instead of stale cached files",
+  },
+  {
+    name: "accept stale installed runtime bytes",
+    file: "install-prose-codex.mjs",
+    find: '!readFileSync(join(source, file)).equals(readFileSync(join(installed, file)))', with: 'false',
+    guards: "a current version label does not mask changed or stale installed code",
+  },
+  {
+    name: "switch a marketplace containing unrelated installed plugins",
+    file: "install-prose-codex.mjs",
+    find: 'if (others.length) throw new Error', with: 'if (false) throw new Error',
+    guards: "local prose installation does not silently change other marketplace consumers",
+  },
+  {
+    name: "accept missing or redrawn bounded-comparison calls",
+    file: "bundles/prose-author/tests/bounded-comparison.mjs",
+    find: 'return JSON.stringify(calls.map((r) => r.stage)) === JSON.stringify(expected)\n    && new Set(calls.map((r) => r.id)).size === expected.length',
+    with: 'return true',
+    guards: "the recorded comparison contains every prescribed initial call exactly once",
+  },
+  {
     name: "drop style evidence when repairing a draft",
     file: `${TOOLS}/writing-runtime.mjs`,
     find: '{ previous_draft: candidate.draft, repair_findings: repairFindings }',

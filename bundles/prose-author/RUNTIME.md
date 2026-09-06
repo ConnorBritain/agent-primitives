@@ -1,0 +1,111 @@
+# Current runtime and portable contracts
+
+This is a developer/adapter reference. Users enter through `prose-draft` and
+`prose-style-tune`; their agent prepares files and invokes the runner.
+
+## Contracts and historical readers
+
+| Contract | Owner and meaning |
+| --- | --- |
+| `visible-prose/1` | Normalized visible/author prose, original offsets, exclusions and warnings |
+| `voice-profile-measurements/2` | Per-document counts/rates and distributions grouped by available register/form |
+| `voice-profile-source/5` | Renderer interpretation: cited observations, unresolved dimensions or refusal |
+| `voice-profile/3` | Assembled evidence, all ten coverage dimensions, deterministic measurements and provenance |
+| `voice-preferences/2` | Independent scoped decisions, feedback provenance and immutable revision ancestry |
+| `voice-style-spec/2` | Applicable profile/preferences/rules compiled for one context; one-off overrides do not save |
+| `voice-feedback-source/2` | Interpreter's proposed operations or clarification, never a saved change |
+| `voice-draft-source/5` | Candidate prose, omissions, unsupported-claim disclosures or refusal |
+| `prose-runtime-review/1` | Located findings, instruction dispositions and missing-atom accounting |
+| `prose-writing-job/1` | Authorized task and file references; current adapter selection |
+| `prose-writing-result/1` | Exact final prose, receipt, attempts, calls, disclosures and unresolved checks |
+
+Production implementations live in `skills/prose-draft/tools/`. The small strict
+model transport schemas are in `runtime-contract.mjs`; profile and preference
+validators are in `profile-v3.mjs` and `preferences-v2.mjs`. Field-level job and
+rule examples are in the skills' [runtime reference](skills/prose-draft/references/runtime.md)
+and [session reference](skills/prose-style-tune/references/session.md).
+
+Historical profile/1 and profile/2, preference/specification /1 and draft source
+/1–/4 remain readable by their original tools. Do not pass them to current
+generation as if they were current evidence. `migratePreferencesV1` preserves
+qualitative intent without turning old measured locks into invented mechanical
+rules; observation-dependent choices need explicit validated rebinding.
+
+## Measurement semantics
+
+The normalizer masks link destinations, metadata, code and other non-prose while
+retaining original UTF-16 source offsets. Recognized Markdown/HTML quotations
+and caller-supplied quote ranges are separate from author-written prose. Inline
+quotation attribution is not guessed. Unknown markup/entity behavior is a
+documented limitation; this is not a complete Markdown or HTML parser.
+
+Explicit rules check visible final prose, including visible quotations. Observed
+author tendencies exclude identified quoted material. A count is a surface-form
+measurement, not proof of rhetorical function. Rates use actual draft length;
+zero prose words make a rate not-evaluated. A user-chosen zero limit is exact.
+
+Observed distributions are advisory. Group/form metadata is not fabricated to
+make a comparison evaluable. Held-out diagnostics compare each human piece with
+other pieces and expose departures; they are not calibrated prediction
+intervals. No observed zero creates a universal user prohibition.
+
+## Pipeline and failure behavior
+
+`prose-runtime.mjs` resolves explicitly authorized input files and creates a new
+private output directory. Existing run directories are not overwritten. The
+runner selects at most three whole human examples deterministically, validates
+current profile evidence, compiles applicable preferences and dispatches a fresh
+model context. It never imports the acceptance release protocol.
+
+The exact candidate is mechanically checked and independently reviewed at the
+task's required depth. At most two repair cycles retain original style inputs,
+address identified problems and preserve substantive material. Every new version
+is rescanned and reviewed. The result records exact final hashes; an external
+edit invalidates the old receipt. `check-result` reproduces mechanical checks,
+not a new semantic review of altered prose.
+
+Check status is passed, failed or not-evaluated. Aggregate output status is
+checked, incomplete, ungated or refused. An empty preference set or unavailable
+matching corpus does not manufacture a personal-style pass. Missing model or
+review dependencies, interrupted calls and malformed outputs remain visible.
+The invocation totals include automatic profile preparation as well as writing
+and review calls. Raw records can contain private prose and should stay private.
+
+## Claude and Codex adapters
+
+`callModel` accepts `harness`, authorized `system` and `input`, strict `schema`,
+optional `model`/`effort`, bounded `timeout_ms`, and an abort signal. It returns
+status/reason, actual model, dispatch flag, elapsed time, usage when reported,
+input/schema hashes and execution records. Model calls are not priced in dollars.
+
+Adapters use existing CLI authentication, not direct API clients. API-key
+environment variables are withheld from children to avoid inadvertently changing
+authentication/billing paths. Configured models are retained; unsupported CLI
+flags or model availability cause an explicit failure, not a silent downgrade.
+
+Claude receives an empty tool list, explicit system prompt, empty strict MCP
+configuration and no persisted session. Codex receives a fresh ephemeral exec
+context with user rules/configuration disabled and explicit tool restrictions.
+Both run in empty temporary directories and inspect execution records for
+unexpected tools. These are partial context restrictions, not a general OS-level
+guarantee against every filesystem read. Semantic reviewers remain fallible.
+
+## Pi and other harnesses: adapter interface, implementation deferred
+
+No native Pi adapter ships in this candidate. A compatible adapter should:
+
+1. Preflight the installed CLI and required capabilities without a model call.
+2. Preserve the configured model and authenticated session without requiring an
+   API key or copying credentials into task data.
+3. Accept only the authorized system/input/schema, use a fresh context and
+   disable unrelated tools/history where supported. Disclose what is unsupported.
+4. Emit structured output with execution records; reject incomplete or malformed
+   results and unexpected tool activity instead of returning a successful draft.
+5. Honor cancellation and bounded timeouts, report whether a call was actually
+   dispatched, and record model/latency/usage without guessed costs.
+6. Pass transport tests for missing dependencies, unsupported isolation,
+   interruption and malformed output. Then use the same production checks,
+   preference store and bounded repair pipeline; do not implement a second bar.
+
+The deterministic contracts are independently reusable from Node. Merely loading
+the skill Markdown in another harness does not establish a verified workflow.

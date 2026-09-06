@@ -1,0 +1,181 @@
+{
+  "schema": "prose-writing-result/1",
+  "status": "checked",
+  "reason": "Exact final text checked; no resemblance, quality or factual guarantee",
+  "draft": "Thanks so much for the invitation—I really appreciate it. Unfortunately I won't be able to make it on Friday, but I hope it goes great.",
+  "receipt": {
+    "draft_digest": "714d8516a084ccb4b319021b91f039bc4a8505d68dd2f9ba2716f7529fb1b551",
+    "profile_digest": null,
+    "preference_digest": "eb8142c2a760bfc1f00142060adc9bc5cfc4bd0e2ef3ff5bd5a1128942e259d7",
+    "preference_revision": 1,
+    "active_preferences": [],
+    "overrides": [
+      "no-questions",
+      "short-reply"
+    ],
+    "examples": [],
+    "example_exclusions": [],
+    "model_calls": 2,
+    "elapsed_ms": 20874,
+    "final_check": {
+      "cycle": 0,
+      "draft_digest": "714d8516a084ccb4b319021b91f039bc4a8505d68dd2f9ba2716f7529fb1b551"
+    },
+    "isolation": "partial: fresh CLI context and audited tool events, not a general read-isolation guarantee"
+  },
+  "claims": [],
+  "omitted": [],
+  "attempts": [
+    {
+      "cycle": 0,
+      "draft": "Thanks so much for the invitation—I really appreciate it. Unfortunately I won't be able to make it on Friday, but I hope it goes great.",
+      "draft_digest": "714d8516a084ccb4b319021b91f039bc4a8505d68dd2f9ba2716f7529fb1b551",
+      "mechanical": {
+        "schema": "voice-rule-report/1",
+        "draft_digest": "714d8516a084ccb4b319021b91f039bc4a8505d68dd2f9ba2716f7529fb1b551",
+        "draft_words": 26,
+        "normalization": "visible-prose/1",
+        "exclusions": [],
+        "warnings": [],
+        "checks": [
+          {
+            "id": "no-questions",
+            "kind": "punctuation",
+            "directive": "Do not ask a question.",
+            "enforcement": "enforced",
+            "actual": 0,
+            "minimum": 0,
+            "maximum": 0,
+            "occurrences": [],
+            "status": "passed"
+          },
+          {
+            "id": "short-reply",
+            "kind": "word-limit",
+            "directive": "Keep it under 60 words.",
+            "enforcement": "enforced",
+            "actual": 26,
+            "minimum": 1,
+            "maximum": 59,
+            "occurrences": [],
+            "status": "passed"
+          }
+        ],
+        "status": "passed"
+      },
+      "observed": {
+        "status": "not-evaluated",
+        "reason": "A current profile is unavailable",
+        "measurements": []
+      },
+      "copying": {
+        "status": "not-evaluated",
+        "findings": [],
+        "reason": "No corpus text available for copying comparison"
+      },
+      "artifacts": {
+        "status": "passed",
+        "draft_digest": "714d8516a084ccb4b319021b91f039bc4a8505d68dd2f9ba2716f7529fb1b551",
+        "findings": [],
+        "reason": "Tier A artifact scan only; no fallback cadence claim"
+      },
+      "reviews": [
+        {
+          "stage": "task-review",
+          "status": "passed",
+          "result": {
+            "schema": "prose-runtime-review/1",
+            "verdict": "clear",
+            "findings": [],
+            "instructions": [
+              {
+                "id": "no-questions",
+                "status": "applied",
+                "reason": "The draft contains no question marks and no interrogative sentences."
+              },
+              {
+                "id": "short-reply",
+                "status": "applied",
+                "reason": "Word count is approximately 27, well under the 59-word maximum."
+              }
+            ],
+            "atom_accounting": [],
+            "disclosures": []
+          }
+        }
+      ],
+      "omitted": [],
+      "claims": []
+    }
+  ],
+  "calls": [
+    {
+      "stage": "draft",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 7422,
+      "usage": {
+        "input_tokens": 5324,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 212,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "68f1243e951d63f830b24c94a345623857eb9ee6f60c261a5164b925c540b2c2",
+      "system_digest": "094126fd8d0e4bf362091cf14ec2e5e567ec8c6b3e382c428f774d4cb6d656e3",
+      "isolation": "partial",
+      "reason": null
+    },
+    {
+      "stage": "task-review",
+      "status": "passed",
+      "dispatched": true,
+      "harness": "claude",
+      "model": "opus[1m]",
+      "elapsed_ms": 12318,
+      "usage": {
+        "input_tokens": 3762,
+        "cache_creation_input_tokens": 0,
+        "cache_read_input_tokens": 0,
+        "output_tokens": 490,
+        "server_tool_use": {
+          "web_search_requests": 0,
+          "web_fetch_requests": 0
+        },
+        "service_tier": "standard",
+        "cache_creation": {
+          "ephemeral_1h_input_tokens": 0,
+          "ephemeral_5m_input_tokens": 0
+        },
+        "inference_geo": "",
+        "iterations": [],
+        "speed": "standard"
+      },
+      "input_digest": "1202133520f1144b17a59b4b0aefc07ffa7fdfa92147fa94f2ec3ce25bb37447",
+      "system_digest": "9a831cc24108a4a93cae31c956c4f9ccd8f4ac8e3a05a3cc4c3ba1c757b037b1",
+      "isolation": "partial",
+      "reason": null
+    }
+  ],
+  "invocation": {
+    "model_calls": 2,
+    "model_call_records": 2,
+    "model_elapsed_ms": 19740,
+    "elapsed_ms": 20874,
+    "input_digest": "dd1e1e9bbe1bb25cbac7f0930937eaf053e4c9214d1b58a14d16cde339d1e487",
+    "resolved_input_digest": "dd1e1e9bbe1bb25cbac7f0930937eaf053e4c9214d1b58a14d16cde339d1e487"
+  }
+}

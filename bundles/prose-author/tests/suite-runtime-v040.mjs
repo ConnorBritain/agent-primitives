@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { writeFileSync, readFileSync, cpSync, rmSync } from "node:fs";
+import { writeFileSync, readFileSync, cpSync, rmSync, mkdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { execFileSync } from "node:child_process";
 import { runWriting, selectCurrentExamples, copyingCheck, renderCurrentProfile, MAX_REPAIRS, scanRuntimeArtifacts } from "../skills/prose-draft/tools/writing-runtime.mjs";
@@ -12,7 +12,9 @@ import { proposePreferencesV2, emptyScope } from "../skills/prose-draft/tools/pr
 import { runtimeMain, loadWritingJob } from "../skills/prose-draft/tools/prose-runtime.mjs";
 import { discoveryCards, preferenceDiff, comparePreference } from "../skills/prose-draft/tools/style-session.mjs";
 import { initPreferencesV2, applyPreferencesV2 } from "../skills/prose-draft/tools/preferences-v2.mjs";
-import { comparisonInputs, DESIGN } from "./bounded-comparison.mjs";
+import { comparisonInputs, comparisonCallErrors, verifyComparison, DESIGN } from "./bounded-comparison.mjs";
+import { installedCompanions } from "../skills/prose-draft/tools/installed-dependencies.mjs";
+import { parseArgs as installerArgs, installPlugins, checkPlugins, verifyDeployment } from "../../../install-prose-codex.mjs";
 
 const candidate = (draft) => ({ schema: "voice-draft-source/5", kind: "draft", draft, omitted: [], claims: [], refused: "" });
 const clear = (input) => ({ schema: "prose-runtime-review/1", verdict: "clear", findings: [],
@@ -29,6 +31,86 @@ const dispatchFor = (drafts = ["Thank you. I cannot attend."]) => {
 export async function run(t, { tmp, HERE }) {
   t.group("v0.4 production runtime and authenticated CLI transport");
   const test = async (name, fn) => { try { await fn(); t.check(name, true); } catch (e) { t.check(name, false, e.stack); } };
+  await test("local Codex installer requires an explicit source switch and refuses unrelated plugin impact", () => {
+    assert.equal(installerArgs([]).local, true); assert.equal(installerArgs(["--remote"]).local, false);
+    assert.throws(() => installerArgs(["--remote", "--local"]), /not both/);
+    const calls = [], root = join(HERE, "../../.."), remote = { name: "agent-primitives", root,
+      marketplaceSource: { sourceType: "git", source: "https://github.com/ConnorBritain/agent-primitives.git" } };
+    let extra = false;
+    const run = (args) => {
+      calls.push(args);
+      if (args[1] === "marketplace" && args[2] === "list") return JSON.stringify({ marketplaces: [remote] });
+      if (args[1] === "list") return JSON.stringify({ installed: extra ? [{ marketplaceName: "agent-primitives", name: "unrelated" }] : [] });
+      return "{}";
+    };
+    assert.throws(() => installPlugins({}, run), /replace-marketplace/);
+    assert.equal(calls.length, 1);
+    extra = true;
+    assert.throws(() => installPlugins({ replaceMarketplace: true }, run), /other installed plugins/);
+    assert.ok(!calls.some((c) => c.includes("remove")));
+    extra = false; installPlugins({ replaceMarketplace: true }, run);
+    const addSource = calls.find((c) => c[1] === "marketplace" && c[2] === "add");
+    assert.equal(addSource[3], root); assert.ok(!addSource.includes("--ref"));
+    assert.equal(calls.filter((c) => c[1] === "add").length, 3);
+  });
+  await test("deployment checks reject changed final installed bytes and stale extra tools", () => {
+    const source = join(tmp, "deployment-source"), target = join(tmp, "deployment-target");
+    mkdirSync(join(source, "skills/one/tools"), { recursive: true });
+    writeFileSync(join(source, "skills/one/tools/check.mjs"), "source bytes");
+    cpSync(source, target, { recursive: true }); verifyDeployment(source, target);
+    writeFileSync(join(target, "skills/one/tools/check.mjs"), "changed");
+    assert.throws(() => verifyDeployment(source, target), /differs from this checkout/);
+    writeFileSync(join(target, "skills/one/tools/check.mjs"), "source bytes");
+    writeFileSync(join(target, "skills/one/tools/stale.mjs"), "stale");
+    assert.throws(() => verifyDeployment(source, target), /inventory differs/);
+  });
+  await test("remote install checks cannot certify older plugins paired with current agent wrappers", () => {
+    const run = () => JSON.stringify({ installed: [{ pluginId: "prose-author@agent-primitives", installed: true, enabled: true, version: "0.3.0" }] });
+    assert.throws(() => checkPlugins({ local: false }, run), /do not mix remote plugins/);
+  });
+  await test("plugin dependency discovery uses enabled registry versions and never guesses among caches", () => {
+    const market = join(tmp, "plugins/cache/fixture"), tools = join(market, "prose-author/0.4.0/skills/prose-draft/tools");
+    for (const harness of ["codex", "claude"]) {
+      const target = join(market, "prose-review/0.3.0");
+      mkdirSync(join(target, `.${harness}-plugin`), { recursive: true });
+      writeFileSync(join(target, `.${harness}-plugin/plugin.json`), JSON.stringify({ name: "prose-review", version: "0.3.0" }));
+      const entry = { id: "prose-review@fixture", pluginId: "prose-review@fixture", enabled: true, installed: true, version: "0.3.0", installPath: target };
+      const lookup = (entries) => installedCompanions(tools, { harness }, { exec: () => JSON.stringify(harness === "codex" ? { installed: entries } : entries) });
+      assert.equal(lookup([entry])["prose-review"], target);
+      assert.deepEqual(lookup([{ ...entry, enabled: false }]), {});
+      assert.deepEqual(lookup([entry, entry]), {});
+      assert.deepEqual(lookup([{ ...entry, version: "0.2.0" }]), {});
+      assert.deepEqual(lookup([{ ...entry, errors: ["unavailable"] }]), {});
+    }
+    assert.deepEqual(installedCompanions(tools, { harness: "pi" }, { exec: () => { throw new Error("must not call"); } }), {});
+    assert.deepEqual(installedCompanions(tools, { harness: "codex" }, { exec: () => "malformed" }), {});
+  });
+  await test("loose Claude installer includes the fidelity scan without unrelated tools", () => {
+    const project = join(tmp, "loose-claude-v040"); mkdirSync(project);
+    const names = ["prose-fidelity-critic", "prose-draft", "tell-scan"];
+    const command = process.platform === "win32" ? "powershell.exe" : "bash";
+    const args = process.platform === "win32"
+      ? ["-NoProfile", "-File", join(HERE, "../../../install.ps1"), "-Project", ...names]
+      : [join(HERE, "../../../install.sh"), "--project", ...names];
+    execFileSync(command, args, { cwd: project, encoding: "utf8" });
+    const installed = join(project, ".claude/tools/fidelity-scan.mjs");
+    assert.equal(readFileSync(installed, "utf8"), readFileSync(join(HERE, "../../prose-review/tools/fidelity-scan.mjs"), "utf8"));
+    assert.ok(existsSync(join(project, ".claude/skills/prose-draft/tools/prose-runtime.mjs")));
+    assert.ok(!existsSync(join(project, ".claude/tools/unrelated.mjs")));
+  });
+  await test("current comparison reproduces source inputs, prompt bodies and exact recorded draft checks", () => {
+    assert.deepEqual(verifyComparison(join(HERE, "runs/2026-09-06-v040-bounded")), []);
+  });
+  await test("comparison call inventory distinguishes profile conditions and rejects missing, duplicate and redrawn cells", () => {
+    const design = JSON.parse(readFileSync(DESIGN, "utf8"));
+    const stages = design.authors.flatMap((a) => [`${a}-profile`, ...design.forms.flatMap((f) => design.conditions.map((c) => `${a}-${f.id}-${c}`))]);
+    const calls = stages.map((stage, i) => ({ id: String(i), stage }));
+    assert.deepEqual(comparisonCallErrors(design, calls), []);
+    assert.ok(comparisonCallErrors(design, calls.slice(1)).length);
+    assert.ok(comparisonCallErrors(design, [...calls, { id: "redraw", stage: calls[1].stage }]).length);
+    assert.ok(comparisonCallErrors(design, calls.map((r, i) => i === 1 ? calls[0] : r)).length);
+    assert.ok(comparisonCallErrors(design, calls.map((r, i) => i === 1 ? { ...r, id: calls[0].id } : r)).length);
+  });
   await test("bounded comparison varies only profile/examples, not task facts or explicit preferences", () => {
     const design = JSON.parse(readFileSync(DESIGN, "utf8"));
     assert.equal(design.authors.length * design.forms.length * design.conditions.length, 18);
@@ -44,6 +126,18 @@ export async function run(t, { tmp, HERE }) {
       assert.deepEqual(variants[0].input.examples, variants[2].input.examples);
       assert.deepEqual(variants[1].input.profile, variants[2].input.profile);
     }
+  });
+  await test("every review receives an explicit exact atom list, including an empty task-review list", async () => {
+    const calls = [], dispatch = dispatchFor();
+    const result = await runWriting(job(), { scan: scanner, dispatch: async (args) => {
+      calls.push(args); return dispatch(args);
+    } });
+    assert.equal(result.status, "checked");
+    const review = calls.find((r) => r.schema.properties.schema.const === "prose-runtime-review/1");
+    assert.deepEqual(review.input.missing_atoms, []);
+    assert.match(review.system, /If missing_atoms is empty, return atom_accounting: \[\]/);
+    const extra = { ...clear(review.input), atom_accounting: [{ atom: "invented inventory row", disposition: "immaterial", reason: "Present" }] };
+    assert.ok(validateReview(extra, { draft: result.draft }).some((e) => /every missing atom/.test(e)));
   });
   await test("runtime and standalone agent bodies are rendered from the same primitive sources", () => {
     assert.deepEqual(renderCurrentPrompts(), []);

@@ -1,0 +1,344 @@
+{
+  "stage": "task-review",
+  "input": {
+    "brief": "Write a two-sentence reply thanking the organizer and declining Friday's invitation. Do not ask a question. Keep it under 60 words. Do not invent a reason I cannot attend.",
+    "context": {
+      "form": "reply",
+      "purpose": "politely decline an invitation",
+      "register": "informal",
+      "audience": "the organizer"
+    },
+    "original": "\nI appreciate the invitation.\nI cannot attend on Friday.",
+    "profile": null,
+    "rules": [
+      {
+        "id": "no-questions",
+        "kind": "punctuation",
+        "directive": "Do not ask a question.",
+        "characters": "?",
+        "minimum": 0,
+        "maximum": 0
+      },
+      {
+        "id": "short-reply",
+        "kind": "word-limit",
+        "directive": "Keep it under 60 words.",
+        "minimum": 1,
+        "maximum": 59
+      }
+    ],
+    "instruction_ids": [
+      "no-questions",
+      "short-reply"
+    ],
+    "draft": "Thanks so much for the invitation—I really appreciate it. Unfortunately I won't be able to make it on Friday, but I hope it goes great."
+  },
+  "system": "Review only task adherence, explicit semantic preferences, supported profile instructions, pronoun/referent consistency and unsupported factual additions. Do not judge general quality. Check first-person biography, employers and personal experiences against supplied task facts, not style examples. Check that the draft has not silently dropped requested parentheticals, figure vocabulary or attribution. Surface evidence-backed omissions; ordinary variation is not an error. Never claim to prove factual accuracy. For this runtime invocation use the supplied prose-runtime-review/1 JSON schema instead of the legacy presentation format. Review without editing. A clear verdict means no identified problem in this review, not proof of resemblance, quality or factual accuracy.\nRead the original/evidence and final draft. Every finding needs an exact draft quote or source_quote for a loss, plus a concrete reason. Use source_quote only for text in the supplied original/evidence string. Account for every requested instruction ID and every supplied missing atom. Explicit user preferences may deliberately differ from the observed corpus and are not voice errors for that reason. Observed count distributions are advisory, not mandatory quotas. A numerical departure is a diagnostic, not by itself a finding. Look for concrete substitutions that dilute supported style: lost asides, generic diction replacing characteristic actor/action grammar, changed reader relationship, flattened figures or repetitive closure. Judge function and task context, not just token counts. A repair's previous_draft can expose lost stylistic material, but generated text is never corpus evidence. If evidence is insufficient return unresolved, not a guessed pass. Unsupported factual additions belong in disclosures with exact draft quotes. Never invent a source to justify a finding.",
+  "result": {
+    "harness": "claude",
+    "model": "opus[1m]",
+    "elapsed_ms": 12318,
+    "dispatched": true,
+    "input_digest": "1202133520f1144b17a59b4b0aefc07ffa7fdfa92147fa94f2ec3ce25bb37447",
+    "schema_digest": "533d254b81dcae07afbbae34d9f7ddad99e7e059cd3f5305abd772bbd18ef6c5",
+    "isolation": "partial",
+    "stdout": "{\"type\":\"system\",\"subtype\":\"init\",\"cwd\":\"/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-cjMUJF\",\"session_id\":\"5e5098f5-f6f2-4e15-b174-2441817aea33\",\"tools\":[\"StructuredOutput\"],\"mcp_servers\":[],\"model\":\"claude-opus-4-6[1m]\",\"permissionMode\":\"dontAsk\",\"slash_commands\":[],\"apiKeySource\":\"none\",\"claude_code_version\":\"2.1.86\",\"output_style\":\"default\",\"agents\":[\"general-purpose\",\"statusline-setup\",\"Explore\",\"Plan\"],\"skills\":[\"update-config\",\"debug\",\"simplify\",\"batch\",\"loop\",\"schedule\",\"claude-api\"],\"plugins\":[],\"uuid\":\"f1a99063-14ab-478f-9959-8fe84355abd7\",\"fast_mode_state\":\"off\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemeQYFU2H8UCC1KQnLGu\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"thinking\",\"thinking\":\"Let me review the draft against the brief and rules.\\n\\nBrief: Two-sentence reply thanking the organizer and declining Friday's invitation. No question. Under 60 words. Don't invent a reason.\\n\\nDraft: \\\"Thanks so much for the invitation—I really appreciate it. Unfortunately I won't be able to make it on Friday, but I hope it goes great.\\\"\\n\\n- Two sentences: Yes (sentence 1 ends with \\\"it.\\\", sentence 2 ends with \\\"great.\\\")\\nNo question mark, under 60 words at roughly 27, and no invented reason given. The \\\"hope it goes great\\\" line is just a pleasantry, not an unsupported claim, so this looks clean.\",\"signature\":\"Eq0ICqgBCBEYAipAm9syRvjM8EjEC09MfBWhrYS94N2NPvMaXBKa5o3rDmPSPXeR8v+bc797T8/ynpHKTy8Ro9pN7YjC1d/iwnlJ/zIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAar489QGsAECEgzWD6Z/c9qa34wycZ8aDAwUfOqy6dPHNUYoOiIwoSEEw/wepbPh0irTCzbXxO221E4huQLhEtbhuGBNe0xZpFhyJzVGkWHYibuSAv7HKrEG+Ycfpj3GKZY0BR0jwonyxDyszvZeTOk8vb1a2ff/srjTlVNVYdb5U4xTouqwZKszGcdXWFsCnX4IDDtNgmw9JuYCynkXoz24U5wtturRqSS8svfRgMETkDRfD1dzogsOlmN3WXGJMEz/Fh3fA0iNdusompYNSweEx0yNIQmTsQOkQeAJAKLA4JpQ+2M2mITA7HFglYp6r2TOvXluLTJ4iQ3QKcBL4AeQP6LbSKuNGemU84MR3ulI0i8cAtJCIKtHk9VBlU1DmOut2E9T8PdxT8SWXFKD2wVhqSJoL3aZg4o8Jv+BkO8QsFK+zbuLNUiYh1pxe7OrXPmIKawZ9LvNgbZYOhi3++3FrqKAl+WkJhk4JeunVZCs3KJSZOkZMz5dgOtIEwD5T/NIuYA5TEsFMwXMf0ARc+bRvyBAZFj0Y6/vnxL6H7d6PuRumlw894gw0F/6mBqFRZZJGxbcZDQ/IOj+awrNNQEDhAEIL01trQtFwuDWam/HFK5y5nXSK0Ym+R+yVxfBsmjmFUx+Z19dVNBUstVBqrFifu5Pfbr/BRZ/YV3OnNUw0mCJEWdLk1LByBedqvO/0so+RGsyVCwnUngzJpJYnp2tr1yQ5/r4+3yWKQnfDzW9SKmwxsZJyz8KAG1vBz0cLHADs2aVT8M4wV/7I/nxyDPYJHQrglwEIHTEkZLSJU4B9MAwxTl7+gHQTNUS8AKlla1QsTLhrZP4bJQMFaj2kI378FU2xobTcygp5oSeQ0ha/yMEXBoRc3B31BPb2JJyqIIvKdmhF6S27lu8ki55x0rnSsCkI+2xGNuPm6EB+qALjIQCP+T32ipRYT+ytU8jCMD/t9QpDjy08or/aScSczqyCaWFSPPEU8q1923Mr6j+1/Dl0Qn36YLmUIVULDOeHN0fGjwgT0beNZh+/Ol6RkhgCqdWnyz+29y/7tTQKUuodF/DOc68iqcXwodza5BsAD8Uwy1Yw5rrH74WKvnoT2xHqNfl5Xxu9HGLcZqPZo6uU9LeRy9SZa4ta4fgD+hhFOvtV0weKHNZZfR7CpfYA3ADJHUNpFqoXTwTJ3n92W/8Az1DrBiAiTi0xBgB\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":1649,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"5e5098f5-f6f2-4e15-b174-2441817aea33\",\"uuid\":\"306ddf76-343c-4053-b472-61e51c8e0944\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemeQYFU2H8UCC1KQnLGu\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"tool_use\",\"id\":\"toolu_01UPFaf9DgHwMu7tTSphYC6Y\",\"name\":\"StructuredOutput\",\"input\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"no-questions\",\"status\":\"applied\",\"reason\":\"The draft contains no question marks and no interrogative sentences.\"},{\"id\":\"short-reply\",\"status\":\"applied\",\"reason\":\"Word count is approximately 27, well under the 59-word maximum.\"}],\"atom_accounting\":[],\"disclosures\":[]},\"caller\":{\"type\":\"direct\"}}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":1649,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":9,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"5e5098f5-f6f2-4e15-b174-2441817aea33\",\"uuid\":\"eacb21b4-3d0f-4bef-8ff6-5c004ff09432\"}\n{\"type\":\"user\",\"message\":{\"role\":\"user\",\"content\":[{\"tool_use_id\":\"toolu_01UPFaf9DgHwMu7tTSphYC6Y\",\"type\":\"tool_result\",\"content\":\"Structured output provided successfully\"}]},\"parent_tool_use_id\":null,\"session_id\":\"5e5098f5-f6f2-4e15-b174-2441817aea33\",\"uuid\":\"9990cd21-c768-4f8b-8654-2e00fa50819c\",\"timestamp\":\"2026-09-06T05:37:46.499Z\",\"tool_use_result\":\"Structured output provided successfully\"}\n{\"type\":\"rate_limit_event\",\"rate_limit_info\":{\"status\":\"allowed\",\"resetsAt\":1788682800,\"rateLimitType\":\"five_hour\",\"overageStatus\":\"rejected\",\"overageDisabledReason\":\"org_level_disabled\",\"isUsingOverage\":false},\"uuid\":\"54f29210-85a0-401e-82f7-e7df92565eee\",\"session_id\":\"5e5098f5-f6f2-4e15-b174-2441817aea33\"}\n{\"type\":\"assistant\",\"message\":{\"model\":\"claude-opus-4-6\",\"id\":\"msg_011CemeRCGi63qgcNBDtmi71\",\"type\":\"message\",\"role\":\"assistant\",\"content\":[{\"type\":\"text\",\"text\":\"The draft meets all stated requirements: it is exactly two sentences, thanks the organizer, declines Friday's invitation without inventing a reason, contains no questions, and stays well within the 60-word limit. No findings to report.\"}],\"stop_reason\":null,\"stop_sequence\":null,\"stop_details\":null,\"usage\":{\"input_tokens\":2113,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"cache_creation\":{\"ephemeral_5m_input_tokens\":0,\"ephemeral_1h_input_tokens\":0},\"output_tokens\":1,\"service_tier\":\"standard\",\"inference_geo\":\"not_available\"},\"context_management\":null},\"parent_tool_use_id\":null,\"session_id\":\"5e5098f5-f6f2-4e15-b174-2441817aea33\",\"uuid\":\"48486580-9184-4ad7-b2ae-43374e653680\"}\n{\"type\":\"result\",\"subtype\":\"success\",\"is_error\":false,\"duration_ms\":11710,\"duration_api_ms\":11697,\"num_turns\":2,\"result\":\"The draft meets all stated requirements: it is exactly two sentences, thanks the organizer, declines Friday's invitation without inventing a reason, contains no questions, and stays well within the 60-word limit. No findings to report.\",\"stop_reason\":\"end_turn\",\"session_id\":\"5e5098f5-f6f2-4e15-b174-2441817aea33\",\"total_cost_usd\":0.031060000000000004,\"usage\":{\"input_tokens\":3762,\"cache_creation_input_tokens\":0,\"cache_read_input_tokens\":0,\"output_tokens\":490,\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":0,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"\",\"iterations\":[],\"speed\":\"standard\"},\"modelUsage\":{\"claude-opus-4-6[1m]\":{\"inputTokens\":3762,\"outputTokens\":490,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":0,\"webSearchRequests\":0,\"costUSD\":0.031060000000000004,\"contextWindow\":1000000,\"maxOutputTokens\":64000}},\"permission_denials\":[],\"structured_output\":{\"schema\":\"prose-runtime-review/1\",\"verdict\":\"clear\",\"findings\":[],\"instructions\":[{\"id\":\"no-questions\",\"status\":\"applied\",\"reason\":\"The draft contains no question marks and no interrogative sentences.\"},{\"id\":\"short-reply\",\"status\":\"applied\",\"reason\":\"Word count is approximately 27, well under the 59-word maximum.\"}],\"atom_accounting\":[],\"disclosures\":[]},\"fast_mode_state\":\"off\",\"uuid\":\"c7bfe8f3-44e7-4efe-b0d2-6631d8103a0c\"}\n",
+    "stderr": "",
+    "exit_code": 0,
+    "value": {
+      "schema": "prose-runtime-review/1",
+      "verdict": "clear",
+      "findings": [],
+      "instructions": [
+        {
+          "id": "no-questions",
+          "status": "applied",
+          "reason": "The draft contains no question marks and no interrogative sentences."
+        },
+        {
+          "id": "short-reply",
+          "status": "applied",
+          "reason": "Word count is approximately 27, well under the 59-word maximum."
+        }
+      ],
+      "atom_accounting": [],
+      "disclosures": []
+    },
+    "usage": {
+      "input_tokens": 3762,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 490,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard"
+    },
+    "events": [
+      {
+        "type": "system",
+        "subtype": "init",
+        "cwd": "/private/var/folders/8b/jff4zg2100l8142wzkgkhm680000gq/T/prose-runtime-call-cjMUJF",
+        "session_id": "5e5098f5-f6f2-4e15-b174-2441817aea33",
+        "tools": [
+          "StructuredOutput"
+        ],
+        "mcp_servers": [],
+        "model": "claude-opus-4-6[1m]",
+        "permissionMode": "dontAsk",
+        "slash_commands": [],
+        "apiKeySource": "none",
+        "claude_code_version": "2.1.86",
+        "output_style": "default",
+        "agents": [
+          "general-purpose",
+          "statusline-setup",
+          "Explore",
+          "Plan"
+        ],
+        "skills": [
+          "update-config",
+          "debug",
+          "simplify",
+          "batch",
+          "loop",
+          "schedule",
+          "claude-api"
+        ],
+        "plugins": [],
+        "uuid": "f1a99063-14ab-478f-9959-8fe84355abd7",
+        "fast_mode_state": "off"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemeQYFU2H8UCC1KQnLGu",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "thinking",
+              "thinking": "Let me review the draft against the brief and rules.\n\nBrief: Two-sentence reply thanking the organizer and declining Friday's invitation. No question. Under 60 words. Don't invent a reason.\n\nDraft: \"Thanks so much for the invitation—I really appreciate it. Unfortunately I won't be able to make it on Friday, but I hope it goes great.\"\n\n- Two sentences: Yes (sentence 1 ends with \"it.\", sentence 2 ends with \"great.\")\nNo question mark, under 60 words at roughly 27, and no invented reason given. The \"hope it goes great\" line is just a pleasantry, not an unsupported claim, so this looks clean.",
+              "signature": "Eq0ICqgBCBEYAipAm9syRvjM8EjEC09MfBWhrYS94N2NPvMaXBKa5o3rDmPSPXeR8v+bc797T8/ynpHKTy8Ro9pN7YjC1d/iwnlJ/zIPY2xhdWRlLW9wdXMtNC02OABCCHRoaW5raW5nWiQ4YzJlNWRmNC05NjA3LTRjYTktYWJjMi04MWYwMmVmMmE3OWFyEF87AEUOmrBlQSk3YLpJ7ICIAQGoAar489QGsAECEgzWD6Z/c9qa34wycZ8aDAwUfOqy6dPHNUYoOiIwoSEEw/wepbPh0irTCzbXxO221E4huQLhEtbhuGBNe0xZpFhyJzVGkWHYibuSAv7HKrEG+Ycfpj3GKZY0BR0jwonyxDyszvZeTOk8vb1a2ff/srjTlVNVYdb5U4xTouqwZKszGcdXWFsCnX4IDDtNgmw9JuYCynkXoz24U5wtturRqSS8svfRgMETkDRfD1dzogsOlmN3WXGJMEz/Fh3fA0iNdusompYNSweEx0yNIQmTsQOkQeAJAKLA4JpQ+2M2mITA7HFglYp6r2TOvXluLTJ4iQ3QKcBL4AeQP6LbSKuNGemU84MR3ulI0i8cAtJCIKtHk9VBlU1DmOut2E9T8PdxT8SWXFKD2wVhqSJoL3aZg4o8Jv+BkO8QsFK+zbuLNUiYh1pxe7OrXPmIKawZ9LvNgbZYOhi3++3FrqKAl+WkJhk4JeunVZCs3KJSZOkZMz5dgOtIEwD5T/NIuYA5TEsFMwXMf0ARc+bRvyBAZFj0Y6/vnxL6H7d6PuRumlw894gw0F/6mBqFRZZJGxbcZDQ/IOj+awrNNQEDhAEIL01trQtFwuDWam/HFK5y5nXSK0Ym+R+yVxfBsmjmFUx+Z19dVNBUstVBqrFifu5Pfbr/BRZ/YV3OnNUw0mCJEWdLk1LByBedqvO/0so+RGsyVCwnUngzJpJYnp2tr1yQ5/r4+3yWKQnfDzW9SKmwxsZJyz8KAG1vBz0cLHADs2aVT8M4wV/7I/nxyDPYJHQrglwEIHTEkZLSJU4B9MAwxTl7+gHQTNUS8AKlla1QsTLhrZP4bJQMFaj2kI378FU2xobTcygp5oSeQ0ha/yMEXBoRc3B31BPb2JJyqIIvKdmhF6S27lu8ki55x0rnSsCkI+2xGNuPm6EB+qALjIQCP+T32ipRYT+ytU8jCMD/t9QpDjy08or/aScSczqyCaWFSPPEU8q1923Mr6j+1/Dl0Qn36YLmUIVULDOeHN0fGjwgT0beNZh+/Ol6RkhgCqdWnyz+29y/7tTQKUuodF/DOc68iqcXwodza5BsAD8Uwy1Yw5rrH74WKvnoT2xHqNfl5Xxu9HGLcZqPZo6uU9LeRy9SZa4ta4fgD+hhFOvtV0weKHNZZfR7CpfYA3ADJHUNpFqoXTwTJ3n92W/8Az1DrBiAiTi0xBgB"
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 1649,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "5e5098f5-f6f2-4e15-b174-2441817aea33",
+        "uuid": "306ddf76-343c-4053-b472-61e51c8e0944"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemeQYFU2H8UCC1KQnLGu",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "tool_use",
+              "id": "toolu_01UPFaf9DgHwMu7tTSphYC6Y",
+              "name": "StructuredOutput",
+              "input": {
+                "schema": "prose-runtime-review/1",
+                "verdict": "clear",
+                "findings": [],
+                "instructions": [
+                  {
+                    "id": "no-questions",
+                    "status": "applied",
+                    "reason": "The draft contains no question marks and no interrogative sentences."
+                  },
+                  {
+                    "id": "short-reply",
+                    "status": "applied",
+                    "reason": "Word count is approximately 27, well under the 59-word maximum."
+                  }
+                ],
+                "atom_accounting": [],
+                "disclosures": []
+              },
+              "caller": {
+                "type": "direct"
+              }
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 1649,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 9,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "5e5098f5-f6f2-4e15-b174-2441817aea33",
+        "uuid": "eacb21b4-3d0f-4bef-8ff6-5c004ff09432"
+      },
+      {
+        "type": "user",
+        "message": {
+          "role": "user",
+          "content": [
+            {
+              "tool_use_id": "toolu_01UPFaf9DgHwMu7tTSphYC6Y",
+              "type": "tool_result",
+              "content": "Structured output provided successfully"
+            }
+          ]
+        },
+        "parent_tool_use_id": null,
+        "session_id": "5e5098f5-f6f2-4e15-b174-2441817aea33",
+        "uuid": "9990cd21-c768-4f8b-8654-2e00fa50819c",
+        "timestamp": "2026-09-06T05:37:46.499Z",
+        "tool_use_result": "Structured output provided successfully"
+      },
+      {
+        "type": "rate_limit_event",
+        "rate_limit_info": {
+          "status": "allowed",
+          "resetsAt": 1788682800,
+          "rateLimitType": "five_hour",
+          "overageStatus": "rejected",
+          "overageDisabledReason": "org_level_disabled",
+          "isUsingOverage": false
+        },
+        "uuid": "54f29210-85a0-401e-82f7-e7df92565eee",
+        "session_id": "5e5098f5-f6f2-4e15-b174-2441817aea33"
+      },
+      {
+        "type": "assistant",
+        "message": {
+          "model": "claude-opus-4-6",
+          "id": "msg_011CemeRCGi63qgcNBDtmi71",
+          "type": "message",
+          "role": "assistant",
+          "content": [
+            {
+              "type": "text",
+              "text": "The draft meets all stated requirements: it is exactly two sentences, thanks the organizer, declines Friday's invitation without inventing a reason, contains no questions, and stays well within the 60-word limit. No findings to report."
+            }
+          ],
+          "stop_reason": null,
+          "stop_sequence": null,
+          "stop_details": null,
+          "usage": {
+            "input_tokens": 2113,
+            "cache_creation_input_tokens": 0,
+            "cache_read_input_tokens": 0,
+            "cache_creation": {
+              "ephemeral_5m_input_tokens": 0,
+              "ephemeral_1h_input_tokens": 0
+            },
+            "output_tokens": 1,
+            "service_tier": "standard",
+            "inference_geo": "not_available"
+          },
+          "context_management": null
+        },
+        "parent_tool_use_id": null,
+        "session_id": "5e5098f5-f6f2-4e15-b174-2441817aea33",
+        "uuid": "48486580-9184-4ad7-b2ae-43374e653680"
+      },
+      {
+        "type": "result",
+        "subtype": "success",
+        "is_error": false,
+        "duration_ms": 11710,
+        "duration_api_ms": 11697,
+        "num_turns": 2,
+        "result": "The draft meets all stated requirements: it is exactly two sentences, thanks the organizer, declines Friday's invitation without inventing a reason, contains no questions, and stays well within the 60-word limit. No findings to report.",
+        "stop_reason": "end_turn",
+        "session_id": "5e5098f5-f6f2-4e15-b174-2441817aea33",
+        "total_cost_usd": 0.031060000000000004,
+        "usage": {
+          "input_tokens": 3762,
+          "cache_creation_input_tokens": 0,
+          "cache_read_input_tokens": 0,
+          "output_tokens": 490,
+          "server_tool_use": {
+            "web_search_requests": 0,
+            "web_fetch_requests": 0
+          },
+          "service_tier": "standard",
+          "cache_creation": {
+            "ephemeral_1h_input_tokens": 0,
+            "ephemeral_5m_input_tokens": 0
+          },
+          "inference_geo": "",
+          "iterations": [],
+          "speed": "standard"
+        },
+        "modelUsage": {
+          "claude-opus-4-6[1m]": {
+            "inputTokens": 3762,
+            "outputTokens": 490,
+            "cacheReadInputTokens": 0,
+            "cacheCreationInputTokens": 0,
+            "webSearchRequests": 0,
+            "costUSD": 0.031060000000000004,
+            "contextWindow": 1000000,
+            "maxOutputTokens": 64000
+          }
+        },
+        "permission_denials": [],
+        "structured_output": {
+          "schema": "prose-runtime-review/1",
+          "verdict": "clear",
+          "findings": [],
+          "instructions": [
+            {
+              "id": "no-questions",
+              "status": "applied",
+              "reason": "The draft contains no question marks and no interrogative sentences."
+            },
+            {
+              "id": "short-reply",
+              "status": "applied",
+              "reason": "Word count is approximately 27, well under the 59-word maximum."
+            }
+          ],
+          "atom_accounting": [],
+          "disclosures": []
+        },
+        "fast_mode_state": "off",
+        "uuid": "c7bfe8f3-44e7-4efe-b0d2-6631d8103a0c"
+      }
+    ],
+    "status": "passed"
+  }
+}

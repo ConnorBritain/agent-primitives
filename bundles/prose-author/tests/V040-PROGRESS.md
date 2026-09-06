@@ -1,8 +1,9 @@
 # v0.4.0 implementation evidence — in progress
 
 This is an implementation checkpoint, **not a release or install claim**. The
-shipped manifests remain v0.3.0; working-tree skill entrypoints now use the v0.4
-runtime, but installed copies have not yet been updated. No push, PR, publication or
+working-tree manifests now agree at v0.4.0. Local Codex and Claude plugins and
+Claude loose-file copies are installed; installed workflow verification is in progress.
+No push, PR, publication or
 GitHub Actions change is part of this work.
 
 ## Current deterministic foundation
@@ -59,8 +60,9 @@ explicit zeroes have no one-hit exception. Counts use actual final draft text.
 
 ## Skill/runtime integration verification
 
-The full author suite passed **1,320 assertions, zero failures**, including 28
-runtime integration tests covering shared store discovery, automatic-profile
+The current full author suite passed **1,332 assertions, zero failures**, including
+**40 runtime tests** covering
+shared store discovery, automatic-profile
 call accounting, and conflicting input paths. Both revised skills passed the
 skill-creator format validator using isolated `uv run --with pyyaml`; neither
 system Python nor the app-bundled Python had that development dependency.
@@ -94,13 +96,14 @@ general OS-level guarantee that arbitrary reads are impossible.
 
 ## Remaining before completion
 
-1. Record and verify current prompt evidence; continue targeted failure-path tests.
+1. Continue targeted installed failure-path tests; current comparison evidence now reproduces.
 2. Verify conversational behavior through actual installed skill entrypoints,
    including discovery, scoped corrections and undo in both harnesses.
-3. Run the bounded six-case, three-condition comparison; no repeated 20/60 bar.
-4. Update documentation and all v0.4.0 packaging metadata; regenerate mutation
+3. Preserve the completed bounded comparison; subjective judgments remain unmeasured.
+4. Finish documentation consistency checks; regenerate mutation
    documentation through its tool and run all applicable local suites.
-5. Install and test plugin and loose-file workflows locally in Claude and Codex.
+5. Complete loose-file and conversational workflow evidence in both harnesses;
+   the basic plugin-cache writing paths now have live results.
 
 No private-corpus comparison, subjective keep/edit judgment, author resemblance,
 or full release readiness has been established by these smoke tests.
@@ -113,4 +116,55 @@ profile plus examples). Each case uses the same supplied fictional facts and
 explicit rules. `bounded-comparison.mjs` records eighteen initial drafts and one
 profile per author, with no redraw, repair loop or critic panel. It reports
 unmatched source metadata rather than treating cross-form rates as calibrated
-targets. The report remains incomplete until actual calls and recounts finish.
+targets. The run is complete: 18 initial drafts plus two profile calls using
+configured `gpt-6-astra`, 471.1 seconds wall time. All 18 drafts passed explicit
+mechanical rules and Tier A scans; no 12-word copying flags were raised. This is
+not semantic/factual verification. There were no redraws or repairs.
+
+The input/prompt/corpus/exact-draft verifier passes and is now in the author
+suite. Its initial suffix-based call counter incorrectly classified profile-only
+drafts as renders; the corrected verifier checks the exact ordered 20-call
+inventory. No raw calls, drafts, design or scores were changed to fix that bug.
+See [the comparison report](runs/2026-09-06-v040-bounded/REPORT.md).
+
+## Installation work in progress
+
+The Codex installer now defaults to this checkout, supports an explicit remote
+path and guarded source switch, and checks enabled source, version, deployment
+inventory and bytes. A real isolated CLI installation passed those checks and
+installed all six wrappers. The user's Codex prose marketplace is now registered
+to this local checkout; no other marketplaces were switched. Claude has the
+same three local plugins enabled, and its selected loose-file copies were updated.
+All three Claude plugin deployment inventories and bytes match the checkout.
+The prior affected local files were backed up before replacement.
+
+The current runtime resolves enabled companion versions through Claude/Codex
+plugin registries in versioned cache layouts. Disabled, ambiguous or missing
+entries do not fall back to random cached versions. Loose Claude installation
+now includes the fidelity scanner; the focused test executes that installer.
+The PowerShell counterpart is updated but has not been executed on this Mac.
+
+Real plugin-cache dependency discovery resolves both companion bundles in both
+harnesses; the installed Codex scanner ran successfully. Six real installed runs
+(draft, rewrite and continuation per harness) completed: five checked, one ungated.
+Claude's rewrite task reviewer invented an atom inventory instead of returning
+the exact requested accounting list; the runtime did not certify that result.
+The review call now supplies an explicit empty list outside fidelity review,
+and the transport describes the exact-list contract. The focused suite now has
+40 passing tests; the affected Claude rewrite passed on its focused repeat,
+including fidelity review and exact-byte checking. No original output was replaced.
+The seven invocations used 17 model calls. See
+[installed evidence](runs/2026-09-06-v040-installed/README.md) for per-case timing,
+raw records, the initial ungated case and the bounded fix.
+
+Codex reinstall refreshed same-version files. Claude `plugin update` did not;
+`plugin install` refreshed them and the deployment-byte check then passed.
+Both current plugin copies and the Claude loose skills contain the contract fix.
+Persistent-feedback/undo and explicit installed failure paths still need their
+complete installed-workflow evidence.
+
+Six focused mutation trials each caused exactly one failure: missing atom-list
+input, disabled companion discovery, stale installed bytes, unrelated marketplace
+impact, missing/redrawn comparison calls, and style evidence lost during repair.
+The sandbox baseline and restored tree were green. The full table has **not**
+been regenerated or checked yet.
