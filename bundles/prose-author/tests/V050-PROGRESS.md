@@ -51,3 +51,12 @@ compliance guarantee is claimed. All test identities are synthetic; no real
 user writing was ingested or real-user collection enabled.
 
 Final local engineering and installed-byte verification are still pending.
+
+The first full mutation update passed all 266 probes. Its follow-up check exposed
+a timing-dependent count in the moving-reference probe: it rebuilt both the
+reference population and the reporting timestamp. The same-millisecond case had
+one failure; a later millisecond added an unrelated single-stage failure. The
+probe now preserves the original reporting time while still rereading changed
+history. Five focused full-suite trials each catch the intended repair failure.
+No production code or assertion changed. The original check is retained; final
+verification must still reproduce the tool-generated table.

@@ -12,6 +12,27 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 
 | mutation | tests failed | what it guards |
 |---|---|---|
+| ignore misspelled history attachment fields | 1 | an invalid attachment cannot silently collect into the default history directory |
+| accept altered numerical stage differences | 1 | stage comparisons reproduce from the recorded exact candidate measurements |
+| move the reference baseline during repairs | 1 | all stages use the same pre-generation baseline despite concurrent history ingestion |
+| silently ignore unknown history flags | 1 | unknown options cannot silently redirect history writes to the default store |
+| reject the known Claude product-name adapter alias | 1 | Claude Code product spelling resolves to the existing authenticated Claude transport |
+| history accepts undeclared collection | 6 | collection is disabled until explicit scope consent |
+| history disables project precedence | 4 | specific disablement overrides identity-wide collection |
+| history ignores revision replacement | 1 | document revisions are not independent pieces |
+| history permits source recount divergence | 1 | persisted measurements reproduce from supplied source |
+| history leaks its fingerprint key in exports | 1 | exports omit the private keyed-fingerprint secret |
+| history applies stale deletion preview | 1 | deletion requires a current exact target preview |
+| history drops source text sanitization | 1 | history measurement payloads cannot carry prose |
+| history erases within-piece variance | 1 | equal means do not erase rhythm variation |
+| history admits generated human baselines | 1 | generated usage remains separate from human evidence |
+| history flags sparse empirical departures | 1 | empirical departure labels require twenty pieces |
+| history pools incompatible analyzers | 2 | analyzer changes produce separate compatible series |
+| rhetoric ignores explicit opt-in | 1 | rhetorical model dispatch requires separate enablement |
+| rhetoric ignores spent call budget | 1 | rhetorical analysis has a finite separate call budget |
+| rhetoric accepts unaccounted paragraphs | 2 | every paragraph is annotated or explicitly unclassified |
+| rhetoric accepts duplicate annotations | 1 | identical evidence cannot inflate estimated frequencies |
+| history ignores final byte changes | 1 | history binds the exact delivered prose |
 | accept invented check results as direct receipt excerpts | 1 | a directly quoted receipt excerpt must occur in the generated receipt, not just use quotation marks |
 | accept changed delivery receipts as checked artifacts | 1 | the authoritative delivery includes exact recorded receipt bytes, not only checked prose |
 | let delivery prose differ from the checked draft file | 1 | delivery assembly cannot substitute unverified prose while retaining the old draft hash |
@@ -41,9 +62,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | allow comparison against an inactive scoped preference | 1 | a one-feature preview must actually vary an applicable preference |
 | silently render a profile for the examples-only condition | 1 | the examples-only path stays distinct from profile generation |
 | dispatch a profile call after cancellation | 1 | cancelled profile preparation cannot consume another model call |
-| count Markdown link destinations as author parentheticals | 4 | visible-prose counts exclude balanced Markdown targets while retaining genuine asides |
+| count Markdown link destinations as author parentheticals | 5 | visible-prose counts exclude balanced Markdown targets while retaining genuine asides |
 | turn unevaluable empty-text rates into passing zeroes | 1 | a missing rate denominator is not evaluated, never a passing absence |
-| restore a one-hit exception to an explicit zero rule | 6 | explicit mechanical limits are exact and independent of corpus-rate tolerances |
+| restore a one-hit exception to an explicit zero rule | 7 | explicit mechanical limits are exact and independent of corpus-rate tolerances |
 | trust a stored receipt without reproducing final checks | 2 | a presented draft is bound to its checked bytes, not a prior candidate |
 | save inferred preferences without user approval | 1 | only explicit persistent feedback or approved inference changes saved preferences |
 | silently retarget current observation-dependent preferences | 2 | independent user rules survive refresh but evidence-dependent rules require rebinding |
