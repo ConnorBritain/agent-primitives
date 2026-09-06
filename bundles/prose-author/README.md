@@ -75,8 +75,9 @@ At most two repair cycles address identified problems and recheck final bytes.
 The result includes prose, a concise receipt and a detailed sidecar with hashes,
 preferences, omissions, claims requiring verification and repair history.
 The runtime generates `delivery.md` and its receipt from recorded results;
-the host should return those bytes without another polish or reconstructed
-check summary. A host that bypasses the runner or changes its output can bypass
+the host verifies and links to that authoritative file. Chat summaries are
+explicitly unverified; they do not replace its receipt. A host that bypasses
+the runner or changes its output can bypass
 these checks; the plugin does not control every coding agent's final message.
 `passed`, `failed` and `not-evaluated` are distinct. Missing dependencies or
 unresolved reviews yield an ungated result; exhausted repairs yield an incomplete

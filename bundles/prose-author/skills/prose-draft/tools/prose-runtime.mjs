@@ -60,9 +60,14 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
     const compiled = compileStyleV2(job.preferences ?? initPreferencesV2("task-local"), { profile: job.profile ?? null, context: job.context, overrides: job.rules ?? [] });
     const reproduced = result.receipt?.draft_digest !== sha256(draft) ? { status: "failed", reason: "Published bytes differ from the run" }
       : verifyRuleReceipt(draft, compiled.rules, result.attempts.at(-1)?.mechanical);
-    const check = { schema: "prose-result-verification/1", status: reproduced.reproduced === true ? "passed" : "failed",
+    const delivery = value("--delivery");
+    const deliveryMatches = !delivery || (result.draft === draft
+      && readFileSync(delivery, "utf8") === renderWritingDelivery(result, renderWritingReceipt(result, job)));
+    const check = { schema: "prose-result-verification/1", status: reproduced.reproduced === true && deliveryMatches ? "passed" : "failed",
       result_status: result.status, mechanical_status: reproduced.status, reason: reproduced.reason,
+      delivery_status: delivery ? (deliveryMatches ? "passed" : "failed") : "not-evaluated",
       claim: "Receipt integrity only; existing check statuses are unchanged, not upgraded." };
+    if (!deliveryMatches) check.reason = "Delivery file differs from the recorded prose and generated receipt";
     stdout(`${JSON.stringify(check)}\n`); return check;
   }
   if (!["run", "profile"].includes(command)) throw new TypeError("prose-runtime: run|profile --job job.json --out NEW-directory; preferences <operation>; check-result");

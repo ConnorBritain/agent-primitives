@@ -21,7 +21,9 @@ do not manually reconstruct its review/repair loop.
 6. Repair identified problems at most twice, retaining the same profile,
    preferences and selected examples. Preserve substance and recheck all final
    bytes. No automatic paragraph pruning merely to satisfy length.
-7. Return the generated `delivery.md`: exact prose plus the recorded receipt.
+7. Verify `delivery.md` with `check-result --delivery`, then link it as the
+   authoritative delivery: exact prose plus the recorded receipt. Host-written
+   chat summaries are explicitly unverified, not replacement receipts.
    Link the sidecar for disclosures, omissions and unresolved checks. Do not
    infer statuses from the host's skill list. A later edit invalidates the
    earlier result.

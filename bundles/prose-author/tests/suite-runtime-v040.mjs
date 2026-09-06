@@ -539,6 +539,25 @@ export async function run(t, { tmp, HERE }) {
     const checked = await runtimeMain(args, options);
     assert.equal(checked.schema, "prose-result-verification/1"); assert.equal(checked.status, "passed");
     assert.equal(checked.mechanical_status, "not-evaluated"); assert.equal(checked.result_status, "checked");
+    assert.equal(checked.delivery_status, "not-evaluated");
+    const deliveryArgs = [...args, "--delivery", join(out, "delivery.md")];
+    const delivery = readFileSync(join(out, "delivery.md"), "utf8");
+    assert.equal((await runtimeMain(deliveryArgs, options)).delivery_status, "passed");
+    assert.match(delivery, /Host-written chat summaries are unverified/);
+    writeFileSync(join(out, "delivery.md"), delivery.replace("Task review: passed", "Task review: failed"));
+    assert.equal((await runtimeMain(deliveryArgs, options)).status, "failed", "A receipt-only change invalidates delivery");
+    writeFileSync(join(out, "delivery.md"), delivery + " ");
+    assert.equal((await runtimeMain(deliveryArgs, options)).status, "failed", "Final delivery bytes are exact");
+    writeFileSync(join(out, "delivery.md"), delivery);
+    const changedRecord = { ...result, draft: "A different draft." };
+    writeFileSync(join(out, "result.json"), JSON.stringify(changedRecord));
+    writeFileSync(join(out, "delivery.md"), renderWritingDelivery(changedRecord, renderWritingReceipt(changedRecord, job({ rules: [
+      { id: "limit", kind: "word-limit", directive: "Under 60 words", minimum: 1, maximum: 59 },
+      { id: "warmth", kind: "semantic", directive: "Decline warmly" },
+    ] }))));
+    assert.equal((await runtimeMain(deliveryArgs, options)).status, "failed", "Delivery prose must be the checked draft");
+    writeFileSync(join(out, "result.json"), JSON.stringify(result));
+    writeFileSync(join(out, "delivery.md"), delivery);
     const retained = JSON.parse(readFileSync(join(out, "result.json")));
     assert.equal(retained.attempts[0].mechanical.checks[1].status, "not-evaluated");
     writeFileSync(join(out, "draft.md"), result.draft + " ");

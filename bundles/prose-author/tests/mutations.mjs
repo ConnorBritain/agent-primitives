@@ -139,6 +139,20 @@ export function createSandbox() {
  */
 export const MUTATIONS = [
   {
+    name: "accept changed delivery receipts as checked artifacts",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: 'readFileSync(delivery, "utf8") === renderWritingDelivery(result, renderWritingReceipt(result, job))',
+    with: 'true',
+    guards: "the authoritative delivery includes exact recorded receipt bytes, not only checked prose",
+  },
+  {
+    name: "let delivery prose differ from the checked draft file",
+    file: `${TOOLS}/prose-runtime.mjs`,
+    find: 'result.draft === draft\n      &&',
+    with: 'true\n      &&',
+    guards: "delivery assembly cannot substitute unverified prose while retaining the old draft hash",
+  },
+  {
     name: "let a nonterminating capability probe defeat its timeout",
     file: `${TOOLS}/runtime-adapters.mjs`,
     find: 'timeout: 15000, killSignal: "SIGKILL",',

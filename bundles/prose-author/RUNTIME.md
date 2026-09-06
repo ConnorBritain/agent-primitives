@@ -71,11 +71,15 @@ edit invalidates the old receipt. `check-result` reproduces mechanical checks,
 not a new semantic review of altered prose.
 
 The runner writes `receipt.md` from recorded checks and combines it with exact
-draft bytes in `delivery.md`. The conversation should return that delivery, not
-reconstruct scanner availability or review outcomes from the host's skill list.
+draft bytes in `delivery.md`. That generated file is the authoritative checked
+delivery; the host links to it and labels any chat summary unverified. It must
+not reconstruct scanner availability from the host's skill list.
 `check-result.status` reports reproduction; `result_status` and
 `mechanical_status` retain the original outcomes. An intact report with semantic
 checks marked not-evaluated can pass integrity without upgrading those checks.
+With `--delivery`, verification also compares the complete delivery against the
+recorded draft and regenerated receipt. A receipt-only edit fails; omitting
+this option reports `delivery_status: not-evaluated`, not a passing file check.
 
 Review accounting distinguishes advisory observation IDs from explicit rules.
 An observed habit need not occur in every draft. Omission disclosures are kept;

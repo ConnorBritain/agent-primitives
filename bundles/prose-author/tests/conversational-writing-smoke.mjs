@@ -10,6 +10,9 @@ import { pathToFileURL } from "node:url";
 const value = (flag) => { const i = process.argv.indexOf(flag); if (i < 0 || !process.argv[i + 1]) throw new Error(`Missing ${flag}`); return process.argv[i + 1]; };
 const harness = value("--harness"), out = resolve(value("--out"));
 assert.ok(["codex", "claude"].includes(harness));
+const fullAccess = process.argv.includes("--full-access");
+const legacyInline = process.argv.includes("--legacy-inline");
+assert.ok(!fullAccess || harness === "codex", "--full-access is a Codex test option requiring user authorization");
 const skill = join(homedir(), `.${harness}`, "plugins/cache/agent-primitives/prose-author/0.4.0/skills/prose-draft");
 const storeModule = await import(pathToFileURL(join(skill, "tools/preference-store.mjs")));
 mkdirSync(out, { mode: 0o700 });
@@ -21,7 +24,7 @@ save("prompt.txt", prompt);
 const env = { ...process.env };
 for (const key of ["OPENAI_API_KEY", "CODEX_API_KEY", "ANTHROPIC_API_KEY", "ANTHROPIC_AUTH_TOKEN"]) delete env[key];
 const args = harness === "codex"
-  ? ["exec", "--json", "--ephemeral", "--skip-git-repo-check", "-C", out, "-s", "workspace-write", "-c", 'approval_policy="never"', "-c", "sandbox_workspace_write.network_access=true", "-c", "features.hooks=false", "-c", "features.apps=false", "-c", "features.multi_agent=false", "-c", "agents.enabled=false", "-"]
+  ? ["exec", "--json", "--ephemeral", "--skip-git-repo-check", "-C", out, "-s", fullAccess ? "danger-full-access" : "workspace-write", "-c", 'approval_policy="never"', "-c", "sandbox_workspace_write.network_access=true", "-c", "features.hooks=false", "-c", "features.apps=false", "-c", "features.multi_agent=false", "-c", "agents.enabled=false", "-"]
   : ["-p", "--output-format", "stream-json", "--verbose", "--no-session-persistence", "--no-chrome", "--strict-mcp-config", "--mcp-config", '{"mcpServers":{}}', "--tools", "Read,Bash,Write,Edit,Skill", "--allowedTools", "Read,Bash,Write,Edit,Skill", "--permission-mode", "dontAsk"];
 console.log(`${harness}: conversational drafting through the installed skill (no path supplied)`);
 const started = Date.now();
@@ -39,7 +42,7 @@ try {
   artifact = found[0]; result = JSON.parse(readFileSync(artifact));
   assert.equal(result.status, "checked", result.reason);
   assert.ok(result.invocation.model_calls >= 2, "Expected generation and task review");
-  assert.ok(final?.includes(result.draft), "User-facing prose must contain the exact checked draft, without another polish");
+  if (legacyInline) assert.ok(final?.includes(result.draft), "User-facing prose must contain the exact checked draft, without another polish");
   assert.equal(storeModule.readPreferenceStore(store).revision, 1, "Draft-specific instructions must not become saved preferences");
   const dir = resolve(artifact, "..");
   const resolved = JSON.parse(readFileSync(join(dir, "resolved-job.json")));
@@ -47,13 +50,18 @@ try {
   const punctuation = resolved.rules.filter((r) => r.kind === "punctuation" && r.maximum === 0).map((r) => r.characters).join("");
   assert.ok(punctuation.includes("?") && punctuation.includes("!"), "Punctuation restrictions must have mechanical rules");
   assert.ok(resolved.rules.some((r) => r.kind === "word-limit" && r.maximum <= 59), "Word limit must be mechanically represented");
-  assert.ok(final.includes(readFileSync(join(dir, "delivery.md"), "utf8").trimEnd()), "Deliver the recorded receipt, not a reconstructed status summary");
-  const checked = spawnSync(process.execPath, [join(skill, "tools/prose-runtime.mjs"), "check-result", "--result", artifact, "--draft", join(dir, "draft.md"), "--job", join(dir, "resolved-job.json")], { encoding: "utf8", timeout: 30000 });
+  assert.equal(readFileSync(join(dir, "draft.md"), "utf8"), result.draft);
+  if (legacyInline) assert.ok(final.includes(readFileSync(join(dir, "delivery.md"), "utf8").trimEnd()), "Deliver the recorded receipt, not a reconstructed status summary");
+  else {
+    assert.ok(final?.includes(join(dir, "delivery.md")), "The host must link to the authoritative delivery file");
+    assert.match(final, /unverified/i, "A host-written chat summary must be explicitly unverified");
+  }
+  const checked = spawnSync(process.execPath, [join(skill, "tools/prose-runtime.mjs"), "check-result", "--result", artifact, "--draft", join(dir, "draft.md"), "--job", join(dir, "resolved-job.json"), ...(!legacyInline ? ["--delivery", join(dir, "delivery.md")] : [])], { encoding: "utf8", timeout: 30000 });
   save("final-check.json", { exit: checked.status, stdout: checked.stdout, stderr: checked.stderr });
   assert.equal(checked.status, 0, checked.stdout || checked.stderr);
   assert.ok(result.draft.includes("Thanks for inviting me")); assert.doesNotMatch(result.draft, /[?!]/);
 } catch (e) { error = e.stack; }
-const report = { schema: "conversational-writing-evidence/1", status: error ? "failed" : "passed", harness, outer_exit: run.status,
+const report = { schema: "conversational-writing-evidence/2", delivery_boundary: legacyInline ? "legacy-verbatim-inline" : "authoritative-artifact", permission: fullAccess ? "user-authorized-isolated-full-access" : "default-test-permissions", status: error ? "failed" : "passed", harness, outer_exit: run.status,
   outer_elapsed_ms: Date.now() - started, final: final ?? null, artifact, runtime_status: result?.status ?? null,
   inner_model_calls: result?.invocation?.model_calls ?? null, inner_model_elapsed_ms: result?.invocation?.model_elapsed_ms ?? null,
   outer_usage: events.findLast((e) => e.type === "turn.completed" || e.type === "result")?.usage ?? null, error,

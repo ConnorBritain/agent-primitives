@@ -20,6 +20,7 @@ export function renderWritingReceipt(result, job) {
   if (result.claims?.length) lines.push(`Claims disclosed for verification: ${result.claims.length}. See sidecar.`);
   if (result.status !== "checked" && result.reason) lines.push(`Reason: ${flat(result.reason)}.`);
   lines.push(`CLI dispatches: ${result.invocation?.model_calls ?? 0}; elapsed: ${((result.invocation?.elapsed_ms ?? 0) / 1000).toFixed(3)} s.`,
+    "This generated delivery is authoritative for the recorded checks. Host-written chat summaries are unverified.",
     "Checks are not a quality, resemblance or factual guarantee.");
   return lines.join("\n\n") + "\n";
 }

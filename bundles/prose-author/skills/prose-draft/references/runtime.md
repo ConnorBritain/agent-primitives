@@ -129,17 +129,19 @@ Each new output directory contains the resolved input snapshot, exact draft,
 `receipt.md`, combined `delivery.md`, result sidecar, and individual model-call records; a newly rendered profile is
 also saved. Raw records can contain private prose and should stay private.
 
-Read the sidecar, then return the generated `delivery.md` unchanged with a link
-to details. Do not summarize check status from memory or from which skills were
+Read the sidecar, then link to the generated `delivery.md` as the authoritative
+checked delivery, with a link to details. Leave that file unchanged. If you add
+a chat summary, explicitly label it unverified; reproducing the whole receipt
+verbatim in chat is optional. Do not infer check status from which skills were
 listed: the runtime's receipt records the actual scan/review results.
 `not-evaluated` is never a pass. An observed-pattern
 departure is advisory, not a failed hard rule. No required user attestation or
 manual review of hundreds of claims exists.
 
-After any external editing step, use:
+Before handoff, verify both the prose and generated receipt in the delivery:
 
 ```bash
-node tools/prose-runtime.mjs check-result --result /task/new-run/result.json --draft /task/new-run/draft.md --job /task/new-run/resolved-job.json
+node tools/prose-runtime.mjs check-result --result /task/new-run/result.json --draft /task/new-run/draft.md --job /task/new-run/resolved-job.json --delivery /task/new-run/delivery.md
 ```
 
 This checks receipt integrity: `status` describes whether bytes and the report

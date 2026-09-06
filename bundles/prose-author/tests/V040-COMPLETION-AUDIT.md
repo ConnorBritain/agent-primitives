@@ -76,6 +76,13 @@ that profile-plus-examples writes better prose than examples alone.
 
 ## Remaining completion decisions
 
+The user has now approved both the isolated Codex full-access test (without
+saved configuration changes) and authoritative generated-file delivery with
+host-written chat summaries explicitly unverified. The runtime and installed
+guidance implement that boundary. Fresh conversation evidence and the affected
+engineering checks are still required; the historical failures above remain
+historical failures, not retroactive passes.
+
 1. Preserve the completed mutation evidence, including its first failed check
    and the unexplained extra failures; do not relabel the failed run as passed.
 2. Resolve the installed conversation boundary failures without repeatedly

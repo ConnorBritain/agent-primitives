@@ -58,13 +58,14 @@ and at most two problem-specific repair cycles. Use deep review for researched
 or explicitly publication-sensitive work; supply actual source content as task
 facts, not just URLs.
 
-Return `delivery.md`, which contains the exact draft and a runtime-generated
-receipt. Do not rewrite that receipt or infer a missing dependency from the
-skill list: the recorded check statuses determine what ran.
-Return the exact `draft.md` bytes without an unverified polish afterward.
+Link to `delivery.md` as the authoritative checked delivery: it contains the
+exact draft and a runtime-generated receipt. Verify it using `check-result`
+with `--delivery` before handoff. Do not edit the generated receipt or infer a
+missing dependency from the skill list: recorded statuses determine what ran.
+You may also display the exact `draft.md` bytes in chat. Label any host-written
+chat summary unverified; it is not a replacement for the generated receipt.
 A requested change needs a new rewrite run; earlier checks do not cover new
-text. Run `check-result` before delivery if files passed through another editing
-step. An invalidated result must not retain its previous checked label.
+text. An invalidated result must not retain its previous checked label.
 
 Add a link to the detailed sidecar. Disclose claims requiring verification and
 supported instructions omitted by the draft. Report model calls and elapsed time when relevant, not
