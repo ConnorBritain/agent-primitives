@@ -1,9 +1,9 @@
 # prose-author
 
 Personal-style drafting with explicit preferences, human writing examples and
-checks tied to the delivered text. **v0.5.0 is in local development, not a published
-release.** Follow [current progress](tests/V050-PROGRESS.md); the previous installed
-candidate's evidence remains in [v0.4.0 verification](tests/V040-PROGRESS.md).
+checks tied to the delivered text. **v0.5.0 is a locally installed, engineering-verified
+candidate, not a published release.** See [completion evidence and known limits](tests/V050-FINAL-ENGINEERING.md);
+the previous candidate's evidence remains in [v0.4.0 verification](tests/V040-PROGRESS.md).
 
 Ask your coding agent to draft a reply, turn an outline into a blog post, rewrite
 a passage or continue an existing piece. You do not run the writing scripts
@@ -88,8 +88,8 @@ At most two repair cycles address identified problems and recheck final bytes.
 The result includes prose, a concise receipt and a detailed sidecar with hashes,
 preferences, omissions, claims requiring verification and repair history.
 The runtime generates `delivery.md` and its receipt from recorded results;
-the host verifies and links to that authoritative file. Chat summaries are
-explicitly unverified; they do not replace its receipt. A host that bypasses
+the host verifies and links to that authoritative file. The host is instructed
+to label chat summaries unverified; they do not replace its receipt. A host that bypasses
 the runner or changes its output can bypass
 these checks; the plugin does not control every coding agent's final message.
 `passed`, `failed` and `not-evaluated` are distinct. Missing dependencies or
@@ -106,6 +106,12 @@ and three conditions: examples, profile, and both. It measures initial-draft
 compliance, deviations, omissions, copying flags, calls and latency. It does not
 require the most elaborate condition to win or revive the old 20/60 release bar.
 Human keep/edit preference and editing burden remain unmeasured without feedback.
+
+The history extension adds a locked six-passage/two-draw rhetorical diagnostic,
+not a new quality bar. All twelve estimates were structurally valid; semantic
+accuracy is unmeasured. Installed artifacts passed for both hosts. Claude's
+corrected conversation still omitted the required unverified label on its chat
+paraphrase; that failed test remains visible in the completion report.
 
 No private user corpus, broad language range, resemblance guarantee, quality
 guarantee or hallucination-elimination claim is established. Semantic critics

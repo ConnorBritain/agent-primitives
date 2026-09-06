@@ -1,4 +1,4 @@
-# v0.5.0 — local implementation in progress
+# v0.5.0 — local candidate complete
 
 Goal: opt-in numerical style history, separately enabled rhetorical measurement,
 contextual baselines/trends, and advisory comparisons across drafting stages.
@@ -15,7 +15,10 @@ collection of the user's real writing.
 5. Local engineering gates, packaging/version 0.5.0, installation and handoff.
 
 Existing v0.4.0 evidence and the untracked historical claims audit are preserved.
-No completion or new measurement accuracy claim has yet been established.
+Implementation, local installation and engineering verification are complete.
+See [the final evidence report](V050-FINAL-ENGINEERING.md), including original
+failures and the remaining host-summary limitation. No measurement-accuracy or
+writing-quality claim is established by this completion.
 
 ## Implementation and bounded evidence
 
@@ -50,7 +53,7 @@ a host paraphrase must not be titled a check receipt; no post-change live chat
 compliance guarantee is claimed. All test identities are synthetic; no real
 user writing was ingested or real-user collection enabled.
 
-Final local engineering and installed-byte verification are still pending.
+Final local engineering and installed-byte verification passed.
 
 The first full mutation update passed all 266 probes. Its follow-up check exposed
 a timing-dependent count in the moving-reference probe: it rebuilt both the
@@ -58,5 +61,6 @@ reference population and the reporting timestamp. The same-millisecond case had
 one failure; a later millisecond added an unrelated single-stage failure. The
 probe now preserves the original reporting time while still rereading changed
 history. Five focused full-suite trials each catch the intended repair failure.
-No production code or assertion changed. The original check is retained; final
-verification must still reproduce the tool-generated table.
+No production code or assertion changed. The original failed check is retained.
+Final verification at `dbaa9ef` passed all 21 steps and reproduced all 266 rows
+of the tool-generated table, with no source changes during the check.

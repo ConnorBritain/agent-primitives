@@ -17,12 +17,8 @@ it is not yet in their hands.
 
 ## Unreleased
 
-prose-author v0.5.0 is in local development; v0.4.0 remains the verified installed baseline until candidate verification completes.
+The prose-author local candidates below remain unpublished.
 No push, PR, release, tag or marketplace publication is implied.
-
-Planned v0.5.0 additions: opt-in numbers-only writing history, separately enabled
-rhetorical estimates, contextual descriptive baselines and drafting-stage
-comparisons. No automatic quotas, corpus promotion, or collection enablement.
 
 ---
 
@@ -68,6 +64,27 @@ comparisons. No automatic quotas, corpus promotion, or collection enablement.
 ---
 
 ## prose-author
+
+### [0.5.0] — local candidate, unpublished
+
+- **Added** opt-in numbers-only history with per-piece rhythm and punctuation
+  measurements, compatible contextual baselines, temporal summaries, pinned
+  references, export, disablement and preview-bound deletion.
+- **Added** independently usable `voice-rhetoric-measure` and separately enabled,
+  bounded rhetorical estimates. Raw annotations are not retained in history.
+- **Preserved** independent human evidence, revision/duplicate accounting and
+  explicit preferences. Generated writing never becomes a human baseline;
+  statistical departures are not automatic quotas or repair instructions.
+- **Verified** exact-byte stage comparisons, native Claude/Codex installation,
+  loose files and all local engineering gates, including 266 caught mutations.
+  Fixed a timestamp-dependent mutation probe without changing production code
+  or assertions; the original failed check remains recorded.
+- **Recorded** twelve locked rhetorical draws without redraws. Structural validity
+  is not semantic accuracy. Both corrected installed workflows have passing
+  artifact audits, while Claude's chat-summary labeling failure remains visible.
+- **Limits** collection remains off for real writing until enabled; English
+  segmentation is heuristic, rhetoric is model-estimated, and neither establishes
+  writing quality or resemblance. See [completion evidence](bundles/prose-author/tests/V050-FINAL-ENGINEERING.md).
 
 ### [0.4.0] — local candidate, unpublished
 
