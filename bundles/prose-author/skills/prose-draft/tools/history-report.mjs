@@ -83,7 +83,8 @@ export function compareHistoryStages(previous, current) {
     .map((f) => ({ id: f.id, before: before.get(f.id), after: f.value, difference: f.value - before.get(f.id) })) };
 }
 export function renderHistoryReport(report) {
-  const lines = ["# Writing history", "", "Descriptive evidence, not a voice score or a set of quotas.", "", report.uncertainty];
+  const lines = ["# Writing history", "", "Descriptive evidence, not a voice score or a set of quotas.", "", report.uncertainty, "",
+    "Units: surface and non-paragraph rhetorical frequencies are per 1,000 author-prose words. Paragraph-role estimates are fractions of paragraphs. Length and adjacent-difference summaries use words; their variances use squared words. Placement summaries are fractions of a habit's occurrences."];
   for (const g of report.groups) {
     lines.push("", `## ${g.form ?? "unclassified form"} / ${g.register ?? "unclassified register"} — ${g.provenance}`, "",
       `${g.lifetime.pieces} independent current pieces; ${g.lifetime.words} author-prose words; ${g.lifetime.support}. ${g.undated_pieces} undated.`, "",

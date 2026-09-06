@@ -47,6 +47,17 @@ the sentence disclaiming it, so the test asserts every occurrence sits after
 naive way passes for the wrong reason and would keep passing if the disclaimer
 were replaced with an assertion.
 
+## When you touch numerical history
+
+History is opt-in and separate from both corpora and preference revisions.
+Model-based rhetorical analysis needs separate consent and a separate bounded
+budget. Never persist source matches, raw model outputs, or text in numerical
+state. Stage measurements stay generated provenance. Unknown flags must fail
+before writes; do not silently fall back from an explicit directory request.
+Compare compatible contextual series, not a pooled human/generated average.
+Departures are advisory and cannot independently authorize repair. Preserve
+the locked bounded diagnostic as evidence; repeat only affected cases after fixes.
+
 ## When you touch exemplar selection
 
 `tools/exemplars.mjs` is the one channel that can quietly poison a voice. Four

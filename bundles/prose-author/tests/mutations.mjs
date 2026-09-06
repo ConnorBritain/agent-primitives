@@ -138,6 +138,9 @@ export function createSandbox() {
  * meaningless rather than merely failing.
  */
 export const MUTATIONS = [
+  { name: "ignore misspelled history attachment fields", file: `${TOOLS}/history-session.mjs`, find: 'Object.keys(config).some((k) => !["identity", "directory", "document_id", "revision_id", "snapshot", "format", "language"].includes(k))', with: 'false', guards: "an invalid attachment cannot silently collect into the default history directory" },
+  { name: "accept altered numerical stage differences", file: `${TOOLS}/history-session.mjs`, find: 'if (JSON.stringify(stage.changes) !== JSON.stringify(previous ? compareHistoryStages(previous, stage.measurement) : null))', with: 'if (false)', guards: "stage comparisons reproduce from the recorded exact candidate measurements" },
+  { name: "move the reference baseline during repairs", file: `${TOOLS}/history-session.mjs`, find: 'compareHistoryMeasurement(measurement, baseline,', with: 'compareHistoryMeasurement(measurement, buildHistoryReport(readHistory(root, config.identity)),', guards: "all stages use the same pre-generation baseline despite concurrent history ingestion" },
   { name: "silently ignore unknown history flags", file: `${TOOLS}/history-cli.mjs`, find: '!allowed.has(rest[i]) ||', with: '', guards: "unknown options cannot silently redirect history writes to the default store" },
   { name: "reject the known Claude product-name adapter alias", file: `${TOOLS}/runtime-adapters.mjs`, find: 'name === "claude-code" ? "claude" : name', with: 'name', guards: "Claude Code product spelling resolves to the existing authenticated Claude transport" },
   {"name":"history accepts undeclared collection","file":"bundles/prose-author/skills/prose-draft/tools/history-store.mjs","find":"if (!state) return { enabled: false, rhetoric: false };","with":"if (!state) return { enabled: true, rhetoric: false };","guards":"collection is disabled until explicit scope consent"},

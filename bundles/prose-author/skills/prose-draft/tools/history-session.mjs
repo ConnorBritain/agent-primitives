@@ -9,9 +9,11 @@ import { sha256 } from "./profile-v3.mjs";
 
 export function startHistorySession(job, { dispatch, signal } = {}) {
   if (!job.telemetry) return null;
-  const config = job.telemetry, root = config.directory ?? historyDirectory(), project = job.context?.project ?? null;
-  let state, consent, baseline, initializationFailure = null;
+  const config = job.telemetry, project = job.context?.project ?? null;
+  let root, state, consent, baseline, initializationFailure = null;
   try {
+    if (typeof config !== "object" || Array.isArray(config) || Object.keys(config).some((k) => !["identity", "directory", "document_id", "revision_id", "snapshot", "format", "language"].includes(k))) throw new TypeError("Unknown history attachment field");
+    root = config.directory ?? historyDirectory();
     state = readHistory(root, config.identity); consent = historyConsent(state, project);
     if (consent.enabled) {
       let selected = state, now;

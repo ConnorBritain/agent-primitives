@@ -7,7 +7,7 @@ import { configureHistory, readHistory, saveHistoryMeasurement, activeHistoryRec
 import { buildHistoryReport, compareHistoryMeasurement, compareHistoryStages } from "../skills/prose-draft/tools/history-report.mjs";
 import { measureRhetoric, rhetoricalInput, validateRhetoricalSource, aggregateRhetoric, validateStoredRhetoric } from "../skills/prose-draft/tools/history-rhetoric.mjs";
 import { runWriting } from "../skills/prose-draft/tools/writing-runtime.mjs";
-import { verifyHistoryRun } from "../skills/prose-draft/tools/history-session.mjs";
+import { verifyHistoryRun, startHistorySession } from "../skills/prose-draft/tools/history-session.mjs";
 import { historyMain } from "../skills/prose-draft/tools/history-cli.mjs";
 import { canonicalHarness } from "../skills/prose-draft/tools/runtime-adapters.mjs";
 
@@ -20,6 +20,15 @@ export async function run(t, { tmp }) {
     assert.equal(canonicalHarness("claude-code"), "claude");
     assert.equal(canonicalHarness("codex"), "codex");
     assert.equal(canonicalHarness("other-harness"), "other-harness");
+  });
+  test("misspelled history attachment fields fail rather than silently selecting a default store", () => {
+    const session = startHistorySession({ context: { form: "reply" }, telemetry: { identity: "fixture", store: root } });
+    assert.equal(session.finish("A draft.").status, "failed");
+    const previous = process.env.PROSE_HISTORY_DIR;
+    try {
+      process.env.PROSE_HISTORY_DIR = "relative-invalid";
+      assert.equal(startHistorySession({ context: { form: "reply" }, telemetry: { identity: "fixture" } }).finish("A draft.").status, "failed");
+    } finally { if (previous === undefined) delete process.env.PROSE_HISTORY_DIR; else process.env.PROSE_HISTORY_DIR = previous; }
   });
   const input = (id, text = "You write. We read!") => ({ document_id: id, revision_id: "r1", text, provenance: "human-independent", project: "notes", form: "essay", register: "informal", measurement: measure(text) });
   test("surface counts exclude URLs, code, metadata and quoted material", () => {
@@ -211,5 +220,33 @@ export async function run(t, { tmp }) {
     await assert.rejects(() => historyMain(["show", "--stroe", root, "--identity", "cli"]), /option/);
     await assert.rejects(() => historyMain(["show", "--store", root, "--directory", join(root, "other"), "--identity", "cli"]), /Conflicting/);
     await assert.rejects(() => historyMain(["show", "--store", "--identity", "cli"]), /option/);
+  });
+  await asyncTest("repairs keep a frozen baseline and use no more than three rhetorical calls", async () => {
+    configureHistory(root, "repairs", { project: null, enabled: true, rhetoric: true });
+    let drafts = 0;
+    const generationInputs = [];
+    const dispatch = async ({ input, schema }) => {
+      if (schema.properties.schema.const === "voice-rhetoric-source/1") return result(annotation(input));
+      if (schema.properties.schema.const === "voice-draft-source/5") {
+        generationInputs.push(input);
+        if (drafts === 1) saveHistoryMeasurement(root, "repairs", inputForBaseline());
+        return result({ schema: "voice-draft-source/5", kind: "draft", draft: ["Why?", "Why??", "Why."][drafts++], omitted: [], claims: [], refused: "" });
+      }
+      return result({ schema: "prose-runtime-review/1", verdict: "clear", findings: [],
+        instructions: (input.instruction_ids ?? []).map((id) => ({ id, status: "applied", reason: "fixture review" })),
+        atom_accounting: (input.missing_atoms ?? []).map((atom) => ({ atom, disposition: "scanner-defect", reason: "fixture accounting" })), disclosures: [] });
+    };
+    const inputForBaseline = () => ({ ...input("later", "Later human fixture."), project: null });
+    const r = await runWriting({ schema: "prose-writing-job/1", mode: "draft", brief: "Write why.", context: { form: "reply", register: "informal", purpose: "fixture" }, adapter: { harness: "codex" },
+      rules: [{ id: "q", kind: "punctuation", directive: "No question marks", characters: "?", minimum: 0, maximum: 0 }],
+      telemetry: { identity: "repairs", directory: root, document_id: "work", revision_id: "r1" } }, { dispatch, scan: async () => ({ status: "passed", findings: [] }) });
+    assert.equal(r.status, "checked"); assert.equal(drafts, 3); assert.equal(r.telemetry.calls.length, 3);
+    assert.deepEqual(r.telemetry.stages.map((s) => s.stage), ["draft", "repair-1", "repair-2"]);
+    assert.equal(new Set(r.telemetry.stages.map((s) => s.comparison.baseline_digest)).size, 1);
+    assert.equal(r.telemetry.baseline.groups.length, 0);
+    assert.ok(generationInputs.every((i) => !i.numerical_history && !i.telemetry));
+    assert.equal(verifyHistoryRun(r).status, "passed");
+    const changed = structuredClone(r); changed.telemetry.stages[1].changes.changes[0].difference = 999;
+    assert.equal(verifyHistoryRun(changed).status, "failed");
   });
 }

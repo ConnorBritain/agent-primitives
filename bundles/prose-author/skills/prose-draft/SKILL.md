@@ -64,6 +64,10 @@ with `--delivery` before handoff. Do not edit the generated receipt or infer a
 missing dependency from the skill list: recorded statuses determine what ran.
 You may also display the exact `draft.md` bytes in chat. Label any host-written
 chat summary unverified; it is not a replacement for the generated receipt.
+Do not title a host-composed paraphrase “check receipt.” Prefer the generated
+delivery link; quote receipt text exactly or explicitly label the paraphrase
+unverified. The host's compliance with this instruction is not mechanically
+enforced by the runner, and must not be presented as such.
 A requested change needs a new rewrite run; earlier checks do not cover new
 text. An invalidated result must not retain its previous checked label.
 

@@ -21,7 +21,7 @@ node install-prose-codex.mjs
 
 The default installs **this local checkout**, including uncommitted candidate changes;
 it does not download GitHub main. The installer adds the checkout as a Codex marketplace, installs and enables all three
-plugins, and renders the six harness-neutral agent prompts as read-only personal Codex agents
+plugins, and renders the seven harness-neutral agent prompts as read-only personal Codex agents
 under `~/.codex/agents/`. It is safe to rerun: it updates files it generated and refuses to
 overwrite an agent file it does not own.
 
@@ -37,7 +37,7 @@ It leaves other marketplaces alone. Keep the checkout at its registered path.
 For GitHub main instead, use `--remote` (and `--remote --check`); an unpublished
 local candidate is not available through that route.
 Remote plugin versions must match the checkout used to render custom agents;
-otherwise the installer stops with a mismatch error. For this unpublished 0.4.0
+otherwise the installer stops with a mismatch error. For this unpublished 0.5.0
 candidate, use the local route.
 
 Verify the installation with:
@@ -58,7 +58,7 @@ Start a new Codex session after installation. Then name the workflow you want:
 - `$tell-scan` — run the deterministic prose scan directly.
 
 The custom agents are normally dispatched by those skills. You can also ask Codex to use
-`voice-profile-render`, `voice-draft`, `voice-feedback-interpret`, `prose-voice-critic`,
+`voice-profile-render`, `voice-draft`, `voice-feedback-interpret`, `voice-rhetoric-measure`, `prose-voice-critic`,
 `prose-fidelity-critic`, or `prose-reviser` explicitly.
 
 If the plugins are already installed and only the agent wrappers need repair, use
@@ -90,7 +90,7 @@ instead, use the GitHub source below. It does not include unpublished changes:
 Or install loose files from a clone:
 
 ```bash
-./install.sh voice-profile-render voice-draft voice-feedback-interpret \
+./install.sh voice-profile-render voice-draft voice-feedback-interpret voice-rhetoric-measure \
   prose-draft prose-style-tune tell-scan \
   prose-voice-critic prose-fidelity-critic prose-reviser
 ```
@@ -99,7 +99,7 @@ The loose install puts agents in `~/.claude/agents/`, skills in `~/.claude/skill
 fidelity scanner in `~/.claude/tools/`, and the tell-scan command in
 `~/.claude/commands/`. On Windows use `install.ps1` with the same names and
 `-Project` instead of `--project`. Use `--project` to install into the current
-project's `.claude/` directory instead. Run `claude agents` to confirm the six agents, then
+project's `.claude/` directory instead. Run `claude agents` to confirm the seven agents, then
 start a new Claude Code session.
 
 Invoke `prose-draft` or `prose-style-tune` by name. A loose tell-scan install uses
@@ -126,8 +126,20 @@ While developing a same-version Claude plugin locally, `plugin update` can say
 install prose-author@agent-primitives --scope user` to refresh that local bundle,
 then start a new session. The candidate's installed-byte checks caught this case;
 a version label alone is not proof that a local edit reached the installed copy.
+If that install still retains stale files, uninstall and reinstall only
+`prose-author@agent-primitives` through Claude's plugin commands, then verify the
+installed bytes. Keep user corpora, preferences and numerical history outside
+plugin caches and loose skill directories.
 
 ## First use
+
+Numerical history is off after installation. Ask `prose-style-tune` to enable it
+for a chosen identity and project, then select outside writing to ingest.
+Rhetorical analysis requires a second explicit opt-in and additional model calls.
+Ask for a baseline, changes over time, a pinned reference, export, or deletion.
+The history store keeps numbers, not a copy of the source text. Existing writing
+run directories and external exports have separate retention. See
+[history operations and privacy](skills/prose-draft/references/history.md).
 
 You can begin with explicit preferences and no corpus: “Draft a short reply; never
 use em dashes in replies.” Clear persistent instructions save with scope, version

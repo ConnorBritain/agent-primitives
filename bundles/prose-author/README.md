@@ -66,6 +66,8 @@ conflicts ask for clarification.
 | `voice-profile-render` agent | Interpret cited human evidence for profile assembly |
 | `voice-draft` agent | Produce one candidate or bounded repair from authorized inputs |
 | `voice-feedback-interpret` agent | Propose narrow changes; never save its own proposal |
+| `voice-rhetoric-measure` agent | Annotate supplied rhetorical evidence; caller computes numbers |
+| Numerical history tools | Keep consented per-piece statistics, contextual reports and stage comparisons |
 
 Primitive prompts remain canonical. Standalone agents and the skill's embedded
 prompts are rendered from those sources with byte-identical bodies. Each

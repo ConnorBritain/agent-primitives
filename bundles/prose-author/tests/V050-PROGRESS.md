@@ -16,3 +16,38 @@ collection of the user's real writing.
 
 Existing v0.4.0 evidence and the untracked historical claims audit are preserved.
 No completion or new measurement accuracy claim has yet been established.
+
+## Implementation and bounded evidence
+
+- `b4cd8ba` implements measurement, consented numerical storage, contextual
+  reports, optional rhetorical analysis and stage integration; locks six passage
+  selections before dispatch. The author suite passed 1,362 assertions then.
+- The locked diagnostic returned 12/12 structurally valid estimates with twelve
+  CLI calls, 134.785 seconds summed call latency and no redraws. Paired count
+  disagreement affected 0–2 labels per passage. Semantic accuracy remains
+  unmeasured. See `runs/2026-09-06-v050-rhetoric/REPORT.md`.
+- `e23c3ee` preserves those results and corrects the Claude product-name alias and
+  strict history option handling. Unknown flags cannot silently select the
+  default store; `--directory` and `--store` resolve to the same explicit target.
+- Codex's installed synthetic conversation passed. Claude's first conversation
+  exposed the adapter/option issues and retried despite the test instruction;
+  its original failure is retained. The accidentally selected default-store
+  synthetic identity was deleted and independently verified absent.
+- The affected second Claude conversation produced one checked draft, one task
+  review and one rhetorical analysis using the correct store, then exported,
+  disabled and deleted its synthetic identity. Its chat paraphrase omitted the
+  required unverified label; the original conversation test remains failed on
+  that presentation assertion. No third draft was generated to chase a label.
+- Zero-model-call installed artifact audits passed for Codex and the corrected
+  Claude run: exact delivery/numerical reproduction, five separate human test
+  pieces, generated stage provenance, numbers-only export, disablement retention,
+  targeted deletion and unchanged preference revision. These audits do not
+  relabel the failed Claude chat test as passed.
+
+The generated delivery is authoritative. Host adherence to chat-summary guidance
+is advisory, not an enforced boundary. The additional instruction clarifies that
+a host paraphrase must not be titled a check receipt; no post-change live chat
+compliance guarantee is claimed. All test identities are synthetic; no real
+user writing was ingested or real-user collection enabled.
+
+Final local engineering and installed-byte verification are still pending.
