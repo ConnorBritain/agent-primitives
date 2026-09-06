@@ -267,3 +267,11 @@ failure. The earlier 240-mutation update remains a live older snapshot; final
 and byte checked; the Claude loose runtime was refreshed and exercised too.
 Installed preference/undo and exact-byte receipt checks also pass with zero new
 model calls. See the session report for retained original hashes and timings.
+
+One focused Claude conversation after the counter-reference fix used a single
+valid job, generated once and passed all four hard rules. Its two inner calls
+took 19.057 seconds (90.151 seconds outer elapsed, including inner work). The
+host still reformatted the receipt and inferred that a verified installed
+companion was absent after overriding its review root to null. That strict
+delivery test remains failed. No unchanged redraw follows; the remaining issue
+is outer-host receipt fidelity, not the measured hard-rule result.

@@ -206,6 +206,26 @@ Raw traces and both Claude result directories are retained in a private local
 backup. These failures concern outer-host integration, not a rerun of the
 bounded 18-draft comparison and not evidence that every generated draft is poor.
 
+### Focused counter-documentation repeat
+
+Claude conversation 3 used the refreshed counter reference, prepared one valid
+job and made exactly one draft call plus one task-review call. All four hard
+rules passed on the exact 22-word draft. The outer invocation took 90.151 seconds;
+the two inner calls took 19.057 seconds. The model was not changed and no
+comparison cell was regenerated.
+
+The strict delivery assertion still failed. The host reformatted `delivery.md`
+and added a statement that prose-review was not installed, despite the verified
+local installation. Its job explicitly set `review_root: null` after its own
+dependency lookup; that is not evidence that the bundle was absent. No voice or
+fidelity review was required for this no-profile, unrepaired reply, and no such
+review was represented as passed by the runtime. The hard-rule preparation gap
+is closed in this case; faithful host receipt delivery is not proved. Do not
+repeat the same run unchanged to select a compliant-looking response.
+
+The original report is retained privately with SHA-256
+`82e95f604218281696a006ad65b13d9f000322073d34224e0b806bdba329c4f9`.
+
 ## Installed lifecycle and receipt rechecks
 
 These checks use the refreshed installed tools, isolated stores and local fake
