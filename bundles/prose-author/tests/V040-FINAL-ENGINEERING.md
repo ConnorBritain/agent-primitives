@@ -1,6 +1,8 @@
 # v0.4.0 final local engineering evidence
 
-Tested implementation commit: `95690f578e8563459bbe020f9b73caa001133be6`.
+Final candidate verification is recorded under
+[Authoritative-delivery completion](#authoritative-delivery-completion) below.
+Initial tested implementation commit: `95690f578e8563459bbe020f9b73caa001133be6`.
 These are local engineering checks, not a writing-quality or resemblance claim.
 No model requests, comparison redraws, publication or Actions changes were made
 by this verification sequence.
@@ -63,14 +65,14 @@ failed original. No private machine paths are required to use the shipped tool.
 | Diagnostic check report | `f1c9717aa9f785338c5b9e82b9279f607307f22df800f8e4844a4b5557d0f99f` |
 | Diagnostic passing check log | `4c8251f32e19e2b3062e4e9a012e1b77fdb58effbbfaf8a68880e89a695a3e90` |
 
-## Completion is still unproven
+## Earlier completion checkpoint
 
-The [completion audit](V040-COMPLETION-AUDIT.md) records the remaining installed
-conversation boundaries: the restricted Codex parent sandbox prevented nested
+At this checkpoint, the remaining installed conversation boundaries were:
+the restricted Codex parent sandbox prevented nested
 CLI initialization, and Claude reformatted the generated receipt and added an
 unsupported installation statement. The requested permission and delivery-boundary
-decisions remain pending. No unrestricted retry or receipt-boundary relaxation
-is implied by these engineering results.
+decisions were pending. The later user authorization and successful artifact
+verification are recorded below; the earlier failures remain retained.
 
 Automatic profile rendering uses all supplied samples. Task register/form
 context does not itself filter the rendering corpus; supply selected whole
@@ -103,3 +105,52 @@ paths. Two API-key-shaped matches were inspected and were the same public
 Economist URL slug (`elon-musk-is-building-…`) in locked corpus inputs, not
 credentials. Those historical inputs were preserved. This is not a comprehensive
 secret audit.
+
+## Authoritative-delivery completion
+
+Final tested implementation: `bcb6157e30833a35f27bf750a56de4f47b48e9e1`.
+The user authorized one-off full-access Codex testing without saved-setting
+changes and generated-file authority. The [session evidence](runs/2026-09-06-v040-sessions/README.md#user-authorized-authoritative-file-handoff)
+records both installed workflows and the zero-call artifact rechecks. Codex used
+`gpt-6-astra`; Claude used `opus[1m]`. Each made one draft call and one task-review
+call, with no redraws. Direct source-verified receipt excerpts are distinguished
+from host-written summaries, which remain explicitly unverified.
+
+All 22 orchestrated local verification commands passed:
+
+| Command / group | Result |
+|---|---|
+| `node bundles/prose-author/tests/selftest.mjs` | 1,343 passed, 0 failed |
+| `node bundles/prose-tell-scan/tests/selftest.mjs` | 334 passed, 0 failed, 1 held-agent skip |
+| `node bundles/prose-tell-scan/tests/acceptance.mjs` | Exit 0; historical 0/12 false positives, 4/33 recall and 8/33 Tier A recall unchanged |
+| `node bundles/prose-review/tests/selftest.mjs` | 300 passed, 0 failed |
+| `node bundles/prose-review/tests/run-harness-test.mjs` | 36 passed, 0 failed |
+| `node bundles/prose-review/tests/revise-harness-test.mjs` | 34 passed, 0 failed |
+| `run-harness.mjs check` for the four canonical run directories | All exit 0 |
+| `verify-run.mjs` for the same four directories | All exit 0; historical corrected-expectation warning retained |
+| `node bundles/prose-author/tests/concurrency.mjs` | 245 targets; 3 safety assertions passed, 0 failed |
+| `node bundles/prose-author/tests/mutations.mjs --update` with diagnostic output capture | 245 rows, exit 0; 1,813.919 s |
+| Same mutation tool in check mode, with diagnostic output capture | All 245 rows match, exit 0; 1,846.914 s |
+| Five concurrent prose-review suites during check mode | All exit 0, 300 passed per run |
+
+The canonical/historical directories are `2026-08-04-b`,
+`2026-08-05-fidelity`, `2026-08-05-fidelity-s4` and
+`2026-08-05-voice-cross-author`, beneath `bundles/prose-review/tests/runs/`.
+Both mutation invocations retain all child-suite output. Neither had zero-score
+mutations or crashes. The check's before/after tracked diff digest is identical:
+`a59e7188aaf21b4f189dab6f59b5795ce9c8e747535cafa223bfb4dd11aba400`.
+The earlier isolated count discrepancy did not recur and is not called fixed.
+
+| Final artifact | SHA-256 |
+|---|---|
+| Full engineering report | `0143dadf7cf3ab406c449272ec928fe050fc9d009c7bd71cdc2d4810c018dbeb` |
+| Mutation update output | `2fad7c2b51708ef4b2251d3798d9c4f9defc5c7ac9cbe1d157b30ec87b398326` |
+| Mutation check output | `7015676e6d1698b61700437a0a100603628326998741bc7a21cdd0caf413255f` |
+
+The existing bounded comparison reverified its inputs, profiles and exact draft
+checks without generation. Both installed production inventories and bytes match
+the repository; all four author manifests remain 0.4.0. The final engineering
+run made zero model calls. Raw evidence is backed up privately. Documentation
+and the generated mutation table are the only changes after the tested commit.
+The local candidate is ready for review and use in fresh host sessions. Nothing
+was pushed, merged, tagged or published; no GitHub Actions files changed.

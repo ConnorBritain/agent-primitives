@@ -1,10 +1,11 @@
-# v0.4.0 implementation evidence — in progress
+# v0.4.0 implementation evidence — verified local candidate
 
-This is an implementation checkpoint, **not a release or install claim**. The
-working-tree manifests now agree at v0.4.0. Local Codex and Claude plugins and
-Claude loose-file copies are installed; installed workflow verification is in progress.
-No push, PR, publication or
-GitHub Actions change is part of this work.
+The local candidate is installed and verified in Codex and Claude; manifests
+agree at v0.4.0. The sections below retain chronological implementation
+checkpoints, including failures and then-pending work. Current completion and
+limits are in [the audit](V040-COMPLETION-AUDIT.md) and
+[final engineering report](V040-FINAL-ENGINEERING.md).
+No push, PR, publication or GitHub Actions change is part of this work.
 
 ## Current deterministic foundation
 
@@ -313,3 +314,17 @@ zero-call recheck verified both retained artifacts without redrawing either.
 The original report remains unchanged. The suite now passes 1,343 assertions;
 all three new focused mutations fail one assertion each without crashing.
 Final 245-case mutation update/check and local engineering verification remain.
+
+## Completed local verification
+
+The final run on `bcb6157` passed all 22 orchestrated local commands: author,
+tell and review suites, tell acceptance, both harness-integrity suites, four
+canonical run checks, four historical verifiers, concurrency safety, the
+245-case mutation update and check, and five concurrent review runs. The author
+suite reports 1,343 passed, zero failed. Mutation check reproduced the generated
+table and the before/after working-tree digest. No model requests were made by
+this engineering run. The retained comparison also reverified without generation.
+
+The approved local completion boundary is met. Human editing-burden judgments,
+private-corpus quality and universal semantic correctness remain unmeasured or
+unclaimed, as specified in the plan. Original failed evidence remains retained.

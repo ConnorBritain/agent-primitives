@@ -17,8 +17,8 @@ it is not yet in their hands.
 
 ## Unreleased
 
-prose-author v0.4.0 is a local candidate. No release, tag or marketplace
-publication is implied; installation and full verification remain in progress.
+prose-author v0.4.0 is a locally installed, verified candidate for review.
+No push, PR, release, tag or marketplace publication is implied.
 
 ---
 
@@ -67,6 +67,12 @@ publication is implied; installation and full verification remain in progress.
 
 ### [0.4.0] — local candidate, unpublished
 
+- **Verified** authoritative generated-file delivery in fresh Claude and Codex
+  sessions. Chat summaries remain unverified; direct receipt excerpts must match
+  their source. `check-result --delivery` detects prose or receipt changes.
+- **Recorded** all local engineering gates passing, including 245 mutation
+  update/check cases, with original failed experiments and known limits retained.
+
 - **Changed** observed frequencies from compulsory quotas to advisory per-document
   tendencies. Added independent explicit phrase, punctuation, length and count rules.
 - **Fixed** visible-prose measurement so link destinations, metadata and code do
@@ -88,7 +94,7 @@ publication is implied; installation and full verification remain in progress.
 - **Documented** the Pi adapter interface; implementation remains deferred. Companion
   bundle versions are unchanged because their contracts are unchanged.
 - **Evaluation** uses a bounded two-author, three-form, three-condition comparison,
-  not a renewed 20/60 release bar. Current evidence and remaining verification are
+  not a renewed 20/60 release bar. Current evidence and known limits are
   recorded in [V040-PROGRESS.md](bundles/prose-author/tests/V040-PROGRESS.md).
 
 ### [0.3.0]

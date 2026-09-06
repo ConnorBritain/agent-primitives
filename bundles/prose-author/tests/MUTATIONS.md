@@ -12,6 +12,9 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 
 | mutation | tests failed | what it guards |
 |---|---|---|
+| accept invented check results as direct receipt excerpts | 1 | a directly quoted receipt excerpt must occur in the generated receipt, not just use quotation marks |
+| accept changed delivery receipts as checked artifacts | 1 | the authoritative delivery includes exact recorded receipt bytes, not only checked prose |
+| let delivery prose differ from the checked draft file | 1 | delivery assembly cannot substitute unverified prose while retaining the old draft hash |
 | let a nonterminating capability probe defeat its timeout | 1 | synchronous CLI preflight terminates even when the child ignores SIGTERM |
 | let a nonterminating plugin registry defeat its timeout | 1 | dependency discovery cannot indefinitely block interruption handling in the parent |
 | read receipt diagnostics as completed mutation-suite counts | 1 | mutation evidence comes from a unique delimited suite summary, not quoted diagnostic counts |

@@ -1,8 +1,8 @@
-# v0.4.0 completion audit — not yet complete
+# v0.4.0 completion audit — verified local candidate
 
 This maps the approved five-milestone plan to inspected code and recorded
 evidence. A passing deterministic test is not proof of prose quality, semantic
-accuracy, or correct behavior by every outer coding agent. The remaining
+accuracy, or correct behavior by every outer coding agent. Historical
 integration failures are retained, not converted to passes by this audit.
 
 ## 1. Measurement and explicit rules
@@ -68,27 +68,28 @@ that profile-plus-examples writes better prose than examples alone.
 | Instructions, prompts, contracts and user documentation updated | Canonical/rendered/embedded prompt parity is tested. README, protocol, design, runtime, installation and portability documentation describe current semantics. Final engineering and operational failure notes are consolidated in [the evidence report](V040-FINAL-ENGINEERING.md); corpus-selection guidance is explicit and locally refreshed. |
 | Version consistency and independently usable components | All four prose-author manifests and marketplace entry were parsed at 0.4.0. Compatible companion bundles remain prose-review 0.3.0 and prose-tell-scan 0.1.1. Pi is documented but not implemented. |
 | Local engineering suites and historical verification | Author suite, both sibling suites, acceptance, both harness-integrity suites, four canonical checks and four historical run verifiers pass locally. The historical fidelity correction warning and held-agent parity skip remain disclosed. |
-| Mutation update/check and concurrent safety | The 242-case update passed. The first full check failed on one count discrepancy (4 failures instead of 2); three focused repeats and a diagnostic full check reproduced 2. The diagnostic full check passed all 242 rows, baseline/restoration suites and unchanged-tree verification. Ten concurrent review runs passed, five with an applied private-sandbox mutation directly observed. The isolated discrepancy remains unexplained, not declared fixed. See [final engineering evidence](V040-FINAL-ENGINEERING.md). |
+| Mutation update/check and concurrent safety | The final 245-case update and full check both exit zero on implementation `bcb6157`, with all 22 local verification commands passing and the tracked diff unchanged during check. Five concurrent review suites pass. Earlier 242-case evidence, including an unexplained isolated count discrepancy and ten concurrent review passes, remains separately recorded rather than overwritten. See [final engineering evidence](V040-FINAL-ENGINEERING.md). |
 | Installed plugin and loose-file paths | Both plugin deployments were byte checked after the timeout fix and refreshed again after the final guidance edit; Claude loose installation includes runtime tools and fidelity scanner. Codex custom-agent wrappers are installed. Actual installed interruption and zero-call preference/receipt rechecks pass. Windows scripts were not executed on this Mac. |
 | Both installed conversational workflows work | Tuning save/undo conversations pass. Fresh skill-name drafting uses the installed runtime and returns a checked authoritative file in both harnesses. The user-authorized full-access Codex test closes the initialization boundary for that permission level; restricted mode remains unsupported, not silently bypassed. Claude's chat summary is explicitly unverified; Codex supplies source-verified receipt excerpts. The original overly broad test failure and zero-call recheck are both retained in the session report. |
-| Review-ready handoff with exact evidence and honest limits | Comparison and installed reports exist. This audit keeps outstanding items explicit. No completed-candidate claim yet. |
+| Review-ready handoff with exact evidence and honest limits | Comparison, installed conversation, persistence, failure-path and final engineering reports are retained. Current deployment bytes and versions match. The local candidate boundary is verified; publication and universal writing-quality claims are excluded. |
 | Preserve history and claims audit; no publication or Actions changes | No pushes, PRs, merges, tags or publication occurred. `.github/workflows` has no diff from the starting commit. The existing untracked claims audit retains its recorded SHA-256 and remains untracked. |
 
-## Remaining completion verification
+## Completion boundary
 
 The user has now approved both the isolated Codex full-access test (without
 saved configuration changes) and authoritative generated-file delivery with
 host-written chat summaries explicitly unverified. The runtime and installed
 guidance implement that boundary. Fresh conversation evidence and zero-call
-artifact rechecks are recorded. The affected engineering checks still need their
-final run; historical failures remain historical failures, not retroactive passes.
+artifact rechecks are recorded. The final 245-case update/check and applicable
+local suites passed. The existing 18-draft comparison reproduces without new
+generation; deployment inventories and bytes match in both harnesses.
 
-1. Preserve the completed mutation evidence, including its first failed check
-   and the unexplained extra failures; do not relabel the failed run as passed.
-2. Complete the current 245-mutation update/check and applicable local suites
-   after the artifact-delivery changes.
-3. Reconcile final evidence, documentation and installed bytes before calling
-   the goal complete. No further model redraw or literary acceptance bar is required.
+The approved local candidate is complete at this boundary. It is not pushed,
+merged, tagged or published. No private-user-corpus success, universal host
+compliance, semantic infallibility or prose-quality guarantee is inferred.
+Human keep/edit preference and editing burden remain unmeasured as allowed by
+the plan. Historical failures remain failures, and their documented limitations
+are not erased by the final passing checks.
 
 An unavailable full-access test is not permission to disable a sandbox. A
 fallible voice/fidelity disagreement correctly reported as incomplete is also
