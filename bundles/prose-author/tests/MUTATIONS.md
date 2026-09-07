@@ -12,6 +12,15 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 
 | mutation | tests failed | what it guards |
 |---|---|---|
+| identity accepts a future registry schema | 1 | incompatible registry versions are not silently reinterpreted |
+| identity ignores registry digests | 1 | shared registry revision bytes reproduce their pinned digest |
+| identity overwrites a stale registry revision | 5 | concurrent clients cannot overwrite a newer default or profile selection |
+| identity ignores explicit opt-out | 1 | one-off work can disable personal identity resolution |
+| identity mixes task-specific author evidence | 1 | explicit foreign author inputs do not inherit personal defaults |
+| identity accepts a changed pinned profile | 4 | profile changes require explicit publication rather than silent replacement |
+| identity silently loses its registered corpus | 4 | unavailable registered corpus is not represented as no evidence |
+| identity permits a cross-writer history attachment | 1 | writing identity cannot silently feed another writer numerical records |
+| receipt reloads current identity instead of frozen inputs | 1 | historical delivery verification reads its frozen input snapshot |
 | ignore misspelled history attachment fields | 1 | an invalid attachment cannot silently collect into the default history directory |
 | accept altered numerical stage differences | 1 | stage comparisons reproduce from the recorded exact candidate measurements |
 | move the reference baseline during repairs | 1 | all stages use the same pre-generation baseline despite concurrent history ingestion |
@@ -65,7 +74,7 @@ node tests/mutations.mjs --update   # rewrite it from the runs
 | count Markdown link destinations as author parentheticals | 5 | visible-prose counts exclude balanced Markdown targets while retaining genuine asides |
 | turn unevaluable empty-text rates into passing zeroes | 1 | a missing rate denominator is not evaluated, never a passing absence |
 | restore a one-hit exception to an explicit zero rule | 7 | explicit mechanical limits are exact and independent of corpus-rate tolerances |
-| trust a stored receipt without reproducing final checks | 2 | a presented draft is bound to its checked bytes, not a prior candidate |
+| trust a stored receipt without reproducing final checks | 3 | a presented draft is bound to its checked bytes, not a prior candidate |
 | save inferred preferences without user approval | 1 | only explicit persistent feedback or approved inference changes saved preferences |
 | silently retarget current observation-dependent preferences | 2 | independent user rules survive refresh but evidence-dependent rules require rebinding |
 | let preferences silently retarget a changed observed profile | 2 | user choices remain bound to the exact observed evidence they were made against |

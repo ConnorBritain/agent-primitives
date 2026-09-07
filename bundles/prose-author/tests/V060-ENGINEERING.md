@@ -41,8 +41,35 @@ Canonical checks (`run-harness.mjs check`) and verification (`verify-run.mjs`)
 passed for all four preserved runs: `2026-08-04-b`, `2026-08-05-fidelity`,
 `2026-08-05-fidelity-s4`, and `2026-08-05-voice-cross-author`.
 
-Mutation sweep and active-installation verification are recorded below when
-complete; the change is not yet represented here as fully verified.
+`node bundles/prose-author/tests/mutations.mjs --update` completed with exit zero:
+all 275 mutations caught, none uncaught or crashed. This preserves the previous
+266 probes and adds nine identity/receipt probes. `MUTATIONS.md` was generated
+only by the tool's update mode and compared byte-for-byte with the completed
+sweep's captured table. A second full check-mode sweep was not run. No assertions
+were weakened. Active-installation checks are complete as recorded below.
+
+## Local installations
+
+- Codex plugin deployment: author 0.6.0, review 0.3.0, tell-scan 0.1.1; deployment
+  inventories/bytes match source, and all seven custom agent wrappers pass the
+  installer check.
+- Claude plugin deployment: the same versions and matching deployment bytes.
+- Claude loose skills and Devin global skills: 100 source files byte-verified;
+  the two Devin entrypoints intentionally retain a disclosed Codex backend bridge.
+  Both adapted skills pass the skill validator. Existing copies were backed up.
+- All four active runtime locations resolve exactly the same `personal` identity,
+  registry revision, corpus, preference and history paths. Its corpus is empty,
+  its preference store contains no decisions, and history/rhetoric remain off.
+- Real installed Codex invocation: two authenticated calls; 17.123 seconds elapsed.
+- Real installed Claude invocation: two authenticated calls; 37.571 seconds elapsed.
+- Both preference-only draft/review smoke runs return `checked`; their exact
+  delivered bytes and receipts reverify. History remains `disabled`. No voice
+  profile or resemblance claim is inferred from these synthetic installation tests.
+
+Raw jobs, calls, deliveries and original-install backups remain in private local
+installation evidence, not this public repository. No native Pi install was
+present. Live conversational skill discovery in Devin's UI was not retested;
+the installed runtimes and extension plugin registries are the verified boundary.
 
 ## Limits
 
