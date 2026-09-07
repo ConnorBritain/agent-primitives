@@ -7,7 +7,11 @@ do not hand-edit a substitute preference file. `tools/style-contract.mjs` and
 
 ## Store and interpret
 
-Reuse the user's known store. Otherwise use `preferences locate`: the default
+Resolve `identity resolve` first. A selected registry identity supplies the shared
+preference path; use `--writing-identity ID` to select another one. Setup and
+refresh publication are described in the sibling drafting skill's
+`references/identities.md`. Without a registry, reuse the user's known store.
+Otherwise use `preferences locate`: the default
 is the shared `.config/prose-author/preferences` under the user's home directory
 for both Claude and Codex, or the absolute `PROSE_PREFERENCES_DIR` override.
 The command is read-only and does not create a store. Visibly record the path

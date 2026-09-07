@@ -1,9 +1,12 @@
 # prose-author
 
 Personal-style drafting with explicit preferences, human writing examples and
-checks tied to the delivered text. **v0.5.0 is a locally installed, engineering-verified
-candidate, not a published release.** See [completion evidence and known limits](tests/V050-FINAL-ENGINEERING.md);
-the previous candidate's evidence remains in [v0.4.0 verification](tests/V040-PROGRESS.md).
+checks tied to the delivered text. **v0.6.0 adds shared writing identities** across
+compatible installations, without copying your corpus or preferences into plugins.
+See [identity setup and limits](skills/prose-draft/references/identities.md) and
+[v0.6 verification](tests/V060-ENGINEERING.md). Historical evaluation evidence
+remains in [v0.5 verification](tests/V050-FINAL-ENGINEERING.md) and
+[v0.4 verification](tests/V040-PROGRESS.md).
 
 Ask your coding agent to draft a reply, turn an outline into a blog post, rewrite
 a passage or continue an existing piece. You do not run the writing scripts

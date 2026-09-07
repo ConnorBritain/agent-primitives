@@ -16,6 +16,7 @@ export function renderWritingReceipt(result, job) {
     `Artifact scan: ${flat(attempt?.artifacts?.status)}. Copying check: ${flat(attempt?.copying?.status)}.`,
     `Preferences: revision ${flat(result.receipt?.preference_revision)}, ${result.receipt?.active_preferences?.length ?? 0} active. Omissions: ${result.unresolved_omissions?.length ?? result.omitted?.length ?? 0} unresolved, ${result.advisory_omissions?.length ?? 0} reviewed advisory.`,
   ];
+  if (job.identity_resolution) lines.push(`Writing identity: ${flat(job.identity_resolution.id)}; registry revision ${flat(job.identity_resolution.registry_revision)}. Inputs snapshotted for this run.`);
   if (semantic.length) lines.push(`Not mechanically evaluated (semantic instructions): ${semantic.map((c) => flat(c.id)).join(", ")}. See task review and sidecar.`);
   if (result.claims?.length) lines.push(`Claims disclosed for verification: ${result.claims.length}. See sidecar.`);
   if (result.telemetry) {

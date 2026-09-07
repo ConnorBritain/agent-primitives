@@ -10,6 +10,14 @@ dependencies are missing, explain the unavailable check; do not simulate a run.
 
 ## Prepare one job
 
+Resolve the shared writing identity first (`identity resolve`). See
+[identities.md](identities.md) for setup and selection. `writing_identity` selects
+an ID or opts out with null; optional `identity_registry` selects an absolute
+registry path. With no explicit author inputs, the selected default is automatic.
+Resolved inputs are frozen before model dispatch. Do not redundantly insert
+legacy default preference paths into an identity-based job; explicit author
+inputs without an explicit identity intentionally bypass default inheritance.
+
 Create a private task directory and an input JSON file. Do not put a private
 corpus or call transcripts into a public repository. Use an existing persistent
 preference-store path when the user has one; keep temporary outputs separate.

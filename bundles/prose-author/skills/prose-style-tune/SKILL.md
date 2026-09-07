@@ -5,6 +5,13 @@ description: Discover, save, scope, compare, version, or undo personal writing-s
 
 # Prose style tune
 
+Resolve the shared writing identity with the sibling runtime's `identity resolve`
+before locating preferences. For setup, switching writers or publishing a refreshed
+profile, read [the identity reference](../prose-draft/references/identities.md).
+Preference and history commands resolve the registered default; use
+`--writing-identity ID` for another selection. Keep all persistent state outside
+plugin installations. Selection does not enable numerical or rhetorical collection.
+
 Use the sibling drafting skill's production runtime for storage and compilation.
 Read [references/session.md](references/session.md) before acting. The tool owns
 revisions, digests, scope precedence, conflict detection and undo. Never

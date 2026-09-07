@@ -27,6 +27,7 @@ import * as styleTune from "./suite-style-tune.mjs";
 import * as v040 from "./suite-v040.mjs";
 import * as runtimeV040 from "./suite-runtime-v040.mjs";
 import * as historyV050 from "./suite-history-v050.mjs";
+import * as identityV060 from "./suite-identity-v060.mjs";
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = resolve(HERE, "..", "..", "prose-tell-scan", "tests", "corpus");
@@ -52,6 +53,9 @@ const t = {
 };
 
 const tmp = mkdtempSync(join(tmpdir(), "prose-author-selftest-"));
+// Real user defaults must never become synthetic test inputs.
+const previousRegistry = process.env.PROSE_IDENTITY_DIR;
+process.env.PROSE_IDENTITY_DIR = join(tmp, "empty-identity-registry");
 
 function makeProfile(name, { human = 0, approved = 0, editFraction = 0.5 } = {}) {
   const dir = join(tmp, name);
@@ -95,6 +99,7 @@ const SUITES = [
   ["v040", v040],
   ["runtime-v040", runtimeV040],
   ["history-v050", historyV050],
+  ["identity-v060", identityV060],
 ];
 const only = process.argv.slice(2).filter((a) => !a.startsWith("-"));
 const selected = only.length
@@ -112,6 +117,7 @@ if (only.length) {
 try {
   for (const [, suite] of selected) await suite.run(t, ctx);
 } finally {
+  if (previousRegistry === undefined) delete process.env.PROSE_IDENTITY_DIR; else process.env.PROSE_IDENTITY_DIR = previousRegistry;
   rmSync(tmp, { recursive: true, force: true });
 }
 

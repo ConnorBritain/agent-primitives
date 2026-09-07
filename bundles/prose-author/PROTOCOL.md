@@ -92,3 +92,11 @@ success. Keep the receipt short; detailed JSON is a sidecar, not a user task.
 The current path supersedes the quota-era conformance/prune pipeline.
 Historical tools, raw runs and thresholds remain preserved separately; they
 are not evidence that a current prompt was exercised.
+## Shared identity preparation (v0.6)
+
+Before writing or tuning, resolve the selected shared identity. Registration and
+default selection are explicit user choices; corpus, profile, preferences and
+numerical history remain separate and outside plugin caches. Resolve once before
+the run snapshot, then keep those inputs fixed. A one-off author can opt out.
+History still requires consent, and generated prose never becomes human corpus
+material automatically. See [identity operations](skills/prose-draft/references/identities.md).

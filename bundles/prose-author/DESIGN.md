@@ -110,3 +110,14 @@ Current versions are profile/3, preferences/2 and style-spec/2. Historical
 schemas, prompts, scoring and raw runs keep their original meaning. Current
 prompt evidence must be recorded separately. The tool makes uncertainty visible;
 it does not promise to eliminate hallucinations or certify an author's identity.
+## Shared identities (v0.6)
+
+Installation owns executable code, not the writer's evidence or choices. A
+versioned local registry connects each writer to independently stored corpus,
+profile, preferences and metrics. This makes harness switching a path-resolution
+problem rather than a data-copying problem. Profile publication is explicit and
+immutable; independent rules survive it. Local writer locks and expected revisions
+prevent competing updates from silently replacing a newer selection, but are not
+distributed synchronization. Jobs snapshot input versions before model dispatch;
+later identity changes do not invalidate past receipts. Explicit foreign evidence
+does not inherit the user's default writing identity.

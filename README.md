@@ -104,7 +104,9 @@ can't do its job; applying transformer rules to a reviewer produces a rubber sta
 
 For the complete prose drafting and style-tuning setup, use the
 **[prose toolchain install guide](bundles/prose-author/INSTALL.md)**. It covers Codex and
-Claude Code, verification, updates, and first use.
+Claude Code, verification, updates, and first use. The writing tools can share
+one on-disk identity registry for corpora, profiles, preferences and opt-in
+metrics across compatible installations; see [shared writing memory](bundles/prose-author/skills/prose-draft/references/identities.md).
 
 ### Codex — prose toolchain
 

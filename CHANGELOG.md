@@ -65,6 +65,21 @@ No push, PR, release, tag or marketplace publication is implied.
 
 ## prose-author
 
+### [0.6.0] — shared writing identities
+
+- **Added** a harness-independent `voice-identity-registry/1` outside plugin
+  installations, pointing to shared corpora, pinned profiles, preferences and
+  numerical history. Defaults require explicit selection; one-off jobs can opt out.
+- **Added** immutable registry/profile revisions, atomic pointer updates,
+  exclusive writer locks and stale-revision rejection. Incompatible versions,
+  unavailable registered corpora and changed pinned profile bytes fail explicitly.
+- **Integrated** identity resolution into drafting, profile preparation, tuning
+  and history commands. Runs snapshot resolved inputs; old receipts do not read
+  newer identity state. Existing explicit-path workflows remain available.
+- **Preserved** independent preferences and undo across profile publication,
+  opt-in history/rhetoric, distinct provenance and historical artifacts. No native
+  Pi/Devin model adapter, multi-machine sync or automatic corpus ingestion added.
+
 ### [0.5.0] — local candidate, unpublished
 
 - **Added** opt-in numbers-only history with per-piece rhythm and punctuation

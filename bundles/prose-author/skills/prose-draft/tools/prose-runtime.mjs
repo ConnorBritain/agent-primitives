@@ -13,11 +13,14 @@ import { renderWritingReceipt, renderWritingDelivery } from "./writing-receipt.m
 import { historyMain } from "./history-cli.mjs";
 import { verifyHistoryRun } from "./history-session.mjs";
 import { canonicalHarness } from "./runtime-adapters.mjs";
+import { identityMain, resolveWritingIdentity, resolveIdentity, identityDirectory } from "./identity-store.mjs";
 
 const read = (path) => JSON.parse(readFileSync(path, "utf8"));
 const write = (path, value) => writeFileSync(path, typeof value === "string" ? value : `${JSON.stringify(value, null, 2)}\n`, { flag: "wx", mode: 0o600 });
-export function loadWritingJob(path) {
-  const job = read(path), base = dirname(resolve(path)), at = (p) => resolve(base, p);
+export function loadWritingJob(path, { resolveIdentity: useIdentity = true } = {}) {
+  const input = read(path), base = dirname(resolve(path)), at = (p) => resolve(base, p);
+  if (input.telemetry?.directory) input.telemetry.directory = at(input.telemetry.directory);
+  const job = useIdentity ? resolveWritingIdentity(input) : input;
   for (const [file, inline] of [["profile_file", "profile"], ["samples_dir", "samples"], ["preference_store", "preferences"], ["source_file", "source_text"]]) {
     if (job[file] !== undefined && job[inline] !== undefined) throw new TypeError(`Supply ${file} or ${inline}, not both`);
   }
@@ -37,12 +40,30 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
   const [command, ...rest] = args;
   const value = (flag) => { const i = rest.indexOf(flag); return i < 0 ? null : rest[i + 1]; };
   const requireValue = (flag) => { const v = value(flag); if (!v || v.startsWith("--")) throw new TypeError(`Missing ${flag}`); return v; };
+  if (command === "identity") {
+    const result = identityMain(rest);
+    stdout(`${JSON.stringify(result, null, 2)}\n`); return result ?? { status: "not-evaluated", reason: "No writing identity configured" };
+  }
   if (command === "history") {
     const result = await historyMain(rest, { dispatch, signal });
     stdout(`${JSON.stringify(result, null, 2)}\n`); return result;
   }
   if (command === "preferences") {
-    const op = rest[0], store = rest.includes("--store") ? resolve(requireValue("--store")) : defaultPreferenceDirectory();
+    const op = rest[0];
+    const operations = { locate: [], init: ["--id"], show: [], propose: ["--feedback"], apply: ["--proposal", "--accept"],
+      undo: [], discover: ["--profile", "--offset", "--limit"], diff: ["--from"],
+      compare: ["--decision", "--rule", "--context", "--profile"], compile: ["--context", "--profile"] };
+    if (!Object.hasOwn(operations, op)) throw new TypeError("Unknown preferences operation");
+    const seen = new Set();
+    for (let i = 1; i < rest.length; i += 2) {
+      if (!["--store", "--registry", "--writing-identity", ...operations[op]].includes(rest[i]) || seen.has(rest[i])) throw new TypeError("Unknown or duplicate preference flag");
+      if (!rest[i + 1] || rest[i + 1].startsWith("--")) throw new TypeError(`Missing ${rest[i]}`);
+      seen.add(rest[i]);
+    }
+    const selected = rest.includes("--writing-identity") || !rest.includes("--store")
+      ? resolveIdentity(value("--registry") ? resolve(requireValue("--registry")) : identityDirectory(), value("--writing-identity") ?? undefined) : null;
+    if (selected && !selected.preference_store && !rest.includes("--store")) throw new TypeError("Selected identity has no preference store; register one explicitly");
+    const store = rest.includes("--store") ? resolve(requireValue("--store")) : selected?.preference_store ?? defaultPreferenceDirectory();
     let result;
     if (op === "locate") result = { directory: store, exists: existsSync(join(store, "current.json")),
       preference_id: existsSync(join(store, "current.json")) ? readPreferenceStore(store).id : null };
@@ -65,7 +86,7 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
   }
   if (command === "check-result") {
     const result = read(requireValue("--result")), draft = readFileSync(requireValue("--draft"), "utf8");
-    const job = loadWritingJob(requireValue("--job"));
+    const job = loadWritingJob(requireValue("--job"), { resolveIdentity: false });
     const compiled = compileStyleV2(job.preferences ?? initPreferencesV2("task-local"), { profile: job.profile ?? null, context: job.context, overrides: job.rules ?? [] });
     const reproduced = result.receipt?.draft_digest !== sha256(draft) ? { status: "failed", reason: "Published bytes differ from the run" }
       : verifyRuleReceipt(draft, compiled.rules, result.attempts.at(-1)?.mechanical);
@@ -81,7 +102,7 @@ export async function runtimeMain(args, { dispatch, stdout = (s) => process.stdo
     if (!deliveryMatches) check.reason = "Delivery file differs from the recorded prose and generated receipt";
     stdout(`${JSON.stringify(check)}\n`); return check;
   }
-  if (!["run", "profile"].includes(command)) throw new TypeError("prose-runtime: run|profile --job job.json --out NEW-directory; preferences <operation>; check-result");
+  if (!["run", "profile"].includes(command)) throw new TypeError("prose-runtime: run|profile --job job.json --out NEW-directory; identity|preferences|history <operation>; check-result");
   const jobPath = requireValue("--job"), job = loadWritingJob(jobPath), out = resolve(requireValue("--out"));
   if (value("--harness")) job.adapter = { ...job.adapter, harness: canonicalHarness(value("--harness")) };
   if (job.profile_policy !== undefined && !["auto", "none"].includes(job.profile_policy)) throw new TypeError("profile_policy must be auto or none");

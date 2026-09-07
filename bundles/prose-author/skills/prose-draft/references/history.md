@@ -7,6 +7,12 @@ authorize collection. Nothing watches folders or uploads a corpus in the backgro
 
 ## Consent, identity, and storage
 
+With a shared writing identity configured, commands without explicit raw identity
+or store flags resolve its registered numerical store. Use `--writing-identity ID`
+to select a registry identity; see [identities.md](identities.md). Historical
+`--identity ID` and explicit directory flags retain their existing semantics.
+Identity selection alone never enables collection.
+
 Use `tools/prose-runtime.mjs history locate` to locate the shared local store.
 The default is `.config/prose-author/history` under the user home; an absolute
 `PROSE_HISTORY_DIR` overrides it. This is separate from corpora and preferences.

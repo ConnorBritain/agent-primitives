@@ -12,6 +12,7 @@ This is a developer/adapter reference. Users enter through `prose-draft` and
 | `voice-profile-source/5` | Renderer interpretation: cited observations, unresolved dimensions or refusal |
 | `voice-profile/3` | Assembled evidence, all ten coverage dimensions, deterministic measurements and provenance |
 | `voice-preferences/2` | Independent scoped decisions, feedback provenance and immutable revision ancestry |
+| `voice-identity-registry/1` | Shared identity pointers, explicit default, immutable registry/profile revisions and stale-writer checks |
 | `voice-style-spec/2` | Applicable profile/preferences/rules compiled for one context; one-off overrides do not save |
 | `voice-feedback-source/2` | Interpreter's proposed operations or clarification, never a saved change |
 | `voice-draft-source/5` | Candidate prose, omissions, unsupported-claim disclosures or refusal |
@@ -19,6 +20,15 @@ This is a developer/adapter reference. Users enter through `prose-draft` and
 | `prose-writing-job/1` | Authorized task and file references; current adapter selection |
 | `prose-writing-result/1` | Exact final prose, receipt, attempts, calls, disclosures and unresolved checks |
 | `prose-result-verification/1` | Receipt integrity result, retaining original runtime and mechanical statuses |
+
+Shared identities resolve through `identity-store.mjs` before job snapshots, not
+inside model prompts. The local registry defaults to
+`~/.config/prose-author/identities`; an absolute `PROSE_IDENTITY_DIR` or explicit
+registry selection overrides it. See the [identity contract and operations](skills/prose-draft/references/identities.md).
+Existing explicit-path jobs remain supported. Old result verification never
+reloads current identity state. Registry versions are checked independently of
+profile, preference and numerical schemas. Pi can share storage without a native
+model adapter; all writers still need a compatible runtime and local filesystem.
 
 Production implementations live in `skills/prose-draft/tools/`. The small strict
 model transport schemas are in `runtime-contract.mjs`; profile and preference

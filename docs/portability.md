@@ -60,6 +60,9 @@ inputs. It does not claim general read isolation or a native Pi adapter. See its
 [runtime and adapter contract](../bundles/prose-author/RUNTIME.md) for precise
 boundaries and unavailable-check behavior. Historical corpus-blind runs retain
 their original meaning rather than being relabeled as current evidence.
+The shared identity registry is independent of these transports: compatible
+local installations can use the same corpus/profile pointers, preferences and
+opt-in numerical store. Local locks are not multi-machine synchronization.
 
 **investigator — mild.** Read-only is a natural fit for the task rather than a constraint being
 fought, and there's no verdict anyone has an incentive to skip. Ports nearly intact.

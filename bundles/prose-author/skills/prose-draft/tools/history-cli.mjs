@@ -6,10 +6,11 @@ import { measureHistoryText } from "./history-measure.mjs";
 import { measureRhetoric } from "./history-rhetoric.mjs";
 import { buildHistoryReport, renderHistoryReport, compareHistoryMeasurement } from "./history-report.mjs";
 import { canonicalHarness } from "./runtime-adapters.mjs";
+import { resolveIdentity, identityDirectory } from "./identity-store.mjs";
 
 export async function historyMain(args, { dispatch, signal } = {}) {
   const [op, ...rest] = args, value = (f) => { const i = rest.indexOf(f); return i < 0 ? null : rest[i + 1]; };
-  const common = ["--store", "--directory", "--identity"];
+  const common = ["--store", "--directory", "--identity", "--writing-identity", "--registry"];
   const flags = { locate: [], configure: ["--config"], show: [], report: ["--out", "--as-of"], pin: ["--as-of"], export: ["--out"],
     "delete-preview": ["--documents"], delete: ["--preview"], "ingest-preview": ["--job"], ingest: ["--job"], compare: ["--job"] };
   if (!Object.hasOwn(flags, op)) throw new TypeError("Unknown history operation");
@@ -21,9 +22,12 @@ export async function historyMain(args, { dispatch, signal } = {}) {
   const required = (f) => { const v = value(f); if (!v || v.startsWith("--")) throw new TypeError(`Missing ${f}`); return v; };
   const read = (p) => JSON.parse(readFileSync(p, "utf8"));
   if (value("--store") && value("--directory") && resolve(value("--store")) !== resolve(value("--directory"))) throw new TypeError("Conflicting history directories");
-  const root = value("--store") || value("--directory") ? resolve(value("--store") ?? value("--directory")) : historyDirectory();
+  const selected = value("--writing-identity") || !["--identity", "--store", "--directory"].some((f) => value(f))
+    ? resolveIdentity(value("--registry") ? resolve(value("--registry")) : identityDirectory(), value("--writing-identity") ?? undefined) : null;
+  if (selected && (!selected.history_directory || (value("--identity") && value("--identity") !== selected.history_identity))) throw new TypeError("Missing or conflicting registered history identity");
+  const root = value("--store") || value("--directory") ? resolve(value("--store") ?? value("--directory")) : selected?.history_directory ?? historyDirectory();
   if (op === "locate") return { directory: root, default_enabled: false };
-  const identity = required("--identity");
+  const identity = value("--identity") ?? selected?.history_identity ?? required("--identity");
   if (op === "configure") {
     const config = read(required("--config"));
     return configureHistory(root, identity, config);

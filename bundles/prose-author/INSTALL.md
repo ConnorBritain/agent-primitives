@@ -133,6 +133,28 @@ plugin caches and loose skill directories.
 
 ## First use
 
+### Share writing memory across installations
+
+Ask `prose-style-tune`: “Set up one shared personal writing identity for my
+installed writing tools.” The agent registers your chosen corpus, current
+profile, preference store and numerical-history location outside every plugin
+installation, then explicitly selects the default. Existing files need not move.
+
+The registry defaults to `~/.config/prose-author/identities`; preferences and
+history retain their existing defaults under `~/.config/prose-author/` unless
+you choose different paths. Compatible Claude, Codex, Devin and Pi installations
+can resolve the same registry. A new session picks up its current selection;
+an in-progress run keeps its frozen inputs. Installation alone does not create
+an identity or enable collection. See [shared identities](skills/prose-draft/references/identities.md).
+
+Codex and Claude Code extensions inside Devin use their respective native
+installations above. Cascade/Devin Local need their own discoverable skill copies
+and an explicitly disclosed supported CLI backend for model calls. Pi storage
+compatibility does not imply a native Pi generation adapter. Update every active
+runtime copy to 0.6.0; older caches do not gain automatic identity lookup.
+
+### Samples and numerical history
+
 Numerical history is off after installation. Ask `prose-style-tune` to enable it
 for a chosen identity and project, then select outside writing to ingest.
 Rhetorical analysis requires a second explicit opt-in and additional model calls.

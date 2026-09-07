@@ -24,9 +24,15 @@ Determine form and purpose from the request. Ask one short question if register
 is genuinely unchoosable; do not force users to fill every context field.
 Reuse their chosen profile and preference store. Without samples, provide
 preference-only assistance and say that a learned voice was not evaluated.
-At session start use `preferences locate` to find the shared persistent store;
-if it exists, pass its directory as the job's `preference_store`. Do not silently
-start with empty preferences just because this is a new conversation.
+At session start use `identity resolve` to discover the shared writing identity.
+For setup, selection or shared profile refreshes, read
+[references/identities.md](references/identities.md). Set `writing_identity` to
+the chosen ID and let the runtime resolve its corpus, profile, preferences and
+opt-in history; do not copy stores into plugin directories. For a one-off writer
+use `writing_identity: null` and only the authorized task inputs. No configured
+identity means the legacy path: use `preferences locate`, passing its existing
+directory as `preference_store`. Do not start with empty preferences simply
+because this is a new session. Never enable collection as part of selection.
 
 New profiles use `voice-profile/3`: visible author-written prose, per-document
 distributions, and ten coverage dimensions. Five independent pieces and 1,000
